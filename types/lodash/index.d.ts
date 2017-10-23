@@ -499,12 +499,10 @@ declare namespace _ {
          * Creates a new array concatenating `array` with any additional arrays
          * and/or values.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to concatenate.
-         * @param {...*} [values] The values to concatenate.
-         * @returns {Array} Returns the new concatenated array.
+         * @param array The array to concatenate.
+         * @param [values] The values to concatenate.
+         * @returns Returns the new concatenated array.
          * @example
          *
          * var array = [1];
@@ -779,12 +777,10 @@ declare namespace _ {
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
          * for equality comparisons.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {...Array} [values] The arrays to inspect.
-         * @param {Function} [comparator] The comparator invoked per element.
-         * @returns {Array} Returns the new array of filtered values.
+         * @param [values] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of filtered values.
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
@@ -1333,11 +1329,9 @@ declare namespace _ {
          * The inverse of `_.toPairs`; this method returns an object composed
          * from key-value `pairs`.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} pairs The key-value pairs.
-         * @returns {Object} Returns the new object.
+         * @param pairs The key-value pairs.
+         * @returns Returns the new object.
          * @example
          *
          * _.fromPairs([['fred', 30], ['barney', 40]]);
@@ -1424,13 +1418,11 @@ declare namespace _ {
          * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
          * performs a faster binary search.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to search.
-         * @param {*} value The value to search for.
-         * @param {number} [fromIndex=0] The index to search from.
-         * @returns {number} Returns the index of the matched value, else `-1`.
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @param [fromIndex=0] The index to search from.
+         * @returns Returns the index of the matched value, else `-1`.
          * @example
          *
          * _.indexOf([1, 2, 1, 2], 2);
@@ -1475,12 +1467,10 @@ declare namespace _ {
          * This method is like `_.indexOf` except that it performs a binary
          * search on a sorted `array`.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to search.
-         * @param {*} value The value to search for.
-         * @returns {number} Returns the index of the matched value, else `-1`.
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @returns Returns the index of the matched value, else `-1`.
          * @example
          *
          * _.sortedIndexOf([1, 1, 2, 2], 2);
@@ -1576,12 +1566,10 @@ declare namespace _ {
          * which is invoked for each element of each `arrays` to generate the criterion
          * by which uniqueness is computed. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {...Array} [arrays] The arrays to inspect.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns the new array of shared values.
+         * @param [arrays] The arrays to inspect.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the new array of shared values.
          * @example
          *
          * _.intersectionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
@@ -1651,12 +1639,10 @@ declare namespace _ {
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
          * for equality comparisons.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {...Array} [values] The arrays to inspect.
-         * @param {Function} [comparator] The comparator invoked per element.
-         * @returns {Array} Returns the new array of filtered values.
+         * @param [values] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of filtered values.
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
@@ -1755,9 +1741,8 @@ declare namespace _ {
          * **Note:** This method mutates `array` and is based on
          * [`Array#reverse`](https://mdn.io/Array/reverse).
          *
-         * @memberOf _
          * @category Array
-         * @returns {Array} Returns `array`.
+         * @returns Returns `array`.
          * @example
          *
          * var array = [1, 2, 3];
@@ -1970,12 +1955,10 @@ declare namespace _ {
          *
          * **Note:** Unlike `_.difference`, this method mutates `array`.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to modify.
-         * @param {Array} values The values to remove.
-         * @returns {Array} Returns `array`.
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @returns Returns `array`.
          * @example
          *
          * var array = [1, 2, 3, 1, 2, 3];
@@ -2027,13 +2010,11 @@ declare namespace _ {
          *
          * **Note:** Unlike `_.differenceBy`, this method mutates `array`.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to modify.
-         * @param {Array} values The values to remove.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns `array`.
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns `array`.
          * @example
          *
          * var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
@@ -2089,13 +2070,11 @@ declare namespace _ {
          *
          * **Note:** Unlike `_.differenceWith`, this method mutates `array`.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to modify.
-         * @param {Array} values The values to remove.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns `array`.
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns `array`.
          * @example
          *
          * var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
@@ -2260,12 +2239,10 @@ declare namespace _ {
          * Uses a binary search to determine the lowest index at which `value` should
          * be inserted into `array` in order to maintain its sort order.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The sorted array to inspect.
-         * @param {*} value The value to evaluate.
-         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @returns Returns the index at which `value` should be inserted into `array`.
          * @example
          *
          * _.sortedIndex([30, 50], 40);
@@ -2307,13 +2284,11 @@ declare namespace _ {
          * which is invoked for `value` and each element of `array` to compute their
          * sort ranking. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The sorted array to inspect.
-         * @param {*} value The value to evaluate.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the index at which `value` should be inserted into `array`.
          * @example
          *
          * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
@@ -2361,12 +2336,10 @@ declare namespace _ {
          * index at which `value` should be inserted into `array` in order to
          * maintain its sort order.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The sorted array to inspect.
-         * @param {*} value The value to evaluate.
-         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @returns Returns the index at which `value` should be inserted into `array`.
          * @example
          *
          * _.sortedLastIndex([4, 5], 4);
@@ -2405,13 +2378,11 @@ declare namespace _ {
          * which is invoked for `value` and each element of `array` to compute their
          * sort ranking. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The sorted array to inspect.
-         * @param {*} value The value to evaluate.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the index at which `value` should be inserted into `array`.
          * @example
          *
          * // using the `_.property` iteratee shorthand
@@ -2453,12 +2424,10 @@ declare namespace _ {
          * This method is like `_.lastIndexOf` except that it performs a binary
          * search on a sorted `array`.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to search.
-         * @param {*} value The value to search for.
-         * @returns {number} Returns the index of the matched value, else `-1`.
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @returns Returns the index of the matched value, else `-1`.
          * @example
          *
          * _.sortedLastIndexOf([1, 1, 2, 2], 2);
@@ -2854,12 +2823,10 @@ declare namespace _ {
          * is invoked to compare elements of `arrays`. The comparator is invoked
          * with two arguments: (arrVal, othVal).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {...Array} [arrays] The arrays to inspect.
-         * @param {Function} [comparator] The comparator invoked per element.
-         * @returns {Array} Returns the new array of combined values.
+         * @param [arrays] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of combined values.
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
@@ -2959,11 +2926,9 @@ declare namespace _ {
          * for equality comparisons, in which only the first occurrence of each element
          * is kept.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to inspect.
-         * @returns {Array} Returns the new duplicate free array.
+         * @param array The array to inspect.
+         * @returns Returns the new duplicate free array.
          * @example
          *
          * _.uniq([2, 1, 2]);
@@ -2995,12 +2960,10 @@ declare namespace _ {
          * invoked for each element in `array` to generate the criterion by which
          * uniqueness is computed. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to inspect.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns the new duplicate free array.
+         * @param array The array to inspect.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
          * @example
          *
          * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
@@ -3067,12 +3030,10 @@ declare namespace _ {
          * is invoked to compare elements of `array`. The comparator is invoked with
          * two arguments: (arrVal, othVal).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to inspect.
-         * @param {Function} [comparator] The comparator invoked per element.
-         * @returns {Array} Returns the new duplicate free array.
+         * @param array The array to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new duplicate free array.
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 },  { 'x': 1, 'y': 2 }];
@@ -3112,11 +3073,9 @@ declare namespace _ {
          * This method is like `_.uniq` except that it's designed and optimized
          * for sorted arrays.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to inspect.
-         * @returns {Array} Returns the new duplicate free array.
+         * @param array The array to inspect.
+         * @returns Returns the new duplicate free array.
          * @example
          *
          * _.sortedUniq([1, 1, 2]);
@@ -3147,12 +3106,10 @@ declare namespace _ {
          * This method is like `_.uniqBy` except that it's designed and optimized
          * for sorted arrays.
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {Array} array The array to inspect.
-         * @param {Function} [iteratee] The iteratee invoked per element.
-         * @returns {Array} Returns the new duplicate free array.
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
          * @example
          *
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
@@ -3366,12 +3323,10 @@ declare namespace _ {
          * invoked for each element of each `arrays` to generate the criterion by which
          * uniqueness is computed. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {...Array} [arrays] The arrays to inspect.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns the new array of values.
+         * @param [arrays] The arrays to inspect.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the new array of values.
          * @example
          *
          * _.xorBy([2.1, 1.2], [4.3, 2.4], Math.floor);
@@ -3471,12 +3426,10 @@ declare namespace _ {
          * invoked to compare elements of `arrays`. The comparator is invoked with
          * two arguments: (arrVal, othVal).
          *
-         * @static
-         * @memberOf _
          * @category Array
-         * @param {...Array} [arrays] The arrays to inspect.
-         * @param {Function} [comparator] The comparator invoked per element.
-         * @returns {Array} Returns the new array of values.
+         * @param [arrays] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of values.
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
@@ -3720,9 +3673,9 @@ declare namespace _ {
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
          * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
          * group).
-         * @param {...Array} [arrays] The arrays to process.
-         * @param {Function} [iteratee] The function to combine grouped values.
-         * @param {*} [thisArg] The `this` binding of `iteratee`.
+         * @param [arrays] The arrays to process.
+         * @param [iteratee] The function to combine grouped values.
+         * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
         zipWith<T>(
@@ -4917,13 +4870,11 @@ declare namespace _ {
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.
          *
-         * @static
-         * @memberOf _
          * @since 4.7.0
          * @category Collection
-         * @param {Array|Object} collection The collection to iterate over.
-         * @param {Function} [iteratee=_.identity] The function invoked per iteration.
-         * @returns {Array} Returns the new flattened array.
+         * @param collection The collection to iterate over.
+         * @param [iteratee=_.identity] The function invoked per iteration.
+         * @returns Returns the new flattened array.
          * @example
          *
          * function duplicate(n) {
@@ -5082,14 +5033,12 @@ declare namespace _ {
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
          *
-         * @static
-         * @memberOf _
          * @since 4.7.0
          * @category Collection
-         * @param {Array|Object} collection The collection to iterate over.
-         * @param {Function} [iteratee=_.identity] The function invoked per iteration.
-         * @param {number} [depth=1] The maximum recursion depth.
-         * @returns {Array} Returns the new flattened array.
+         * @param collection The collection to iterate over.
+         * @param [iteratee=_.identity] The function invoked per iteration.
+         * @param [depth=1] The maximum recursion depth.
+         * @returns Returns the new flattened array.
          * @example
          *
          * function duplicate(n) {
@@ -6881,13 +6830,11 @@ declare namespace _ {
          * performs a stable sort, that is, it preserves the original sort order of
          * equal elements. The iteratees are invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Collection
-         * @param {Array|Object} collection The collection to iterate over.
-         * @param {...(Function|Function[]|Object|Object[]|string|string[])} [iteratees=[_.identity]]
+         * @param collection The collection to iterate over.
+         * @param [iteratees=[_.identity]]
          *  The iteratees to sort by, specified individually or in arrays.
-         * @returns {Array} Returns the new sorted array.
+         * @returns Returns the new sorted array.
          * @example
          *
          * var users = [
@@ -6966,14 +6913,12 @@ declare namespace _ {
          * are sorted in ascending order. Otherwise, specify an order of "desc" for
          * descending or "asc" for ascending sort order of corresponding values.
          *
-         * @static
-         * @memberOf _
          * @category Collection
-         * @param {Array|Object} collection The collection to iterate over.
-         * @param {Function[]|Object[]|string[]} [iteratees=[_.identity]] The iteratees to sort by.
-         * @param {string[]} [orders] The sort orders of `iteratees`.
+         * @param collection The collection to iterate over.
+         * @param [iteratees=[_.identity]] The iteratees to sort by.
+         * @param [orders] The sort orders of `iteratees`.
          * @param- {Object} [guard] Enables use as an iteratee for functions like `_.reduce`.
-         * @returns {Array} Returns the new sorted array.
+         * @returns Returns the new sorted array.
          * @example
          *
          * var users = [
@@ -7868,11 +7813,9 @@ declare namespace _ {
         /**
          * Creates a function that invokes `func` with arguments reversed.
          *
-         * @static
-         * @memberOf _
          * @category Function
-         * @param {Function} func The function to flip arguments for.
-         * @returns {Function} Returns the new function.
+         * @param func The function to flip arguments for.
+         * @returns Returns the new function.
          * @example
          *
          * var flipped = _.flip(function() {
@@ -8628,11 +8571,9 @@ declare namespace _ {
          * Creates a function that accepts up to one argument, ignoring any
          * additional arguments.
          *
-         * @static
-         * @memberOf _
          * @category Function
-         * @param {Function} func The function to cap arguments for.
-         * @returns {Function} Returns the new function.
+         * @param func The function to cap arguments for.
+         * @returns Returns the new function.
          * @example
          *
          * _.map(['6', '8', '10'], _.unary(parseInt));
@@ -8987,12 +8928,10 @@ declare namespace _ {
          * pairs are invoked with the `this` binding and arguments of the created
          * function.
          *
-         * @static
-         * @memberOf _
          * @since 4.0.0
          * @category Util
-         * @param {Array} pairs The predicate-function pairs.
-         * @returns {Function} Returns the new composite function.
+         * @param pairs The predicate-function pairs.
+         * @returns Returns the new composite function.
          * @example
          *
          * var func = _.cond([
@@ -9019,12 +8958,10 @@ declare namespace _ {
          * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
          * comparison between two values to determine if they are equivalent.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to compare.
-         * @param {*} other The other value to compare.
-         * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @returns Returns `true` if the values are equivalent, else `false`.
          * @example
          *
          * var object = { 'user': 'fred' };
@@ -9214,12 +9151,9 @@ declare namespace _ {
          * not a function and has a `value.length` that's an integer greater than or
          * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
          *
-         * @static
-         * @memberOf _
-         * @type Function
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is array-like, else `false`.
          * @example
          *
          * _.isArrayLike([1, 2, 3]);
@@ -9267,12 +9201,9 @@ declare namespace _ {
          * This method is like `_.isArrayLike` except that it also checks if `value`
          * is an object.
          *
-         * @static
-         * @memberOf _
-         * @type Function
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is an array-like object, else `false`.
          * @example
          *
          * _.isArrayLikeObject([1, 2, 3]);
@@ -9452,12 +9383,10 @@ declare namespace _ {
          * by their own, not inherited, enumerable properties. Functions and DOM
          * nodes are **not** supported.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to compare.
-         * @param {*} other The other value to compare.
-         * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @returns Returns `true` if the values are equivalent, else `false`.
          * @example
          *
          * var object = { 'user': 'fred' };
@@ -9503,13 +9432,11 @@ declare namespace _ {
          * handled by the method instead. The `customizer` is invoked with up to seven arguments:
          * (objValue, othValue [, index|key, object, other, stack]).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to compare.
-         * @param {*} other The other value to compare.
-         * @param {Function} [customizer] The function to customize comparisons.
-         * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @param [customizer] The function to customize comparisons.
+         * @returns Returns `true` if the values are equivalent, else `false`.
          * @example
          *
          * function isGreeting(value) {
@@ -9640,11 +9567,9 @@ declare namespace _ {
          *
          * **Note:** This method is based on [`Number.isInteger`](https://mdn.io/Number/isInteger).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is an integer, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is an integer, else `false`.
          * @example
          *
          * _.isInteger(3);
@@ -9683,11 +9608,9 @@ declare namespace _ {
          *
          * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is a valid length, else `false`.
          * @example
          *
          * _.isLength(3);
@@ -9754,12 +9677,10 @@ declare namespace _ {
          *
          * **Note:** This method supports comparing the same values as `_.isEqual`.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {Object} object The object to inspect.
-         * @param {Object} source The object of property values to match.
-         * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+         * @param object The object to inspect.
+         * @param source The object of property values to match.
+         * @returns Returns `true` if `object` is a match, else `false`.
          * @example
          *
          * var object = { 'user': 'fred', 'age': 40 };
@@ -9790,13 +9711,11 @@ declare namespace _ {
          * are handled by the method instead. The `customizer` is invoked with three
          * arguments: (objValue, srcValue, index|key, object, source).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {Object} object The object to inspect.
-         * @param {Object} source The object of property values to match.
-         * @param {Function} [customizer] The function to customize comparisons.
-         * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+         * @param object The object to inspect.
+         * @param source The object of property values to match.
+         * @param [customizer] The function to customize comparisons.
+         * @returns Returns `true` if `object` is a match, else `false`.
          * @example
          *
          * function isGreeting(value) {
@@ -9882,11 +9801,9 @@ declare namespace _ {
         /**
          * Checks if `value` is `null` or `undefined`.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is nullish, else `false`.
          * @example
          *
          * _.isNil(null);
@@ -9999,11 +9916,9 @@ declare namespace _ {
          * Checks if `value` is object-like. A value is object-like if it's not `null`
          * and has a `typeof` result of "object".
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is object-like, else `false`.
          * @example
          *
          * _.isObjectLike({});
@@ -10096,11 +10011,9 @@ declare namespace _ {
          *
          * **Note:** This method is based on [`Number.isSafeInteger`](https://mdn.io/Number/isSafeInteger).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is a safe integer, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is a safe integer, else `false`.
          * @example
          *
          * _.isSafeInteger(3);
@@ -10187,11 +10100,9 @@ declare namespace _ {
         /**
          * Checks if `value` is classified as a `Symbol` primitive or object.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to check.
-         * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+         * @param value The value to check.
+         * @returns Returns `true` if `value` is correctly classified, else `false`.
          * @example
          *
          * _.isSymbol(Symbol.iterator);
@@ -10451,12 +10362,10 @@ declare namespace _ {
         /**
          * Converts `value` to a finite number.
          *
-         * @static
-         * @memberOf _
          * @since 4.12.0
          * @category Lang
-         * @param {*} value The value to convert.
-         * @returns {number} Returns the converted number.
+         * @param value The value to convert.
+         * @returns Returns the converted number.
          * @example
          *
          * _.toFinite(3.2);
@@ -10495,11 +10404,9 @@ declare namespace _ {
          *
          * **Note:** This function is loosely based on [`ToInteger`](http://www.ecma-international.org/ecma-262/6.0/#sec-tointeger).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to convert.
-         * @returns {number} Returns the converted integer.
+         * @param value The value to convert.
+         * @returns Returns the converted integer.
          * @example
          *
          * _.toInteger(3);
@@ -10539,11 +10446,9 @@ declare namespace _ {
          *
          * **Note:** This method is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to convert.
-         * @return {number} Returns the converted integer.
+         * @param value The value to convert.
+         * @return Returns the converted integer.
          * @example
          *
          * _.toLength(3);
@@ -10580,11 +10485,9 @@ declare namespace _ {
         /**
          * Converts `value` to a number.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to process.
-         * @returns {number} Returns the number.
+         * @param value The value to process.
+         * @returns Returns the number.
          * @example
          *
          * _.toNumber(3);
@@ -10622,11 +10525,9 @@ declare namespace _ {
          * Converts `value` to a safe integer. A safe integer can be compared and
          * represented correctly.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to convert.
-         * @returns {number} Returns the converted integer.
+         * @param value The value to convert.
+         * @returns Returns the converted integer.
          * @example
          *
          * _.toSafeInteger(3);
@@ -10664,11 +10565,9 @@ declare namespace _ {
          * Converts `value` to a string if it's not one. An empty string is returned
          * for `null` and `undefined` values. The sign of `-0` is preserved.
          *
-         * @static
-         * @memberOf _
          * @category Lang
-         * @param {*} value The value to process.
-         * @returns {string} Returns the string.
+         * @param value The value to process.
+         * @returns Returns the string.
          * @example
          *
          * _.toString(null);
@@ -10809,11 +10708,9 @@ declare namespace _ {
           * Computes the maximum value of `array`. If `array` is empty or falsey
           * `undefined` is returned.
           *
-          * @static
-          * @memberOf _
           * @category Math
-          * @param {Array} array The array to iterate over.
-          * @returns {*} Returns the maximum value.
+          * @param array The array to iterate over.
+          * @returns Returns the maximum value.
           */
         max<T>(
             collection: List<T> | null | undefined
@@ -10841,12 +10738,10 @@ declare namespace _ {
          * invoked for each element in `array` to generate the criterion by which
          * the value is ranked. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {Array} array The array to iterate over.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {*} Returns the maximum value.
+         * @param array The array to iterate over.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the maximum value.
          * @example
          *
          * var objects = [{ 'n': 1 }, { 'n': 2 }];
@@ -10889,11 +10784,9 @@ declare namespace _ {
         /**
          * Computes the mean of the values in `array`.
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {Array} array The array to iterate over.
-         * @returns {number} Returns the mean.
+         * @param array The array to iterate over.
+         * @returns Returns the mean.
          * @example
          *
          * _.mean([4, 2, 8, 6]);
@@ -10923,12 +10816,10 @@ declare namespace _ {
       /**
        * Computes the mean of the provided propties of the objects in the `array`
        *
-       * @static
-       * @memberOf _
        * @category Math
-       * @param {Array} array The array to iterate over.
-       * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-       * @returns {number} Returns the mean.
+       * @param array The array to iterate over.
+       * @param [iteratee=_.identity] The iteratee invoked per element.
+       * @returns Returns the mean.
        * @example
        *
        * _.mean([{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }], 'n');
@@ -10966,11 +10857,9 @@ declare namespace _ {
          * Computes the minimum value of `array`. If `array` is empty or falsey
          * `undefined` is returned.
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {Array} array The array to iterate over.
-         * @returns {*} Returns the minimum value.
+         * @param array The array to iterate over.
+         * @returns Returns the minimum value.
          */
         min<T>(
             collection: List<T> | null | undefined
@@ -10998,12 +10887,10 @@ declare namespace _ {
          * invoked for each element in `array` to generate the criterion by which
          * the value is ranked. The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {Array} array The array to iterate over.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {*} Returns the minimum value.
+         * @param array The array to iterate over.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the minimum value.
          * @example
          *
          * var objects = [{ 'n': 1 }, { 'n': 2 }];
@@ -11103,11 +10990,9 @@ declare namespace _ {
         /**
          * Computes the sum of the values in `array`.
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {Array} array The array to iterate over.
-         * @returns {number} Returns the sum.
+         * @param array The array to iterate over.
+         * @returns Returns the sum.
          * @example
          *
          * _.sum([4, 2, 8, 6]);
@@ -11137,12 +11022,10 @@ declare namespace _ {
          * invoked for each element in `array` to generate the value to be summed.
          * The iteratee is invoked with one argument: (value).
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {Array} array The array to iterate over.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {number} Returns the sum.
+         * @param array The array to iterate over.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the sum.
          * @example
          *
          * var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
@@ -11189,12 +11072,10 @@ declare namespace _ {
         /**
          * Subtract two numbers.
          *
-         * @static
-         * @memberOf _
          * @category Math
-         * @param {number} minuend The first number in a subtraction.
-         * @param {number} subtrahend The second number in a subtraction.
-         * @returns {number} Returns the difference.
+         * @param minuend The first number in a subtraction.
+         * @param subtrahend The second number in a subtraction.
+         * @returns Returns the difference.
          * @example
          *
          * _.subtract(6, 4);
@@ -11229,13 +11110,11 @@ declare namespace _ {
         /**
          * Clamps `number` within the inclusive `lower` and `upper` bounds.
          *
-         * @static
-         * @memberOf _
          * @category Number
-         * @param {number} number The number to clamp.
-         * @param {number} [lower] The lower bound.
-         * @param {number} upper The upper bound.
-         * @returns {number} Returns the clamped number.
+         * @param number The number to clamp.
+         * @param [lower] The lower bound.
+         * @param upper The upper bound.
+         * @returns Returns the clamped number.
          * @example
          *
          * _.clamp(-10, -5, 5);
@@ -11385,12 +11264,10 @@ declare namespace _ {
          * **Note:** This method mutates `object` and is loosely based on
          * [`Object.assign`](https://mdn.io/Object/assign).
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The destination object.
-         * @param {...Object} [sources] The source objects.
-         * @returns {Object} Returns `object`.
+         * @param object The destination object.
+         * @param [sources] The source objects.
+         * @returns Returns `object`.
          * @example
          *
          * function Foo() {
@@ -11557,13 +11434,11 @@ declare namespace _ {
          *
          * **Note:** This method mutates `object`.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The destination object.
-         * @param {...Object} sources The source objects.
-         * @param {Function} [customizer] The function to customize assigned values.
-         * @returns {Object} Returns `object`.
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @param [customizer] The function to customize assigned values.
+         * @returns Returns `object`.
          * @example
          *
          * function customizer(objValue, srcValue) {
@@ -11736,13 +11611,11 @@ declare namespace _ {
          *
          * **Note:** This method mutates `object`.
          *
-         * @static
-         * @memberOf _
          * @alias extend
          * @category Object
-         * @param {Object} object The destination object.
-         * @param {...Object} [sources] The source objects.
-         * @returns {Object} Returns `object`.
+         * @param object The destination object.
+         * @param [sources] The source objects.
+         * @returns Returns `object`.
          * @example
          *
          * function Foo() {
@@ -11912,14 +11785,12 @@ declare namespace _ {
          *
          * **Note:** This method mutates `object`.
          *
-         * @static
-         * @memberOf _
          * @alias extendWith
          * @category Object
-         * @param {Object} object The destination object.
-         * @param {...Object} sources The source objects.
-         * @param {Function} [customizer] The function to customize assigned values.
-         * @returns {Object} Returns `object`.
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @param [customizer] The function to customize assigned values.
+         * @returns Returns `object`.
          * @example
          *
          * function customizer(objValue, srcValue) {
@@ -12909,11 +12780,9 @@ declare namespace _ {
          * Creates an array of function property names from own enumerable properties
          * of `object`.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The object to inspect.
-         * @returns {Array} Returns the new array of property names.
+         * @param object The object to inspect.
+         * @returns Returns the new array of property names.
          * @example
          *
          * function Foo() {
@@ -12949,11 +12818,9 @@ declare namespace _ {
          * Creates an array of function property names from own and inherited
          * enumerable properties of `object`.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The object to inspect.
-         * @returns {Array} Returns the new array of property names.
+         * @param object The object to inspect.
+         * @returns Returns the new array of property names.
          * @example
          *
          * function Foo() {
@@ -13150,12 +13017,10 @@ declare namespace _ {
         /**
          * Checks if `path` is a direct property of `object`.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The object to query.
-         * @param {Array|string} path The path to check.
-         * @returns {boolean} Returns `true` if `path` exists, else `false`.
+         * @param object The object to query.
+         * @param path The path to check.
+         * @returns Returns `true` if `path` exists, else `false`.
          * @example
          *
          * var object = { 'a': { 'b': { 'c': 3 } } };
@@ -13198,12 +13063,10 @@ declare namespace _ {
         /**
          * Checks if `path` is a direct or inherited property of `object`.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The object to query.
-         * @param {Array|string} path The path to check.
-         * @returns {boolean} Returns `true` if `path` exists, else `false`.
+         * @param object The object to query.
+         * @param path The path to check.
+         * @returns Returns `true` if `path` exists, else `false`.
          * @example
          *
          * var object = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
@@ -13485,10 +13348,10 @@ declare namespace _ {
         * If an object is provided for iteratee the created "_.matches" style callback returns true
         * for elements that have the properties of the given object, else false.
         *
-        * @param {Object} object The object to iterate over.
-        * @param {Function|Object|string} [iteratee=_.identity]  The function invoked per iteration.
-        * @param {Object} [thisArg] The `this` binding of `iteratee`.
-        * @return {Object} Returns the new mapped object.
+        * @param object The object to iterate over.
+        * @param [iteratee=_.identity]  The function invoked per iteration.
+        * @param [thisArg] The `this` binding of `iteratee`.
+        * @return Returns the new mapped object.
         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
 
@@ -13669,12 +13532,10 @@ declare namespace _ {
          *
          * **Note:** This method mutates `object`.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The destination object.
-         * @param {...Object} [sources] The source objects.
-         * @returns {Object} Returns `object`.
+         * @param object The destination object.
+         * @param [sources] The source objects.
+         * @returns Returns `object`.
          * @example
          *
          * var users = {
@@ -13825,13 +13686,11 @@ declare namespace _ {
          * method instead. The `customizer` is invoked with seven arguments:
          * (objValue, srcValue, key, object, source, stack).
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The destination object.
-         * @param {...Object} sources The source objects.
-         * @param {Function} customizer The function to customize assigned values.
-         * @returns {Object} Returns `object`.
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @param customizer The function to customize assigned values.
+         * @returns Returns `object`.
          * @example
          *
          * function customizer(objValue, srcValue) {
@@ -13954,13 +13813,11 @@ declare namespace _ {
          * The opposite of `_.pick`; this method creates an object composed of the
          * own and inherited enumerable properties of `object` that are not omitted.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The source object.
-         * @param {...(string|string[])} [props] The property names to omit, specified
+         * @param object The source object.
+         * @param [props] The property names to omit, specified
          *  individually or in arrays..
-         * @returns {Object} Returns the new object.
+         * @returns Returns the new object.
          * @example
          *
          * var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -14002,12 +13859,10 @@ declare namespace _ {
          * own and inherited enumerable properties of `object` that `predicate`
          * doesn't return truthy for.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The source object.
-         * @param {Function|Object|string} [predicate=_.identity] The function invoked per property.
-         * @returns {Object} Returns the new object.
+         * @param object The source object.
+         * @param [predicate=_.identity] The function invoked per property.
+         * @returns Returns the new object.
          * @example
          *
          * var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -14046,13 +13901,11 @@ declare namespace _ {
         /**
          * Creates an object composed of the picked `object` properties.
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The source object.
-         * @param {...(string|string[])} [props] The property names to pick, specified
+         * @param object The source object.
+         * @param [props] The property names to pick, specified
          *  individually or in arrays.
-         * @returns {Object} Returns the new object.
+         * @returns Returns the new object.
          * @example
          *
          * var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -14092,12 +13945,10 @@ declare namespace _ {
          * Creates an object composed of the `object` properties `predicate` returns
          * truthy for. The predicate is invoked with two arguments: (value, key).
          *
-         * @static
-         * @memberOf _
          * @category Object
-         * @param {Object} object The source object.
-         * @param {Function|Object|string} [predicate=_.identity] The function invoked per property.
-         * @returns {Object} Returns the new object.
+         * @param object The source object.
+         * @param [predicate=_.identity] The function invoked per property.
+         * @returns Returns the new object.
          * @example
          *
          * var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -14624,15 +14475,13 @@ declare namespace _ {
          *
          * **Note:** This method mutates `object`.
          *
-         * @static
-         * @memberOf _
          * @since 4.6.0
          * @category Object
-         * @param {Object} object The object to modify.
-         * @param {Array|string} path The path of the property to set.
-         * @param {Function} updater The function to produce the updated value.
-         * @param {Function} [customizer] The function to customize assigned values.
-         * @returns {Object} Returns `object`.
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param updater The function to produce the updated value.
+         * @param [customizer] The function to customize assigned values.
+         * @returns Returns `object`.
          * @example
          *
          * var object = {};
@@ -15231,9 +15080,6 @@ declare namespace _ {
          *
          * Note: This method is based on String#replace.
          *
-         * @param string
-         * @param pattern
-         * @param replacement
          * @return Returns the modified string.
          */
         replace(
@@ -15317,9 +15163,6 @@ declare namespace _ {
          *
          * Note: This method is based on String#split.
          *
-         * @param string
-         * @param separator
-         * @param limit
          * @return Returns the new array of string segments.
          */
         split(
@@ -15900,11 +15743,9 @@ declare namespace _ {
          * property value for a given element. If `func` is an object the created
          * callback returns `true` for elements that contain the equivalent object properties, otherwise it returns `false`.
          *
-         * @static
-         * @memberOf _
          * @category Util
-         * @param {*} [func=_.identity] The value to convert to a callback.
-         * @returns {Function} Returns the callback.
+         * @param [func=_.identity] The value to convert to a callback.
+         * @returns Returns the callback.
          * @example
          *
          * var users = [
@@ -16429,13 +16270,11 @@ declare namespace _ {
          * This method is like `_.range` except that it populates values in
          * descending order.
          *
-         * @static
-         * @memberOf _
          * @category Util
-         * @param {number} [start=0] The start of the range.
-         * @param {number} end The end of the range.
-         * @param {number} [step=1] The value to increment or decrement by.
-         * @returns {Array} Returns the new array of numbers.
+         * @param [start=0] The start of the range.
+         * @param end The end of the range.
+         * @param [step=1] The value to increment or decrement by.
+         * @returns Returns the new array of numbers.
          * @example
          *
          * _.rangeRight(4);
@@ -16675,11 +16514,9 @@ declare namespace _ {
         /**
          * Converts `value` to a property path array.
          *
-         * @static
-         * @memberOf _
          * @category Util
-         * @param {*} value The value to convert.
-         * @returns {Array} Returns the new property path array.
+         * @param value The value to convert.
+         * @returns Returns the new property path array.
          * @example
          *
          * _.toPath('a.b.c');
