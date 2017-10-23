@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "align": false,
+        "dt-header": false,
+        "eofline": false,
+        "jsdoc-format": false,
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "prefer-method-signature": false,
+        "prefer-template": false
+    }
+}
