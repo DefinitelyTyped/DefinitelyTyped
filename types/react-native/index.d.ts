@@ -3497,7 +3497,7 @@ export interface FlatListProperties<ItemT> extends VirtualizedListProperties<Ite
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentType<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered when the list is empty.
@@ -3695,7 +3695,7 @@ export interface SectionBase<ItemT> {
 
     renderItem?: ListRenderItem<ItemT>
 
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
@@ -3709,7 +3709,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered when the list is empty.
@@ -3729,7 +3729,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentClass<any> | null
+    SectionSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
