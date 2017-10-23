@@ -1395,6 +1395,7 @@ export interface BaseIconOptions extends LayerOptions {
     iconSize?: PointExpression;
     iconAnchor?: PointExpression;
     popupAnchor?: PointExpression;
+    tooltipAnchor?: PointExpression;
     shadowUrl?: string;
     shadowRetinaUrl?: string;
     shadowSize?: PointExpression;
