@@ -19,3 +19,19 @@ Many of the types used by Atom Keymap can be referenced from the AtomKeymap name
 ```ts
 function example(keybind: AtomKeymap.KeyBinding) {}
 ```
+
+### Exposing Private Methods and Properties
+
+[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Atom Keymap. As an example, if we wanted to reveal the private ```partialMatchTimeout``` property within the KeymapManager class, then we would create a file with the following contents:
+
+```ts
+// <<filename>>.d.ts
+
+declare namespace AtomKeymap {
+  interface KeymapManager {
+    partialMatchTimeout: number;
+  }
+}
+```
+
+Once this file is either referenced or included within your project, then this new property would be freely usable on instances of the KeymapManager class without TypeScript reporting errors.
