@@ -3176,7 +3176,7 @@ namespace http2_tests {
             exclusive: true,
             parent: 0,
             weight: 0,
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
         (http2Session as http2.ClientHttp2Session).request();
         (http2Session as http2.ClientHttp2Session).request(headers);
@@ -3283,15 +3283,15 @@ namespace http2_tests {
 
         let options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);
         serverHttp2Stream.respond(headers, options);
 
         let options2: http2.ServerStreamFileResponseOptions = {
-            statCheck: (stats: fs.Stats, headers: http2.IncomingHttpHeaders, statOptions: http2.StatOptions) => {},
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
             offset: 0,
             length: 0
         };
@@ -3301,8 +3301,8 @@ namespace http2_tests {
         serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
         let options3: http2.ServerStreamFileResponseOptionsWithError = {
             onError: (err: NodeJS.ErrnoException) => {},
-            statCheck: (stats: fs.Stats, headers: http2.IncomingHttpHeaders, statOptions: http2.StatOptions) => {},
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
             offset: 0,
             length: 0
         };
