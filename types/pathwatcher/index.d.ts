@@ -11,7 +11,8 @@ import { ReadStream, WriteStream } from "fs";
 
 declare global {
     namespace PathWatcher {
-        /** The event objects that are passed into the callbacks which the user provides to
+        /**
+         *  The event objects that are passed into the callbacks which the user provides to
          *  specific API calls.
          */
         namespace Events {
@@ -19,7 +20,8 @@ declare global {
                 /** The error object. */
                 error: Error;
 
-                /** Call this function to indicate you have handled the error.
+                /**
+                 *  Call this function to indicate you have handled the error.
                  *  The error will not be thrown if this function is called.
                  */
                 handle(): void;
@@ -39,7 +41,8 @@ declare global {
             symlink: boolean;
 
             // Construction
-            /** Creates the file on disk that corresponds to ::getPath() if no such file
+            /**
+             *  Creates the file on disk that corresponds to ::getPath() if no such file
              *  already exists.
              */
             create(): Promise<boolean>;
@@ -54,7 +57,8 @@ declare global {
             /** Invoke the given callback when the file is deleted. */
             onDidDelete(callback: () => void): EventKit.Disposable;
 
-            /** Invoke the given callback when there is an error with the watch. When
+            /**
+             *  Invoke the given callback when there is an error with the watch. When
              *  your callback has been invoked, the file will have unsubscribed from the
              *  file watches.
              */
@@ -71,7 +75,8 @@ declare global {
             /** Returns a boolean indicating whether or not this is a symbolic link. */
             isSymbolicLink(): boolean;
 
-            /** Returns a promise that resolves to a boolean, true if the file exists,
+            /**
+             *  Returns a promise that resolves to a boolean, true if the file exists,
              *  false otherwise.
              */
             exists(): Promise<boolean>;
@@ -98,7 +103,8 @@ declare global {
             /** Returns this file's completely resolved string path. */
             getRealPathSync(): string;
 
-            /** Returns a promise that resolves to the file's completely resolved
+            /**
+             *  Returns a promise that resolves to the file's completely resolved
              *  string path.
              */
             getRealPath(): Promise<string>;
@@ -141,7 +147,8 @@ declare global {
             symlink: boolean;
 
             // Construction
-            /** Creates the directory on disk that corresponds to ::getPath() if no such
+            /**
+             *  Creates the directory on disk that corresponds to ::getPath() if no such
              *  directory already exists.
              */
             create(mode?: number): Promise<boolean>;
@@ -160,7 +167,8 @@ declare global {
             /** Returns a boolean indicating whether or not this is a symbolic link. */
             isSymbolicLink(): boolean;
 
-            /** Returns a promise that resolves to a boolean, true if the directory\
+            /**
+             *  Returns a promise that resolves to a boolean, true if the directory
              *  exists, false otherwise.
              */
             exists(): Promise<boolean>;
@@ -168,18 +176,21 @@ declare global {
             /** Returns a boolean, true if the directory exists, false otherwise. */
             existsSync(): boolean;
 
-            /** Return a boolean, true if this Directory is the root directory of the
+            /**
+             *  Return a boolean, true if this Directory is the root directory of the
              *  filesystem, or false if it isn't.
              */
             isRoot(): boolean;
 
             // Managing Paths
-            /** This may include unfollowed symlinks or relative directory entries.
+            /**
+             *  This may include unfollowed symlinks or relative directory entries.
              *  Or it may be fully resolved, it depends on what you give it.
              */
             getPath(): string;
 
-            /** All relative directory entries are removed and symlinks are resolved to
+            /**
+             *  All relative directory entries are removed and symlinks are resolved to
              *  their final destination.
              */
             getRealPathSync(): string;
@@ -194,12 +205,14 @@ declare global {
             /** Traverse to the parent directory. */
             getParent(): Directory;
 
-            /** Traverse within this Directory to a child File. This method doesn't actually
+            /**
+             *  Traverse within this Directory to a child File. This method doesn't actually
              *  check to see if the File exists, it just creates the File object.
              */
             getFile(filename: string): File;
 
-            /** Traverse within this a Directory to a child Directory. This method doesn't actually
+            /**
+             *  Traverse within this a Directory to a child Directory. This method doesn't actually
              *  check to see if the Directory exists, it just creates the Directory object.
              */
             getSubdirectory(dirname: string): Directory;
@@ -210,7 +223,8 @@ declare global {
             /** Reads file entries in this directory from disk asynchronously. */
             getEntries(callback: (error: Error, entries: Array<File|Directory>) => void): void;
 
-            /** Determines if the given path (real or symbolic) is inside this directory. This
+            /**
+             *  Determines if the given path (real or symbolic) is inside this directory. This
              *  method does not actually check if the path exists, it just checks if the path
              *  is under this directory.
              */
