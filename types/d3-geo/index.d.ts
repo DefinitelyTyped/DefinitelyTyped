@@ -540,6 +540,7 @@ export interface GeoStream {
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
+ * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
  * @param stream A projection stream.
  */
 export function geoStream(object: ExtendedFeature<GeoGeometryObjects, any>, stream: GeoStream): void;
@@ -548,6 +549,7 @@ export function geoStream(object: ExtendedFeature<GeoGeometryObjects, any>, stre
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
+ * @param object A geographic feature collection supported by d3-geo (An extension of GeoJSON feature).
  * @param stream A projection stream.
  */
 export function geoStream(object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>, stream: GeoStream): void;
@@ -556,6 +558,7 @@ export function geoStream(object: ExtendedFeatureCollection<ExtendedFeature<GeoG
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
+ * @param object A GeoJson Geometry Object or GeoSphere object supported by d3-geo (An extension of GeoJSON).
  * @param stream A projection stream.
  */
 export function geoStream(object: GeoGeometryObjects, stream: GeoStream): void;
@@ -564,6 +567,7 @@ export function geoStream(object: GeoGeometryObjects, stream: GeoStream): void;
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
+ * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
  * @param stream A projection stream.
  */
 export function geoStream(object: ExtendedGeometryCollection<GeoGeometryObjects>, stream: GeoStream): void;
@@ -1654,6 +1658,8 @@ export const geoClipAntimeridian: ((stream: GeoStream) => GeoStream);
 /**
  * Generates a clipping function transforming a stream such that geometries are bounded by a small circle of radius angle around the projection’s center.
  * Typically used for pre-clipping.
+ *
+ * @param angle A clipping angle.
  */
 export function geoClipCircle(angle: number): (stream: GeoStream) => GeoStream;
 
