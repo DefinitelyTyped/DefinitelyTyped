@@ -6326,7 +6326,6 @@ export interface AlertIOSStatic {
 
     /**
      * Create and display a popup alert.
-     * @method alert
      * @param title The dialog's title.
      * @param message An optional message that appears below
      *     the dialog's title.
@@ -6343,7 +6342,6 @@ export interface AlertIOSStatic {
 
     /**
      * Create and display a prompt to enter some text.
-     * @method prompt
      * @param title The dialog's title.
      * @param message An optional message that appears above the text
      *    input.
