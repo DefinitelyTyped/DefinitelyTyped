@@ -1,4 +1,4 @@
-// Type definitions for js-base64 v2.1.9
+// Type definitions for js-base64 v2.3.2
 // Project: https://github.com/dankogai/js-base64
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
