@@ -1198,6 +1198,7 @@ namespace http_tests {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
 
     // http IncomingMessage
@@ -1347,6 +1348,15 @@ namespace https_tests {
     });
 
     https.request('http://www.example.com/xyz');
+
+    {
+        const server = new https.Server();
+
+        const timeout: number = server.timeout;
+        const listening: boolean = server.listening;
+        const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -1857,23 +1867,23 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
     }
 
-	{
-		childProcess.execFile("npm", () => {});
-		childProcess.execFile("npm", ["-v"], () => {});
-		childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-		childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-		childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-		childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-	}
+    {
+        childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", ["-v"], () => {});
+        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
 
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
-		let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
-		r = await execFile("npm", ["-v"]);
-		r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
-		r = await execFile("npm", ["-v"], { encoding: 'buffer' });
-		r = await execFile("npm", { encoding: 'utf-8' });
-		r = await execFile("npm", { encoding: 'buffer' });
+        let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+        r = await execFile("npm", ["-v"]);
+        r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+        r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+        r = await execFile("npm", { encoding: 'utf-8' });
+        r = await execFile("npm", { encoding: 'buffer' });
     }
 
     {
@@ -2529,7 +2539,7 @@ namespace net_tests {
             host: "localhost",
             localAddress: "10.0.0.1",
             localPort: 1234,
-            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void => {
+            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
                 // nothing
             },
             port: 80
