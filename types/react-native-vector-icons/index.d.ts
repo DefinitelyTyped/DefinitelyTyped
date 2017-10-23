@@ -34,7 +34,6 @@ export function createIconSet(
  * const Icon = createIconSetFromFontello(fontelloConfig);
  *
  * @see http://fontello.com
- * @export
  */
 export function createIconSetFromFontello(config: {}): typeof Icon;
 
@@ -50,6 +49,5 @@ export function createIconSetFromFontello(config: {}): typeof Icon;
  * const Icon = createIconSetFromIcoMoon(icoMoonConfig);
  *
  * @see https://icomoon.io/app
- * @export
  */
 export function createIconSetFromIcoMoon(config: {}): typeof Icon;
