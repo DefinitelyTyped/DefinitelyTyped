@@ -1,13 +1,13 @@
 // Type definitions for json-socket v0.1.2
 // Project: https://github.com/sebastianseilund/node-json-socket
-// Definitions by: Sven Reglitzki <https://github.com/svi3c/>
+// Definitions by: Sven Reglitzki <https://github.com/svi3c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
 
 
-import {Socket} from "net";
+import { Socket } from "net";
 
 declare class JsonSocket extends Socket {
 

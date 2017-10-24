@@ -12,7 +12,7 @@ const verror3 = new VError({
     name: "fooError",
     cause: error,
     info: {
-        "info0": "baz"
+        info0: "baz"
     }
 }, "bar");
 

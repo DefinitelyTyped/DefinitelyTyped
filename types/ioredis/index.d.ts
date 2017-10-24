@@ -1,6 +1,8 @@
 // Type definitions for ioredis
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00/>
+//                 Christopher Eck <https://github.com/chrisleck>
+//                 Yoga Aliarham <https://github.com/aliarham11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -64,6 +66,8 @@ declare module IORedis {
         setnx(...args: any[]): any;
         setex(args: any[], callback?: ResCallbackT<any>): any;
         setex(...args: any[]): any;
+        psetex(args: any[], callback?: ResCallbackT<any>): any;
+        psetex(...args: any[]): any;
         append(args: any[], callback?: ResCallbackT<any>): any;
         append(...args: any[]): any;
         strlen(args: any[], callback?: ResCallbackT<any>): any;
@@ -322,16 +326,22 @@ declare module IORedis {
         evalsha(args: any[], callback?: ResCallbackT<any>): any;
         evalsha(...args: any[]): any;
         script(args: any[], callback?: ResCallbackT<any>): any;
-        script(...args: any[]): any;
         script(key: string, callback?: ResCallbackT<any>): any;
+        script(...args: any[]): any;
         quit(args: any[], callback?: ResCallbackT<any>): any;
         quit(...args: any[]): any;
-        scan(...args: any[]): any;
         scan(args: any[], callback?: ResCallbackT<any>): any;
-        hscan(...args: any[]): any;
+        scan(...args: any[]): any;
         hscan(args: any[], callback?: ResCallbackT<any>): any;
-        zscan(...args: any[]): any;
+        hscan(...args: any[]): any;
         zscan(args: any[], callback?: ResCallbackT<any>): any;
+        zscan(...args: any[]): any;
+        pfmerge(args: any[], callback?: ResCallbackT<any>): any;
+        pfmerge(...args: any[]): any;
+        pfadd(args: any[], callback?: ResCallbackT<any>): any;
+        pfadd(...args: any[]): any;
+        pfcount(args: any[], callback?: ResCallbackT<any>): any;
+        pfcount(...args: any[]): any;
 
         pipeline(): Pipeline;
         pipeline(commands: string[][]): Pipeline;
@@ -352,6 +362,8 @@ declare module IORedis {
         setnx(...args: any[]): Pipeline;
         setex(args: any[], callback?: ResCallbackT<any>): Pipeline;
         setex(...args: any[]): Pipeline;
+        psetex(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        psetex(...args: any[]): Pipeline;
         append(args: any[], callback?: ResCallbackT<any>): Pipeline;
         append(...args: any[]): Pipeline;
         strlen(args: any[], callback?: ResCallbackT<any>): Pipeline;
@@ -706,6 +718,10 @@ declare module IORedis {
         * If you are using the hiredis parser, it's highly recommended to enable this option. Create another instance with dropBufferSupport disabled for other commands that you want to return binary instead of string:
         */
         dropBufferSupport?: boolean;
+        /**
+         * Whether to show a friendly error stack. Will decrease the performance significantly.
+         */
+        showFriendlyErrorStack?: boolean;
     }
 
     interface ScanStreamOption {

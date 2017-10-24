@@ -1,5 +1,7 @@
 /// <reference types='tether' />
 
+import { CSSModule } from '../index';
+
 type Placement
   = 'top'
   | 'bottom'
@@ -24,6 +26,7 @@ interface Props {
   isOpen?: boolean;
   tether?: Tether.ITetherOptions;
   className?: string;
+  cssModule?: CSSModule;
   toggle?: () => void;
 }
 

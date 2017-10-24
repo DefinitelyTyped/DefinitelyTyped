@@ -1,6 +1,6 @@
 // Type definitions for swagger-sails-hook 0.7
 // Project: https://github.com/apigee-127/swagger-sails#readme
-// Definitions by: Michael Mrowetz <https://github.com/micmro/>
+// Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -14,7 +14,7 @@ export = SwaggerHook;
 
 /**
  * Create a new `swagger-sails-hook` sails hook and register it with `sails`
- * @param  {any} sails - reference to the running sails instance
+ * @param sails - reference to the running sails instance
  * @returns SailsHook - `swagger-sails-hook` object implementing the Sails' hook specification.
  */
 declare function SwaggerHook(sails: any): SwaggerHook.SailsHook;
@@ -30,7 +30,7 @@ declare namespace SwaggerHook {
 		/**
 		 * Perform startup tasks.
 		 * All Sails configuration is guaranteed to be completed before a hook’s initialize function runs.
-		 * @param {Function} done - called when `swagger-sails-hook`'s startup tasks have finished.
+		 * @param done - called when `swagger-sails-hook`'s startup tasks have finished.
 		 */
 		initialize(done: () => any): void;
 

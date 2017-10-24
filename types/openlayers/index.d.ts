@@ -1,6 +1,9 @@
-// Type definitions for OpenLayers v4.1.0
+// Type definitions for OpenLayers v4.3.4
 // Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
+// Definitions by: Olivier Sechet <https://github.com/osechet>
+//                 Bin Wang <https://github.com/wb14123>
+//                 Junyoung Clare Jang <https://github.com/ailrun>
+//                 Alexandre Melard <https://github.com/mylen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -1830,11 +1833,11 @@ declare module ol {
          * Get the feature's style.  This return for this method depends on what was
          * provided to the {@link ol.Feature#setStyle} method.
          * @return {ol.style.Style|Array.<ol.style.Style>|
-         *     ol.FeatureStyleFunction} The feature style.
+         *     ol.FeatureStyleFunction|ol.StyleFunction} The feature style.
          * @api stable
          * @observable
          */
-        getStyle(): (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction);
+        getStyle(): (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction);
 
         /**
          * Get the feature's style function.
@@ -1858,11 +1861,11 @@ declare module ol {
          * of styles, or a function that takes a resolution and returns an array of
          * styles. If it is `null` the feature has no style (a `null` style).
          * @param {ol.style.Style|Array.<ol.style.Style>|
-         *     ol.FeatureStyleFunction} style Style for this feature.
+         *     ol.FeatureStyleFunction|ol.StyleFunction} style Style for this feature.
          * @api stable
          * @observable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction)): void;
+        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction)): void;
 
         /**
          * Set the feature id.  The feature id is considered stable and may be used when
@@ -3970,7 +3973,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachSegment<T, S>(callback: (() => T), opt_this?: S): (T | boolean);
+            forEachSegment<T, S>(callback: ((this: S, start: ol.Coordinate, end: ol.Coordinate) => T), opt_this?: S): (T | boolean);
 
             /**
              * Returns the coordinate at `m` using linear interpolation, or `null` if no
@@ -6759,12 +6762,7 @@ declare module ol {
          *     the {@link ol.layer.Layer layer} of the feature and will be null for
          *     unmanaged layers. To stop detection, callback functions can return a
          *     truthy value.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {T|undefined} Callback result, i.e. the return value of last
          * callback execution, or the first truthy callback return value.
          * @template T
@@ -6773,8 +6771,20 @@ declare module ol {
         forEachFeatureAtPixel<T>(
             pixel: ol.Pixel,
             callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T),
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            opt_options?: olx.AtPixelOptions
         ): (T);
+
+        /**
+         * Get all features that intersect a pixel on the viewport.
+         * @param {ol.Pixel} pixel Pixel.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
+         * @return {?Array.<(ol.Feature|ol.render.Feature)>} The detected features or null if none were found.
+         * @api stable
+         */
+        getFeaturesAtPixel(
+            pixel: ol.Pixel,
+            opt_options?: olx.AtPixelOptions
+        ): (Array<ol.Feature|ol.render.Feature>|null);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -6805,18 +6815,13 @@ declare module ol {
          * Detect if features intersect a pixel on the viewport. Layers included in the
          * detection can be configured through `opt_layerFilter`.
          * @param {ol.Pixel} pixel Pixel.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {boolean} Is there a feature at the given pixel?
          * @api
          */
         hasFeatureAtPixel(
             pixel: ol.Pixel,
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            opt_options?: olx.AtPixelOptions
         ): boolean;
 
         /**
@@ -7595,7 +7600,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setPosition(position: (ol.Coordinate)): void;
+        setPosition(position: (ol.Coordinate | undefined)): void;
 
         /**
          * Set the positioning for this overlay.
@@ -9902,6 +9907,29 @@ declare module ol {
     }
 
     /**
+     * Object literal with options for the {@link ol.Sphere.getLength} or
+     * {@link ol.Sphere.getArea} functions.
+     */
+    interface SphereMetricOptions {
+
+        /**
+         * Projection of the geometry.  By default, the geometry is assumed to be in
+         * EPSG:3857 (Web Mercator).
+         */
+        projection?: ol.proj.Projection;
+
+
+        /**
+         * Sphere radius.  By default, the radius of the earth is used (Clarke 1866
+         * Authalic Sphere).
+         * @type {(number|undefined)}
+         * @api
+         */
+        radius?: number;
+
+    }
+
+    /**
      * @classdesc
      * Class to create objects that can be used with {@link
      * ol.geom.Polygon.circular}.
@@ -9962,6 +9990,31 @@ declare module ol {
          */
         haversineDistance(c1: ol.Coordinate, c2: ol.Coordinate): number;
 
+        /**
+         * Get the spherical area of a geometry.  This is the area (in meters) assuming
+         * that polygon edges are segments of great circles on a sphere.
+         * @param {ol.geom.Geometry} geometry A geometry.
+         * @param {olx.SphereMetricOptions=} opt_options Options for the area
+         *     calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
+         *     You can change this by providing a `projection` option.
+         * @return {number} The spherical area (in square meters).
+         * @api
+         */
+        static getArea(geometry: geom.Geometry, opt_options?: SphereMetricOptions): number;
+
+        /**
+         * Get the spherical length of a geometry.  This length is the sum of the
+         * great circle distances between coordinates.  For polygons, the length is
+         * the sum of all rings.  For points, the length is zero.  For multi-part
+         * geometries, the length is the sum of the length of each part.
+         * @param {ol.geom.Geometry} geometry A geometry.
+         * @param {olx.SphereMetricOptions=} opt_options Options for the length
+         *     calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
+         *     You can change this by providing a `projection` option.
+         * @return {number} The spherical length (in meters).
+         * @api
+         */
+        static getLength(geometry: geom.Geometry, opt_options?: SphereMetricOptions): number;
     }
 
     /**
@@ -10583,6 +10636,13 @@ declare module ol {
             constructor(opt_options?: olx.style.StyleOptions);
 
             /**
+             * Clones the style.
+             * @return {ol.style.Style} The cloned style.
+             * @api
+             */
+            clone(): ol.style.Style;
+
+            /**
              * Get the geometry to be rendered.
              * @return {string|ol.geom.Geometry|ol.StyleGeometryFunction}
              * Feature property or geometry or function that returns the geometry that will
@@ -11154,7 +11214,7 @@ declare module ol {
      *     Array.<Array.<ol.Coordinate>>), ol.geom.SimpleGeometry=):
      *     ol.geom.SimpleGeometry}
      */
-    type DrawGeometryFunctionType = (coords: (ol.Coordinate | ol.Coordinate[] | ol.Coordinate[][]), geo: ol.geom.SimpleGeometry) => ol.geom.SimpleGeometry;
+    type DrawGeometryFunctionType = (coords: (ol.Coordinate | ol.Coordinate[] | ol.Coordinate[][]), geo?: ol.geom.SimpleGeometry) => ol.geom.SimpleGeometry;
 
     /**
      * A function that takes an {@link ol.MapBrowserEvent} and returns a
@@ -12413,23 +12473,27 @@ declare module olx {
         /**
          * @typedef {{formatConstructors: (Array.<function(new: ol.format.Feature)>|undefined),
          *     projection: ol.ProjectionLike,
-         *     target: (Element|undefined)}}
+         *     target: (Element|undefined),
+         *     source: (ol.source.Vector|undefined)}}
          */
         interface DragAndDropOptions {
             formatConstructors?: ((n: ol.format.Feature) => any)[];
             projection: ol.ProjectionLike;
             target?: Element;
+            source?: ol.source.Vector;
         }
 
 
         /**
          * @typedef {{className: (string|undefined),
          *     condition: (ol.EventsConditionType|undefined),
+         *     minArea: (number|undefined),
          *     boxEndCondition: (ol.DragBoxEndConditionType|undefined)}}
          */
         interface DragBoxOptions {
             className?: string;
             condition?: ol.EventsConditionType;
+            minArea?: number;
             boxEndCondition?: ol.DragBoxEndConditionType;
         }
 
@@ -12553,27 +12617,35 @@ declare module olx {
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
          *     deleteCondition: (ol.EventsConditionType|undefined),
+         *     insertVertexCondition: (ol.EventsConditionType|undefined),
          *     pixelTolerance: (number|undefined),
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     features: ol.Collection.<ol.Feature>,
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     source: (ol.source.Vector|undefined)}}
          */
         interface ModifyOptions {
             condition?: ol.EventsConditionType;
             deleteCondition?: ol.EventsConditionType;
+            insertVertexCondition?: ol.EventsConditionType;
             pixelTolerance?: number;
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
             features: ol.Collection<ol.Feature>;
             wrapX?: boolean;
+            source?: ol.source.Vector;            
         }
 
 
         /**
-         * @typedef {{duration: (number|undefined),
+         * @typedef {{constrainResolution: (boolean|undefined),
+         *     duration: (number|undefined),
+         *     timeout: (number|undefined),
          *     useAnchor: (boolean|undefined)}}
          */
         interface MouseWheelZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
+            timeout?: number;
             useAnchor?: boolean;
         }
 
@@ -12589,9 +12661,11 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined)}}
+         * @typedef {{constrainResolution: (boolean|undefined)
+         *     duration: (number|undefined)}}
          */
         interface PinchZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
         }
 
@@ -12732,7 +12806,8 @@ declare module olx {
          *     maxResolution: (number|undefined),
          *     opacity: (number|undefined),
          *     source: (ol.source.Vector|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface HeatmapOptions {
             gradient?: string[];
@@ -12746,6 +12821,7 @@ declare module olx {
             opacity?: number;
             source: ol.source.Vector;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12756,7 +12832,8 @@ declare module olx {
          *     visible: (boolean|undefined),
          *     extent: (ol.Extent|undefined),
          *     minResolution: (number|undefined),
-         *     maxResolution: (number|undefined)}}
+         *     maxResolution: (number|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface ImageOptions {
             opacity?: number;
@@ -12766,6 +12843,7 @@ declare module olx {
             extent?: ol.Extent;
             minResolution?: number;
             maxResolution?: number;
+            zIndex?: number;
         }
 
 
@@ -12778,7 +12856,8 @@ declare module olx {
          *     extent: (ol.Extent|undefined),
          *     minResolution: (number|undefined),
          *     maxResolution: (number|undefined),
-         *     useInterimTilesOnError: (boolean|undefined)}}
+         *     useInterimTilesOnError: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface TileOptions {
             opacity?: number;
@@ -12790,6 +12869,7 @@ declare module olx {
             minResolution?: number;
             maxResolution?: number;
             useInterimTilesOnError?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12804,7 +12884,8 @@ declare module olx {
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     updateWhileAnimating: (boolean|undefined),
          *     updateWhileInteracting: (boolean|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface VectorOptions {
             renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
@@ -12819,6 +12900,7 @@ declare module olx {
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12835,7 +12917,8 @@ declare module olx {
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     updateWhileAnimating: (boolean|undefined),
          *     updateWhileInteracting: (boolean|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface VectorTileOptions {
             renderBuffer?: number;
@@ -12851,6 +12934,7 @@ declare module olx {
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12996,7 +13080,6 @@ declare module olx {
          *                 ol.TileLoadFunctionType)|undefined),
          *            tileGrid: (ol.tilegrid.TileGrid|undefined),
          *            tileLoadFunction: (ol.TileLoadFunctionType|undefined),
-         *            tilePixelRatio: (number|undefined),
          *            tileUrlFunction: (ol.TileUrlFunctionType|undefined),
          *            url: (string|undefined),
          *            urls: (Array.<string>|undefined),
@@ -13013,7 +13096,6 @@ declare module olx {
             tileClass?: ((n: ol.VectorTile, coords: ol.TileCoord, state: ol.Tile.State, s: string, feature: ol.format.Feature, type: ol.TileLoadFunctionType) => any);
             tileGrid?: ol.tilegrid.TileGrid;
             tileLoadFunction?: ol.TileLoadFunctionType;
-            tilePixelRatio?: number;
             tileUrlFunction?: ol.TileUrlFunctionType;
             url?: string;
             urls?: string[];
@@ -13572,7 +13654,7 @@ declare module olx {
             rotation?: number;
             size?: ol.Size;
             imgSize?: ol.Size;
-            src: string;
+            src?: string;
         }
 
 

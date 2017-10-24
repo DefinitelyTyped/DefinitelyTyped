@@ -1,9 +1,14 @@
-// Type definitions for Sinon 2.2
+// Type definitions for Sinon 2.3
 // Project: http://sinonjs.org/
-// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.con/lumaxis>
+// Definitions by: William Sears <https://github.com/mrbigdog2u>
+//                 Jonathan Little <https://github.com/rationull>
+//                 Lukas Spieß <https://github.com/lumaxis>
+//                 Nico Jansen <https://github.com/nicojs>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// sinon uses DOM dependencies which are absent in browserless envoronment like node.js
+// sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
 // tslint:disable no-empty-interface
@@ -91,8 +96,8 @@ declare namespace Sinon {
 
     interface SinonSpyStatic {
         (): SinonSpy;
-        (func: any): SinonSpy;
-        (obj: any, method: string): SinonSpy;
+        (func: Function): SinonSpy;
+        <T>(obj: T, method: keyof T): SinonSpy;
     }
 
     interface SinonStatic {
@@ -110,6 +115,9 @@ declare namespace Sinon {
         resolves(value?: any): SinonStub;
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
+        throwsArg(index: number): SinonStub;
+        throwsException(type?: string): SinonStub;
+        throwsException(obj: any): SinonStub;
         rejects(): SinonStub;
         rejects(errorType: string): SinonStub;
         rejects(value: any): SinonStub;
@@ -123,12 +131,16 @@ declare namespace Sinon {
         callsArgWithAsync(index: number, ...args: any[]): SinonStub;
         callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
         callsFake(func: (...args: any[]) => void): SinonStub;
+        get(func: () => any): SinonStub;
+        set(func: (v: any) => void): SinonStub;
         onCall(n: number): SinonStub;
         onFirstCall(): SinonStub;
         onSecondCall(): SinonStub;
         onThirdCall(): SinonStub;
+        value(val: any): SinonStub;
         yields(...args: any[]): SinonStub;
         yieldsOn(context: any, ...args: any[]): SinonStub;
+        yieldsRight(...args: any[]): SinonStub;
         yieldsTo(property: string, ...args: any[]): SinonStub;
         yieldsToOn(property: string, context: any, ...args: any[]): SinonStub;
         yieldsAsync(...args: any[]): SinonStub;
@@ -141,8 +153,8 @@ declare namespace Sinon {
     interface SinonStubStatic {
         (): SinonStub;
         (obj: any): SinonStub;
-        (obj: any, method: string): SinonStub;
-        (obj: any, method: string, func: any): SinonStub;
+        <T>(obj: T, method: keyof T): SinonStub;
+        <T>(obj: T, method: keyof T, func: Function): SinonStub;
     }
 
     interface SinonStatic {
@@ -351,6 +363,7 @@ declare namespace Sinon {
         alwaysThrew(spy: SinonSpy): void;
         alwaysThrew(spy: SinonSpy, exception: string): void;
         alwaysThrew(spy: SinonSpy, exception: any): void;
+        match(actual: any, expected: any): void;
         expose(obj: any, options?: SinonExposeOptions): void;
     }
 
@@ -363,12 +376,61 @@ declare namespace Sinon {
         or(expr: SinonMatcher): SinonMatcher;
     }
 
+    interface SinonArrayMatcher extends SinonMatcher {
+        /**
+         * Requires an Array to be deep equal another one.
+         */
+        deepEquals(expected: any[]): SinonMatcher;
+        /**
+         * Requires an Array to start with the same values as another one.
+         */
+        startsWith(expected: any[]): SinonMatcher;
+        /**
+         * Requires an Array to end with the same values as another one.
+         */
+        endsWith(expected: any[]): SinonMatcher;
+        /**
+         * Requires an Array to contain each one of the values the given array has.
+         */
+        contains(expected: any[]): SinonMatcher;
+    }
+
+    interface SimplifiedSet {
+        has(el: any): boolean;
+    }
+
+    interface SimplifiedMap extends SimplifiedSet {
+        get(key: any): any;
+    }
+
+    interface SinonMapMatcher extends SinonMatcher {
+        /**
+         * Requires a Map to be deep equal another one.
+         */
+        deepEquals(expected: SimplifiedMap): SinonMatcher;
+        /**
+         * Requires a Map to contain each one of the items the given map has.
+         */
+        contains(expected: SimplifiedMap): SinonMatcher;
+    }
+
+    interface SinonSetMatcher extends SinonMatcher {
+        /**
+         *  Requires a Set to be deep equal another one.
+         */
+        deepEquals(expected: SimplifiedSet): SinonMatcher;
+        /**
+         * Requires a Set to contain each one of the items the given set has.
+         */
+        contains(expected: SimplifiedSet): SinonMatcher;
+    }
+
     interface SinonMatch {
         (value: number): SinonMatcher;
         (value: string): SinonMatcher;
         (expr: RegExp): SinonMatcher;
         (obj: any): SinonMatcher;
-        (callback: (value: any) => boolean): SinonMatcher;
+        (callback: (value: any) => boolean, message?: string): SinonMatcher;
         any: SinonMatcher;
         defined: SinonMatcher;
         truthy: SinonMatcher;
@@ -378,7 +440,18 @@ declare namespace Sinon {
         string: SinonMatcher;
         object: SinonMatcher;
         func: SinonMatcher;
-        array: SinonMatcher;
+        /**
+         * Requires the value to be a Map.
+         */
+        map: SinonMapMatcher;
+        /**
+         * Requires the value to be a Set.
+         */
+        set: SinonSetMatcher;
+        /**
+         * Requires the value to be an Array.
+         */
+        array: SinonArrayMatcher;
         regexp: SinonMatcher;
         date: SinonMatcher;
         symbol: SinonMatcher;
@@ -421,11 +494,12 @@ declare namespace Sinon {
     }
 
     interface SinonSandboxStatic {
-        create(): SinonSandbox;
-        create(config: SinonSandboxConfig): SinonSandbox;
+        create(config?: SinonSandboxConfig): SinonSandbox;
     }
 
     interface SinonStatic {
+        createSandbox(config?: SinonSandboxConfig): SinonSandbox;
+        defaultConfig: SinonSandboxConfig;
         sandbox: SinonSandboxStatic;
     }
 
@@ -443,10 +517,46 @@ declare namespace Sinon {
 
     // Utility overridables
     interface SinonStatic {
+        /**
+         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
+         *
+         * @param constructor   Object or class to stub.
+         * @returns A stubbed version of the constructor.
+         * @remarks The given constructor function is not invoked. See also the stub API.
+         */
         createStubInstance(constructor: any): any;
+
+        /**
+         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
+         *
+         * @template TType Type being stubbed.
+         * @param constructor   Object or class to stub.
+         * @returns A stubbed version of the constructor.
+         * @remarks The given constructor function is not invoked. See also the stub API.
+         */
+        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+
         format(obj: any): string;
         restore(object: any): void;
     }
+
+    /**
+     * Stubbed type of an object with members replaced by stubs.
+     *
+     * @template TType Type being stubbed.
+     */
+    interface StubbableType<TType> {
+        new(...args: any[]): TType;
+    }
+
+    /**
+     * An instance of a stubbed object type with members replaced by stubs.
+     *
+     * @template TType Object type being stubbed.
+     */
+    type SinonStubbedInstance<TType> = {
+        [P in keyof TType]: SinonStub;
+    };
 }
 
 declare const Sinon: Sinon.SinonStatic;

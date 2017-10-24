@@ -384,7 +384,7 @@ declare namespace p2 {
         restitution: number;
         stiffness: number;
         relaxation: number;
-        frictionStuffness: number;
+        frictionStiffness: number;
         frictionRelaxation: number;
         surfaceVelocity: number;
         contactSkinSize: number;

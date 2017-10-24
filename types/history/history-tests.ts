@@ -102,8 +102,14 @@ let input = { value: "" };
 }
 
 {
+    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, { state: 1 });
+    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
+    LocationUtils.locationsAreEqual(location1, location2);
+}
+
+{
     let path = PathUtils.createPath({ pathname: '/a/path', hash: '#hash' });
-    let strippedPath = PathUtils.stripPrefix(path, '/a/');
+    let strippedPath = PathUtils.stripBasename(path, '/a/');
     let location = PathUtils.parsePath(strippedPath);
 }
 

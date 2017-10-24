@@ -1,20 +1,34 @@
-// Type definitions for babel-core v6.7
+// Type definitions for babel-core 6.25
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core
 // Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="babel-template" />
-/// <reference types="babel-traverse" />
-/// <reference types="babel-types" />
+// TypeScript Version: 2.3
 
 import * as t from 'babel-types';
-export {t as types};
-type Node = t.Node;
+export { t as types };
+export type Node = t.Node;
 export import template = require('babel-template');
-export var version: string;
-import traverse, {Visitor} from "babel-traverse";
-export {traverse, Visitor};
+export const version: string;
+import traverse, { Visitor, NodePath } from "babel-traverse";
+export { traverse, Visitor };
+import { BabylonOptions } from "babylon";
+export { BabylonOptions };
+import { GeneratorOptions } from "babel-generator";
+export { GeneratorOptions };
 
+// A babel plugin is a simple function which must return an object matching
+// the following interface. Babel will throw if it finds unknown properties.
+// The list of allowed plugin keys is here:
+// https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-core/src/config/option-manager.js#L71
+export interface PluginObj<S = {}> {
+    name?: string;
+    manipulateOptions?(opts: any, parserOpts: any): void;
+    pre?(this: S, state: any): void;
+    visitor: Visitor<S>;
+    post?(this: S, state: any): void;
+    inherits?: any;
+}
 
 /** Transforms the passed in `code`. Returning an object with the generated code, source map, and AST. */
 export function transform(code: string, opts?: TransformOptions): BabelFileResult;
@@ -28,15 +42,29 @@ export function transformFileSync(filename: string, opts?: TransformOptions): Ba
 export function transformFromAst(ast: Node, code?: string, opts?: TransformOptions): BabelFileResult;
 
 export interface TransformOptions {
+    /** Include the AST in the returned object. Default: `true`. */
+    ast?: boolean;
 
-    /** Filename to use when reading from stdin - this will be used in source-maps, errors etc. Default: "unknown". */
-    filename?: string;
+    /** Attach a comment after all non-user injected code. */
+    auxiliaryCommentAfter?: string;
 
-    /** Filename relative to `sourceRoot`. */
-    filenameRelative?: string;
+    /** Attach a comment before all non-user injected code. */
+    auxiliaryCommentBefore?: string;
 
-    /** A source map object that the output source map will be based on. */
-    inputSourceMap?: Object;
+    /** Specify whether or not to use `.babelrc` and `.babelignore` files. Default: `true`. */
+    babelrc?: boolean;
+
+    /** Enable code generation. Default: `true`. */
+    code?: boolean;
+
+    /** write comments to generated output. Default: `true`. */
+    comments?: boolean;
+
+    /**
+     * Do not include superfluous whitespace characters and line terminators. When set to `"auto"`, `compact` is set to
+     * `true` on input sizes of >100KB.
+     */
+    compact?: boolean | "auto";
 
     /**
      * This is an object of keys that represent different environments. For example, you may have:
@@ -44,22 +72,49 @@ export interface TransformOptions {
      * which will use those options when the enviroment variable `BABEL_ENV` is set to `"production"`.
      * If `BABEL_ENV` isn't set then `NODE_ENV` will be used, if it's not set then it defaults to `"development"`.
      */
-    env?: Object;
+    env?: object;
 
-    /** Retain line numbers - will result in really ugly code. Default: `false` */
-    retainLines?: boolean;
+    /** A path to an .babelrc file to extend. */
+    extends?: string;
+
+    /** Filename to use when reading from stdin - this will be used in source-maps, errors etc. Default: "unknown". */
+    filename?: string;
+
+    /** Filename relative to `sourceRoot`. */
+    filenameRelative?: string;
+
+    /** An object containing the options to be passed down to the babel code generator, babel-generator. Default: `{}` */
+    generatorOpts?: GeneratorOptions;
+
+    /**
+     * Specify a custom callback to generate a module id with. Called as `getModuleId(moduleName)`.
+     * If falsy value is returned then the generated module id is used.
+     */
+    getModuleId?(moduleName: string): string;
 
     /** Enable/disable ANSI syntax highlighting of code frames. Default: `true`. */
     highlightCode?: boolean;
 
-    /** List of presets (a set of plugins) to load and use. */
-    presets?: any[];
-
-    /** List of plugins to load and use. */
-    plugins?: any[];
-
     /** list of glob paths to **not** compile. Opposite to the `only` option. */
     ignore?: string[];
+
+    /** A source map object that the output source map will be based on. */
+    inputSourceMap?: object;
+
+    /** Should the output be minified. Default: `false` */
+    minified?: boolean;
+
+    /** Specify a custom name for module ids. */
+    moduleId?: string;
+
+    /**
+     * If truthy, insert an explicit id for modules. By default, all modules are anonymous.
+     * (Not available for `common` modules).
+     */
+    moduleIds?: boolean;
+
+    /** Optional prefix for the AMD module formatter that will be prepend to the filename on module definitions. */
+    moduleRoot?: string;
 
     /**
      * A glob, regex, or mixed array of both, matching paths to only compile. Can also be an array of arrays containing
@@ -67,29 +122,29 @@ export interface TransformOptions {
      */
     only?: string | RegExp | Array<string | RegExp>;
 
-    /** Enable code generation. Default: `true`. */
-    code?: boolean;
+    /** Babylon parser options. */
+    parserOpts?: BabylonOptions;
 
-    /** Include the AST in the returned object. Default: `true`. */
-    ast?: boolean;
+    /** List of plugins to load and use. */
+    plugins?: any[];
 
-    /** A path to an .babelrc file to extend. */
-    extends?: string;
+    /** List of presets (a set of plugins) to load and use. */
+    presets?: any[];
 
-    /** write comments to generated output. Default: `true`. */
-    comments?: boolean;
+    /** Retain line numbers - will result in really ugly code. Default: `false` */
+    retainLines?: boolean;
+
+    /** Resolve a module source ie. import "SOURCE"; to a custom value. */
+    resolveModuleSource?(source: string, filename: string): string;
 
     /**
      * An optional callback that controls whether a comment should be output or not. Called as
      * `shouldPrintComment(commentContents)`. **NOTE**: This overrides the `comments` option when used.
      */
-    shouldPrintComment?: (comment: string) => boolean;
+    shouldPrintComment?(comment: string): boolean;
 
-    /**
-     * Do not include superfluous whitespace characters and line terminators. When set to `"auto"`, `compact` is set to
-     * `true` on input sizes of >100KB.
-     */
-    compact?: boolean | "auto";
+    /** Set `sources[0]` on returned source map. */
+    sourceFileName?: string;
 
     /**
      * If truthy, adds a `map` property to returned output. If set to `"inline"`, a comment with a `sourceMappingURL`
@@ -101,44 +156,22 @@ export interface TransformOptions {
     /** Set `file` on returned source map. */
     sourceMapTarget?: string;
 
-    /** Set `sources[0]` on returned source map. */
-    sourceFileName?: string;
-
     /** The root from which all sources are relative. */
     sourceRoot?: string;
 
-    /** Specify whether or not to use `.babelrc` and `.babelignore` files. Default: `true`. */
-    babelrc?: boolean;
-
-    /** Attach a comment before all non-user injected code. */
-    auxiliaryCommentBefore?: string;
-
-    /** Attach a comment after all non-user injected code. */
-    auxiliaryCommentAfter?: string;
+    /** Indicate the mode the code should be parsed in. Can be either “script” or “module”. Default: "module" */
+    sourceType?: "script" | "module";
 
     /**
-     * Specify a custom callback to generate a module id with. Called as `getModuleId(moduleName)`.
-     * If falsy value is returned then the generated module id is used.
+     * An optional callback that can be used to wrap visitor methods.
+     * NOTE: This is useful for things like introspection, and not really needed for implementing anything.
      */
-    getModuleId?: (moduleName: string) => string;
-
-    /** Optional prefix for the AMD module formatter that will be prepend to the filename on module definitions. */
-    moduleRoot?: string;
-
-    /**
-     * If truthy, insert an explicit id for modules. By default, all modules are anonymous.
-     * (Not available for `common` modules).
-     */
-    moduleIds?: boolean;
-
-    /** Specify a custom name for module ids. */
-    moduleId?: string;
+    wrapPluginVisitorMethod?(pluginAlias: string, visitorType: 'enter' | 'exit', callback: (path: NodePath, state: any) => void): (path: NodePath, state: any) => void ;
 }
 
 export interface BabelFileResult {
     ast?: Node;
     code?: string;
-    map?: Object;
+    map?: object;
 }
 export as namespace babel;
-

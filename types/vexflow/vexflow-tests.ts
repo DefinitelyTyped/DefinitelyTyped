@@ -34,16 +34,20 @@ notes1[2].addModifier(0, new Vex.Flow.GraceNoteGroup([gracenote], true).beamNote
 // Color the chord
 notes1[3].setStyle({fillStyle: "blue", strokeStyle: "blue"});
 
+// Add a bar
+var tickable1: Vex.Flow.Note[] = notes1;
+tickable1.push(new Vex.Flow.BarNote());
+
 // Create a voice in 4/4 and add notes
 var voice1 = new Vex.Flow.Voice({
     num_beats: 4,
     beat_value: 4,
     resolution: Vex.Flow.RESOLUTION
-}).addTickables(notes1);
+}).addTickables(tickable1);
 
 // Create a second voice with just one whole note
 var voice2 = new Vex.Flow.Voice(Vex.Flow.TIME4_4).
-    addTickables([new Vex.Flow.StaveNote({keys: ["c/4"], duration: "w"})]);
+    addTickables([new Vex.Flow.StaveNote({keys: ["c/4"], duration: "w"}), new Vex.Flow.BarNote()]);
 
 // Format and justify the notes to 550 pixels
 var formatter = new Vex.Flow.Formatter().

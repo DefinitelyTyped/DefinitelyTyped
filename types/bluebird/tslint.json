@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "adjacent-overload-signatures": false,
+        "max-line-length": [true, 490],
+        "no-redundant-undefined": false,
+        "no-unnecessary-callback-wrapper": false,
+        "no-unnecessary-generics": false,
+        "no-void-expression": false,
+        "prefer-const": false,
+        "void-return": false
+    }
+}

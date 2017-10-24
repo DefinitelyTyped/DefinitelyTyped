@@ -1,6 +1,8 @@
-import classNames = require('classnames')
+import classNames = require('classnames');
+import * as classNames2 from 'classnames';
+import * as cn from 'classnames/bind';
 
-classNames('foo', 'bar'); // => 'foo bar'
+classNames2('foo', 'bar'); // => 'foo bar'
 
 classNames('foo', 'bar'); // => 'foo bar'
 classNames('foo', { bar: true }); // => 'foo bar'
@@ -21,4 +23,18 @@ classNames(["foo", ["bar", {baz: true}]]); // => 'foo bar baz'
 classNames(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
 
 // Supporting booleans is tricky since we should only support passing in false, which is ignored
-//classNames(false, 'bar', 0, 1, { baz: null }, ''); // => 'bar 1'
+// classNames(false, 'bar', 0, 1, { baz: null }, ''); // => 'bar 1'
+
+// Support for CSS-Modules. Example from README:
+// https://github.com/JedWatson/classnames/blob/master/README.md#alternate-bind-version-for-css-modules
+const styles = {
+  foo: 'abc',
+  bar: 'def',
+  baz: 'xyz'
+};
+
+const cx = cn.bind(styles);
+const className = cx('foo', ['bar'], { baz: true }); // => "abc def xyz"
+
+// falsey values are just ignored
+cx(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'

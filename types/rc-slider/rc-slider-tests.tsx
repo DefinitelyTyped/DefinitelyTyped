@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Slider from 'rc-slider';
-import { Range, Handle } from 'rc-slider';
+import Slider, { Range, Handle, createSliderWithTooltip } from 'rc-slider';
+
+const SliderWithTooltip = createSliderWithTooltip(Slider);
+const RangeWithTooltip = createSliderWithTooltip(Range);
 
 ReactDOM.render(
     <Slider defaultValue={1} max={2} step={0.01} min={0.01} />,
@@ -44,5 +46,15 @@ ReactDOM.render(
         count={3}
         allowCross={false}
         pushable={true} />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />,
     document.querySelector('.app')
 );

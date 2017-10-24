@@ -1,6 +1,8 @@
-// Type definitions for algoliasearch-client-js 3.18.1
+// Type definitions for algoliasearch-client-js 3.18.2
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
+//                 Haroen Viaene <https://github.com/haroenv>
+//                 Aurélien Hervé <https://github.com/aherve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace algoliasearch {
@@ -24,7 +26,7 @@ declare namespace algoliasearch {
          * Number of pages
          * https://github.com/algolia/algoliasearch-client-js#response-format
          */
-        nbPage: number;
+        nbPages: number;
         /**
          * Number of hits per pages
          * https://github.com/algolia/algoliasearch-client-js#response-format
@@ -145,7 +147,7 @@ declare namespace algoliasearch {
          * @param filters
          * https://github.com/algolia/algoliasearch-client-js#generate-key---generatesecuredapikey
          */
-        generateSecuredApiKey(key: string, filters: AlgoliaSecuredApiOptions): void;
+        generateSecuredApiKey(key: string, filters: AlgoliaSecuredApiOptions): string;
         /**
          * Perform multiple operations with one API call to reduce latency
          * @param action
@@ -325,7 +327,7 @@ declare namespace algoliasearch {
          * @param cb(err, res)
          * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
          */
-        saveObjects(objects: [{}], cb: (err: Error, res: any) => void): void;
+        saveObjects(objects: object[], cb: (err: Error, res: any) => void): void;
         /**
          * Update parameters of a specific object
          * @param object
@@ -407,7 +409,7 @@ declare namespace algoliasearch {
          * @param cb(err, res)
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
          */
-        saveSynonym(synonym: AlgoliaSynonym, option: SynonymOption, cb: (err: Error, res: any) => void): void;
+        saveSynonym(synonym: AlgoliaSynonym, options: SynonymOption, cb: (err: Error, res: any) => void): void;
         /**
          * Save a synonym object
          * @param synonyms
@@ -539,7 +541,7 @@ declare namespace algoliasearch {
          * return {Promise}
          * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
          */
-        saveObjects(objects: [{}]): Promise<any> ;
+        saveObjects(objects: object[]): Promise<any> ;
         /**
          * Update parameters of a specific object
          * @param object
@@ -659,7 +661,7 @@ declare namespace algoliasearch {
          * return {Promise}
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
          */
-        saveSynonym(synonym: AlgoliaSynonym, option: SynonymOption): Promise<any> ;
+        saveSynonym(synonym: AlgoliaSynonym, options: SynonymOption): Promise<any> ;
         /**
          * Save a synonym object
          * @param synonyms
@@ -808,10 +810,9 @@ declare namespace algoliasearch {
     interface AlgoliaAction {
         /**
          * Type of the batch action
-         * values: addObject, updateObject, partialUpdateObject, partialUpdateObjectNoCreate, deleteObject
          * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
          */
-        action: string;
+        action: "addObject" | "updateObject" | "partialUpdateObject" | "partialUpdateObjectNoCreate" | "deleteObject" | "delete" | "clear";
         /**
          * Name of the index where the bact will be performed
          * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
@@ -924,10 +925,9 @@ declare namespace algoliasearch {
         objectID: string;
         /**
          * Type of synonym
-         * values: synonym,oneWaySynonym
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
          */
-            type: string;
+            type: "synonym" | "oneWaySynonym";
         /**
          * Values used for the synonym
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
@@ -976,7 +976,7 @@ declare namespace algoliasearch {
          * default: null
          * https://github.com/algolia/algoliasearch-client-js#attributesforfaceting
          */
-        attributesforFaceting?: string[];
+        attributesForFaceting?: string[];
         /**
          * The list of attributes that cannot be retrieved at query time
          * default: null

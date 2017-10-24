@@ -13,6 +13,7 @@ interface Cheerio {
 
     // Attributes
 
+    attr(): {[attr: string]: string};
     attr(name: string): string;
     attr(name: string, value: any): Cheerio;
 
@@ -263,7 +264,7 @@ interface CheerioElement {
     nodeValue: string;
 }
 
-interface CheerioAPI extends CheerioSelector {
+interface CheerioAPI extends CheerioSelector, CheerioStatic {
   load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
   load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }

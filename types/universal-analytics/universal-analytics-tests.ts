@@ -1,87 +1,98 @@
-import UniversalAnalytics = require("universal-analytics");
+import * as ua from 'universal-analytics';
 
-var ui:UniversalAnalytics;
+import * as express from 'express';
 
-var str:string;
-var num:number;
-var value:any;
-var bool:boolean;
-var params:Object;
-var x:any;
+const app = express();
+let visitor = ua('UA-XXXX-XX');
 
-var client:UniversalAnalytics.Client = ui('UA-123-00');
-client = client.debug();
-client.send();
+visitor = ua('UA-XXXX-XX', '6a14abda-6b12-4578-bf66-43c754eaeda9');
+visitor = ua('UA-XXXX-XX', 'CUSTOM_USERID_1', { strictCidFormat: false });
+visitor = ua('UA-XXXX-XX', { https: true });
 
-client = client.pageview(str);
-client.pageview(str, (err:any) => {});
-client = client.pageview(params);
-client.pageview(params, (err:any) => {});
-client = client.pageview(str, str);
-client.pageview(str, str, (err:any) => {});
-client = client.pageview(str, str, str);
-client.pageview(str, str, str, (err:any) => {});
+visitor.pageview('/', 'http://peaksandpies.com', 'Welcome').send();
+visitor.pageview('/', 'http://peaksandpies.com', 'Welcome', err => { });
+visitor.pageview({ dp: '/', dt: 'Welcome', dh: 'http://peaksandpies.com' }).send();
+visitor.pageview(null, err => { });
 
+visitor.pv('/', 'http://peaksandpies.com', 'Welcome').send();
+visitor.pv('/', 'http://peaksandpies.com', 'Welcome', err => { });
+visitor.pv({ dp: '/', dt: 'Welcome', dh: 'http://peaksandpies.com' }).send();
+visitor.pv(null, err => { });
 
-client = client.event(str, str);
-client.event(str, str, (err:any) => {});
-client = client.event(str, str, str);
-client.event(str, str, str, (err:any) => {});
-client = client.event(str, str, str, value);
-client.event(str, str, str, value, (err:any) => {});
-client.event(str, str, str, value, params, (err:any) => {});
-client = client.event(params);
-client.event(params, (err:any) => {});
+visitor.screenview('Home Screen', 'App Name').send();
+visitor.screenview('Home Screen', 'App Name', err => { }).send();
+visitor.screenview({ cd: 'Home Screen', an: 'App Name' }).send();
+visitor.screenview(null, err => { });
 
+visitor.event('Event Category', 'Event Action').send();
+visitor.event('Event Category', 'Event Action', '…and a label', 42).send();
+visitor.event('Event Category', 'Event Action', '…and a label', 42, err => { });
+visitor.event('Event Category', 'Event Action', '…and a label', 42, { p: '/contact' }, err => { });
+visitor.event({ ec: 'Event Category', ea: 'Event Action', el: '…and a label', ev: 42, dp: '/contact' }).send();
+visitor.event('Navigation clicks', null, err => { });
 
-client = client.transaction(str);
-client.transaction(str, (err:any) => {});
-client = client.transaction(str, num);
-client.transaction(str, num, (err:any) => {});
-client = client.transaction(str, num, num);
-client.transaction(str, num, num, (err:any) => {});
-client = client.transaction(str, num, num, num);
-client.transaction(str, num, num, num, (err:any) => {});
-client = client.transaction(str, num, num, num, str);
-client.transaction(str, num, num, num, str, (err:any) => {});
-client = client.transaction(params);
-client.transaction(params, (err:any) => {});
+visitor.e('Event Category', 'Event Action').send();
+visitor.e('Event Category', 'Event Action', '…and a label', 42).send();
+visitor.e('Event Category', 'Event Action', '…and a label', 42, err => { });
+visitor.e('Event Category', 'Event Action', '…and a label', 42, { p: '/contact' }, err => { });
+visitor.e({ ec: 'Event Category', ea: 'Event Action', el: '…and a label', ev: 42, dp: '/contact' }).send();
+visitor.e('Navigation clicks', null, err => { });
 
+visitor
+    .transaction('trans-12345', 500)
+    .item(300, 1, 'item-54321')
+    .item(200, 2, 'item-41325')
+    .send();
 
-client = client.item(num);
-client.item(num, (err:any) => {});
-client = client.item(num, num);
-client.item(num, num, (err:any) => {});
-client = client.item(num, num, num);
-client.item(num, num, num, (err:any) => {});
-client = client.item(num, num, num, str);
-client.item(num, num, num, str, (err:any) => {});
-client = client.item(num, num, num, str, str);
-client.item(num, num, num, str, str, (err:any) => {});
-client = client.item(num, num, num, str, str, params);
-client.item(num, num, num, str, str, params, (err:any) => {});
-client = client.item(params);
-client.item(params, (err:any) => {});
+visitor
+    .transaction({ ti: 'trans-12345', tr: 500, ts: 50, tt: 100, ta: 'Partner 13' })
+    .item({ ip: 300, iq: 1, ic: 'item-54321', in: 'Item 54321', iv: 'Blue' })
+    .item({ ip: 200, iq: 2, ic: 'item-41325', in: 'Item 41325', iv: 'XXL' })
+    .send();
 
+visitor
+    .t('trans-12345', 500)
+    .i(300, 1, 'item-54321')
+    .i(200, 2, 'item-41325')
+    .send();
 
-client = client.exception(str);
-client.exception(str, (err:any) => {});
-client = client.exception(str, bool);
-client.exception(str, bool, (err:any) => {});
-client = client.exception(params);
-client.exception(params, (err:any) => {});
+visitor
+    .t({ ti: 'trans-12345', tr: 500, ts: 50, tt: 100, ta: 'Partner 13' })
+    .i({ ip: 300, iq: 1, ic: 'item-54321', in: 'Item 54321', iv: 'Blue' })
+    .i({ ip: 200, iq: 2, ic: 'item-41325', in: 'Item 41325', iv: 'XXL' })
+    .send();
 
+visitor.transaction(null, err => { });
 
-client = client.timing(str);
-client.timing(str, (err:any) => {});
-client = client.timing(str, str);
-client.timing(str, str, (err:any) => {});
-client = client.timing(str, str, num);
-client.timing(str, str, num, (err:any) => {});
-client = client.timing(str, str, num, str);
-client.timing(str, str, num, str, (err:any) => {});
-client = client.timing(params);
-client.timing(params, (err:any) => {});
+visitor.exception('StackOverflow Error').send();
+visitor.exception('StackOverflow Error', true, () => { });
 
+visitor.timing('User interaction', 'Time to open login overlay', 12547).send();
 
-x = client.middleware(str, {});
+visitor.transaction('123456', '449.99').send();
+visitor.item(449.99, 1, 'ID54321', 'T-Shirt', 'Blue', { ti: '123456' }).send();
+
+visitor.pageview('/').send();
+visitor.pageview('/').pageview('/contact').send();
+visitor.pageview('/landing-page-1').event('Testing', 'Button color', 'Blue').send();
+visitor.pageview('/landing-page-1').send();
+visitor.event('Testing', 'Button color', 'Blue', 42, { p: '/landing-page-1' }).send();
+
+visitor
+    .event({ ec: 'Mail Server', ea: 'New Team Member Notification sent' })
+    .event({ ea: 'Invitation sent' })
+    .send();
+
+visitor.set('uid', '123456789');
+
+app.use(ua.middleware('UA-XXXX-Y', { cookieName: '_ga' }));
+
+ua.createFromSession({ cid: 'some-string' });
+
+ua('UA-XXXX-XX').debug();
+
+ua('UA-XXXX-XX', {
+    requestOptions: {
+        proxy: '…',
+    },
+});

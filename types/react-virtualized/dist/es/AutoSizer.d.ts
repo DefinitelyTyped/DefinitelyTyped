@@ -1,4 +1,5 @@
-import { PropTypes, PureComponent, Validator, Requireable } from 'react'
+import { PureComponent, Validator, Requireable } from 'react'
+import * as PropTypes from 'prop-types'
 
 export type Dimensions = {
     height: number,
@@ -6,10 +7,28 @@ export type Dimensions = {
 }
 
 export type AutoSizerProps = {
+    /** Disable dynamic :height property */
     disableHeight?: boolean;
+    /** Disable dynamic :width property */
     disableWidth?: boolean;
+    /** Nonce of the inlined stylesheet for Content Security Policy */
+    nonce?: string;
+    /** Callback to be invoked on-resize: ({ height, width }) */
     onResize?: (info: { height: number, width: number }) => any;
+    /**
+     * Function responsible for rendering children.
+     * This function should implement the following signature:
+     * ({ height, width }) => PropTypes.element
+     */
     children?: (props: Dimensions) => React.ReactNode
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 };
 /**
  * Decorator component that automatically adjusts the width and height of a single child.
@@ -18,20 +37,10 @@ export type AutoSizerProps = {
  */
 export class AutoSizer extends PureComponent<AutoSizerProps, Dimensions> {
     static propTypes: {
-        /**
-         * Function responsible for rendering children.
-         * This function should implement the following signature:
-         * ({ height, width }) => PropTypes.element
-         */
         children: Validator<(props: Dimensions) => React.ReactNode>,
-
-        /** Disable dynamic :height property */
         disableHeight: Requireable<boolean>,
-
-        /** Disable dynamic :width property */
         disableWidth: Requireable<boolean>,
-
-        /** Callback to be invoked on-resize: ({ height, width }) */
+        nonce: Validator<string>,
         onResize: Validator<(props: Dimensions) => any>
     };
 
