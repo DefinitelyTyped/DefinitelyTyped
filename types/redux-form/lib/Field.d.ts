@@ -33,7 +33,7 @@ interface CommonFieldProps {
     onFocus: EventHandler<FocusEvent<any>>;
 }
 
-interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
+export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
     component?: ComponentType<P> | "input" | "select" | "textarea",
     format?: Formatter | null;
