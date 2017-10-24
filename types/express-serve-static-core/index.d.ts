@@ -9,7 +9,7 @@ declare global {
     namespace Express {
 
         // These open interfaces may be extended in an application-specific manner via declaration merging.
-        // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+        // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
         export interface Request { }
         export interface Response { }
         export interface Application { }
