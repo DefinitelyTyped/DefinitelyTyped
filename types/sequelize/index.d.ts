@@ -17,6 +17,7 @@
 
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
 
@@ -5739,6 +5740,7 @@ declare namespace sequelize {
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
+        useCLS(namespace:cls.Namespace): Sequelize;
 
     }
 

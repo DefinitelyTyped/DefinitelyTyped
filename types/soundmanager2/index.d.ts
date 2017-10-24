@@ -60,7 +60,6 @@ declare namespace soundmanager {
          * soundmanager2_flash9.swf and debug versions etc.) Note that SM2 will
          * append the correct SWF file name, depending on flashVersion and
          * debugMode settings.
-         * @type {string}
          */
         url?: string;
 
@@ -110,8 +109,6 @@ declare namespace soundmanager {
         clearOnPosition(id: string, msecOffset: number, callback?: (() => void)): SMSound;
         /**
          * Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
-         * @param  {SoundProperties} properties [description]
-         * @return {SMSound}                    [description]
          */
         createSound(properties: SoundProperties): SMSound;
         destroySound(id: string): void;
@@ -135,7 +132,7 @@ declare namespace soundmanager {
         setVolume(id: string, volume: number): SMSound;
         /**
          * Sets the volume of all sound objects. Accepted values: 0-100. Affects volume property.
-         * @param {number} volume [Volume of all sound objects. Accepted values: 0 - 100]
+         * @param volume Volume of all sound objects. Accepted values: 0 - 100
          */
         setVolume(volume: number): void;
         stop(id: string): SMSound;

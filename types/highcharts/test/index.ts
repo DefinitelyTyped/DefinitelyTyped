@@ -2707,8 +2707,7 @@ function test_SoftMinSoftMax() {
         }]
     });
 
-    let toggle = false;
-    chart.series[0].data[11].update((toggle = (!toggle)) ? 120 : 54);
+    chart.series[0].data[11].update(120);
 }
 
 function test_StyledColorZones() {

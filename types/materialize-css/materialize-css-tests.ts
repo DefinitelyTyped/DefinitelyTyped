@@ -1,17 +1,12 @@
-
-
 // Buttons
-
 $('.fixed-action-btn').openFAB();
 $('.fixed-action-btn').closeFAB();
 
 // Forms - Select
-
 $('select').material_select();
 $('select').material_select('destroy');
 
 // Forms - Date Picker
-
 $('.datepicker').pickadate({
 	selectMonths: true, // Creates a dropdown to control month
 	selectYears: 15 // Creates a dropdown of 15 years to control year
@@ -26,10 +21,8 @@ $(".dropdown-button").dropdown({ hover: false });
 
 $(".button-collapse").sideNav();
 
-
-
 // Collapsible
-var collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
+let collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
 	'<li>' +
 	'<div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>' +
 	'<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>' +
@@ -44,25 +37,25 @@ var collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
 	'</li>' +
 	'</ul>';
 
-$(collapseHtml).collapsible({ accordion: false, onClose: function () { alert('Closed'); } });
-$(collapseHtml).collapsible({ accordion: true, onOpen: function () { alert('Opened'); } });
+$(collapseHtml).collapsible({ accordion: false, onClose: () => { alert('Closed'); } });
+$(collapseHtml).collapsible({ accordion: true, onOpen: () => { alert('Opened'); } });
 
 // Dialogs - Toasts
 Materialize.toast('I am a toast!', 4000);
 Materialize.toast('I am a toast!', 3000, 'rounded');
 Materialize.toast('I am a toast!', 3000, 'rounded', () => console.log('callback'));
-var $toastContent = $('<span>I am toast content</span>');
+let $toastContent = $('<span>I am toast content</span>');
 Materialize.toast($toastContent, 5000);
 Materialize.Toast.removeAll();
 
 // Dialogs - Tooltip
-var tooltipHtml = '<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>';
+let tooltipHtml = '<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>';
 $(tooltipHtml).tooltip();
 $(tooltipHtml).tooltip({ delay: 100 });
 $(tooltipHtml).tooltip('remove');
 
 // DropDown
-var dropDownHtml = '<a class="dropdown-button btn" data-beloworigin="true" href="#" data-activates="dropdown1">Drop Me!</a>';
+let dropDownHtml = '<a class="dropdown-button btn" data-beloworigin="true" href="#" data-activates="dropdown1">Drop Me!</a>';
 $(dropDownHtml).dropdown({
 	inDuration: 300,
 	outDuration: 225,
@@ -72,16 +65,15 @@ $(dropDownHtml).dropdown({
 	belowOrigin: false, // Displays dropdown below the button
 	alignment: 'left', // Displays dropdown with edge aligned to the left of button
 	stopPropagation: false // Stops event propagation
-
 });
 $(dropDownHtml).dropdown({});
 
 // Media - materialbox
-var materialboxHtml = '<img class="materialboxed" width="650" src="images/sample-1.jpg">';
+let materialboxHtml = '<img class="materialboxed" width="650" src="images/sample-1.jpg">';
 $(materialboxHtml).materialbox();
 
 // Media - slider
-var sliderHtml = '<div class="slider">' +
+let sliderHtml = '<div class="slider">' +
 	'<ul class="slides">' +
 	'<li>' +
 	'<img src="http://lorempixel.com/580/250/nature/1"> <!-- random image -->' +
@@ -122,7 +114,6 @@ $(sliderHtml).slider({ indicators: true, height: 5, transition: 4 });
 $(sliderHtml).slider({ indicators: true, height: 5, transition: 4, interval: 5 });
 
 // Carousel
-
 $('.carousel').carousel();
 $('.carousel').carousel({});
 $('.carousel').carousel({ duration: 200, dist: -100, shift: 500, padding: 6000, fullWidth: true, indicators: false, noWrap: false });
@@ -134,9 +125,8 @@ $('.carousel').carousel('next', 3); // Move next n times.
 $('.carousel').carousel('prev');
 $('.carousel').carousel('prev', 4); // Move prev n times.
 
-
 // Modals
-var modalhtml = '<div id="modal1" class="modal bottom-sheet">' +
+let modalhtml = '<div id="modal1" class="modal bottom-sheet">' +
 	'<div class="modal-content">' +
 	'<h4>Modal Header</h4>' +
 	'<p>A bunch of text</p>' +
@@ -148,10 +138,10 @@ var modalhtml = '<div id="modal1" class="modal bottom-sheet">' +
 $(modalhtml).modal('open');
 $(modalhtml).modal('close');
 $(modalhtml).modal('open', {
-	complete: function () { console.log('model close event') } // Callback for Modal close
+	complete: () => console.log('model close event') // Callback for Modal close
 });
 
-var modalTriggerHtml = '<button data-target="modal1" class="btn modal-trigger">Modal</button>';
+let modalTriggerHtml = '<button data-target="modal1" class="btn modal-trigger">Modal</button>';
 $(modalTriggerHtml).modal();
 $(modalTriggerHtml).modal({});
 $(modalTriggerHtml).modal({ dismissible: true });
@@ -161,10 +151,19 @@ $(modalTriggerHtml).modal({ dismissible: true, opacity: 1, inDuration: 100, outD
 $(modalTriggerHtml).modal({ dismissible: true, opacity: 1, inDuration: 100, outDuration: 100, startingTop: "4%" });
 $(modalTriggerHtml).modal({ dismissible: true, opacity: 1, inDuration: 100, outDuration: 100, startingTop: "4%", endingTop: "10%" });
 $(modalTriggerHtml).modal({ dismissible: true, opacity: 1, inDuration: 100, outDuration: 100, startingTop: "4%", endingTop: "10%", ready: () => console.log('ready') });
-$(modalTriggerHtml).modal({ dismissible: true, opacity: 1, inDuration: 100, outDuration: 100, startingTop: "4%", endingTop: "10%", ready: () => console.log('ready'), complete: () => console.log('complete') });
+$(modalTriggerHtml).modal({
+	dismissible: true,
+	opacity: 1,
+	inDuration: 100,
+	outDuration: 100,
+	startingTop: "4%",
+	endingTop: "10%",
+	ready: () => console.log('ready'),
+	complete: () => console.log('complete'),
+});
 
 // Parallax
-var parallaxHtml = '<div class="parallax-container">' +
+let parallaxHtml = '<div class="parallax-container">' +
 	'<div class="parallax"><img src="images/parallax1.jpg"></div>' +
 	'</div>';
 $(parallaxHtml).parallax();
@@ -176,17 +175,16 @@ $('<div />').pushpin({ top: 1, bottom: 1 });
 $('<div />').pushpin({ top: 1, bottom: 1, offset: 2 });
 
 // ScrollFire
-var options = [
+let options = [
 	{ selector: '.class', offset: 200, callback: 'console.log(".class")' },
 	{ selector: '.other-class', offset: 200, callback: 'console.log(".other-class")' },
 ];
 Materialize.scrollFire(options);
 
-
 $(".scrollspy").scrollSpy();
 
 // Side-Nav
-var sideNavHtml = '<nav>' +
+let sideNavHtml = '<nav>' +
 	'<ul class="right hide-on-med-and-down">' +
 	'<li><a href="#!">First Sidebar Link</a></li>' +
 	'<li><a href="#!">Second Sidebar Link</a></li>' +
@@ -203,11 +201,13 @@ $(sideNavHtml).sideNav({ menuWidth: 100 });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right' });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true, draggable: false });
+$(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true, draggable: false, onClose: () => console.log('onClose') });
+$(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true, draggable: false, onClose: () => console.log('onClose'), onOpen: () => console.log('onOpen') });
 $(sideNavHtml).sideNav("show");
 $(sideNavHtml).sideNav("hide");
 
 // Tabs
-var tabsHtml = '<div class="row">' +
+let tabsHtml = '<div class="row">' +
 	'<div class="col s12">' +
 	'<ul class="tabs">' +
 	'<li class="tab col s3"><a href="#test1">Test 1</a></li>' +
@@ -224,7 +224,7 @@ var tabsHtml = '<div class="row">' +
 
 $(tabsHtml).tabs();
 $(tabsHtml).tabs('select_tab', 'test1');
-$(tabsHtml).tabs({ onShow: (currentTab: any) => { console.log(currentTab) }, swipeable: false, responsiveThreshold: 5000 });
+$(tabsHtml).tabs({ onShow: (currentTab: any) => console.log(currentTab), swipeable: false, responsiveThreshold: 5000 });
 
 // Transitions
 Materialize.showStaggeredList('#staggered-test');
@@ -253,18 +253,18 @@ $('.chips-placeholder').material_chip({
 });
 $('.chips-autocomplete').material_chip({
 	autocompleteData: {
-		'Apple': null,
-		'Microsoft': null,
-		'Google': null
+		Apple: null,
+		Microsoft: null,
+		Google: null
 	}
 });
 
 $('.chips-autocomplete').material_chip({
 	autocompleteOptions: {
 		data: {
-			'Apple': null,
-			'Microsoft': null,
-			'Google': null
+			Apple: null,
+			Microsoft: null,
+			Google: null
 		},
 		limit: Infinity,
 		minLength: 1
@@ -282,17 +282,17 @@ $('.timepicker').pickatime({
 	canceltext: 'Cancel', // Text for cancel-button
 	autoclose: false, // automatic close timepicker
 	ampmclickable: true, // make AM PM clickable
-	aftershow: function () { } //Function for after opening timepicker
+	aftershow: () => {} // Function for after opening timepicker
 });
 
 $('input.autocomplete').autocomplete({
 	data: {
-		"Apple": null,
-		"Microsoft": null,
-		"Google": 'https://placehold.it/250x250'
+		Apple: null,
+		Microsoft: null,
+		Google: 'https://placehold.it/250x250'
 	},
 	limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-	onAutocomplete: function (val) {
+	onAutocomplete: (val) => {
 		// Callback function when value is autcompleted.
 	},
 	minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
