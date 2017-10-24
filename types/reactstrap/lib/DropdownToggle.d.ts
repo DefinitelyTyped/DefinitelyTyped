@@ -1,6 +1,9 @@
+import { CSSModule } from '../index';
+
 interface Props {
   caret?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<any>;
   'data-toggle'?: string;

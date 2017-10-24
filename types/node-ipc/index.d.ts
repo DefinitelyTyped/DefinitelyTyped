@@ -1,4 +1,4 @@
-// Type definitions for node-ipc 9.0
+// Type definitions for node-ipc 9.1
 // Project: http://riaevangelist.github.io/node-ipc/
 // Definitions by: Arvitaly <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -261,6 +261,11 @@ declare namespace NodeIPC {
          */
         logDepth: number;
         /**
+         * Default: console.log
+         * The function which receives the output from ipc.log; should take a single string argument
+         */
+        logger(msg: string): void;
+        /**
          * Default: 100
          * This is the max number of connections allowed to a socket. It is currently only being set on Unix Sockets.
          * Other Socket types are using the system defaults
@@ -287,6 +292,13 @@ declare namespace NodeIPC {
          * If set to 0, the client will NOT try to reconnect
          */
         stopRetrying: boolean;
+        /**
+         * Default: true
+         * Defaults to true meaning that the module will take care of deleting the IPC socket prior to startup.
+         * If you use node-ipc in a clustered environment where there will be multiple listeners on the same socket,
+         * you must set this to false and then take care of deleting the socket in your own code.
+         */
+        unlink: boolean;
         /**
          * Primarily used when specifying which interface a client should connect through.
          * see the socket.connect documentation in the node.js api https://nodejs.org/api/net.html#net_socket_connect_options_connectlistener

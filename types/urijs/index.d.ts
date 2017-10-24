@@ -2,6 +2,7 @@
 // Project: https://github.com/medialize/URI.js
 // Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -88,8 +89,10 @@ declare namespace uri {
         relativeTo(path: string): URI;
         removeQuery(qry: string): URI;
         removeQuery(qry: Object): URI;
+        removeQuery(name: string, value: string): URI;
         removeSearch(qry: string): URI;
         removeSearch(qry: Object): URI;
+        removeSearch(name: string, value: string): URI;
         resource(): string;
         resource(resource: string): URI;
 

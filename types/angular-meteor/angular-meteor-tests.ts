@@ -27,6 +27,8 @@ interface CustomScope extends angular.meteor.IScope {
 	removeAll: () => void;
 	removeAuto: (todo: ITodo) => void;
 	toSticky: (todo: ITodo) => void;
+
+	picture: any;
 }
 
 var Todos = new Mongo.Collection<ITodo>('todos');

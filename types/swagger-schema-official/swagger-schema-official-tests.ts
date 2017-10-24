@@ -75,7 +75,7 @@ const petStore: swagger.Spec = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "host": "petstore.swagger.io",
@@ -578,7 +578,7 @@ const externalDocs: swagger.Spec = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "externalDocs": {
@@ -1323,4 +1323,17 @@ const uber: swagger.Spec = {
       }
     }
   }
+};
+
+const basic_auth: swagger.Spec = {
+  "swagger": "2.0",
+  "info": { "version": "1.0.0", "title": "Minimal example with basic auth"},
+  "schemes": [
+    "https"
+  ],
+  "paths": {},
+  "securityDefinitions": {
+    basicAuth: { type: 'basic' },
+  },
+  "security": [{basicAuth: []}]
 };

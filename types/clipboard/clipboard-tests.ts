@@ -16,6 +16,7 @@ const cb5 = new Clipboard('.btn', {
 });
 
 cb1.destroy();
+cb1.isSupported();
 
 cb2.on('success', e => {
     console.info('Action:', e.action);

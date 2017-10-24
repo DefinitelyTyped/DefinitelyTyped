@@ -34,7 +34,7 @@ var eventsListener = (e:any)=> {
 }
 
 function createSipStack(){
-    sipStack = new SIPml.Stack('blaat');
+    sipStack = new SIPml.Stack({ display_name: 'blaat' });
     sipStack = new SIPml.Stack({
             realm: 'example.org', // mandatory: domain name
             impi: 'bob', // mandatory: authorization name (IMS Private Identity)

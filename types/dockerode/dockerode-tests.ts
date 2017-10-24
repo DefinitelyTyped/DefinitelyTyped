@@ -1,4 +1,5 @@
 import * as Docker from 'dockerode';
+import * as fs from 'fs';
 
 // Code samples from Dockerode 'Getting started'
 const docker = new Docker();
@@ -25,6 +26,24 @@ const docker6 = new Docker({
 });
 
 const docker7 = new Docker({
+  host: '192.168.1.10',
+  port: process.env.DOCKER_PORT || 2375,
+  ca: fs.readFileSync('ca.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  key: fs.readFileSync('key.pem'),
+  version: 'v1.25' // required when Docker >= v1.13, https://docs.docker.com/engine/api/version-history/
+});
+
+const docker8 = new Docker({
+  protocol: 'https', // you can enforce a protocol
+  host: '192.168.1.10',
+  port: process.env.DOCKER_PORT || 2375,
+  ca: fs.readFileSync('ca.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  key: fs.readFileSync('key.pem')
+});
+
+const docker9 = new Docker({
   Promise
 });
 
@@ -72,6 +91,10 @@ docker.listContainers().then(containers => {
 
 docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {
   // NOOP
+});
+
+docker.buildImage({context: '.', src: ['Dockerfile', 'test.sh']}, { t: 'imageName' }, (err, response) => {
+	// NOOP
 });
 
 docker.createContainer({ Tty: true }, (err, container) => {
@@ -144,4 +167,37 @@ secret.remove((err, response) => {
 
 secret.update((err, response) => {
   // NOOP
+});
+
+const node = docker.getNode('nodeName');
+node.inspect((err, reponse) => {
+  // NOOP
+});
+
+node.inspect().then(response => {
+  // NOOP
+});
+
+node.update({}, (err, response) => {
+  // NOOP
+});
+
+node.update((err, response) => {
+  // NOOP
+});
+
+node.update({}).then(response => {
+  // NOOP;
+});
+
+node.remove({}, (err, response) => {
+  // NOOP
+});
+
+node.remove((err, response) => {
+  // NOOP
+});
+
+node.remove({}).then(response => {
+  // NOOP;
 });

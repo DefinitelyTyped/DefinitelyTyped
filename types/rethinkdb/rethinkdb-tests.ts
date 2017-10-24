@@ -22,7 +22,7 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
 
     testDb.tableCreate("users").run(conn, function(err, stuff) {
         const users = testDb.table("users");
-
+        users.wait({waitFor: 'ready_for_reads'});
         users.insert({ name: "bob" }).run(conn, function() {
         });
 
@@ -55,6 +55,7 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) 
     console.log("HI", conn);
 
     const testDb = r.db("test");
+    testDb.wait({timeout: 1});
 
     r.table("players").hasFields("games_won").run(conn).then(cursorCallback);
     r.table("players").hasFields({ "games_won": { "championships": true } }).run(conn).then(cursorCallback);

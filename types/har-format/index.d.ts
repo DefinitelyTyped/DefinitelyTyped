@@ -82,7 +82,8 @@ export interface Browser {
  * http://www.softwareishard.com/blog/har-12-spec/#pages
  */
 export interface Page {
-    /** Date and time stamp for the beginning of the page load
+    /**
+     * Date and time stamp for the beginning of the page load
      *
      * (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`,
      * e.g. `2009-07-24T19:20:30.45+01:00`).
@@ -266,19 +267,21 @@ export interface Page {
  * http://www.softwareishard.com/blog/har-12-spec/#pageTimings
  */
 export interface PageTiming {
-    /** Content of the page loaded. Number of milliseconds since page load
+    /**
+     * Content of the page loaded. Number of milliseconds since page load
      * started (`page.startedDateTime`).
      *
      * Use `-1` if the timing does not apply to the current request.
      */
     onContentLoad?: number;
-    /** Page is loaded (`onLoad` event fired). Number of milliseconds since
+    /**
+     * Page is loaded (`onLoad` event fired). Number of milliseconds since
      * page load started (`page.startedDateTime`).
      *
      * Use `-1` if the timing does not apply to the current request.
      */
     onLoad?: number;
-    /**  A comment provided by the user or the application */
+    /** A comment provided by the user or the application */
     comment?: string;
     _startRender?: number;
 }
@@ -562,7 +565,8 @@ export interface Response {
      * of header objects._
      */
     headersSize: number;
-    /** Size of the received response body in bytes.
+    /**
+     * Size of the received response body in bytes.
      *
      * - Set to zero in case of responses coming from the cache (`304`).
      * - Set to `-1` if the info is not available.
@@ -633,12 +637,14 @@ export interface QueryString {
 export interface PostData {
     /** Mime type of posted data. */
     mimeType: string;
-    /** List of posted parameters (in case of URL encoded parameters).
+    /**
+     * List of posted parameters (in case of URL encoded parameters).
      *
      * _`text` and `params` fields are mutually exclusive._
      */
     params: Param[];
-    /** Plain text posted data
+    /**
+     * Plain text posted data
      *
      * _`params` and `text` fields are mutually exclusive._
      */
@@ -733,14 +739,16 @@ export interface Cache {
     comment?: string;
 }
 export interface CacheDetails {
-    /** Expiration time of the cache entry.
+    /**
+     * Expiration time of the cache entry.
      *
      * _(Format not documente but assumingly ISO 8601 -
      * `YYYY-MM-DDThh:mm:ss.sTZD`)_
      */
     expires?: string;
-    /** The last time the cache entry was opened.
-     *    *
+    /**
+     * The last time the cache entry was opened.
+     *
      * _(Format not documente but assumingly ISO 8601 -
      * `YYYY-MM-DDThh:mm:ss.sTZD`)_
      */

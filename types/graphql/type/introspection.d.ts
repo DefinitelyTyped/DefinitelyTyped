@@ -10,7 +10,6 @@ import {
 } from './definition';
 import { GraphQLField } from './definition';
 
-
 export const __Schema: GraphQLObjectType;
 export const __Directive: GraphQLObjectType;
 export const __DirectiveLocation: GraphQLEnumType;
@@ -28,7 +27,7 @@ export const TypeKind: {
     INPUT_OBJECT: 'INPUT_OBJECT',
     LIST: 'LIST',
     NON_NULL: 'NON_NULL',
-}
+};
 
 export const __TypeKind: GraphQLEnumType;
 

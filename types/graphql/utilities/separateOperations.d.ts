@@ -5,4 +5,4 @@ import {
 
 export function separateOperations(
     documentAST: DocumentNode
-): { [operationName: string]: DocumentNode }
+): { [operationName: string]: DocumentNode };

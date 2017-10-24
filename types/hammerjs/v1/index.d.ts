@@ -2,6 +2,7 @@
 // Project: http://eightmedia.github.com/hammer.js/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 /// <reference types="jquery"/>

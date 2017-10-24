@@ -2,12 +2,17 @@
 // Project: https://github.com/chieffancypants/angular-hotkeys
 // Definitions by: Jason Zhao <https://github.com/jlz27>, Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//readme written by David Valentine <https://github.com/dvalenti314/>
+// TypeScript Version: 2.3
+//readme written by David Valentine <https://github.com/dvalenti314>
 
 
 /// <reference types="angular" />
 
 import * as ng from 'angular';
+
+export type HotkeysProvider = ng.hotkeys.HotkeysProvider;
+export type HotkeysProviderChained = ng.hotkeys.HotkeysProviderChained;
+export type Hotkey = ng.hotkeys.Hotkey;
 
 declare module 'angular' {
     export namespace hotkeys {

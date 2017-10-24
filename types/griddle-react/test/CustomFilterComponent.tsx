@@ -22,8 +22,8 @@ const CustomFilterFunction = (items: ResultType[], query: string): ResultType[] 
   });
 };
 
-class CustomFilterComponent extends React.Component<CustomFilterComponentProps, any> {
-  query: string = '';
+class CustomFilterComponent extends React.Component<CustomFilterComponentProps> {
+  query = '';
 
   searchChange(event: React.FormEvent<HTMLInputElement>) {
     this.query = event.currentTarget.value;
@@ -73,7 +73,7 @@ const someData: ResultType[] = [
   }
 ];
 
-class CustomFilterComponentGrid extends React.Component<any, any> {
+class CustomFilterComponentGrid extends React.Component {
   render() {
     type TypedGriddle = new () => Griddle<ResultType>;
     const TypedGriddle = Griddle as TypedGriddle;

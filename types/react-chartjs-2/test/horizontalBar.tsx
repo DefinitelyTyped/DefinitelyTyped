@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {HorizontalBar} from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -16,9 +16,7 @@ const data = {
   ]
 };
 
-export default React.createClass({
-  displayName: 'BarExample',
-
+export default class HorizontalBarExample extends React.Component {
   render() {
     return (
       <div>
@@ -27,4 +25,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

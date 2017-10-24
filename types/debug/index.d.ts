@@ -1,6 +1,8 @@
 // Type definitions for debug
 // Project: https://github.com/visionmedia/debug
-// Definitions by: Seon-Wook Park <https://github.com/swook>, Gal Talmor <https://github.com/galtalmor>
+// Definitions by: Seon-Wook Park <https://github.com/swook>
+//                 Gal Talmor <https://github.com/galtalmor>
+//                 John McLaughlin <https://github.com/zamb3zi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.IDebug;
@@ -16,8 +18,8 @@ declare namespace debug {
         enable: (namespaces: string) => void,
         enabled: (namespaces: string) => boolean,
 
-        names: string[],
-        skips: string[],
+        names: RegExp[],
+        skips: RegExp[],
 
         formatters: IFormatters
     }

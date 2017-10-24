@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import {
   RouterChildContext,
   RouteComponentProps
@@ -13,9 +14,9 @@ interface Params {
 }
 type Props = RouteComponentProps<Params>;
 
-class ComponentThatUsesContext extends React.Component<Props, {}> {
+class ComponentThatUsesContext extends React.Component<Props> {
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   };
   context: RouterChildContext<Params>;
   private onClick = () => {
