@@ -2,17 +2,26 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "react-responsive": [
+                "react-responsive/v1"
+            ],
+            "react-responsive/*": [
+                "react-responsive/v1/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
