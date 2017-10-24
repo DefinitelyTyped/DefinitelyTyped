@@ -2725,7 +2725,7 @@
 /types/pug/                                              @TonyPythoneer @19majkel94
 /types/pulltorefreshjs/                                  @DanielRosenwasser
 /types/pump/                                             @tlaziuk
-/types/puppeteer/                                        @marvinhagemeister
+/types/puppeteer/                                        @marvinhagemeister @cdeutsch
 /types/pure-render-decorator/                            @seansfkelley
 /types/purl/                                             @danfma
 /types/pusher-js/                                        @tkqubo
