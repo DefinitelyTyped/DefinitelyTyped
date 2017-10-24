@@ -837,8 +837,7 @@ function defaultFilter(name: string, func: (...args: any[]) => any) {
 
 function DOMPromisifier(originalMethod: (...args: any[]) => any) {
     // return a function
-    return function promisified() {
-        let args = [].slice.call(arguments);
+    return function promisified(this: object, ...args: any[]) {
         // which returns a promise
         return new Promise((resolve, reject) => {
             args.push(resolve, reject);

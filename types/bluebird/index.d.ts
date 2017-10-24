@@ -777,7 +777,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
    */
   // TODO how to model promisifyAll?
-  static promisifyAll<T extends object>(target: T, options?: Bluebird.PromisifyAllOptions): T;
+  static promisifyAll<T extends object>(target: T, options?: Bluebird.PromisifyAllOptions<T>): T;
 
   /**
    * Returns a promise that is resolved by a node style callback function.
@@ -995,11 +995,11 @@ declare namespace Bluebird {
     context?: any;
     multiArgs?: boolean;
   }
-  interface PromisifyAllOptions extends PromisifyOptions {
+  interface PromisifyAllOptions<T> extends PromisifyOptions {
     suffix?: string;
     filter?(name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean): boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
-    promisifier?(originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;
+    promisifier?(this: T, originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;
   }
   interface CoroutineOptions {
     yieldHandler(value: any): any;
