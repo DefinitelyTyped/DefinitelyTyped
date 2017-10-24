@@ -154,8 +154,6 @@ declare var Buffer: {
     prototype: Buffer;
     /**
      * Allocates a new Buffer using an {array} of octets.
-     *
-     * @param array
      */
     from(array: any[]): Buffer;
     /**
@@ -165,22 +163,16 @@ declare var Buffer: {
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
-     * @param byteOffset
-     * @param length
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?:number): Buffer;
     /**
      * Copies the passed {buffer} data onto a new Buffer instance.
-     *
-     * @param buffer
      */
     from(buffer: Buffer): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
-     *
-     * @param str
      */
     from(str: string, encoding?: string): Buffer;
     /**
@@ -1589,15 +1581,11 @@ declare module "fs" {
 
     /**
      * Asynchronous rename.
-     * @param oldPath
-     * @param newPath
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous rename
-     * @param oldPath
-     * @param newPath
      */
     export function renameSync(oldPath: string, newPath: string): void;
     export function truncate(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
@@ -1642,79 +1630,62 @@ declare module "fs" {
     /**
      * Asynchronous unlink - deletes the file specified in {path}
      *
-     * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function unlink(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous unlink - deletes the file specified in {path}
-     *
-     * @param path
      */
     export function unlinkSync(path: string): void;
     /**
      * Asynchronous rmdir - removes the directory specified in {path}
      *
-     * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rmdir(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous rmdir - removes the directory specified in {path}
-     *
-     * @param path
      */
     export function rmdirSync(path: string): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string, mode?: number): void;
     /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string, mode?: string): void;
     /**
      * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
-     * @param prefix
      * @param callback The created folder path is passed as a string to the callback's second parameter.
      */
     export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
     /**
      * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
-     * @param prefix
      * @returns Returns the created folder path.
      */
     export function mkdtempSync(prefix: string): string;
@@ -1749,8 +1720,6 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
-     * @param encoding
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, encoding: null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
@@ -1759,7 +1728,6 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
@@ -1769,7 +1737,6 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
@@ -1777,15 +1744,11 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param encoding
      */
     export function readFileSync(filename: string, encoding: null): Buffer;
     export function readFileSync(filename: string, encoding: string): string;
@@ -1793,7 +1756,6 @@ declare module "fs" {
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options: { encoding: null; flag?: string; }): Buffer;
@@ -1802,7 +1764,6 @@ declare module "fs" {
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
@@ -1923,9 +1884,6 @@ declare module "path" {
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
-     *
-     * @param from
-     * @param to
      */
     export function relative(from: string, to: string): string;
     /**
