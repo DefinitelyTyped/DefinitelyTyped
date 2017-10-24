@@ -11,6 +11,9 @@ import { MarkupData } from 'parse5';
 import * as tough from 'tough-cookie';
 import { Script } from 'vm';
 
+// Stub declaration when no "dom" lib is present
+export interface DocumentFragment { }
+
 export class JSDOM {
     static fromURL(url: string, options?: FromUrlOptions): Promise<JSDOM>;
 
