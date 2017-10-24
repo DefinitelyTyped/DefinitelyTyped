@@ -348,17 +348,21 @@ class CustomError extends Error {
 	customField: number;
 }
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch(CustomError, reason => {
+fooProm.catch(CustomError, (reason: CustomError) => {
 	let a: number = reason.customField;
 });
 
 class CustomErrorWithConstructor extends Error {
-	constructor(public arg1: boolean, public arg2: number) {
+	arg1: boolean;
+	arg2: number;
+	constructor(arg1: boolean, arg2: number) {
 		super();
+		this.arg1 = arg1;
+		this.arg2 = arg2;
 	}
 }
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch(CustomErrorWithConstructor, reason => {
+fooProm.catch(CustomErrorWithConstructor, (reason: CustomErrorWithConstructor) => {
 	let a: boolean = reason.arg1;
 	let b: number = reason.arg2;
 });
