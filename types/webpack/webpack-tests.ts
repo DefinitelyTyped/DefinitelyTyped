@@ -234,7 +234,7 @@ configuration = {
 
 configuration = {
     resolve: {
-        root: __dirname
+        modules: [__dirname]
     }
 };
 
