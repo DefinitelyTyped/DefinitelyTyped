@@ -208,6 +208,7 @@ declare namespace webpack {
         /** An array of rules applied for modules. */
         rules: Rule[];
     }
+
     type Module = OldModule | NewModule;
 
     interface Resolve {
@@ -1141,6 +1142,7 @@ declare namespace webpack {
              * Execute some code fragment like a module.
              *
              * Don't use require(this.resourcePath), use this function to make loaders chainable!
+             *
              */
             exec(code: string, filename: string): any;
 

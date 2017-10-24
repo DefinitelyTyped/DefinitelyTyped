@@ -47,8 +47,8 @@ export class Query<T> extends Readable implements Promise<T> {
     where(conditions: Object | string): Query<T>;
 
     // Implementing promise methods
-    then<T, never>(onfulfilled?: any | undefined | null): Promise<T | never>;
-    catch<never>(onrejected?: any | undefined | null): Promise<T>;
+    then<T, never>(onfulfilled?: any): Promise<T | never>;
+    catch<never>(onrejected?: any): Promise<T>;
     [Symbol.toStringTag]: "Promise";
 }
 

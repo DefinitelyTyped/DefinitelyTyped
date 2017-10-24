@@ -77,6 +77,7 @@ class F2 {
     const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
     const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
 
+    R.nAry(0);
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
     R.nAry(1, takesTwoArgs);
@@ -1881,6 +1882,15 @@ class Rectangle {
 () => {
     const a: number[][] = R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
     const b: number[][] = R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
+};
+
+() => {
+    R.startsWith("a", "abc");   // => true
+    R.startsWith("a")("abc");   // => true
+    R.startsWith(1, [1, 2, 3]);   // => true
+    R.startsWith(1)([1, 2, 3]);   // => true
+    R.startsWith([1], [1, 2, 3]);   // => true
+    R.startsWith([1])([1, 2, 3]);   // => true
 };
 
 () => {

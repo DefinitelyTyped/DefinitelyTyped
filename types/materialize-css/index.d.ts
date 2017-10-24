@@ -1,8 +1,9 @@
-// Type definitions for materialize-css v0.100.1
+// Type definitions for materialize-css 0.100
 // Project: http://materializecss.com/
 // Definitions by:  Erik Lieben <https://github.com/eriklieben>
 //                  Leon Yu <https://github.com/leonyu>
 //                  Sukhdeep Singh <https://github.com/SinghSukhdeep>
+//                  Jean-Francois Cere <https://github.com/jfcere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,7 +11,6 @@
 /// <reference types="pickadate" />
 
 declare namespace Materialize {
-
 	/**
 	 * The collapsible options
 	 */
@@ -35,8 +35,8 @@ declare namespace Materialize {
 
 	interface TooltipOptions {
 		/**
-		* The delay before the tooltip shows (in milliseconds)
-		*/
+		 * The delay before the tooltip shows (in milliseconds)
+		 */
 		delay: number;
 		/**
 		 * Tooltip text. Can use custom HTML if you set the html option
@@ -60,7 +60,6 @@ declare namespace Materialize {
 	 * The dropdown options
 	 */
 	interface DropDownOptions {
-
 		/**
 		 * The duration of the transition enter in milliseconds.
 		 * @default `300`
@@ -72,7 +71,6 @@ declare namespace Materialize {
 		 * @default `225`
 		 */
 		outDuration?: number;
-
 
 		/**
 		 * If true, constrainWidth to the size of the dropdown activator.
@@ -107,14 +105,13 @@ declare namespace Materialize {
 		 *
 		 * @default `false`
 		 */
-		stopPropagation?: boolean
+		stopPropagation?: boolean;
 	}
 
 	/**
 	 * The slider options
 	 */
 	interface SliderOptions {
-
 		/**
 		 * Set to false to hide slide indicators.
 		 * @default `true`
@@ -191,7 +188,6 @@ declare namespace Materialize {
 	 * The modal options
 	 */
 	interface ModalOptions {
-
 		/**
 		 * Modal can be dismissed by clicking outside of the modal.
 		 * @default `true`
@@ -243,7 +239,6 @@ declare namespace Materialize {
 	 * The push pin options
 	 */
 	interface PushpinOptions {
-
 		/**
 		 * The distance in pixels from the top of the page where the element becomes fixed.
 		 * @default `0`
@@ -288,31 +283,45 @@ declare namespace Materialize {
 	 */
 	interface SideNavOptions {
 		/**
+		 * The sideNav width.
 		 * @default `240`
 		 */
 		menuWidth?: number;
 
 		/**
-		 * The horizontal origin
+		 * The horizontal origin.
 		 * @default `'left'`
 		 */
 		edge?: string;
 
 		/**
-		 * Closes side-nav on <a> clicks, useful for Angular/Meteor
+		 * Closes sideNav on <a> clicks, useful for Angular/Meteor.
 		 * @default `false`
 		 */
 		closeOnClick?: boolean;
 
 		/**
-		 * Choose whether you can drag to open on touch screens
+		 * Choose whether you can drag to open on touch screens.
 		 * @default `true`
 		 */
 		draggable?: boolean;
+
+		/**
+		 * Execute a callback function when sideNav is opened.
+		 *
+		 * The callback provides a parameter which refers to the sideNav being opened.
+		 */
+		onOpen?: Function;
+
+		/**
+		 * Execute a callback function when sideNav is closed.
+		 *
+		 * The callback provides a parameter which refers to the sideNav being closed.
+		 */
+		onClose?: Function;
 	}
 
 	interface ScrollFireOptions {
-
 		/**
 		 * The selector for the element that is being tracked.
 		 */
@@ -357,16 +366,16 @@ declare namespace Materialize {
 	}
 
 	interface ChipDataObject {
-		tag: string,
-		image?: string,
-		id?: number
+		tag: string;
+		image?: string;
+		id?: number;
 	}
 
 	interface ChipOptions {
 		/**
 		 * Set the chip data
 		 */
-		data?: Materialize.ChipDataObject[];
+		data?: ChipDataObject[];
 		/**
 		 * Set first placeholder when there are no tags
 		 */
@@ -386,7 +395,7 @@ declare namespace Materialize {
 		/**
 		 * Set autocompleteOptions
 		 */
-		autocompleteOptions?: Materialize.AutoCompleteOptions;
+		autocompleteOptions?: AutoCompleteOptions;
 	}
 
 	interface AutoCompleteOptions {
@@ -408,7 +417,6 @@ declare namespace Materialize {
 		 * @default `1`
 		 */
 		minLength?: number;
-
 	}
 
 	interface Toast {
@@ -422,7 +430,6 @@ declare namespace Materialize {
 	 * The Materialize object
 	 */
 	interface Materialize {
-
 		/**
 		 * Displays a toast message on screen
 		 *
@@ -462,7 +469,7 @@ declare namespace Materialize {
 		/**
 		 * Toast functions
 		 */
-		Toast: Materialize.Toast;
+		Toast: Toast;
 	}
 }
 
@@ -472,7 +479,7 @@ declare namespace Materialize {
  * @see http://www.typescriptlang.org/docs/handbook/declaration-merging.html
  */
 declare namespace Pickadate {
-	export interface TimeOptions {
+	interface TimeOptions {
 		/**
 		 * Set default time such as : 'now', '1:30AM', '16:30'.
 		 * @default `'now'`
@@ -523,7 +530,6 @@ declare namespace Pickadate {
 declare var Materialize: Materialize.Materialize;
 
 interface JQuery {
-
 	/**
 	 * open Fixed Action Button
 	 */
