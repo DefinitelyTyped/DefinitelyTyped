@@ -839,12 +839,10 @@ function DOMPromisifier(originalMethod: (...args: any[]) => any) {
     // return a function
     return function promisified() {
         let args = [].slice.call(arguments);
-        // Needed so that the original method can be called with the correct receiver
-        let self = this;
         // which returns a promise
         return new Promise((resolve, reject) => {
             args.push(resolve, reject);
-            originalMethod.apply(self, args);
+            originalMethod.apply(this, args);
         });
     };
 }
