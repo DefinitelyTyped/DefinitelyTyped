@@ -5740,7 +5740,7 @@ function JQuery() {
                 return 'myVal';
             });
 
-            // $ExpectType string | number | string[] | undefined
+            // $ExpectType string | number | (string | number)[] | undefined
             $('p').val();
         }
     }
@@ -6049,7 +6049,7 @@ function JQuery() {
         }
 
         function map() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6061,7 +6061,7 @@ function JQuery() {
                 return 'myVal';
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6082,7 +6082,7 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return null;
+                return {} as (HTMLElement | null);
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -6094,7 +6094,7 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return undefined;
+                return {} as (HTMLElement | undefined);
             });
         }
 

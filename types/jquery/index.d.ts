@@ -2959,7 +2959,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
-interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
@@ -4091,7 +4091,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/map/}
      * @since 1.2
      */
-    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
+    map<T>(callback: (this: TElement, index: number, domElement: TElement) => T | T[] | null | undefined): JQuery<T>;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -4769,7 +4769,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @deprecated 3.0
      */
-    ready(handler: ($: JQueryStatic<TElement>) => void): this;
+    ready(handler: ($: JQueryStatic) => void): this;
     /**
      * Remove the set of matched elements from the DOM.
      *
@@ -5301,14 +5301,15 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @since 1.4
      */
-    val(value: string | number | string[] | ((this: TElement, index: number, value: string) => string)): this;
+    val(value: number | JQuery.TypeOrArray<string> | ((this: TElement, index: number, value: string) => string)): this;
+    // HACK: val() will never return number[] but this allows it to be used as a return value for a map function.
     /**
      * Get the current value of the first element in the set of matched elements.
      *
      * @see {@link https://api.jquery.com/val/}
      * @since 1.0
      */
-    val(): string | number | string[] | undefined;
+    val(): JQuery.TypeOrArray<string | number> | undefined;
     /**
      * Set the CSS width of each element in the set of matched elements.
      *
@@ -7665,9 +7666,9 @@ declare namespace JQuery {
 
     // endregion
 
-    interface EventHandler<TCurrentTarget extends EventTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
+    interface EventHandler<TCurrentTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
 
-    interface EventHandlerBase<TContext extends object, T> {
+    interface EventHandlerBase<TContext, T> {
         // Extra parameters can be passed from trigger()
         (this: TContext, t: T, ...args: any[]): void | false | any;
     }
