@@ -20,7 +20,6 @@ let exp: RegExp;
 let anyArr: any[];
 let strArr: string[];
 let numArr: number[];
-let voidVar: void;
 
 // - - - - - - - - - - - - - - - - -
 
@@ -80,8 +79,8 @@ let voidProm: Promise<void>;
 
 let fooProm: Promise<Foo>;
 let barProm: Promise<Bar>;
-let barOrVoidProm: Promise<Bar | void>;
-let fooOrBarProm: Promise<Foo|Bar>;
+let fooOrVoidProm: Promise<Foo | void>;
+let fooOrBarProm: Promise<Foo | Bar>;
 let bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
@@ -220,12 +219,14 @@ barProm = fooProm.then((value: Foo) => {
 }, (reason: any) => {
 	return barProm;
 });
-barOrVoidProm = fooProm.then((value: Foo) => {
+// $ExpectType Bluebird<void | Bar>
+fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return;
 });
-barOrVoidProm = fooProm.then((value: Foo) => {
+// $ExpectType Bluebird<void | Bar>
+fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return voidProm;
@@ -241,43 +242,46 @@ barProm = barProm.then((value: Bar) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooProm = fooProm.catch((reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch((reason: any) => {
 	return;
 });
 
-fooProm = fooProm.caught((reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.caught((reason: any) => {
 	return;
 });
-fooProm = fooProm.catch((error: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch((error: any) => {
 	return true;
 }, (reason: any) => {
 	return;
 });
-fooProm = fooProm.caught((error: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.caught((error: any) => {
 	return true;
 }, (reason: any) => {
 	return;
 });
 
-fooProm = fooProm.catch((reason: any) => {
+fooOrVoidProm = fooProm.catch((reason: any) => {
 	return voidProm;
 });
-
-fooProm = fooProm.caught((reason: any) => {
+fooOrVoidProm = fooProm.caught((reason: any) => {
 	return voidProm;
 });
-fooProm = fooProm.catch((error: any) => {
+fooOrVoidProm = fooProm.catch((error: any) => {
 	return true;
 }, (reason: any) => {
 	return voidProm;
 });
-fooProm = fooProm.caught((error: any) => {
+fooOrVoidProm = fooProm.caught((error: any) => {
 	return true;
 }, (reason: any) => {
 	return voidProm;
 });
 
-fooProm = fooProm.catch((reason: any) => {
+fooOrVoidProm = fooProm.catch((reason: any) => {
 	// handle multiple valid return types simultaneously
 	if (foo === null) {
 		return;
@@ -308,16 +312,20 @@ fooOrBarProm = fooProm.caught((error: any) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooProm = fooProm.catch(Error, (reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(Error, (reason: any) => {
 	return;
 });
-fooProm = fooProm.catch(Promise.CancellationError, (reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(Promise.CancellationError, (reason: any) => {
 	return;
 });
-fooProm = fooProm.caught(Error, (reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.caught(Error, (reason: any) => {
 	return;
 });
-fooProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.caught(Promise.CancellationError, (reason: any) => {
 	return;
 });
 
@@ -339,61 +347,74 @@ fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 class CustomError extends Error {
 	customField: number;
 }
-fooProm = fooProm.catch(CustomError, reason => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomError, reason => {
 	let a: number = reason.customField;
 });
 
-{
-	class CustomErrorWithConstructor extends Error {
-		constructor(public arg1: boolean, public arg2: number) {
-			super();
-		}
+class CustomErrorWithConstructor extends Error {
+	constructor(public arg1: boolean, public arg2: number) {
+		super();
 	}
-	fooProm = fooProm.catch(CustomErrorWithConstructor, reason => {
-		let a: boolean = reason.arg1;
-		let b: number = reason.arg2;
-	});
 }
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomErrorWithConstructor, reason => {
+	let a: boolean = reason.arg1;
+	let b: number = reason.arg2;
+});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-{
-	class CustomError1 extends Error {}
-	class CustomError2 extends Error {}
-	class CustomError3 extends Error {}
-	class CustomError4 extends Error {}
-	class CustomError5 extends Error {}
+class CustomError1 extends Error {}
+class CustomError2 extends Error {}
+class CustomError3 extends Error {}
+class CustomError4 extends Error {}
+class CustomError5 extends Error {}
 
-	fooProm = fooProm.catch(CustomError1, error => {});
-	fooProm = fooProm.catch(CustomError1, CustomError2, error => {});
-	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, error => {});
-	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, error => {});
-	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, CustomError5, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomError1, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomError1, CustomError2, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomError1, CustomError2, CustomError3, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, CustomError5, error => {});
 
-	const booPredicate1 = (error: CustomError1) => true;
-	const booPredicate2 = (error: [number]) => true;
-	const booPredicate3 = (error: string) => true;
-	const booPredicate4 = (error: object) => true;
-	const booPredicate5 = (error: any) => true;
+const booPredicate1 = (error: CustomError1) => true;
+const booPredicate2 = (error: [number]) => true;
+const booPredicate3 = (error: string) => true;
+const booPredicate4 = (error: object) => true;
+const booPredicate5 = (error: any) => true;
 
-	fooProm = fooProm.catch(booPredicate1, error => {});
-	fooProm = fooProm.catch(booPredicate1, booPredicate2, error => {});
-	fooProm = fooProm.catch(booPredicate1, booPredicate2, booPredicate3, error => {});
-	fooProm = fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, error => {});
-	fooProm = fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, booPredicate5, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booPredicate1, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booPredicate1, booPredicate2, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booPredicate1, booPredicate2, booPredicate3, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, booPredicate5, error => {});
 
-	const booObject1 = new CustomError1();
-	const booObject2 = [400, 500];
-	const booObject3 = ["Error1", "Error2"];
-	const booObject4 = {code: 400};
-	const booObject5: any = null;
+const booObject1 = new CustomError1();
+const booObject2 = [400, 500];
+const booObject3 = ["Error1", "Error2"];
+const booObject4 = {code: 400};
+const booObject5: any = null;
 
-	fooProm = fooProm.catch(booObject1, error => {});
-	fooProm = fooProm.catch(booObject1, booObject2, error => {});
-	fooProm = fooProm.catch(booObject1, booObject2, booObject3, error => {});
-	fooProm = fooProm.catch(booObject1, booObject2, booObject3, booObject4, error => {});
-	fooProm = fooProm.catch(booObject1, booObject2, booObject3, booObject4, booObject5, error => {});
-}
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booObject1, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booObject1, booObject2, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booObject1, booObject2, booObject3, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booObject1, booObject2, booObject3, booObject4, error => {});
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch(booObject1, booObject2, booObject3, booObject4, booObject5, error => {});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -433,23 +454,27 @@ fooProm = fooProm.bind(obj);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-voidVar = fooProm.done((value: Foo) => {
+// $ExpectType void
+fooProm.done((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return bar;
 });
-voidVar = fooProm.done((value: Foo) => {
+// $ExpectType void
+fooProm.done((value: Foo) => {
 	return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-voidVar = fooProm.done((value: Foo) => {
+// $ExpectType void
+fooProm.done((value: Foo) => {
 	return barThen;
 }, (reason: any) => {
 	return barThen;
 });
-voidVar = fooProm.done((value: Foo) => {
+// $ExpectType void
+fooProm.done((value: Foo) => {
 	return barThen;
 });
 
@@ -508,7 +533,8 @@ fooProm = fooProm.nodeify((err: any, foo?: Foo) => { }, { spread: true });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-voidVar = fooProm.cancel();
+// $ExpectType void
+fooProm.cancel();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
