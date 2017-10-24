@@ -935,6 +935,14 @@ namespace http_tests {
         request.setNoDelay(true);
         request.abort();
     }
+
+    const reqOptions: http.RequestOptions = {
+        timeout: 30000
+    };
+
+    const clientArgs: http.ClientRequestArgs = {
+        timeout: 30000
+	};
 }
 
 //////////////////////////////////////////////////////
