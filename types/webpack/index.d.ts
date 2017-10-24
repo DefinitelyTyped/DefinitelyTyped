@@ -210,7 +210,7 @@ declare namespace webpack {
     }
     type Module = OldModule | NewModule;
 
-    interface NewResolve {
+    interface Resolve {
         /**
          * A list of directories to resolve modules from.
          *
@@ -307,71 +307,7 @@ declare namespace webpack {
         symlinks?: boolean;
     }
 
-    interface OldResolve {
-        /** Replace modules by other modules or paths. */
-        alias?: { [key: string]: string; };
-        /**
-         * The directory (absolute path) that contains your modules.
-         * May also be an array of directories.
-         * This setting should be used to add individual directories to the search path.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        root?: string | string[];
-        /**
-         * An array of directory names to be resolved to the current directory as well as its ancestors, and searched for modules.
-         * This functions similarly to how node finds “node_modules” directories.
-         * For example, if the value is ["mydir"], webpack will look in “./mydir”, “../mydir”, “../../mydir”, etc.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        modulesDirectories?: string[];
-        /**
-         * A directory (or array of directories absolute paths),
-         * in which webpack should look for modules that weren’t found in resolve.root or resolve.modulesDirectories.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        fallback?: string | string[];
-        /**
-         * An array of extensions that should be used to resolve modules.
-         * For example, in order to discover CoffeeScript files, your array should contain the string ".coffee".
-         */
-        extensions?: string[];
-        /**
-         * Check these fields in the package.json for suitable files.
-         *
-         * @deprecated Replaced by `mainFields` in webpack 2.
-         */
-        packageMains?: Array<string | string[]>;
-
-        /**
-         * Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec
-         *
-         * @deprecated Replaced by `aliasFields` in webpack 2.
-         */
-        packageAlias?: Array<string | string[]>;
-
-        /**
-         * Enable aggressive but unsafe caching for the resolving of a part of your files.
-         * Changes to cached paths may cause failure (in rare cases). An array of RegExps, only a RegExp or true (all files) is expected.
-         * If the resolved path matches, it’ll be cached.
-         *
-         * @deprecated Split into `unsafeCache` and `cachePredicate` in webpack 2.
-         */
-        unsafeCache?: RegExp | RegExp[] | boolean;
-    }
-
-    type Resolve = OldResolve | NewResolve;
-
-    interface OldResolveLoader extends OldResolve {
-        /** It describes alternatives for the module name that are tried.
-         * @deprecated Replaced by `moduleExtensions` in webpack 2.
-         */
-        moduleTemplates?: string[];
-    }
-
-    interface NewResolveLoader extends NewResolve {
+    interface ResolveLoader extends Resolve {
         /**
          * List of strings to append to a loader's name when trying to resolve it.
          */
@@ -379,8 +315,6 @@ declare namespace webpack {
 
         enforceModuleExtension?: boolean;
     }
-
-    type ResolveLoader = OldResolveLoader | NewResolveLoader;
 
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
@@ -723,7 +657,7 @@ declare namespace webpack {
             /** Show which exports of a module are used */
             usedExports?: boolean;
             /** Filter warnings to be shown */
-            warningsFilter?: string | string[] | RegExp | RegExp[] | ((warning: string) => boolean);
+            warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean);
             /** Show performance hint when file size exceeds `performance.maxAssetSize` */
             performance?: boolean;
             /** Show the exports of the modules */
@@ -1091,9 +1025,6 @@ declare namespace webpack {
              * They only care for metadata. The pitch method on the loaders is called from left to right before the loaders are called (from right to left).
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
-             * @param remainingRequest
-             * @param precedingRequest
-             * @param data
              */
             pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
 
@@ -1198,13 +1129,11 @@ declare namespace webpack {
 
             /**
              * Emit a warning.
-             * @param message
              */
             emitWarning(message: string | Error): void;
 
             /**
              * Emit a error.
-             * @param message
              */
             emitError(message: string | Error): void;
 
@@ -1212,24 +1141,16 @@ declare namespace webpack {
              * Execute some code fragment like a module.
              *
              * Don't use require(this.resourcePath), use this function to make loaders chainable!
-             *
-             * @param code
-             * @param filename
              */
             exec(code: string, filename: string): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
-             * @param callback
              */
             resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
              */
             resolveSync(context: string, request: string): string;
 
@@ -1237,7 +1158,6 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             addDependency(file: string): void;
 
@@ -1245,13 +1165,11 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             dependency(file: string): void;
 
             /**
              * Add a directory as dependency of the loader result.
-             * @param directory
              */
             addContextDependency(directory: string): void;
 
@@ -1309,9 +1227,6 @@ declare namespace webpack {
 
             /**
              * Emit a file. This is webpack-specific.
-             * @param name
-             * @param content
-             * @param sourceMap
              */
             emitFile(name: string, content: Buffer | string, sourceMap: any): void;
 
