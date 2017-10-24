@@ -2,7 +2,7 @@
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -76,7 +76,12 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request extends core.Request { }
+    interface Request<
+        Body = any,
+        Query = any,
+        Params = any,
+        Cookies = any
+    > extends core.Request<Body, Query, Params, Cookies> { }
     interface RequestHandler extends core.RequestHandler { }
     interface RequestParamHandler extends core.RequestParamHandler { }
     export interface Response extends core.Response { }
