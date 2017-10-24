@@ -69,7 +69,7 @@ export interface ICallbackFunction {
 }
 
 export declare class Provider {
-    constructor(options: IOptions);
+    constructor(options?: IOptions);
 
     stores: any;
     sources: any[];
