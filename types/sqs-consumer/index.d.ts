@@ -8,27 +8,28 @@
 /// <reference types="node" />
 import { SQS } from "aws-sdk";
 
-export type ConsumerDone = (error?: SQSError) => void;
+declare namespace SQSConsumer {
+    export type ConsumerDone = (error?: Error) => void;
 
-export interface Options {
-    queueUrl: string;
-    handleMessage(message: SQS.Message, done: ConsumerDone): any;
-    region?: string;
-    attributeNames?: string[];
-    messageAttributeNames?: string[];
-    batchSize?: number;
-    visibilityTimeout?: number;
-    waitTimeSeconds?: number;
-    authenticationErrorTimeout?: number;
-    sqs?: SQS;
+    export interface Options {
+        queueUrl: string;
+        handleMessage(message: SQS.Message, done: ConsumerDone): any;
+        region?: string;
+        attributeNames?: string[];
+        messageAttributeNames?: string[];
+        batchSize?: number;
+        visibilityTimeout?: number;
+        waitTimeSeconds?: number;
+        authenticationErrorTimeout?: number;
+        sqs?: SQS;
+    }
 }
-
-declare class SQSError extends Error {}
 
 declare class Consumer extends NodeJS.EventEmitter {
+    constructor(options: SQSConsumer.Options);
     start(): void;
     stop(): void;
-    static create(opts: Options): Consumer;
+    static create(options: SQSConsumer.Options): Consumer;
 }
 
-export default Consumer;
+export = Consumer;

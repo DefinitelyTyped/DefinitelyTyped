@@ -1,4 +1,4 @@
-import Consumer, { ConsumerDone } from "sqs-consumer";
+import Consumer = require("sqs-consumer");
 import { SQS } from "aws-sdk";
 
 const app = Consumer.create({
@@ -20,14 +20,18 @@ const app2 = Consumer.create({
     waitTimeSeconds: 50
 });
 
-// Test message handler.
-const handleMessage = (message: SQS.Message, done: ConsumerDone) => {
-	done();
-};
-
 const app3 = Consumer.create({
 	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-	handleMessage
+	handleMessage(message, done) {
+        done();
+    }
+});
+
+const app4 = new Consumer({
+	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+	handleMessage(message, done) {
+        done();
+    }
 });
 
 app.on('error', (err: any) => {
