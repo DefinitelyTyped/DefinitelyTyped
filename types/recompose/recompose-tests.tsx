@@ -288,7 +288,7 @@ function testWithObservableConfig() {
   mapPropsStreamMost = mapPropsStream;
 
   let createEventHandlerMost = createEventHandlerWithConfig(mostConfig);
-  let { handler: handler, stream: stream } = createEventHandler();
+  const { handler: handler, stream: stream } = createEventHandler();
   createEventHandlerMost = createEventHandler;
 }
 

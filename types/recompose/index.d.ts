@@ -7,8 +7,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as React from 'react';
-import { ComponentType as Component, ComponentClass, EventHandler, StatelessComponent, ValidationMap } from 'react';
+import {
+    ComponentType,
+    ComponentClass,
+    EventHandler,
+    ReactElement,
+    ReactInstance,
+    ReactNode,
+    StatelessComponent,
+    ValidationMap
+} from 'react';
 
 export type mapper<TInner, TOutter> = (input: TInner) => TOutter;
 export type predicate<T> = mapper<T, boolean>;
@@ -31,15 +39,15 @@ export interface Subscribable<T> {
     subscribe(observer: Observer<T>): Subscription;
 }
 
-export type ComponentEnhancer<TInner, TOutter> = (component: Component<TInner>) => ComponentClass<TOutter>;
+export type ComponentEnhancer<TInner, TOutter> = (component: ComponentType<TInner>) => ComponentClass<TOutter>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
     <P extends TInjectedProps>(
-        component: Component<P>
-    ) => React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>;
+        component: ComponentType<P>
+    ) => ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
@@ -171,7 +179,7 @@ export function branch<TOutter>(
 
 // renderComponent: https://github.com/acdlite/recompose/blob/master/docs/API.md#renderComponent
 export function renderComponent<TProps>(
-    component: string | Component<TProps>
+    component: string | ComponentType<TProps>
 ): ComponentEnhancer<any, any>;
 
 // renderNothing: https://github.com/acdlite/recompose/blob/master/docs/API.md#renderNothing
@@ -183,7 +191,7 @@ export function shouldUpdate<TProps>(
 ): InferableComponentEnhancer<{}>;
 
 // pure: https://github.com/acdlite/recompose/blob/master/docs/API.md#pure
-export function pure<TProps>(component: Component<TProps>): Component<TProps>;
+export function pure<TProps>(component: ComponentType<TProps>): ComponentType<TProps>;
 
 // onlyUpdateForKeys: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForKeys
 export function onlyUpdateForKeys(
@@ -218,7 +226,7 @@ export interface ReactLifeCycleFunctionsThisArguments<TProps, TState> {
 
     context: any;
     refs: {
-        [key: string]: React.ReactInstance
+        [key: string]: ReactInstance
     };
 }
 
@@ -268,12 +276,12 @@ export function compose<TInner = {}, TOutter = {}>(
 
 // getDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#getDisplayName
 export function getDisplayName(
-    component: Component<any>
+    component: ComponentType<any>
 ): string;
 
 // wrapDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#wrapDisplayName
 export function wrapDisplayName(
-    component: Component<any>,
+    component: ComponentType<any>,
     wrapperName: string
 ): string;
 
@@ -289,21 +297,21 @@ export function isClassComponent(
 
 // createEagerElement: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEagerElement
 export function createEagerElement(
-    type: Component<any> | string,
+    type: ComponentType<any> | string,
     props?: object,
-    children?: React.ReactNode
-): React.ReactElement<any>;
+    children?: ReactNode
+): ReactElement<any>;
 
 // createEagerFactory: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEagerFactory
-export type componentFactory = (props?: object, children?: React.ReactNode) => React.ReactElement<any>;
+export type componentFactory = (props?: object, children?: ReactNode) => ReactElement<any>;
 export function createEagerFactory(
-    type: Component<any> | string
+    type: ComponentType<any> | string
 ): componentFactory;
 
 // createSink: https://github.com/acdlite/recompose/blob/master/docs/API.md#createSink
 export function createSink(
     callback: (props: object) => void
-): React.ComponentClass<any>; // ???
+): ComponentClass<any>; // ???
 
 // componentFromProp: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentFromProp
 export function componentFromProp(
@@ -312,8 +320,8 @@ export function componentFromProp(
 
 // nest: https://github.com/acdlite/recompose/blob/master/docs/API.md#nest
 export function nest(
-    ...Components: Array<string | Component<any>>
-): React.ComponentClass<any>; // ???
+    ...Components: Array<string | ComponentType<any>>
+): ComponentClass<any>; // ???
 
 // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics
 export function hoistStatics<TProps>(
@@ -324,13 +332,13 @@ export function hoistStatics<TProps>(
 
 // componentFromStream: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentFromStream
 export function componentFromStream<TProps>(
-    propsToReactNode: mapper<Subscribable<TProps>, Subscribable<React.ReactNode>>
-): Component<TProps>; // ???
+    propsToReactNode: mapper<Subscribable<TProps>, Subscribable<ReactNode>>
+): ComponentType<TProps>; // ???
 
 // componentFromStreamWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstreamwithconfig
 export function componentFromStreamWithConfig(config: ObservableConfig): <TProps> (
-    propsToReactNode: mapper<Subscribable<TProps>, Subscribable<React.ReactNode>>
-) => Component<TProps>;
+    propsToReactNode: mapper<Subscribable<TProps>, Subscribable<ReactNode>>
+) => ComponentType<TProps>;
 
 // mapPropsStream: https://github.com/acdlite/recompose/blob/master/docs/API.md#mapPropsStream
 export function mapPropsStream<TInner, TOutter>(
@@ -343,19 +351,19 @@ export function mapPropsStreamWithConfig(config: ObservableConfig): <TInner, TOu
 ) => ComponentEnhancer<TInner, TOutter>;
 
 // createEventHandler: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandler
-export interface EventHandlerOf<T, TSubs extends Subscribable<T>> {
-    handler(value: T): void;
-    stream: TSubs;
+export interface EventHandlerOf {
+    handler(value: any): void;
+    stream: Subscribable<any>;
 }
-export function createEventHandler<T, TSubs extends Subscribable<T>>(): EventHandlerOf<T, TSubs>;
+export function createEventHandler(): EventHandlerOf;
 
 // createEventHandlerWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandlerWithConfig
 export function createEventHandlerWithConfig(config: ObservableConfig):
-    <T, TSubs extends Subscribable<T>>() => EventHandlerOf<T, TSubs>;
+    () => EventHandlerOf;
 
 // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
 export interface ObservableConfig {
-    fromESObservable?<T>(observable: Subscribable<T>): any;
-    toESObservable?<T>(stream: any): Subscribable<T>;
+    fromESObservable?(observable: Subscribable<any>): any;
+    toESObservable?(stream: any): Subscribable<any>;
 }
 export function setObservableConfig(config: ObservableConfig): void;
