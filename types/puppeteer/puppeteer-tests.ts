@@ -41,7 +41,7 @@ import * as puppeteer from "puppeteer";
 // The following examples are taken from the docs itself
 puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
-  page.on("console", (...args) => {
+  page.on("console", (e, ...args) => {
     for (let i = 0; i < args.length; ++i) console.log(`${i}: ${args[i]}`);
   });
   page.evaluate(() => console.log(5, "hello", { foo: "bar" }));
@@ -109,8 +109,8 @@ puppeteer.launch().then(async browser => {
     else interceptedRequest.continue();
   });
 
-  page.type("Hello"); // Types instantly
-  page.type("World", { delay: 100 }); // Types slower, like a user
+  page.type("html", "Hello"); // Types instantly
+  page.type("html", "World", { delay: 100 }); // Types slower, like a user
 
   const watchDog = page.waitForFunction("window.innerWidth < 100");
   page.setViewport({ width: 50, height: 50 });
@@ -128,7 +128,7 @@ puppeteer.launch().then(async browser => {
     await page.goto(currentURL);
   }
 
-  page.type("Hello World!");
+  page.type("input", "Hello World!");
   page.press("ArrowLeft");
 
   page.keyboard.down("Shift");
