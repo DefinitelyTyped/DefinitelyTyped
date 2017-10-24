@@ -36,3 +36,5 @@ $('#container').perfectScrollbar()            // Initialize
 $('#container').perfectScrollbar({ /*...*/ }) // with options
 $('#container').perfectScrollbar('update')    // Update
 $('#container').perfectScrollbar('destroy')   // Destroy
+
+container.addEventListener('ps-x-reach-start', () => { });

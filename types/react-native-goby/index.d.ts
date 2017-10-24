@@ -1,6 +1,6 @@
 // Type definitions for react-native-goby 0.04
 // Project: https://gitlab.com/MessageDream/react-native-goby
-// Definitions by: jaydenzhao <https://github.com/MessageDream/>
+// Definitions by: jaydenzhao <https://github.com/MessageDream>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -139,7 +139,7 @@ export interface SyncOptions {
      * value will enable the dialog with the default strings, and passing an object to this parameter allows enabling the dialog as well as
      * overriding one or more of the default strings.
      */
-    updateDialog?: UpdateDialog;
+    updateDialog?: boolean | UpdateDialog;
 }
 
 export interface UpdateDialog {
@@ -226,7 +226,7 @@ declare namespace Goby {
      * Represents the default settings that will be used by the sync method if
      * an update dialog is configured to be displayed.
      */
-    var DEFAULT_UPDATE_DIALOG: UpdateDialog;
+    const DEFAULT_UPDATE_DIALOG: UpdateDialog;
 
     /**
      * Asks the Goby service whether the configured app deployment has an update available.

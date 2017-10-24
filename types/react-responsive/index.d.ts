@@ -59,7 +59,7 @@ declare module "react-responsive" {
         }
     }
 
-    class MediaQuery extends React.Component<MediaQuery.MediaQueryProps> { }
+    class MediaQuery extends React.Component<MediaQuery.MediaQueryProps, any> { }
     export = MediaQuery;
 
 }

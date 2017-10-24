@@ -1,13 +1,13 @@
 // Type definitions for Restangular v1.5.0
 // Project: https://github.com/mgonto/restangular
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 // Support AMD require (copying angular.d.ts approach)
-// allows for import {IRequestConfig} from 'restangular' ES6 approach
+// allows for import { IRequestConfig } from 'restangular' ES6 approach
 import * as angular from 'angular';
 export = restangular;
 export as namespace Restangular;
@@ -67,7 +67,8 @@ declare namespace restangular {
     setUseCannonicalId(useCannonicalId: boolean): IProvider;
     setEncodeIds(encode: boolean): IProvider;
     setSelfLinkAbsoluteUrl(value: boolean): IProvider;
-    setParentless(value: any) : IProvider;
+    setParentless(value: any): IProvider;
+    setPlainByDefault(isPlain: boolean): IProvider;
   }
 
   interface ICustom {
@@ -121,7 +122,7 @@ declare namespace restangular {
     getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
     getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
     put(queryParams?: any, headers?: any): IPromise<any>;
-    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post(subElement: any, elementToPost?: any, queryParams?: any, headers?: any): IPromise<any>;
     post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;

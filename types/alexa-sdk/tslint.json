@@ -4,6 +4,7 @@
       "object-literal-key-quote": false,
       "no-empty-interface": false,
       "prefer-method-signature": false,
-      "object-literal-key-quotes": false
+      "object-literal-key-quotes": false,
+      "no-any": false
       }
 }

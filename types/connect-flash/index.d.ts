@@ -1,12 +1,13 @@
 // Type definitions for connect-flash
 // Project: https://github.com/jaredhanson/connect-flash
-// Definitions by: Andreas Gassmann <https://github.com/AndreasGassmann/>
+// Definitions by: Andreas Gassmann <https://github.com/AndreasGassmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="express" />
 
 declare namespace Express {
     export interface Request {
+        flash(): { [key: string]: string[] };
         flash(message: string): any;
         flash(event: string, message: string): any;
     }

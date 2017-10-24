@@ -8,19 +8,21 @@ import FormData = require('form-data');
 
 var value: any;
 var str: string;
-var buffer: NodeBuffer;
-var num: number;
+var strOrUndef: string | undefined;
+var strOrTrueOrUndef: string | true | undefined;
+var buffer: NodeBuffer = new Buffer('foo');
+var num: number = 0;
 var bool: boolean;
 var date: Date;
-var obj: Object;
-var dest: string;
+var obj: object;
+var dest: string = 'foo';
 
-var uri: string;
-var headers: {[key: string]: string};
+var uri: string = 'foo-bar';
+var headers: {[key: string]: string} = {};
 
 var agent: http.Agent;
-var write: stream.Writable;
-var req: request.Request;
+var write: stream.Writable = new stream.Writable();
+var req: request.Request = request(uri, function callback() {});
 var form1: FormData;
 
 var bodyArr: request.RequestPart[] = [{
@@ -51,34 +53,39 @@ var bodyArr: request.RequestPart[] = [{
 
 obj = req.toJSON();
 
-var cookieValue: request.CookieValue;
+var cookieValue: request.CookieValue = {
+  name: 'foo',
+  value: 'bar',
+  httpOnly: true
+};
 str = cookieValue.name;
 value = cookieValue.value;
 bool = cookieValue.httpOnly;
 
-var cookie: request.Cookie;
+var cookie: request.Cookie = request.cookie('foo');
 str = cookie.str;
 date = cookie.expires;
 str = cookie.path;
 str = cookie.toString();
 
-var jar: request.CookieJar;
+var jar: request.CookieJar = request.jar();
 jar.setCookie(cookie, uri);
 str = jar.getCookieString(uri);
 var cookies: request.Cookie[] = jar.getCookies(uri);
 
-var aws: request.AWSOptions;
+var aws: request.AWSOptions = { secret: 'foo' };
 str = aws.secret;
-str = aws.bucket;
+strOrUndef = aws.bucket;
 
-var oauth: request.OAuthOptions;
-str = oauth.callback;
-str = oauth.consumer_key;
-str = oauth.consumer_secret;
-str = oauth.token;
-str = oauth.token_secret;
-str = oauth.transport_method;
-str = oauth.verifier;
+var oauth: request.OAuthOptions = { body_hash: 'foo' };
+strOrUndef = oauth.callback;
+strOrUndef = oauth.consumer_key;
+strOrUndef = oauth.consumer_secret;
+strOrUndef = oauth.token;
+strOrUndef = oauth.token_secret;
+strOrUndef = oauth.transport_method;
+strOrUndef = oauth.verifier;
+strOrTrueOrUndef = oauth.body_hash;
 
 var options: request.Options = {
 	url: str,
@@ -115,7 +122,9 @@ var options: request.Options = {
 	pool: value,
 	timeout: num,
 	proxy: value,
-	strictSSL: bool
+	tunnel: bool,
+	strictSSL: bool,
+	rejectUnauthorized: false
 };
 
 // Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
@@ -283,8 +292,9 @@ http.createServer(function (req, resp) {
   }
 });
 
-var resp: http.ServerResponse;
-req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
+http.createServer(function (req, resp) {
+  req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
+});
 
 http.createServer(function (req, resp) {
   if (req.url === '/doodle.png') {
@@ -387,7 +397,7 @@ request.get('http://some.server.com/', {
   }
 });
 // or
-request.get('http://some.server.com/').auth(null, null, true, 'bearerToken');
+request.get('http://some.server.com/').auth('foo', 'bar', true, 'bearerToken');
 // or
 request.get('http://some.server.com/', {
   'auth': {
@@ -458,7 +468,7 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
       { consumer_key: CONSUMER_KEY
       , consumer_secret: CONSUMER_SECRET
       , token: auth_data.oauth_token
-      , token_secret: req_data.oauth_token_secret
+      , token_secret: req_data.oauth_token_secret as string
       , verifier: auth_data.oauth_verifier
       }
     , url = 'https://api.twitter.com/oauth/access_token'

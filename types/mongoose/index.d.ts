@@ -1,6 +1,6 @@
-// Type definitions for Mongoose 4.7.0
+// Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -99,7 +99,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: Object
+  export var STATES: Object;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** The node-mongodb-native driver Mongoose uses. */
@@ -388,6 +388,9 @@ declare module "mongoose" {
 
     /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
     promiseLibrary?: any;
+
+    /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
+    useMongoClient?: boolean;
   }
 
   interface ConnectionOptions extends
@@ -466,6 +469,11 @@ declare module "mongoose" {
     static Messages: Object;
   }
 
+  interface EachAsyncOptions {
+    /** defaults to 1 */
+    parallel?: number;
+  }
+  
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -497,9 +505,20 @@ declare module "mongoose" {
      * Execute fn for every document in the cursor. If fn returns a promise,
      * will wait for the promise to resolve before iterating on to the next one.
      * Returns a promise that resolves when done.
-     * @param callback executed when all docs have been processed
+     * @param fn Function to be executed for every document in the cursor
+     * @param callback Executed when all docs have been processed
      */
     eachAsync(fn: (doc: T) => any, callback?: (err: any) => void): Promise<T>;
+
+    /**
+     * Execute fn for every document in the cursor. If fn returns a promise,
+     * will wait for the promise to resolve before iterating on to the next one.
+     * Returns a promise that resolves when done.
+     * @param fn Function to be executed for every document in the cursor
+     * @param options Async options (e. g. parallel function execution)
+     * @param callback Executed when all docs have been processed
+     */
+    eachAsync(fn: (doc: T) => any, options: EachAsyncOptions, callback?: (err: any) => void): Promise<T>;
 
     /**
      * Registers a transform function which subsequently maps documents retrieved
@@ -625,7 +644,7 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: () => void) => void,
+    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
     pre(method: string, fn: (next: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
@@ -693,7 +712,7 @@ declare module "mongoose" {
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
-    capped?: boolean;
+    capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
     /** no default */
     collection?: string;
     /** defaults to "__t" */
@@ -1304,7 +1323,7 @@ declare module "mongoose" {
     // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
     type ObjectIdConstructor = typeof mongodb.ObjectID & {
       (s?: string | number): mongodb.ObjectID;
-    }
+    };
 
     // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
     //   the ObjectIdConstructor, so we add the interface below
@@ -2195,7 +2214,7 @@ declare module "mongoose" {
 
     /** Provides promise for aggregate. */
     then<TRes>(resolve?: (val: T) =>  void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>
+      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2657,6 +2676,15 @@ declare module "mongoose" {
     sort?: Object;
     /** sets the document fields to return */
     select?: Object;
+    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
+    passRawResult?: boolean;
+    /** overwrites the schema's strict mode option for this update */
+    strict?: boolean;
+    /** 
+     * if true, run all setters defined on the associated model's schema for all fields
+     * defined in the query and the update.
+     */
+    runSettersOnQuery?: boolean;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
@@ -2680,7 +2708,7 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: Object;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[]
+    populate?: ModelPopulateOptions | ModelPopulateOptions[];
   }
 
   interface ModelUpdateOptions {

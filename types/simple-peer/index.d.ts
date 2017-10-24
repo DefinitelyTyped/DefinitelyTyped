@@ -20,9 +20,10 @@ declare namespace SimplePeer {
         answerConstraints?: {}; // custom answer constraints (used by createAnswer method)
         reconnectTimer?: boolean | number; // wait __ milliseconds after ICE 'disconnect' for reconnect attempt before emitting 'close'
         sdpTransform?<T extends any>(sdp: T): T; // function to transform the generated SDP signaling data (for advanced users)
-        stream?: boolean; // if video/voice is desired, pass stream returned from getUserMedia
+        stream?: MediaStream; // if video/voice is desired, pass stream returned from getUserMedia
         trickle?: boolean; // set to false to disable trickle ICE and get a single 'signal' event (slower)
         wrtc?: {}; // RTCPeerConnection/RTCSessionDescription/RTCIceCandidate
+        objectMode?: boolean; // set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects.
     }
 
     // https://github.com/feross/simple-peer/tree/v6.1.5#peer--new-simplepeeropts
@@ -51,7 +52,11 @@ declare namespace SimplePeer {
         send(data: SimplePeerData): void;
 
         // https://github.com/feross/simple-peer/tree/v6.1.5#peersenddata
-        destroy(onclose?: () => void): void;
+        // TODO: https://github.com/feross/simple-peer/issues/187
+        // destroy(onclose?: () => void): void;
+        // https://nodejs.org/api/stream.html#stream_writable_destroy_error
+        // https://nodejs.org/api/stream.html#stream_readable_destroy_error
+        destroy(error?: Error): void;
 
         // methods which are not documented
         readonly bufferSize: number;

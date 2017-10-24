@@ -1,4 +1,5 @@
-import { PropTypes, PureComponent, Validator, Requireable } from 'react'
+import { PureComponent, Validator, Requireable } from 'react'
+import * as PropTypes from 'prop-types'
 
 export type Dimensions = {
     height: number,
@@ -20,6 +21,14 @@ export type AutoSizerProps = {
      * ({ height, width }) => PropTypes.element
      */
     children?: (props: Dimensions) => React.ReactNode
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 };
 /**
  * Decorator component that automatically adjusts the width and height of a single child.

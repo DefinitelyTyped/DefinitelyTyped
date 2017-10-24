@@ -1,5 +1,9 @@
 const myApp = angular.module('testModule', ['ngMaterial']);
 
+interface TestScope extends ng.IScope {
+    [index: string]: any;
+}
+
 myApp.config((
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
@@ -45,12 +49,12 @@ myApp.config((
             return c * t * t + b;
         },
         easeFnIndeterminate(t, b, c, d) {
-            return c * Math.pow(2, 10 * (t / d - 1)) + b;
+            return c * Math.pow(2, (t / d - 1) * 10) + b;
         }
     });
 });
 
-myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
+myApp.controller('BottomSheetController', ($scope: TestScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
             template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
@@ -84,7 +88,7 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
 });
 
-myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
+myApp.controller('ColorController', ($scope: TestScope, $mdColor: ng.material.IColorService) => {
     const colorExpression: ng.material.IColorExpression = { color: '#FFFFFF' };
     const element: Element = new Element();
 
@@ -99,7 +103,7 @@ myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IC
     };
 });
 
-myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService, $q: ng.IQService) => {
+myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.IDialogService, $q: ng.IQService) => {
     $scope['openDialog'] = () => {
         $mdDialog.show({
             template: '<md-dialog>Hello!</md-dialog>'
@@ -201,7 +205,7 @@ class IconDirective implements ng.IDirective {
 }
 myApp.directive('icon-directive', ($mdIcon: ng.material.IIcon) => new IconDirective($mdIcon));
 
-myApp.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.IMedia) => {
+myApp.controller('MediaController', ($scope: TestScope, $mdMedia: ng.material.IMedia) => {
     $scope.$watch(() => $mdMedia('lg'), (big: boolean) => {
         $scope['bigScreen'] = big;
     });
@@ -210,7 +214,7 @@ myApp.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.IM
     $scope['anotherCustom'] = $mdMedia('max-width: 300px');
 });
 
-myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.ISidenavService) => {
+myApp.controller('SidenavController', ($scope: TestScope, $mdSidenav: ng.material.ISidenavService) => {
     const componentId = 'left';
     $scope['toggle'] = () => $mdSidenav(componentId).toggle();
     $scope['open'] = () => $mdSidenav(componentId).open();
@@ -229,7 +233,7 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
     $scope['onClose'] = $mdSidenav(componentId).onClose(() => { });
 });
 
-myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService, $q: ng.IQService) => {
+myApp.controller('ToastController', ($scope: TestScope, $mdToast: ng.material.IToastService, $q: ng.IQService) => {
     $scope['openToast'] = () => {
         $mdToast.show($mdToast.simple().textContent('Hello!'));
         $mdToast.updateTextContent('New Content');
@@ -260,7 +264,49 @@ myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IT
     };
 });
 
-myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService, $q: ng.IQService) => {
+myApp.controller('ThemeController', ($element: JQuery, $scope: TestScope, $mdTheming: ng.material.IThemingService) => {
+    $mdTheming($element);
+
+    const PALETTES: ng.material.IConfiguredColorPalette = $mdTheming.PALETTES;
+    const redPalette: ng.material.IPalette = PALETTES.red;
+    const myPalette: ng.material.IPalette = PALETTES.myPalette;
+    const THEMES: ng.material.IConfiguredThemes = $mdTheming.THEMES;
+    const defaultTheme: ng.material.ITheme = THEMES.default;
+    const myTheme: ng.material.ITheme = THEMES.myTheme;
+
+    $scope['registered'] = () => {
+        let registered: boolean = $mdTheming.registered('default');
+        registered = $mdTheming.registered('myTheme');
+    };
+
+    $scope['defaultTheme'] = () => {
+        const themeName: string = $mdTheming.defaultTheme();
+    };
+
+    $scope['generateTheme'] = () => {
+        $mdTheming.generateTheme('myTheme');
+    };
+
+    $scope['setBrowserColors'] = () => {
+        const browserColors: ng.material.IBrowserColors = {
+            theme: 'default',
+            palette: 'neonRed',
+            hue: '500'
+        };
+        const remove: () => void = $mdTheming.setBrowserColor(browserColors);
+    };
+
+    $scope['defineTheme'] = () => {
+        const newTheme: ng.material.IDefineThemeOptions = {
+            primary: 'blue',
+            accent: 'orange',
+            dark: true
+        };
+        $mdTheming.defineTheme('newTheme', newTheme);
+    };
+});
+
+myApp.controller('PanelController', ($scope: TestScope, $mdPanel: ng.material.IPanelService, $q: ng.IQService) => {
     $scope['createPanel'] = () => {
         const config: ng.material.IPanelConfig = {
             id: 'myPanel',

@@ -1,8 +1,8 @@
 // Type definitions for Egg 1.x
 // Project: https://github.com/eggjs/egg
-// Definitions by: Eward Song <https://github.com/sheperdwind/>
+// Definitions by: Eward Song <https://github.com/sheperdwind>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as accepts from 'accepts';
 import * as KoaApplication from 'koa';
@@ -51,14 +51,12 @@ interface Request extends KoaApplication.Request { // tslint:disable-line
    * 2. response type is set to json
    * 3. detect by request accept header
    *
-   * @member {Boolean} Request#acceptJSON
    * @since 1.0.0
    */
   acceptJSON: boolean;
 
   /**
    * Request remote IPv4 address
-   * @member {String} Request#ip
    * @example
    * ```js
    * this.request.ip
@@ -72,7 +70,6 @@ interface Request extends KoaApplication.Request { // tslint:disable-line
    * Get all pass through ip addresses from the request.
    * Enable only on `app.config.proxy = true`
    *
-   * @member {Array} Request#ips
    * @example
    * ```js
    * this.request.ips
@@ -85,7 +82,6 @@ interface Request extends KoaApplication.Request { // tslint:disable-line
 
   /**
    * get params pass by querystring, all value are Array type. {@link Request#query}
-   * @member {Array} Request#queries
    * @example
    * ```js
    * GET http://127.0.0.1:7001?a=b&a=c&o[foo]=bar&b[]=1&b[]=2&e=val
@@ -103,7 +99,6 @@ interface Request extends KoaApplication.Request { // tslint:disable-line
 
   /**
    * get params pass by querystring, all value are String type.
-   * @member {Object} Request#query
    * @example
    * ```js
    * GET http://127.0.0.1:7001?name=Foo&age=20&age=21
@@ -132,7 +127,6 @@ interface Response extends KoaApplication.Response { // tslint:disable-line
    * instead of show current 500 status page.
    * And access log should save 500 not 302,
    * then the `realStatus` can help us find out the real status code.
-   * @member {Number} Context#realStatus
    */
   realStatus: number;
 }
@@ -140,19 +134,19 @@ interface Response extends KoaApplication.Response { // tslint:disable-line
 interface ContextView { // tslint:disable-line
   /**
    * Render a file by view engine
-   * @param {String} name - the file path based on root
-   * @param {Object} [locals] - data used by template
-   * @param {Object} [options] - view options, you can use `options.viewEngine` to specify view engine
-   * @return {Promise<String>} result - return a promise with a render result
+   * @param name - the file path based on root
+   * @param [locals] - data used by template
+   * @param [options] - view options, you can use `options.viewEngine` to specify view engine
+   * @return result - return a promise with a render result
    */
   render(name: string, locals: any, options?: any): Promise<string>;
 
   /**
    * Render a template string by view engine
-   * @param {String} tpl - template string
-   * @param {Object} [locals] - data used by template
-   * @param {Object} [options] - view options, you can use `options.viewEngine` to specify view engine
-   * @return {Promise<String>} result - return a promise with a render result
+   * @param tpl - template string
+   * @param [locals] - data used by template
+   * @param [options] - view options, you can use `options.viewEngine` to specify view engine
+   * @return result - return a promise with a render result
    */
   renderString(name: string, locals: any, options?: any): Promise<string>;
 }
@@ -162,60 +156,79 @@ export type LoggerLevel = 'DEBUG' | 'INFO' | 'WARN' | 'ERROR' | 'NONE';
 export interface EggAppConfig {
   workerStartTimeout: number;
   baseDir: string;
-  /**
-   * The option of `bodyParser` middleware
-   *
-   * @member Config#bodyParser
-   * @property {Boolean} enable - enable bodyParser or not, default to true
-   * @property {String | RegExp | Function | Array} ignore - won't parse request body when url path hit ignore pattern, can not set `ignore` when `match` presented
-   * @property {String | RegExp | Function | Array} match - will parse request body only when url path hit match pattern
-   * @property {String} encoding - body encoding config, default utf8
-   * @property {String} formLimit - form body size limit, default 100kb
-   * @property {String} jsonLimit - json body size limit, default 100kb
-   * @property {Boolean} strict - json body strict mode, if set strict value true, then only receive object and array json body
-   * @property {Number} queryString.arrayLimit - from item array length limit, default 100
-   * @property {Number} queryString.depth - json value deep lenght, default 5
-   * @property {Number} queryString.parameterLimit - paramter number limit ,default 1000
-   */
   bodyParser: {
+    /**
+     * enable bodyParser or not
+     * @default true
+     */
     enable: boolean;
+    /**
+     * body encoding config
+     * @default utf8
+     */
     encoding: string;
+    /**
+     * form body size limit
+     * @default 100kb
+     */
     formLimit: string;
+    /**
+     * json body size limit
+     * @default 100kb
+     */
     jsonLimit: string;
+    /** json body strict mode, if set strict value true, then only receive object and array json body */
     strict: true;
     queryString: {
+      /**
+       * from item array length limit
+       * @default 100
+       */
       arrayLimit: number;
+      /**
+       * json value deep lenght
+       * @default 5
+       */
       depth: number;
+      /**
+       * paramter number limit
+       * @default 1000
+       */
       parameterLimit: number;
     };
   };
 
-  /**
-   * logger options
-   * @member Config#logger
-   * @property {String} dir - directory of log files
-   * @property {String} encoding - log file encloding, defaults to utf8
-   * @property {String} level - default log level, could be: DEBUG, INFO, WARN, ERROR or NONE, defaults to INFO in production
-   * @property {String} consoleLevel - log level of stdout, defaults to INFO in local serverEnv, defaults to WARN in unittest, defaults to NONE elsewise
-   * @property {Boolean} outputJSON - log as JSON or not, defaults to false
-   * @property {Boolean} buffer - if enabled, flush logs to disk at a certain frequency to improve performance, defaults to true
-   * @property {String} errorLogName - file name of errorLogger
-   * @property {String} coreLogName - file name of coreLogger
-   * @property {String} agentLogName - file name of agent worker log
-   * @property {Object} coreLogger - custom config of coreLogger
-   */
   logger: {
+    /** directory of log files */
     dir: string;
+    /**
+     * log file encloding
+     * @default utf8
+     */
     encoding: string;
     env: string;
+    /**
+     * default log level, could be: DEBUG, INFO, WARN, ERROR or NONE
+     * @default INFO in production
+     */
     level: LoggerLevel;
+    /**
+     * log level of stdout
+     * @default INFO in local serverEnv, WARN in unittest, NONE elsewise
+     */
     consoleLevel: LoggerLevel;
+    /** log as JSON or not, defaults to false */
     outputJSON: boolean;
+    /** if enabled, flush logs to disk at a certain frequency to improve performance, defaults to true */
     buffer: boolean;
     appLogName: string;
+    /** file name of coreLogger */
     coreLogName: string;
+    /** file name of agent worker log */
     agentLogName: string;
+    /** file name of errorLogger */
     errorLogName: string;
+    /** custom config of coreLogger */
     coreLogger: any;
   };
 
@@ -292,18 +305,20 @@ export interface EggAppConfig {
    */
   ipHeaders: string;
 
-  /**
-   * jsonp options
-   * @member Config#jsonp
-   * @property {String} callback - jsonp callback method key, default to `_callback`
-   * @property {Number} limit - callback method name's max length, default to `50`
-   * @property {Boolean} csrf - enable csrf check or not. default to false
-   * @property {String|RegExp|Array} whiteList - referrer white list
-   */
   jsonp: {
+    /**
+     * callback method name's max length
+     * @default 50
+     */
     limit: number;
+    /**
+     * jsonp callback method key
+     * @default `_callback`
+     */
     callback: string;
+    /** enable csrf check or not. default to false */
     csrf: boolean;
+    /** referrer white list */
     whiteList: string | RegExp | Array<string | RegExp>;
   };
 
@@ -356,8 +371,8 @@ export interface Router extends KoaRouter {
   resources(name: string, prefix: string, middleware: any): Router;
 
   /**
-   * @param {String} name - Router name
-   * @param {Object} params - more parameters
+   * @param name - Router name
+   * @param params - more parameters
    * @example
    * ```js
    * router.url('edit_post', { id: 1, name: 'foo', page: 2 })
@@ -365,7 +380,7 @@ export interface Router extends KoaRouter {
    * router.url('posts', { name: 'foo&1', page: 2 })
    * => /posts?name=foo%261&page=2
    * ```
-   * @return {String} url by path name and query params.
+   * @return url by path name and query params.
    * @since 1.0.0
    */
   url(name: string, params: any): any;
@@ -410,7 +425,6 @@ declare interface EggApplication extends KoaApplication { // tslint:disable-line
   /**
    * Logger for Application, wrapping app.coreLogger with context infomation
    *
-   * @member {ContextLogger} Context#logger
    * @since 1.0.0
    * @example
    * ```js
@@ -462,7 +476,7 @@ declare interface EggApplication extends KoaApplication { // tslint:disable-line
    *
    * If error is thrown when it's closing, the promise will reject.
    * It will also reject after following call.
-   * @return {Promise} promise
+   * @return promise
    * @since 1.0.0
    */
   close(): Promise<any>;
@@ -605,7 +619,6 @@ export interface Context extends KoaApplication.Context {
    * 设置返回资源对象
    * set the ctx.body.data value
    *
-   * @member {Object} Context#data=
    * @example
    * ```js
    * ctx.data = {
@@ -677,7 +690,6 @@ export interface Context extends KoaApplication.Context {
    *
    * `ctx.locals` has cache, it only merges `app.locals` once in one request.
    *
-   * @member {Object} Context#locals
    */
   locals: any;
 
@@ -689,7 +701,6 @@ export interface Context extends KoaApplication.Context {
   /**
    * Logger for Application, wrapping app.coreLogger with context infomation
    *
-   * @member {ContextLogger} Context#logger
    * @since 1.0.0
    * @example
    * ```js
@@ -718,19 +729,19 @@ export interface Context extends KoaApplication.Context {
 
   /**
    * Render a file by view engine
-   * @param {String} name - the file path based on root
-   * @param {Object} [locals] - data used by template
-   * @param {Object} [options] - view options, you can use `options.viewEngine` to specify view engine
-   * @return {Promise<String>} result - return a promise with a render result
+   * @param name - the file path based on root
+   * @param [locals] - data used by template
+   * @param [options] - view options, you can use `options.viewEngine` to specify view engine
+   * @return result - return a promise with a render result
    */
   render(name: string, locals: any, options?: any): Promise<string>;
 
   /**
    * Render a template string by view engine
-   * @param {String} tpl - template string
-   * @param {Object} [locals] - data used by template
-   * @param {Object} [options] - view options, you can use `options.viewEngine` to specify view engine
-   * @return {Promise<String>} result - return a promise with a render result
+   * @param tpl - template string
+   * @param [locals] - data used by template
+   * @param [options] - view options, you can use `options.viewEngine` to specify view engine
+   * @return result - return a promise with a render result
    */
   renderString(name: string, locals: any, options?: any): Promise<string>;
 
@@ -745,8 +756,7 @@ export interface Context extends KoaApplication.Context {
    * // get other fields
    * console.log(stream.fields);
    * ```
-   * @method Context#getFileStream
-   * @return {ReadStream} stream
+   * @return stream
    * @since 1.0.0
    */
   getFileStream(): Promise<FileStream>;

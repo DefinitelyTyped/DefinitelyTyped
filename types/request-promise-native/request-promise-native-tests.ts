@@ -1,4 +1,5 @@
 import * as rpn from 'request-promise-native';
+import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
 
 rpn('http://www.google.com')
@@ -12,7 +13,7 @@ let options: rpn.Options = {
   body: { some: 'payload' }
 };
 
-let j = rpn.jar();
+const j = rpn.jar();
 
 rpn(options)
   .then(console.dir)
@@ -88,27 +89,31 @@ rpn
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    if (req.method === 'PUT') {
-      req.pipe(rpn.put('http://mysite.com/doodle.png'));
-    } else if (req.method === 'GET' || req.method === 'HEAD') {
-      rpn.get('http://mysite.com/doodle.png').pipe(resp);
+    switch (req.method) {
+      case 'PUT':
+        req.pipe(rpn.put('http://mysite.com/doodle.png'));
+        break;
+      case 'GET':
+      case 'HEAD':
+        rpn.get('http://mysite.com/doodle.png').pipe(resp);
+        break;
     }
   }
 });
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    let x = rpn('http://mysite.com/doodle.png');
+    const x = rpn('http://mysite.com/doodle.png');
     req.pipe(x);
     x.pipe(resp);
   }
 });
 
-let resp: http.ServerResponse;
-let req: rpn.RequestPromise;
+declare const resp: http.ServerResponse;
+declare const req: rpn.RequestPromise;
 req.pipe(rpn('http://mysite.com/doodle.png')).pipe(resp);
 
-let r = rpn;
+const r = rpn;
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
     r.get('http://google.com/doodle.png').pipe(resp);
@@ -121,7 +126,7 @@ rpn.post('http://service.com/upload').form({ key: 'value' });
 // or
 rpn.post({ url: 'http://service.com/upload', form: { key: 'value' } }, (err, httpResponse, body) => { /* ... */ });
 
-let data = {
+const data = {
   // Pass a simple key-value pair
   my_field: 'my_value',
   // Pass data via Buffers
@@ -146,13 +151,14 @@ let data = {
 };
 rpn.post({ url: 'http://service.com/upload', formData: data }, function optionalCallback(err, httpResponse, body) {
   if (err) {
-    return console.error('upload failed:', err);
+    console.error('upload failed:', err);
+    return;
   }
   console.log('Upload successful!  Server responded with:', body);
 });
 
-let requestMultipart = rpn.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) { });
-let form = requestMultipart.form();
+const requestMultipart = rpn.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) { });
+const form = requestMultipart.form();
 form.append('my_field', 'my_value');
 form.append('my_buffer', new Buffer([1, 2, 3]));
 form.append('custom_file', fs.createReadStream(__dirname + '/unicycle.jpg'), { filename: 'unicycle.jpg' });
@@ -175,7 +181,8 @@ rpn({
 },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -195,7 +202,8 @@ rpn({
 },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -218,9 +226,9 @@ rpn.get('http://some.server.com/', {
   }
 });
 
-let username = 'username';
-let password = 'password';
-let url = 'http://' + username + ':' + password + '@some.server.com';
+const username = 'username';
+const password = 'password';
+let url = `http://${username}:${password}@some.server.com`;
 
 rpn({ url }, (error, response, body) => {
   // Do more stuff with 'body' here
@@ -235,7 +243,7 @@ options = {
 
 function callback(error: any, response: http.IncomingMessage, body: string) {
   if (!error && response.statusCode === 200) {
-    let info = JSON.parse(body);
+    const info = JSON.parse(body);
     console.log(info.stargazers_count + " Stars");
     console.log(info.forks_count + " Forks");
   }
@@ -248,7 +256,7 @@ rpn(options, callback);
 import * as qs from 'querystring';
 const CONSUMER_KEY = 'key';
 const CONSUMER_SECRET = 'secret';
-let oauth = {
+const oauth = {
   callback: 'http://mysite.com/callback/',
   consumer_key: CONSUMER_KEY,
   consumer_secret: CONSUMER_SECRET,
@@ -263,27 +271,26 @@ rpn.post({ url, oauth }, (e, r, body) => {
   // verified with twitter that they are authorizing your app.
 
   // step 2
-  let req_data = qs.parse(body);
-  let uri = 'https://api.twitter.com/oauth/authenticate'
-    + '?' + qs.stringify({ oauth_token: req_data.oauth_token });
+  const req_data = qs.parse(body);
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({ oauth_token: req_data.oauth_token })}`;
   // redirect the user to the authorize uri
 
   // step 3
   // after the user is redirected back to your server
-  let auth_data: any = qs.parse(body);
-  let oauth = {
+  const auth_data: any = qs.parse(body);
+  const oauth = {
     consumer_key: CONSUMER_KEY,
     consumer_secret: CONSUMER_SECRET,
     token: auth_data.oauth_token,
-    token_secret: req_data.oauth_token_secret,
+    token_secret: req_data.oauth_token_secret as string,
     verifier: auth_data.oauth_verifier,
   };
   url = 'https://api.twitter.com/oauth/access_token';
 
   rpn.post({ url, oauth }, (e, r, body) => {
     // ready to make signed requests on behalf of the user
-    let perm_data: any = qs.parse(body);
-    let oauth = {
+    const perm_data: any = qs.parse(body);
+    const oauth = {
       consumer_key: CONSUMER_KEY,
       consumer_secret: CONSUMER_SECRET,
       token: perm_data.oauth_token,
@@ -291,7 +298,7 @@ rpn.post({ url, oauth }, (e, r, body) => {
     };
 
     url = 'https://api.twitter.com/1.1/users/show.json';
-    let query = {
+    const query = {
       screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
@@ -301,9 +308,9 @@ rpn.post({ url, oauth }, (e, r, body) => {
   });
 });
 
-let certFile = path.resolve(__dirname, 'ssl/client.crt');
-let keyFile = path.resolve(__dirname, 'ssl/client.key');
-let caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+const certFile = path.resolve(__dirname, 'ssl/client.crt');
+const keyFile = path.resolve(__dirname, 'ssl/client.key');
+const caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
   url: 'https://api.some-server.com/',
@@ -375,13 +382,13 @@ rpn({
 });
 
 // requests using baseRequest() will set the 'x-token' header
-let baseRequest = rpn.defaults({
+const baseRequest = rpn.defaults({
   headers: { 'x-token': 'my-token' }
 });
 
 // requests using specialRequest() will include the 'x-token' header set in
 // baseRequest and will also include the 'special' header
-let specialRequest = baseRequest.defaults({
+const specialRequest = baseRequest.defaults({
   headers: { special: 'special value' }
 });
 
@@ -403,7 +410,7 @@ rpn.get('http://10.255.255.1', { timeout: 1500 }, (err) => {
   process.exit(0);
 });
 
-let rand = Math.floor(Math.random() * 100000000).toString();
+const rand = Math.floor(Math.random() * 100000000).toString();
 rpn(
   {
     method: 'PUT',
@@ -445,7 +452,7 @@ rpn(
     // unmodified http.IncomingMessage object
     response.on('data', (data: any[]) => {
       // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data');
+      console.log(`received ${data.length} bytes of compressed data`);
     });
   });
 
@@ -459,7 +466,7 @@ requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-let cookie = rpn.cookie('key1=value1');
+const cookie = rpn.cookie('key1=value1');
 url = 'http://www.google.com';
 j.setCookie(cookie, url);
 rpn({ url, jar: j }, () => {
@@ -467,16 +474,16 @@ rpn({ url, jar: j }, () => {
 });
 
 // TODO: add definitions for tough-cookie-filestore
-// let FileCookieStore = require('tough-cookie-filestore');
+// const FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
-// let j = request.jar(new FileCookieStore('cookies.json'));
+// const j = request.jar(new FileCookieStore('cookies.json'));
 requestWithJar = rpn.defaults({ jar: j });
 rpn('http://www.google.com', () => {
   rpn('http://images.google.com');
 });
 
 rpn({ url: 'http://www.google.com', jar: j }, () => {
-  let cookie_string = j.getCookieString(url); // "key1=value1; key2=value2; ..."
-  let cookies = j.getCookies(url);
+  const cookie_string = j.getCookieString(url); // "key1=value1; key2=value2; ..."
+  const cookies = j.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });

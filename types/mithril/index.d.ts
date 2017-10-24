@@ -21,9 +21,9 @@ declare function request <T>(options: Mithril.RequestOptions<T> & { url: string 
 declare function request <T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
 
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>;
+declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // tslint:disable-line:no-unnecessary-generics
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>;
+declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // tslint:disable-line:no-unnecessary-generics
 
 /** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
 declare function withAttr(name: string, callback: (value: any) => any): (e: { currentTarget: any, [p: string]: any }) => void;
@@ -65,7 +65,7 @@ declare namespace Mithril {
 
 	interface RouteResolver<Attrs, State> {
 		/** The onmatch hook is called when the router needs to find a component to render. */
-		onmatch?(this: this, args: Attrs, requestedPath: string): Component<any, any> | Promise<any> | void;
+		onmatch?(this: this, args: Attrs, requestedPath: string): ComponentTypes<any, any> | Promise<any> | void;
 		/** The render method is called on every redraw for a matching route. */
 		render?(this: this, vnode: Vnode<Attrs, State>): Children;
 	}
@@ -116,7 +116,7 @@ declare namespace Mithril {
 		/** Whether to send cookies to 3rd party domains. */
 		withCredentials?: boolean;
 		/** Exposes the underlying XMLHttpRequest object for low-level configuration. */
-		config?(xhr: XMLHttpRequest): any;
+		config?(xhr: XMLHttpRequest, options: this): XMLHttpRequest | void;
 		/** Headers to append to the request before sending it. */
 		headers?: { [key: string]: string };
 		/** A constructor to be applied to each object in the response. */
@@ -175,7 +175,7 @@ declare namespace Mithril {
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
 	interface Vnode<Attrs, State extends Lifecycle<Attrs, State>> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
-		tag: string | Component<Attrs, State>;
+		tag: string | ComponentTypes<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
 		attrs: Attrs;
 		/** An object that is persisted between redraws. In component vnodes, state is a shallow clone of the component object. */

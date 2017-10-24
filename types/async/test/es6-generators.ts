@@ -1,6 +1,6 @@
 function* collectionGenerator<T>(): IterableIterator<T> { }
 
-function funcMapIterator<T, E>(value: T, callback: AsyncResultCallback<T, E>) { }
+function funcMapIterator<T, E>(value: T, callback: async.AsyncResultCallback<T, E>) { }
 function funcMapComplete<T, E>(error: E, results: T[]) { }
 
 function booleanIterator<T>(v: T, cb: (err: Error, res: boolean) => void) { }

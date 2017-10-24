@@ -1,6 +1,6 @@
 // Type definitions for Express 4.x
 // Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -174,7 +174,12 @@ interface RequestRanges extends Array<ByteRange> { type: string; }
 
 interface Errback { (err: Error): void; }
 
-interface Request extends http.IncomingMessage, Express.Request {
+interface Request<
+    Body = any,
+    Query = any,
+    Params = any,
+    Cookies = any
+> extends http.IncomingMessage, Express.Request {
 
     /**
         * Return request header.
@@ -197,8 +202,10 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param name
         */
+    get(name: "set-cookie"): string[] | undefined;
     get(name: string): string | undefined;
 
+    header(name: "set-cookie"): string[] | undefined;
     header(name: string): string | undefined;
 
     /**
@@ -239,9 +246,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         *     // => "json"
         */
     accepts(): string[];
-    accepts(type: string): string | boolean;
-    accepts(type: string[]): string | boolean;
-    accepts(...type: string[]): string | boolean;
+    accepts(type: string): string | false;
+    accepts(type: string[]): string | false;
+    accepts(...type: string[]): string | false;
 
     /**
         * Returns the first accepted charset of the specified character sets,
@@ -252,9 +259,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         * @param charset
         */
     acceptsCharsets(): string[];
-    acceptsCharsets(charset: string): string | boolean;
-    acceptsCharsets(charset: string[]): string | boolean;
-    acceptsCharsets(...charset: string[]): string | boolean;
+    acceptsCharsets(charset: string): string | false;
+    acceptsCharsets(charset: string[]): string | false;
+    acceptsCharsets(...charset: string[]): string | false;
 
     /**
         * Returns the first accepted encoding of the specified encodings,
@@ -265,9 +272,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         * @param encoding
         */
     acceptsEncodings(): string[];
-    acceptsEncodings(encoding: string): string | boolean;
-    acceptsEncodings(encoding: string[]): string | boolean;
-    acceptsEncodings(...encoding: string[]): string | boolean;
+    acceptsEncodings(encoding: string): string | false;
+    acceptsEncodings(encoding: string[]): string | false;
+    acceptsEncodings(...encoding: string[]): string | false;
 
     /**
         * Returns the first accepted language of the specified languages,
@@ -279,9 +286,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         * @param lang
         */
     acceptsLanguages(): string[];
-    acceptsLanguages(lang: string): string | boolean;
-    acceptsLanguages(lang: string[]): string | boolean;
-    acceptsLanguages(...lang: string[]): string | boolean;
+    acceptsLanguages(lang: string): string | false;
+    acceptsLanguages(lang: string[]): string | false;
+    acceptsLanguages(...lang: string[]): string | false;
 
     /**
         * Parse Range header field,
@@ -349,7 +356,7 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param type
         */
-    is(type: string): boolean;
+    is(type: string): string | false;
 
     /**
         * Return the protocol string "http" or "https"
@@ -433,14 +440,14 @@ interface Request extends http.IncomingMessage, Express.Request {
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: any;
+    body: Body;
 
     //cookies: { string; remember: boolean; };
-    cookies: any;
+    cookies: Cookies;
 
     method: string;
 
-    params: any;
+    params: Params;
 
     /**
         * Clear cookie `name`.
@@ -450,7 +457,7 @@ interface Request extends http.IncomingMessage, Express.Request {
         */
     clearCookie(name: string, options?: any): Response;
 
-    query: any;
+    query: Query;
 
     route: any;
 

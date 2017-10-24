@@ -23,6 +23,7 @@ var numArr: string[];
 var funcArr: Function[];
 
 var readable: NodeJS.ReadableStream;
+var readwritable: NodeJS.ReadWriteStream;
 var writable: NodeJS.WritableStream;
 var emitter: NodeJS.EventEmitter;
 
@@ -231,6 +232,8 @@ barStream = fooStream.map((x: Foo) => {
 
 barStream = fooStream.pluck<Bar>(str);
 
+fooStream = fooStream.ratelimit(3, 1000);
+
 barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
 	return memo;
 });
@@ -286,7 +289,7 @@ barStream = fooStream.flatten<Bar>();
 
 fooStream = fooStream.fork();
 
-fooStream = fooStream.merge(fooStreamStream);
+fooStream = _<Foo>([fooStream, fooStream]).merge();
 
 fooStream = fooStream.observe();
 
@@ -297,6 +300,9 @@ fooStream = fooStream.parallel(num);
 barStream = fooStream.sequence<Bar>();
 
 barStream = fooStream.series<Bar>();
+
+barStream = fooStream.through(x => bar);
+barStream = fooStream.through(readwritable);
 
 fooStream = fooStream.zip(fooStream);
 fooStream = fooStream.zip([foo, foo]);

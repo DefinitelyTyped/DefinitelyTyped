@@ -1,7 +1,8 @@
-// Type definitions for request
+// Type definitions for request 2.0
 // Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <https://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>, Jon Stevens <https://github.com/lookfirst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Typescript version: 2.3
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
@@ -134,12 +135,18 @@ declare namespace request {
         body?: any;
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
+        followOriginalHttpMethod?: boolean;
         maxRedirects?: number;
+        removeRefererHeader?: boolean;
         encoding?: string | null;
         pool?: any;
         timeout?: number;
+        localAddress?: string;
         proxy?: any;
+        tunnel?: boolean;
         strictSSL?: boolean;
+        rejectUnauthorized?: boolean;
+        time?: boolean;
         gzip?: boolean;
         preambleCRLF?: boolean;
         postambleCRLF?: boolean;
@@ -170,9 +177,29 @@ declare namespace request {
         (error: any, response: RequestResponse, body: any): void;
     }
 
+    export type ResponseRequest = CoreOptions & {
+      uri: Url;
+    }
+
 	export interface RequestResponse extends http.IncomingMessage {
-		request: Options;
+		request: ResponseRequest;
 		body: any;
+		timingStart?: number;
+		timings?: {
+			socket: number;
+			lookup: number;
+			connect: number;
+			response: number;
+			end: number;
+		};
+		timingPhases?: {
+			wait: number;
+			dns: number;
+			tcp: number;
+			firstByte: number;
+			download: number;
+			total: number;
+		};
 	}
 
     export interface HttpArchiveRequest {
@@ -213,7 +240,7 @@ declare namespace request {
         pipeDest(dest: any): void;
         setHeader(name: string, value: string, clobber?: boolean): Request;
         setHeaders(headers: Headers): Request;
-        qs(q: Object, clobber?: boolean): Request;
+        qs(q: object, clobber?: boolean): Request;
         form(): FormData;
         form(form: any): Request;
         multipart(multipart: RequestPart[]): Request;
@@ -242,7 +269,7 @@ declare namespace request {
         resume(): void;
         abort(): void;
         destroy(): void;
-        toJSON(): Object;
+        toJSON(): object;
     }
 
     export interface Headers {
@@ -266,6 +293,7 @@ declare namespace request {
         token_secret?: string;
         transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
+        body_hash?: true | string
     }
 
     export interface HawkOptions {

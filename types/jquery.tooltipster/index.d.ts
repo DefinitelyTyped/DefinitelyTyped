@@ -1,6 +1,9 @@
 // Type definitions for jQuery Tooltipster 3.3.0
 // Project: https://github.com/iamceege/tooltipster
-// Definitions by: Patrick Magee <https://github.com/pjmagee/>, Dmitry Pesterev <https://github.com/VorobeY1326/>, Leonard Thieu <https://github.com/leonard-thieu>
+// Definitions by: Patrick Magee <https://github.com/pjmagee>,
+//                 Dmitry Pesterev <https://github.com/VorobeY1326>,
+//                 Leonard Thieu <https://github.com/leonard-thieu>,
+//                 Jan Hirzel <https://github.com/janhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -136,6 +139,10 @@ interface JQueryTooltipsterOptions {
     * Specify if a TITLE attribute should be restored on the HTML element after a call to the 'destroy' method. This attribute may be omitted, or be restored with the value that existed before Tooltipster was initialized, or be restored with the stringified value of the current content. Note: in case of multiple tooltips on a single element, only the last destroyed tooltip may trigger a restoration. Default: 'current'
     */
     restoration?: string;
+    /**
+    * Sets the side of the tooltip. The value may one of the following: 'top', 'bottom', 'left', 'right'. It may also be an array containing one or more of these values. When using an array, the order of values is taken into account as order of fallbacks and the absence of a side disables it (see the sides section). Default: ['top', 'bottom', 'right', 'left']
+    */
+    side?: string | string[];
     /**
     * Set the speed of the animation. Default: 350
     */

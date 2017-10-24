@@ -1,10 +1,9 @@
-// Type definitions for extended-listbox 3.0.x
+// Type definitions for extended-listbox 4.0.x
 // Project: https://github.com/code-chris/extended-listbox
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-interface ListboxItem {
+interface ListBoxItem {
     /** display text */
     text?: string;
 
@@ -27,10 +26,10 @@ interface ListboxItem {
     parentGroupId?: string;
 
     /** list of childItems */
-    childItems?: ListboxItem[];
+    childItems?: (string | ListBoxItem)[];
 }
 
-interface ListboxSearchBarButtonOptions {
+interface ListBoxSearchBarButtonOptions {
     /** determines if the button is visible */
     visible?: boolean;
 
@@ -41,7 +40,7 @@ interface ListboxSearchBarButtonOptions {
     onClick?: () => void;
 }
 
-interface ListBoxOptions {
+interface ListBoxSettings {
     /** determines if the searchBar is visible */
     searchBar?: boolean;
 
@@ -49,50 +48,44 @@ interface ListBoxOptions {
     searchBarWatermark?: string;
 
     /** settings for the searchBar button */
-    searchBarButton?: ListboxSearchBarButtonOptions;
-
-    /** determines if multiple items can be selected */
-    multiple?: boolean;
+    searchBarButton?: ListBoxSearchBarButtonOptions;
 
     /** function which returns a array of items */
-    getItems?: () => (string|ListboxItem)[];
+    getItems?: () => (string | ListBoxItem)[];
 
     /** callback for selection changes */
-    onValueChanged?: (event: ListboxEvent) => void;
+    onValueChanged?: (event: ListBoxEvent) => void;
 
     /** callback for searchBar text changes */
-    onFilterChanged?: (event: ListboxEvent) => void;
+    onFilterChanged?: (event: ListBoxEvent) => void;
 
     /** callback for item changes (item added, item removed, item order) */
-    onItemsChanged?: (event: ListboxEvent) => void;
+    onItemsChanged?: (event: ListBoxEvent) => void;
 
     /** callback for enter keyPress event on an item */
-    onItemEnterPressed?: (event: ListboxEvent) => void;
+    onItemEnterPressed?: (event: ListBoxEvent) => void;
 
     /** callback for doubleClick event on an item */
-    onItemDoubleClicked?: (event: ListboxEvent) => void;
+    onItemDoubleClicked?: (event: ListBoxEvent) => void;
 }
 
-interface ListboxEvent {
+interface ListBoxEvent {
     /** unique event name */
     eventName: string;
 
     /** target object for which event is triggered */
-    target: JQuery;
+    target: Element;
 
     /** any object */
     args: any;
 }
 
-interface ExtendedListboxInstance {
-    /** DOM element of the listbox root */
-    target: JQuery;
-
+interface BaseListBox {
     /** Adds a new item to the list */
-    addItem(item: string|ListboxItem): string;
+    addItem(item: string | ListBoxItem): string;
 
     /** Adds new items to the list */
-    addItems(item: (string|ListboxItem)[]): string[];
+    addItems(items: (string | ListBoxItem)[]): string[];
 
     /** Removes a item from the list */
     removeItem(identifier: string): void;
@@ -107,13 +100,10 @@ interface ExtendedListboxInstance {
     clearSelection(): void;
 
     /** Returns a item object for the given id or display text */
-    getItem(identifier: string): ListboxItem;
+    getItem(identifier: string): ListBoxItem;
 
     /** Returns all item objects */
-    getItems(): ListboxItem[];
-
-    /** Returns all ListboxItem's which are selected */
-    getSelection(): ListboxItem[];
+    getItems(): ListBoxItem[];
 
     /** Decreases the index of the matching item by one */
     moveItemUp(identifier: string): number;
@@ -130,26 +120,22 @@ interface ExtendedListboxInstance {
     /** Enables or disables the whole list and all childs */
     enable(state: boolean): void;
 
-    /** callback for selection changes */
-    onValueChanged(callback: (event: ListboxEvent) => void): void;
-
-    /** callback for item changes (item added, item removed, item order) */
-    onItemsChanged(callback: (event: ListboxEvent) => void): void;
-
-    /** callback for searchBar text changes */
-    onFilterChanged(callback: (event: ListboxEvent) => void): void;
-
-    /** callback for enter keyPress event on an item */
-    onItemEnterPressed(callback: (event: ListboxEvent) => void): void;
-
-    /** callback for doubleClick event on an item */
-    onItemDoubleClicked(callback: (event: ListboxEvent) => void): void;
+    /** Returns all ListBoxItem's which are selected */
+    getSelection(): ListBoxItem[];
 }
 
-interface JQuery {
-    /** constructs a new instance of Listbox on the given DOM item or returns existing */
-    listbox(): ExtendedListboxInstance|ExtendedListboxInstance[];
-
-    /** constructs a new instance of Listbox on the given DOM item */
-    listbox(options: ListBoxOptions): ExtendedListboxInstance|ExtendedListboxInstance[];
+interface SingleSelectListBox extends BaseListBox {
 }
+
+interface MultiSelectListBox extends BaseListBox {
+}
+
+declare var SingleSelectListBox: {
+    prototype: SingleSelectListBox;
+    new(domElement: HTMLElement, options?: ListBoxSettings): SingleSelectListBox;
+};
+
+declare var MultiSelectListBox: {
+    prototype: MultiSelectListBox;
+    new(domElement: HTMLElement, options?: ListBoxSettings): MultiSelectListBox;
+};

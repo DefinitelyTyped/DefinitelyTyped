@@ -3032,13 +3032,13 @@ function examples() {
         // attach click handlers to #test
         $('#test')
         // this === "zombie"; handler unbound after first click
-            .on('click', $.proxy(me.test, me) as JQuery.EventHandler<HTMLElement>)
+            .on('click', $.proxy(me.test, me))
 
             // this === "person"
-            .on('click', youClick as JQuery.EventHandler<HTMLElement>)
+            .on('click', youClick)
 
             // this === "zombie"
-            .on('click', $.proxy(you.test, me) as JQuery.EventHandler<HTMLElement>)
+            .on('click', $.proxy(you.test, me))
 
             // this === "<button> element"
             .on('click', you.test);
@@ -3052,7 +3052,7 @@ function examples() {
                 $('#test').off('click', obj.test);
             },
         };
-        $('#test').on('click', jQuery.proxy(obj, 'test') as JQuery.EventHandler<HTMLElement>);
+        $('#test').on('click', jQuery.proxy(obj, 'test'));
     }
 
     function jQuery_proxy_2() {
@@ -3061,7 +3061,7 @@ function examples() {
             type: 'dog',
 
             // Note that event comes *after* one and two
-            test: function(one: any, two: any, event: any) {
+            test: function(one: typeof you, two: typeof they, event: JQuery.Event<HTMLElement>) {
                 $('#log')
 
                 // `one` maps to `you`, the 1st additional
@@ -3081,7 +3081,7 @@ function examples() {
 
                     // The clicked element is `event.target`,
                     // and its type is "button"
-                    .append('the ' + event.target.type + '.');
+                    .append('the ' + (event.target as HTMLButtonElement).type + '.');
             },
         };
 
@@ -3090,7 +3090,7 @@ function examples() {
 
         // Set up handler to execute me.test() in the context
         // of `me`, with `you` and `they` as additional arguments
-        var proxy = $.proxy(me.test, me, you, they) as JQuery.EventHandler<HTMLElement>;
+        var proxy = $.proxy(me.test, me, you, they);
 
         $('#test')
             .on('click', proxy);

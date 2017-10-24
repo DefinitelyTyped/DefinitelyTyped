@@ -1,6 +1,6 @@
 // Type definitions for Bootstrap 3.3.5
 // Project: http://twitter.github.com/bootstrap/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -119,6 +119,7 @@ interface JQuery {
     typeahead(options?: TypeaheadOptions): JQuery;
 
     affix(options?: AffixOptions): JQuery;
+    affix(command: string): JQuery;
 
     emulateTransitionEnd(duration: number): JQuery;
 }

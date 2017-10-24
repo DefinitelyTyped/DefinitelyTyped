@@ -16,8 +16,6 @@ interface Datum {
 }
 
 let dispatch: d3Dispatch.Dispatch<HTMLElement>;
-let copy: d3Dispatch.Dispatch<HTMLElement>;
-let copy2: d3Dispatch.Dispatch<SVGElement>;
 
 // Signature Tests ----------------------------------------
 
@@ -50,5 +48,5 @@ dispatch.apply('bar', document.body, [{ a: 3, b: 'test' }, 1]);
 dispatch.on('bar', null);
 
 // Copy dispatch -----------------------------------------------
-copy = dispatch.copy();
-// copy2 = dispatch.copy(); // test fails type mismatch of underlying event target
+const copy: d3Dispatch.Dispatch<HTMLElement> = dispatch.copy();
+// const copy2: d3Dispatch.Dispatch<SVGElement> = dispatch.copy(); // test fails type mismatch of underlying event target

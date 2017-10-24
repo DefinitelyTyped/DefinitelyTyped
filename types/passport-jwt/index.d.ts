@@ -2,9 +2,10 @@
 // Project: https://github.com/themikenicholson/passport-jwt
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 //                 Alex Young <https://github.com/alsiola/>
+//                 David Ng <https://github.com/davidNHK/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Strategy as PassportStrategy} from 'passport-strategy';
+import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';
 
 export declare class Strategy extends PassportStrategy {
@@ -45,4 +46,5 @@ export declare namespace ExtractJwt {
     export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
     export function fromAuthHeader(): JwtFromRequestFunction;
     export function fromExtractors(extractors: JwtFromRequestFunction[]): JwtFromRequestFunction;
+    export function fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
 }

@@ -26,12 +26,13 @@ const routesMap = {
 const {
   reducer,
   middleware,
-  enhancer
-} = connectRoutes(history, routesMap);
+  enhancer,
+  initialDispatch
+} = connectRoutes(history, routesMap, {
+  initialDispatch: false
+});
 
-const dumbMiddleware: Middleware = (store: MiddlewareAPI<LocationState>) => (next: Dispatch<LocationState>) => (action: Action) => {
-  next(action);
-};
+const dumbMiddleware: Middleware = store => next => action => next(action);
 
 const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 

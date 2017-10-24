@@ -6,7 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "big.js-tests.ts"
+        "test/big.js-module-tests.ts",
+        "test/big.js-global-tests.ts"
     ]
 }

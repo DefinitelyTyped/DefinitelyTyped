@@ -4,6 +4,9 @@
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
+//                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Jonathan Creamer <https://github.com/jcreamer898>
+//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -27,16 +30,16 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Name of the configuration. Used when loading multiple configurations. */
+        name?: string;
+        /**
+         * The base directory (absolute path!) for resolving the `entry` option.
+         * If `output.pathinfo` is set, the included pathinfo is shortened to this directory.
+         */
         context?: string;
-        entry?: string | string[] | Entry;
+        entry?: string | string[] | Entry | EntryFunc;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
-        // tslint:disable-next-line:max-line-length
-        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        devtool?: Options.Devtool;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -58,9 +61,14 @@ declare namespace webpack {
          *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
          *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
          *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
+         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
+         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
+         *   <li>"electron-main" Compile for Electron for main process.</li>
+         *   <li>"atom" Alias for electron-main</li>
+         *   <li>"electron" Alias for electron-main</li>
          * <ul>
          */
-        target?: string;
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -96,6 +104,20 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
+    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+
+    interface DevtoolModuleFilenameTemplateInfo {
+        identifier: string;
+        shortIdentifier: string;
+        resource: any;
+        resourcePath: string;
+        absoluteResourcePath: string;
+        allLoaders: any[];
+        query: string;
+        moduleId: string;
+        hash: string;
+    }
+
     interface Output {
         /** The output directory as absolute path (required). */
         path?: string;
@@ -106,9 +128,9 @@ declare namespace webpack {
         /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
         sourceMapFilename?: string;
         /** Filename template string of function for the sources array in a generated SourceMap. */
-        devtoolModuleFilenameTemplate?: string;
+        devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
-        devtoolFallbackModuleFilenameTemplate?: string;
+        devtoolFallbackModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /**
          * Enable line to line mapped mode for all/specified modules.
          * Line to line mapped mode uses a simple SourceMap where each line of the generated source is mapped to the same line of the original source.
@@ -129,7 +151,7 @@ declare namespace webpack {
         /** Include comments with information about the modules. */
         pathinfo?: boolean;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string;
+        library?: string | string[];
         /**
          * Which format to export the library:
          * <ul>
@@ -139,9 +161,12 @@ declare namespace webpack {
          *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
          *   <li>"amd" - Export to AMD (optionally named)</li>
          *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
+         *   <li>"window" - Assign to widnow</li>
+         *   <li>"assign" - Assign to a global variable</li>
+         *   <li>"jsonp" - Generate Webpack JSONP module<li>
          * </ul>
          */
-        libraryTarget?: string;
+        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
         /** Prefixes every line of the source in the bundle with this string. */
@@ -168,6 +193,7 @@ declare namespace webpack {
         wrappedContextRegExp?: RegExp;
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
+        strictExportPresence?: boolean;
     }
     interface OldModule extends BaseModule {
         /** An array of automatically applied loaders. */
@@ -334,7 +360,8 @@ declare namespace webpack {
     type Resolve = OldResolve | NewResolve;
 
     interface OldResolveLoader extends OldResolve {
-        /** It describes alternatives for the module name that are tried.
+        /**
+         * It describes alternatives for the module name that are tried.
          * @deprecated Replaced by `moduleExtensions` in webpack 2.
          */
         moduleTemplates?: string[];
@@ -496,6 +523,14 @@ declare namespace webpack {
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
     namespace Options {
+        // tslint:disable-next-line:max-line-length
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
+            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
+            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
+            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
+            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
+            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
             assetFilter?(assetFilename: string): boolean;
@@ -752,7 +787,7 @@ declare namespace webpack {
             /**
              * An object containing `content` and `name`.
              */
-            manifest: { content: string, name: string };
+            manifest: { content: string, name: string } | string;
 
             /**
              * The name where the DLL is exposed.
@@ -802,6 +837,14 @@ declare namespace webpack {
         constructor();
     }
 
+    class HashedModuleIdsPlugin extends Plugin {
+        constructor(options?: {
+            hashFunction?: string,
+            hashDigest?: string,
+            hashDigestLength?: number
+        });
+    }
+
     class HotModuleReplacementPlugin extends Plugin {
         constructor(options?: any);
     }
@@ -816,6 +859,10 @@ declare namespace webpack {
 
     class NamedModulesPlugin extends Plugin {
         constructor();
+    }
+
+    class NamedChunksPlugin extends Plugin {
+        constructor(nameResolver?: (chunk: any) => string | null );
     }
 
     class NoEmitOnErrorsPlugin extends Plugin {
@@ -876,7 +923,7 @@ declare namespace webpack {
     }
 
     class WatchIgnorePlugin extends Plugin {
-        constructor(paths: RegExp[]);
+        constructor(paths: Array<string | RegExp>);
     }
 
     namespace optimize {
@@ -991,6 +1038,8 @@ declare namespace webpack {
                 comments?: boolean | RegExp | CommentFilter;
                 exclude?: Condition | Condition[];
                 include?: Condition | Condition[];
+                /** Parallelization can speedup your build significantly and is therefore highly recommended. */
+                parallel?: boolean | { cache: boolean, workers: boolean | number };
                 sourceMap?: boolean;
                 test?: Condition | Condition[];
             }
@@ -1010,9 +1059,6 @@ declare namespace webpack {
              * They only care for metadata. The pitch method on the loaders is called from left to right before the loaders are called (from right to left).
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
-             * @param remainingRequest
-             * @param precedingRequest
-             * @param data
              */
             pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
 
@@ -1117,38 +1163,29 @@ declare namespace webpack {
 
             /**
              * Emit a warning.
-             * @param message
              */
-            emitWarning(message: string): void;
+            emitWarning(message: string | Error): void;
 
             /**
              * Emit a error.
-             * @param message
              */
-            emitError(message: string): void;
+            emitError(message: string | Error): void;
 
             /**
              * Execute some code fragment like a module.
              *
              * Don't use require(this.resourcePath), use this function to make loaders chainable!
              *
-             * @param code
-             * @param filename
              */
             exec(code: string, filename: string): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
-             * @param callback
              */
             resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
              */
             resolveSync(context: string, request: string): string;
 
@@ -1156,7 +1193,6 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             addDependency(file: string): void;
 
@@ -1164,13 +1200,11 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             dependency(file: string): void;
 
             /**
              * Add a directory as dependency of the loader result.
-             * @param directory
              */
             addContextDependency(directory: string): void;
 
@@ -1228,9 +1262,6 @@ declare namespace webpack {
 
             /**
              * Emit a file. This is webpack-specific.
-             * @param name
-             * @param content
-             * @param sourceMap
              */
             emitFile(name: string, content: Buffer|string, sourceMap: any): void;
 

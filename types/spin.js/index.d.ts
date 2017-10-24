@@ -1,6 +1,6 @@
 // Type definitions for Spin.js 2.3.2
 // Project: http://fgnass.github.com/spin.js/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

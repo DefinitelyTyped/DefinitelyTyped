@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import * as React from 'react'
-import {ColorScheme} from 'base16'
+import { ColorScheme } from 'base16'
 
 interface ILogMonitorProps {
     /**
