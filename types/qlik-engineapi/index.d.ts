@@ -2426,7 +2426,8 @@ declare namespace EngineAPI {
          * @param qExpr - Expression value. It is not possible to use all aggregation functions.
          * For example, you cannot add a field on the fly with an expression that uses the Sum or Count aggregation functions.
          * @returns - true or false
-         */        addFieldFromExpression(qName: string, qExpr: string): Promise<boolean>;
+         */
+        addFieldFromExpression(qName: string, qExpr: string): Promise<boolean>;
 
         /**
          * Applies a bookmark.
