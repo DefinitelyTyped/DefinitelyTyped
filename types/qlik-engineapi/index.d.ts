@@ -1145,7 +1145,7 @@ declare namespace EngineAPI {
 
         /**
          * String that marks the beginning of the comment line.
-         * Example: �#� or �//�
+         * Example: # or //
          * The engine ignores the commented lines during the data load.
          * This property is only used for delimited files.
          */
@@ -2244,11 +2244,11 @@ declare namespace EngineAPI {
          * For example, if the user requests SearchObjects with SearchObjectOptions.qAttributes = [],
          * then the outputted qAttributes will be empty.
          *
-         * Otherwise, if SearchObjectOptions.qAttributes = [�qProperty�],
-         * SearchGroupItemMatch.qAttributes = [�qProperty�, qMetaDef/title�]
+         * Otherwise, if SearchObjectOptions.qAttributes = [qProperty],
+         * SearchGroupItemMatch.qAttributes = [qProperty, qMetaDef/title]
          * if the match has been found in the title of the item.
          *
-         * For dimension values, the returned �qProperty� will be �*�.
+         * For dimension values, the returned qProperty will be *.
          */
         qAttributes: ISearchAttribute[];
 
@@ -3370,8 +3370,8 @@ declare namespace EngineAPI {
         /**
          * Returns the generic objects corresponding to one or more search terms. The search is performed within the title,
          * subtitle, footnote and type. In addition, associated dimension values are also searched in. For example,
-         * if the country �Japan� is selected and the object contains the dimension City, the object will appear in the
-         * results for �Osaka� but not for �Johannesburg�. The generic objects with the following types will never appear
+         * if the country Japan is selected and the object contains the dimension City, the object will appear in the
+         * results for Osaka but not for Johannesburg. The generic objects with the following types will never appear
          * in the results: slideitem, sheet, story, slide, masterobject, snapshot, LoadModel, appprops and searchhistory.
          * @param qOptions - Information about the search fields and the search context.
          * @param qTerms - List of terms to search for.
