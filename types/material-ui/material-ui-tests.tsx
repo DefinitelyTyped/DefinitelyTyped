@@ -7002,7 +7002,7 @@ class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
   constructor() {
-    super();
+    super({});
     this.state = {
       index: 0
     };
