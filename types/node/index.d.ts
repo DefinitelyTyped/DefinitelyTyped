@@ -2188,11 +2188,13 @@ declare module "url" {
         slashes?: boolean;
     }
 
+    // Input to `url.format`
     export interface UrlObject extends UrlObjectCommon {
         port?: string | number;
         query?: string | null | { [key: string]: any };
     }
 
+    // Output of `url.parse`
     export interface Url extends UrlObjectCommon {
         port?: string;
         query?: string | null | ParsedUrlQuery;
