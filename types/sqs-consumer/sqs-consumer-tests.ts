@@ -20,18 +20,19 @@ const app2 = Consumer.create({
     waitTimeSeconds: 50
 });
 
+// Test message handler.
+const handleMessage = (message: SQS.Message, done: Consumer.ConsumerDone) => {
+	done();
+};
+
 const app3 = Consumer.create({
 	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-	handleMessage(message, done) {
-        done();
-    }
+	handleMessage
 });
 
 const app4 = new Consumer({
 	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-	handleMessage(message, done) {
-        done();
-    }
+	handleMessage
 });
 
 app.on('error', (err: any) => {

@@ -8,7 +8,7 @@
 /// <reference types="node" />
 import { SQS } from "aws-sdk";
 
-declare namespace SQSConsumer {
+declare namespace Consumer {
     export type ConsumerDone = (error?: Error) => void;
 
     export interface Options {
@@ -26,10 +26,10 @@ declare namespace SQSConsumer {
 }
 
 declare class Consumer extends NodeJS.EventEmitter {
-    constructor(options: SQSConsumer.Options);
+    constructor(options: Consumer.Options);
     start(): void;
     stop(): void;
-    static create(options: SQSConsumer.Options): Consumer;
+    static create(options: Consumer.Options): Consumer;
 }
 
 export = Consumer;
