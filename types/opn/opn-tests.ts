@@ -1,7 +1,5 @@
 import opn = require('opn');
 
-const errorCallback = (err: Error) => {};
-
 opn('foo'); // $ExpectType Promise<ChildProcess>
 
 opn('foo', { app: 'bar' }); // $ExpectType Promise<ChildProcess>
