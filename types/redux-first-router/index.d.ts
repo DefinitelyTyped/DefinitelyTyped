@@ -194,7 +194,7 @@ export type Payload = object;
 
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
-export const NOT_FOUND: string;
+export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
 
 export function actionToPath(action: ReceivedAction, routesMap: RoutesMap, querySerializer?: QuerySerializer): string;
 
