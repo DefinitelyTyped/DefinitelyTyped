@@ -2184,17 +2184,18 @@ declare module "url" {
         path?: string;
         pathname?: string;
         protocol?: string;
-        query?: string | null | ParsedUrlQuery;
         search?: string;
         slashes?: boolean;
     }
 
     export interface UrlObject extends UrlObjectCommon {
         port?: string | number;
+        query?: string | null | { [key: string]: any };
     }
 
     export interface Url extends UrlObjectCommon {
         port?: string;
+        query?: string | null | ParsedUrlQuery;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
