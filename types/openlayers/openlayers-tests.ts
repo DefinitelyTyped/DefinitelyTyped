@@ -702,8 +702,15 @@ jsonValue = geojsonFormat.writeGeometryObject(geometry, writeOptions);
 //
 // ol.interactions
 //
-let modify: ol.interaction.Modify = new ol.interaction.Modify({
-    features: new ol.Collection<ol.Feature>(featureArray)
+let modifyFeature: ol.interaction.Modify = new ol.interaction.Modify({
+    insertVertexCondition: ol.events.condition.never,
+    features: new ol.Collection<ol.Feature>(featureArray),
+});
+let modifySource: ol.interaction.Modify = new ol.interaction.Modify({
+    insertVertexCondition: ol.events.condition.never,
+    source: new ol.source.Vector({
+        features: new ol.Collection<ol.Feature>(featureArray),
+    }),
 });
 
 let draw: ol.interaction.Draw = new ol.interaction.Draw({

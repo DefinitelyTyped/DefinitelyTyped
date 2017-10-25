@@ -1,4 +1,7 @@
 import * as React from 'react';
+import * as url from 'url';
+
+type UrlLike = url.UrlObject | url.Url;
 
 export interface EventChangeOptions {
     shallow?: boolean;
@@ -20,8 +23,8 @@ export interface SingletonRouter {
     // router methods
     reload(route: string): Promise<void>;
     back(): void;
-    push(url: string, as?: string, options?: EventChangeOptions): Promise<boolean>;
-    replace(url: string, as?: string, options?: EventChangeOptions): Promise<boolean>;
+    push(url: string|UrlLike, as?: string|UrlLike, options?: EventChangeOptions): Promise<boolean>;
+    replace(url: string|UrlLike, as?: string|UrlLike, options?: EventChangeOptions): Promise<boolean>;
     prefetch(url: string): Promise<React.ComponentType<any>>;
 
     // router events

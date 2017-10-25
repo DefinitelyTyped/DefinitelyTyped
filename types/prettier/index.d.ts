@@ -9,7 +9,16 @@ import { File } from 'babel-types';
 export type AST = File;
 
 export type BuiltInParser = (text: string, options?: any) => AST;
-export type BuiltInParserName = 'babylon' | 'flow' | 'typescript' | 'postcss' | 'json' | 'graphql';
+export type BuiltInParserName =
+    | 'babylon'
+    | 'flow'
+    | 'typescript'
+    | 'postcss' // deprecated
+    | 'css'
+    | 'less'
+    | 'scss'
+    | 'json'
+    | 'graphql';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -107,11 +116,18 @@ export interface ResolveConfigOptions {
      * If set to `false`, all caching will be bypassed.
      */
     useCache?: boolean;
+    /**
+     * Pass directly the path of the config file if you don't wish to search for it.
+     */
+    config?: string;
 }
 
 /**
- * `resolveConfig` can be used to resolve configuration for a given source file.
- * The function optionally accepts an input file path as an argument, which defaults to the current working directory.
+ * `resolveConfig` can be used to resolve configuration for a given source file,
+ * passing its path as the first argument. The config search will start at the
+ * file path and continue to search up the directory.
+ * (You can use `process.cwd()` to start searching from the current directory).
+ *
  * A promise is returned which will resolve to:
  *
  *  - An options object, providing a [config file](https://github.com/prettier/prettier#configuration-file) was found.
@@ -119,9 +135,9 @@ export interface ResolveConfigOptions {
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfig(filePath?: string, options?: ResolveConfigOptions): Promise<null | Options>;
+export function resolveConfig(filePath: string, options?: ResolveConfigOptions): Promise<null | Options>;
 export namespace resolveConfig {
-    function sync(filePath?: string, options?: ResolveConfigOptions): null | Options;
+    function sync(filePath: string, options?: ResolveConfigOptions): null | Options;
 }
 
 /**

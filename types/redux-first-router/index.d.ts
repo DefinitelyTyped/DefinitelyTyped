@@ -3,7 +3,7 @@
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import {
     Dispatch,

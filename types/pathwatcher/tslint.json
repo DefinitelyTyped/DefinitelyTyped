@@ -1,9 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // Custom rules.
         "class-name": true,
-        "indent": [true, "tabs"],
+        "indent": [true, "spaces", 4],
         "jsdoc-format": true,
         "max-line-length": [true, 100],
         "quotemark": [true, "double", "avoid-escape"],
