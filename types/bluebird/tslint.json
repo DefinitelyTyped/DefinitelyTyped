@@ -4,7 +4,6 @@
         "max-line-length": [true, 490],
         "no-redundant-undefined": false,
         "no-unnecessary-generics": false,
-        "prefer-const": false,
-        "void-return": false
+        "prefer-const": false
     }
 }

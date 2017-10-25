@@ -79,7 +79,6 @@ let voidProm: Promise<void>;
 
 let fooProm: Promise<Foo>;
 let barProm: Promise<Bar>;
-let fooOrVoidProm: Promise<Foo | void>;
 let fooOrBarProm: Promise<Foo | Bar>;
 let bazProm: Promise<Baz>;
 
@@ -264,24 +263,29 @@ fooProm.caught((error: any) => {
 	return;
 });
 
-fooOrVoidProm = fooProm.catch((reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch((reason: any) => {
 	return voidProm;
 });
-fooOrVoidProm = fooProm.caught((reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.caught((reason: any) => {
 	return voidProm;
 });
-fooOrVoidProm = fooProm.catch((error: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch((error: any) => {
 	return true;
 }, (reason: any) => {
 	return voidProm;
 });
-fooOrVoidProm = fooProm.caught((error: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.caught((error: any) => {
 	return true;
 }, (reason: any) => {
 	return voidProm;
 });
 
-fooOrVoidProm = fooProm.catch((reason: any) => {
+// $ExpectType Bluebird<void | Foo>
+fooProm.catch<void | Foo>((reason: any) => { // tslint:disable-line:void-return
 	// handle multiple valid return types simultaneously
 	if (foo === null) {
 		return;
