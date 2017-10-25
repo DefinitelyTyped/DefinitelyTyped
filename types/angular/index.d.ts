@@ -392,6 +392,7 @@ declare namespace angular {
         $rollbackViewValue(): void;
         $commitViewValue(): void;
         $isEmpty(value: any): boolean;
+        $overrideModelOptions(options: INgModelOptions): void;
 
         $viewValue: any;
 
@@ -1088,7 +1089,7 @@ declare namespace angular {
          * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
          * This feature is enabled by default.
          *
-         * @returns {boolean} Current value
+         * @returns Current value
          */
         errorOnUnhandledRejections(): boolean;
 
@@ -1096,8 +1097,8 @@ declare namespace angular {
          * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
          * This feature is enabled by default.
          *
-         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
-         * @returns {ng.IQProvider} Self for chaining otherwise.
+         * @param value Whether to generate an error when a rejected promise is not handled.
+         * @returns Self for chaining otherwise.
          */
         errorOnUnhandledRejections(value: boolean): IQProvider;
     }
@@ -1108,8 +1109,8 @@ declare namespace angular {
          * The successCallBack may return IPromise<never> for when a $q.reject() needs to be returned
          * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null | undefined, notifyCallback?: (state: any) => any): IPromise<TResult>;
-        then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null | undefined, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
+        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
 
         then<TResult, TCatch>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => IPromise<TCatch>|TCatch, notifyCallback?: (state: any) => any): IPromise<TResult | TCatch>;
         then<TResult1, TResult2, TCatch1, TCatch2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback: (reason: any) => IPromise<TCatch1>|TCatch2, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2 | TCatch1 | TCatch2>;
@@ -1638,9 +1639,8 @@ declare namespace angular {
         useApplyAsync(value: boolean): IHttpProvider;
 
         /**
-         *
-         * @param {boolean=} value If true, `$http` will return a normal promise without the `success` and `error` methods.
-         * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chaining.
+         * @param value If true, `$http` will return a normal promise without the `success` and `error` methods.
+         * @returns If a value is specified, returns the $httpProvider for chaining.
          *    otherwise, returns the current configured value.
          */
         useLegacyPromiseExtensions(value: boolean): boolean | IHttpProvider;
@@ -1761,7 +1761,6 @@ declare namespace angular {
         (tpl: string, ignoreRequestError?: boolean): IPromise<string>;
         /**
          * total amount of pending template requests being downloaded.
-         * @type {number}
          */
         totalPendingRequests: number;
     }
@@ -2078,7 +2077,7 @@ declare namespace angular {
             get<T>(name: '$xhrFactory'): IXhrFactory<T>;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
-            invoke(inlineAnnotatedFunction: any[]): any;
+            invoke(inlineAnnotatedFunction: any[], context?: any, locals?: any): any;
             invoke<T>(func: (...args: any[]) => T, context?: any, locals?: any): T;
             invoke(func: Function, context?: any, locals?: any): any;
             strictDi: boolean;

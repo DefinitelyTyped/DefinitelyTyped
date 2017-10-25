@@ -113,9 +113,9 @@ declare namespace GoogleAppsScript {
       deleteTag(key: string): CalendarEvent;
       getAllDayEndDate(): Date;
       getAllDayStartDate(): Date;
-      getAllTagKeys(): String[];
+      getAllTagKeys(): string[];
       getColor(): string;
-      getCreators(): String[];
+      getCreators(): string[];
       getDateCreated(): Date;
       getDescription(): string;
       getEmailReminders(): Integer[];
@@ -170,9 +170,9 @@ declare namespace GoogleAppsScript {
       anyoneCanAddSelf(): boolean;
       deleteEventSeries(): void;
       deleteTag(key: string): CalendarEventSeries;
-      getAllTagKeys(): String[];
+      getAllTagKeys(): string[];
       getColor(): string;
-      getCreators(): String[];
+      getCreators(): string[];
       getDateCreated(): Date;
       getDescription(): string;
       getEmailReminders(): Integer[];

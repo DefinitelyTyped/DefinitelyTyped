@@ -469,6 +469,11 @@ declare module "mongoose" {
     static Messages: Object;
   }
 
+  interface EachAsyncOptions {
+    /** defaults to 1 */
+    parallel?: number;
+  }
+  
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -500,9 +505,20 @@ declare module "mongoose" {
      * Execute fn for every document in the cursor. If fn returns a promise,
      * will wait for the promise to resolve before iterating on to the next one.
      * Returns a promise that resolves when done.
-     * @param callback executed when all docs have been processed
+     * @param fn Function to be executed for every document in the cursor
+     * @param callback Executed when all docs have been processed
      */
     eachAsync(fn: (doc: T) => any, callback?: (err: any) => void): Promise<T>;
+
+    /**
+     * Execute fn for every document in the cursor. If fn returns a promise,
+     * will wait for the promise to resolve before iterating on to the next one.
+     * Returns a promise that resolves when done.
+     * @param fn Function to be executed for every document in the cursor
+     * @param options Async options (e. g. parallel function execution)
+     * @param callback Executed when all docs have been processed
+     */
+    eachAsync(fn: (doc: T) => any, options: EachAsyncOptions, callback?: (err: any) => void): Promise<T>;
 
     /**
      * Registers a transform function which subsequently maps documents retrieved
