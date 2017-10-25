@@ -1,7 +1,12 @@
 import * as tp from 'tcp-ping';
 
 // $ExpectType void
-tp.ping({}, () => {});
+tp.ping({}, (err, result) => {
+    // $ExpectType Result
+    result;
+    // $ExpectType Results[]
+    result.results;
+});
 
 // $ExpectError
 tp.ping();

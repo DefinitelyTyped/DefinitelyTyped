@@ -10,6 +10,12 @@ export interface Options {
     timeout?: number;
 }
 
+export interface Results {
+    seq: number | undefined;
+    time: number | undefined;
+    error?: Error;
+}
+
 export interface Result {
     address: string;
     port: number;
@@ -17,11 +23,7 @@ export interface Result {
     avg: number;
     max: number;
     min: number;
-    results: {
-        seq: number | undefined,
-        time: number | undefined;
-        error?: Error
-    };
+    results: Results[];
 }
 
 export function ping(options: Options, callback: (error: Error, result: Result) => void): void;
