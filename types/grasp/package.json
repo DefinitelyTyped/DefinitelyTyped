@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "cli-color": "^0.3.29",
-        "estree": "0.0.38"
-    }
-}
