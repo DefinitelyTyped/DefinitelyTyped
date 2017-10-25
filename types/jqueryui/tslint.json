@@ -63,6 +63,7 @@
         "prefer-declare-function": false,
         "prefer-for-of": false,
         "prefer-method-signature": false,
+        "prefer-switch": false,
         "prefer-template": false,
         "radix": false,
         "semicolon": false,

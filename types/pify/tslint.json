@@ -46,6 +46,7 @@
         "no-unnecessary-callback-wrapper": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
+        "no-unnecessary-initializer": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "no-useless-files": false,

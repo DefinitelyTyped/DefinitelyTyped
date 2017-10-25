@@ -26,6 +26,7 @@
         "no-duplicate-imports": false,
         "no-duplicate-variable": false,
         "no-empty-interface": false,
+        "no-eval": false,
         "no-for-in-array": false,
         "no-inferrable-types": false,
         "no-internal-module": false,

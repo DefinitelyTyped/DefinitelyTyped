@@ -29,6 +29,7 @@
         "no-for-in-array": false,
         "no-inferrable-types": false,
         "no-internal-module": false,
+        "no-invalid-template-strings": false,
         "no-irregular-whitespace": false,
         "no-mergeable-namespace": false,
         "no-misused-new": false,
