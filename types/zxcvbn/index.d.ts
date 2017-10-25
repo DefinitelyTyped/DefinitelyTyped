@@ -42,7 +42,7 @@ declare namespace zxcvbn {
          * 3 safely unguessable: moderate protection from offline slow-hash scenario. (guesses < 10^10)
          * 4 very unguessable: strong protection from offline slow-hash scenario. (guesses >= 10^10)
          */
-        score: number;
+        score: ZXCVBNScore;
 
         /**
          * verbal feedback to help choose better passwords. set when score <= 2.
@@ -61,6 +61,8 @@ declare namespace zxcvbn {
          */
         calc_time: number;
     }
+
+    type ZXCVBNScore = 0 | 1 | 2 | 3 | 4;
 
     interface ZXCVBNAttackTime {
         /**
