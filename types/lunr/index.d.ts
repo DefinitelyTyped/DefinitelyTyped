@@ -619,6 +619,8 @@ declare namespace lunr {
      * lunr.stemmer is an english language stemmer, this is a JavaScript
      * implementation of the PorterStemmer taken from http://tartarus.org/~martin
      *
+     * Implements {lunr.PipelineFunction}
+     *
      * @param token - The string to stem
      * @see {@link lunr.Pipeline}
      */
@@ -631,7 +633,9 @@ declare namespace lunr {
      * This is intended to be used in the Pipeline. If the token does not pass the
      * filter then undefined will be returned.
      *
-     * @params {lunr.Token} token - A token to check for being a stop word.
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token - A token to check for being a stop word.
      * @see {@link lunr.Pipeline}
      */
     function stopWordFilter(token: Token): Token;
@@ -804,6 +808,8 @@ declare namespace lunr {
      * This implementation may not work correctly for non latin
      * characters and should either be removed or adapted for use
      * with languages with non-latin characters.
+     *
+     * Implements {lunr.PipelineFunction}
      *
      * @param token The token to pass through the filter
      * @see lunr.Pipeline

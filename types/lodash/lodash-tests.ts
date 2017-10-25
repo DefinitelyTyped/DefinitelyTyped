@@ -10620,6 +10620,9 @@ namespace TestFunctionsIn {
 
 // _.get
 namespace TestGet {
+    _.get([], Symbol.iterator);
+    _.get([], [Symbol.iterator]);
+
     {
         let result: string;
 
