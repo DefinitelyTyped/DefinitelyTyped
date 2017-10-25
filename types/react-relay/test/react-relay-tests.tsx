@@ -332,9 +332,53 @@ requestSubscription(
 import {
     QueryRenderer as CompatQueryRenderer,
     createFragmentContainer as createFragmentContainerCompat,
+    commitMutation as commitMutationCompat,
+    CompatEnvironment,
+    RelayPaginationProp as RelayPaginationPropCompat,
 } from "react-relay/compat";
 
-// TODO? This is all more or less identical to modern...
+// testting compat mutation with classic environment
+function markNotificationAsReadCompat(environment: CompatEnvironment, source: string, storyID: string) {
+    const variables = {
+        input: {
+            source,
+            storyID,
+        },
+    };
+
+    commitMutationCompat(environment, {
+        configs,
+        mutation,
+        optimisticResponse,
+        variables,
+        onCompleted: (response, errors) => {
+            console.log("Response received from server.");
+        },
+        onError: err => console.error(err),
+        updater: (store, data) => {
+            const field = store.get(storyID);
+            if (field) {
+                field.setValue(data.story, "story");
+            }
+        }
+    });
+}
+
+interface CompatProps {
+    relay: RelayPaginationPropCompat;
+}
+
+export class CompatComponent extends React.Component<CompatProps> {
+    markNotificationAsRead(source: string, storyID: string) {
+        markNotificationAsReadCompat(this.props.relay.environment, source, storyID);
+    }
+
+    render() {
+        return (<div/>);
+    }
+}
+
+const CompatContainer = createFragmentContainerCompat(CompatComponent, {});
 
 ////////////////////////////
 //  RELAY-CLASSIC TESTS
@@ -398,6 +442,7 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
         artwork: () => Relay.QL`
             fragment on Artwork {
                 title
+                ${ CompatContainer.getFragment('whatever') }
             }
         `,
     },
