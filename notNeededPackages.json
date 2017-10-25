@@ -55,6 +55,12 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "askmethat-rating",
+            "typingsPackageName": "askmethat-rating",
+            "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
+            "asOfVersion": "0.4.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -209,6 +215,12 @@
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "gaea-model",
