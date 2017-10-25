@@ -154,7 +154,6 @@ declare namespace Chart {
         maintainAspectRatio?: boolean;
         events?: string[];
         onClick?(event: MouseEvent, active: any[]): void;
-        onHover?(event: MouseEvent, active: any[]): void;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
@@ -251,7 +250,7 @@ declare namespace Chart {
         mode?: string;
         animationDuration?: number;
         intersect?: boolean;
-        onHover?(active: any): void;
+        onHover?(event: MouseEvent, active: any[]): void;
     }
 
     interface ChartAnimationObject {
