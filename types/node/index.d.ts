@@ -4423,6 +4423,10 @@ declare module "path" {
         name: string;
     }
 
+    export interface FormatInputPathObject extends
+        Pick<ParsedPath, 'root' | 'dir' | 'ext' | 'name'>,
+        Partial<Pick<ParsedPath, 'base'>> {}
+
     /**
      * Normalize a string path, reducing '..' and '.' parts.
      * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
@@ -4501,7 +4505,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
