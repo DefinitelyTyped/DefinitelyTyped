@@ -143,7 +143,6 @@ class TestHOCs extends React.Component {
 
 /**
  * Just an extra test to check default props
- * @constructor
  */
 const ElementsDefaultPropsTest: React.SFC = () => (
     <div>

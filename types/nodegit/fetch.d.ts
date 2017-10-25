@@ -9,15 +9,5 @@ export namespace Fetch {
 }
 
 export class Fetch {
-    /**
-     *
-     *
-     * @static
-     * @param {FetchOptions} opts
-     * @param {number} version
-     * @returns {number}
-     *
-     * @memberof Fetch
-     */
     static initOptions(opts: FetchOptions, version: number): number;
 }

@@ -12617,18 +12617,20 @@ declare module olx {
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
          *     deleteCondition: (ol.EventsConditionType|undefined),
+         *     insertVertexCondition: (ol.EventsConditionType|undefined),
          *     pixelTolerance: (number|undefined),
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
-         *     features: ol.Collection.<ol.Feature>,
+         *     features: (ol.Collection.<ol.Feature>|undefined),
          *     wrapX: (boolean|undefined),
          *     source: (ol.source.Vector|undefined)}}
          */
         interface ModifyOptions {
             condition?: ol.EventsConditionType;
             deleteCondition?: ol.EventsConditionType;
+            insertVertexCondition?: ol.EventsConditionType;
             pixelTolerance?: number;
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            features: ol.Collection<ol.Feature>;
+            features?: ol.Collection<ol.Feature>;
             wrapX?: boolean;
             source?: ol.source.Vector;            
         }
