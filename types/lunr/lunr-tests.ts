@@ -33,3 +33,9 @@ function pipeline_test() {
         });
     });
 }
+
+function pipeline_function_test() {
+    const stemmer: lunr.PipelineFunction = lunr.stemmer;
+    const stopWordFilter: lunr.PipelineFunction = lunr.stopWordFilter;
+    const trimmer: lunr.PipelineFunction = lunr.trimmer;
+}

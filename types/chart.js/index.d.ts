@@ -6,6 +6,7 @@
 //                 Larry Bahr <https://github.com/larrybahr>
 //                 Daniel Luz <https://github.com/mernen>
 //                 Joseph Page <https://github.com/josefpaij>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -328,6 +329,8 @@ declare namespace Chart {
     interface GridLineOptions {
         display?: boolean;
         color?: ChartColor;
+        borderDash?: number[];
+        borderDashOffset?: number;
         lineWidth?: number;
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
@@ -335,6 +338,8 @@ declare namespace Chart {
         tickMarkLength?: number;
         zeroLineWidth?: number;
         zeroLineColor?: ChartColor;
+        zeroLineBorderDash?: number[];
+        zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
     }
 

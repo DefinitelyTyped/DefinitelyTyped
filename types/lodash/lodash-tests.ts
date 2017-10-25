@@ -215,7 +215,6 @@ namespace TestCompact {
     {
         let result: TResult[];
 
-        result = _.compact<TResult>();
         result = _.compact<TResult>(array);
         result = _.compact<TResult>(list);
         result = _.compact(array2);
@@ -3287,13 +3286,14 @@ namespace TestZip {
 
 // _.zipObject
 namespace TestZipObject {
+    const zipObjectResult = _.zipObject(['a', 'b'], [1, 2]);
+    const zipObjectDeepResult = _.zipObjectDeep(['a.b[0].c', 'a.b[1].d'], [1, 2]);
+
     let arrayOfKeys: string[] = [];
     let arrayOfValues: number[] = [];
-    let arrayOfKeyValuePairs: (string|number)[][] = [];
 
     let listOfKeys: _.List<string> = [];
     let listOfValues: _.List<number> = [];
-    let listOfKeyValuePairs: _.List<_.List<string|number>> = [];
 
     {
         let result: _.Dictionary<void>;
@@ -3305,18 +3305,15 @@ namespace TestZipObject {
     {
         let result: _.Dictionary<number>;
 
-        result = _.zipObject<_.Dictionary<number>>(arrayOfKeys, arrayOfValues);
-        result = _.zipObject<_.Dictionary<number>>(arrayOfKeys, listOfValues);
-        result = _.zipObject<_.Dictionary<number>>(listOfKeys, listOfValues);
-        result = _.zipObject<_.Dictionary<number>>(listOfKeys, arrayOfValues);
-
         result = _.zipObject(arrayOfKeys, arrayOfValues);
         result = _.zipObject(arrayOfKeys, listOfValues);
         result = _.zipObject(listOfKeys, listOfValues);
         result = _.zipObject(listOfKeys, arrayOfValues);
 
-        result = _.zipObject(arrayOfKeyValuePairs);
-        result = _.zipObject(listOfKeyValuePairs);
+        result = _.zipObject(arrayOfKeys, arrayOfValues);
+        result = _.zipObject(arrayOfKeys, listOfValues);
+        result = _.zipObject(listOfKeys, listOfValues);
+        result = _.zipObject(listOfKeys, arrayOfValues);
     }
 
     {
@@ -3335,9 +3332,6 @@ namespace TestZipObject {
         result = _.zipObjectDeep(listOfKeys, listOfValues);
         result = _.zipObject(listOfKeys, arrayOfValues);
         result = _.zipObjectDeep(listOfKeys, arrayOfValues);
-
-        result = _.zipObject(arrayOfKeyValuePairs);
-        result = _.zipObject(listOfKeyValuePairs);
     }
 
     {
@@ -3350,18 +3344,15 @@ namespace TestZipObject {
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
-        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues);
-        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(listOfValues);
-        result = _(listOfKeys).zipObject<_.Dictionary<number>>(listOfValues);
-        result = _(listOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues);
-
         result = _(arrayOfKeys).zipObject(arrayOfValues);
         result = _(arrayOfKeys).zipObject(listOfValues);
         result = _(listOfKeys).zipObject(listOfValues);
         result = _(listOfKeys).zipObject(arrayOfValues);
 
-        result = _(listOfKeys).zipObject(arrayOfKeyValuePairs);
-        result = _(listOfKeys).zipObject(listOfKeyValuePairs);
+        result = _(arrayOfKeys).zipObject(arrayOfValues);
+        result = _(arrayOfKeys).zipObject(listOfValues);
+        result = _(listOfKeys).zipObject(listOfValues);
+        result = _(listOfKeys).zipObject(arrayOfValues);
     }
 
     {
@@ -3380,11 +3371,6 @@ namespace TestZipObject {
         result = _(listOfKeys).zipObjectDeep(listOfValues);
         result = _(listOfKeys).zipObject(arrayOfValues);
         result = _(listOfKeys).zipObjectDeep(arrayOfValues);
-
-        result = _(listOfKeys).zipObject(arrayOfKeyValuePairs);
-        result = _(listOfKeys).zipObjectDeep(arrayOfKeyValuePairs);
-        result = _(listOfKeys).zipObject(listOfKeyValuePairs);
-        result = _(listOfKeys).zipObjectDeep(listOfKeyValuePairs);
     }
 
     {
@@ -3397,18 +3383,15 @@ namespace TestZipObject {
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
-        result = _(arrayOfKeys).chain().zipObject<_.Dictionary<number>>(arrayOfValues);
-        result = _(arrayOfKeys).chain().zipObject<_.Dictionary<number>>(listOfValues);
-        result = _(listOfKeys).chain().zipObject<_.Dictionary<number>>(listOfValues);
-        result = _(listOfKeys).chain().zipObject<_.Dictionary<number>>(arrayOfValues);
-
         result = _(arrayOfKeys).chain().zipObject(arrayOfValues);
         result = _(arrayOfKeys).chain().zipObject(listOfValues);
         result = _(listOfKeys).chain().zipObject(listOfValues);
         result = _(listOfKeys).chain().zipObject(arrayOfValues);
 
-        result = _(listOfKeys).chain().zipObject(arrayOfKeyValuePairs);
-        result = _(listOfKeys).chain().zipObject(listOfKeyValuePairs);
+        result = _(arrayOfKeys).chain().zipObject(arrayOfValues);
+        result = _(arrayOfKeys).chain().zipObject(listOfValues);
+        result = _(listOfKeys).chain().zipObject(listOfValues);
+        result = _(listOfKeys).chain().zipObject(arrayOfValues);
     }
 
     {
@@ -3427,11 +3410,6 @@ namespace TestZipObject {
         result = _(listOfKeys).chain().zipObjectDeep(listOfValues);
         result = _(listOfKeys).chain().zipObject(arrayOfValues);
         result = _(listOfKeys).chain().zipObjectDeep(arrayOfValues);
-
-        result = _(listOfKeys).chain().zipObject(arrayOfKeyValuePairs);
-        result = _(listOfKeys).chain().zipObjectDeep(arrayOfKeyValuePairs);
-        result = _(listOfKeys).chain().zipObject(listOfKeyValuePairs);
-        result = _(listOfKeys).chain().zipObjectDeep(listOfKeyValuePairs);
     }
 }
 
@@ -11402,13 +11380,11 @@ namespace TestHas {
 
         result = _.has<SampleObject>(object, '');
         result = _.has<SampleObject>(object, 42);
-        result = _.has<SampleObject>(object, true);
-        result = _.has<SampleObject>(object, ['', 42, true]);
+        result = _.has<SampleObject>(object, ['', 42]);
 
         result = _(object).has('');
         result = _(object).has(42);
-        result = _(object).has(true);
-        result = _(object).has(['', 42, true]);
+        result = _(object).has(['', 42]);
     }
 
     {
@@ -11416,8 +11392,7 @@ namespace TestHas {
 
         result = _(object).chain().has('');
         result = _(object).chain().has(42);
-        result = _(object).chain().has(true);
-        result = _(object).chain().has(['', 42, true]);
+        result = _(object).chain().has(['', 42]);
     }
 }
 
@@ -11432,13 +11407,11 @@ namespace TestHasIn {
 
         result = _.hasIn<SampleObject>(object, '');
         result = _.hasIn<SampleObject>(object, 42);
-        result = _.hasIn<SampleObject>(object, true);
-        result = _.hasIn<SampleObject>(object, ['', 42, true]);
+        result = _.hasIn<SampleObject>(object, ['', 42]);
 
         result = _(object).hasIn('');
         result = _(object).hasIn(42);
-        result = _(object).hasIn(true);
-        result = _(object).hasIn(['', 42, true]);
+        result = _(object).hasIn(['', 42]);
     }
 
     {
@@ -11446,8 +11419,7 @@ namespace TestHasIn {
 
         result = _(object).chain().hasIn('');
         result = _(object).chain().hasIn(42);
-        result = _(object).chain().hasIn(true);
-        result = _(object).chain().hasIn(['', 42, true]);
+        result = _(object).chain().hasIn(['', 42]);
     }
 }
 
@@ -11803,33 +11775,36 @@ namespace TestMergeWith {
 // _.omit
 namespace TestOmit {
     let obj: TResult | null | undefined = any;
-    let predicate: (element: any, key: string, collection: any) => boolean;
+    let dict: { [key: string]: TResult } = { };
 
     {
         let result: Partial<TResult>;
 
         result = _.omit(obj, 'a');
         result = _.omit(obj, 0, 'a');
-        result = _.omit(obj, true, 0, 'a');
-        result = _.omit(obj, ['b', 1, false], true, 0, 'a');
+        result = _.omit(obj, ['b', 1], 0, 'a');
+
+        dict = _.omit(dict, 'a');
     }
 
     {
         let result: _.LoDashImplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).omit<TResult>('a');
-        result = _(obj).omit<TResult>(0, 'a');
-        result = _(obj).omit<TResult>(true, 0, 'a');
-        result = _(obj).omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).omit('a');
+        result = _(obj).omit(0, 'a');
+        result = _(obj).omit(['b', 1], 0, 'a');
+
+        dict = _(dict).omit('a').value();
     }
 
     {
         let result: _.LoDashExplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).chain().omit<TResult>('a');
-        result = _(obj).chain().omit<TResult>(0, 'a');
-        result = _(obj).chain().omit<TResult>(true, 0, 'a');
-        result = _(obj).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().omit('a');
+        result = _(obj).chain().omit(0, 'a');
+        result = _(obj).chain().omit(['b', 1], 0, 'a');
+
+        dict = _(dict).chain().omit('a').value();
     }
 }
 
@@ -11866,8 +11841,7 @@ namespace TestPick {
 
         result = _.pick(obj, 'a');
         result = _.pick(obj, 0, 'a');
-        result = _.pick(obj, true, 0, 'a');
-        result = _.pick(obj, ['b', 1, false], true, 0, 'a');
+        result = _.pick(obj, ['b', 1], 0, 'a');
     }
 
     {
@@ -11875,8 +11849,7 @@ namespace TestPick {
 
         result = _(obj).pick<TResult>('a');
         result = _(obj).pick<TResult>(0, 'a');
-        result = _(obj).pick<TResult>(true, 0, 'a');
-        result = _(obj).pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).pick<TResult>(['b', 1], 0, 'a');
     }
 
     {
@@ -11884,8 +11857,7 @@ namespace TestPick {
 
         result = _(obj).chain().pick<TResult>('a');
         result = _(obj).chain().pick<TResult>(0, 'a');
-        result = _(obj).chain().pick<TResult>(true, 0, 'a');
-        result = _(obj).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().pick<TResult>(['b', 1], 0, 'a');
     }
 }
 
@@ -13410,7 +13382,7 @@ namespace TestMatches {
 
 // _.matchesProperty
 namespace TestMatches {
-    let path: {toString(): string;}|{toString(): string;}[] = [];
+    let path: string | string[] = [];
     let source: TResult = { a: 1, b: "", c: true };
 
     {
@@ -13538,7 +13510,7 @@ namespace TestMethod {
 // _.methodOf
 namespace TestMethodOf {
     type SampleObject = { a: { b(): TResult }[] };
-    type ResultFn = (path: _.StringRepresentable|_.StringRepresentable[]) => TResult;
+    type ResultFn = (path: string | string[]) => TResult;
 
     let object: SampleObject = { a: [] };
 

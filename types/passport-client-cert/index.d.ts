@@ -2,7 +2,7 @@
 // Project: https://github.com/ripjar/passport-client-cert
 // Definitions by: Sean Warner <https://github.com/warnersean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
 import { Request } from 'express';
