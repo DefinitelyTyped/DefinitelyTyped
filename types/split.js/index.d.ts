@@ -1,17 +1,30 @@
-// Type definitions for splitjs v1.3.4
+// Type definitions for split.js 1.3
 // Project: https://github.com/nathancahill/Split.js
 // Definitions by: Ilia Choly <https://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+// Global variable outside module loader
+export as namespace Split;
+
+// Module loader
+export = Split;
+
+declare function Split(
+  elements: Array<string | HTMLElement>,
+  options?: Split.Options
+): Split.Instance;
 
 declare namespace Split {
+  type Partial<T> = {[P in keyof T]?: T[P]};
+  type CSSStyleDeclarationPartial = Partial<CSSStyleDeclaration>;
 
   interface Options {
-
     // Initial sizes of each element in percents or CSS values.
-    sizes?:   number[];
+    sizes?: number[];
 
     // Minimum size of each element.
-    minSize?: number|number[];
+    minSize?: number | number[];
 
     // Gutter size in pixels.
     gutterSize?: number;
@@ -20,43 +33,43 @@ declare namespace Split {
     snapOffset?: number;
 
     // Direction to split: horizontal or vertical.
-    direction?: "horizontal"|"vertical";
+    direction?: 'horizontal' | 'vertical';
 
     // Cursor to display while dragging.
-    cursor?: string;
-
-    // Called to create each gutter element
-    gutter?: (
-      index:     number,
-      direction: "horizontal"|"vertical"
-    ) => HTMLElement;
-
-    // 	Called to set the style of each element.
-    elementStyle?: (
-      dimension:   "width"|"height",
-      elementSize: number,
-      gutterSize:  number
-    ) => any;
-
-    // Called to set the style of the gutter.
-    gutterStyle?: (
-      dimension:  "width"|"height",
-      gutterSize: number
-    ) => any;
+    cursor?: 'col-resize' | 'row-resize';
 
     // Callback on drag.
-    onDrag?: Function;
+    onDrag?(): void;
 
     // Callback on drag start.
-    onDragStart?: Function;
+    onDragStart?(): void;
 
     // Callback on drag end.
-    onDragEnd?: Function;
+    onDragEnd?(): void;
+
+    // Called to create each gutter element
+    gutter?(
+      index: number,
+      direction: 'horizontal' | 'vertical'
+    ): HTMLElement;
+
+    // Called to set the style of each element.
+    elementStyle?(
+      dimension: 'width' | 'height',
+      elementSize: number,
+      gutterSize: number
+    ): CSSStyleDeclarationPartial;
+
+    // Called to set the style of the gutter.
+    gutterStyle?(
+      dimension: 'width' | 'height',
+      gutterSize: number
+    ): CSSStyleDeclarationPartial;
   }
 
   interface Instance {
     // setSizes behaves the same as the sizes configuration option, passing an array of percents or CSS values.
-    // It updates the sizes of the elements in the split. 
+    // It updates the sizes of the elements in the split.
     setSizes(sizes: number[]): void;
 
     // getSizes returns an array of percents, suitable for using with setSizes or creation.
@@ -72,11 +85,4 @@ declare namespace Split {
     // Destroy the instance. It removes the gutter elements, and the size CSS styles Split.js set.
     destroy(): void;
   }
-
 }
-
-declare function Split(
-  elements:  (string | HTMLElement)[],
-  options?: Split.Options
-): Split.Instance;
-

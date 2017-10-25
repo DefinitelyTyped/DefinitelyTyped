@@ -198,9 +198,9 @@ declare namespace jest {
         /**
          * Creates a test closure.
          *
-         * @param {string} name The name of your test
-         * @param {fn?} ProvidesCallback The function for your test
-         * @param {timeout?} timeout The timeout for an async function test
+         * @param name The name of your test
+         * @param fn The function for your test
+         * @param timeout The timeout for an async function test
          */
         (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
@@ -290,7 +290,7 @@ declare namespace jest {
          * The `expect` function is used every time you want to test a value.
          * You will rarely call `expect` by itself.
          *
-         * @param {any} actual The value to apply matchers against.
+         * @param actual The value to apply matchers against.
          */
         (actual: any): Matchers<void>;
         anything(): any;
