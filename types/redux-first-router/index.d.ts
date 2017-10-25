@@ -2,6 +2,7 @@
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
+//                 janb87 <https://github.com/janb87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -113,8 +114,8 @@ export interface Meta {
 
 export interface Action {
     type: string;
-    payload: Payload;
-    meta: Meta;
+    payload?: Payload;
+    meta?: Meta;
     query?: object;
     navKey?: Nullable<string>;
 }
@@ -195,7 +196,7 @@ export type ScrollUpdater = (performedByUser: boolean) => void;
 
 export const NOT_FOUND: string;
 
-export function actionToPath(action: ReceivedAction, routesMap: RoutesMap): string;
+export function actionToPath(action: ReceivedAction, routesMap: RoutesMap, querySerializer?: QuerySerializer): string;
 
 export function back(): void;
 
