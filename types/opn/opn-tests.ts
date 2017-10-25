@@ -1,9 +1,9 @@
-import * as opn from 'opn';
+import opn = require('opn');
 
-var errorCallback: (err: Error) => void;
+const errorCallback = (err: Error) => {};
 
 opn('foo');
-opn('foo', errorCallback);
+opn('foo', null, errorCallback);
 
 opn('foo', { app: 'bar' });
 opn('foo', { app: ['bar', '--arg'] });
