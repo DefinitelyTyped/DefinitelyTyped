@@ -595,6 +595,110 @@ namespace TestDifferenceBy {
     }
 }
 
+// _.differenceWith
+{
+    let array: TResult[] | null | undefined = [] as any;
+    let list: _.List<TResult> | null | undefined = [] as any;
+    let arrayParam: TResult[] = [];
+    let listParam: _.List<TResult> = [];
+    let comparator = (a: TResult, b: TResult) => any;
+
+    {
+        // $ExpectType TResult[]
+        _.differenceWith(array);
+        // $ExpectType TResult[]
+        _.differenceWith(array, arrayParam);
+        // $ExpectType TResult[]
+        _.differenceWith(array, listParam, arrayParam);
+        // $ExpectType TResult[]
+        _.differenceWith(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam);
+
+        // $ExpectType TResult[]
+        _.differenceWith(array, arrayParam, comparator);
+        // $ExpectType TResult[]
+        _.differenceWith(array, listParam, arrayParam, comparator);
+        // $ExpectType TResult[]
+        _.differenceWith(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, comparator);
+    }
+
+    {
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(arrayParam);
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(listParam, arrayParam);
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(arrayParam, listParam, arrayParam);
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam);
+
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(arrayParam, comparator);
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(listParam, arrayParam, comparator);
+        // $ExpectType LoDashImplicitWrapper<TResult[]>
+        _(array).differenceWith(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, comparator);
+    }
+
+    {
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(arrayParam);
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(listParam, arrayParam);
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(arrayParam, listParam, arrayParam);
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam);
+
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(arrayParam, comparator);
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(listParam, arrayParam, comparator);
+        // $ExpectType LoDashExplicitWrapper<TResult[]>
+        _.chain(array).differenceWith(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, comparator);
+    }
+
+    {
+        interface T1 {
+            a: string;
+            b: string;
+        }
+        interface T2 {
+            a: string;
+            b: number;
+        }
+
+        const t1: T1 = { a: 'a', b: 'b' };
+        const t2: T2 | undefined = any;
+        const comparator = (a: T1, b: T2 | undefined): boolean | undefined => {
+            return b && a.a === b.a;
+        };
+
+        // $ExpectType T1[]
+        _.differenceWith([t1], [t2], comparator);
+        // $ExpectType T1[]
+        _.differenceWith([t1], [t2], (a, b) => {
+            a; // $ExpectType T1
+            b; // $ExpectType T2 | undefined
+        });
+
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceWith([t2], comparator);
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceWith([t2], (a, b) => {
+            a; // $ExpectType T1
+            b; // $ExpectType T2 | undefined
+        });
+
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceWith([t2], comparator);
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceWith([t2], (a, b) => {
+            a; // $ExpectType T1
+            b; // $ExpectType T2 | undefined
+        });
+    }
+}
+
 // _.drop
 {
     let array: TResult[] | null | undefined = [] as any;
@@ -1334,6 +1438,191 @@ namespace TestIntersection {
     }
 }
 
+// _.intersectionBy
+{
+    let array: TResult[] = [] as any;
+    let list: _.List<TResult> = [] as any;
+    let arrayParam: TResult[] = [] as any;
+    let listParam: _.List<TResult> = [] as any;
+
+    // $ExpectType TResult[]
+    result = _.intersectionBy(array, list);
+    // $ExpectType TResult[]
+    result = _.intersectionBy(list, array, list);
+    // $ExpectType TResult[]
+    result = _.intersectionBy(array, list, 'a');
+    // $ExpectType TResult[]
+    result = _.intersectionBy(list, array, list, 'a');
+    // $ExpectType TResult[]
+    result = _.intersectionBy(array, list, { a: 42 });
+    // $ExpectType TResult[]
+    result = _.intersectionBy(list, array, list, { a: 42 });
+    // $ExpectType TResult[]
+    result = _.intersectionBy(array, list, ['a', 42]);
+    // $ExpectType TResult[]
+    result = _.intersectionBy(list, array, list, ['a', 42]);
+    // $ExpectType TResult[]
+    result = _.intersectionBy(array, list, (value) => {
+        value; // $ExpectType TResult
+    });
+    // $ExpectType TResult[]
+    result = _.intersectionBy(list, array, list, (value) => {
+        value; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionBy(arrayParam);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionBy(listParam, arrayParam);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionBy(list, 'a');
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(list).intersectionBy(array, list, 'a');
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionBy(list, { a: 42 });
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(list).intersectionBy(array, list, { a: 42 });
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionBy(list, ['a', 42]);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(list).intersectionBy(array, list, ['a', 42]);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionBy(list, (value) => {
+        value; // $ExpectType TResult
+    });
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(list).intersectionBy(array, list, (value) => {
+        value; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionBy(arrayParam);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionBy(listParam, arrayParam);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionBy(list, 'a');
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(list).intersectionBy(array, list, 'a');
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionBy(list, { a: 42 });
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(list).intersectionBy(array, list, { a: 42 });
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionBy(list, ['a', 42]);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(list).intersectionBy(array, list, ['a', 42]);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionBy(list, (value) => {
+        value; // $ExpectType TResult
+    });
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(list).intersectionBy(array, list, (value) => {
+        value; // $ExpectType TResult
+    });
+
+    interface T1 {
+        a: string;
+        b: string;
+    }
+    interface T2 {
+        a: string;
+        b: number;
+    }
+    const t1: T1 = { a: 'a', b: 'b' };
+    const t2: T2 = { a: 'a', b: 1 };
+    // $ExpectType T1[]
+    result = _.intersectionBy([t1], [t2], (value) => {
+        value; // $ExpectType T1 | T2
+    });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    result = _([t1]).intersectionBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    result = _.chain([t1]).intersectionBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+    });
+}
+
+// _.intersectionWith
+{
+    let array: TResult[] = [] as any;
+    let list: _.List<TResult> = [] as any;
+    let arrayParam: TResult[] = [] as any;
+    let listParam: _.List<TResult> = [] as any;
+
+    // $ExpectType TResult[]
+    result = _.intersectionWith(array, list);
+    // $ExpectType TResult[]
+    result = _.intersectionWith(list, array, list);
+    // $ExpectType TResult[]
+    result = _.intersectionWith(array, list, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+    // $ExpectType TResult[]
+    result = _.intersectionWith(list, array, list, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionWith(arrayParam);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionWith(listParam, arrayParam);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(array).intersectionWith(list, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    result = _(list).intersectionWith(array, list, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionWith(arrayParam);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionWith(listParam, arrayParam);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(array).intersectionWith(list, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    result = _.chain(list).intersectionWith(array, list, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+
+    interface T1 {
+        a: string;
+        b: string;
+    }
+    interface T2 {
+        a: string;
+        b: number;
+    }
+    const t1: T1 = { a: 'a', b: 'b' };
+    const t2: T2 = { a: 'a', b: 1 };
+    // $ExpectType T1[]
+    result = _.intersectionWith([t1], [t2], (a, b) => {
+        a; // $ExpectType T1
+        b; // $ExpectType T2
+    });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    result = _([t1]).intersectionWith([t2], (a, b) => {
+        a; // $ExpectType T1
+        b; // $ExpectType T2
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    result = _.chain([t1]).intersectionWith([t2], (a, b) => {
+        a; // $ExpectType T1
+        b; // $ExpectType T2
+    });
+}
+
 // _.join
 namespace TestJoin {
     let array = [1, 2];
@@ -1605,6 +1894,247 @@ namespace TestPullAt {
         result = _(list).chain().pullAt([2, 3], 1);
         result = _(list).chain().pullAt(4, [2, 3], 1);
     }
+}
+
+// _.pullAll
+{
+    let array: TResult[] = any;
+    let list: _.List<TResult> = any;
+    let values: _.List<TResult> = any;
+
+    // $ExpectType TResult[]
+    _.pullAll(array);
+    // $ExpectType TResult[]
+    _.pullAll(array, values);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAll(list);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAll(list, values);
+
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAll();
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAll(values);
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAll();
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAll(values);
+
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAll();
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAll(values);
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAll();
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAll(values);
+}
+
+// _.pullAllBy
+{
+    let array: TResult[] = any;
+    let list: _.List<TResult> = any;
+    let values: _.List<TResult> = any;
+
+    // $ExpectType TResult[]
+    _.pullAllBy(array);
+    // $ExpectType TResult[]
+    _.pullAllBy(array, values);
+    // $ExpectType TResult[]
+    _.pullAllBy(array, values, 'a');
+    // $ExpectType TResult[]
+    _.pullAllBy(array, values, { a: 42 });
+    // $ExpectType TResult[]
+    _.pullAllBy(array, values, ['a', 42]);
+    // $ExpectType TResult[]
+    _.pullAllBy(array, values, (value) => {
+        value; // $ExpectType TResult
+    });
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllBy(list);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllBy(list, values);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllBy(list, values, 'a');
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllBy(list, values, { a: 42 });
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllBy(list, values, ['a', 42]);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllBy(list, values, (value) => {
+        value; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllBy();
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllBy(values);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllBy(values, 'a');
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllBy(values, { a: 42 });
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllBy(values, ['a', 42]);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllBy(values, (value) => {
+        value; // $ExpectType TResult
+    });
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllBy();
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllBy(values);
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllBy(values, 'a');
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllBy(values, { a: 42 });
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllBy(values, ['a', 42]);
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllBy(values, (value) => {
+        value; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllBy();
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllBy(values);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllBy(values, 'a');
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllBy(values, { a: 42 });
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllBy(values, ['a', 42]);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllBy(values, (value) => {
+        value; // $ExpectType TResult
+    });
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllBy();
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllBy(values);
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllBy(values, 'a');
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllBy(values, { a: 42 });
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllBy(values, ['a', 42]);
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllBy(values, (value) => {
+        value; // $ExpectType TResult
+    });
+
+    interface T1 {
+        a: string;
+        b: string;
+    }
+    interface T2 {
+        a: string;
+        b: number;
+    }
+    const t1: T1 = { a: 'a', b: 'b' };
+    const t2: T2 = { a: 'a', b: 1 };
+    // $ExpectType T1[]
+    result = _.pullAllBy([t1], [t2], (value) => {
+        value; // $ExpectType T1 | T2
+    });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    result = _([t1]).pullAllBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    result = _.chain([t1]).pullAllBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+    });
+}
+
+// _.pullAllWith
+{
+    let array: TResult[] = any;
+    let list: _.List<TResult> = any;
+    let values: _.List<TResult> = any;
+
+    // $ExpectType TResult[]
+    _.pullAllWith(array);
+    // $ExpectType TResult[]
+    _.pullAllWith(array, values);
+    // $ExpectType TResult[]
+    _.pullAllWith(array, values, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllWith(list);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllWith(list, values);
+    // $ExpectType ArrayLike<TResult>
+    _.pullAllWith(list, values, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllWith();
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllWith(values);
+    // $ExpectType LoDashImplicitWrapper<TResult[]>
+    _(array).pullAllWith(values, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllWith();
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllWith(values);
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
+    _(list).pullAllWith(values, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllWith();
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllWith(values);
+    // $ExpectType LoDashExplicitWrapper<TResult[]>
+    _.chain(array).pullAllWith(values, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllWith();
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllWith(values);
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
+    _.chain(list).pullAllWith(values, (a, b) => {
+        a; // $ExpectType TResult
+        b; // $ExpectType TResult
+    });
+
+    interface T1 {
+        a: string;
+        b: string;
+    }
+    interface T2 {
+        a: string;
+        b: number;
+    }
+    const t1: T1 = { a: 'a', b: 'b' };
+    const t2: T2 = { a: 'a', b: 1 };
+    // $ExpectType T1[]
+    result = _.pullAllWith([t1], [t2], (a, b) => {
+        a; // $ExpectType T1
+        b; // $ExpectType T2
+    });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    result = _([t1]).pullAllWith([t2], (a, b) => {
+        a; // $ExpectType T1
+        b; // $ExpectType T2
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    result = _.chain([t1]).pullAllWith([t2], (a, b) => {
+        a; // $ExpectType T1
+        b; // $ExpectType T2
+    });
 }
 
 // _.remove

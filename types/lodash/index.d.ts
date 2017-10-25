@@ -792,57 +792,57 @@ declare namespace _ {
          * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }]
          */
-        differenceWith<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): T[];
+        differenceWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): T1[];
 
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T> | Comparator<T>>,
-        ): T[];
+        differenceWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            ...values: Array<List<T2> | Comparator2<T1, T2>>,
+        ): T1[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        differenceWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
-        ): LoDashImplicitWrapper<T[]>;
+        differenceWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | Comparator2<T1, T2>>,
+        ): LoDashImplicitWrapper<T1[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        differenceWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
-        ): LoDashExplicitWrapper<T[]>;
+        differenceWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | Comparator2<T1, T2>>,
+        ): LoDashExplicitWrapper<T1[]>;
     }
 
     //_.drop
@@ -1591,57 +1591,57 @@ declare namespace _ {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        intersectionBy<T>(
-            array?: List<T> | null | undefined,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        intersectionBy<T1, T2>(
+            array?: List<T1> | null | undefined,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): T1[];
 
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            array?: List<T> | null | undefined,
-            ...values: Array<List<T> | ValueIteratee<T>>,
-        ): T[];
+        intersectionBy<T1, T2>(
+            array?: List<T1> | null | undefined,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>,
+        ): T1[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>,
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>,
+        ): LoDashImplicitWrapper<T1[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>,
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | ValueIteratee<T1 | T2>>,
+        ): LoDashExplicitWrapper<T1[]>;
     }
 
     //_.intersectionWith
@@ -1660,61 +1660,62 @@ declare namespace _ {
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
 
-         * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
-         * // => [{ 'x': 2, 'y': 1 }]
+         * _.intersectionWith(objects, others, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }]
          */
-        intersectionWith<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): T[];
+        intersectionWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): T1[];
 
         /**
          * @see _.differenceWith
          */
-        intersectionWith<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T> | Comparator<T>>,
-        ): T[];
+        intersectionWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            ...values: Array<List<T2> | Comparator2<T1, T2>>,
+        ): T1[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | Comparator2<T1, T2>>,
+        ): LoDashImplicitWrapper<T1[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            ...values: Array<List<T2> | Comparator2<T1, T2>>,
+        ): LoDashExplicitWrapper<T1[]>;
     }
 
     //_.join
@@ -2042,30 +2043,30 @@ declare namespace _ {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        pullAllBy<T>(
-            array: T[],
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        pullAllBy<T1, T2>(
+            array: T1[],
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): T1[];
 
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(
-            array: List<T>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): List<T>;
+        pullAllBy<T1, T2>(
+            array: List<T1>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): List<T1>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(
-            this: LoDashImplicitWrapper<List<T>>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
+        pullAllBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1>>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
         ): this;
     }
 
@@ -2073,10 +2074,10 @@ declare namespace _ {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
+        pullAllBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1>>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
         ): this;
     }
 
@@ -2098,36 +2099,36 @@ declare namespace _ {
          * @returns {Array} Returns `array`.
          * @example
          *
-         * var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
+         * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
          *
-         * _.pullAllBy(array, [{ 'x': 1 }, { 'x': 3 }], 'x');
+         * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
          * console.log(array);
-         * // => [{ 'x': 2 }]
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        pullAllWith<T>(
-            array: T[],
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): T[];
+        pullAllWith<T1, T2>(
+            array: T1[],
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): T1[];
 
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(
-            array: List<T>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): List<T>;
+        pullAllWith<T1, T2>(
+            array: List<T1>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
+        ): List<T1>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(
-            this: LoDashImplicitWrapper<List<T>>,
-            values?: List<T>,
-            comparator?: Comparator<T>
+        pullAllWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1>>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
         ): this;
     }
 
@@ -2135,10 +2136,10 @@ declare namespace _ {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            values?: List<T>,
-            comparator?: Comparator<T>
+        pullAllWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1>>,
+            values?: List<T2>,
+            comparator?: Comparator2<T1, T2>
         ): this;
     }
 
@@ -16788,7 +16789,8 @@ declare namespace _ {
 
     type ValueIteratee<T> = ((value: T) => any) | string | [string, any] | PartialDeep<T>;
     type ValueKeyIteratee<T> = ((value: T, key: string) => any) | string | [string, any] | PartialDeep<T>;
-    type Comparator<T> = (a: T, b: T) => boolean;
+    type Comparator<T> = (a: T, b: T) => any;
+    type Comparator2<T1, T2> = (a: T1, b: T2) => any;
 
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
