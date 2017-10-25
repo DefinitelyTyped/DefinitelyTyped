@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "dependencies": {
+      "@types/node": "^6.0.90",
+      "@types/mocha": "^2.2.43",
+      "metalsmith": "^2.3.0",
+      "mocha": "^4.0.1",
+      "typescript": "^2.5.3",
+      "assert-dir-equal": "^1.1.0",
+      "ts-node": "^3.3.0"
+    }
+  }
+  
