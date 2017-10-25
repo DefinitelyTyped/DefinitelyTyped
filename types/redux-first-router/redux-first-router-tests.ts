@@ -53,18 +53,18 @@ const receivedAction: ReceivedAction = {
     type: 'HOME',
     payload: {}
 };
-actionToPath(receivedAction, routesMap);
+actionToPath(receivedAction, routesMap); // $ExpectType string
 
 const querySerializer: QuerySerializer = {
     stringify: (params) => '',
     parse: (queryString) => ({})
 };
-actionToPath(receivedAction, routesMap, querySerializer);
+actionToPath(receivedAction, routesMap, querySerializer); // $ExpectType string
 
 const action: ReduxFirstRouterAction = {
     type: 'HOME'
 };
-redirect(action);
+redirect(action); // $ExpectType Action
 
 // $ExpectType Store<LocationState>
 store;
