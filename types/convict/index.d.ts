@@ -27,27 +27,33 @@ declare namespace convict {
         coerce?(val: any): any;
     }
 
+    interface SchemaObj {
+        default: any;
+        doc?: string;
+        /**
+         * From the implementation:
+         *
+         *  format can be a:
+         *   - predefined type, as seen below
+         *   - an array of enumerated values, e.g. ["production", "development", "testing"]
+         *   - built-in JavaScript type, i.e. Object, Array, String, Number, Boolean
+         *   - function that performs validation and throws an Error on failure
+         *
+         * If omitted, format will be set to the value of Object.prototype.toString.call
+         * for the default value
+         */
+        format?: string | any[] | ((val: any) => void);
+        env?: string;
+        arg?: string;
+        sensitive?: boolean;
+    }
+
     interface Schema {
-        [name: string]: Schema | {
-            default: any;
-            doc?: string;
-            /**
-             * From the implementation:
-             *
-             *  format can be a:
-             *   - predefined type, as seen below
-             *   - an array of enumerated values, e.g. ["production", "development", "testing"]
-             *   - built-in JavaScript type, i.e. Object, Array, String, Number, Boolean
-             *   - function that performs validation and throws an Error on failure
-             *
-             * If omitted, format will be set to the value of Object.prototype.toString.call
-             * for the default value
-             */
-            format?: string | any[] | ((val: any) => void);
-            env?: string;
-            arg?: string;
-            sensitive?: boolean;
-        };
+        [name: string]: Schema | SchemaObj;
+    }
+
+    interface InternalSchema {
+        properties: Schema;
     }
 
     interface Config {
@@ -92,7 +98,7 @@ declare namespace convict {
          * Exports the schema as a {JSON} {Object}
          * @returns A {JSON} compliant {Object}
          */
-        getSchema(): Object;
+        getSchema(): InternalSchema;
 
         /**
          * Exports all the properties (that is the keys and their current values) as a JSON string.
