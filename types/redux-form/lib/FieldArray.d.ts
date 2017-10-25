@@ -1,7 +1,7 @@
 import { Component, ComponentType } from "react";
 import { Validator } from "../index";
 
-export interface BaseFieldArrayProps<P = {}> {
+interface BaseFieldArrayProps<P = {}> {
     name: string;
     component: ComponentType<P>;
     validate?: Validator | Validator[];
@@ -23,14 +23,14 @@ export class FieldArray<P = {}> extends Component<BaseFieldArrayProps<P> & P> im
     getRenderedComponent(): Component<WrappedFieldArrayProps<any> & P>;
 }
 
-export interface WrappedFieldArrayProps<FieldValue> {
+interface WrappedFieldArrayProps<FieldValue> {
     fields: FieldsProps<FieldValue>;
     meta: FieldArrayMetaProps;
 }
 
-export type FieldIterate<FieldValue, R = void> = (name: string, index: number, fields: FieldsProps<FieldValue>) => R;
+type FieldIterate<FieldValue, R = void> = (name: string, index: number, fields: FieldsProps<FieldValue>) => R;
 
-export interface FieldsProps<FieldValue> {
+interface FieldsProps<FieldValue> {
     forEach(callback: FieldIterate<FieldValue>): void;
     get(index: number): FieldValue;
     getAll(): FieldValue[];
@@ -45,7 +45,7 @@ export interface FieldsProps<FieldValue> {
     unshift(value: FieldValue): void;
 }
 
-export interface FieldArrayMetaProps {
+interface FieldArrayMetaProps {
     dirty: boolean;
     error?: string;
     form: string;

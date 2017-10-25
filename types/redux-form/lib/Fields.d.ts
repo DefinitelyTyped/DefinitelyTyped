@@ -1,7 +1,7 @@
 import { Component, ComponentType } from "react";
 import { Formatter, Parser, WrappedFieldProps } from "../index";
 
-export interface BaseFieldsProps<P = {}> {
+interface BaseFieldsProps<P = {}> {
     names: string[];
     component?: ComponentType<any>;
     format?: Formatter | null;
@@ -26,6 +26,6 @@ export class Fields<P = {}> extends Component<BaseFieldsProps<P> & P> implements
     getRenderedComponent(): Component<BaseFieldsProps & WrappedFieldsProps & P>;
 }
 
-export interface WrappedFieldsProps {
+interface WrappedFieldsProps {
     [name: string]: WrappedFieldsProps & WrappedFieldProps;
 }

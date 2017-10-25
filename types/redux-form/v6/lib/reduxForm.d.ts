@@ -102,7 +102,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * A callback function that will be called with all the form values any time
      * any of the form values change.
      */
-    onChange?: (values: any) => void;
+    onChange?(values: any): void;
 
     /**
      * The function to call with the form data when the handleSubmit() is fired
@@ -334,7 +334,7 @@ export interface FormComponent<FormData extends DataShape, P, S> extends Compone
      * A reference to the instance of the component you decorated with reduxForm().
      * Mainly useful for testing.
      */
-    wrappedInstance: ReactElement<P & FormProps<FormData, P, S>>
+    wrappedInstance: ReactElement<P & FormProps<FormData, P, S>>;
 }
 
 /**
@@ -402,13 +402,13 @@ export interface StrictFormProps<FormData extends DataShape, P, S> {
          * Unshifts the given value into the beginning of the given array field in your form.
          */
         unshift(field: string, value: FieldValue): void;
-    }
+    };
 
     /**
      * A function that may be called to initiate asynchronous validation if
      * asynchronous validation is enabled.
      */
-    asyncValidate: () => void;
+    asyncValidate(): void;
 
     /**
      * This value will be either:
@@ -566,6 +566,4 @@ export interface StrictFormProps<FormData extends DataShape, P, S> {
  * These are the props that will be passed to your form component.
  * Your form component's props can extend this interface.
  */
-export interface FormProps<FormData extends DataShape, P, S> extends Partial<StrictFormProps<FormData, P, S>> {
-
-}
+export interface FormProps<FormData extends DataShape, P, S> extends Partial<StrictFormProps<FormData, P, S>> {}

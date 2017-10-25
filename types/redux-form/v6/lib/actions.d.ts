@@ -2,9 +2,9 @@ import { Action } from "redux";
 import { FormErrors, FormWarnings, FieldType } from "../index";
 
 export interface FormAction extends Action {
-    meta: {
-        form: string;
-    };
+    meta?: any;
+    payload?: any;
+    error?: any;
 }
 
 /**
@@ -90,7 +90,7 @@ export function focus(form: string, field: string): FormAction;
  * user edits.
  */
 interface InitializeOptions {
-    keepDirty : boolean;
+    keepDirty: boolean;
     keepSubmitSucceeded: boolean;
 }
 

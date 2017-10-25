@@ -2,7 +2,7 @@ import { Component, FormHTMLAttributes, FormEvent, FormEventHandler } from "reac
 import { Dispatch } from "redux";
 import { FormProps, FormErrors, FormSubmitHandler, Omit } from "../index";
 
-export interface FormSubmitProp<FormData = {}, P = {}> {
+interface FormSubmitProp<FormData = {}, P = {}> {
     onSubmit?: FormSubmitHandler<FormData, P>;
 }
 
