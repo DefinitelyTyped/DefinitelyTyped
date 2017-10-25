@@ -6886,6 +6886,15 @@ declare namespace EngineAPI {
     }
 
     interface IQDownloadInfo {
+        /**
+         * URL of the generated QVF
+         */
+        qUrl: string;
+
+        /**
+         * FileSize of the generated QVF
+         */
+        qFileSize: number;
     }
 
     interface IQVersion {
