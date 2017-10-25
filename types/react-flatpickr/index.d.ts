@@ -5,12 +5,12 @@
 // TypeScript Version: 2.3
 
 import { Component } from 'react';
-import { EventCallback, Options } from 'flatpickr';
+import { Hook, Options } from 'flatpickr';
 
 export interface DateTimePickerProps {
     defaultValue?: string;
     options?: Options;
-    onChange?: EventCallback;
+    onChange?: Hook;
     value?: string;
 }
 
