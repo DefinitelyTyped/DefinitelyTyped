@@ -2175,7 +2175,7 @@ declare module "child_process" {
 declare module "url" {
     import { ParsedUrlQuery } from 'querystring';
 
-    export interface UrlObject {
+    export interface UrlObjectCommon {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2183,14 +2183,17 @@ declare module "url" {
         href?: string;
         path?: string;
         pathname?: string;
-        port?: string | number;
         protocol?: string;
         query?: string | null | ParsedUrlQuery;
         search?: string;
         slashes?: boolean;
     }
 
-    export interface Url extends UrlObject {
+    export interface UrlObject extends UrlObjectCommon {
+        port?: string | number;
+    }
+
+    export interface Url extends UrlObjectCommon {
         port?: string;
     }
 
