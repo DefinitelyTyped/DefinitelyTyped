@@ -530,7 +530,7 @@ declare namespace EngineAPI {
         qThou: string;
 
         /**
-         *
+         * no / empty docu
          */
         qSAFEARRAY: any[];
     }
@@ -6278,7 +6278,7 @@ declare namespace EngineAPI {
          *
          * Note: This method is deprecated (not recommended to use). Use GetProperties method instead.
          */
-        getRawContent(): string;
+        getRawContent(): Promise<string>;
 
         /**
          * Sets a value to a variable.
@@ -6938,7 +6938,7 @@ declare namespace EngineAPI {
         abortRequest(qRequestId: number): Promise<void>;
 
         /**
-         *
+         * no / empty docu
          */
         allowCreateApp(): Promise<boolean>;
 
@@ -8147,12 +8147,12 @@ declare namespace EngineAPI {
         qAttributeDimensions?: INxAttrDimDef[];
 
         /**
-         *
+         * no / empty docu
          */
         qIncludeElemValue?: boolean; // ?Nicht in Doku
 
         /**
-         *
+         * no / empty docu
          */
         qShowTotal?: boolean; // ?Nicht in Doku
     }
@@ -8221,7 +8221,7 @@ declare namespace EngineAPI {
         qExpression?: IValueExpr;
 
         /**
-         *
+         * no / empty docu
          */
         qSortByGreyness?: TypeSortDirection; // ?Nicht in Doku
     }
