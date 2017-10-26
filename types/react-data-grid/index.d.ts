@@ -161,6 +161,13 @@ declare namespace AdazzleReactDataGrid {
          * @default false
          */
         enableCellSelect?: boolean
+
+        /**
+         * Enables cells to be dragged and dropped 
+         * @default false
+         */
+        enableDragAndDrop?: boolean
+        
         /**
          * Called when a cell is selected.
          * @param coordinates The row and column indices of the selected cell.
@@ -198,6 +205,13 @@ declare namespace AdazzleReactDataGrid {
          * @param row object behind the row
          */
         onRowClick?: (rowIdx : number, row : object) => void
+
+        /**
+         * An event function called when a row is expanded with the toggle
+         * @param props OnRowExpandToggle object
+         */
+        onRowExpandToggle?: (props: OnRowExpandToggle ) => void
+        
         /**
          * Responsible for returning an Array of values that can be used for filtering
          * a column that is column.filterable and using a column.filterRenderer that 
@@ -417,6 +431,24 @@ declare namespace AdazzleReactDataGrid {
          * One of 'cellUpdate', 'cellDrag', 'columnFill', or 'copyPaste'.
          */
         action: 'cellUpdate' | 'cellDrag' | 'columnFill' | 'copyPaste'
+    }
+
+    /**
+     * Information about the row toggler
+     */
+    interface OnRowExpandToggle {
+        /**
+         * The name of the column group the row is in
+         */
+        columnGroupName: string
+        /**
+         * The name of the expanded row
+         */
+        name: string
+        /**
+         * If it should expand or not
+         */
+        shouldExpand: boolean
     }
 
     /**
