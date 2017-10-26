@@ -4423,9 +4423,7 @@ declare module "path" {
         name: string;
     }
 
-    export interface FormatInputPathObject extends
-        Pick<ParsedPath, 'root' | 'dir' | 'ext' | 'name'>,
-        Partial<Pick<ParsedPath, 'base'>> {}
+    export interface FormatInputPathObject extends Partial<ParsedPath> {}
 
     /**
      * Normalize a string path, reducing '..' and '.' parts.
