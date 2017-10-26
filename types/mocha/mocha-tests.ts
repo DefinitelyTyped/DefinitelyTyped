@@ -339,6 +339,10 @@ function test_setup_reporter_string_option() {
     mocha.setup({ reporter: 'html' });
 }
 
+function test_setup_require_stringArray_option() {
+    mocha.setup({ require: ['ts-node/register'] });
+}
+
 function test_setup_reporter_function_option() {
     mocha.setup({ reporter: class { } });
 }
@@ -372,7 +376,8 @@ function test_setup_all_options() {
         reporter: 'html',
         bail: true,
         ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
+        require: ['ts-node/register']
     });
 }
 
