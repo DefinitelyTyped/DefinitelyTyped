@@ -1,6 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "dt-header": false
+        // TODOs
+        "dt-header": false,
+        "no-unnecessary-class": false
     }
 }

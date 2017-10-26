@@ -17,64 +17,23 @@ import { EventEmitter } from 'events';
  * Consult [documentation](https://allenfang.github.io/react-bootstrap-table/docs.html#remote)
  * for more info
  *
- * @interface RemoteObjSpec
  */
 export interface RemoteObjSpec {
-	/**
-	 * If set, cell edits will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set, cell edits will be handled remotely */
 	cellEdit?: boolean;
-	/**
-	 * If set insertions will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set insertions will be handled remotely */
 	insertRow?: boolean;
-	/**
-	 * If set deletion will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set deletion will be handled remotely */
 	dropRow?: boolean;
-	/**
-	 * If set filters will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set filters will be handled remotely */
 	filter?: boolean;
-	/**
-	 * If set search will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set search will be handled remotely */
 	search?: boolean;
-	/**
-	 * If set, exporting CSV will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set, exporting CSV will be handled remotely */
 	exportCSV?: boolean;
-	/**
-	 * If set sorting will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set sorting will be handled remotely */
 	sort?: boolean;
-	/**
-	 * If set pagination will be handled remotely
-	 *
-	 * @type {boolean}
-	 * @memberof RemoteObjSpec
-	 */
+	/** If set pagination will be handled remotely */
 	pagination?: boolean;
 }
 
@@ -459,7 +418,7 @@ export interface Options {
 	 * `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	 */
 	handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
-	paginationShowsTotal?: boolean | ReactElement<any>;
+	paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => ReactElement<any>);
 	onSearchChange?: Function;
 	onAddRow?: Function;
 	onExportToCSV?: Function;
@@ -474,7 +433,6 @@ export interface Options {
 	 *
 	 * https://allenfang.github.io/react-bootstrap-table/example.html#remote
 	 *
-	 * @memberof BootstrapTableProps
 	 */
 	onCellEdit?: (row: any, field: string, value: any) => any;
 	/**
@@ -482,7 +440,6 @@ export interface Options {
 	 *
 	 * https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/remote/remote-store-filtering.js#L67
 	 *
-	 * @memberof BootstrapTableProps
 	 */
 	onFilterChange?: (filterObj: any) => any;
 	/**
@@ -490,7 +447,6 @@ export interface Options {
 	 *
 	 * https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/remote/remote-store-delete-row.js#L27
 	 *
-	 * @memberof BootstrapTableProps
 	 */
 	onDeleteRow?: (rows: any) => any;
 	/**
@@ -498,7 +454,6 @@ export interface Options {
 	 *
 	 * https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/remote/remote-store-paging.js#L30
 	 *
-	 * @memberof BootstrapTableProps
 	 */
 	onpageChange?: (page: any, sizePerPage: number) => any;
 }

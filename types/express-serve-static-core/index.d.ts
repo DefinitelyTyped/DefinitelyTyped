@@ -9,7 +9,7 @@ declare global {
     namespace Express {
 
         // These open interfaces may be extended in an application-specific manner via declaration merging.
-        // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+        // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
         export interface Request { }
         export interface Response { }
         export interface Application { }
@@ -174,7 +174,12 @@ interface RequestRanges extends Array<ByteRange> { type: string; }
 
 interface Errback { (err: Error): void; }
 
-interface Request extends http.IncomingMessage, Express.Request {
+interface Request<
+    Body = any,
+    Query = any,
+    Params = any,
+    Cookies = any
+> extends http.IncomingMessage, Express.Request {
 
     /**
         * Return request header.
@@ -435,14 +440,14 @@ interface Request extends http.IncomingMessage, Express.Request {
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: any;
+    body: Body;
 
     //cookies: { string; remember: boolean; };
-    cookies: any;
+    cookies: Cookies;
 
     method: string;
 
-    params: any;
+    params: Params;
 
     /**
         * Clear cookie `name`.
@@ -452,7 +457,7 @@ interface Request extends http.IncomingMessage, Express.Request {
         */
     clearCookie(name: string, options?: any): Response;
 
-    query: any;
+    query: Query;
 
     route: any;
 

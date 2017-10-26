@@ -57,6 +57,7 @@ class SingleDatePickerFullTest extends React.Component {
                     onFocusChange={arg => {}}
                     onNextMonthClick={e => {}}
                     onPrevMonthClick={e => {}}
+                    firstDayOfWeek={0}
                     numberOfMonths={2}
                     orientation="horizontal"
                     monthFormat="MM"
@@ -109,6 +110,7 @@ class DateRangePickerFullTest extends React.Component {
                     onFocusChange={arg => {}}
                     onNextMonthClick={e => {}}
                     onPrevMonthClick={e => {}}
+                    firstDayOfWeek={0}
                     numberOfMonths={2}
                     orientation="horizontal"
                     monthFormat="MM"
