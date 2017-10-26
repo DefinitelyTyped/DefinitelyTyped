@@ -617,9 +617,9 @@ declare namespace SocketIOClient {
 		onlyBinaryUpgrades?: boolean;
 
 		/**
-		 * Header options for Node.js client
+		 * Transport options for Node.js client (headers etc)
 		 */
-		extraHeaders?: Object;
+		transportOptions?: Object;
 
 		/**
 		 * (SSL) Certificate, Private key and CA certificates to use for SSL.
