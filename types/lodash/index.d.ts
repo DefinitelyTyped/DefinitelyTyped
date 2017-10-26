@@ -1581,7 +1581,7 @@ declare namespace _ {
          * // => [{ 'x': 1 }]
          */
         intersectionBy<T1, T2>(
-            array?: List<T1> | null | undefined,
+            array?: List<T1> | null,
             values?: List<T2>,
             iteratee?: ValueIteratee<T1 | T2>
         ): T1[];
