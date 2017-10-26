@@ -219,7 +219,7 @@ export class TransactionBuilder {
 
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
 
-    addOutput(scriptPubKey: Buffer, value: number): number;
+    addOutput(scriptPubKey: Buffer | string, value: number): number;
 
     build(): Transaction;
 
@@ -537,7 +537,7 @@ export namespace script {
         output: {
             check(script: Buffer): boolean;
             decode(buffer: Buffer): Buffer;
-            encode(data: Buffer[]): Buffer;
+            encode(data: Buffer): Buffer;
         };
     };
 }
