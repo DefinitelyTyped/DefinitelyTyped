@@ -967,18 +967,17 @@ declare namespace createjs {
         static COVER_FRAGMENT_HEADER: string;
         static COVER_VERTEX_BODY: string;
         static COVER_FRAGMENT_BODY: string;
-        static VERTEX_PROPERTY_COUNT: number;
         isWebGL: boolean;
         autoPurge: number;
         vocalDebug: boolean;
 
         // methods
-        static buildUVRects(spritesheet: SpriteSheet, target?: number, onlyTarget?: boolean): object;
+        static buildUVRects(spritesheet: SpriteSheet, target?: number, onlyTarget?: boolean): Object;
         cacheDraw(target: DisplayObject, filters: Filter[], manager: BitmapCache): boolean;
         getBaseTexture(w?: number, h?: number): WebGLTexture | null;
         getFilterShader(filter: Filter | Object): WebGLProgram;
         getRenderBufferTexture (w: number, h: number): WebGLTexture;
-        getTargetRenderTexture (target: DisplayObject, w: number, h: number): object;
+        getTargetRenderTexture (target: DisplayObject, w: number, h: number): Object;
         isWebGLActive(ctx: CanvasRenderingContext2D): boolean;
         protectTextureSlot(id: number, lock?: boolean): void;
         purgeTextures(count?: number): void;
