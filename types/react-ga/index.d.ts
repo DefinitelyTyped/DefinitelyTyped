@@ -54,6 +54,7 @@ export interface OutboundLinkArgs {
 }
 
 export function initialize(trackingCode: string, options?: InitializeOptions): void;
+export function ga(): (...args: any[]) => any;
 export function ga(...args: any[]): any;
 export function set(fieldsObject: FieldsObject): void;
 export function send(fieldsObject: FieldsObject): void;
