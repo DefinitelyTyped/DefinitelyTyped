@@ -8,7 +8,7 @@
 /// <reference types="vinyl" />
 
 import vinyl = require('vinyl');
-import chalk = require('chalk');
+import chalk from 'chalk';
 import through2 = require('through2');
 
 export { vinyl as File };
