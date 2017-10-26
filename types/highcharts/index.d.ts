@@ -507,7 +507,7 @@ declare namespace Highcharts {
          * The actual text of the axis title. It can contain basic HTML text markup like <b>, <i> and spans with style.
          * @default xAxis: null, yAxis: 'Values'
          */
-        text?: string;
+        text?: string | null;
         /**
          * Horizontal pixel offset of the title position.
          * @default 0
@@ -1021,9 +1021,9 @@ declare namespace Highcharts {
          */
         tickmarkPlacement?: string;
         /**
-         * The axis title, showing next to the axis line.
+         * The axis title, showing next to the axis line. To disable the title, set the text to null.
          */
-        title?: AxisTitle;
+        title?: AxisTitle | null;
         /**
          * The type of axis. Can be one of 'linear', 'logarithmic', 'datetime' or 'category'. In a datetime axis, the
          * numbers are given in milliseconds, and tick marks are placed on appropriate values like full hours or days. In a
@@ -5608,7 +5608,7 @@ declare namespace Highcharts {
          * The title of the chart. To disable the title, set the text to null.
          * @default 'Chart title'
          */
-        text?: string;
+        text?: string | null;
         /**
          * Whether to {@link http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html|use HTML} to render the text.
          * @default false
