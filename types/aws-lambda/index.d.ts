@@ -8,6 +8,7 @@
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
+//                 Michael Marner <https://github.com/MichaelMarner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
