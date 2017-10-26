@@ -4,6 +4,7 @@
 //                 Alex Young <https://github.com/alsiola/>
 //                 David Ng <https://github.com/davidNHK/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';
