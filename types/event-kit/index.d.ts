@@ -104,4 +104,11 @@ export class Emitter implements DisposableLike {
     /** Invoke the handlers registered via ::on for the given event name. */
     // tslint:disable-next-line:no-any
     emit(eventName: string, value?: any): void;
+
+    /**
+     *  Asynchronously invoke the handlers registered via ::on for the given event name.
+     *  @return A promise that will be fulfilled once all handlers have been invoked.
+     */
+    // tslint:disable-next-line:no-any
+    emitAsync(eventName: string, value?: any): Promise<void>;
 }

@@ -81,3 +81,8 @@ subscription = emitter.preempt("test-event", value => {});
 // Event Emission
 emitter.emit("test-event");
 emitter.emit("test-event", 42);
+
+async function testEmitAsync() {
+    await emitter.emitAsync("test-event");
+    await emitter.emitAsync("test-event", 42);
+}
