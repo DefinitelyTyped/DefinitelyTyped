@@ -3299,6 +3299,11 @@ interface ImagePropertiesAndroid {
      * It should also be used if the image is slightly bigger than the view.
      */
     resizeMethod?: 'auto' | 'resize' | 'scale'
+
+    /**
+     * Duration of fade in animation.
+     */
+    fadeDuration?: number;
 }
 
 /**
