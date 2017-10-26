@@ -1,4 +1,4 @@
-// Type definitions for react-tracking 4.2
+// Type definitions for react-tracking 5.0
 // Project: https://github.com/NYTimes/react-tracking
 // Definitions by: Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,7 +50,7 @@ interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
-export type TrackingInfo<T, P> = T | ((props: P) => T);
+export type TrackingInfo<T, P, S> = T | ((props: P, state: S) => T);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
 // through a JSX component that be used without casting.
@@ -64,8 +64,8 @@ type Decorator = ClassDecorator & MethodDecorator;
  *
  * For examples of such extensions see: https://github.com/artsy/reaction/blob/master/src/utils/track.ts
  */
-export interface Track<T = any, P = any> {
-    (trackingInfo?: TrackingInfo<Partial<T>, P>, options?: Options<Partial<T>>): Decorator;
+export interface Track<T = any, P = any, S = any> {
+    <K extends keyof T>(trackingInfo?: TrackingInfo<Pick<T, K>, P, S>, options?: Options<Partial<T>>): Decorator;
 }
 
 export const track: Track;

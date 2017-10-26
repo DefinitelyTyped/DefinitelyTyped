@@ -2,6 +2,7 @@
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00/>
 //                 Christopher Eck <https://github.com/chrisleck>
+//                 Yoga Aliarham <https://github.com/aliarham11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -325,16 +326,22 @@ declare module IORedis {
         evalsha(args: any[], callback?: ResCallbackT<any>): any;
         evalsha(...args: any[]): any;
         script(args: any[], callback?: ResCallbackT<any>): any;
-        script(...args: any[]): any;
         script(key: string, callback?: ResCallbackT<any>): any;
+        script(...args: any[]): any;
         quit(args: any[], callback?: ResCallbackT<any>): any;
         quit(...args: any[]): any;
-        scan(...args: any[]): any;
         scan(args: any[], callback?: ResCallbackT<any>): any;
-        hscan(...args: any[]): any;
+        scan(...args: any[]): any;
         hscan(args: any[], callback?: ResCallbackT<any>): any;
-        zscan(...args: any[]): any;
+        hscan(...args: any[]): any;
         zscan(args: any[], callback?: ResCallbackT<any>): any;
+        zscan(...args: any[]): any;
+        pfmerge(args: any[], callback?: ResCallbackT<any>): any;
+        pfmerge(...args: any[]): any;
+        pfadd(args: any[], callback?: ResCallbackT<any>): any;
+        pfadd(...args: any[]): any;
+        pfcount(args: any[], callback?: ResCallbackT<any>): any;
+        pfcount(...args: any[]): any;
 
         pipeline(): Pipeline;
         pipeline(commands: string[][]): Pipeline;
@@ -711,6 +718,10 @@ declare module IORedis {
         * If you are using the hiredis parser, it's highly recommended to enable this option. Create another instance with dropBufferSupport disabled for other commands that you want to return binary instead of string:
         */
         dropBufferSupport?: boolean;
+        /**
+         * Whether to show a friendly error stack. Will decrease the performance significantly.
+         */
+        showFriendlyErrorStack?: boolean;
     }
 
     interface ScanStreamOption {

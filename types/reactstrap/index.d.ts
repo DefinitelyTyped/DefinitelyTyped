@@ -17,6 +17,7 @@ export { default as ButtonDropdown } from './lib/ButtonDropdown';
 export { default as ButtonGroup } from './lib/ButtonGroup';
 export { default as ButtonToolbar } from './lib/ButtonToolbar';
 export { default as Card } from './lib/Card';
+export { default as CardBody } from './lib/CardBody';
 export { default as CardBlock } from './lib/CardBlock';
 export { default as CardColumns } from './lib/CardColumns';
 export { default as CardDeck } from './lib/CardDeck';

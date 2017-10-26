@@ -3,7 +3,7 @@
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Paolo Scanferla <https://github.com/pscanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require('express');
 
@@ -49,8 +49,6 @@ declare namespace morgan {
          * client error codes, cyan for redirection codes, and uncolored for
          * all other codes.
          * :method :url :status :response-time ms - :res[content-length]
-         * @param format
-         * @param options
          */
         (format: 'dev', options?: Options): express.RequestHandler;
 

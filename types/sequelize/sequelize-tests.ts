@@ -1207,6 +1207,17 @@ new Sequelize( {
     typeValidation: true
 } );
 
+new Sequelize({
+    operatorsAliases: false,
+});
+
+new Sequelize({
+    operatorsAliases: {
+        $and: Sequelize.Op.and,
+        customAlias: Sequelize.Op.or,
+    },
+});
+
 s.model( 'Project' );
 s.models['Project'];
 s.define( 'Project', {
@@ -1466,6 +1477,13 @@ Chair.findAll({
     where: {
         color: 'blue',
         legs: { $in: [3, 4] },
+    },
+});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { [Sequelize.Op.in]: [3, 4] },
     },
 });
 

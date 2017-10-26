@@ -21,12 +21,15 @@ declare namespace archiver {
         stats?: string;
     }
 
+    /** A function that lets you either opt out of including an entry (by returning false), or modify the contents of an entry as it is added (by returning an EntryData) */
+    type EntryDataFunction = (entry: EntryData) => false | EntryData;
+
     interface Archiver extends stream.Transform {
         abort(): this;
         append(source: stream.Readable | Buffer | string, name?: EntryData): this;
 
-        directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
-
+        /** if false is passed for destpath, the path of a chunk of data in the archive is set to the root */
+        directory(dirpath: string, destpath: false | string, data?: EntryData | EntryDataFunction): this;
         file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
         finalize(): Promise<void>;
