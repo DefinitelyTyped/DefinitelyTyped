@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="event-kit" />
+import { Disposable } from "event-kit";
 
 declare global {
     namespace AtomKeymap {
@@ -156,27 +156,25 @@ declare global {
              *  key binding.
              */
             onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
-                EventKit.Disposable;
+                Disposable;
 
             /** Invoke the given callback when one or more keystrokes partially match a binding. */
             onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
-                void): EventKit.Disposable;
+                void): Disposable;
 
             /** Invoke the given callback when one or more keystrokes fail to match any bindings. */
             onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
-                void): EventKit.Disposable;
+                void): Disposable;
 
             /** Invoke the given callback when a keymap file is reloaded. */
-            onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void):
-                EventKit.Disposable;
+            onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
             /** Invoke the given callback when a keymap file is unloaded. */
-            onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void):
-                EventKit.Disposable;
+            onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
             /** Invoke the given callback when a keymap file not able to be loaded. */
             onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
-                EventKit.Disposable;
+                Disposable;
 
             // Adding and Removing Bindings
             /** Construct KeyBindings from an object grouping them by CSS selector. */
@@ -185,7 +183,7 @@ declare global {
 
             /** Add sets of key bindings grouped by CSS selector. */
             add(source: string, bindings: { [key: string]: { [key: string]: string }},
-                priority?: number): EventKit.Disposable;
+                priority?: number): Disposable;
 
             // Accessing Bindings
             /** Get all current key bindings. */
@@ -221,7 +219,7 @@ declare global {
 
             /** Customize translation of raw keyboard events to keystroke strings. */
             addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
-                EventKit.Disposable;
+                Disposable;
 
             /**
              *  Get the number of milliseconds allowed before pending states caused by
