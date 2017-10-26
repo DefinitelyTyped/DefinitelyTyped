@@ -1,4 +1,4 @@
-// Type definitions for redux-first-router 1.9
+// Type definitions for redux-first-router 1.10
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
