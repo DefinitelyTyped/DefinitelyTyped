@@ -3,7 +3,7 @@
 import * as mongoose from 'mongoose';
 import * as mongooseGeoJSONSchema from 'mongoose-geojson-schema';
 
-var TestSchema = new mongoose.Schema(
+const TestSchema = new mongoose.Schema(
   {
     title: String,
     test: {},
