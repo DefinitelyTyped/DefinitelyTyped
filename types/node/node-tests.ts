@@ -339,6 +339,16 @@ namespace fs_tests {
         const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
         typeof v2 === "string" ? s = v2 : b = v2;
     }
+
+    {
+        fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+
+        const cf = util.promisify(fs.copyFile);
+        cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -531,6 +541,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -545,7 +557,9 @@ namespace url_tests {
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
-        assert.equal(helloUrl.query.hello, 'world');
+        if (typeof helloUrl.query !== 'string') {
+            assert.equal(helloUrl.query.hello, 'world');
+        }
     }
 
     {
@@ -1184,6 +1198,7 @@ namespace http_tests {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
 
     // http IncomingMessage
@@ -1286,6 +1301,10 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() return a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
@@ -1327,6 +1346,17 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
+
+    {
+        const server = new https.Server();
+
+        const timeout: number = server.timeout;
+        const listening: boolean = server.listening;
+        const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -1365,6 +1395,7 @@ namespace dgram_tests {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
         ds.setMulticastInterface("127.0.0.1");
+        ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
     }
 
     {
@@ -1836,23 +1867,23 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
     }
 
-	{
-		childProcess.execFile("npm", () => {});
-		childProcess.execFile("npm", ["-v"], () => {});
-		childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-		childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-		childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-		childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-	}
+    {
+        childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", ["-v"], () => {});
+        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
 
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
-		let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
-		r = await execFile("npm", ["-v"]);
-		r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
-		r = await execFile("npm", ["-v"], { encoding: 'buffer' });
-		r = await execFile("npm", { encoding: 'utf-8' });
-		r = await execFile("npm", { encoding: 'buffer' });
+        let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+        r = await execFile("npm", ["-v"]);
+        r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+        r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+        r = await execFile("npm", { encoding: 'utf-8' });
+        r = await execFile("npm", { encoding: 'buffer' });
     }
 
     {
@@ -2508,7 +2539,7 @@ namespace net_tests {
             host: "localhost",
             localAddress: "10.0.0.1",
             localPort: 1234,
-            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void => {
+            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
                 // nothing
             },
             port: 80
@@ -2926,6 +2957,7 @@ namespace constants_tests {
     num = constants.O_NOATIME;
     num = constants.O_NOFOLLOW;
     num = constants.O_SYNC;
+    num = constants.O_DSYNC;
     num = constants.O_DIRECT;
     num = constants.O_NONBLOCK;
     num = constants.S_IRWXU;
@@ -3144,7 +3176,7 @@ namespace http2_tests {
             exclusive: true,
             parent: 0,
             weight: 0,
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
         (http2Session as http2.ClientHttp2Session).request();
         (http2Session as http2.ClientHttp2Session).request(headers);
@@ -3251,24 +3283,33 @@ namespace http2_tests {
 
         let options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);
         serverHttp2Stream.respond(headers, options);
 
         let options2: http2.ServerStreamFileResponseOptions = {
-            statCheck: (stats: fs.Stats, headers: http2.IncomingHttpHeaders, statOptions: http2.StatOptions) => {},
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
             offset: 0,
             length: 0
         };
         serverHttp2Stream.respondWithFD(0);
         serverHttp2Stream.respondWithFD(0, headers);
         serverHttp2Stream.respondWithFD(0, headers, options2);
+        serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
+        let options3: http2.ServerStreamFileResponseOptionsWithError = {
+            onError: (err: NodeJS.ErrnoException) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
+            offset: 0,
+            length: 0
+        };
         serverHttp2Stream.respondWithFile('');
         serverHttp2Stream.respondWithFile('', headers);
-        serverHttp2Stream.respondWithFile('', headers, options2);
+        serverHttp2Stream.respondWithFile('', headers, options3);
+        serverHttp2Stream.respondWithFile('', headers, {statCheck: () => false});
     }
 
     // Http2Server / Http2SecureServer
@@ -3343,8 +3384,7 @@ namespace http2_tests {
             let headersSent: boolean = response.headersSent;
 
             response.setTimeout(0, () => {});
-            response.createPushResponse(outgoingHeaders);
-            response.createPushResponse(outgoingHeaders, (err: Error) => {});
+            response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => {});
 
             response.writeContinue();
             response.writeHead(200);

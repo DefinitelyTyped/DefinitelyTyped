@@ -30,13 +30,31 @@ function example(cursor: AtomCore.Cursor) {}
 
 ### Service Type Definitions
 
-There are many services provided by other Atom packages that you may want to use within your own Atom package. We bundle type definitions for several of these services with these type definitions.
+There are many services provided by other Atom packages that you may want to use within your own Atom package. We bundle type definitions for several of these services with these type definitions. All type definitions for services are available only through ES6 imports.
 
 ```ts
-/// <reference types="atom/services" />
-let completionProvider: Atom.Services.Autocomplete.Provider;
+import { AutocompleteProvider } from "atom/autocomplete-plus";
+let completionProvider: AutocompleteProvider;
 ```
 
 The currently supported services are:
-- [Autocomplete](https://github.com/atom/autocomplete-plus)
-- [Status Bar](https://github.com/atom/status-bar)
+- [Autocomplete](https://github.com/atom/autocomplete-plus) (atom/autocomplete-plus)
+- [Linter](https://github.com/atom/linter) (atom/linter)
+- [Status Bar](https://github.com/atom/status-bar) (atom/status-bar)
+
+### Exposing Private Methods and Properties
+
+[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Atom. As an example, if we wanted to reveal the private ```triggerActivationHook``` method within the PackageManager class, then we would create a file with the following contents:
+
+```ts
+// <<filename>>.d.ts
+
+declare namespace AtomCore {
+  interface PackageManager {
+    triggerActivationHook(name: string): void;
+    triggerDeferredActivationHooks(): void;
+  }
+}
+```
+
+Once this file is either referenced or included within your project, then this new member function would be freely usable on instances of the PackageManager class without TypeScript reporting errors.

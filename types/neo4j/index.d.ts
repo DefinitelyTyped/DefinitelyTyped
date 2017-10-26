@@ -57,7 +57,7 @@ export interface GraphDatabaseOptions {
      * HTTP agent.
      * @type {any}
      */
-    agent: any;
+    agent?: any;
 
     /**
      * Authentication information.
@@ -69,13 +69,13 @@ export interface GraphDatabaseOptions {
      * HTTP headers.
      * @type {Object}
      */
-    headers: {};
+    headers?: {};
 
     /**
      * Proxy address.
      * @type {string}
      */
-    proxy: string;
+    proxy?: string;
 
     /**
      * URL connection.

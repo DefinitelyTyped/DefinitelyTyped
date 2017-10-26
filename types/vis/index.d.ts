@@ -1783,6 +1783,7 @@ export interface Node {
   fixed?: boolean;
   image?: string;
   shape?: string;
+  color?: string | Color;
 }
 
 export interface Edge {
@@ -1848,6 +1849,22 @@ export interface Options {
   physics?: any; // http://visjs.org/docs/network/physics.html#
 }
 
+export interface Color {
+  border?: string;
+
+  background?: string;
+
+  highlight?: string | {
+    border?: string;
+    background?: string;
+  };
+
+  hover?: string | {
+    border?: string;
+    background?: string;
+  };
+}
+
 export interface NodeOptions {
   borderWidth?: number;
 
@@ -1855,18 +1872,7 @@ export interface NodeOptions {
 
   brokenImage?: string;
 
-  color?: {
-    border?: string,
-    background?: string,
-    highlight?: string | {
-      border?: string,
-      background?: string,
-    },
-    hover?: string | {
-      border?: string,
-      background?: string,
-    }
-  };
+  color?: Color;
 
   fixed?: boolean | {
     x?: boolean,

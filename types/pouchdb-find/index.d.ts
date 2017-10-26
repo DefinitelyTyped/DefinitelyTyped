@@ -45,7 +45,8 @@ declare namespace PouchDB {
             /** Special condition to match the length of an array field in a document. Non-array fields cannot match this condition. */
             $size?: number;
 
-            /** Divisor and Remainder are both positive or negative integers.
+            /**
+             * Divisor and Remainder are both positive or negative integers.
              * Non-integer values result in a 404 status.
              * Matches documents where (field % Divisor == Remainder) is true, and only when the document field is an integer.
              * [divisor, remainder]

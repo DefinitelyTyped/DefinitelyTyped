@@ -20,6 +20,8 @@
     "files": [
         "index.d.ts",
         "atom-tests.ts",
-        "services/index.d.ts"
+        "autocomplete-plus.d.ts",
+        "linter.d.ts",
+        "status-bar.d.ts"
     ]
 }
