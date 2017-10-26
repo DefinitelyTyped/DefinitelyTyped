@@ -1,7 +1,15 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Yoriki Yamaguchi <https://github.com/y13i>, wwwy3y3 <https://github.com/wwwy3y3>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
+//                 Michael Skarum <https://github.com/skarum>
+//                 Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>
+//                 Toby Hede <https://github.com/tobyhede>
+//                 Rich Buggy <https://github.com/buggy>
+//                 Yoriki Yamaguchi <https://github.com/y13i>
+//                 wwwy3y3 <https://github.com/wwwy3y3>
+//                 Ishaan Malhi <https://github.com/OrthoDex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // API Gateway "event"
 interface APIGatewayEvent {
@@ -347,8 +355,8 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback = (error?: Error, result?: any) => void;
-export type ProxyCallback = (error?: Error, result?: ProxyResult) => void;
-export type CustomAuthorizerCallback = (error?: Error, result?: AuthResponse) => void;
+export type Callback = (error?: Error | null, result?: object) => void;
+export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
+export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 
 export as namespace AWSLambda;

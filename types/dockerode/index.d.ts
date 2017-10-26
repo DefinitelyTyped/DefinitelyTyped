@@ -4,6 +4,7 @@
 //                 Nicolas Laplante <https://github.com/nlaplante>
 //                 ByeongHun Yoo <https://github.com/isac322>
 //                 Ray Fang <https://github.com/lazarusx>
+//                 Marius Meisenzahl <https://github.com/meisenzahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -444,6 +445,7 @@ declare namespace Dockerode {
   }
 
   interface HostConfig {
+    AutoRemove: boolean;
     Binds: string[];
     ContainerIDFile: string;
     LogConfig: {
@@ -593,6 +595,7 @@ declare namespace Dockerode {
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
     HostConfig?: {
+      AutoRemove?: boolean;
       Binds?: string[];
       Links?: string[];
       Memory?: number;

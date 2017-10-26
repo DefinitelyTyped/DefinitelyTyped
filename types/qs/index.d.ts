@@ -5,6 +5,7 @@
 //                 Belinda Teh <https://github.com/tehbelinda>
 //                 Melvin Lee <https://github.com/zyml>
 //                 Arturs Vonda <https://github.com/artursvonda>
+//                 Carlos Bonetti <https://github.com/CarlosBonetti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
@@ -25,6 +26,7 @@ declare namespace QueryString {
         format?: 'RFC1738' | 'RFC3986';
         encodeValuesOnly?: boolean;
         addQueryPrefix?: boolean;
+        allowDots?: boolean;
     }
 
     interface IParseOptions {

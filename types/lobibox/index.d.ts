@@ -154,7 +154,7 @@ declare namespace LobiboxModule {
     }
 
     interface NotifyDefault {
-        title?: boolean;                // Title of notification. If you do not include the title in options it will automatically takes its value
+        title?: string | boolean;                // Title of notification. If you do not include the title in options it will automatically takes its value
         //from Lobibox.notify.OPTIONS object depending of the type of the notifications or set custom string. Set this false to disable title
         size?: string;             // normal, mini, large
         soundPath?: string;   // The folder path where sounds are located
@@ -171,6 +171,12 @@ declare namespace LobiboxModule {
         width?: number;                 // Width of notification box
         sound?: boolean;                // Sound of notification. Set this false to disable sound. Leave as is for default sound or set custom soud path
         position?: string;    // Place to show notification. Available options: "top left", "top right", "bottom left", "bottom right"
+        onClickUrl?: string;          // The url which will be opened when notification is clicked
+        showAfterPrevious?: boolean;  // Set this to true if you want notification not to be shown until previous notification is closed. This is useful for notification queues
+        continueDelayOnInactiveTab?: boolean; // Continue delay when browser tab is inactive
+
+        // Events
+        onClick?: Function;
     }
     interface NotifyOptions extends NotifyDefault, NotifyMethods {
         'class'?: string; //You can override options for large notifications from here

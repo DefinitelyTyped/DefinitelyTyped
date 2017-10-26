@@ -313,7 +313,7 @@ declare namespace PIXI {
         // begin interactive target
         interactive: boolean;
         interactiveChildren: boolean;
-        hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle;
+        hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle | PIXI.HitArea;
         buttonMode: boolean;
         cursor: string;
         trackedPointers(): { [key: number]: interaction.InteractionTrackingData; };
@@ -574,7 +574,7 @@ declare namespace PIXI {
         function add(rotationSecond: number, rotationFirst: number): number;
         function sub(rotationSecond: number, rotationFirst: number): number;
         function rotate180(rotation: number): number;
-        function isSwapWidthHeight(rotation: number): boolean;
+        function isVertical(rotation: number): boolean;
         function byDirection(dx: number, dy: number): number;
         function matrixAppendRotationInv(matrix: Matrix, rotation: number, tx: number, ty: number): void;
     }
@@ -628,7 +628,7 @@ declare namespace PIXI {
     interface HitArea {
         contains(x: number, y: number): boolean;
     }
-    class Circle {
+    class Circle implements HitArea {
         constructor(x?: number, y?: number, radius?: number);
 
         x: number;
@@ -640,7 +640,7 @@ declare namespace PIXI {
         contains(x: number, y: number): boolean;
         getBounds(): Rectangle;
     }
-    class Ellipse {
+    class Ellipse implements HitArea {
         constructor(x?: number, y?: number, width?: number, height?: number);
 
         x: number;
@@ -653,7 +653,7 @@ declare namespace PIXI {
         contains(x: number, y: number): boolean;
         getBounds(): Rectangle;
     }
-    class Polygon {
+    class Polygon implements HitArea {
         constructor(points: Point[] | number[]);
         // Note - Rest Params cannot be combined with |
         //tslint:disable-next-line:unified-signatures
@@ -669,7 +669,7 @@ declare namespace PIXI {
         contains(x: number, y: number): boolean;
         close(): void;
     }
-    class Rectangle {
+    class Rectangle implements HitArea {
         constructor(x?: number, y?: number, width?: number, height?: number);
 
         x: number;
@@ -691,7 +691,7 @@ declare namespace PIXI {
         fit(rectangle: Rectangle): void;
         enlarge(rectangle: Rectangle): void;
     }
-    class RoundedRectangle {
+    class RoundedRectangle implements HitArea {
         constructor(x?: number, y?: number, width?: number, height?: number, radius?: number);
 
         x: number;
@@ -948,6 +948,7 @@ declare namespace PIXI {
         extract: extract.WebGLExtract;
         protected drawModes: any;
         protected _activeShader: Shader;
+        protected _activeVao: glCore.VertexArrayObject;
         _activeRenderTarget: RenderTarget;
         protected _initContext(): void;
 
@@ -1128,7 +1129,7 @@ declare namespace PIXI {
         calculateScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
         calculateNormalizedScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
         calculateSpriteMatrix(outputMatrix: Matrix, sprite: Sprite): Matrix;
-        destroy(): void;
+        destroy(contextLost?: boolean): void;
         emptyPool(): void;
         getPotRenderTarget(gl: WebGLRenderingContext, minWidth: number, minHeight: number, resolution: number): RenderTarget;
         freePotRenderTarget(renderTarget: RenderTarget): void;
@@ -1417,7 +1418,7 @@ declare namespace PIXI {
         width: number;
         height: number;
         lines: number[];
-        lineWidgets: number[];
+        lineWidths: number[];
         lineHeight: number;
         maxLineWidth: number;
         fontProperties: any;
@@ -1659,7 +1660,7 @@ declare namespace PIXI {
         protected _isSourceReady(): boolean;
 
         static fromVideo(video: HTMLVideoElement, scaleMode?: number): VideoBaseTexture;
-        static fromUrl(videoSrc: string | any | string[] | any[]): VideoBaseTexture;
+        static fromUrl(videoSrc: string | any | string[] | any[], crossOrigin?: boolean): VideoBaseTexture;
         static fromUrls(videoSrc: string | any | string[] | any[]): VideoBaseTexture;
 
         source: HTMLVideoElement;
@@ -1734,7 +1735,7 @@ declare namespace PIXI {
             image(target?: DisplayObject | RenderTexture): HTMLImageElement;
             base64(target?: DisplayObject | RenderTexture): string;
             canvas(target?: DisplayObject | RenderTexture): HTMLCanvasElement;
-            pixels(renderTexture?: DisplayObject | RenderTexture): number[];
+            pixels(renderTexture?: DisplayObject | RenderTexture): Uint8ClampedArray;
 
             destroy(): void;
         }
@@ -1746,7 +1747,7 @@ declare namespace PIXI {
             image(target?: DisplayObject | RenderTexture): HTMLImageElement;
             base64(target?: DisplayObject | RenderTexture): string;
             canvas(target?: DisplayObject | RenderTexture): HTMLCanvasElement;
-            pixels(renderTexture?: DisplayObject | RenderTexture): number[];
+            pixels(renderTexture?: DisplayObject | RenderTexture): Uint8Array;
 
             destroy(): void;
         }
@@ -1836,9 +1837,9 @@ declare namespace PIXI {
             constructor(texture: Texture, clampMargin?: number);
 
             protected _texture: Texture;
-            protected mapCoord: Matrix;
-            protected uClampFrame: Float32Array;
-            protected uClampOffset: Float32Array;
+            mapCoord: Matrix;
+            uClampFrame: Float32Array;
+            uClampOffset: Float32Array;
             protected _lastTextureID: number;
 
             clampOffset: number;
@@ -1847,6 +1848,7 @@ declare namespace PIXI {
             texture: Texture;
 
             update(forceUpdate?: boolean): boolean;
+            multiplyUvs(uvs: Float32Array, out?: Float32Array): Float32Array;
         }
         class TilingSprite extends Sprite {
             constructor(texture: Texture, width?: number, height?: number);
@@ -1863,7 +1865,6 @@ declare namespace PIXI {
             tilePosition: Point | ObservablePoint;
 
             multiplyUvs(uvs: Float32Array, out: Float32Array): Float32Array;
-            protected _textureDirtyFlag: boolean;
             protected _onTextureUpdate(): void;
             protected _renderWebGL(renderer: WebGLRenderer): void;
             protected _renderCanvas(renderer: CanvasRenderer): void;
@@ -1984,7 +1985,8 @@ declare namespace PIXI {
             scale: Point;
             map: Texture;
         }
-        class VoidFilter extends Filter<{}> {
+        class AlphaFilter extends Filter<{}> {
+            alpha: number;
             glShaderKey: number;
         }
         interface NoiseFilterUniforms {
@@ -2008,7 +2010,7 @@ declare namespace PIXI {
         interface InteractiveTarget {
             interactive: boolean;
             interactiveChildren: boolean;
-            hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle;
+            hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle | PIXI.HitArea;
             buttonMode: boolean;
             cursor: string;
             trackedPointers(): { [key: number]: InteractionTrackingData; };
@@ -2505,10 +2507,11 @@ declare namespace PIXI {
             position?: boolean;
             rotation?: boolean;
             uvs?: boolean;
+            tint?: boolean;
             alpha?: boolean;
         }
         class ParticleContainer extends Container {
-            constructor(size?: number, properties?: ParticleContainerProperties, batchSize?: number);
+            constructor(maxSize?: number, properties?: ParticleContainerProperties, batchSize?: number, autoSize?: boolean);
             protected _tint: number;
             protected tintRgb: number | any[];
             tint: number;
@@ -2519,6 +2522,7 @@ declare namespace PIXI {
             protected _bufferToUpdate: number;
             interactiveChildren: boolean;
             blendMode: number;
+            autoSize: boolean;
             roundPixels: boolean;
             baseTexture: BaseTexture;
 
@@ -2531,17 +2535,17 @@ declare namespace PIXI {
             constructor(gl: WebGLRenderingContext, properties: any, dynamicPropertyFlags: any[], size: number);
 
             gl: WebGLRenderingContext;
-            vertSize: number;
-            vertByteSize: number;
             size: number;
             dynamicProperties: any[];
             staticProperties: any[];
             staticStride: number;
             staticBuffer: any;
             staticData: any;
+            staticDataUint32: any;
             dynamicStride: number;
             dynamicBuffer: any;
             dynamicData: any;
+            dynamicDataUint32: any;
 
             destroy(): void;
         }
@@ -2549,6 +2553,7 @@ declare namespace PIXI {
             attribute: number;
             size: number;
             uploadFunction(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+            unsignedByte: any;
             offset: number;
         }
         class ParticleRenderer extends ObjectRenderer {
@@ -2561,10 +2566,12 @@ declare namespace PIXI {
 
             start(): void;
             generateBuffers(container: ParticleContainer): ParticleBuffer[];
+            protected _generateOneMoreBuffer(container: ParticleContainer): ParticleBuffer;
             uploadVertices(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadPosition(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadRotation(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadUvs(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+            uploadTint(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadAlpha(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             destroy(): void;
 
@@ -3206,6 +3213,18 @@ declare namespace PIXI {
          */
         type MovieClip = extras.AnimatedSprite;
     }
+
+    namespace filters {
+        /**
+         * @class
+         * @private
+         * @name PIXI.filters.VoidFilter
+         * @see PIXI.filters.AlphaFilter
+         * @deprecated since version 4.5.7
+         */
+        type VoidFilter = filters.AlphaFilter;
+    }
+
     namespace settings {
         /**
          * @static

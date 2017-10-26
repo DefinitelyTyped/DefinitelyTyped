@@ -1,9 +1,9 @@
-// Type definitions for d3JS d3-zoom module 1.5
+// Type definitions for d3JS d3-zoom module 1.6
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.5.0
+// Last module patch version validated against: 1.6.0
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
@@ -516,6 +516,34 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * with this as the current DOM element. The function returns a boolean value.
      */
     filter(filterFn: ValueFn<ZoomRefElement, Datum, boolean>): this;
+
+    /**
+     * Returns the current touch support detector, which defaults to a function returning true,
+     * if the "ontouchstart" event is supported on the current element.
+     */
+    touchable(): ValueFn<ZoomRefElement, Datum, boolean>;
+    /**
+     * Sets the touch support detector to the specified boolean value and returns the zoom behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the zoom behavior is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A boolean value. true when touch event listeners should be applied to the corresponding element, otherwise false.
+     */
+    touchable(touchable: boolean): this;
+    /**
+     * Sets the touch support detector to the specified function and returns the zoom behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the zoom behavior is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A touch support detector function, which returns true when touch event listeners should be applied to the corresponding element.
+     * The function is evaluated for each selected element to which the zoom behavior was applied, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. The function returns a boolean value.
+     */
+    touchable(touchable: ValueFn<ZoomRefElement, Datum, boolean>): this;
 
     /**
      * Returns the current wheelDelta function.

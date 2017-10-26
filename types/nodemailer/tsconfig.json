@@ -6,6 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -17,6 +18,28 @@
     },
     "files": [
         "index.d.ts",
+        "lib/addressparser.d.ts",
+        "lib/base64.d.ts",
+        "lib/dkim.d.ts",
+        "lib/fetch/index.d.ts",
+        "lib/fetch/cookies.d.ts",
+        "lib/json-transport.d.ts",
+        "lib/mail-composer.d.ts",
+        "lib/mailer/index.d.ts",
+        "lib/mailer/mail-message.d.ts",
+        "lib/mime-funcs/index.d.ts",
+        "lib/mime-funcs/mime-types.d.ts",
+        "lib/mime-node.d.ts",
+        "lib/qp.d.ts",
+        "lib/sendmail-transport.d.ts",
+        "lib/ses-transport.d.ts",
+        "lib/shared.d.ts",
+        "lib/smtp-connection.d.ts",
+        "lib/smtp-pool.d.ts",
+        "lib/smtp-transport.d.ts",
+        "lib/stream-transport.d.ts",
+        "lib/well-known.d.ts",
+        "lib/xoauth2.d.ts",
         "nodemailer-tests.ts"
     ]
 }

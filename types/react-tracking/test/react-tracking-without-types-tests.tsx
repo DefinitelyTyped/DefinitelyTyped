@@ -15,7 +15,7 @@ class ClassPage extends React.Component<any> {
     }
 
     // Only need to cast this to `any` because the settings for this project is to disallow implicit `any`.
-    @track((props: any) => ({ event: `got ${props.someProp}` }))
+    @track((props: any, state: any) => ({ event: `got ${props.someProp} and clicked ${state.isClicked}` }))
     render() {
         return (
             <button onClick={this.handleClick}>
