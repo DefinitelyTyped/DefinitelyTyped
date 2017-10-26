@@ -26,3 +26,19 @@ All types used by Path Watcher can be referenced from the PathWatcher namespace.
 ```ts
 function example(file: PathWatcher.File) {}
 ```
+
+### Exposing Private Methods and Properties
+
+[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Path Watcher. As an example, if we wanted to reveal the private ```setPath``` method within the File class, then we would create a file with the following contents:
+
+```ts
+// <<filename>>.d.ts
+
+declare namespace PathWatcher {
+  interface File {
+    setPath(path: string): void;
+  }
+}
+```
+
+Once this file is either referenced or included within your project, then this new member function would be freely usable on instances of the File class without TypeScript reporting errors.

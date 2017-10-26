@@ -309,7 +309,7 @@ export function dateParser(delta?: number): RequestHandler;
 export function gzipResponse(options?: any): RequestHandler;
 
 export interface ServeStatic {
-  appendRequestPath?: boolean | undefined;
+  appendRequestPath?: boolean;
   directory?: string;
   maxAge?: number;
   match?: any;
