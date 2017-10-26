@@ -113,7 +113,7 @@ export interface Meta {
 
 export interface Action {
     type: string;
-    payload: Payload;
+    payload?: Payload;
     meta?: Meta;
     query?: object;
     navKey?: Nullable<string>;
