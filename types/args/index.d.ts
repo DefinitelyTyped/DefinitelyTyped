@@ -1,87 +1,77 @@
-declare var args: Args.API;
+// Type definitions for args 3.0
+// Project: https://github.com/leo/args#readme
+// Definitions by: Slessi <https://github.com/Slessi>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
 export = args;
 
-declare namespace Args {
-    export interface IMriUnknownFunction {
-        (param: string): boolean
-    }
+declare namespace args {
+    let sub: string[];
 
-    export interface IMinimistUnknownFunction {
-        (param: string): boolean
-    }
+    function option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): typeof args;
+    function options(list: Option[]): typeof args;
+    function command(name: string, description: string, init?: CommandInitFunction, aliases?: string[]): typeof args;
+    function example(usage: string, description: string): typeof args;
+    function examples(list: Example[]): typeof args;
+    function parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
+    function showHelp(): void;
+}
 
-    export interface IMriArguments {
-        args?: string[];
-        alias?: {
-            [key: string]: string | string[]
-        };
-        boolean?: string | string[];
-        default?: {
-            [key: string]: any
-        };
-        string?: string | string[];
-        unknown?: IMriUnknownFunction;
-    }
+type MriUnknownFunction = (param: string) => boolean;
+type MinimistUnknownFunction = (param: string) => boolean;
 
-    export interface IMinimistArguments {
-        string?: string | string[];
-        boolean?: boolean | string | string[];
-        alias?: {
-            [key: string]: string | string[]
-        };
-        default?: {
-            [key: string]: any
-        };
-        stopEarly?: boolean;
-        "--"?: boolean;
-        unknown?: IMinimistUnknownFunction;
-    }
+type OptionInitFunction = (value: any) => any;
+type CommandInitFunction = (name: string, sub: string[], options: ConfigurationOptions) => void;
+type UsageFilterFunction = (output: any) => any;
 
-    export interface IOptionInitFunction {
-        (value: any): any;
-    }
+interface MriOptions {
+    args?: string[];
+    alias?: {
+        [key: string]: string | string[]
+    };
+    boolean?: string | string[];
+    default?: {
+        [key: string]: any
+    };
+    string?: string | string[];
+    unknown?: MriUnknownFunction;
+}
 
-    export interface ICommandInitFunction {
-        (name: string, sub: {}[], options: {}[]): void;
-    }
+interface MinimistOptions {
+    string?: string | string[];
+    boolean?: boolean | string | string[];
+    alias?: {
+        [key: string]: string | string[]
+    };
+    default?: {
+        [key: string]: any
+    };
+    stopEarly?: boolean;
+    "--"?: boolean;
+    unknown?: MinimistUnknownFunction;
+}
 
-    export interface IUsageFilterFunction {
-        (output: any): any;
-    }
+interface ConfigurationOptions {
+    help?: boolean;
+    name?: string;
+    version?: boolean;
+    usageFilter?: UsageFilterFunction;
+    value?: string;
+    mri: MriOptions;
+    minimist?: MinimistOptions;
+    mainColor: string | string[];
+    subColor: string | string[];
+}
 
-    export interface IConfiguration {
-        help?: boolean;
-        name?: string;
-        version?: boolean;
-        usageFilter?: IUsageFilterFunction;
-        value?: string;
-        mri: IMriArguments;
-        minimist?: IMinimistArguments;
-        mainColor: string | string[];
-        subColor: string | string[];
-    }
+interface Option {
+    name: string;
+    description: string;
+    init?: OptionInitFunction;
+    defaultValue?: any;
+}
 
-    export interface IOption {
-        name: string;
-        description: string;
-        init?: IOptionInitFunction;
-        defaultValue?: any;
-    }
-
-    export interface IExample {
-        usage: string;
-        description: string;
-    }
-
-    export interface API {
-        sub: string[];
-
-        option(name: string | [string, string], description: string, defaultValue?: any, init?: IOptionInitFunction): API;
-        options(list: IOption[]): API;
-        command(name: string, description: string, init?: ICommandInitFunction, aliases?: string[]): API;
-        example(usage: string, description: string): API;
-        examples(list: IExample[]): API;
-        parse(argv: string[], options?: IConfiguration): { [key: string]: any };
-        showHelp(): void;
-    }
+interface Example {
+    usage: string;
+    description: string;
 }
