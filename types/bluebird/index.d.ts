@@ -55,7 +55,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
   catch(onReject: (error: any) => R | PromiseLike<R>): Bluebird<R>;
-  catch<U>(onReject?: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
+  catch<U>(onReject: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
 
   /**
    * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -195,7 +195,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
   caught(onReject: (error: any) => R | PromiseLike<R>): Bluebird<R>;
-  caught<U>(onReject?: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
+  caught<U>(onReject: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
 
   /**
    * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
