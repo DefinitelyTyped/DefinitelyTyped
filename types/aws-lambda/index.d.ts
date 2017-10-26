@@ -86,9 +86,10 @@ interface StreamRecord {
 interface DynamoDBRecord {
   awsRegion?: string;
   dynamodb?: StreamRecord;
-  eventId?: string;
+  eventID?: string;
   eventName?: 'INSERT' | 'MODIFY' | 'REMOVE';
   eventSource?: string;
+  eventSourceARN?: string;
   eventVersion?: string;
   userIdentity?: any;
 }
