@@ -6,6 +6,7 @@
 //                 Larry Bahr <https://github.com/larrybahr>
 //                 Daniel Luz <https://github.com/mernen>
 //                 Joseph Page <https://github.com/josefpaij>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -160,6 +161,7 @@ declare namespace Chart {
         hover?: ChartHoverOptions;
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
+        layout?: ChartLayoutOptions;
         scales?: ChartScales;
         showLines?: boolean;
         spanGaps?: boolean;
@@ -312,9 +314,23 @@ declare namespace Chart {
         borderColor?: ChartColor;
         borderSkipped?: string;
     }
+
+    interface ChartLayoutOptions {
+      padding?: ChartLayoutPaddingObject | number;
+    }
+
+    interface ChartLayoutPaddingObject {
+      top?: number;
+      right?: number;
+      bottom?: number;
+      left?: number;
+    }
+
     interface GridLineOptions {
         display?: boolean;
         color?: ChartColor;
+        borderDash?: number[];
+        borderDashOffset?: number;
         lineWidth?: number;
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
@@ -322,6 +338,8 @@ declare namespace Chart {
         tickMarkLength?: number;
         zeroLineWidth?: number;
         zeroLineColor?: ChartColor;
+        zeroLineBorderDash?: number[];
+        zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
     }
 

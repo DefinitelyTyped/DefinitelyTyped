@@ -9,6 +9,7 @@
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // API Gateway "event"
 interface APIGatewayEvent {

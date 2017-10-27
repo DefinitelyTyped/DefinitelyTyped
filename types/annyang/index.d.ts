@@ -6,39 +6,23 @@
 
 /**
  * Options for function `start`
- *
- * @export
- * @interface StartOptions
  */
 export interface StartOptions {
     /**
      * Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
-     *
-     * @type {boolean}
      */
     autoRestart?: boolean;
     /**
      * Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
-     *
-     * @type {boolean}
      */
     continuous?: boolean;
 }
 
 /**
  * A command option that supports custom regular expressions
- *
- * @export
- * @interface CommandOptionRegex
  */
 export interface CommandOptionRegex {
-    /**
-     * @type {RegExp}
-     */
     regexp: RegExp;
-    /**
-     * @type {() => any}
-     */
     callback(): void;
 }
 
@@ -50,8 +34,6 @@ export interface CommandOptionRegex {
  * {'hello :name': helloFunction, 'howdy': helloFunction};
  * {'hi': helloFunction};
  * ````
- * @export
- * @interface CommandOption
  */
 export interface CommandOption {
     [command: string]: CommandOptionRegex | (() => void);
@@ -92,8 +74,6 @@ export interface Annyang {
     /**
      * Start listening.
      * It's a good idea to call this after adding some commands first, but not mandatory.
-     *
-     * @param {StartOptions} options
      */
     start(options?: StartOptions): void;
 
@@ -119,15 +99,13 @@ export interface Annyang {
     /**
      * Turn on output of debug messages to the console. Ugly, but super-handy!
      *
-     * @export
-     * @param {boolean} [newState=true] Turn on/off debug messages
+     * @param [newState=true] Turn on/off debug messages
      */
     debug(newState?: boolean): void;
 
     /**
      * Set the language the user will speak in. If this method is not called, defaults to 'en-US'.
      *
-     * @param {string} lang
      * @see [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
      */
     setLanguage(lang: string): void;
@@ -144,8 +122,6 @@ export interface Annyang {
      * annyang.addCommands(commands2);
      * // annyang will now listen to all three commands
      * ````
-     *
-     * @param {CommandOption} commands
      */
     addCommands(commands: CommandOption): void;
 
@@ -161,7 +137,6 @@ export interface Annyang {
      * // Remove all existing commands
      * annyang.removeCommands();
      * ````
-     * @param {string} command
      */
     removeCommands(command?: string): void;
 
@@ -175,37 +150,22 @@ export interface Annyang {
      * // Don't respond to howdy or hi
      * annyang.removeCommands(['howdy', 'hi']);
      * ````
-     *
-     * @param {string[]} command
      */
     removeCommands(command: string[]): void;
 
-    /**
-     * @param {Events} event
-     * @param {(userSaid : string, commandText : string, results : string[]) => void} callback
-     * @param {*} [context]
-     */
     addCallback(event: Events, callback: (userSaid?: string, commandText?: string, results?: string[]) => void, context?: any): void;
 
-    /**
-     * @param {Events} [event]
-     * @param {Function} [callback]
-     */
     removeCallback(event?: Events, callback?: (userSaid: string, commandText: string, results: string[]) => void): void;
 
     /**
      * Returns true if speech recognition is currently on.
      * Returns false if speech recognition is off or annyang is paused.
-     *
-     * @returns {boolean}
      */
     isListening(): boolean;
 
     /**
      * Returns the instance of the browser's SpeechRecognition object used by annyang.
      * Useful in case you want direct access to the browser's Speech Recognition engine.
-     *
-     * @returns {*}
      */
     getSpeechRecognizer(): any;
 
@@ -223,8 +183,6 @@ export interface Annyang {
      *     ['Time for some thrilling heroics', 'Time for some thrilling aerobics']
      *   );
      * ````
-     *
-     * @param {string} command
      */
     trigger(command: string | string[]): void;
 }
