@@ -1332,7 +1332,7 @@ namespace http_tests {
     // http headers
     {
         const headers: http.IncomingHttpHeaders = {
-            'Content-Type': 'application/json',
+            'content-type': 'application/json',
             'set-cookie': [ 'type=ninja', 'language=javascript' ]
         };
     }

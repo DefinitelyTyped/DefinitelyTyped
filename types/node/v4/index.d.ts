@@ -557,20 +557,54 @@ declare module "http" {
     import * as net from "net";
     import * as stream from "stream";
 
-    export interface BaseIncomingHttpHeaders {
-        [header: string]: string | string[];
-    }
-
-    export interface SetCookieHttpHeader {
-        'set-cookie'?: string[];
-    }
-
     // incoming headers will never contain number
-    export type IncomingHttpHeaders = BaseIncomingHttpHeaders & SetCookieHttpHeader;
+    export interface IncomingHttpHeaders {
+        'accept'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-headers'?: string;
+        'accept-patch'?: string;
+        'accept-ranges'?: string;
+        'age'?: string;
+        'allow'?: string;
+        'alt-svc'?: string;
+        'cache-control'?: string;
+        'connection'?: string;
+        'content-disposition'?: string;
+        'content-encoding'?: string;
+        'content-language'?: string;
+        'content-length'?: string;
+        'content-location'?: string;
+        'content-range'?: string;
+        'content-type'?: string;
+        'date'?: string;
+        'expires'?: string;
+        'host'?: string;
+        'last-modified'?: string;
+        'location'?: string;
+        'pragma'?: string;
+        'proxy-authenticate'?: string;
+        'public-key-pins'?: string;
+        'retry-after'?: string;
+        'set-cookie'?: string[];
+        'strict-transport-security'?: string;
+        'trailer'?: string;
+        'transfer-encoding'?: string;
+        'tk'?: string;
+        'upgrade'?: string;
+        'vary'?: string;
+        'via'?: string;
+        'warning'?: string;
+        'www-authenticate'?: string;
+        [header: string]: string | string[] | undefined;
+    }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
     export interface OutgoingHttpHeaders {
-        [header: string]: number | string | string[];
+        [header: string]: number | string | string[] | undefined;
     }
 
     export interface RequestOptions {
