@@ -684,6 +684,7 @@ namespace util_tests {
         assert(typeof util.inspect.custom === 'symbol');
 
         // util.callbackify
+        // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
             static fn(): Promise<void> {
                 assert(arguments.length === 0);
