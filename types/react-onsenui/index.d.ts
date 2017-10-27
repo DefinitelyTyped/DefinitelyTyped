@@ -3,7 +3,7 @@
 // Definitions by: Ozytis <https://ozytis.fr>
 //                 Ringrid <https://github.com/ringrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5.3
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import Component = React.Component;
