@@ -5,7 +5,7 @@
 //                 Jacob Copeland <https://github.com/blankstar85>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface EmailConfig {
+interface EmailConfig {
     /**
      * The message <Nodemailer.com/message/>
      */
@@ -48,7 +48,7 @@ export interface EmailConfig {
     juiceResources?: any;
 }
 
-export interface EmailOptions {
+interface EmailOptions {
     /**
      * The template name
      */
@@ -63,22 +63,42 @@ export interface EmailOptions {
     locals: any;
 }
 
-export class EmailTemplate {
+declare class EmailTemplate {
     constructor(config: EmailConfig);
-
     /**
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
     juiceResources(html: string): Promise<string> ;
-
     /**
-     * Render the Email, Used by send, but can be called by itself.
+     *
+     * @param view The Html pug to render
+     * @param locals The template Variables
      */
     render(view: string, locals: any): Promise<string>;
-
     /**
-     * Send the Email.
+     * Send the Email
      */
     send(options: EmailOptions): any;
 }
+
+declare namespace EmailTemplate {
+        /**
+         *   shorthand use of `juiceResources` with the config
+         *   mainly for custom renders like from a database).
+         */
+        function juiceResources(html: string): Promise<string> ;
+
+        /**
+         *
+         * @param view The Html pug to render
+         * @param locals The template Variables
+         */
+        function render(view: string, locals: any): Promise<string>;
+
+        /**
+         * Send the Email
+         */
+        function send(options: EmailOptions): any;
+}
+export = EmailTemplate;
