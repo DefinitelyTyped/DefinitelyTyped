@@ -1,7 +1,9 @@
 // Linter 2.x
 // https://atom.io/packages/linter
 
-import { Disposable, Point, Range, TextEditor } from "./index";
+/// <reference path="./config.d.ts" />
+
+import { Disposable, Point, Range, TextEditor } from "../index";
 
 export interface ReplacementSolution {
     title?: string;

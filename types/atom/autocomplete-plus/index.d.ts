@@ -1,7 +1,9 @@
 // Autocomplete Plus 2.x
 // https://atom.io/packages/autocomplete-plus
 
-import { Point, ScopeDescriptor, TextEditor } from "./index";
+/// <reference path="./config.d.ts" />
+
+import { Point, ScopeDescriptor, TextEditor } from "../index";
 
 /** The parameters passed into getSuggestions by Autocomplete+. */
 export interface SuggestionsRequestedEvent {

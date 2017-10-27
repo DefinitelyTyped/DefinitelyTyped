@@ -1,6 +1,8 @@
 // Status Bar 1.x
 // https://atom.io/packages/status-bar
 
+/// <reference path="./config.d.ts" />
+
 export interface AddTileOptions {
     /**
      *  A DOM element, a jQuery object, or a model object for which a view provider
