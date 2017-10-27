@@ -55,6 +55,12 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "askmethat-rating",
+            "typingsPackageName": "askmethat-rating",
+            "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
+            "asOfVersion": "0.4.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -107,6 +113,12 @@
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "change-case",
@@ -209,6 +221,12 @@
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "gaea-model",
@@ -487,6 +505,12 @@
             "asOfVersion": "1.4.0"
         },
         {
+            "libraryName": "popper.js",
+            "typingsPackageName": "popper.js",
+            "sourceRepoURL": "https://github.com/FezVrasta/popper.js/",
+            "asOfVersion": "1.11.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
@@ -521,6 +545,12 @@
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
             "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "realm",
+            "typingsPackageName": "realm",
+            "sourceRepoURL": "https://github.com/realm/realm-js",
+            "asOfVersion": "1.13.0"
         },
         {
             "libraryName": "Redux",

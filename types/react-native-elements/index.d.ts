@@ -851,8 +851,6 @@ export interface GridProps extends ViewProperties {
     /**
      * Opacity on pressing
      *
-     * @type {number}
-     * @memberof GridProps
      */
     activeOpacity?: number;
 

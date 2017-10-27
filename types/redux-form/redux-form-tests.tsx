@@ -37,6 +37,8 @@ import libFormValueSelector from "redux-form/lib/formValueSelector";
 import libReduxForm from "redux-form/lib/reduxForm";
 import libActions from "redux-form/lib/actions";
 
+ // TODO: tests fail in TypeScript@next when strictFunctionTypes=true
+
 /* Decorated components */
 interface TestFormData {
     foo: string;

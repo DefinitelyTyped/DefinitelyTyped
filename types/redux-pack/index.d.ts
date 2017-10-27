@@ -45,8 +45,8 @@ export interface Action<TState = {}, TSuccessPayload = {}, TErrorPayload = {}, T
     payload?: TSuccessPayload | TErrorPayload | TStartPayload;
     meta?: ActionMeta<TState, TSuccessPayload, TErrorPayload, TStartPayload>;
 }
-export function handle<TState, TSuccessPayload, TErrorPayload, TStartPayload>(
+export function handle<TState>(
     state: TState,
-    action: Action<TState, TSuccessPayload, TErrorPayload, TStartPayload>,
+    action: Action<TState, any, any, any>,
     handlers: Handlers<TState>)
     : TState;

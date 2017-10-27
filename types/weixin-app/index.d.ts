@@ -559,8 +559,8 @@ declare namespace wx {
 	 * 将 data 存储在本地缓存中指定的 key 中，
 	 * 会覆盖掉原来该 key 对应的内容，这是一个同步接口。
 	 *
-	 * @param {string} key 本地缓存中的指定的 key
-	 * @param {(Object | string)} data 需要存储的内容
+	 * @param key 本地缓存中的指定的 key
+	 * @param data 需要存储的内容
 	 */
 	function setStorageSync(key: string, data: any | string): void;
 
@@ -578,8 +578,6 @@ declare namespace wx {
 	/**
 	 * 从本地缓存中同步获取指定 key 对应的内容。
 	 *
-	 * @param {string} key
-	 * @returns {(Object | string)}
 	 */
 	function getStorageSync(key: string): any | string;
 
@@ -1379,7 +1377,7 @@ declare namespace wx {
 		 * 可以在一组动画中调用任意多个动画方法，
 		 * 一组动画中的所有动画会同时开始，
 		 * 一组动画完成后才会进行下一组动画。
-		 * @param {CreateAnimationOptions} options 指定当前组动画的配置
+		 * @param options 指定当前组动画的配置
 		 */
 		step(options?: CreateAnimationOptions): void;
 		/**
@@ -1498,8 +1496,8 @@ declare namespace wx {
 		 * 在调用scale方法后，之后创建的路径其横纵坐标会被缩放。
 		 * 多次调用scale，倍数会相乘。
 		 *
-		 * @param {number} scaleWidth 横坐标缩放的倍数
-		 * @param {number} scaleHeight 纵坐标轴缩放的倍数
+		 * @param scaleWidth 横坐标缩放的倍数
+		 * @param scaleHeight 纵坐标轴缩放的倍数
 		 */
 		scale(scaleWidth: number, scaleHeight?: number): void;
 		/**
@@ -1507,15 +1505,15 @@ declare namespace wx {
 		 * 以原点为中心，原点可以用 translate方法修改。
 		 * 顺时针旋转当前坐标轴。多次调用rotate，旋转的角度会叠加。
 		 *
-		 * @param {number} rotate 旋转角度，以弧度计。
+		 * @param rotate 旋转角度，以弧度计。
 		 */
 		rotate(rotate: number): void;
 		/**
 		 * 对坐标原点进行缩放
 		 * 对当前坐标系的原点(0, 0)进行变换，默认的坐标系原点为页面左上角。
 		 *
-		 * @param {number} x 水平坐标平移量
-		 * @param {number} y 竖直坐标平移量
+		 * @param x 水平坐标平移量
+		 * @param y 竖直坐标平移量
 		 */
 		translate(x: number, y: number): void;
 		/**
@@ -1530,46 +1528,42 @@ declare namespace wx {
 		 * 在给定的矩形区域内，清除画布上的像素
 		 * 清除画布上在该矩形区域内的内容。
 		 *
-		 * @param {number} x 矩形区域左上角的x坐标
-		 * @param {number} y 矩形区域左上角的y坐标
-		 * @param {number} width 矩形区域的宽度
-		 * @param {number} height 矩形区域的高度
+		 * @param x 矩形区域左上角的x坐标
+		 * @param y 矩形区域左上角的y坐标
+		 * @param width 矩形区域的宽度
+		 * @param height 矩形区域的高度
 		 */
 		clearRect(x: number, y: number, width: number, height: number): void;
 		/**
 		 * 在画布上绘制被填充的文本
 		 *
-		 * @param {string} text 在画布上输出的文本
-		 * @param {number} x 绘制文本的左上角x坐标位置
-		 * @param {number} y 绘制文本的左上角y坐标位置
+		 * @param text 在画布上输出的文本
+		 * @param x 绘制文本的左上角x坐标位置
+		 * @param y 绘制文本的左上角y坐标位置
 		 */
 		fillText(text: string, x: number, y: number): void;
 		/**
 		 * 用于设置文字的对齐
 		 *
-		 * @param {('left' | 'center' | 'right')} align
 		 *
-		 * @memberOf CanvasContext
 		 */
 		setTextAlign(align: 'left' | 'center' | 'right'): void;
 		/**
 		 * 绘制图像，图像保持原始尺寸。
 		 *
-		 * @param {string} imageResource 所要绘制的图片资源。 通过chooseImage得到一个文件路径或者一个项目目录内的图片
-		 * @param {number} x 图像左上角的x坐标
-		 * @param {number} y 图像左上角的y坐标
-		 * @param {number} width 图像宽度
-		 * @param {number} height 图像高度
+		 * @param imageResource 所要绘制的图片资源。 通过chooseImage得到一个文件路径或者一个项目目录内的图片
+		 * @param x 图像左上角的x坐标
+		 * @param y 图像左上角的y坐标
+		 * @param width 图像宽度
+		 * @param height 图像高度
 		 *
-		 * @memberOf CanvasContext
 		 */
 		drawImage(imageResource: string, x: number, y: number, width: number, height: number): void;
 		/**
 		 * 设置全局画笔透明度。
 		 *
-		 * @param {number} alpha 0~1	透明度，0 表示完全透明，1 表示完全不透明
+		 * @param alpha 0~1	透明度，0 表示完全透明，1 表示完全不透明
 		 *
-		 * @memberOf CanvasContext
 		 */
 		setGlobalAlpha(alpha: number): void;
 		/**
@@ -1596,111 +1590,108 @@ declare namespace wx {
 		/**
 		 * 把路径移动到画布中的指定点，但不创建线条。
 		 *
-		 * @param {number} x 目标位置的x坐标
-		 * @param {number} y 目标位置的y坐标
+		 * @param x 目标位置的x坐标
+		 * @param y 目标位置的y坐标
 		 */
 		moveTo(x: number, y: number): void;
 		/**
 		 * 在当前位置添加一个新点，然后在画布中创建从该点到最后指定点的路径。
 		 *
-		 * @param {number} x 目标位置的x坐标
-		 * @param {number} y 目标位置的y坐标
+		 * @param x 目标位置的x坐标
+		 * @param y 目标位置的y坐标
 		 */
 		lineTo(x: number, y: number): void;
 		/**
 		 * 添加一个矩形路径到当前路径。
 		 *
-		 * @param {number} x 矩形路径左上角的x坐标
-		 * @param {number} y 矩形路径左上角的y坐标
-		 * @param {number} width 矩形路径的宽度
-		 * @param {number} height 矩形路径的高度
+		 * @param x 矩形路径左上角的x坐标
+		 * @param y 矩形路径左上角的y坐标
+		 * @param width 矩形路径的宽度
+		 * @param height 矩形路径的高度
 		 */
 		rect(x: number, y: number, width: number, height: number): void;
 
 		/**
 		 * 填充一个矩形。
 		 * Tip: 用 setFillStyle() 设置矩形的填充色，如果没设置默认是黑色。
-		 * @param {number} x 矩形路径左上角的x坐标
-		 * @param {number} y 矩形路径左上角的y坐标
-		 * @param {number} width 矩形路径的宽度
-		 * @param {number} height 矩形路径的高度
+		 * @param x 矩形路径左上角的x坐标
+		 * @param y 矩形路径左上角的y坐标
+		 * @param width 矩形路径的宽度
+		 * @param height 矩形路径的高度
 		 *
-		 * @memberOf CanvasContext
 		 */
 		fillRect(x: number, y: number, width: number, height: number): void;
 		/**
 		 * 画一个矩形(非填充)。
 		 * Tip: 用 setFillStroke() 设置矩形线条的颜色，如果没设置默认是黑色。
-		 * @param {number} x 矩形路径左上角的x坐标
-		 * @param {number} y 矩形路径左上角的y坐标
-		 * @param {number} width 矩形路径的宽度
-		 * @param {number} height 矩形路径的高度
+		 * @param x 矩形路径左上角的x坐标
+		 * @param y 矩形路径左上角的y坐标
+		 * @param width 矩形路径的宽度
+		 * @param height 矩形路径的高度
 		 *
-		 * @memberOf CanvasContext
 		 */
 		strokeRect(x: number, y: number, width: number, height: number): void;
 		/**
 		 * 添加一个弧形路径到当前路径，顺时针绘制。
 		 *
-		 * @param {number} x 圆的x坐标
-		 * @param {number} y 圆的y坐标
-		 * @param {number} radius 圆的半径
-		 * @param {number} startAngle 起始弧度，单位弧度（在3点钟方向）
-		 * @param {number} endAngle 终止弧度
-		 * @param {boolean} counterclockwise 指定弧度的方向是逆时针还是顺时针。默认是false，即顺时针。
+		 * @param x 圆的x坐标
+		 * @param y 圆的y坐标
+		 * @param radius 圆的半径
+		 * @param startAngle 起始弧度，单位弧度（在3点钟方向）
+		 * @param endAngle 终止弧度
+		 * @param counterclockwise 指定弧度的方向是逆时针还是顺时针。默认是false，即顺时针。
 		 */
 		arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
 		/**
 		 * 创建二次方贝塞尔曲线
 		 *
-		 * @param {number} cpx 贝塞尔控制点的x坐标
-		 * @param {number} cpy 贝塞尔控制点的y坐标
-		 * @param {number} x 结束点的x坐标
-		 * @param {number} y 结束点的y坐标
+		 * @param cpx 贝塞尔控制点的x坐标
+		 * @param cpy 贝塞尔控制点的y坐标
+		 * @param x 结束点的x坐标
+		 * @param y 结束点的y坐标
 		 */
 		quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
 		/**
 		 * 创建三次方贝塞尔曲线
 		 *
-		 * @param {number} cp1x 第一个贝塞尔控制点的 x 坐标
-		 * @param {number} cp1y 第一个贝塞尔控制点的 y 坐标
-		 * @param {number} cp2x 第二个贝塞尔控制点的 x 坐标
-		 * @param {number} cp2y 第二个贝塞尔控制点的 y 坐标
-		 * @param {number} x 结束点的x坐标
-		 * @param {number} y 结束点的y坐标
+		 * @param cp1x 第一个贝塞尔控制点的 x 坐标
+		 * @param cp1y 第一个贝塞尔控制点的 y 坐标
+		 * @param cp2x 第二个贝塞尔控制点的 x 坐标
+		 * @param cp2y 第二个贝塞尔控制点的 y 坐标
+		 * @param x 结束点的x坐标
+		 * @param y 结束点的y坐标
 		 */
 		bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
 		/**
 		 * 设置填充样式
 		 *
-		 * @param {string} color 设置为填充样式的颜色。'rgb(255, 0, 0)'或'rgba(255, 0, 0, 0.6)'或'#ff0000'格式的颜色字符串
+		 * @param color 设置为填充样式的颜色。'rgb(255, 0, 0)'或'rgba(255, 0, 0, 0.6)'或'#ff0000'格式的颜色字符串
 		 */
 		setFillStyle(color: string): void;
 		/**
 		 * 设置线条样式
 		 *
-		 * @param {string} color 设置为填充样式的颜色。'rgb(255, 0, 0)'或'rgba(255, 0, 0, 0.6)'或'#ff0000'格式的颜色字符串
+		 * @param color 设置为填充样式的颜色。'rgb(255, 0, 0)'或'rgba(255, 0, 0, 0.6)'或'#ff0000'格式的颜色字符串
 		 */
 		setStrokeStyle(color: string): void;
 		/**
 		 * 设置阴影
 		 *
-		 * @param {number} offsetX 阴影相对于形状在水平方向的偏移
-		 * @param {number} offsetY 阴影相对于形状在竖直方向的偏移
-		 * @param {number} blur 阴影的模糊级别，数值越大越模糊 0~100
-		 * @param {string} color 阴影的颜色。 'rgb(255, 0, 0)'或'rgba(255, 0, 0, 0.6)'或'#ff0000'格式的颜色字符串
+		 * @param offsetX 阴影相对于形状在水平方向的偏移
+		 * @param offsetY 阴影相对于形状在竖直方向的偏移
+		 * @param blur 阴影的模糊级别，数值越大越模糊 0~100
+		 * @param color 阴影的颜色。 'rgb(255, 0, 0)'或'rgba(255, 0, 0, 0.6)'或'#ff0000'格式的颜色字符串
 		 */
 		setShadow(offsetX: number, offsetY: number, blur: number, color: string): void;
 
 		/**
 		 * 创建一个线性的渐变颜色。
 		 * Tip: 需要使用 addColorStop() 来指定渐变点，至少要两个。
-		 * @param {number} x0 起点的x坐标
-		 * @param {number} y0 起点的y坐标
-		 * @param {number} x1 终点的x坐标
-		 * @param {number} y1 终点的y坐标
+		 * @param x0 起点的x坐标
+		 * @param y0 起点的y坐标
+		 * @param x1 终点的x坐标
+		 * @param y1 终点的y坐标
 		 *
-		 * @memberOf CanvasContext
 		 */
 		createLinearGradient(x0: number, y0: number, x1: number, y1: number): void;
 
@@ -1708,59 +1699,57 @@ declare namespace wx {
 		 * 创建一个颜色的渐变点。
 		 * Tip: 小于最小 stop 的部分会按最小 stop 的 color 来渲染，大于最大 stop 的部分会按最大 stop 的 color 来渲染。
 		 * Tip: 需要使用 addColorStop() 来指定渐变点，至少要两个。
-		 * @param {number} stop (0-1)	表示渐变点在起点和终点中的位置
-		 * @param {string} color 渐变点的颜色
+		 * @param stop (0-1)	表示渐变点在起点和终点中的位置
+		 * @param color 渐变点的颜色
 		 *
-		 * @memberOf CanvasContext
 		 */
 		addColorStop(stop: number, color: string): void;
 
 		/**
 		 * 创建一个圆形的渐变颜色。
 		 *
-		 * @param {number} x 圆心的x坐标
-		 * @param {number} y 圆心的y坐标
-		 * @param {number} r 圆的半径
+		 * @param x 圆心的x坐标
+		 * @param y 圆心的y坐标
+		 * @param r 圆的半径
 		 *
-		 * @memberOf CanvasContext
 		 */
 		createCircularGradient(x: number, y: number, r: number): void;
 		/**
 		 * 设置字体大小
 		 *
-		 * @param {number} fontSize 字体的字号
+		 * @param fontSize 字体的字号
 		 */
 		setFontSize(fontSize: number): void;
 		/**
 		 * 设置线条端点的样式
 		 *
-		 * @param {LineCapType} lineCap 线条的结束端点样式。 'butt'、'round'、'square'
+		 * @param lineCap 线条的结束端点样式。 'butt'、'round'、'square'
 		 */
 		setLineCap(lineCap: LineCapType): void;
 		/**
 		 * 设置两线相交处的样式
-		 *  @param {LineJoinType} lineJoin 两条线相交时，所创建的拐角类型
+		 *  @param lineJoin 两条线相交时，所创建的拐角类型
 		 */
 		setLineJoin(lineJoin: LineJoinType): void;
 		/**
 		 * 设置线条宽度
 		 *
-		 * @param {number} lineWidth 线条的宽度
+		 * @param lineWidth 线条的宽度
 		 */
 		setLineWidth(lineWidth: number): void;
-		/** 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。
+		/**
+		 * 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。
 		 * 当 setLineJoin为 miter 时才有效。
 		 * 超过最大倾斜长度的，连接处将以 lineJoin 为 bevel 来显示
 		 *
-		 * @param {number} miterLimit 最大斜接长度
+		 * @param miterLimit 最大斜接长度
 		 */
 		setMiterLimit(miterLimit: number): void;
 		/**
 		 * 将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中。
 		 * Tip: 绘图上下文需要由 wx.createCanvasContext(canvasId) 来创建。
-		 * @param {boolean} [reserve] 非必填。本次绘制是否接着上一次绘制，即reserve参数为false，则在本次调用drawCanvas绘制之前native层应先清空画布再继续绘制；若reserver参数为true，则保留当前画布上的内容，本次调用drawCanvas绘制的内容覆盖在上面，默认 false
+		 * @param [reserve] 非必填。本次绘制是否接着上一次绘制，即reserve参数为false，则在本次调用drawCanvas绘制之前native层应先清空画布再继续绘制；若reserver参数为true，则保留当前画布上的内容，本次调用drawCanvas绘制的内容覆盖在上面，默认 false
 		 *
-		 * @memberOf CanvasContext
 		 */
 		draw(reserve?: boolean): void;
 	}
@@ -1830,7 +1819,8 @@ declare namespace wx {
 	interface LoginResponse {
 		/** 调用结果 */
 		errMsg: string;
-		/** 用户允许登录后，回调内容会带上 code（有效期五分钟），
+		/**
+		 * 用户允许登录后，回调内容会带上 code（有效期五分钟），
 		 * 开发者需要将 code 发送到开发者服务器后台，
 		 * 使用code 换取 session_key api，
 		 * 将 code 换成 openid 和 session_key
@@ -1853,7 +1843,6 @@ declare namespace wx {
 	 * 检测当前用户登录态是否有效。
 	 * 通过wx.login获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用wx.checkSession接口检测当前用户登录态是否有效。登录态过期后开发者可以再调用wx.login获取新的用户登录态。
 	 *
-	 * @param {CheckSessionOption} options
 	 */
 	function checkSession(options: CheckSessionOption): void;
 }
@@ -1912,16 +1901,12 @@ declare namespace wx {
 		/**
 		 * 分享标题	默认为当前小程序名称
 		 *
-		 * @type {string}
-		 * @memberOf ShareAppMessage
 		 */
 		title?: string;
 		/**
 		 * 分享路径	当默认为前页面 path ，
 		 * 必须是以 / 开头的完整路径
 		 *
-		 * @type {string}
-		 * @memberOf ShareAppMessage
 		 */
 		path?: string;
 	}
@@ -1933,13 +1918,11 @@ declare namespace wx {
 	/**
 	 * 显示分享按钮
 	 *
-	 * @param {ShowShareMenuOptions} [options]
 	 */
 	function showShareMenu(options?: ShareMenuOptions): void;
 	/**
 	 * 隐藏分享按钮
 	 *
-	 * @param {ShareMenuOptions} [options]
 	 */
 	function hideShareMenu(options?: ShareMenuOptions): void;
 }
@@ -1950,55 +1933,46 @@ declare namespace wx {
 			/**
 			 * 调用结果
 			 *
-			 * @type {string}
 			 */
 			errMsg: string;
 			/**
 			 * 收货人姓名
 			 *
-			 * @type {string}
 			 */
 			userName: string;
 			/**
 			 * 邮编
 			 *
-			 * @type {string}
 			 */
 			postalCode: string;
 			/**
 			 * 国标收货地址第一级地址
 			 *
-			 * @type {string}
 			 */
 			provinceName: string;
 			/**
 			 * 国标收货地址第二级地址
 			 *
-			 * @type {string}
 			 */
 			cityName: string;
 			/**
 			 * 国标收货地址第三级地址
 			 *
-			 * @type {string}
 			 */
 			countyName: string;
 			/**
 			 * 详细收货地址信息
 			 *
-			 * @type {string}
 			 */
 			detailInfo: string;
 			/**
 			 * 收货地址国家码
 			 *
-			 * @type {string}
 			 */
 			nationalCode: string;
 			/**
 			 * 收货人手机号码
 			 *
-			 * @type {string}
 			 */
 			telNumber: string;
 		}): void;
@@ -2018,7 +1992,6 @@ declare namespace wx {
 	/**
 	 * 批量添加卡券。
 	 *
-	 * @param {ChooseAddressOptions} options
 	 */
 	function addCard(options: ChooseAddressOptions): void;
 	interface OpenCardOptions extends BaseOptions {
@@ -2027,7 +2000,6 @@ declare namespace wx {
 	/**
 	 * 查看微信卡包中的卡券。
 	 *
-	 * @param {OpenCardOptions} options
 	 */
 	function openCard(options: OpenCardOptions): void;
 }
@@ -2051,15 +2023,11 @@ declare namespace wx {
 	/**
 	 * 将 ArrayBuffer 数据转成 Base64 字符串
 	 *
-	 * @param {ArrayBuffer} arrayBuffer
-	 * @returns {string}
 	 */
 	function arrayBufferToBase64(arrayBuffer: ArrayBuffer): string;
 	/**
 	 * 将 Base64 字符串转成 ArrayBuffer 数据
 	 *
-	 * @param {string} base64
-	 * @returns {ArrayBuffer}
 	 */
 	function base64ToArrayBuffer(base64: string): ArrayBuffer;
 }
