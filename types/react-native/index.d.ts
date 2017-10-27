@@ -3744,6 +3744,18 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     extraData?: any
 
     /**
+     * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
+     * content if you know the height of items a priori. getItemLayout is the most efficient,
+     * and is easy to use if you have fixed height items, for example:
+     * ```
+     * getItemLayout={(data, index) => (
+     *   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+     * )}
+     * ```
+     */
+    getItemLayout?: (data: SectionListData<ItemT>[] | null, index: number) => {length: number, offset: number, index: number}
+
+    /**
      * How many items to render in the initial batch
      */
     initialNumToRender?: number
