@@ -19,7 +19,7 @@ interface jsPlumbInstance {
 	Defaults: Defaults;
 	restoreDefaults(): void;
 	addClass(el: ElementLocator, clazz: string): void;
-	addEndpoint(el: ElementLocator, params: EndpointOptions, referenceParams: EndpointOptions): any;
+	addEndpoint(el: ElementLocator, params?: EndpointOptions, referenceParams?: EndpointOptions): any;
 	removeClass(el: ElementLocator, clazz: string): void;
 	hasClass(el: ElementLocator, clazz: string): void;
     	draggable(el: ElementLocator, options?: DragOptions): jsPlumbInstance;
