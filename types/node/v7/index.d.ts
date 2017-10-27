@@ -646,18 +646,20 @@ declare module "http" {
     import * as net from "net";
     import * as stream from "stream";
 
-    // incoming headers will never contain number
-    export type IncomingHttpHeaders = {
-        [header: string]: string
-    } & {
-        'set-cookie'?: string[]
+    export interface BaseIncomingHttpHeaders {
+        [header: string]: string | string[];
     }
 
+    export interface SetCookieHttpHeader {
+        'set-cookie'?: string[];
+    }
+
+    // incoming headers will never contain number
+    export type IncomingHttpHeaders = BaseIncomingHttpHeaders & SetCookieHttpHeader;
+
     // outgoing headers allows numbers (as they are converted internally to strings)
-    export type OutgoingHttpHeaders = {
-        [header: string]: number | string
-    } & {
-        'set-cookie'?: string[]
+    export interface OutgoingHttpHeaders {
+        [header: string]: number | string | string[];
     }
 
     export interface RequestOptions {

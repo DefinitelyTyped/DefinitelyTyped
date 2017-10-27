@@ -836,14 +836,20 @@ declare module "http" {
     import * as stream from "stream";
     import { URL } from "url";
 
-    // incoming headers will never contain number
-    export interface IncomingHttpHeaders {
+    export interface BaseIncomingHttpHeaders {
         [header: string]: string | string[];
     }
 
+    export interface SetCookieHttpHeader {
+        'set-cookie'?: string[];
+    }
+
+    // incoming headers will never contain number
+    export type IncomingHttpHeaders = BaseIncomingHttpHeaders & SetCookieHttpHeader;
+
     // outgoing headers allows numbers (as they are converted internally to strings)
     export interface OutgoingHttpHeaders {
-        [header: string]: number | string | string[] | undefined;
+        [header: string]: number | string | string[];
     }
 
     export interface ClientRequestArgs {
