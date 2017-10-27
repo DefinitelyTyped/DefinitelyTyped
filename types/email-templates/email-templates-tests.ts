@@ -1,6 +1,6 @@
 import * as Email from 'email-templates';
 
-const email = new Email.EmailTemplate({
+const email = new Email({
     message: {
     from: 'Test@tesitng.com'
     },
