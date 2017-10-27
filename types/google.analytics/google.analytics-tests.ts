@@ -56,6 +56,25 @@ describe('UniversalAnalytics', () => {
         tracker.send('pageview', '/some-path');
         tracker.send('pageview', {some: 'details'});
     });
+
+    it('should exercise Model APIs', () => {
+        const tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
+
+        tracker.set('sendHitTask', (gaHitModel: UniversalAnalytics.Model) => {
+            gaHitModel.get('hitPayload')
+
+            gaHitModel.set('hitCallback', () => console.log('hit sent'), true)
+            gaHitModel.set('hitCallback', () => console.log('hit sent'))
+            gaHitModel.set({
+                'hitPayload': 'a=1&b=2',
+                'otherField': 3
+            });
+            gaHitModel.set({
+                'hitPayload': 'a=1&b=2',
+                'otherField': 3
+            }, null, false);
+        });
+    });
 });
 
 describe("tester Google Analytics Tracker _gat object", () => {

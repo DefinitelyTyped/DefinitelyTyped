@@ -626,6 +626,12 @@ declare namespace UniversalAnalytics {
         send(hitType: string, ...fields: Array<any>): void;
         send(hitType: string, fieldsObject: {}): void;
     }
+
+    interface Model {
+        get(fieldName: string): any,
+        set(fieldName: string, fieldValue: any, temporary?: boolean): void,
+        set(fields: {}, fieldValue?: null, temporary?: boolean): void
+    }
 }
 
 declare var gaClassic: GoogleAnalytics;
