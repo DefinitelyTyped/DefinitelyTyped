@@ -2,20 +2,20 @@
 // Project: https://github.com/leo/args#readme
 // Definitions by: Slessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-export = args;
+declare const c: args;
+export = c;
 
-declare namespace args {
-    let sub: string[];
+interface args {
+    sub: string[];
 
-    function option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): typeof args;
-    function options(list: Option[]): typeof args;
-    function command(name: string, description: string, init?: CommandInitFunction, aliases?: string[]): typeof args;
-    function example(usage: string, description: string): typeof args;
-    function examples(list: Example[]): typeof args;
-    function parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
-    function showHelp(): void;
+    option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): args;
+    options(list: Option[]): args;
+    command(name: string, description: string, init?: CommandInitFunction, aliases?: string[]): args;
+    example(usage: string, description: string): args;
+    examples(list: Example[]): args;
+    parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
+    showHelp(): void;
 }
 
 type MriUnknownFunction = (param: string) => boolean;
