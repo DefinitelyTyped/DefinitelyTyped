@@ -8,6 +8,8 @@
 
 declare var jsPlumb: jsPlumbInstance;
 
+type ElementLocator = string | Element | any[];
+
 interface jsPlumbInstance {
 	setRenderMode(renderMode: string): string;
 	bind(event: string, callback: (e: any) => void ): void;
@@ -16,11 +18,11 @@ interface jsPlumbInstance {
 	importDefaults(defaults: Defaults): void;
 	Defaults: Defaults;
 	restoreDefaults(): void;
-	addClass(el: any, clazz: string): void;
-	addEndpoint(ep: string): any;
-	removeClass(el: any, clazz: string): void;
-	hasClass(el: any, clazz: string): void;
-    	draggable(el: string, options?: DragOptions): jsPlumbInstance;
+	addClass(el: ElementLocator, clazz: string): void;
+	addEndpoint(el: ElementLocator, params: EndpointOptions, referenceParams: EndpointOptions): any;
+	removeClass(el: ElementLocator, clazz: string): void;
+	hasClass(el: ElementLocator, clazz: string): void;
+    	draggable(el: ElementLocator, options?: DragOptions): jsPlumbInstance;
     	draggable(ids: string[], options?: DragOptions): jsPlumbInstance;
     	connect(connection: ConnectParams, referenceParams?: ConnectParams): Connection;
     	makeSource(el: string, options: SourceOptions): void;
@@ -28,17 +30,21 @@ interface jsPlumbInstance {
     	repaintEverything(): void;
     	detachEveryConnection(): void;
 	detachAllConnections(el: string): void;
-    	removeAllEndpoints(el: string, recurse?: boolean): jsPlumbInstance;
-    	removeAllEndpoints(el: Element, recurse?: boolean): jsPlumbInstance;
+    	removeAllEndpoints(el: ElementLocator, recurse?: boolean): jsPlumbInstance;
     	select(params: SelectParams): Connections;
     	getConnections(options?: any, flat?: any): any[];
     	deleteEndpoint(uuid: string, doNotRepaintAfterwards?: boolean): jsPlumbInstance;
     	deleteEndpoint(endpoint: Endpoint, doNotRepaintAfterwards?: boolean): jsPlumbInstance;
-    	repaint(el: string): jsPlumbInstance;
-    	repaint(el: Element): jsPlumbInstance;
+    	repaint(el: ElementLocator): jsPlumbInstance;
     	getInstance(): jsPlumbInstance;
 	getInstance(defaults: Defaults): jsPlumbInstance;
 	getInstanceIndex(): number;
+	reset(): void;
+	clear(): void;
+	batch(fn: () => void, doNotRepaintAfterwards?: boolean): void;
+	remove(el: ElementLocator): void;
+	deleteConnection(Connection): void;
+	removeAllEndpoints(): void;
 
     SVG: string;
     CANVAS: string;
@@ -88,10 +94,18 @@ interface ConnectParams {
 	anchor?: string;
 	anchors?: any[];
 	label?: string;
+	uuids?: [string, string];
 }
 
 interface DragOptions {
 	containment?: string;
+    grid?: [number, number];
+	handle?: string;
+	filter?: string;
+	filterExclude?: boolean;
+	rightButtonCanDrag?: boolean;
+	start?: (event: any) => void;
+	stop?: (event: any) => void;
 }
 
 interface SourceOptions {
@@ -126,6 +140,30 @@ interface Connection {
     setDetachable(detachable: boolean): void;
     setParameter<T>(name: string, value: T): void;
     endpoints: Endpoint[];
+}
+
+type SVGPaintStyle = {[key: string]: string | number};
+
+type OverlayOptions = [
+	string, {[key: string]: any}
+]
+
+interface EndpointOptions {
+	endpoint?: string;
+	uuid?: string;
+	paintStyle?: SVGPaintStyle;
+	isSource?: boolean;
+	isTarget?: boolean;
+	maxConnections?: number;
+	connector?: OverlayOptions;
+	connectorStyle?: SVGPaintStyle;
+	hoverPaintStyle?: SVGPaintStyle;
+	connectorHoverStyle?: SVGPaintStyle;
+	dragOptions?: DragOptions;
+	dropOptions?: DropOptions;
+	overlays?: OverlayOptions[];
+	anchor?: string;
+	enabled?: boolean;
 }
 
 interface Endpoint {
