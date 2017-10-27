@@ -1,7 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "max-line-length": [true, 490],
+        "max-line-length": [true, 280],
         "no-unnecessary-generics": false,
         "prefer-const": false
     }
