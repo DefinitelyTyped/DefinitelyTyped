@@ -1,5 +1,18 @@
 import guid = require('guid');
 
-const newRawGuid: string = guid.raw();
-const isAGuid: boolean = guid.isGuid(newRawGuid);
-const newGuidObject: object = guid.create();
+// $ExpectType object
+guid.create();
+
+// $ExpectType string
+guid.raw();
+
+const newRawGuid = guid.raw();
+
+// $ExpectType boolean
+guid.isGuid(newRawGuid);
+
+// $ExpectType string
+guid.EMPTY;
+
+// $ExpectType object
+guid(guid.create());
