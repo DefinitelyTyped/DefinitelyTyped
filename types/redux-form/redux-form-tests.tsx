@@ -14,6 +14,7 @@ import {
     WrappedFieldProps,
     Fields,
     GenericFields,
+    BaseFieldProps,
     WrappedFieldsProps,
     FieldArray,
     GenericFieldArray,
