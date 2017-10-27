@@ -620,12 +620,11 @@ declare namespace UniversalAnalytics {
     }
 
     interface Tracker {
-        get<T>(fieldName: string): T;
-        send(hitType: string, opt_fieldObject?: {}): void;
-        set(fieldName: string, value: string): void;
-        set(fieldName: string, value: {}): void;
-        set(fieldName: string, value: number): void;
-        set(fieldName: string, value: boolean): void;
+        get(fieldName: string): any;
+        set(fieldName: string, fieldValue: any): void;
+        set(fieldsObject: {}): void;
+        send(hitType: string, ...fields: Array<any>): void;
+        send(hitType: string, fieldsObject: {}): void;
     }
 }
 
