@@ -1,5 +1,5 @@
 // Type definitions for @google-cloud/pubsub 0.14
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/pubsub-0.14.1/packages/pubsub
+// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/pubsub
 // Definitions by: Paul Huynh <https://github.com/pheromonez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
