@@ -62,9 +62,11 @@ export class Block {
 }
 
 export class ECPair {
-    constructor(d: BigInteger, Q?: null | undefined, options?: { compressed?: boolean, network?: Network });
+    constructor(d: BigInteger, Q?: null, options?: { compressed?: boolean, network?: Network });
 
     constructor(d: null | undefined, Q: any, options?: { compressed?: boolean, network?: Network }); // Q should be ECPoint, but not sure how to define such type
+
+    d: BigInteger;
 
     getAddress(): string;
 

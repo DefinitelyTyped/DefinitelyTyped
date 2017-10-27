@@ -290,6 +290,25 @@ declare module 'angular' {
             configuration(): IThemeConfig;
         }
 
+        interface IDefineThemeOptions {
+            primary?: string;
+            accent?: string;
+            warn?: string;
+            background?: string;
+            dark?: boolean;
+        }
+
+        interface IThemingService {
+            PALETTES: IConfiguredColorPalette; // get only
+            THEMES: IConfiguredThemes; // get only
+            (element: JQuery): void;
+            registered(themeName: string): boolean;
+            defaultTheme(): string;
+            generateTheme(name: string): void;
+            setBrowserColor(options: IBrowserColors): () => void;
+            defineTheme(name: string, options: IDefineThemeOptions): IPromise<string>;
+        }
+
         interface IDateLocaleProvider {
             months: string[];
             shortMonths: string[];
@@ -328,6 +347,18 @@ declare module 'angular' {
             brown: IPalette;
             grey: IPalette;
             'blue-grey': IPalette;
+        }
+
+        interface IConfiguredColorPalette extends IColorPalette {
+            [name: string]: IPalette;
+        }
+
+        interface IThemes {
+            default: ITheme;
+        }
+
+        interface IConfiguredThemes extends IThemes {
+            [name: string]: ITheme;
         }
 
         interface IPanelConfig {

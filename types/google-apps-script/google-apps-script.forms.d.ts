@@ -41,7 +41,7 @@ declare namespace GoogleAppsScript {
       clearValidation(): CheckboxItem;
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
-      createResponse(responses: String[]): ItemResponse;
+      createResponse(responses: string[]): ItemResponse;
       duplicate(): CheckboxItem;
       getChoices(): Choice[];
       getFeedbackForCorrect(): QuizFeedback;
@@ -54,7 +54,7 @@ declare namespace GoogleAppsScript {
       getType(): ItemType;
       hasOtherOption(): boolean;
       isRequired(): boolean;
-      setChoiceValues(values: String[]): CheckboxItem;
+      setChoiceValues(values: string[]): CheckboxItem;
       setChoices(choices: Choice[]): CheckboxItem;
       setFeedbackForCorrect(feedback: QuizFeedback): CheckboxItem;
       setFeedbackForIncorrect(feedback: QuizFeedback): CheckboxItem;
@@ -323,7 +323,7 @@ declare namespace GoogleAppsScript {
       addDurationItem(): DurationItem;
       addEditor(emailAddress: string): Form;
       addEditor(user: Base.User): Form;
-      addEditors(emailAddresses: String[]): Form;
+      addEditors(emailAddresses: string[]): Form;
       addGridItem(): GridItem;
       addImageItem(): ImageItem;
       addListItem(): ListItem;
@@ -468,20 +468,20 @@ declare namespace GoogleAppsScript {
      */
     export interface GridItem {
       clearValidation(): GridItem;
-      createResponse(responses: String[]): ItemResponse;
+      createResponse(responses: string[]): ItemResponse;
       duplicate(): GridItem;
-      getColumns(): String[];
+      getColumns(): string[];
       getHelpText(): string;
       getId(): Integer;
       getIndex(): Integer;
-      getRows(): String[];
+      getRows(): string[];
       getTitle(): string;
       getType(): ItemType;
       isRequired(): boolean;
-      setColumns(columns: String[]): GridItem;
+      setColumns(columns: string[]): GridItem;
       setHelpText(text: string): GridItem;
       setRequired(enabled: boolean): GridItem;
-      setRows(rows: String[]): GridItem;
+      setRows(rows: string[]): GridItem;
       setTitle(title: string): GridItem;
       setValidation(validation: GridValidation): GridItem;
     }
@@ -676,7 +676,7 @@ declare namespace GoogleAppsScript {
       getTitle(): string;
       getType(): ItemType;
       isRequired(): boolean;
-      setChoiceValues(values: String[]): ListItem;
+      setChoiceValues(values: string[]): ListItem;
       setChoices(choices: Choice[]): ListItem;
       setFeedbackForCorrect(feedback: QuizFeedback): ListItem;
       setFeedbackForIncorrect(feedback: QuizFeedback): ListItem;
@@ -719,7 +719,7 @@ declare namespace GoogleAppsScript {
       getType(): ItemType;
       hasOtherOption(): boolean;
       isRequired(): boolean;
-      setChoiceValues(values: String[]): MultipleChoiceItem;
+      setChoiceValues(values: string[]): MultipleChoiceItem;
       setChoices(choices: Choice[]): MultipleChoiceItem;
       setFeedbackForCorrect(feedback: QuizFeedback): MultipleChoiceItem;
       setFeedbackForIncorrect(feedback: QuizFeedback): MultipleChoiceItem;
@@ -867,7 +867,7 @@ declare namespace GoogleAppsScript {
      *      textItem.setFeedbackForIncorrect(feedback);
      */
     export interface QuizFeedback {
-      getLinkUrls(): String[];
+      getLinkUrls(): string[];
       getText(): string;
     }
 

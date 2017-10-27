@@ -15,7 +15,7 @@ const { line, tags } = grammar.tokenizeLine("var offset = 3;");
 // Convert compact tags representation into convenient, space-inefficient tokens.
 const tokens = registry.decodeTokens(line, tags);
 for (const { value, scopes } of tokens) {
-	console.log(`Token text: '${value}' with scopes: ${scopes}`);
+    console.log(`Token text: '${value}' with scopes: ${scopes}`);
 }
 
 // General Usage ==============================================================
@@ -25,13 +25,13 @@ new GrammarRegistry({ maxTokensPerLine: 100 });
 registry.loadGrammarSync("javascript.json");
 const result = grammar.tokenizeLine('var text = "hello world";');
 result.tokens.forEach((token) => {
-	console.log(`Token text: '${token.value}' with scopes: ${token.scopes}`);
+    console.log(`Token text: '${token.value}' with scopes: ${token.scopes}`);
 });
 
 new ScopeSelector("source.file");
 let prefix = selector.getPrefix("test");
 if (prefix) {
-	str = prefix.charAt(0);
+    str = prefix.charAt(0);
 }
 prefix = selector.getPrefix(["test", "test"]);
 
@@ -43,10 +43,10 @@ subscription = grammar.onDidUpdate(() => {});
 
 const tokenizeLinesResult = grammar.tokenizeLines("Test String");
 for (const tokenizedLine of tokenizeLinesResult) {
-	for (const token of tokenizedLine) {
-		token.scopes;
-		token.value;
-	}
+    for (const token of tokenizedLine) {
+        token.scopes;
+        token.value;
+    }
 }
 
 grammar.tokenizeLine("Test String");
@@ -75,19 +75,19 @@ potentialGrammar = registry.removeGrammarForScopeName("scope.test");
 grammar = registry.readGrammarSync("/test/path");
 
 registry.readGrammar("/test/path", (error, grammar) => {
-	if (grammar) {
-		grammar.name;
-	} else {
-		if (error) error.name;
-	}
+    if (grammar) {
+        grammar.name;
+    } else {
+        if (error) error.name;
+    }
 });
 
 grammar = registry.loadGrammarSync("/test/path");
 
 registry.loadGrammar("/test/path", (error, grammar) => {
-	if (grammar) {
-		grammar.name;
-	} else {
-		if (error) error.name;
-	}
+    if (grammar) {
+        grammar.name;
+    } else {
+        if (error) error.name;
+    }
 });
