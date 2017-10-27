@@ -941,8 +941,16 @@ declare namespace createjs {
 
     }
 
+    interface IStageGLOptions {
+        preserveBuffer?: boolean;
+        antialias?: boolean;
+        transparent?: boolean;
+        premultiply?: boolean;
+        autoPurge?: number;
+    }
+
     export class StageGL extends Stage {
-        constructor(canvas: HTMLCanvasElement | string | Object);
+        constructor(canvas: HTMLCanvasElement | string | Object, options?: IStageGLOptions);
 
         // properties
         static VERTEX_PROPERTY_COUNT: number;
@@ -973,12 +981,12 @@ declare namespace createjs {
 
         // methods
         static buildUVRects(spritesheet: SpriteSheet, target?: number, onlyTarget?: boolean): Object;
+        static isWebGLActive(ctx: CanvasRenderingContext2D): boolean;
         cacheDraw(target: DisplayObject, filters: Filter[], manager: BitmapCache): boolean;
         getBaseTexture(w?: number, h?: number): WebGLTexture | null;
         getFilterShader(filter: Filter | Object): WebGLProgram;
         getRenderBufferTexture (w: number, h: number): WebGLTexture;
         getTargetRenderTexture (target: DisplayObject, w: number, h: number): Object;
-        isWebGLActive(ctx: CanvasRenderingContext2D): boolean;
         protectTextureSlot(id: number, lock?: boolean): void;
         purgeTextures(count?: number): void;
         releaseTexture(item: DisplayObject | WebGLTexture | HTMLImageElement | HTMLCanvasElement): void;
