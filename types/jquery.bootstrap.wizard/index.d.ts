@@ -43,7 +43,8 @@ interface Wizard {
 
 interface JQuery {
     bootstrapWizard(options?: WizardOptions): Wizard;
-    bootstrapWizard(method: 'next' | 'previous' | 'first' | 'last' | 'back' | 'finish' | 'finish' | 'currentIndex' | 'navigationLength'): void;
+    bootstrapWizard(method: 'next' | 'previous' | 'first' | 'last' | 'back' | 'finish'): void;
+    bootstrapWizard(method: 'currentIndex' | 'navigationLength'): number;
     bootstrapWizard(method: 'show', indexOrId: number | string): void;
     bootstrapWizard(method: 'enable' | 'disable' | 'display' | 'hide', index: number): void;
     bootstrapWizard(method: 'remove', index: number, removeTabPane?: boolean): void;
