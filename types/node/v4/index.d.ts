@@ -558,13 +558,17 @@ declare module "http" {
     import * as stream from "stream";
 
     // incoming headers will never contain number
-    export interface IncomingHttpHeaders {
-        [header: string]: string | string[];
+    export type IncomingHttpHeaders = {
+        [header: string]: string
+    } & {
+        'set-cookie'?: string[]
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-    export interface OutgoingHttpHeaders {
-        [header: string]: number | string | string[] | undefined;
+    export type OutgoingHttpHeaders = {
+        [header: string]: number | string
+    } & {
+        'set-cookie'?: string[]
     }
 
     export interface RequestOptions {
