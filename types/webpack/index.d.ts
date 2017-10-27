@@ -642,7 +642,7 @@ declare namespace webpack {
             /** Sort the modules by a field */
             modulesSort?: string;
             /** Show dependencies and origin of warnings/errors */
-            moduleTrace?: number;
+            moduleTrace?: boolean;
             /** Add public path information */
             publicPath?: boolean;
             /** Add information about the reasons why modules are included */
