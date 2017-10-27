@@ -1,7 +1,7 @@
 // Type definitions for React OnSenui (react-onsenui) 2.7.0
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>
-// Definitions by: Ringrid <https://github.com/ringrid>
+//                 Ringrid <https://github.com/ringrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5.3
 
