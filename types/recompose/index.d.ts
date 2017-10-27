@@ -216,7 +216,7 @@ declare module 'recompose' {
         contextTypes: ValidationMap<TContext>
     ) : InferableComponentEnhancer<TContext>;
 
-    interface ReactLifeCycleFunctionsThisArguments<TProps, TState> {
+    interface _ReactLifeCycleFunctionsThisArguments<TProps, TState> {
         props: TProps,
         state: TState,
         setState<TKeyOfState extends keyof TState>(f: (prevState: TState, props: TProps) => Pick<TState, TKeyOfState>, callback?: () => any): void;
@@ -228,20 +228,22 @@ declare module 'recompose' {
             [key: string]: React.ReactInstance
         };
     }
+    type ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance = {}> =
+        _ReactLifeCycleFunctionsThisArguments<TProps, TState> & TInstance
 
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
-    interface ReactLifeCycleFunctions<TProps, TState> {
-        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
-        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
-        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps) => void;
-        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps, nextState: TState) => boolean;
-        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps, nextState: TState) => void;
-        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, prevProps: TProps, prevState: TState) => void;
-        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
+    interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
+        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
+        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
+        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
     }
 
-    export function lifecycle<TProps, TState>(
-        spec: ReactLifeCycleFunctions<TProps, TState>
+    export function lifecycle<TProps, TState, TInstance = {}>(
+        spec: ReactLifeCycleFunctions<TProps, TState, TInstance> & TInstance
     ): InferableComponentEnhancer<{}>;
 
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
@@ -365,7 +367,7 @@ declare module 'recompose' {
     export function createEventHandler<T, TSubs extends Subscribable<T>>(): EventHandlerOf<T, TSubs>;
 
     // createEventHandlerWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandlerWithConfig
-    export function createEventHandlerWithConfig(config: ObservableConfig): 
+    export function createEventHandlerWithConfig(config: ObservableConfig):
         <T, TSubs extends Subscribable<T>>() => EventHandlerOf<T, TSubs>;
 
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
