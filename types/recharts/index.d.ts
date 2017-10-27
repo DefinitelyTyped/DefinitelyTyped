@@ -345,8 +345,8 @@ export interface PieProps extends Partial<CSSStyleDeclaration> {
 	label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	labelLine?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	data: any[];
-	activeIndex: any[];
-	activeShape: any | React.ReactElement<any> | RechartsFunction;
+	activeIndex?: number | number[];
+	activeShape?: any | React.ReactElement<any> | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType | RechartsFunction;

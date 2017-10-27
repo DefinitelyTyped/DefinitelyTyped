@@ -38,4 +38,8 @@
   microsoftTeams.getTabInstances(tabInfo => {
     const tabInstances: microsoftTeams.TabInstance[] = tabInfo.teamTabs;
   });
+
+  microsoftTeams.getMruTabInstances(tabInfo => {
+    const tabInstances: microsoftTeams.TabInstance[] = tabInfo.teamTabs;
+  });
 })();
