@@ -244,7 +244,7 @@ declare module "rethinkdb" {
         insert(obj: any[], options?: InsertOptions): Operation<WriteResult>;
         insert(obj: any, options?: InsertOptions): Operation<WriteResult>;
 
-        get<TObjectType extends object>(key: string): Operation<TObjectType | null>;
+        get<TObjectType extends object>(key: string): Operation<TObjectType | null> & Writeable;
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
         wait(WaitOptions?: WaitOptions): WaitResult;
