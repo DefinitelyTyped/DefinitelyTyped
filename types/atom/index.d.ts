@@ -319,52 +319,52 @@ export interface Config {
      *  Add a listener for changes to a given key path. This is different than ::onDidChange in
      *  that it will immediately call your callback with the current value of the config entry.
      */
-    // tslint:disable-next-line:no-any
-    observe(keyPath: string, callback: (value: any) => void): Disposable;
+    observe<T extends keyof ConfigValues>(keyPath: T, callback:
+        (value: ConfigValues[T]) => void): Disposable;
     /**
      *  Add a listener for changes to a given key path. This is different than ::onDidChange in
      *  that it will immediately call your callback with the current value of the config entry.
      */
-    // tslint:disable:no-any
-    observe(keyPath: string, options: { scope: string[]|ScopeDescriptor },
-        callback: (value: any) => void): Disposable;
-    // tslint:enable:no-any
+    observe<T extends keyof ConfigValues>(keyPath: T, options:
+        { scope: string[]|ScopeDescriptor }, callback: (value: ConfigValues[T]) => void):
+        Disposable;
 
     /**
      *  Add a listener for changes to a given key path. If keyPath is not specified, your
      *  callback will be called on changes to any key.
      */
     // tslint:disable-next-line:no-any
-    onDidChange<T = any>(callback: (values: { newValue: T, oldValue: T }) => void): Disposable;
+    onDidChange<T = any>(callback: (values: { newValue: T, oldValue: T }) => void):
+        Disposable;
     /**
      *  Add a listener for changes to a given key path. If keyPath is not specified, your
      *  callback will be called on changes to any key.
      */
-    // tslint:disable-next-line:no-any
-    onDidChange<T = any>(keyPath: string, callback: (values: { newValue: T,
-        oldValue: T }) => void): Disposable;
+    onDidChange<T extends keyof ConfigValues>(keyPath: T, callback: (values: {
+        newValue: ConfigValues[T],
+        oldValue?: ConfigValues[T],
+    }) => void): Disposable;
     /**
      *  Add a listener for changes to a given key path. If keyPath is not specified, your
      *  callback will be called on changes to any key.
      */
-    // tslint:disable-next-line:no-any
-    onDidChange<T = any>(keyPath: string, options: { scope: string[]|ScopeDescriptor },
-        callback: (values: { newValue: T, oldValue: T }) => void): Disposable;
+    onDidChange<T extends keyof ConfigValues>(keyPath: T, options:
+        { scope: string[]|ScopeDescriptor }, callback:
+        (values: { newValue: ConfigValues[T], oldValue?: ConfigValues[T] }) => void):
+        Disposable;
 
     // Managing Settings
     /** Retrieves the setting for the given key. */
-    // tslint:disable:no-any
-    get(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
-        scope?: string[]|ScopeDescriptor }): any;
-    // tslint:enable:no-any
+    get<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
+        excludeSources?: string[], scope?: string[]|ScopeDescriptor }):
+        ConfigValues[T]|undefined;
 
     /**
      *  Sets the value for a configuration setting.
      *  This value is stored in Atom's internal configuration file.
      */
-    // tslint:disable-next-line:no-any
-    set(keyPath: string, value: any, options?: { scopeSelector?: string, source?:
-        string }): void;
+    set<T extends keyof ConfigValues>(keyPath: T, value: ConfigValues[T], options?:
+        { scopeSelector?: string, source?: string }): void;
 
     /** Restore the setting at keyPath to its default value. */
     unset(keyPath: string, options?: { scopeSelector?: string, source?: string }): void;
@@ -373,10 +373,9 @@ export interface Config {
      *  Get all of the values for the given key-path, along with their associated
      *  scope selector.
      */
-    // tslint:disable:no-any
-    getAll(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
-        scope?: ScopeDescriptor }): Array<{ scopeDescriptor: ScopeDescriptor, value: any}>;
-    // tslint:enable:no-any
+    getAll<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
+        excludeSources?: string[], scope?: ScopeDescriptor }):
+        Array<{ scopeDescriptor: ScopeDescriptor, value: ConfigValues[T] }>;
 
     /**
      *  Get an Array of all of the source Strings with which settings have been added
@@ -718,28 +717,27 @@ export class Emitter implements DisposableLike {
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    // tslint:disable-next-line:no-any
-    on(eventName: string, handler: (value: any) => void): Disposable;
+    on<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
+        Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    // tslint:disable-next-line:no-any
-    once(eventName: string, handler: (value: any) => void): Disposable;
+    once<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
+        Disposable;
 
     /**
      *  Register the given handler function to be invoked before all other
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    // tslint:disable-next-line:no-any
-    preempt(eventName: string, handler: (value: any) => void): Disposable;
+    preempt<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
+        Disposable;
 
     // Event Emission
-    /** Invoke handlers registered via ::on for the given event name. */
-    // tslint:disable-next-line:no-any
-    emit(eventName: string, value?: any): void;
+    /** Invoke the handlers registered via ::on for the given event name. */
+    emit<T extends keyof Emissions>(eventName: T, value?: Emissions[T]): void;
 }
 
 /**
@@ -5473,6 +5471,263 @@ export interface TextEditorObservedEvent {
     index: number;
 }
 
+// Extendables ================================================================
+// Interfaces which can be augmented in order to provide additional type
+// information under certain contexts.
+
+// NOTE: the config schema with these defaults can be found here:
+//   https://github.com/atom/atom/blob/v1.21.0/src/config-schema.js
+/**
+ *  Allows you to strongly type Atom configuration variables. Additional key:value
+ *  pairings merged into this interface will result in configuration values under
+ *  the value of each key being templated by the type of the associated value.
+ */
+export interface ConfigValues {
+    /**
+     *  List of glob patterns. Files and directories matching these patterns will be
+     *  ignored by some packages, such as the fuzzy finder and tree view. Individual
+     *  packages might have additional config settings for ignoring names.
+     */
+    "core.ignoredNames": string[];
+
+    /**
+     *  Files and directories ignored by the current project's VCS system will be ignored
+     *  by some packages, such as the fuzzy finder and find and replace. For example,
+     *  projects using Git have these paths defined in the .gitignore file. Individual
+     *  packages might have additional config settings for ignoring VCS ignored files and
+     *  folders.
+     */
+    "core.excludeVcsIgnoredPaths": boolean;
+
+    /**
+     *  Follow symbolic links when searching files and when opening files with the fuzzy
+     *  finder.
+     */
+    "core.followSymlinks": boolean;
+
+    /** List of names of installed packages which are not loaded at startup. */
+    "core.disabledPackages": string[];
+
+    /** List of names of installed packages which are not automatically updated. */
+    "core.versionPinnedPackages": string[];
+
+    /**
+     *  Associates scope names (e.g. "source.coffee") with arrays of file extensions
+     *  and file names (e.g. ["Cakefile", ".coffee2"]).
+     */
+    "core.customFileTypes": {
+        [key: string]: string[];
+    };
+
+    /** Names of UI and syntax themes which will be used when Atom starts. */
+    "core.themes": string[];
+
+    /**
+     *  Trigger the system's beep sound when certain actions cannot be executed or
+     *  there are no results.
+     */
+    "core.audioBeep": boolean;
+
+    /** Close corresponding editors when a file is deleted outside Atom. */
+    "core.closeDeletedFileTabs": boolean;
+
+    /** When the last tab of a pane is closed, remove that pane as well. */
+    "core.destroyEmptyPanes": boolean;
+
+    /**
+     *  When a window with no open tabs or panes is given the 'Close Tab' command,
+     *  close that window.
+     */
+    "core.closeEmptyWindows": boolean;
+
+    /** Default character set encoding to use when reading and writing files. */
+    "core.fileEncoding": FileEncoding;
+
+    /**
+     *  When checked opens an untitled editor when loading a blank environment (such as
+     *  with 'File > New Window' or when "Restore Previous Windows On Start" is unchecked);
+     *  otherwise, no editor is opened when loading a blank environment.
+     *  This setting has no effect when restoring a previous state.
+     */
+    "core.openEmptyEditorOnStart": boolean;
+
+    /**
+     *  When selected 'no', a blank environment is loaded. When selected 'yes' and Atom
+     *  is started from the icon or `atom` by itself from the command line, restores the
+     *  last state of all Atom windows; otherwise a blank environment is loaded. When
+     *  selected 'always', restores the last state of all Atom windows always, no matter
+     *  how Atom is started.
+     */
+    "core.restorePreviousWindowsOnStart": "no"|"yes"|"always";
+
+    /** How many recent projects to show in the Reopen Project menu. */
+    "core.reopenProjectMenuCount": number;
+
+    /** Automatically update Atom when a new release is available. */
+    "core.automaticallyUpdate": boolean;
+
+    /** Use detected proxy settings when calling the `apm` command-line tool. */
+    "core.useProxySettingsWhenCallingApm": boolean;
+
+    /**
+     *  Allow items to be previewed without adding them to a pane permanently, such as
+     *  when single clicking files in the tree view.
+     */
+    "core.allowPendingPaneItems": boolean;
+
+    /**
+     *  Allow usage statistics and exception reports to be sent to the Atom team to help
+     *  improve the product.
+     */
+    "core.telemetryConsent": "limited"|"no"|"undecided";
+
+    /** Warn before opening files larger than this number of megabytes. */
+    "core.warnOnLargeFileLimit": number;
+
+    /**
+     *  Choose the underlying implementation used to watch for filesystem changes. Emulating
+     *  changes will miss any events caused by applications other than Atom, but may help
+     *  prevent crashes or freezes.
+     */
+    "core.fileSystemWatcher": "native"|"atom";
+
+    "editor.commentStart": string|null;
+
+    "editor.commentEnd": string|null;
+
+    "editor.increaseIndentPattern": string|null;
+
+    "editor.decreaseIndentPattern": string|null;
+
+    "editor.foldEndPattern": string|null;
+
+    /** The name of the font family used for editor text. */
+    "editor.fontFamily": string;
+
+    /** Height in pixels of editor text. */
+    "editor.fontSize": number;
+
+    /** Height of editor lines, as a multiplier of font size. */
+    "editor.lineHeight": string|number;
+
+    /** Show cursor while there is a selection. */
+    "editor.showCursorOnSelection": boolean;
+
+    /** Render placeholders for invisible characters, such as tabs, spaces and newlines. */
+    "editor.showInvisibles": boolean;
+
+    /** Show indentation indicators in the editor. */
+    "editor.showIndentGuide": boolean;
+
+    /** Show line numbers in the editor's gutter. */
+    "editor.showLineNumbers": boolean;
+
+    /** Skip over tab-length runs of leading whitespace when moving the cursor. */
+    "editor.atomicSoftTabs": boolean;
+
+    /** Automatically indent the cursor when inserting a newline. */
+    "editor.autoIndent": boolean;
+
+    /** Automatically indent pasted text based on the indentation of the previous line. */
+    "editor.autoIndentOnPaste": boolean;
+
+    /** A string of non-word characters to define word boundaries. */
+    "editor.nonWordCharacters": string;
+
+    /**
+     *  Identifies the length of a line which is used when wrapping text with the
+     *  `Soft Wrap At Preferred Line Length` setting enabled, in number of characters.
+     */
+    "editor.preferredLineLength": number;
+
+    /** Number of spaces used to represent a tab. */
+    "editor.tabLength": number;
+
+    /**
+     *  Wraps lines that exceed the width of the window. When `Soft Wrap At Preferred
+     *  Line Length` is set, it will wrap to the number of characters defined by the
+     *  `Preferred Line Length` setting.
+     */
+    "editor.softWrap": boolean;
+
+    /**
+     *  If the `Tab Type` config setting is set to "auto" and autodetection of tab type
+     *  from buffer content fails, then this config setting determines whether a soft tab
+     *  or a hard tab will be inserted when the Tab key is pressed.
+     */
+    "editor.softTabs": boolean;
+
+    /**
+     *  Determine character inserted when Tab key is pressed. Possible values: "auto",
+     *  "soft" and "hard". When set to "soft" or "hard", soft tabs (spaces) or hard tabs
+     *  (tab characters) are used. When set to "auto", the editor auto-detects the tab
+     *  type based on the contents of the buffer (it uses the first leading whitespace
+     *  on a non-comment line), or uses the value of the Soft Tabs config setting if
+     *  auto-detection fails.
+     */
+    "editor.tabType": "auto"|"soft"|"hard";
+
+    /**
+     *  Instead of wrapping lines to the window's width, wrap lines to the number of
+     *  characters defined by the `Preferred Line Length` setting. This will only take
+     *  effect when the soft wrap config setting is enabled globally or for the current
+     *  language.
+     *  **Note:** If you want to hide the wrap guide (the vertical line) you can disable
+     *  the `wrap-guide` package.
+     */
+    "editor.softWrapAtPreferredLineLength": boolean;
+
+    /**
+     *  When soft wrap is enabled, defines length of additional indentation applied to
+     *  wrapped lines, in number of characters.
+     */
+    "editor.softWrapHangingIndent": number;
+
+    /** Determines how fast the editor scrolls when using a mouse or trackpad. */
+    "editor.scrollSensitivity": number;
+
+    /** Allow the editor to be scrolled past the end of the last line. */
+    "editor.scrollPastEnd": boolean;
+
+    /**
+     *  Time interval in milliseconds within which text editing operations will be
+     *  grouped together in the undo history.
+     */
+    "editor.undoGroupingInterval": number;
+
+    /**
+     *  Show confirmation dialog when checking out the HEAD revision and discarding
+     *  changes to current file since last commit.
+     */
+    "editor.confirmCheckoutHeadRevision": boolean;
+
+    /**
+     *  A hash of characters Atom will use to render whitespace characters. Keys are
+     *  whitespace character types, values are rendered characters (use value false to
+     *  turn off individual whitespace character types).
+     */
+    "editor.invisibles": Invisibles;
+
+    /**
+     *  Change the editor font size when pressing the Ctrl key and scrolling the mouse
+     *  up/down.
+     */
+    "editor.zoomFontWhenCtrlScrolling": boolean;
+
+    // tslint:disable-next-line:no-any
+    [key: string]: any;
+}
+
+/**
+ *  Allows you to strongly type event emissions across your codebase. Additional
+ *  key:value pairings merged into this interface will result in emissions under
+ *  the value of each key being templated by the type of the associated value.
+ */
+export interface Emissions {
+    // tslint:disable-next-line:no-any
+    [key: string]: any;
+}
+
 // Options ====================================================================
 // The option objects that the user is expected to fill out and provide to
 // specific API call.
@@ -6011,6 +6266,48 @@ export interface ContextualBufferScanResult extends BufferScanResult {
     trailingContextLines: string[];
 }
 
+export type FileEncoding =
+    | "iso88596"       // Arabic (ISO 8859-6)
+    | "windows1256"    // Arabic (Windows 1256)
+    | "iso88594"       // Baltic (ISO 8859-4)
+    | "windows1257"    // Baltic (Windows 1257)
+    | "iso885914"      // Celtic (ISO 8859-14)
+    | "iso88592"       // Central European (ISO 8859-2)
+    | "windows1250"    // Central European (Windows 1250)
+    | "gb18030"        // Chinese (GB18030)
+    | "gbk"            // Chinese (GBK)
+    | "cp950"          // Traditional Chinese (Big5)
+    | "big5hkscs"      // Traditional Chinese (Big5-HKSCS)
+    | "cp866"          // Cyrillic (CP 866)
+    | "iso88595"       // Cyrillic (ISO 8859-5)
+    | "koi8r"          // Cyrillic (KOI8-R)
+    | "koi8u"          // Cyrillic (KOI8-U)
+    | "windows1251"    // Cyrillic (Windows 1251)
+    | "cp437"          // DOS (CP 437)
+    | "cp850"          // DOS (CP 850)
+    | "iso885913"      // Estonian (ISO 8859-13)
+    | "iso88597"       // Greek (ISO 8859-7)
+    | "windows1253"    // Greek (Windows 1253)
+    | "iso88598"       // Hebrew (ISO 8859-8)
+    | "windows1255"    // Hebrew (Windows 1255)
+    | "cp932"          // Japanese (CP 932)
+    | "eucjp"          // Japanese (EUC-JP)
+    | "shiftjis"       // Japanese (Shift JIS)
+    | "euckr"          // Korean (EUC-KR)
+    | "iso885910"      // Nordic (ISO 8859-10)
+    | "iso885916"      // Romanian (ISO 8859-16)
+    | "iso88599"       // Turkish (ISO 8859-9)
+    | "windows1254"    // Turkish (Windows 1254)
+    | "utf8"           // Unicode (UTF-8)
+    | "utf16le"        // Unicode (UTF-16 LE)
+    | "utf16be"        // Unicode (UTF-16 BE)
+    | "windows1258"    // Vietnamese (Windows 1258)
+    | "iso88591"       // Western (ISO 8859-1)
+    | "iso88593"       // Western (ISO 8859-3)
+    | "iso885915"      // Western (ISO 8859-15)
+    | "macroman"       // Western (Mac Roman)
+    | "windows1252";   // Western (Windows 1252)
+
 export interface GrammarRule {
     // https://github.com/atom/first-mate/blob/v7.0.7/src/rule.coffee
     // This is private. Don't go down the rabbit hole.
@@ -6022,6 +6319,32 @@ export interface GrammarRule {
 export interface GrammarToken {
     value: string;
     scopes: string[];
+}
+
+export interface Invisibles {
+    /**
+     *  Character used to render newline characters (\n) when the `Show Invisibles`
+     *  setting is enabled.
+     */
+    eol?: boolean|string;
+
+    /**
+     *  Character used to render leading and trailing space characters when the
+     *  `Show Invisibles` setting is enabled.
+     */
+    space?: boolean|string;
+
+    /**
+     *  Character used to render hard tab characters (\t) when the `Show Invisibles`
+     *  setting is enabled.
+     */
+    tab?: boolean|string;
+
+    /**
+     *  Character used to render carriage return characters (for Microsoft-style line
+     *  endings) when the `Show Invisibles` setting is enabled.
+     */
+    cr?: boolean|string;
 }
 
 export interface KeyBinding {
