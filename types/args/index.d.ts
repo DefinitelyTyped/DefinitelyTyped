@@ -65,7 +65,7 @@ interface ConfigurationOptions {
 }
 
 interface Option {
-    name: string;
+    name: [string, string];
     description: string;
     init?: OptionInitFunction;
     defaultValue?: any;
