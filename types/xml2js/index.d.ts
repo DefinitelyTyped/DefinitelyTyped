@@ -4,10 +4,12 @@
 //                 Jason McNeil <https://github.com/jasonrm>
 //                 Christopher Currens <https://github.com/ccurrens>
 //                 Edward Hinkle <https://github.com/edwardhinkle>
+//                 Behind The Math <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
+import * as processors from './lib/processors';
 
 export function parseString(xml: convertableToString, callback: (err: any, result: any) => void): void;
 export function parseString(xml: convertableToString, options: OptionsV2, callback: (err: any, result: any) => void): void;
@@ -76,3 +78,5 @@ export interface OptionsV2 extends Options {
 export interface convertableToString {
     toString(): string;
 }
+
+export { processors };
