@@ -487,6 +487,7 @@ declare namespace AdazzleReactDataGrid {
         export import DragHandleDoubleClickEvent = AdazzleReactDataGrid.DragHandleDoubleClickEvent;
         export import CellCopyPasteEvent = AdazzleReactDataGrid.CellCopyPasteEvent;
         export import GridRowsUpdatedEvent = AdazzleReactDataGrid.GridRowsUpdatedEvent;
+        export import OnRowExpandToggle = AdazzleReactDataGrid.OnRowExpandToggle;
 
         // Actual classes exposed on module.exports
         /**
