@@ -16604,7 +16604,7 @@ declare namespace _ {
     type ValueKeyIteratee<T> = ((value: T, key: string) => any) | string | [string, any] | PartialDeep<T>;
     type Comparator<T> = (a: T, b: T) => boolean;
 
-    type PropertyName = string | number;
+    type PropertyName = string | number | symbol;
     type PropertyPath = Many<PropertyName>;
 
     /** Common interface between Arrays and jQuery objects */
