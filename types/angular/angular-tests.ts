@@ -644,6 +644,9 @@ isolateScope = element.find('div').isolateScope();
 isolateScope = element.children().isolateScope();
 let element2 = angular.element(element);
 let elementArray = angular.element(document.querySelectorAll('div'));
+let elementReadyFn = angular.element(() => {
+    console.log('ready');
+});
 
 // $timeout signature tests
 namespace TestTimeout {
