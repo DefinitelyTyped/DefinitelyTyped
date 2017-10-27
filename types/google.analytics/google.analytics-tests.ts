@@ -42,7 +42,7 @@ describe('UniversalAnalytics', () => {
     it('should excercise Tracker APIs', () => {
         const tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
 
-        tracker.get('fieldName')
+        tracker.get('fieldName');
 
         tracker.set('aString', 'aString');
         tracker.set('aNumber', 1);
@@ -50,7 +50,7 @@ describe('UniversalAnalytics', () => {
         tracker.set({
             several: 'values',
             at: 'once'
-        })
+        });
 
         tracker.send('pageview');
         tracker.send('pageview', '/some-path');
@@ -61,17 +61,17 @@ describe('UniversalAnalytics', () => {
         const tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
 
         tracker.set('sendHitTask', (gaHitModel: UniversalAnalytics.Model) => {
-            gaHitModel.get('hitPayload')
+            gaHitModel.get('hitPayload');
 
-            gaHitModel.set('hitCallback', () => console.log('hit sent'), true)
-            gaHitModel.set('hitCallback', () => console.log('hit sent'))
+            gaHitModel.set('hitCallback', () => console.log('hit sent'), true);
+            gaHitModel.set('hitCallback', () => console.log('hit sent'));
             gaHitModel.set({
-                'hitPayload': 'a=1&b=2',
-                'otherField': 3
+                hitPayload: 'a=1&b=2',
+                otherField: 3
             });
             gaHitModel.set({
-                'hitPayload': 'a=1&b=2',
-                'otherField': 3
+                hitPayload: 'a=1&b=2',
+                otherField: 3
             }, null, false);
         });
     });
