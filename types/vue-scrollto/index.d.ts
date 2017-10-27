@@ -33,11 +33,11 @@ declare namespace VueScrollTo {
     }
 
     interface VueStatic {
-        (options: VueScrollTo.Options): void;
+        (options: Options): void;
 
-        (element: string | Element, options?: VueScrollTo.Options): void;
+        (element: string | Element, options?: Options): void;
 
-        (element: string | Element, duration: number, options?: VueScrollTo.Options): void;
+        (element: string | Element, duration: number, options?: Options): void;
     }
 }
 
