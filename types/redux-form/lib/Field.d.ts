@@ -17,7 +17,7 @@ export type Parser = (value: any, name: string) => any;
 export type Validator = (value: any, allValues?: any, props?: any) => any;
 
 interface EventHandler<Event> {
-    (event: Event): void;
+    (event: Event, newValue: any, previousValue: any): void;
 }
 
 interface EventOrValueHandler<Event> extends EventHandler<Event> {
