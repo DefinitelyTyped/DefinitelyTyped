@@ -14,10 +14,9 @@ import { Stream } from 'stream';
 declare function execa(file: string, options?: Partial<execa.Options>): execa.ExecaChildProcess;
 declare function execa(file: string, args?: string[], options?: Partial<execa.Options>): execa.ExecaChildProcess;
 declare namespace execa {
+    type StdIOOption = 'pipe' | 'ipc' | 'ignore' | number | Stream | undefined | null;
 
-    export type StdIOOption = 'pipe' | 'ipc' | 'ignore' | number | Stream | undefined | null;
-
-    export interface ExecaOptions {
+    interface ExecaOptions {
         input: string | Buffer | Stream;
         preferLocal: boolean;
         stripEof: boolean;
@@ -31,10 +30,10 @@ declare namespace execa {
         stderr: StdIOOption;
     }
 
-    export type Options = SpawnOptions & ExecaOptions & ExecOptions;
-    export type SyncOptions = SpawnSyncOptions & ExecaOptions & ExecOptions;
+    type Options = SpawnOptions & ExecaOptions & ExecOptions;
+    type SyncOptions = SpawnSyncOptions & ExecaOptions & ExecOptions;
 
-    export interface ExecaReturns {
+    interface ExecaReturns {
         cmd: string;
         code: number;
         failed: boolean;
@@ -45,21 +44,21 @@ declare namespace execa {
         timedOut: boolean;
     }
 
-    export type ExecaError = Error & ExecaReturns;
+    type ExecaError = Error & ExecaReturns;
 
-    export interface ExecaChildPromise {
+    interface ExecaChildPromise {
         catch<TResult = never>(onrejected?: ((reason: ExecaError) => TResult | PromiseLike<TResult>) | null): Promise<ExecaReturns | TResult>;
     }
-    export type ExecaChildProcess = ChildProcess & ExecaChildPromise & Promise<ExecaReturns>;
+    type ExecaChildProcess = ChildProcess & ExecaChildPromise & Promise<ExecaReturns>;
 
-    export function stdout(file: string, options?: Partial<Options>): Promise<string>;
-    export function stdout(file: string, args?: string[], options?: Partial<Options>): Promise<string>;
-    export function stderr(file: string, options?: Partial<Options>): Promise<string>;
-    export function stderr(file: string, args?: string[], options?: Partial<Options>): Promise<string>;
-    export function shell(command: string, options?: Partial<Options>): ExecaChildProcess;
-    export function sync(file: string, options?: Partial<SyncOptions>): ExecaReturns;
-    export function sync(file: string, args?: string[], options?: Partial<SyncOptions>): ExecaReturns;
-    export function shellSync(command: string, options?: Partial<Options>): ExecaReturns;
+    function stdout(file: string, options?: Partial<Options>): Promise<string>;
+    function stdout(file: string, args?: string[], options?: Partial<Options>): Promise<string>;
+    function stderr(file: string, options?: Partial<Options>): Promise<string>;
+    function stderr(file: string, args?: string[], options?: Partial<Options>): Promise<string>;
+    function shell(command: string, options?: Partial<Options>): ExecaChildProcess;
+    function sync(file: string, options?: Partial<SyncOptions>): ExecaReturns;
+    function sync(file: string, args?: string[], options?: Partial<SyncOptions>): ExecaReturns;
+    function shellSync(command: string, options?: Partial<Options>): ExecaReturns;
 }
 
 export = execa;
