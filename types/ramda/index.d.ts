@@ -554,6 +554,14 @@ declare namespace R {
         empty<T>(x: T): T;
 
         /**
+         * Checks if a list ends with the provided values
+         */
+        endsWith(a: string, list: string): boolean;
+        endsWith(a: string): (list: string) => boolean;
+        endsWith<T>(a: T | T[], list: T[]): boolean;
+        endsWith<T>(a: T | T[]): (list: T[]) => boolean;
+
+        /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
