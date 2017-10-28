@@ -8,7 +8,7 @@
 // ------------------------------------------------------------------------------------------
 
 export interface DSVRowString {
-    [key: string]: string;
+    [key: string]: string | undefined;
 }
 
 export interface DSVRowAny {
@@ -16,7 +16,7 @@ export interface DSVRowAny {
 }
 
 export interface DSVParsedArray<T> extends Array<T> {
-    columns: string[];
+    columns: string[] | undefined;
 }
 
 // ------------------------------------------------------------------------------------------
