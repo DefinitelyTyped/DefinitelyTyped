@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.0
+// Type definitions for React Router 4.2
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
@@ -52,5 +52,6 @@ export interface NavLinkProps extends LinkProps {
     exact?: boolean;
     strict?: boolean;
     isActive?<P>(match: match<P>, location: H.Location): boolean;
+    location?: H.Location;
 }
 export class NavLink extends React.Component<NavLinkProps> {}
