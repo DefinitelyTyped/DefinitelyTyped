@@ -62,7 +62,7 @@ declare namespace Autosuggest {
     'suggestionsContainerOpen' | 'suggestionsList' | 'suggestion' | 'suggestionFirst' | 'suggestionHighlighted' |
     'sectionContainer' | 'sectionContainerFirst' | 'sectionTitle';
 
-  type Theme = Partial<Record<ThemeKey, string | React.CSSProperties>>;
+  type Theme = Record<string, string | React.CSSProperties> | Partial<Record<ThemeKey, string | React.CSSProperties>>;
 
   interface AutosuggestProps extends React.Props<Autosuggest> {
     suggestions: any[];
