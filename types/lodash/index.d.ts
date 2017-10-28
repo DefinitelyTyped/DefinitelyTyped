@@ -9,7 +9,7 @@
 //                 e-cloud <https://github.com/e-cloud>,
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.2
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -4753,7 +4753,6 @@ declare namespace _ {
             iteratee: object
         ): boolean[];
     }
-    type T234 = number[][0];
 
     interface LoDashImplicitWrapper<TValue> {
         /**
