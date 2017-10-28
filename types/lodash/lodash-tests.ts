@@ -1451,15 +1451,11 @@ namespace TestIntersection {
     // $ExpectType TResult[]
     result = _.intersectionBy(array, list, 'a');
     // $ExpectType TResult[]
-    result = _.intersectionBy(list, array, list, 'a');
-    // $ExpectType TResult[]
     result = _.intersectionBy(array, list, { a: 42 });
     // $ExpectType TResult[]
     result = _.intersectionBy(list, array, list, { a: 42 });
     // $ExpectType TResult[]
     result = _.intersectionBy(array, list, ['a', 42]);
-    // $ExpectType TResult[]
-    result = _.intersectionBy(list, array, list, ['a', 42]);
     // $ExpectType TResult[]
     result = _.intersectionBy(array, list, (value) => {
         value; // $ExpectType TResult
@@ -1476,15 +1472,11 @@ namespace TestIntersection {
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(array).intersectionBy(list, 'a');
     // $ExpectType LoDashImplicitWrapper<TResult[]>
-    result = _(list).intersectionBy(array, list, 'a');
-    // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(array).intersectionBy(list, { a: 42 });
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(list).intersectionBy(array, list, { a: 42 });
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(array).intersectionBy(list, ['a', 42]);
-    // $ExpectType LoDashImplicitWrapper<TResult[]>
-    result = _(list).intersectionBy(array, list, ['a', 42]);
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(array).intersectionBy(list, (value) => {
         value; // $ExpectType TResult
@@ -1501,15 +1493,11 @@ namespace TestIntersection {
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(array).intersectionBy(list, 'a');
     // $ExpectType LoDashExplicitWrapper<TResult[]>
-    result = _.chain(list).intersectionBy(array, list, 'a');
-    // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(array).intersectionBy(list, { a: 42 });
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(list).intersectionBy(array, list, { a: 42 });
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(array).intersectionBy(list, ['a', 42]);
-    // $ExpectType LoDashExplicitWrapper<TResult[]>
-    result = _.chain(list).intersectionBy(array, list, ['a', 42]);
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(array).intersectionBy(list, (value) => {
         value; // $ExpectType TResult
