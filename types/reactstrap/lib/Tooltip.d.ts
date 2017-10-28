@@ -20,7 +20,7 @@ type Placement
   | 'left middle'
   | 'left bottom';
 
-export interface UncontrolledProps {
+export interface UncontrolledTooltipProps {
   placement?: Placement;
   target: string;
   disabled?: boolean;
@@ -32,12 +32,9 @@ export interface UncontrolledProps {
   delay?: number | { show: number, hide: number };
 }
 
-interface Props extends UncontrolledProps {
+export interface TooltipProps extends UncontrolledTooltipProps {
   toggle?: () => void;
   isOpen?: boolean;
 }
 
-
-
-declare var Tooltip: React.StatelessComponent<Props>;
-export default Tooltip;
+export const Tooltip: React.StatelessComponent<TooltipProps>;

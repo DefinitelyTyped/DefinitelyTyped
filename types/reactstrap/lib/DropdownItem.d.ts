@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface DropdownItemProps {
   disabled?: boolean;
   divider?: boolean;
   tag?: React.ReactType;
@@ -11,5 +11,4 @@ interface Props {
   href?: string;
 }
 
-declare var DropdownItem: React.StatelessComponent<Props>;
-export default DropdownItem;
+export const DropdownItem: React.StatelessComponent<DropdownItemProps>;

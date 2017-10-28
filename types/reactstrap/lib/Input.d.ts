@@ -33,7 +33,7 @@ interface Intermediate extends React.InputHTMLAttributes<HTMLInputElement> {
   size?: any;
 }
 
-interface InputProps extends Intermediate {
+export interface InputProps extends Intermediate {
   type?: InputType;
   size?: string;
   state?: string;
@@ -48,5 +48,4 @@ interface InputProps extends Intermediate {
   // Maybe reactstrap will support an 'isStatic' alias in the future
 }
 
-declare var Input: React.StatelessComponent<InputProps>;
-export default Input;
+export const Input: React.StatelessComponent<InputProps>;

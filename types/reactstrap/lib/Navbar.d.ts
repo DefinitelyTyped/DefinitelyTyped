@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface NavbarProps {
   light?: boolean;
   dark?: boolean;
   inverse?: boolean;
@@ -16,5 +16,4 @@ interface Props {
   expand?: boolean | string;
 }
 
-declare var Navbar: React.StatelessComponent<Props>;
-export default Navbar;
+export const Navbar: React.StatelessComponent<NavbarProps>;

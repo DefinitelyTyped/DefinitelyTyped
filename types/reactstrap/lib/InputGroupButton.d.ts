@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface InputGroupButtonProps {
   tag?: React.ReactType;
   groupClassName?: string;
   groupAttributes?: any;
@@ -9,5 +9,4 @@ interface Props {
   color?: string;
 }
 
-declare var InputGroupButton: React.StatelessComponent<Props>;
-export default InputGroupButton;
+export const InputGroupButton: React.StatelessComponent<InputGroupButtonProps>;

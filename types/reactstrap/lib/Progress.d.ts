@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ProgressProps {
   bar?: boolean;
   multi?: boolean;
   tag?: string;
@@ -14,5 +14,4 @@ interface Props {
   barClassName?: string;
 }
 
-declare var Progress: React.StatelessComponent<Props>;
-export default Progress;
+export const Progress: React.StatelessComponent<ProgressProps>;

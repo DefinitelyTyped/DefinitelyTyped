@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface FadeProps {
   baseClass?: string;
   baseClassIn?: string;
   tag?: React.ReactType;
@@ -16,5 +16,4 @@ interface Props {
   onEnter?: () => void;
 }
 
-declare var Fade: React.StatelessComponent<Props>;
-export default Fade;
+export const Fade: React.StatelessComponent<FadeProps>;

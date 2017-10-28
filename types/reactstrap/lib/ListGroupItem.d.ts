@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ListGroupItemProps {
   tag?: React.ReactType;
   active?: boolean;
   disabled?: boolean;
@@ -9,9 +9,8 @@ interface Props {
   className?: string;
   cssModule?: CSSModule;
   href?: string;
-    
+
   onClick?: React.MouseEventHandler<any>;
 }
 
-declare var ListGroupItem: React.StatelessComponent<Props>;
-export default ListGroupItem;
+export const ListGroupItem: React.StatelessComponent<ListGroupItemProps>;

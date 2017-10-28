@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface TagProps {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;
@@ -8,5 +8,4 @@ interface Props {
   cssModule?: CSSModule;
 }
 
-declare var Tag: React.StatelessComponent<Props>;
-export default Tag;
+export const Tag: React.StatelessComponent<TagProps>;

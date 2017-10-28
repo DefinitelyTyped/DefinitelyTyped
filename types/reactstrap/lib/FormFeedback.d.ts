@@ -1,10 +1,9 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface FormFeedbackProps {
   tag?: string;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var FormFeedback: React.StatelessComponent<Props>;
-export default FormFeedback;
+export const FormFeedback: React.StatelessComponent<FormFeedbackProps>;

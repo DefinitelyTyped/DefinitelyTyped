@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardImgProps {
   tag?: React.ReactType;
   top?: boolean;
   bottom?: boolean;
@@ -12,5 +12,4 @@ interface Props {
   alt?: string;
 }
 
-declare var CardImg: React.StatelessComponent<Props>;
-export default CardImg;
+export const CardImg: React.StatelessComponent<CardImgProps>;

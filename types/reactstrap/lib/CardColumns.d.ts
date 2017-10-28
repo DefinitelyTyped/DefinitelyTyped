@@ -1,10 +1,9 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardColumnsProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var CardColumns: React.StatelessComponent<Props>;
-export default CardColumns;
+export const CardColumns: React.StatelessComponent<CardColumnsProps>;

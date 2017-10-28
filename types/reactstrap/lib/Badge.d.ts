@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface BadgeProps {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;
@@ -8,5 +8,4 @@ interface Props {
   cssModule?: CSSModule;
 }
 
-declare var Badge: React.StatelessComponent<Props>;
-export default Badge;
+export const Badge: React.StatelessComponent<BadgeProps>;
