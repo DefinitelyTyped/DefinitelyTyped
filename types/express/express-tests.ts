@@ -17,10 +17,9 @@ namespace express_tests {
         next();
     });
 
-    app.use((err: any, req: express.Request<{ hello: string; }>, res: express.Response, next: express.NextFunction) => {
-    console.log(req.body.hello);
-    console.error(err);
-    next(err);
+    app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+        console.error(err);
+        next(err);
     });
 
     app.get('/', (req, res) => {
