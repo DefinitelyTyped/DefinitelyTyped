@@ -104,6 +104,10 @@ interface WrappedFieldArrayProps<T> {
 
 interface FieldsProps<T> {
     /**
+     * true if field is field array
+     */
+    _isFieldArray: boolean
+    /**
      * A method to iterate over each value of the array.
      */
     forEach(callback: (name: string, index: number, fields: FieldsProps<T>) => void): void;
@@ -135,6 +139,15 @@ interface FieldsProps<T> {
     map(callback: (name: string, index: number, fields: FieldsProps<T>) => any): any;
 
     /**
+     * A method to move value in array on on different index in the field array
+     */
+    move(from: number, to: number): void;
+
+    /**
+     * Name of field array
+     */
+    name: string;
+    /**
      * Removes an item from the end of the array. Returns the item removed.
      */
     pop(): T;
@@ -145,15 +158,31 @@ interface FieldsProps<T> {
     push(value: T): void;
 
     /**
+     * TODO: Need to figure out what does this do, its taken
+     * directly form redux-form repo and flow types
+     */
+    reduce(callback: Function): any
+
+    /**
      * Removes an item from the array at an arbitrary index.
      */
     remove(index: number): void;
+
+    /**
+     * It will remove all fields in field array
+     */
+    removeAll(): void
 
     /**
      * Removes an item from beginning of the array. Returns the item removed.
      */
     shift(): T;
 
+    /**
+     * TODO: Need to figure out what does this do, its taken
+     * directly form redux-form repo and flow types
+     */
+    some(callback: Function): void
     /**
      * Swaps two items in the array at the given indexes.
      */
@@ -197,6 +226,15 @@ interface FieldArrayMetaProps {
      */
     pristine: boolean;
 
+    /**
+     * true if field array is being submitted
+     */
+    submitting: boolean;
+
+    /**
+     * true if some field value in the field array fails validation on submit
+    */
+    submitFailed: boolean;
     /**
      * true if any of the fields have been touched.
      */
