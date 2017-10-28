@@ -1,29 +1,17 @@
-import {
-  UncontrolledProps as AlertUncontrolledProps
-} from './Alert';
-import {
-  UncontrolledProps as ButtonDropdownUncontrolledProps
-} from './ButtonDropdown';
-import {
-  UncontrolledProps as DropdownUncontrolledProps
-} from './Dropdown';
-import {
-  UncontrolledProps as NavDropdownUncontrolledProps
-} from './NavDropdown';
-import {
-  UncontrolledProps as TooltipUncontrolledProps
-} from './Tooltip';
+import { UncontrolledAlertProps          } from './Alert';
+import { UncontrolledButtonDropdownProps } from './ButtonDropdown';
+import { UncontrolledDropdownProps       } from './Dropdown';
+import { UncontrolledNavDropdownProps    } from './NavDropdown';
+import { UncontrolledTooltipProps        } from './Tooltip';
 
-declare var UncontrolledAlert: React.StatelessComponent<AlertUncontrolledProps>;
-declare var UncontrolledButtonDropdown: React.StatelessComponent<ButtonDropdownUncontrolledProps>;
-declare var UncontrolledDropdown: React.StatelessComponent<DropdownUncontrolledProps>;
-declare var UncontrolledNavDropdown: React.StatelessComponent<NavDropdownUncontrolledProps>;
-declare var UncontrolledTooltip: React.StatelessComponent<TooltipUncontrolledProps>;
+export const UncontrolledAlert: React.StatelessComponent<UncontrolledAlertProps>;
+export const UncontrolledButtonDropdown: React.StatelessComponent<UncontrolledButtonDropdownProps>;
+export const UncontrolledDropdown: React.StatelessComponent<UncontrolledDropdownProps>;
+export const UncontrolledNavDropdown: React.StatelessComponent<UncontrolledNavDropdownProps>;
+export const UncontrolledTooltip: React.StatelessComponent<UncontrolledTooltipProps>;
 
-export {
-  UncontrolledAlert,
-  UncontrolledButtonDropdown,
-  UncontrolledDropdown,
-  UncontrolledNavDropdown,
-  UncontrolledTooltip
-}
+export { UncontrolledAlertProps          } from './Alert';
+export { UncontrolledButtonDropdownProps } from './ButtonDropdown';
+export { UncontrolledDropdownProps       } from './Dropdown';
+export { UncontrolledNavDropdownProps    } from './NavDropdown';
+export { UncontrolledTooltipProps        } from './Tooltip';

@@ -1,10 +1,9 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ModalBodyProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var ModalBody: React.StatelessComponent<Props>;
-export default ModalBody;
+export const ModalBody: React.StatelessComponent<ModalBodyProps>;

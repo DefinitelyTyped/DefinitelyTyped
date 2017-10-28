@@ -1,11 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface InputGroupProps {
   tag?: React.ReactType;
   size?: string;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var InputGroup: React.StatelessComponent<Props>;
-export default InputGroup;
+export const InputGroup: React.StatelessComponent<InputGroupProps>;

@@ -1,10 +1,9 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface PopoverTitleProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var PopoverTitle: React.StatelessComponent<Props>;
-export default PopoverTitle;
+export const PopoverTitle: React.StatelessComponent<PopoverTitleProps>;

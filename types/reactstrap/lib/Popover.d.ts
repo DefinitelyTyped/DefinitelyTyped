@@ -20,7 +20,7 @@ type Placement
   | 'left middle'
   | 'left bottom';
 
-interface Props {
+export interface PopoverProps {
   placement?: Placement;
   target: string;
   isOpen?: boolean;
@@ -30,5 +30,4 @@ interface Props {
   toggle?: () => void;
 }
 
-declare var Popover: React.StatelessComponent<Props>;
-export default Popover;
+export const Popover: React.StatelessComponent<PopoverProps>;

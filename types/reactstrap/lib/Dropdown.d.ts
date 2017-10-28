@@ -2,14 +2,14 @@
 
 import { CSSModule } from '../index';
 
-export interface UncontrolledProps {
+export interface UncontrolledDropdownProps {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
   cssModule?: CSSModule;
 }
 
-export interface Props extends UncontrolledProps {
+export interface DropdownProps extends UncontrolledDropdownProps {
   disabled?: boolean;
   dropup?: boolean;
   group?: boolean;
@@ -18,5 +18,4 @@ export interface Props extends UncontrolledProps {
   tether?: boolean | Tether.ITetherOptions;
 }
 
-declare var Dropdown: React.StatelessComponent<Props>;
-export default Dropdown;
+export const Dropdown: React.StatelessComponent<DropdownProps>;

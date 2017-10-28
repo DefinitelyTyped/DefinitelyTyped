@@ -2,7 +2,7 @@
 
 import { CSSModule } from '../index';
 
-interface Props {
+export interface TetherContentProps {
   className?: string;
   cssModule?: CSSModule;
   arrow?: string;
@@ -14,5 +14,4 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-declare var TetherContent: React.StatelessComponent<Props>;
-export default TetherContent;
+export const TetherContent: React.StatelessComponent<TetherContentProps>;
