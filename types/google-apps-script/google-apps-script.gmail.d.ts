@@ -203,6 +203,10 @@ declare namespace GoogleAppsScript {
      * A message in a user's Gmail account.
      */
     export interface GmailMessage {
+      createDraftReply(body: string): GmailDraft;
+      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
+      createDraftReplyAll(body: string): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
       forward(recipient: string): GmailMessage;
       forward(recipient: string, options: Object): GmailMessage;
       getAttachments(): GmailAttachment[];
@@ -241,6 +245,10 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailThread {
       addLabel(label: GmailLabel): GmailThread;
+      createDraftReply(body: string): GmailDraft;
+      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
+      createDraftReplyAll(body: string): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
       getFirstMessageSubject(): string;
       getId(): string;
       getLabels(): GmailLabel[];
