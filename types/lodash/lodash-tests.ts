@@ -504,30 +504,37 @@ namespace TestDifferenceBy {
         // $ExpectType T1[]
         _.differenceBy([t1], [t2], (value) => {
             value; // $ExpectType T1 | T2
+            return 0;
         });
         // $ExpectType T1[]
         _.differenceBy([t1], [t2, t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType (T1 | T2)[]
         _.differenceBy([t1, t2], [t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType T1[]
         _.differenceBy([t1], [t2], [t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType T1[]
         _.differenceBy([t1], [t2], [t3], [t4], (value) => {
             value; // $ExpectType T1 | T2 | T3 | T4
+            return 0;
         });
         // $ExpectType T1[]
         _.differenceBy([t1], [t2], [t3], [t4], [''], (value) => {
             value; // $ExpectType string | T1 | T2 | T3 | T4
+            return 0;
         });
         // $ExpectType T1[]
         _.differenceBy([t1], [t2], [t3], [t4], [''], [42], (value) => {
             value; // $ExpectType string | number | T1 | T2 | T3 | T4
+            return 0;
         });
 
         // $ExpectType LoDashImplicitWrapper<T1[]>
@@ -535,30 +542,37 @@ namespace TestDifferenceBy {
         // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceBy([t2], (value) => {
             value; // $ExpectType T1 | T2
+            return 0;
         });
         // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceBy([t2, t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType LoDashImplicitWrapper<(T1 | T2)[]>
         _([t1, t2]).differenceBy([t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceBy([t2], [t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceBy([t2], [t3], [t4], (value) => {
             value; // $ExpectType T1 | T2 | T3 | T4
+            return 0;
         });
         // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceBy([t2], [t3], [t4], [''], (value) => {
             value; // $ExpectType string | T1 | T2 | T3 | T4
+            return 0;
         });
         // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceBy([t2], [t3], [t4], [''], [42], (value) => {
             value; // $ExpectType string | number | T1 | T2 | T3 | T4
+            return 0;
         });
 
         // $ExpectType LoDashExplicitWrapper<T1[]>
@@ -566,30 +580,37 @@ namespace TestDifferenceBy {
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceBy([t2], (value) => {
             value; // $ExpectType T1 | T2
+            return 0;
         });
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceBy([t2, t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType LoDashExplicitWrapper<(T1 | T2)[]>
         _.chain([t1, t2]).differenceBy([t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceBy([t2], [t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
+            return 0;
         });
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceBy([t2], [t3], [t4], (value) => {
             value; // $ExpectType T1 | T2 | T3 | T4
+            return 0;
         });
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceBy([t2], [t3], [t4], [''], (value) => {
             value; // $ExpectType string | T1 | T2 | T3 | T4
+            return 0;
         });
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceBy([t2], [t3], [t4], [''], [42], (value) => {
             value; // $ExpectType string | number | T1 | T2 | T3 | T4
+            return 0;
         });
     }
 }
@@ -600,7 +621,7 @@ namespace TestDifferenceBy {
     let list: _.List<TResult> | null | undefined = [] as any;
     let arrayParam: TResult[] = [];
     let listParam: _.List<TResult> = [];
-    let comparator = (a: TResult, b: TResult) => any;
+    let comparator = (a: TResult, b: TResult) => true;
 
     {
         // $ExpectType TResult[]
@@ -678,6 +699,7 @@ namespace TestDifferenceBy {
         _.differenceWith([t1], [t2], (a, b) => {
             a; // $ExpectType T1
             b; // $ExpectType T2 | undefined
+            return true;
         });
 
         // $ExpectType LoDashImplicitWrapper<T1[]>
@@ -686,6 +708,7 @@ namespace TestDifferenceBy {
         _([t1]).differenceWith([t2], (a, b) => {
             a; // $ExpectType T1
             b; // $ExpectType T2 | undefined
+            return true;
         });
 
         // $ExpectType LoDashExplicitWrapper<T1[]>
@@ -694,6 +717,7 @@ namespace TestDifferenceBy {
         _.chain([t1]).differenceWith([t2], (a, b) => {
             a; // $ExpectType T1
             b; // $ExpectType T2 | undefined
+            return true;
         });
     }
 }
@@ -1459,10 +1483,12 @@ namespace TestIntersection {
     // $ExpectType TResult[]
     result = _.intersectionBy(array, list, (value) => {
         value; // $ExpectType TResult
+        return 0;
     });
     // $ExpectType TResult[]
     result = _.intersectionBy(list, array, list, (value) => {
         value; // $ExpectType TResult
+        return 0;
     });
 
     // $ExpectType LoDashImplicitWrapper<TResult[]>
@@ -1480,10 +1506,12 @@ namespace TestIntersection {
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(array).intersectionBy(list, (value) => {
         value; // $ExpectType TResult
+        return "";
     });
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(list).intersectionBy(array, list, (value) => {
         value; // $ExpectType TResult
+        return 1;
     });
 
     // $ExpectType LoDashExplicitWrapper<TResult[]>
@@ -1501,10 +1529,12 @@ namespace TestIntersection {
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(array).intersectionBy(list, (value) => {
         value; // $ExpectType TResult
+        return false;
     });
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(list).intersectionBy(array, list, (value) => {
         value; // $ExpectType TResult
+        return null;
     });
 
     interface T1 {
@@ -1520,14 +1550,17 @@ namespace TestIntersection {
     // $ExpectType T1[]
     result = _.intersectionBy([t1], [t2], (value) => {
         value; // $ExpectType T1 | T2
+        return undefined;
     });
     // $ExpectType LoDashImplicitWrapper<T1[]>
     result = _([t1]).intersectionBy([t2], (value) => {
         value; // $ExpectType T1 | T2
+        return {};
     });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     result = _.chain([t1]).intersectionBy([t2], (value) => {
         value; // $ExpectType T1 | T2
+        return {};
     });
 }
 
@@ -1546,11 +1579,13 @@ namespace TestIntersection {
     result = _.intersectionWith(array, list, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
     // $ExpectType TResult[]
     result = _.intersectionWith(list, array, list, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
 
     // $ExpectType LoDashImplicitWrapper<TResult[]>
@@ -1561,11 +1596,13 @@ namespace TestIntersection {
     result = _(array).intersectionWith(list, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     result = _(list).intersectionWith(array, list, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
 
     // $ExpectType LoDashExplicitWrapper<TResult[]>
@@ -1576,11 +1613,13 @@ namespace TestIntersection {
     result = _.chain(array).intersectionWith(list, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     result = _.chain(list).intersectionWith(array, list, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
 
     interface T1 {
@@ -1597,16 +1636,19 @@ namespace TestIntersection {
     result = _.intersectionWith([t1], [t2], (a, b) => {
         a; // $ExpectType T1
         b; // $ExpectType T2
+        return true;
     });
     // $ExpectType LoDashImplicitWrapper<T1[]>
     result = _([t1]).intersectionWith([t2], (a, b) => {
         a; // $ExpectType T1
         b; // $ExpectType T2
+        return true;
     });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     result = _.chain([t1]).intersectionWith([t2], (a, b) => {
         a; // $ExpectType T1
         b; // $ExpectType T2
+        return true;
     });
 }
 
@@ -1936,6 +1978,7 @@ namespace TestPullAt {
     // $ExpectType TResult[]
     _.pullAllBy(array, values, (value) => {
         value; // $ExpectType TResult
+        return [];
     });
     // $ExpectType ArrayLike<TResult>
     _.pullAllBy(list);
@@ -1950,6 +1993,7 @@ namespace TestPullAt {
     // $ExpectType ArrayLike<TResult>
     _.pullAllBy(list, values, (value) => {
         value; // $ExpectType TResult
+        return () => {};
     });
 
     // $ExpectType LoDashImplicitWrapper<TResult[]>
@@ -1965,6 +2009,7 @@ namespace TestPullAt {
     // $ExpectType LoDashImplicitWrapper<TResult[]>
     _(array).pullAllBy(values, (value) => {
         value; // $ExpectType TResult
+        return 0;
     });
     // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
     _(list).pullAllBy();
@@ -1979,6 +2024,7 @@ namespace TestPullAt {
     // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
     _(list).pullAllBy(values, (value) => {
         value; // $ExpectType TResult
+        return 0;
     });
 
     // $ExpectType LoDashExplicitWrapper<TResult[]>
@@ -1994,6 +2040,7 @@ namespace TestPullAt {
     // $ExpectType LoDashExplicitWrapper<TResult[]>
     _.chain(array).pullAllBy(values, (value) => {
         value; // $ExpectType TResult
+        return 0;
     });
     // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
     _.chain(list).pullAllBy();
@@ -2008,6 +2055,7 @@ namespace TestPullAt {
     // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
     _.chain(list).pullAllBy(values, (value) => {
         value; // $ExpectType TResult
+        return 0;
     });
 
     interface T1 {
@@ -2023,14 +2071,17 @@ namespace TestPullAt {
     // $ExpectType T1[]
     result = _.pullAllBy([t1], [t2], (value) => {
         value; // $ExpectType T1 | T2
+        return "";
     });
     // $ExpectType LoDashImplicitWrapper<T1[]>
     result = _([t1]).pullAllBy([t2], (value) => {
         value; // $ExpectType T1 | T2
+        return "";
     });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     result = _.chain([t1]).pullAllBy([t2], (value) => {
         value; // $ExpectType T1 | T2
+        return "";
     });
 }
 
@@ -2048,6 +2099,7 @@ namespace TestPullAt {
     _.pullAllWith(array, values, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
     // $ExpectType ArrayLike<TResult>
     _.pullAllWith(list);
@@ -2057,6 +2109,7 @@ namespace TestPullAt {
     _.pullAllWith(list, values, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
 
     // $ExpectType LoDashImplicitWrapper<TResult[]>
@@ -2067,6 +2120,7 @@ namespace TestPullAt {
     _(array).pullAllWith(values, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
     // $ExpectType LoDashImplicitWrapper<ArrayLike<TResult>>
     _(list).pullAllWith();
@@ -2076,6 +2130,7 @@ namespace TestPullAt {
     _(list).pullAllWith(values, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
 
     // $ExpectType LoDashExplicitWrapper<TResult[]>
@@ -2086,6 +2141,7 @@ namespace TestPullAt {
     _.chain(array).pullAllWith(values, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
     // $ExpectType LoDashExplicitWrapper<ArrayLike<TResult>>
     _.chain(list).pullAllWith();
@@ -2095,6 +2151,7 @@ namespace TestPullAt {
     _.chain(list).pullAllWith(values, (a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
+        return true;
     });
 
     interface T1 {
@@ -2111,16 +2168,19 @@ namespace TestPullAt {
     result = _.pullAllWith([t1], [t2], (a, b) => {
         a; // $ExpectType T1
         b; // $ExpectType T2
+        return true;
     });
     // $ExpectType LoDashImplicitWrapper<T1[]>
     result = _([t1]).pullAllWith([t2], (a, b) => {
         a; // $ExpectType T1
         b; // $ExpectType T2
+        return true;
     });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     result = _.chain([t1]).pullAllWith([t2], (a, b) => {
         a; // $ExpectType T1
         b; // $ExpectType T2
+        return true;
     });
 }
 
@@ -6867,12 +6927,11 @@ result = <IFoodOrganic[]>_(foodsOrganic).sortBy('organic', (food) => food.name, 
 namespace TestorderBy {
     type SampleObject = {a: number; b: string; c: boolean};
 
-    let array: SampleObject[] | null | undefined = [] as any;
-    let list: _.List<SampleObject> | null | undefined = [] as any;
-    let obj: any = {};
-    let numericDictionary: _.NumericDictionary<SampleObject> | null | undefined = obj;
-    let dictionary: _.Dictionary<SampleObject> | null | undefined = obj;
-    let orders: boolean|string|(boolean|string)[] = true as any;
+    const array: SampleObject[] | null | undefined = any;
+    const list: _.List<SampleObject> | null | undefined = any;
+    const numericDictionary: _.NumericDictionary<SampleObject> | null | undefined = any;
+    const dictionary: _.Dictionary<SampleObject> | null | undefined = any;
+    const orders: boolean|string|Array<boolean|string> = any;
 
     {
         let iteratees: (value: string) => any|((value: string) => any)[] = (value) => 1;
@@ -6883,7 +6942,7 @@ namespace TestorderBy {
     }
 
     {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => 1;
+        const iteratees: ((value: SampleObject) => _.NotVoid)|string|_.PartialDeep<SampleObject>|Array<((value: SampleObject) => _.NotVoid)|string|_.PartialDeep<SampleObject>> = any;
         let result: SampleObject[];
 
         result = _.orderBy(array, iteratees);
@@ -6908,7 +6967,7 @@ namespace TestorderBy {
     }
 
     {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
+        const iteratees: ((value: SampleObject) => _.NotVoid)|string|_.PartialDeep<SampleObject>|Array<((value: SampleObject) => _.NotVoid)|string|_.PartialDeep<SampleObject>> = any;
         let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).orderBy(iteratees);
@@ -6931,7 +6990,7 @@ namespace TestorderBy {
     }
 
     {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
+        const iteratees: ((value: SampleObject) => _.NotVoid)|string|_.PartialDeep<SampleObject>|Array<((value: SampleObject) => _.NotVoid)|string|_.PartialDeep<SampleObject>> = any;
         let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().orderBy(iteratees);
@@ -13278,8 +13337,8 @@ namespace TestIdentity {
     }
 
     {
-        let input: {} | null | undefined = any;
-        _.identity(input); // $ExpectType {} | null | undefined
+        let input: { a: number; } | null | undefined = any;
+        _.identity(input); // $ExpectType { a: number; } | null | undefined
         _.identity(); // $ExpectType undefined
     }
 }
