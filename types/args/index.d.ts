@@ -11,19 +11,14 @@ interface args {
 
     option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): args;
     options(list: Option[]): args;
-    command(name: string, description: string, init?: CommandInitFunction, aliases?: string[]): args;
+    command(name: string, description: string, init?: (name: string, sub: string[], options: ConfigurationOptions) => void, aliases?: string[]): args;
     example(usage: string, description: string): args;
     examples(list: Example[]): args;
     parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
     showHelp(): void;
 }
 
-type MriUnknownFunction = (param: string) => boolean;
-type MinimistUnknownFunction = (param: string) => boolean;
-
 type OptionInitFunction = (value: any) => any;
-type CommandInitFunction = (name: string, sub: string[], options: ConfigurationOptions) => void;
-type UsageFilterFunction = (output: any) => any;
 
 interface MriOptions {
     args?: string[];
@@ -35,7 +30,7 @@ interface MriOptions {
         [key: string]: any
     };
     string?: string | string[];
-    unknown?: MriUnknownFunction;
+    unknown?: (param: string) => boolean;
 }
 
 interface MinimistOptions {
@@ -49,14 +44,14 @@ interface MinimistOptions {
     };
     stopEarly?: boolean;
     "--"?: boolean;
-    unknown?: MinimistUnknownFunction;
+    unknown?: (param: string) => boolean;
 }
 
 interface ConfigurationOptions {
     help?: boolean;
     name?: string;
     version?: boolean;
-    usageFilter?: UsageFilterFunction;
+    usageFilter?: (output: any) => any;
     value?: string;
     mri: MriOptions;
     minimist?: MinimistOptions;
@@ -65,7 +60,7 @@ interface ConfigurationOptions {
 }
 
 interface Option {
-    name: [string, string];
+    name: string | [string, string];
     description: string;
     init?: OptionInitFunction;
     defaultValue?: any;
