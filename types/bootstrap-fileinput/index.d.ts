@@ -10,6 +10,9 @@ interface JQuery {
     fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
 }
 
+declare module 'bootstrap-fileinput' {
+    export = BootstrapFileInput;
+}
 
 declare module BootstrapFileInput {
     interface FileInputOptions {
@@ -19,6 +22,11 @@ declare module BootstrapFileInput {
         The locale JS file for the language code must be defined as mentioned in the translations section: http://plugins.krajee.com/file-input#translations
         */
         language?: string;
+
+        /**
+         * Theming
+         */
+        theme?: string;
         /**
         Whether to display the file caption.
         Defaults to true.
