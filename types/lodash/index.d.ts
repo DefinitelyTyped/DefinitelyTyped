@@ -9515,7 +9515,7 @@ declare namespace _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isFunction<F extends Function = any>(value?: F): value is F;
+        isFunction(value?: any): value is (...args: any[]) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
