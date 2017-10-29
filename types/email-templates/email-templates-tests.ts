@@ -1,6 +1,5 @@
 import EmailTemplates = require('email-templates');
 
-
 const email = new EmailTemplates({
     message: {
     from: 'Test@tesitng.com'
