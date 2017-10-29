@@ -39,6 +39,7 @@ interface APIGatewayEvent {
             userAgent: string | null;
             userArn: string | null;
         },
+        path: string | null;
         stage: string;
         requestId: string;
         resourceId: string;
@@ -54,27 +55,9 @@ interface CustomTokenAuthorizerEvent {
     methodArn: string;
 }
 
-interface CustomRequestAuthorizerEvent {
+interface CustomRequestAuthorizerEvent extends APIGatewayEvent {
     type: "REQUEST";
     methodArn: string;
-    resource: string;
-    path: string;
-    httpMethod: string;
-    headers: { [ header: string]: string | undefined };
-    queryStringParameters: { [parameter: string]: string | undefined };
-    pathParameters: { [parameter: string]: string | undefined };
-    stageVariables: { [parameter: string]: string | undefined };
-    requestContext: {
-        path: string;
-        accountId: string;
-        resourceId: string;
-        stage: string;
-        requestId: string;
-        identity: { [parameter: string]: string | null | undefined };
-        resourcePath: string;
-        httpMethod: string;
-        apiId: string;
-    };
 }
 
 type CustomAuthorizerEvent = CustomTokenAuthorizerEvent | CustomRequestAuthorizerEvent
@@ -382,6 +365,6 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  */
 export type Callback = (error?: Error | null, result?: object) => void;
 export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
-export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
+export type CustomAuthorizerCallback = (error?: "Unauthorized" | Error | null, result?: AuthResponse) => void;
 
 export as namespace AWSLambda;

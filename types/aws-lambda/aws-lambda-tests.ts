@@ -116,7 +116,7 @@ str = customRequestAuthorizerEvt.requestContext.accountId;
 str = customRequestAuthorizerEvt.requestContext.resourceId;
 str = customRequestAuthorizerEvt.requestContext.stage;
 str = customRequestAuthorizerEvt.requestContext.requestId;
-str = customRequestAuthorizerEvt.requestContext.identity.test;
+str = customRequestAuthorizerEvt.requestContext.identity.caller;
 str = customRequestAuthorizerEvt.requestContext.resourcePath;
 str = customRequestAuthorizerEvt.requestContext.httpMethod;
 str = customRequestAuthorizerEvt.requestContext.apiId;
@@ -320,6 +320,7 @@ function proxyCallback(cb: AWSLambda.ProxyCallback) {
 function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
     cb();
     cb(null);
+    cb("Unauthorized");
     cb(error);
     cb(null, authResponse);
 }
