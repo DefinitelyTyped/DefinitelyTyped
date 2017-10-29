@@ -28,6 +28,16 @@ declare namespace umzug {
          */
         wrap?: <T>(fn: T) => T;
 
+        /**
+         * A function that maps a file path to a migration object in the form
+         * { up: Function, down: Function }. The default for this is to require(...)
+         * the file as javascript, but you can use this to transpile TypeScript,
+         * read raw sql etc.
+         * See https://github.com/sequelize/umzug/tree/master/test/fixtures
+         * for examples.
+         */
+        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+        
     }
 
     interface JSONStorageOptions {
