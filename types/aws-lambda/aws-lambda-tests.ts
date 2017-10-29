@@ -5,7 +5,8 @@ var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
 var apiGwEvt: AWSLambda.APIGatewayEvent;
-var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
+var customTokenAuthorizerEvt: AWSLambda.CustomTokenAuthorizerEvent;
+var customRequestAuthorizerEvt: AWSLambda.CustomRequestAuthorizerEvent;
 var clientCtx: AWSLambda.ClientContext;
 var clientContextEnv: AWSLambda.ClientContextEnv;
 var clientContextClient: AWSLambda.ClientContextClient;
@@ -95,10 +96,30 @@ str = apiGwEvt.requestContext.resourceId;
 str = apiGwEvt.requestContext.resourcePath;
 str = apiGwEvt.resource;
 
-/* API Gateway CustomAuthorizer Event */
-str = customAuthorizerEvt.type;
-str = customAuthorizerEvt.authorizationToken;
-str = customAuthorizerEvt.methodArn;
+/* API Gateway CustomTokenAuthorizer Event */
+str = customTokenAuthorizerEvt.type;
+str = customTokenAuthorizerEvt.authorizationToken;
+str = customTokenAuthorizerEvt.methodArn;
+
+/* API Gateway CustomRequestAuthorizer Event */
+str = customRequestAuthorizerEvt.type;
+str = customRequestAuthorizerEvt.methodArn;
+str = customRequestAuthorizerEvt.resource;
+str = customRequestAuthorizerEvt.path;
+str = customRequestAuthorizerEvt.httpMethod;
+str = customRequestAuthorizerEvt.headers.Authorization;
+str = customRequestAuthorizerEvt.queryStringParameters.test;
+str = customRequestAuthorizerEvt.pathParameters.proxy;
+str = customRequestAuthorizerEvt.stageVariables.environment;
+str = customRequestAuthorizerEvt.requestContext.path;
+str = customRequestAuthorizerEvt.requestContext.accountId;
+str = customRequestAuthorizerEvt.requestContext.resourceId;
+str = customRequestAuthorizerEvt.requestContext.stage;
+str = customRequestAuthorizerEvt.requestContext.requestId;
+str = customRequestAuthorizerEvt.requestContext.identity.test;
+str = customRequestAuthorizerEvt.requestContext.resourcePath;
+str = customRequestAuthorizerEvt.requestContext.httpMethod;
+str = customRequestAuthorizerEvt.requestContext.apiId;
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;

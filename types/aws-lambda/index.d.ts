@@ -48,11 +48,36 @@ interface APIGatewayEvent {
 }
 
 // API Gateway CustomAuthorizer "event"
-interface CustomAuthorizerEvent {
-    type: string;
+interface CustomTokenAuthorizerEvent {
+    type: "TOKEN";
     authorizationToken: string;
     methodArn: string;
 }
+
+interface CustomRequestAuthorizerEvent {
+    type: "REQUEST";
+    methodArn: string;
+    resource: string;
+    path: string;
+    httpMethod: string;
+    headers: { [ header: string]: string | undefined };
+    queryStringParameters: { [parameter: string]: string | undefined };
+    pathParameters: { [parameter: string]: string | undefined };
+    stageVariables: { [parameter: string]: string | undefined };
+    requestContext: {
+        path: string;
+        accountId: string;
+        resourceId: string;
+        stage: string;
+        requestId: string;
+        identity: { [parameter: string]: string | null | undefined };
+        resourcePath: string;
+        httpMethod: string;
+        apiId: string;
+    };
+}
+
+type CustomAuthorizerEvent = CustomTokenAuthorizerEvent | CustomRequestAuthorizerEvent
 
 // SNS "event"
 interface SNSMessageAttribute {
