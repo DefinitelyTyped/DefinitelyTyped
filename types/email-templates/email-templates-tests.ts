@@ -1,6 +1,7 @@
-import * as Email from 'email-templates';
+import EmailTemplates = require('email-templates');
 
-const email = new Email({
+
+const email = new EmailTemplates({
     message: {
     from: 'Test@tesitng.com'
     },
