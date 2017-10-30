@@ -295,11 +295,11 @@ http.createServer((req, resp) => {
   }
 });
 
-request.post('http://service.com/upload', {form:{key:'value'}});
+request.post('http://service.com/upload', {form: {key: 'value'}});
 // or
-request.post('http://service.com/upload').form({key:'value'});
+request.post('http://service.com/upload').form({key: 'value'});
 // or
-request.post({url:'http://service.com/upload', form: {key:'value'}}, (err,httpResponse,body) => { /* ... */ });
+request.post({url: 'http://service.com/upload', form: {key: 'value'}}, (err, httpResponse, body) => { /* ... */ });
 
 var data = {
   // Pass a simple key-value pair
@@ -324,7 +324,7 @@ var data = {
     }
   }
 };
-request.post({url:'http://service.com/upload', formData: data}, function optionalCallback(err, httpResponse, body) {
+request.post({url: 'http://service.com/upload', formData: data}, function optionalCallback(err, httpResponse, body) {
   if (err) {
     return console.error('upload failed:', err);
   }
@@ -442,7 +442,7 @@ oauth = {
 };
 url = 'https://api.twitter.com/oauth/request_token';
 
-request.post({url:url, oauth:oauth}, (e, r, body) => {
+request.post({url: url, oauth: oauth}, (e, r, body) => {
   // Ideally, you would take the body in the response
   // and construct a URL that a user clicks on (like a sign in button).
   // The verifier is only available in the response after a user has
@@ -465,7 +465,7 @@ request.post({url:url, oauth:oauth}, (e, r, body) => {
         verifier: auth_data.oauth_verifier
     }, url = 'https://api.twitter.com/oauth/access_token';
 
-  request.post({url:url, oauth:oauth}, (e, r, body) => {
+  request.post({url: url, oauth: oauth}, (e, r, body) => {
     // ready to make signed requests on behalf of the user
     var perm_data: any = qs.parse(body);
     var oauth = {
@@ -479,7 +479,7 @@ request.post({url:url, oauth:oauth}, (e, r, body) => {
       screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
-    request.get({url:url, oauth:oauth, qs:query, json:true}, (e, r, user) => {
+    request.get({url: url, oauth: oauth, qs: query, json: true}, (e, r, user) => {
       console.log(user);
     });
   });
@@ -576,7 +576,7 @@ var specialRequest = baseRequest.defaults({
 });
 
 const urlRequest = specialRequest.defaults({url: 'https://github.com'});
-urlRequest({}, (error, response, body) => {console.log(body);});
+urlRequest({}, (error, response, body) => { console.log(body); });
 
 request.put(url);
 request.patch(url);
@@ -597,7 +597,7 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
     process.exit(0);
 });
 
-var rand = Math.floor(Math.random()*100000000).toString();
+var rand = Math.floor(Math.random() * 100000000).toString();
   request(
     { method: 'PUT'
     , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
@@ -609,10 +609,10 @@ var rand = Math.floor(Math.random()*100000000).toString();
       ]
     }
   , (error, response, body) => {
-      if(response.statusCode == 201) {
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/'+ rand)
+      if (response.statusCode == 201) {
+        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand)
       } else {
-        console.log('error: '+ response.statusCode)
+        console.log('error: ' + response.statusCode)
         console.log(body)
       }
     }
@@ -646,7 +646,7 @@ requestWithJar('http://www.google.com', () => {
 });
 
 var j = request.jar()
-requestWithJar = request.defaults({jar:j})
+requestWithJar = request.defaults({jar: j})
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
