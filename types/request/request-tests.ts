@@ -439,8 +439,8 @@ oauth = {
       consumer_key: CONSUMER_KEY,
       consumer_secret: CONSUMER_SECRET,
       transport_method: 'header'
-    }
-  , url = 'https://api.twitter.com/oauth/request_token';
+};
+url = 'https://api.twitter.com/oauth/request_token';
 
 request.post({url:url, oauth:oauth}, (e, r, body) => {
   // Ideally, you would take the body in the response

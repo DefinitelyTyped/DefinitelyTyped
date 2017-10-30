@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
-        "ban-comma-operator": false,
         "ban-types": false,
         "callable-types": false,
         "eofline": false,
