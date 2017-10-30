@@ -235,7 +235,6 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      *
      * @param element The DOM element to query for the data.
      * @param key Name of the data stored.
-     * @param undefined
      * @see {@link https://api.jquery.com/jQuery.data/}
      * @since 1.2.3
      */
@@ -728,7 +727,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      * @since 1.8
      */
-    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): JQuery.Node[];
+    parseHTML(data: string, context_keepScripts?: Document | null | boolean): JQuery.Node[];
     /**
      * Takes a well-formed JSON string and returns the resulting JavaScript value.
      *
@@ -3422,7 +3421,6 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * data(name, value) or by an HTML5 data-* attribute.
      *
      * @param key Name of the data stored.
-     * @param undefined
      * @see {@link https://api.jquery.com/data/}
      * @since 1.2.3
      */
@@ -6774,7 +6772,7 @@ declare namespace JQuery {
             (failFilter?: ((t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                 BRF, BJF, BNF,
                 CRF, CJF, CNF,
-                RRF, RJF, RNF> | Thenable<ARF> | ARF) | undefined | null): PromiseBase<ARF, AJF, ANF,
+                RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
             CRF, CJF, CNF,
             RRF, RJF, RNF>;
@@ -7355,7 +7353,7 @@ declare namespace JQuery {
             (failFilter?: ((...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
                 BRF, BJF, BNF,
                 CRF, CJF, CNF,
-                RRF, RJF, RNF> | Thenable<ARF> | ARF) | undefined | null): PromiseBase<ARF, AJF, ANF,
+                RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
             CRF, CJF, CNF,
             RRF, RJF, RNF>;
