@@ -19,6 +19,6 @@
   },
   "files": [
       "index.d.ts",
-      "better-scroll.test.ts"
+      "better-scroll-tests.ts"
   ]
 }

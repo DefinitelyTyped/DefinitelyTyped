@@ -1,3 +1,5 @@
+import BScroll = require("better-scroll");
+
 const BScroll1 = new BScroll('#wrapper');
 const BScroll2 = new BScroll('#wrapper', { scrollX: false, scrollY: false });
 const BScroll3 = new BScroll('#wrapper', {
