@@ -32,12 +32,12 @@ var bodyArr: request.RequestPart[] = [{
 	body: value
 }];
 
-//Defaults tests
+// Defaults tests
 (() => {
   const githubUrl = 'https://github.com';
   const defaultJarRequest = request.defaults({ jar: true });
   defaultJarRequest.get(githubUrl);
-  //defaultJarRequest(); //this line doesn't compile (and shouldn't)
+  // defaultJarRequest(); //this line doesn't compile (and shouldn't)
   const defaultUrlRequest = request.defaults({ url: githubUrl });
   defaultUrlRequest();
   defaultUrlRequest.get();
@@ -138,8 +138,8 @@ opt.uri = str;
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 agent = req.getAgent();
-//req.start();
-//req.abort();
+// req.start();
+// req.abort();
 req.pipeDest(dest);
 req = req.setHeader(str, str);
 req = req.setHeader(str, str, bool);
@@ -245,7 +245,7 @@ request
 })
 .pipe(request.put('http://another.com/another.png'));
 
-//The following examples from https://github.com/request/request
+// The following examples from https://github.com/request/request
 request('http://www.google.com', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     console.log(body); // Show the HTML for the Google homepage.
@@ -571,13 +571,13 @@ request({
     }
   });
 
-//requests using baseRequest() will set the 'x-token' header
+// requests using baseRequest() will set the 'x-token' header
 var baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
 });
 
-//requests using specialRequest() will include the 'x-token' header set in
-//baseRequest and will also include the 'special' header
+// requests using specialRequest() will include the 'x-token' header set in
+// baseRequest and will also include the 'special' header
 var specialRequest = baseRequest.defaults({
   headers: {special: 'special value'}
 });
@@ -666,10 +666,10 @@ request({url: url, jar: j}, function () {
   request('http://images.google.com');
 });
 
-//TODO: add definitions for tough-cookie-filestore
-//var FileCookieStore = require('tough-cookie-filestore');
+// TODO: add definitions for tough-cookie-filestore
+// var FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
-//var j = request.jar(new FileCookieStore('cookies.json'));
+// var j = request.jar(new FileCookieStore('cookies.json'));
 requestWithJar = request.defaults({ jar : j })
 request('http://www.google.com', function() {
   request('http://images.google.com');
