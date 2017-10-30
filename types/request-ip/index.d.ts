@@ -4,16 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node" />
+
+import * as http from 'http';
+
+interface RequestHeaders extends http.IncomingHttpHeaders {
+    'x-client-ip'?: string;
+    'x-forwarded-for'?: string;
+    'x-real-ip'?: string;
+    'x-cluster-client-ip'?: string;
+    'x-forwarded'?: string;
+    'forwarded-for'?: string;
+    'forwarded'?: string;
+}
+
 interface Request {
-    headers: {
-        'x-client-ip'?: string;
-        'x-forwarded-for'?: string;
-        'x-real-ip'?: string;
-        'x-cluster-client-ip'?: string;
-        'x-forwarded'?: string;
-        'forwarded-for'?: string;
-        'forwarded'?: string;
-    };
+    headers: RequestHeaders;
     connection: {
         remoteAddress?: string;
         socket?: {
