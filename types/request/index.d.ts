@@ -240,8 +240,8 @@ declare namespace request {
         writable: boolean;
 
         getAgent(): http.Agent;
-        //start(): void;
-        //abort(): void;
+        // start(): void;
+        // abort(): void;
         pipeDest(dest: any): void;
         setHeader(name: string, value: string, clobber?: boolean): Request;
         setHeaders(headers: Headers): Request;
