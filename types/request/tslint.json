@@ -53,7 +53,6 @@
         "no-var-keyword": false,
         "no-var-requires": false,
         "no-void-expression": false,
-        "no-trailing-whitespace": false,
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "one-line": false,
