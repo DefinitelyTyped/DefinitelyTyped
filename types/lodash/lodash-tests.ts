@@ -689,12 +689,7 @@ namespace TestDifferenceBy {
 
         const t1: T1 = { a: 'a', b: 'b' };
         const t2: T2 | undefined = any;
-        const comparator = (a: T1, b: T2 | undefined): boolean | undefined => {
-            return b && a.a === b.a;
-        };
 
-        // $ExpectType T1[]
-        _.differenceWith([t1], [t2], comparator);
         // $ExpectType T1[]
         _.differenceWith([t1], [t2], (a, b) => {
             a; // $ExpectType T1
@@ -703,16 +698,12 @@ namespace TestDifferenceBy {
         });
 
         // $ExpectType LoDashImplicitWrapper<T1[]>
-        _([t1]).differenceWith([t2], comparator);
-        // $ExpectType LoDashImplicitWrapper<T1[]>
         _([t1]).differenceWith([t2], (a, b) => {
             a; // $ExpectType T1
             b; // $ExpectType T2 | undefined
             return true;
         });
 
-        // $ExpectType LoDashExplicitWrapper<T1[]>
-        _.chain([t1]).differenceWith([t2], comparator);
         // $ExpectType LoDashExplicitWrapper<T1[]>
         _.chain([t1]).differenceWith([t2], (a, b) => {
             a; // $ExpectType T1
