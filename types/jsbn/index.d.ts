@@ -3,7 +3,7 @@
 // Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace jsbn {
+declare module 'jsbn' {
 
     interface RandomGenerator {
         nextBytes(bytes: number[]): void;
