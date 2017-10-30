@@ -249,7 +249,7 @@ export interface ConnectOptions {
     retry_max_delay?: number;
     connect_timeout?: number;
     timeout?: number;
-    nodeOptions?: http.ClientRequestArgs;
+    nodeOptions?: http.RequestOptions;
 }
 
 export interface WSConnectOptions {

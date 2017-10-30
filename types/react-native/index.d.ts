@@ -3299,6 +3299,11 @@ interface ImagePropertiesAndroid {
      * It should also be used if the image is slightly bigger than the view.
      */
     resizeMethod?: 'auto' | 'resize' | 'scale'
+
+    /**
+     * Duration of fade in animation.
+     */
+    fadeDuration?: number;
 }
 
 /**
@@ -3737,6 +3742,18 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * stick it here and treat it immutably.
      */
     extraData?: any
+
+    /**
+     * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
+     * content if you know the height of items a priori. getItemLayout is the most efficient,
+     * and is easy to use if you have fixed height items, for example:
+     * ```
+     * getItemLayout={(data, index) => (
+     *   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+     * )}
+     * ```
+     */
+    getItemLayout?: (data: SectionListData<ItemT>[] | null, index: number) => {length: number, offset: number, index: number}
 
     /**
      * How many items to render in the initial batch

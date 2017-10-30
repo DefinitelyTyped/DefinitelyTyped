@@ -245,6 +245,14 @@ declare namespace Selectize {
         searchConjunction?: string;
 
         /**
+         * If truthy, Selectize will make all optgroups be in the same order as they were added (by the `$order`
+         * property). Otherwise, it will order based on the score of the results in each.
+         *
+         * Default: false
+         */
+        lockOptgroupOrder?: boolean;
+
+        /**
          * An array of optgroup values that indicates the order they should be listed in in the dropdown.
          * If not provided, groups will be ordered by the ranking of the options within them.
          *
@@ -426,7 +434,7 @@ declare namespace Selectize {
         /**
          * Resets / clears all selected items from the control.
          */
-        clear(): void;
+        clear(silent?: boolean): void;
 
         /**
          * Returns the jQuery element of the item matching the given value.
@@ -436,18 +444,18 @@ declare namespace Selectize {
         /**
          * "Selects" an item. Adds it to the list at the current caret position.
          */
-        addItem(value: T): void;
+        addItem(value: T, silent?: boolean): void;
 
         /**
          * Removes the selected item matching the provided value.
          */
-        removeItem(value: T): void;
+        removeItem(value: T, silent?: boolean): void;
 
         /**
          * Invokes the "create" method provided in the selectize options that should provide the data for the
          * new item, given the user input. Once this completes, it will be added to the item list.
          */
-        createItem(value: T): void;
+        createItem(value: T, triggerDropdown?: boolean, callback?: (data?: any) => void): void;
 
         /**
          * Re-renders the selected item lists.
