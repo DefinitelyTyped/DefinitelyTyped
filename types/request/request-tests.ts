@@ -413,7 +413,7 @@ request.get('http://some.server.com/', {
 
 let username = 'username';
 let password = 'password';
-var url = 'http://' + username + ':' + password + '@some.server.com';
+var url = `http://'${username}:${password}'@some.server.com`;
 
 request({url: url}, (error, response, body) => {
    // Do more stuff with 'body' here
@@ -457,8 +457,7 @@ request.post({url: url, oauth: oauth}, (e, r, body) => {
 
   // step 2
   var req_data = qs.parse(body);
-  var uri = 'https://api.twitter.com/oauth/authenticate'
-    + '?' + qs.stringify({oauth_token: req_data.oauth_token});
+  var uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
   // redirect the user to the authorize uri
 
   // step 3
@@ -642,7 +641,7 @@ request(
     // unmodified http.IncomingMessage object
     response.on('data', (data: any[]) => {
       // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data');
+      console.log(`received ${data.length} bytes of compressed data`);
     });
   });
 
