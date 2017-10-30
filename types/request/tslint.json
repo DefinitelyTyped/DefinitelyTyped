@@ -6,7 +6,6 @@
         "no-inferrable-types": false,
         "no-misused-new": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false,

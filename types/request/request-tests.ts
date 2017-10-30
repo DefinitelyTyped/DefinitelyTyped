@@ -351,7 +351,7 @@ request({
       data: [
         {
           'content-type': 'application/json',
-          body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
+          body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
         },
         { body: 'I am an attachment' }
       ]
@@ -372,7 +372,7 @@ request({
     multipart: [
       {
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
+        body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
       },
       { body: 'I am an attachment' },
       { body: fs.createReadStream('image.png') }
@@ -389,24 +389,24 @@ request({
 request.get('http://some.server.com/').auth('username', 'password', false);
 // or
 request.get('http://some.server.com/', {
-  'auth': {
-    'user': 'username',
-    'pass': 'password',
-    'sendImmediately': false
+  auth: {
+    user: 'username',
+    pass: 'password',
+    sendImmediately: false
   }
 });
 // or
 request.get('http://some.server.com/').auth('foo', 'bar', true, 'bearerToken');
 // or
 request.get('http://some.server.com/', {
-  'auth': {
-    'bearer': 'bearerToken'
+  auth: {
+    bearer: 'bearerToken'
   }
 });
 // or
 request.get('http://some.server.com/', {
-  'auth': {
-    'bearer': () => 'bearerToken'
+  auth: {
+    bearer: () => 'bearerToken'
   }
 });
 
@@ -606,7 +606,7 @@ var rand = Math.floor(Math.random() * 100000000).toString();
     , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
     , multipart:
       [ { headers: { 'content-type': 'application/json' }
-        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
+        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
         }
       , { body: 'I am an attachment' }
       ]
