@@ -19,19 +19,4 @@ declare namespace guid {
     function isGuid(value: string): boolean;
 
     function raw(): string;
-
-    namespace create {
-        const prototype: {
-        };
-    }
-
-    namespace isGuid {
-        const prototype: {
-        };
-    }
-
-    namespace raw {
-        const prototype: {
-        };
-    }
 }
