@@ -20,10 +20,12 @@ function filter() {
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 3: get document (person) with id = 1 and delete it.
-    var result: IQueryResponse = __.filter(function (doc: any) { return doc.id === 1; }, function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
-        if (err) throw err;
-        if (!__.deleteDocument(feed[0].getSelfLink())) throw new Error("deleteDocument was not accepted");
-    });
+    var result: IQueryResponse = __.filter(
+        function (doc: any) { return doc.id === 1; },
+        function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+            if (err) throw err;
+            if (!__.deleteDocument(feed[0].getSelfLink())) throw new Error("deleteDocument was not accepted");
+        });
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function flatten() {
@@ -103,7 +105,7 @@ function value() {
 // Samples taken from https://github.com/Azure/azure-documentdb-js-server/tree/master/samples
 /**
 * This script called as stored procedure to import lots of documents in one batch.
-* The script sets response body to the number of docs imported and is called multiple times 
+* The script sets response body to the number of docs imported and is called multiple times
 * by the client until total number of docs desired by the client is imported.
 * @param  {Object[]} docs - Array of documents to import.
 */
@@ -127,7 +129,7 @@ function bulkImport(docs: Array<Object>) {
     tryCreate(docs[count], callback);
 
     // Note that there are 2 exit conditions:
-    // 1) The createDocument request was not accepted. 
+    // 1) The createDocument request was not accepted.
     //    In this case the callback will not be called, we just call setBody and we are done.
     // 2) The callback was called docs.length times.
     //    In this case all documents were created and we don't need to call tryCreate anymore. Just call setBody and we are done.
@@ -135,7 +137,7 @@ function bulkImport(docs: Array<Object>) {
         var isAccepted = collection.createDocument(collectionLink, doc, callback);
 
         // If the request was accepted, callback will be called.
-        // Otherwise report current count back to the client, 
+        // Otherwise report current count back to the client,
         // which will call the script again with remaining set of docs.
         // This condition will happen when this stored procedure has been running too long
         // and is about to get cancelled by the server. This will allow the calling client
@@ -164,7 +166,7 @@ function bulkImport(docs: Array<Object>) {
 * This is executed as stored procedure to count the number of docs in the collection.
 * To avoid script timeout on the server when there are lots of documents (100K+), the script executed in batches,
 * each batch counts docs to some number and returns continuation token.
-* The script is run multiple times, starting from empty continuation, 
+* The script is run multiple times, starting from empty continuation,
 * then using continuation returned by last invocation script until continuation returned by the script is null/empty string.
 *
 * @param {String} filterQuery - Optional filter for query (e.g. "SELECT * FROM docs WHERE docs.category = 'food'").
@@ -172,7 +174,7 @@ function bulkImport(docs: Array<Object>) {
 */
 function count(filterQuery: string, continuationToken: string) {
     var collection: ICollection = getContext().getCollection();
-    var maxResult: number = 25; // MAX number of docs to process in one batch, when reached, return to client/request continuation. 
+    var maxResult: number = 25; // MAX number of docs to process in one batch, when reached, return to client/request continuation.
     // intentionally set low to demonstrate the concept. This can be much higher. Try experimenting.
     // We've had it in to the high thousands before seeing the stored proceudre timing out.
 
@@ -186,7 +188,7 @@ function count(filterQuery: string, continuationToken: string) {
         var responseOptions: Object = { continuation: nextContinuationToken, pageSize: maxResult };
 
         // In case the server is running this script for long time/near timeout, it would return false,
-        // in this case we set the response to current continuation token, 
+        // in this case we set the response to current continuation token,
         // and the client will run this script again starting from this continuation.
         // When the client calls this script 1st time, is passes empty continuation token.
         if (result >= maxResult || !query(responseOptions)) {
@@ -210,7 +212,7 @@ function count(filterQuery: string, continuationToken: string) {
         // Increament the number of documents counted so far.
         result += docFeed.length;
 
-        // If there is continuation, call query again with it, 
+        // If there is continuation, call query again with it,
         // otherwise we are done, in which case set continuation to null.
         if (responseOptions.continuation) {
             tryQuery(responseOptions.continuation);
@@ -324,7 +326,7 @@ function orderBy(filterQuery: string, orderByFieldName: string, continuationToke
                 break;
             }
         }
-        
+
         // Now next batch to return to client has i elements.
         // Slice the continuationResult if needed and discard the end.
         var partialResult: Array<any> = continuationResult;
@@ -341,7 +343,7 @@ function orderBy(filterQuery: string, orderByFieldName: string, continuationToke
 
 /**
 * This is run as stored procedure and does the following:
-* - get 1st document in the collection, convert to JSON, prepend string specified by the prefix parameter 
+* - get 1st document in the collection, convert to JSON, prepend string specified by the prefix parameter
 *   and set response to the result of that.
 *
 * @param {String} prefix - The string to prepend to the 1st document in collection.
@@ -750,8 +752,8 @@ function updateSproc(id: string, update: Object) {
 
 /**
  * A DocumentDB stored procedure that upserts a given document (insert new or update if present) using its id property.<br/>
- * This implementation tries to create, and if the create fails then query for the document with the specified document's id, then replace it. 
- * Use this sproc if creates are more common than replaces, otherwise use "upsertOptimizedForReplace" 
+ * This implementation tries to create, and if the create fails then query for the document with the specified document's id, then replace it.
+ * Use this sproc if creates are more common than replaces, otherwise use "upsertOptimizedForReplace"
  *
  * @function
  * @param {Object} document - A document that should be upserted into this collection.
@@ -820,7 +822,7 @@ function upsert(document: IDocumentMeta) {
 /**
  * A DocumentDB stored procedure that upserts a given document (insert new or update if present) using its id property.<br/>
  * This implementation queries for the document's id, and creates if absent and replaces if found.
- * Use this sproc if replaces are more common than creates, otherwise use "upsert" 
+ * Use this sproc if replaces are more common than creates, otherwise use "upsert"
  *
  * @function
  * @param {Object} document - A document that should be upserted into this collection.
@@ -941,17 +943,17 @@ function updateMetadata() {
             // for 1st document use doc.Size, for all the rest see if it's less than last min.
             if (metaDoc.minSize == 0) metaDoc.minSize = doc.size;
             else metaDoc.minSize = Math.min(metaDoc.minSize, doc.size);
-            
+
             // Update metaDoc.maxSize.
             metaDoc.maxSize = Math.max(metaDoc.maxSize, doc.size);
 
             // Update metaDoc.totalSize.
             metaDoc.totalSize += doc.size;
-            
+
             // Update/replace the metadata document in the store.
             var isAccepted: boolean = collection.replaceDocument(metaDoc._self, metaDoc, function (err: IRequestCallbackError) {
                 if (err) throw err;
-                // Note: in case concurrent updates causes conflict with ErrorCode.RETRY_WITH, we can't read the meta again 
+                // Note: in case concurrent updates causes conflict with ErrorCode.RETRY_WITH, we can't read the meta again
                 //       and update again because due to Snapshot isolation we will read same exact version (we are in same transaction).
                 //       We have to take care of that on the client side.
             });

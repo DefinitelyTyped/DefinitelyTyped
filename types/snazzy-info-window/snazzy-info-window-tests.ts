@@ -3,17 +3,17 @@ import jQuery = require('jquery');
 import Handlebars = require('handlebars');
 
 const simple = () => {
-    let myMap = new google.maps.Map($('.map-canvas')[0], {
+    const myMap = new google.maps.Map($('.map-canvas')[0], {
         zoom: 14,
         center: new google.maps.LatLng(40.72, -74)
     });
 
-    let myMarker = new google.maps.Marker({
+    const myMarker = new google.maps.Marker({
         map: myMap,
         position: new google.maps.LatLng(40.72, -74)
     });
 
-    let info = new SnazzyInfoWindow({
+    const info = new SnazzyInfoWindow({
         marker: myMarker,
         content: 'Your snazzy content.'
     });
@@ -32,8 +32,8 @@ const multipleMarkers = () => {
         };
     }
 
-    let mapCenter = { lat: 40.72, lng: -74 };
-    let myMap = new google.maps.Map($('.map-canvas')[0], {
+    const mapCenter = { lat: 40.72, lng: -74 };
+    const myMap = new google.maps.Map($('.map-canvas')[0], {
         zoom: 14,
         center: mapCenter
     });
@@ -42,8 +42,8 @@ const multipleMarkers = () => {
         return { lat: mapCenter.lat + dx, lng: mapCenter.lng + dy };
     };
 
-    let dx = 0.003;
-    let placements: Placement[] = [
+    const dx = 0.003;
+    const placements: Placement[] = [
         { type: 'top', LatLng: offsetCenter(dx, 0) },
         { type: 'right', LatLng: offsetCenter(0, dx) },
         { type: 'bottom', LatLng: offsetCenter(-dx, 0) },
@@ -51,14 +51,14 @@ const multipleMarkers = () => {
     ];
 
     $.each(placements, (i: number, e: Placement) => {
-        let myMarker = new google.maps.Marker({
+        const myMarker = new google.maps.Marker({
             map: myMap,
             draggable: true,
             position: e.LatLng
         });
 
-        let a = e.type;
-        let info = new SnazzyInfoWindow({
+        const a = e.type;
+        const info = new SnazzyInfoWindow({
             marker: myMarker,
             placement: e.type,
             content: e.type,
@@ -71,11 +71,11 @@ const multipleMarkers = () => {
 // Dynamic Content
 
 const dynamicContent = () => {
-    let myMap = new google.maps.Map($('.map-canvas')[0], {
+    const myMap = new google.maps.Map($('.map-canvas')[0], {
         zoom: 14,
         center: new google.maps.LatLng(40.72, -74)
     });
-    let myMarker = new google.maps.Marker({
+    const myMarker = new google.maps.Marker({
         map: myMap,
         position: new google.maps.LatLng(40.72, -74),
         draggable: true
@@ -85,10 +85,10 @@ const dynamicContent = () => {
         return date && date.toLocaleTimeString();
     });
 
-    let template = Handlebars.compile($('#marker-content-template').html());
+    const template = Handlebars.compile($('#marker-content-template').html());
 
-    let interval: number = 0;
-    let info = new SnazzyInfoWindow({
+    let interval = 0;
+    const info = new SnazzyInfoWindow({
         marker: myMarker,
         callbacks: {
             beforeOpen() {
@@ -114,13 +114,13 @@ const dynamicContent = () => {
 // Set position
 
 const setPosition = () => {
-    let myMap = new google.maps.Map($('.map-canvas')[0], {
+    const myMap = new google.maps.Map($('.map-canvas')[0], {
         zoom: 14,
         center: new google.maps.LatLng(40.72, -74),
         clickableIcons: false
     });
 
-    let info = new SnazzyInfoWindow({
+    const info = new SnazzyInfoWindow({
         map: myMap,
         position: new google.maps.LatLng(40.72, -74),
         closeOnMapClick: false,
@@ -137,17 +137,17 @@ const setPosition = () => {
 };
 
 const jsStyling = () => {
-    let myMap = new google.maps.Map($('.map-canvas')[0], {
+    const myMap = new google.maps.Map($('.map-canvas')[0], {
         zoom: 14,
         center: new google.maps.LatLng(40.721, -73.991)
     });
 
-    let myMarker = new google.maps.Marker({
+    const myMarker = new google.maps.Marker({
         map: myMap,
         position: new google.maps.LatLng(40.72, -74)
     });
 
-    let info = new SnazzyInfoWindow({
+    const info = new SnazzyInfoWindow({
         marker: myMarker,
         placement: 'right',
         offset: {

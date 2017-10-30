@@ -173,7 +173,7 @@ declare namespace ua {
 
     function createFromSession(session?: Session): Visitor;
 
-    function middleware(tid: string, options?: ua.MiddlewareOptions): (req: any, res: any, next: (err: any) => void) => void;
+    function middleware(tid: string, options?: MiddlewareOptions): (req: any, res: any, next: (err: any) => void) => void;
 }
 
 declare function ua(accountID: ua.VisitorOptions | string): ua.Visitor;

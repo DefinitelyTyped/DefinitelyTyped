@@ -13,7 +13,7 @@ info({obj: {aa: 'bbb'}}, 'another');
 setImmediate(info, 'after setImmediate');
 error(new Error('an error'));
 
-let log2: pino.Logger = pino({
+const log2: pino.Logger = pino({
     name: 'myapp',
     safe: true,
     serializers: {
@@ -22,7 +22,7 @@ let log2: pino.Logger = pino({
     }
 });
 
-let pretty = pino.pretty();
+const pretty = pino.pretty();
 pretty.pipe(process.stdout);
 const log3 = pino({
     name: 'app',

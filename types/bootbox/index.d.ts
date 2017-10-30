@@ -1,15 +1,15 @@
 // Type definitions for Bootbox 4.4.0
 // Project: https://github.com/makeusabrew/bootbox
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>, Kon Pik <https://github.com/konpikwastaken/>, Anup Kattel <https://github.com/kanup/>, Dominik Schroeter <https://github.com/icereed/>, Troy McKinnon <https://github.com/trodi/>, Stanny Nuytkens <https://github.com/stannynuytkens>
+// Definitions by: Vincent Bortone <https://github.com/vbortone>, Kon Pik <https://github.com/konpikwastaken>, Anup Kattel <https://github.com/kanup>, Dominik Schroeter <https://github.com/icereed>, Troy McKinnon <https://github.com/trodi>, Stanny Nuytkens <https://github.com/stannynuytkens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
 /** Bootbox options shared by all modal types */
-interface BootboxBaseOptions {
+interface BootboxBaseOptions<T = any> {
 	title?: string | Element;
-	callback?: (result: boolean | string) => any;
+	callback?: (result: T) => any;
 	onEscape?: (() => any) | boolean;
 	show?: boolean;
 	backdrop?: boolean;
@@ -22,24 +22,24 @@ interface BootboxBaseOptions {
 }
 
 /** Bootbox options available for custom modals */
-interface BootboxDialogOptions extends BootboxBaseOptions {
+interface BootboxDialogOptions<T = any> extends BootboxBaseOptions<T> {
 	message: string | Element;
 }
 
 /** Bootbox options available for alert modals */
-interface BootboxAlertOptions extends BootboxDialogOptions {
+interface BootboxAlertOptions extends BootboxDialogOptions<void> {
 	callback?: () => any;
 	buttons?: BootboxAlertButtonMap;
 }
 
 /** Bootbox options available for confirm modals */
-interface BootboxConfirmOptions extends BootboxDialogOptions {
+interface BootboxConfirmOptions extends BootboxDialogOptions<boolean> {
 	callback: (result: boolean) => any;
 	buttons?: BootboxConfirmPromptButtonMap;
 }
 
 /** Bootbox options available for prompt modals */
-interface BootboxPromptOptions extends BootboxBaseOptions {
+interface BootboxPromptOptions extends BootboxBaseOptions<string> {
 	title: string;
 	value?: string;
 	inputType?: "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password";
@@ -93,7 +93,7 @@ interface BootboxStatic {
 	prompt(message: string, callback: (result: string) => void): JQuery;
 	prompt(options: BootboxPromptOptions): JQuery;
 	dialog(message: string, callback?: (result: string) => void): JQuery;
-	dialog(options: BootboxDialogOptions): JQuery;
+	dialog(options: BootboxDialogOptions<string>): JQuery;
 	setDefaults(options: BootboxDefaultOptions): void;
 	hideAll(): void;
 

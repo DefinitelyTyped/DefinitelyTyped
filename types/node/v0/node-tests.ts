@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
@@ -250,6 +251,15 @@ namespace http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
+
+    http.request('http://www.example.com/xyz');
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    https.request('http://www.example.com/xyz');
 }
 
 ////////////////////////////////////////////////////
@@ -448,3 +458,19 @@ namespace string_decoder_tests {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
+}

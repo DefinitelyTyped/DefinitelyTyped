@@ -1,5 +1,5 @@
 import * as UglifyJS from 'uglify-js';
-import * as GulpUglify from 'gulp-uglify';
+import * as GulpUglify from '.';
 
 interface Composer {
     (uglify: Uglify, log: Logger): typeof GulpUglify;

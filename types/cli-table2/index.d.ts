@@ -70,7 +70,7 @@ declare namespace CliTable2 {
     }
 
     interface GenericTable<T> extends Array<T> {
-        options: CliTable2.TableInstanceOptions;
+        options: TableInstanceOptions;
         readonly width: number;
     }
 

@@ -1,6 +1,6 @@
 // Type definitions for PinkySwear v2.2.2
 // Project: https://github.com/timjansen/PinkySwear.js
-// Definitions by: Chance Snow <https://github.com/chances/>
+// Definitions by: Chance Snow <https://github.com/chances>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*

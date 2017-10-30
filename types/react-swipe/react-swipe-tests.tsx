@@ -24,14 +24,7 @@ class ReactSwipeTest extends React.PureComponent {
     }
 
     private onGetCurrentPosition: React.MouseEventHandler<HTMLButtonElement> = () => {
-        let currentPosition: number;
-
-        if (this.swipeComponent != null) {
-            currentPosition = this.swipeComponent.getPos();
-        } else {
-            currentPosition = 0;
-        }
-
+        const currentPosition = this.swipeComponent != null ? this.swipeComponent.getPos() : 0;
         alert(currentPosition);
     }
 

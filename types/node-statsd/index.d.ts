@@ -34,8 +34,6 @@ export class StatsD {
    *   @option cacheDns    {boolean} An optional option to only lookup the hostname -> ip address once
    *   @option mock        {boolean} An optional boolean indicating this Client is a mock object, no stats are sent.
    *   @option {string[]} global_tags Optional tags that will be added to every metric
-   * @param {StatsDConfig} options
-   * @constructor
    */
   constructor(config: StatsDConfig);
   constructor(
@@ -66,11 +64,11 @@ export class StatsD {
 
   /**
    * Decrements a stat by a specified amount
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {number} value The value to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   decrement(stat: string | string[], value?: number, sampleRate?: number, tags?: string[], callback?: Callback): void;
   decrement(stat: string | string[], value?: number, sampleRateOrTags?: number | string[], callback?: Callback): void;
@@ -78,11 +76,11 @@ export class StatsD {
 
   /**
    * Gauges a stat by a specified amount
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {number} value The value to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   gauge(stat: string | string[], value: number, sampleRate?: number, tags?: string[], callback?: Callback): void;
   gauge(stat: string | string[], value: number, sampleRateOrTags?: number | string [], callback?: Callback): void;
@@ -90,11 +88,11 @@ export class StatsD {
 
   /**
    * Represents the histogram stat
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {any} value The value to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   histogram(stat: string | string[], value: any, sampleRate?: number, tags?: string[], callback?: Callback): void;
   histogram(stat: string | string[], value: any, sampleRateOrTags?: number | string [], callback?: Callback): void;
@@ -102,22 +100,24 @@ export class StatsD {
 
   /**
    * Increments a stat by a specified amount
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {any} value The value to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   increment(stat: string | string[], value?: number, sampleRate?: number, tags?: string[], callback?: Callback): void;
+  increment(stat: string | string[], value: any, sampleRateOrTags?: number | string [], callback?: Callback): void;
+  increment(stat: string | string[], value: any, callback?: Callback): void;
 
   /**
    * Sends a stat across the wire
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {any} value The value to send
-   * @param {string} type The type of message to send to statsd
-   * @param {number} sampleRate The Number of times to sample (0 to 1)
-   * @param {string[]} tags The Array of tags to add to metrics
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param type The type of message to send to statsd
+   * @param sampleRate The Number of times to sample (0 to 1)
+   * @param tags The Array of tags to add to metrics
+   * @param callback Callback when message is done being delivered. Optional.
    */
   send(stat: string | string[], value: any, type: string, sampleRate?: number, tags?: string[], callback?: Callback): void;
   send(stat: string | string[], value: any, type: string, sampleRateOrTags?: number | string [], callback?: Callback): void;
@@ -125,12 +125,12 @@ export class StatsD {
 
   /**
    * Checks if stats is an array and sends all stats calling back once all have sent
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {any} value The value to send
-   * @param {string} type The type of metric to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param type The type of metric to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   sendAll(stat: string | string[], value: any, type: string, sampleRate?: number, tags?: string[], callback?: Callback): void;
   sendAll(stat: string | string[], value: any, type: string, sampleRateOrTags?: number | string [], callback?: Callback): void;
@@ -145,11 +145,11 @@ export class StatsD {
 
   /**
    * Represents the timing stat
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {number} time The time in milliseconds to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param time The time in milliseconds to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   timing(stat: string | string[], time: number, sampleRate?: number, tags?: string[], callback?: Callback): void;
   timing(stat: string | string[], time: number, sampleRateOrTags?: number | string [], callback?: Callback): void;
@@ -157,11 +157,11 @@ export class StatsD {
 
   /**
    * Counts unique values by a specified amount
-   * @param {string|string[]} stat The stat(s) to send
-   * @param {any} value The value to send
-   * @param {number} sampleRate The Number of times to sample (0 to 1). Optional.
-   * @param {string[]} tags The Array of tags to add to metrics. Optional.
-   * @param {Callback} callback Callback when message is done being delivered. Optional.
+   * @param stat The stat(s) to send
+   * @param value The value to send
+   * @param sampleRate The Number of times to sample (0 to 1). Optional.
+   * @param tags The Array of tags to add to metrics. Optional.
+   * @param callback Callback when message is done being delivered. Optional.
    */
   unique(stat: string | string[], value: any, sampleRate?: number, tags?: string[], callback?: Callback): void;
   unique(stat: string | string[], value: any, sampleRateOrTags?: number | string [], callback?: Callback): void;

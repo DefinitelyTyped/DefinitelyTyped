@@ -3,7 +3,8 @@ import from = require('from2');
 function fromString(str: string) {
     return from((size, next) => {
         if (str.length <= 0) {
-            return next(null, null);
+            next(null, null);
+            return;
         }
 
         const chunk = str.slice(0, size);

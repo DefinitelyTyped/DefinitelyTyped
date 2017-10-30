@@ -3,7 +3,7 @@ import client = require('engine.io-client');
 
 let server: engine.Server;
 let socket: client.Socket;
-let options: client.SocketOptions = {};
+const options: client.SocketOptions = {};
 
 options.agent = false;
 options.upgrade = true;

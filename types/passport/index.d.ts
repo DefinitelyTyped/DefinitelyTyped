@@ -1,7 +1,8 @@
 // Type definitions for Passport 0.3
 // Project: http://passportjs.org
-// Definitions by: Horiuchi_H <https://github.com/horiuchi/>, Eric Naeseth <https://github.com/enaeseth>
+// Definitions by: Horiuchi_H <https://github.com/horiuchi>, Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace Express {
     export interface Request {

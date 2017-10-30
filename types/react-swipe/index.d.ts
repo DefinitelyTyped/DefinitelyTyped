@@ -8,7 +8,7 @@
 
 import * as React from "react";
 
-declare class ReactSwipe extends React.Component<ReactSwipe.Props, {}> {
+declare class ReactSwipe extends React.Component<ReactSwipe.Props> {
     prev(): void;
     next(): void;
     getPos(): number;

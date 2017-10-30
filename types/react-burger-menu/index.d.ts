@@ -19,6 +19,7 @@ export interface Props {
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
+    disableOverlayClick?: boolean;
     onStateChange?(): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string
@@ -41,7 +42,7 @@ export interface Props {
     width?: number | string;
 }
 
-export class ReactBurgerMenu extends React.Component<Props, {}> { }
+export class ReactBurgerMenu extends React.Component<Props> { }
 
 export class slide extends ReactBurgerMenu { }
 export class stack extends ReactBurgerMenu { }

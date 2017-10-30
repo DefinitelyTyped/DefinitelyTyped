@@ -8,14 +8,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
             "../"
         ],
-        "paths":{
-            "@storybook/addon-knobs": ["storybook__addon-knobs"],
-            "@storybook/react": ["storybook__react"]
+        "paths": {
+            "@storybook/addon-knobs": [
+                "storybook__addon-knobs"
+            ],
+            "@storybook/react": [
+                "storybook__react"
+            ]
         },
         "types": [],
         "noEmit": true,

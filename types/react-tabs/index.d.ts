@@ -34,7 +34,7 @@ declare namespace ReactTabs {
         className?: string | Array<string> | { [name: string]: boolean; };
         disabled?: boolean;
         disabledClassName?: string;
-        selectedClassName?: boolean;
+        selectedClassName?: string;
     }
 
     interface Tab extends React.ComponentClass<TabProps> {}

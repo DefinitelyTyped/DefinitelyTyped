@@ -28,6 +28,21 @@ const archiveOptions: OpenTok.ArchiveOptions = {
   outputMode: 'individual',
 };
 
+const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'custom',
+    stylesheet: 'derp',
+  }
+};
+
+const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'pip',
+  }
+};
+
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
   if (err) return console.log(err);
   console.log(archive.id);
@@ -51,6 +66,7 @@ client.deleteArchive('ARCHIVE_ID', (err: Error) => {
 const listArchivesOptions: OpenTok.ListArchivesOptions = {
   count: 10,
   offset: 5,
+  sessionId: '9_JY17LWC6LeKsGQ2-DXQlBac32PLwRSI7TV0FKOIDEX0PsmejJOGhrRtAW3PWABpEW3C-cp',
 }
 
 client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[], totalCount: number) => {

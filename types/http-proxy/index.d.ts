@@ -1,6 +1,6 @@
 // Type definitions for node-http-proxy 1.12
 // Project: https://github.com/nodejitsu/node-http-proxy
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -32,7 +32,6 @@ declare class Server extends events.EventEmitter {
    * @param req - Client request.
    * @param res - Client response.
    * @param options - Additionnal options.
-   * @param
    */
   web(
     req: http.IncomingMessage,

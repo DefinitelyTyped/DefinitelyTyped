@@ -95,8 +95,8 @@ export class Field extends jspb.Message {
 
 export namespace Field {
   export type AsObject = {
-    kind: Field.Kind,
-    cardinality: Field.Cardinality,
+    kind: Kind,
+    cardinality: Cardinality,
     number: number,
     name: string,
     typeUrl: string,

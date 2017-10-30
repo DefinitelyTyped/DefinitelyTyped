@@ -48,3 +48,7 @@ const a: string = v5('hello', MY_NAMESPACE);
 const b: string = v5('world', MY_NAMESPACE);
 const c: Buffer = v5('world', MY_NAMESPACE, new Buffer(16));
 const d: number[] = v5('world', MY_NAMESPACE, [], 0);
+
+// https://github.com/kelektiv/node-uuid#quickstart---commonjs-recommended
+const e: string = v5('hello.example.com', v5.DNS);
+const f: string = v5('http://example.com/hello', v5.URL);

@@ -1,6 +1,7 @@
-// Type definitions for Video.js 5.16
+// Type definitions for Video.js 6.2
 // Project: https://github.com/zencoder/video-js
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 Simon Clériot <https://github.com/scleriot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -49,9 +50,11 @@ declare namespace videojs {
 		size(width: number, height: number): Player;
 		requestFullScreen(): Player;
 		cancelFullScreen(): Player;
-		ready(callback: (this: Player) => void ): Player;
-		on(eventName: string, callback: (eventObject: Event) => void ): void;
-		off(eventName?: string, callback?: (eventObject: Event) => void ): void;
+		requestFullscreen(): Player;
+		exitFullscreen(): Player;
+		ready(callback: (this: Player) => void): Player;
+		on(eventName: string, callback: (eventObject: Event) => void): void;
+		off(eventName?: string, callback?: (eventObject: Event) => void): void;
 		dispose(): void;
 		addRemoteTextTrack(options: {}): HTMLTrackElement;
 		removeRemoteTextTrack(track: HTMLTrackElement): void;

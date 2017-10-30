@@ -1,27 +1,25 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"lib": [
-			"es6"
-		],
-		"alwaysStrict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noUnusedParameters": false,
-		"noUnusedLocals": true,
-		"strictNullChecks": true,
-		"baseUrl": "../",
-		"typeRoots": [
-			"../"
-		],
-		"types": [],
-		"noEmit": true
-	},
-	"files": [
-		"index.d.ts",
-		"saywhen-tests.ts"
-	]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedParameters": false,
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "saywhen-tests.ts"
+    ]
 }

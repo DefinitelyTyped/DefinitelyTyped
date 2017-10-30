@@ -58,7 +58,7 @@ console.log(sharp.format);
 console.log(sharp.versions);
 
 sharp.queue.on('change', (queueLength: number) => {
-    console.log('Queue contains ' + queueLength + ' task(s)');
+    console.log(`Queue contains ${queueLength} task(s)`);
 });
 
 let pipeline: sharp.SharpInstance = sharp().rotate();

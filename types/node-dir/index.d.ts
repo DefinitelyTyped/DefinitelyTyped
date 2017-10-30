@@ -1,6 +1,6 @@
 // Type definitions for node-dir
 // Project: https://github.com/fshost/node-dir
-// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti/>
+// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -63,6 +63,7 @@ export function readFiles(dir: string, fileCallback: FileCallback, finishedCallb
 export function readFiles(dir: string, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
 export function readFiles(dir: string, options: Options, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
 export function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
+export function readFilesStream(dir: string, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
 export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
 export function files(dir: string, callback: (error: any, files: string[]) => void): void;
 export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
