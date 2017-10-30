@@ -1,6 +1,7 @@
 // Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik>
+//                 Thomas Wittwer <https://github.com/wittwert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
@@ -814,7 +815,7 @@ declare namespace CKEDITOR {
         toolbar?: string | (string | string[])[];
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
-        toolbarGroups?: toolbarGroups[];
+        toolbarGroups?: (toolbarGroups | string)[];
         toolbarLocation?: string;
         toolbarStartupExpanded?: boolean;
 

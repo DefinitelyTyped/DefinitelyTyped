@@ -264,6 +264,12 @@ declare namespace H {
          * @param opt_scope {Object=} - An optional scope to call the callback in.
          */
         addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+
+        /**
+         * This returns the map's render engine
+         * @return {H.map.render.p2d.RenderEngine} - map render engine
+         */
+        getEngine(): H.map.render.p2d.RenderEngine;
     }
 
     namespace Map {
@@ -3603,6 +3609,261 @@ declare namespace H {
                     max?: number;
                     getCopyrights?(rect: H.geo.Rect, number: number): H.map.ICopyright[];
                     tileSize?: number;
+                }
+            }
+        }
+
+        namespace render {
+            /**
+             * This is an abstract class representing a render engine. Render engines are used to render the geographical position from a view model on the
+             * screen (viewport element). The rendered result may be different for different engines, because every engine uses its own capabilities and
+             * specific implementation to present the current view model data in best possible way. For example, 2D engines create a two-dimensional flat
+             * map composed of tiles, while 3D engines can generate panoramas displaying the same coordinates as a 'street view'.
+             */
+            class RenderEngine extends H.util.EventTarget {
+                /**
+                 * Constructor
+                 * @param viewPort {H.map.ViewPort} - An object representing the map viewport
+                 * @param viewModel {H.map.ViewModel} - An object representing a view of the map
+                 * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
+                 * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
+                 */
+                constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+
+                /**
+                 * This method adds a listener for a specific event.
+                 * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+                 * @param type {string} - The name of the event
+                 * @param handler {!Function} - An event handler function
+                 * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                 * @param opt_scope {Object=} - An object defining the scope for the handler function
+                 */
+                addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                /**
+                 * This method removes a previously added listener from the EventTarget instance.
+                 * @param type {string} - The name of the event
+                 * @param handler {!Function} - A previously added event handler
+                 * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                 * @param opt_scope {Object=} - An object defining the scope for the handler function
+                 */
+                removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                /**
+                 * This method dispatches an event on the EventTarget object.
+                 * @param evt {H.util.Event|string} - An object representing the event or a string with the event name
+                 */
+                dispatchEvent(evt: H.util.Event | string): void;
+
+                /**
+                 * This method removes listeners from the given object. Classes that extend EventTarget may need to override this method in order to remove
+                 * references to DOM Elements and additional listeners.
+                 */
+                dispose(): void;
+
+                /**
+                 * This method adds a callback which is triggered when the EventTarget object is being disposed.
+                 * @param callback {!Function} - The callback function.
+                 * @param opt_scope {Object=} - An optional scope for the callback function
+                 */
+                addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+            }
+
+            namespace RenderEngine {
+                /**
+                 * An object containing the render engine initialization options
+                 */
+                interface Options {
+                    [key: string]: string;
+                }
+
+                /**
+                 * This object defines the modifiers to use for H.map.ViewPort#startInteraction.
+                 */
+                enum InteractionModifiers {
+                    /** changes zoom level during the interaction */
+                    ZOOM,
+                    /** changes map center during the interaction */
+                    HEADING,
+                    /** changes heading angle during the interaction */
+                    TILT,
+                    /** changes tilt angle during the interaction */
+                    INCLINE,
+                    /** changes incline angle during the interaction */
+                    COORD,
+                }
+            }
+
+            /**
+             * The rendering states of the layer.
+             */
+            enum RenderState {
+                /**
+                 * Data loading/processing is still in progress, but there is nothing to render. In this state rendering engine might go to sleep mode after
+                 * certain amount of time to prevent draining of battery on the user device.
+                 */
+                PENDING,
+                /** Data rendering or animation is in progress. */
+                ACTIVE,
+                /** Data rendering or animation is done. */
+                DONE,
+            }
+
+            /**
+             * An object containing rendering parameters.
+             */
+            interface RenderingParams {
+                /**
+                 * The geographical area to render. Note that it is not the same as visible viewport. Specified bounds also include H.Map.Options#margin and
+                 * optionally an additional margin in case of DOM node rendering for a better rendering experience.
+                 * @type {H.geo.Rect}
+                 */
+                bounds: H.geo.Rect;
+
+                /**
+                 * The zoom level to render the data for.
+                 * @type {number}
+                 */
+                zoom: number;
+
+                /**
+                 * The coordinates of the screen center in CSS pixels.
+                 * @type {H.math.Point}
+                 */
+                screenCenter: H.math.Point;
+
+                /**
+                 * The coordinates relative to the screen center where the rendering has the highest priority. If the layer has to request and/or process data
+                 * asynchronously, it's recommended to prioritize the rendering close to this center.
+                 * @type {H.math.Point}
+                 */
+                priorityCenter: H.math.Point;
+
+                /**
+                 * The pixel projection to use to project geographical coordinates into screen coordinates and vice versa.
+                 * @type {H.geo.PixelProjection}
+                 */
+                projection: H.geo.PixelProjection;
+
+                /**
+                 * Indicates whether only cached data should be considered.
+                 * @type {boolean}
+                 */
+                cacheOnly: boolean;
+
+                /**
+                 * The size of the area to render.
+                 * @type {H.math.Size}
+                 */
+                size: H.math.Size;
+
+                /**
+                 * The pixelRatio to use for over-sampling in cases of high-resolution displays.
+                 * See https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio.
+                 * @type {number}
+                 */
+                pixelRatio: number;
+            }
+
+            /**
+             * Contains functionality specific to 2D map rendering.
+             */
+            namespace p2d {
+                /**
+                 * This class implements a map render engine. It presents a geographic location (camera data from a view model) and renders all map layers in
+                 * the order in which they are provided in a single 2D canvas element.
+                 */
+                class RenderEngine extends H.map.render.RenderEngine {
+                    /**
+                     * Constructor
+                     * @param viewPort {H.map.ViewPort} - An object representing the map viewport
+                     * @param viewModel {H.map.ViewModel} - An object representing a view of the map
+                     * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
+                     * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
+                     */
+                    constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+
+                    /**
+                     * This method sets the length (duration) for all animations run by the render engine in milliseconds.
+                     * @param duration {number} - A value indicating the duration of animations in milliseconds
+                     */
+                    setAnimationDuration(duration: number): void;
+
+                    /**
+                     * This method retrieves the current setting indicating the length of animations (duration) run by the the render engine in milliseconds.
+                     * @return {number}
+                     */
+                    getAnimationDuration(): number;
+
+                    /**
+                     * This method sets a value indicating the easing to apply to animations run by the render engine.
+                     * @param easeFunction {Function(number)} - A function that alters the progress ratio of an animation. It receives an argument indicating
+                     * animation progress as a numeric value in the range between 0 and 1 and must return a numeric value in the same range.
+                     */
+                    setAnimationEase(easeFunction: (progress: number) => number): void;
+
+                    /**
+                     * This method retrieves the current setting representing the easing to be applied to animations.
+                     * @return {Function(number) => number} - A numeric value in the range 0 to 1
+                     */
+                    getAnimationEase(): (progress: number) => number;
+
+                    /**
+                     * This method resets animation settings on the render engine to defaults.
+                     * Duration is set to 300ms and easing to H.util.animation.ease.EASE_OUT_QUAD.
+                     */
+                    resetAnimationDefaults(): void;
+
+                    /**
+                     * This method adds a listener for a specific event.
+                     * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+                     * @param type {string} - The name of the event
+                     * @param handler {!Function} - An event handler function
+                     * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                     * @param opt_scope {Object=} - An object defining the scope for the handler function
+                     */
+                    addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                    /**
+                     * This method removes a previously added listener from the EventTarget instance.
+                     * @param type {string} - The name of the event
+                     * @param handler {!Function} - A previously added event handler
+                     * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                     * @param opt_scope {Object=} - An object defining the scope for the handler function
+                     */
+                    removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                    /**
+                     * This method dispatches an event on the EventTarget object.
+                     * @param evt {H.util.Event|string} - An object representing the event or a string with the event name
+                     */
+                    dispatchEvent(evt: H.util.Event | string): void;
+
+                    /**
+                     * This method removes listeners from the given object. Classes that extend EventTarget may need to override this method in order to remove
+                     * references to DOM Elements and additional listeners.
+                     */
+                    dispose(): void;
+
+                    /**
+                     * This method adds a callback which is triggered when the EventTarget object is being disposed.
+                     * @param callback {!Function} - The callback function.
+                     * @param opt_scope {Object=} - An optional scope for the callback function
+                     */
+                    addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+                }
+
+                namespace RenderEngine {
+                    interface Options {
+                        /** Object describes how many cached zoom levels should be used as a base map background while base map tiles are */
+                        renderBaseBackground?: {};
+
+                        /** The pixelRatio to use for over-sampling in cases of high-resolution displays */
+                        pixelRatio: number;
+
+                        /** optional */
+                        enableSubpixelRendering?: boolean;
+                    }
                 }
             }
         }
