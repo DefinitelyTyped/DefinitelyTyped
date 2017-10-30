@@ -610,10 +610,10 @@ var rand = Math.floor(Math.random() * 100000000).toString();
     }
   , (error, response, body) => {
       if (response.statusCode == 201) {
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand)
+        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
       } else {
-        console.log('error: ' + response.statusCode)
-        console.log(body)
+        console.log('error: ' + response.statusCode);
+        console.log(body);
       }
     }
   );
@@ -625,28 +625,28 @@ request(
     }
   , (error, response, body) => {
       // body is the decompressed response body
-      console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'))
-      console.log('the decoded data is: ' + body)
+      console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'));
+      console.log('the decoded data is: ' + body);
     }
   ).on('data', (data: any) => {
     // decompressed data as it is received
-    console.log('decoded chunk: ' + data)
+    console.log('decoded chunk: ' + data);
   })
   .on('response', (response: http.IncomingMessage) => {
     // unmodified http.IncomingMessage object
     response.on('data', (data: any[]) => {
       // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data')
-    })
+      console.log('received ' + data.length + ' bytes of compressed data');
+    });
   });
 
-var requestWithJar = request.defaults({jar: true})
+var requestWithJar = request.defaults({jar: true});
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar()
-requestWithJar = request.defaults({jar: j})
+var j = request.jar();
+requestWithJar = request.defaults({jar: j});
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
@@ -663,12 +663,12 @@ request({url: url, jar: j}, () => {
 // var FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
 // var j = request.jar(new FileCookieStore('cookies.json'));
-requestWithJar = request.defaults({ jar : j })
+requestWithJar = request.defaults({ jar : j });
 request('http://www.google.com', () => {
   request('http://images.google.com');
 });
 
-var j = request.jar()
+var j = request.jar();
 request({url: 'http://www.google.com', jar: j}, () => {
   var cookie_string = j.getCookieString(url); // "key1=value1; key2=value2; ..."
   var cookies = j.getCookies(url);

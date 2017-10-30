@@ -180,7 +180,7 @@ declare namespace request {
 
     export type ResponseRequest = CoreOptions & {
       uri: Url;
-    }
+    };
 
 	export interface RequestResponse extends http.IncomingMessage {
 		request: ResponseRequest;
@@ -210,7 +210,7 @@ declare namespace request {
         postData?: {
             mimeType?: string;
             params?: NameValuePair[];
-        }
+        };
     }
 
     export interface NameValuePair {
@@ -294,7 +294,7 @@ declare namespace request {
         token_secret?: string;
         transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
-        body_hash?: true | string
+        body_hash?: true | string;
     }
 
     export interface HawkOptions {
@@ -307,9 +307,9 @@ declare namespace request {
     }
 
     export interface CookieJar {
-        setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void
-        getCookieString(uri: string | url.Url): string
-        getCookies(uri: string | url.Url): Cookie[]
+        setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void;
+        getCookieString(uri: string | url.Url): string;
+        getCookies(uri: string | url.Url): Cookie[];
     }
 
     export interface CookieValue {
