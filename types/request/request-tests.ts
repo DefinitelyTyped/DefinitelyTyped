@@ -410,9 +410,9 @@ request.get('http://some.server.com/', {
   }
 });
 
-var username = 'username',
-    password = 'password',
-    url = 'http://' + username + ':' + password + '@some.server.com';
+let username = 'username';
+let password = 'password';
+var url = 'http://' + username + ':' + password + '@some.server.com';
 
 request({url: url}, (error, response, body) => {
    // Do more stuff with 'body' here
@@ -462,14 +462,15 @@ request.post({url: url, oauth: oauth}, (e, r, body) => {
 
   // step 3
   // after the user is redirected back to your server
-  var auth_data: any = qs.parse(body)
-    , oauth = {
+  var auth_data: any = qs.parse(body);
+  var oauth = {
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET,
         token: auth_data.oauth_token,
         token_secret: req_data.oauth_token_secret as string,
         verifier: auth_data.oauth_verifier
-    }, url = 'https://api.twitter.com/oauth/access_token';
+    };
+  var url = 'https://api.twitter.com/oauth/access_token';
 
   request.post({url: url, oauth: oauth}, (e, r, body) => {
     // ready to make signed requests on behalf of the user
@@ -491,10 +492,10 @@ request.post({url: url, oauth: oauth}, (e, r, body) => {
   });
 });
 
-var path = require('path')
-    , certFile = path.resolve(__dirname, 'ssl/client.crt')
-    , keyFile = path.resolve(__dirname, 'ssl/client.key')
-    , caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+var path = require('path');
+var certFile = path.resolve(__dirname, 'ssl/client.crt');
+var keyFile = path.resolve(__dirname, 'ssl/client.key');
+var caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -506,9 +507,9 @@ options = {
 
 request.get(options);
 
-var path = require('path')
-    , certFile = path.resolve(__dirname, 'ssl/client.crt')
-    , keyFile = path.resolve(__dirname, 'ssl/client.key');
+var path = require('path');
+var certFile = path.resolve(__dirname, 'ssl/client.crt');
+var keyFile = path.resolve(__dirname, 'ssl/client.key');
 
 options = {
     url: 'https://api.some-server.com/',

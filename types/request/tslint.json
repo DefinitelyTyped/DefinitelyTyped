@@ -11,7 +11,6 @@
         "no-var-requires": false,
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
-        "one-variable-per-declaration": false,
         "prefer-const": false,
         "prefer-template": false,
         "strict-export-declare-modifiers": false,
