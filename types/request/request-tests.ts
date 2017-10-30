@@ -329,7 +329,8 @@ var data = {
 };
 request.post({url: 'http://service.com/upload', formData: data}, function optionalCallback(err, httpResponse, body) {
   if (err) {
-    return console.error('upload failed:', err);
+    console.error('upload failed:', err);
+    return;
   }
   console.log('Upload successful!  Server responded with:', body);
 });
@@ -358,7 +359,8 @@ request({
   },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -378,7 +380,8 @@ request({
   },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
