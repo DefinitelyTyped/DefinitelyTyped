@@ -22,10 +22,8 @@ import FormData = require('form-data');
 import { Url } from 'url';
 
 declare namespace request {
-    export interface RequestAPI<TRequest extends Request,
-        TOptions extends CoreOptions,
-        TUriUrlOptions> {
-
+    export interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions>
+    {
         defaults(options: TOptions): RequestAPI<TRequest, TOptions, RequiredUriUrl>;
         defaults(options: RequiredUriUrl & TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
 
@@ -70,9 +68,8 @@ declare namespace request {
     }
 
     interface DefaultUriUrlRequestApi<TRequest extends Request,
-        TOptions extends CoreOptions,
-        TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
-
+            TOptions extends CoreOptions,
+            TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
         (callback?: RequestCallback): TRequest;
 

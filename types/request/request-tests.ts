@@ -89,21 +89,15 @@ strOrTrueOrUndef = oauth.body_hash;
 var options: request.Options = {
 	url: str,
 	uri: str,
-	callback: (error: any, response: any, body: any) => {
-
-	},
+	callback: (error: any, response: any, body: any) => {},
 	jar: value,
 	form: obj,
 	oauth: value,
 	aws: aws,
 	qs: obj,
 	json: value,
-	jsonReviver: (key: string, value: any) => {
-
-	},
-	jsonReplacer: (key: string, value: any) => {
-
-	},
+	jsonReviver: (key: string, value: any) => {},
+	jsonReplacer: (key: string, value: any) => {},
 	multipart: value,
 	agent: new http.Agent(),
 	agentOptions: value,
