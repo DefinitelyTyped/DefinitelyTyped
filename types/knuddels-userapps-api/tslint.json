@@ -3,6 +3,8 @@
 	"rules": {
 		// TODOs
 		"no-mergeable-namespace": false,
-		"no-unnecsesary-class": false
+		"no-redundant-jsdoc": false,
+		"no-redundant-jsdoc-2": false,
+		"no-unnecessary-class": false
 	}
 }

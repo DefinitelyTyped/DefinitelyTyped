@@ -927,6 +927,11 @@ declare namespace React {
         backgroundRepeat?: CSSWideKeyword | any;
 
         /**
+         * Defines the size of the background images
+         */
+        backgroundSize?: CSSWideKeyword | any;
+
+        /**
          * Obsolete - spec retired, not implemented.
          */
         baselineShift?: CSSWideKeyword | any;
