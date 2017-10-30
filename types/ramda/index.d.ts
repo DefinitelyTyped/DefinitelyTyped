@@ -1532,6 +1532,10 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
+         * TODO reduceWhile http://ramdajs.com/docs/#reduceWhile
+         */
+                                                                                    
+        /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
