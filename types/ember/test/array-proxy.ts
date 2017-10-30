@@ -21,6 +21,6 @@ class MyNewProxy<T> extends Ember.ArrayProxy<T> {
     isNew = true;
 }
 
-let x: MyNewProxy<number> = MyNewProxy.create({ content: Ember.A([1, 2, 3]) });
+let x: MyNewProxy<number> = MyNewProxy.create<MyNewProxy<number>, {}, {content: Ember.NativeArray<number>}>({ content: Ember.A([1, 2, 3]) });
 assertType<number | undefined>(x.get('firstObject'));
 assertType<boolean>(x.isNew);
