@@ -220,10 +220,10 @@ declare namespace request {
 
     export interface Multipart {
         chunked?: boolean;
-        data?: {
+        data?: Array<{
             'content-type'?: string,
             body: string
-        }[];
+        }>;
     }
 
     export interface RequestPart {
