@@ -434,14 +434,14 @@ request(options, callback);
 import qs = require('querystring');
 const CONSUMER_KEY = 'key';
 const CONSUMER_SECRET = 'secret';
-oauth =
-    { callback: 'http://mysite.com/callback/'
-    , consumer_key: CONSUMER_KEY
-    , consumer_secret: CONSUMER_SECRET
-    , transport_method: 'header'
+oauth = {
+      callback: 'http://mysite.com/callback/',
+      consumer_key: CONSUMER_KEY,
+      consumer_secret: CONSUMER_SECRET,
+      transport_method: 'header'
     }
-  , url = 'https://api.twitter.com/oauth/request_token'
-  ;
+  , url = 'https://api.twitter.com/oauth/request_token';
+
 request.post({url:url, oauth:oauth}, (e, r, body) => {
   // Ideally, you would take the body in the response
   // and construct a URL that a user clicks on (like a sign in button).
@@ -457,24 +457,23 @@ request.post({url:url, oauth:oauth}, (e, r, body) => {
   // step 3
   // after the user is redirected back to your server
   var auth_data: any = qs.parse(body)
-    , oauth =
-      { consumer_key: CONSUMER_KEY
-      , consumer_secret: CONSUMER_SECRET
-      , token: auth_data.oauth_token
-      , token_secret: req_data.oauth_token_secret as string
-      , verifier: auth_data.oauth_verifier
-      }
-    , url = 'https://api.twitter.com/oauth/access_token'
-    ;
+    , oauth = {
+        consumer_key: CONSUMER_KEY,
+        consumer_secret: CONSUMER_SECRET,
+        token: auth_data.oauth_token,
+        token_secret: req_data.oauth_token_secret as string,
+        verifier: auth_data.oauth_verifier
+    }, url = 'https://api.twitter.com/oauth/access_token';
+
   request.post({url:url, oauth:oauth}, (e, r, body) => {
     // ready to make signed requests on behalf of the user
     var perm_data: any = qs.parse(body);
-    var oauth =
-        { consumer_key: CONSUMER_KEY
-        , consumer_secret: CONSUMER_SECRET
-        , token: perm_data.oauth_token
-        , token_secret: perm_data.oauth_token_secret
-        };
+    var oauth = {
+        consumer_key: CONSUMER_KEY,
+        consumer_secret: CONSUMER_SECRET,
+        token: perm_data.oauth_token,
+        token_secret: perm_data.oauth_token_secret
+      };
     var url = 'https://api.twitter.com/1.1/users/show.json';
     var query = {
       screen_name: perm_data.screen_name,
@@ -610,7 +609,7 @@ var rand = Math.floor(Math.random()*100000000).toString();
       ]
     }
   , (error, response, body) => {
-      if(response.statusCode == 201){
+      if(response.statusCode == 201) {
         console.log('document saved as: http://mikeal.iriscouch.com/testjs/'+ rand)
       } else {
         console.log('error: '+ response.statusCode)
