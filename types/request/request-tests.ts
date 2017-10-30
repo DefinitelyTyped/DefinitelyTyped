@@ -269,10 +269,13 @@ request
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    if (req.method === 'PUT') {
-      req.pipe(request.put('http://mysite.com/doodle.png'));
-    } else if (req.method === 'GET' || req.method === 'HEAD') {
-      request.get('http://mysite.com/doodle.png').pipe(resp);
+    switch (req.method) {
+    case 'PUT':
+        req.pipe(request.put('http://mysite.com/doodle.png'));
+        break;
+    case 'GET':
+    case 'HEAD':
+        request.get('http://mysite.com/doodle.png').pipe(resp);
     }
   }
 });
