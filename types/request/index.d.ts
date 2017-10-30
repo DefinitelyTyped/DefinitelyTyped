@@ -174,9 +174,7 @@ declare namespace request {
     export type OptionsWithUrl = UrlOptions & CoreOptions;
     export type Options = OptionsWithUri | OptionsWithUrl;
 
-    export interface RequestCallback {
-        (error: any, response: RequestResponse, body: any): void;
-    }
+    export type RequestCallback = (error: any, response: RequestResponse, body: any) => void;
 
     export type ResponseRequest = CoreOptions & {
       uri: Url;
