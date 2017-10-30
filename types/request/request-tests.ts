@@ -4,6 +4,7 @@ import stream = require('stream');
 import urlModule = require('url');
 import fs = require('fs');
 import FormData = require('form-data');
+import path = require('path');
 
 var value: any;
 var str: string;
@@ -492,7 +493,6 @@ request.post({url: url, oauth: oauth}, (e, r, body) => {
   });
 });
 
-var path = require('path');
 var certFile = path.resolve(__dirname, 'ssl/client.crt');
 var keyFile = path.resolve(__dirname, 'ssl/client.key');
 var caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
@@ -507,7 +507,6 @@ options = {
 
 request.get(options);
 
-var path = require('path');
 var certFile = path.resolve(__dirname, 'ssl/client.crt');
 var keyFile = path.resolve(__dirname, 'ssl/client.key');
 

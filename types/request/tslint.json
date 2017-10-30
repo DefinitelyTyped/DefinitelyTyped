@@ -8,7 +8,6 @@
         "no-inferrable-types": false,
         "no-misused-new": false,
         "no-var-keyword": false,
-        "no-var-requires": false,
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "prefer-const": false,
