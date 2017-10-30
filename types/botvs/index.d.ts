@@ -281,22 +281,16 @@ declare global {
         interface Exchange {
             /**
              * 返回交易所名称(string)
-             *
-             * @return {string}
              */
             GetName(): string;
 
             /**
              * 返回交易所自定义的标签(string)
-             *
-             * @return {string}
              */
             GetLabel(): string;
 
             /**
              * 返回交易所使用的美元的汇率, OKCoin期货返回官方提供的汇率, 该值不受SetRate影响
-             *
-             * @return {number}
              */
             GetUSDCNY(): number;
 
@@ -305,8 +299,6 @@ declare global {
              *
              * 汇率接口调用雅虎提供的接口, 5分钟更新一次
              * 所有函数自动经过汇率转换,如果为1指禁用汇率转换
-             *
-             * @return {number}
              */
             GetRate(): number;
 
@@ -316,8 +308,6 @@ declare global {
              * 比如796期货设置SetRate(6.13), 就是设定USD/EUR对CNY的汇率为6.13, 程序所有价格会自动用这个汇率计算
              * SetRate(), 如果不加参数，则恢复系统内置汇率
              * SetRate(1), 就是禁用汇率转换
-             *
-             * @param {number} rate
              */
             SetRate(rate?: number): void;
 
@@ -325,44 +315,31 @@ declare global {
              * 设置价格与品种下单量的小数位精度, 设置后会自动截断
              *
              * exchange.SetPrecision(2, 3); // 设置价格小数位精度为2位, 品种下单量小数位精度为3位
-             *
-             * @param {number} PricePrecision
-             * @param {number} AmountPrecision
              */
             SetPrecision(PricePrecision: number, AmountPrecision: number): void;
 
             /**
              * 返回交易所操作的货币名称(string), 传统期货CTP返回的固定为STOCK
-             *
-             * @return {string}
              */
             GetCurrency(): string;
 
             /**
              * 返回交易所操作的基础货币名称(string), BTC_CNY就返回CNY, ETH_BTC就返回BTC
-             *
-             * @return {string}
              */
             GetBaseCurrency(): string;
 
             /**
              * 返回一个Ticker结构
-             *
-             * @return {botvs.Ticker}
              */
             GetTicker(): Ticker;
 
             /**
              * 返回一个Depth结构
-             *
-             * @return {botvs.Depth}
              */
             GetDepth(): Depth;
 
             /**
              * 返回一个Trade数组, 按时间从低到高的顺序, 只支持数字货币(BTC/LTC)
-             *
-             * @return {botvs.Trade[]}
              */
             GetTrades(): Trade[];
 
@@ -372,16 +349,11 @@ declare global {
              * 不加参数, 默认返回添加机器人时时指量的K线周期, 但也可以自定义K线周期
              * 支持: PERIOD_M1 指1分钟, PERIOD_M5 指5分钟, PERIOD_M15 指15分钟,
              * PERIOD_M30 指30分钟, PERIOD_H1 指1小时, PERIOD_D1 指一天
-             *
-             * @param {number} Period
-             * @return {botvs.Record[]}
              */
             GetRecords(Period?: VPeriod): Record[];
 
             /**
              * 返回一个Account结构, 如exchange.GetAccount(), 将返回主交易所账户信息
-             *
-             * @return {botvs.Account}
              */
             GetAccount(): Account;
 
@@ -392,59 +364,37 @@ declare global {
              * 支持现货(火币/BitVC/OKCoin/OKCoin国际/OKCoin期货/BTCChina/BitYes)市价单, 市价单价格指定为-1
              * exchange.Buy(1000), 指买市价1000元的币, BTCChina例外exchange.Buy(0.3)指市价买0.3个币
              *
-             * @param {number} Price
-             * @param {number} Amount
-             * @param {*[]} args
-             * @return {string} - 订单ID
+             * @return 订单ID
              */
             Buy(Price: number, Amount: number, ...args: any[]): string;
 
             /**
              * 跟Buy函数一样的调用方法和场景 {@see Exchange#Buy}
-             *
-             * @param {number} Price
-             * @param {number} Amount
-             * @return {string}
              */
             Sell(Price: number, Amount: number): string;
 
             /**
              * 获取所有未完成的订单, 返回一个Order数组结构
-             *
-             * @return {botvs.Order[]}
              */
             GetOrders(): Order[];
 
             /**
              * 根据订单号获取订单详情, 返回一个Order结构
-             *
-             * @param {string} orderId
-             * @return {botvs.Order}
              */
             GetOrder(orderId: string): Order;
 
             /**
              * 根据订单号取消一个订单, 返回true或者false
-             *
-             * @param {string} orderId
-             * @return {boolean}
              */
             CancelOrder(orderId: string): boolean;
 
             /**
              * 不下单, 只记录交易信息, logType可为LOG_TYPE_BUY/LOG_TYPE_SELL/LOG_TYPE_CANCEL
-             *
-             * @param {VLogType} logType
-             * @param {string} orderId
-             * @param {number} price
-             * @param {number} amount
              */
             Log(logType: VLogType, orderId: string, price: number, amount: number): void;
 
             /**
              * 返回币最小交易数量
-             *
-             * @return {number}
              */
             GetMinStock(): number;
 
@@ -452,15 +402,11 @@ declare global {
              * 返回一笔订单要求的最小金额(价格*数量)
              *
              * Bitstamp要求5美元(程序会根据汇率自动转换为人民币), 其它没有限制
-             *
-             * @return {number}
              */
             GetMinPrice(): number;
 
             /**
              * 返回一个Fee结构
-             *
-             * @return {botvs.Fee}
              */
             GetFee(): Fee;
 
@@ -475,8 +421,6 @@ declare global {
              * exchange.GetAccount();
              * Log(exchange.GetRawJSON());//在GetAccount成功后调用, 获取更详细的账户信息, 可以用JSON.parse解析
              * 也支持GetTicker, GetDepth后的exchange.GetRawJSON(), 以及GetPosition与GetOrders,GetOrder这三个调用后的详细反馈数据
-             *
-             * @return {string}
              */
             GetRawJSON(): string;
 
@@ -500,10 +444,6 @@ declare global {
              * // Python与Javascript的区别, Python的wait返回两个参数, 第一个是异步的api返回的结果, 第二个表示是异步调用是否完成
              * ret, ok = d.wait() // ok是一定返回True的, 除非策略被停止
              * ret, ok = d.wait(100) // ok返回False, 如果等待超时, 或者wait了一个已经结束的实例
-             *
-             * @param {keyof botvs.Exchange} Method
-             * @param Args
-             * @return {botvs.AsyncJob<T>}
              */
             Go<T>(Method: keyof Exchange, ...Args: any[]): AsyncJob<T>;
 
@@ -552,11 +492,6 @@ declare global {
              * 超时返回-1, 正常返回事件接收的时间(nano级), 只支持实盘
              * exchange.IO("wait_instrument"); // 有任何品种更新行情信息时才返回, 可带第二个参数(毫秒数)
              * 指定超时, 超时返回空字符串, 正常返回触发事件的品种名称, 只支持实盘
-             *
-             * @param {"api" | "usd" | "cny" | "currency" | string} Api
-             * @param {string} ApiName
-             * @param {string} Args
-             * @return {T}
              */
             IO<T = any>(Api: 'api' | 'usd' | 'cny' | 'currency' | string, ApiName?: string, Args?: string): T;
 
@@ -564,8 +499,6 @@ declare global {
              * 获取当前持仓信息
              *
              * 返回一个Position数组, (BitVC和OKCoin)可以传入一个参数, 指定要获取的合约类型
-             *
-             * @return {botvs.Position[]}
              */
             GetPosition(): Position[];
 
@@ -575,8 +508,6 @@ declare global {
              * 设置Buy(多单)或者Sell(空单)的杆杠大小, MarginLevel有5, 10, 20 三个可选参数
              * 796支持5,10,20,50三个选项, BitVC的LTC不支持20倍杠杆, OKCoin支持10倍和20倍
              * 如: exchange.SetMarginLevel(5)
-             *
-             * @param {number} MarginLevel
              */
             SetMarginLevel(MarginLevel: number): void;
 
@@ -616,9 +547,6 @@ declare global {
              * exchange.SetContractType("this_week");
              * exchange.SetDirection("sell");
              * exchange.Sell(1000, 1);
-             *
-             * @param {"buy" | "closebuy" | "sell" | "closesell" | "closebuy_today" | "closesell_today"} Direction
-             * @constructor
              */
             SetDirection(Direction: 'buy' | 'closebuy' | 'sell' | 'closesell' | 'closebuy_today' | 'closesell_today'): void;
 
@@ -633,8 +561,6 @@ declare global {
              * 默认为子账户A, 要指定子账户是A还是B,
              * 在合约后加"@A"或"@B", 如: "day@A" 为日合约A子账户 BitVC有week和quarter和next_week三个可选参数, OKCoin期货有this_week,
              * next_week, quarter三个参数 exchange.SetContractType("week");
-             *
-             * @param {string} ContractType
              */
             SetContractType(ContractType: string): void;
         }
@@ -645,12 +571,6 @@ declare global {
          * 指数平滑异同平均线
          *
          * MACD(数据, 快周期, 慢周期, 信号周期), 默认参数为(12, 26, 9), 返回二维数组, 分别是[DIF, DEA, MACD]
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} LongPeriod
-         * @param {number} ShortPeriod
-         * @param {number} SignalPeriod
-         * @return {[number[] , number[] , number[]]}
          */
         function MACD(
             Records: botvs.Record[],
@@ -663,12 +583,6 @@ declare global {
          * 随机指标
          *
          * KDJ(数据, 周期1, 周期2, 周期3), 默认参数为(9, 3, 3), 返回二维数组, 分别是[K, D, J]
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} FirstPeriod
-         * @param {number} SecondPeriod
-         * @param {number} ThirdPeriod
-         * @return {[number[] , number[] , number[]]}
          */
         function KDJ(
             Records: botvs.Record[],
@@ -681,10 +595,6 @@ declare global {
          * 强弱指标
          *
          * RSI(数据, 周期), 默认参数为14, 返回一个一维数组
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function RSI(Records: botvs.Record[], Period?: number): number[];
 
@@ -692,10 +602,6 @@ declare global {
          * 平均真实波幅
          *
          * ATR(数据, 周期), 默认参数为14, 返回一个一维数组
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function ATR(Records: botvs.Record[], Period?: number): number[];
 
@@ -703,9 +609,6 @@ declare global {
          * 能量潮
          *
          * OBV(数据), 返回一个一维数组
-         *
-         * @param {botvs.Record[]} Records
-         * @return {[number[] , number[]]}
          */
         function OBV(Records: botvs.Record[]): [number[], number[]];
 
@@ -713,20 +616,12 @@ declare global {
          * 移动平均线
          *
          * MA(数据, 周期), 默认参数为9, 返回一个一维数组
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function MA(Records: botvs.Record[], Period?: number): number[];
 
         /**
          * 指数平均数指标
          * EMA(数据, 周期), 默认参数为9, 返回一个一维数组
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function EMA(Records: botvs.Record[], Period?: number): number[];
 
@@ -734,12 +629,6 @@ declare global {
          * Alligator Indicator
          *
          * Alligator(数据, 下颚周期,牙齿周期,上唇周期), 鳄鱼线指标, 默认参数为(13,8,5) 返回一个二维数组[下颚,牙齿,上唇]
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} JawPeriod
-         * @param {number} TeethPeriod
-         * @param {number} LibsPeriod
-         * @return {[number[] , number[] , number[]]}
          */
         function Alligator(
             Records: botvs.Record[],
@@ -752,10 +641,6 @@ declare global {
          * Chaikin Money Flow
          *
          * CMF(数据, 周期), 默认周期参数为20, 返回一个一维数组
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function CMF(Records: botvs.Record[], Period?: number): number[];
 
@@ -764,12 +649,6 @@ declare global {
          *
          * Highest(数据, 周期, 属性), 返回最近周期内的最大值(不包含当前Bar),
          * 如TA.Highest(records, 30, 'High'), 如果周期为0指所有, 如属性不指定则视数据为普通数组
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @param {keyof botvs.Record} Property
-         * @return {number}
-         * @constructor
          */
         function Highest(Records: botvs.Record[], Period?: number, Property?: keyof botvs.Record): number;
 
@@ -777,11 +656,6 @@ declare global {
          * 周期最低价
          *
          * Lowest(数据, 周期, 属性), 同上, 求最小值
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @param {keyof botvs.Record} Property
-         * @return {number}
          */
         function Lowest(Records: botvs.Record[], Period?: number, Property?: keyof botvs.Record): number;
     }
@@ -791,9 +665,6 @@ declare global {
          * 查询指标调用格式
          *
          * Log(talib.help('MACD')); // 在回测环境下调用
-         *
-         * @param {string} Func
-         * @return {string}
          */
         function help(Func: string): string;
 
@@ -801,9 +672,6 @@ declare global {
          * Vector Trigonometric ACos (反余弦函数)
          *
          * ACOS(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function ACOS(Records: botvs.Record[] | number[]): number[];
 
@@ -811,21 +679,12 @@ declare global {
          * Chaikin A/D Line (线随机指标)
          *
          * AD(Records[High,Low,Close,Volume]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function AD(Records: botvs.Record[]): number[];
         /**
          * Chaikin A/D Line (线随机指标)
          *
          * AD(Records[High,Low,Close,Volume]) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @return {number[]}
          */
         function AD(High: number[], Low: number[], Close: number[], Volume: number[]): number[];
 
@@ -833,25 +692,12 @@ declare global {
          * Chaikin A/D Oscillator (佳庆指标)
          *
          * ADOSC(Records[High,Low,Close,Volume],Fast Period = 3,Slow Period = 10) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=3} FastPeriod
-         * @param {number=10} SlowPeriod
-         * @return {number[]}
          */
         function ADOSC(Records: botvs.Record[], FastPeriod: number, SlowPeriod: number): number[];
         /**
          * Chaikin A/D Oscillator (佳庆指标)
          *
          * ADOSC(Records[High,Low,Close,Volume],Fast Period = 3,Slow Period = 10) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @param {number=3} FastPeriod
-         * @param {number=10} SlowPeriod
-         * @return {number[]}
          */
         function ADOSC(
             High: number[],
@@ -866,22 +712,12 @@ declare global {
          * Average Directional Movement Index (平均趋向指数)
          *
          * ADX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADX(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Average Directional Movement Index (平均趋向指数)
          *
          * ADX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADX(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -889,22 +725,12 @@ declare global {
          * Average Directional Movement Index Rating (评估指数)
          *
          * ADXR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADXR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Average Directional Movement Index Rating (评估指数)
          *
          * ADXR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADXR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -912,12 +738,6 @@ declare global {
          * Absolute Price Oscillator (绝对价格振荡指数)
          *
          * APO(Records[Close],Fast Period = 12,Slow Period = 26,MA Type = 0) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=26} SlowPeriod
-         * @param {number=0} MAType
-         * @return {number[]}
          */
         function APO(
             Records: botvs.Record[] | number[],
@@ -930,21 +750,12 @@ declare global {
          * Aroon (阿隆指标)
          *
          * AROON(Records[High,Low],Time Period = 14) = [Array(outAroonDown),Array(outAroonUp)]
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {[number[], number[]]}
          */
         function AROON(Records: botvs.Record[], TimePeriod: number): [number[], number[]];
         /**
          * Aroon (阿隆指标)
          *
          * AROON(Records[High,Low],Time Period = 14) = [Array(outAroonDown),Array(outAroonUp)]
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {[number[], number[]]}
          */
         function AROON(High: number[], Low: number[], TimePeriod: number): [number[], number[]];
 
@@ -952,21 +763,12 @@ declare global {
          * Aroon Oscillator (阿隆震荡线)
          *
          * AROONOSC(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function AROONOSC(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Aroon Oscillator (阿隆震荡线)
          *
          * AROONOSC(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function AROONOSC(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -974,9 +776,6 @@ declare global {
          * Vector Trigonometric ASin (反正弦函数)
          *
          * ASIN(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function ASIN(Records: botvs.Record[] | number[]): number[];
 
@@ -984,9 +783,6 @@ declare global {
          * Vector Trigonometric ATan (反正切函数)
          *
          * ATAN(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function ATAN(Records: botvs.Record[] | number[]): number[];
 
@@ -994,22 +790,12 @@ declare global {
          * Average True Range (平均真实波幅)
          *
          * ATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ATR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Average True Range (平均真实波幅)
          *
          * ATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ATR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -1017,21 +803,12 @@ declare global {
          * Average Price (平均价格)
          *
          * AVGPRICE(Records[Open,High,Low,Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function AVGPRICE(Records: botvs.Record[]): number[];
         /**
          * Average Price (平均价格)
          *
          * AVGPRICE(Records[Open,High,Low,Close]) = Array(outReal)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function AVGPRICE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1040,13 +817,6 @@ declare global {
          *
          * BBANDS(Records[Close],Time Period = 5,Deviations up = 2,Deviations down = 2,MA Type = 0) =
          * [Array(outRealUpperBand),Array(outRealMiddleBand),Array(outRealLowerBand)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=2} Deviationsup
-         * @param {number=2} Deviationsdown
-         * @param {number=0} MAType
-         * @return {[number[], number[], number[]]}
          */
         function BBANDS(
             Records: botvs.Record[] | number[],
@@ -1060,21 +830,12 @@ declare global {
          * Balance Of Power (均势指标)
          *
          * BOP(Records[Open,High,Low,Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function BOP(Records: botvs.Record[]): number[];
         /**
          * Balance Of Power (均势指标)
          *
          * BOP(Records[Open,High,Low,Close]) = Array(outReal)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function BOP(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1082,22 +843,12 @@ declare global {
          * Commodity Channel Index (顺势指标)
          *
          * CCI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function CCI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Commodity Channel Index (顺势指标)
          *
          * CCI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function CCI(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -1105,21 +856,12 @@ declare global {
          * Two Crows (K线图--两只乌鸦)
          *
          * CDL2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL2CROWS(Records: botvs.Record[]): number[];
         /**
          * Two Crows (K线图--两只乌鸦)
          *
          * CDL2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL2CROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1127,21 +869,12 @@ declare global {
          * Three Black Crows (K线图--3只黑乌鸦)
          *
          * CDL3BLACKCROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3BLACKCROWS(Records: botvs.Record[]): number[];
         /**
          * Three Black Crows (K线图--3只黑乌鸦)
          *
          * CDL3BLACKCROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3BLACKCROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1149,21 +882,12 @@ declare global {
          * Three Inside Up/Down (K线图:3内上下震荡)
          *
          * CDL3INSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3INSIDE(Records: botvs.Record[]): number[];
         /**
          * Three Inside Up/Down (K线图:3内上下震荡)
          *
          * CDL3INSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3INSIDE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1171,21 +895,12 @@ declare global {
          * Three-Line Strike  (K线图:3线震荡)
          *
          * CDL3LINESTRIKE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3LINESTRIKE(Records: botvs.Record[]): number[];
         /**
          * Three-Line Strike  (K线图:3线震荡)
          *
          * CDL3LINESTRIKE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3LINESTRIKE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1193,21 +908,12 @@ declare global {
          * Three Outside Up/Down (K线图:3外下震荡)
          *
          * CDL3OUTSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3OUTSIDE(Records: botvs.Record[]): number[];
         /**
          * Three Outside Up/Down (K线图:3外下震荡)
          *
          * CDL3OUTSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3OUTSIDE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1215,21 +921,12 @@ declare global {
          * Three Stars In The South (K线图:南方三星)
          *
          * CDL3STARSINSOUTH(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3STARSINSOUTH(Records: botvs.Record[]): number[];
         /**
          * Three Stars In The South (K线图:南方三星)
          *
          * CDL3STARSINSOUTH(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3STARSINSOUTH(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1237,21 +934,12 @@ declare global {
          * Three Advancing White Soldiers (K线图:三白兵)
          *
          * CDL3WHITESOLDIERS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3WHITESOLDIERS(Records: botvs.Record[]): number[];
         /**
          * Three Advancing White Soldiers (K线图:三白兵)
          *
          * CDL3WHITESOLDIERS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3WHITESOLDIERS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1259,23 +947,12 @@ declare global {
          * Abandoned Baby (K线图:弃婴)
          *
          * CDLABANDONEDBABY(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLABANDONEDBABY(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Abandoned Baby (K线图:弃婴)
          *
          * CDLABANDONEDBABY(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLABANDONEDBABY(
             Open: number[],
@@ -1289,21 +966,12 @@ declare global {
          * Advance Block (K线图:推进)
          *
          * CDLADVANCEBLOCK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLADVANCEBLOCK(Records: botvs.Record[]): number[];
         /**
          * Advance Block (K线图:推进)
          *
          * CDLADVANCEBLOCK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLADVANCEBLOCK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1311,21 +979,12 @@ declare global {
          * Belt-hold (K线图:带住)
          *
          * CDLBELTHOLD(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLBELTHOLD(Records: botvs.Record[]): number[];
         /**
          * Belt-hold (K线图:带住)
          *
          * CDLBELTHOLD(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLBELTHOLD(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1333,21 +992,12 @@ declare global {
          * Breakaway (K线图:分离)
          *
          * CDLBREAKAWAY(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLBREAKAWAY(Records: botvs.Record[]): number[];
         /**
          * Breakaway (K线图:分离)
          *
          * CDLBREAKAWAY(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLBREAKAWAY(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1355,21 +1005,12 @@ declare global {
          * Closing Marubozu (K线图:收盘光头光脚)
          *
          * CDLCLOSINGMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLCLOSINGMARUBOZU(Records: botvs.Record[]): number[];
         /**
          * Closing Marubozu (K线图:收盘光头光脚)
          *
          * CDLCLOSINGMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLCLOSINGMARUBOZU(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1377,21 +1018,12 @@ declare global {
          * Concealing Baby Swallow (K线图:藏婴吞没形态)
          *
          * CDLCONCEALBABYSWALL(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLCONCEALBABYSWALL(Records: botvs.Record[]): number[];
         /**
          * Concealing Baby Swallow (K线图:藏婴吞没形态)
          *
          * CDLCONCEALBABYSWALL(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLCONCEALBABYSWALL(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1399,21 +1031,12 @@ declare global {
          * Counterattack (K线图:反击)
          *
          * CDLCOUNTERATTACK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLCOUNTERATTACK(Records: botvs.Record[]): number[];
         /**
          * Counterattack (K线图:反击)
          *
          * CDLCOUNTERATTACK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLCOUNTERATTACK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1421,23 +1044,12 @@ declare global {
          * Dark Cloud Cover (K线图:乌云盖)
          *
          * CDLDARKCLOUDCOVER(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLDARKCLOUDCOVER(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Dark Cloud Cover (K线图:乌云盖)
          *
          * CDLDARKCLOUDCOVER(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLDARKCLOUDCOVER(
             Open: number[],
@@ -1451,21 +1063,12 @@ declare global {
          * Doji (K线图:十字星 )
          *
          * CDLDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLDOJI(Records: botvs.Record[]): number[];
         /**
          * Doji (K线图:十字星 )
          *
          * CDLDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1473,21 +1076,12 @@ declare global {
          * Doji Star (K线图:十字星)
          *
          * CDLDOJISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLDOJISTAR(Records: botvs.Record[]): number[];
         /**
          * Doji Star (K线图:十字星)
          *
          * CDLDOJISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLDOJISTAR(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1495,21 +1089,12 @@ declare global {
          * Dragonfly Doji (K线图:蜻蜓十字星)
          *
          * CDLDRAGONFLYDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLDRAGONFLYDOJI(Records: botvs.Record[]): number[];
         /**
          * Dragonfly Doji (K线图:蜻蜓十字星)
          *
          * CDLDRAGONFLYDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLDRAGONFLYDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1517,21 +1102,12 @@ declare global {
          * Engulfing Pattern (K线图:吞没)
          *
          * CDLENGULFING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLENGULFING(Records: botvs.Record[]): number[];
         /**
          * Engulfing Pattern (K线图:吞没)
          *
          * CDLENGULFING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLENGULFING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1539,23 +1115,12 @@ declare global {
          * Evening Doji Star (K线图:黄昏十字星)
          *
          * CDLEVENINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGDOJISTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Evening Doji Star (K线图:黄昏十字星)
          *
          * CDLEVENINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGDOJISTAR(
             Open: number[],
@@ -1569,23 +1134,12 @@ declare global {
          * Evening Star (K线图:黄昏之星)
          *
          * CDLEVENINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGSTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Evening Star (K线图:黄昏之星)
          *
          * CDLEVENINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGSTAR(
             Open: number[],
@@ -1599,21 +1153,12 @@ declare global {
          * Up/Down-gap side-by-side white lines (K线图:上/下间隙并排的白色线条)
          *
          * CDLGAPSIDESIDEWHITE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLGAPSIDESIDEWHITE(Records: botvs.Record[]): number[];
         /**
          * Up/Down-gap side-by-side white lines (K线图:上/下间隙并排的白色线条)
          *
          * CDLGAPSIDESIDEWHITE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLGAPSIDESIDEWHITE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1621,21 +1166,12 @@ declare global {
          * Gravestone Doji (K线图:墓碑十字线)
          *
          * CDLGRAVESTONEDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLGRAVESTONEDOJI(Records: botvs.Record[]): number[];
         /**
          * Gravestone Doji (K线图:墓碑十字线)
          *
          * CDLGRAVESTONEDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLGRAVESTONEDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1643,21 +1179,12 @@ declare global {
          * Hammer (K线图:锤)
          *
          * CDLHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHAMMER(Records: botvs.Record[]): number[];
         /**
          * Hammer (K线图:锤)
          *
          * CDLHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHAMMER(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1665,21 +1192,12 @@ declare global {
          * Hanging Man (K线图:吊人)
          *
          * CDLHANGINGMAN(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHANGINGMAN(Records: botvs.Record[]): number[];
         /**
          * Hanging Man (K线图:吊人)
          *
          * CDLHANGINGMAN(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHANGINGMAN(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1687,21 +1205,12 @@ declare global {
          * Harami Pattern (K线图:阴阳线)
          *
          * CDLHARAMI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHARAMI(Records: botvs.Record[]): number[];
         /**
          * Harami Pattern (K线图:阴阳线)
          *
          * CDLHARAMI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHARAMI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1709,21 +1218,12 @@ declare global {
          * Harami Cross Pattern (K线图:交叉阴阳线)
          *
          * CDLHARAMICROSS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHARAMICROSS(Records: botvs.Record[]): number[];
         /**
          * Harami Cross Pattern (K线图:交叉阴阳线)
          *
          * CDLHARAMICROSS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHARAMICROSS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1731,21 +1231,12 @@ declare global {
          * High-Wave Candle (K线图:长脚十字线 )
          *
          * CDLHIGHWAVE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHIGHWAVE(Records: botvs.Record[]): number[];
         /**
          * High-Wave Candle (K线图:长脚十字线 )
          *
          * CDLHIGHWAVE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHIGHWAVE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1753,21 +1244,12 @@ declare global {
          * Hikkake Pattern (K线图:陷阱)
          *
          * CDLHIKKAKE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHIKKAKE(Records: botvs.Record[]): number[];
         /**
          * Hikkake Pattern (K线图:陷阱)
          *
          * CDLHIKKAKE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHIKKAKE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1775,21 +1257,12 @@ declare global {
          * Modified Hikkake Pattern (K线图:改良的陷阱)
          *
          * CDLHIKKAKEMOD(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHIKKAKEMOD(Records: botvs.Record[]): number[];
         /**
          * Modified Hikkake Pattern (K线图:改良的陷阱)
          *
          * CDLHIKKAKEMOD(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHIKKAKEMOD(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1797,21 +1270,12 @@ declare global {
          * Homing Pigeon (K线图:信鸽)
          *
          * CDLHOMINGPIGEON(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHOMINGPIGEON(Records: botvs.Record[]): number[];
         /**
          * Homing Pigeon (K线图:信鸽)
          *
          * CDLHOMINGPIGEON(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHOMINGPIGEON(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1819,21 +1283,12 @@ declare global {
          * Identical Three Crows (K线图:相同的三只乌鸦)
          *
          * CDLIDENTICAL3CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLIDENTICAL3CROWS(Records: botvs.Record[]): number[];
         /**
          * Identical Three Crows (K线图:相同的三只乌鸦)
          *
          * CDLIDENTICAL3CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLIDENTICAL3CROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1841,21 +1296,12 @@ declare global {
          * In-Neck Pattern (K线图:颈纹)
          *
          * CDLINNECK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLINNECK(Records: botvs.Record[]): number[];
         /**
          * In-Neck Pattern (K线图:颈纹)
          *
          * CDLINNECK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLINNECK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1863,21 +1309,12 @@ declare global {
          * Inverted Hammer (K线图:倒锤)
          *
          * CDLINVERTEDHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLINVERTEDHAMMER(Records: botvs.Record[]): number[];
         /**
          * Inverted Hammer (K线图:倒锤)
          *
          * CDLINVERTEDHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLINVERTEDHAMMER(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1885,21 +1322,12 @@ declare global {
          * Kicking (K线图:踢)
          *
          * CDLKICKING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLKICKING(Records: botvs.Record[]): number[];
         /**
          * Kicking (K线图:踢)
          *
          * CDLKICKING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLKICKING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1907,21 +1335,12 @@ declare global {
          * Kicking - bull/bear determined by the longer marubozu (K线图:踢牛/踢熊)
          *
          * CDLKICKINGBYLENGTH(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLKICKINGBYLENGTH(Records: botvs.Record[]): number[];
         /**
          * Kicking - bull/bear determined by the longer marubozu (K线图:踢牛/踢熊)
          *
          * CDLKICKINGBYLENGTH(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLKICKINGBYLENGTH(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1929,21 +1348,12 @@ declare global {
          * Ladder Bottom (K线图:梯底)
          *
          * CDLLADDERBOTTOM(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLLADDERBOTTOM(Records: botvs.Record[]): number[];
         /**
          * Ladder Bottom (K线图:梯底)
          *
          * CDLLADDERBOTTOM(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLLADDERBOTTOM(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1951,21 +1361,12 @@ declare global {
          * Long Legged Doji (K线图:长腿十字线)
          *
          * CDLLONGLEGGEDDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLLONGLEGGEDDOJI(Records: botvs.Record[]): number[];
         /**
          * Long Legged Doji (K线图:长腿十字线)
          *
          * CDLLONGLEGGEDDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLLONGLEGGEDDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1973,21 +1374,12 @@ declare global {
          * Long Line Candle (K线图:长线)
          *
          * CDLLONGLINE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLLONGLINE(Records: botvs.Record[]): number[];
         /**
          * Long Line Candle (K线图:长线)
          *
          * CDLLONGLINE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLLONGLINE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1995,21 +1387,12 @@ declare global {
          * Marubozu (K线图:光头光脚 )
          *
          * CDLMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLMARUBOZU(Records: botvs.Record[]): number[];
         /**
          * Marubozu (K线图:光头光脚 )
          *
          * CDLMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLMARUBOZU(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2017,21 +1400,12 @@ declare global {
          * Matching Low (K线图:匹配低)
          *
          * CDLMATCHINGLOW(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLMATCHINGLOW(Records: botvs.Record[]): number[];
         /**
          * Matching Low (K线图:匹配低)
          *
          * CDLMATCHINGLOW(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLMATCHINGLOW(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2039,23 +1413,12 @@ declare global {
          * Mat Hold (K线图:垫住)
          *
          * CDLMATHOLD(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLMATHOLD(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Mat Hold (K线图:垫住)
          *
          * CDLMATHOLD(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLMATHOLD(
             Open: number[],
@@ -2069,23 +1432,12 @@ declare global {
          * Morning Doji Star (K线图:早晨十字星)
          *
          * CDLMORNINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGDOJISTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Morning Doji Star (K线图:早晨十字星)
          *
          * CDLMORNINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGDOJISTAR(
             Open: number[],
@@ -2099,23 +1451,12 @@ declare global {
          * Morning Star (K线图:晨星)
          *
          * CDLMORNINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGSTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
          * Morning Star (K线图:晨星)
          *
          * CDLMORNINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGSTAR(
             Open: number[],
@@ -2129,21 +1470,12 @@ declare global {
          * On-Neck Pattern (K线图:颈型)
          *
          * CDLONNECK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLONNECK(Records: botvs.Record[]): number[];
         /**
          * On-Neck Pattern (K线图:颈型)
          *
          * CDLONNECK(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLONNECK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2151,21 +1483,12 @@ declare global {
          * Piercing Pattern (K线图:穿孔模式)
          *
          * CDLPIERCING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLPIERCING(Records: botvs.Record[]): number[];
         /**
          * Piercing Pattern (K线图:穿孔模式)
          *
          * CDLPIERCING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLPIERCING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2173,21 +1496,12 @@ declare global {
          * Rickshaw Man (K线图:车夫)
          *
          * CDLRICKSHAWMAN(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLRICKSHAWMAN(Records: botvs.Record[]): number[];
         /**
          * Rickshaw Man (K线图:车夫)
          *
          * CDLRICKSHAWMAN(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLRICKSHAWMAN(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2195,21 +1509,12 @@ declare global {
          * Rising/Falling Three Methods (K线图:上升/下降三法)
          *
          * CDLRISEFALL3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLRISEFALL3METHODS(Records: botvs.Record[]): number[];
         /**
          * Rising/Falling Three Methods (K线图:上升/下降三法)
          *
          * CDLRISEFALL3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLRISEFALL3METHODS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2217,21 +1522,12 @@ declare global {
          * Separating Lines (K线图:分割线)
          *
          * CDLSEPARATINGLINES(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSEPARATINGLINES(Records: botvs.Record[]): number[];
         /**
          * Separating Lines (K线图:分割线)
          *
          * CDLSEPARATINGLINES(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSEPARATINGLINES(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2239,21 +1535,12 @@ declare global {
          * Shooting Star (K线图:流星)
          *
          * CDLSHOOTINGSTAR(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSHOOTINGSTAR(Records: botvs.Record[]): number[];
         /**
          * Shooting Star (K线图:流星)
          *
          * CDLSHOOTINGSTAR(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSHOOTINGSTAR(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2261,21 +1548,12 @@ declare global {
          * Short Line Candle (K线图:短线)
          *
          * CDLSHORTLINE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSHORTLINE(Records: botvs.Record[]): number[];
         /**
          * Short Line Candle (K线图:短线)
          *
          * CDLSHORTLINE(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSHORTLINE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2283,21 +1561,12 @@ declare global {
          * Spinning Top (K线图:陀螺)
          *
          * CDLSPINNINGTOP(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSPINNINGTOP(Records: botvs.Record[]): number[];
         /**
          * Spinning Top (K线图:陀螺)
          *
          * CDLSPINNINGTOP(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSPINNINGTOP(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2305,21 +1574,12 @@ declare global {
          * Stalled Pattern (K线图:停滞模式)
          *
          * CDLSTALLEDPATTERN(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSTALLEDPATTERN(Records: botvs.Record[]): number[];
         /**
          * Stalled Pattern (K线图:停滞模式)
          *
          * CDLSTALLEDPATTERN(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSTALLEDPATTERN(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2327,21 +1587,12 @@ declare global {
          * Stick Sandwich (K线图:棍子三明治)
          *
          * CDLSTICKSANDWICH(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSTICKSANDWICH(Records: botvs.Record[]): number[];
         /**
          * Stick Sandwich (K线图:棍子三明治)
          *
          * CDLSTICKSANDWICH(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSTICKSANDWICH(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2349,21 +1600,12 @@ declare global {
          * Takuri (Dragonfly Doji with very long lower shadow) (K线图:托里)
          *
          * CDLTAKURI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTAKURI(Records: botvs.Record[]): number[];
         /**
          * Takuri (Dragonfly Doji with very long lower shadow) (K线图:托里)
          *
          * CDLTAKURI(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTAKURI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2371,21 +1613,12 @@ declare global {
          * Tasuki Gap (K线图:翼隙)
          *
          * CDLTASUKIGAP(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTASUKIGAP(Records: botvs.Record[]): number[];
         /**
          * Tasuki Gap (K线图:翼隙)
          *
          * CDLTASUKIGAP(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTASUKIGAP(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2393,21 +1626,12 @@ declare global {
          * Thrusting Pattern (K线图:推模式)
          *
          * CDLTHRUSTING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTHRUSTING(Records: botvs.Record[]): number[];
         /**
          * Thrusting Pattern (K线图:推模式)
          *
          * CDLTHRUSTING(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTHRUSTING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2415,21 +1639,12 @@ declare global {
          * Tristar Pattern (K线图:三星模式)
          *
          * CDLTRISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTRISTAR(Records: botvs.Record[]): number[];
         /**
          * Tristar Pattern (K线图:三星模式)
          *
          * CDLTRISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTRISTAR(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2437,21 +1652,12 @@ declare global {
          * Unique 3 River (K线图:独特的3河)
          *
          * CDLUNIQUE3RIVER(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLUNIQUE3RIVER(Records: botvs.Record[]): number[];
         /**
          * Unique 3 River (K线图:独特的3河)
          *
          * CDLUNIQUE3RIVER(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLUNIQUE3RIVER(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2459,21 +1665,12 @@ declare global {
          * Upside Gap Two Crows (K线图:双飞乌鸦)
          *
          * CDLUPSIDEGAP2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLUPSIDEGAP2CROWS(Records: botvs.Record[]): number[];
         /**
          * Upside Gap Two Crows (K线图:双飞乌鸦)
          *
          * CDLUPSIDEGAP2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLUPSIDEGAP2CROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2481,21 +1678,12 @@ declare global {
          * Upside/Downside Gap Three Methods (K线图:上行/下行缺口三方法)
          *
          * CDLXSIDEGAP3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLXSIDEGAP3METHODS(Records: botvs.Record[]): number[];
         /**
          * Upside/Downside Gap Three Methods (K线图:上行/下行缺口三方法)
          *
          * CDLXSIDEGAP3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
-         *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLXSIDEGAP3METHODS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2503,9 +1691,6 @@ declare global {
          * Vector Ceil (取整函数)
          *
          * CEIL(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function CEIL(Records: botvs.Record[] | number[]): number[];
 
@@ -2513,10 +1698,6 @@ declare global {
          * Chande Momentum Oscillator (钱德动量摆动指标)
          *
          * CMO(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function CMO(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2524,9 +1705,6 @@ declare global {
          * Vector Trigonometric Cos (余弦函数)
          *
          * COS(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function COS(Records: botvs.Record[] | number[]): number[];
 
@@ -2534,9 +1712,6 @@ declare global {
          * Vector Trigonometric Cosh (双曲余弦值)
          *
          * COSH(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function COSH(Records: botvs.Record[] | number[]): number[];
 
@@ -2544,10 +1719,6 @@ declare global {
          * Double Exponential Moving Average (双指数移动平均线)
          *
          * DEMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function DEMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2555,22 +1726,12 @@ declare global {
          * Directional Movement Index (动向指数)
          *
          * DX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function DX(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Directional Movement Index (动向指数)
          *
          * DX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function DX(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -2578,10 +1739,6 @@ declare global {
          * Exponential Moving Average (指数移动平均线)
          *
          * EMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function EMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2589,9 +1746,6 @@ declare global {
          * Vector Arithmetic Exp (指数函数)
          *
          * EXP(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function EXP(Records: botvs.Record[] | number[]): number[];
 
@@ -2599,9 +1753,6 @@ declare global {
          * Vector Floor (向下取整)
          *
          * FLOOR(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function FLOOR(Records: botvs.Record[] | number[]): number[];
 
@@ -2609,9 +1760,6 @@ declare global {
          * Hilbert Transform - Dominant Cycle Period (希尔伯特变换, 主周期)
          *
          * HT_DCPERIOD(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_DCPERIOD(Records: botvs.Record[] | number[]): number[];
 
@@ -2619,9 +1767,6 @@ declare global {
          * Hilbert Transform - Dominant Cycle Phase (希尔伯特变换,主阶段)
          *
          * HT_DCPHASE(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_DCPHASE(Records: botvs.Record[] | number[]): number[];
 
@@ -2629,9 +1774,6 @@ declare global {
          * Hilbert Transform - Phasor Components (希尔伯特变换,相成分)
          *
          * HT_PHASOR(Records[Close]) = [Array(outInPhase),Array(outQuadrature)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {[number[], number[]]}
          */
         function HT_PHASOR(Records: botvs.Record[] | number[]): [number[], number[]];
 
@@ -2639,9 +1781,6 @@ declare global {
          * Hilbert Transform - SineWave (希尔伯特变换,正弦波)
          *
          * HT_SINE(Records[Close]) = [Array(outSine),Array(outLeadSine)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {[number[], number[]]}
          */
         function HT_SINE(Records: botvs.Record[] | number[]): [number[], number[]];
 
@@ -2649,9 +1788,6 @@ declare global {
          * Hilbert Transform - Instantaneous Trendline (希尔伯特变换,瞬时趋势)
          *
          * HT_TRENDLINE(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_TRENDLINE(Records: botvs.Record[] | number[]): number[];
 
@@ -2659,9 +1795,6 @@ declare global {
          * Hilbert Transform - Trend vs Cycle Mode (希尔伯特变换-趋势与周期模式)
          *
          * HT_TRENDMODE(Records[Close]) = Array(outInteger)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_TRENDMODE(Records: botvs.Record[] | number[]): number[];
 
@@ -2669,10 +1802,6 @@ declare global {
          * Kaufman Adaptive Moving Average (适应性移动平均线)
          *
          * KAMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function KAMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2680,10 +1809,6 @@ declare global {
          * Linear Regression (线性回归)
          *
          * LINEARREG(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2691,10 +1816,6 @@ declare global {
          * Linear Regression Angle (线性回归的角度)
          *
          * LINEARREG_ANGLE(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG_ANGLE(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2702,10 +1823,6 @@ declare global {
          * Linear Regression Intercept (线性回归截距)
          *
          * LINEARREG_INTERCEPT(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG_INTERCEPT(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2713,10 +1830,6 @@ declare global {
          * Linear Regression Slope (线性回归斜率)
          *
          * LINEARREG_SLOPE(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG_SLOPE(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2724,9 +1837,6 @@ declare global {
          * Vector Log Natural (自然对数)
          *
          * LN(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function LN(Records: botvs.Record[] | number[]): number[];
 
@@ -2734,9 +1844,6 @@ declare global {
          * Vector Log10 (对数函数)
          *
          * LOG10(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function LOG10(Records: botvs.Record[] | number[]): number[];
 
@@ -2744,11 +1851,6 @@ declare global {
          * Moving average (移动平均线)
          *
          * MA(Records[Close],Time Period = 30,MA Type = 0) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @param {number=0} MAType
-         * @return {number[]}
          */
         function MA(Records: botvs.Record[] | number[], TimePeriod: number, MAType: number): number[];
 
@@ -2757,12 +1859,6 @@ declare global {
          *
          * MACD(Records[Close],Fast Period = 12,Slow Period = 26,Signal Period = 9) =
          * [Array(outMACD),Array(outMACDSignal),Array(outMACDHist)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=26} SlowPeriod
-         * @param {number=9} SignalPeriod
-         * @return {[number[], number[], number[]]}
          */
         function MACD(
             Records: botvs.Record[] | number[],
@@ -2777,15 +1873,6 @@ declare global {
          * MACDEXT(Records[Close],Fast Period = 12,Fast MA = 0,Slow Period = 26,Slow MA = 0,Signal Period = 9,Signal MA
          * =
          * 0) = [Array(outMACD),Array(outMACDSignal),Array(outMACDHist)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=0} FastMA
-         * @param {number=26} SlowPeriod
-         * @param {number=0} SlowMA
-         * @param {number=9} SignalPeriod
-         * @param {number=0} SignalMA
-         * @return {[number[], number[], number[]]}
          */
         function MACDEXT(
             Records: botvs.Record[] | number[],
@@ -2801,10 +1888,6 @@ declare global {
          * Moving Average Convergence/Divergence Fix 12/26 (移动平均收敛/发散修复12/26)
          *
          * MACDFIX(Records[Close],Signal Period = 9) = [Array(outMACD),Array(outMACDSignal),Array(outMACDHist)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=9} SignalPeriod
-         * @return {[number[], number[], number[]]}
          */
         function MACDFIX(Records: botvs.Record[] | number[], SignalPeriod: number): [number[], number[], number[]];
 
@@ -2812,11 +1895,6 @@ declare global {
          * MESA Adaptive Moving Average (MESA 移动平均线)
          *
          * MAMA(Records[Close],Fast Limit = 0.5,Slow Limit = 0.05) = [Array(outMAMA),Array(outFAMA)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=0.5} FastLimit
-         * @param {number=0.05} SlowLimit
-         * @return {[number[], number[]]}
          */
         function MAMA(Records: botvs.Record[] | number[], FastLimit: number, SlowLimit: number): [number[], number[]];
 
@@ -2824,10 +1902,6 @@ declare global {
          * Highest value over a specified period (最大值)
          *
          * MAX(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MAX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2835,10 +1909,6 @@ declare global {
          * Index of highest value over a specified period (最大值索引)
          *
          * MAXINDEX(Records[Close],Time Period = 30) = Array(outInteger)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MAXINDEX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2846,19 +1916,12 @@ declare global {
          * Median Price (中位数价格)
          *
          * MEDPRICE(Records[High,Low]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function MEDPRICE(Records: botvs.Record[]): number[];
         /**
          * Median Price (中位数价格)
          *
          * MEDPRICE(Records[High,Low]) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @return {number[]}
          */
         function MEDPRICE(High: number[], Low: number[]): number[];
 
@@ -2866,23 +1929,12 @@ declare global {
          * Money Flow Index (货币流量指数)
          *
          * MFI(Records[High,Low,Close,Volume],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MFI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Money Flow Index (货币流量指数)
          *
          * MFI(Records[High,Low,Close,Volume],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MFI(High: number[], Low: number[], Close: number[], Volume: number[], TimePeriod: number): number[];
 
@@ -2890,10 +1942,6 @@ declare global {
          * MidPoint over period (中点)
          *
          * MIDPOINT(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MIDPOINT(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2901,21 +1949,12 @@ declare global {
          * Midpoint Price over period (中点价格)
          *
          * MIDPRICE(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MIDPRICE(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Midpoint Price over period (中点价格)
          *
          * MIDPRICE(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MIDPRICE(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -2923,10 +1962,6 @@ declare global {
          * Lowest value over a specified period (最小值)
          *
          * MIN(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MIN(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2934,10 +1969,6 @@ declare global {
          * Index of lowest value over a specified period (最小值索引)
          *
          * MININDEX(Records[Close],Time Period = 30) = Array(outInteger)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MININDEX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2945,10 +1976,6 @@ declare global {
          * Lowest and highest values over a specified period (最小最大值)
          *
          * MINMAX(Records[Close],Time Period = 30) = [Array(outMin),Array(outMax)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {[number[], number[]]}
          */
         function MINMAX(Records: botvs.Record[] | number[], TimePeriod: number): [number[], number[]];
 
@@ -2956,10 +1983,6 @@ declare global {
          * Indexes of lowest and highest values over a specified period (最小最大值索引)
          *
          * MINMAXINDEX(Records[Close],Time Period = 30) = [Array(outMinIdx),Array(outMaxIdx)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {[number[], number[]]}
          */
         function MINMAXINDEX(Records: botvs.Record[] | number[], TimePeriod: number): [number[], number[]];
 
@@ -2967,22 +1990,12 @@ declare global {
          * Minus Directional Indicator (负向指标)
          *
          * MINUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Minus Directional Indicator (负向指标)
          *
          * MINUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DI(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -2990,21 +2003,12 @@ declare global {
          * Minus Directional Movement (负向运动)
          *
          * MINUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DM(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Minus Directional Movement (负向运动)
          *
          * MINUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DM(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -3012,10 +2016,6 @@ declare global {
          * Momentum (动量)
          *
          * MOM(Records[Close],Time Period = 10) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function MOM(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3023,22 +2023,12 @@ declare global {
          * Normalized Average True Range (归一化平均值范围)
          *
          * NATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function NATR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Normalized Average True Range (归一化平均值范围)
          *
          * NATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function NATR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -3046,9 +2036,6 @@ declare global {
          * On Balance Volume (能量潮)
          *
          * OBV(Records[Close],Records[Volume]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function OBV(Records: botvs.Record[]): number[];
 
@@ -3056,10 +2043,6 @@ declare global {
          * On Balance Volume (能量潮)
          *
          * OBV(Records[Close],Records[Volume]) = Array(outReal)
-         *
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @return {number[]}
          */
         function OBV(Close: number[], Volume: number[]): number[];
 
@@ -3067,22 +2050,12 @@ declare global {
          * Plus Directional Indicator (更向指示器)
          *
          * PLUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Plus Directional Indicator (更向指示器)
          *
          * PLUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DI(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -3090,21 +2063,12 @@ declare global {
          * Plus Directional Movement (定向运动)
          *
          * PLUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DM(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Plus Directional Movement (定向运动)
          *
          * PLUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DM(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -3112,12 +2076,6 @@ declare global {
          * Percentage Price Oscillator (价格振荡百分比)
          *
          * PPO(Records[Close],Fast Period = 12,Slow Period = 26,MA Type = 0) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=26} SlowPeriod
-         * @param {number=0} MAType
-         * @return {number[]}
          */
         function PPO(
             Records: botvs.Record[] | number[],
@@ -3130,10 +2088,6 @@ declare global {
          * Rate of change : ((price/prevPrice)-1)*100 (变动率指标)
          *
          * ROC(Records[Close],Time Period = 10) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROC(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3141,10 +2095,6 @@ declare global {
          * Rate of change Percentage: (price-prevPrice)/prevPrice (价格变化率)
          *
          * ROCP(Records[Close],Time Period = 10) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROCP(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3152,10 +2102,6 @@ declare global {
          * Rate of change ratio: (price/prevPrice) (价格变化率)
          *
          * ROCR(Records[Close],Time Period = 10) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROCR(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3163,10 +2109,6 @@ declare global {
          * Rate of change ratio 100 scale: (price/prevPrice)*100 (价格变化率)
          *
          * ROCR100(Records[Close],Time Period = 10) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROCR100(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3174,10 +2116,6 @@ declare global {
          * Relative Strength Index (相对强弱指标)
          *
          * RSI(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function RSI(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3185,23 +2123,12 @@ declare global {
          * Parabolic SAR (抛物线转向)
          *
          * SAR(Records[High,Low],Acceleration Factor = 0.02,AF Maximum = 0.2) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.02} AccelerationFactor
-         * @param {number=0.2} AFMaximum
-         * @return {number[]}
          */
         function SAR(Records: botvs.Record[], AccelerationFactor: number, AFMaximum: number): number[];
         /**
          * Parabolic SAR (抛物线转向)
          *
          * SAR(Records[High,Low],Acceleration Factor = 0.02,AF Maximum = 0.2) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=0.02} AccelerationFactor
-         * @param {number=0.2} AFMaximum
-         * @return {number[]}
          */
         function SAR(High: number[], Low: number[], AccelerationFactor: number, AFMaximum: number): number[];
 
@@ -3211,17 +2138,6 @@ declare global {
          * SAREXT(Records[High,Low],Start Value = 0,Offset on Reverse = 0,AF Init Long = 0.02,AF Long = 0.02,AF Max
          * Long =
          * 0.2,AF Init Short = 0.02,AF Short = 0.02,AF Max Short = 0.2) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=0} StartValue
-         * @param {number=0} OffsetonReverse
-         * @param {number=0.02} AFInitLong
-         * @param {number=0.02} AFLong
-         * @param {number=0.2} AFMaxLong
-         * @param {number=0.02} AFInitShort
-         * @param {number=0.02} AFShort
-         * @param {number=0.2} AFMaxShort
-         * @return {number[]}
          */
         function SAREXT(
             Records: botvs.Record[],
@@ -3240,18 +2156,6 @@ declare global {
          * SAREXT(Records[High,Low],Start Value = 0,Offset on Reverse = 0,AF Init Long = 0.02,AF Long = 0.02,AF Max
          * Long =
          * 0.2,AF Init Short = 0.02,AF Short = 0.02,AF Max Short = 0.2) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=0} StartValue
-         * @param {number=0} OffsetonReverse
-         * @param {number=0.02} AFInitLong
-         * @param {number=0.02} AFLong
-         * @param {number=0.2} AFMaxLong
-         * @param {number=0.02} AFInitShort
-         * @param {number=0.02} AFShort
-         * @param {number=0.2} AFMaxShort
-         * @return {number[]}
          */
         function SAREXT(
             High: number[],
@@ -3270,9 +2174,6 @@ declare global {
          * Vector Trigonometric Sin (正弦值)
          *
          * SIN(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function SIN(Records: botvs.Record[] | number[]): number[];
 
@@ -3280,9 +2181,6 @@ declare global {
          * Vector Trigonometric Sinh (双曲正弦函数)
          *
          * SINH(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function SINH(Records: botvs.Record[] | number[]): number[];
 
@@ -3290,10 +2188,6 @@ declare global {
          * Simple Moving Average (简单移动平均)
          *
          * SMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function SMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3301,9 +2195,6 @@ declare global {
          * Vector Square Root (平方根)
          *
          * SQRT(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function SQRT(Records: botvs.Record[] | number[]): number[];
 
@@ -3311,11 +2202,6 @@ declare global {
          * Standard Deviation (标准偏差)
          *
          * STDDEV(Records[Close],Time Period = 5,Deviations = 1) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=1} Deviations
-         * @return {number[]}
          */
         function STDDEV(Records: botvs.Record[] | number[], TimePeriod: number, Deviations: number): number[];
 
@@ -3325,14 +2211,6 @@ declare global {
          * STOCH(Records[High,Low,Close],Fast-K Period = 5,Slow-K Period = 3,Slow-K MA = 0,Slow-D Period = 3,Slow-D MA
          * = 0)
          * = [Array(outSlowK),Array(outSlowD)]
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Slow_KPeriod
-         * @param {number=0} Slow_KMA
-         * @param {number=3} Slow_DPeriod
-         * @param {number=0} Slow_DMA
-         * @return {[number[], number[]]}
          */
         function STOCH(
             Records: botvs.Record[],
@@ -3348,16 +2226,6 @@ declare global {
          * STOCH(Records[High,Low,Close],Fast-K Period = 5,Slow-K Period = 3,Slow-K MA = 0,Slow-D Period = 3,Slow-D MA
          * = 0)
          * = [Array(outSlowK),Array(outSlowD)]
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Slow_KPeriod
-         * @param {number=0} Slow_KMA
-         * @param {number=3} Slow_DPeriod
-         * @param {number=0} Slow_DMA
-         * @return {[number[], number[]]}
          */
         function STOCH(
             High: number[],
@@ -3375,12 +2243,6 @@ declare global {
          *
          * STOCHF(Records[High,Low,Close],Fast-K Period = 5,Fast-D Period = 3,Fast-D MA = 0) =
          * [Array(outFastK),Array(outFastD)]
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Fast_DPeriod
-         * @param {number=0} Fast_DMA
-         * @return {[number[], number[]]}
          */
         function STOCHF(
             Records: botvs.Record[],
@@ -3393,14 +2255,6 @@ declare global {
          *
          * STOCHF(Records[High,Low,Close],Fast-K Period = 5,Fast-D Period = 3,Fast-D MA = 0) =
          * [Array(outFastK),Array(outFastD)]
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Fast_DPeriod
-         * @param {number=0} Fast_DMA
-         * @return {[number[], number[]]}
          */
         function STOCHF(
             High: number[],
@@ -3416,13 +2270,6 @@ declare global {
          *
          * STOCHRSI(Records[Close],Time Period = 14,Fast-K Period = 5,Fast-D Period = 3,Fast-D MA = 0) =
          * [Array(outFastK),Array(outFastD)]
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Fast_DPeriod
-         * @param {number=0} Fast_DMA
-         * @return {[number[], number[]]}
          */
         function STOCHRSI(
             Records: botvs.Record[] | number[],
@@ -3436,10 +2283,6 @@ declare global {
          * Summation (求和)
          *
          * SUM(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function SUM(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3447,11 +2290,6 @@ declare global {
          * Triple Exponential Moving Average (T3) (三指数移动平均)
          *
          * T3(Records[Close],Time Period = 5,Volume Factor = 0.7) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=0.7} VolumeFactor
-         * @return {number[]}
          */
         function T3(Records: botvs.Record[] | number[], TimePeriod: number, VolumeFactor: number): number[];
 
@@ -3459,9 +2297,6 @@ declare global {
          * Vector Trigonometric Tan (正切)
          *
          * TAN(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function TAN(Records: botvs.Record[] | number[]): number[];
 
@@ -3469,9 +2304,6 @@ declare global {
          * Vector Trigonometric Tanh (双曲正切函数)
          *
          * TANH(Records[Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function TANH(Records: botvs.Record[] | number[]): number[];
 
@@ -3479,10 +2311,6 @@ declare global {
          * Triple Exponential Moving Average (三指数移动平均)
          *
          * TEMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function TEMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3490,20 +2318,12 @@ declare global {
          * True Range (真实范围)
          *
          * TRANGE(Records[High,Low,Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function TRANGE(Records: botvs.Record[]): number[];
         /**
          * True Range (真实范围)
          *
          * TRANGE(Records[High,Low,Close]) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function TRANGE(High: number[], Low: number[], Close: number[]): number[];
 
@@ -3511,10 +2331,6 @@ declare global {
          * Triangular Moving Average (三指数移动平均)
          *
          * TRIMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function TRIMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3522,10 +2338,6 @@ declare global {
          * 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA (三重指数平滑平均线)
          *
          * TRIX(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function TRIX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3533,10 +2345,6 @@ declare global {
          * Time Series Forecast (时间序列预测)
          *
          * TSF(Records[Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function TSF(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3544,20 +2352,12 @@ declare global {
          * Typical Price (典型价格)
          *
          * TYPPRICE(Records[High,Low,Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function TYPPRICE(Records: botvs.Record[]): number[];
         /**
          * Typical Price (典型价格)
          *
          * TYPPRICE(Records[High,Low,Close]) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function TYPPRICE(High: number[], Low: number[], Close: number[]): number[];
 
@@ -3565,12 +2365,6 @@ declare global {
          * Ultimate Oscillator (极限振子)
          *
          * ULTOSC(Records[High,Low,Close],First Period = 7,Second Period = 14,Third Period = 28) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=7} FirstPeriod
-         * @param {number=14} SecondPeriod
-         * @param {number=28} ThirdPeriod
-         * @return {number[]}
          */
         function ULTOSC(
             Records: botvs.Record[],
@@ -3582,14 +2376,6 @@ declare global {
          * Ultimate Oscillator (极限振子)
          *
          * ULTOSC(Records[High,Low,Close],First Period = 7,Second Period = 14,Third Period = 28) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=7} FirstPeriod
-         * @param {number=14} SecondPeriod
-         * @param {number=28} ThirdPeriod
-         * @return {number[]}
          */
         function ULTOSC(
             High: number[],
@@ -3604,11 +2390,6 @@ declare global {
          * Variance (变量定义)
          *
          * VAR(Records[Close],Time Period = 5,Deviations = 1) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=1} Deviations
-         * @return {number[]}
          */
         function VAR(Records: botvs.Record[] | number[], TimePeriod: number, Deviations: number): number[];
 
@@ -3616,20 +2397,12 @@ declare global {
          * Weighted Close Price (加权收盘价)
          *
          * WCLPRICE(Records[High,Low,Close]) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function WCLPRICE(Records: botvs.Record[]): number[];
         /**
          * Weighted Close Price (加权收盘价)
          *
          * WCLPRICE(Records[High,Low,Close]) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function WCLPRICE(High: number[], Low: number[], Close: number[]): number[];
 
@@ -3637,22 +2410,12 @@ declare global {
          * Williams' %R (威廉指标)
          *
          * WILLR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function WILLR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
          * Williams' %R (威廉指标)
          *
          * WILLR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
-         *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function WILLR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -3660,10 +2423,6 @@ declare global {
          * Weighted Moving Average (加权移动平均)
          *
          * WMA(Records[Close],Time Period = 30) = Array(outReal)
-         *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function WMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
     }
@@ -3779,8 +2538,6 @@ declare global {
      * def main():
      * plt.plot([3,6,2,4,7,1])
      * Log(plt)
-     *
-     * @param {string} arg
      */
     function Log(arg: string): void;
 
@@ -3788,8 +2545,6 @@ declare global {
      * 休眠函数
      *
      * 参数为毫秒数,如Sleep(1000)为休眠一秒
-     *
-     * @param {number} Millisecond
      */
     function Sleep(Millisecond: number): void;
 
@@ -3797,29 +2552,21 @@ declare global {
      * 判断是否是模拟回测
      *
      * 模拟回测状态返回true,实盘返回false
-     *
-     * @return {boolean}
      */
     function IsVirtual(): boolean;
 
     /**
      * 记录盈利值,这个为总盈利的值,参数类型为浮点数
-     *
-     * @param {number} Profit
      */
     function LogProfit(Profit: number): void;
 
     /**
      * 清空所有收益日志, 可以带一个数字参数, 指定保留的条数
-     *
-     * @param {number} reserve
      */
     function LogProfitReset(reserve?: number): void;
 
     /**
      * 清空所有日志, 可以带一个数字参数, 指定保留的条数
-     *
-     * @param {number} reserve
      */
     function LogReset(reserve?: number): void;
 
@@ -3855,15 +2602,11 @@ declare global {
      * // 可以自定义按钮风格(bootstrap的按钮属性)
      * LogStatus('`' + JSON.stringify({'type':'button', 'class': 'btn btn-xs btn-danger', 'cmd': 'coverAll', 'name':
      * '平仓'}) + '`')
-     *
-     * @param {string} Msg
      */
     function LogStatus(Msg: string): void;
 
     /**
      * 打开或者关闭定单和出错信息的日志记录
-     *
-     * @param {boolean} IsEnable
      */
     function EnableLog(IsEnable: boolean): void;
 
@@ -3882,9 +2625,6 @@ declare global {
      * 那么add时指定0与1序列ID代表更新图表1的两个序列的数据, add时指定序列ID为2指图表2的第一个
      * series的数据, 指定序列3指的是图表3的第一个series的数据 HighStocks:
      * http://api.highcharts.com/highstock
-     *
-     * @param {botvs.ChartOptions} options
-     * @return {botvs.RChart}
      */
     function Chart(...options: botvs.ChartOptions[]): botvs.RChart;
 
@@ -3893,14 +2633,6 @@ declare global {
      *
      * Mail(smtpServer, smtpUsername, smtpPassword, mailTo, title, body); ret true or false
      * Mail("smtp.163.com", "asdf@163.com", "password", "111@163.com", "title", "body")
-     *
-     * @param {string} smtpServer
-     * @param {string} smtpUsername
-     * @param {string} smtpPassword
-     * @param {string} mailTo
-     * @param {string} title
-     * @param {string} body
-     * @return {boolean}
      */
     function Mail(
         smtpServer: string,
@@ -3917,22 +2649,16 @@ declare global {
      * 被此正则表达式匹配的错误将不上传到日志系统, 可多次调用设置多个
      * SetErrorFilter("502:|503:|tcp|character|unexpected|network|timeout|WSARecv|Connect|GetAddr|no
      * such|reset|http|received|EOF|reused");
-     *
-     * @param {string} RegEx
      */
     function SetErrorFilter(RegEx: string): void;
 
     /**
      * 返回机器人进程ID
-     *
-     * @return {number}
      */
     function GetPid(): number;
 
     /**
      * 获取最近一次出错信息,一般无需使用,因为程序会把出错信息自动上传到日志系统
-     *
-     * @return {string}
      */
     function GetLastError(): string;
 
@@ -3947,9 +2673,6 @@ declare global {
      * _G("num"); // 返回全局变量num的值
      * _G(); // 返回当前机器人的ID
      * _G(null); // 删除所有全局变量
-     *
-     * @param {string} K
-     * @param {T} V
      */
     function _G<T>(K: string, V: T): void;
 
@@ -3964,8 +2687,6 @@ declare global {
      * }
      * Sleep(1000);
      * }
-     *
-     * @return {string}
      */
     function GetCommand(): string | null;
 
@@ -3988,10 +2709,6 @@ declare global {
      *  client.close();
      * }
      * ```
-     *
-     * @param {string} Address
-     * @param {number} Timeout
-     * @return {botvs.Socket}
      */
     function Dial(Address: string, Timeout?: number): botvs.Socket | void;
 
@@ -4008,12 +2725,6 @@ declare global {
      * HttpQuery("http://www.163.com", "xxx"); // Post
      * HttpQuery("http://www.baidu.com/", null, "a=10; b=20", "User-Agent: Mobile\nContent-Type: text/html", true);
      * // will return {Header: HTTP Header, Body: HTML}
-     *
-     * @param {string} Url
-     * @param {string | null | {method: string; data?: string}} PostData
-     * @param {string} Cookies
-     * @param {string} Headers
-     * @return {string}
      */
     function HttpQuery(
         Url: string,
@@ -4035,11 +2746,6 @@ declare global {
      * 第二个参数可设置为raw/hex/base64, 分别指输出加密后的 原始内容/hex编码过的/base64编码过的
      * Log(Hash('md5', 'hex', 'hello'));
      * Log(Hash('sha512', 'base64', 'hello'));
-     *
-     * @param {"md5" | "sha256" | "sha512" | "sha1"} Algo
-     * @param {"hex" | "base64"} OutputAlgo
-     * @param {string} Data
-     * @return {string}
      */
     function Hash(
         Algo: 'md5' | 'sha256' | 'sha512' | 'sha1',
@@ -4053,12 +2759,6 @@ declare global {
      * 第二个参数可设置为raw/hex/base64, 分别指输出加密后的 原始内容/hex编码过的/base64编码过的
      * Log(HMAC('md5', 'hex', 'hello', 'pass'));
      * Log(HMAC('sha512', 'base64', 'hello', 'pass'));
-     *
-     * @param {"md5" | "sha256" | "sha512" | "sha1"} Algo
-     * @param {"hex" | "base64" | "raw"} OutputAlgo
-     * @param {string} Data
-     * @param {string} password
-     * @return {string}
      */
     function HMAC(
         Algo: 'md5' | 'sha256' | 'sha512' | 'sha1',
@@ -4070,19 +2770,11 @@ declare global {
     /**
      * 返回指定时间戳(ms)字符串, 不传任何参数就返回当前时间,
      * 如_D(),或者_D(1478570053241), 默认格式为yyyy-MM-dd hh:mm:ss
-     *
-     * @param {string} timestamp
-     * @param {string} format
-     * @return {string}
      */
     function _D(timestamp: string, format: string): string;
 
     /**
      * 格式化一个浮点函数
-     *
-     * @param {number} num
-     * @param {number=4} precision
-     * @return {string}
      */
     function _N(num: number, precision?: number): string;
 
@@ -4090,17 +2782,11 @@ declare global {
      * 重试函数, 会一直调用指定函数到成功返回(函数返回null或者false会重试),
      * 比如_C(exchange.GetTicker), 默认重试间隔为3秒, 可以调用_CDelay函数来控制重试间隔
      * 比如_CDelay(1000), 指改变_C函数重试间隔为1秒
-     *
-     * @param {(...args: any[]) => T} func
-     * @param args
-     * @return {T}
      */
     function _C<T>(func: (...args: any[]) => T, ...args: any[]): T;
 
     /**
      * 比如_CDelay(1000), 指改变_C函数重试间隔为1秒, 默认为3秒
-     *
-     * @param {number} delay
      */
     function _CDelay(delay: number): void;
 }
