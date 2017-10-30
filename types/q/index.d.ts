@@ -1,7 +1,7 @@
 // Type definitions for Q 1.0
 // Project: https://github.com/kriskowal/q
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>
-//                 Andrew Gaspar <https://github.com/AndrewGaspar/>
+//                 Andrew Gaspar <https://github.com/AndrewGaspar>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Michel Boudreau <https://github.com/mboudreau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,7 +30,7 @@ declare namespace Q {
 
 		resolve(value?: IWhenable<T>): void;
 
-		reject(reason: any): void;
+		reject(reason?: any): void;
 
 		notify(value: any): void;
 
@@ -145,7 +145,7 @@ declare namespace Q {
 		/**
 		 * A sugar method, equivalent to promise.then(function () { throw reason; }).
 		 */
-		thenReject(reason: any): Promise<T>;
+		thenReject(reason?: any): Promise<T>;
 
 		/**
 		 * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned
@@ -324,7 +324,7 @@ declare namespace Q {
 	 */
 	export function reject<T>(reason?: any): Promise<T>;
 
-	export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void, reject: (reason: any) => void, notify: (progress: any) => void) => void): Promise<T>;
+	export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void, reject: (reason?: any) => void, notify: (progress: any) => void) => void): Promise<T>;
 
 	/**
 	 * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version
@@ -382,7 +382,7 @@ declare namespace Q {
 	/**
 	 * Resets the global "Q" variable to the value it has before Q was loaded.
 	 * This will either be undefined if there was no version or the version of Q which was already loaded before.
-	 * @returns { The last version of Q. }
+	 * @returns The last version of Q.
 	 */
 	export function noConflict(): typeof Q;
 }

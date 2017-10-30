@@ -661,8 +661,21 @@ interface JQuery {
 
     controller(name?: string): any;
     injector(): ng.auto.IInjectorService;
-    /** It's declared generic for custom scope interfaces */
+    /**
+     * Returns the `$scope` of the element.
+     *
+     * **IMPORTANT**: Requires `debugInfoEnabled` to be true.
+     *
+     * See https://docs.angularjs.org/guide/production#disabling-debug-data for more information.
+     */
     scope<T extends ng.IScope>(): T;
+    /**
+     * Returns the `$scope` of the element.
+     *
+     * **IMPORTANT**: Requires `debugInfoEnabled` to be true.
+     *
+     * See https://docs.angularjs.org/guide/production#disabling-debug-data for more information.
+     */
     isolateScope<T extends ng.IScope>(): T;
 
     inheritedData(key: string, value: any): this;
@@ -671,7 +684,7 @@ interface JQuery {
 }
 
 interface JQueryStatic {
-    (element: string | Element | Document | JQuery | ArrayLike<Element>): JQLite;
+    (element: string | Element | Document | JQuery | ArrayLike<Element> | (() => void)): JQLite;
 }
 
 /**

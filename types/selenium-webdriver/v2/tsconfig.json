@@ -8,13 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "selenium-webdriver": ["selenium-webdriver/v2"],
-          "selenium-webdriver/*": ["selenium-webdriver/v2/*"]
+            "selenium-webdriver": [
+                "selenium-webdriver/v2"
+            ],
+            "selenium-webdriver/*": [
+                "selenium-webdriver/v2/*"
+            ]
         },
         "types": [],
         "noEmit": true,

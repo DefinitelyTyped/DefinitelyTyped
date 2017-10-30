@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Leaflet from 'leaflet';
-import { Component, PropTypes } from 'react';
+import * as PropTypes from 'prop-types';
+import * as L from 'leaflet';
+import { Component } from 'react';
 import {
     Children,
     Circle,
@@ -32,7 +33,7 @@ const { BaseLayer, Overlay } = LayersControl;
 interface AnimateExampleState {
     animate: boolean;
     hasLocation: boolean;
-    latlng: Leaflet.LatLngExpression;
+    latlng: L.LatLngExpression;
 }
 
 export class AnimateExample extends Component<undefined, AnimateExampleState> {
@@ -45,7 +46,7 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
         },
     };
 
-    handleClick = (e: Leaflet.MouseEvent) => {
+    handleClick = (e: L.LeafletMouseEvent) => {
         this.setState({
             latlng: e.latlng,
         });
@@ -96,17 +97,17 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
 }
 
 // bounds.js
-const outer: Leaflet.LatLngBoundsLiteral = [
+const outer: L.LatLngBoundsLiteral = [
     [50.505, -29.09],
     [52.505, 29.09],
 ];
-const inner: Leaflet.LatLngBoundsLiteral = [
+const inner: L.LatLngBoundsLiteral = [
     [49.505, -2.09],
     [53.505, 2.09],
 ];
 
 interface BoundsExampleState {
-    bounds: Leaflet.LatLngBoundsLiteral;
+    bounds: L.LatLngBoundsLiteral;
 }
 
 export class BoundsExample extends Component<undefined, BoundsExampleState> {
@@ -147,7 +148,7 @@ export class BoundsExample extends Component<undefined, BoundsExampleState> {
 // custom-component.js
 interface MyPopupMarkerProps {
     children: Children;
-    position: Leaflet.LatLngExpression;
+    position: L.LatLngExpression;
 }
 
 interface MyMarker extends MyPopupMarkerProps {
@@ -187,7 +188,7 @@ export class CustomComponent extends Component<undefined, CustomComponentState> 
     };
 
     render() {
-        const center: Leaflet.LatLngExpression = [this.state.lat, this.state.lng];
+        const center: L.LatLngExpression = [this.state.lat, this.state.lng];
 
         const markers: MyMarker[] = [
             { key: 'marker1', position: [51.5, -0.1], children: 'My first popup' },
@@ -212,7 +213,7 @@ export class MarkerWithDivIconExample extends Component<undefined, undefined> {
         return (
             <Map>
                 <Marker position={[0, 0]} icon={
-                    new Leaflet.DivIcon({})
+                    new L.DivIcon({})
                 } />
             </Map>
         );
@@ -221,8 +222,8 @@ export class MarkerWithDivIconExample extends Component<undefined, undefined> {
 
 // draggable-marker.js
 interface DraggableExampleState {
-    center: Leaflet.LatLngLiteral;
-    marker: Leaflet.LatLngLiteral;
+    center: L.LatLngLiteral;
+    marker: L.LatLngLiteral;
     zoom: number;
     draggable: boolean;
 }
@@ -249,15 +250,15 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
         const {
             lat,
             lng,
-        } = (this.refs.marker as Marker<MarkerProps, Leaflet.Marker>).leafletElement.getLatLng();
+        } = (this.refs.marker as Marker).leafletElement.getLatLng();
         this.setState({
             marker: { lat, lng },
         });
     }
 
     render() {
-        const position: Leaflet.LatLngExpression = [this.state.center.lat, this.state.center.lng];
-        const markerPosition: Leaflet.LatLngExpression = [this.state.marker.lat, this.state.marker.lng];
+        const position: L.LatLngExpression = [this.state.center.lat, this.state.center.lng];
+        const markerPosition: L.LatLngExpression = [this.state.marker.lat, this.state.marker.lng];
 
         return (
             <Map center={position} zoom={this.state.zoom}>
@@ -285,7 +286,7 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
 // events.js
 interface EventsExampleState {
     hasLocation: boolean;
-    latlng: Leaflet.LatLngLiteral;
+    latlng: L.LatLngLiteral;
 }
 
 export class EventsExample extends Component<undefined, EventsExampleState> {
@@ -298,10 +299,10 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
     };
 
     handleClick = () => {
-        (this.refs.map as Map<MapProps, Leaflet.Map>).leafletElement.locate();
+        (this.refs.map as Map).leafletElement.locate();
     }
 
-    handleLocationFound = (e: Leaflet.LocationEvent) => {
+    handleLocationFound = (e: L.LocationEvent) => {
         this.setState({
             hasLocation: true,
             latlng: e.latlng,
@@ -339,8 +340,8 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
 // layers-control.js
 export class LayersControlExample extends Component<undefined, undefined> {
     render() {
-        const center: Leaflet.LatLngExpression = [51.505, -0.09];
-        const rectangle: Leaflet.LatLngBoundsExpression = [
+        const center: L.LatLngExpression = [51.505, -0.09];
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -394,8 +395,8 @@ export class LayersControlExample extends Component<undefined, undefined> {
 // other-layers.js
 export class OtherLayersExample extends Component<undefined, undefined> {
     render() {
-        const center: Leaflet.LatLngExpression = [51.505, -0.09];
-        const rectangle: Leaflet.LatLngBoundsExpression = [
+        const center: L.LatLngExpression = [51.505, -0.09];
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -481,7 +482,7 @@ export class SimpleExample extends Component<undefined, SimpleExampleState> {
     };
 
     render() {
-        const position: Leaflet.LatLngExpression = [this.state.lat, this.state.lng];
+        const position: L.LatLngExpression = [this.state.lat, this.state.lng];
         return (
             <Map center={position} zoom={this.state.zoom}>
                 <TileLayer
@@ -513,14 +514,14 @@ export class TooltipExample extends Component<undefined, TooltipExampleState> {
     }
 
     render() {
-        const center: Leaflet.LatLngExpression = [51.505, -0.09];
+        const center: L.LatLngExpression = [51.505, -0.09];
 
-        const multiPolygon: Leaflet.LatLngExpression[][] = [
+        const multiPolygon: L.LatLngExpression[][] = [
             [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
             [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
         ];
 
-        const rectangle: Leaflet.LatLngBoundsExpression = [
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -576,31 +577,31 @@ export class TooltipExample extends Component<undefined, TooltipExampleState> {
 // vector-layers.js
 export class VectorLayersExample extends Component<undefined, undefined> {
     render() {
-        const center: Leaflet.LatLngExpression = [51.505, -0.09];
+        const center: L.LatLngExpression = [51.505, -0.09];
 
-        const polyline: Leaflet.LatLngExpression[] = [
+        const polyline: L.LatLngExpression[] = [
             [51.505, -0.09],
             [51.51, -0.1],
             [51.51, -0.12],
         ];
 
-        const multiPolyline: Leaflet.LatLngExpression[][] = [
+        const multiPolyline: L.LatLngExpression[][] = [
             [[51.5, -0.1], [51.5, -0.12], [51.52, -0.12]],
             [[51.5, -0.05], [51.5, -0.06], [51.52, -0.06]],
         ];
 
-        const polygon: Leaflet.LatLngExpression[] = [
+        const polygon: L.LatLngExpression[] = [
             [51.515, -0.09],
             [51.52, -0.1],
             [51.52, -0.12],
         ];
 
-        const multiPolygon: Leaflet.LatLngExpression[][] = [
+        const multiPolygon: L.LatLngExpression[][] = [
             [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
             [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
         ];
 
-        const rectangle: Leaflet.LatLngBoundsExpression = [
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -681,7 +682,7 @@ const ZoomControlExample = () => (
 );
 
 // MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
-class CenterControl extends MapControl<MapControlProps, Leaflet.Control> {  // note we're extending MapControl from react-leaflet, not Component from react
+class CenterControl extends MapControl {  // note we're extending MapControl from react-leaflet, not Component from react
     componentWillMount() {
         const centerControl = new L.Control({ position: 'bottomright' });  // see http://leafletjs.com/reference.html#control-positions for other positions
         const jsx = (
@@ -692,7 +693,7 @@ class CenterControl extends MapControl<MapControlProps, Leaflet.Control> {  // n
         );
 
         centerControl.onAdd = (map) => {
-            let div = L.DomUtil.create('div', '');
+            const div = L.DomUtil.create('div', '');
             ReactDOM.render(jsx, div);
             return div;
         };
@@ -701,7 +702,7 @@ class CenterControl extends MapControl<MapControlProps, Leaflet.Control> {  // n
     }
 }
 
-const mapControlCenter: Leaflet.LatLngExpression = [51.505, -0.09];
+const mapControlCenter: L.LatLngExpression = [51.505, -0.09];
 
 const CenterControlExample = () => (
     <Map center={mapControlCenter} zoom={13}>
@@ -709,7 +710,7 @@ const CenterControlExample = () => (
     </Map>
 );
 
-class LegendControl extends MapControl<MapControlProps & { className?: string }, Leaflet.Control> {
+class LegendControl extends MapControl<MapControlProps & { className?: string }> {
     componentWillMount() {
         const legend = new L.Control({ position: 'bottomright' });
         const jsx = (
@@ -719,7 +720,7 @@ class LegendControl extends MapControl<MapControlProps & { className?: string },
         );
 
         legend.onAdd = (map) => {
-            let div = L.DomUtil.create('div', '');
+            const div = L.DomUtil.create('div', '');
             ReactDOM.render(jsx, div);
             return div;
         };

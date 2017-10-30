@@ -1,6 +1,8 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
+//                 nrbernard <https://github.com/nrbernard>
+//                 Pr1st0n <https://github.com/Pr1st0n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -103,6 +105,21 @@ declare namespace CodeMirror {
     function signal(target: any, name: string, ...args: any[]): void;
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
+    
+    type CoordsMode = 'window' | 'page' | 'local';
+    
+    interface Token {
+        /** The character(on the given line) at which the token starts. */
+        start: number;
+        /** The character at which the token ends. */
+        end: number;
+        /** The token's string. */
+        string: string;
+        /** The token type the mode assigned to the token, such as "keyword" or "comment" (may also be null). */
+        type: string | null;
+        /** The mode's state at the end of this token. */
+        state: any;
+    }
 
     interface Editor {
 
@@ -182,12 +199,15 @@ declare namespace CodeMirror {
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
         removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
 
-        /**
-         * Compute the line at the given pixel height.
-         *
-         * `mode` is the relative element to use to compute this line - defaults to 'page' if not specified
-         */
-        lineAtHeight(height: number, mode?: 'window' | 'page' | 'local'): number
+        /** Compute the line at the given pixel height. mode is the relative element
+        to use to compute this line, it may be "window", "page" (the default), or "local" */
+        lineAtHeight(height: number, mode?: CoordsMode): number;
+        
+        /** Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window", 
+        "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value 
+        is the bottom of the last line in the document. By default, the position of the actual text is returned. 
+        If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
+        heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
         /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
         lineInfo(line: any): {
@@ -253,25 +273,28 @@ declare namespace CodeMirror {
         scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local" , they will be relative to the top-left corner of the editable document.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where is a boolean indicating whether you want the start(true) or the end(false) of the selection. */
-        cursorCoords(where: boolean, mode: string): { left: number; top: number; bottom: number; };
+        cursorCoords(where: boolean, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local" , they will be relative to the top-left corner of the editable document.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where specifies the precise position at which you want to measure. */
-        cursorCoords(where: CodeMirror.Position, mode: string): { left: number; top: number; bottom: number; };
+        cursorCoords(where: CodeMirror.Position, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
-        /** Returns the position and dimensions of an arbitrary character.pos should be a { line , ch } object.
+        /** Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
+        If it is "page" or not given, they are relative to the top-left corner of the page.
         This differs from cursorCoords in that it'll give the size of the whole character,
         rather than just the position that the cursor would have when it would sit at that position. */
-        charCoords(pos: CodeMirror.Position, mode: string): { left: number; right: number; top: number; bottom: number; };
+        charCoords(pos: CodeMirror.Position, mode?: CoordsMode): { left: number; right: number; top: number; bottom: number; };
 
         /** Given an { left , top } object , returns the { line , ch } position that corresponds to it.
-        The optional mode parameter determines relative to what the coordinates are interpreted. It may be "window" , "page"(the default) , or "local". */
-        coordsChar(object: { left: number; top: number; }, mode?: string): CodeMirror.Position;
+        The optional mode parameter determines relative to what the coordinates are interpreted. 
+        It may be "window", "page" (the default), or "local". */
+        coordsChar(object: { left: number; top: number; }, mode?: CoordsMode): CodeMirror.Position;
 
         /** Returns the line height of the default font for the editor. */
         defaultTextHeight(): number;
@@ -289,20 +312,11 @@ declare namespace CodeMirror {
         you should probably follow up by calling this method to ensure CodeMirror is still looking as intended. */
         refresh(): void;
 
-
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
-        getTokenAt(pos: CodeMirror.Position): {
-            /** The character(on the given line) at which the token starts. */
-            start: number;
-            /** The character at which the token ends. */
-            end: number;
-            /** The token's string. */
-            string: string;
-            /** The token type the mode assigned to the token, such as "keyword" or "comment" (may also be null). */
-            type: string | null;
-            /** The mode's state at the end of this token. */
-            state: any;
-        };
+        getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
+
+        /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
+        getLineTokens(line: number, precise?: boolean): Token[];
 
         /** Returns the mode's parser state, if any, at the end of the given line number.
         If no line number is given, the state at the end of the document is returned.
@@ -323,6 +337,11 @@ declare namespace CodeMirror {
         "subtract" Reduce the indentation of the line. */
         indentLine(line: number, dir?: string): void;
 
+        /** Tells you whether the editor's content can be edited by the user. */
+        isReadOnly(): boolean;
+
+        /** Runs the command with the given name on the editor. */
+        execCommand(name: string): void;
 
         /** Give the editor focus. */
         focus(): void;
@@ -410,7 +429,7 @@ declare namespace CodeMirror {
         /** Fires when one of the DOM events fires. */
         on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
         off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
-    
+
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
     }
@@ -493,6 +512,9 @@ declare namespace CodeMirror {
 
         /** Get the currently selected code. */
         getSelection(): string;
+        
+        /** Returns an array containing a string for each selection, representing the content of the selections. */
+        getSelections(lineSep?: string): Array<string>;
 
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
         The optional collapse argument can be used to change this � passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
@@ -757,6 +779,12 @@ declare namespace CodeMirror {
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
         fixedGutter?: boolean;
+        
+        /**
+         * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
+         * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
+         */
+        scrollbarStyle?: string;
 
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
         readOnly?: any;
@@ -1225,14 +1253,14 @@ declare namespace CodeMirror {
            * Left side of the merge view.
            */
           left: DiffView;
-          leftChunks(): MergeViewDiffChunk;
+          leftChunks(): MergeViewDiffChunk[];
           leftOriginal(): Editor;
 
           /**
            * Right side of the merge view.
            */
           right: DiffView;
-          rightChunks(): MergeViewDiffChunk;
+          rightChunks(): MergeViewDiffChunk[];
           rightOriginal(): Editor;
 
           /**

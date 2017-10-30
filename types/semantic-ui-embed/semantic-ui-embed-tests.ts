@@ -19,7 +19,7 @@ function test_embed() {
     $(selector).embed('get sources'); // $ExpectType string
     $(selector).embed('get type'); // $ExpectType string
     $(selector).embed('get url'); // $ExpectType string
-    $(selector).embed('has placeholder') === true;
+    $(selector).embed('has placeholder'); // $ExpectType boolean
     $(selector).embed('destroy'); // $ExpectType JQuery<HTMLElement>
     $(selector).embed('setting', 'debug', undefined); // $ExpectType boolean
     $(selector).embed('setting', 'debug'); // $ExpectType boolean

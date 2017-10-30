@@ -21,8 +21,8 @@ interface ScreepsGameProfiler {
     /**
      * Will run for the given number of ticks then will output the gathered information to the console.
      *
-     * @param {number} ticks - controls how long the profiler should run before stopping
-     * @param {string} [functionFilter] - parameter will limit the scope of the profiler to a specific function name
+     * @param ticks - controls how long the profiler should run before stopping
+     * @param [functionFilter] - parameter will limit the scope of the profiler to a specific function name
      */
     profile(ticks: number, functionFilter?: string): void;
 
@@ -30,8 +30,8 @@ interface ScreepsGameProfiler {
      * Will run for the given number of ticks, and will output the gathered information each tick to
      * the console. The can sometimes be useful for seeing spikes in performance.
      *
-     * @param {number} ticks - controls how long the profiler should run before stopping
-     * @param {string} [functionFilter] - parameter will limit the scope of the profiler to a specific function name
+     * @param ticks - controls how long the profiler should run before stopping
+     * @param [functionFilter] - parameter will limit the scope of the profiler to a specific function name
      */
     stream(ticks: number, functionFilter?: string): void;
 
@@ -39,8 +39,8 @@ interface ScreepsGameProfiler {
      * This will run for the given number of ticks, and will email the output to your registered
      * Screeps email address. Very useful for long running profiles.
      *
-     * @param {number} ticks - controls how long the profiler should run before stopping
-     * @param {string} [functionFilter] - parameter will limit the scope of the profiler to a specific function name
+     * @param ticks - controls how long the profiler should run before stopping
+     * @param [functionFilter] - parameter will limit the scope of the profiler to a specific function name
      */
     email(ticks: number, functionFilter?: string): void;
 
@@ -48,7 +48,7 @@ interface ScreepsGameProfiler {
      * This will run indefinitely, and will only output data when the output console command is run.
      * Very useful for long running profiles with lots of function calls.
      *
-     * @param {string} [functionFilter] - parameter will limit the scope of the profiler to a specific function name
+     * @param [functionFilter] - parameter will limit the scope of the profiler to a specific function name
      */
     background(functionFilter?: string): void;
 
@@ -56,7 +56,7 @@ interface ScreepsGameProfiler {
      * Print a report based on the current tick. The profiler will continue to operate normally.
      * This is currently the only way to get data from the background profile.
      *
-     * @param {number} [lineCount=20] the number of lines to output
+     * @param [lineCount=20] the number of lines to output
      */
     output(lineCount?: number): void;
 
@@ -80,7 +80,7 @@ interface ScreepsProfilerStatic {
     /**
      * Wrap your main loop with this function.
      *
-     * @param {function} callback - your main loop function
+     * @param callback - your main loop function
      */
     // tslint:disable-next-line ban-types
     wrap(callback: Function): Function;
@@ -88,16 +88,15 @@ interface ScreepsProfilerStatic {
     /**
      * Register a class to be profiled. Each of the functions on this class will be replaced with
      * a profiler wrapper
-     * @param  {Object} clazz constructor
-     * @param {string} className - The name of the class, a label used in output
+     * @param  clazz constructor
+     * @param className - The name of the class, a label used in output
      */
     // tslint:disable-next-line ban-types
     registerClass(constructor: Function, className: string): void;
 
     /**
      * Each of the functions on this object will be replaced with a profiler wrapper.
-     * @param {Object} object
-     * @param {string} objectName - Name of the object, a label used in output
+     * @param objectName - Name of the object, a label used in output
      */
     registerObject(object: any, objectName: string): void;
 
@@ -109,8 +108,8 @@ interface ScreepsProfilerStatic {
      * The second param is optional if you pass a named function function x() {}, but required if
      * you pass an anonymous function var x = function(){}.
      *
-     * @param {string} [fnName] - Name of the function, used as a label in output
-     * @return {function} the original function wrapped for profiling
+     * @param [fnName] - Name of the function, used as a label in output
+     * @return the original function wrapped for profiling
      */
     // tslint:disable-next-line ban-types
     registerFN(fn: Function, fnName?: string): Function;

@@ -1,12 +1,12 @@
 import RSVP from 'rsvp';
 
 function testAndThen() {
-    const result: RSVP.Promise<string, never> = andThen(() => 'some string');
+    const result: RSVP.Promise<string> = andThen(() => 'some string');
     result.then(s => s.length);
 }
 
 function testClick() {
-    const result: RSVP.Promise<void, never> = click('someString');
+    const result: RSVP.Promise<void> = click('someString');
     result.then(() => {});
 }
 
@@ -29,7 +29,7 @@ function testFillIn() {
     const textResult = fillIn('.foo', 'waffles');
     textResult.then(() => true);
     const contextResult = fillIn('.bar', {}, 'pancakes');
-    contextResult.catch(reason => false);
+    contextResult.catch((reason: any) => false);
 }
 
 function testFind() {

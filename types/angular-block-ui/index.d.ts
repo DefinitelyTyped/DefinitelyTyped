@@ -67,10 +67,10 @@ declare module 'angular' {
              * If the filter function returns a string it will be passed as the message
              * argument to the start method of the service.
              *
-             * @param {angular.IRequestConfig} config - the Angular request config object.
+             * @param config the Angular request config object.
              *
              */
-            requestFilter?(config: angular.IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig): (string | boolean);
 
             /**
              * When the module is started it will inject the main block element
@@ -123,7 +123,7 @@ declare module 'angular' {
              *
              * This behaviour can be modified in the configuration.
              *
-             * @param {string|IBlockUIConfig} messageOrOptions -
+             * @param messageOrOptions
              *     Either supply the message (string) to be show in the
              *     overlay or specify an IBlockUIConfig object that will be
              *     merged/extended into the block ui instance state.
@@ -156,7 +156,7 @@ declare module 'angular' {
              * Allows the message shown in the overlay to be updated
              * while to block is active.
              *
-             * @param {string} message - The message to show in the overlay.
+             * @param message The message to show in the overlay.
              */
             message(message: string): void;
 

@@ -12,7 +12,6 @@ export = makeDir;
 /**
  * Returns a `Promise` for the path to the created directory.
  * @param path Directory to create.
- * @param options
  */
 declare function makeDir(path: string, options?: makeDir.Options): Promise<string>;
 
@@ -20,7 +19,6 @@ declare namespace makeDir {
     /**
      * Returns the path to the created directory.
      * @param path Directory to create.
-     * @param options
      */
     function sync(path: string, options?: Options): string;
 

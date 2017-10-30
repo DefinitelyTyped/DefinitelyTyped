@@ -61,31 +61,38 @@ angular.module('http-auth-interceptor', [])
  * $http interceptor.
  * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
  */
-    .config(['$httpProvider', 'authServiceProvider', ($httpProvider: ng.IHttpProvider, authServiceProvider: any) => {
-        $httpProvider.defaults.headers.common = {Authorization: 'Bearer token'};
-        $httpProvider.defaults.headers.get['Authorization'] = 'Bearer token';
-        $httpProvider.defaults.headers.post['Authorization'] = (config: ng.IRequestConfig) => 'Bearer token';
+    .config([
+        '$httpProvider', 'authServiceProvider',
+        ($httpProvider: ng.IHttpProvider, authServiceProvider: AuthService) => {
+            $httpProvider.defaults.headers.common = { Authorization: 'Bearer token' };
+            $httpProvider.defaults.headers.get.Authorization = 'Bearer token';
+            $httpProvider.defaults.headers.post['Authorization'] = (config: ng.IRequestConfig) =>
+                'Bearer token';
 
-        const interceptor = ['$rootScope', '$q', ($rootScope: ng.IScope, $q: ng.IQService) => {
-            function success(response: ng.IHttpPromiseCallbackArg<any>) {
-                return response;
-            }
-
-            function error(response: ng.IHttpPromiseCallbackArg<any>) {
-                if (response.status === 401) {
-                    const deferred = $q.defer<void>();
-                    authServiceProvider.pushToBuffer(response.config, deferred);
-                    $rootScope.$broadcast('event:auth-loginRequired');
-                    return deferred.promise;
+            const interceptor = [
+                '$rootScope', '$q',
+                ($rootScope: ng.IScope, $q: ng.IQService) => {
+                    return {
+                        request(config: ng.IRequestConfig) {
+                            if (!config.params) config.params = {};
+                            config.params.rnd = Math.random();
+                            return config;
+                        },
+                        responseError(rejection: any) {
+                            if (rejection.status === 401) {
+                                const deferred = $q.defer<ng.IHttpResponse<any>>();
+                                authServiceProvider.pushToBuffer(rejection.config, deferred);
+                                $rootScope.$broadcast('event:auth-loginRequired');
+                                return deferred.promise;
+                            }
+                            return $q.reject(rejection);
+                        }
+                    };
                 }
-                // otherwise
-                return $q.reject(response);
-            }
-
-            return (promise: ng.IHttpPromise<any>) => promise.then(success, error);
-        }];
-        $httpProvider.interceptors.push(interceptor);
-    }]);
+            ];
+            $httpProvider.interceptors.push(interceptor);
+        }
+    ]);
 
 namespace HttpAndRegularPromiseTests {
     interface Person {
@@ -105,7 +112,7 @@ namespace HttpAndRegularPromiseTests {
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
         $http.get<ExpectedResponse>('http://somewhere/some/resource')
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
+            .then((response: ng.IHttpResponse<ExpectedResponse>) => {
                 // typing lost, so something like
                 // const i: number = response.data
                 // would type check
@@ -113,7 +120,7 @@ namespace HttpAndRegularPromiseTests {
             });
 
         $http.get<ExpectedResponse>('http://somewhere/some/resource')
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
+            .then((response: ng.IHttpResponse<ExpectedResponse>) => {
                 // typing lost, so something like
                 // const i: number = response.data
                 // would NOT type check
@@ -171,7 +178,7 @@ mod.controller('name', class {
     // $onChanges(x: number) { }
 });
 mod.controller({
-    MyCtrl: class{},
+    MyCtrl: class {},
     MyCtrl2() {},
     MyCtrl3: ['$fooService', ($fooService: any) => { }]
 });
@@ -222,7 +229,7 @@ mod.provider(My.Namespace);
 mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
-    MyCtrl: class{},
+    MyCtrl: class {},
     MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
@@ -339,12 +346,12 @@ namespace TestQ {
         result = $q.all<{a: number; b: string; }>({a: promiseAny, b: promiseAny});
     }
     {
-        let result = $q.all({ num: $q.when(2), str: $q.when('test') });
+        const result = $q.all({ num: $q.when(2), str: $q.when('test') });
         // TS should infer that num is a number and str is a string
         result.then(r => (r.num * 2) + r.str.indexOf('s'));
     }
     {
-        let result = $q.all({ num: $q.when(2), str: 'test' });
+        const result = $q.all({ num: $q.when(2), str: 'test' });
         // TS should infer that num is a number and str is a string
         result.then(r => (r.num * 2) + r.str.indexOf('s'));
     }
@@ -378,7 +385,7 @@ namespace TestQ {
         let result: angular.IPromise<TResult>;
         result = $q.resolve<TResult>(tResult);
         result = $q.resolve<TResult>(promiseTResult);
-        let result2: angular.IPromise<TResult | TOther> = $q.resolve<TResult | TOther>(Math.random() > 0.5 ? tResult : promiseTOther);
+        const result2: angular.IPromise<TResult | TOther> = $q.resolve<TResult | TOther>(Math.random() > 0.5 ? tResult : promiseTOther);
     }
 
     // $q.when
@@ -388,7 +395,6 @@ namespace TestQ {
     }
     {
         let result: angular.IPromise<TResult>;
-        let other: angular.IPromise<TOther>;
         let resultOther: angular.IPromise<TResult | TOther>;
 
         result = $q.when<TResult>(tResult);
@@ -427,7 +433,7 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
-httpFoo.then((response: ng.IHttpPromiseCallbackArg<any>) => {
+httpFoo.then((response: ng.IHttpResponse<any>) => {
     const h = response.headers('test');
     h.charAt(0);
     const hs = response.headers();
@@ -450,8 +456,8 @@ namespace TestDeferred {
     // deferred.resolve
     {
         let result: void;
-        result = deferred.resolve() as void;
-        result = deferred.resolve(tResult) as void;
+        result = deferred.resolve();
+        result = deferred.resolve(tResult);
     }
 
     // deferred.reject
@@ -485,10 +491,8 @@ namespace TestInjector {
 
     // $injector.instantiate
     {
-        class Foobar {
-            constructor($q) {}
-        }
-        let result: Foobar = $injector.instantiate(Foobar);
+        class Foobar {}
+        const result: Foobar = $injector.instantiate(Foobar);
     }
 
     // $injector.invoke
@@ -496,14 +500,20 @@ namespace TestInjector {
         function foobar(v: boolean): number {
             return 7;
         }
-        let result = $injector.invoke(foobar);
+        const result = $injector.invoke(foobar);
         if (!(typeof result === 'number')) {
             // This fails to compile if 'result' is not exactly a number.
-            let expectNever: never = result;
+            const expectNever: never = result;
         }
 
-        let anyFunction: Function = foobar;
+        const anyFunction: Function = foobar;
         let anyResult: string = $injector.invoke(anyFunction);
+
+        const inlineAnnotatedFunction: any[] = [false, foobar];
+        anyResult = $injector.invoke(inlineAnnotatedFunction);
+        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext', 'anyLocals');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, 'anyLocals');
     }
 }
 
@@ -566,7 +576,7 @@ namespace TestPromise {
         (reason) => anyOf3(reject, tresult, tresultPromise)
     ));
 
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult>>(promise.then((result) => tresultHttpPromise));
+    assertPromiseType<ng.IHttpResponse<TResult>>(promise.then((result) => tresultHttpPromise));
 
     assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother));
     assertPromiseType<TResult | angular.IPromise<TResult> | angular.IPromise<never> | TOther | angular.IPromise<TOther>>(promise.then(
@@ -581,8 +591,8 @@ namespace TestPromise {
     assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother, (any) => any));
     assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise));
     assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise, (any) => any));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise, (any) => any));
+    assertPromiseType<ng.IHttpResponse<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise));
+    assertPromiseType<ng.IHttpResponse<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise, (any) => any));
 
     assertPromiseType<TOther>(promise.then((result) => tother));
     assertPromiseType<TOther>(promise.then((result) => tother, (any) => any));
@@ -590,9 +600,9 @@ namespace TestPromise {
     assertPromiseType<TOther>(promise.then((result) => totherPromise));
     assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any));
     assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any, (any) => any));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise, (any) => any));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise, (any) => any, (any) => any));
+    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise));
+    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise, (any) => any));
+    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise, (any) => any, (any) => any));
 
     assertPromiseType<boolean>(promise.then((result) => tresult, (any) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
@@ -603,10 +613,10 @@ namespace TestPromise {
     assertPromiseType<TResult | angular.IPromise<never>>(promise.catch((err) => anyOf2(tresult, reject)));
     assertPromiseType<TResult>(promise.catch((err) => anyOf3(tresult, tresultPromise, reject)));
     assertPromiseType<TResult>(promise.catch((err) => tresultPromise));
-    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
+    assertPromiseType<TResult | ng.IHttpResponse<TResult>>(promise.catch((err) => tresultHttpPromise));
     assertPromiseType<TResult | TOther>(promise.catch((err) => tother));
     assertPromiseType<TResult | TOther>(promise.catch((err) => totherPromise));
-    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TOther>>(promise.catch((err) => totherHttpPromise));
+    assertPromiseType<TResult | ng.IHttpResponse<TOther>>(promise.catch((err) => totherHttpPromise));
 
     assertPromiseType<boolean>(promise.catch((err) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
@@ -621,7 +631,7 @@ function test_angular_forEach() {
     const log: string[] = [];
     angular.forEach(values, (value, key, obj) => {
         obj[key] = value;
-        this.push(key + ': ' + value);
+        this.push(`${key}: ${value}`);
     }, log);
     // expect(log).toEqual(['name: misko', 'gender: male']);
 }
@@ -634,6 +644,9 @@ isolateScope = element.find('div').isolateScope();
 isolateScope = element.children().isolateScope();
 let element2 = angular.element(element);
 let elementArray = angular.element(document.querySelectorAll('div'));
+let elementReadyFn = angular.element(() => {
+    console.log('ready');
+});
 
 // $timeout signature tests
 namespace TestTimeout {
@@ -1160,11 +1173,7 @@ function NgModelControllerTyping() {
     ngModel.$asyncValidators['uniqueUsername'] = (modelValue, viewValue) => {
         const value = modelValue || viewValue;
         return $http.get('/api/users/' + value).
-            then(function resolved() {
-                return $q.reject('exists');
-            }, function rejected() {
-                return true;
-            });
+            then(() => $q.reject('exists'), () => true);
     };
 }
 

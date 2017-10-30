@@ -1,6 +1,6 @@
 // Type definitions for Microsoft Dynamics xRM API 8.2
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>, Tully H <https://github.com/clownwilleatme>
+// Definitions by: David Berry <https://github.com/6ix4our>, Matt Ngan <https://github.com/mattngan>, Markus Mauch <https://github.com/markusmauch>, Daryl LaBar <https://github.com/daryllabar>, Tully H <https://github.com/clownwilleatme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -62,14 +62,14 @@ declare namespace Xrm {
         /**
          * Returns a value to indicate which client the script is executing in.
          *
-         * @return  The client, as either "Web", "Outlook", or "Mobile"
+         * @return The client, as either "Web", "Outlook", or "Mobile"
          */
         getClient(): Client;
 
         /**
          * Gets client's current state.
          *
-         * @return  The client state, as either "Online" or "Offline"
+         * @return The client state, as either "Online" or "Offline"
          */
         getClientState(): ClientState;
     }
@@ -86,7 +86,7 @@ declare namespace Xrm {
         /**
          * Gets client's base URL for Dynamics CRM
          *
-         * @return  The client's base URL
+         * @return The client's base URL
          *
          * @remarks For Dynamics CRM On-Premises:               http(s)://server/org
          *          For Dynamics CRM Online:                    https://org.crm.dynamics.com
@@ -97,7 +97,7 @@ declare namespace Xrm {
         /**
          * Gets current styling theme.
          *
-         * @return  The name of the current theme, as either "default", "Office12Blue", or "Office14Silver"
+         * @return The name of the current theme, as either "default", "Office12Blue", or "Office14Silver"
          *
          * @remarks This function does not work with Dynamics CRM for tablets.
          */
@@ -106,23 +106,23 @@ declare namespace Xrm {
         /**
          * Gets whether automatic save is enabled.
          *
-         * @return  true if automatic saving is enabled, otherwise false.
+         * @return true if automatic saving is enabled, otherwise false.
          */
         getIsAutoSaveEnabled(): boolean;
 
         /**
          * Gets organization's LCID (language code).
          *
-         * @return  The organization language code.
+         * @return The organization language code.
          *
-         * @see     {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx|Microsoft Locale ID Values}
+         * @see  {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx|Microsoft Locale ID Values}
          */
         getOrgLcid(): number;
 
         /**
          * Gets organization's unique name.
          *
-         * @return  The organization's unique name.
+         * @return The organization's unique name.
          *
          * @remarks This value can be found on the Developer Resources page within Dynamics CRM
          */
@@ -131,21 +131,21 @@ declare namespace Xrm {
         /**
          * Gets query string parameters.
          *
-         * @return  The query string parameters, in a dictionary object representing name and value pairs.
+         * @return The query string parameters, in a dictionary object representing name and value pairs.
          */
         getQueryStringParameters(): { [index: string]: any };
 
         /**
          * Returns the difference between the local time and Coordinated Universal Time (UTC).
          *
-         * @return  The time zone offset, in minutes.
+         * @return The time zone offset, in minutes.
          */
         getTimeZoneOffsetMinutes(): number;
 
         /**
          * Gets user's unique identifier.
          *
-         * @return  The user's identifier in Guid format.
+         * @return The user's identifier in Guid format.
          *
          * @remarks Example: "{B05EC7CE-5D51-DF11-97E0-00155DB232D0}"
          */
@@ -154,23 +154,23 @@ declare namespace Xrm {
         /**
          * Gets user's LCID (language code).
          *
-         * @return  The user's language code.
+         * @return The user's language code.
          *
-         * @see     {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx|Microsoft Locale ID Values}
+         * @see  {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx|Microsoft Locale ID Values}
          */
         getUserLcid(): number;
 
         /**
          * Gets the name of the current user.
          *
-         * @return  The user's name.
+         * @return The user's name.
          */
         getUserName(): string;
 
         /**
          * Gets all user security roles.
          *
-         * @return  An array of user role identifiers, in Guid format.
+         * @return An array of user role identifiers, in Guid format.
          *
          * @remarks Example: ["cf4cc7ce-5d51-df11-97e0-00155db232d0"]
          */
@@ -186,9 +186,9 @@ declare namespace Xrm {
         /**
          * Prefixes the current organization's unique name to a string; typically a URL path.
          *
-         * @param   {string}    sPath   Local pathname of the resource.
+         * @param sPath   Local pathname of the resource.
          *
-         * @return  A path string with the organization name.
+         * @return A path string with the organization name.
          *
          * @remarks Format: "/"+ OrgName + sPath
          */
@@ -215,25 +215,25 @@ declare namespace Xrm {
         /**
          * Asynchronously refreshes data on the form, without reloading the page.
          *
-         * @param   {boolean}   save    true to save the record, after the refresh.
+         * @param save true to save the record, after the refresh.
          *
-         * @return  {Async.XrmPromise} Returns an asynchronous promise.
+         * @return Returns an asynchronous promise.
          */
         refresh(save: boolean): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Asynchronously saves the record.
          *
-         * @return  {Async.XrmPromise} Returns an asynchronous promise.
+         * @return Returns an asynchronous promise.
          */
         save(): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Asynchronously saves the record  with the option to set callback functions to be executed after the save operation is completed.
          *
-         * @param   {saveOptions}   saveOptions    Options to control how appointment, recurring appointment, or service activity records are processed.
+         * @param saveOptions    Options to control how appointment, recurring appointment, or service activity records are processed.
          *
-         * @return  {Async.XrmPromise} Returns an asynchronous promise.
+         * @return Returns an asynchronous promise.
          */
         save(saveOptions: SaveOptions): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
@@ -269,98 +269,98 @@ declare namespace Xrm {
         /**
          * Gets all attributes.
          *
-         * @return  An array of attributes.
+         * @return An array of attributes.
          */
         getAttribute(): Page.Attribute[];
 
         /**
          * Gets an attribute matching attributeName.
          *
-         * @tparam  T   An Attribute type.
-         * @param   {string}    attributeName   Name of the attribute.
+         * @tparam T   An Attribute type.
+         * @param attributeName Name of the attribute.
          *
-         * @return  The attribute.
+         * @return The attribute.
          */
         getAttribute<T extends Page.Attribute>(attributeName: string): T;
 
         /**
          * Gets an attribute matching attributeName.
          *
-         * @param   {string}    attributeName   Name of the attribute.
+         * @param attributeName Name of the attribute.
          *
-         * @return  The attribute.
+         * @return The attribute.
          */
         getAttribute(attributeName: string): Page.Attribute;
 
         /**
          * Gets an attribute by index.
          *
-         * @param   {number}    index   The attribute index.
+         * @param index The attribute index.
          *
-         * @return  The attribute.
+         * @return The attribute.
          */
         getAttribute(index: number): Page.Attribute;
 
         /**
          * Gets an attribute.
          *
-         * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
+         * @param delegateFunction A matching delegate function
          *
-         * @return  An array of attribute.
+         * @return An array of attribute.
          */
         getAttribute(delegateFunction: Collection.MatchingDelegate<Page.Attribute>): Page.Attribute[];
 
         /**
          * Gets all controls.
          *
-         * @return  An array of controls.
+         * @return An array of controls.
          */
         getControl(): Page.Control[];
 
         /**
          * Gets a control matching controlName.
          *
-         * @tparam  T   A Control type
-         * @param   {string}    controlName    Name of the control.
+         * @tparam T   A Control type
+         * @param controlName Name of the control.
          *
-         * @return  The control.
+         * @return The control.
          */
         getControl<T extends Page.Control>(controlName: string): T;
 
         /**
          * Gets a control matching controlName.
          *
-         * @param   {string}    controlName   Name of the control.
+         * @param controlName Name of the control.
          *
-         * @return  The control.
+         * @return The control.
          */
         getControl(controlName: string): Page.Control;
 
         /**
          * Gets a control by index.
          *
-         * @tparam  T   A Control type
-         * @param   {number}    index   The control index.
+         * @tparam T   A Control type
+         * @param index The control index.
          *
-         * @return  The control.
+         * @return The control.
          */
         getControl<T extends Page.Control>(index: number): T;
 
         /**
          * Gets a control by index.
          *
-         * @param   {number}    index   The control index.
+         * @param index The control index.
          *
-         * @return  The control.
+         * @return The control.
          */
         getControl(index: number): Page.Control;
 
         /**
          * Gets a control.
          *
-         * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
+         * @param delegateFunction A matching delegate function.
          *
-         * @return  An array of control.
+         * @return An array of control.
          */
         getControl(delegateFunction: Collection.MatchingDelegate<Page.Control>): Page.Control[];
     }
@@ -373,11 +373,11 @@ declare namespace Xrm {
          * Displays a form level notification. Any number of notifications can be displayed and will remain until removed using clearFormNotification.
          * The height of the notification area is limited so each new message will be added to the top.
          *
-         * @param   {string}                            message     The text of the notification message.
-         * @param   {Page.ui.FormNotificationLevel}     level    The level of the notification which defines how the message will be displayed, such as the icon.
-         * @param   {string}                            uniqueId    Unique identifier for the notification which is used with clearFormNotification to remove the notification.
+         * @param message   The text of the notification message.
+         * @param level    The level of the notification which defines how the message will be displayed, such as the icon.
+         * @param uniqueId    Unique identifier for the notification which is used with clearFormNotification to remove the notification.
          *
-         * @return  true if it succeeds, otherwise false.
+         * @return true if it succeeds, otherwise false.
          *
          * @remarks     Values for level are:    ERROR   Notification will use the system error icon.
          *                                       WARNING Notification will use the system warning icon.
@@ -388,9 +388,9 @@ declare namespace Xrm {
         /**
          * Clears the form notification described by uniqueId.
          *
-         * @param   {string}    uniqueId    Unique identifier.
+         * @param uniqueId    Unique identifier.
          *
-         * @return  True if it succeeds, otherwise false.
+         * @return True if it succeeds, otherwise false.
          */
         clearFormNotification(uniqueId: string): boolean;
 
@@ -402,7 +402,7 @@ declare namespace Xrm {
         /**
          * Gets form type.
          *
-         * @return  The form type.
+         * @return The form type.
          *
          * @remarks     Values returned are: 0  Undefined
          *                                   1  Create
@@ -417,7 +417,7 @@ declare namespace Xrm {
         /**
          * Gets view port height.
          *
-         * @return  The view port height, in pixels.
+         * @return The view port height, in pixels.
          *
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
@@ -426,7 +426,7 @@ declare namespace Xrm {
         /**
          * Gets view port width.
          *
-         * @return  The view port width, in pixels.
+         * @return The view port width, in pixels.
          *
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
@@ -478,39 +478,39 @@ declare namespace Xrm {
         /**
          * Displays an alert dialog, with an "OK" button.
          *
-         * @param   {string}        message         The message.
-         * @param   {function()}    onCloseCallback The "OK" callback.
+         * @param message       The message.
+         * @param onCloseCallback The "OK" callback.
          */
         alertDialog(message: string, onCloseCallback: () => void): void;
 
         /**
          * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
          *
-         * @param   {string}        message             The message.
-         * @param   {function()}    yesCloseCallback    The "OK" callback.
-         * @param   {function()}    noCloseCallback     The "Cancel" callback.
+         * @param message           The message.
+         * @param yesCloseCallback    The "OK" callback.
+         * @param noCloseCallback     The "Cancel" callback.
          */
         confirmDialog(message: string, yesCloseCallback: () => void, noCloseCallback: () => void): void;
 
         /**
          * Query if 'entityType' is an Activity entity.
          *
-         * @param   {string}    entityType  Type of the entity.
+         * @param entityType Type of the entity.
          *
-         * @return  true if the entity is an Activity, false if not.
+         * @return true if the entity is an Activity, false if not.
          */
         isActivityType(entityType: string): boolean;
 
         /**
          * Opens quick create.
          *
-         * @param   {string}    entityLogicalName           The logical name of the entity to create.
-         * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
+         * @param entityLogicalName         The logical name of the entity to create.
+         * @param createFromEntity    (Optional) Designates a record that will provide default values
          *                                                  based on mapped attribute values.
-         * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
+         * @param parameters          (Optional) A dictionary object that passes extra query string
          *                                                  parameters to the form. Invalid query string parameters will cause an
          *                                                  error.
-         * @return  {Async.XrmPromise} Returns an asynchronous promise.
+         * @return Returns an asynchronous promise.
          */
         openQuickCreate(entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: Utility.OpenParameters):
             Async.XrmPromise<Async.QuickCreateSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
@@ -518,24 +518,24 @@ declare namespace Xrm {
         /**
          * Opens an entity form.
          *
-         * @param   {string}    name                The entity's logical name.
-         * @param   {string}    id                  (Optional) The unique identifier for the record.
-         * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
-         * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
+         * @param name              The entity's logical name.
+         * @param id                  (Optional) The unique identifier for the record.
+         * @param parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
+         * @param windowOptions   (Optional) Options for controlling the window.
          */
         openEntityForm(name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
          *
-         * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
+         * @param webResourceName Name of the HTML web resource. Can be used to pass URL
          *                                      parameters.  See Remarks.
-         * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
+         * @param webResourceData (Optional) Data to pass into the Web Resource's data parameter.
          *                                                 It is advised to use encodeURIcomponent() to encode the value.
-         * @param   {number}    width           (Optional) The width of the new window.
-         * @param   {number}    height          (Optional) The height of the new window.
+         * @param width           (Optional) The width of the new window.
+         * @param height          (Optional) The height of the new window.
          *
-         * @return  A Window reference, containing the opened Web Resource.
+         * @return A Window reference, containing the opened Web Resource.
          *
          * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
          *          Valid WebResource URL Parameters:   typename
@@ -570,19 +570,19 @@ declare namespace Xrm {
         /**
          * Returns whether an entity is offline enabled.
          *
-         * @param    {string}    entityType    The logical name of the entity.
+         * @param entityType  The logical name of the entity.
          *
-         * @return   {boolean}   True if the entity is offline enabled; otherwise False.
+         * @return    True if the entity is offline enabled; otherwise False.
          */
         isOfflineEnabled(entityType: string): boolean;
 
         /**
          * Creates an entity record in mobile clients while working in the offline mode.
          *
-         * @param    {string}    entityType    The logical name of the entity.
-         * @param    {Object}    data          A dictionary object containing key : value pairs for the record to create.
+         * @param entityType  The logical name of the entity.
+         * @param data          A dictionary object containing key : value pairs for the record to create.
          *
-         * @return   {Async.XrmPromise}        Returns an asynchronous promise.
+         * @return         Returns an asynchronous promise.
          *
          * @remarks  You cannot create intersect and activity party entities.
          *           Only the following attribute types are supported in offline mode:
@@ -595,12 +595,12 @@ declare namespace Xrm {
         /**
          * Retrieves an entity record in mobile clients while working in the offline mode.
          *
-         * @param    {string}    entityType    The logical name of the entity.
-         * @param    {string}    id            GUID of the record to retrieve.
-         * @param    {string}    options       (Optional) OData system query options to retrieve your data. Supports $select and $expand
+         * @param entityType  The logical name of the entity.
+         * @param id            GUID of the record to retrieve.
+         * @param options       (Optional) OData system query options to retrieve your data. Supports $select and $expand
          *                                     Example: ?$select=name&$expand=primarycontactid($select=contactid,fullname)
          *
-         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         * @return  Returns an asynchronous promise.
          *
          * @remarks  Only $select option can be specified within $expand.
          *           Only the following attribute types are supported in offline mode:
@@ -613,15 +613,15 @@ declare namespace Xrm {
         /**
          * Retrieves a collection of entity records in mobile clients while working in the offline mode.
          *
-         * @param    {string}    entityType    The logical name of the entity.
-         * @param    {string}    options       (Optional) The logical name of the enti
-         * @param    {string}    maxPageSize   (Optional) A positive number to indicates the number of entity records to be returned per page.
+         * @param entityType  The logical name of the entity.
+         * @param options       (Optional) The logical name of the enti
+         * @param maxPageSize (Optional) A positive number to indicates the number of entity records to be returned per page.
          *                                     If you do not specify this parameter, the default value is passed as 5000.
          *                                     If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
          *                                     will be returned, and you can use the value of the @odata.nextLink property with a new GET
          *                                     request to return next set of records.
          *
-         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         * @return  Returns an asynchronous promise.
          *
          * @remarks  A maximum of 5000 related records can be retrieved when using $expand.
          *           Only $select option can be specified within $expand.
@@ -636,11 +636,11 @@ declare namespace Xrm {
         /**
          * Updates an entity record in mobile clients while working in the offline mode.
          *
-         * @param    {string}    entityType    The logical name of the entity.
-         * @param    {string}    id            GUID of the record to update.
-         * @param    {Object}    data          A dictionary object containing key : value pairs for the record to update.
+         * @param entityType  The logical name of the entity.
+         * @param id            GUID of the record to update.
+         * @param data          A dictionary object containing key : value pairs for the record to update.
          *
-         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         * @return  Returns an asynchronous promise.
          *
          * @remarks  You cannot update intersect and activity party entities.
          *           Only the following attribute types are supported in offline mode:
@@ -653,10 +653,10 @@ declare namespace Xrm {
         /**
          * Deletes an entity record in mobile clients while working in the offline mode.
          *
-         * @param    {string}    entityType    The logical name of the entity.
-         * @param    {string}    id            GUID of the record to delete.
+         * @param entityType  The logical name of the entity.
+         * @param id            GUID of the record to delete.
          *
-         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         * @return  Returns an asynchronous promise.
          *
          * @remarks  You cannot delete intersect and activity party entities.
          */
@@ -667,8 +667,8 @@ declare namespace Xrm {
         /**
          * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
          *
-         * @param    {string}    url    URL of the page to be loaded in the side pane static area.
-         * @param    {string}    url    Title of the side pane static area.
+         * @param url    URL of the page to be loaded in the side pane static area.
+         * @param url    Title of the side pane static area.
          *
          * @remarks  This method is only supported for the web client.
          */
@@ -687,14 +687,14 @@ declare namespace Xrm {
         /**
          * Called when the operation fails.
          *
-         * @param   {ErrorCallbackObject}    error   The error object.
+         * @param error   The error object.
          */
         type ErrorCallbackDelegate = (error: ErrorCallbackObject) => void;
 
         /**
          * Called when the Xrm.Utility.openQuickCreate operation is successful and a new record has been created.
          *
-         * @param   {OpenQuickCreateSuccessCallbackObject}    record   An object which contains a lookup value which identifies the record which has been created.
+         * @param record   An object which contains a lookup value which identifies the record which has been created.
          *
          * @see {Xrm.Utility.openQuickCreate}
          */
@@ -703,7 +703,7 @@ declare namespace Xrm {
         /**
          * Called when the offline operation is successful.
          *
-         * @param   {OfflineOperationSuccessCallbackObject}    record   The record returned from the operation.
+         * @param record   The record returned from the operation.
          *
          * @see {Xrm.Mobile.offline}
          */
@@ -712,7 +712,7 @@ declare namespace Xrm {
         /**
          * Called when the offline retrieve multiple operation is successful.
          *
-         * @param   {OfflineRetrieveMultipleSuccessCallbackDelegate}    resultSet   The dictionary of records retrieved from the operation.
+         * @param resultSet   The dictionary of records retrieved from the operation.
          *
          * @see {Xrm.Mobile.offline.retrieveMultipleRecords}
          */
@@ -721,7 +721,7 @@ declare namespace Xrm {
         /**
          * Called when the operation fails.
          *
-         * @param   {OfflineErrorCallbackObject}    error   The error object.
+         * @param error   The error object.
          *
          * @see {Xrm.Mobile.offline}
          */
@@ -780,15 +780,15 @@ declare namespace Xrm {
         /**
          * Interface for asynchronous promises used in Xrm.Page.data and Xrm.Utility.openQuickCreate.
          *
-         * @tparam  TSuccessCallback   Generic success callback parameter.
-         * @tparam  TErrorCallback     Generic error callback parameter.
+         * @tparam TSuccessCallback   Generic success callback parameter.
+         * @tparam TErrorCallback     Generic error callback parameter.
          */
         interface XrmPromise<TSuccessCallback, TErrorCallback> {
             /**
              * A basic 'then' promise.
              *
-             * @param   {SuccessCallbackDelegate}   successCallback   The success callback.
-             * @param   {ErrorCallbackDelegate}     errorCallback     The error callback.
+             * @param successCallback   The success callback.
+             * @param errorCallback     The error callback.
              */
             then(successCallback: TSuccessCallback, errorCallback: TErrorCallback): void;
         }
@@ -801,58 +801,58 @@ declare namespace Xrm {
         /**
          * Called for each item in an array
          *
-         * @param   {T} item            The item.
-         * @param   {number}    index   Zero-based index of the item array.
+         * @param item The item.
+         * @param index Zero-based index of the item array.
          *
-         * @return  true if the item matches, false if it does not.
+         * @return true if the item matches, false if it does not.
          */
         type MatchingDelegate<T> = (item: T, index?: number) => boolean;
 
         /**
          * Called for each item in an array
          *
-         * @param   {T} item            The item.
-         * @param   {number}    index   Zero-based index of the item array.
+         * @param item The item.
+         * @param index Zero-based index of the item array.
          */
         type IterativeDelegate<T> = (item: T, index?: number) => void;
 
         /**
          * Interface for an item collection.
          *
-         * @tparam  T   Generic type parameter.
+         * @tparam T   Generic type parameter.
          */
         interface ItemCollection<T> {
             /**
              * Applies an operation to all items in this collection.
              *
-             * @param   {IterativeDelegate{T}}  delegate    An iterative delegate function
+             * @param delegate An iterative delegate function
              */
             forEach(delegate: IterativeDelegate<T>): void;
 
             /**
              * Gets.
              *
-             * @param   {MatchingDelegate{T}}   delegate    A matching delegate function
+             * @param delegate A matching delegate function
              *
-             * @return  A T[] whose members have been validated by delegate.
+             * @return A T[] whose members have been validated by delegate.
              */
             get(delegate: MatchingDelegate<T>): T[];
 
             /**
              * Gets the item given by the index.
              *
-             * @param   {number}    itemNumber  The item number to get.
+             * @param itemNumber  The item number to get.
              *
-             * @return  The T in the itemNumber-th place.
+             * @return The T in the itemNumber-th place.
              */
             get(itemNumber: number): T;
 
             /**
              * Gets the item given by the key.
              *
-             * @param   {string}    itemName    The item name to get.
+             * @param itemName  The item name to get.
              *
-             * @return  The T matching the key itemName.
+             * @return The T matching the key itemName.
              *
              * @see {@link Xrm.Page.Control.getName()} for Control-naming schemes.
              */
@@ -861,14 +861,14 @@ declare namespace Xrm {
             /**
              * Gets the entire array of T.
              *
-             * @return  A T[].
+             * @return A T[].
              */
             get(): T[];
 
             /**
              * Gets the length of the collection.
              *
-             * @return  The length.
+             * @return The length.
              */
             getLength(): number;
         }
@@ -893,7 +893,12 @@ declare namespace Xrm {
         /**
          * Status for Xrm.Page.Stage.getStatus().
          */
-        type Status = "active" | "inactive";
+        type StageStatus = "active" | "inactive";
+
+        /**
+         * Status for Xrm.Page.Process.getStatus().
+         */
+        type ProcessStatus = "active" | "aborted" | "finished";
 
         /**
          * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
@@ -936,6 +941,11 @@ declare namespace Xrm {
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" | "lookup" | "memo" | "money" | "optionset" | "string";
 
         /**
+         * Direction types for a process stage change event
+         */
+        type StageChangeDirection = "Next" | "Previous";
+
+        /**
          * Attribute formats for Xrm.Page.Attribute.getFormat().
          */
         type AttributeFormat = DateAttributeFormat | IntegerAttributeFormat | OptionSetAttributeFormat | StringAttributeFormat;
@@ -956,21 +966,21 @@ declare namespace Xrm {
             /**
              * Returns the name of the process.
              *
-             * @return  The name.
+             * @return The name.
              */
             getName(): string;
 
             /**
              * Returns an collection of stages in the process.
              *
-             * @return  The stages.
+             * @return The stages.
              */
             getStages(): Collection.ItemCollection<Stage>;
 
             /**
              * Returns a boolean value to indicate if the process is rendered.
              *
-             * @return  true if the process is rendered, false if not.
+             * @return true if the process is rendered, false if not.
              */
             isRendered(): boolean;
         }
@@ -983,21 +993,21 @@ declare namespace Xrm {
              * Returns an object with a getValue method which will return the integer value of the business process flow
              * category.
              *
-             * @return  The stage category.
+             * @return The stage category.
              */
             getCategory(): { getValue(): XrmEnum.StageCategory };
 
             /**
              * Returns the logical name of the entity associated with the stage.
              *
-             * @return  The entity name.
+             * @return The entity name.
              */
             getEntityName(): string;
 
             /**
              * Returns the unique identifier of the stage.
              *
-             * @return  The identifier of the Stage, in GUID format.
+             * @return The identifier of the Stage, in GUID format.
              *
              * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
              */
@@ -1006,23 +1016,23 @@ declare namespace Xrm {
             /**
              * Returns the name of the stage.
              *
-             * @return  The name.
+             * @return The name.
              */
             getName(): string;
 
             /**
              * Returns the status of the stage.
              *
-             * @return  The status.
+             * @return The status.
              *
              * @remarks  This method will return either "active" or "inactive".
              */
-            getStatus(): Status;
+            getStatus(): StageStatus;
 
             /**
              * Returns a collection of steps in the stage.
              *
-             * @return  An array of Step.
+             * @return An array of Step.
              */
             getSteps(): Step[];
         }
@@ -1031,7 +1041,7 @@ declare namespace Xrm {
             /**
              * Returns the logical name of the attribute associated to the step.
              *
-             * @return  The attribute.
+             * @return The attribute.
              *
              * @remarks  Some steps don’t contain an attribute value.
              */
@@ -1040,14 +1050,14 @@ declare namespace Xrm {
             /**
              * Returns the name of the step.
              *
-             * @return  The name.
+             * @return The name.
              */
             getName(): string;
 
             /**
              * Returns whether the step is required in the business process flow.
              *
-             * @return  true if required, false if not.
+             * @return true if required, false if not.
              *
              * @remarks     Returns true if the step is marked as required in the Business Process Flow editor; otherwise, false.
              *              There is no connection between this value and the values you can change in the Xrm.Page.data.entity
@@ -1063,40 +1073,31 @@ declare namespace Xrm {
             /**
              * Gets the Xrm context.
              *
-             * @return  The Xrm context.
+             * @return The Xrm context.
              */
             getContext(): Context;
 
             /**
              * Gets the handler's depth, which is the order in which the handler is executed.
              *
-             * @return  The depth, a 0-based index.
+             * @return The depth, a 0-based index.
              */
             getDepth(): number;
 
             /**
-             * Gets save-event arguments.
-             *
-             * @return  The event arguments.
-             *
-             * @remarks Returns null for all but the "save" event.
-             */
-            getEventArgs(): SaveEventArguments;
-
-            /**
              * Gets a reference to the object for which event occurred.
              *
-             * @return  The event source.
+             * @return The event source.
              */
             getEventSource(): Attribute | Control | Entity;
 
             /**
              * Gets the shared variable with the specified key.
              *
-             * @tparam  T   Generic type parameter.
-             * @param   {string}    key The key.
+             * @tparam T   Generic type parameter.
+             * @param key The key.
              *
-             * @return  The shared variable.
+             * @return The shared variable.
              *
              * @remarks Used to pass values between handlers of an event.
              */
@@ -1105,9 +1106,9 @@ declare namespace Xrm {
             /**
              * Sets a shared variable.
              *
-             * @tparam  T   Generic type parameter.
-             * @param   {string}    key The key.
-             * @param   {T} value       The value.
+             * @tparam T   Generic type parameter.
+             * @param key The key.
+             * @param value     The value.
              *
              * @remarks Used to pass values between handlers of an event.
              */
@@ -1115,10 +1116,53 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for a save event context
+         */
+        interface SaveEventContext extends EventContext {
+            /**
+             * Gets save-event arguments.
+             *
+             * @return The event arguments.
+             *
+             * @remarks Returns null for all but the "save" event.
+             */
+            getEventArgs(): SaveEventArguments;
+        }
+
+        /**
+         * Interface for a process stage change event context
+         */
+        interface StageChangeEventContext extends EventContext {
+            /**
+             * Gets process stage change event arguments.
+             *
+             * @return The event arguments.
+             *
+             */
+            getEventArgs(): StageChangeEventArguments;
+        }
+
+        interface StageSelectedEventContext extends EventContext {
+            /**
+             * Gets process stage selected event arguments.
+             *
+             * @return The event arguments.
+             *
+             */
+            getEventArgs(): StageSelectedEventArguments;
+        }
+
+        /**
          * Type for a context-sensitive handler.
-         * @param   {EventContext}  context The context.
+         * @param context The context.
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
+
+        /**
+         * Type for a process status change handler.
+         * @param status The process status.
+         */
+        type ProcessStatusChangeHandler = (status: ProcessStatus) => void;
 
         /**
          * Interface for UI elements with labels.
@@ -1127,14 +1171,14 @@ declare namespace Xrm {
             /**
              * Gets the label.
              *
-             * @return  The label.
+             * @return The label.
              */
             getLabel(): string;
 
             /**
              * Sets the label.
              *
-             * @param   {string}    label   The label.
+             * @param label   The label.
              */
             setLabel(label: string): void;
         }
@@ -1146,7 +1190,7 @@ declare namespace Xrm {
             /**
              * Gets the visibility state.
              *
-             * @return  true if the tab is visible, otherwise false.
+             * @return true if the tab is visible, otherwise false.
              */
             getVisible(): boolean;
         }
@@ -1158,7 +1202,7 @@ declare namespace Xrm {
             /**
              * Sets the visibility state.
              *
-             * @param   {boolean}   visible true to show, false to hide.
+             * @param visible true to show, false to hide.
              */
             setVisible(visible: boolean): void;
         }
@@ -1170,7 +1214,7 @@ declare namespace Xrm {
             /**
              * Sets the visibility state.
              *
-             * @param   {boolean}   visible true to show, false to hide.
+             * @param visible true to show, false to hide.
              */
             setVisible(visible: boolean): void;
         }
@@ -1194,7 +1238,7 @@ declare namespace Xrm {
              * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
              * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
              *
-             * @param   {ContextSensitiveHandler}  handler The function reference.
+             * @param handler The function reference.
              */
             addOnKeyPress(handler: ContextSensitiveHandler): void;
 
@@ -1207,7 +1251,7 @@ declare namespace Xrm {
              * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
              *
              * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
-             * @param   {ContextSensitiveHandler}  handler The function reference.
+             * @param handler The function reference.
              */
             removeOnKeyPress(handler: ContextSensitiveHandler): void;
         }
@@ -1334,7 +1378,7 @@ declare namespace Xrm {
             /**
              * Adds a handler to be called when the attribute's value is changed.
              *
-             * @param   {ContextSensitiveHandler}  handler The function reference.
+             * @param handler The function reference.
              */
             addOnChange(handler: ContextSensitiveHandler): void;
 
@@ -1346,7 +1390,7 @@ declare namespace Xrm {
             /**
              * Gets attribute type.
              *
-             * @return  The attribute's type name.
+             * @return The attribute's type name.
              *
              * @remarks Values returned are: boolean
              *                               datetime
@@ -1364,21 +1408,21 @@ declare namespace Xrm {
             /**
              * Gets the attribute format.
              *
-             * @return  The format of the attribute.
+             * @return The format of the attribute.
              *
              * @see {@link getAttributeType()}
              *
-             * @remarks Values returned are: date           (datetime)
-             *                               datetime       (datetime)
-             *                               duration       (integer)
+             * @remarks Values returned are: date         (datetime)
+             *                               datetime     (datetime)
+             *                               duration      (integer)
              *                               email          (string)
-             *                               language       (optionset)
-             *                               none           (integer)
-             *                               phone          (string)
+             *                               language     (optionset)
+             *                               none         (integer)
+             *                               phone        (string)
              *                               text           (string)
              *                               textarea       (string)
              *                               tickersymbol   (string)
-             *                               timezone       (optionset)
+             *                               timezone     (optionset)
              *                               url            (string)
              */
             getFormat(): AttributeFormat;
@@ -1386,35 +1430,35 @@ declare namespace Xrm {
             /**
              * Gets a boolean value indicating whether this Attribute has unsaved changes.
              *
-             * @return  true if there are unsaved changes, otherwise false.
+             * @return true if there are unsaved changes, otherwise false.
              */
             getIsDirty(): boolean;
 
             /**
              * Gets the logical name of the attribute.
              *
-             * @return  The logical name.
+             * @return The logical name.
              */
             getName(): string;
 
             /**
              * Gets a reference to the record context of this attribute.
              *
-             * @return  The parent record context.
+             * @return The parent record context.
              */
             getParent(): Entity;
 
             /**
              * Gets the current level of requirement for the attribute.
              *
-             * @return  The required level, as either "none", "required", or "recommended"
+             * @return The required level, as either "none", "required", or "recommended"
              */
             getRequiredLevel(): RequirementLevel;
 
             /**
              * Gets current submit mode for the attribute.
              *
-             * @return  The submit mode, as either "always", "never", or "dirty"
+             * @return The submit mode, as either "always", "never", or "dirty"
              *
              * @remarks The default value is "dirty"
              */
@@ -1423,28 +1467,28 @@ declare namespace Xrm {
             /**
              * Gets the current user's privileges for the attribute.
              *
-             * @return  The user privileges.
+             * @return The user privileges.
              */
             getUserPrivilege(): Privilege;
 
             /**
              * Removes the handler from the "on change" event.
              *
-             * @param   {ContextSensitiveHandler}   handler The handler.
+             * @param handler The handler.
              */
             removeOnChange(handler: ContextSensitiveHandler): void;
 
             /**
              * Sets the required level.
              *
-             * @param   {string}    requirementLevel    The requirement level, as either "none", "required", or "recommended"
+             * @param requirementLevel    The requirement level, as either "none", "required", or "recommended"
              */
             setRequiredLevel(requirementLevel: RequirementLevel): void;
 
             /**
              * Sets the submit mode.
              *
-             * @param   {string}    submitMode  The submit mode, as either "always", "never", or "dirty".
+             * @param submitMode The submit mode, as either "always", "never", or "dirty".
              *
              * @remarks The default value is "dirty"
              */
@@ -1458,14 +1502,14 @@ declare namespace Xrm {
             /**
              * Gets the value.
              *
-             * @return  The value.
+             * @return The value.
              */
             getValue(): any;
 
             /**
              * Sets the value.
              *
-             * @param   {any}    value   The value.
+             * @param value The value.
              */
             setValue(value: any): void;
         }
@@ -1479,7 +1523,7 @@ declare namespace Xrm {
             /**
              * Gets the attribute format.
              *
-             * @return  The format of the attribute.
+             * @return The format of the attribute.
              *
              * @remarks Values returned are: duration
              *                               none
@@ -1489,35 +1533,35 @@ declare namespace Xrm {
             /**
              * Gets the maximum value allowed.
              *
-             * @return  The maximum value allowed.
+             * @return The maximum value allowed.
              */
             getMax(): number;
 
             /**
              * Gets the minimum value allowed.
              *
-             * @return  The minimum value allowed.
+             * @return The minimum value allowed.
              */
             getMin(): number;
 
             /**
              * Gets the attribute's configured precision.
              *
-             * @return  The total number of allowed decimal places.
+             * @return The total number of allowed decimal places.
              */
             getPrecision(): number;
 
             /**
              * Gets the value.
              *
-             * @return  The value.
+             * @return The value.
              */
             getValue(): number;
 
             /**
              * Sets the value.
              *
-             * @param   {number}    value   The value.
+             * @param value The value.
              *
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
@@ -1538,7 +1582,7 @@ declare namespace Xrm {
             /**
              * Gets the attribute format.
              *
-             * @return  The format of the attribute.
+             * @return The format of the attribute.
              *
              * @remarks Values returned are: email
              *                               phone
@@ -1552,7 +1596,7 @@ declare namespace Xrm {
             /**
              * Gets maximum length allowed.
              *
-             * @return  The maximum length allowed.
+             * @return The maximum length allowed.
              *
              * @remarks The email form's "Description" attribute does not have the this method.
              */
@@ -1561,14 +1605,14 @@ declare namespace Xrm {
             /**
              * Gets the value.
              *
-             * @return  The value.
+             * @return The value.
              */
             getValue(): string;
 
             /**
              * Sets the value.
              *
-             * @param   {string}    value   The value.
+             * @param value The value.
              *
              * @remarks     A String field with the {@link Attribute.getFormat|email} format enforces email
              *              address formatting. Attributes on Quick Create Forms will not save values set
@@ -1591,7 +1635,7 @@ declare namespace Xrm {
             /**
              * Gets the initial value of the attribute.
              *
-             * @return  The initial value.
+             * @return The initial value.
              *
              * @remarks Valid for OptionSet and boolean attribute types
              */
@@ -1607,7 +1651,7 @@ declare namespace Xrm {
             /**
              * Gets the initial value of the attribute.
              *
-             * @return  The initial value.
+             * @return The initial value.
              *
              * @remarks Valid for OptionSet and boolean attribute types
              */
@@ -1616,14 +1660,14 @@ declare namespace Xrm {
             /**
              * Gets the value.
              *
-             * @return  true if it succeeds, false if it fails.
+             * @return true if it succeeds, false if it fails.
              */
             getValue(): boolean;
 
             /**
              * Sets the value.
              *
-             * @param   {boolean}   value   The value.
+             * @param value The value.
              *
              * @remarks  Attributes on Quick Create Forms will not save values set with this method.
              */
@@ -1639,7 +1683,7 @@ declare namespace Xrm {
             /**
              * Gets the attribute format.
              *
-             * @return  The format of the attribute.
+             * @return The format of the attribute.
              *
              * @remarks Values returned are: date
              *                               datetime
@@ -1649,14 +1693,14 @@ declare namespace Xrm {
             /**
              * Gets the value.
              *
-             * @return  The value.
+             * @return The value.
              */
             getValue(): Date;
 
             /**
              * Sets the value.
              *
-             * @param   {Date}  value   The value.
+             * @param value The value.
              *
              * @remarks  Attributes on Quick Create Forms will not save values set with this method.
              */
@@ -1677,7 +1721,7 @@ declare namespace Xrm {
             /**
              * Gets the attribute format.
              *
-             * @return  The format of the attribute.
+             * @return The format of the attribute.
              *
              * @remarks Values returned are: language
              *                               timezone
@@ -1687,7 +1731,7 @@ declare namespace Xrm {
             /**
              * Gets the initial value of the attribute.
              *
-             * @return  The initial value.
+             * @return The initial value.
              *
              * @remarks Valid for OptionSet and boolean attribute types
              */
@@ -1696,53 +1740,53 @@ declare namespace Xrm {
             /**
              * Gets the option matching a value.
              *
-             * @param   {number}    value   The enumeration value of the option desired.
+             * @param value The enumeration value of the option desired.
              *
-             * @return  The option.
+             * @return The option.
              */
             getOption(value: number): OptionSetValue;
 
             /**
              * Gets the option matching a label.
              *
-             * @param   {string}    label   The label of the option desired.
+             * @param label   The label of the option desired.
              *
-             * @return  The option.
+             * @return The option.
              */
             getOption(label: string): OptionSetValue;
 
             /**
              * Gets all of the options.
              *
-             * @return  An array of options.
+             * @return An array of options.
              */
             getOptions(): OptionSetValue[];
 
             /**
              * Gets selected option.
              *
-             * @return  The selected option.
+             * @return The selected option.
              */
             getSelectedOption(): OptionSetValue;
 
             /**
              * Gets the label of the currently selected option.
              *
-             * @return  The current value's label.
+             * @return The current value's label.
              */
             getText(): string;
 
             /**
              * Gets the value.
              *
-             * @return  The value.
+             * @return The value.
              */
             getValue(): number;
 
             /**
              * Sets the value.
              *
-             * @param   {number}    value   The value.
+             * @param value The value.
              *
              * @remarks     The getOptions() method returns option values as strings. You must use parseInt
              *              to convert them to numbers before you can use those values to set the value of an
@@ -1766,21 +1810,21 @@ declare namespace Xrm {
             /**
              * Gets a boolean value indicating whether the Lookup is a multi-value PartyList.
              *
-             * @return  true the attribute is a PartyList, otherwise false.
+             * @return true the attribute is a PartyList, otherwise false.
              */
             getIsPartyList(): boolean;
 
             /**
              * Gets the value.
              *
-             * @return  An array of LookupValue.
+             * @return An array of LookupValue.
              */
             getValue(): LookupValue[];
 
             /**
              * Sets the value.
              *
-             * @param   {LookupValue[]} value   The value.
+             * @param value The value.
              *
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
@@ -1799,7 +1843,7 @@ declare namespace Xrm {
             /**
              * Adds a handler to be called when the record is saved.
              *
-             * @param   {ContextSensitiveHandler}   handler The handler.
+             * @param handler The handler.
              */
             addOnSave(handler: ContextSensitiveHandler): void;
 
@@ -1807,7 +1851,7 @@ declare namespace Xrm {
              * Gets an serialized-XML string representing data that will be passed to the server upon saving
              * the record.
              *
-             * @return  The XML in string format.
+             * @return The XML in string format.
              *
              * @remarks     This function does not work with Microsoft Dynamics CRM for tablets. Example:
              *              "<account><name>Contoso</name><accountnumber>55555</accountnumber><telephone2>425
@@ -1818,14 +1862,14 @@ declare namespace Xrm {
             /**
              * Gets entity's logical name.
              *
-             * @return  The logical name.
+             * @return The logical name.
              */
             getEntityName(): string;
 
             /**
              * Gets the record's unique identifier.
              *
-             * @return  The identifier, in Guid format.
+             * @return The identifier, in Guid format.
              *
              * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
              */
@@ -1834,14 +1878,14 @@ declare namespace Xrm {
             /**
              * Gets a boolean value indicating whether the record has unsaved changes.
              *
-             * @return  true if there are unsaved changes, otherwise false.
+             * @return true if there are unsaved changes, otherwise false.
              */
             getIsDirty(): boolean;
 
             /**
              * Gets the record's primary attribute value.
              *
-             * @return  The primary attribute value.
+             * @return The primary attribute value.
              *
              * @remarks The value for this attribute is used when links to the record are displayed.
              */
@@ -1850,7 +1894,7 @@ declare namespace Xrm {
             /**
              * Removes the handler from the "on save" event.
              *
-             * @param   {ContextSensitiveHandler}   handler The handler.
+             * @param handler The handler.
              */
             removeOnSave(handler: ContextSensitiveHandler): void;
 
@@ -1866,7 +1910,7 @@ declare namespace Xrm {
             /**
              * Saves the record with the given save mode.
              *
-             * @param   {string}    saveMode    (Optional) the save mode to save, as either "saveandclose" or
+             * @param saveMode  (Optional) the save mode to save, as either "saveandclose" or
              *                                  "saveandnew".
              */
             save(saveMode: SaveMode): void;
@@ -1884,7 +1928,7 @@ declare namespace Xrm {
             /**
              * Gets save mode, as an integer.
              *
-             * @return  The save mode.
+             * @return The save mode.
              *
              * @remarks Values returned are: 1      Save
              *                               2      Save and Close
@@ -1904,7 +1948,7 @@ declare namespace Xrm {
             /**
              * Returns a boolean value to indicate if the record's save has been prevented.
              *
-             * @return  true if saving is prevented, otherwise false.
+             * @return true if saving is prevented, otherwise false.
              */
             isDefaultPrevented(): boolean;
 
@@ -1914,6 +1958,41 @@ declare namespace Xrm {
              * @remarks All remaining "on save" handlers will continue execution.
              */
             preventDefault(): void;
+        }
+
+        /**
+         * Interface for process stage change event arguments.
+         */
+        interface StageChangeEventArguments {
+            /**
+             * Gets the direction of the stage change.
+             *
+             * @return The direction.
+             *
+             * @remarks Values returned are: "next" or "previous"
+             */
+            getDirection(): StageChangeDirection;
+
+            /**
+             * Gets the destination stage object
+             *
+             * @return The stage object
+             *
+             * @remarks For switching between entities, returns the previous stage object
+             */
+            getStage(): Stage;
+        }
+
+        /**
+         * Interface for process stage selected event arguments.
+         */
+        interface StageSelectedEventArguments {
+            /**
+             * Gets the selected stage object
+             *
+             * @return The stage object
+             */
+            getStage(): Stage;
         }
 
         /**
@@ -1927,30 +2006,45 @@ declare namespace Xrm {
                 /**
                  * Returns a Process object representing the active process.
                  *
-                 * @return  current active process.
+                 * @return current active process.
                  */
                 getActiveProcess(): Process;
 
                 /**
                  * Set a Process as the active process.
                  *
-                 * @param   {string}    processId           The Id of the process to make the active process.
-                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 * @param processId           The Id of the process to make the active process.
+                 * @param callbackFunction   (Optional) a function to call when the operation is complete.
                  */
                 setActiveProcess(processId: string, callbackFunction?: ProcessCallbackDelegate): void;
 
                 /**
+                 * Returns all process instances for the entity record that the calling user has access to.
+                 *
+                 * @param callbackFunction   (Optional) a function to call when the operation is complete.
+                 */
+                getProcessInstances(callbackFunction: GetProcessInstancesDelegate): void;
+
+                /**
+                 * Sets a process instance as the active instance
+                 *
+                 * @param processInstanceId           The Id of the process instance to make the active instance.
+                 * @param callbackFunction   (Optional) a function to call when the operation is complete.
+                 */
+                setActiveProcessInstance(processInstanceId: string, callbackFunction: SetProcessInstanceDelegate): void;
+
+                /**
                  * Returns a Stage object representing the active stage.
                  *
-                 * @return  current active stage.
+                 * @return current active stage.
                  */
                 getActiveStage(): Stage;
 
                 /**
                  * Set a stage as the active stage.
                  *
-                 * @param   {string}    stageId             the Id of the stage to make the active stage.
-                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 * @param stageId             the Id of the stage to make the active stage.
+                 * @param callbackFunction   (Optional) a function to call when the operation is complete.
                  */
                 setActiveStage(stageId: string, callbackFunction?: ProcessCallbackDelegate): void;
 
@@ -1959,7 +2053,7 @@ declare namespace Xrm {
                  * stages displayed in the business process flow control. The active path represents stages currently rendered in
                  * the process control based on the branching rules and current data in the record.
                  *
-                 * @return  A collection of all completed stages, the currently active stage, and the predicted set of future stages
+                 * @return A collection of all completed stages, the currently active stage, and the predicted set of future stages
                  *          based on satisfied conditions in the branching rule. This may be a subset of the stages returned with
                  *          Xrm.Page.data.process.getActiveProcess because it will only include those stages which represent a valid
                  *          transition from the current stage based on branching that has occurred in the process.
@@ -1970,7 +2064,7 @@ declare namespace Xrm {
                  * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an
                  * entity.
                  *
-                 * @param   {Function} callbackFunction The callback function must accept a parameter that contains an object with
+                 * @param callbackFunction The callback function must accept a parameter that contains an object with
                  *                                      dictionary properties where the name of the property is the Id of the
                  *                                      business process flow and the value of the property is the name of the
                  *                                      business process flow.
@@ -1984,14 +2078,14 @@ declare namespace Xrm {
                 /**
                  * Use this method to get the currently selected stage.
                  *
-                 * @return  The currently selected stage.
+                 * @return The currently selected stage.
                  */
                 getSelectedStage(): Stage;
 
                 /**
                  * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
                  * business process flow stage changes.
-                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
+                 * @param handler The function will be added to the bottom of the event
                  *                                              handler pipeline. The execution context is automatically
                  *                                              set to be the first parameter passed to the event handler.
                  *
@@ -2002,10 +2096,23 @@ declare namespace Xrm {
                 addOnStageChange(handler: ContextSensitiveHandler): void;
 
                 /**
+                 * Use this to add a function as an event handler for the OnProcessStatusChange event so that it will be called when the
+                 * business process flow status changes.
+                 * @param handler The function will be added to the bottom of the event
+                 *                                              handler pipeline. The execution context is automatically
+                 *                                              set to be the first parameter passed to the event handler.
+                 *
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
+                 */
+                addOnProcessStatusChange(handler: ProcessStatusChangeHandler): void;
+
+                /**
                  * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
                  * when a business process flow stage is selected.
                  *
-                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
+                 * @param handler The function will be added to the bottom of the event
                  *                                              handler pipeline. The execution context is automatically
                  *                                              set to be the first parameter passed to the event handler.
                  *
@@ -2016,9 +2123,17 @@ declare namespace Xrm {
                 addOnStageSelected(handler: ContextSensitiveHandler): void;
 
                 /**
+                 * Use this to remove a function as an event handler for the OnProcessStatusChange event.
+                 *
+                 * @param handler If an anonymous function is set using the addOnProcessStatusChange method it
+                 *                                              cannot be removed using this method.
+                 */
+                removeOnProcessStatusChange(handler: ProcessStatusChangeHandler): void;
+
+                /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
                  *
-                 * @param   {ContextSensitiveHandler}   handler If an anonymous function is set using the addOnStageChange method it
+                 * @param handler If an anonymous function is set using the addOnStageChange method it
                  *                                              cannot be removed using this method.
                  */
                 removeOnStageChange(handler: ContextSensitiveHandler): void;
@@ -2026,7 +2141,7 @@ declare namespace Xrm {
                 /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
                  *
-                 * @param   {ContextSensitiveHandler}   handler If an anonymous function is set using the addOnStageChange method it
+                 * @param handler If an anonymous function is set using the addOnStageChange method it
                  *                                              cannot be removed using this method.
                  */
                 removeOnStageSelected(handler: ContextSensitiveHandler): void;
@@ -2034,7 +2149,7 @@ declare namespace Xrm {
                 /**
                  * Progresses to the next stage.
                  *
-                 * @param   {ProcessCallbackDelegate}   callbackFunction    (Optional) A function to call when the operation is
+                 * @param callbackFunction   (Optional) A function to call when the operation is
                  *                                                          complete.
                  */
                 moveNext(callbackFunction?: ProcessCallbackDelegate): void;
@@ -2042,25 +2157,90 @@ declare namespace Xrm {
                 /**
                  * Moves to the previous stage.
                  *
-                 * @param   {ProcessCallbackDelegate}   callbackFunction    (Optional) A function to call when the operation is
+                 * @param callbackFunction   (Optional) A function to call when the operation is
                  *                                                          complete.
                  */
                 movePrevious(callbackFunction?: ProcessCallbackDelegate): void;
+
+                /**
+                 * Use this method to get the unique identifier of the process instance
+                 *
+                 * @return The unique identifier of the process instance
+                 */
+                getInstanceId(): string;
+
+                /**
+                 * Use this method to get the name of the process instance
+                 *
+                 * @return The name of the process instance
+                 */
+                getInstanceName(): string;
+
+                /**
+                 * Use this method to get the current status of the process instance
+                 *
+                 * @return The current status of the process
+                 */
+                getStatus(): ProcessStatus;
+
+                /**
+                 * Use this method to set the current status of the process instance
+                 *
+                 * @param status         The new status for the process
+                 * @param callbackFunction   (Optional) a function to call when the operation is complete.
+                 */
+                setStatus(status: ProcessStatus, callbackFunction: ProcessSetStatusDelegate): void;
             }
+
+            /**
+             * Called when method to get active processes is complete
+             *
+             * @param status  The result of the get active processes operation.
+             *
+             * @remarks     Returns object with the following key-value pairs:
+             *                          CreatedOn
+             *                          ProcessDefinitionID
+             *                          ProcessDefinitionName
+             *                          ProcessInstanceID
+             *                          ProcessInstanceName
+             *                          StatusCodeName
+             */
+            type GetProcessInstancesDelegate = (object: ProcessDictionary) => void;
+
+            /**
+             * Called when method to set active process is complete
+             *
+             * @param status  The result of the set active process operation.
+             *
+             * @remarks     Values returned are: success        (The operation succeeded.)
+             *                                   invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
+             */
+            type SetProcessInstanceDelegate = (status: string) => void;
 
             /**
              * Called when process change methods have completed.
              *
-             * @param       {string}    status  The result of the process change operation.
+             * @param status  The result of the process change operation.
              *
              * @remarks     Values returned are: success        (The operation succeeded.)
              *                                   crossEntity    (The previous stage is for a different entity.)
              *                                   beginning      (The active stage is the first stage of the active path.)
              *                                   invalid        (The operation failed because the selected stage isn’t the same
              *                                   as the active stage.)
-             *                                   unreachable    (The stage exists on a different path.)
+             *                                   unreachable  (The stage exists on a different path.)
              */
             type ProcessCallbackDelegate = (status: string) => void;
+
+            /**
+             * Called when process set status method has completed.
+             *
+             * @param status  The new status of the process instance
+             *
+             * @remarks     Values returned are: active
+             *                                   aborted
+             *                                   finished
+             */
+            type ProcessSetStatusDelegate = (status: ProcessStatus) => void;
 
             /**
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
@@ -2077,7 +2257,7 @@ declare namespace Xrm {
             /**
              * Gets the controls type.
              *
-             * @return  The control type.
+             * @return The control type.
              *
              * @remarks Values returned are: standard
              *                               iframe
@@ -2097,7 +2277,7 @@ declare namespace Xrm {
             /**
              * Gets the name of the control on the form.
              *
-             * @return  The name of the control.
+             * @return The name of the control.
              *
              * @remarks     The name assigned to a control is not determined until the form loads. Changes to
              *              the form may change the name assigned to a given control.
@@ -2115,7 +2295,7 @@ declare namespace Xrm {
             /**
              * Gets a reference to the Section parent of the control.
              *
-             * @return  The parent Section.
+             * @return The parent Section.
              */
             getParent(): Section;
         }
@@ -2129,9 +2309,9 @@ declare namespace Xrm {
             /**
              * Clears the notification identified by uniqueId.
              *
-             * @param   {string}    uniqueId    (Optional) Unique identifier.
+             * @param uniqueId    (Optional) Unique identifier.
              *
-             * @return  true if it succeeds, false if it fails.
+             * @return true if it succeeds, false if it fails.
              *
              * @remarks If the uniqueId parameter is not used, the current notification shown will be removed.
              */
@@ -2140,24 +2320,24 @@ declare namespace Xrm {
             /**
              * Gets a boolean value, indicating whether the control is disabled.
              *
-             * @return  true if it is disabled, otherwise false.
+             * @return true if it is disabled, otherwise false.
              */
             getDisabled(): boolean;
 
             /**
              * Sets the state of the control to either enabled, or disabled.
              *
-             * @param   {boolean}   disabled    true to disable, false to enable.
+             * @param disabled    true to disable, false to enable.
              */
             setDisabled(disabled: boolean): void;
 
             /**
              * Sets a control-local notification message.
              *
-             * @param   {string}    message     The message.
-             * @param   {string}    uniqueId    Unique identifier.
+             * @param message   The message.
+             * @param uniqueId    Unique identifier.
              *
-             * @return  true if it succeeds, false if it fails.
+             * @return true if it succeeds, false if it fails.
              *
              * @remarks     When this method is used on Microsoft Dynamics CRM for tablets a red "X" icon
              *              appears next to the control. Tapping on the icon will display the message.
@@ -2167,16 +2347,16 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @tparam  T   An Attribute type.
+             * @tparam T   An Attribute type.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute<T extends Attribute>(): T;
 
             /**
              * Gets the control's bound attribute.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute(): Attribute;
         }
@@ -2206,7 +2386,6 @@ declare namespace Xrm {
             /**
              * Shows upt to 10 matching strings in a drop-down list as users press keys to type charactrer in a specific text field.
              * On selecting an item in the drop-down list, the value in the text field changes to the selected item, the drop-down list disappears, and the OnChange event for the text field is invoked
-             * @param resultSet
              */
             showAutoComplete(resultSet: AutoCompleteResultSet): void;
         }
@@ -2220,7 +2399,7 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute(): StringAttribute;
         }
@@ -2234,7 +2413,7 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute(): NumberAttribute;
         }
@@ -2248,21 +2427,21 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute(): DateAttribute;
 
             /**
              * Gets the status of the time-of-day component of the Date control.
              *
-             * @return  true if the time is shown, otherwise false.
+             * @return true if the time is shown, otherwise false.
              */
             getShowTime(): boolean;
 
             /**
              * Sets the visibility of the time component of the Date control.
              *
-             * @param   {boolean}   showTimeValue   true to show, false to hide the time value.
+             * @param showTimeValue true to show, false to hide the time value.
              */
             setShowTime(showTimeValue: boolean): void;
         }
@@ -2276,7 +2455,7 @@ declare namespace Xrm {
             /**
              * Adds a handler to the "pre search" event of the Lookup control.
              *
-             * @param   {Function}  handler The handler.
+             * @param handler The handler.
              */
             addPreSearch(handler: ContextSensitiveHandler): void;
 
@@ -2286,9 +2465,9 @@ declare namespace Xrm {
              *
              * @sa addPreSearch
              *
-             * @param   {string}    filter              Specifies the filter, as a serialized FetchXML
+             * @param filter              Specifies the filter, as a serialized FetchXML
              *                                          "filter" node.
-             * @param   {string}    entityLogicalName   (Optional) The logical name of the entity.
+             * @param entityLogicalName (Optional) The logical name of the entity.
              *
              * @remarks     If entityLogicalName is not specified, the filter will be applied to all entities
              *              valid for the Lookup control.
@@ -2301,12 +2480,12 @@ declare namespace Xrm {
             /**
              * Adds a custom view for the Lookup dialog.
              *
-             * @param   {string}    viewId          Unique identifier for the view, in Guid format.
-             * @param   {string}    entityName      Name of the entity.
-             * @param   {string}    viewDisplayName Name of the view to display.
-             * @param   {string}    fetchXml        The FetchXML query for the view's contents, serialized as a string.
-             * @param   {string}    layoutXml       The Layout XML, serialized as a string.
-             * @param   {boolean}   isDefault       true, to treat this view as default.
+             * @param viewId          Unique identifier for the view, in Guid format.
+             * @param entityName    Name of the entity.
+             * @param viewDisplayName Name of the view to display.
+             * @param fetchXml        The FetchXML query for the view's contents, serialized as a string.
+             * @param layoutXml       The Layout XML, serialized as a string.
+             * @param isDefault       true, to treat this view as default.
              *
              * @remarks Cannot be used on "Owner" Lookup controls.
              *          The viewId is never saved to CRM, but must be unique across available views.  Generating
@@ -2319,14 +2498,14 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute(): LookupAttribute;
 
             /**
              * Gets the unique identifier of the default view.
              *
-             * @return  The default view, in Guid format.
+             * @return The default view, in Guid format.
              *
              * @remarks Example: "{00000000-0000-0000-0000-000000000000}"
              */
@@ -2335,14 +2514,14 @@ declare namespace Xrm {
             /**
              * Removes the handler from the "pre search" event of the Lookup control.
              *
-             * @param   {Function}  handler The handler.
+             * @param handler The handler.
              */
             removePreSearch(handler: () => void): void;
 
             /**
              * Sets the Lookup's default view.
              *
-             * @param   {string}    viewGuid    Unique identifier for the view.
+             * @param viewGuid    Unique identifier for the view.
              *
              * @remarks Example viewGuid value: "{00000000-0000-0000-0000-000000000000}"
              */
@@ -2358,8 +2537,8 @@ declare namespace Xrm {
             /**
              * Adds an option.
              *
-             * @param   {OptionSetValue}    option  The option.
-             * @param   {number}    index           (Optional) zero-based index of the option.
+             * @param option The option.
+             * @param index (Optional) zero-based index of the option.
              *
              * @remarks This method does not check that the values within the options you add are valid.
              *          If index is not provided, the new option will be added to the end of the list.
@@ -2374,14 +2553,14 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @return  The attribute.
+             * @return The attribute.
              */
             getAttribute(): OptionSetAttribute;
 
             /**
              * Removes the option matching the value.
              *
-             * @param   {number}    value   The value.
+             * @param value The value.
              */
             removeOption(value: number): void;
         }
@@ -2395,35 +2574,35 @@ declare namespace Xrm {
             /**
              * Use this method to add event handlers to the GridControl's OnLoad event.
              *
-             * @param   {Function} handler The event handler.
+             * @param handler The event handler.
              */
             addOnLoad(handler: () => void): void;
 
             /**
              * This method returns context information about the GridControl.
              *
-             * @return  The context type.
+             * @return The context type.
              */
             getContextType(): XrmEnum.GridControlContext;
 
             /**
              * Use this method to get the logical name of the entity data displayed in the grid.
              *
-             * @return  The entity name.
+             * @return The entity name.
              */
             getEntityName(): string;
 
             /**
              * Use this method to get access to the Grid available in the GridControl.
              *
-             * @return  The grid.
+             * @return The grid.
              */
             getGrid(): ui.Grid;
 
             /**
              * Use this method to get access to the ViewSelector available for the GridControl when it is configured to display views.
              *
-             * @return  The view selector.
+             * @return The view selector.
              */
             getViewSelector(): ui.ViewSelector;
 
@@ -2437,7 +2616,7 @@ declare namespace Xrm {
             /**
              * Use this method to remove event handlers from the GridControl's OnLoad event.
              *
-             * @param   {Function} handler The handler.
+             * @param handler The handler.
              */
             removeOnLoad(handler: () => void): void;
         }
@@ -2454,7 +2633,7 @@ declare namespace Xrm {
             /**
              * Gets the DOM element containing the control.
              *
-             * @return  The container object.
+             * @return The container object.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2463,7 +2642,7 @@ declare namespace Xrm {
             /**
              * Gets the URL value of the control.
              *
-             * @return  The source URL.
+             * @return The source URL.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2472,7 +2651,7 @@ declare namespace Xrm {
             /**
              * Sets the URL value of the control.
              *
-             * @param   {string}    src The source URL.
+             * @param src The source URL.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2488,7 +2667,7 @@ declare namespace Xrm {
             /**
              * Gets initial URL defined for the Iframe.
              *
-             * @return  The initial URL.
+             * @return The initial URL.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2504,7 +2683,7 @@ declare namespace Xrm {
             /**
              * Gets the query string value passed to Silverlight.
              *
-             * @return  The data.
+             * @return The data.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2513,7 +2692,7 @@ declare namespace Xrm {
             /**
              * Sets the query string value passed to Silverlight.
              *
-             * @param   {string}    data    The data.
+             * @param data    The data.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2522,7 +2701,7 @@ declare namespace Xrm {
             /**
              * Gets the DOM element containing the control.
              *
-             * @return  The container object.
+             * @return The container object.
              *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
@@ -2539,28 +2718,28 @@ declare namespace Xrm {
             /**
              * Gets display state of the tab.
              *
-             * @return  The display state, as either "expanded" or "collapsed"
+             * @return The display state, as either "expanded" or "collapsed"
              */
             getDisplayState(): ui.DisplayState;
 
             /**
              * Gets the name of the tab.
              *
-             * @return  The name.
+             * @return The name.
              */
             getName(): string;
 
             /**
              * Gets a reference to the Xrm.Page.ui parent of the tab.
              *
-             * @return  The parent.
+             * @return The parent.
              */
             getParent(): Ui;
 
             /**
              * Sets display state of the tab.
              *
-             * @param   {string}    displayState   Display state of the tab, as either "expanded" or "collapsed"
+             * @param displayState Display state of the tab, as either "expanded" or "collapsed"
              */
             setDisplayState(displayState: ui.DisplayState): void;
 
@@ -2579,14 +2758,14 @@ declare namespace Xrm {
             /**
              * Gets the name of the section.
              *
-             * @return  The name.
+             * @return The name.
              */
             getName(): string;
 
             /**
              * Gets a reference to the Xrm.Page.Tab parent of this item.
              *
-             * @return  The parent.
+             * @return The parent.
              */
             getParent(): Tab;
 
@@ -2617,14 +2796,14 @@ declare namespace Xrm {
                 /**
                  * Sets display state of the process flow control.
                  *
-                 * @param   {string}    displayState   Display state of the process flow control, as either "expanded" or "collapsed"
+                 * @param displayState Display state of the process flow control, as either "expanded" or "collapsed"
                  */
-                setDisplayState(displayState: ui.DisplayState): void;
+                setDisplayState(displayState: DisplayState): void;
 
                 /**
                  * Sets the visibility state.
                  *
-                 * @param   {boolean}   visible true to show, false to hide.
+                 * @param visible true to show, false to hide.
                  */
                 setVisible(visible: boolean): void;
             }
@@ -2637,21 +2816,21 @@ declare namespace Xrm {
                 /**
                  * Returns a collection of every GridRow in the Grid.
                  *
-                 * @return  The rows.
+                 * @return The rows.
                  */
                 getRows(): Collection.ItemCollection<GridRow>;
 
                 /**
                  * Returns a collection of every selected GridRow in the Grid.
                  *
-                 * @return  The selected rows.
+                 * @return The selected rows.
                  */
                 getSelectedRows(): Collection.ItemCollection<GridRow>;
 
                 /**
                  * Returns the total number of records in the Grid.
                  *
-                 * @return  The total record count.
+                 * @return The total record count.
                  */
                 getTotalRecordCount(): number;
             }
@@ -2664,7 +2843,7 @@ declare namespace Xrm {
                 /**
                  * Returns the GridRowData for the GridRow.
                  *
-                 * @return  The data.
+                 * @return The data.
                  */
                 getData(): GridRowData;
             }
@@ -2677,7 +2856,7 @@ declare namespace Xrm {
                 /**
                  * Returns the GridEntity for the GridRowData.
                  *
-                 * @return  The entity.
+                 * @return The entity.
                  */
                 getEntity(): GridEntity;
             }
@@ -2690,21 +2869,21 @@ declare namespace Xrm {
                 /**
                  * Returns the logical name for the record in the row.
                  *
-                 * @return  The entity name.
+                 * @return The entity name.
                  */
                 getEntityName(): string;
 
                 /**
                  * Returns a LookupValue that references this record.
                  *
-                 * @return  The entity reference.
+                 * @return The entity reference.
                  */
                 getEntityReference(): LookupValue;
 
                 /**
                  * Returns the id for the record in the row.
                  *
-                 * @return  The identifier of the GridEntity, in GUID format.
+                 * @return The identifier of the GridEntity, in GUID format.
                  *
                  * @remarks Example return: "{00000000-0000-0000-0000-000000000000}"
                  */
@@ -2713,7 +2892,7 @@ declare namespace Xrm {
                 /**
                  * Returns the primary attribute value for the record in the row.  (Commonly the name.)
                  *
-                 * @return  The primary attribute value.
+                 * @return The primary attribute value.
                  */
                 getPrimaryAttributeValue(): string;
             }
@@ -2726,21 +2905,21 @@ declare namespace Xrm {
                 /**
                  * Use this method to get a reference to the current view.
                  *
-                 * @return  The current view.
+                 * @return The current view.
                  */
                 getCurrentView(): ViewSelectorItem;
 
                 /**
                  * Use this method to determine whether the view selector is visible.
                  *
-                 * @return  true if visible, false if not.
+                 * @return true if visible, false if not.
                  */
                 isVisible(): boolean;
 
                 /**
                  * Use this method to set the current view.
                  *
-                 * @param   {ViewSelectorItem}  viewSelectorItem    The view selector item.
+                 * @param viewSelectorItem The view selector item.
                  */
                 setCurrentView(viewSelectorItem: ViewSelectorItem): void;
             }
@@ -2753,7 +2932,7 @@ declare namespace Xrm {
                 /**
                  * Returns a LookupValue that references this view.
                  *
-                 * @return  The entity reference.
+                 * @return The entity reference.
                  */
                 getEntityReference(): LookupValue;
             }
@@ -2767,69 +2946,69 @@ declare namespace Xrm {
                 /**
                  * Gets the constituent controls in a quick view control.
                  *
-                 * @return  An array of controls.
+                 * @return An array of controls.
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(): Page.Control[];
+                getControl(): Control[];
 
                 /**
                  * Gets the constituent controls in a quick view control.
                  *
-                 * @tparam  T   A Control type
-                 * @param   {string}    controlName    Name of the control.
+                 * @tparam T   A Control type
+                 * @param controlName  Name of the control.
                  *
-                 * @return  The control.
+                 * @return The control.
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl<T extends Page.Control>(controlName: string): T;
+                getControl<T extends Control>(controlName: string): T;
 
                 /**
                  * Gets the constituent controls in a quick view control.
                  *
-                 * @param   {string}    controlName    Name of the control.
+                 * @param controlName  Name of the control.
                  *
-                 * @return  The control.
+                 * @return The control.
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(controlName: string): Page.Control;
+                getControl(controlName: string): Control;
 
                 /**
                  * Gets a control by index.
                  *
-                 * @tparam  T   A Control type
-                 * @param   {number}    index   The control index.
+                 * @tparam T   A Control type
+                 * @param index The control index.
                  *
-                 * @return  The control.
+                 * @return The control.
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl<T extends Page.Control>(index: number): T;
+                getControl<T extends Control>(index: number): T;
 
                 /**
                  * Gets a control by index.
                  *
-                 * @param   {number}    index   The control index.
+                 * @param index The control index.
                  *
-                 * @return  The control.
+                 * @return The control.
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(index: number): Page.Control;
+                getControl(index: number): Control;
 
                 /**
                  * Gets the controls type.
                  *
-                 * @return  Returns a string value that categorizes quick view controls.
+                 * @return Returns a string value that categorizes quick view controls.
                  */
                 getControlType(): ControlQuickFormType;
 
                 /**
                  * Returns whether the data binding for the constituent controls in a quick view control is complete.
                  *
-                 * @return   True is the data binding for a constituent control is complete, otherwise false.
+                 * @return  True is the data binding for a constituent control is complete, otherwise false.
                  *           because the quick view form that the control is bound to may not have loaded completely.
                  *           As a result, using the getAttribute or any data-related methods on a constituent control might not work.
                  *           The isLoaded method for the quick view control helps determine the data binding status for constituent controls in a quick view control.
@@ -2855,7 +3034,7 @@ declare namespace Xrm {
             /**
              * Gets the name of the item.
              *
-             * @return  The identifier.
+             * @return The identifier.
              */
             getId(): string;
         }
@@ -2877,14 +3056,14 @@ declare namespace Xrm {
             /**
              * Gets the unique identifier of the form.
              *
-             * @return  The identifier, in Guid format.
+             * @return The identifier, in Guid format.
              */
             getId(): string;
 
             /**
              * Gets the label for the form.
              *
-             * @return  The label.
+             * @return The label.
              */
             getLabel(): string;
 
@@ -2901,7 +3080,7 @@ declare namespace Xrm {
             /**
              * Gets current form.
              *
-             * @return  The current item.
+             * @return The current item.
              *
              * @remarks When only one form is available this method will return null.
              */

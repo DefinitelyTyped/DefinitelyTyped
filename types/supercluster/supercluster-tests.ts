@@ -1,5 +1,4 @@
-import * as supercluster from 'supercluster';
-import { Point } from 'supercluster';
+import supercluster, { Point } from 'supercluster';
 
 const point1: Point = {
     type: 'Feature',

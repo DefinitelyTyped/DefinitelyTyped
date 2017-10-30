@@ -1,6 +1,6 @@
 // Type definitions for autobind-decorator v1.3.3
 // Project: https://github.com/andreypopp/autobind-decorator
-// Definitions by: Ivo Stratev <https://github.com/NoHomey/>
+// Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'autobind-decorator' {

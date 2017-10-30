@@ -1,6 +1,6 @@
 // Type definitions for sharp-timer library. 1.0
 // Project: https://github.com/afractal/SharpTimer
-// Definitions by: Hermes Gjini - afractal <https://github.com/afractal/>
+// Definitions by: Hermes Gjini - afractal <https://github.com/afractal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -35,7 +35,6 @@ export class Timer {
     /**
      * Gets a boolean value to indicate the enabled state
      * of the current Timer instance.
-     * @readonly
      * @default true
      */
     readonly enabled: boolean;
@@ -43,7 +42,6 @@ export class Timer {
     /**
      * Gets a boolean value to indicate the stopped state
      * of the current Timer instance.
-     * @readonly
      * @default false
      */
     readonly stopped: boolean;
@@ -121,37 +119,31 @@ export class Stopwatch {
     /**
      * Gets the elapsed time in this format:
      * hrs:mins:secs:ms
-     * @readonly
      */
     readonly elapsed: string;
 
     /**
      * Gets the elapsed time in milliseconds.
-     * @readonly
      */
     readonly elapsedMilliseconds: number;
 
     /**
      * Gets the elapsed time in seconds.
-     * @readonly
      */
     readonly elapsedSeconds: number;
 
     /**
      * Gets the elapsed time in minutes.
-     * @readonly
      */
     readonly elapsedMinutes: number;
 
     /**
      * Gets the elapsed hours in hours.
-     * @readonly
      */
     readonly elapsedHours: number;
 
     /**
      * Gets the isRunning state of the current Stopwatch instance.
-     * @readonly
      * @default false
      */
     readonly isRunning: boolean;
@@ -204,31 +196,26 @@ export class Timespan {
 
     /**
      * Gets the time interval in milliseconds.
-     * @readonly
      */
     readonly milliseconds: number;
 
     /**
      * Gets the time interval in seconds.
-     * @readonly
      */
     readonly seconds: number;
 
     /**
      * Gets the time interval in minutes.
-     * @readonly
      */
     readonly minutes: number;
 
     /**
      * Gets the time interval in hours.
-     * @readonly
      */
     readonly hours: number;
 
     /**
      * Gets the time interval in days.
-     * @readonly
      */
     readonly days: number;
 

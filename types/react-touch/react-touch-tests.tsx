@@ -5,7 +5,7 @@ import {
     HoldableProps, HoldConfig, moves, SwipeConfig, Swipeable, SwipeableConfig, SwipeableProps
 } from "react-touch";
 
-export class HoldableTest extends React.PureComponent<{}> {
+export class HoldableTest extends React.PureComponent {
     render() {
         const holdConfig: HoldConfig = {};
         const config: HoldableConfig = defineHold(holdConfig);
@@ -19,7 +19,7 @@ export class HoldableTest extends React.PureComponent<{}> {
     }
 }
 
-export class DraggableTest extends React.PureComponent<{}> {
+export class DraggableTest extends React.PureComponent {
     render() {
         const style: DraggableStyle = {};
         return <Draggable style={style} children={this.callback} />;
@@ -30,7 +30,7 @@ export class DraggableTest extends React.PureComponent<{}> {
     }
 }
 
-export class SwipeableTest extends React.PureComponent<{}> {
+export class SwipeableTest extends React.PureComponent {
     render() {
         const swipeConfig: SwipeConfig = {};
         const config: SwipeableConfig = defineSwipe(swipeConfig);
@@ -49,7 +49,7 @@ export class SwipeableTest extends React.PureComponent<{}> {
     }
 }
 
-export class CustomGestureTest extends React.PureComponent<{}> {
+export class CustomGestureTest extends React.PureComponent {
     private move: moves[] = [moves.UPLEFT, moves.RIGHT, moves.DOWNRIGHT];
 
     render() {

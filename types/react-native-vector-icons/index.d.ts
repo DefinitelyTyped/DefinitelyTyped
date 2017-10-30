@@ -1,4 +1,4 @@
-// Type definitions for react-native-vector-icons 4.3
+// Type definitions for react-native-vector-icons 4.4
 // Project: https://github.com/oblador/react-native-vector-icons
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -16,15 +16,12 @@ import { TextProperties } from 'react-native';
  * Optionally pass the third fontFile argument for android support, it should be a path
  * to the font file in you asset folder.
  *
- * @param glyphMap
- * @param fontFamily
- * @param fontFile
  */
 export function createIconSet(
   glyphMap: {},
   fontFamily: string,
   fontFile?: string
-): Icon;
+): typeof Icon;
 
 /**
  * Convenience method to create a custom font based on a fontello config file.
@@ -37,11 +34,8 @@ export function createIconSet(
  * const Icon = createIconSetFromFontello(fontelloConfig);
  *
  * @see http://fontello.com
- * @export
- * @param {{}} config
- * @returns {Icon}
  */
-export function createIconSetFromFontello(config: {}): Icon;
+export function createIconSetFromFontello(config: {}): typeof Icon;
 
 /**
  * Convenience method to create a custom font from IcoMoon
@@ -55,8 +49,5 @@ export function createIconSetFromFontello(config: {}): Icon;
  * const Icon = createIconSetFromIcoMoon(icoMoonConfig);
  *
  * @see https://icomoon.io/app
- * @export
- * @param {{}} config
- * @returns {Icon}
  */
-export function createIconSetFromIcoMoon(config: {}): Icon;
+export function createIconSetFromIcoMoon(config: {}): typeof Icon;

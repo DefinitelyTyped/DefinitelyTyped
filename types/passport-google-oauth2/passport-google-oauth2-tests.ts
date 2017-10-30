@@ -1,6 +1,5 @@
-import * as express from 'express';
-import * as PassportGoogle from 'passport-google-oauth2';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
+import { Request } from 'express';
+import { Strategy as GoogleStrategy, VerifyCallback } from 'passport-google-oauth2';
 
 new GoogleStrategy({
   callbackURL: 'callbackurl',
@@ -8,10 +7,10 @@ new GoogleStrategy({
   clientSecret: 'shhh',
   passReqToCallback: true,
 }, (
-  req: express.Request,
+  req: Request,
   accessToken: string,
   refreshToken: string,
   profile: any,
-  done: PassportGoogle.VerifyCallback) => {
+  done: VerifyCallback) => {
   // Some registration / log in logic
 });

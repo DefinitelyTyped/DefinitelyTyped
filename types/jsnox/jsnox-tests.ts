@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as jsnox from "jsnox";
-let $ = jsnox(React);
+const $ = jsnox(React);
 
 interface PersonProps {
     firstName: string;
@@ -8,13 +8,13 @@ interface PersonProps {
     age: number;
 }
 
-let Person: React.ClassicComponentClass<PersonProps> = React.createClass<PersonProps, {}>({
+class Person extends React.Component<PersonProps> {
     render(): React.ReactElement<any> { return null; }
-});
+}
 
-let PersonTag = React.createFactory(Person);
+const PersonTag = React.createFactory(Person);
 
-let clickHandler: React.MouseEventHandler<{}>;
+declare const clickHandler: React.MouseEventHandler<{}>;
 
 // tests with spec string
 function spec_string(): void {
@@ -48,7 +48,7 @@ function react_component(): void {
     result = $(Person, ["hello", $("span", "world")]);   // mixed array of children
 
     // with component props
-    let props: PersonProps = { firstName: "Bob", lastName: "Garfield", age: 72 };
+    const props: PersonProps = { firstName: "Bob", lastName: "Garfield", age: 72 };
     result = $(Person, props);                           // no children
     result = $(Person, props, "hello");                  // one string child
     result = $(Person, props, $("span", "world"));       // one element child

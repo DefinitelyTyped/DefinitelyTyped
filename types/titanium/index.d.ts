@@ -1,6 +1,6 @@
 // Type definitions for Titanium Mobile 3.5.0
 // Project: http://www.appcelerator.com/
-// Definitions by: Craig Younkins <https://github.com/cyounkins/>
+// Definitions by: Craig Younkins <https://github.com/cyounkins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Ti {

@@ -12,13 +12,13 @@ import * as d3Dsv from 'd3-dsv';
 // Preperatory Steps
 // ------------------------------------------------------------------------------------------
 
-const csvTestString: string = '1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38';
-const tsvTestString: string = '1997\tFord\tE350\t2.34\n2000\tMercury\tCougar\t2.38';
-const pipedTestString: string = '1997|Ford|E350|2.34\n2000|Mercury|Cougar|2.38';
+const csvTestString = '1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38';
+const tsvTestString = '1997\tFord\tE350\t2.34\n2000\tMercury\tCougar\t2.38';
+const pipedTestString = '1997|Ford|E350|2.34\n2000|Mercury|Cougar|2.38';
 
-const csvTestStringWithHeader: string = 'Year,Make,Model,Length\n1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38';
-const tsvTestStringWithHeader: string = 'Year\tMake\tModel\tLength\n1997\tFord\tE350\t2.34\n2000\tMercury\tCougar\t2.38';
-const pipedTestStringWithHeader: string = 'Year|Make|Model|Length\n1997|Ford|E350|2.34\n2000|Mercury|Cougar|2.38';
+const csvTestStringWithHeader = 'Year,Make,Model,Length\n1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38';
+const tsvTestStringWithHeader = 'Year\tMake\tModel\tLength\n1997\tFord\tE350\t2.34\n2000\tMercury\tCougar\t2.38';
+const pipedTestStringWithHeader = 'Year|Make|Model|Length\n1997|Ford|E350|2.34\n2000|Mercury|Cougar|2.38';
 
 interface ParsedTestObject {
     year: Date;

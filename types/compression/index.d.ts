@@ -1,6 +1,6 @@
 // Type definitions for compression
 // Project: https://github.com/expressjs/compression
-// Definitions by: Santi Albo <https://github.com/santialbo/>
+// Definitions by: Santi Albo <https://github.com/santialbo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as express from 'express';

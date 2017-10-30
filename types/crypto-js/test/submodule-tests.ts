@@ -52,15 +52,15 @@ import PadZeroPadding = require('../pad-zeropadding');
 import PadNoPadding = require('../pad-nopadding');
 
 // Hashers
-var str: string;
-str = MD5('some message');
-str = MD5('some message', 'some key');
+var wordArray: CryptoJS.WordArray;
+wordArray = MD5('some message');
+wordArray = MD5('some message', 'some key');
 
-str = SHA1('some message');
-str = SHA1('some message', 'some key', { any: true });
+wordArray = SHA1('some message');
+wordArray = SHA1('some message', 'some key', { any: true });
 
-str = FormatOpenSSL('some message');
-str = FormatOpenSSL('some message', 'some key');
+wordArray = FormatOpenSSL('some message');
+wordArray = FormatOpenSSL('some message', 'some key');
 
 
 // Ciphers

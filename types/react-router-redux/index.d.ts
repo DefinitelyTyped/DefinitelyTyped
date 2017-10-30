@@ -24,7 +24,7 @@ export interface ConnectedRouterProps<State> {
     store?: Store<State>;
     history?: History;
 }
-export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
+export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 

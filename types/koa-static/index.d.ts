@@ -1,6 +1,6 @@
 // Type definitions for koa-static 3.0
 // Project: https://github.com/koajs/static
-// Definitions by: Jerry Chin <https://github.com/hellopao/>
+// Definitions by: Jerry Chin <https://github.com/hellopao>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 
 /* =================== USAGE ===================
