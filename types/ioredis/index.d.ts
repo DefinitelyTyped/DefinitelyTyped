@@ -20,6 +20,7 @@ interface RedisStatic {
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
     Cluster: IORedis.Cluster;
+    Command: IORedis.Command;
 }
 
 declare var IORedis: RedisStatic;
@@ -36,6 +37,11 @@ declare class Commander {
 }
 
 declare namespace IORedis {
+    interface Command {
+        setArgumentTransformer(name: string, fn: (args: any[]) => any[]): void;
+        setReplyTransformer(name: string, fn: (result: any) => any): void;
+    }
+
     interface Redis extends NodeJS.EventEmitter, Commander {
         status: string;
         connect(callback?: () => void): Promise<any>;

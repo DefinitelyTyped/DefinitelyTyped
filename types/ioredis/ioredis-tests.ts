@@ -82,3 +82,11 @@ redis.pipeline([
     ['set', 'foo', 'bar'],
     ['get', 'foo']
 ]).exec(() => { /* ... */ });
+
+Redis.Command.setArgumentTransformer('set', args => {
+    return args;
+});
+
+Redis.Command.setReplyTransformer('get', (result: any) => {
+    return result;
+});
