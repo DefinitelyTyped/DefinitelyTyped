@@ -54,7 +54,6 @@
         "object-literal-shorthand": false,
         "one-line": false,
         "one-variable-per-declaration": false,
-        "only-arrow-functions": false,
         "prefer-conditional-expression": false,
         "prefer-const": false,
         "prefer-declare-function": false,
