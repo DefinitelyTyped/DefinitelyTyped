@@ -1,6 +1,7 @@
 // Type definitions for GeoJSON Format Specification Revision 1.0
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster>
+//                 Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
