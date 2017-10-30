@@ -85,7 +85,6 @@ declare class ClusterIcon extends google.maps.OverlayView {
     /**
      * A cluster icon.
      *
-     * @extends google.maps.OverlayView
      * @param cluster The cluster with which the icon is to be associated.
      * @param [styles] An array of {@link ClusterIconStyle} defining the cluster icons
      *       to use for various cluster sizes.
@@ -378,7 +377,6 @@ interface MarkerClustererOptions {
 declare class MarkerClusterer extends google.maps.OverlayView {
     /**
      * Creates a MarkerClusterer object with the options specified in {@link MarkerClustererOptions}.
-     * @extends google.maps.OverlayView
      * @param map The Google map to attach to.
      * @param [markers] The markers to be added to the cluster.
      * @param [options] The optional parameters.
