@@ -242,7 +242,7 @@ request
 
 // The following examples from https://github.com/request/request
 request('http://www.google.com', (error, response, body) => {
-  if (!error && response.statusCode == 200) {
+  if (!error && response.statusCode === 200) {
     console.log(body); // Show the HTML for the Google homepage.
   }
 });
@@ -427,7 +427,7 @@ options = {
 };
 
 function callback(error: any, response: http.IncomingMessage, body: string) {
-  if (!error && response.statusCode == 200) {
+  if (!error && response.statusCode === 200) {
     var info = JSON.parse(body);
     console.log(info.stargazers_count + " Stars");
     console.log(info.forks_count + " Forks");
@@ -614,7 +614,7 @@ var rand = Math.floor(Math.random() * 100000000).toString();
       ]
     }
   , (error, response, body) => {
-      if (response.statusCode == 201) {
+      if (response.statusCode === 201) {
         console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
       } else {
         console.log('error: ' + response.statusCode);
