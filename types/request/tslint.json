@@ -59,7 +59,6 @@
         "prefer-switch": false,
         "prefer-template": false,
         "radix": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "triple-equals": false,
         "unified-signatures": false,
