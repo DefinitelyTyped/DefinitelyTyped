@@ -9,6 +9,7 @@
 // TypeScript Version: 2.3
 
 import * as React from 'react';
+
 declare class Autosuggest extends React.Component<Autosuggest.AutosuggestProps> {}
 
 export = Autosuggest;
@@ -57,22 +58,11 @@ declare namespace Autosuggest {
     method: 'click' | 'enter';
   }
 
-  interface Theme {
-    container?: string;
-    containerOpen?: string;
-    input?: string;
-    inputOpen?: string;
-    inputFocused?: string;
-    suggestionsContainer?: string;
-    suggestionsContainerOpen?: string;
-    suggestionsList?: string;
-    suggestion?: string;
-    suggestionFirst?: string;
-    suggestionHighlighted?: string;
-    sectionContainer?: string;
-    sectionContainerFirst?: string;
-    sectionTitle?: string;
-  }
+  type ThemeKey = 'container' | 'containerOpen' | 'input' | 'inputOpen' | 'inputFocused' | 'suggestionsContainer' |
+    'suggestionsContainerOpen' | 'suggestionsList' | 'suggestion' | 'suggestionFirst' | 'suggestionHighlighted' |
+    'sectionContainer' | 'sectionContainerFirst' | 'sectionTitle';
+
+  type Theme = Record<string, string | React.CSSProperties> | Partial<Record<ThemeKey, string | React.CSSProperties>>;
 
   interface AutosuggestProps extends React.Props<Autosuggest> {
     suggestions: any[];
