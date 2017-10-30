@@ -48,7 +48,6 @@ var bodyArr: request.RequestPart[] = [{
   defaultBodyRequest.put();
 })();
 
-
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 obj = req.toJSON();
@@ -536,7 +535,6 @@ request.get({
         ca: fs.readFileSync('ca.cert.pem')
     }
 });
-
 
 request({
     // will be ignored
