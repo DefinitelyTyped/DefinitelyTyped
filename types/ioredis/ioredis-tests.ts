@@ -54,3 +54,11 @@ redis.on('message', function(channel: any, message: any) {
 redis.on('messageBuffer', function(channel: any, message: any) {
     // Both `channel` and `message` are buffers.
 });
+
+Redis.Command.setArgumentTransformer('set', (args: Array<any>) => {
+    return args;
+});
+
+Redis.Command.setReplyTransformer('get', (result: any) => {
+    return result;
+});

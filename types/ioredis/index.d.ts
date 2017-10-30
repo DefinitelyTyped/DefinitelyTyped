@@ -22,6 +22,7 @@ interface RedisStatic {
     (options: IORedis.RedisOptions): IORedis.Redis;
     (url: string): IORedis.Redis;
     Cluster: IORedis.Cluster;
+    Command: IORedis.Command;
 }
 
 declare var IORedis: RedisStatic;
@@ -37,6 +38,19 @@ declare module IORedis {
             lua?: string;
         }): any;
         sendCommand(): void;
+    }
+
+    interface ArgumentTransformer {
+        (args: Array<any>): Array<any>;
+    }
+
+    interface ReplyTransformer {
+        (result: any): any;
+    }
+
+    interface Command {
+        setArgumentTransformer(name: string, fn: ArgumentTransformer): void;
+        setReplyTransformer(name: string, fn: ReplyTransformer): void;
     }
 
     interface Redis extends NodeJS.EventEmitter, Commander {
