@@ -39,6 +39,7 @@ interface APIGatewayEvent {
             userAgent: string | null;
             userArn: string | null;
         },
+        path: string | null;
         stage: string;
         requestId: string;
         resourceId: string;
@@ -48,11 +49,18 @@ interface APIGatewayEvent {
 }
 
 // API Gateway CustomAuthorizer "event"
-interface CustomAuthorizerEvent {
-    type: string;
+interface CustomTokenAuthorizerEvent {
+    type: "TOKEN";
     authorizationToken: string;
     methodArn: string;
 }
+
+interface CustomRequestAuthorizerEvent extends APIGatewayEvent {
+    type: "REQUEST";
+    methodArn: string;
+}
+
+type CustomAuthorizerEvent = CustomTokenAuthorizerEvent | CustomRequestAuthorizerEvent
 
 // SNS "event"
 interface SNSMessageAttribute {
@@ -357,6 +365,6 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  */
 export type Callback = (error?: Error | null, result?: object) => void;
 export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
-export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
+export type CustomAuthorizerCallback = (error?: "Unauthorized" | Error | null, result?: AuthResponse) => void;
 
 export as namespace AWSLambda;
