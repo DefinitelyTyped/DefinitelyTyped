@@ -34,9 +34,7 @@ declare namespace VueScrollTo {
 
     interface VueStatic {
         (options: Options): void;
-
         (element: string | Element, options?: Options): void;
-
         (element: string | Element, duration: number, options?: Options): void;
     }
 }
