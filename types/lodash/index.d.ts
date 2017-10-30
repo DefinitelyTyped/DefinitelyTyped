@@ -13908,10 +13908,30 @@ declare namespace _ {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        pick<T extends object>(
+        pick<T extends object, U extends keyof T>(
+            object: T | null | undefined,
+             ...props: U[]
+        ): Pick<T, U>;
+
+        pick<T extends object, U extends keyof T>(
+            object: T | null | undefined,
+            props: U[]
+        ): Pick<T, U>;
+
+        pick<T>(
+            object: T | null | undefined,
+            props: PropertyPath[]
+        ): PartialObject<T>;
+
+        pick<T>(
             object: T | null | undefined,
             ...props: PropertyPath[]
         ): PartialObject<T>;
+
+        pick<T extends object, U extends keyof T>(
+            object: T | null | undefined,
+            ...props: PropertyPath[]
+        ): Pick<T, U>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
