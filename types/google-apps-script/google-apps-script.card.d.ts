@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-10-26
+// Type definitions for Google Apps Script 2017-10-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: dhayab <https://github.com/dhayab/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -330,6 +330,10 @@ declare namespace GoogleAppsScript {
              * Creates a new `SelectionInput`.
              */
             newSelectionInput(): SelectionInput;
+            /**
+             * Creates a new `Suggestions`.
+             */
+            newSuggestions(): Suggestions;
             /**
              * Creates a new `SuggestionsResponseBuilder`.
              */
