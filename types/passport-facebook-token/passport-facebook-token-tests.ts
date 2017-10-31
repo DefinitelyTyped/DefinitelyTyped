@@ -1,22 +1,23 @@
 
-import passport = require('passport');
-import facebook = require('passport-facebook-token');
+import * as passport from 'passport';
+import * as PassportFacebookTokenStrategy from 'passport-facebook-token';
+import { Profile, StrategyOptions } from 'passport-facebook-token';
 
 var User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, {username: 'ray'});
+        callback(null, { username: 'ray' });
     }
 }
 
-var options: facebook.StrategyOptions = {
+var options: StrategyOptions = {
     clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
     clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET
 };
 
 function verify(accessToken: string,
-                refreshToken: string,
-                profile: facebook.Profile,
-                done: (err: any, user?: any) => void) {
+    refreshToken: string,
+    profile: Profile,
+    done: (err: any, user?: any) => void) {
     User.findOrCreate(profile.id, profile.provider, function (err, user) {
         if (err) {
             return done(err);
@@ -25,4 +26,4 @@ function verify(accessToken: string,
     });
 }
 
-passport.use(new facebook.Strategy(options, verify));
+passport.use(new PassportFacebookTokenStrategy(options, verify));
