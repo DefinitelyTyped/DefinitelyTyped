@@ -30,9 +30,7 @@ declare namespace signals {
         /**
          * Custom event broadcaster
          * <br />- inspired by Robert Penner's AS3 Signals.
-         * @name Signal
          * @author Miller Medeiros
-         * @constructor
          */
         new (): Signal<T>;
 

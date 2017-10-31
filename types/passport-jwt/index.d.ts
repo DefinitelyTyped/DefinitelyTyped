@@ -1,8 +1,9 @@
-// Type definitions for passport-jwt 2.0
+// Type definitions for passport-jwt 3.0
 // Project: https://github.com/themikenicholson/passport-jwt
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 //                 Alex Young <https://github.com/alsiola/>
 //                 David Ng <https://github.com/davidNHK/>
+//                 Carlos Eduardo Scheffer <https://github.com/carlosscheffer/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,7 +16,8 @@ export declare class Strategy extends PassportStrategy {
 }
 
 export interface StrategyOptions {
-    secretOrKey: string | Buffer;
+    secretOrKey?: string | Buffer;
+    secretOrKeyProvider?: any;
     jwtFromRequest: JwtFromRequestFunction;
     issuer?: string;
     audience?: string;
