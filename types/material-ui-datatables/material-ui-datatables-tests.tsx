@@ -2,45 +2,44 @@ import * as React from 'react';
 import { Column } from './index';
 import DataTable from 'material-ui-datatables';
 
-let title: string = '',
-    titleStyle: React.CSSProperties = {},
-    filterHintText: string = '',
-    fixedHeader: boolean = false,
-    fixedFooter: boolean = false,
-    footerToolbarStyle: React.CSSProperties = {},
-    stripedRows: boolean = false,
-    showRowHover: boolean = false,
-    selectable: boolean = false,
-    multiSelectable: boolean = false,
-    enableSelectAll: boolean = false,
-    deselectOnClickaway: boolean = false,
-    showCheckboxes: boolean = false,
-    height: any = {},
-    showHeaderToolbar: boolean = false,
-    showFooterToolbar: boolean = false,
-    rowSize: number = 1,
-    rowSizeLabel: string = '',
-    rowSizeList: number[] = [1],
-    showRowSizeControls: boolean = false,
-    summaryLabelTemplate: (start: number, end: number, count: number) => any = (start, end, count) => "",
-    columns: Column<string>[] = [{ key: '' }],
-    data: any[] = [],
-    page: number = 1,
-    toolbarIconRight: any = {},
-    count: number = 1,
-    tableStyle: React.CSSProperties = {},
-    tableBodyStyle: React.CSSProperties = {},
-    tableHeaderColumnStyle: React.CSSProperties = {},
-    tableHeaderStyle: React.CSSProperties = {},
-    tableRowColumnStyle: React.CSSProperties = {},
-    tableRowStyle: React.CSSProperties = {},
-    tableWrapperStyle: React.CSSProperties = {},
-    headerToolbarMode = 'filter',
-    filterValue: string = '',
-    showHeaderToolbarFilterIcon: boolean = false;
+const title = '';
+const titleStyle: React.CSSProperties = {};
+const filterHintText = '';
+const fixedHeader = false;
+const fixedFooter = false;
+const footerToolbarStyle: React.CSSProperties = {};
+const stripedRows = false;
+const showRowHover = false;
+const selectable = false;
+const multiSelectable = false;
+const enableSelectAll = false;
+const deselectOnClickaway = false;
+const showCheckboxes = false;
+const height: any = {};
+const showHeaderToolbar = false;
+const showFooterToolbar = false;
+const rowSize = 1;
+const rowSizeLabel = '';
+const rowSizeList: number[] = [1];
+const showRowSizeControls = false;
+const summaryLabelTemplate: (start: number, end: number, count: number) => any = (start, end, count) => "";
+const columns: Array<Column<string>> = [{ key: '' }];
+const data: any[] = [];
+const page = 1;
+const toolbarIconRight: any = {};
+const count = 1;
+const tableStyle: React.CSSProperties = {};
+const tableBodyStyle: React.CSSProperties = {};
+const tableHeaderColumnStyle: React.CSSProperties = {};
+const tableHeaderStyle: React.CSSProperties = {};
+const tableRowColumnStyle: React.CSSProperties = {};
+const tableRowStyle: React.CSSProperties = {};
+const tableWrapperStyle: React.CSSProperties = {};
+const headerToolbarMode = 'filter';
+const filterValue = '';
+const showHeaderToolbarFilterIcon = false;
 
-
-let test = (<DataTable
+const test = (<DataTable
     title={title}
     titleStyle={titleStyle}
     filterHintText={filterHintText}
@@ -77,4 +76,4 @@ let test = (<DataTable
     headerToolbarMode={headerToolbarMode}
     filterValue={filterValue}
     showHeaderToolbarFilterIcon={showHeaderToolbarFilterIcon}>
-</DataTable>)
+</DataTable>);
