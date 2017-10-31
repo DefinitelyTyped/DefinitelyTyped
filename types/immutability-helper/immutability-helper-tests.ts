@@ -10,7 +10,7 @@ namespace TestNewContext {
   newContext().extend('$command', (specValue, originalValue) => originalValue);
 }
 
-namespace TestFromReactDocs {
+namespace TestTypeCoherence {
 
     interface TestFoo {
         bar: number,
