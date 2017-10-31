@@ -3,14 +3,13 @@
 // Definitions by: Ravi L. <https://github.com/coding2012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-
-import { Component, CSSProperties } from 'react';
+import * as React from 'react';
 
 export interface Column<T> {
     /** The element key */
     key?: string;
     /** Style for column */
-    style?: CSSProperties;
+    style?: React.CSSProperties;
     /** Label */
     label?: string;
     /** Cell tooltip */
@@ -33,7 +32,7 @@ export interface DataTableProps<T> {
     /** Table title */
     title: string;
     /** React Style object for the title */
-    titleStyle: CSSProperties;
+    titleStyle: React.CSSProperties;
     /** Filter hint text */
     filterHintText: string;
     /** If the header should be fixed */
@@ -41,7 +40,7 @@ export interface DataTableProps<T> {
     /** If the footer should be fixed */
     fixedFooter: boolean;
     /** React Style object applied to footer toolbar */
-    footerToolbarStyle: CSSProperties;
+    footerToolbarStyle: React.CSSProperties;
     /** To display striped rows in the table */
     stripedRows: boolean;
     /** Display a hover in the row under the mouse */
@@ -82,24 +81,24 @@ export interface DataTableProps<T> {
     toolbarIconRight: any;
     count: number;
     /** React style object for the table tag */
-    tableStyle: CSSProperties;
+    tableStyle: React.CSSProperties;
     /** React style object for the tbody tag */
-    tableBodyStyle: CSSProperties;
+    tableBodyStyle: React.CSSProperties;
     /** React style object for the th/td tag */
-    tableHeaderColumnStyle: CSSProperties;
+    tableHeaderColumnStyle: React.CSSProperties;
     /** React style object for the th tag */
-    tableHeaderStyle: CSSProperties;
+    tableHeaderStyle: React.CSSProperties;
     /** React style object for the tr tag */
-    tableRowStyle: CSSProperties;
+    tableRowStyle: React.CSSProperties;
     /** React style object for the tr/td tag */
-    tableRowColumnStyle: CSSProperties;
-    tableWrapperStyle: CSSProperties;
+    tableRowColumnStyle: React.CSSProperties;
+    tableWrapperStyle: React.CSSProperties;
     /** 'default' or 'filter', filter mode shows a search box to reduce visible rows */
-    headerToolbarMode: 'default' | 'filter';
+    headerToolbarMode: "default" | "filter" | string; // BUG https://github.com/Microsoft/TypeScript/issues/11465 
     /** The current filter value */
     filterValue: string;
     /** Show the icon to turn on the filtering feature */
     showHeaderToolbarFilterIcon: boolean;
 }
 
-export default class DataTable<T> extends Component<Partial<DataTableProps<T>>> { }
+export default class DataTable<T> extends React.Component<Partial<DataTableProps<T>>> { }
