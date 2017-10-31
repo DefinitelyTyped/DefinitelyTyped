@@ -228,6 +228,7 @@ const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
 let domNode: Element = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode);
+const fragmentType: symbol | number = React.Fragment;
 
 //
 // React Elements
