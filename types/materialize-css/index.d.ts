@@ -4,6 +4,7 @@
 //                  Leon Yu <https://github.com/leonyu>
 //                  Sukhdeep Singh <https://github.com/SinghSukhdeep>
 //                  Jean-Francois Cere <https://github.com/jfcere>
+//                  Sebastien Cote <https://github.com/scote>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -555,9 +556,17 @@ interface JQuery {
 	 * Collapsibles are accordion elements that expand when clicked on.
 	 * They allow you to hide content that is not immediately relevant to the user.
 	 *
-	 * @param CollapsibleOptions options the collapsible options
+	 * @param CollapsibleOptions | string options the collapsible options or the string "destroy" to destroy the collapsible
 	 */
-	collapsible(options?: Materialize.CollapsibleOptions): JQuery;
+	collapsible(options?: Materialize.CollapsibleOptions | string): JQuery;
+
+	/**
+	 * Programmatically trigger an event on a selected index
+	 *
+	 * @param string method the string "open" or "close" to open or to close the collapsible element on specified index
+	 * @param number index the element index to trigger "open" or "close" function
+	 */
+	collapsible(method: string, index: number): JQuery;
 
 	/**
 	 * Tooltips are small, interactive, textual hints for mainly graphical elements.
