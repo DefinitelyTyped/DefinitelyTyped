@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "vue.d.ts"
+        "vue.d.ts",
+        "vuex-i18n-tests.ts"
     ]
 }
