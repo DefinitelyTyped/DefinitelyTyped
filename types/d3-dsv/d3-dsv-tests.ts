@@ -68,6 +68,25 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
     return pr;
 });
 
+parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, columns) => {
+    const rr: d3Dsv.DSVRowString = rawRow;
+    const i: number = index;
+    const c: string[] = columns;
+    const pr: ParsedTestObject | null | undefined = +rr['Year'] > 1995
+        ? (
+            +rr['Year'] <= 2017
+                ? {
+                    year: new Date(+rr['Year'], 0, 1),
+                    make: rr['Make'],
+                    model: rr['Model'],
+                    length: +rr['Length']
+                }
+                : undefined
+        )
+        : null;
+    return pr;
+});
+
 columns = parseMappedArray.columns;
 
 date = parseMappedArray[0].year;
@@ -89,12 +108,18 @@ str = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const pr: ParsedTestObject = {
-        year: new Date(+rr[0], 0, 1),
-        make: rr[1],
-        model: rr[2],
-        length: +rr[3]
-    };
+    const pr: ParsedTestObject | null | undefined = +rr[0] > 1995
+    ? (
+        +rr[0] <= 2017
+            ? {
+                year: new Date(+rr[0], 0, 1),
+                make: rr[1],
+                model: rr[2],
+                length: +rr[3]
+            }
+            : undefined
+    )
+    : null;
     return pr;
 });
 
@@ -138,12 +163,18 @@ parseMappedArray = d3Dsv.tsvParse(tsvTestStringWithHeader, (rawRow, index, colum
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
-    const pr: ParsedTestObject = {
-        year: new Date(+rr['Year'], 0, 1),
-        make: rr['Make'],
-        model: rr['Model'],
-        length: +rr['Length']
-    };
+    const pr: ParsedTestObject | null | undefined = +rr['Year'] > 1995
+        ? (
+            +rr['Year'] <= 2017
+                ? {
+                    year: new Date(+rr['Year'], 0, 1),
+                    make: rr['Make'],
+                    model: rr['Model'],
+                    length: +rr['Length']
+                }
+                : undefined
+        )
+        : null;
     return pr;
 });
 
@@ -168,12 +199,18 @@ str = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = d3Dsv.tsvParseRows(tsvTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const pr: ParsedTestObject = {
-        year: new Date(+rr[0], 0, 1),
-        make: rr[1],
-        model: rr[2],
-        length: +rr[3]
-    };
+    const pr: ParsedTestObject | null | undefined = +rr[0] > 1995
+    ? (
+        +rr[0] <= 2017
+            ? {
+                year: new Date(+rr[0], 0, 1),
+                make: rr[1],
+                model: rr[2],
+                length: +rr[3]
+            }
+            : undefined
+    )
+    : null;
     return pr;
 });
 
@@ -222,12 +259,18 @@ parseMappedArray = dsv.parse(pipedTestStringWithHeader, (rawRow, index, columns)
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
-    const pr: ParsedTestObject = {
-        year: new Date(+rr['Year'], 0, 1),
-        make: rr['Make'],
-        model: rr['Model'],
-        length: +rr['Length']
-    };
+    const pr: ParsedTestObject | null | undefined = +rr['Year'] > 1995
+        ? (
+            +rr['Year'] <= 2017
+                ? {
+                    year: new Date(+rr['Year'], 0, 1),
+                    make: rr['Make'],
+                    model: rr['Model'],
+                    length: +rr['Length']
+                }
+                : undefined
+        )
+        : null;
     return pr;
 });
 
@@ -252,12 +295,18 @@ str = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = dsv.parseRows(pipedTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const pr: ParsedTestObject = {
-        year: new Date(+rr[0], 0, 1),
-        make: rr[1],
-        model: rr[2],
-        length: +rr[3]
-    };
+    const pr: ParsedTestObject | null | undefined = +rr[0] > 1995
+    ? (
+        +rr[0] <= 2017
+            ? {
+                year: new Date(+rr[0], 0, 1),
+                make: rr[1],
+                model: rr[2],
+                length: +rr[3]
+            }
+            : undefined
+    )
+    : null;
     return pr;
 });
 
