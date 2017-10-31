@@ -14,9 +14,6 @@ export namespace pre {
    */
   function context(): RequestHandler;
 
-  /**
-   *
-   */
   function dedupeSlashes(): RequestHandler;
 
   /**
@@ -73,9 +70,6 @@ export interface AuditLoggerOptions {
    */
   printLog?: boolean;
 
-  /**
-   *
-   */
   body?: boolean;
 }
 
@@ -165,14 +159,8 @@ export interface BodyParserOptions {
    */
   rejectUnknown?: boolean;
 
-  /**
-   *
-   */
   reviver?: any;
 
-  /**
-   *
-   */
   maxFieldsSize?: number;
 }
 
@@ -342,9 +330,6 @@ export interface MetricsCallback {
    */
   err: Error;
 
-  /**
-   *
-   */
   metrics: MetricsCallbackOptions;
 
   req: Request;

@@ -2242,6 +2242,15 @@ class Rectangle {
 };
 
 () => {
+    R.endsWith("c", "abc");   // => true
+    R.endsWith("c")("abc");   // => true
+    R.endsWith(3, [1, 2, 3]);   // => true
+    R.endsWith(3)([1, 2, 3]);   // => true
+    R.endsWith([3], [1, 2, 3]);   // => true
+    R.endsWith([3])([1, 2, 3]);   // => true
+};
+
+() => {
     R.not(true); // => false
     R.not(false); // => true
     R.not(0); // => true
