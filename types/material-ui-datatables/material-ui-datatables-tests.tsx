@@ -2,6 +2,11 @@ import * as React from 'react';
 import { Column } from './index';
 import DataTable from 'material-ui-datatables';
 
+interface Book {
+    name: string;
+    author: string;
+}
+
 const title = '';
 const titleStyle: React.CSSProperties = {};
 const filterHintText = '';
@@ -23,8 +28,9 @@ const rowSizeLabel = '';
 const rowSizeList: number[] = [1];
 const showRowSizeControls = false;
 const summaryLabelTemplate: (start: number, end: number, count: number) => any = (start, end, count) => "";
-const columns: Array<Column<string>> = [{ key: '' }];
-const data: any[] = [];
+const columns: Array<Column<Book>> = [{ key: '', render: (value, row: Book) => "" }];
+const book: Book = { author: 'asdf', name: 'asdf' };
+const data: Book[] = [book];
 const page = 1;
 const toolbarIconRight: any = {};
 const count = 1;

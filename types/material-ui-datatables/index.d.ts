@@ -77,9 +77,9 @@ export interface DataTableProps<T> {
             render: (__value: any, book: Book) => book.name + ' by ' book.author
         },```
      */
-    columns: Column<T>[];
+    columns: Array<Column<T | any>>;
     /** The array of objects used as data for the table */
-    data: T[];
+    data: Array<T | any>;
     page: number;
     toolbarIconRight: any;
     count: number;
