@@ -556,7 +556,7 @@ interface JQuery {
 	 * Collapsibles are accordion elements that expand when clicked on.
 	 * They allow you to hide content that is not immediately relevant to the user.
 	 *
-	 * @param CollapsibleOptions | string options the collapsible toptons or the string "destroy" to destroy the collapsible
+	 * @param CollapsibleOptions | string options the collapsible optons or the string "destroy" to destroy the collapsible
 	 */
 	collapsible(options?: Materialize.CollapsibleOptions | string): JQuery;
 
