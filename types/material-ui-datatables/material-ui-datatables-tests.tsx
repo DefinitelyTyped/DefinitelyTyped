@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Column } from './index';
-import DataTable from 'material-ui-datatables';
+import DataTable, { Column } from 'material-ui-datatables';
 
 interface Book {
     name: string;
@@ -28,7 +27,7 @@ const rowSizeLabel = '';
 const rowSizeList: number[] = [1];
 const showRowSizeControls = false;
 const summaryLabelTemplate: (start: number, end: number, count: number) => any = (start, end, count) => "";
-const columns: Array<Column<Book>> = [{ key: '', render: (value, row: Book) => "" }];
+const columns: Column[] = [{ key: '', render: (value, row: Book) => "" }];
 const book: Book = { author: 'asdf', name: 'asdf' };
 const data: Book[] = [book];
 const page = 1;

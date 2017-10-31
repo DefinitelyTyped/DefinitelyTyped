@@ -2,13 +2,11 @@
 // Project: https://github.com/hyojin/material-ui-datatables#readme
 // Definitions by: Ravi L. <https://github.com/coding2012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-/// <reference types="react" />
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
-export interface Column<T> {
+export interface Column {
     /** The element key */
     key?: string;
     /** Style for column */
@@ -23,12 +21,14 @@ export interface Column<T> {
     alignRight?: boolean;
     /** Class name to use */
     className?: string;
-    /** Render function. Given the value extracted
+    /**
+     * Render function. Given the value extracted
      * from the row; and the row also. Can return JSX content.
-     * @param {value} the extracted value from data
-     * @param {row} the data object representing this row
-     * @returns Any react node (JSX compatible return) */
-    render?: (value: any, row: T) => any
+     * @param value - the extracted value from data
+     * @param row - the data object representing this row
+     * @returns Any react node (JSX compatible return)
+     */
+    render?: (value: any, row: any) => any;
 }
 
 export interface DataTableProps<T> {
@@ -70,16 +70,17 @@ export interface DataTableProps<T> {
     showRowSizeControls: boolean;
     /** Override the pagination display, ie. "1 - 5 of 11" Return any React node or string */
     summaryLabelTemplate: (start: number, end: number, count: number) => any;
-    /** The column structure. The generic type should be specified:
+    /**
+     * The column structure. The generic type should be specified:
      * ```let columns: Column<Book>[] = [{
-            key: 'bookName',
-            label: 'Book Name & Author',
-            render: (__value: any, book: Book) => book.name + ' by ' book.author
-        },```
+     *      key: 'bookName',
+     *      label: 'Book Name & Author',
+     *      render: (__value: any, book: Book) => book.name + ' by ' book.author
+     *  },```
      */
-    columns: Array<Column<T | any>>;
+    columns: Column[];
     /** The array of objects used as data for the table */
-    data: Array<T | any>;
+    data: any[];
     page: number;
     toolbarIconRight: any;
     count: number;
@@ -97,7 +98,7 @@ export interface DataTableProps<T> {
     tableRowColumnStyle: React.CSSProperties;
     tableWrapperStyle: React.CSSProperties;
     /** 'default' or 'filter', filter mode shows a search box to reduce visible rows */
-    headerToolbarMode: "default" | "filter" | string; // BUG https://github.com/Microsoft/TypeScript/issues/11465 
+    headerToolbarMode: "default" | "filter" | string; // BUG https://github.com/Microsoft/TypeScript/issues/11465
     /** The current filter value */
     filterValue: string;
     /** Show the icon to turn on the filtering feature */
