@@ -1,7 +1,6 @@
 // Type definitions for immutability-helper v2.0.0
 // Project: https://github.com/kolodny/immutability-helper
-// Definitions by: Sean Kelley <https://github.com/seansfkelley>
-// Definitions by: Adam Gordon <https://github.com/xmrwhite>
+// Definitions by: Sean Kelley <https://github.com/seansfkelley>, Adam Gordon <https://github.com/xmrwhite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
