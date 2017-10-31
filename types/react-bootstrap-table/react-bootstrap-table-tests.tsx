@@ -35,7 +35,14 @@ import {
   ToolBarProps
 } from 'react-bootstrap-table';
 
-interface Product { id: number; name: string; price: number; }
+interface Product {
+  id: number;
+  name: string;
+  price?: number;
+  quality?: number;
+  inStockStatus?: number;
+  sales?: number;
+}
 const products: Product[] = [{
   id: 1,
   name: "Item name 1",
@@ -45,6 +52,38 @@ const products: Product[] = [{
   name: "Item name 2",
   price: 100
 }];
+
+type JobType = 'A' | 'B' | 'C' | 'D';
+interface Job {
+  id: number;
+  status: string;
+  name: string;
+  type: JobType;
+  active: 'Y' | 'N';
+}
+const jobs = [
+  { id: 1, status: '200', name: 'Item name 1', type: 'B', active: 'N' },
+  { id: 2, status: '200', name: 'Item name 2', type: 'B', active: 'Y' }
+];
+const jobTypes = ['A', 'B', 'C', 'D'];
+
+interface ExtendedJob {
+  id: number;
+  name: string;
+  type1: JobType;
+  type2: JobType;
+  active: 'Y' | 'N';
+  datetime: Date;
+}
+const extendedJobs = [
+  { id: 1, name: 'Item name 1', type1: 'A', type2: 'B', active: 'N', datetime: '2001-12-28T14:57:00' },
+  { id: 2, name: 'Item name 2', type1: 'A', type2: 'B', active: 'Y', datetime: '2002-12-28T14:57:00' }
+];
+
+const inStockStatus = {
+  1: 'yes',
+  2: 'no'
+};
 
 // It's a data format example.
 function priceFormatter(cell: number, row: Product) {
@@ -185,7 +224,7 @@ const thStyleExample = <BootstrapTable data={ products } search>
  */
 class ColumnHeaderSpanComplex extends React.Component {
   render() {
-    const options: Options = { exportCSVSeparator: '##' };
+    const options: Options<{}> = { exportCSVSeparator: '##' };
     return (
       <BootstrapTable data={products} insertRow deleteRow exportCSV options={options}>
         <TableHeaderColumn row={0} rowSpan={2} dataField='id' isKey={true} >ID</TableHeaderColumn>
@@ -224,7 +263,7 @@ class PaginationTable extends React.Component {
   }
 
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       onPageChange: this.onPageChange,
       onSizePerPageList: this.sizePerPageListChange,
       page: 2,  // which page you want to show as default
@@ -270,7 +309,7 @@ class PaginationTable extends React.Component {
  */
 class BlurToEscapeTable extends React.Component {
   render() {
-    const cellEditProp: CellEdit = {
+    const cellEditProp: CellEdit<Product> = {
       mode: 'click',
       blurToEscape: true
     };
@@ -316,28 +355,28 @@ class EditCellClassNameTable extends React.Component {
     return true;
   }
 
-  invalidJobStatus = (cell: string, row: any) => {
+  invalidJobStatus = (cell: string, row: Job) => {
     console.log(`${cell} at row id: ${row.id} fails on editing`);
     return 'invalid-jobstatus-class';
   }
 
-  editingJobStatus = (cell: string, row: any) => {
+  editingJobStatus = (cell: string, row: Job) => {
     console.log(`${cell} at row id: ${row.id} in current editing`);
     return 'editing-jobstatus-class';
   }
 
-  onBeforeSaveCellAsync = (row: any, cellName: string, cellValue: any, done: (ok: boolean) => void): boolean | 1 => {
+  onBeforeSaveCellAsync = <K extends keyof Job>(row: Job, cellName: K, cellValue: Job[K], done: (ok: boolean) => void): boolean | 1 => {
     setTimeout(() => {
       done(false);   // it's not ok to save :(
     }, 3000);
     return 1;  // return 1 === async operation.
   }
 
-  onAfterSaveCell(row: any, cellName: string, cellValue: any) {
+  onAfterSaveCell(row: Job, cellName: string, cellValue: any) {
     alert(`Save cell ${cellName} with value ${cellValue}`);
     let rowStr = '';
     for (const prop in row) {
-      rowStr += `${prop}: ${row[prop]}\n`;
+      rowStr += `${prop}: ${row[prop as keyof Job]}\n`;
     }
     alert('The whole row :\n' + rowStr);
   }
@@ -352,20 +391,15 @@ class EditCellClassNameTable extends React.Component {
   }
 
   render() {
-    const cellEditProp: CellEdit = {
+    const cellEditProp: CellEdit<Job> = {
       mode: 'dbclick',
       blurToSave: true,
       beforeSaveCell: this.onBeforeSaveCellAsync,
       afterSaveCell: this.onAfterSaveCell
     };
-    const options: Options = {
+    const options: Options<Job> = {
       afterInsertRow: this.onAfterInsertRow   // A hook for after insert rows
     };
-    const jobs = [
-      { id: 1, status: '200', name: 'Item name 1', type: 'B', active: 'N' },
-      { id: 2, status: '200', name: 'Item name 2', type: 'B', active: 'Y' }
-    ];
-    const jobTypes = ['A', 'B', 'C', 'D'];
 
     return (
       <BootstrapTable data={jobs} cellEdit={cellEditProp} insertRow={true} options={options}>
@@ -425,7 +459,7 @@ class MultiSortAndFiltering extends React.Component {
     }
   }
 
-  onSearchChange = (searchText: string, colInfos: ReadonlyArray<ColumnDescription>, multiColumnSearch: boolean) => {
+  onSearchChange = (searchText: string, colInfos: ReadonlyArray<ColumnDescription<Product>>, multiColumnSearch: boolean) => {
     this.setState({ data: products.filter((product) => product.name = searchText) });
   }
 
@@ -451,7 +485,7 @@ class MultiSortAndFiltering extends React.Component {
     (order === 'desc') ? 'sort-desc' : 'sort-asc'
 
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       onSortChange: this.onSortChange,
       onFilterChange: this.onFilterChange,
       noDataText: 'This is custom text for empty data',
@@ -532,7 +566,7 @@ class CustomPagination extends React.Component {
   )
 
   render() {
-    const options: Options = {
+    const options: Options<{}> = {
       paginationPanel: this.renderPagination
     };
 
@@ -551,7 +585,7 @@ class CustomPagination extends React.Component {
  * Adapted from https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/custom/insert-modal/custom-insert-modal.js
  */
 class CustomModal extends React.Component {
-  handleSaveBtnClick = (columns: ReadonlyArray<InsertModalColumnDescription>, onSave: (row: any) => void) => {
+  handleSaveBtnClick = (columns: ReadonlyArray<InsertModalColumnDescription<Product>>, onSave: (row: any) => void) => {
     const newRow: {[field: string]: string} = {};
     columns.forEach((column, i) => {
       newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
@@ -562,7 +596,7 @@ class CustomModal extends React.Component {
   createCustomModal = (
     onModalClose: () => void,
     onSave: (row: any) => void,
-    columns: ReadonlyArray<InsertModalColumnDescription>,
+    columns: ReadonlyArray<InsertModalColumnDescription<Product>>,
     validateState: { [dataField: string]: string },
     ignoreEditable: boolean
   ) => (
@@ -603,7 +637,7 @@ class CustomModal extends React.Component {
   )
 
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       insertModal: this.createCustomModal
     };
     return (
@@ -643,7 +677,7 @@ class SalesRadioField extends React.Component<{editorClass: string, ignoreEditab
 }
 class CustomInsertModalFieldTable extends React.Component {
   customKeyField = (
-    column: InsertModalColumnDescription,
+    column: InsertModalColumnDescription<Product>,
     attr: EditableAttrs,
     editorClass: string,
     ignoreEditable: boolean
@@ -655,7 +689,7 @@ class CustomInsertModalFieldTable extends React.Component {
   }
 
   customNameField = (
-    column: InsertModalColumnDescription,
+    column: InsertModalColumnDescription<Product>,
     attr: EditableAttrs,
     editorClass: string,
     ignoreEditable: boolean,
@@ -671,7 +705,7 @@ class CustomInsertModalFieldTable extends React.Component {
   }
 
   customSaleField = (
-    column: InsertModalColumnDescription,
+    column: InsertModalColumnDescription<Product>,
     attr: EditableAttrs,
     editorClass: string,
     ignoreEditable: boolean,
@@ -700,17 +734,17 @@ class CustomInsertModalFieldTable extends React.Component {
  * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/custom/insert-modal/default-custom-insert-modal-footer.js
  */
 interface MyCustomBodyProps {
-  columns: ReadonlyArray<InsertModalColumnDescription>;
+  columns: ReadonlyArray<InsertModalColumnDescription<Product>>;
   validateState: { [dataField: string]: string };
   ignoreEditable: boolean;
 }
-class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBodyInterface {
+class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBodyInterface<Product> {
   getFieldValue() {
-    const newRow: {[field: string]: string} = {};
+    const newRow: Partial<Product> = {};
     this.props.columns.forEach((column, i) => {
       newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
     }, this);
-    return newRow;
+    return newRow as Product;
   }
 
   render() {
@@ -779,7 +813,7 @@ class DefaultCustomInsertModalHeaderFooterTable extends React.Component {
   }
 
   createCustomModalBody = (
-    columns: ReadonlyArray<InsertModalColumnDescription>,
+    columns: ReadonlyArray<InsertModalColumnDescription<Product>>,
     validateState: { [dataField: string]: string },
     ignoreEditable: boolean
   ) => (
@@ -791,7 +825,7 @@ class DefaultCustomInsertModalHeaderFooterTable extends React.Component {
   )
 
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       insertModalFooter: this.createCustomModalFooter,
       insertModalHeader: this.createCustomModalHeader,
       insertModalBody: this.createCustomModalBody
@@ -939,11 +973,11 @@ class CustomButtonGroup extends React.Component {
   }
 
   render() {
-    const selectRow: SelectRow = {
+    const selectRow: SelectRow<{}> = {
       mode: 'checkbox',
       showOnlySelected: true
     };
-    const options: Options = {
+    const options: Options<Product> = {
       insertBtn: this.createInsertButton,
       deleteBtn: this.createDeleteButton,
       exportCSVBtn: this.createExportCSVButton,
@@ -1047,7 +1081,7 @@ class ExpandRowExample extends React.Component<{}, {expanding: number[]}> {
       : ''
 
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       expandRowBgColor: 'rgb(242, 255, 163)',
       expandBy: 'column',
       onlyOneExpanding: true,
@@ -1062,7 +1096,7 @@ class ExpandRowExample extends React.Component<{}, {expanding: number[]}> {
             : 'custom-expand-body-0';
       }
     };
-    const selectRow: SelectRow = {
+    const selectRow: SelectRow<Product> = {
       mode: 'checkbox',
       bgColor: (row: Product, isSelect: boolean) =>
         (isSelect)
@@ -1109,7 +1143,7 @@ class ExpandRowExample extends React.Component<{}, {expanding: number[]}> {
  */
 class MouseEventTable extends React.Component {
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       onMouseLeave: () => { console.log('mouse left table'); },
       onMouseEnter: () => { console.log('mouse entered table'); },
       onRowMouseOut: (row: any, e: React.MouseEvent<{}>) => {
@@ -1139,19 +1173,14 @@ class MouseEventTable extends React.Component {
  * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/advance/validator-table-read-only.js
  */
 class HideOnInsertTable extends React.Component {
-  handleAddRowWithASyncError = (row: any, colInfo: ReadonlyArray<ColumnDescription>, errorCallback: (msg: string) => void) => {
+  handleAddRowWithASyncError = (row: any, colInfo: ReadonlyArray<ColumnDescription<Job>>, errorCallback: (msg: string) => void) => {
     setTimeout(() => {
       errorCallback('Sorry, There\'s some error happend');
     }, 5000);
     return false;
   }
   render() {
-    const jobs = [
-      { id: 1, status: '200', name: 'Item name 1', type: 'B', active: 'N' },
-      { id: 2, status: '200', name: 'Item name 2', type: 'B', active: 'Y' }
-    ];
-    const jobTypes = ['A', 'B', 'C', 'D'];
-    const options: Options = {
+    const options: Options<Job> = {
       onAddRow: this.handleAddRowWithASyncError
     };
     return (
@@ -1172,38 +1201,28 @@ class HideOnInsertTable extends React.Component {
  * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/advance/insert-error-handle-table.js
  */
 class EditTypeTable extends React.Component {
-  formatType = (cell: any) => `TYPE_${cell}`;
+  formatType = (cell: string) => `TYPE_${cell}`;
 
-  jobTypes = (row: any) => (row.id > 2) ? ['A', 'B'] : ['B', 'C', 'D', 'E'];
+  jobTypes = (row: ExtendedJob) => (row.id > 2) ? ['A', 'B'] : ['B', 'C', 'D', 'E'];
 
   handleAddRowWithSyncError = () => {
     return 'Sorry, There\'s some error happend';
   }
 
   render() {
-    const jobTypes = [
-      { value: 'A', text: 'TYPE_A' },
-      { value: 'B', text: 'TYPE_B' },
-      { value: 'C', text: 'TYPE_C' },
-      { value: 'D', text: 'TYPE_D' }
-    ];
-    const jobs = [
-      { id: 1, name: 'Item name 1', type1: 'A', type2: 'B', active: 'N', datetime: '2001-12-28T14:57:00' },
-      { id: 2, name: 'Item name 2', type1: 'A', type2: 'B', active: 'Y', datetime: '2002-12-28T14:57:00' }
-    ];
     const attrs = {
       rows: 10,
       onKeyDown: () => { console.log('keydown event trigger'); }
     };
-    const cellEditProp: CellEdit = {
+    const cellEditProp: CellEdit<ExtendedJob> = {
       mode: 'click',
       blurToSave: true
     };
-    const options: Options = {
+    const options: Options<ExtendedJob> = {
       onAddRow: this.handleAddRowWithSyncError
     };
     return (
-      <BootstrapTable data={jobs} cellEdit={cellEditProp} options={options} insertRow={true}>
+      <BootstrapTable data={extendedJobs} cellEdit={cellEditProp} options={options} insertRow={true}>
         <TableHeaderColumn dataField='id' isKey={true}>Job ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name' editable={{ type: 'textarea', attrs, defaultValue: 'Default Job Name' }}>Job Name</TableHeaderColumn>
         <TableHeaderColumn dataField='type1' dataFormat={this.formatType} editable={{ type: 'select', options: { values: jobTypes }, defaultValue: 'C' }}>Job Type1</TableHeaderColumn>
@@ -1228,14 +1247,10 @@ class ActiveFormatter extends React.Component<{ active: boolean }> {
 }
 
 export default class ReactColumnFormatTable extends React.Component {
-  activeFormatter = (cell: boolean, row: any) => (<ActiveFormatter active={cell} />);
+  activeFormatter = (cell: boolean, row: ExtendedJob) => (<ActiveFormatter active={cell} />);
   render() {
-    const jobs = [
-      { id: 1, name: 'Item name 1', type1: 'A', type2: 'B', active: 'N', datetime: '2001-12-28T14:57:00' },
-      { id: 2, name: 'Item name 2', type1: 'A', type2: 'B', active: 'Y', datetime: '2002-12-28T14:57:00' }
-    ];
     return (
-      <BootstrapTable data={jobs}>
+      <BootstrapTable data={extendedJobs}>
         <TableHeaderColumn dataField='id' isKey={true} hidden={true}>Job ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name'>Job Name</TableHeaderColumn>
         <TableHeaderColumn dataField='active' dataFormat={this.activeFormatter}>Active</TableHeaderColumn>
@@ -1249,17 +1264,8 @@ export default class ReactColumnFormatTable extends React.Component {
  * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/column-format/extra-data-column-format-table.js
  */
 class ExtraDataColumnFormatTable extends React.Component {
-  enumFormatter = (cell: number, row: any, enumObject: {[id: number]: string}) => enumObject[cell];
+  enumFormatter = (cell: number, row: Product, enumObject: {[id: number]: string}) => enumObject[cell];
   render() {
-    const qualityType = {
-      0: 'good',
-      1: 'bad',
-      2: 'unknown'
-    };
-    const inStockStatus = {
-      1: 'yes',
-      2: 'no'
-    };
     return (
       <BootstrapTable data={products} >
         <TableHeaderColumn dataField='id' isKey={true} dataAlign='center'>Product ID</TableHeaderColumn>
@@ -1279,7 +1285,7 @@ class ColumnAlignTable extends React.Component {
   customTitle = (cell: number, row: any, rowIndex: number, colIndex: number) => `${row.name} for ${cell}`;
 
   render() {
-    const options: Options = {
+    const options: Options<Product> = {
       exportCSVText: 'my_export',
       insertText: 'my_insert',
       deleteText: 'my_delete',
@@ -1350,7 +1356,7 @@ class CustomStyleNavTable extends React.Component {
   }
 
   render() {
-    const cellEdit: CellEdit = {
+    const cellEdit: CellEdit<Product> = {
       mode: 'click',
       blurToSave: true
     };
@@ -1482,11 +1488,6 @@ class AllFilters extends React.Component {
 
   render() {
     const satisfaction = [0, 1, 2, 3, 4, 5];
-    const qualityType = {
-      0: 'good',
-      1: 'bad',
-      2: 'unknown'
-    };
     return (
       <BootstrapTable ref='table' data={products}>
         <TableHeaderColumn dataField='id' isKey={true}>
