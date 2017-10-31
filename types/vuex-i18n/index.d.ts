@@ -56,12 +56,10 @@ export interface Ii18n {
 
   /**
    * get localized string from store in a given language if available.
-   * get localized string from store in a given language if available.
    */
   translateIn(locale: string, key: string, options: any, pluralization?: number): string | undefined;
 
   /**
-   * get localized string from store in a given language if available.
    * get localized string from store in a given language if available.
    */
   translateIn(locale: string, key: string, defaultValue: string, options: any, pluralization?: number): string | undefined;
