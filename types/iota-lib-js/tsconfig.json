@@ -1,0 +1,15 @@
+{
+   "compilerOptions": {
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "types": [],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+   },
+   "files": [
+      "index.d.ts",
+      "iota-lib-js-tests.ts"
+   ]
+}
