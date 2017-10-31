@@ -2,14 +2,18 @@
 // Project: https://github.com/apache/cordova-plugin-device
 // Definitions by: Microsoft Open Technologies Inc <http://msopentech.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 
+//
 // Copyright (c) Microsoft Open Technologies Inc
-// Licensed under the MIT license 
+// Licensed under the MIT license
 
 /**
  * This plugin defines a global device object, which describes the device's hardware and software.
  * Although the object is in the global scope, it is not available until after the deviceready event.
  */
+ interface Window {
+    device: Device;
+}
+
 interface Device {
     /** Get the version of Cordova running on the device. */
     cordova: string;
