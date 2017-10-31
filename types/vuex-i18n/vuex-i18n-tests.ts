@@ -1,9 +1,9 @@
 // load vue and vuex instance
-import Vue from 'vue';
-import { Store } from 'vuex';
+import Vue from "vue";
+import { Store } from "vuex";
 
 // load vuex i18n module
-import vuexI18n from 'vuex-i18n';
+import vuexI18n from "vuex-i18n";
 
 // initialize the vuex store using the vuex module. note that you can change the
 //  name of the module if you wish
@@ -16,7 +16,7 @@ const store = new Store({});
 Vue.use(vuexI18n.plugin, store);
 
 // please note that you must specify the name of the vuex module if it is
-// different from i18n. i.e. Vue.use(vuexI18n.plugin, store, 'myName')
+// different from i18n. i.e. Vue.use(vuexI18n.plugin, store, "myName")
 
 // add some translations (could also be loaded from a separate file)
 // note that it is possible to use placeholders. translations can also be
@@ -34,8 +34,8 @@ const translationsDe = {
 };
 
 // add translations directly to the application
-Vue.i18n.add('en', translationsEn);
-Vue.i18n.add('de', translationsDe);
+Vue.i18n.add("en", translationsEn);
+Vue.i18n.add("de", translationsDe);
 
 // set the start locale to use
-Vue.i18n.set('en');
+Vue.i18n.set("en");
