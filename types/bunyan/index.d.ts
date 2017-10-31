@@ -24,6 +24,8 @@ declare class Logger extends EventEmitter {
     fields: any;
     src: boolean;
 
+    [key: string]: any;
+
     /* tslint:disable:unified-signatures */
 
     /**
