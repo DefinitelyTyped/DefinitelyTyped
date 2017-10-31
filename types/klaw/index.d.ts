@@ -1,4 +1,4 @@
-// Type definitions for klaw v1.3.0
+// Type definitions for klaw v2.1.0
 // Project: https://github.com/jprichardson/node-klaw
 // Definitions by: Matthew McEachen <https://github.com/mceachen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,6 +25,7 @@ declare module "klaw" {
             pathSorter?: (pathA: string, pathB: string) => number
             fs?: any // fs or mock-fs
             filter?: (path: string) => boolean
+            depthLimit?: number
         }
 
         type Event = "close" | "data" | "end" | "readable" | "error"
