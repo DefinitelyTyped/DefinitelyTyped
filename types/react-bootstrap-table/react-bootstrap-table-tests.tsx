@@ -4,7 +4,6 @@ import {
   ApplyFilterParameter,
   BootstrapTable,
   ButtonGroupProps,
-  Cell,
   CellEdit,
   ColumnDescription,
   CustomSelectProps,
@@ -48,7 +47,7 @@ const products: Product[] = [{
 }];
 
 // It's a data format example.
-function priceFormatter(cell: any, row: any) {
+function priceFormatter(cell: number, row: Product) {
   return '<i class="glyphicon glyphicon-usd"></i> ' + cell;
 }
 
