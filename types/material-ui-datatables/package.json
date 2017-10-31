@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/react": "^16.0.19",
+        "material-ui-datatables": "^0.18.2",
+        "react": "^16.0.0"
+    }
+}
