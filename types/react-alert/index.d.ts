@@ -73,7 +73,7 @@ export interface AlertShowOptions {
     type?: string;
 }
 
-export class AlertContainer extends React.Component<AlertContainerProps> {
+export default class AlertContainer extends React.Component<AlertContainerProps> {
     /**
      * Show a success alert.
      * @returns The id of the created alert.

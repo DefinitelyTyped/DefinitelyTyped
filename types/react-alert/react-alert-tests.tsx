@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AlertContainer, AlertContainerProps, AlertShowOptions } from "react-alert";
+import AlertContainer, { AlertContainerProps, AlertShowOptions } from "react-alert";
 
 export class ReactAlertTest extends React.Component {
     private _alert: AlertContainer;
