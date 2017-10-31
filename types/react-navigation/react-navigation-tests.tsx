@@ -45,12 +45,11 @@ interface StartScreenNavigationParams {
     s: string;
 }
 
-interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<StartScreenProps> {
+class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
         const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
