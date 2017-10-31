@@ -3438,7 +3438,7 @@ function examples() {
 
     function map_1() {
         var mappedItems = $('li').map(function(index) {
-            var replacement: Element | null = $('<li>').text($(this).text()).get(0);
+            var replacement: Element | null | Element[] = $('<li>').text($(this).text()).get(0);
             if (index === 0) {
                 // Make the first item all caps
                 $(replacement).text($(replacement).text().toUpperCase());
@@ -3447,9 +3447,9 @@ function examples() {
                 replacement = null;
             } else if (index === 2) {
                 // Make two of the third item and add some text
-                var _replacement = [replacement, $('<li>').get(0)];
-                $(_replacement[0]).append('<b> - A</b>');
-                $(_replacement[1]).append('Extra <b> - B</b>');
+                replacement = [replacement, $('<li>').get(0)];
+                $(replacement[0]).append('<b> - A</b>');
+                $(replacement[1]).append('Extra <b> - B</b>');
             }
 
             // Replacement will be a dom element, null,
