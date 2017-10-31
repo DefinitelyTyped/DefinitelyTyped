@@ -1,28 +1,43 @@
+import * as express from 'express';
+import * as passport from 'passport';
+import * as FacebookStrategy from 'passport-facebook-token';
+// tslint:disable-next-line:no-duplicate-imports
+import { StrategyOptions, StrategyOptionsWithRequest, VerifyFunction, VerifyFunctionWithRequest, Profile } from 'passport-facebook-token';
 
-import passport = require('passport');
-import facebook = require('passport-facebook-token');
-
-var User = {
+const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, {username: 'ray'});
+        callback(null, { username: 'ray' });
     }
-}
-
-var options: facebook.StrategyOptions = {
-    clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET
 };
 
-function verify(accessToken: string,
-                refreshToken: string,
-                profile: facebook.Profile,
-                done: (err: any, user?: any) => void) {
-    User.findOrCreate(profile.id, profile.provider, function (err, user) {
+const options: StrategyOptions = {
+    clientID: 'TEST_CLIENT_ID',
+    clientSecret: 'TEST_CLIENT_SECRET'
+};
+
+const optionsWithRequest: StrategyOptionsWithRequest = {
+    clientID: 'TEST_CLIENT_ID',
+    clientSecret: 'TEST_CLIENT_SECRET',
+    passReqToCallback: true
+};
+
+const verify: VerifyFunction = (accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user?: any, info?: any) => void) => {
+    User.findOrCreate(profile.id, profile.provider, (err, user) => {
         if (err) {
-            return done(err);
+            done(err);
         }
         done(null, user);
     });
-}
+};
 
-passport.use(new facebook.Strategy(options, verify));
+const verifyWithRequest: VerifyFunctionWithRequest = (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user?: any, info?: any) => void) => {
+    User.findOrCreate(profile.id, profile.provider, (err, user) => {
+        if (err) {
+            done(err);
+        }
+        done(null, user);
+    });
+};
+
+passport.use(new FacebookStrategy(options, verify));
+passport.use(new FacebookStrategy(optionsWithRequest, verifyWithRequest));
