@@ -1,4 +1,4 @@
-// Type definitions for ramda 0.24
+// Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
@@ -552,6 +552,14 @@ declare namespace R {
          * Dispatches to the empty method of the first argument, if present.
          */
         empty<T>(x: T): T;
+
+        /**
+         * Checks if a list ends with the provided values
+         */
+        endsWith(a: string, list: string): boolean;
+        endsWith(a: string): (list: string) => boolean;
+        endsWith<T>(a: T | T[], list: T[]): boolean;
+        endsWith<T>(a: T | T[]): (list: T[]) => boolean;
 
         /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
