@@ -164,6 +164,7 @@ const statelessElement: React.SFCElement<SCProps> = React.createElement(Stateles
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
+const fragmentElement: React.ReactElement<undefined> = React.createElement(React.Fragment, undefined, [React.createElement("div"), React.createElement("div")]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
