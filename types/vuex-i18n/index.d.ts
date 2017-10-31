@@ -75,4 +75,8 @@ export interface Ii18n {
   keyExists(key: string): boolean;
 }
 
-export const plugin: PluginObject<Ii18n>;
+declare const _default: {
+  plugin: PluginObject<Ii18n>;
+};
+
+export default _default;
