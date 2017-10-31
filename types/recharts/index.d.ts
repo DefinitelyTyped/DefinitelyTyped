@@ -654,6 +654,7 @@ export interface SectorProps {
 	startAngle?: number;
 	endAngle?: number;
 	cornerRadius?: number;
+	fill?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
