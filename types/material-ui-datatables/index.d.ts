@@ -1,0 +1,105 @@
+// Type definitions for material-ui-datatables 0.18
+// Project: https://github.com/hyojin/material-ui-datatables#readme
+// Definitions by: Ravi L. <https://github.com/coding2012>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+import { Component, CSSProperties } from 'react';
+
+export interface Column<T> {
+    /** The element key */
+    key?: string;
+    /** Style for column */
+    style?: CSSProperties;
+    /** Label */
+    label?: string;
+    /** Cell tooltip */
+    tooltip?: string;
+    /** If the column is sortable */
+    sortable?: boolean;
+    /** Align right */
+    alignRight?: boolean;
+    /** Class name to use */
+    className?: string;
+    /** Render function. Given the value extracted
+     * from the row; and the row also. Can return JSX content.
+     * @param {value} the extracted value from data
+     * @param {row} the data object representing this row
+     * @returns Any react node (JSX compatible return) */
+    render?: (value: any, row: T) => any
+}
+
+export interface DataTableProps<T> {
+    /** Table title */
+    title: string;
+    /** React Style object for the title */
+    titleStyle: CSSProperties;
+    /** Filter hint text */
+    filterHintText: string;
+    /** If the header should be fixed */
+    fixedHeader: boolean;
+    /** If the footer should be fixed */
+    fixedFooter: boolean;
+    /** React Style object applied to footer toolbar */
+    footerToolbarStyle: CSSProperties;
+    /** To display striped rows in the table */
+    stripedRows: boolean;
+    /** Display a hover in the row under the mouse */
+    showRowHover: boolean;
+    /** If the table rows are select-able */
+    selectable: boolean;
+    /** If multiple table rows are select-able */
+    multiSelectable: boolean;
+    /** Adds a select all button */
+    enableSelectAll: boolean;
+    /** If clicking away de-selects all */
+    deselectOnClickaway: boolean;
+    /** Show check-boxes for selected rows */
+    showCheckboxes: boolean;
+    /** The hight of the table */
+    height: any;
+    /** Shows a header toolbar */
+    showHeaderToolbar: boolean;
+    /** Shows a footer toolbar */
+    showFooterToolbar: boolean;
+    rowSize: number;
+    rowSizeLabel: string;
+    rowSizeList: number[];
+    showRowSizeControls: boolean;
+    /** Override the pagination display, ie. "1 - 5 of 11" Return any React node or string */
+    summaryLabelTemplate: (start: number, end: number, count: number) => any;
+    /** The column structure. The generic type should be specified:
+     * ```let columns: Column<Book>[] = [{
+            key: 'bookName',
+            label: 'Book Name & Author',
+            render: (__value: any, book: Book) => book.name + ' by ' book.author
+        },```
+     */
+    columns: Column<T>[];
+    /** The array of objects used as data for the table */
+    data: T[];
+    page: number;
+    toolbarIconRight: any;
+    count: number;
+    /** React style object for the table tag */
+    tableStyle: CSSProperties;
+    /** React style object for the tbody tag */
+    tableBodyStyle: CSSProperties;
+    /** React style object for the th/td tag */
+    tableHeaderColumnStyle: CSSProperties;
+    /** React style object for the th tag */
+    tableHeaderStyle: CSSProperties;
+    /** React style object for the tr tag */
+    tableRowStyle: CSSProperties;
+    /** React style object for the tr/td tag */
+    tableRowColumnStyle: CSSProperties;
+    tableWrapperStyle: CSSProperties;
+    /** 'default' or 'filter', filter mode shows a search box to reduce visible rows */
+    headerToolbarMode: 'default' | 'filter';
+    /** The current filter value */
+    filterValue: string;
+    /** Show the icon to turn on the filtering feature */
+    showHeaderToolbarFilterIcon: boolean;
+}
+
+export default class DataTable<T> extends Component<Partial<DataTableProps<T>>> { }
