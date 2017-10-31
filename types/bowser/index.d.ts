@@ -8,13 +8,12 @@ export = bowser;
 export as namespace bowser;
 
 declare namespace bowser {
-
-    export interface IBowserOS {
+    interface IBowserOS {
         mac: boolean;
-        /**other than Windows Phone */
+        /** other than Windows Phone */
         windows: boolean;
         windowsphone: boolean;
-        /**other than android, chromeos, webos, tizen, and sailfish */
+        /** other than android, chromeos, webos, tizen, and sailfish */
         linux: boolean;
         chromeos: boolean;
         android: boolean;
@@ -29,7 +28,7 @@ declare namespace bowser {
         sailfish: boolean;
     }
 
-    export interface IBowserVersions {
+    interface IBowserVersions {
         chrome: boolean;
         firefox: boolean;
         msie: boolean;
@@ -53,14 +52,14 @@ declare namespace bowser {
         kMeleon: boolean;
     }
 
-    export interface IBowserEngines {
+    interface IBowserEngines {
         /** IE <= 11 */
         msie: boolean;
-        /**Chrome 0-27, Android <4.4, iOs, BB, etc. */
+        /** Chrome 0-27, Android <4.4, iOs, BB, etc. */
         webkit: boolean;
-        /**Chrome >=28, Android >=4.4, Opera, etc. */
+        /** Chrome >=28, Android >=4.4, Opera, etc. */
         blink: boolean;
-        /**Firefox, etc. */
+        /** Firefox, etc. */
         gecko: boolean;
         /** IE > 11 */
         msedge: boolean;
@@ -68,37 +67,35 @@ declare namespace bowser {
         tablet: boolean;
         /** All detected mobile OSes are additionally flagged mobile, unless it's a tablet */
         mobile: boolean;
-
     }
 
-    export interface IBowserGrade {
+    interface IBowserGrade {
         /** Grade A browser */
         a: boolean;
         /** Grade C browser */
         c: boolean;
         /** Grade X browser */
         x: boolean;
-        /**A human readable name for this browser. E.g. 'Chrome', '' */
+        /** A human readable name for this browser. E.g. 'Chrome', '' */
         name: string;
-        /**Version number for the browser. E.g. '32.0' */
-        version: string|number;
-        osversion: string|number;
+        /** Version number for the browser. E.g. '32.0' */
+        version: string | number;
+        osversion: string | number;
     }
 
-    export interface IBowserDetection extends IBowserGrade, IBowserEngines, IBowserOS, IBowserVersions { }
+    interface IBowserDetection extends IBowserGrade, IBowserEngines, IBowserOS, IBowserVersions { }
 
-    export interface IBowserMinVersions {
+    interface IBowserMinVersions {
         // { msie: "11", "firefox": "4" }
         [index: string]: string;
     }
 
-    export interface IBowser extends IBowserDetection {
+    interface IBowser extends IBowserDetection {
         (): IBowserDetection;
         test(browserList: string[]): boolean;
         _detect(ua: string): IBowser;
         compareVersions(versions: string[]): number;
-        check(minVersions: IBowserMinVersions, strictMode?: boolean|string, ua?: string): Boolean;
-        isUnsupportedBrowser(minVersions: IBowserMinVersions, strictMode?: boolean|string, ua?: string): boolean;
+        check(minVersions: IBowserMinVersions, strictMode?: boolean | string, ua?: string): boolean;
+        isUnsupportedBrowser(minVersions: IBowserMinVersions, strictMode?: boolean | string, ua?: string): boolean;
     }
-
 }
