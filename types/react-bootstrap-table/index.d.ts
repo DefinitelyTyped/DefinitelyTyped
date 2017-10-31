@@ -351,15 +351,15 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
 	 * Enable row selection on table. SelectRow accept an object.
 	 */
-	selectRow?: SelectRow;
+	selectRow?: SelectRow<any>;
 	/**
 	 * Enable cell editing on table. cellEdit accept an object which have the following properties
 	 */
-	cellEdit?: CellEdit;
+	cellEdit?: CellEdit<any>;
 	/**
 	 * For some options setting on this component, you can set the options attribute and give an object which contain following properties
 	 */
-	options?: Options;
+	options?: Options<any>;
 	/**
 	 * Used to specify the total number of rows (matching current filter/sort/size per page) in a remote data source.
 	 * Documented in examples, but missing from the main docs. Essential for remote data pagination calculations.
@@ -428,7 +428,7 @@ export interface FooterData {
 	formatter?(tableData: any[]): string | number | ReactElement<any>;
 }
 
-export interface SelectRow {
+export interface SelectRow<TRow extends object> {
 	/**
 	 * Specify whether the selection column uses single(radio) or multiple(checkbox) selection modes. Required.
 	 */
@@ -450,7 +450,7 @@ export interface SelectRow {
 	 * If your requirement is much complex, you can assign a function to bgColor that
 	 * returns a css color string.
 	 */
-	bgColor?: string | ((row: any, isSelect: boolean) => string);
+	bgColor?: string | ((row: TRow, isSelect: boolean) => string);
 	/**
 	 * You can change the width of the selection column by columnWidth (include units).
 	 */
@@ -461,7 +461,7 @@ export interface SelectRow {
 	 *   `row`: The current row data.
 	 *   `isSelect`: Flag indicating whether this particular row is selected.
 	 */
-	className?: string | ((row: any, isSelect: boolean) => string);
+	className?: string | ((row: TRow, isSelect: boolean) => string);
 	/**
 	 * Give an array data to perform which rows you want to be selected when table loading.
 	 * The content of array should be the rowkeys for the rows that you want to be selected.
@@ -489,7 +489,7 @@ export interface SelectRow {
 	 *   `rowIndex`: the index number for the row.
 	 * If the return value of this (function) is false, the select or deselect action will not be applied.
 	 */
-	onSelect?(row: any, isSelected: boolean, event: any, rowIndex: number): boolean | void;
+	onSelect?(row: TRow, isSelected: boolean, event: any, rowIndex: number): boolean | void;
 	/**
 	 * Accept a custom callback function, if click select all checkbox, this function will be called. This callback
 	 * function taking two arguments: isSelected, rows.
@@ -501,7 +501,7 @@ export interface SelectRow {
 	 * If return value of this function is an array of rowkeys, this array will be applied as selection row when
 	 * select all triggers. It's useful when you have a validation to filter some rows on selecting all.
 	 */
-	onSelectAll?(isSelected: boolean, rows: any[]): boolean | Array<number | string>;
+	onSelectAll?(isSelected: boolean, rows: TRow[]): boolean | Array<number | string>;
 	/**
 	 * Function that returns a component to customize the display of the selection checkbox or radio button with.
 	 */
@@ -516,7 +516,7 @@ export interface SelectRow {
  * react-bootstrap-table supports cell editing. When you enable this feature, react-bootstrap-table will make
  * the target cell editable by either clicking or dbclicking (depending on the properties you set).
  */
-export interface CellEdit<TRow extends object = any> {
+export interface CellEdit<TRow extends object> {
 	/**
 	 * Spectify which condition will trigger cell editing.(click or dbclick). Required.
 	 */
@@ -560,12 +560,12 @@ export interface CellEdit<TRow extends object = any> {
 /**
  * Main Options for the Bootstrap Table.
  */
-export interface Options<TRow extends object = any> {
+export interface Options<TRow extends object> {
 	/**
 	 * Provide the name of the column that should be sorted by.
 	 * If multi-column sort is active, this is an array of columns.
 	 */
-	sortName?: string | string[];
+	sortName?: keyof TRow | Array<keyof TRow>;
 	/**
 	 * Specify whether the sort should be ascending or descending.
 	 * If multi-column sort is active, this is an array of sortOrder items.
@@ -575,7 +575,7 @@ export interface Options<TRow extends object = any> {
 	 * Specify the default sort column.
 	 * Note: when using cleanSort(), this default sort column will be restored.
 	 */
-	defaultSortName?: string;
+	defaultSortName?: keyof TRow;
 	/**
 	 * Assign a default sort order.
 	 * Note: when using cleanSort(), this default sort order will be restored.
@@ -592,8 +592,8 @@ export interface Options<TRow extends object = any> {
 	 *   `sortOrder`: The sort ordering, or array of ordering if multi-column sort is active.
 	 */
 	onSortChange?:
-		| ((sortName: string, sortOrder: SortOrder) => void)
-		| ((sortName: ReadonlyArray<string>, sortOrder: ReadonlyArray<SortOrder>) => void);
+		| ((sortName: keyof TRow, sortOrder: SortOrder) => void)
+		| ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void);
 	/**
 	 * Change the text displayed on the table if data is empty.
 	 */
@@ -623,7 +623,7 @@ export interface Options<TRow extends object = any> {
 	 *   `multiColumnSearch`: True if multiple column search is enabled.
 	 * In most cases, you only need to use searchText. This function usually used for remote searching.
 	 */
-	onSearchChange?(searchText: string, colInfos: ReadonlyArray<ColumnDescription>, multiColumnSearch: boolean): void;
+	onSearchChange?(searchText: string, colInfos: ReadonlyArray<ColumnDescription<TRow>>, multiColumnSearch: boolean): void;
 	/**
 	 * Assign a callback function which will be called after triggering searching.
 	 * This function takes two argument: search and result.
@@ -670,7 +670,7 @@ export interface Options<TRow extends object = any> {
 	 * The function should either return a string immediately, or return false and then return a string through the
 	 * error callback function later.
 	 */
-	onAddRow?(row: TRow, colInfo: ReadonlyArray<ColumnDescription>, errorCallback: (message: string) => void): string | boolean;
+	onAddRow?(row: TRow, colInfo: ReadonlyArray<ColumnDescription<TRow>>, errorCallback: (message: string) => void): string | boolean;
 	/**
 	 * Assign a callback function which will be called when a filter condition changes.
 	 * This function takes one argument: filterObj which is an object which take dataField
@@ -933,7 +933,7 @@ export interface Options<TRow extends object = any> {
 	insertModal?(
 		onModalClose: () => void,
 		onSave: (row: TRow) => void,
-		columns: ReadonlyArray<InsertModalColumnDescription>,
+		columns: ReadonlyArray<InsertModalColumnDescription<TRow>>,
 		validateState: { [dataField: string]: string },
 		ignoreEditable: boolean
 	): ReactElement<any>;
@@ -946,10 +946,10 @@ export interface Options<TRow extends object = any> {
 	 * will be called by react-bootstrap-table when the save button is clicked in the insert modal window.
 	 */
 	insertModalBody?(
-		columns: ReadonlyArray<InsertModalColumnDescription>,
+		columns: ReadonlyArray<InsertModalColumnDescription<TRow>>,
 		validateState: { [dataField: string]: string },
 		ignoreEditable: boolean
-	): React.ReactElement<React.Component<any> & ModalBodyInterface>;
+	): React.ReactElement<React.Component<any> & ModalBodyInterface<TRow>>;
 	/**
 	 * It's available to custom the header of insert modal by configuring options.insertModalHeader. It only accepts
 	 * a function and a JSX returned value is necessary. This function will take two arguments: closeModal and save.
@@ -1312,14 +1312,14 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 * This callback accepts four arguments: cell, row, rowIndex, columnIndex.
 	 * object: @see Editable interface.
 	 */
-	editable?: boolean | Editable | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
+	editable?: boolean | Editable<any, any> | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
 	/**
 	 * Give an Object like following to able to customize your own editing component.
 	 * This Object should contain these two property:
 	 *   getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
 	 *   customEditorParameters: Additional data for custom cell edit component.
 	 */
-	customEditor?: CustomEditor;
+	customEditor?: CustomEditor<any, any>;
 	/**
 	 * To Enable a column filter within header column.
 	 * This feature support a lots of filter types and conditions.
@@ -1372,7 +1372,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 */
 	customInsertEditor?: {
 		getElement(
-			column: InsertModalColumnDescription,
+			column: InsertModalColumnDescription<any>,
 			attr: EditableAttrs,
 			editorClass: string,
 			ignoreEditable: boolean,
@@ -1424,7 +1424,7 @@ export type EditCheckboxOptionValue = string;
 /**
  * Object to use to customize the properties for an editable column.
  */
-export interface Editable {
+export interface Editable<TRow extends object, K extends keyof TRow> {
 	/**
 	 * Edit field type, avaiable value is 'textarea', 'select', 'checkbox' and 'datetime'
 	 */
@@ -1454,7 +1454,7 @@ export interface Editable {
 	 * Validation function for the column. It takes the new "cell value" as argument. This function should return
 	 * a boolean true/false for isValid, or an EditValidatorObject (so that an error message can be provided).
 	 */
-	validator?(cell: any, row: any): boolean | string | EditValidatorObject;
+	validator?(cell: TRow[K], row: TRow): boolean | string | EditValidatorObject;
 	/**
 	 * Data in a select or checkbox. If a checkbox, use a string with a ':'(colon) to separate the two values, ex: Y:N
 	 * The callback function can be used to customize the select options based on other field values within the row.
@@ -1465,12 +1465,12 @@ export interface Editable {
 		values:
 		| EditSelectOptionValue
 		| EditCheckboxOptionValue
-		| ((row: any) => EditCheckboxOptionValue | EditSelectOptionValue);
+		| ((row: TRow) => EditCheckboxOptionValue | EditSelectOptionValue);
 	};
 	/**
 	 * Default value to show in the edit field in the Insert Modal for this column.
 	 */
-	defaultValue?: any;
+	defaultValue?: TRow[K];
 	/**
 	 * @deprecated Use placeholder inside the attrs field instead.
 	 * Text to display as placeholder text in the editor component.
@@ -1910,12 +1910,12 @@ export interface CustomSelectProps {
  * react-bootstrap-table source code to check what properties actually get passed to the
  * onSearchChange callback function.
  */
-export interface ColumnDescription {
+export interface ColumnDescription<TRow extends object> {
 	/**
 	 * Name of the column.
 	 * Comes from TableHeader.dataField property.
 	 */
-	name: string;
+	name: keyof TRow;
 	/**
 	 * Column text alignment setting
 	 * Comes from TableHeader.dataAlign property.
@@ -1930,7 +1930,7 @@ export interface ColumnDescription {
 	 * Column data format function.
 	 * Comes from TableHeader.dataFormat property.
 	 */
-	format(cell: any, row: any, formatExtraData: any, rowIndex: number): string | ReactElement<any>;
+	format(cell: any, row: TRow, formatExtraData: any, rowIndex: number): string | ReactElement<any>;
 	/**
 	 * The formatExtraData setting for the column.
 	 * Comes from TableHeader.formatExtraData property.
@@ -1945,17 +1945,17 @@ export interface ColumnDescription {
 	 * Filter function for the column.
 	 * Comes from TableHeader.filterValue property.
 	 */
-	filterValue(cell: any, row: any): any;
+	filterValue(cell: any, row: TRow): any;
 	/**
 	 * Setting for whether the data in this column can be edited.
 	 * Comes from TableHeader.editable property.
 	 */
-	editable: boolean | Editable | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
+	editable: boolean | Editable<TRow, any> | ((cell: any, row: TRow, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
 	/**
 	 * Custom editor settings to use when editing the data in this column.
 	 * Comes from TableHeader.customEditor property.
 	 */
-	customEditor: CustomEditor;
+	customEditor: CustomEditor<TRow, any>;
 	/**
 	 * Flag to indicate whether this column should be visible or not.
 	 * Comes from TableHeader.hidden property.
@@ -1975,17 +1975,17 @@ export interface ColumnDescription {
 	 * Custom className setting for this column.
 	 * Comes from TableHeader.columnClassName property.
 	 */
-	className: string | ((cell: any, row: any, rowIndex: number, columnIndex: number) => string);
+	className: string | ((cell: any, row: TRow, rowIndex: number, columnIndex: number) => string);
 	/**
 	 * Custom className setting for this column when a cell in the column is being edited.
 	 * Comes from TableHeader.editColumnClassName property.
 	 */
-	editClassName: string | ((cell: any, row: any) => string);
+	editClassName: string | ((cell: any, row: TRow) => string);
 	/**
 	 * Custom className setting for this column when a cell in the column contains invalid data.
 	 * Comes from TableHeader.invalidEditColumnClassName property.
 	 */
-	invalidEditColumnClassName: string | ((cell: any, row: any) => string);
+	invalidEditColumnClassName: string | ((cell: any, row: TRow) => string);
 	/**
 	 * Custom title to display for this column.
 	 * Comes from TableHeader.columnTitle property.
@@ -2005,7 +2005,7 @@ export interface ColumnDescription {
 	 * Custom sort function to use for this column.
 	 * Comes from TableHeader.sortFunc property.
 	 */
-	sortFunc(a: object, b: object, order: SortOrder, sortField: keyof object, extraData: any): number;
+	sortFunc(a: TRow, b: TRow, order: SortOrder, sortField: keyof TRow, extraData: any): number;
 	/**
 	 * Extra data to be provided to the search function for this column.
 	 * Comes from TableHeader.sortFuncExtraData property.
@@ -2233,15 +2233,15 @@ export interface SizePerPageFunctionProps {
 /**
  * Custom Editor Props passed to the getElement function in the TableHeader.customEditor object.
  */
-export interface CustomEditorProps extends EditableAttrs {
+export interface CustomEditorProps<TRow extends object, K extends keyof TRow> extends EditableAttrs {
 	/**
 	 * The row data for the cell being edited.
 	 */
-	row: any;
+	row: TRow;
 	/**
 	 * Default value for the editor cell.
 	 */
-	defaultValue: any;
+	defaultValue: TRow[K];
 	/**
 	 * Contents of the customEditorParameters object.
 	 */
@@ -2252,13 +2252,13 @@ export interface CustomEditorProps extends EditableAttrs {
  * Object to provide a custom editor component to use for a table column.
  * @see: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/cell-edit/custom-cell-edit-table.js
  */
-export interface CustomEditor {
+export interface CustomEditor<TRow extends object, K extends keyof TRow> {
 	/**
 	 * Required. Function to use to create the custom cell editor. Takes two parameters:
 	 *   `onUpdate`: callback function to call to update the value inside the cell.
 	 *   `props`:
 	 */
-	getElement(onUpdate: (updatedCell: any) => void, props: CustomEditorProps): ReactElement<any>;
+	getElement(onUpdate: (updatedCell: TRow[K]) => void, props: CustomEditorProps<TRow, K>): ReactElement<any>;
 	/**
 	 * Additional parameters to pass to the getElement function inside the props argument.
 	 */
@@ -2388,7 +2388,7 @@ export interface SearchFieldInterface {
 /**
  * Modal Column data passed to Options.insertModal and Options.insertModalBody.
  */
-export interface InsertModalColumnDescription {
+export interface InsertModalColumnDescription<TRow extends object> {
 	/**
 	 * Flag to indicate that this is the key field for the column. It is only present if there is more than
 	 * one column in the table.
@@ -2404,22 +2404,22 @@ export interface InsertModalColumnDescription {
 	 * Field name for the column data.
 	 * Comes from TableHeader.dataField.
 	 */
-	field: string; // children.props.dataField,
+	field: keyof TRow; // children.props.dataField,
 	/**
 	 * Flag to indicate whether this column is editable.
 	 * Comes from TableHeader.editable.
 	 */
-	editable: boolean | Editable | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
+	editable: boolean | Editable<TRow, keyof TRow> | ((cell: TRow[keyof TRow], row: TRow, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
 	/**
 	 * Custom element to use for the Insert field element.
 	 * Comes from TableHeader.customInsertEditor.
 	 */
 	customInsertEditor(
-		column: InsertModalColumnDescription,
+		column: InsertModalColumnDescription<TRow>,
 		attr: EditableAttrs,
 		editorClass: string,
 		ignoreEditable: boolean,
-		defaultValue: any
+		defaultValue: TRow[keyof TRow]
 	): ReactElement<any> | boolean;
 	/**
 	 * Flag to indicate whether this column should be hidden on the Insert Modal page.
@@ -2444,7 +2444,7 @@ export interface InsertModalColumnDescription {
 	 *
 	 * Based on from TableHeader.dataFormat, but is applied as a wrapper function around that function.
 	 */
-	format?: boolean | ((cell: any) => string);
+	format?: boolean | ((cell: TRow[keyof TRow]) => string);
 }
 
 /**
@@ -2530,12 +2530,12 @@ export interface InsertModalFooterProps {
 /**
  * Interface that must be implemented by a custom insert modal body component.
  */
-export interface ModalBodyInterface {
+export interface ModalBodyInterface<TRow extends object> {
 	/**
 	 * The required getFieldValue method that must be implemented on a customized insert modal body that returns the
 	 * new row data when the save button is clicked in the modal window.
 	 */
-	getFieldValue(): any;
+	getFieldValue(): TRow;
 }
 
 /**
