@@ -115,6 +115,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "change-case",
             "typingsPackageName": "change-case",
             "sourceRepoURL": "https://github.com/blakeembrey/change-case",
