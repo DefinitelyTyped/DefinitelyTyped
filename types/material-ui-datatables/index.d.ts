@@ -3,6 +3,9 @@
 // Definitions by: Ravi L. <https://github.com/coding2012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
+
+/// <reference types="react" />
+
 import * as React from 'react';
 
 export interface Column<T> {
