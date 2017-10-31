@@ -14,7 +14,7 @@ var buffer: NodeBuffer = new Buffer('foo');
 var num: number = 0;
 var bool: boolean;
 var date: Date;
-var obj: Object;
+var obj: object;
 var dest: string = 'foo';
 
 var uri: string = 'foo-bar';
@@ -468,7 +468,7 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
       { consumer_key: CONSUMER_KEY
       , consumer_secret: CONSUMER_SECRET
       , token: auth_data.oauth_token
-      , token_secret: req_data.oauth_token_secret
+      , token_secret: req_data.oauth_token_secret as string
       , verifier: auth_data.oauth_verifier
       }
     , url = 'https://api.twitter.com/oauth/access_token'

@@ -157,6 +157,8 @@ export interface Axis {
 	autotick: boolean;
 	zeroline: boolean;
 	autorange: boolean | 'reversed';
+	side: "top" | "bottom" | "left" | "right";
+	overlaying: "free" | "/^x([2-9]|[1-9][0-9]+)?$/" | "/^y([2-9]|[1-9][0-9]+)?$/";
 }
 
 export interface ShapeLine {

@@ -18,6 +18,11 @@ moduleLog.setLevel('ERROR', false);
 moduleLog.setLevel(moduleLog.levels.WARN);
 moduleLog.setLevel(moduleLog.levels.WARN, false);
 
+moduleLog.setDefaultLevel(0);
+moduleLog.setDefaultLevel('error');
+moduleLog.setDefaultLevel('ERROR');
+moduleLog.setDefaultLevel(moduleLog.levels.WARN);
+
 moduleLog.enableAll(false);
 moduleLog.enableAll();
 moduleLog.disableAll(true);
@@ -27,6 +32,7 @@ const logLevel = moduleLog.getLevel();
 
 const testLogger: moduleLog.Logger = moduleLog.getLogger('TestLogger');
 
+testLogger.setDefaultLevel(logLevel);
 testLogger.setLevel(logLevel);
 testLogger.warn('logging test');
 

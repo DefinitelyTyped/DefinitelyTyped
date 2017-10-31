@@ -1,6 +1,6 @@
-// Type definitions for tween.js v16.6.0
+// Type definitions for tween.js v16.9.0
 // Project: https://github.com/tweenjs/tween.js/
-// Definitions by: jordan <https://github.com/Amos47>, sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
+// Definitions by: jordan <https://github.com/Amos47>, sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>, alexburner <https://github.com/alexburner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TWEEN {
@@ -8,11 +8,11 @@ declare namespace TWEEN {
     export function removeAll(): void;
     export function add(tween: Tween): void;
     export function remove(tween: Tween): void;
-    export function update(time?: number): boolean;
+    export function update(time?: number, preserve?: boolean): boolean;
     export function now(): number;
 
     export class Tween {
-        constructor(object?: any);
+        constructor(object?: any, group?: Group);
         to(properties: any, duration: number): Tween;
         start(time?: number): Tween;
         stop(): Tween;
@@ -31,6 +31,16 @@ declare namespace TWEEN {
         onComplete(callback: (object?: any) => void): Tween;
         update(time: number): boolean;
     }
+
+    export class Group {
+        constructor();
+        getAll(): Tween[];
+        removeAll(): void;
+        add(tween: Tween): void;
+        remove(tween: Tween): void;
+        update(time?: number, preserve?: boolean): boolean;
+    }
+
     export var Easing: Easing;
     export var Interpolation: Interpolation;
 }

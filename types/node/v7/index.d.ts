@@ -3,10 +3,8 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 Daniel Imms <https://github.com/Tyriar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -817,7 +815,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -1420,7 +1418,7 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
@@ -1870,37 +1868,29 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
-        href?: string;
-        protocol?: string;
+    export interface UrlObject {
         auth?: string;
-        hostname?: string;
-        port?: string;
-        host?: string;
-        pathname?: string;
-        search?: string;
-        query?: string | any;
-        slashes?: boolean;
         hash?: string;
+        host?: string;
+        hostname?: string;
+        href?: string;
         path?: string;
+        pathname?: string;
+        port?: string | number;
+        protocol?: string;
+        query?: string | { [key: string]: any; };
+        search?: string;
+        slashes?: boolean;
     }
 
-    export interface UrlObject {
-        protocol?: string;
-        slashes?: boolean;
-        auth?: string;
-        host?: string;
-        hostname?: string;
-        port?: string | number;
-        pathname?: string;
-        search?: string;
-        query?: { [key: string]: any; };
-        hash?: string;
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject): string;
+    export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
     export interface URLFormatOptions {

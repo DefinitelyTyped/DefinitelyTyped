@@ -1,14 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // Custom rules.
         "await-promise": [true, "CancellablePromise"],
         "class-name": true,
-        "indent": [true, "tabs"],
+        "indent": [true, "spaces", 4],
         "jsdoc-format": true,
-        "linebreak-style": [true, "LF"],
-        "max-line-length": [true, 100],
-        "no-any": false,
+        "max-line-length": [true, 110],
         "quotemark": [true, "double", "avoid-escape"],
         "trailing-comma": [true, {
             "multiline": { "objects": "always", "arrays": "always", "functions": "never" },
@@ -28,6 +25,7 @@
         ],
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
+        "no-any": true,
         "no-floating-promises": true,
         "no-unbound-method": true,
         "no-unsafe-any": true,

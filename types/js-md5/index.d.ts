@@ -26,7 +26,7 @@ declare namespace md5 {
         buffer(message: message): ArrayBuffer;
         create(): Md5;
         update(message: message): Md5;
-        base64(message: message): string
+        base64(message: message): string;
     }
 }
 

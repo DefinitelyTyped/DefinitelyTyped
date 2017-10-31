@@ -1,8 +1,7 @@
-// Type definitions for ramda 0.24
+// Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
-//                 Liam Goodacre <https://github.com/LiamGoodacre>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
@@ -10,6 +9,7 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
+//                 Samson Keung <https://github.com/samsonkeung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -553,6 +553,14 @@ declare namespace R {
         empty<T>(x: T): T;
 
         /**
+         * Checks if a list ends with the provided values
+         */
+        endsWith(a: string, list: string): boolean;
+        endsWith(a: string): (list: string) => boolean;
+        endsWith<T>(a: T | T[], list: T[]): boolean;
+        endsWith<T>(a: T | T[]): (list: T[]) => boolean;
+
+        /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
@@ -694,7 +702,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: T[]): T;
+        head<T>(list: T[]): T | undefined;
         head(list: string): string;
 
         /**
@@ -861,7 +869,7 @@ declare namespace R {
         /**
          * Returns the last element from a list.
          */
-        last<T>(list: T[]): T;
+        last<T>(list: T[]): T | undefined;
         last(list: string): string;
 
         /**
@@ -1107,6 +1115,7 @@ declare namespace R {
          * Any extraneous parameters will not be passed to the supplied function.
          */
         nAry(n: number, fn: (...arg: any[]) => any): (...a: any[]) => any;
+        nAry(n: number): (fn: (...arg: any[]) => any) => (...a: any[]) => any;
 
         /**
          * Negates its argument.
@@ -1638,8 +1647,10 @@ declare namespace R {
         /**
          * Checks if a list starts with the provided values
          */
-        startsWith(a: any, list: any): boolean;
-        startsWith(a: any): (list: any) => boolean;
+        startsWith(a: string, list: string): boolean;
+        startsWith(a: string): (list: string) => boolean;
+        startsWith<T>(a: T | T[], list: T[]): boolean;
+        startsWith<T>(a: T | T[]): (list: T[]) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1814,7 +1825,7 @@ declare namespace R {
          * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
          * all as 'Object'.
          */
-        type(val: any): string;
+        type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
 
         /**
          * Takes a function fn, which takes a single array argument, and returns a function which:

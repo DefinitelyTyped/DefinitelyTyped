@@ -1,4 +1,4 @@
-// Type definitions for Chartist v0.9.7
+// Type definitions for Chartist v0.9.8
 // Project: https://github.com/gionkunz/chartist-js
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Cassey Lottman <https://github.com/clottman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -190,7 +190,7 @@ declare namespace Chartist {
     
     /**
      * If specified the donut segments will be drawn as shapes instead of strokes.
-     */    
+     */
     donutSolid?: boolean;
 
     /**
@@ -367,6 +367,7 @@ declare namespace Chartist {
     area?: string;
     grid?: string;
     gridGroup?: string;
+    gridBackground?: string;
     vertical?: string;
     horizontal?: string;
     start?: string;

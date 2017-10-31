@@ -1,7 +1,10 @@
+import * as http from 'http';
+
 import {
   createConnection,
   createServer,
   createClient,
+  Multiplexer,
   Thrift,
   TBinaryProtocol,
   TBufferedTransport,
@@ -22,11 +25,9 @@ interface MockServiceHandlers {
 }
 
 class MockProcessor {
-  constructor() {}
 }
 
 class MockClient {
-  constructor() {}
 }
 
 const mockServiceHandlers: MockServiceHandlers = {
@@ -42,9 +43,17 @@ const mockGeneratedService = {
 
 createServer<MockProcessor, MockServiceHandlers>(mockGeneratedService, mockServiceHandlers);
 
+const nodeOptions: http.RequestOptions = {
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/octet-stream'
+    }
+};
+
 const clientConnection = createConnection('0.0.0.0', 1234, {
   transport: TBufferedTransport,
-  protocol: TBinaryProtocol
+  protocol: TBinaryProtocol,
+  nodeOptions
 });
 createClient<MockClient>(mockGeneratedService, clientConnection);
 
@@ -126,3 +135,6 @@ const tBinary: Buffer = mockProtocol.readBinary();
 const tString: string = mockProtocol.readString();
 const tTrans: TTransport = mockProtocol.getTransport();
 mockProtocol.skip(Thrift.Type.STRUCT);
+
+const multiplexer = new Multiplexer();
+multiplexer.createClient("mock-service", mockGeneratedService, clientConnection);

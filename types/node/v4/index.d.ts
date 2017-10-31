@@ -720,7 +720,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -946,7 +946,7 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
@@ -1236,23 +1236,28 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
+    export interface UrlObject {
         href?: string;
         protocol?: string;
+        slashes?: boolean;
+        host?: string;
         auth?: string;
         hostname?: string;
-        port?: string;
-        host?: string;
+        port?: string | number;
         pathname?: string;
         search?: string;
-        query?: string | any;
-        slashes?: boolean;
-        hash?: string;
         path?: string;
+        query?: string | { [key: string]: any; };
+        hash?: string;
+    }
+
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: Url): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
 }
 

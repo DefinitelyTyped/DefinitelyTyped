@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdFilter2 extends React.Component<IconBaseProps> { }
+declare class MdFilter2 extends React.Component<IconBaseProps> { }
+export = MdFilter2;

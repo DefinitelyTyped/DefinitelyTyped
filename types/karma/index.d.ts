@@ -9,7 +9,6 @@
 // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
 import Promise = require('bluebird');
 import https = require('https');
-import log4js = require('log4js');
 
 declare namespace karma {
     interface Karma {
@@ -142,6 +141,16 @@ declare namespace karma {
 
     interface ConfigFile {
         configFile: string;
+    }
+
+    // taken from log4js 1.x typings which are gone...
+    interface Log4jsAppenderConfigBase {
+        type: string;
+        category?: string;
+        layout?: {
+            type: string;
+            [key: string]: any
+        }
     }
 
     interface ConfigOptions {
@@ -283,7 +292,7 @@ declare namespace karma {
          * @default [{type: 'console'}]
          * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
          */
-        loggers?: log4js.AppenderConfigBase[];
+        loggers?: Log4jsAppenderConfigBase[];
         /**
          * @default {}
          * @description Redefine default mapping from file extensions to MIME-type.

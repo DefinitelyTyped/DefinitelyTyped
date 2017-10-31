@@ -2,6 +2,7 @@ import * as webpack from 'webpack';
 import * as WebpackDevServer from 'webpack-dev-server';
 import * as core from 'express-serve-static-core';
 const compiler = webpack({});
+const multipleCompiler = webpack([]);
 
 // basic example
 let server = new WebpackDevServer(compiler, {
@@ -12,6 +13,9 @@ server.listen(8080);
 // Configuration can be used as a type
 const config: WebpackDevServer.Configuration = {
     // webpack-dev-server options
+    inline: true,
+    // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
+
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
 
@@ -78,4 +82,11 @@ server = new WebpackDevServer(compiler, {
     publicPath: "/assets/",
     https: true
 });
+
 server.listen(8080, "localhost", () => {});
+
+server.close();
+
+// multiple compilers
+
+server = new WebpackDevServer(multipleCompiler, config);
