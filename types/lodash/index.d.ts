@@ -6,7 +6,8 @@
 //                 Eric L Anderson <https://github.com/ericanderson>,
 //                 AJ Richardson <https://github.com/aj-r>,
 //                 Junyoung Clare Jang <https://github.com/ailrun>,
-//                 e-cloud <https://github.com/e-cloud>
+//                 e-cloud <https://github.com/e-cloud>,
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -474,9 +475,9 @@ declare namespace _ {
          * falsey.
          *
          * @param array The array to compact.
-         * @return (Array) Returns the new array of filtered values.
+         * @return Returns the new array of filtered values.
          */
-        compact<T>(array?: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
+        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1338,14 +1339,14 @@ declare namespace _ {
          * // => { 'fred': 30, 'barney': 40 }
          */
         fromPairs<T>(
-          array: List<[StringRepresentable, T]> | null | undefined
+            pairs: List<[PropertyName, T]> | null | undefined
         ): Dictionary<T>;
 
         /**
          @see _.fromPairs
          */
         fromPairs(
-            array: List<any[]> | null | undefined
+            pairs: List<any[]> | null | undefined
         ): Dictionary<any>;
     }
 
@@ -1355,7 +1356,7 @@ declare namespace _ {
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashImplicitWrapper<List<[StringRepresentable, T]> | null | undefined>
+          this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
@@ -1371,7 +1372,7 @@ declare namespace _ {
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashExplicitWrapper<List<[StringRepresentable, T]> | null | undefined>
+          this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
@@ -1580,7 +1581,7 @@ declare namespace _ {
          * // => [{ 'x': 1 }]
          */
         intersectionBy<T>(
-            array?: List<T> | null | undefined,
+            array: List<T> | null | undefined,
             values?: List<T>,
             iteratee?: ValueIteratee<T>
         ): T[];
@@ -1589,7 +1590,7 @@ declare namespace _ {
          * @see _.intersectionBy
          */
         intersectionBy<T>(
-            array?: List<T> | null | undefined,
+            array: List<T> | null | undefined,
             ...values: Array<List<T> | ValueIteratee<T>>,
         ): T[];
     }
@@ -3337,7 +3338,7 @@ declare namespace _ {
          * // => [{ 'x': 2 }]
          */
         xorBy<T>(
-            arrays?: List<T> | null | undefined,
+            arrays: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
         ): T[];
 
@@ -3439,7 +3440,7 @@ declare namespace _ {
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
         xorWith<T>(
-            arrays?: List<T> | null | undefined,
+            arrays: List<T> | null | undefined,
             comparator?: Comparator<T>
         ): T[];
 
@@ -3563,108 +3564,79 @@ declare namespace _ {
          * @param values The property values.
          * @return Returns the new object.
          */
-        zipObject<TResult extends object>(
-            props: List<keyof TResult>,
-            values: List<TResult[keyof TResult]>
-        ): TResult;
+        zipObject<T>(
+            props: List<PropertyName>,
+            values: List<T>
+        ): Dictionary<T>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
-            props: List<StringRepresentable>|List<List<any>>,
-            values?: List<any>
-        ): any;
-
-        /**
-         * @see _.zipObject
-         */
-        zipObject(): {};
+            props?: List<PropertyName>
+        ): Dictionary<undefined>;
 
         /**
          * This method is like _.zipObject except that it supports property paths.
          *
-         * @param props The property names.
+         * @param paths The property names.
          * @param values The property values.
          * @return Returns the new object.
          */
         zipObjectDeep(
-            props: List<StringRepresentable>|List<List<any>>,
+            paths?: List<PropertyPath>,
             values?: List<any>
-        ): any;
-
-        /**
-         * @see _.zipObjectDeep
-         */
-        zipObjectDeep(): {};
+        ): object;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.zipObject
          */
-        zipObject<TResult extends object>(
-            this: LoDashImplicitWrapper<List<keyof TResult>>,
-            values: List<TResult[keyof TResult]>
-        ): LoDashImplicitWrapper<TResult>;
+        zipObject<T>(
+            this: LoDashImplicitWrapper<List<PropertyName>>,
+            values: List<T>
+        ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
-            this: LoDashImplicitWrapper<List<StringRepresentable>|List<List<any>>>,
-            values?: List<any>
-        ): LoDashImplicitWrapper<any>;
+            this: LoDashImplicitWrapper<List<PropertyName>>
+        ): LoDashImplicitWrapper<Dictionary<undefined>>;
 
         /**
          * @see _.zipObjectDeep
          */
         zipObjectDeep(
-            this: LoDashImplicitWrapper<List<StringRepresentable>|List<List<any>>>,
+            this: LoDashImplicitWrapper<List<PropertyPath>>,
             values?: List<any>
-        ): LoDashImplicitWrapper<any>;
-
-        /**
-         * @see _.zipObjectDeep
-         */
-        zipObjectDeep<TResult extends object>(
-            this: LoDashImplicitWrapper<List<StringRepresentable>|List<List<any>>>,
-            values?: List<any>
-        ): LoDashImplicitWrapper<TResult>;
+        ): LoDashImplicitWrapper<object>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.zipObject
          */
-        zipObject<TResult extends object>(
-            this: LoDashExplicitWrapper<List<keyof TResult>>,
-            values: List<TResult[keyof TResult]>
-        ): LoDashExplicitWrapper<TResult>;
+        zipObject<T>(
+            this: LoDashExplicitWrapper<List<PropertyName>>,
+            values: List<T>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
-            this: LoDashExplicitWrapper<List<StringRepresentable>|List<List<any>>>,
-            values?: List<any>
-        ): LoDashExplicitWrapper<any>;
+            this: LoDashExplicitWrapper<List<PropertyName>>
+        ): LoDashExplicitWrapper<Dictionary<undefined>>;
 
         /**
          * @see _.zipObjectDeep
          */
         zipObjectDeep(
-            this: LoDashExplicitWrapper<List<StringRepresentable>|List<List<any>>>,
+            this: LoDashExplicitWrapper<List<PropertyPath>>,
             values?: List<any>
-        ): LoDashExplicitWrapper<any>;
-
-        /**
-         * @see _.zipObjectDeep
-         */
-        zipObjectDeep<TResult extends object>(
-            this: LoDashExplicitWrapper<List<StringRepresentable>|List<List<any>>>,
-            values?: List<any>
-        ): LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<object>;
     }
 
     //_.zipWith
@@ -4020,7 +3992,7 @@ declare namespace _ {
          */
         at<T>(
             object: List<T> | Dictionary<T> | null | undefined,
-            ...props: Array<Many<number|string>>
+            ...props: PropertyPath[]
         ): T[];
 
         /**
@@ -4038,7 +4010,7 @@ declare namespace _ {
          */
         at<T>(
             this: LoDashImplicitWrapper<List<T> | Dictionary<T> | null | undefined>,
-            ...props: Array<Many<number|string>>
+            ...props: PropertyPath[]
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -4056,7 +4028,7 @@ declare namespace _ {
          */
         at<T>(
             this: LoDashExplicitWrapper<List<T> | Dictionary<T> | null | undefined>,
-            ...props: Array<Many<number|string>>
+            ...props: PropertyPath[]
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -5691,7 +5663,7 @@ declare namespace _ {
         **/
         invoke(
             object: any,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             ...args: any[]): any;
     }
 
@@ -5700,7 +5672,7 @@ declare namespace _ {
         * @see _.invoke
         **/
         invoke(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             ...args: any[]): any;
     }
 
@@ -5709,7 +5681,7 @@ declare namespace _ {
         * @see _.invoke
         **/
         invoke(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             ...args: any[]): LoDashExplicitWrapper<any>;
     }
 
@@ -9173,7 +9145,7 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
-        isArrayLike(value?: ((...args: any[]) => any) | Function | null | undefined): value is never;
+        isArrayLike(value: ((...args: any[]) => any) | Function | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
@@ -9223,7 +9195,7 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
-        isArrayLikeObject(value?: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
+        isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
@@ -9423,7 +9395,7 @@ declare namespace _ {
     }
 
     // _.isEqualWith
-    type IsEqualCustomizer = (value: any, other: any, indexOrKey: number|string|undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
+    type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
 
     interface LoDashStatic {
         /**
@@ -9668,7 +9640,7 @@ declare namespace _ {
     }
 
     //_.isMatch
-    type isMatchCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
+    type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
 
     interface LoDashStatic {
         /**
@@ -9702,7 +9674,7 @@ declare namespace _ {
     }
 
     //_.isMatchWith
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: number|string) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
 
     interface LoDashStatic {
         /**
@@ -12888,7 +12860,7 @@ declare namespace _ {
          */
         get<TDefault>(
             object: null | undefined,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue: TDefault
         ): TDefault;
 
@@ -12897,7 +12869,7 @@ declare namespace _ {
          */
         get(
             object: null | undefined,
-            path: Many<StringRepresentable>
+            path: PropertyPath
         ): undefined;
 
         /**
@@ -12905,7 +12877,7 @@ declare namespace _ {
          */
         get(
             object: any,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue?: any
         ): any;
     }
@@ -12940,7 +12912,7 @@ declare namespace _ {
          */
         get<TDefault>(
             this: LoDashImplicitWrapper<null | undefined>,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue: TDefault
         ): TDefault;
 
@@ -12949,14 +12921,14 @@ declare namespace _ {
          */
         get(
             this: LoDashImplicitWrapper<null | undefined>,
-            path: Many<StringRepresentable>
+            path: PropertyPath
         ): undefined;
 
         /**
          * @see _.get
          */
         get<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue?: any
         ): any;
     }
@@ -12991,7 +12963,7 @@ declare namespace _ {
          */
         get<TDefault>(
             this: LoDashExplicitWrapper<null | undefined>,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue: TDefault
         ): LoDashExplicitWrapper<TDefault>;
 
@@ -13000,14 +12972,14 @@ declare namespace _ {
          */
         get(
             this: LoDashExplicitWrapper<null | undefined>,
-            path: Many<StringRepresentable>
+            path: PropertyPath
         ): LoDashExplicitWrapper<undefined>;
 
         /**
          * @see _.get
          */
         get(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue?: any
         ): LoDashExplicitWrapper<any>;
     }
@@ -13040,7 +13012,7 @@ declare namespace _ {
          */
         has<T>(
             object: T,
-            path: Many<StringRepresentable>
+            path: PropertyPath
         ): boolean;
     }
 
@@ -13048,14 +13020,14 @@ declare namespace _ {
         /**
          * @see _.has
          */
-        has(path: Many<StringRepresentable>): boolean;
+        has(path: PropertyPath): boolean;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.has
          */
-        has(path: Many<StringRepresentable>): LoDashExplicitWrapper<boolean>;
+        has(path: PropertyPath): LoDashExplicitWrapper<boolean>;
     }
 
     //_.hasIn
@@ -13085,7 +13057,7 @@ declare namespace _ {
          */
         hasIn<T>(
             object: T,
-            path: Many<StringRepresentable>
+            path: PropertyPath
         ): boolean;
     }
 
@@ -13093,14 +13065,14 @@ declare namespace _ {
         /**
          * @see _.hasIn
          */
-        hasIn(path: Many<StringRepresentable>): boolean;
+        hasIn(path: PropertyPath): boolean;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.hasIn
          */
-        hasIn(path: Many<StringRepresentable>): LoDashExplicitWrapper<boolean>;
+        hasIn(path: PropertyPath): LoDashExplicitWrapper<boolean>;
     }
 
     //_.invert
@@ -13815,7 +13787,7 @@ declare namespace _ {
          *
          * @category Object
          * @param object The source object.
-         * @param [props] The property names to omit, specified
+         * @param [paths] The property names to omit, specified
          *  individually or in arrays..
          * @returns Returns the new object.
          * @example
@@ -13825,10 +13797,17 @@ declare namespace _ {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
+        omit<T>(
+            object: Dictionary<T>,
+            ...paths: PropertyPath[]
+        ): Dictionary<T>;
 
+        /**
+         * @see _.omit
+         */
         omit<T extends object>(
             object: T | null | undefined,
-            ...props: Array<Many<StringRepresentable>>
+            ...paths: PropertyPath[]
         ): PartialObject<T>;
     }
 
@@ -13836,9 +13815,17 @@ declare namespace _ {
         /**
          * @see _.omit
          */
+        omit<T>(
+            this: LoDashImplicitWrapper<Dictionary<T>>,
+            ...paths: PropertyPath[]
+        ): LoDashImplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.omit
+         */
         omit<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            ...props: Array<Many<StringRepresentable>>
+            ...paths: PropertyPath[]
         ): LoDashImplicitWrapper<PartialObject<T>>;
     }
 
@@ -13846,9 +13833,17 @@ declare namespace _ {
         /**
          * @see _.omit
          */
+        omit<T>(
+            this: LoDashExplicitWrapper<Dictionary<T>>,
+            ...paths: PropertyPath[]
+        ): LoDashExplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.omit
+         */
         omit<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            ...predicate: Array<Many<StringRepresentable>>
+            ...paths: PropertyPath[]
         ): LoDashExplicitWrapper<PartialObject<T>>;
     }
 
@@ -13915,7 +13910,7 @@ declare namespace _ {
          */
         pick<T extends object>(
             object: T | null | undefined,
-            ...predicate: Array<Many<StringRepresentable>>
+            ...props: PropertyPath[]
         ): PartialObject<T>;
     }
 
@@ -13925,7 +13920,7 @@ declare namespace _ {
          */
         pick<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            ...predicate: Array<Many<StringRepresentable>>
+            ...props: PropertyPath[]
         ): LoDashImplicitWrapper<PartialObject<T>>;
     }
 
@@ -13935,7 +13930,7 @@ declare namespace _ {
          */
         pick<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            ...predicate: Array<Many<StringRepresentable>>
+            ...props: PropertyPath[]
         ): LoDashExplicitWrapper<PartialObject<T>>;
     }
 
@@ -13995,7 +13990,7 @@ declare namespace _ {
          */
         result<TResult>(
             object: any,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
     }
@@ -14005,7 +14000,7 @@ declare namespace _ {
          * @see _.result
          */
         result<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
     }
@@ -14015,7 +14010,7 @@ declare namespace _ {
          * @see _.result
          */
         result<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): LoDashExplicitWrapper<TResult>;
     }
@@ -14034,7 +14029,7 @@ declare namespace _ {
          */
         set<T extends object>(
             object: T,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any
         ): T;
 
@@ -14043,7 +14038,7 @@ declare namespace _ {
          */
         set<TResult>(
             object: object,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any
         ): TResult;
     }
@@ -14053,7 +14048,7 @@ declare namespace _ {
          * @see _.set
          */
         set(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any
         ): this;
 
@@ -14061,7 +14056,7 @@ declare namespace _ {
          * @see _.set
          */
         set<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any
         ): LoDashImplicitWrapper<TResult>;
     }
@@ -14071,7 +14066,7 @@ declare namespace _ {
          * @see _.set
          */
         set(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any
         ): this;
 
@@ -14079,7 +14074,7 @@ declare namespace _ {
          * @see _.set
          */
         set<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any
         ): LoDashExplicitWrapper<TResult>;
     }
@@ -14101,14 +14096,14 @@ declare namespace _ {
          */
         setWith<T extends object>(
             object: T,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any,
             customizer?: SetWithCustomizer<T>
         ): T;
 
         setWith<T extends object, TResult>(
             object: T,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any,
             customizer?: SetWithCustomizer<T>
         ): TResult;
@@ -14119,7 +14114,7 @@ declare namespace _ {
          * @see _.setWith
          */
         setWith(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any,
             customizer?: SetWithCustomizer<TValue>
         ): this;
@@ -14128,7 +14123,7 @@ declare namespace _ {
          * @see _.setWith
          */
         setWith<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any,
             customizer?: SetWithCustomizer<TValue>
         ): LoDashImplicitWrapper<TResult>;
@@ -14139,7 +14134,7 @@ declare namespace _ {
          * @see _.setWith
          */
         setWith(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any,
             customizer?: SetWithCustomizer<TValue>
         ): this;
@@ -14148,7 +14143,7 @@ declare namespace _ {
          * @see _.setWith
          */
         setWith<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             value: any,
             customizer?: SetWithCustomizer<TValue>
         ): LoDashExplicitWrapper<TResult>;
@@ -14409,7 +14404,7 @@ declare namespace _ {
          */
         unset(
             object: any,
-            path: Many<StringRepresentable>
+            path: PropertyPath
         ): boolean;
     }
 
@@ -14417,14 +14412,14 @@ declare namespace _ {
         /**
          * @see _.unset
          */
-        unset(path: Many<StringRepresentable>): LoDashImplicitWrapper<boolean>;
+        unset(path: PropertyPath): LoDashImplicitWrapper<boolean>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.unset
          */
-        unset(path: Many<StringRepresentable>): LoDashExplicitWrapper<boolean>;
+        unset(path: PropertyPath): LoDashExplicitWrapper<boolean>;
     }
 
     //_.update
@@ -14440,7 +14435,7 @@ declare namespace _ {
          */
         update(
             object: object,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (value: any) => any
         ): any;
     }
@@ -14450,7 +14445,7 @@ declare namespace _ {
          * @see _.update
          */
         update(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (value: any) => any
         ): LoDashImplicitWrapper<any>;
     }
@@ -14460,7 +14455,7 @@ declare namespace _ {
          * @see _.update
          */
         update(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (value: any) => any
         ): LoDashExplicitWrapper<any>;
     }
@@ -14491,7 +14486,7 @@ declare namespace _ {
          */
         updateWith<T extends object>(
             object: T,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<T>
         ): T;
@@ -14501,7 +14496,7 @@ declare namespace _ {
          */
         updateWith<T extends object, TResult>(
             object: T,
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<T>
         ): TResult;
@@ -14512,7 +14507,7 @@ declare namespace _ {
          * @see _.updateWith
          */
         updateWith(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<TValue>
         ): this;
@@ -14521,7 +14516,7 @@ declare namespace _ {
          * @see _.updateWith
          */
         updateWith<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<TValue>
         ): LoDashImplicitWrapper<TResult>;
@@ -14532,7 +14527,7 @@ declare namespace _ {
          * @see _.updateWith
          */
         updateWith(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<TValue>
         ): this;
@@ -14541,7 +14536,7 @@ declare namespace _ {
          * @see _.updateWith
          */
         updateWith<TResult>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<TValue>
         ): LoDashExplicitWrapper<TResult>;
@@ -15840,7 +15835,7 @@ declare namespace _ {
          * @return Returns the new function.
          */
         matchesProperty<T>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             srcValue: T
         ): (value: any) => boolean;
 
@@ -15848,7 +15843,7 @@ declare namespace _ {
          * @see _.matchesProperty
          */
         matchesProperty<T, V>(
-            path: Many<StringRepresentable>,
+            path: PropertyPath,
             srcValue: T
         ): (value: V) => boolean;
     }
@@ -15896,7 +15891,7 @@ declare namespace _ {
          * @return Returns the new function.
          */
         method(
-            path: string|StringRepresentable[],
+            path: PropertyPath,
             ...args: any[]
         ): (object: any) => any;
     }
@@ -15928,7 +15923,7 @@ declare namespace _ {
         methodOf(
             object: object,
             ...args: any[]
-        ): (path: Many<StringRepresentable>) => any;
+        ): (path: PropertyPath) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -15937,7 +15932,7 @@ declare namespace _ {
          */
         methodOf(
             ...args: any[]
-        ): LoDashImplicitWrapper<(path: Many<StringRepresentable>) => any>;
+        ): LoDashImplicitWrapper<(path: PropertyPath) => any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -15946,7 +15941,7 @@ declare namespace _ {
          */
         methodOf(
             ...args: any[]
-        ): LoDashExplicitWrapper<(path: Many<StringRepresentable>) => any>;
+        ): LoDashExplicitWrapper<(path: PropertyPath) => any>;
     }
 
     //_.mixin
@@ -16182,7 +16177,7 @@ declare namespace _ {
          * @param path The path of the property to get.
          * @return Returns the new function.
          */
-        property<TObj, TResult>(path: Many<StringRepresentable>): (obj: TObj) => TResult;
+        property<TObj, TResult>(path: PropertyPath): (obj: TObj) => TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -16208,21 +16203,21 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns the new function.
          */
-        propertyOf<T extends {}>(object: T): (path: Many<string>) => any;
+        propertyOf<T extends {}>(object: T): (path: PropertyPath) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.propertyOf
          */
-        propertyOf(): LoDashImplicitWrapper<(path: Many<string>) => any>;
+        propertyOf(): LoDashImplicitWrapper<(path: PropertyPath) => any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.propertyOf
          */
-        propertyOf(): LoDashExplicitWrapper<(path: Many<string>) => any>;
+        propertyOf(): LoDashExplicitWrapper<(path: PropertyPath) => any>;
     }
 
     //_.range
@@ -16609,6 +16604,9 @@ declare namespace _ {
     type ValueKeyIteratee<T> = ((value: T, key: string) => any) | string | [string, any] | PartialDeep<T>;
     type Comparator<T> = (a: T, b: T) => boolean;
 
+    type PropertyName = string | number | symbol;
+    type PropertyPath = Many<PropertyName>;
+
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
 
@@ -16618,10 +16616,6 @@ declare namespace _ {
 
     interface NumericDictionary<T> {
         [index: number]: T;
-    }
-
-    interface StringRepresentable {
-        toString(): string;
     }
 
     interface Cancelable {
