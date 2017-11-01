@@ -305,26 +305,26 @@ namespace TestDifferenceBy {
         result = _.differenceBy<TResult>(array, arrayParam, listParam, arrayParam, listParam, arrayParam);
         result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam);
 
-        result = _.differenceBy<TResult>(array, arrayParam, iteratee);
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, iteratee);
-        result = _.differenceBy<TResult>(array, arrayParam, listParam, arrayParam, iteratee);
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, iteratee);
-        result = _.differenceBy<TResult>(array, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _.differenceBy(array, arrayParam, iteratee);
+        result = _.differenceBy(array, listParam, arrayParam, iteratee);
+        result = _.differenceBy(array, arrayParam, listParam, arrayParam, iteratee);
+        result = _.differenceBy(array, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _.differenceBy(array, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _.differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
 
-        result = _.differenceBy<TResult>(array, arrayParam, 'a');
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, 'a');
-        result = _.differenceBy<TResult>(array, arrayParam, listParam, arrayParam, 'a');
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, 'a');
-        result = _.differenceBy<TResult>(array, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _.differenceBy(array, arrayParam, 'a');
+        result = _.differenceBy(array, listParam, arrayParam, 'a');
+        result = _.differenceBy(array, arrayParam, listParam, arrayParam, 'a');
+        result = _.differenceBy(array, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _.differenceBy(array, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _.differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
 
         result = _.differenceBy(array, arrayParam, {a: 1});
         result = _.differenceBy(array, listParam, arrayParam, {a: 1});
         result = _.differenceBy(array, arrayParam, listParam, arrayParam, {a: 1});
         result = _.differenceBy(array, listParam, arrayParam, listParam, arrayParam, {a: 1});
         result = _.differenceBy(array, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
-        result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
+        result = _.differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
         result = _.differenceBy(list);
         result = _.differenceBy<TResult>(list, listParam);
@@ -334,26 +334,26 @@ namespace TestDifferenceBy {
         result = _.differenceBy<TResult>(list, listParam, arrayParam, listParam, arrayParam, listParam);
         result = _.differenceBy<TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam);
 
-        result = _.differenceBy<TResult>(list, listParam, iteratee);
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, iteratee);
-        result = _.differenceBy<TResult>(list, listParam, arrayParam, listParam, iteratee);
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, arrayParam, listParam, iteratee);
-        result = _.differenceBy<TResult>(list, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _.differenceBy(list, listParam, iteratee);
+        result = _.differenceBy(list, arrayParam, listParam, iteratee);
+        result = _.differenceBy(list, listParam, arrayParam, listParam, iteratee);
+        result = _.differenceBy(list, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _.differenceBy(list, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _.differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
 
-        result = _.differenceBy<TResult>(list, listParam, 'a');
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, 'a');
-        result = _.differenceBy<TResult>(list, listParam, arrayParam, listParam, 'a');
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, arrayParam, listParam, 'a');
-        result = _.differenceBy<TResult>(list, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _.differenceBy(list, listParam, 'a');
+        result = _.differenceBy(list, arrayParam, listParam, 'a');
+        result = _.differenceBy(list, listParam, arrayParam, listParam, 'a');
+        result = _.differenceBy(list, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _.differenceBy(list, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _.differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
 
         result = _.differenceBy(list, listParam, {a: 1});
         result = _.differenceBy(list, arrayParam, listParam, {a: 1});
         result = _.differenceBy(list, listParam, arrayParam, listParam, {a: 1});
         result = _.differenceBy(list, arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _.differenceBy(list, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
-        result = _.differenceBy<TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+        result = _.differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(list, arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
     }
 
     {
@@ -366,26 +366,26 @@ namespace TestDifferenceBy {
         result = _(array).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam);
         result = _(array).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam);
 
-        result = _(array).differenceBy<TResult>(arrayParam, iteratee);
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, iteratee);
-        result = _(array).differenceBy<TResult>(arrayParam, listParam, arrayParam, iteratee);
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, iteratee);
-        result = _(array).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).differenceBy(arrayParam, iteratee);
+        result = _(array).differenceBy(listParam, arrayParam, iteratee);
+        result = _(array).differenceBy(arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).differenceBy(listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
 
-        result = _(array).differenceBy<TResult>(arrayParam, 'a');
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, 'a');
-        result = _(array).differenceBy<TResult>(arrayParam, listParam, arrayParam, 'a');
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, 'a');
-        result = _(array).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _(array).differenceBy(arrayParam, 'a');
+        result = _(array).differenceBy(listParam, arrayParam, 'a');
+        result = _(array).differenceBy(arrayParam, listParam, arrayParam, 'a');
+        result = _(array).differenceBy(listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _(array).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _(array).differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
 
         result = _(array).differenceBy(arrayParam, {a: 1});
         result = _(array).differenceBy(listParam, arrayParam, {a: 1});
         result = _(array).differenceBy(arrayParam, listParam, arrayParam, {a: 1});
         result = _(array).differenceBy(listParam, arrayParam, listParam, arrayParam, {a: 1});
         result = _(array).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
-        result = _(array).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
+        result = _(array).differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
         result = _(list).differenceBy<TResult>(listParam);
         result = _(list).differenceBy<TResult>(arrayParam, listParam);
@@ -394,26 +394,26 @@ namespace TestDifferenceBy {
         result = _(list).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam);
         result = _(list).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam);
 
-        result = _(list).differenceBy<TResult>(listParam, iteratee);
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, iteratee);
-        result = _(list).differenceBy<TResult>(listParam, arrayParam, listParam, iteratee);
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, iteratee);
-        result = _(list).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _(list).differenceBy(listParam, iteratee);
+        result = _(list).differenceBy(arrayParam, listParam, iteratee);
+        result = _(list).differenceBy(listParam, arrayParam, listParam, iteratee);
+        result = _(list).differenceBy(arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _(list).differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
 
-        result = _(list).differenceBy<TResult>(listParam, 'a');
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, 'a');
-        result = _(list).differenceBy<TResult>(listParam, arrayParam, listParam, 'a');
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, 'a');
-        result = _(list).differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, 'a');
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _(list).differenceBy(listParam, 'a');
+        result = _(list).differenceBy(arrayParam, listParam, 'a');
+        result = _(list).differenceBy(listParam, arrayParam, listParam, 'a');
+        result = _(list).differenceBy(arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _(list).differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
 
         result = _(list).differenceBy(listParam, {a: 1});
         result = _(list).differenceBy(arrayParam, listParam, {a: 1});
         result = _(list).differenceBy(listParam, arrayParam, listParam, {a: 1});
         result = _(list).differenceBy(arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
-        result = _(list).differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+        result = _(list).differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
     }
 
     {
@@ -426,26 +426,26 @@ namespace TestDifferenceBy {
         result = _(array).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam);
         result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam);
 
-        result = _(array).chain().differenceBy<TResult>(arrayParam, iteratee);
-        result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, iteratee);
-        result = _(array).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, iteratee);
-        result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, iteratee);
-        result = _(array).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
-        result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).chain().differenceBy(arrayParam, iteratee);
+        result = _(array).chain().differenceBy(listParam, arrayParam, iteratee);
+        result = _(array).chain().differenceBy(arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
+        result = _(array).chain().differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, iteratee);
 
-        result = _(array).chain().differenceBy<TResult>(arrayParam, 'a');
-        result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, 'a');
-        result = _(array).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, 'a');
-        result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, 'a');
-        result = _(array).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
-        result = _(array).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _(array).chain().differenceBy(arrayParam, 'a');
+        result = _(array).chain().differenceBy(listParam, arrayParam, 'a');
+        result = _(array).chain().differenceBy(arrayParam, listParam, arrayParam, 'a');
+        result = _(array).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _(array).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
+        result = _(array).chain().differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, 'a');
 
         result = _(array).chain().differenceBy(arrayParam, {a: 1});
         result = _(array).chain().differenceBy(listParam, arrayParam, {a: 1});
         result = _(array).chain().differenceBy(arrayParam, listParam, arrayParam, {a: 1});
         result = _(array).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, {a: 1});
         result = _(array).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
-        result = _(array).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
+        result = _(array).chain().differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
         result = _(list).chain().differenceBy<TResult>(listParam);
         result = _(list).chain().differenceBy<TResult>(arrayParam, listParam);
@@ -454,26 +454,26 @@ namespace TestDifferenceBy {
         result = _(list).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam);
         result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam);
 
-        result = _(list).chain().differenceBy<TResult>(listParam, iteratee);
-        result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, iteratee);
-        result = _(list).chain().differenceBy<TResult>(listParam, arrayParam, listParam, iteratee);
-        result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, iteratee);
-        result = _(list).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
-        result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _(list).chain().differenceBy(listParam, iteratee);
+        result = _(list).chain().differenceBy(arrayParam, listParam, iteratee);
+        result = _(list).chain().differenceBy(listParam, arrayParam, listParam, iteratee);
+        result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _(list).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
+        result = _(list).chain().differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, iteratee);
 
-        result = _(list).chain().differenceBy<TResult>(listParam, 'a');
-        result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, 'a');
-        result = _(list).chain().differenceBy<TResult>(listParam, arrayParam, listParam, 'a');
-        result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, 'a');
-        result = _(list).chain().differenceBy<TResult>(listParam, arrayParam, listParam, arrayParam, listParam, 'a');
-        result = _(list).chain().differenceBy<TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _(list).chain().differenceBy(listParam, 'a');
+        result = _(list).chain().differenceBy(arrayParam, listParam, 'a');
+        result = _(list).chain().differenceBy(listParam, arrayParam, listParam, 'a');
+        result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _(list).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, 'a');
+        result = _(list).chain().differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, 'a');
 
         result = _(list).chain().differenceBy(listParam, {a: 1});
         result = _(list).chain().differenceBy(arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy(listParam, arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
-        result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+        result = _(list).chain().differenceBy<TResult, TResult, TResult, TResult, TResult, TResult, TResult>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
     }
 
     {
