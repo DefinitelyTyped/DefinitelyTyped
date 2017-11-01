@@ -13,7 +13,7 @@
  * An object representing a DSV parsed row with values represented as strings.
  */
 export interface DSVRowString {
-    [key: string]: string;
+    [key: string]: string | undefined;
 }
 
 /**
