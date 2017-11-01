@@ -698,3 +698,11 @@ declare var x: React.DOMElement<{
         transition: string;
     };
 }, Element>;
+
+// React 16 should be able to render its children directly
+class RenderChildren extends React.Component {
+    render() {
+        const { children } = this.props;
+        return children !== undefined ? children : null;
+    }
+}
