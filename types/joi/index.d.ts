@@ -390,6 +390,8 @@ export interface Description {
 
 export interface Context {
     [key: string]: any;
+    key?: string;
+    label?: string;
 }
 
 export interface State {
