@@ -110,15 +110,15 @@ strMaybe = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const d: number | null = rr[0] ? +rr[0]! : null;
+    const d: number | null = rr[0].length ? +rr[0] : null;
     const pr: ParsedTestObject | null | undefined = d !== null
         ? (
             d > 1997
                 ? {
                     year: new Date(d, 0, 1),
-                    make: rr[1] ? rr[1]! : "Missing Value",
-                    model: rr[2] ? rr[2]! : "Missing Value",
-                    length: rr[3] ? +rr[3]! : NaN
+                    make: rr[1].length ? rr[1] : "Missing Value",
+                    model: rr[2].length ? rr[2] : "Missing Value",
+                    length: rr[3].length ? +rr[3] : NaN
                 }
                 : undefined
         )
@@ -203,15 +203,15 @@ strMaybe = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = d3Dsv.tsvParseRows(tsvTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const d: number | null = rr[0] ? +rr[0]! : null;
+    const d: number | null = rr[0].length ? +rr[0] : null;
     const pr: ParsedTestObject | null | undefined = d !== null
         ? (
             d > 1997
                 ? {
                     year: new Date(d, 0, 1),
-                    make: rr[1] ? rr[1]! : "Missing Value",
-                    model: rr[2] ? rr[2]! : "Missing Value",
-                    length: rr[3] ? +rr[3]! : NaN
+                    make: rr[1].length ? rr[1] : "Missing Value",
+                    model: rr[2].length ? rr[2] : "Missing Value",
+                    length: rr[3].length ? +rr[3] : NaN
                 }
                 : undefined
         )
@@ -301,15 +301,15 @@ strMaybe = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = dsv.parseRows(pipedTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const d: number | null = rr[0] ? +rr[0]! : null;
+    const d: number | null = rr[0].length ? +rr[0] : null;
     const pr: ParsedTestObject | null | undefined = d !== null
         ? (
             d > 1997
                 ? {
                     year: new Date(d, 0, 1),
-                    make: rr[1] ? rr[1]! : "Missing Value",
-                    model: rr[2] ? rr[2]! : "Missing Value",
-                    length: rr[3] ? +rr[3]! : NaN
+                    make: rr[1].length ? rr[1] : "Missing Value",
+                    model: rr[2].length ? rr[2] : "Missing Value",
+                    length: rr[3].length ? +rr[3] : NaN
                 }
                 : undefined
         )
