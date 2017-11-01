@@ -76,8 +76,7 @@ interface NextScreenNavigationParams {
     id: number;
     name: string;
 }
-interface NextScreenProps extends NavigationScreenProps<NextScreenNavigationParams> { }
-class NextScreen extends React.Component<NextScreenProps> {
+class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
         const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;
