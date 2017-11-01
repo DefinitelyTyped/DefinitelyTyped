@@ -31,7 +31,7 @@ export interface Column {
     render?: (value: any, row: any) => any;
 }
 
-export interface DataTableProps<T> {
+export interface DataTableProps {
     /** Table title */
     title: string;
     /** React Style object for the title */
@@ -71,11 +71,11 @@ export interface DataTableProps<T> {
     /** Override the pagination display, ie. "1 - 5 of 11" Return any React node or string */
     summaryLabelTemplate: (start: number, end: number, count: number) => any;
     /**
-     * The column structure. The generic type should be specified:
-     * ```let columns: Column<Book>[] = [{
+     * The column structure.
+     * ```let columns: Column[] = [{
      *      key: 'bookName',
      *      label: 'Book Name & Author',
-     *      render: (__value: any, book: Book) => book.name + ' by ' book.author
+     *      render: (__value: any, book: any) => book.name + ' by ' book.author
      *  },```
      */
     columns: Column[];
@@ -105,4 +105,4 @@ export interface DataTableProps<T> {
     showHeaderToolbarFilterIcon: boolean;
 }
 
-export default class DataTable<T> extends React.Component<Partial<DataTableProps<T>>> { }
+export default class DataTable extends React.Component<Partial<DataTableProps>> { }
