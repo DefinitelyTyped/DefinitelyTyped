@@ -28,8 +28,6 @@ export const myField: number;
  *~ of the module, declare them inside a 'namespace'.
  */
 
-
-
 export interface MajorTom {
   foo: string;
   bar: boolean;
