@@ -1,5 +1,5 @@
 'use strict';
-import { cytoscape } from 'cytoscape';
+import cytoscape = require('cytoscape');
 
 const parentCSS = {
   'padding-top': '10px',

@@ -23,7 +23,8 @@ declare namespace multer {
         dest?: string;
         /** The storage engine to use for uploaded files. */
         storage?: StorageEngine;
-        /** An object specifying the size limits of the following optional properties. This object is passed to busboy
+        /**
+         * An object specifying the size limits of the following optional properties. This object is passed to busboy
          * directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods
          */
         limits?: {

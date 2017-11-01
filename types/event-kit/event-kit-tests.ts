@@ -7,28 +7,28 @@ declare let emitter: EventKit.Emitter;
 
 // NPM Usage Tests ============================================================
 class User {
-	private readonly emitter: EventKit.Emitter;
-	name: string;
+    private readonly emitter: EventKit.Emitter;
+    name: string;
 
-	constructor() {
-		this.emitter = new Emitter();
-	}
+    constructor() {
+        this.emitter = new Emitter();
+    }
 
-	onDidChangeName(callback: (value: string) => void) {
-		return this.emitter.on("did-change-name", callback);
-	}
+    onDidChangeName(callback: (value: string) => void) {
+        return this.emitter.on("did-change-name", callback);
+    }
 
-	setName(name: string) {
-		if (name !== this.name) {
-			this.name = name;
-			this.emitter.emit("did-change-name", name);
-		}
-		return name;
-	}
+    setName(name: string) {
+        if (name !== this.name) {
+            this.name = name;
+            this.emitter.emit("did-change-name", name);
+        }
+        return name;
+    }
 
-	destroy() {
-		this.emitter.dispose();
-	}
+    destroy() {
+        this.emitter.dispose();
+    }
 }
 
 const user = new User();
@@ -55,8 +55,8 @@ subscriptions.dispose();
 // Managing Disposables
 subscriptions.add(subscription);
 subscriptions.add(
-	subscription,
-	{ dispose() {} }
+    subscription,
+    { dispose() {} }
 );
 
 subscriptions.remove(subscription);

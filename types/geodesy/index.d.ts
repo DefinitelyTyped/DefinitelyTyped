@@ -94,15 +94,12 @@ export class Utm {
 
 export namespace Dms {
     let separator: string;
-}
-
-export class Dms {
-    static parseDMS(dmsStr: string): number;
-    static toDMS(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static toLat(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static toLon(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static toBrng(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static compassPoint(bearing: number, precision?: 1 | 2 | 3): string;
+    function parseDMS(dmsStr: string): number;
+    function toDMS(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function toLat(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function toLon(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function toBrng(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function compassPoint(bearing: number, precision?: 1 | 2 | 3): string;
 }
 
 export class Vector3d {

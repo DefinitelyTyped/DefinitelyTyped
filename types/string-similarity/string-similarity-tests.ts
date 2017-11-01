@@ -9,16 +9,11 @@ const match: stringSimilarity.BestMatch = stringSimilarity.findBestMatch('Olive-
 ]);
 
 // ratings accessible
-for (const rating of match.ratings){
-    isString(rating.target);
-    isNumber(rating.rating);
+for (const rating of match.ratings) {
+    rating.target; // $ExpectType string
+    rating.rating; // $ExpectType number
 }
 
 // bestMatch accessible
 match.bestMatch.rating;
 match.bestMatch.target;
-
-function isString(x: string): void {
-}
-function isNumber(x: number): void {
-}
