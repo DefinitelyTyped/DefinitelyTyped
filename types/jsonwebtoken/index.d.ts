@@ -83,10 +83,6 @@ export interface SignCallback {
     (err: Error, encoded: string): void;
 }
 
-export interface SecretCallback {
-    (err: Error, secretOrPrivateKey: string | Buffer): void;
-}
-
 export type SecretFunc = (header: object, callback: (err: Error, secretOrPrivateKey?: string | Buffer) => void) => void;
 
 export type Secret = string | Buffer | {key: string, passphrase: string}
