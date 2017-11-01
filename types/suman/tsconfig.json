@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "strictFunctionTypes": false,
         "lib": [
             "es6"
         ],
