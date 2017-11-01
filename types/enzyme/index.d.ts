@@ -353,6 +353,7 @@ export interface CommonWrapper<P = {}, S = {}> {
     length: number;
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ShallowWrapper<P = {}, S = {}> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
