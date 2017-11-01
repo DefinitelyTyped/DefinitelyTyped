@@ -15,7 +15,7 @@ export function myMethod(a: string): string;
 export function myOtherMethod(a: number): number;
 
 /*~ You can declare types that are available via importing the module */
-export interface someType {
+export interface SomeType {
     name: string;
     length: number;
     extras?: string[];
@@ -30,12 +30,12 @@ export const myField: number;
 
 
 
-export interface IMajorTom {
+export interface MajorTom {
   foo: string;
   bar: boolean;
 }
 
-export namespace subProp {
+export namespace SubProp {
     /*~ For example, given this definition, someone could write:
      *~   import { subProp } from 'yourModule';
      *~   subProp.foo();
