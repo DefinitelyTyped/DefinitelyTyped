@@ -33,7 +33,7 @@ let parseMappedArray: d3Dsv.DSVParsedArray<ParsedTestObject>;
 let parseRowsArray: string[][];
 let parseRowsMappedArray: ParsedTestObject[];
 
-let columns: string[];
+let columns: string[] | undefined;
 let num: number;
 let date: Date;
 let str: string;
@@ -50,8 +50,13 @@ parseArray = d3Dsv.csvParse(csvTestStringWithHeader);
 
 columns = parseArray.columns;
 
-str = parseArray[0]['Year'];
-// date = parseArray[0]['Year']; // fails, return value is string
+let strUndefinedable = parseArray[0]['Year'];
+if (strUndefinedable === undefined) {
+    throw Error('Should treat undefined value correctly');
+}
+str = strUndefinedable;
+// str = parseArray[0]['Year'];  // fails, return value can be undefined.
+// date = parseArray[0]['Year']; // fails, return value is string | undefined
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -59,11 +64,23 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
+
+    const rrYear = rr['Year'];
+    const rrMake = rr['Make'];
+    const rrModel = rr['Model'];
+    const rrLength = rr['Length'];
+    if (rrYear === undefined ||
+        rrMake === undefined ||
+        rrModel === undefined ||
+        rrLength === undefined) {
+            throw Error('Should treat undefined value correctly');
+        }
+
     const pr: ParsedTestObject = {
-        year: new Date(+rr['Year'], 0, 1),
-        make: rr['Make'],
-        model: rr['Model'],
-        length: +rr['Length']
+        year: new Date(+rrYear, 0, 1),
+        make: rrMake,
+        model: rrModel,
+        length: +rrLength
     };
     return pr;
 });
@@ -129,8 +146,13 @@ parseArray = d3Dsv.tsvParse(tsvTestStringWithHeader);
 
 columns = parseArray.columns;
 
-str = parseArray[0]['Year'];
-// date = parseArray[0]['Year']; // fails, return value is string
+strUndefinedable = parseArray[0]['Year'];
+if (strUndefinedable === undefined) {
+    throw Error('Should treat undefined value correctly');
+}
+str = strUndefinedable;
+// str = parseArray[0]['Year'];  // fails, return value can be undefined
+// date = parseArray[0]['Year']; // fails, return value is string | undefined
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -138,11 +160,23 @@ parseMappedArray = d3Dsv.tsvParse(tsvTestStringWithHeader, (rawRow, index, colum
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
+
+    const rrYear = rr['Year'];
+    const rrMake = rr['Make'];
+    const rrModel = rr['Model'];
+    const rrLength = rr['Length'];
+    if (rrYear === undefined ||
+        rrMake === undefined ||
+        rrModel === undefined ||
+        rrLength === undefined) {
+            throw Error('Should treat undefined value correctly');
+        }
+
     const pr: ParsedTestObject = {
-        year: new Date(+rr['Year'], 0, 1),
-        make: rr['Make'],
-        model: rr['Model'],
-        length: +rr['Length']
+        year: new Date(+rrYear, 0, 1),
+        make: rrMake,
+        model: rrModel,
+        length: +rrLength
     };
     return pr;
 });
@@ -213,7 +247,12 @@ parseArray = dsv.parse(pipedTestStringWithHeader);
 
 columns = parseArray.columns;
 
-str = parseArray[0]['Year'];
+strUndefinedable = parseArray[0]['Year'];
+if (strUndefinedable === undefined) {
+    throw Error('Should treat undefined value correctly');
+}
+str = strUndefinedable;
+// str = parseArray[0]['Year'];  // fails, return value can be undefined
 // date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -222,11 +261,23 @@ parseMappedArray = dsv.parse(pipedTestStringWithHeader, (rawRow, index, columns)
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
+
+    const rrYear = rr['Year'];
+    const rrMake = rr['Make'];
+    const rrModel = rr['Model'];
+    const rrLength = rr['Length'];
+    if (rrYear === undefined ||
+        rrMake === undefined ||
+        rrModel === undefined ||
+        rrLength === undefined) {
+            throw Error('Should treat undefined value correctly');
+        }
+
     const pr: ParsedTestObject = {
-        year: new Date(+rr['Year'], 0, 1),
-        make: rr['Make'],
-        model: rr['Model'],
-        length: +rr['Length']
+        year: new Date(+rrYear, 0, 1),
+        make: rrMake,
+        model: rrModel,
+        length: +rrLength
     };
     return pr;
 });
