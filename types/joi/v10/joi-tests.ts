@@ -773,6 +773,10 @@ strSchema = strSchema.isoDate();
 strSchema = strSchema.lowercase();
 strSchema = strSchema.uppercase();
 strSchema = strSchema.trim();
+strSchema = strSchema.truncate();
+strSchema = strSchema.truncate(false);
+strSchema = strSchema.normalize();
+strSchema = strSchema.normalize('NFKC');
 
 namespace common {
     strSchema = strSchema.allow(x);

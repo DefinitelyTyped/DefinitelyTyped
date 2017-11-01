@@ -504,6 +504,18 @@ export interface StringSchema extends AnySchema {
     max(limit: Reference, encoding?: string): this;
 
     /**
+     * Specifies whether the string.max() limit should be used as a truncation.
+     * @param enabled - optional parameter defaulting to true which allows you to reset the behavior of truncate by providing a falsy value.
+     */
+    truncate(enabled?: boolean): this;
+
+    /**
+     * Requires the string value to be in a unicode normalized form. If the validation convert option is on (enabled by default), the string will be normalized.
+     * @param form - The unicode normalization form to use. Valid values: NFC [default], NFD, NFKC, NFKD
+     */
+    normalize(form?: 'NFC' | 'NFD' | 'NFKC' | 'NFKD'): this;
+
+    /**
      * Requires the number to be a credit card number (Using Lunh Algorithm).
      */
     creditCard(): this;
