@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-http
 // Definitions by: Christophe Vidal <https://github.com/krizalys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import passport = require("passport");
 import express = require("express");

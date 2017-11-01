@@ -178,7 +178,7 @@ mod.controller('name', class {
     // $onChanges(x: number) { }
 });
 mod.controller({
-    MyCtrl: class{},
+    MyCtrl: class {},
     MyCtrl2() {},
     MyCtrl3: ['$fooService', ($fooService: any) => { }]
 });
@@ -229,7 +229,7 @@ mod.provider(My.Namespace);
 mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
-    MyCtrl: class{},
+    MyCtrl: class {},
     MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
@@ -491,9 +491,7 @@ namespace TestInjector {
 
     // $injector.instantiate
     {
-        class Foobar {
-            constructor($q) {}
-        }
+        class Foobar {}
         const result: Foobar = $injector.instantiate(Foobar);
     }
 
@@ -509,7 +507,13 @@ namespace TestInjector {
         }
 
         const anyFunction: Function = foobar;
-        const anyResult: string = $injector.invoke(anyFunction);
+        let anyResult: string = $injector.invoke(anyFunction);
+
+        const inlineAnnotatedFunction: any[] = [false, foobar];
+        anyResult = $injector.invoke(inlineAnnotatedFunction);
+        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext', 'anyLocals');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, 'anyLocals');
     }
 }
 
@@ -640,6 +644,9 @@ isolateScope = element.find('div').isolateScope();
 isolateScope = element.children().isolateScope();
 let element2 = angular.element(element);
 let elementArray = angular.element(document.querySelectorAll('div'));
+let elementReadyFn = angular.element(() => {
+    console.log('ready');
+});
 
 // $timeout signature tests
 namespace TestTimeout {

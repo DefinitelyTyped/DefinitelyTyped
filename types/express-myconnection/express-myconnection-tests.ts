@@ -23,10 +23,10 @@ app.use(
 
 app.use(function list(req: express.Request, res: express.Response, next: Function){
 
-    req.getConnection(function(err: mysql.IError, connection: mysql.IConnection) {
+    req.getConnection(function(err: mysql.MysqlError, connection: mysql.Connection) {
         if (err) return next(err);
 
-        connection.query('SELECT 1 AS RESULT', [], function(err: mysql.IError, results: any) {
+        connection.query('SELECT 1 AS RESULT', [], function(err: mysql.MysqlError, results: any) {
             if (err) return next(err);
 
             results[0].RESULT;
@@ -36,4 +36,3 @@ app.use(function list(req: express.Request, res: express.Response, next: Functio
         });
     });
 });
-

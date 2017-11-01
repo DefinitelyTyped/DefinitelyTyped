@@ -1,6 +1,9 @@
 {
 	"extends": "dtslint/dt.json",
 	"rules": {
-		"no-duplicate-imports": false
+		// TODOs
+		"no-duplicate-imports": false,
+		"no-redundant-jsdoc": false,
+		"no-redundant-jsdoc-2": false
 	}
 }

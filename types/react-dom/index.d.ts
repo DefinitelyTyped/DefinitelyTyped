@@ -4,6 +4,7 @@
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,11 +13,13 @@ export as namespace ReactDOM;
 import {
     ReactInstance, Component, ComponentState,
     ReactElement, SFCElement, CElement,
-    DOMAttributes, DOMElement
+    DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
 export function findDOMNode(instance: ReactInstance): Element;
 export function unmountComponentAtNode(container: Element): boolean;
+
+export function createPortal(children: ReactNode, container: Element): ReactPortal;
 
 export const version: string;
 export const render: Renderer;

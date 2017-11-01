@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class FaGlideG extends React.Component<IconBaseProps> { }
+declare class FaGlideG extends React.Component<IconBaseProps> { }
+export = FaGlideG;

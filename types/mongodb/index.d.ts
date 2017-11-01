@@ -17,8 +17,8 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export function connect(uri: string, callback: MongoCallback<Db>): void;
 export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
+export function connect(uri: string, callback: MongoCallback<Db>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
 
 export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
@@ -265,7 +265,7 @@ export class Db extends EventEmitter {
     indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
     indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
-    listCollections(filter: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
     logout(callback: MongoCallback<any>): void;
     logout(options?: { dbName?: string }): Promise<any>;
