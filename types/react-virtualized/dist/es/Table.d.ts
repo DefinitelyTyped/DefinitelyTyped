@@ -96,7 +96,7 @@ export type ColumnProps = {
     style?: React.CSSProperties;
     /** Flex basis (width) for this column; This value can grow or shrink based on :flexGrow and :flexShrink properties. */
     width: number;
-    /** Optional id for column header */
+    /** Optional id to set on the column header; used for aria-describedby */
     id?: string;
 }
 export class Column extends Component<ColumnProps> {
