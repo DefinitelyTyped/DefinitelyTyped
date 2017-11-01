@@ -21,7 +21,7 @@ const tsvTestStringWithHeader = 'Year\tMake\tModel\tLength\n1997\tFord\tE350\t2.
 const pipedTestStringWithHeader = 'Year|Make|Model|Length\n1997|Ford|E350|2.34\n2000|Mercury|Cougar|2.38';
 
 interface ParsedTestObject {
-    year: Date;
+    year: Date | null;
     make: string;
     model: string;
     length: number;
@@ -35,8 +35,9 @@ let parseRowsMappedArray: ParsedTestObject[];
 
 let columns: string[];
 let num: number;
-let date: Date;
+let dateNull: Date | null;
 let str: string;
+let strMaybe: string | undefined;
 
 // ------------------------------------------------------------------------------------------
 // Test CSV
@@ -50,7 +51,7 @@ parseArray = d3Dsv.csvParse(csvTestStringWithHeader);
 
 columns = parseArray.columns;
 
-str = parseArray[0]['Year'];
+strMaybe = parseArray[0]['Year'];
 // date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -60,10 +61,10 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
     const i: number = index;
     const c: string[] = columns;
     const pr: ParsedTestObject = {
-        year: new Date(+rr['Year'], 0, 1),
-        make: rr['Make'],
-        model: rr['Model'],
-        length: +rr['Length']
+        year: rr['Year'] ? new Date(+rr['Year']!, 0, 1) : null,
+        make: rr['Make'] ? rr['Make']! : "Missing Value",
+        model: rr['Model'] ? rr['Model']! : "Missing Value",
+        length: ['Length'] ? +rr['Length']! : NaN
     };
     return pr;
 });
@@ -72,14 +73,15 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
-    const pr: ParsedTestObject | null | undefined = +rr['Year'] > 1995
+    const d: number | null = rr['Year'] ? +rr['Year']! : null;
+    const pr: ParsedTestObject | null | undefined = d !== null
         ? (
-            +rr['Year'] <= 2017
+            d > 1997
                 ? {
-                    year: new Date(+rr['Year'], 0, 1),
-                    make: rr['Make'],
-                    model: rr['Model'],
-                    length: +rr['Length']
+                    year: new Date(d, 0, 1),
+                    make: rr['Make'] ? rr['Make']! : "Missing Value",
+                    model: rr['Model'] ? rr['Model']! : "Missing Value",
+                    length: ['Length'] ? +rr['Length']! : NaN
                 }
                 : undefined
         )
@@ -89,9 +91,9 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
 
 columns = parseMappedArray.columns;
 
-date = parseMappedArray[0].year;
-str = parseMappedArray[0].make;
-str = parseMappedArray[0].model;
+dateNull = parseMappedArray[0].year;
+strMaybe = parseMappedArray[0].make;
+strMaybe = parseMappedArray[0].model;
 num = parseMappedArray[0].length;
 
 // csvParseRows(...) ============================================================================
@@ -100,7 +102,7 @@ num = parseMappedArray[0].length;
 
 parseRowsArray = d3Dsv.csvParseRows(csvTestString);
 
-str = parseRowsArray[0][0]; // 'Year' of first row
+strMaybe = parseRowsArray[0][0]; // 'Year' of first row
 // date = parseRowsArray[0][0]; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -108,24 +110,25 @@ str = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const pr: ParsedTestObject | null | undefined = +rr[0] > 1995
-    ? (
-        +rr[0] <= 2017
-            ? {
-                year: new Date(+rr[0], 0, 1),
-                make: rr[1],
-                model: rr[2],
-                length: +rr[3]
-            }
-            : undefined
-    )
-    : null;
+    const d: number | null = rr[0] ? +rr[0]! : null;
+    const pr: ParsedTestObject | null | undefined = d !== null
+        ? (
+            d > 1997
+                ? {
+                    year: new Date(d, 0, 1),
+                    make: rr[1] ? rr[1]! : "Missing Value",
+                    model: rr[2] ? rr[2]! : "Missing Value",
+                    length: rr[3] ? +rr[3]! : NaN
+                }
+                : undefined
+        )
+        : null;
     return pr;
 });
 
-date = parseRowsMappedArray[0].year;
-str = parseRowsMappedArray[0].make;
-str = parseRowsMappedArray[0].model;
+dateNull = parseRowsMappedArray[0].year;
+strMaybe = parseRowsMappedArray[0].make;
+strMaybe = parseRowsMappedArray[0].model;
 num = parseRowsMappedArray[0].length;
 
 // csvFormat(...) ============================================================================
@@ -136,7 +139,7 @@ str = d3Dsv.csvFormat(parseRowsMappedArray, columns);
 // csvFormatRows(...) ========================================================================
 
 str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d, i) => [
-    d.year.getFullYear().toString(),
+    d.year ? d.year.getFullYear().toString() : '',
     d.make,
     d.model,
     d.length.toString()
@@ -154,7 +157,7 @@ parseArray = d3Dsv.tsvParse(tsvTestStringWithHeader);
 
 columns = parseArray.columns;
 
-str = parseArray[0]['Year'];
+strMaybe = parseArray[0]['Year'];
 // date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -163,14 +166,15 @@ parseMappedArray = d3Dsv.tsvParse(tsvTestStringWithHeader, (rawRow, index, colum
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
-    const pr: ParsedTestObject | null | undefined = +rr['Year'] > 1995
+    const d: number | null = rr['Year'] ? +rr['Year']! : null;
+    const pr: ParsedTestObject | null | undefined = d !== null
         ? (
-            +rr['Year'] <= 2017
+            d > 1997
                 ? {
-                    year: new Date(+rr['Year'], 0, 1),
-                    make: rr['Make'],
-                    model: rr['Model'],
-                    length: +rr['Length']
+                    year: new Date(d, 0, 1),
+                    make: rr['Make'] ? rr['Make']! : "Missing Value",
+                    model: rr['Model'] ? rr['Model']! : "Missing Value",
+                    length: ['Length'] ? +rr['Length']! : NaN
                 }
                 : undefined
         )
@@ -180,9 +184,9 @@ parseMappedArray = d3Dsv.tsvParse(tsvTestStringWithHeader, (rawRow, index, colum
 
 columns = parseMappedArray.columns;
 
-date = parseMappedArray[0].year;
-str = parseMappedArray[0].make;
-str = parseMappedArray[0].model;
+dateNull = parseMappedArray[0].year;
+strMaybe = parseMappedArray[0].make;
+strMaybe = parseMappedArray[0].model;
 num = parseMappedArray[0].length;
 
 // tsvParseRows(...) ============================================================================
@@ -191,7 +195,7 @@ num = parseMappedArray[0].length;
 
 parseRowsArray = d3Dsv.tsvParseRows(tsvTestString);
 
-str = parseRowsArray[0][0]; // 'Year' of first row
+strMaybe = parseRowsArray[0][0]; // 'Year' of first row
 // date = parseRowsArray[0][0]; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -199,24 +203,25 @@ str = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = d3Dsv.tsvParseRows(tsvTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const pr: ParsedTestObject | null | undefined = +rr[0] > 1995
-    ? (
-        +rr[0] <= 2017
-            ? {
-                year: new Date(+rr[0], 0, 1),
-                make: rr[1],
-                model: rr[2],
-                length: +rr[3]
-            }
-            : undefined
-    )
-    : null;
+    const d: number | null = rr[0] ? +rr[0]! : null;
+    const pr: ParsedTestObject | null | undefined = d !== null
+        ? (
+            d > 1997
+                ? {
+                    year: new Date(d, 0, 1),
+                    make: rr[1] ? rr[1]! : "Missing Value",
+                    model: rr[2] ? rr[2]! : "Missing Value",
+                    length: rr[3] ? +rr[3]! : NaN
+                }
+                : undefined
+        )
+        : null;
     return pr;
 });
 
-date = parseRowsMappedArray[0].year;
-str = parseRowsMappedArray[0].make;
-str = parseRowsMappedArray[0].model;
+dateNull = parseRowsMappedArray[0].year;
+strMaybe = parseRowsMappedArray[0].make;
+strMaybe = parseRowsMappedArray[0].model;
 num = parseRowsMappedArray[0].length;
 
 // tsvFormat(...) ============================================================================
@@ -227,7 +232,7 @@ str = d3Dsv.tsvFormat(parseRowsMappedArray, columns);
 // tsvFormatRows(...) ========================================================================
 
 str = d3Dsv.tsvFormatRows(parseRowsMappedArray.map((d, i) => [
-    d.year.getFullYear().toString(),
+    d.year ? d.year.getFullYear().toString() : '',
     d.make,
     d.model,
     d.length.toString()
@@ -250,7 +255,7 @@ parseArray = dsv.parse(pipedTestStringWithHeader);
 
 columns = parseArray.columns;
 
-str = parseArray[0]['Year'];
+strMaybe = parseArray[0]['Year'];
 // date = parseArray[0]['Year']; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -259,14 +264,15 @@ parseMappedArray = dsv.parse(pipedTestStringWithHeader, (rawRow, index, columns)
     const rr: d3Dsv.DSVRowString = rawRow;
     const i: number = index;
     const c: string[] = columns;
-    const pr: ParsedTestObject | null | undefined = +rr['Year'] > 1995
+    const d: number | null = rr['Year'] ? +rr['Year']! : null;
+    const pr: ParsedTestObject | null | undefined = d !== null
         ? (
-            +rr['Year'] <= 2017
+            d > 1997
                 ? {
-                    year: new Date(+rr['Year'], 0, 1),
-                    make: rr['Make'],
-                    model: rr['Model'],
-                    length: +rr['Length']
+                    year: new Date(d, 0, 1),
+                    make: rr['Make'] ? rr['Make']! : "Missing Value",
+                    model: rr['Model'] ? rr['Model']! : "Missing Value",
+                    length: ['Length'] ? +rr['Length']! : NaN
                 }
                 : undefined
         )
@@ -276,9 +282,9 @@ parseMappedArray = dsv.parse(pipedTestStringWithHeader, (rawRow, index, columns)
 
 columns = parseMappedArray.columns;
 
-date = parseMappedArray[0].year;
-str = parseMappedArray[0].make;
-str = parseMappedArray[0].model;
+dateNull = parseMappedArray[0].year;
+strMaybe = parseMappedArray[0].make;
+strMaybe = parseMappedArray[0].model;
 num = parseMappedArray[0].length;
 
 // parseRows(...) ============================================================================
@@ -287,7 +293,7 @@ num = parseMappedArray[0].length;
 
 parseRowsArray = dsv.parseRows(pipedTestString);
 
-str = parseRowsArray[0][0]; // 'Year' of first row
+strMaybe = parseRowsArray[0][0]; // 'Year' of first row
 // date = parseRowsArray[0][0]; // fails, return value is string
 
 // with row mapper ---------------------------------------------------------------------------
@@ -295,24 +301,25 @@ str = parseRowsArray[0][0]; // 'Year' of first row
 parseRowsMappedArray = dsv.parseRows(pipedTestString, (rawRow, index) => {
     const rr: string[] = rawRow;
     const i: number = index;
-    const pr: ParsedTestObject | null | undefined = +rr[0] > 1995
-    ? (
-        +rr[0] <= 2017
-            ? {
-                year: new Date(+rr[0], 0, 1),
-                make: rr[1],
-                model: rr[2],
-                length: +rr[3]
-            }
-            : undefined
-    )
-    : null;
+    const d: number | null = rr[0] ? +rr[0]! : null;
+    const pr: ParsedTestObject | null | undefined = d !== null
+        ? (
+            d > 1997
+                ? {
+                    year: new Date(d, 0, 1),
+                    make: rr[1] ? rr[1]! : "Missing Value",
+                    model: rr[2] ? rr[2]! : "Missing Value",
+                    length: rr[3] ? +rr[3]! : NaN
+                }
+                : undefined
+        )
+        : null;
     return pr;
 });
 
-date = parseRowsMappedArray[0].year;
-str = parseRowsMappedArray[0].make;
-str = parseRowsMappedArray[0].model;
+dateNull = parseRowsMappedArray[0].year;
+strMaybe = parseRowsMappedArray[0].make;
+strMaybe = parseRowsMappedArray[0].model;
 num = parseRowsMappedArray[0].length;
 
 // format(...) ============================================================================
@@ -323,7 +330,7 @@ str = dsv.format(parseRowsMappedArray, columns);
 // formatRows(...) ========================================================================
 
 str = dsv.formatRows(parseRowsMappedArray.map((d, i) => [
-    d.year.getFullYear().toString(),
+    d.year ? d.year.getFullYear().toString() : '',
     d.make,
     d.model,
     d.length.toString()
