@@ -286,7 +286,7 @@ declare namespace React {
         // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | JSX.Element[] | ReactPortal | string | number | null | false;
+        render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -421,7 +421,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | Array<ReactElement<any>> | string | number | null;
+        render(): ReactNode;
 
         [propertyName: string]: any;
     }
@@ -3519,7 +3519,7 @@ declare global {
         // tslint:disable:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | Element[] | React.ReactPortal | string | number | null | false;
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
