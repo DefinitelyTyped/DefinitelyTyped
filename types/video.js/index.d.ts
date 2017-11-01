@@ -15,15 +15,23 @@ export as namespace videojs;
 declare namespace videojs {
 	interface PlayerOptions {
 		techOrder?: string[];
+		sourceOrder?: boolean;
 		html5?: any;
 		width?: number;
 		height?: number;
 		defaultVolume?: number;
 		children?: string[];
+		loop?: boolean;
+		muted?: boolean;
 		controls?: boolean;
 		src?: string;
 		autoplay?: boolean;
 		preload?: string;
+		sources?: Source[];
+		apsectRatio?: string;
+		fluid?: boolean;
+		language?: string;
+		notSupportedMessage?: string;
 	}
 
 	interface Source {
