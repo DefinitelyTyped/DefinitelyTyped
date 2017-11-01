@@ -21,6 +21,8 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
+    "@types/core-js": "^0.9.43",
+    "@types/node": "^8.0.47",
     "dtslint": "github:Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
   }
