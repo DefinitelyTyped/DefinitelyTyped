@@ -1917,9 +1917,9 @@ export class LightShadow {
 export class AmbientLight extends Light {
     /**
      * This creates a Ambientlight with a color.
-     * @param hex Numeric value of the RGB component of the color.
+     * @param color Numeric value of the RGB component of the color or a Color instance.
      */
-    constructor(hex?: number|string, intensity?: number);
+    constructor(color?: number|string|Color, intensity?: number);
 
     castShadow: boolean;
 }
@@ -1936,7 +1936,7 @@ export class AmbientLight extends Light {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js">src/lights/DirectionalLight.js</a>
  */
 export class DirectionalLight extends Light {
-    constructor(hex?: number|string, intensity?: number);
+    constructor(color?: number|string|Color, intensity?: number);
 
     /**
      * Target used for shadow camera orientation.
@@ -1957,7 +1957,7 @@ export class DirectionalLightShadow extends LightShadow {
 }
 
 export class HemisphereLight extends Light {
-    constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
+    constructor(skyColor?: number|string|Color, groundColor?: number|string|Color, intensity?: number);
 
     groundColor: Color;
     intensity: number;
@@ -1972,7 +1972,7 @@ export class HemisphereLight extends Light {
  * scene.add( light );
  */
 export class PointLight extends Light {
-    constructor(hex?: number|string, intensity?: number, distance?: number, decay?: number);
+    constructor(color?: number|string|Color, intensity?: number, distance?: number, decay?: number);
 
     /*
         * Light's intensity.
@@ -1999,7 +1999,7 @@ export class PointLightShadow extends LightShadow {
  * A point light that can cast shadow in one direction.
  */
 export class SpotLight extends Light {
-    constructor(hex?: number|string, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
+    constructor(color?: number|string|Color, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
     /**
      * Spotlight focus points at target.position.
@@ -3627,6 +3627,18 @@ export class Matrix3 implements Matrix {
     toArray(): number[];
 
     /**
+     * Multiplies this matrix by m.
+     */
+    multiply(m: Matrix3): Matrix3;
+
+    premultiply(m: Matrix3): Matrix3;
+
+    /**
+     * Sets this matrix to a x b.
+     */
+    multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3;
+
+    /**
      * @deprecated
      */
     multiplyVector3(vector: Vector3): any;
@@ -4825,6 +4837,8 @@ export class Mesh extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
+    morphTargetInfluences?: number[];
+    morphTargetDictionary?: { [key: string]: number; };
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
@@ -6588,8 +6602,8 @@ export class ExtrudeGeometry extends Geometry {
     constructor(shapes?: Shape[], options?: any);
 
     static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+        generateTopUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
     };
 
     addShapeList(shapes: Shape[], options?: any): void;

@@ -100,7 +100,6 @@ declare namespace Backbone {
     }
 
     class ModelBase extends Events {
-        url: any;
         parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
@@ -133,6 +132,13 @@ declare namespace Backbone {
         id: any;
         idAttribute: string;
         validationError: any;
+
+        /**
+         * Returns the relative URL where the model's resource would be located on the server.
+         * @memberof Model
+         */
+        url: () => string;
+
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
@@ -219,7 +225,7 @@ declare namespace Backbone {
         /**
          * Specify a model attribute name (string) or function that will be used to sort the collection.
          */
-        comparator: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number);
+        comparator: string | { bivarianceHack(element: TModel): number | string }["bivarianceHack"] | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
         add(model: {}|TModel, options?: AddOptions): TModel;
         add(models: ({}|TModel)[], options?: AddOptions): TModel[];
@@ -314,6 +320,14 @@ declare namespace Backbone {
         take(): TModel;
         take(n: number): TModel[];
         toArray(): TModel[];
+
+        /**
+         * Sets the url property (or function) on a collection to reference its location on the server.
+         *
+         * @memberof Collection
+         */
+        url: string | (() => string);
+
         without(...values: TModel[]): TModel[];
     }
 

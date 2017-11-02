@@ -12,25 +12,7 @@ export namespace RebaseOperation {
 }
 
 export class RebaseOperation {
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof RebaseOperation
-     */
     type: number;
-    /**
-     *
-     *
-     * @type {Oid}
-     * @memberof RebaseOperation
-     */
     id: Oid;
-    /**
-     *
-     *
-     * @type {string}
-     * @memberof RebaseOperation
-     */
     exec: string;
 }
