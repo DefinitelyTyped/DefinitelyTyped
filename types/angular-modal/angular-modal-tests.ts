@@ -45,7 +45,7 @@ function withContainerAsString() {
     });
 }
 
-// With container as jQuery element
+// With container as jQuery/JQLite element
 function withContainerAsJquery() {
     var container: JQuery = angular.element('body');
     btfModal({
