@@ -1,4 +1,4 @@
-// Type definitions for bootstrap-slider.js 9.8
+// Type definitions for bootstrap-slider.js 9.9
 // Project: https://github.com/seiyria/bootstrap-slider
 // Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
@@ -6,6 +6,19 @@
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
+
+interface RangeHighlight {
+    class?: string;
+    start?: number;
+    end?: number;
+}
+
+type SliderEventType =  'slide' |
+                        'slideStart' |
+                        'slideStop' |
+                        'change' |
+                        'slideEnabled' |
+                        'slideDisabled';
 
 interface SliderOptions {
     /**
@@ -64,6 +77,14 @@ interface SliderOptions {
      */
     tooltip_split?: boolean;
     /**
+     * Default: null
+     * Position of tooltip, relative to slider. Accepts 'top'/'bottom' for
+     * horizontal sliders and 'left'/'right' for vertically orientated sliders.
+     * Default positions are 'top' for horizontal and 'right' for vertical
+     * slider.
+     */
+    tooltip_position?: 'top' | 'bottom' | 'left' | 'right';
+    /**
      * Default: 'round'
      * handle shape. Accepts: 'round', 'square', 'triangle' or 'custom'
      */
@@ -73,6 +94,10 @@ interface SliderOptions {
      * whether or not the slider should be reversed
      */
     reversed?: boolean;
+    /**
+     * Default: 'auto'
+     */
+    rtl?: boolean | 'auto';
     /**
      * Default: true
      * whether or not the slider is initially enabled
@@ -112,15 +137,33 @@ interface SliderOptions {
      */
     ticks_snap_bounds?: number;
     /**
+     * Default: false
+     * Used to allow for a user to hover over a given tick to see it's value.
+     * Useful if custom formatter passed in
+     */
+    ticks_tooltip?: boolean;
+    /**
      * Default: 'linear'
      * Set to 'logarithmic' to use a logarithmic scale.
      */
-    scale?: string;
+    scale?: 'linear' | 'logarithmic';
     /**
      * Default: false
      * Focus the appropriate slider handle after a value change.
      */
     focus?: boolean;
+    /**
+     * Default: null
+     * ARIA labels for the slider handle's, Use array for multiple values in a
+     * range slider.
+     */
+    labelledby?: string | string[];
+    /**
+     * Default: []
+     * Defines a range array that you want to highlight, for example:
+     * [{'start':val1, 'end': val2, 'class': 'optionalAdditionalClassName'}].
+     */
+    rangeHighlights?: RangeHighlight[];
 }
 
 interface JQuery {
@@ -165,6 +208,10 @@ declare class Slider {
      */
     setValue(newValue: number, triggerSlideEvent?: boolean, triggerChangeEvent?: boolean): this;
     /**
+     * Get the div slider element
+     */
+    getElement(): HTMLDivElement;
+    /**
      * Properly clean up and remove the slider instance
      */
     destroy(): this;
@@ -176,6 +223,10 @@ declare class Slider {
      * Enables the slider
      */
     enable(): this;
+    /**
+     * Toggles the slider between enabled and disabled
+     */
+    toggle(): this;
     /**
      * Returns true if enabled, false if disabled
      */
@@ -192,6 +243,14 @@ declare class Slider {
      * Refreshes the current slider
      */
     refresh(): this;
+    /**
+     * When the slider event eventType is triggered, the callback function will be invoked
+     */
+    on(eventType: SliderEventType, callback: (val: number | undefined) => void): this;
+    /**
+     * Removes the callback function from the slider event eventType
+     */
+    off(eventType: SliderEventType, callback: (val: number | undefined) => void): void;
     /**
      * Renders the tooltip again, after initialization. Useful in situations when the slider and tooltip are initially hidden.
      */

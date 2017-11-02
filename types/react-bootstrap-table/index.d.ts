@@ -418,7 +418,7 @@ export interface Options {
 	 * `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	 */
 	handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
-	paginationShowsTotal?: boolean | ReactElement<any>;
+	paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => ReactElement<any>);
 	onSearchChange?: Function;
 	onAddRow?: Function;
 	onExportToCSV?: Function;

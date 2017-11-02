@@ -14,7 +14,6 @@
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
         "no-namespace": false,
-        "no-redundant-undefined": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false,
         "no-void-expression": false,

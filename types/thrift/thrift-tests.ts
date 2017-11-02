@@ -1,3 +1,5 @@
+import * as http from 'http';
+
 import {
   createConnection,
   createServer,
@@ -41,9 +43,17 @@ const mockGeneratedService = {
 
 createServer<MockProcessor, MockServiceHandlers>(mockGeneratedService, mockServiceHandlers);
 
+const nodeOptions: http.RequestOptions = {
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/octet-stream'
+    }
+};
+
 const clientConnection = createConnection('0.0.0.0', 1234, {
   transport: TBufferedTransport,
-  protocol: TBinaryProtocol
+  protocol: TBinaryProtocol,
+  nodeOptions
 });
 createClient<MockClient>(mockGeneratedService, clientConnection);
 

@@ -1,9 +1,9 @@
 import * as Cropper from 'cropperjs';
 
-var image = <HTMLImageElement>document.getElementById('image');
-var cropper = new Cropper(image, {
+const image = <HTMLImageElement> document.getElementById('image');
+const cropper = new Cropper(image, {
   aspectRatio: 16 / 9,
-  crop: function(e) {
+  crop(e) {
     console.log(e.detail.x);
     console.log(e.detail.y);
     console.log(e.detail.width);
