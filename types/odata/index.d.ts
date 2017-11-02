@@ -19,9 +19,9 @@ declare module 'odata' {
         username ?: string
         password ?: string
         isAsync ?: boolean
-		isCors ?: boolean
-		isHashRoute ?: boolean
-		appending ?: string
+        isCors ?: boolean
+        isHashRoute ?: boolean
+        appending ?: string
     }
 
     interface OHandler<T> {
