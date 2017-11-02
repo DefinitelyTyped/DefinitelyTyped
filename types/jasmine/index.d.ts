@@ -2,7 +2,7 @@
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -28,7 +28,7 @@ declare function it(expectation: string, assertion?: (done: DoneFn) => void, tim
 /**
  * A focused it
  * If suites or specs are focused, only those that are focused will be executed.
- * @param expectation 
+ * @param expectation
  * @param assertion
  * @param timeout
  */
@@ -39,7 +39,7 @@ declare function xit(expectation: string, assertion?: (done: DoneFn) => void, ti
  * Mark a spec as pending, expectation results will be ignored.
  * If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending.
  * @param reason
- * @returns {} 
+ * @returns {}
  */
 declare function pending(reason?: string): void;
 
@@ -128,6 +128,8 @@ declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
 
     var clock: () => Clock;
+
+    var matchersUtil: MatchersUtil;
 
     function any(aclass: any): Any;
 
@@ -405,18 +407,18 @@ declare namespace jasmine {
         message(): any;
 
         /**
-         * 
+         *
          * @param expected the actual value to be === to the expected value.
-         * @param expectationFailOutput 
-         * @returns {} 
+         * @param expectationFailOutput
+         * @returns {}
          */
         toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
 
         /**
-         *  
+         *
          * @param expected the actual value to be equal to the expected, using deep equality comparison.
-         * @param expectationFailOutput 
-         * @returns {} 
+         * @param expectationFailOutput
+         * @returns {}
          */
         toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
         toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;

@@ -15,6 +15,7 @@ export interface AsyncResultArrayCallback<T, E> { (err?: E, results?: (T | undef
 export interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
 
 export interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
+export interface AsyncFunctionEx<T, E> { (callback: (err?: E, ...results: T[]) => void): void; }
 export interface AsyncIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
 export interface AsyncForEachOfIterator<T, E> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 export interface AsyncResultIterator<T, R, E> { (item: T, callback: AsyncResultCallback<R, E>): void; }
@@ -174,9 +175,9 @@ export function parallel<T, E>(tasks: Dictionary<AsyncFunction<T, E>>, callback?
 export function parallelLimit<T, E>(tasks: Array<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultArrayCallback<T, E>): void;
 export function parallelLimit<T, E>(tasks: Dictionary<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultObjectCallback<T, E>): void;
 export function whilst<E>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function doWhilst<E>(fn: AsyncVoidFunction<E>, test: () => boolean, callback: ErrorCallback<E>): void;
+export function doWhilst<T, E>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
 export function until<E>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function doUntil<E>(fn: AsyncVoidFunction<E>, test: () => boolean, callback: ErrorCallback<E>): void;
+export function doUntil<T, E>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
 export function during<E>(test: (testCallback : AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doDuring<E>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
 export function forever<E>(next: (next : ErrorCallback<E>) => void, errBack: ErrorCallback<E>) : void;

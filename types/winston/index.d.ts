@@ -242,10 +242,7 @@ declare namespace winston {
         level?: string;
         levels?: AbstractConfigSetLevels;
 
-        /**
-         * @type {(boolean|(err: Error) => void)}
-         */
-        exitOnError?: any;
+        exitOnError?: boolean | ((err: Error) => void);
 
         // TODO: Need to make instances specific,
         //       and need to get options for each instance.
