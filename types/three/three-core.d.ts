@@ -1355,7 +1355,7 @@ export class Geometry extends EventDispatcher {
      */
     computeBoundingSphere(): void;
 
-    merge(geometry: Geometry, matrix?: Matrix, materialIndexOffset?: number): void;
+    merge(geometry: Geometry | BufferGeometry, matrix?: Matrix, materialIndexOffset?: number): void;
 
     mergeMesh(mesh: Mesh): void;
 
