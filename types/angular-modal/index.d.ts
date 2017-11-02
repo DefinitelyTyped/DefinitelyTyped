@@ -28,7 +28,8 @@ declare namespace angularModal {
     }
 
     export interface AngularModal {
-        activate(): angular.IPromise<void>;
+        activate(locals?: {}): angular.IPromise<void>;
+        activate<T>(locals: T): angular.IPromise<void>;
         deactivate(): angular.IPromise<void>;
         active(): boolean;
     }
