@@ -56,7 +56,7 @@ export interface SocketOptions {
     zap_domain: number;
 }
 
-export class Socket implements EventEmitter {
+export class Socket {
     /**
      * Set `opt` to `val`.
      *
