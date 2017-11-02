@@ -672,7 +672,7 @@ export class BufferAttribute {
     needsUpdate: boolean;
     count: number;
 
-    setArray(array: ArrayLike<number>): void;
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
     copy(source: this): this;
