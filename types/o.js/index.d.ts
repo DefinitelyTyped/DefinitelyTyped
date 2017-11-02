@@ -19,6 +19,9 @@ declare module 'o.js' {
         username ?: string
         password ?: string
         isAsync ?: boolean
+		isCors ?: boolean
+		isHashRoute ?: boolean
+		appending ?: string
     }
 
     interface OHandler<T> {
