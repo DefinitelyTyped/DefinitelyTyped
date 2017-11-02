@@ -21,7 +21,7 @@ interface ChaiJestSnapshot {
     (chai: any, utils: any): void;
 
     /** Set snapshot file name */
-    setFileName(filename: string): void;
+    setFilename(filename: string): void;
 
     /**
      * Set snapshot test name
