@@ -77,6 +77,7 @@ class F2 {
     const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
     const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
 
+    R.nAry(0);
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
     R.nAry(1, takesTwoArgs);
@@ -1884,6 +1885,15 @@ class Rectangle {
 };
 
 () => {
+    R.startsWith("a", "abc");   // => true
+    R.startsWith("a")("abc");   // => true
+    R.startsWith(1, [1, 2, 3]);   // => true
+    R.startsWith(1)([1, 2, 3]);   // => true
+    R.startsWith([1], [1, 2, 3]);   // => true
+    R.startsWith([1])([1, 2, 3]);   // => true
+};
+
+() => {
     R.add(2, 3);       // =>  5
     R.add(7)(10);      // => 17
     R.add("Hello", " World");  // =>  "Hello World"
@@ -2229,6 +2239,15 @@ class Rectangle {
     R.isEmpty(null); // => false
     R.isEmpty({}); // =>true
     R.isEmpty({a: 1}); // => false
+};
+
+() => {
+    R.endsWith("c", "abc");   // => true
+    R.endsWith("c")("abc");   // => true
+    R.endsWith(3, [1, 2, 3]);   // => true
+    R.endsWith(3)([1, 2, 3]);   // => true
+    R.endsWith([3], [1, 2, 3]);   // => true
+    R.endsWith([3])([1, 2, 3]);   // => true
 };
 
 () => {

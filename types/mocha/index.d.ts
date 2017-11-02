@@ -27,6 +27,9 @@ interface MochaSetupOptions {
 
     // grep string or regexp to filter tests with
     grep?: any;
+    
+    // require modules before running tests
+    require?: string[];
 }
 
 declare var mocha: Mocha;
