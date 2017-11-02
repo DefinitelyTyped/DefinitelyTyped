@@ -143,6 +143,13 @@ export interface Connect {
         mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
         options: Options<TStateProps, TOwnProps, TMergedProps>
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+        
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, TState = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, TState>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
+        options: Options<TStateProps, TOwnProps, TMergedProps>
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 }
 
 /**
@@ -150,15 +157,15 @@ export interface Connect {
  */
 export declare const connect: Connect;
 
-interface MapStateToProps<TStateProps, TOwnProps> {
-    (state: any, ownProps: TOwnProps): TStateProps;
+interface MapStateToProps<TStateProps, TOwnProps, TState> {
+    (state: TState, ownProps: TOwnProps): TStateProps;
 }
 
-interface MapStateToPropsFactory<TStateProps, TOwnProps> {
-    (initialState: any, ownProps: TOwnProps): MapStateToProps<TStateProps, TOwnProps>;
+interface MapStateToPropsFactory<TStateProps, TOwnProps, TState> {
+    (initialState: Partial<TState>, ownProps: TOwnProps): MapStateToProps<TStateProps, TOwnProps, TState>;
 }
 
-type MapStateToPropsParam<TStateProps, TOwnProps> = MapStateToPropsFactory<TStateProps, TOwnProps> | MapStateToProps<TStateProps, TOwnProps> | null | undefined;
+type MapStateToPropsParam<TStateProps, TOwnProps, TState = any> = MapStateToPropsFactory<TStateProps, TOwnProps, TState> | MapStateToProps<TStateProps, TOwnProps, TState> | null | undefined;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
