@@ -206,7 +206,7 @@ declare global {
                 gutterName?: string;
             }
 
-            interface ErrorNotification extends NotificationOptions {
+            interface ErrorNotification extends Notification {
                 stack?: string;
             }
 
