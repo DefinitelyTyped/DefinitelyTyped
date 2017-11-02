@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 
 /// <reference types="angular" />
-/// <reference types="jquery" />
 
 declare namespace angularModal {
 
