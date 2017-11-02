@@ -2231,6 +2231,16 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
 }
 
 /**
+ * Renders nested content and automatically applies paddings reflect the portion of the view
+ * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
+ * Moreover, and most importantly, Safe Area's paddings feflect physical limitation of the screen,
+ * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
+ */
+export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {
+
+}
+
+/**
  * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
  *
  * #### Programmatically changing selected index
@@ -8287,6 +8297,9 @@ export type RefreshControl = RefreshControlStatic
 
 export var RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic
 export type RecyclerViewBackedScrollView = RecyclerViewBackedScrollViewStatic
+
+export var SafeAreaView: SafeAreaViewStatic
+export type SafeAreaView = SafeAreaViewStatic
 
 export var SegmentedControlIOS: SegmentedControlIOSStatic
 export type SegmentedControlIOS = SegmentedControlIOSStatic
