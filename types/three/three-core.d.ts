@@ -6123,10 +6123,10 @@ export namespace SceneUtils {
 }
 
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: Vector[]): number;
+    export function triangulate(contour: Vector[], indices: boolean): [number, number, number][];
+    export function triangulateShape(contour: Vector[], holes: any[]): [number, number, number][];
+    export function isClockWise(pts: Vector[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////
