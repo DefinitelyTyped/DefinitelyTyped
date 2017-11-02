@@ -3,7 +3,9 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
+//                 Alvis HT Tang <https://github.com/alvis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -71,8 +73,9 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
+  <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
-	<R>(xs: (push: (err: Error, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
+	<R>(xs: (push: (err: Error | null, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
 	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
@@ -85,7 +88,7 @@ interface HighlandStatic {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	
+
 	/**
 	 * Returns true if `x` is a Highland Stream.
 	 *
@@ -335,7 +338,7 @@ interface HighlandStatic {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// OPERATORS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	
+
 	/**
 	 * Add two values. Can be partially applied.
 	 *
@@ -435,7 +438,7 @@ declare namespace Highland {
 		 * @api public
 		 */
 		end(): void;
-		
+
 		/**
 		 * Pauses the stream. All Highland Streams start in the paused state.
 		 *
@@ -477,7 +480,7 @@ declare namespace Highland {
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// TRANSFORMS
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		
+
 		/**
 		 * Adds a value to the end of a Stream.
 		 *
@@ -501,7 +504,7 @@ declare namespace Highland {
 		 * _([1, 2, 3, 4, 5]).batch(2)  // => [1, 2], [3, 4], [5]
 		 */
 		batch(n: number): Stream<R[]>;
-		
+
 		/**
 		 * Takes one Stream and batches incoming data within a maximum time frame
 		 * into arrays of a maximum length.
@@ -560,7 +563,7 @@ declare namespace Highland {
 		 * @param {Function} f - the function to handle errors and values
 		 * @api public
 		 */
-		consume<U>(f: (err: Error, x: R, push: (err: Error, value?: U) => void, next: () => void) => void): Stream<U>;
+		consume<U>(f: (err: Error, x: R, push: (err: Error | null, value?: U) => void, next: () => void) => void): Stream<U>;
 
 		/**
 		 * Holds off pushing data events downstream until there has been no more
@@ -625,7 +628,7 @@ declare namespace Highland {
 		 * @param {Function} f - the function to pass all errors to
 		 * @api public
 		 */
-		errors(f: (err: Error, push: (err: Error, x?: R) => void) => void): Stream<R>;
+		errors(f: (err: Error, push: (err: Error | null, x?: R) => void) => void): Stream<R>;
 
 		/**
 		 * Creates a new Stream including only the values which pass a truth test.
@@ -903,6 +906,28 @@ declare namespace Highland {
 		 */
 		throttle(ms: number): Stream<R>;
 
+    /**
+     * Filters out all duplicate values from the stream and keeps only the first
+     * occurence of each value, using === to define equality.
+     *
+     * @id uniq
+     * @section Streams
+     * @name Stream.uniq()
+     * @api public
+     */
+    uniq(): Stream<R>;
+
+    /**
+     * Filters out all duplicate values from the stream and keeps only the first
+     * occurence of each value, using the provided function to define equality.
+     *
+     * @id uniqBy
+     * @section Streams
+     * @name Stream.uniqBy()
+     * @api public
+     */
+    uniqBy(f: (a: R, b: R) => boolean): Stream<R>;
+
 		/**
 		 * A convenient form of filter, which returns all objects from a Stream
 		 * match a set of property values.
@@ -1012,7 +1037,7 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-		merge (ys: Stream<Stream<R>>): Stream<R>;
+	  merge(): Stream<R>;
 
 		/**
 		 * Observes a stream, allowing you to handle values as they are emitted, without
@@ -1076,6 +1101,69 @@ declare namespace Highland {
 		 */
 		// TODO figure out typing
 		series<U>(): Stream<U>;
+
+		/**
+		 * Transforms a stream using an arbitrary target transform.
+		 *
+		 * If `target` is a function, this transform passes the current Stream to it,
+		 * returning the result.
+		 *
+		 * If `target` is a [Duplex
+		 * Stream](https://nodejs.org/api/stream.html#stream_class_stream_duplex_1),
+		 * this transform pipes the current Stream through it. It will always return a
+		 * Highland Stream (instead of the piped to target directly as in
+		 * [pipe](#pipe)). Any errors emitted will be propagated as Highland errors.
+		 *
+		 * **TIP**: Passing a function to `through` is a good way to implement complex
+		 * reusable stream transforms. You can even construct the function dynamically
+		 * based on certain inputs. See examples below.
+		 *
+		 * @id through
+		 * @section Higher-order Streams
+		 * @name Stream.through(target)
+		 * @param {Function | Duplex Stream} target - the stream to pipe through or a
+		 * function to call.
+		 * @api public
+		 *
+		 * // This is a static complex transform.
+		 * function oddDoubler(s) {
+		 *     return s.filter(function (x) {
+		 *         return x % 2; // odd numbers only
+		 *     })
+		 *     .map(function (x) {
+		 *         return x * 2;
+		 *     });
+		 * }
+		 *
+		 * // This is a dynamically-created complex transform.
+		 * function multiplyEvens(factor) {
+		 *     return function (s) {
+		 *         return s.filter(function (x) {
+		 *             return x % 2 === 0;
+		 *         })
+		 *         .map(function (x) {
+		 *             return x * factor;
+		 *         });
+		 *     };
+		 * }
+		 *
+		 * _([1, 2, 3, 4]).through(oddDoubler); // => 2, 6
+		 *
+		 * _([1, 2, 3, 4]).through(multiplyEvens(5)); // => 10, 20
+		 *
+		 * // Can also be used with Node Through Streams
+		 * _(filenames).through(jsonParser).map(function (obj) {
+		 *     // ...
+		 * });
+		 *
+		 * // All errors will be propagated as Highland errors
+		 * _(['zz{"a": 1}']).through(jsonParser).errors(function (err) {
+		 *   console.log(err); // => SyntaxError: Unexpected token z
+		 * });
+		 */
+		through<R, U>(f: (x: R) => U): Stream<U>;
+		through(thru: NodeJS.ReadWriteStream): Stream<any>;
+
 
 		/**
 		 * Takes two Streams and returns a Stream of corresponding pairs.
@@ -1144,7 +1232,7 @@ declare namespace Highland {
 		 * @param {Function} f - the iterator function
 		 * @api public
 		 */
-		each(f: (x: R) => void): void;
+		each(f: (x: R) => void): Pick<Stream<R>, 'done'>;
 
 		/**
 		 * Pipes a Highland Stream to a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable)
@@ -1180,7 +1268,7 @@ declare namespace Highland {
 		 * @api public
 		 */
 		pull(f: (err: Error, x: R) => void): void;
-		
+
 		/**
 		 * Collects all values from a Stream into an Array and calls a function with
 		 * once with the result. This function causes a **thunk**.
@@ -1219,6 +1307,29 @@ declare namespace Highland {
 		 * });
 		 */
 		toCallback(cb: (err?: Error, x?: R) => void): void;
+
+    /**
+     * Converts the result of a stream to Promise.
+     *
+     * If the stream contains a single value, it will return
+     * with the single item emitted by the stream (if present).
+     * If the stream is empty, `undefined` will be returned.
+     * If an error is encountered in the stream, this function will stop
+     * consumption and call `cb` with the error.
+     * If the stream contains more than one item, it will stop consumption
+     * and reject with an error.
+     *
+     * @id toPromise
+     * @section Consumption
+     * @name Stream.toPromise(PromiseCtor)
+     * @param {Function} PromiseCtor - Promises/A+ compliant constructor
+     * @api public
+     *
+     * _([1, 2, 3, 4]).collect().toPromise(Promise).then(function (result) {
+     *     // parameter result will be [1,2,3,4]
+     * });
+     */
+    toPromise(promiseConstructor: PromiseConstructor): PromiseLike<R>;
 	}
 
 	interface PipeableStream<T, R> extends Stream<R> {}

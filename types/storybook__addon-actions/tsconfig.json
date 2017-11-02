@@ -8,14 +8,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
             "../"
         ],
-        "paths":{
-            "@storybook/addon-actions": ["storybook__addon-actions"],
-            "@storybook/react": ["storybook__react"]
+        "paths": {
+            "@storybook/addon-actions": [
+                "storybook__addon-actions"
+            ],
+            "@storybook/react": [
+                "storybook__react"
+            ]
         },
         "types": [],
         "noEmit": true,

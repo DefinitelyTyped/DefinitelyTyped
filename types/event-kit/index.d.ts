@@ -1,91 +1,124 @@
-// Type definitions for event-kit v1.2.0
+// Type definitions for event-kit 2.x
 // Project: https://github.com/atom/event-kit
-// Definitions by: Vadim Macagon <https://github.com/enlight>
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-export = AtomEventKit;
+declare global {
+    namespace EventKit {
+        interface DisposableLike {
+            dispose(): void;
+        }
 
-declare namespace AtomEventKit {
-	interface IDisposable {
-		dispose(): void;
-	}
+        /** A handle to a resource that can be disposed. */
+        interface Disposable extends DisposableLike {
+            disposed: boolean;
 
-	/** Static side of the Disposable class. */
-	interface DisposableStatic {
-		prototype: Disposable;
-		new (disposalAction: Function): Disposable;
-		/**
-		* Ensure that Object correctly implements the Disposable.
-		*/
-		isDisposable(object: Object): boolean;
-	}
+            /** A callback which will be called within dispose(). */
+            disposalAction?(): void;
 
-	/** Instance side of the Disposable class. */
-	interface Disposable extends IDisposable {
-		disposed: boolean;
+            /** Perform the disposal action, indicating that the resource associated
+             *  with this disposable is no longer needed.
+             */
+            dispose(): void;
+        }
 
-		constructor: DisposableStatic;
-	}
+        interface DisposableStatic {
+            /** Ensure that Object correctly implements the Disposable contract. */
+            isDisposable(object: object): boolean;
 
-	/** A class that represent a handle to a resource that can be disposed. */
-	var Disposable: DisposableStatic;
+            /** Construct a Disposable. */
+            new (disposableAction?: () => void): Disposable;
+        }
 
-	/** Static side of the CompositeDisposable class. */
-	interface CompositeDisposableStatic {
-		prototype: CompositeDisposable;
-		new (...disposables: IDisposable[]): CompositeDisposable;
-	}
+        /** An object that aggregates multiple Disposable instances together into a
+         *  single disposable, so they can all be disposed as a group.
+         */
+        interface CompositeDisposable extends DisposableLike {
+            disposed: boolean;
 
-	/** Instance side of the CompositeDisposable class. */
-	interface CompositeDisposable extends IDisposable {
-		disposed: boolean;
+            /** Dispose all disposables added to this composite disposable.
+             *  If this object has already been disposed, this method has no effect.
+             */
+            dispose(): void;
 
-		constructor: CompositeDisposableStatic;
-		add(...disposables: IDisposable[]): void;
-		remove(disposable: IDisposable): void;
-		clear(): void;
-	}
+            // Managing Disposables
+            /** Add disposables to be disposed when the composite is disposed.
+             *  If this object has already been disposed, this method has no effect.
+             */
+            add(...disposables: DisposableLike[]): void;
 
-	/**
-	 * A class that aggregates multiple [[Disposable]] instances together into a single disposable,
-	 * so that they can all be disposed as a group.
-	 */
-	var CompositeDisposable: CompositeDisposableStatic;
+            /** Remove a previously added disposable. */
+            remove(disposable: DisposableLike): void;
 
-	/** Static side of the Emitter class. */
-	interface EmitterStatic {
-		prototype: Emitter;
-		new (): Emitter;
-	}
+            /** Alias to CompositeDisposable::remove. */
+            delete(disposable: DisposableLike): void;
 
-	/** Instance side of the Emitter class. */
-	interface Emitter {
-		isDisposed: boolean;
+            /** Clear all disposables. They will not be disposed by the next call to
+             *  dispose.
+             */
+            clear(): void;
+        }
 
-		constructor: EmitterStatic;
-		/**
-		* Clear out any existing subscribers.
-		*/
-		clear(): void;
-		/**
-		* Unsubscribe all handlers.
-		*/
-		dispose(): void;
-		/**
-		* Registers a handler to be invoked whenever the given event is emitted.
-		* @return An object that will unregister the handler when disposed.
-		*/
-		on(eventName: string, handler: (value: any) => void, unshift?: boolean): Disposable;
-		/**
-		* Registers a handler to be invoked *before* all previously registered handlers for
-		* the given event.
-		* @return An object that will unregister the handler when disposed.
-		*/
-		preempt(eventName: string, handler: (value: any) => void): Disposable;
-		/** Invokes any registered handlers for the given event. */
-		emit(eventName: string, value: any): void;
-	}
+        /** The static side to the CompositeDisposable class. */
+        interface CompositeDisposableStatic {
+            /** Construct an instance, optionally with one or more disposables. */
+            new (...disposables: DisposableLike[]): CompositeDisposable;
+        }
 
-	/** A utility class for implementing event-based APIs. */
-	var Emitter: EmitterStatic;
+        /** Utility class to be used when implementing event-based APIs that allows
+         *  for handlers registered via ::on to be invoked with calls to ::emit.
+         */
+        interface Emitter extends DisposableLike {
+            disposed: boolean;
+
+            /** Clear out any existing subscribers. */
+            clear(): void;
+
+            /** Unsubscribe all handlers. */
+            dispose(): boolean;
+
+            // Event Subscription
+            /** Registers a handler to be invoked whenever the given event is emitted. */
+            // tslint:disable-next-line:no-any
+            on(eventName: string, handler: (value: any) => void): Disposable;
+
+            /** Register the given handler function to be invoked the next time an event
+             *  with the given name is emitted via ::emit.
+             */
+            // tslint:disable-next-line:no-any
+            once(eventName: string, handler: (value: any) => void): Disposable;
+
+            /** Register the given handler function to be invoked before all other
+             *  handlers existing at the time of subscription whenever events by the
+             *  given name are emitted via ::emit.
+             */
+            // tslint:disable-next-line:no-any
+            preempt(eventName: string, handler: (value: any) => void): Disposable;
+
+            // Event Emission
+            /** Invoke handlers registered via ::on for the given event name. */
+            // tslint:disable-next-line:no-any
+            emit(eventName: string, value?: any): void;
+        }
+
+        /** The static side to the Emitter class. */
+        interface EmitterStatic {
+            /** Construct an emitter. */
+            new (): Emitter;
+        }
+    }
 }
+
+/** A handle to a resource that can be disposed. */
+export const Disposable: EventKit.DisposableStatic;
+
+/** An object that aggregates multiple Disposable instances together into a
+ *  single disposable, so they can all be disposed as a group.
+ */
+export const CompositeDisposable: EventKit.CompositeDisposableStatic;
+
+/** Utility class to be used when implementing event-based APIs that allows
+ *  for handlers registered via ::on to be invoked with calls to ::emit.
+ */
+export const Emitter: EventKit.EmitterStatic;

@@ -21,9 +21,11 @@
 declare namespace Dynamsoft {
     namespace WebTwainEnv {
         function GetWebTwain (cid: string): WebTwain;
-        function RegisterEvent(event: string, fn: () => void): void;
+        function RegisterEvent(event: string, fn: (...args: any[]) => void): void;
         function Load(): void;
+        function Unload(): void;
         let AutoLoad: boolean;
+        let Containers: Container[];
     }
 }
 
@@ -1251,6 +1253,12 @@ declare enum EnumDWT_MouseShape {
 	Hand = 1,
 	Crosshair = 2,
 	Zoom = 3
+}
+
+interface Container {
+    ContainerId: string;
+    Width: string | number;
+    Height: string | number;
 }
 
 /**

@@ -22,9 +22,7 @@ const data = {
 	}]
 };
 
-export default React.createClass({
-  displayName: 'PieExample',
-
+export default class PieExample extends React.Component {
   render() {
     return (
       <div>
@@ -33,4 +31,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

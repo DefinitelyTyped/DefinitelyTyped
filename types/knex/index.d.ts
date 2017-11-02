@@ -179,7 +179,7 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: TableName, clause: (this: JoinClause) => void): QueryBuilder;
+        (tableName: TableName, clause: (this: JoinClause, join: JoinClause) => void): QueryBuilder;
         (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
@@ -206,6 +206,30 @@ declare namespace Knex {
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
         orOn(column1: string, operator: string, column2: string): JoinClause;
+        onIn(column1: string, values: any[]): JoinClause;
+        andOnIn(column1: string, values: any[]): JoinClause;
+        orOnIn(column1: string, values: any[]): JoinClause;
+        onNotIn(column1: string, values: any[]): JoinClause;
+        andOnNotIn(column1: string, values: any[]): JoinClause;
+        orOnNotIn(column1: string, values: any[]): JoinClause;
+        onNull(column1: string): JoinClause;
+        andOnNull(column1: string): JoinClause;
+        orOnNull(column1: string): JoinClause;
+        onNotNull(column1: string): JoinClause;
+        andOnNotNull(column1: string): JoinClause;
+        orOnNotNull(column1: string): JoinClause;
+        onExists(callback: () => void): JoinClause;
+        andOnExists(callback: () => void): JoinClause;
+        orOnExists(callback: () => void): JoinClause;
+        onNotExists(callback: () => void): JoinClause;
+        andOnNotExists(callback: () => void): JoinClause;
+        orOnNotExists(callback: () => void): JoinClause;
+        onBetween(column1: string, range: [any, any]): JoinClause;
+        andOnBetween(column1: string, range: [any, any]): JoinClause;
+        orOnBetween(column1: string, range: [any, any]): JoinClause;
+        onNotBetween(column1: string, range: [any, any]): JoinClause;
+        andOnNotBetween(column1: string, range: [any, any]): JoinClause;
+        orOnNotBetween(column1: string, range: [any, any]): JoinClause;
         using(column: string | string[] | Raw | { [key: string]: string | Raw }): JoinClause;
         type(type: string): JoinClause;
     }
@@ -488,6 +512,7 @@ declare namespace Knex {
         debug?: boolean;
         client?: string;
         dialect?: string;
+        version?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
@@ -563,7 +588,7 @@ declare namespace Knex {
         connectTimeout?: number;
         stringifyObjects?: boolean;
         insecureAuth?: boolean;
-        typeCast?: boolean;
+        typeCast?: any;
         queryFormat?: (query: string, values: any) => string;
         supportBigNumbers?: boolean;
         bigNumberStrings?: boolean;
@@ -615,6 +640,17 @@ declare namespace Knex {
         priorityRange?: number;
         validate?: Function;
         log?: boolean;
+
+        // generic-pool v3 configs
+        maxWaitingClients?: number;
+        testOnBorrow?: boolean;
+        acquireTimeoutMillis?: number;
+        fifo?: boolean;
+        autostart?: boolean;
+        evictionRunIntervalMillis?: number;
+        numTestsPerRun?: number;
+        softIdleTimeoutMillis?: number;
+        Promise?: any;
     }
 
     interface MigratorConfig {

@@ -961,6 +961,16 @@ describe("Custom matcher: 'toBeGoofy'", () => {
             hyuk: 'this is fun'
         }).not.toBeGoofy();
     });
+    
+    it("has a proper message on failure", () => {
+        const actual = { hyuk: 'this is fun' };
+        
+        const matcher = customMatchers.toBeGoofy(jasmine.matchersUtil, []);
+        const result = matcher.compare(actual, null);
+        
+        expect(result.pass).toBe(false);
+        expect(result.message).toBe("Expected " + actual + " to be goofy, but it was not very goofy");
+    });
 });
 
 // test based on http://jasmine.github.io/2.5/custom_reporter.html
