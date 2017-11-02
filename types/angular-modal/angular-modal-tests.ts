@@ -47,7 +47,7 @@ function withContainerAsString() {
 
 // With container as jQuery element
 function withContainerAsJquery() {
-    var container: JQuery = $('body');
+    var container: JQuery = angular.element('body');
     btfModal({
         template: '<div></div>',
         container: container
