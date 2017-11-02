@@ -1457,8 +1457,9 @@ export interface MarkerOptions extends InteractiveLayerOptions {
     riseOffset?: number;
 }
 
-export class Marker extends Layer {
+export class Marker<P = any> extends Layer {
     constructor(latlng: LatLngExpression, options?: MarkerOptions);
+    toGeoJSON(): geojson.Feature<geojson.Point, P>;
     getLatLng(): LatLng;
     setLatLng(latlng: LatLngExpression): this;
     setZIndexOffset(offset: number): this;
@@ -1469,6 +1470,7 @@ export class Marker extends Layer {
     // Properties
     options: MarkerOptions;
     dragging?: Handler;
+    feature?: geojson.Feature<geojson.Point, P>;
 }
 
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
