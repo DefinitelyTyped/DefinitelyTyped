@@ -741,7 +741,7 @@ export class FeatureGroup<P = any> extends LayerGroup<P> {
     /**
      * Sets the given path options to each layer of the group that has a setStyle method.
      */
-    setStyle(style: StyleFunction<P>): this;
+    setStyle(style: PathOptions): this;
 
     /**
      * Brings the layer group to the top of all other layers
@@ -885,11 +885,6 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * useful for resetting style after hover events.
      */
     resetStyle(layer: Layer): Layer;
-
-    /**
-     * Changes styles of GeoJSON vector layers with the given style function.
-     */
-    setStyle(style: StyleFunction<P>): this;
 
     options: GeoJSONOptions<P>;
 }
