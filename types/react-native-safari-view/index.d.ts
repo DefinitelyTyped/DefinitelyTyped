@@ -54,12 +54,8 @@ declare namespace SafariView {
      */
     function isAvailable(): Promise<boolean>;
 
-    /**
-     */
     function addEventListener(event: string, listener: () => void): EmitterSubscription;
 
-    /**
-     */
     function removeEventListener(event: string, listener: () => void): void;
 }
 export default SafariView;

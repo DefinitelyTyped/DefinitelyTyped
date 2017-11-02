@@ -28,6 +28,7 @@ import {
     Transitioner,
     addNavigationHelpers,
     HeaderBackButton,
+    Header,
 } from 'react-navigation';
 
 // Constants
@@ -44,12 +45,11 @@ interface StartScreenNavigationParams {
     s: string;
 }
 
-interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<StartScreenProps> {
+class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
         const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
@@ -76,8 +76,7 @@ interface NextScreenNavigationParams {
     id: number;
     name: string;
 }
-interface NextScreenProps extends NavigationScreenProps<NextScreenNavigationParams> { }
-class NextScreen extends React.Component<NextScreenProps> {
+class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
         const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;

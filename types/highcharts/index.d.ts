@@ -1753,9 +1753,6 @@ declare namespace Highcharts {
          * @deprecated
          */
         defaultSeriesType?: string;
-        /**
-         *
-         */
         description?: string;
         /**
          * Event listeners for the chart.
@@ -3666,9 +3663,6 @@ declare namespace Highcharts {
          * @default 0.1
          */
         brightness?: number;
-        /**
-         *
-         */
         color?: string | Gradient;
         /**
          * Enable separate styles for the hovered series to visualize that the user hovers either the series itself or the
