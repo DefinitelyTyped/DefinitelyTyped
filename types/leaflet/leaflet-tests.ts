@@ -484,3 +484,15 @@ L.Util.requestAnimFrame(() => {}, {});
 L.Util.requestAnimFrame(() => {}, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;
+
+interface MyProperties {
+	testProperty: string;
+}
+
+(L.polygon(latLngs) as L.Polygon<MyProperties>).feature.properties.testProperty = "test";
+
+(L.marker([1, 2], {
+	icon: L.icon({
+		iconUrl: 'my-icon.png'
+	})
+}) as L.Marker<MyProperties>).feature.properties.testProperty = "test";
