@@ -2,6 +2,7 @@
 // Project: https://github.com/kartena/Proj4Leaflet#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as geojson from 'geojson';
 import * as L from 'leaflet';
