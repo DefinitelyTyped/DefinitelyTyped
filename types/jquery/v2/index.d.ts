@@ -321,7 +321,7 @@ interface JQueryGenericPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      * @see {@link https://api.jquery.com/deferred.then/#deferred-then-doneFilter-failFilter-progressFilter}
      */
-    then<U>(doneFilter: (value?: T, ...values: any[]) => U|JQueryPromise<U>, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(doneFilter: (value: T, ...values: any[]) => U|JQueryPromise<U>, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
 
     /**
      * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -330,14 +330,14 @@ interface JQueryGenericPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      * @see {@link https://api.jquery.com/deferred.then/#deferred-then-doneFilter-failFilter-progressFilter}
      */
-    then(doneFilter: (value?: T, ...values: any[]) => void, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<void>;
+    then(doneFilter: (value: T, ...values: any[]) => void, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<void>;
 }
 
 /**
  * Interface for the JQuery promise/deferred callbacks
  */
 interface JQueryPromiseCallback<T> {
-    (value?: T, ...args: any[]): void;
+    (value: T, ...args: any[]): void;
 }
 
 interface JQueryPromiseOperator<T, U> {
@@ -482,7 +482,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args Optional subsequent arguments that are passed to the doneCallbacks.
      * @see {@link https://api.jquery.com/deferred.resolve/}
      */
-    resolve(value?: T, ...args: any[]): JQueryDeferred<T>;
+    resolve(value: T, ...args: any[]): JQueryDeferred<T>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given context and args.
@@ -824,7 +824,7 @@ interface JQueryStatic {
      * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
      */
     ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
-    
+
     ajaxSettings: JQueryAjaxSettings;
 
      /**
