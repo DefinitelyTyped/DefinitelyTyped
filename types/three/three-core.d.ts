@@ -7048,3 +7048,4 @@ export class MorphBlendMesh extends Mesh {
     stopAnimation(name: string): void;
     update(delta: number): void;
 }
+n
