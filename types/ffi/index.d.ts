@@ -49,10 +49,8 @@ export interface Function extends ref.Type {
 
 /** Creates and returns a type for a C function pointer. */
 export var Function: {
-    new (retType: ref.Type, argTypes: any[], abi?: number): Function;
-    new (retType: string, argTypes: any[], abi?: number): Function;
-    (retType: ref.Type, argTypes: any[], abi?: number): Function;
-    (retType: string, argTypes: any[], abi?: number): Function;
+    new (retType: ref.Type | string, argTypes: any[], abi?: number): Function;
+    (retType: ref.Type | string, argTypes: any[], abi?: number): Function;
 };
 
 export interface ForeignFunction {
@@ -67,10 +65,8 @@ export interface ForeignFunction {
  * execution.
  */
 export var ForeignFunction: {
-    new (ptr: Buffer, retType: ref.Type, argTypes: any[], abi?: number): ForeignFunction;
-    new (ptr: Buffer, retType: string, argTypes: any[], abi?: number): ForeignFunction;
-    (ptr: Buffer, retType: ref.Type, argTypes: any[], abi?: number): ForeignFunction;
-    (ptr: Buffer, retType: string, argTypes: any[], abi?: number): ForeignFunction;
+    new (ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
+    (ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
 }
 
 export interface VariadicForeignFunction {
@@ -96,10 +92,8 @@ export interface VariadicForeignFunction {
  * contain the same ffi_type argument signature.
  */
 export var VariadicForeignFunction: {
-    new (ptr: Buffer, ret: ref.Type, fixedArgs: any[], abi?: number): VariadicForeignFunction;
-    new (ptr: Buffer, ret: string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
-    (ptr: Buffer, ret: ref.Type, fixedArgs: any[], abi?: number): VariadicForeignFunction;
-    (ptr: Buffer, ret: string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+    new (ptr: Buffer, ret: ref.Type | string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+    (ptr: Buffer, ret: ref.Type | string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
 };
 
 export interface DynamicLibrary {
@@ -148,9 +142,7 @@ export var Callback: {
 
 export var ffiType: {
     /** Get a `ffi_type *` Buffer appropriate for the given type. */
-    (type: ref.Type): Buffer
-    /** Get a `ffi_type *` Buffer appropriate for the given type. */
-    (type: string): Buffer
+    (type: ref.Type | string): Buffer
     FFI_TYPE: StructType;
 }
 
