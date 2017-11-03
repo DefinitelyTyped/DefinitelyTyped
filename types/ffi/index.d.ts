@@ -19,14 +19,14 @@ export var Library: {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new (libFile: string, funcs?: {[key: string]: any[]}, lib?: Object): any;
+    new (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
 
     /**
      * @param libFile name of library
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    (libFile: string, funcs?: {[key: string]: any[]}, lib?: Object): any;
+    (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
 };
 
 /** Get value of errno. */
