@@ -11,10 +11,10 @@ import TArray = require('ref-array');
     const stringPtr = ref.refType(ref.types.CString);
 
     const libsqlite3 = ffi.Library('libsqlite3', {
-      'sqlite3_open': [ 'int', [ 'string', sqlite3PtrPtr ] ],
-      'sqlite3_close': [ 'int', [ sqlite3PtrPtr ] ],
-      'sqlite3_exec': [ 'int', [ sqlite3PtrPtr, 'string', 'pointer', 'pointer', stringPtr ] ],
-      'sqlite3_changes': [ 'int', [ sqlite3PtrPtr ]]
+      sqlite3_open: [ 'int', [ 'string', sqlite3PtrPtr ] ],
+      sqlite3_close: [ 'int', [ sqlite3PtrPtr ] ],
+      sqlite3_exec: [ 'int', [ sqlite3PtrPtr, 'string', 'pointer', 'pointer', stringPtr ] ],
+      sqlite3_changes: [ 'int', [ sqlite3PtrPtr ]]
     });
 
     const dbPtrPtr = ref.alloc(sqlite3PtrPtr);
