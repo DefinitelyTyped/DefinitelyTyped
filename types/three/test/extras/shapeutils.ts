@@ -13,11 +13,16 @@ import {Vector2, Vector3, Vector4, ShapeUtils, Color} from "../../three-core"
     ShapeUtils.area(clockWisePointsAsXY); // $ExpectType number
     ShapeUtils.area(clockWisePointsAsVector2); // $ExpectType number
 
+    ShapeUtils.area(clockWisePoints2D); // $ExpectError
+
     // -------------------------------------------- isClockWise()
 
     // Always returns true or false. False if there is an error
 
     ShapeUtils.isClockWise(clockWisePointsAsXY); // $ExpectType boolean
+    ShapeUtils.isClockWise(clockWisePointsAsVector2); // $ExpectType boolean
+
+    ShapeUtils.area(clockWisePoints2D); // $ExpectError
 
     // -------------------------------------------- triangulate()
 
@@ -37,11 +42,12 @@ import {Vector2, Vector3, Vector4, ShapeUtils, Color} from "../../three-core"
     ShapeUtils.triangulate(clockWisePointsAsVector2, false); // $ExpectType Vector2[][]
     ShapeUtils.triangulate(clockWisePointsAsVector2); // $ExpectType Vector2[][]
 
-    // $ExpectError
-    ShapeUtils.triangulate([new Color('red'), new Color('yellow')]);
+    ShapeUtils.triangulate([new Color('red'), new Color('yellow')]); // $ExpectError
 
     // -------------------------------------------- triangulateShape()
 
+    ShapeUtils.triangulateShape(clockWisePointsAsVector2, []); // $ExpectType number[][]
     ShapeUtils.triangulateShape(clockWisePointsAsVector2, [clockWisePointsAsVector2]); // $ExpectType number[][]
 
+    ShapeUtils.triangulateShape(clockWisePointsAsVector2); // $ExpectError
 };
