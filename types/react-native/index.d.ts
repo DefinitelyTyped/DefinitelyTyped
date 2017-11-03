@@ -7981,7 +7981,7 @@ export namespace Animated {
         config?: ParallelConfig
     ): CompositeAnimation;
 
-    type Mapping = { [key: string]: Mapping } | AnimatedValue;
+    type Mapping = { [key: string]: Mapping } | AnimatedValue | null;
     interface EventConfig {
         listener?: ValueListenerCallback;
         useNativeDriver?: boolean;
