@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 0.13
+// Type definitions for puppeteer 0.12
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
