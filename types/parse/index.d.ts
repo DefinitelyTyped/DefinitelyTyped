@@ -357,6 +357,7 @@ declare namespace Parse {
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        isNew(): boolean;
         isValid(): boolean;
         op(attr: string): any;
         previous(attr: string): any;
@@ -367,6 +368,7 @@ declare namespace Parse {
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        toPointer(): any;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
