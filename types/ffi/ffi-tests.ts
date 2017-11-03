@@ -51,7 +51,7 @@ import TArray = require('ref-array');
     const str = ref.readCString(new Buffer('hello\0world\0'), 0);
     const buf = ref.alloc('int64');
     ref.writeInt64BE(buf, 0, '9223372036854775807');
-    const val = ref.readInt64BE(buf, 0)
+    const val = ref.readInt64BE(buf, 0);
 }
 {
     const voidPtrType = ref.refType(ref.types.void);
