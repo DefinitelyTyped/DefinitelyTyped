@@ -34,7 +34,7 @@ interface Buffer {
 	/** Shorthand for `ref.writeInt64LE`. */
 	writeInt64LE(offset: number, input: number | string): any;
 	/** Shorthand for `ref.writeObject`. */
-	writeObject(offset: number, object: Object): void;
+	writeObject(offset: number, object: object): void;
 	/** Shorthand for `ref.writePointer`. */
 	writePointer(offset: number, pointer: Buffer): void;
 	/** Shorthand for `ref.writeUInt64BE`. */
