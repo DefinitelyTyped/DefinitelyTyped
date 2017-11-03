@@ -5234,14 +5234,14 @@ export interface RenderTarget {} // not defined in the code, used in LightShadow
 
 export interface RenderItem
 {
-    id: number
-    object: Object3D,
-    geometry: Geometry | BufferGeometry,
-    material: Material,
-    program: WebGLProgram,
-    renderOrder: number,
-    z: number,
-    group: Group
+    id: number;
+    object: Object3D;
+    geometry: Geometry | BufferGeometry;
+    material: Material;
+    program: WebGLProgram;
+    renderOrder: number;
+    z: number;
+    group: Group;
 }
 
 export class WebGLRenderList
