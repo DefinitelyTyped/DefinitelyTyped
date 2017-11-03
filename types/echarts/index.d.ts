@@ -12,8 +12,9 @@ declare namespace echarts {
     const graphic: {
         clipPointsByRect(points: number[][], rect: ERectangle): number[][];
         clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
+        LinearGradient(x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): void;
     }
-    
+
     function connect(group:string|Array<string>):void;
 
     function disConnect(group:string):void;
@@ -74,7 +75,7 @@ declare namespace echarts {
         isDisposed():boolean
 
         dispose():void
-        
+
         // 转换逻辑点到像素
         convertToPixel(finder: {
             seriesIndex?: number,
@@ -93,7 +94,7 @@ declare namespace echarts {
             gridId?: string
             gridName?: string
         } | string, value: string|Array<any>): string|Array<any>
-            
+
         convertFromPixel(finder: {
             seriesIndex?: number,
             seriesId?: string,
