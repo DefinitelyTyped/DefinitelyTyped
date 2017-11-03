@@ -11,7 +11,7 @@ import ref = require('ref');
 import StructType = require('ref-struct');
 
 /** Provides a friendly API on-top of `DynamicLibrary` and `ForeignFunction`. */
-export const Library: {
+export interface Library {
     /** The extension to use on libraries. */
     EXT: string;
 
@@ -28,7 +28,8 @@ export const Library: {
      * @param lib hash that will be extended
      */
     (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
-};
+}
+export const Library: Library;
 
 /** Get value of errno. */
 export function errno(): number;
