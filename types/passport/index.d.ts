@@ -41,8 +41,8 @@ declare module 'passport' {
             successRedirect?: string;
             successReturnToOrRedirect?: string;
             pauseStream?: boolean;
-				    userProperty?: string;
-			      passReqToCallback?: boolean;
+            userProperty?: string;
+            passReqToCallback?: boolean;
         }
 
         interface Passport {
