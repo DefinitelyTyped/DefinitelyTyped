@@ -29,6 +29,9 @@ app.use(cors({
     origin: /example\.com$/
 }));
 app.use(cors({
+    origin: [/example\.com$/, 'http://example.com']
+}));
+app.use(cors({
     origin: ['http://example.com', 'http://fakeurl.com']
 }));
 app.use(cors({
