@@ -1709,7 +1709,7 @@ declare namespace _ {
          * @see _.intersectionBy
          */
         intersectionBy<T>(
-            array?: List<T> | null | undefined,
+            array?: List<T> | null,
             ...values: Array<List<T>>
         ): T[];
     }
@@ -1841,7 +1841,7 @@ declare namespace _ {
          * @see _.intersectionWith
          */
         intersectionWith<T>(
-            array?: List<T> | null | undefined,
+            array?: List<T> | null,
             ...values: Array<List<T>>
         ): T[];
     }
