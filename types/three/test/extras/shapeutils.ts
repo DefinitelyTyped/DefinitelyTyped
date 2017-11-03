@@ -20,7 +20,7 @@ ShapeUtils.area(clockWisePoints2D); // $ExpectError
 ShapeUtils.isClockWise(clockWisePointsAsXY); // $ExpectType boolean
 ShapeUtils.isClockWise(clockWisePointsAsVector2); // $ExpectType boolean
 
-ShapeUtils.area(clockWisePoints2D); // $ExpectError
+ShapeUtils.isClockWise(clockWisePoints2D); // $ExpectError
 
 // -------------------------------------------- triangulate()
 
