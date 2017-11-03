@@ -14,7 +14,7 @@ const fd = 0;
 const modeNum = 0;
 const modeStr = "";
 const object = {};
-const errorCallback = (err: Error | null) => { };
+const errorCallback = (err: Error) => { };
 const readOptions: fs.ReadOptions = {
 	reviver: {}
 };
