@@ -96,6 +96,18 @@ declare namespace algoliasearch {
      */
     destroy(): void;
     /**
+     * Add a header to be sent with all upcoming requests
+     */
+    setExtraHeader(name: string, value: string): void;
+    /**
+     * Get the value of an extra header
+     */
+    getExtraHeader(name: string): string;
+    /**
+     * remove an extra header for all upcoming requests
+     */
+    unsetExtraHeader(name: string): void;
+    /**
      * List all your indices along with their associated information (number of entries, disk size, etc.)
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#list-indices---listindexes
