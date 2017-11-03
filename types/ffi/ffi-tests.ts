@@ -63,7 +63,7 @@ import TArray = require('ref-array');
     const S2 = new Struct({ a: 'int' });
 }
 {
-    const P = new Struct;
+    const P = new Struct();
     P.defineProperty('a', ref.types.int);
     P.defineProperty('d', 'long');
 }
