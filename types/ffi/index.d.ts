@@ -1,4 +1,4 @@
-// Type definitions for node-ffi
+// Type definitions for node-ffi 0.1
 // Project: https://github.com/rbranson/node-ffi
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
