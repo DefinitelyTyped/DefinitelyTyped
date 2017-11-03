@@ -68,7 +68,7 @@ export interface ForeignFunction {
 export const ForeignFunction: {
     new (ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
     (ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
-}
+};
 
 export interface VariadicForeignFunction {
     /**
@@ -139,15 +139,15 @@ export const Callback: {
     new (retType: any, argTypes: any[], fn: any): Buffer;
     (retType: any, argTypes: any[], abi: number, fn: any): Buffer;
     (retType: any, argTypes: any[], fn: any): Buffer;
-}
+};
 
 export const ffiType: {
     /** Get a `ffi_type *` Buffer appropriate for the given type. */
     (type: ref.Type | string): Buffer
     FFI_TYPE: StructType;
-}
+};
 
-export const CIF: (retType: any, types: any[], abi?: any) => Buffer
+export const CIF: (retType: any, types: any[], abi?: any) => Buffer;
 export const CIF_var: (retType: any, types: any[], numFixedArgs: number, abi?: any) => Buffer;
 export const HAS_OBJC: boolean;
 export const FFI_TYPES: {[key: string]: Buffer};
@@ -182,4 +182,3 @@ export const types: {
     int32: ref.Type;                uchar: ref.Type;                 size_t: ref.Type;
     uint32: ref.Type;               short: ref.Type;
 };
-
