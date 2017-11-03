@@ -29,9 +29,9 @@
             for (var i = 0; i < particlesTotal; i++) {
 
                 var object = new THREE.CSS3DSprite(image.cloneNode());
-                object.position.x = Math.random() * 4000 - 2000,
-                object.position.y = Math.random() * 4000 - 2000,
-                object.position.z = Math.random() * 4000 - 2000
+                object.position.x = Math.random() * 4000 - 2000;
+                object.position.y = Math.random() * 4000 - 2000;
+                object.position.z = Math.random() * 4000 - 2000;
                 scene.add(object);
 
                 objects.push(object);
@@ -137,8 +137,8 @@
 
         var offset = current * particlesTotal * 3;
         var duration = 2000;
-
-        for (var i = 0, j = offset; i < particlesTotal; i++, j += 3) {
+        var j = offset;
+        for (var i = 0; i < particlesTotal; i++) {
 
             var object = objects[i];
 
@@ -151,6 +151,7 @@
                 .easing(TWEEN.Easing.Exponential.InOut)
                 .start();
 
+            j += 3;
         }
 
         new TWEEN.Tween(this)

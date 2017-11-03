@@ -177,8 +177,9 @@
         var image = context.getImageData(0, 0, 256, 256);
 
         var x = 0, y = 0;
-
-        for (var i = 0, j = 0, l = image.data.length; i < l; i += 4, j++) {
+        var l = image.data.length;
+        var j = 0;
+        for (var i = 0; i < l; i += 4) {
 
             x = j % 256;
             y = x == 0 ? y + 1 : y;
@@ -187,7 +188,7 @@
             image.data[i + 1] = 255;
             image.data[i + 2] = 255;
             image.data[i + 3] = Math.floor(x ^ y);
-
+            j++;
         }
 
         context.putImageData(image, 0, 0);
