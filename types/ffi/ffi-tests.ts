@@ -23,7 +23,7 @@ import TArray = require('ref-array');
 {
     const func = ffi.ForeignFunction(new Buffer(10), 'int', [ 'int' ]);
     func(-5);
-    func.async(-5, function(err: any, res: any) {});
+    func.async(-5, (err: any, res: any) => {});
 }
 {
     const funcPtr = ffi.Callback('int', [ 'int' ], Math.abs);
