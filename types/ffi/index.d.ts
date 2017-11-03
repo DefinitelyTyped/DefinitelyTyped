@@ -147,8 +147,8 @@ export const ffiType: {
     FFI_TYPE: StructType;
 };
 
-export const CIF: (retType: any, types: any[], abi?: any) => Buffer;
-export const CIF_var: (retType: any, types: any[], numFixedArgs: number, abi?: any) => Buffer;
+export function CIF(retType: any, types: any[], abi?: any): Buffer;
+export function CIF_var(retType: any, types: any[], numFixedArgs: number, abi?: any): Buffer;
 export const HAS_OBJC: boolean;
 export const FFI_TYPES: {[key: string]: Buffer};
 export const FFI_OK: number;
