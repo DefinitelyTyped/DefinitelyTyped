@@ -456,9 +456,9 @@ export interface Options {
 	 *
 	 */
 	onpageChange?: (page: any, sizePerPage: number) => any;
-    
-    // default is bottom, top and both is all available
-    paginationPosition?: 'top' | 'bottom' | 'both';
+
+	// default is bottom, top and both is all available
+	paginationPosition?: 'top' | 'bottom' | 'both';
 }
 
 interface FetchInfo {
