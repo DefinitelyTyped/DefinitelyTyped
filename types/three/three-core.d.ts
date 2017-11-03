@@ -5235,13 +5235,13 @@ export interface RenderTarget {} // not defined in the code, used in LightShadow
 export interface RenderItem
 {
     id: number
-    object: THREE.Object3D,
-    geometry: THREE.Geometry | THREE.BufferGeometry,
-    material: THREE.Material,
-    program: THREE.WebGLProgram,
+    object: Object3D,
+    geometry: Geometry | BufferGeometry,
+    material: Material,
+    program: WebGLProgram,
     renderOrder: number,
     z: number,
-    group: THREE.Group
+    group: Group
 }
 
 export class WebGLRenderList
