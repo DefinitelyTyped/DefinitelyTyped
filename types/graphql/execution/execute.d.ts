@@ -33,6 +33,7 @@ export interface ExecutionContext {
  */
 export interface ExecutionResult {
     data?: { [key: string]: any };
+    extensions?: { [key: string]: any };
     errors?: GraphQLError[];
 }
 
