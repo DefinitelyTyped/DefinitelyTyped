@@ -10,12 +10,12 @@
 /// <reference types="node" />
 import BigInteger = require("bigi");
 
-export interface Output {
+export interface Out {
     script: Buffer;
     value: number;
 }
 
-export interface Input {
+export interface In {
     script: Buffer;
     hash: Buffer;
     index: number;
@@ -152,8 +152,8 @@ export class HDNode {
 export class Transaction {
     version: number;
     locktime: number;
-    ins: Input[];
-    outs: Output[];
+    ins: In[];
+    outs: Out[];
     constructor();
 
     addInput(hash: Buffer, index: number, sequence?: number, scriptSig?: Buffer): number;
@@ -205,21 +205,25 @@ export class Transaction {
     static isCoinbaseHash(buffer: Buffer): boolean;
 }
 
+export interface Input {
+    pubKeys: Buffer[];
+    signatures: Buffer[];
+    prevOutScript: Buffer;
+    prevOutType: string;
+    signType: string;
+    signScript: Buffer;
+    witness: boolean;
+}
+
 export class TransactionBuilder {
     tx: Transaction;
-    inputs: Array<{ pubKeys: Buffer[],
-                   signatures: Buffer[],
-                   prevOutScript: Buffer,
-                   prevOutType: string,
-                   signType: string,
-                   signScript: Buffer,
-                   witness: boolean} >;
+    inputs: Input[];
 
     constructor(network?: Network, maximumFeeRate?: number);
 
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
 
-    addOutput(scriptPubKey: Buffer, value: number): number;
+    addOutput(scriptPubKey: Buffer | string, value: number): number;
 
     build(): Transaction;
 
@@ -537,7 +541,7 @@ export namespace script {
         output: {
             check(script: Buffer): boolean;
             decode(buffer: Buffer): Buffer;
-            encode(data: Buffer[]): Buffer;
+            encode(data: Buffer): Buffer;
         };
     };
 }
