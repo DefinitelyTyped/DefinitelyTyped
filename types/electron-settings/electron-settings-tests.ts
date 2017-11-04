@@ -24,3 +24,6 @@ settings.deleteAll({prettify: true}); // $ExpectType Settings
 settings.watch('foo.bar', () => {}); // $ExpectType SettingsObserver
 
 settings.file(); // $ExpectType string
+
+settings.setPath('~/Documents'); // $ExpectType Settings
+settings.clearPath(); // $ExpectType Settings
