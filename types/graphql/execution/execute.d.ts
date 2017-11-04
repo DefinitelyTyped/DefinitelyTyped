@@ -28,7 +28,8 @@ export interface ExecutionContext {
 
 /**
  * The result of execution. `data` is the result of executing the
- * query, `errors` is null if no errors occurred, and is a
+ * query, `extensions` represents additional metadata, `errors` is
+ * null if no errors occurred, and is a
  * non-empty array if an error occurred.
  */
 export interface ExecutionResult {
