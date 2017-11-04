@@ -37,6 +37,14 @@ function test_object() {
 
     const game = new Game();
 
+    if (!game.isNew()) {
+        console.error("Game should be new");
+    }
+
+    if (game.toPointer().className !== "Game") {
+        console.log("Class name should be 'Game")
+    }
+
     game.fetch({
         success(g: Game) { }
     });
