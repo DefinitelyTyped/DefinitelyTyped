@@ -6712,22 +6712,6 @@ export interface DatePickerAndroidStatic {
     dismissedAction: string
 }
 
-export interface FetchableListenable<T> {
-    fetch: () => Promise<T>
-
-    /**
-     * eventName is expected to be `change`
-     * //FIXME: No doc - inferred from NetInfo.js
-     */
-    addEventListener: (eventName: string, listener: (result: T) => void) => void
-
-    /**
-     * eventName is expected to be `change`
-     * //FIXME: No doc - inferred from NetInfo.js
-     */
-    removeEventListener: (eventName: string, listener: (result: T) => void) => void
-}
-
 export interface IntentAndroidStatic {
     /**
      * Starts a corresponding external activity for the given URL.
@@ -6838,34 +6822,78 @@ export interface LinkingIOSStatic {
 
 /**
  * NetInfo exposes info about online/offline status
- *
- * Asynchronously determine if the device is online and on a cellular network.
- *
- * - `none` - device is offline
- * - `wifi` - device is online and connected via wifi, or is the iOS simulator
- * - `cell` - device is connected via Edge, 3G, WiMax, or LTE
- * - `unknown` - error case and the network status is unknown
  * @see https://facebook.github.io/react-native/docs/netinfo.html#content
  */
 
-// This is from code, a few items more than documentation@0.25
-export type NetInfoReturnType = "none" | "wifi" | "cell" | "unknown" |
+export type DeprecatedConnectionType = "none" | "wifi" | "cell" | "unknown" |
     "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
     "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
     "MOBILE_IMS" | "MOBILE_CBS" | "WIFI_P2P" | "MOBILE_IA" | "MOBILE_EMERGENCY" |
     "PROXY" | "VPN" | "UNKNOWN"
 
-export interface NetInfoStatic extends FetchableListenable<NetInfoReturnType> {
+export type EffectiveConnectionType = "2g" | "3g" | "4g" | "unknown"
+
+export interface ConnectionInfo {
+    type: DeprecatedConnectionType
+    effectiveType: EffectiveConnectionType
+}
+
+export interface NetInfoStatic {
 
     /**
-     *
-     * Available on all platforms.
-     * Asynchronously fetch a boolean to determine internet connectivity.
+     * This function is deprecated. Use `getConnectionInfo` instead. Returns a promise that
+     * resolves with one of the deprecated connectivity types listed above.
      */
-    isConnected: FetchableListenable<boolean>
+    fetch: () => Promise<DeprecatedConnectionType>
 
     /**
-     * Available on Android. Detect if the current active connection is
+     * Adds an event handler. Supported events:
+     *
+     * - `connectionChange`: Fires when the network status changes. The argument to the event
+     *   handler is an object with keys:
+     *   - `type`: A `DeprecatedConnectionType` (listed above)
+     *   - `effectiveType`: An `EffectiveConnectionType` (listed above)
+     * - `change`: This event is deprecated. Listen to `connectionChange` instead. Fires when
+     *   the network status changes. The argument to the event handler is one of the deprecated
+     *   connectivity types listed above.
+     */
+    addEventListener: (eventName: string, listener: (result: ConnectionInfo | DeprecatedConnectionType) => void) => void
+
+    /**
+     * Removes the listener for network status changes.
+     */
+    removeEventListener: (eventName: string, listener: (result: ConnectionInfo | DeprecatedConnectionType) => void) => void
+
+    /**
+     * Returns a promise that resolves to an object with `type` and `effectiveType` keys
+     * whose values are a `ConnectionType` and an `EffectiveConnectionType`, (described above),
+     * respectively.
+     */
+    getConnectionInfo: () => Promise<ConnectionInfo>
+
+    /**
+     * An object with the same methods as above but the listener receives a
+     * boolean which represents the internet connectivity.
+     * Use this if you are only interested with whether the device has internet
+     * connectivity.
+     */
+    isConnected: {
+
+        fetch: () => Promise<boolean>        
+
+        /**
+         * eventName is expected to be `change`(deprecated) or `connectionChange`
+         */
+        addEventListener: (eventName: string, listener: (result: boolean) => void) => void
+    
+        /**
+         * eventName is expected to be `change`(deprecated) or `connectionChange`
+         */
+        removeEventListener: (eventName: string, listener: (result: boolean) => void) => void
+    }
+
+    /**
+     * Detect if the current active connection is
      * metered or not. A network is classified as metered when the user is
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
