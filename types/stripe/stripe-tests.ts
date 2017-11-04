@@ -105,10 +105,10 @@ stripe.charges.update(
         // asynchronously called
     });
 
-stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", function (err, charge) {
+stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", {amount: 1}, {}, function (err, charge) {
     // asynchronously called
 });
-stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9").then( function (charge) {
+stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", {amount: 1}, {}).then( function (charge) {
     // asynchronously called
 });
 
