@@ -8060,7 +8060,11 @@ namespace TestIsFunction {
             let result: Function = value;
         }
         else {
-            let result: number = value;
+            let result: number|Function = value;
+        }
+
+        if (_.isFunction(any)) {
+            any();
         }
     }
 
