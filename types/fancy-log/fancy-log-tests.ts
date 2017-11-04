@@ -1,4 +1,4 @@
-import log = require('./');
+import log = require('fancy-log');
 
 log();
 log(1);
