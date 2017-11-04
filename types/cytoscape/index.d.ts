@@ -178,7 +178,7 @@ declare namespace cytoscape {
          */
         layout?: NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
         GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions;
+        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
 
         ///////////////////////////////////////
         // initial viewport state:
@@ -4144,7 +4144,7 @@ declare namespace cytoscape {
     type LayoutOptions =
         NullLayoutOptions | PresetLayoutOptions | GridLayoutOptions |
         CircleLayoutOptions | ConcentricLayoutOptions | BreadthFirstLayoutOptions |
-        CoseLayoutOptions;
+        CoseLayoutOptions | BaseLayoutOptions;
 
     type LayoutHandler = () => void;
 
