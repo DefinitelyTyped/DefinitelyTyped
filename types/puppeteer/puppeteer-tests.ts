@@ -208,7 +208,7 @@ puppeteer.launch().then(async browser => {
     }
   });
   console.log(button.toString());
-  div.type("input",  "Hello World", { delay: 10 });
+  input.type("Hello World", { delay: 10 });
 
   const buttonText = await (await button.getProperty('textContent')).jsonValue();
 
