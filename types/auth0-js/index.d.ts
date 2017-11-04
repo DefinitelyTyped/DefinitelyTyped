@@ -355,6 +355,12 @@ export class Popup {
             domain: string,
             /** your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard */
             clientId?: string,
+            /**
+             * identity provider whose login page will be displayed in the popup.
+             * If omitted the hosted login page is used.
+             * {@link https://auth0.com/docs/identityproviders}
+             */
+            connection?: string,
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
             redirectUri: string,
             /**
