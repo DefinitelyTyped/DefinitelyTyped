@@ -1299,6 +1299,17 @@ declare namespace angular {
          */
         cssClassDirectivesEnabled(): boolean;
         cssClassDirectivesEnabled(enabled: boolean): ICompileProvider;
+
+        /**
+        * Call this method to enable/disable strict component bindings check.
+        * If enabled, the compiler will enforce that for all bindings of a
+        * component that are not set as optional with ?, an attribute needs
+        * to be provided on the component's HTML tag.
+        * Defaults to false.
+        * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#strictComponentBindingsEnabled
+        */
+        strictComponentBindingsEnabled(): boolean;
+        strictComponentBindingsEnabled(enabled: boolean): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
