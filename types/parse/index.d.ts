@@ -104,6 +104,12 @@ declare namespace Parse {
             rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
+    interface Pointer {
+        __type: string;
+        className: string;
+        objectId: string;
+    }
+
     interface IBaseObject {
         toJSON(): any;
     }
@@ -368,7 +374,7 @@ declare namespace Parse {
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
-        toPointer(): any;
+        toPointer(): Pointer;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
