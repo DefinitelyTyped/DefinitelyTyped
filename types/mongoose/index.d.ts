@@ -727,7 +727,7 @@ declare module "mongoose" {
     minimize?: boolean;
     read?: string;
     /** defaults to true. */
-    safe?: boolean;
+    safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
