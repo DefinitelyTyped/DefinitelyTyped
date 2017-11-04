@@ -20,7 +20,7 @@ declare namespace SAlert {
     onClose?: () => void;
     onShow?: () => void;
     customFields?: object;
-    contentTemplate?: Function;
+    contentTemplate?: (...args: any[]) => any;
   }
 
   interface SAlertProps extends SAlertConfigProps {
