@@ -97,6 +97,10 @@ declare namespace fetchMock {
          */
         method?: string;
         /**
+         * key/value map of headers to match
+         */
+        headers?: { [key: string]: string };
+        /**
          * as specified above
          */
         matcher?: MockMatcher;
