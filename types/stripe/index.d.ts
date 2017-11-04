@@ -2332,7 +2332,7 @@ declare namespace Stripe {
             /**
              * The timestamps at which the order status was updated
              */
-            status_transactions: {
+            status_transitions: {
                 canceled: number;
                 fulfiled: number;
                 paid: number;
