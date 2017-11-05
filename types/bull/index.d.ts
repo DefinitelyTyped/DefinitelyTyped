@@ -1,4 +1,4 @@
-// Type definitions for bull 3.0
+// Type definitions for bull 3.3.5
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Redis from "ioredis";
+import * as Promise from "bluebird";
 
 /**
  * This is the Queue constructor.
@@ -22,6 +23,13 @@ declare const Bull: {
 };
 
 declare namespace Bull {
+    interface RateLimiter {
+        /** Max numbers of jobs processed */
+        max: number;
+        /** Per duration in milliseconds */
+        duration: number;
+    }
+
     interface QueueOptions {
         /**
          * Options passed directly to the `ioredis` constructor
@@ -40,6 +48,8 @@ declare namespace Bull {
         prefix?: string;
 
         settings?: AdvancedSettings;
+
+        limiter?: RateLimiter;
     }
 
     interface AdvancedSettings {
@@ -87,23 +97,36 @@ declare namespace Bull {
         progress(value: any): Promise<void>;
 
         /**
+         * Returns a promise resolving to the current job's status.
+         * Please take note that the implementation of this method is not very efficient, nor is
+         * it atomic. If your queue does have a very large quantity of jobs, you may want to
+         * avoid using this method.
+         */
+        getState(): Promise<JobStatus>;
+
+        /**
+         * Update a specific job's data. Promise resolves when the job has been updated.
+         */
+        update(data: object): Promise<void>;
+
+        /**
          * Removes a job from the queue and from any lists it may be included in.
-         * @returns A promise that resolves when the job is removed.
+         * The returned promise resolves when the job has been removed.
          */
         remove(): Promise<void>;
 
         /**
-         * Re-run a job that has failed.
-         * @returns A promise that resolves when the job is scheduled for retry.
+         * Re-run a job that has failed. The returned promise resolves when the job
+         * has been scheduled for retry.
          */
         retry(): Promise<void>;
 
         /**
-         * Returns a promise the resolves when the job has been finished.
+         * Returns a promise that resolves to the returned data when the job has been finished.
          * TODO: Add a watchdog to check if the job has finished periodically.
          * since pubsub does not give any guarantees.
          */
-        finished(): Promise<void>;
+        finished(): Promise<any>;
 
         /**
          * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
@@ -228,23 +251,20 @@ declare namespace Bull {
          * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
          * Errors will be passed as a second argument to the "failed" event;
          * results, as a second argument to the "completed" event.
-         *
-         * concurrency: Bull will then call you handler in parallel respecting this max number.
          */
-        process(concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
-
+        process(callback: (job: Job, done: DoneCallback) => void): void;
+        
         /**
          * Defines a processing function for the jobs placed into a given Queue.
          *
          * The callback is called everytime a job is placed in the queue.
          * It is passed an instance of the job as first argument.
          *
-         * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
-         * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
-         * Errors will be passed as a second argument to the "failed" event;
-         * results, as a second argument to the "completed" event.
+         * A promise must be returned to signal job completion.
+         * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+         * If it is resolved, its value will be the "completed" event's second argument.
          */
-        process(callback: (job: Job, done: DoneCallback) => void): void;
+        process(callback: (job: Job) => void): Promise<any>;
 
         /**
          * Defines a processing function for the jobs placed into a given Queue.
@@ -266,11 +286,74 @@ declare namespace Bull {
          * The callback is called everytime a job is placed in the queue.
          * It is passed an instance of the job as first argument.
          *
+         * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
+         * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
+         * Errors will be passed as a second argument to the "failed" event;
+         * results, as a second argument to the "completed" event.
+         *
+         * concurrency: Bull will then call you handler in parallel respecting this max number.
+         */
+        process(concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
+
+        /**
+         * Defines a named processing function for the jobs placed into a given Queue.
+         *
+         * The callback is called everytime a job is placed in the queue.
+         * It is passed an instance of the job as first argument.
+         *
          * A promise must be returned to signal job completion.
          * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
          * If it is resolved, its value will be the "completed" event's second argument.
+         *
+         * name: Bull will only call the handler if the job name matches
          */
-        process(callback: (job: Job) => void): Promise<any>;
+        process(name: string, callback: (job: Job) => void): Promise<any>;
+        
+        /**
+         * Defines a processing function for the jobs placed into a given Queue.
+         *
+         * The callback is called everytime a job is placed in the queue.
+         * It is passed an instance of the job as first argument.
+         *
+         * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
+         * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
+         * Errors will be passed as a second argument to the "failed" event;
+         * results, as a second argument to the "completed" event.
+         *
+         * name: Bull will only call the handler if the job name matches
+         */
+        process(name: string, callback: (job: Job, done: DoneCallback) => void): void;
+
+        /**
+         * Defines a named processing function for the jobs placed into a given Queue.
+         *
+         * The callback is called everytime a job is placed in the queue.
+         * It is passed an instance of the job as first argument.
+         *
+         * A promise must be returned to signal job completion.
+         * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+         * If it is resolved, its value will be the "completed" event's second argument.
+         *
+         * name: Bull will only call the handler if the job name matches
+         * concurrency: Bull will then call you handler in parallel respecting this max number.
+         */
+        process(name: string, concurrency: number, callback: (job: Job) => void): Promise<any>;
+        
+        /**
+         * Defines a processing function for the jobs placed into a given Queue.
+         *
+         * The callback is called everytime a job is placed in the queue.
+         * It is passed an instance of the job as first argument.
+         *
+         * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
+         * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
+         * Errors will be passed as a second argument to the "failed" event;
+         * results, as a second argument to the "completed" event.
+         *
+         * name: Bull will only call the handler if the job name matches
+         * concurrency: Bull will then call you handler in parallel respecting this max number.
+         */
+        process(name: string, concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
         /**
          * Creates a new job and adds it to the queue.
@@ -278,6 +361,13 @@ declare namespace Bull {
          * otherwise it will be placed in the queue and executed as soon as possible.
          */
         add(data: any, opts?: JobOptions): Promise<Job>;
+
+        /**
+         * Creates a new named job and adds it to the queue.
+         * If the queue is empty the job will be executed directly,
+         * otherwise it will be placed in the queue and executed as soon as possible.
+         */
+        add(name: string, data: any, opts?: JobOptions): Promise<Job>;
 
         /**
          * Returns a promise that resolves when the queue is paused.
@@ -321,6 +411,20 @@ declare namespace Bull {
          * If the specified job cannot be located, the promise callback parameter will be set to null.
          */
         getJob(jobId: JobId): Promise<Job>;
+
+        /**
+         * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
+         * the job when it was added.
+         */
+        removeRepeatable(repeat: RepeatOptions): Promise<void>;
+
+        /**
+         * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
+         * the job when it was added.
+         * 
+         * name: The name of the to be removed job
+         */
+        removeRepeatable(name: string, repeat: RepeatOptions): Promise<void>;
 
         /**
          * Returns a promise that resolves with the job counts for the given queue
