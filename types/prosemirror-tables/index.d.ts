@@ -5,8 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import { EditorState, Plugin, SelectionRange, Transaction } from 'prosemirror-state';
-import { Node, NodeSpec, Slice, ResolvedPos } from 'prosemirror-model';
-import * as dom from './dom';
+import { Node as ProsemirrorNode, NodeSpec, Slice, ResolvedPos } from 'prosemirror-model';
 
 export interface TableNodesOptions {
   tableGroup?: string;
@@ -14,7 +13,7 @@ export interface TableNodesOptions {
   cellAttributes: { [key: string]: CellAttributes };
 }
 
-export type getFromDOM = (dom: dom.DOMElement) => any;
+export type getFromDOM = (dom: Element) => any;
 export type setDOMAttr = (value: any, attrs: any) => any;
 
 export interface CellAttributes {
@@ -54,11 +53,11 @@ export class CellSelection {
   empty: boolean;
   ranges: SelectionRange[];
 
-  map(doc: Node, mapping: any): any;
+  map(doc: ProsemirrorNode, mapping: any): any;
   content(): Slice;
   replace(tr: Transaction, content: Slice): void;
-  replaceWith(tr: Transaction, node: Node): void;
-  forEachCell(f: (node: Node, pos: number) => void): void;
+  replaceWith(tr: Transaction, node: ProsemirrorNode): void;
+  forEachCell(f: (node: ProsemirrorNode, pos: number) => void): void;
   isRowSelection(): boolean;
   isColSelection(): boolean;
   eq(other: any): boolean;
@@ -67,8 +66,8 @@ export class CellSelection {
 
   static colSelection(anchorCell: ResolvedPos, headCell?: ResolvedPos): CellSelection;
   static rowSelection(anchorCell: ResolvedPos, headCell?: ResolvedPos): CellSelection;
-  static create(doc: Node, anchorCell: number, headCell?: number): CellSelection;
-  static fromJSON(doc: Node, json: CellSelectionJSON): CellSelection;
+  static create(doc: ProsemirrorNode, anchorCell: number, headCell?: number): CellSelection;
+  static fromJSON(doc: ProsemirrorNode, json: CellSelectionJSON): CellSelection;
 }
 
 export interface Rect {
@@ -89,9 +88,9 @@ export class TableMap {
   nextCell(pos: number, axis: string, dir: number): number;
   rectBetween(a: number, b: number): Rect;
   cellsInRect(rect: Rect): number[];
-  positionAt(row: number, col: number, table: Node): number;
+  positionAt(row: number, col: number, table: ProsemirrorNode): number;
 
-  static get(table: Node): TableMap;
+  static get(table: ProsemirrorNode): TableMap;
 }
 
 export function tableEditing(): Plugin;

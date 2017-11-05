@@ -1,8 +1,7 @@
-// Type definitions for ramda 0.24
+// Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
-//                 Liam Goodacre <https://github.com/LiamGoodacre>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
@@ -10,6 +9,7 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
+//                 Samson Keung <https://github.com/samsonkeung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -225,9 +225,8 @@ declare namespace R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
-        append<T, U>(el: U, list: T[]): Array<(T & U)>;
-        append<T>(el: T, list: string): Array<T & string>;
+        append<T>(el: T, list: T[]): T[];
+        append<T>(el: T): <T>(list: T[]) => T[];
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -551,6 +550,14 @@ declare namespace R {
          * Dispatches to the empty method of the first argument, if present.
          */
         empty<T>(x: T): T;
+
+        /**
+         * Checks if a list ends with the provided values
+         */
+        endsWith(a: string, list: string): boolean;
+        endsWith(a: string): (list: string) => boolean;
+        endsWith<T>(a: T | T[], list: T[]): boolean;
+        endsWith<T>(a: T | T[]): (list: T[]) => boolean;
 
         /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
@@ -999,7 +1006,7 @@ declare namespace R {
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize(fn: (...a: any[]) => any): (...a: any[]) => any;
+        memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
          * Create a new object with the own properties of a
@@ -1107,6 +1114,7 @@ declare namespace R {
          * Any extraneous parameters will not be passed to the supplied function.
          */
         nAry(n: number, fn: (...arg: any[]) => any): (...a: any[]) => any;
+        nAry(n: number): (fn: (...arg: any[]) => any) => (...a: any[]) => any;
 
         /**
          * Negates its argument.
@@ -1159,6 +1167,7 @@ declare namespace R {
          * returned in subsequent invocations.
          */
         once(fn: (...a: any[]) => any): (...a: any[]) => any;
+        once<T>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
          * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
@@ -1192,6 +1201,7 @@ declare namespace R {
          * original function's arguments list. In some libraries this function is named `applyLeft`.
          */
         partial(fn: (...a: any[]) => any, ...args: any[]): (...a: any[]) => any;
+        partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
@@ -1638,8 +1648,10 @@ declare namespace R {
         /**
          * Checks if a list starts with the provided values
          */
-        startsWith(a: any, list: any): boolean;
-        startsWith(a: any): (list: any) => boolean;
+        startsWith(a: string, list: string): boolean;
+        startsWith(a: string): (list: string) => boolean;
+        startsWith<T>(a: T | T[], list: T[]): boolean;
+        startsWith<T>(a: T | T[]): (list: T[]) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.

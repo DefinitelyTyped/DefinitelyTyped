@@ -45,9 +45,9 @@ function withContainerAsString() {
     });
 }
 
-// With container as jQuery element
+// With container as jQuery/JQLite element
 function withContainerAsJquery() {
-    var container: JQuery = $('body');
+    var container: JQuery = angular.element('body');
     btfModal({
         template: '<div></div>',
         container: container
@@ -94,6 +94,10 @@ function callingValues() {
         template: '<div></div>'
     });
     modal.activate().then(() => {}, () => {});
+    // activating with random locals
+    modal.activate({name: 'TestName'}).then(() => {}, () => {});
+    // activating with genericly typed locals
+    modal.activate<{name: string}>({name: 'TestName'}).then(() => {}, () => {});
     modal.deactivate().then(() => {}, () => {});
     var isActive: boolean = modal.active();
 }

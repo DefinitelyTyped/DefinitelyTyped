@@ -10,6 +10,7 @@
         "no-inferrable-types": false,
         "no-namespace": false,
         "no-mergeable-namespace": false,
+        "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,

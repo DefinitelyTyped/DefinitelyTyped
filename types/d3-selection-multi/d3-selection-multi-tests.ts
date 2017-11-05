@@ -34,7 +34,7 @@ selection = selection.attrs({
 });
 
 // Function that returns a map
-selection = selection.attrs(function(d, i, g) {
+selection = selection.attrs(function(d, i, g): {} | { id: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
@@ -89,7 +89,7 @@ selection = selection.properties({
 });
 
 // Function that returns an object
-selection = selection.properties(function(d, i, g) {
+selection = selection.properties(function(d, i, g): {} | { href: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
@@ -118,7 +118,7 @@ transition = transition.attrs({
 });
 
 // Function that returns a map
-transition = transition.attrs(function(d, i, g) {
+transition = transition.attrs(function(d, i, g): {} | { id: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;

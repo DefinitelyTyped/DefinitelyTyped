@@ -20,3 +20,19 @@ All types used by "event-kit" can be referenced from the EventKit namespace.
 ```ts
 function example(disposable: EventKit.DisposableLike) {}
 ```
+
+### Exposing Private Methods and Properties
+
+[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Event Kit. As an example, if we wanted to reveal the private ```getEventNames``` method within the Emitter class, then we would create a file with the following contents:
+
+```ts
+// <<filename>>.d.ts
+
+declare namespace EventKit {
+  interface Emitter {
+    getEventNames(): string[];
+  }
+}
+```
+
+Once this file is either referenced or included within your project, then this new member function would be freely usable on instances of the Emitter class without TypeScript reporting errors.

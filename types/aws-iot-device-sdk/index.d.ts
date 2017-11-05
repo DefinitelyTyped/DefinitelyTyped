@@ -32,19 +32,19 @@ export interface DeviceOptions extends mqtt.IClientOptions {
    * same as certPath, but can also accept a buffer containing client
    * certificate data
    */
-  clientCert?: string;
+  clientCert?: string | Buffer;
 
   /**
    * same as keyPath, but can also accept a buffer containing private key
    * data
    */
-  privateKey?: string;
+  privateKey?: string | Buffer;
 
   /**
    * same as caPath, but can also accept a buffer containing CA certificate
    * data
    */
-  caCert?: string;
+  caCert?: string | Buffer;
 
   /**
    * set to "true" to automatically re-subscribe to topics after

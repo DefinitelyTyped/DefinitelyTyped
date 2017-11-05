@@ -9,6 +9,18 @@ function encodingAndDecoding() {
   const data = msgpack.decode(buffer); // => {"foo": "bar"}
 }
 
+function customCodec() {
+  msgpack.createCodec({
+    preset: true,
+    safe: true,
+    useraw: true,
+    int64: true,
+    binarraybuffer: true,
+    uint8array: true,
+    usemap: true
+  });
+}
+
 // https://github.com/kawanet/msgpack-lite#writing-to-messagepack-stream
 function writingToStream() {
   const fs = require("fs");
