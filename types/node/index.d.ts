@@ -13,7 +13,7 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped)
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /************************************************
@@ -472,17 +472,13 @@ declare namespace NodeJS {
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
-        setgid(id: number): void;
-        setgid(id: string): void;
+        setgid(id: number | string): void;
         getuid(): number;
-        setuid(id: number): void;
-        setuid(id: string): void;
+        setuid(id: number | string): void;
         geteuid(): number;
-        seteuid(id: number): void;
-        seteuid(id: string): void;
+        seteuid(id: number | string): void;
         getegid(): number;
-        setegid(id: number): void;
-        setegid(id: string): void;
+        setegid(id: number | string): void;
         getgroups(): number[];
         setgroups(groups: Array<string | number>): void;
         version: string;
