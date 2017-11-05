@@ -70,7 +70,7 @@ declare namespace Pubnub {
     heartbeatInterval?: number;
     restore?: boolean;
     keepAlive?: boolean;
-    keepAliveSettings: {
+    keepAliveSettings?: {
       keepAliveMsecs?: number;
       freeSocketKeepAliveTimeout?: number;
       timeout?: number;
