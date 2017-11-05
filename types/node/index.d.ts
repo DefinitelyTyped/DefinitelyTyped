@@ -477,6 +477,14 @@ declare namespace NodeJS {
         getuid(): number;
         setuid(id: number): void;
         setuid(id: string): void;
+        geteuid(): number;
+        seteuid(id: number): void;
+        seteuid(id: string): void;
+        getegid(): number;
+        setegid(id: number): void;
+        setegid(id: string): void;
+        getgroups(): number[];
+        setgroups(groups: (string | number)[]): void;
         version: string;
         versions: ProcessVersions;
         config: {
