@@ -46,21 +46,18 @@ declare namespace ReCaptchaV2 {
      * Optional. The color theme of the widget.
      * Accepted values: "light", "dark"
      * @default "light"
-     * @type {Theme}
      */
     theme?: Theme;
     /**
      * Optional. The type of CAPTCHA to serve.
      * Accepted values: "audio", "image"
      * @default "image"
-     * @type {Type}
      */
     type?: Type;
     /**
      * Optional. The size of the widget.
      * Accepted values: "compact", "normal", "invisible".
      * @default "compact"
-     * @type {Size}
      */
     size?: Size;
     /**
@@ -77,7 +74,6 @@ declare namespace ReCaptchaV2 {
      * Optional. The badge location for g-recaptcha with size of "invisible".
      *
      * @default "bottomright"
-     * @type {Badge}
      */
     badge?: Badge;
     /**

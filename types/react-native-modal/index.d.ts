@@ -11,8 +11,6 @@ export interface ReactNativeModalProps {
      * Modal show animation
      *
      * @default 'slideInUp'
-     * @type {(SlidingEntrances | string)}
-     * @memberof ReactNativeModalProps
      */
     animationIn?: SlidingEntrances | string;
 
@@ -20,8 +18,6 @@ export interface ReactNativeModalProps {
      * Timing for the modal show animation (in ms)
      *
      * @default 300
-     * @type {number}
-     * @memberof ReactNativeModalProps
      */
     animationInTiming?: number;
 
@@ -29,8 +25,6 @@ export interface ReactNativeModalProps {
      * Modal hide animation
      *
      * @default 'slideOutDown'
-     * @type {(SlidingExits | string)}
-     * @memberof ReactNativeModalProps
      */
     animationOut?: SlidingExits | string;
 
@@ -38,8 +32,6 @@ export interface ReactNativeModalProps {
      * Timing for the modal hide animation (in ms)
      *
      * @default 300
-     * @type {number}
-     * @memberof ReactNativeModalProps
      */
     animationOutTiming?: number;
 
@@ -47,8 +39,6 @@ export interface ReactNativeModalProps {
      * Move the modal up if the keyboard is open
      *
      * @default false
-     * @type {boolean}
-     * @memberof ReactNativeModalProps
      */
     avoidKeyboard?: boolean;
 
@@ -56,8 +46,6 @@ export interface ReactNativeModalProps {
      * The backdrop background color
      *
      * @default 'black'
-     * @type {string}
-     * @memberof ReactNativeModalProps
      */
     backdropColor?: string;
 
@@ -65,8 +53,6 @@ export interface ReactNativeModalProps {
      * The backdrop opacity when the modal is visible
      *
      * @default 0.70
-     * @type {number}
-     * @memberof ReactNativeModalProps
      */
     backdropOpacity?: number;
 
@@ -74,8 +60,6 @@ export interface ReactNativeModalProps {
      * The backdrop show timing (in ms)
      *
      * @default 300
-     * @type {number}
-     * @memberof ReactNativeModalProps
      */
     backdropTransitionInTiming?: number;
 
@@ -83,16 +67,12 @@ export interface ReactNativeModalProps {
      * The backdrop hide timing (in ms)
      *
      * @default 300
-     * @type {number}
-     * @memberof ReactNativeModalProps
      */
     backdropTransitionOutTiming?: number;
 
     /**
      * The modal content
      *
-     * @type {(ReactNode[] | ReactNode)}
-     * @memberof ReactNativeModalProps
      */
     children: ReactNode[] | ReactNode;
 
@@ -100,8 +80,6 @@ export interface ReactNativeModalProps {
      * Show the modal?
      *
      * @default false
-     * @type {boolean}
-     * @memberof ReactNativeModalProps
      */
     isVisible: boolean;
 
@@ -109,7 +87,6 @@ export interface ReactNativeModalProps {
      * Style applied to the modal
      *
      * @default null
-     * @memberof ReactNativeModalProps
      */
     style?: ViewStyle[] | ViewStyle;
 
@@ -117,7 +94,6 @@ export interface ReactNativeModalProps {
      * Called when the modal is completely visible
      *
      * @default () => {}
-     * @memberof ReactNativeModalProps
      */
     onModalShow?(): void;
 
@@ -125,7 +101,6 @@ export interface ReactNativeModalProps {
      * Called when the modal is completely hidden
      *
      * @default () => {}
-     * @memberof ReactNativeModalProps
      */
     onModalHide?(): void;
 
@@ -133,7 +108,6 @@ export interface ReactNativeModalProps {
      * Called when the Android back button is pressed
      *
      * @default () => {}
-     * @memberof ReactNativeModalProps
      */
     onBackButtonPress?(): void;
 
@@ -141,7 +115,6 @@ export interface ReactNativeModalProps {
      * Called when the backdrop is pressed
      *
      * @default () => {}
-     * @memberof ReactNativeModalProps
      */
     onBackdropPress?(): void;
 }

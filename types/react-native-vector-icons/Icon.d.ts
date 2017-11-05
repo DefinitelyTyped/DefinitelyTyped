@@ -14,8 +14,6 @@ export interface IconProps extends TextProperties {
    * Size of the icon, can also be passed as fontSize in the style object.
    *
    * @default 12
-   * @type {string}
-   * @memberof IconProps
    */
   size?: number;
 
@@ -24,16 +22,12 @@ export interface IconProps extends TextProperties {
    *
    * See Icon Explorer app
    * {@link https://github.com/oblador/react-native-vector-icons/tree/master/Examples/IconExplorer}
-   * @type {string}
-   * @memberof IconProps
    */
   name: string;
 
   /**
    * Color of the icon
    *
-   * @type {string}
-   * @memberof IconProps
    */
   color?: string;
 }
@@ -44,8 +38,6 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
    * Use iconStyle or nest a Text component if you need different colors.
    *
    * @default 'white'
-   * @type {string}
-   * @memberof IconButtonProps
    */
   color?: string;
 
@@ -54,8 +46,6 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
    * Set to 0 to disable.
    *
    * @default 5
-   * @type {number}
-   * @memberof IconButtonProps
    */
   borderRadius?: number;
 
@@ -64,8 +54,6 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
    * Good for setting margins or a different color.
    *
    * @default {marginRight: 10}
-   * @type {ViewStyle}
-   * @memberof IconButtonProps
    */
   iconStyle?: ViewStyle;
 
@@ -73,8 +61,6 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
    * Style prop inherited from TextProperties and TouchableWithoutFeedbackProperties
    * Only exist here so we can have ViewStyle or TextStyle
    *
-   * @type {(ViewStyle | TextStyle)}
-   * @memberof IconButtonProps
    */
   style?: ViewStyle | TextStyle;
 
@@ -82,8 +68,6 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
    * Background color of the button
    *
    * @default '#007AFF'
-   * @type {string}
-   * @memberof IconButtonProps
    */
   backgroundColor?: string;
 }
@@ -95,8 +79,6 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
    * Name of the navigation logo icon
    * (similar to ToolbarAndroid logo)
    *
-   * @type {string}
-   * @memberof ToolbarAndroidProps
    */
   logoName: string;
 
@@ -104,8 +86,6 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
    * Name of the navigation icon
    * (similar to ToolbarAndroid navIcon)
    *
-   * @type {string}
-   * @memberof ToolbarAndroidProps
    */
   navIconName: string;
 
@@ -113,8 +93,6 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
    * Name of the overflow icon
    * (similar to ToolbarAndroid overflowIcon)
    *
-   * @type {string}
-   * @memberof ToolbarAndroidProps
    */
   overflowIconName: string;
 
@@ -122,8 +100,6 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
    * Size of the icons
    *
    * @default 24
-   * @type {number}
-   * @memberof ToolbarAndroidProps
    */
   iconSize: number;
 
@@ -131,8 +107,6 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
    * Color of the icons
    *
    * @default 'black'
-   * @type {string}
-   * @memberof ToolbarAndroidProps
    */
   iconColor: string;
 }
@@ -141,8 +115,6 @@ export interface TabBarItemIOSProps extends TabBarItemProperties {
   /**
    * Name of the default icon (similar to TabBarIOS.Item icon)
    *
-   * @type {string}
-   * @memberof TabBarIOSItemProps
    */
   iconName: string;
 
@@ -151,8 +123,6 @@ export interface TabBarItemIOSProps extends TabBarItemProperties {
    *
    * Defaults to iconName
    *
-   * @type {string}
-   * @memberof TabBarIOSItemProps
    */
   selectedIconName?: string;
 
@@ -160,16 +130,12 @@ export interface TabBarItemIOSProps extends TabBarItemProperties {
    * Size of the icon
    *
    * @default 30
-   * @type {number}
-   * @memberof TabBarIOSItemProps
    */
   iconSize?: number;
 
   /**
    * Color of the icon
    *
-   * @type {string}
-   * @memberof TabBarIOSItemProps
    */
   iconColor?: string;
 
@@ -178,8 +144,6 @@ export interface TabBarItemIOSProps extends TabBarItemProperties {
    *
    * Defaults to iconColor
    *
-   * @type {string}
-   * @memberof TabBarIOSItemProps
    */
   selectedIconColor?: string;
 }
@@ -187,8 +151,8 @@ export interface TabBarItemIOSProps extends TabBarItemProperties {
 export class Icon extends React.Component<IconProps, any> {
   static getImageSource(
     name: string,
-    color: string,
-    size?: number
+    size?: number,
+    color?: string,
   ): Promise<ImageSource>;
   static loadFont(
     file?: string

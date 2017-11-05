@@ -11,17 +11,17 @@ keymaps.defaultTarget = document.body;
 
 // Pass all the window's keydown events to the KeymapManager
 document.addEventListener("keydown", (event): void => {
-	keymaps.handleKeyboardEvent(event);
+    keymaps.handleKeyboardEvent(event);
 });
 
 // Add some keymaps. It can also be a directory of json / cson files.
 keymaps.loadKeymap("/path/to/keymap-file.json");
 // OR
 keymaps.add("/key/for/these/keymaps", {
-	body: {
-		up: "core:move-up",
-		down: "core:move-down",
-	},
+    body: {
+        up: "core:move-up",
+        down: "core:move-down",
+    },
 });
 
 // When a keybinding is triggered, it will dispatch it on the node that was focused
@@ -31,17 +31,17 @@ window.addEventListener("core:move-down", (event) => console.log("down", event))
 // General Usage ==============================================================
 const manager = new KeymapManager();
 manager.add("some/unique/path", {
-	".workspace": {
-		"ctrl-x": "package:do-something",
-		"ctrl-y": "package:do-something-else",
-	},
-	".test": {
-		enter: "core:confirm",
-	},
+    ".workspace": {
+        "ctrl-x": "package:do-something",
+        "ctrl-y": "package:do-something-else",
+    },
+    ".test": {
+        enter: "core:confirm",
+    },
 });
 
 manager.onDidMatchBinding((event): void => {
-	console.log(event.binding.command);
+    console.log(event.binding.command);
 });
 
 manager.destroy();
@@ -84,8 +84,8 @@ manager.handleKeyboardEvent(event);
 manager.keystrokeForKeyboardEvent(event);
 
 sub = manager.addKeystrokeResolver((event): string => {
-	event.layoutName;
-	return "Test";
+    event.layoutName;
+    return "Test";
 });
 
 const num: number = manager.getPartialMatchTimeout();

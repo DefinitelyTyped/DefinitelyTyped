@@ -3302,7 +3302,7 @@ class Example107 extends React.Component {
   private input: HTMLInputElement;
 
   render() {
-    return <Input type="file" getRef={(input) => { this.input = input; }} />;
+    return <Input type="file" innerRef={(input) => { this.input = input; }} />;
   }
 }
 

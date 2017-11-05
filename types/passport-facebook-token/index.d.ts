@@ -2,7 +2,7 @@
 // Project: https://github.com/drudge/passport-facebook-token
 // Definitions by: Ray Martone <https://github.com/rmartone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="passport"/>
 

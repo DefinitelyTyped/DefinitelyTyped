@@ -1,12 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
-        "max-line-length": [true, 490],
-        "no-unnecessary-callback-wrapper": false,
+        "max-line-length": [true, 280],
         "no-unnecessary-generics": false,
-        "no-void-expression": false,
-        "prefer-const": false,
-        "void-return": false
+        "prefer-const": false
     }
 }

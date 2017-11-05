@@ -428,7 +428,7 @@ declare module CANNON {
         angularVelocity?: Vec3;
         quaternion?: Quaternion;
         mass?: number;
-        material?: number;
+        material?: Material;
         type?: number;
         linearDamping?: number;
         angularDamping?: number;
@@ -478,7 +478,7 @@ declare module CANNON {
         interpolatedQuaternion: Quaternion;
         shapes: Shape[];
         shapeOffsets: any[];
-        shapeOrentiations: any[];
+        shapeOrientations: any[];
         inertia: Vec3;
         invInertia: Vec3;
         invInertiaWorld: Mat3;
@@ -735,7 +735,7 @@ declare module CANNON {
         vertices: Vec3[];
         worldVertices: Vec3[];
         worldVerticesNeedsUpdate: boolean;
-        faces: number[];
+        faces: number[][];
         faceNormals: Vec3[];
         uniqueEdges: Vec3[];
 
@@ -776,7 +776,7 @@ declare module CANNON {
 
     export class Heightfield extends Shape {
 
-        data: number[];
+        data: number[][];
         maxValue: number;
         minValue: number;
         elementSize: number;
@@ -930,7 +930,7 @@ declare module CANNON {
     }
 
     export class World extends EventTarget {
-
+        iterations: number;
         dt: number;
         allowSleep: boolean;
         contacts: ContactEquation[];
@@ -990,6 +990,10 @@ declare module CANNON {
 
         body: Body;
 
+    }
+
+    export interface ICollisionEvent extends IBodyEvent {
+        contact: any;
     }
 
 }
