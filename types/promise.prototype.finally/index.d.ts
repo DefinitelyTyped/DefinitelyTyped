@@ -10,7 +10,7 @@ declare global {
     }
 }
 
-export = promiseFinally;
+export default promiseFinally;
 
 declare function promiseFinally<T, U>(promise: Promise<T>, onFinally?: () => U | PromiseLike<U>): Promise<T>;
 declare namespace promiseFinally {
