@@ -13,7 +13,7 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped)
 // TypeScript Version: 2.2
 
 /************************************************
@@ -484,7 +484,7 @@ declare namespace NodeJS {
         setegid(id: number): void;
         setegid(id: string): void;
         getgroups(): number[];
-        setgroups(groups: (string | number)[]): void;
+        setgroups(groups: Array<string | number>): void;
         version: string;
         versions: ProcessVersions;
         config: {
