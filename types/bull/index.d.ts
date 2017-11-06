@@ -1,4 +1,4 @@
-// Type definitions for bull 3.3.5
+// Type definitions for bull 3.3
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -233,7 +233,7 @@ declare namespace Bull {
     failed: number;
     delayed: number;
   }
-  
+
   interface JobInformation {
     key: string;
     name: string;
