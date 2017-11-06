@@ -758,6 +758,10 @@ namespace util_tests {
         // util.promisify
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
+        var arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
+        var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
+        var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
+        var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
