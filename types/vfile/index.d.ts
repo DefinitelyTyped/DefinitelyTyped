@@ -3,7 +3,7 @@
 // Definitions by: bizen241 <https://github.com/bizen241>
 //                 Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types='node' />
 

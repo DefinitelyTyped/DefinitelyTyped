@@ -3,6 +3,7 @@
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Johnny Estilles <https://github.com/johnnyestilles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as t from 'babel-types';
 

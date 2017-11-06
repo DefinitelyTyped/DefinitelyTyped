@@ -2,7 +2,7 @@
 // Project: https://github.com/yohanboniface/Leaflet.Editable
 // Definitions by: Dominic Alie <https://github.com/dalie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as Leaflet from 'leaflet';
 

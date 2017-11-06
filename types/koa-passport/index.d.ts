@@ -2,6 +2,7 @@
 // Project: https://github.com/rkusa/koa-passport
 // Definitions by: horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 

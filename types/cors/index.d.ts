@@ -2,6 +2,7 @@
 // Project: https://github.com/troygoode/node-cors/
 // Definitions by: Mihhail Lapushkin <https://github.com/mihhail-lapushkin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 
 

@@ -2,7 +2,7 @@
 // Project: http://hexo.io/
 // Definitions by: segayuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import Promise = require('bluebird');
 import {
