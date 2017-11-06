@@ -1,6 +1,5 @@
 import { WrapOptions } from "../retry";
-import pr = require('promise-retry');
-const promiseRetry = pr.promiseRetry;
+import promiseRetry = require('promise-retry');
 
 // From sleep
 declare function sleep(milliseconds: number): Promise<void>;
