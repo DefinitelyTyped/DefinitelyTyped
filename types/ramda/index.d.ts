@@ -1201,7 +1201,6 @@ declare namespace R {
          * When applied, `g` returns the result of applying `f` to the arguments
          * provided initially followed by the arguments provided to `g`.
          */
-        partial(fn: (...a: any[]) => any, args: any[]): (...a: any[]) => any;
         partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
@@ -1209,7 +1208,6 @@ declare namespace R {
          * When applied, `g` returns the result of applying `f` to the arguments
          * provided to `g` followed by the arguments provided initially.
          */
-        partialRight(fn: (...a: any[]) => any, args: any[]): (...a: any[]) => any;
         partialRight<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
