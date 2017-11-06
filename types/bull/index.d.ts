@@ -3,6 +3,7 @@
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
+//                 Weeco <https://github.com/weeco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Redis from "ioredis";
@@ -107,7 +108,7 @@ declare namespace Bull {
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
      */
-    update(data: object): Promise<void>;
+    update(data: any): Promise<void>;
 
     /**
      * Removes a job from the queue and from any lists it may be included in.
@@ -286,7 +287,7 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      *
-     * concurrency: Bull will then call you handler in parallel respecting this max number.
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
     process(concurrency: number, callback: (job: Job) => void): Promise<any>;
 
@@ -301,7 +302,7 @@ declare namespace Bull {
      * Errors will be passed as a second argument to the "failed" event;
      * results, as a second argument to the "completed" event.
      *
-     * concurrency: Bull will then call you handler in parallel respecting this max number.
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
     process(concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
@@ -315,7 +316,7 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      *
-     * name: Bull will only call the handler if the job name matches
+     * @param name Bull will only call the handler if the job name matches
      */
     process(name: string, callback: (job: Job) => void): Promise<any>;
 
@@ -330,7 +331,7 @@ declare namespace Bull {
      * Errors will be passed as a second argument to the "failed" event;
      * results, as a second argument to the "completed" event.
      *
-     * name: Bull will only call the handler if the job name matches
+     * @param name Bull will only call the handler if the job name matches
      */
     process(name: string, callback: (job: Job, done: DoneCallback) => void): void;
 
@@ -344,8 +345,8 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      *
-     * name: Bull will only call the handler if the job name matches
-     * concurrency: Bull will then call you handler in parallel respecting this max number.
+     * @param name Bull will only call the handler if the job name matches
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
     process(name: string, concurrency: number, callback: (job: Job) => void): Promise<any>;
 
@@ -360,8 +361,8 @@ declare namespace Bull {
      * Errors will be passed as a second argument to the "failed" event;
      * results, as a second argument to the "completed" event.
      *
-     * name: Bull will only call the handler if the job name matches
-     * concurrency: Bull will then call you handler in parallel respecting this max number.
+     * @param name Bull will only call the handler if the job name matches
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
     process(name: string, concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
@@ -425,33 +426,33 @@ declare namespace Bull {
     /**
      * Returns a promise that will return an array with the active jobs between start and end.
      */
-    getActive(start?: number, end?: number) : Promise<Array<Job>>
+    getActive(start?: number, end?: number): Promise<Job[]>;
 
     /**
      * Returns a promise that will return an array with the delayed jobs between start and end.
      */
-    getDelayed(start?: number, end?: number) : Promise<Array<Job>>
+    getDelayed(start?: number, end?: number): Promise<Job[]>;
 
     /**
      * Returns a promise that will return an array with the completed jobs between start and end.
      */
-    getCompleted(start?: number, end?: number) : Promise<Array<Job>>
+    getCompleted(start?: number, end?: number): Promise<Job[]>;
 
     /**
      * Returns a promise that will return an array with the failed jobs between start and end.
      */
-    getFailed(start?: number, end?: number) : Promise<Array<Job>>
+    getFailed(start?: number, end?: number): Promise<Job[]>;
 
     /**
      * Returns JobInformation of repeatable jobs (ordered descending). Provide a start and/or an end
      * index to limit the number of results. Start defaults to 0, end to -1 and asc to false.
      */
-    getRepeatableJobs(start?: number, end?: number, asc?: boolean): Promise<Array<JobInformation>>
+    getRepeatableJobs(start?: number, end?: number, asc?: boolean): Promise<JobInformation[]>;
 
     /**
      * ???
      */
-    nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job>
+    nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job>;
 
     /**
      * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
@@ -510,9 +511,9 @@ declare namespace Bull {
     /**
      * Tells the queue remove all jobs created outside of a grace period in milliseconds.
      * You can clean the jobs with the following states: completed, waiting, active, delayed, and failed.
-     * @param {number} grace Grace period in milliseconds.
-     * @param {JobStatus} status Status of the job to clean. Values are completed, wait, active, delayed, and failed. Defaults to completed.
-     * @param {number} limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
+     * @param grace Grace period in milliseconds.
+     * @param status Status of the job to clean. Values are completed, wait, active, delayed, and failed. Defaults to completed.
+     * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
     clean(grace: number, status?: JobStatus, limit?: number): Promise<Job[]>;
 
