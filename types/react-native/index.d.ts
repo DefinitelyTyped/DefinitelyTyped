@@ -6821,11 +6821,12 @@ export interface LinkingIOSStatic {
 
 
 /**
+ * @Deprecated
  * NetInfo exposes info about online/offline status
  * @see https://facebook.github.io/react-native/docs/netinfo.html#content
  */
 
-export type DeprecatedConnectionType = "none" | "wifi" | "cell" | "unknown" |
+export type ConnectionType = "none" | "wifi" | "cell" | "unknown" |
     "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
     "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
     "MOBILE_IMS" | "MOBILE_CBS" | "WIFI_P2P" | "MOBILE_IA" | "MOBILE_EMERGENCY" |
@@ -6834,7 +6835,7 @@ export type DeprecatedConnectionType = "none" | "wifi" | "cell" | "unknown" |
 export type EffectiveConnectionType = "2g" | "3g" | "4g" | "unknown"
 
 export interface ConnectionInfo {
-    type: DeprecatedConnectionType
+    type: ConnectionType
     effectiveType: EffectiveConnectionType
 }
 
@@ -6844,7 +6845,7 @@ export interface NetInfoStatic {
      * This function is deprecated. Use `getConnectionInfo` instead. Returns a promise that
      * resolves with one of the deprecated connectivity types listed above.
      */
-    fetch: () => Promise<DeprecatedConnectionType>
+    fetch: () => Promise<ConnectionType>
 
     /**
      * Adds an event handler. Supported events:
@@ -6857,12 +6858,12 @@ export interface NetInfoStatic {
      *   the network status changes. The argument to the event handler is one of the deprecated
      *   connectivity types listed above.
      */
-    addEventListener: (eventName: string, listener: (result: ConnectionInfo | DeprecatedConnectionType) => void) => void
+    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void
 
     /**
      * Removes the listener for network status changes.
      */
-    removeEventListener: (eventName: string, listener: (result: ConnectionInfo | DeprecatedConnectionType) => void) => void
+    removeEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void
 
     /**
      * Returns a promise that resolves to an object with `type` and `effectiveType` keys
