@@ -1,4 +1,4 @@
-// Type definitions for geodesy 1.1
+// Type definitions for geodesy 1.2
 // Project: https://github.com/chrisveness/geodesy
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // 		   Gilbert Handy <https://github.com/HandyG52>
@@ -189,7 +189,7 @@ export class LatLonVectors {
     isBetween(point1: LatLonVectors, point2: LatLonVectors): boolean;
     enclosedBy(polygon: LatLonVectors[]): boolean;
     static areaOf(polygon: LatLonVectors[], radius?: number): number;
-    static meanOf(points: LatLonVectors[]): LatLonVectors;
+    static meanOf(points: ReadonlyArray<LatLonVectors>): LatLonVectors;
     equals(point: LatLonVectors): boolean;
     toString(format?: string, dp?: number): string;
   }
