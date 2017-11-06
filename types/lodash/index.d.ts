@@ -10158,7 +10158,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakMap(value?: any): value is WeakMap<any, any>;
+        isWeakMap(value?: any): value is WeakMap<object, any>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
