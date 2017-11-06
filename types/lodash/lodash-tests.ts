@@ -11188,6 +11188,12 @@ namespace TestPick {
     }
 
     {
+        let result: Pick<TResult, 'a' | 'b'>;
+        result = _.pick(obj, 'a', 'b');
+        result = _.pick(obj, ['a', 'b']);
+    }
+
+    {
         let result: _.LoDashImplicitWrapper<Partial<TResult>>;
 
         result = _(obj).pick<TResult>('a');
