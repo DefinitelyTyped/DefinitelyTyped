@@ -8,7 +8,7 @@ import * as Joi from 'joi';
 interface Spec {
     method: string;
     path: string|RegExp;
-    handler: (ctx: Koa.Context) => void;
+    handler: (ctx: createRouter.Context) => void;
     validate?: {
         type: string;
         body?: Joi.AnySchema;
@@ -27,6 +27,17 @@ interface createRouter {
     Joi: typeof Joi;
 }
 
-declare var create: createRouter;
+declare namespace createRouter {
+    interface Request extends Koa.Request {
+        body: any;
+        params: {[key: string]: string};
+    }
 
-export = create;
+    interface Context extends Koa.Context {
+        request: Request;
+    }
+}
+
+declare var createRouter: createRouter;
+
+export = createRouter;
