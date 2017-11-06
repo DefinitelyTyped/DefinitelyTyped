@@ -1620,19 +1620,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH);
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH);
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt');
     // returns
@@ -3075,11 +3063,11 @@ client.listbreakpoints((err, body, packet) => { });
 ////////////////////////////////////////////////////
 namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
-        init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
-        before: (asyncId: number) => void {},
-        after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {},
-        promiseResolve: (asyncId: number) => void {}
+        init() {},
+        before() {},
+        after() {},
+        destroy() {},
+        promiseResolve() {},
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -3346,7 +3334,8 @@ namespace http2_tests {
             settings,
             allowHTTP1: true
         };
-        let secureServerOptions: http2.SecureServerOptions = { ...serverOptions };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
         secureServerOptions.ca = '';
         let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
             // Http2ServerRequest
@@ -3443,7 +3432,8 @@ namespace http2_tests {
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
             settings
         };
-        let secureClientSessionOptions: http2.SecureClientSessionOptions = { ...clientSessionOptions };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
         secureClientSessionOptions.ca = '';
         let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
@@ -3696,8 +3686,9 @@ namespace inspector_tests {
         session.disconnect();
 
         // Unknown post method
-        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
-        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b', { key: 'value' }, (err, params) => {});
+        // TODO: parameters are implicitly 'any' and need type annotation
+        session.post('A.b', (err: Error | null, params?: {}) => {});
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
@@ -3710,7 +3701,9 @@ namespace inspector_tests {
         session.post('Runtime.evaluate');
 
         // General event
-        session.on('inspectorNotification', (message: inspector.InspectorNotification<object>) => {});
+        session.on('inspectorNotification', message => {
+            message; // $ExpectType InspectorNotification<{}>
+        });
         // Known events
         session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
             const method: string = message.method;
