@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "leaflet-polylinemeasure-tests.ts"
+        "leaflet.polylinemeasure-tests.ts"
     ]
 }
