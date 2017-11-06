@@ -56,7 +56,7 @@ export interface SocketOptions {
     zap_domain: number;
 }
 
-export interface Socket {
+export class Socket {
     /**
      * Set `opt` to `val`.
      *
