@@ -1,4 +1,4 @@
-import * as router from 'koa-joi-router';
+import router = require('koa-joi-router');
 
 const { Joi } = router;
 
