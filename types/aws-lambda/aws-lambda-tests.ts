@@ -69,6 +69,7 @@ var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResource
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
 str = apiGwEvtReqCtx.apiId;
+authResponseContext = apiGwEvtReqCtx.authorizer;
 str = apiGwEvtReqCtx.httpMethod;
 str = apiGwEvtReqCtx.identity.accessKey;
 str = apiGwEvtReqCtx.identity.accountId;

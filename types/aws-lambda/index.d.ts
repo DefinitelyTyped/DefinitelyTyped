@@ -16,6 +16,7 @@
 interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
+    authorizer?: AuthResponseContext | null | undefined;
     httpMethod: string;
     identity: {
         accessKey: string | null;
