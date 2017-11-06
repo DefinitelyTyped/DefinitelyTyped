@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "mysql": "^2.15.0"
-    }
-}
