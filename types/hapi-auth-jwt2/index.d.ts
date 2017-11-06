@@ -2,7 +2,7 @@
 // Project: https://github.com/dwyl/hapi-auth-jwt2
 // Definitions by: Warren Seymour <https://github.com/warrenseymour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { Request, Response, PluginFunction } from 'hapi';
 
