@@ -224,7 +224,7 @@ const thStyleExample = <BootstrapTable data={ products } search>
  */
 class ColumnHeaderSpanComplex extends React.Component {
   render() {
-    const options: Options<{}> = { exportCSVSeparator: '##' };
+    const options: Options = { exportCSVSeparator: '##' };
     return (
       <BootstrapTable data={products} insertRow deleteRow exportCSV options={options}>
         <TableHeaderColumn row={0} rowSpan={2} dataField='id' isKey={true} >ID</TableHeaderColumn>
@@ -566,7 +566,7 @@ class CustomPagination extends React.Component {
   )
 
   render() {
-    const options: Options<{}> = {
+    const options: Options = {
       paginationPanel: this.renderPagination
     };
 
@@ -973,7 +973,7 @@ class CustomButtonGroup extends React.Component {
   }
 
   render() {
-    const selectRow: SelectRow<{}> = {
+    const selectRow: SelectRow = {
       mode: 'checkbox',
       showOnlySelected: true
     };
