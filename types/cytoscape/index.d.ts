@@ -978,7 +978,7 @@ declare namespace cytoscape {
          * An analogue to run a layout on a subset of the graph exists as eles.layout().
          * http://js.cytoscape.org/#cy.layout
          */
-        layout(layout: LayoutOptions): void;
+        layout(layout: LayoutOptions): LayoutManipulation;
         /**
          * Get a new layout, which can be used to algorithmically
          * position the nodes in the graph.
@@ -991,7 +991,7 @@ declare namespace cytoscape {
          * Note that you must call layout.run() in order for it to affect the graph.
          * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
          */
-        makeLayout(options: LayoutOptions): void;
+        makeLayout(options: LayoutOptions): LayoutManipulation;
     }
 
     /**
