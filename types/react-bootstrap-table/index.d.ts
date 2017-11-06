@@ -1,6 +1,6 @@
-// Type definitions for react-bootstrap-table 2.6
+// Type definitions for react-bootstrap-table 4.1
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>, Josué Us <https://github.com/UJosue10>
+// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>, Josué Us <https://github.com/UJosue10>, Oscar Andersson <https://github.com/Ogglas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -330,7 +330,7 @@ export interface Options {
 	/**
 	 * You can change the dropdown list for size per page if you enable pagination.
 	 */
-	sizePerPageList?: number[];
+	sizePerPageList?: number[] | Array<{ text: string, value: number }>;
 	/**
 	 * Means the size per page you want to locate as default.
 	 */
@@ -456,6 +456,9 @@ export interface Options {
 	 *
 	 */
 	onpageChange?: (page: any, sizePerPage: number) => any;
+
+	// default is bottom, top and both is all available
+	paginationPosition?: 'top' | 'bottom' | 'both';
 }
 
 interface FetchInfo {
