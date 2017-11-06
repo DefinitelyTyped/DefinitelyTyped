@@ -10183,7 +10183,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakSet<T>(value?: any): value is WeakSet<T>;
+        isWeakSet<T extends object>(value?: any): value is WeakSet<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
