@@ -35,6 +35,18 @@ interface ITestDefinition {
 }
 declare const it: ITestDefinition;
 
+// Adapted from lib.d.ts
+interface Console {
+    assert(test?: boolean, message?: string, ...optionalParams: any[]): void;
+    error(message?: any, ...optionalParams: any[]): void;
+    log(message?: any, ...optionalParams: any[]): void;
+}
+declare var Console: {
+    prototype: Console;
+    new(): Console;
+};
+declare var console: Console;
+
 
 describe("Promise-retry tests", function(){
     it('should allow params to be input either way round', function(){
@@ -46,32 +58,41 @@ describe("Promise-retry tests", function(){
 
                 return Promise.resolve()
                 .then(() => {
+                    console.log("Count in then()", count);
                     if (count > 1) return Promise.resolve('final');
                     else return Promise.reject(new Error('arbitrary excuse to retry'));
                 })
                 .catch((err: any) => {
+                    console.log("Count in catch()", count);
                     if (count > 1) return Promise.resolve('final');
                     else return retryCb(err);
                 });
             },
             {forever: true, factor: 1, minTimeout: 0, maxTimeout: 30, randomize: false}
-        );
+        )
+        .then((value: any) => console.log("Finished with value ", value))
+        .catch((err: any) => console.error(err.message || err));
 
         promiseRetry(
             {forever: true, factor: 1, minTimeout: 0, maxTimeout: 30, randomize: false},
             (retryCb, attemptNumber) => {
-            count += 1;
+                count += 1;
 
-            return Promise.resolve()
-            .then(() => {
-                if (count > 1) return Promise.resolve('final');
-                else return Promise.reject(new Error('arbitrary excuse to retry'));
-            })
-            .catch((err: any) => {
-                if (count > 1) return Promise.resolve('final');
-                else return retryCb(err);
-            });
-        });
+                return Promise.resolve()
+                .then(() => {
+                    console.log("Count in then()", count);
+                    if (count > 1) return Promise.resolve('final');
+                    else return Promise.reject(new Error('arbitrary excuse to retry'));
+                })
+                .catch((err: any) => {
+                    console.log("Count in catch()", count);
+                    if (count > 1) return Promise.resolve('final');
+                    else return retryCb(err);
+                });
+            }
+        )
+        .then((value: any) => console.log("Finished with value ", value))
+        .catch((err: any) => console.error(err.message || err));
     });
 
     it('should call fn again if retry was called', function(done){
@@ -82,12 +103,12 @@ describe("Promise-retry tests", function(){
 
             return sleep(10)
             .then(() => {
-                // console.log("Count in then(): " + count);
+                console.log("Count in then(): " + count);
                 if (count > 1) return Promise.resolve('final');
                 else return Promise.reject(new Error('arbitrary excuse to retry'));
             })
             .catch((err: any) => {
-                // console.log("Count in catch(): " + count);
+                console.log("Count in catch(): " + count);
                 if (count > 1) return Promise.resolve('final');
                 else return retryCb(err);
             });
