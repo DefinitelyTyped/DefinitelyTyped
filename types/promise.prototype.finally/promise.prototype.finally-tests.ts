@@ -1,4 +1,4 @@
-import promiseFinally = require('promise.prototype.finally');
+import promiseFinally from 'promise.prototype.finally';
 
 promiseFinally.shim();
 
@@ -19,14 +19,14 @@ const rejected = Promise.reject(-1);
 
 let num: number;
 promiseFinally(resolved, () => Promise.resolve(true))
-  .then(x => num = x);
+  .then((x: number) => num = x);
 
 promiseFinally(resolved, () => <PromiseLike<boolean>> Promise.resolve(true))
-  .then(x => num = x);
+  .then((x: number) => num = x);
 
 promiseFinally(rejected, () => false)
-  .catch(e => num = e);
+  .catch((e: number) => num = e);
 
 let bool: boolean;
-promiseFinally(rejected, () => {throw false; })
-  .catch(e => bool = e);
+promiseFinally(rejected, () => { throw false; })
+  .catch((e: boolean) => bool = e);
