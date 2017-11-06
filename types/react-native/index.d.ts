@@ -6821,11 +6821,11 @@ export interface LinkingIOSStatic {
 
 
 /**
- * @Deprecated
  * NetInfo exposes info about online/offline status
  * @see https://facebook.github.io/react-native/docs/netinfo.html#content
  */
 
+// @Deprecated ConnectionType
 export type ConnectionType = "none" | "wifi" | "cell" | "unknown" |
     "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
     "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
