@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-table 4.0
+// Type definitions for react-bootstrap-table 4.1
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
@@ -351,15 +351,15 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
 	 * Enable row selection on table. SelectRow accept an object.
 	 */
-	selectRow?: SelectRow<any>;
+	selectRow?: SelectRow;
 	/**
 	 * Enable cell editing on table. cellEdit accept an object which have the following properties
 	 */
-	cellEdit?: CellEdit<any>;
+	cellEdit?: CellEdit;
 	/**
 	 * For some options setting on this component, you can set the options attribute and give an object which contain following properties
 	 */
-	options?: Options<any>;
+	options?: Options;
 	/**
 	 * Used to specify the total number of rows (matching current filter/sort/size per page) in a remote data source.
 	 * Documented in examples, but missing from the main docs. Essential for remote data pagination calculations.
@@ -428,7 +428,7 @@ export interface FooterData {
 	formatter?(tableData: any[]): string | number | ReactElement<any>;
 }
 
-export interface SelectRow<TRow extends object> {
+export interface SelectRow<TRow extends object = any> {
 	/**
 	 * Specify whether the selection column uses single(radio) or multiple(checkbox) selection modes. Required.
 	 */
@@ -516,7 +516,7 @@ export interface SelectRow<TRow extends object> {
  * react-bootstrap-table supports cell editing. When you enable this feature, react-bootstrap-table will make
  * the target cell editable by either clicking or dbclicking (depending on the properties you set).
  */
-export interface CellEdit<TRow extends object> {
+export interface CellEdit<TRow extends object = any> {
 	/**
 	 * Spectify which condition will trigger cell editing.(click or dbclick). Required.
 	 */
@@ -560,7 +560,7 @@ export interface CellEdit<TRow extends object> {
 /**
  * Main Options for the Bootstrap Table.
  */
-export interface Options<TRow extends object> {
+export interface Options<TRow extends object = any> {
 	/**
 	 * Provide the name of the column that should be sorted by.
 	 * If multi-column sort is active, this is an array of columns.
@@ -1193,9 +1193,14 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 */
 	tdAttr?: CustomAttrs;
 	/**
-	 * Allow you to add your custom style object on TD element.
+	 * Allow you to add your custom style object on TD element. Accepts either a CSS Properties object, or
+	 * a function that takes 4 arguments and returns a CSS Properties object. These arguments are:
+	 *   `cell`: The current cell value
+	 *   `row`: The current row data
+	 *   `rowIndex`: Index number for the current row data in the input data array.
+	 *   `columnIndex`: Index number for the current column that the cell is in.
 	 */
-	tdStyle?: CSSProperties;
+	tdStyle?: CSSProperties | ((cell: any, row: any, rowIndex: number, columnIndex: number) => CSSProperties);
 	/**
 	 * Allow you to add your custom style object on TH element.
 	 */
@@ -1372,7 +1377,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 */
 	customInsertEditor?: {
 		getElement(
-			column: InsertModalColumnDescription<any>,
+			column: InsertModalColumnDescription,
 			attr: EditableAttrs,
 			editorClass: string,
 			ignoreEditable: boolean,
@@ -1910,7 +1915,7 @@ export interface CustomSelectProps {
  * react-bootstrap-table source code to check what properties actually get passed to the
  * onSearchChange callback function.
  */
-export interface ColumnDescription<TRow extends object> {
+export interface ColumnDescription<TRow extends object = any> {
 	/**
 	 * Name of the column.
 	 * Comes from TableHeader.dataField property.
@@ -2388,7 +2393,7 @@ export interface SearchFieldInterface {
 /**
  * Modal Column data passed to Options.insertModal and Options.insertModalBody.
  */
-export interface InsertModalColumnDescription<TRow extends object> {
+export interface InsertModalColumnDescription<TRow extends object = any> {
 	/**
 	 * Flag to indicate that this is the key field for the column. It is only present if there is more than
 	 * one column in the table.
@@ -2530,7 +2535,7 @@ export interface InsertModalFooterProps {
 /**
  * Interface that must be implemented by a custom insert modal body component.
  */
-export interface ModalBodyInterface<TRow extends object> {
+export interface ModalBodyInterface<TRow extends object = any> {
 	/**
 	 * The required getFieldValue method that must be implemented on a customized insert modal body that returns the
 	 * new row data when the save button is clicked in the modal window.
