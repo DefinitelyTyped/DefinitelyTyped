@@ -38,9 +38,10 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 /// Global Tests : https://nodejs.org/api/global.html  ///
 //////////////////////////////////////////////////////////
 namespace global_tests {
+    declare let x: NodeModule;
+    declare let y: NodeModule;
+
     {
-        let x: NodeModule;
-        let y: NodeModule;
         x.children.push(y);
         x.parent = require.main;
         require.main = y;
@@ -94,10 +95,10 @@ namespace assert_tests {
 ////////////////////////////////////////////////////
 
 namespace events_tests {
-    let emitter: events.EventEmitter;
-    let event: string | symbol;
-    let listener: (...args: any[]) => void;
-    let any: any;
+    declare let emitter: events.EventEmitter;
+    declare let event: string | symbol;
+    declare let listener: (...args: any[]) => void;
+    declare let any: any;
 
     {
         let result: events.EventEmitter;
@@ -192,11 +193,11 @@ namespace fs_tests {
     }
 
     {
-        var content: string;
-        var buffer: Buffer;
-        var stringOrBuffer: string | Buffer;
-        var nullEncoding: string | null = null;
-        var stringEncoding: string | null = 'utf8';
+        let content: string;
+        let buffer: Buffer;
+        let stringOrBuffer: string | Buffer;
+        let nullEncoding: string | null = null;
+        let stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
@@ -226,7 +227,7 @@ namespace fs_tests {
     }
 
     {
-        var errno: number;
+        let errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
                 errno = err.errno;
@@ -242,7 +243,7 @@ namespace fs_tests {
     }
 
     {
-        var tempDir: string;
+        let tempDir: string;
         tempDir = fs.mkdtempSync('/tmp/foo-');
     }
 
@@ -283,8 +284,8 @@ namespace fs_tests {
     }
 
     {
-        let s: string;
-        let b: Buffer;
+        let s: string = "";
+        let b: Buffer = new Buffer(0);
         fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
         fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
         fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
@@ -312,8 +313,8 @@ namespace fs_tests {
     }
 
     {
-        let s: string;
-        let b: Buffer;
+        let s: string = "";
+        let b: Buffer = new Buffer(0);
         fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
         fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
         fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
@@ -356,18 +357,18 @@ namespace fs_tests {
 ///////////////////////////////////////////////////////
 
 function bufferTests() {
-    var utf8Buffer = new Buffer('test');
-    var base64Buffer = new Buffer('', 'base64');
-    var octets: Uint8Array = null;
-    var octetBuffer = new Buffer(octets);
-    var sharedBuffer = new Buffer(octets.buffer);
-    var copiedBuffer = new Buffer(utf8Buffer);
+    let utf8Buffer = new Buffer('test');
+    let base64Buffer = new Buffer('', 'base64');
+    let octets: Uint8Array = null!;
+    let octetBuffer = new Buffer(octets);
+    let sharedBuffer = new Buffer(octets.buffer);
+    let copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
     console.log(Buffer.byteLength('xyz123', 'ascii'));
-    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+    let result1 = Buffer.concat([utf8Buffer, base64Buffer]);
+    let result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 
     // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
     {
@@ -434,15 +435,15 @@ function bufferTests() {
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
-    var a: Buffer | number;
+    let a: Buffer | number;
     a = new Buffer(10);
     if (Buffer.isBuffer(a)) {
         a.writeUInt8(3, 4);
     }
 
     // write* methods return offsets.
-    var b = new Buffer(16);
-    var result: number = b.writeUInt32LE(0, 0);
+    let b = new Buffer(16);
+    let result: number = b.writeUInt32LE(0, 0);
     result = b.writeUInt16LE(0, 4);
     result = b.writeUInt8(0, 6);
     result = b.writeInt8(0, 7);
@@ -556,7 +557,7 @@ namespace url_tests {
     }
 
     {
-        var helloUrl = url.parse('http://example.com/?hello=world', true);
+        let helloUrl = url.parse('http://example.com/?hello=world', true);
         if (typeof helloUrl.query !== 'string') {
             assert.equal(helloUrl.query.hello, 'world');
         }
@@ -734,14 +735,14 @@ namespace util_tests {
             }
 
             static test(): void {
-                var cfn = util.callbackify(this.fn);
-                var cfnE = util.callbackify(this.fnE);
-                var cfnT1 = util.callbackify(this.fnT1);
-                var cfnT1E = util.callbackify(this.fnT1E);
-                var cfnTResult = util.callbackify(this.fnTResult);
-                var cfnTResultE = util.callbackify(this.fnTResultE);
-                var cfnT1TResult = util.callbackify(this.fnT1TResult);
-                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                let cfn = util.callbackify(this.fn);
+                let cfnE = util.callbackify(this.fnE);
+                let cfnT1 = util.callbackify(this.fnT1);
+                let cfnT1E = util.callbackify(this.fnT1E);
+                let cfnTResult = util.callbackify(this.fnTResult);
+                let cfnTResultE = util.callbackify(this.fnTResultE);
+                let cfnT1TResult = util.callbackify(this.fnT1TResult);
+                let cfnT1TResultE = util.callbackify(this.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -756,8 +757,8 @@ namespace util_tests {
         callbackifyTest.test();
 
         // util.promisify
-        var readPromised = util.promisify(fs.readFile);
-        var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
+        let readPromised = util.promisify(fs.readFile);
+        let sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -774,10 +775,10 @@ namespace util_tests {
 
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
-    var rs = fs.createReadStream(Buffer.from('file.txt'));
-    var r = fs.createReadStream('file.txt');
-    var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
-    var w = fs.createWriteStream('file.txt.gz');
+    let rs = fs.createReadStream(Buffer.from('file.txt'));
+    let r = fs.createReadStream('file.txt');
+    let z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
+    let w = fs.createWriteStream('file.txt.gz');
 
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
@@ -793,36 +794,37 @@ function stream_readable_pipe_test() {
 const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";
 
-zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, (err: Error | null, result: Buffer) => zlib.inflate(result, (err: Error | null, result: Buffer) => result));
+zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
+zlib.deflate(compressMeString, (err: Error | null, result: Buffer) => zlib.inflate(result, (err: Error | null, result: Buffer) => result));
+zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
-zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
-zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
-zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, (err: Error | null, result: Buffer) => zlib.gunzip(result, (err: Error | null, result: Buffer) => result));
+zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
-zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
-zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result);
+zlib.unzip(compressMe, (err: Error | null, result: Buffer) => result);
+zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result);
 const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
     new stream.Readable({
         read(size) {
-            size.toFixed();
+            if (size) { size.toFixed(); }
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            if (error) { error.stack; }
+            cb(error);
         }
     });
 
@@ -837,8 +839,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            if (error) { error.stack; }
+            cb(error);
         },
         final(cb) {
             cb(null);
@@ -847,7 +850,7 @@ function simplified_stream_ctor_test() {
 
     new stream.Duplex({
         read(size) {
-            size.toFixed();
+            if (size) { size.toFixed(); }
         },
         write(chunk, enc, cb) {
             chunk.slice(1);
@@ -873,7 +876,7 @@ function simplified_stream_ctor_test() {
             cb();
         },
         read(size) {
-            size.toFixed();
+            if (size) { size.toFixed(); }
         },
         write(chunk, enc, cb) {
             chunk.slice(1);
@@ -885,8 +888,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            if (error) { error.stack; }
+            cb(error);
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -900,7 +904,7 @@ function simplified_stream_ctor_test() {
 
 namespace crypto_tests {
     {
-        var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+        let hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
     }
 
     {
@@ -982,25 +986,25 @@ namespace crypto_tests {
 
 namespace tls_tests {
     {
-        var ctx: tls.SecureContext = tls.createSecureContext({
+        let ctx: tls.SecureContext = tls.createSecureContext({
             key: "NOT REALLY A KEY",
             cert: "SOME CERTIFICATE",
         });
-        var blah = ctx.context;
+        let blah = ctx.context;
 
-        var connOpts: tls.ConnectionOptions = {
+        let connOpts: tls.ConnectionOptions = {
             host: "127.0.0.1",
             port: 55
         };
-        var tlsSocket = tls.connect(connOpts);
+        let tlsSocket = tls.connect(connOpts);
 
         const ciphers: string[] = tls.getCiphers();
         const curve: string = tls.DEFAULT_ECDH_CURVE;
     }
 
     {
-        let _server: tls.Server;
-        let _boolean: boolean;
+        let _server: tls.Server = undefined!;
+        let _boolean: boolean = true;
         let _func1 = (err: Error, resp: Buffer) => { };
         let _func2 = (err: Error, sessionData: any) => { };
         /**
@@ -1034,11 +1038,11 @@ namespace tls_tests {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
 
-        let _err: Error;
-        let _tlsSocket: tls.TLSSocket;
+        let _err: Error = new Error();
+        let _tlsSocket: tls.TLSSocket = undefined!;
         let _any: any;
-        let _func: Function;
-        let _buffer: Buffer;
+        let _func: Function = () => {};
+        let _buffer: Buffer = new Buffer(0);
         _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
         _boolean = _server.emit("newSession", _any, _any, _func1);
         _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
@@ -1143,8 +1147,8 @@ namespace tls_tests {
     }
 
     {
-        let _TLSSocket: tls.TLSSocket;
-        let _boolean: boolean;
+        let _TLSSocket: tls.TLSSocket = undefined!;
+        let _boolean: boolean = true;
         /**
          * events.EventEmitter
          * 1. close
@@ -1158,7 +1162,7 @@ namespace tls_tests {
         });
         _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
 
-        let _buffer: Buffer;
+        let _buffer: Buffer = new Buffer(0);
         _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
         _boolean = _TLSSocket.emit("secureConnect");
 
@@ -1191,7 +1195,7 @@ namespace tls_tests {
 namespace http_tests {
     // http Server
     {
-        var server: http.Server = new http.Server();
+        let server: http.Server = new http.Server();
 
         // test public props
         const maxHeadersCount: number = server.maxHeadersCount;
@@ -1205,7 +1209,7 @@ namespace http_tests {
     // http ServerResponse
     {
         // incoming
-        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
+        let incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
 
         incoming.setEncoding('utf8');
 
@@ -1214,12 +1218,12 @@ namespace http_tests {
         incoming.resume();
 
         // response
-        var res: http.ServerResponse = new http.ServerResponse(incoming);
+        let res: http.ServerResponse = new http.ServerResponse(incoming);
 
         // test headers
         res.setHeader('Content-Type', 'text/plain');
-        var bool: boolean = res.hasHeader('Content-Type');
-        var headers: string[] = res.getHeaderNames();
+        let bool: boolean = res.hasHeader('Content-Type');
+        let headers: string[] = res.getHeaderNames();
 
         // trailers
         res.addTrailers([
@@ -1239,7 +1243,7 @@ namespace http_tests {
         res.write('Part of my res.');
         // write buffer
         const chunk = Buffer.alloc(16390, 'Й');
-        req.write(chunk);
+        res.write(chunk);
         res.write(chunk, 'hex');
 
         // end
@@ -1253,14 +1257,15 @@ namespace http_tests {
 
     // http ClientRequest
     {
-        var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
-        var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
-        var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
+        let req: http.ClientRequest = undefined!;
+        req = new http.ClientRequest("https://www.google.com");
+        req = new http.ClientRequest(new url.URL("https://www.google.com"));
+        req = new http.ClientRequest({ path: 'http://0.0.0.0' });
 
         // header
         req.setHeader('Content-Type', 'text/plain');
-        var bool: boolean = req.hasHeader('Content-Type');
-        var headers: string[] = req.getHeaderNames();
+        let bool: boolean = req.hasHeader('Content-Type');
+        let headers: string[] = req.getHeaderNames();
         req.removeHeader('Date');
 
         // write
@@ -1281,19 +1286,22 @@ namespace http_tests {
 
     {
         // Status codes
-        var codeMessage = http.STATUS_CODES['400'];
-        var codeMessage = http.STATUS_CODES[400];
+        let codeMessage: string|undefined;
+        codeMessage = http.STATUS_CODES['400'];
+        codeMessage = http.STATUS_CODES[400];
     }
 
     {
-        var agent: http.Agent = new http.Agent({
+        let agent: http.Agent = undefined!;
+
+        agent = new http.Agent({
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
             maxFreeSockets: 256
         });
 
-        var agent: http.Agent = http.globalAgent;
+        agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent });
@@ -1311,7 +1319,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request({ path: 'http://0.0.0.0' });
+        let request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', () => { });
         request.setNoDelay(true);
         request.abort();
@@ -1327,7 +1335,9 @@ namespace http_tests {
 //////////////////////////////////////////////////////
 
 namespace https_tests {
-    var agent: https.Agent = new https.Agent({
+    let agent: https.Agent = undefined!;
+
+    agent = new https.Agent({
         keepAlive: true,
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
@@ -1335,7 +1345,7 @@ namespace https_tests {
         maxCachedSessions: 100
     });
 
-    var agent: https.Agent = https.globalAgent;
+    agent = https.globalAgent;
 
     https.request({
         agent: false
@@ -1364,8 +1374,8 @@ namespace https_tests {
 ////////////////////////////////////////////////////
 
 namespace tty_tests {
-    let rs: tty.ReadStream;
-    let ws: tty.WriteStream;
+    let rs: tty.ReadStream = undefined!;
+    let ws: tty.WriteStream = undefined!;
 
     let rsIsRaw: boolean = rs.isRaw;
     rs.setRawMode(true);
@@ -1382,7 +1392,7 @@ namespace tty_tests {
 
 namespace dgram_tests {
     {
-        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+        let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
         });
         ds.bind();
         ds.bind(41234);
@@ -1390,8 +1400,8 @@ namespace dgram_tests {
         ds.bind(4123, 'localhost', () => { });
         ds.bind(4123, () => { });
         ds.bind(() => { });
-        var ai: dgram.AddressInfo = ds.address();
-        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+        let ai: dgram.AddressInfo = ds.address();
+        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error | null, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
         ds.setMulticastInterface("127.0.0.1");
@@ -1399,11 +1409,11 @@ namespace dgram_tests {
     }
 
     {
-        let _socket: dgram.Socket;
-        let _boolean: boolean;
-        let _err: Error;
-        let _str: string;
-        let _rinfo: dgram.AddressInfo;
+        let _socket: dgram.Socket = undefined!;
+        let _boolean: boolean = true;
+        let _err: Error = new Error();
+        let _str: string = "";
+        let _rinfo: dgram.AddressInfo = undefined!;
         /**
          * events.EventEmitter
          * 1. close
@@ -1491,10 +1501,10 @@ namespace querystring_tests {
     interface SampleObject { a: string; b: number; }
 
     {
-        let obj: SampleObject;
-        let sep: string;
-        let eq: string;
-        let options: querystring.StringifyOptions;
+        let obj: SampleObject = { a: '123', b: 123 };
+        let sep: string = '';
+        let eq: string = '';
+        let options: querystring.StringifyOptions = {};
         let result: string;
 
         result = querystring.stringify<SampleObject>(obj);
@@ -1505,10 +1515,10 @@ namespace querystring_tests {
     }
 
     {
-        let str: string;
-        let sep: string;
-        let eq: string;
-        let options: querystring.ParseOptions;
+        let str: string = '';
+        let sep: string = '';
+        let eq: string = '';
+        let options: querystring.ParseOptions = {};
         let result: SampleObject;
 
         result = querystring.parse<SampleObject>(str);
@@ -1518,7 +1528,7 @@ namespace querystring_tests {
     }
 
     {
-        let str: string;
+        let str: string = '';
         let result: string;
 
         result = querystring.escape(str);
@@ -1666,14 +1676,14 @@ namespace path_tests {
 ////////////////////////////////////////////////////
 
 namespace readline_tests {
-    let rl: readline.ReadLine;
+    let rl: readline.ReadLine = undefined!;
 
     {
-        let options: readline.ReadLineOptions;
-        let input: NodeJS.ReadableStream;
-        let output: NodeJS.WritableStream;
-        let completer: readline.Completer;
-        let terminal: boolean;
+        let options: readline.ReadLineOptions = undefined!;
+        let input: NodeJS.ReadableStream = undefined!;
+        let output: NodeJS.WritableStream = undefined!;
+        let completer: readline.Completer = undefined!;
+        let terminal: boolean = true;
 
         let result: readline.ReadLine;
 
@@ -1697,21 +1707,21 @@ namespace readline_tests {
     }
 
     {
-        let prompt: string;
+        let prompt: string = '';
 
         rl.setPrompt(prompt);
     }
 
     {
-        let preserveCursor: boolean;
+        let preserveCursor: boolean = true;
 
         rl.prompt();
         rl.prompt(preserveCursor);
     }
 
     {
-        let query: string;
-        let callback: (answer: string) => void;
+        let query: string = '';
+        let callback = (answer: string) => {};
 
         rl.question(query, callback);
     }
@@ -1733,54 +1743,54 @@ namespace readline_tests {
     }
 
     {
-        let data: string | Buffer;
-        let key: readline.Key;
+        let data: string | Buffer = '';
+        let key: readline.Key = undefined!;
 
         rl.write(data);
         rl.write(null, key);
     }
 
     {
-        let stream: NodeJS.WritableStream;
-        let x: number;
-        let y: number;
+        let stream: NodeJS.WritableStream = undefined!;
+        let x: number = 1;
+        let y: number = 1;
 
         readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
     }
 
     {
-        let stream: NodeJS.ReadableStream;
-        let readLineInterface: readline.ReadLine;
+        let stream: NodeJS.ReadableStream = undefined!;
+        let readLineInterface: readline.ReadLine = undefined!;
 
         readline.emitKeypressEvents(stream);
         readline.emitKeypressEvents(stream, readLineInterface);
     }
 
     {
-        let stream: NodeJS.WritableStream;
-        let dx: number | string;
-        let dy: number | string;
+        let stream: NodeJS.WritableStream = undefined!;
+        let dx: number | string = 1;
+        let dy: number | string = 1;
 
         readline.moveCursor(stream, dx, dy);
     }
 
     {
-        let stream: NodeJS.WritableStream;
-        let dir: number;
+        let stream: NodeJS.WritableStream = undefined!;
+        let dir: number = 1;
 
         readline.clearLine(stream, dir);
     }
 
     {
-        let stream: NodeJS.WritableStream;
+        let stream: NodeJS.WritableStream = undefined!;
 
         readline.clearScreenDown(stream);
     }
 
     {
-        let _rl: readline.ReadLine;
-        let _boolean: boolean;
+        let _rl: readline.ReadLine = undefined!;
+        let _boolean: boolean = true;
 
         _rl = _rl.addListener("close", () => { });
         _rl = _rl.addListener("line", (input) => {
@@ -1887,9 +1897,9 @@ namespace child_process_tests {
     }
 
     {
-        let _cp: childProcess.ChildProcess;
-        let _socket: net.Socket;
-        let _server: net.Server;
+        let _cp: childProcess.ChildProcess = undefined!;
+        let _socket: net.Socket = undefined!;
+        let _server: net.Server = undefined!;
         let _boolean: boolean;
 
         _boolean = _cp.send(1);
@@ -2137,7 +2147,7 @@ namespace cluster_tests {
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
-            const worker = cluster.workers[key];
+            const worker = cluster.workers[key]!;
             if (worker.isDead()) {
                 console.log('worker %d is dead', worker.process.pid);
             }
@@ -2350,7 +2360,7 @@ namespace vm_tests {
 
         console.log(util.inspect(sandboxes));
 
-        var localVar = 'initial value';
+        let localVar = 'initial value';
         vm.runInThisContext('localVar = "vm";');
 
         console.log(localVar);
@@ -2417,17 +2427,17 @@ namespace errors_tests {
 import * as p from "process";
 namespace process_tests {
     {
-        var eventEmitter: events.EventEmitter;
+        let eventEmitter: events.EventEmitter;
         eventEmitter = process;                // Test that process implements EventEmitter...
 
-        var _p: NodeJS.Process = process;
+        let _p: NodeJS.Process = process;
         _p = p;
     }
     {
         assert(process.argv[0] === process.argv0);
     }
     {
-        var module: NodeModule | undefined;
+        let module: NodeModule | undefined;
         module = process.mainModule;
     }
     {
@@ -2457,12 +2467,12 @@ namespace process_tests {
 import * as c from "console";
 namespace console_tests {
     {
-        var _c: Console = console;
+        let _c: Console = console;
         _c = c;
     }
     {
-        var writeStream = fs.createWriteStream('./index.d.ts');
-        var consoleInstance = new console.Console(writeStream);
+        let writeStream = fs.createWriteStream('./index.d.ts');
+        let consoleInstance = new console.Console(writeStream);
     }
 }
 
@@ -2524,11 +2534,11 @@ namespace net_tests {
          */
         let _socket: net.Socket = new net.Socket(constructorOpts);
 
-        let bool: boolean;
-        let buffer: Buffer;
-        let error: Error;
-        let str: string;
-        let num: number;
+        let bool: boolean = true;
+        let buffer: Buffer = new Buffer(0);
+        let error: Error = new Error();
+        let str: string = '';
+        let num: number = 1;
 
         let ipcConnectOpts: net.IpcSocketConnectOpts = {
             path: "/"
@@ -2708,11 +2718,11 @@ namespace net_tests {
          *   3. error
          *   4. listening
          */
-        let _server: net.Server;
+        let _server: net.Server = undefined!;
 
-        let _socket: net.Socket;
-        let bool: boolean;
-        let error: Error;
+        let _socket: net.Socket = undefined!;
+        let bool: boolean = true;
+        let error: Error = new Error();
 
         /// addListener
         _server = _server.addListener("close", () => { });
@@ -2768,7 +2778,7 @@ namespace net_tests {
 
 namespace repl_tests {
     {
-        let _server: repl.REPLServer;
+        let _server: repl.REPLServer = undefined!;
         let _boolean: boolean;
         let _ctx: any;
 
@@ -2901,8 +2911,8 @@ namespace dns_tests {
 
 import * as constants from 'constants';
 namespace constants_tests {
-    var str: string;
-    var num: number;
+    let str: string;
+    let num: number;
     num = constants.SIGHUP;
     num = constants.SIGINT;
     num = constants.SIGQUIT;
@@ -3061,7 +3071,7 @@ namespace v8_tests {
 
 import { Client } from "_debugger";
 
-var client = new Client();
+let client = new Client();
 
 client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => { });
@@ -3149,7 +3159,7 @@ namespace http2_tests {
 
     // Http2Session
     {
-        let http2Session: http2.Http2Session;
+        let http2Session: http2.Http2Session = undefined!;
         let ee: events.EventEmitter = http2Session;
 
         http2Session.on('close', () => {});
@@ -3170,7 +3180,7 @@ namespace http2_tests {
         let settings: http2.Settings = http2Session.localSettings;
         settings = http2Session.remoteSettings;
 
-        let headers: http2.OutgoingHttpHeaders;
+        let headers: http2.OutgoingHttpHeaders = {};
         let options: http2.ClientSessionRequestOptions = {
             endStream: true,
             exclusive: true,
@@ -3182,7 +3192,7 @@ namespace http2_tests {
         (http2Session as http2.ClientHttp2Session).request(headers);
         (http2Session as http2.ClientHttp2Session).request(headers, options);
 
-        let stream: http2.Http2Stream;
+        let stream: http2.Http2Stream = undefined!;
         http2Session.rstStream(stream);
         http2Session.rstStream(stream, 0);
 
@@ -3225,7 +3235,7 @@ namespace http2_tests {
     // Http2Stream
     {
         let http2Stream: http2.Http2Stream;
-        let duplex: stream.Duplex = http2Stream;
+        let duplex: stream.Duplex = http2Stream = undefined!;
 
         http2Stream.on('aborted', () => {});
         http2Stream.on('error', (err: Error) => {});
@@ -3267,14 +3277,14 @@ namespace http2_tests {
         };
 
         // ClientHttp2Stream
-        let clientHttp2Stream: http2.ClientHttp2Stream;
+        let clientHttp2Stream: http2.ClientHttp2Stream = undefined!;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
 
         // ServerHttp2Stream
-        let serverHttp2Stream: http2.ServerHttp2Stream;
-        let headers: http2.OutgoingHttpHeaders;
+        let serverHttp2Stream: http2.ServerHttp2Stream = undefined!;
+        let headers: http2.OutgoingHttpHeaders = {};
 
         serverHttp2Stream.additionalHeaders(headers);
         let headerSent: boolean = serverHttp2Stream.headersSent;
@@ -3316,8 +3326,8 @@ namespace http2_tests {
     {
         let http2Server: http2.Http2Server;
         let http2SecureServer: http2.Http2SecureServer;
-        let s1: net.Server = http2Server;
-        let s2: tls.Server = http2SecureServer;
+        let s1: net.Server = http2Server = undefined!;
+        let s2: tls.Server = http2SecureServer = undefined!;
         [http2Server, http2SecureServer].forEach((server) => {
             server.on('sessionError', (err: Error) => {});
             server.on('socketError', (err: Error) => {});
@@ -3331,7 +3341,7 @@ namespace http2_tests {
 
     // Public API (except constants)
     {
-        let settings: http2.Settings;
+        let settings: http2.Settings = {};
         let serverOptions: http2.ServerOptions = {
             maxDeflateDynamicTableSize: 0,
             maxReservedRemoteStreams: 0,
@@ -3363,7 +3373,7 @@ namespace http2_tests {
 
             // Http2ServerResponse
 
-            let outgoingHeaders: http2.OutgoingHttpHeaders;
+            let outgoingHeaders: http2.OutgoingHttpHeaders = {};
             response.addTrailers(outgoingHeaders);
             socket = response.connection;
             let finished: boolean = response.finished;
@@ -3692,16 +3702,16 @@ namespace inspector_tests {
         session.disconnect();
 
         // Unknown post method
-        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
-        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b', { key: 'value' }, (err: Error | null, params?: object) => {});
+        session.post('A.b', (err: Error | null, params?: object) => {});
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
         session.post('Runtime.evaluate', parameter,
-            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
-        session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
-            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
-            const resultClassName: string = params.result.className;
+            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post('Runtime.evaluate', (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {
+            const exceptionDetails: inspector.Runtime.ExceptionDetails | undefined = params.exceptionDetails;
+            const resultClassName: string | undefined = params.result.className;
         });
         session.post('Runtime.evaluate');
 

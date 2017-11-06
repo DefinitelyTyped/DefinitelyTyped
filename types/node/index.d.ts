@@ -122,7 +122,7 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    parent: NodeModule | null | undefined;
     children: NodeModule[];
 }
 
@@ -433,11 +433,13 @@ declare namespace NodeJS {
 
     export interface ProcessEnv {
         [key: string]: string | undefined;
+        PATH: string;
     }
 
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
+        _writev(chunks: Array<{ chunk: any, encoding: string }>, callback: Function): void;
         _write(chunk: any, encoding: string, callback: Function): void;
         _destroy(err: Error, callback: Function): void;
         _final(callback: Function): void;
@@ -705,7 +707,7 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        parent: Module | null | undefined;
         children: Module[];
         paths: string[];
 
@@ -1748,7 +1750,8 @@ declare module "readline" {
         pause(): ReadLine;
         resume(): ReadLine;
         close(): void;
-        write(data: string | Buffer, key?: Key): void;
+        write(data: string | Buffer): void;
+        write(_ignored: any, key: Key): void;
 
         /**
          * events.EventEmitter
@@ -5101,14 +5104,14 @@ declare module "stream" {
             highWaterMark?: number;
             encoding?: string;
             objectMode?: boolean;
-            read?: (this: Readable, size?: number) => any;
-            destroy?: (error?: Error) => any;
+            read?: typeof Readable.prototype._read;
+            destroy?: typeof Readable.prototype._destroy;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
             constructor(opts?: ReadableOptions);
-            _read(size: number): void;
+            _read(size?: number): void;
             read(size?: number): any;
             setEncoding(encoding: string): this;
             pause(): this;
@@ -5118,8 +5121,8 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
-            _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;
+            _destroy(error: Error | null, cb: (e?: Error | null) => void): void;
 
             /**
              * Event emitter
@@ -5185,19 +5188,19 @@ declare module "stream" {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
-            destroy?: (error?: Error) => any;
-            final?: (callback: (error?: Error) => void) => void;
+            write?: typeof Writable.prototype._write;
+            writev?: typeof Writable.prototype._writev;
+            destroy?: typeof Writable.prototype._destroy;
+            final?: typeof Writable.prototype._final;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
-            _final(callback: Function): void;
+            _write(chunk: string | Buffer | any, encoding: string, cb: (e?: Error | null) => void): void;
+            _writev(chunks: Array<{ chunk: string | Buffer | any, encoding: string }>, cb: (e?: Error | null) => void): void;
+            _destroy(error: Error | null, cb: (e?: Error | null) => void): void;
+            _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
@@ -5285,10 +5288,9 @@ declare module "stream" {
         export class Duplex extends Readable implements Writable {
             writable: boolean;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
-            _final(callback: Function): void;
+            _write(chunk: any, encoding: string, cb: (e?: Error | null) => void): void;
+            _writev(chunks: Array<{ chunk: string | Buffer, encoding: string }>, cb: (e?: Error | null) => void): void;
+            _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
@@ -5421,14 +5423,14 @@ declare module "assert" {
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
 
         export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function throws(block: Function, error?: Function, message?: string): void;
+        export function throws(block: Function, error?: RegExp, message?: string): void;
+        export function throws(block: Function, error?: (err: any) => boolean, message?: string): void;
 
         export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function doesNotThrow(block: Function, error?: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error?: RegExp, message?: string): void;
+        export function doesNotThrow(block: Function, error?: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
     }
