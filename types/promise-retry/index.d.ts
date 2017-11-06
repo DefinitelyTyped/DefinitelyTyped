@@ -1,6 +1,6 @@
-// Type definitions for promise-retry 1.1.1
+// Type definitions for promise-retry 1.1
 // Project: https://github.com/IndigoUnited/node-promise-retry
-// Definitions by: Jamie Birch <https://www.github.com/shirakaba/>
+// Definitions by: Jamie Birch <https://github.com/shirakaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { WrapOptions } from "retry";
@@ -13,11 +13,11 @@ import { WrapOptions } from "retry";
  * @param attempt The number of the attempt.
  * @returns A Promise for anything (eg. a HTTP response).
  */
-declare type RetryableFn = ((retry: (error: any) => never, attempt: number) => Promise<any>);
+type RetryableFn = ((retry: (error: any) => never, attempt: number) => Promise<any>);
 /**
  * Wrap all functions of the object with retry. The params can be entered in either order, just like in the original library.
  *
- * @param retryableFn The function to retry. Should include its own 
+ * @param retryableFn The function to retry.
  * @param options The options for how long/often to retry the function for.
  * @returns The Promise resolved by the input retryableFn, or rejected (if not retried) from its catch block.
  */
