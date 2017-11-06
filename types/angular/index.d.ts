@@ -229,8 +229,8 @@ declare namespace angular {
          * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
          * @param directiveFactory An injectable directive factory function.
          */
-        directive<TScope extends IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): IModule;
-        directive<TScope extends IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): IModule;
+        directive<TScope extends IScope = IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): IModule;
+        directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): IModule;
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
          *
@@ -1249,8 +1249,8 @@ declare namespace angular {
     }
 
     interface ICompileProvider extends IServiceProvider {
-        directive<TScope extends IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): ICompileProvider;
-        directive<TScope extends IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
+        directive<TScope extends IScope = IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): ICompileProvider;
+        directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
 
@@ -1983,12 +1983,12 @@ declare namespace angular {
         ): void;
     }
 
-    interface IDirectivePrePost<TScope extends IScope> {
+    interface IDirectivePrePost<TScope extends IScope = IScope> {
         pre?: IDirectiveLinkFn<TScope>;
         post?: IDirectiveLinkFn<TScope>;
     }
 
-    interface IDirectiveCompileFn<TScope extends IScope> {
+    interface IDirectiveCompileFn<TScope extends IScope = IScope> {
         (
             templateElement: JQLite,
             templateAttributes: IAttributes,
