@@ -8574,10 +8574,10 @@ namespace TestIsWeakMap {
 // _.isWeakSet
 namespace TestIsWeakSet {
     {
-        let value: number|WeakSet<string> = 0;
+        let value: number | WeakSet<object> = 0;
 
-        if (_.isWeakSet<string>(value)) {
-            let result: WeakSet<string> = value;
+        if (_.isWeakSet<object>(value)) {
+            let result: WeakSet<object> = value;
         }
         else {
             let result: number = value;
