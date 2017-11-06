@@ -8541,12 +8541,10 @@ namespace TestIsUndefined {
 // _.isWeakMap
 namespace TestIsWeakMap {
     {
-        interface Obj { a: string };
-
-        let value: number|WeakMap<Obj, number> = 0;
+        let value: number | WeakMap<object, number> = 0;
 
         if (_.isWeakMap(value)) {
-            let result: WeakMap<Obj, number> = value;
+            let result: WeakMap<object, number> = value;
         }
         else {
             let result: number = value;
