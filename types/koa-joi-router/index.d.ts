@@ -5,13 +5,11 @@
 import * as Koa from 'koa';
 import * as Joi from 'joi';
 
-type METHODS = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH' | 'OPTIONS' | 'HEAD';
-
 interface Spec {
-    method: METHODS;
+    method: string;
     path: string|RegExp;
     handler: (ctx: Koa.Context) => void;
-    validate: {
+    validate?: {
         type: string;
         body?: Joi.AnySchema;
         params?: Joi.AnySchema;
@@ -19,7 +17,7 @@ interface Spec {
     };
 }
 
-declare class Router {
+interface Router {
     route(spec: Spec): Router;
     middleware(): Koa.Middleware;
 }
@@ -29,6 +27,6 @@ interface createRouter {
     Joi: typeof Joi;
 }
 
-declare namespace createRouter {}
+declare var create: createRouter;
 
-export = createRouter;
+export = create;

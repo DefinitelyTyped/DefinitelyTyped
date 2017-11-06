@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "koa-tests.ts"
+        "koa-joi-router-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -10,7 +10,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
