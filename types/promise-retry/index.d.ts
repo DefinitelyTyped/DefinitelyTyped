@@ -3,7 +3,7 @@
 // Definitions by: Jamie Birch <https://www.github.com/shirakaba/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { WrapOptions } from "../retry";
+import { WrapOptions } from "retry";
 /**
  * A function that is retryable, by having implicitly-bound params for both an error handler and an attempt number.
  *
