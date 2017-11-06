@@ -3,6 +3,7 @@
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
 //                 Aakash Goenka <https://github.com/a-k-g>
+//                 NikitaKoryabkin <https://github.com/Apologiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-forge" {
@@ -12,6 +13,42 @@ declare module "node-forge" {
     type Base64 = string;
     type Utf8 = string;
     type OID = string;
+    type cipher = string;
+    type hmac = string;
+
+    namespace random {
+        function getBytesSync(bytes: number): Bytes;
+    }
+
+    namespace cipher {
+        type output = Bytes;
+
+        namespace output {
+            function toHex(): Hex;
+        }
+
+        namespace mode {
+            type tag = Bytes;
+
+            namespace tag {
+                function toHex(): Hex;
+            }
+        }
+
+        function createCipher(mode: string, key: Bytes): cipher;
+        function start(options ?: object): void;
+        function update(bytes ?: ByteBuffer): void;
+        function finish(): void;
+    }
+
+    namespace hmac {
+        function create(): hmac;
+        function start(mode: string, key: Bytes): void;
+        function update(input ?: any): void;
+        function finish(): void;
+        function digest(): hmac;
+        function toHex(): Hex;
+    }
 
     namespace pki {
 
@@ -21,6 +58,11 @@ declare module "node-forge" {
         interface KeyPair {
             publicKey: Key;
             privateKey: Key;
+        }
+
+        namespace Key {
+            function encrypt(data: any, scheme: string, schemeOptions ?: string|object):Bytes;
+            function decrypt(data: any, scheme: string, schemeOptions ?: string|object):string;
         }
 
         function privateKeyToPem(key: Key, maxline?: number): PEM;
@@ -48,6 +90,8 @@ declare module "node-forge" {
 
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
+            function encrypt(input: any, key: Key, bt: number):Bytes;
+            function decrypt(ed: any, key: Key, bt: number, ml ?: boolean):Bytes;
         }
 
         interface CertificateFieldOptions {
@@ -211,7 +255,7 @@ declare module "node-forge" {
         function decodeUtf8(encoded: Utf8): string;
 
         function createBuffer(): ByteBuffer;
-        function createBuffer(input: string, encode: string): ByteBuffer;
+        function createBuffer(input: string, encode ?: string): ByteBuffer;
 
         namespace binary {
             namespace raw {
