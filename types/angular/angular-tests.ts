@@ -1324,3 +1324,35 @@ function toPromise<T>(val: T): ng.IPromise<T> {
     const p: ng.IPromise<T> = null;
     return p;
 }
+
+const directiveCompileFn: ng.IDirectiveCompileFn = (
+        templateElement: JQLite,
+        templateAttributes: ng.IAttributes,
+        transclude: ng.ITranscludeFunction
+    ): ng.IDirectiveLinkFn => {
+    return (
+        scope: ng.IScope,
+        instanceElement: JQLite,
+        instanceAttributes: ng.IAttributes
+    ) => {
+        return null;
+    };
+};
+
+interface MyScope extends ng.IScope {
+    foo: string;
+}
+
+const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope> = (
+        templateElement: JQLite,
+        templateAttributes: ng.IAttributes,
+        transclude: ng.ITranscludeFunction
+    ): ng.IDirectiveLinkFn<MyScope> => {
+    return (
+        scope: MyScope,
+        instanceElement: JQLite,
+        instanceAttributes: ng.IAttributes
+    ) => {
+        return null;
+    };
+};
