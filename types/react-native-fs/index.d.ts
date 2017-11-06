@@ -7,6 +7,10 @@
 /// <reference types="react-native" />
 
 export interface ReadDirItem {
+  // The creation date of the file (iOS only)
+  ctime: Date | undefined;
+  // The last modified date of the file
+  mtime: Date;
   // The name of the item
   name: string;
   // The absolute path to the item
@@ -28,6 +32,10 @@ export interface StatResult {
   size: string;
   // UNIX file mode
   mode: number;
+  // Created date
+  ctime: number;
+  // Updated date
+  utime: number;
   // Is the file just a file?
   isFile(): boolean;
   // Is the file a directory?
@@ -63,8 +71,11 @@ export interface DownloadFileOptions {
   toFile: string;
   // An object of headers to be passed to the server
   headers?: Headers;
+  // iOS only
   background?: boolean;
   progressDivider?: number;
+  readTimeout?: number;
+  connectionTimeout?: number;
   begin?: DownloadCallbackBegin;
   progress?: DownloadCallbackProgress;
 }
@@ -155,6 +166,29 @@ export interface JobReturnValue<Result> {
   promise: Promise<Result>;
 }
 
+// Can be one of utf8 (default), ascii, base64. Use base64 for reading binary files
+export type Encoding =
+  | 'utf8'
+  | 'ascii'
+  | 'base64'
+  ;
+
+// Optional object wrapper for encoding options
+export type EncodingOrOptions =
+  | Encoding
+  | { encoding?: Encoding }
+  ;
+
+// Available hashing algorithms
+export type HashAlgorithm =
+  | "md5"
+  | "sha1"
+  | "sha224"
+  | "sha256"
+  | "sha384"
+  | "sha512"
+  ;
+
 //  The absolute path to the main bundle directory
 export const MainBundlePath: string;
 // The absolute path to the caches directory
@@ -167,21 +201,38 @@ export const TemporaryDirectoryPath: string;
 export const ExternalDirectoryPath: string;
 // The absolute path to the external storage, shared directory (android only)
 export const ExternalStorageDirectoryPath: string;
+// The absolute path to the NSLibraryDirectory (iOS only)
+export const LibraryDirectoryPath: string;
+// The absolute path to the pictures directory (android only)
+export const PicturesDirectoryPath: string;
 
 export function readDir(path: string): Promise<ReadDirItem[]>;
+export function readDirAssets(dirpath: string): Promise<ReadDirItem[]>;
 export function readdir(path: string): Promise<string[]>;
 export function stat(filepath: string): Promise<StatResult>;
-export function readFile(filepath: string, encoding?: string): Promise<string>;
+export function read(filepath: string, length?: number, position?: number, encodingOrOptions?: EncodingOrOptions): Promise<string>;
+export function readFile(filepath: string, encodingOrOptions?: EncodingOrOptions): Promise<string>;
+export function readFileAssets(filepath: string, encodingOrOptions?: EncodingOrOptions): Promise<string>;
+export function existsAssets(filepath: string): Promise<boolean>;
 export function unlink(filepath: string): Promise<void>;
-export function writeFile(filepath: string, contents: string, encoding?: string): Promise<void>;
-export function appendFile(filepath: string, contents: string, encoding?: string): Promise<void>;
+export function write(filepath: string, contents: string, position?: number, encodingOrOptions?: EncodingOrOptions): Promise<void>;
+export function writeFile(filepath: string, contents: string, encodingOrOptions?: EncodingOrOptions): Promise<void>;
+export function appendFile(filepath: string, contents: string, encodingOrOptions?: EncodingOrOptions): Promise<void>;
 export function moveFile(filepath: string, destPath: string): Promise<void>;
 export function copyFile(filepath: string, destPath: string): Promise<void>;
+export function copyFileAssets(filepath: string, destPath: string): Promise<void>;
+export function copyAssetsFileIOS(imageUri: string, destPath: string, width: number, height: number,
+  scale?: number, compression?: number, resizeMode?: string): Promise<string>;
+export function copyAssetsVideoIOS(imageUri: string, destPath: string): Promise<string>;
 export function exists(filepath: string): Promise<boolean>;
-export function hash(filepath: string, algorithm: string): Promise<string>;
+export function hash(filepath: string, algorithm: HashAlgorithm): Promise<string>;
 export function mkdir(filepath: string, options?: MkdirOptions): Promise<void>;
+export function touch(filepath: string, mtime?: Date, ctime?: Date): Promise<void>;
 export function downloadFile(options: DownloadFileOptions): JobReturnValue<DownloadResult>;
-export function stopDownload(jobId: number): Promise<void>;
+export function stopDownload(jobId: number): void;
 export function uploadFiles(options: UploadFileOptions): JobReturnValue<UploadResult>;
-export function stopUpload(jobId: number): Promise<void>;
+export function stopUpload(jobId: number): void;
+export function pathForBundle(bundleNamed: string): Promise<string>;
+export function pathForGroup(groupName: string): Promise<string>;
+export function setReadable(filepath: string, readable: boolean, ownerOnly: boolean): Promise<boolean>;
 export function getFSInfo(): Promise<FSInfoResult>;
