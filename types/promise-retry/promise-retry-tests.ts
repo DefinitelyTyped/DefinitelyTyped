@@ -1,8 +1,5 @@
 import { WrapOptions } from "../retry";
-// import * as chai from "chai";
-// const expect = chai.expect;
-// import promiseRetry = require('promise-retry');
-import * as pr from "promise-retry";
+import pr = require('promise-retry');
 const promiseRetry = pr.promiseRetry;
 
 // From sleep
