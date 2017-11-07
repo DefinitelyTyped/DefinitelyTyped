@@ -16,7 +16,7 @@ function myfunc() {
 }
 
 retry(myfunc)
-    .done(function(result) { console.log(result); });
+    .done(result => { console.log(result); });
 
 // Options example
 function logFail() {
