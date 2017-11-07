@@ -9,7 +9,7 @@ import Promise = require('bluebird');
 declare function retry<T>(func: (param: T) => void, options?: retry.Options): Promise<T>;
 
 declare namespace retry {
-    export interface Options {
+    interface Options {
         interval?: number;
         backoff?: number;
         max_interval?: number;
