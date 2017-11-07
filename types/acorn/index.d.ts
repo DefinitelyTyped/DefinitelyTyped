@@ -181,7 +181,7 @@ declare namespace acorn {
         _typeof: TokenType;
         _void: TokenType;
         _delete: TokenType;
-    }
+    };
 
     class TokContext {
         constructor(token: string, isExpr: boolean, preserveSpace: boolean, override: (p: Parser) => void);
@@ -239,10 +239,10 @@ declare namespace acorn {
     function parseExpressionAt(input: string, pos?: number, options?: Options): ESTree.Expression;
 
     interface ITokenizer {
-      getToken() : Token,
-      [Symbol.iterator](): Iterator<Token>
+      getToken(): Token;
+      [Symbol.iterator](): Iterator<Token>;
     }
-  
+
     function tokenizer(input: string, options: Options): ITokenizer;
 
     let parse_dammit: IParse | undefined;
@@ -250,12 +250,10 @@ declare namespace acorn {
     let pluginsLoose: PluginsObject | undefined;
 
     interface ILooseParserClass {
-        new (input: string, options?: Options): ILooseParser
+        new (input: string, options?: Options): ILooseParser;
     }
 
-    interface ILooseParser {
-
-    }
+    interface ILooseParser {}
 
     function addLooseExports(parse: IParse, parser: ILooseParserClass, plugins: PluginsObject): void;
 }

@@ -6,13 +6,8 @@
         "export-just-namespace": false,
         "interface-name": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "no-reference-import": false,
         "no-unnecessary-class": false,
-        "no-var-keyword": false,
-        "no-trailing-whitespace": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "typedef-whitespace": false
+        "no-var-keyword": false
     }
 }

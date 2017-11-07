@@ -32,14 +32,10 @@ const parser = new acorn.Parser({}, 'export default ""', 0);
 const node = new acorn.Node(parser, 1, 1);
 
 class LooseParser {
-    constructor(input: string, options = {}) {
-
-    }
+    constructor(input: string, options = {}) {}
 
     // this means you can extend LooseParser
-    test() {
-
-    }
+    test() {}
 }
 acorn.addLooseExports(() => {
     return {
@@ -50,7 +46,7 @@ acorn.addLooseExports(() => {
                 type: 'EmptyStatement'
             }
         ]
-    }
+    };
 }, LooseParser, {});
 
 acorn.parseExpressionAt('string', 2);
@@ -63,8 +59,7 @@ acorn.isIdentifierChar(56);
 
 acorn.getLineInfo('string', 56);
 
-acorn.plugins['test'] = (p: acorn.Parser, config: any) => {
-}
+acorn.plugins['test'] = (p: acorn.Parser, config: any) => {};
 
 acorn.tokenizer('console.log("hello world)', {locations: true}).getToken();
 acorn.tokenizer('console.log("hello world)', {locations: true})[Symbol.iterator]().next();
