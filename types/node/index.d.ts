@@ -14,7 +14,6 @@
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /************************************************
 *                                               *

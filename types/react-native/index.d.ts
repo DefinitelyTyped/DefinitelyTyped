@@ -6966,7 +6966,7 @@ export interface PanResponderGestureState {
  */
 export interface PanResponderCallbacks {
     onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
-    onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+    onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
     onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
