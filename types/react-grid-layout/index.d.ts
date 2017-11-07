@@ -65,6 +65,11 @@ declare namespace ReactGridLayout {
         maxH?: number;
 
         /**
+         * set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)
+         */
+        moved?: boolean;
+
+        /**
          * If true, equal to `isDraggable: false` and `isResizable: false`.
          */
         static?: boolean;
@@ -167,6 +172,11 @@ declare namespace ReactGridLayout {
          * If set to false it will disable resizing on all children.
          */
         isResizable?: boolean;
+
+        /**
+         * Enable or disable grid rearrangement when dragging/resizing an element.
+         */
+        isRearrangeable?: boolean;
 
         /**
          * Uses CSS3 `translate()` instead of position top/left.
