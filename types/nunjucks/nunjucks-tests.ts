@@ -4,19 +4,19 @@ nunjucks.configure({ autoescape: false });
 
 let rendered = nunjucks.render("./noexists.html");
 
-let ctx = { items: ["Hello", "this", "is", "for", "testing"] };
-let src = "{% for item in items %}{{item}}{% endfor %}";
+const ctx = { items: ["Hello", "this", "is", "for", "testing"] };
+const src = "{% for item in items %}{{item}}{% endfor %}";
 
 rendered = nunjucks.renderString(src, ctx);
 
-let compiled = nunjucks.compile(src);
+const compiled = nunjucks.compile(src);
 rendered = compiled.render(ctx);
 
 rendered = nunjucks.precompileString(src, {
     name: "TestyWesty"
 });
 
-let template = new nunjucks.Template(src);
+const template = new nunjucks.Template(src);
 rendered = template.render(ctx);
 
 let env = nunjucks.configure({ autoescape: false });
