@@ -473,7 +473,7 @@ declare module "mongoose" {
     /** defaults to 1 */
     parallel?: number;
   }
-  
+
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -764,7 +764,7 @@ declare module "mongoose" {
    * Intellisense for Schema definitions
    */
   interface SchemaDefinition {
-    [path: string]: SchemaTypeOpts<any>;
+    [path: string]: SchemaTypeOpts<any> | Schema | SchemaType;
   }
 
   /*
@@ -2680,7 +2680,7 @@ declare module "mongoose" {
     passRawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
-    /** 
+    /**
      * if true, run all setters defined on the associated model's schema for all fields
      * defined in the query and the update.
      */
