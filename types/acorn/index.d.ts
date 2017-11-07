@@ -3,8 +3,6 @@
 // Definitions by: RReverser <https://github.com/RReverser>, e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="estree" />
-
 export as namespace acorn;
 export = acorn;
 import * as ESTree from 'estree';
