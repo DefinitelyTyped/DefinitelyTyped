@@ -5,7 +5,7 @@ function promiseSuccess(text: string) {
     return Promise.resolve(text);
 }
 
-var count = 0;
+let count = 0;
 function myfunc() {
     console.log('myfunc called ' + (++count) + ' times');
     if (count < 3) {
@@ -24,7 +24,7 @@ function logFail() {
     throw new Error('bail');
 }
 
-var options: retry.Options = {
+const options: retry.Options = {
     max_tries: 4,
     interval: 500
 };
