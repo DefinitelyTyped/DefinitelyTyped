@@ -3,7 +3,6 @@
 // Definitions by: Ruben Slabbert <https://github.com/RubenSlabbert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace Nunjucks {
     function render(name: string, context?: Object): string;
     function render(name: string, context?: Object, callback?: (err: any, res: string) => any): void;
