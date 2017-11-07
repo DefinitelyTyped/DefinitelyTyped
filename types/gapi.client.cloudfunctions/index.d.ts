@@ -16,11 +16,182 @@ declare namespace gapi.client {
     function load(name: "cloudfunctions", version: "v1"): PromiseLike<void>;
     function load(name: "cloudfunctions", version: "v1", callback: () => any): void;
 
-    const operations: cloudfunctions.OperationsResource;
-
-    const projects: cloudfunctions.ProjectsResource;
-
     namespace cloudfunctions {
+        interface CallFunctionRequest {
+            /** Input to be passed to the function. */
+            data?: string;
+        }
+        interface CallFunctionResponse {
+            /**
+             * Either system or user-function generated error. Set if execution
+             * was not successful.
+             */
+            error?: string;
+            /** Execution id of function invocation. */
+            executionId?: string;
+            /**
+             * Result populated for successful execution of synchronous function. Will
+             * not be populated if function does not return a result through context.
+             */
+            result?: string;
+        }
+        interface CloudFunction {
+            /**
+             * The amount of memory in MB available for a function.
+             * Defaults to 256MB.
+             */
+            availableMemoryMb?: number;
+            /** User-provided description of a function. */
+            description?: string;
+            /**
+             * The name of the function (as defined in source code) that will be
+             * executed. Defaults to the resource name suffix, if not specified. For
+             * backward compatibility, if function with given name is not found, then the
+             * system will try to use function named "function".
+             * For Node.js this is name of a function exported by the module specified
+             * in `source_location`.
+             */
+            entryPoint?: string;
+            /** A source that fires events in response to a condition in another service. */
+            eventTrigger?: EventTrigger;
+            /** An HTTPS endpoint type of source that can be triggered via URL. */
+            httpsTrigger?: HttpsTrigger;
+            /** Labels associated with this Cloud Function. */
+            labels?: Record<string, string>;
+            /**
+             * A user-defined name of the function. Function names must be unique
+             * globally and match pattern `projects/&#42;/locations/&#42;/functions/&#42;`
+             */
+            name?: string;
+            /** Output only. The email of the function's service account. */
+            serviceAccountEmail?: string;
+            /**
+             * The Google Cloud Storage URL, starting with gs://, pointing to the zip
+             * archive which contains the function.
+             */
+            sourceArchiveUrl?: string;
+            /**
+             * &#42;&#42;Beta Feature&#42;&#42;
+             *
+             * The source repository where a function is hosted.
+             */
+            sourceRepository?: SourceRepository;
+            /**
+             * The Google Cloud Storage signed URL used for source uploading, generated
+             * by google.cloud.functions.v1.GenerateUploadUrl
+             */
+            sourceUploadUrl?: string;
+            /** Output only. Status of the function deployment. */
+            status?: string;
+            /**
+             * The function execution timeout. Execution is considered failed and
+             * can be terminated if the function is not completed at the end of the
+             * timeout period. Defaults to 60 seconds.
+             */
+            timeout?: string;
+            /** Output only. The last update timestamp of a Cloud Function. */
+            updateTime?: string;
+            /**
+             * Output only.
+             * The version identifier of the Cloud Function. Each deployment attempt
+             * results in a new version of a function being created.
+             */
+            versionId?: string;
+        }
+        interface EventTrigger {
+            /**
+             * Required. The type of event to observe. For example:
+             * `google.storage.object.finalized` and
+             * `google.firebase.analytics.event.log`.
+             *
+             * Event type consists of three parts:
+             * 1. namespace: The domain name of the organization in reverse-domain
+             * notation (e.g. `acme.net` appears as `net.acme`) and any orginization
+             * specific subdivisions. If the organization's top-level domain is `com`,
+             * the top-level domain is ommited (e.g. `google.com` appears as
+             * `google`). For example, `google.storage` and
+             * `google.firebase.analytics`.
+             * 2. resource type: The type of resource on which event ocurs. For
+             * example, the Google Cloud Storage API includes the type `object`.
+             * 3. action: The action that generates the event. For example, actions for
+             * a Google Cloud Storage Object include 'finalize' and 'delete'.
+             * These parts are lower case and joined by '.'.
+             */
+            eventType?: string;
+            /** Specifies policy for failed executions. */
+            failurePolicy?: FailurePolicy;
+            /**
+             * Required. The resource(s) from which to observe events, for example,
+             * `projects/_/buckets/myBucket`.
+             *
+             * Not all syntactically correct values are accepted by all services. For
+             * example:
+             *
+             * 1. The authorization model must support it. Google Cloud Functions
+             * only allows EventTriggers to be deployed that observe resources in the
+             * same project as the `CloudFunction`.
+             * 2. The resource type must match the pattern expected for an
+             * `event_type`. For example, an `EventTrigger` that has an
+             * `event_type` of "google.pubsub.topic.publish" should have a resource
+             * that matches Google Cloud Pub/Sub topics.
+             *
+             * Additionally, some services may support short names when creating an
+             * `EventTrigger`. These will always be returned in the normalized "long"
+             * format.
+             *
+             * See each &#42;service's&#42; documentation for supported formats.
+             */
+            resource?: string;
+            /**
+             * The hostname of the service that should be observed.
+             *
+             * If no string is provided, the default service implementing the API will
+             * be used. For example, `storage.googleapis.com` is the default for all
+             * event types in the `google.storage` namespace.
+             */
+            service?: string;
+        }
+        interface FailurePolicy {
+            /** If specified, then the function will be retried in case of a failure. */
+            retry?: any;
+        }
+        interface GenerateDownloadUrlRequest {
+            /**
+             * The optional version of function. If not set, default, current version
+             * is used.
+             */
+            versionId?: string;
+        }
+        interface GenerateDownloadUrlResponse {
+            /**
+             * The generated Google Cloud Storage signed URL that should be used for
+             * function source code download.
+             */
+            downloadUrl?: string;
+        }
+        interface GenerateUploadUrlResponse {
+            /**
+             * The generated Google Cloud Storage signed URL that should be used for a
+             * function source code upload. The uploaded file should be a zip archive
+             * which contains a function.
+             */
+            uploadUrl?: string;
+        }
+        interface HttpsTrigger {
+            /** Output only. The deployed url for the function. */
+            url?: string;
+        }
+        interface ListFunctionsResponse {
+            /** The functions that match the request. */
+            functions?: CloudFunction[];
+            /**
+             * If not empty, indicates that there may be more functions that match
+             * the request; this value should be passed in a new
+             * google.cloud.functions.v1.ListFunctionsRequest
+             * to get more functions.
+             */
+            nextPageToken?: string;
+        }
         interface ListLocationsResponse {
             /** A list of locations that matches the specified filter in the request. */
             locations?: Location[];
@@ -87,6 +258,24 @@ declare namespace gapi.client {
              */
             response?: Record<string, any>;
         }
+        interface OperationMetadataV1 {
+            /** The original request that started the operation. */
+            request?: Record<string, any>;
+            /**
+             * Target of the operation - for example
+             * projects/project-1/locations/region-1/functions/function-1
+             */
+            target?: string;
+            /** Type of operation. */
+            type?: string;
+            /** The last update timestamp of the operation. */
+            updateTime?: string;
+            /**
+             * Version id of the function created or updated by an API call.
+             * This field is only pupulated for Create and Update operations.
+             */
+            versionId?: string;
+        }
         interface OperationMetadataV1Beta2 {
             /** The original request that started the operation. */
             request?: Record<string, any>;
@@ -97,11 +286,37 @@ declare namespace gapi.client {
             target?: string;
             /** Type of operation. */
             type?: string;
+            /** The last update timestamp of the operation. */
+            updateTime?: string;
             /**
              * Version id of the function created or updated by an API call.
              * This field is only pupulated for Create and Update operations.
              */
             versionId?: string;
+        }
+        interface SourceRepository {
+            /**
+             * Output only. The URL pointing to the hosted repository where the function
+             * were defined at the time of deployment. It always points to a specific
+             * commit in the format described above.
+             */
+            deployedUrl?: string;
+            /**
+             * The URL pointing to the hosted repository where the function is defined.
+             * There are supported Cloud Source Repository URLs in the following
+             * formats:
+             *
+             * To refer to a specific commit:
+             * `https://source.developers.google.com/projects/&#42;/repos/&#42;/revisions/&#42;/paths/&#42;`
+             * To refer to a moveable alias (branch):
+             * `https://source.developers.google.com/projects/&#42;/repos/&#42;/moveable-aliases/&#42;/paths/&#42;`
+             * In particular, to refer to HEAD use `master` moveable alias.
+             * To refer to a specific fixed alias (tag):
+             * `https://source.developers.google.com/projects/&#42;/repos/&#42;/fixed-aliases/&#42;/paths/&#42;`
+             *
+             * You may omit `paths/&#42;` if you want to use the main directory.
+             */
+            url?: string;
         }
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
@@ -203,6 +418,308 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<ListOperationsResponse>;
         }
+        interface FunctionsResource {
+            /**
+             * Invokes synchronously deployed function. To be used for testing, very
+             * limited traffic allowed.
+             */
+            call(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the function to be called. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CallFunctionResponse>;
+            /**
+             * Creates a new function. If a function with the given name already exists in
+             * the specified project, the long running operation will return
+             * `ALREADY_EXISTS` error.
+             */
+            create(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * The project and location in which the function should be created, specified
+                 * in the format `projects/&#42;/locations/&#42;`
+                 */
+                location: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Operation>;
+            /**
+             * Deletes a function with the given name from the specified project. If the
+             * given function is used by some trigger, the trigger will be updated to
+             * remove this function.
+             */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the function which should be deleted. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Operation>;
+            /**
+             * Returns a signed URL for downloading deployed function source code.
+             * The URL is only valid for a limited period and should be used within
+             * minutes after generation.
+             * For more information about the signed URL usage see:
+             * https://cloud.google.com/storage/docs/access-control/signed-urls
+             */
+            generateDownloadUrl(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * The name of function for which source code Google Cloud Storage signed
+                 * URL should be generated.
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<GenerateDownloadUrlResponse>;
+            /**
+             * Returns a signed URL for uploading a function source code.
+             * For more information about the signed URL usage see:
+             * https://cloud.google.com/storage/docs/access-control/signed-urls
+             * Once the function source code upload is complete, the used signed
+             * URL should be provided in CreateFunction or UpdateFunction request
+             * as a reference to the function source code.
+             */
+            generateUploadUrl(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * The project and location in which the Google Cloud Storage signed URL
+                 * should be generated, specified in the format `projects/&#42;/locations/&#42;
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<GenerateUploadUrlResponse>;
+            /** Returns a function with the given name from the requested project. */
+            get(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the function which details should be obtained. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CloudFunction>;
+            /** Returns a list of functions that belong to the requested project. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Maximum number of functions to return per call. */
+                pageSize?: number;
+                /**
+                 * The value returned by the last
+                 * `ListFunctionsResponse`; indicates that
+                 * this is a continuation of a prior `ListFunctions` call, and that the
+                 * system should return the next page of data.
+                 */
+                pageToken?: string;
+                /**
+                 * The project and location from which the function should be listed,
+                 * specified in the format `projects/&#42;/locations/&#42;`
+                 * If you want to list functions in all locations, use "-" in place of a
+                 * location.
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListFunctionsResponse>;
+            /** Updates existing function. */
+            patch(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * A user-defined name of the function. Function names must be unique
+                 * globally and match pattern `projects/&#42;/locations/&#42;/functions/&#42;`
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Required list of fields to be updated in this request. */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Operation>;
+        }
         interface LocationsResource {
             /** Lists information about the supported locations for this service. */
             list(request: {
@@ -241,9 +758,14 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<ListLocationsResponse>;
+            functions: FunctionsResource;
         }
         interface ProjectsResource {
             locations: LocationsResource;
         }
+
+        const operations: cloudfunctions.OperationsResource;
+
+        const projects: cloudfunctions.ProjectsResource;
     }
 }

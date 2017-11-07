@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "webfonts", version: "v1"): PromiseLike<void>;
     function load(name: "webfonts", version: "v1", callback: () => any): void;
 
-    const webfonts: webfonts.WebfontsResource;
-
     namespace webfonts {
         interface Webfont {
             /** The category of the font. */
@@ -67,5 +65,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<WebfontList>;
         }
+
+        const webfonts: webfonts.WebfontsResource;
     }
 }

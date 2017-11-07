@@ -121,6 +121,11 @@ Deletes a Cloud SQL instance.
 await gapi.client.instances.delete({ instance: "instance", project: "project",  }); 
     
 /* 
+Demotes the standalone instance to be a read replica Cloud SQL instance of an on-premises master.  
+*/
+await gapi.client.instances.demoteMaster({ instance: "instance", project: "project",  }); 
+    
+/* 
 Exports data from a Cloud SQL instance to a Google Cloud Storage bucket as a MySQL dump file.  
 */
 await gapi.client.instances.export({ instance: "instance", project: "project",  }); 

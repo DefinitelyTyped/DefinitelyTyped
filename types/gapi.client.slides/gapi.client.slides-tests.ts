@@ -61,7 +61,7 @@ gapi.load('client', () => {
          * the updates in your request are guaranteed to be applied together
          * atomically.
          */
-        await gapi.client.presentations.batchUpdate({
+        await gapi.client.slides.presentations.batchUpdate({
             presentationId: "presentationId",
         });
         /**
@@ -69,10 +69,10 @@ gapi.load('client', () => {
          * fields in the request are ignored.
          * Returns the created presentation.
          */
-        await gapi.client.presentations.create({
+        await gapi.client.slides.presentations.create({
         });
         /** Gets the latest version of the specified presentation. */
-        await gapi.client.presentations.get({
+        await gapi.client.slides.presentations.get({
             presentationId: "presentationId",
         });
     }

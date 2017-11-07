@@ -83,11 +83,6 @@ Lists the user's current inapp item or subscription entitlements
 await gapi.client.entitlements.list({ packageName: "packageName",  }); 
     
 /* 
-undefined  
-*/
-await gapi.client.inappproducts.batch({  }); 
-    
-/* 
 Delete an in-app product for an app.  
 */
 await gapi.client.inappproducts.delete({ packageName: "packageName", sku: "sku",  }); 

@@ -16,18 +16,6 @@ declare namespace gapi.client {
     function load(name: "plusdomains", version: "v1"): PromiseLike<void>;
     function load(name: "plusdomains", version: "v1", callback: () => any): void;
 
-    const activities: plusdomains.ActivitiesResource;
-
-    const audiences: plusdomains.AudiencesResource;
-
-    const circles: plusdomains.CirclesResource;
-
-    const comments: plusdomains.CommentsResource;
-
-    const media: plusdomains.MediaResource;
-
-    const people: plusdomains.PeopleResource;
-
     namespace plusdomains {
         interface Acl {
             /** Description of the access granted, suitable for display. */
@@ -1320,5 +1308,17 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<PeopleFeed>;
         }
+
+        const activities: plusdomains.ActivitiesResource;
+
+        const audiences: plusdomains.AudiencesResource;
+
+        const circles: plusdomains.CirclesResource;
+
+        const comments: plusdomains.CommentsResource;
+
+        const media: plusdomains.MediaResource;
+
+        const people: plusdomains.PeopleResource;
     }
 }

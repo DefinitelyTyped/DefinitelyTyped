@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "customsearch", version: "v1"): PromiseLike<void>;
     function load(name: "customsearch", version: "v1", callback: () => any): void;
 
-    const cse: customsearch.CseResource;
-
     namespace customsearch {
         interface Context {
             facets?: Array<Array<{
@@ -222,5 +220,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Search>;
         }
+
+        const cse: customsearch.CseResource;
     }
 }

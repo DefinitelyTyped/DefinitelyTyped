@@ -29,22 +29,22 @@ gapi.load('client', () => {
 
     async function run() {
         /** Creates an enterprise by completing the enterprise signup flow. */
-        await gapi.client.enterprises.create({
+        await gapi.client.androidmanagement.enterprises.create({
             enterpriseToken: "enterpriseToken",
             projectId: "projectId",
             signupUrlName: "signupUrlName",
         });
         /** Gets an enterprise. */
-        await gapi.client.enterprises.get({
+        await gapi.client.androidmanagement.enterprises.get({
             name: "name",
         });
         /** Updates an enterprise. */
-        await gapi.client.enterprises.patch({
+        await gapi.client.androidmanagement.enterprises.patch({
             name: "name",
             updateMask: "updateMask",
         });
         /** Creates an enterprise signup URL. */
-        await gapi.client.signupUrls.create({
+        await gapi.client.androidmanagement.signupUrls.create({
             callbackUrl: "callbackUrl",
             projectId: "projectId",
         });

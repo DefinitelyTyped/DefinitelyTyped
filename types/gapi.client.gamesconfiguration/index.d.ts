@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "gamesconfiguration", version: "v1configuration"): PromiseLike<void>;
     function load(name: "gamesconfiguration", version: "v1configuration", callback: () => any): void;
 
-    const achievementConfigurations: gamesconfiguration.AchievementConfigurationsResource;
-
-    const imageConfigurations: gamesconfiguration.ImageConfigurationsResource;
-
-    const leaderboardConfigurations: gamesconfiguration.LeaderboardConfigurationsResource;
-
     namespace gamesconfiguration {
         interface AchievementConfiguration {
             /**
@@ -486,5 +480,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<LeaderboardConfiguration>;
         }
+
+        const achievementConfigurations: gamesconfiguration.AchievementConfigurationsResource;
+
+        const imageConfigurations: gamesconfiguration.ImageConfigurationsResource;
+
+        const leaderboardConfigurations: gamesconfiguration.LeaderboardConfigurationsResource;
     }
 }

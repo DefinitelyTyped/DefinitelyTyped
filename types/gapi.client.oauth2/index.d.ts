@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "oauth2", version: "v2"): PromiseLike<void>;
     function load(name: "oauth2", version: "v2", callback: () => any): void;
 
-    const userinfo: oauth2.UserinfoResource;
-
     namespace oauth2 {
         interface Jwk {
             keys?: Array<{
@@ -119,5 +117,7 @@ declare namespace gapi.client {
             }): Request<Userinfoplus>;
             v2: V2Resource;
         }
+
+        const userinfo: oauth2.UserinfoResource;
     }
 }

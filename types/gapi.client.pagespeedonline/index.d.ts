@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "pagespeedonline", version: "v2"): PromiseLike<void>;
     function load(name: "pagespeedonline", version: "v2", callback: () => any): void;
 
-    const pagespeedapi: pagespeedonline.PagespeedapiResource;
-
     namespace pagespeedonline {
         interface PagespeedApiFormatStringV2 {
             /** List of arguments for the format string. */
@@ -211,5 +209,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Result>;
         }
+
+        const pagespeedapi: pagespeedonline.PagespeedapiResource;
     }
 }

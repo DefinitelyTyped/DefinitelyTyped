@@ -38,6 +38,8 @@ gapi.load('client', () => {
             'https://www.googleapis.com/auth/classroom.profile.emails',
             /** View the profile photos of people in your classes */
             'https://www.googleapis.com/auth/classroom.profile.photos',
+            /** Receive notifications about your Google Classroom data */
+            'https://www.googleapis.com/auth/classroom.push-notifications',
             /** Manage your Google Classroom class rosters */
             'https://www.googleapis.com/auth/classroom.rosters',
             /** View your Google Classroom class rosters */
@@ -77,7 +79,7 @@ gapi.load('client', () => {
          * &#42; `ALREADY_EXISTS` if an alias was specified in the `id` and
          * already exists.
          */
-        await gapi.client.courses.create({
+        await gapi.client.classroom.courses.create({
         });
         /**
          * Deletes a course.
@@ -88,7 +90,7 @@ gapi.load('client', () => {
          * requested course or for access errors.
          * &#42; `NOT_FOUND` if no course exists with the requested ID.
          */
-        await gapi.client.courses.delete({
+        await gapi.client.classroom.courses.delete({
             id: "id",
         });
         /**
@@ -100,7 +102,7 @@ gapi.load('client', () => {
          * requested course or for access errors.
          * &#42; `NOT_FOUND` if no course exists with the requested ID.
          */
-        await gapi.client.courses.get({
+        await gapi.client.classroom.courses.get({
             id: "id",
         });
         /**
@@ -114,7 +116,7 @@ gapi.load('client', () => {
          * &#42; `INVALID_ARGUMENT` if the query argument is malformed.
          * &#42; `NOT_FOUND` if any users specified in the query arguments do not exist.
          */
-        await gapi.client.courses.list({
+        await gapi.client.classroom.courses.list({
             courseStates: "courseStates",
             pageSize: 2,
             pageToken: "pageToken",
@@ -134,7 +136,7 @@ gapi.load('client', () => {
          * &#42; `FAILED_PRECONDITION` for the following request errors:
          * &#42; CourseNotModifiable
          */
-        await gapi.client.courses.patch({
+        await gapi.client.classroom.courses.patch({
             id: "id",
             updateMask: "updateMask",
         });
@@ -149,7 +151,7 @@ gapi.load('client', () => {
          * &#42; `FAILED_PRECONDITION` for the following request errors:
          * &#42; CourseNotModifiable
          */
-        await gapi.client.courses.update({
+        await gapi.client.classroom.courses.update({
             id: "id",
         });
         /**
@@ -168,7 +170,7 @@ gapi.load('client', () => {
          * &#42; UserGroupsMembershipLimitReached
          * &#42; `NOT_FOUND` if no invitation exists with the requested ID.
          */
-        await gapi.client.invitations.accept({
+        await gapi.client.classroom.invitations.accept({
             id: "id",
         });
         /**
@@ -185,7 +187,7 @@ gapi.load('client', () => {
          * &#42; `ALREADY_EXISTS` if an invitation for the specified user and course
          * already exists.
          */
-        await gapi.client.invitations.create({
+        await gapi.client.classroom.invitations.create({
         });
         /**
          * Deletes an invitation.
@@ -196,7 +198,7 @@ gapi.load('client', () => {
          * requested invitation or for access errors.
          * &#42; `NOT_FOUND` if no invitation exists with the requested ID.
          */
-        await gapi.client.invitations.delete({
+        await gapi.client.classroom.invitations.delete({
             id: "id",
         });
         /**
@@ -208,7 +210,7 @@ gapi.load('client', () => {
          * requested invitation or for access errors.
          * &#42; `NOT_FOUND` if no invitation exists with the requested ID.
          */
-        await gapi.client.invitations.get({
+        await gapi.client.classroom.invitations.get({
             id: "id",
         });
         /**
@@ -222,7 +224,7 @@ gapi.load('client', () => {
          *
          * &#42; `PERMISSION_DENIED` for access errors.
          */
-        await gapi.client.invitations.list({
+        await gapi.client.classroom.invitations.list({
             courseId: "courseId",
             pageSize: 2,
             pageToken: "pageToken",
@@ -261,13 +263,13 @@ gapi.load('client', () => {
          * &#42; the specified `destination` cannot be located, or Classroom has not
          * been granted permission to publish to it.
          */
-        await gapi.client.registrations.create({
+        await gapi.client.classroom.registrations.create({
         });
         /**
          * Deletes a `Registration`, causing Classroom to stop sending notifications
          * for that `Registration`.
          */
-        await gapi.client.registrations.delete({
+        await gapi.client.classroom.registrations.delete({
             registrationId: "registrationId",
         });
         /**
@@ -279,7 +281,7 @@ gapi.load('client', () => {
          * this user profile, if no profile exists with the requested ID, or for
          * access errors.
          */
-        await gapi.client.userProfiles.get({
+        await gapi.client.classroom.userProfiles.get({
             userId: "userId",
         });
     }

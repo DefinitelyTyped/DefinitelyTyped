@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "analytics", version: "v3"): PromiseLike<void>;
     function load(name: "analytics", version: "v3", callback: () => any): void;
 
-    const data: analytics.DataResource;
-
-    const management: analytics.ManagementResource;
-
-    const metadata: analytics.MetadataResource;
-
-    const provisioning: analytics.ProvisioningResource;
-
     namespace analytics {
         interface Account {
             /** Child link for an account entry. Points to the list of web properties for this account. */
@@ -4067,5 +4059,13 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<AccountTicket>;
         }
+
+        const data: analytics.DataResource;
+
+        const management: analytics.ManagementResource;
+
+        const metadata: analytics.MetadataResource;
+
+        const provisioning: analytics.ProvisioningResource;
     }
 }

@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "testing", version: "v1"): PromiseLike<void>;
     function load(name: "testing", version: "v1", callback: () => any): void;
 
-    const projects: testing.ProjectsResource;
-
-    const testEnvironmentCatalog: testing.TestEnvironmentCatalogResource;
-
     namespace testing {
         interface Account {
             /** An automatic google login account */
@@ -688,9 +684,15 @@ declare namespace gapi.client {
              */
             account?: Account;
             /**
-             * The directories on the device to upload to GCS at the end of the test;
-             * they must be absolute, whitelisted paths.
-             * Refer to RegularFile for whitelisted paths.
+             * List of directories on the device to upload to GCS at the end of the test;
+             * they must be absolute paths under /sdcard or /data/local/tmp.
+             * Path names are restricted to characters a-z A-Z 0-9 _ - . + and /
+             *
+             * Note: The paths /sdcard and /data will be made available and treated as
+             * implicit path substitutions. E.g. if /sdcard on a particular device does
+             * not map to external storage, the system will replace it with the external
+             * storage path prefix for that device.
+             *
              * Optional
              */
             directoriesToPull?: string[];
@@ -699,7 +701,11 @@ declare namespace gapi.client {
              * instrumentation tests).
              */
             environmentVariables?: EnvironmentVariable[];
-            /** Optional */
+            /**
+             * List of files to push to the device before starting the test.
+             *
+             * Optional
+             */
             filesToPush?: DeviceFile[];
             /**
              * The network traffic profile used for running the test.
@@ -993,5 +999,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<TestEnvironmentCatalog>;
         }
+
+        const projects: testing.ProjectsResource;
+
+        const testEnvironmentCatalog: testing.TestEnvironmentCatalogResource;
     }
 }

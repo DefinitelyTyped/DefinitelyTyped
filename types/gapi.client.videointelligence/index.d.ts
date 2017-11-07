@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "videointelligence", version: "v1beta1"): PromiseLike<void>;
     function load(name: "videointelligence", version: "v1beta1", callback: () => any): void;
 
-    const videos: videointelligence.VideosResource;
-
     namespace videointelligence {
         interface GoogleCloudVideointelligenceV1_AnnotateVideoProgress {
             /** Progress metadata for all videos specified in `AnnotateVideoRequest`. */
@@ -27,35 +25,60 @@ declare namespace gapi.client {
             /** Annotation results for all videos specified in `AnnotateVideoRequest`. */
             annotationResults?: GoogleCloudVideointelligenceV1_VideoAnnotationResults[];
         }
-        interface GoogleCloudVideointelligenceV1_LabelAnnotation {
+        interface GoogleCloudVideointelligenceV1_Entity {
             /** Textual description, e.g. `Fixed-gear bicycle`. */
             description?: string;
+            /**
+             * Opaque entity ID. Some IDs may be available in
+             * [Google Knowledge Graph Search
+             * API](https://developers.google.com/knowledge-graph/).
+             */
+            entityId?: string;
             /** Language code for `description` in BCP-47 format. */
             languageCode?: string;
-            /** Where the label was detected and with what confidence. */
-            locations?: GoogleCloudVideointelligenceV1_LabelLocation[];
         }
-        interface GoogleCloudVideointelligenceV1_LabelLocation {
+        interface GoogleCloudVideointelligenceV1_ExplicitContentAnnotation {
+            /** All video frames where explicit content was detected. */
+            frames?: GoogleCloudVideointelligenceV1_ExplicitContentFrame[];
+        }
+        interface GoogleCloudVideointelligenceV1_ExplicitContentFrame {
+            /** Likelihood of the pornography content.. */
+            pornographyLikelihood?: string;
+            /**
+             * Time-offset, relative to the beginning of the video, corresponding to the
+             * video frame for this location.
+             */
+            timeOffset?: string;
+        }
+        interface GoogleCloudVideointelligenceV1_LabelAnnotation {
+            /**
+             * Common categories for the detected entity.
+             * E.g. when the label is `Terrier` the category is likely `dog`. And in some
+             * cases there might be more than one categories e.g. `Terrier` could also be
+             * a `pet`.
+             */
+            categoryEntities?: GoogleCloudVideointelligenceV1_Entity[];
+            /** Detected entity. */
+            entity?: GoogleCloudVideointelligenceV1_Entity;
+            /** All video frames where a label was detected. */
+            frames?: GoogleCloudVideointelligenceV1_LabelFrame[];
+            /** All video segments where a label was detected. */
+            segments?: GoogleCloudVideointelligenceV1_LabelSegment[];
+        }
+        interface GoogleCloudVideointelligenceV1_LabelFrame {
             /** Confidence that the label is accurate. Range: [0, 1]. */
             confidence?: number;
-            /** Label level. */
-            level?: string;
             /**
-             * Video segment. Unset for video-level labels.
-             * Set to a frame timestamp for frame-level labels.
-             * Otherwise, corresponds to one of `AnnotateSpec.segments`
-             * (if specified) or to shot boundaries (if requested).
+             * Time-offset, relative to the beginning of the video, corresponding to the
+             * video frame for this location.
              */
-            segment?: GoogleCloudVideointelligenceV1_VideoSegment;
+            timeOffset?: string;
         }
-        interface GoogleCloudVideointelligenceV1_SafeSearchAnnotation {
-            /** Likelihood of adult content. */
-            adult?: string;
-            /**
-             * Time-offset, relative to the beginning of the video,
-             * corresponding to the video frame for this annotation.
-             */
-            time?: string;
+        interface GoogleCloudVideointelligenceV1_LabelSegment {
+            /** Confidence that the label is accurate. Range: [0, 1]. */
+            confidence?: number;
+            /** Video segment where a label was detected. */
+            segment?: GoogleCloudVideointelligenceV1_VideoSegment;
         }
         interface GoogleCloudVideointelligenceV1_VideoAnnotationProgress {
             /**
@@ -79,29 +102,42 @@ declare namespace gapi.client {
              * some videos may succeed and some may fail.
              */
             error?: GoogleRpc_Status;
+            /** Explicit content annotation. */
+            explicitAnnotation?: GoogleCloudVideointelligenceV1_ExplicitContentAnnotation;
+            /**
+             * Label annotations on frame level.
+             * There is exactly one element for each unique label.
+             */
+            frameLabelAnnotations?: GoogleCloudVideointelligenceV1_LabelAnnotation[];
             /**
              * Video file location in
              * [Google Cloud Storage](https://cloud.google.com/storage/).
              */
             inputUri?: string;
-            /** Label annotations. There is exactly one element for each unique label. */
-            labelAnnotations?: GoogleCloudVideointelligenceV1_LabelAnnotation[];
-            /** Safe search annotations. */
-            safeSearchAnnotations?: GoogleCloudVideointelligenceV1_SafeSearchAnnotation[];
+            /**
+             * Label annotations on video level or user specified segment level.
+             * There is exactly one element for each unique label.
+             */
+            segmentLabelAnnotations?: GoogleCloudVideointelligenceV1_LabelAnnotation[];
             /** Shot annotations. Each shot is represented as a video segment. */
             shotAnnotations?: GoogleCloudVideointelligenceV1_VideoSegment[];
+            /**
+             * Label annotations on shot level.
+             * There is exactly one element for each unique label.
+             */
+            shotLabelAnnotations?: GoogleCloudVideointelligenceV1_LabelAnnotation[];
         }
         interface GoogleCloudVideointelligenceV1_VideoSegment {
             /**
              * Time-offset, relative to the beginning of the video,
              * corresponding to the end of the segment (inclusive).
              */
-            endTime?: string;
+            endTimeOffset?: string;
             /**
              * Time-offset, relative to the beginning of the video,
              * corresponding to the start of the segment (inclusive).
              */
-            startTime?: string;
+            startTimeOffset?: string;
         }
         interface GoogleCloudVideointelligenceV1beta1_AnnotateVideoProgress {
             /** Progress metadata for all videos specified in `AnnotateVideoRequest`. */
@@ -469,5 +505,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<GoogleLongrunning_Operation>;
         }
+
+        const videos: videointelligence.VideosResource;
     }
 }

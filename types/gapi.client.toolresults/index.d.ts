@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "toolresults", version: "v1beta3"): PromiseLike<void>;
     function load(name: "toolresults", version: "v1beta3", callback: () => any): void;
 
-    const projects: toolresults.ProjectsResource;
-
     namespace toolresults {
         interface AndroidAppInfo {
             /** The name of the app. Optional */
@@ -41,11 +39,7 @@ declare namespace gapi.client {
              * If empty, all targets in the module will be run.
              */
             testTargets?: string[];
-            /**
-             * The flag indicates whether Android Test Orchestrator will be used to run test or not. Test orchestrator is used if either: - orchestrator_option field
-             * is USE_ORCHESTRATOR, and test runner is compatible with orchestrator. Or - orchestrator_option field is unspecified or ORCHESTRATOR_OPTION_UNSPECIFIED,
-             * and test runner is compatible with orchestrator.
-             */
+            /** The flag indicates whether Android Test Orchestrator will be used to run test or not. */
             useOrchestrator?: boolean;
         }
         interface AndroidRoboTest {
@@ -72,15 +66,18 @@ declare namespace gapi.client {
         }
         interface Any {
             /**
-             * A URL/resource name whose content describes the type of the serialized protocol buffer message.
+             * A URL/resource name that uniquely identifies the type of the serialized protocol buffer message. The last segment of the URL's path must represent the
+             * fully qualified name of the type (as in `path/google.protobuf.Duration`). The name should be in a canonical form (e.g., leading "." is not accepted).
              *
-             * For URLs which use the scheme `http`, `https`, or no scheme, the following restrictions and interpretations apply:
+             * In practice, teams usually precompile into the binary all types that they expect it to use in the context of Any. However, for URLs which use the
+             * scheme `http`, `https`, or no scheme, one can optionally set up a type server that maps type URLs to message definitions as follows:
              *
-             * &#42; If no scheme is provided, `https` is assumed. &#42; The last segment of the URL's path must represent the fully qualified name of the type (as in
-             * `path/google.protobuf.Duration`). The name should be in a canonical form (e.g., leading "." is not accepted). &#42; An HTTP GET on the URL must yield a
-             * [google.protobuf.Type][] value in binary format, or produce an error. &#42; Applications are allowed to cache lookup results based on the URL, or have them
-             * precompiled into a binary to avoid any lookup. Therefore, binary compatibility needs to be preserved on changes to types. (Use versioned type names to
-             * manage breaking changes.)
+             * &#42; If no scheme is provided, `https` is assumed. &#42; An HTTP GET on the URL must yield a [google.protobuf.Type][] value in binary format, or produce an
+             * error. &#42; Applications are allowed to cache lookup results based on the URL, or have them precompiled into a binary to avoid any lookup. Therefore,
+             * binary compatibility needs to be preserved on changes to types. (Use versioned type names to manage breaking changes.)
+             *
+             * Note: this functionality is not currently available in the official protobuf release, and it is not used for type URLs beginning with
+             * type.googleapis.com.
              *
              * Schemes other than `http`, `https` (or the empty scheme) might be used with implementation specific semantics.
              */
@@ -740,7 +737,7 @@ declare namespace gapi.client {
             stackTrace?: StackTrace;
             /** Type of issue. Required. */
             type?: string;
-            /** Warning message with additional details of the issue. Should always be a message from com.google.devtools.toolresults.v1.warnings Required. */
+            /** Warning message with additional details of the issue. Should always be a message from com.google.devtools.toolresults.v1.warnings */
             warning?: Any;
         }
         interface TestSuiteOverview {
@@ -1998,5 +1995,7 @@ declare namespace gapi.client {
             }): Request<ProjectSettings>;
             histories: HistoriesResource;
         }
+
+        const projects: toolresults.ProjectsResource;
     }
 }

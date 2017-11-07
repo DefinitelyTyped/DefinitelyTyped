@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "storagetransfer", version: "v1"): PromiseLike<void>;
     function load(name: "storagetransfer", version: "v1", callback: () => any): void;
 
-    const googleServiceAccounts: storagetransfer.GoogleServiceAccountsResource;
-
-    const transferJobs: storagetransfer.TransferJobsResource;
-
-    const transferOperations: storagetransfer.TransferOperationsResource;
-
     namespace storagetransfer {
         interface AwsAccessKey {
             /**
@@ -852,5 +846,11 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<{}>;
         }
+
+        const googleServiceAccounts: storagetransfer.GoogleServiceAccountsResource;
+
+        const transferJobs: storagetransfer.TransferJobsResource;
+
+        const transferOperations: storagetransfer.TransferOperationsResource;
     }
 }

@@ -718,6 +718,11 @@ Performs a reset on the instance. For more information, see Resetting an instanc
 await gapi.client.instances.reset({ instance: "instance", project: "project", zone: "zone",  }); 
     
 /* 
+Sets deletion protection on the instance.  
+*/
+await gapi.client.instances.setDeletionProtection({ project: "project", resource: "resource", zone: "zone",  }); 
+    
+/* 
 Sets the auto-delete flag for a disk attached to an instance.  
 */
 await gapi.client.instances.setDiskAutoDelete({ autoDelete: , deviceName: "deviceName", instance: "instance", project: "project", zone: "zone",  }); 
@@ -773,9 +778,69 @@ Starts an instance that was stopped using the using the instances().stop method.
 await gapi.client.instances.startWithEncryptionKey({ instance: "instance", project: "project", zone: "zone",  }); 
     
 /* 
-Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur per-minute, virtual machine usage charges while they are stopped, but any resources that the virtual machine is using, such as persistent disks and static IP addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance.  
+Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur VM usage charges while they are stopped. However, resources that the VM is using, such as persistent disks and static IP addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance.  
 */
 await gapi.client.instances.stop({ instance: "instance", project: "project", zone: "zone",  }); 
+    
+/* 
+Retrieves an aggregated list of interconnect attachments.  
+*/
+await gapi.client.interconnectAttachments.aggregatedList({ project: "project",  }); 
+    
+/* 
+Deletes the specified interconnect attachment.  
+*/
+await gapi.client.interconnectAttachments.delete({ interconnectAttachment: "interconnectAttachment", project: "project", region: "region",  }); 
+    
+/* 
+Returns the specified interconnect attachment.  
+*/
+await gapi.client.interconnectAttachments.get({ interconnectAttachment: "interconnectAttachment", project: "project", region: "region",  }); 
+    
+/* 
+Creates an InterconnectAttachment in the specified project using the data included in the request.  
+*/
+await gapi.client.interconnectAttachments.insert({ project: "project", region: "region",  }); 
+    
+/* 
+Retrieves the list of interconnect attachments contained within the specified region.  
+*/
+await gapi.client.interconnectAttachments.list({ project: "project", region: "region",  }); 
+    
+/* 
+Returns the details for the specified interconnect location. Get a list of available interconnect locations by making a list() request.  
+*/
+await gapi.client.interconnectLocations.get({ interconnectLocation: "interconnectLocation", project: "project",  }); 
+    
+/* 
+Retrieves the list of interconnect locations available to the specified project.  
+*/
+await gapi.client.interconnectLocations.list({ project: "project",  }); 
+    
+/* 
+Deletes the specified interconnect.  
+*/
+await gapi.client.interconnects.delete({ interconnect: "interconnect", project: "project",  }); 
+    
+/* 
+Returns the specified interconnect. Get a list of available interconnects by making a list() request.  
+*/
+await gapi.client.interconnects.get({ interconnect: "interconnect", project: "project",  }); 
+    
+/* 
+Creates a Interconnect in the specified project using the data included in the request.  
+*/
+await gapi.client.interconnects.insert({ project: "project",  }); 
+    
+/* 
+Retrieves the list of interconnect available to the specified project.  
+*/
+await gapi.client.interconnects.list({ project: "project",  }); 
+    
+/* 
+Updates the specified interconnect with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.  
+*/
+await gapi.client.interconnects.patch({ interconnect: "interconnect", project: "project",  }); 
     
 /* 
 Returns the specified License resource.  

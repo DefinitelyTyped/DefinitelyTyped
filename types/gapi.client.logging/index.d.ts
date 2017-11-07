@@ -16,18 +16,6 @@ declare namespace gapi.client {
     function load(name: "logging", version: "v2"): PromiseLike<void>;
     function load(name: "logging", version: "v2", callback: () => any): void;
 
-    const billingAccounts: logging.BillingAccountsResource;
-
-    const entries: logging.EntriesResource;
-
-    const folders: logging.FoldersResource;
-
-    const monitoredResourceDescriptors: logging.MonitoredResourceDescriptorsResource;
-
-    const organizations: logging.OrganizationsResource;
-
-    const projects: logging.ProjectsResource;
-
     namespace logging {
         interface BucketOptions {
             /** The explicit buckets. */
@@ -240,6 +228,11 @@ declare namespace gapi.client {
             severity?: string;
             /** Optional. Source code location information associated with the log entry, if any. */
             sourceLocation?: LogEntrySourceLocation;
+            /**
+             * Optional. Id of the span within the trace associated with the log entry. e.g. "0000000000000042" For Stackdriver trace spans, this is the same format
+             * that the Stackdriver trace API uses. The ID is a 16-character hexadecimal encoding of an 8-byte array.
+             */
+            spanId?: string;
             /** The log entry payload, represented as a Unicode string (UTF-8). */
             textPayload?: string;
             /**
@@ -1531,6 +1524,216 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<LogExclusion>;
         }
+        interface ExclusionsResource {
+            /**
+             * Creates a new exclusion in a specified parent resource. Only log entries belonging to that resource can be excluded. You can have up to 10 exclusions
+             * in a resource.
+             */
+            create(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Required. The parent resource in which to create the exclusion:
+                 * "projects/[PROJECT_ID]"
+                 * "organizations/[ORGANIZATION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]"
+                 * "folders/[FOLDER_ID]"
+                 * Examples: "projects/my-logging-project", "organizations/123456789".
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<LogExclusion>;
+            /** Deletes an exclusion. */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Required. The resource name of an existing exclusion to delete:
+                 * "projects/[PROJECT_ID]/exclusions/[EXCLUSION_ID]"
+                 * "organizations/[ORGANIZATION_ID]/exclusions/[EXCLUSION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/exclusions/[EXCLUSION_ID]"
+                 * "folders/[FOLDER_ID]/exclusions/[EXCLUSION_ID]"
+                 * Example: "projects/my-project-id/exclusions/my-exclusion-id".
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
+            /** Gets the description of an exclusion. */
+            get(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Required. The resource name of an existing exclusion:
+                 * "projects/[PROJECT_ID]/exclusions/[EXCLUSION_ID]"
+                 * "organizations/[ORGANIZATION_ID]/exclusions/[EXCLUSION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/exclusions/[EXCLUSION_ID]"
+                 * "folders/[FOLDER_ID]/exclusions/[EXCLUSION_ID]"
+                 * Example: "projects/my-project-id/exclusions/my-exclusion-id".
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<LogExclusion>;
+            /** Lists all the exclusions in a parent resource. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of nextPageToken in the response
+                 * indicates that more results might be available.
+                 */
+                pageSize?: number;
+                /**
+                 * Optional. If present, then retrieve the next batch of results from the preceding call to this method. pageToken must be the value of nextPageToken from
+                 * the previous response. The values of other method parameters should be identical to those in the previous call.
+                 */
+                pageToken?: string;
+                /**
+                 * Required. The parent resource whose exclusions are to be listed.
+                 * "projects/[PROJECT_ID]"
+                 * "organizations/[ORGANIZATION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]"
+                 * "folders/[FOLDER_ID]"
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListExclusionsResponse>;
+            /** Changes one or more properties of an existing exclusion. */
+            patch(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Required. The resource name of the exclusion to update:
+                 * "projects/[PROJECT_ID]/exclusions/[EXCLUSION_ID]"
+                 * "organizations/[ORGANIZATION_ID]/exclusions/[EXCLUSION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/exclusions/[EXCLUSION_ID]"
+                 * "folders/[FOLDER_ID]/exclusions/[EXCLUSION_ID]"
+                 * Example: "projects/my-project-id/exclusions/my-exclusion-id".
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Required. A nonempty list of fields to change in the existing exclusion. New values for the fields are taken from the corresponding fields in the
+                 * LogExclusion included in this request. Fields not mentioned in update_mask are not changed and are ignored in the request.For example, to change the
+                 * filter and description of an exclusion, specify an update_mask of "filter,description".
+                 */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<LogExclusion>;
+        }
         interface LogsResource {
             /**
              * Deletes all the log entries in a log. The log reappears if it receives new entries. Log entries written shortly before the delete operation might not
@@ -1914,6 +2117,97 @@ declare namespace gapi.client {
             exclusions: ExclusionsResource;
             logs: LogsResource;
             sinks: SinksResource;
+        }
+        interface LogsResource {
+            /**
+             * Deletes all the log entries in a log. The log reappears if it receives new entries. Log entries written shortly before the delete operation might not
+             * be deleted.
+             */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Required. The resource name of the log to delete:
+                 * "projects/[PROJECT_ID]/logs/[LOG_ID]"
+                 * "organizations/[ORGANIZATION_ID]/logs/[LOG_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/logs/[LOG_ID]"
+                 * "folders/[FOLDER_ID]/logs/[LOG_ID]"
+                 * [LOG_ID] must be URL-encoded. For example, "projects/my-project-id/logs/syslog",
+                 * "organizations/1234567890/logs/cloudresourcemanager.googleapis.com%2Factivity". For more information about log names, see LogEntry.
+                 */
+                logName: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
+            /** Lists the logs in projects, organizations, folders, or billing accounts. Only logs that have entries are listed. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of nextPageToken in the response
+                 * indicates that more results might be available.
+                 */
+                pageSize?: number;
+                /**
+                 * Optional. If present, then retrieve the next batch of results from the preceding call to this method. pageToken must be the value of nextPageToken from
+                 * the previous response. The values of other method parameters should be identical to those in the previous call.
+                 */
+                pageToken?: string;
+                /**
+                 * Required. The resource name that owns the logs:
+                 * "projects/[PROJECT_ID]"
+                 * "organizations/[ORGANIZATION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]"
+                 * "folders/[FOLDER_ID]"
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListLogsResponse>;
         }
         interface MonitoredResourceDescriptorsResource {
             /** Lists the descriptors for monitored resource types used by Stackdriver Logging. */
@@ -3330,5 +3624,254 @@ declare namespace gapi.client {
             metrics: MetricsResource;
             sinks: SinksResource;
         }
+        interface SinksResource {
+            /**
+             * Creates a sink that exports specified log entries to a destination. The export of newly-ingested log entries begins immediately, unless the sink's
+             * writer_identity is not permitted to write to the destination. A sink can export log entries only from the resource owning the sink.
+             */
+            create(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Required. The resource in which to create the sink:
+                 * "projects/[PROJECT_ID]"
+                 * "organizations/[ORGANIZATION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]"
+                 * "folders/[FOLDER_ID]"
+                 * Examples: "projects/my-logging-project", "organizations/123456789".
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Optional. Determines the kind of IAM identity returned as writer_identity in the new sink. If this value is omitted or set to false, and if the sink's
+                 * parent is a project, then the value returned as writer_identity is the same group or service account used by Stackdriver Logging before the addition of
+                 * writer identities to this API. The sink's destination must be in the same project as the sink itself.If this field is set to true, or if the sink is
+                 * owned by a non-project resource such as an organization, then the value of writer_identity will be a unique service account used only for exports from
+                 * the new sink. For more information, see writer_identity in LogSink.
+                 */
+                uniqueWriterIdentity?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<LogSink>;
+            /** Deletes a sink. If the sink has a unique writer_identity, then that service account is also deleted. */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Required. The full resource name of the sink to delete, including the parent resource and the sink identifier:
+                 * "projects/[PROJECT_ID]/sinks/[SINK_ID]"
+                 * "organizations/[ORGANIZATION_ID]/sinks/[SINK_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/sinks/[SINK_ID]"
+                 * "folders/[FOLDER_ID]/sinks/[SINK_ID]"
+                 * Example: "projects/my-project-id/sinks/my-sink-id".
+                 */
+                sinkName: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
+            /** Gets a sink. */
+            get(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Required. The resource name of the sink:
+                 * "projects/[PROJECT_ID]/sinks/[SINK_ID]"
+                 * "organizations/[ORGANIZATION_ID]/sinks/[SINK_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/sinks/[SINK_ID]"
+                 * "folders/[FOLDER_ID]/sinks/[SINK_ID]"
+                 * Example: "projects/my-project-id/sinks/my-sink-id".
+                 */
+                sinkName: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<LogSink>;
+            /** Lists sinks. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of nextPageToken in the response
+                 * indicates that more results might be available.
+                 */
+                pageSize?: number;
+                /**
+                 * Optional. If present, then retrieve the next batch of results from the preceding call to this method. pageToken must be the value of nextPageToken from
+                 * the previous response. The values of other method parameters should be identical to those in the previous call.
+                 */
+                pageToken?: string;
+                /**
+                 * Required. The parent resource whose sinks are to be listed:
+                 * "projects/[PROJECT_ID]"
+                 * "organizations/[ORGANIZATION_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]"
+                 * "folders/[FOLDER_ID]"
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListSinksResponse>;
+            /**
+             * Updates a sink. This method replaces the following fields in the existing sink with values from the new sink: destination, and filter. The updated sink
+             * might also have a new writer_identity; see the unique_writer_identity field.
+             */
+            update(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Required. The full resource name of the sink to update, including the parent resource and the sink identifier:
+                 * "projects/[PROJECT_ID]/sinks/[SINK_ID]"
+                 * "organizations/[ORGANIZATION_ID]/sinks/[SINK_ID]"
+                 * "billingAccounts/[BILLING_ACCOUNT_ID]/sinks/[SINK_ID]"
+                 * "folders/[FOLDER_ID]/sinks/[SINK_ID]"
+                 * Example: "projects/my-project-id/sinks/my-sink-id".
+                 */
+                sinkName: string;
+                /**
+                 * Optional. See sinks.create for a description of this field. When updating a sink, the effect of this field on the value of writer_identity in the
+                 * updated sink depends on both the old and new values of this field:
+                 * If the old and new values of this field are both false or both true, then there is no change to the sink's writer_identity.
+                 * If the old value is false and the new value is true, then writer_identity is changed to a unique service account.
+                 * It is an error if the old value is true and the new value is set to false or defaulted to false.
+                 */
+                uniqueWriterIdentity?: boolean;
+                /**
+                 * Optional. Field mask that specifies the fields in sink that need an update. A sink field will be overwritten if, and only if, it is in the update mask.
+                 * name and output only fields cannot be updated.An empty updateMask is temporarily treated as using the following mask for backwards compatibility
+                 * purposes:  destination,filter,includeChildren At some point in the future, behavior will be removed and specifying an empty updateMask will be an
+                 * error.For a detailed FieldMask definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmaskExample:
+                 * updateMask=filter.
+                 */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<LogSink>;
+        }
+
+        const billingAccounts: logging.BillingAccountsResource;
+
+        const entries: logging.EntriesResource;
+
+        const exclusions: logging.ExclusionsResource;
+
+        const folders: logging.FoldersResource;
+
+        const logs: logging.LogsResource;
+
+        const monitoredResourceDescriptors: logging.MonitoredResourceDescriptorsResource;
+
+        const organizations: logging.OrganizationsResource;
+
+        const projects: logging.ProjectsResource;
+
+        const sinks: logging.SinksResource;
     }
 }

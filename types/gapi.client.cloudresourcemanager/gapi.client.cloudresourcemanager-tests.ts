@@ -31,7 +31,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Clears a `Policy` from a resource. */
-        await gapi.client.folders.clearOrgPolicy({
+        await gapi.client.cloudresourcemanager.folders.clearOrgPolicy({
             resource: "resource",
         });
         /**
@@ -39,7 +39,7 @@ gapi.load('client', () => {
          * `Policies` in the resource hierarchy. The returned `Policy` will not have
          * an `etag`set because it is a computed `Policy` across multiple resources.
          */
-        await gapi.client.folders.getEffectiveOrgPolicy({
+        await gapi.client.cloudresourcemanager.folders.getEffectiveOrgPolicy({
             resource: "resource",
         });
         /**
@@ -50,15 +50,15 @@ gapi.load('client', () => {
          * `etag` value can be used with `SetOrgPolicy()` to create or update a
          * `Policy` during read-modify-write.
          */
-        await gapi.client.folders.getOrgPolicy({
+        await gapi.client.cloudresourcemanager.folders.getOrgPolicy({
             resource: "resource",
         });
         /** Lists `Constraints` that could be applied on the specified resource. */
-        await gapi.client.folders.listAvailableOrgPolicyConstraints({
+        await gapi.client.cloudresourcemanager.folders.listAvailableOrgPolicyConstraints({
             resource: "resource",
         });
         /** Lists all the `Policies` set for a particular resource. */
-        await gapi.client.folders.listOrgPolicies({
+        await gapi.client.cloudresourcemanager.folders.listOrgPolicies({
             resource: "resource",
         });
         /**
@@ -68,7 +68,7 @@ gapi.load('client', () => {
          * Not supplying an `etag` on the request `Policy` results in an unconditional
          * write of the `Policy`.
          */
-        await gapi.client.folders.setOrgPolicy({
+        await gapi.client.cloudresourcemanager.folders.setOrgPolicy({
             resource: "resource",
         });
         /**
@@ -80,7 +80,7 @@ gapi.load('client', () => {
          *
          * NOTE: Some resources may limit the number of Liens which may be applied.
          */
-        await gapi.client.liens.create({
+        await gapi.client.cloudresourcemanager.liens.create({
         });
         /**
          * Delete a Lien by `name`.
@@ -89,7 +89,7 @@ gapi.load('client', () => {
          * For example, a Lien with a `parent` of `projects/1234` requires permission
          * `resourcemanager.projects.updateLiens`.
          */
-        await gapi.client.liens.delete({
+        await gapi.client.cloudresourcemanager.liens.delete({
             name: "name",
         });
         /**
@@ -99,7 +99,7 @@ gapi.load('client', () => {
          * For example, a Lien with a `parent` of `projects/1234` requires permission
          * `resourcemanager.projects.get`.
          */
-        await gapi.client.liens.list({
+        await gapi.client.cloudresourcemanager.liens.list({
             pageSize: 1,
             pageToken: "pageToken",
             parent: "parent",
@@ -109,15 +109,15 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get({
+        await gapi.client.cloudresourcemanager.operations.get({
             name: "name",
         });
         /** Clears a `Policy` from a resource. */
-        await gapi.client.organizations.clearOrgPolicy({
+        await gapi.client.cloudresourcemanager.organizations.clearOrgPolicy({
             resource: "resource",
         });
         /** Fetches an Organization resource identified by the specified resource name. */
-        await gapi.client.organizations.get({
+        await gapi.client.cloudresourcemanager.organizations.get({
             name: "name",
         });
         /**
@@ -125,7 +125,7 @@ gapi.load('client', () => {
          * `Policies` in the resource hierarchy. The returned `Policy` will not have
          * an `etag`set because it is a computed `Policy` across multiple resources.
          */
-        await gapi.client.organizations.getEffectiveOrgPolicy({
+        await gapi.client.cloudresourcemanager.organizations.getEffectiveOrgPolicy({
             resource: "resource",
         });
         /**
@@ -136,7 +136,7 @@ gapi.load('client', () => {
          * Authorization requires the Google IAM permission
          * `resourcemanager.organizations.getIamPolicy` on the specified organization
          */
-        await gapi.client.organizations.getIamPolicy({
+        await gapi.client.cloudresourcemanager.organizations.getIamPolicy({
             resource: "resource",
         });
         /**
@@ -147,15 +147,15 @@ gapi.load('client', () => {
          * `etag` value can be used with `SetOrgPolicy()` to create or update a
          * `Policy` during read-modify-write.
          */
-        await gapi.client.organizations.getOrgPolicy({
+        await gapi.client.cloudresourcemanager.organizations.getOrgPolicy({
             resource: "resource",
         });
         /** Lists `Constraints` that could be applied on the specified resource. */
-        await gapi.client.organizations.listAvailableOrgPolicyConstraints({
+        await gapi.client.cloudresourcemanager.organizations.listAvailableOrgPolicyConstraints({
             resource: "resource",
         });
         /** Lists all the `Policies` set for a particular resource. */
-        await gapi.client.organizations.listOrgPolicies({
+        await gapi.client.cloudresourcemanager.organizations.listOrgPolicies({
             resource: "resource",
         });
         /**
@@ -167,7 +167,7 @@ gapi.load('client', () => {
          * Search will only return organizations on which the user has the permission
          * `resourcemanager.organizations.get`
          */
-        await gapi.client.organizations.search({
+        await gapi.client.cloudresourcemanager.organizations.search({
         });
         /**
          * Sets the access control policy on an Organization resource. Replaces any
@@ -177,7 +177,7 @@ gapi.load('client', () => {
          * Authorization requires the Google IAM permission
          * `resourcemanager.organizations.setIamPolicy` on the specified organization
          */
-        await gapi.client.organizations.setIamPolicy({
+        await gapi.client.cloudresourcemanager.organizations.setIamPolicy({
             resource: "resource",
         });
         /**
@@ -187,7 +187,7 @@ gapi.load('client', () => {
          * Not supplying an `etag` on the request `Policy` results in an unconditional
          * write of the `Policy`.
          */
-        await gapi.client.organizations.setOrgPolicy({
+        await gapi.client.cloudresourcemanager.organizations.setOrgPolicy({
             resource: "resource",
         });
         /**
@@ -197,11 +197,11 @@ gapi.load('client', () => {
          *
          * There are no permissions required for making this API call.
          */
-        await gapi.client.organizations.testIamPermissions({
+        await gapi.client.cloudresourcemanager.organizations.testIamPermissions({
             resource: "resource",
         });
         /** Clears a `Policy` from a resource. */
-        await gapi.client.projects.clearOrgPolicy({
+        await gapi.client.cloudresourcemanager.projects.clearOrgPolicy({
             resource: "resource",
         });
         /**
@@ -218,7 +218,7 @@ gapi.load('client', () => {
          * `resourcemanager.projects.create` on the specified parent for the new
          * project.
          */
-        await gapi.client.projects.create({
+        await gapi.client.cloudresourcemanager.projects.create({
         });
         /**
          * Marks the Project identified by the specified
@@ -246,7 +246,7 @@ gapi.load('client', () => {
          *
          * The caller must have modify permissions for this Project.
          */
-        await gapi.client.projects.delete({
+        await gapi.client.cloudresourcemanager.projects.delete({
             projectId: "projectId",
         });
         /**
@@ -255,7 +255,7 @@ gapi.load('client', () => {
          *
          * The caller must have read permissions for this Project.
          */
-        await gapi.client.projects.get({
+        await gapi.client.cloudresourcemanager.projects.get({
             projectId: "projectId",
         });
         /**
@@ -264,7 +264,7 @@ gapi.load('client', () => {
          *
          * The caller must have read permissions for this Project.
          */
-        await gapi.client.projects.getAncestry({
+        await gapi.client.cloudresourcemanager.projects.getAncestry({
             projectId: "projectId",
         });
         /**
@@ -272,7 +272,7 @@ gapi.load('client', () => {
          * `Policies` in the resource hierarchy. The returned `Policy` will not have
          * an `etag`set because it is a computed `Policy` across multiple resources.
          */
-        await gapi.client.projects.getEffectiveOrgPolicy({
+        await gapi.client.cloudresourcemanager.projects.getEffectiveOrgPolicy({
             resource: "resource",
         });
         /**
@@ -282,7 +282,7 @@ gapi.load('client', () => {
          * Authorization requires the Google IAM permission
          * `resourcemanager.projects.getIamPolicy` on the project
          */
-        await gapi.client.projects.getIamPolicy({
+        await gapi.client.cloudresourcemanager.projects.getIamPolicy({
             resource: "resource",
         });
         /**
@@ -293,7 +293,7 @@ gapi.load('client', () => {
          * `etag` value can be used with `SetOrgPolicy()` to create or update a
          * `Policy` during read-modify-write.
          */
-        await gapi.client.projects.getOrgPolicy({
+        await gapi.client.cloudresourcemanager.projects.getOrgPolicy({
             resource: "resource",
         });
         /**
@@ -301,17 +301,17 @@ gapi.load('client', () => {
          * specified filter. This method returns Projects in an unspecified order.
          * New Projects do not necessarily appear at the end of the list.
          */
-        await gapi.client.projects.list({
+        await gapi.client.cloudresourcemanager.projects.list({
             filter: "filter",
             pageSize: 2,
             pageToken: "pageToken",
         });
         /** Lists `Constraints` that could be applied on the specified resource. */
-        await gapi.client.projects.listAvailableOrgPolicyConstraints({
+        await gapi.client.cloudresourcemanager.projects.listAvailableOrgPolicyConstraints({
             resource: "resource",
         });
         /** Lists all the `Policies` set for a particular resource. */
-        await gapi.client.projects.listOrgPolicies({
+        await gapi.client.cloudresourcemanager.projects.listOrgPolicies({
             resource: "resource",
         });
         /**
@@ -358,7 +358,7 @@ gapi.load('client', () => {
          * Authorization requires the Google IAM permission
          * `resourcemanager.projects.setIamPolicy` on the project
          */
-        await gapi.client.projects.setIamPolicy({
+        await gapi.client.cloudresourcemanager.projects.setIamPolicy({
             resource: "resource",
         });
         /**
@@ -368,7 +368,7 @@ gapi.load('client', () => {
          * Not supplying an `etag` on the request `Policy` results in an unconditional
          * write of the `Policy`.
          */
-        await gapi.client.projects.setOrgPolicy({
+        await gapi.client.cloudresourcemanager.projects.setOrgPolicy({
             resource: "resource",
         });
         /**
@@ -376,7 +376,7 @@ gapi.load('client', () => {
          *
          * There are no permissions required for making this API call.
          */
-        await gapi.client.projects.testIamPermissions({
+        await gapi.client.cloudresourcemanager.projects.testIamPermissions({
             resource: "resource",
         });
         /**
@@ -388,7 +388,7 @@ gapi.load('client', () => {
          *
          * The caller must have modify permissions for this Project.
          */
-        await gapi.client.projects.undelete({
+        await gapi.client.cloudresourcemanager.projects.undelete({
             projectId: "projectId",
         });
         /**
@@ -397,7 +397,7 @@ gapi.load('client', () => {
          *
          * The caller must have modify permissions for this Project.
          */
-        await gapi.client.projects.update({
+        await gapi.client.cloudresourcemanager.projects.update({
             projectId: "projectId",
         });
     }

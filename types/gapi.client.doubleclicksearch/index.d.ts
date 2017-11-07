@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "doubleclicksearch", version: "v2"): PromiseLike<void>;
     function load(name: "doubleclicksearch", version: "v2", callback: () => any): void;
 
-    const conversion: doubleclicksearch.ConversionResource;
-
-    const reports: doubleclicksearch.ReportsResource;
-
-    const savedColumns: doubleclicksearch.SavedColumnsResource;
-
     namespace doubleclicksearch {
         interface Availability {
             /** DS advertiser ID. */
@@ -574,5 +568,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<SavedColumnList>;
         }
+
+        const conversion: doubleclicksearch.ConversionResource;
+
+        const reports: doubleclicksearch.ReportsResource;
+
+        const savedColumns: doubleclicksearch.SavedColumnsResource;
     }
 }

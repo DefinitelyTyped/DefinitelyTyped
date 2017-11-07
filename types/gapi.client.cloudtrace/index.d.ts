@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudtrace", version: "v2"): PromiseLike<void>;
     function load(name: "cloudtrace", version: "v2", callback: () => any): void;
 
-    const projects: cloudtrace.ProjectsResource;
-
     namespace cloudtrace {
         interface Annotation {
             /**
@@ -84,6 +82,26 @@ declare namespace gapi.client {
             /** A collection of links. */
             link?: Link[];
         }
+        interface MessageEvent {
+            /**
+             * The number of compressed bytes sent or received. If missing assumed to
+             * be the same size as uncompressed.
+             */
+            compressedSizeBytes?: string;
+            /**
+             * An identifier for the MessageEvent's message that can be used to match
+             * SENT and RECEIVED MessageEvents. It is recommended to be unique within
+             * a Span.
+             */
+            id?: string;
+            /**
+             * Type of MessageEvent. Indicates whether the message was sent or
+             * received.
+             */
+            type?: string;
+            /** The number of uncompressed bytes sent or received. */
+            uncompressedSizeBytes?: string;
+        }
         interface Module {
             /**
              * A unique identifier for the module, usually a hash of its
@@ -95,25 +113,6 @@ declare namespace gapi.client {
              * such as libc.so, sharedlib.so (up to 256 bytes).
              */
             module?: TruncatableString;
-        }
-        interface NetworkEvent {
-            /** The number of compressed bytes sent or received. */
-            compressedMessageSize?: string;
-            /** An identifier for the message, which must be unique in this span. */
-            messageId?: string;
-            /**
-             * For sent messages, this is the time at which the first bit was sent.
-             * For received messages, this is the time at which the last bit was
-             * received.
-             */
-            time?: string;
-            /**
-             * Type of NetworkEvent. Indicates whether the RPC message was sent or
-             * received.
-             */
-            type?: string;
-            /** The number of uncompressed bytes sent or received. */
-            uncompressedMessageSize?: string;
         }
         interface Span {
             /**
@@ -163,7 +162,10 @@ declare namespace gapi.client {
              * same process as the current span.
              */
             sameProcessAsParentSpan?: boolean;
-            /** The [SPAN_ID] portion of the span's resource name. */
+            /**
+             * The [SPAN_ID] portion of the span's resource name.
+             * The ID is a 16-character hexadecimal encoding of an 8-byte array.
+             */
             spanId?: string;
             /** Stack trace captured at the start of the span. */
             stackTrace?: StackTrace;
@@ -176,7 +178,7 @@ declare namespace gapi.client {
             /** An optional final status for this span. */
             status?: Status;
             /**
-             * The included time events. There can be up to 32 annotations and 128 network
+             * The included time events. There can be up to 32 annotations and 128 message
              * events per span.
              */
             timeEvents?: TimeEvents;
@@ -254,8 +256,8 @@ declare namespace gapi.client {
         interface TimeEvent {
             /** Text annotation with a set of attributes. */
             annotation?: Annotation;
-            /** An event describing an RPC message sent/received on the network. */
-            networkEvent?: NetworkEvent;
+            /** An event describing a message sent/received between Spans. */
+            messageEvent?: MessageEvent;
             /** The timestamp indicating the time the event occurred. */
             time?: string;
         }
@@ -266,10 +268,10 @@ declare namespace gapi.client {
              */
             droppedAnnotationsCount?: number;
             /**
-             * The number of dropped network events in all the included time events.
-             * If the value is 0, then no network events were dropped.
+             * The number of dropped message events in all the included time events.
+             * If the value is 0, then no message events were dropped.
              */
-            droppedNetworkEventsCount?: number;
+            droppedMessageEventsCount?: number;
             /** A collection of `TimeEvent`s. */
             timeEvent?: TimeEvent[];
         }
@@ -374,5 +376,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             traces: TracesResource;
         }
+
+        const projects: cloudtrace.ProjectsResource;
     }
 }

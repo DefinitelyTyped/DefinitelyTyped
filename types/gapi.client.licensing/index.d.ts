@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "licensing", version: "v1"): PromiseLike<void>;
     function load(name: "licensing", version: "v1", callback: () => any): void;
 
-    const licenseAssignments: licensing.LicenseAssignmentsResource;
-
     namespace licensing {
         interface LicenseAssignment {
             /** ETag of the resource. */
@@ -239,5 +237,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<LicenseAssignment>;
         }
+
+        const licenseAssignments: licensing.LicenseAssignmentsResource;
     }
 }

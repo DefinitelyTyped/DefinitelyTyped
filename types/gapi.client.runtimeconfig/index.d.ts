@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "runtimeconfig", version: "v1"): PromiseLike<void>;
     function load(name: "runtimeconfig", version: "v1", callback: () => any): void;
 
-    const operations: runtimeconfig.OperationsResource;
-
     namespace runtimeconfig {
         interface ListOperationsResponse {
             /** The standard List next-page token. */
@@ -202,5 +200,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<ListOperationsResponse>;
         }
+
+        const operations: runtimeconfig.OperationsResource;
     }
 }

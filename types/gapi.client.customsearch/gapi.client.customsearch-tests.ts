@@ -13,7 +13,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Returns metadata about the search performed, metadata about the custom search engine used for the search, and the search results. */
-        await gapi.client.cse.list({
+        await gapi.client.customsearch.cse.list({
             c2coff: "c2coff",
             cr: "cr",
             cx: "cx",

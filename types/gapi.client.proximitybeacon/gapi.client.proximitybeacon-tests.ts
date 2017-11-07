@@ -34,7 +34,7 @@ gapi.load('client', () => {
          * [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)
          * for the application.
          */
-        await gapi.client.beaconinfo.getforobserved({
+        await gapi.client.proximitybeacon.beaconinfo.getforobserved({
         });
         /**
          * Activates a beacon. A beacon that is active will return information
@@ -46,7 +46,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
          * Google Developers Console project.
          */
-        await gapi.client.beacons.activate({
+        await gapi.client.proximitybeacon.beacons.activate({
             beaconName: "beaconName",
             projectId: "projectId",
         });
@@ -60,7 +60,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
          * Google Developers Console project.
          */
-        await gapi.client.beacons.deactivate({
+        await gapi.client.proximitybeacon.beacons.deactivate({
             beaconName: "beaconName",
             projectId: "projectId",
         });
@@ -74,7 +74,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
          * Google Developers Console project.
          */
-        await gapi.client.beacons.decommission({
+        await gapi.client.proximitybeacon.beacons.decommission({
             beaconName: "beaconName",
             projectId: "projectId",
         });
@@ -87,7 +87,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
          * Google Developers Console project.
          */
-        await gapi.client.beacons.delete({
+        await gapi.client.proximitybeacon.beacons.delete({
             beaconName: "beaconName",
             projectId: "projectId",
         });
@@ -104,7 +104,7 @@ gapi.load('client', () => {
          * beacon's stable Eddystone-UID. Clients not authorized to resolve the
          * beacon's ephemeral Eddystone-EID broadcast will receive an error.
          */
-        await gapi.client.beacons.get({
+        await gapi.client.proximitybeacon.beacons.get({
             beaconName: "beaconName",
             projectId: "projectId",
         });
@@ -117,7 +117,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
          * permissions in the Google Developers Console project.
          */
-        await gapi.client.beacons.list({
+        await gapi.client.proximitybeacon.beacons.list({
             pageSize: 1,
             pageToken: "pageToken",
             projectId: "projectId",
@@ -131,7 +131,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
          * Google Developers Console project.
          */
-        await gapi.client.beacons.register({
+        await gapi.client.proximitybeacon.beacons.register({
             projectId: "projectId",
         });
         /**
@@ -147,7 +147,7 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
          * Google Developers Console project.
          */
-        await gapi.client.beacons.update({
+        await gapi.client.proximitybeacon.beacons.update({
             beaconName: "beaconName",
             projectId: "projectId",
         });
@@ -160,14 +160,14 @@ gapi.load('client', () => {
          * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
          * permissions in the Google Developers Console project.
          */
-        await gapi.client.namespaces.list({
+        await gapi.client.proximitybeacon.namespaces.list({
             projectId: "projectId",
         });
         /**
          * Updates the information about the specified namespace. Only the namespace
          * visibility can be updated.
          */
-        await gapi.client.namespaces.update({
+        await gapi.client.proximitybeacon.namespaces.update({
             namespaceName: "namespaceName",
             projectId: "projectId",
         });
@@ -180,7 +180,7 @@ gapi.load('client', () => {
          * prepared to refresh this key when they encounter an error registering an
          * Eddystone-EID beacon.
          */
-        await gapi.client.v1beta1.getEidparams({
+        await gapi.client.proximitybeacon.v1beta1.getEidparams({
         });
     }
 });

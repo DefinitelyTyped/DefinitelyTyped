@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "admin", version: "reports_v1"): PromiseLike<void>;
     function load(name: "admin", version: "reports_v1", callback: () => any): void;
 
-    const activities: admin.ActivitiesResource;
-
-    const channels: admin.ChannelsResource;
-
-    const customerUsageReports: admin.CustomerUsageReportsResource;
-
-    const userUsageReport: admin.UserUsageReportResource;
-
     namespace admin {
         interface Activities {
             /** ETag of the resource. */
@@ -345,5 +337,13 @@ declare namespace gapi.client {
                 userKey: string;
             }): Request<UsageReports>;
         }
+
+        const activities: admin.ActivitiesResource;
+
+        const channels: admin.ChannelsResource;
+
+        const customerUsageReports: admin.CustomerUsageReportsResource;
+
+        const userUsageReport: admin.UserUsageReportResource;
     }
 }

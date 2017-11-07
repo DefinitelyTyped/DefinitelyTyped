@@ -16,7 +16,7 @@ gapi.load('client', () => {
          * Lists analytics data for a user's associated company.
          * Should only be called within the context of an authorized logged in user.
          */
-        await gapi.client.analytics.list({
+        await gapi.client.partners.analytics.list({
             pageSize: 1,
             pageToken: "pageToken",
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
@@ -32,10 +32,10 @@ gapi.load('client', () => {
          * `Failed to render component`, `Profile page is running slow`,
          * `More than 500 users have accessed this result.`, etc.
          */
-        await gapi.client.clientMessages.log({
+        await gapi.client.partners.clientMessages.log({
         });
         /** Gets a company. */
-        await gapi.client.companies.get({
+        await gapi.client.partners.companies.get({
             address: "address",
             companyId: "companyId",
             currencyCode: "currencyCode",
@@ -50,7 +50,7 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Lists companies. */
-        await gapi.client.companies.list({
+        await gapi.client.partners.companies.list({
             address: "address",
             companyName: "companyName",
             gpsMotivations: "gpsMotivations",
@@ -78,7 +78,7 @@ gapi.load('client', () => {
             websiteUrl: "websiteUrl",
         });
         /** Gets an Exam Token for a Partner's user to take an exam in the Exams System */
-        await gapi.client.exams.getToken({
+        await gapi.client.partners.exams.getToken({
             examType: "examType",
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
@@ -92,7 +92,7 @@ gapi.load('client', () => {
          * Lists advertiser leads for a user's associated company.
          * Should only be called within the context of an authorized logged in user.
          */
-        await gapi.client.leads.list({
+        await gapi.client.partners.leads.list({
             orderBy: "orderBy",
             pageSize: 2,
             pageToken: "pageToken",
@@ -105,7 +105,7 @@ gapi.load('client', () => {
             "requestMetadata.userOverrides.userId": "requestMetadata.userOverrides.userId",
         });
         /** Lists the Offers available for the current user */
-        await gapi.client.offers.list({
+        await gapi.client.partners.offers.list({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -115,10 +115,10 @@ gapi.load('client', () => {
             "requestMetadata.userOverrides.userId": "requestMetadata.userOverrides.userId",
         });
         /** Logs a user event. */
-        await gapi.client.userEvents.log({
+        await gapi.client.partners.userEvents.log({
         });
         /** Lists states for current user. */
-        await gapi.client.userStates.list({
+        await gapi.client.partners.userStates.list({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -128,7 +128,7 @@ gapi.load('client', () => {
             "requestMetadata.userOverrides.userId": "requestMetadata.userOverrides.userId",
         });
         /** Creates a user's company relation. Affiliates the user to a company. */
-        await gapi.client.users.createCompanyRelation({
+        await gapi.client.partners.users.createCompanyRelation({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -139,7 +139,7 @@ gapi.load('client', () => {
             userId: "userId",
         });
         /** Deletes a user's company relation. Unaffiliaites the user from a company. */
-        await gapi.client.users.deleteCompanyRelation({
+        await gapi.client.partners.users.deleteCompanyRelation({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -150,7 +150,7 @@ gapi.load('client', () => {
             userId: "userId",
         });
         /** Gets a user. */
-        await gapi.client.users.get({
+        await gapi.client.partners.users.get({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -165,7 +165,7 @@ gapi.load('client', () => {
          * Updates a user's profile. A user can only update their own profile and
          * should only be called within the context of a logged in user.
          */
-        await gapi.client.users.updateProfile({
+        await gapi.client.partners.users.updateProfile({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -178,7 +178,7 @@ gapi.load('client', () => {
          * Gets Partners Status of the logged in user's agency.
          * Should only be called if the logged in user is the admin of the agency.
          */
-        await gapi.client.v2.getPartnersstatus({
+        await gapi.client.partners.v2.getPartnersstatus({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -191,7 +191,7 @@ gapi.load('client', () => {
          * Update company.
          * Should only be called within the context of an authorized logged in user.
          */
-        await gapi.client.v2.updateCompanies({
+        await gapi.client.partners.v2.updateCompanies({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",
@@ -202,7 +202,7 @@ gapi.load('client', () => {
             updateMask: "updateMask",
         });
         /** Updates the specified lead. */
-        await gapi.client.v2.updateLeads({
+        await gapi.client.partners.v2.updateLeads({
             "requestMetadata.experimentIds": "requestMetadata.experimentIds",
             "requestMetadata.locale": "requestMetadata.locale",
             "requestMetadata.partnersSessionId": "requestMetadata.partnersSessionId",

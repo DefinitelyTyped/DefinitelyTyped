@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "pubsub", version: "v1"): PromiseLike<void>;
     function load(name: "pubsub", version: "v1", callback: () => any): void;
 
-    const projects: pubsub.ProjectsResource;
-
     namespace pubsub {
         interface AcknowledgeRequest {
             /**
@@ -1237,5 +1235,7 @@ declare namespace gapi.client {
             subscriptions: SubscriptionsResource;
             topics: TopicsResource;
         }
+
+        const projects: pubsub.ProjectsResource;
     }
 }

@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "servicemanagement", version: "v1"): PromiseLike<void>;
     function load(name: "servicemanagement", version: "v1", callback: () => any): void;
 
-    const operations: servicemanagement.OperationsResource;
-
-    const services: servicemanagement.ServicesResource;
-
     namespace servicemanagement {
         interface Advice {
             /**
@@ -528,8 +524,8 @@ declare namespace gapi.client {
         interface Endpoint {
             /**
              * DEPRECATED: This field is no longer supported. Instead of using aliases,
-             * please specify multiple google.api.Endpoint for each of the intented
-             * alias.
+             * please specify multiple google.api.Endpoint for each of the intended
+             * aliases.
              *
              * Additional names that this endpoint will be hosted on.
              */
@@ -961,6 +957,8 @@ declare namespace gapi.client {
             /**
              * A concise name for the metric, which can be displayed in user interfaces.
              * Use sentence case without an ending period, for example "Request count".
+             * This field is optional but it is recommended to be set for any metrics
+             * associated with user-visible concepts, such as Quota.
              */
             displayName?: string;
             /**
@@ -977,16 +975,7 @@ declare namespace gapi.client {
              * Some combinations of `metric_kind` and `value_type` might not be supported.
              */
             metricKind?: string;
-            /**
-             * The resource name of the metric descriptor. Depending on the
-             * implementation, the name typically includes: (1) the parent resource name
-             * that defines the scope of the metric type or of its data; and (2) the
-             * metric's URL-encoded type, which also appears in the `type` field of this
-             * descriptor. For example, following is the resource name of a custom
-             * metric within the GCP project `my-project-id`:
-             *
-             * "projects/my-project-id/metricDescriptors/custom.googleapis.com%2Finvoice%2Fpaid%2Famount"
-             */
+            /** The resource name of the metric descriptor. */
             name?: string;
             /**
              * The metric type, including its DNS name prefix. The type is not
@@ -1361,25 +1350,15 @@ declare namespace gapi.client {
              * The name of the metric this quota limit applies to. The quota limits with
              * the same metric will be checked together during runtime. The metric must be
              * defined within the service config.
-             *
-             * Used by metric-based quotas only.
              */
             metric?: string;
             /**
-             * Name of the quota limit. The name is used to refer to the limit when
-             * overriding the default limit on per-consumer basis.
+             * Name of the quota limit.
              *
-             * For metric-based quota limits, the name must be provided, and it must be
-             * unique within the service. The name can only include alphanumeric
-             * characters as well as '-'.
+             * The name must be provided, and it must be unique within the service. The
+             * name can only include alphanumeric characters as well as '-'.
              *
              * The maximum length of the limit name is 64 characters.
-             *
-             * The name of a limit is used as a unique identifier for this limit.
-             * Therefore, once a limit has been put into use, its name should be
-             * immutable. You can use the display_name field to provide a user-friendly
-             * name for the limit. The display name can be evolved over time without
-             * affecting the identity of the limit.
              */
             name?: string;
             /**
@@ -1387,25 +1366,18 @@ declare namespace gapi.client {
              * Metric.unit. The supported unit kinds are determined by the quota
              * backend system.
              *
-             * The [Google Service Control](https://cloud.google.com/service-control)
-             * supports the following unit components:
-             * &#42; One of the time intevals:
-             * &#42; "/min"  for quota every minute.
-             * &#42; "/d"  for quota every 24 hours, starting 00:00 US Pacific Time.
-             * &#42; Otherwise the quota won't be reset by time, such as storage limit.
-             * &#42; One and only one of the granted containers:
-             * &#42; "/{project}" quota for a project
-             *
              * Here are some examples:
              * &#42; "1/min/{project}" for quota per minute per project.
              *
              * Note: the order of unit components is insignificant.
              * The "1" at the beginning is required to follow the metric unit syntax.
-             *
-             * Used by metric-based quotas only.
              */
             unit?: string;
-            /** Tiered limit values, currently only STANDARD is supported. */
+            /**
+             * Tiered limit values. You must specify this as a key:value pair, with an
+             * integer value that is the maximum number of requests allowed for the
+             * specified unit. Currently only STANDARD is supported.
+             */
             values?: Record<string, string>;
         }
         interface Rollout {
@@ -1759,6 +1731,8 @@ declare namespace gapi.client {
             /**
              * True, if the method should skip service control. If so, no control plane
              * feature (like quota and billing) will be enabled.
+             * This flag is used by ESP to allow some Endpoints customers to bypass
+             * Google internal checks.
              */
             skipServiceControl?: boolean;
         }
@@ -2809,5 +2783,9 @@ declare namespace gapi.client {
             consumers: ConsumersResource;
             rollouts: RolloutsResource;
         }
+
+        const operations: servicemanagement.OperationsResource;
+
+        const services: servicemanagement.ServicesResource;
     }
 }

@@ -16,18 +16,6 @@ declare namespace gapi.client {
     function load(name: "safebrowsing", version: "v4"): PromiseLike<void>;
     function load(name: "safebrowsing", version: "v4", callback: () => any): void;
 
-    const encodedFullHashes: safebrowsing.EncodedFullHashesResource;
-
-    const encodedUpdates: safebrowsing.EncodedUpdatesResource;
-
-    const fullHashes: safebrowsing.FullHashesResource;
-
-    const threatListUpdates: safebrowsing.ThreatListUpdatesResource;
-
-    const threatLists: safebrowsing.ThreatListsResource;
-
-    const threatMatches: safebrowsing.ThreatMatchesResource;
-
     namespace safebrowsing {
         interface Checksum {
             /**
@@ -495,5 +483,17 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<FindThreatMatchesResponse>;
         }
+
+        const encodedFullHashes: safebrowsing.EncodedFullHashesResource;
+
+        const encodedUpdates: safebrowsing.EncodedUpdatesResource;
+
+        const fullHashes: safebrowsing.FullHashesResource;
+
+        const threatListUpdates: safebrowsing.ThreatListUpdatesResource;
+
+        const threatLists: safebrowsing.ThreatListsResource;
+
+        const threatMatches: safebrowsing.ThreatMatchesResource;
     }
 }

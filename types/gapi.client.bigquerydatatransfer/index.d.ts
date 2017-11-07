@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "bigquerydatatransfer", version: "v1"): PromiseLike<void>;
     function load(name: "bigquerydatatransfer", version: "v1", callback: () => any): void;
 
-    const projects: bigquerydatatransfer.ProjectsResource;
-
     namespace bigquerydatatransfer {
         interface CheckValidCredsResponse {
             /** If set to `true`, the credentials exist and are valid. */
@@ -297,8 +295,6 @@ declare namespace gapi.client {
         interface TransferRun {
             /** Output only. Data source id. */
             dataSourceId?: string;
-            /** Output only. Region in which BigQuery dataset is located. */
-            datasetRegion?: string;
             /** The BigQuery target dataset id. */
             destinationDatasetId?: string;
             /**
@@ -335,7 +331,7 @@ declare namespace gapi.client {
              * Parameter ignored by server for input requests.
              */
             startTime?: string;
-            /** Output only. Data transfer run state. Ignored for input requests. */
+            /** Data transfer run state. Ignored for input requests. */
             state?: string;
             /** Output only. Last time the data transfer run state was updated. */
             updateTime?: string;
@@ -343,6 +339,7 @@ declare namespace gapi.client {
              * Output only. Unique ID of the user on whose behalf transfer is done.
              * Applicable only to data sources that do not support service accounts.
              * When set to 0, the data source service account credentials are used.
+             * May be negative.
              */
             userId?: string;
         }
@@ -1575,5 +1572,7 @@ declare namespace gapi.client {
             locations: LocationsResource;
             transferConfigs: TransferConfigsResource;
         }
+
+        const projects: bigquerydatatransfer.ProjectsResource;
     }
 }

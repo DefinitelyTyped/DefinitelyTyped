@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "urlshortener", version: "v1"): PromiseLike<void>;
     function load(name: "urlshortener", version: "v1", callback: () => any): void;
 
-    const url: urlshortener.UrlResource;
-
     namespace urlshortener {
         interface AnalyticsSnapshot {
             /** Top browsers, e.g. "Chrome"; sorted by (descending) click counts. Only present if this data is available. */
@@ -150,5 +148,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<UrlHistory>;
         }
+
+        const url: urlshortener.UrlResource;
     }
 }

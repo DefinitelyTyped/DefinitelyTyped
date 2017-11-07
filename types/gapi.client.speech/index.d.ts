@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "speech", version: "v1"): PromiseLike<void>;
     function load(name: "speech", version: "v1", callback: () => any): void;
 
-    const operations: speech.OperationsResource;
-
-    const speech: speech.SpeechResource;
-
     namespace speech {
         interface ListOperationsResponse {
             /** The standard List next-page token. */
@@ -165,7 +161,8 @@ declare namespace gapi.client {
              * indicates an estimated greater likelihood that the recognized words are
              * correct. This field is typically provided only for the top hypothesis, and
              * only for `is_final=true` results. Clients should not rely on the
-             * `confidence` field as it is not guaranteed to be accurate or consistent.
+             * `confidence` field as it is not guaranteed to be accurate, or even set, in
+             * any of the results.
              * The default of 0.0 is a sentinel value indicating `confidence` was not set.
              */
             confidence?: number;
@@ -182,6 +179,12 @@ declare namespace gapi.client {
              * alternative being the most probable, as ranked by the recognizer.
              */
             alternatives?: SpeechRecognitionAlternative[];
+            /**
+             * For multi-channel audio, this is the channel number corresponding to the
+             * recognized result for the audio from that channel.
+             * For audio_channel_count = N, its output values can range from '0' to 'N-1'.
+             */
+            channelTag?: number;
         }
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
@@ -451,5 +454,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<RecognizeResponse>;
         }
+
+        const operations: speech.OperationsResource;
+
+        const speech: speech.SpeechResource;
     }
 }

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "adexchangebuyer2", version: "v2beta1"): PromiseLike<void>;
     function load(name: "adexchangebuyer2", version: "v2beta1", callback: () => any): void;
 
-    const accounts: adexchangebuyer2.AccountsResource;
-
     namespace adexchangebuyer2 {
         interface AbsoluteDateRange {
             /**
@@ -135,6 +133,19 @@ declare namespace gapi.client {
             entityName?: string;
             /** The type of the client entity: `ADVERTISER`, `BRAND`, or `AGENCY`. */
             entityType?: string;
+            /**
+             * Optional arbitrary unique identifier of this client buyer from the
+             * standpoint of its Ad Exchange sponsor buyer.
+             *
+             * This field can be used to associate a client buyer with the identifier
+             * in the namespace of its sponsor buyer, lookup client buyers by that
+             * identifier and verify whether an Ad Exchange counterpart of a given client
+             * buyer already exists.
+             *
+             * If present, must be unique among all the client buyers for its
+             * Ad Exchange sponsor buyer.
+             */
+            partnerClientId?: string;
             /**
              * The role which is assigned to the client buyer. Each role implies a set of
              * permissions granted to the client. Must be one of `CLIENT_DEAL_VIEWER`,
@@ -351,11 +362,17 @@ declare namespace gapi.client {
              * Interpreted relative to Pacific time zone.
              */
             absoluteDateRange?: AbsoluteDateRange;
-            /** The ID of the buyer account on which to filter; optional. */
-            buyerAccountId?: string;
-            /** The ID of the creative on which to filter; optional. */
+            /**
+             * The ID of the creative on which to filter; optional. This field may be set
+             * only for a filter set that accesses buyer-level troubleshooting data, i.e.
+             * one whose name matches the `bidders/&#42;/accounts/&#42;/filterSets/&#42;` pattern.
+             */
             creativeId?: string;
-            /** The ID of the deal on which to filter; optional. */
+            /**
+             * The ID of the deal on which to filter; optional. This field may be set
+             * only for a filter set that accesses buyer-level troubleshooting data, i.e.
+             * one whose name matches the `bidders/&#42;/accounts/&#42;/filterSets/&#42;` pattern.
+             */
             dealId?: string;
             /** The environment on which to filter; optional. */
             environment?: string;
@@ -368,10 +385,17 @@ declare namespace gapi.client {
             /** The format on which to filter; optional. */
             format?: string;
             /**
-             * The account ID of the buyer who owns this filter set.
-             * The value of this field is ignored in create operations.
+             * A user-defined name of the filter set. Filter set names must be unique
+             * globally and match one of the patterns:
+             *
+             * - `bidders/&#42;/filterSets/&#42;` (for accessing bidder-level troubleshooting
+             * data)
+             * - `bidders/&#42;/accounts/&#42;/filterSets/&#42;` (for accessing buyer-level
+             * troubleshooting data)
+             *
+             * This field is required in create operations.
              */
-            ownerAccountId?: string;
+            name?: string;
             /**
              * The list of platforms on which to filter; may be empty. The filters
              * represented by multiple platforms are ORed together (i.e. if non-empty,
@@ -482,8 +506,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListBidMetricsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.bidMetrics.list
+             * field in the subsequent call to the bidMetrics.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -495,8 +518,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListBidResponseErrorsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.bidResponseErrors.list
+             * field in the subsequent call to the bidResponseErrors.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -511,8 +533,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListBidResponsesWithoutBidsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.bidResponsesWithoutBids.list
+             * field in the subsequent call to the bidResponsesWithoutBids.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -568,8 +589,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListCreativeStatusBreakdownByCreativeRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.filteredBids.creatives.list
+             * field in the subsequent call to the filteredBids.creatives.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -586,8 +606,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListCreativeStatusBreakdownByDetailRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.filteredBids.details.list
+             * field in the subsequent call to the filteredBids.details.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -639,8 +658,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListFilteredBidRequestsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.filteredBidRequests.list
+             * field in the subsequent call to the filteredBidRequests.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -655,8 +673,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListFilteredBidsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.filteredBids.list
+             * field in the subsequent call to the filteredBids.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -668,8 +685,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListImpressionMetricsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.impressionMetrics.list
+             * field in the subsequent call to the impressionMetrics.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -684,8 +700,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListLosingBidsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.losingBids.list
+             * field in the subsequent call to the losingBids.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -695,8 +710,7 @@ declare namespace gapi.client {
              * A token to retrieve the next page of results.
              * Pass this value in the
              * ListNonBillableWinningBidsRequest.pageToken
-             * field in the subsequent call to the
-             * accounts.filterSets.nonBillableWinningBids.list
+             * field in the subsequent call to the nonBillableWinningBids.list
              * method to retrieve the next page of results.
              */
             nextPageToken?: string;
@@ -1244,6 +1258,12 @@ declare namespace gapi.client {
                  * accounts.clients.list method.
                  */
                 pageToken?: string;
+                /**
+                 * Optional unique identifier (from the standpoint of an Ad Exchange sponsor
+                 * buyer partner) of the client to return.
+                 * If specified, at most one client will be returned in the response.
+                 */
+                partnerClientId?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
@@ -1697,6 +1717,10 @@ declare namespace gapi.client {
             }): Request<{}>;
             dealAssociations: DealAssociationsResource;
         }
+        interface AccountsResource {
+            clients: ClientsResource;
+            creatives: CreativesResource;
+        }
         interface BidMetricsResource {
             /** Lists all metrics that are measured in terms of number of bids. */
             list(request: {
@@ -1705,7 +1729,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1715,7 +1739,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1729,8 +1767,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListBidMetricsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.bidMetrics.list
+                 * returned from the previous call to the bidMetrics.list
                  * method.
                  */
                 pageToken?: string;
@@ -1757,7 +1794,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1767,7 +1804,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1781,8 +1832,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListBidResponseErrorsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.bidResponseErrors.list
+                 * returned from the previous call to the bidResponseErrors.list
                  * method.
                  */
                 pageToken?: string;
@@ -1809,7 +1859,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1819,7 +1869,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1833,8 +1897,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListBidResponsesWithoutBidsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.bidResponsesWithoutBids.list
+                 * returned from the previous call to the bidResponsesWithoutBids.list
                  * method.
                  */
                 pageToken?: string;
@@ -1861,7 +1924,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1871,7 +1934,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1885,8 +1962,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListFilteredBidRequestsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.filteredBidRequests.list
+                 * returned from the previous call to the filteredBidRequests.list
                  * method.
                  */
                 pageToken?: string;
@@ -1913,7 +1989,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1930,7 +2006,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1944,8 +2034,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListCreativeStatusBreakdownByCreativeResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.filteredBids.creatives.list
+                 * returned from the previous call to the filteredBids.creatives.list
                  * method.
                  */
                 pageToken?: string;
@@ -1972,7 +2061,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1989,7 +2078,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -2003,8 +2106,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListCreativeStatusBreakdownByDetailResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.filteredBids.details.list
+                 * returned from the previous call to the filteredBids.details.list
                  * method.
                  */
                 pageToken?: string;
@@ -2031,7 +2133,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2041,7 +2143,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -2055,8 +2171,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListFilteredBidsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.filteredBids.list
+                 * returned from the previous call to the filteredBids.list
                  * method.
                  */
                 pageToken?: string;
@@ -2082,7 +2197,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2092,7 +2207,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -2106,8 +2235,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListImpressionMetricsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.impressionMetrics.list
+                 * returned from the previous call to the impressionMetrics.list
                  * method.
                  */
                 pageToken?: string;
@@ -2134,7 +2262,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2144,7 +2272,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -2158,8 +2300,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListLosingBidsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.losingBids.list
+                 * returned from the previous call to the losingBids.list
                  * method.
                  */
                 pageToken?: string;
@@ -2186,7 +2327,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2196,7 +2337,21 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to apply. */
-                filterSetId: string;
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -2210,8 +2365,7 @@ declare namespace gapi.client {
                  * A token identifying a page of results the server should return.
                  * Typically, this is the value of
                  * ListNonBillableWinningBidsResponse.nextPageToken
-                 * returned from the previous call to the
-                 * accounts.filterSets.nonBillableWinningBids.list
+                 * returned from the previous call to the nonBillableWinningBids.list
                  * method.
                  */
                 pageToken?: string;
@@ -2235,7 +2389,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2254,6 +2408,19 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /**
+                 * Name of the owner (bidder or account) of the filter set to be created.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123: `bidders/123`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456`
+                 */
+                ownerName: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
@@ -2275,7 +2442,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2285,9 +2452,23 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to delete. */
-                filterSetId: string;
+                filterSetId?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**
+                 * Full name of the resource to delete.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                name: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Pretty-print response. */
@@ -2311,7 +2492,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2321,9 +2502,23 @@ declare namespace gapi.client {
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the filter set to get. */
-                filterSetId: string;
+                filterSetId?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**
+                 * Full name of the resource being requested.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                name: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Pretty-print response. */
@@ -2344,7 +2539,7 @@ declare namespace gapi.client {
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
-                accountId: string;
+                accountId?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -2357,6 +2552,19 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /**
+                 * Name of the owner (bidder or account) of the filter sets to be listed.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123: `bidders/123`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456`
+                 */
+                ownerName: string;
                 /**
                  * Requested page size. The server may return fewer results than requested.
                  * If unspecified, the server will pick an appropriate default.
@@ -2392,9 +2600,893 @@ declare namespace gapi.client {
             nonBillableWinningBids: NonBillableWinningBidsResource;
         }
         interface AccountsResource {
-            clients: ClientsResource;
-            creatives: CreativesResource;
             filterSets: FilterSetsResource;
         }
+        interface BidMetricsResource {
+            /** Lists all metrics that are measured in terms of number of bids. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListBidMetricsResponse.nextPageToken
+                 * returned from the previous call to the bidMetrics.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListBidMetricsResponse>;
+        }
+        interface BidResponseErrorsResource {
+            /**
+             * List all errors that occurred in bid responses, with the number of bid
+             * responses affected for each reason.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListBidResponseErrorsResponse.nextPageToken
+                 * returned from the previous call to the bidResponseErrors.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListBidResponseErrorsResponse>;
+        }
+        interface BidResponsesWithoutBidsResource {
+            /**
+             * List all reasons for which bid responses were considered to have no
+             * applicable bids, with the number of bid responses affected for each reason.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListBidResponsesWithoutBidsResponse.nextPageToken
+                 * returned from the previous call to the bidResponsesWithoutBids.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListBidResponsesWithoutBidsResponse>;
+        }
+        interface FilteredBidRequestsResource {
+            /**
+             * List all reasons that caused a bid request not to be sent for an
+             * impression, with the number of bid requests not sent for each reason.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListFilteredBidRequestsResponse.nextPageToken
+                 * returned from the previous call to the filteredBidRequests.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListFilteredBidRequestsResponse>;
+        }
+        interface CreativesResource {
+            /**
+             * List all creatives associated with a specific reason for which bids were
+             * filtered, with the number of bids filtered for each creative.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /**
+                 * The ID of the creative status for which to retrieve a breakdown by
+                 * creative.
+                 * See
+                 * [creative-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/creative-status-codes).
+                 */
+                creativeStatusId: number;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListCreativeStatusBreakdownByCreativeResponse.nextPageToken
+                 * returned from the previous call to the filteredBids.creatives.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListCreativeStatusBreakdownByCreativeResponse>;
+        }
+        interface DetailsResource {
+            /**
+             * List all details associated with a specific reason for which bids were
+             * filtered, with the number of bids filtered for each detail.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /**
+                 * The ID of the creative status for which to retrieve a breakdown by detail.
+                 * See
+                 * [creative-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/creative-status-codes).
+                 * Details are only available for statuses 10, 14, 15, 17, 18, 19, 86, and 87.
+                 */
+                creativeStatusId: number;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListCreativeStatusBreakdownByDetailResponse.nextPageToken
+                 * returned from the previous call to the filteredBids.details.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListCreativeStatusBreakdownByDetailResponse>;
+        }
+        interface FilteredBidsResource {
+            /**
+             * List all reasons for which bids were filtered, with the number of bids
+             * filtered for each reason.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListFilteredBidsResponse.nextPageToken
+                 * returned from the previous call to the filteredBids.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListFilteredBidsResponse>;
+            creatives: CreativesResource;
+            details: DetailsResource;
+        }
+        interface ImpressionMetricsResource {
+            /** Lists all metrics that are measured in terms of number of impressions. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListImpressionMetricsResponse.nextPageToken
+                 * returned from the previous call to the impressionMetrics.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListImpressionMetricsResponse>;
+        }
+        interface LosingBidsResource {
+            /**
+             * List all reasons for which bids lost in the auction, with the number of
+             * bids that lost for each reason.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListLosingBidsResponse.nextPageToken
+                 * returned from the previous call to the losingBids.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListLosingBidsResponse>;
+        }
+        interface NonBillableWinningBidsResource {
+            /**
+             * List all reasons for which winning bids were not billable, with the number
+             * of bids not billed for each reason.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to apply. */
+                filterSetId?: string;
+                /**
+                 * Name of the filter set that should be applied to the requested metrics.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                filterSetName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListNonBillableWinningBidsResponse.nextPageToken
+                 * returned from the previous call to the nonBillableWinningBids.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListNonBillableWinningBidsResponse>;
+        }
+        interface FilterSetsResource {
+            /** Creates the specified filter set for the account with the given account ID. */
+            create(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /**
+                 * Whether the filter set is transient, or should be persisted indefinitely.
+                 * By default, filter sets are not transient.
+                 * If transient, it will be available for at least 1 hour after creation.
+                 */
+                isTransient?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Name of the owner (bidder or account) of the filter set to be created.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123: `bidders/123`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456`
+                 */
+                ownerName: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<FilterSet>;
+            /**
+             * Deletes the requested filter set from the account with the given account
+             * ID.
+             */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to delete. */
+                filterSetId?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Full name of the resource to delete.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
+            /**
+             * Retrieves the requested filter set for the account with the given account
+             * ID.
+             */
+            get(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The ID of the filter set to get. */
+                filterSetId?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Full name of the resource being requested.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123:
+                 * `bidders/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123/filterSets/abc`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456/filterSets/abc`
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<FilterSet>;
+            /** Lists all filter sets for the account with the given account ID. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Account ID of the buyer. */
+                accountId?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Name of the owner (bidder or account) of the filter sets to be listed.
+                 * For example:
+                 *
+                 * - For a bidder-level filter set for bidder 123: `bidders/123`
+                 *
+                 * - For an account-level filter set for the buyer account representing bidder
+                 * 123: `bidders/123/accounts/123`
+                 *
+                 * - For an account-level filter set for the child seat buyer account 456
+                 * whose bidder is 123: `bidders/123/accounts/456`
+                 */
+                ownerName: string;
+                /**
+                 * Requested page size. The server may return fewer results than requested.
+                 * If unspecified, the server will pick an appropriate default.
+                 */
+                pageSize?: number;
+                /**
+                 * A token identifying a page of results the server should return.
+                 * Typically, this is the value of
+                 * ListFilterSetsResponse.nextPageToken
+                 * returned from the previous call to the
+                 * accounts.filterSets.list
+                 * method.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListFilterSetsResponse>;
+            bidMetrics: BidMetricsResource;
+            bidResponseErrors: BidResponseErrorsResource;
+            bidResponsesWithoutBids: BidResponsesWithoutBidsResource;
+            filteredBidRequests: FilteredBidRequestsResource;
+            filteredBids: FilteredBidsResource;
+            impressionMetrics: ImpressionMetricsResource;
+            losingBids: LosingBidsResource;
+            nonBillableWinningBids: NonBillableWinningBidsResource;
+        }
+        interface BiddersResource {
+            accounts: AccountsResource;
+            filterSets: FilterSetsResource;
+        }
+
+        const accounts: adexchangebuyer2.AccountsResource;
+
+        const bidders: adexchangebuyer2.BiddersResource;
     }
 }

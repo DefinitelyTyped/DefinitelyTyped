@@ -72,6 +72,9 @@ var client_id = '',
         // View the profile photos of people in your classes
         'https://www.googleapis.com/auth/classroom.profile.photos',
     
+        // Receive notifications about your Google Classroom data
+        'https://www.googleapis.com/auth/classroom.push-notifications',
+    
         // Manage your Google Classroom class rosters
         'https://www.googleapis.com/auth/classroom.rosters',
     

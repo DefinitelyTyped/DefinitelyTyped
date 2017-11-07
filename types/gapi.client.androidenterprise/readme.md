@@ -458,6 +458,13 @@ Can be used with EMM-managed users only (not Google managed users). Pass the new
 await gapi.client.users.patch({ enterpriseId: "enterpriseId", userId: "userId",  }); 
     
 /* 
+Revokes access to all devices currently provisioned to the user. The user will no longer be able to use the managed Play store on any of their managed devices.
+
+This call only works with EMM-managed accounts.  
+*/
+await gapi.client.users.revokeDeviceAccess({ enterpriseId: "enterpriseId", userId: "userId",  }); 
+    
+/* 
 Revokes a previously generated token (activation code) for the user.  
 */
 await gapi.client.users.revokeToken({ enterpriseId: "enterpriseId", userId: "userId",  }); 

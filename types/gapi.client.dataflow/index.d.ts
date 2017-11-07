@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "dataflow", version: "v1b3"): PromiseLike<void>;
     function load(name: "dataflow", version: "v1b3", callback: () => any): void;
 
-    const projects: dataflow.ProjectsResource;
-
     namespace dataflow {
         interface ApproximateProgress {
             /** Obsolete. */
@@ -188,8 +186,11 @@ declare namespace gapi.client {
             origin?: string;
             /** A string containing a more specific namespace of the counter's origin. */
             originNamespace?: string;
-            /** The GroupByKey step name from the original graph. */
-            originalShuffleStepName?: string;
+            /**
+             * The step name requesting an operation, such as GBK.
+             * I.e. the ParDo causing a read/write from shuffle to occur.
+             */
+            originalRequestingStepName?: string;
             /**
              * System generated name of the original step in the user's graph, before
              * optimization.
@@ -200,7 +201,7 @@ declare namespace gapi.client {
             /**
              * ID of a side input being read from/written to. Side inputs are identified
              * by a pair of (reader, input_index). The reader is usually equal to the
-             * original name, but it may be different, if a ParDo emits it's Iterator /
+             * original name, but it may be different, if a ParDo emits its Iterator /
              * Map side input object.
              */
             sideInput?: SideInputId;
@@ -1348,8 +1349,25 @@ declare namespace gapi.client {
         interface SourceOperationRequest {
             /** Information about a request to get metadata about a source. */
             getMetadata?: SourceGetMetadataRequest;
+            /** User-provided name of the Read instruction for this source. */
+            name?: string;
+            /**
+             * System-defined name for the Read instruction for this source
+             * in the original workflow graph.
+             */
+            originalName?: string;
             /** Information about a request to split a source. */
             split?: SourceSplitRequest;
+            /**
+             * System-defined name of the stage containing the source operation.
+             * Unique across the workflow.
+             */
+            stageName?: string;
+            /**
+             * System-defined name of the Read instruction for this source.
+             * Unique across the workflow.
+             */
+            systemName?: string;
         }
         interface SourceOperationResponse {
             /** A response to a request to get metadata about a source. */
@@ -3241,5 +3259,7 @@ declare namespace gapi.client {
             locations: LocationsResource;
             templates: TemplatesResource;
         }
+
+        const projects: dataflow.ProjectsResource;
     }
 }

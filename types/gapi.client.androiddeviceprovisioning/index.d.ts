@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "androiddeviceprovisioning", version: "v1"): PromiseLike<void>;
     function load(name: "androiddeviceprovisioning", version: "v1", callback: () => any): void;
 
-    const operations: androiddeviceprovisioning.OperationsResource;
-
-    const partners: androiddeviceprovisioning.PartnersResource;
-
     namespace androiddeviceprovisioning {
         interface ClaimDeviceRequest {
             /** The customer to claim for. */
@@ -679,5 +675,9 @@ declare namespace gapi.client {
             customers: CustomersResource;
             devices: DevicesResource;
         }
+
+        const operations: androiddeviceprovisioning.OperationsResource;
+
+        const partners: androiddeviceprovisioning.PartnersResource;
     }
 }

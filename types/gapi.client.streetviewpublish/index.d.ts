@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "streetviewpublish", version: "v1"): PromiseLike<void>;
     function load(name: "streetviewpublish", version: "v1", callback: () => any): void;
 
-    const photo: streetviewpublish.PhotoResource;
-
-    const photos: streetviewpublish.PhotosResource;
-
     namespace streetviewpublish {
         interface BatchDeletePhotosRequest {
             /**
@@ -201,7 +197,7 @@ declare namespace gapi.client {
         }
         interface Pose {
             /**
-             * Altitude of the pose in meters above ground level (as defined by WGS84).
+             * Altitude of the pose in meters above WGS84 ellipsoid.
              * NaN indicates an unmeasured quantity.
              */
             altitude?: number;
@@ -313,7 +309,8 @@ declare namespace gapi.client {
              *
              * This method returns the following error codes:
              *
-             * &#42; google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
+             * &#42; google.rpc.Code.INVALID_ARGUMENT if the request is malformed or if
+             * the uploaded photo is not a 360 photo.
              * &#42; google.rpc.Code.NOT_FOUND if the upload reference does not exist.
              * &#42; google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the
              * storage limit.
@@ -783,5 +780,9 @@ declare namespace gapi.client {
                 view?: string;
             }): Request<ListPhotosResponse>;
         }
+
+        const photo: streetviewpublish.PhotoResource;
+
+        const photos: streetviewpublish.PhotosResource;
     }
 }

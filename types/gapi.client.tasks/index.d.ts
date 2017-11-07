@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "tasks", version: "v1"): PromiseLike<void>;
     function load(name: "tasks", version: "v1", callback: () => any): void;
 
-    const tasklists: tasks.TasklistsResource;
-
-    const tasks: tasks.TasksResource;
-
     namespace tasks {
         interface Task {
             /** Completion date of the task (as a RFC 3339 timestamp). This field is omitted if the task has not been completed. */
@@ -463,5 +459,9 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Task>;
         }
+
+        const tasklists: tasks.TasklistsResource;
+
+        const tasks: tasks.TasksResource;
     }
 }

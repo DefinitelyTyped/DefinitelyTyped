@@ -39,11 +39,11 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get({
+        await gapi.client.servicemanagement.operations.get({
             name: "name",
         });
         /** Lists service operations that match the specified filter in the request. */
-        await gapi.client.operations.list({
+        await gapi.client.servicemanagement.operations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,
@@ -55,7 +55,7 @@ gapi.load('client', () => {
          *
          * Operation<response: ManagedService>
          */
-        await gapi.client.services.create({
+        await gapi.client.servicemanagement.services.create({
         });
         /**
          * Deletes a managed service. This method will change the service to the
@@ -65,7 +65,7 @@ gapi.load('client', () => {
          *
          * Operation<response: google.protobuf.Empty>
          */
-        await gapi.client.services.delete({
+        await gapi.client.servicemanagement.services.delete({
             serviceName: "serviceName",
         });
         /**
@@ -75,7 +75,7 @@ gapi.load('client', () => {
          *
          * Operation<response: DisableServiceResponse>
          */
-        await gapi.client.services.disable({
+        await gapi.client.servicemanagement.services.disable({
             serviceName: "serviceName",
         });
         /**
@@ -86,7 +86,7 @@ gapi.load('client', () => {
          *
          * Operation<response: EnableServiceResponse>
          */
-        await gapi.client.services.enable({
+        await gapi.client.servicemanagement.services.enable({
             serviceName: "serviceName",
         });
         /**
@@ -102,17 +102,17 @@ gapi.load('client', () => {
          * will compare GenerateConfigReportRequest.new_value with the last pushed
          * service configuration.
          */
-        await gapi.client.services.generateConfigReport({
+        await gapi.client.servicemanagement.services.generateConfigReport({
         });
         /**
          * Gets a managed service. Authentication is required unless the service is
          * public.
          */
-        await gapi.client.services.get({
+        await gapi.client.servicemanagement.services.get({
             serviceName: "serviceName",
         });
         /** Gets a service configuration (version) for a managed service. */
-        await gapi.client.services.getConfig({
+        await gapi.client.servicemanagement.services.getConfig({
             configId: "configId",
             serviceName: "serviceName",
             view: "view",
@@ -122,7 +122,7 @@ gapi.load('client', () => {
          * Returns an empty policy if the resource exists and does not have a policy
          * set.
          */
-        await gapi.client.services.getIamPolicy({
+        await gapi.client.servicemanagement.services.getIamPolicy({
             resource: "resource",
         });
         /**
@@ -136,7 +136,7 @@ gapi.load('client', () => {
          * services enabled on the consumer. The `consumer_id` must have the format
          * of "project:{PROJECT-ID}".
          */
-        await gapi.client.services.list({
+        await gapi.client.servicemanagement.services.list({
             consumerId: "consumerId",
             pageSize: 2,
             pageToken: "pageToken",
@@ -146,7 +146,7 @@ gapi.load('client', () => {
          * Sets the access control policy on the specified resource. Replaces any
          * existing policy.
          */
-        await gapi.client.services.setIamPolicy({
+        await gapi.client.servicemanagement.services.setIamPolicy({
             resource: "resource",
         });
         /**
@@ -158,7 +158,7 @@ gapi.load('client', () => {
          * UIs and command-line tools, not for authorization checking. This operation
          * may "fail open" without warning.
          */
-        await gapi.client.services.testIamPermissions({
+        await gapi.client.servicemanagement.services.testIamPermissions({
             resource: "resource",
         });
         /**
@@ -169,7 +169,7 @@ gapi.load('client', () => {
          *
          * Operation<response: UndeleteServiceResponse>
          */
-        await gapi.client.services.undelete({
+        await gapi.client.servicemanagement.services.undelete({
             serviceName: "serviceName",
         });
     }

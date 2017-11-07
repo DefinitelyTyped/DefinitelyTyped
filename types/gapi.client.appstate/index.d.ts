@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "appstate", version: "v1"): PromiseLike<void>;
     function load(name: "appstate", version: "v1", callback: () => any): void;
 
-    const states: appstate.StatesResource;
-
     namespace appstate {
         interface GetResponse {
             /** The current app state version. */
@@ -180,5 +178,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<WriteResult>;
         }
+
+        const states: appstate.StatesResource;
     }
 }

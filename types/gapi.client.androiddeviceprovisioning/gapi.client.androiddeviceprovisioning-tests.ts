@@ -17,7 +17,7 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get({
+        await gapi.client.androiddeviceprovisioning.operations.get({
             name: "name",
         });
     }

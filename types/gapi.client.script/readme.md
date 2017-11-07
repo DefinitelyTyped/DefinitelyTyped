@@ -1,10 +1,10 @@
-# TypeScript typings for Google Apps Script Execution API v1
+# TypeScript typings for Google Apps Script API v1
 An API for managing and executing Google Apps Script projects.
 For detailed description please check [documentation](https://developers.google.com/apps-script/execution/rest/v1/scripts/run).
 
 ## Installing
 
-Install typings for Google Apps Script Execution API:
+Install typings for Google Apps Script API:
 ```
 npm install @types/gapi.client.script@v1 --save-dev
 ```
@@ -78,13 +78,13 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 });            
 ```
 
-After that you can use Google Apps Script Execution API resources:
+After that you can use Google Apps Script API resources:
 
 ```typescript 
     
 /* 
 Runs a function in an Apps Script project. The project must be deployed
-for use with the Apps Script Execution API.
+for use with the Apps Script API.
 
 This method requires authorization with an OAuth 2.0 token that includes at
 least one of the scopes listed in the [Authorization](#authorization)

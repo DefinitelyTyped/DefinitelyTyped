@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "adexchangeseller", version: "v2.0"): PromiseLike<void>;
     function load(name: "adexchangeseller", version: "v2.0", callback: () => any): void;
 
-    const accounts: adexchangeseller.AccountsResource;
-
     namespace adexchangeseller {
         interface Account {
             /** Unique identifier of this account. */
@@ -660,5 +658,7 @@ declare namespace gapi.client {
             reports: ReportsResource;
             urlchannels: UrlchannelsResource;
         }
+
+        const accounts: adexchangeseller.AccountsResource;
     }
 }

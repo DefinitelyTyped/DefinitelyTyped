@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "siteverification", version: "v1"): PromiseLike<void>;
     function load(name: "siteverification", version: "v1", callback: () => any): void;
 
-    const webResource: siteverification.WebResourceResource;
-
     namespace siteverification {
         interface SiteVerificationWebResourceGettokenRequest {
             /** The site for which a verification token will be generated. */
@@ -209,5 +207,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<SiteVerificationWebResourceResource>;
         }
+
+        const webResource: siteverification.WebResourceResource;
     }
 }

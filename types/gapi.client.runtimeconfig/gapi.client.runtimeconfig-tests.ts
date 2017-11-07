@@ -42,7 +42,7 @@ gapi.load('client', () => {
          * an Operation.error value with a google.rpc.Status.code of 1,
          * corresponding to `Code.CANCELLED`.
          */
-        await gapi.client.operations.cancel({
+        await gapi.client.runtimeconfig.operations.cancel({
             name: "name",
         });
         /**
@@ -51,7 +51,7 @@ gapi.load('client', () => {
          * operation. If the server doesn't support this method, it returns
          * `google.rpc.Code.UNIMPLEMENTED`.
          */
-        await gapi.client.operations.delete({
+        await gapi.client.runtimeconfig.operations.delete({
             name: "name",
         });
         /**
@@ -66,7 +66,7 @@ gapi.load('client', () => {
          * collection id, however overriding users must ensure the name binding
          * is the parent resource, without the operations collection id.
          */
-        await gapi.client.operations.list({
+        await gapi.client.runtimeconfig.operations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,

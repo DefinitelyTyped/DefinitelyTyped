@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "translate", version: "v2"): PromiseLike<void>;
     function load(name: "translate", version: "v2", callback: () => any): void;
 
-    const detections: translate.DetectionsResource;
-
-    const languages: translate.LanguagesResource;
-
-    const translations: translate.TranslationsResource;
-
     namespace translate {
         interface DetectLanguageRequest {
             /**
@@ -315,5 +309,11 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<TranslationsListResponse>;
         }
+
+        const detections: translate.DetectionsResource;
+
+        const languages: translate.LanguagesResource;
+
+        const translations: translate.TranslationsResource;
     }
 }

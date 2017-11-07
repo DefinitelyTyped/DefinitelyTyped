@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "kgsearch", version: "v1"): PromiseLike<void>;
     function load(name: "kgsearch", version: "v1", callback: () => any): void;
 
-    const entities: kgsearch.EntitiesResource;
-
     namespace kgsearch {
         interface SearchResponse {
             /**
@@ -90,5 +88,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<SearchResponse>;
         }
+
+        const entities: kgsearch.EntitiesResource;
     }
 }

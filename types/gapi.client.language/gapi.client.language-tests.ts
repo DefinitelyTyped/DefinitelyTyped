@@ -35,29 +35,32 @@ gapi.load('client', () => {
          * along with entity types, salience, mentions for each entity, and
          * other properties.
          */
-        await gapi.client.documents.analyzeEntities({
+        await gapi.client.language.documents.analyzeEntities({
         });
         /**
          * Finds entities, similar to AnalyzeEntities in the text and analyzes
          * sentiment associated with each entity and its mentions.
          */
-        await gapi.client.documents.analyzeEntitySentiment({
+        await gapi.client.language.documents.analyzeEntitySentiment({
         });
         /** Analyzes the sentiment of the provided text. */
-        await gapi.client.documents.analyzeSentiment({
+        await gapi.client.language.documents.analyzeSentiment({
         });
         /**
          * Analyzes the syntax of the text and provides sentence boundaries and
          * tokenization along with part of speech tags, dependency trees, and other
          * properties.
          */
-        await gapi.client.documents.analyzeSyntax({
+        await gapi.client.language.documents.analyzeSyntax({
         });
         /**
          * A convenience method that provides all the features that analyzeSentiment,
          * analyzeEntities, and analyzeSyntax provide in one call.
          */
-        await gapi.client.documents.annotateText({
+        await gapi.client.language.documents.annotateText({
+        });
+        /** Classifies a document into categories. */
+        await gapi.client.language.documents.classifyText({
         });
     }
 });

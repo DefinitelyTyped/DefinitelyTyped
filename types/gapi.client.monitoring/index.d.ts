@@ -16,9 +16,13 @@ declare namespace gapi.client {
     function load(name: "monitoring", version: "v3"): PromiseLike<void>;
     function load(name: "monitoring", version: "v3", callback: () => any): void;
 
-    const projects: monitoring.ProjectsResource;
-
     namespace monitoring {
+        interface BasicAuthentication {
+            /** The password to authenticate. */
+            password?: string;
+            /** The username to authenticate. */
+            username?: string;
+        }
         interface BucketOptions {
             /** The explicit buckets. */
             explicitBuckets?: Explicit;
@@ -69,6 +73,10 @@ declare namespace gapi.client {
             error?: Status;
             /** The zero-based index in CollectdPayload.values within the parent CreateCollectdTimeSeriesRequest.collectd_payloads. */
             index?: number;
+        }
+        interface ContentMatcher {
+            /** String content to match */
+            content?: string;
         }
         interface CreateCollectdTimeSeriesRequest {
             /**
@@ -175,6 +183,34 @@ declare namespace gapi.client {
              */
             parentName?: string;
         }
+        interface HttpCheck {
+            /** The authentication information. Optional when creating an HTTP check; defaults to empty. */
+            authInfo?: BasicAuthentication;
+            /**
+             * The list of headers to send as part of the uptime check request. If two headers have the same key and different values, they should be entered as a
+             * single header, with the value being a comma-separated list of all the desired values as described at https://www.w3.org/Protocols/rfc2616/rfc2616.txt
+             * (page 31). Entering two separate headers with the same key in a Create call will cause the first to be overwritten by the second.
+             */
+            headers?: Record<string, string>;
+            /**
+             * Boolean specifiying whether to encrypt the header information. Encryption should be specified for any headers related to authentication that you do not
+             * wish to be seen when retrieving the configuration. The server will be responsible for encrypting the headers. On Get/List calls, if mask_headers is set
+             * to True then the headers will be obscured with &#42;&#42;&#42;&#42;&#42;&#42;.
+             */
+            maskHeaders?: boolean;
+            /**
+             * The path to the page to run the check against. Will be combined with the host (specified within the MonitoredResource) and port to construct the full
+             * URL. Optional (defaults to "/").
+             */
+            path?: string;
+            /**
+             * The port to the page to run the check against. Will be combined with host (specified within the MonitoredResource) and path to construct the full URL.
+             * Optional (defaults to 80 without SSL, or 443 with SSL).
+             */
+            port?: number;
+            /** If true, use HTTPS instead of HTTP to run the check. */
+            useSsl?: boolean;
+        }
         interface LabelDescriptor {
             /** A human-readable description for the label. */
             description?: string;
@@ -237,6 +273,26 @@ declare namespace gapi.client {
             nextPageToken?: string;
             /** One or more time series that match the filter included in the request. */
             timeSeries?: TimeSeries[];
+        }
+        interface ListUptimeCheckConfigsResponse {
+            /**
+             * This field represents the pagination token to retrieve the next page of results. If the value is empty, it means no further results for the request. To
+             * retrieve the next page of results, the value of the next_page_token is passed to the subsequent List method call (in the request message's page_token
+             * field).
+             */
+            nextPageToken?: string;
+            /** The returned uptime check configurations. */
+            uptimeCheckConfigs?: UptimeCheckConfig[];
+        }
+        interface ListUptimeCheckIpsResponse {
+            /**
+             * This field represents the pagination token to retrieve the next page of results. If the value is empty, it means no further results for the request. To
+             * retrieve the next page of results, the value of the next_page_token is passed to the subsequent List method call (in the request message's page_token
+             * field). NOTE: this field is not yet implemented
+             */
+            nextPageToken?: string;
+            /** The returned list of IP addresses (including region and location) that the checkers run from. */
+            uptimeCheckIps?: UptimeCheckIp[];
         }
         interface Metric {
             /** The set of label values that uniquely identify this metric. All labels listed in the MetricDescriptor must be assigned values. */
@@ -383,6 +439,12 @@ declare namespace gapi.client {
             /** The minimum of the population values. */
             min?: number;
         }
+        interface ResourceGroup {
+            /** The group of resources being monitored. Should be only the group_id, not projects/<project_id>/groups/<group_id>. */
+            groupId?: string;
+            /** The resource type of the group members. */
+            resourceType?: string;
+        }
         interface SourceContext {
             /** The path-qualified name of the .proto file that contained the associated protobuf element. For example: "google/protobuf/source_context.proto". */
             fileName?: string;
@@ -397,6 +459,10 @@ declare namespace gapi.client {
              * google.rpc.Status.details field, or localized by the client.
              */
             message?: string;
+        }
+        interface TcpCheck {
+            /** The port to the page to run the check against. Will be combined with host (specified within the MonitoredResource) to construct the full URL. Required. */
+            port?: number;
         }
         interface TimeInterval {
             /** Required. The end of the time interval. */
@@ -458,6 +524,56 @@ declare namespace gapi.client {
             int64Value?: string;
             /** A variable-length string value. */
             stringValue?: string;
+        }
+        interface UptimeCheckConfig {
+            /**
+             * The expected content on the page the check is run against. Currently, only the first entry in the list is supported, and other entries will be ignored.
+             * The server will look for an exact match of the string in the page response's content. This field is optional and should only be specified if a content
+             * match is required.
+             */
+            contentMatchers?: ContentMatcher[];
+            /**
+             * A human-friendly name for the uptime check configuration. The display name should be unique within a Stackdriver Account in order to make it easier to
+             * identify; however, uniqueness is not enforced. Required.
+             */
+            displayName?: string;
+            /** Contains information needed to make an HTTP or HTTPS check. */
+            httpCheck?: HttpCheck;
+            /** The monitored resource associated with the configuration. */
+            monitoredResource?: MonitoredResource;
+            /**
+             * A unique resource name for this UptimeCheckConfig. The format is:projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].This field should be
+             * omitted when creating the uptime check configuration; on create, the resource name is assigned by the server and included in the response.
+             */
+            name?: string;
+            /** How often the uptime check is performed. Currently, only 1, 5, 10, and 15 minutes are supported. Required. */
+            period?: string;
+            /** The group resource associated with the configuration. */
+            resourceGroup?: ResourceGroup;
+            /**
+             * The list of regions from which the check will be run. If this field is specified, enough regions to include a minimum of 3 locations must be provided,
+             * or an error message is returned. Not specifying this field will result in uptime checks running from all regions.
+             */
+            selectedRegions?: string[];
+            /** Contains information needed to make a TCP check. */
+            tcpCheck?: TcpCheck;
+            /** The maximum amount of time to wait for the request to complete (must be between 1 and 60 seconds). Required. */
+            timeout?: string;
+        }
+        interface UptimeCheckIp {
+            /**
+             * The IP address from which the uptime check originates. This is a full IP address (not an IP address range). Most IP addresses, as of this publication,
+             * are in IPv4 format; however, one should not rely on the IP addresses being in IPv4 format indefinitely and should support interpreting this field in
+             * either IPv4 or IPv6 format.
+             */
+            ipAddress?: string;
+            /**
+             * A more specific location within the region that typically encodes a particular city/town/metro (and its containing state/province or country) within
+             * the broader umbrella region category.
+             */
+            location?: string;
+            /** A broad region category in which the IP address is located. */
+            region?: string;
         }
         interface CollectdTimeSeriesResource {
             /**
@@ -1082,12 +1198,241 @@ declare namespace gapi.client {
                 view?: string;
             }): Request<ListTimeSeriesResponse>;
         }
+        interface UptimeCheckConfigsResource {
+            /** Creates a new uptime check configuration. */
+            create(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The project in which to create the uptime check. The format is:projects/[PROJECT_ID]. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<UptimeCheckConfig>;
+            /**
+             * Deletes an uptime check configuration. Note that this method will fail if the uptime check configuration is referenced by an alert policy or other
+             * dependent configs that would be rendered invalid by the deletion.
+             */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The uptime check configuration to delete. The format isprojects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID]. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
+            /** Gets a single uptime check configuration. */
+            get(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The uptime check configuration to retrieve. The format isprojects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID]. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<UptimeCheckConfig>;
+            /** Lists the existing valid uptime check configurations for the project, leaving out any invalid configurations. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * The maximum number of results to return in a single response. The server may further constrain the maximum number of results returned in a single page.
+                 * If the page_size is <=0, the server will decide the number of results to be returned.
+                 */
+                pageSize?: number;
+                /**
+                 * If this field is not empty then it must contain the nextPageToken value returned by a previous call to this method. Using this field causes the method
+                 * to return more results from the previous method call.
+                 */
+                pageToken?: string;
+                /** The project whose uptime check configurations are listed. The format isprojects/[PROJECT_ID]. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListUptimeCheckConfigsResponse>;
+            /**
+             * Updates an uptime check configuration. You can either replace the entire configuration with a new one or replace only certain fields in the current
+             * configuration by specifying the fields to be updated via "updateMask". Returns the updated configuration.
+             */
+            patch(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * A unique resource name for this UptimeCheckConfig. The format is:projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].This field should be
+                 * omitted when creating the uptime check configuration; on create, the resource name is assigned by the server and included in the response.
+                 */
+                name: string;
+                /** The uptime check configuration to update. The format isprojects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID]. */
+                name1?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Optional. If present, only the listed fields in the current uptime check configuration are updated with values from the new configuration. If this
+                 * field is empty, then the current configuration is completely replaced with the new configuration.
+                 */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<UptimeCheckConfig>;
+        }
         interface ProjectsResource {
             collectdTimeSeries: CollectdTimeSeriesResource;
             groups: GroupsResource;
             metricDescriptors: MetricDescriptorsResource;
             monitoredResourceDescriptors: MonitoredResourceDescriptorsResource;
             timeSeries: TimeSeriesResource;
+            uptimeCheckConfigs: UptimeCheckConfigsResource;
         }
+        interface UptimeCheckIpsResource {
+            /** Returns the list of IPs that checkers run from */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * The maximum number of results to return in a single response. The server may further constrain the maximum number of results returned in a single page.
+                 * If the page_size is <=0, the server will decide the number of results to be returned. NOTE: this field is not yet implemented
+                 */
+                pageSize?: number;
+                /**
+                 * If this field is not empty then it must contain the nextPageToken value returned by a previous call to this method. Using this field causes the method
+                 * to return more results from the previous method call. NOTE: this field is not yet implemented
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListUptimeCheckIpsResponse>;
+        }
+
+        const projects: monitoring.ProjectsResource;
+
+        const uptimeCheckIps: monitoring.UptimeCheckIpsResource;
     }
 }

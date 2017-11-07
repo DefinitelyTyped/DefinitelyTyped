@@ -16,18 +16,6 @@ declare namespace gapi.client {
     function load(name: "mirror", version: "v1"): PromiseLike<void>;
     function load(name: "mirror", version: "v1", callback: () => any): void;
 
-    const accounts: mirror.AccountsResource;
-
-    const contacts: mirror.ContactsResource;
-
-    const locations: mirror.LocationsResource;
-
-    const settings: mirror.SettingsResource;
-
-    const subscriptions: mirror.SubscriptionsResource;
-
-    const timeline: mirror.TimelineResource;
-
     namespace mirror {
         interface Account {
             authTokens?: AuthToken[];
@@ -981,5 +969,17 @@ declare namespace gapi.client {
             }): Request<TimelineItem>;
             attachments: AttachmentsResource;
         }
+
+        const accounts: mirror.AccountsResource;
+
+        const contacts: mirror.ContactsResource;
+
+        const locations: mirror.LocationsResource;
+
+        const settings: mirror.SettingsResource;
+
+        const subscriptions: mirror.SubscriptionsResource;
+
+        const timeline: mirror.TimelineResource;
     }
 }

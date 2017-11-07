@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "adexperiencereport", version: "v1"): PromiseLike<void>;
     function load(name: "adexperiencereport", version: "v1", callback: () => any): void;
 
-    const sites: adexperiencereport.SitesResource;
-
-    const violatingSites: adexperiencereport.ViolatingSitesResource;
-
     namespace adexperiencereport {
         interface PlatformSummary {
             /** The status of the site reviewed for the Better Ads Standards. */
@@ -121,5 +117,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<ViolatingSitesResponse>;
         }
+
+        const sites: adexperiencereport.SitesResource;
+
+        const violatingSites: adexperiencereport.ViolatingSitesResource;
     }
 }

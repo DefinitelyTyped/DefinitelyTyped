@@ -16,36 +16,6 @@ declare namespace gapi.client {
     function load(name: "games", version: "v1"): PromiseLike<void>;
     function load(name: "games", version: "v1", callback: () => any): void;
 
-    const achievementDefinitions: games.AchievementDefinitionsResource;
-
-    const achievements: games.AchievementsResource;
-
-    const applications: games.ApplicationsResource;
-
-    const events: games.EventsResource;
-
-    const leaderboards: games.LeaderboardsResource;
-
-    const metagame: games.MetagameResource;
-
-    const players: games.PlayersResource;
-
-    const pushtokens: games.PushtokensResource;
-
-    const questMilestones: games.QuestMilestonesResource;
-
-    const quests: games.QuestsResource;
-
-    const revisions: games.RevisionsResource;
-
-    const rooms: games.RoomsResource;
-
-    const scores: games.ScoresResource;
-
-    const snapshots: games.SnapshotsResource;
-
-    const turnBasedMatches: games.TurnBasedMatchesResource;
-
     namespace games {
         interface AchievementDefinition {
             /**
@@ -3073,5 +3043,35 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<TurnBasedMatch>;
         }
+
+        const achievementDefinitions: games.AchievementDefinitionsResource;
+
+        const achievements: games.AchievementsResource;
+
+        const applications: games.ApplicationsResource;
+
+        const events: games.EventsResource;
+
+        const leaderboards: games.LeaderboardsResource;
+
+        const metagame: games.MetagameResource;
+
+        const players: games.PlayersResource;
+
+        const pushtokens: games.PushtokensResource;
+
+        const questMilestones: games.QuestMilestonesResource;
+
+        const quests: games.QuestsResource;
+
+        const revisions: games.RevisionsResource;
+
+        const rooms: games.RoomsResource;
+
+        const scores: games.ScoresResource;
+
+        const snapshots: games.SnapshotsResource;
+
+        const turnBasedMatches: games.TurnBasedMatchesResource;
     }
 }

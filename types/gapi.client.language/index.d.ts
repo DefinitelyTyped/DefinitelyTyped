@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "language", version: "v1"): PromiseLike<void>;
     function load(name: "language", version: "v1", callback: () => any): void;
 
-    const documents: language.DocumentsResource;
-
     namespace language {
         interface AnalyzeEntitiesRequest {
             /** Input document. */
@@ -96,6 +94,8 @@ declare namespace gapi.client {
             features?: Features;
         }
         interface AnnotateTextResponse {
+            /** Categories identified in the input document. */
+            categories?: ClassificationCategory[];
             /**
              * The overall sentiment for the document. Populated if the user enables
              * AnnotateTextRequest.Features.extract_document_sentiment.
@@ -124,6 +124,23 @@ declare namespace gapi.client {
              * AnnotateTextRequest.Features.extract_syntax.
              */
             tokens?: Token[];
+        }
+        interface ClassificationCategory {
+            /**
+             * The classifier's confidence of the category. Number represents how certain
+             * the classifier is that this category represents the given text.
+             */
+            confidence?: number;
+            /** The name of the category representing the document. */
+            name?: string;
+        }
+        interface ClassifyTextRequest {
+            /** Input document. */
+            document?: Document;
+        }
+        interface ClassifyTextResponse {
+            /** Categories representing the input document. */
+            categories?: ClassificationCategory[];
         }
         interface DependencyEdge {
             /**
@@ -212,6 +229,8 @@ declare namespace gapi.client {
             type?: string;
         }
         interface Features {
+            /** Classify the full document into categories. */
+            classifyText?: boolean;
             /** Extract document-level sentiment. */
             extractDocumentSentiment?: boolean;
             /** Extract entities. */
@@ -464,6 +483,37 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<AnnotateTextResponse>;
+            /** Classifies a document into categories. */
+            classifyText(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ClassifyTextResponse>;
         }
+
+        const documents: language.DocumentsResource;
     }
 }

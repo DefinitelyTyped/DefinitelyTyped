@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "prediction", version: "v1.6"): PromiseLike<void>;
     function load(name: "prediction", version: "v1.6", callback: () => any): void;
 
-    const hostedmodels: prediction.HostedmodelsResource;
-
-    const trainedmodels: prediction.TrainedmodelsResource;
-
     namespace prediction {
         interface Analyze {
             /** Description of the data the model was trained on. */
@@ -399,5 +395,9 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Insert2>;
         }
+
+        const hostedmodels: prediction.HostedmodelsResource;
+
+        const trainedmodels: prediction.TrainedmodelsResource;
     }
 }

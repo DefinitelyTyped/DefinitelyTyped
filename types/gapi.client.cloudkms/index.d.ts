@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudkms", version: "v1"): PromiseLike<void>;
     function load(name: "cloudkms", version: "v1", callback: () => any): void;
 
-    const projects: cloudkms.ProjectsResource;
-
     namespace cloudkms {
         interface AuditConfig {
             /**
@@ -1281,5 +1279,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             locations: LocationsResource;
         }
+
+        const projects: cloudkms.ProjectsResource;
     }
 }

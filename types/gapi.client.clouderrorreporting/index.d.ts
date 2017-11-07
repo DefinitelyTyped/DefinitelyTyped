@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "clouderrorreporting", version: "v1beta1"): PromiseLike<void>;
     function load(name: "clouderrorreporting", version: "v1beta1", callback: () => any): void;
 
-    const projects: clouderrorreporting.ProjectsResource;
-
     namespace clouderrorreporting {
         interface ErrorContext {
             /**
@@ -610,5 +608,7 @@ declare namespace gapi.client {
             groupStats: GroupStatsResource;
             groups: GroupsResource;
         }
+
+        const projects: clouderrorreporting.ProjectsResource;
     }
 }

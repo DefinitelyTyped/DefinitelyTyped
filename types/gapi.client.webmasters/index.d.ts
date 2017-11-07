@@ -16,16 +16,6 @@ declare namespace gapi.client {
     function load(name: "webmasters", version: "v3"): PromiseLike<void>;
     function load(name: "webmasters", version: "v3", callback: () => any): void;
 
-    const searchanalytics: webmasters.SearchanalyticsResource;
-
-    const sitemaps: webmasters.SitemapsResource;
-
-    const sites: webmasters.SitesResource;
-
-    const urlcrawlerrorscounts: webmasters.UrlcrawlerrorscountsResource;
-
-    const urlcrawlerrorssamples: webmasters.UrlcrawlerrorssamplesResource;
-
     namespace webmasters {
         interface ApiDataRow {
             clicks?: number;
@@ -506,5 +496,15 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<void>;
         }
+
+        const searchanalytics: webmasters.SearchanalyticsResource;
+
+        const sitemaps: webmasters.SitemapsResource;
+
+        const sites: webmasters.SitesResource;
+
+        const urlcrawlerrorscounts: webmasters.UrlcrawlerrorscountsResource;
+
+        const urlcrawlerrorssamples: webmasters.UrlcrawlerrorssamplesResource;
     }
 }

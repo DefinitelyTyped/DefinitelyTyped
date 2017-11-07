@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudbuild", version: "v1"): PromiseLike<void>;
     function load(name: "cloudbuild", version: "v1", callback: () => any): void;
 
-    const operations: cloudbuild.OperationsResource;
-
-    const projects: cloudbuild.ProjectsResource;
-
     namespace cloudbuild {
         interface Build {
             /**
@@ -126,6 +122,11 @@ declare namespace gapi.client {
             build?: Build;
         }
         interface BuildOptions {
+            /**
+             * LogStreamingOption to define build log streaming behavior to Google Cloud
+             * Storage.
+             */
+            logStreamingOption?: string;
             /** Requested verifiability options. */
             requestedVerifyOption?: string;
             /** Requested hash for SourceProvenance. */
@@ -318,6 +319,8 @@ declare namespace gapi.client {
             branchName?: string;
             /** Explicit commit SHA to build. */
             commitSha?: string;
+            /** Directory, relative to the source root, in which to run the build. */
+            dir?: string;
             /**
              * ID of the project that owns the repo. If omitted, the project ID requesting
              * the build is assumed.
@@ -707,6 +710,67 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<ListBuildsResponse>;
+            /**
+             * Creates a new build based on the given build.
+             *
+             * This API creates a new build using the original build request,  which may
+             * or may not result in an identical build.
+             *
+             * For triggered builds:
+             *
+             * &#42; Triggered builds resolve to a precise revision, so a retry of a triggered
+             * build will result in a build that uses the same revision.
+             *
+             * For non-triggered builds that specify RepoSource:
+             *
+             * &#42; If the original build built from the tip of a branch, the retried build
+             * will build from the tip of that branch, which may not be the same revision
+             * as the original build.
+             * &#42; If the original build specified a commit sha or revision ID, the retried
+             * build will use the identical source.
+             *
+             * For builds that specify StorageSource:
+             *
+             * &#42; If the original build pulled source from Cloud Storage without specifying
+             * the generation of the object, the new build will use the current object,
+             * which may be different from the original build source.
+             * &#42; If the original build pulled source from Cloud Storage and specified the
+             * generation of the object, the new build will attempt to use the same
+             * object, which may or may not be available depending on the bucket's
+             * lifecycle management settings.
+             */
+            retry(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Build ID of the original build. */
+                id: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** ID of the project. */
+                projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Operation>;
         }
         interface TriggersResource {
             /**
@@ -890,10 +954,47 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<BuildTrigger>;
+            /** Runs a BuildTrigger at a particular source revision. */
+            run(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** ID of the project. */
+                projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** ID of the trigger. */
+                triggerId: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Operation>;
         }
         interface ProjectsResource {
             builds: BuildsResource;
             triggers: TriggersResource;
         }
+
+        const operations: cloudbuild.OperationsResource;
+
+        const projects: cloudbuild.ProjectsResource;
     }
 }

@@ -16,22 +16,6 @@ declare namespace gapi.client {
     function load(name: "blogger", version: "v3"): PromiseLike<void>;
     function load(name: "blogger", version: "v3", callback: () => any): void;
 
-    const blogUserInfos: blogger.BlogUserInfosResource;
-
-    const blogs: blogger.BlogsResource;
-
-    const comments: blogger.CommentsResource;
-
-    const pageViews: blogger.PageViewsResource;
-
-    const pages: blogger.PagesResource;
-
-    const postUserInfos: blogger.PostUserInfosResource;
-
-    const posts: blogger.PostsResource;
-
-    const users: blogger.UsersResource;
-
     namespace blogger {
         interface Blog {
             /** The JSON custom meta-data for the Blog */
@@ -1342,5 +1326,21 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<User>;
         }
+
+        const blogUserInfos: blogger.BlogUserInfosResource;
+
+        const blogs: blogger.BlogsResource;
+
+        const comments: blogger.CommentsResource;
+
+        const pageViews: blogger.PageViewsResource;
+
+        const pages: blogger.PagesResource;
+
+        const postUserInfos: blogger.PostUserInfosResource;
+
+        const posts: blogger.PostsResource;
+
+        const users: blogger.UsersResource;
     }
 }

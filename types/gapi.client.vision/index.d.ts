@@ -16,59 +16,57 @@ declare namespace gapi.client {
     function load(name: "vision", version: "v1"): PromiseLike<void>;
     function load(name: "vision", version: "v1", callback: () => any): void;
 
-    const images: vision.ImagesResource;
-
     namespace vision {
-        interface AnnotateImageRequest {
+        interface GoogleCloudVisionV1AnnotateImageRequest {
             /** Requested features. */
-            features?: Feature[];
+            features?: GoogleCloudVisionV1Feature[];
             /** The image to be processed. */
-            image?: Image;
+            image?: GoogleCloudVisionV1Image;
             /** Additional context that may accompany the image. */
-            imageContext?: ImageContext;
+            imageContext?: GoogleCloudVisionV1ImageContext;
         }
-        interface AnnotateImageResponse {
+        interface GoogleCloudVisionV1AnnotateImageResponse {
             /** If present, crop hints have completed successfully. */
-            cropHintsAnnotation?: CropHintsAnnotation;
+            cropHintsAnnotation?: GoogleCloudVisionV1CropHintsAnnotation;
             /**
              * If set, represents the error message for the operation.
              * Note that filled-in image annotations are guaranteed to be
              * correct, even when `error` is set.
              */
-            error?: Status;
+            error?: GoogleRpcStatus;
             /** If present, face detection has completed successfully. */
-            faceAnnotations?: FaceAnnotation[];
+            faceAnnotations?: GoogleCloudVisionV1FaceAnnotation[];
             /**
              * If present, text (OCR) detection or document (OCR) text detection has
              * completed successfully.
              * This annotation provides the structural hierarchy for the OCR detected
              * text.
              */
-            fullTextAnnotation?: TextAnnotation;
+            fullTextAnnotation?: GoogleCloudVisionV1TextAnnotation;
             /** If present, image properties were extracted successfully. */
-            imagePropertiesAnnotation?: ImageProperties;
+            imagePropertiesAnnotation?: GoogleCloudVisionV1ImageProperties;
             /** If present, label detection has completed successfully. */
-            labelAnnotations?: EntityAnnotation[];
+            labelAnnotations?: GoogleCloudVisionV1EntityAnnotation[];
             /** If present, landmark detection has completed successfully. */
-            landmarkAnnotations?: EntityAnnotation[];
+            landmarkAnnotations?: GoogleCloudVisionV1EntityAnnotation[];
             /** If present, logo detection has completed successfully. */
-            logoAnnotations?: EntityAnnotation[];
+            logoAnnotations?: GoogleCloudVisionV1EntityAnnotation[];
             /** If present, safe-search annotation has completed successfully. */
-            safeSearchAnnotation?: SafeSearchAnnotation;
+            safeSearchAnnotation?: GoogleCloudVisionV1SafeSearchAnnotation;
             /** If present, text (OCR) detection has completed successfully. */
-            textAnnotations?: EntityAnnotation[];
+            textAnnotations?: GoogleCloudVisionV1EntityAnnotation[];
             /** If present, web detection has completed successfully. */
-            webDetection?: WebDetection;
+            webDetection?: GoogleCloudVisionV1WebDetection;
         }
-        interface BatchAnnotateImagesRequest {
+        interface GoogleCloudVisionV1BatchAnnotateImagesRequest {
             /** Individual image annotation requests for this batch. */
-            requests?: AnnotateImageRequest[];
+            requests?: GoogleCloudVisionV1AnnotateImageRequest[];
         }
-        interface BatchAnnotateImagesResponse {
+        interface GoogleCloudVisionV1BatchAnnotateImagesResponse {
             /** Individual responses to image annotation requests within the batch. */
-            responses?: AnnotateImageResponse[];
+            responses?: GoogleCloudVisionV1AnnotateImageResponse[];
         }
-        interface Block {
+        interface GoogleCloudVisionV1Block {
             /** Detected block type (text, image etc) for this block. */
             blockType?: string;
             /**
@@ -88,41 +86,19 @@ declare namespace gapi.client {
              * 1----0
              * and the vertice order will still be (0, 1, 2, 3).
              */
-            boundingBox?: BoundingPoly;
+            boundingBox?: GoogleCloudVisionV1BoundingPoly;
             /** List of paragraphs in this block (if this blocks is of type text). */
-            paragraphs?: Paragraph[];
+            paragraphs?: GoogleCloudVisionV1Paragraph[];
             /** Additional information detected for the block. */
-            property?: TextProperty;
+            property?: GoogleCloudVisionV1TextAnnotationTextProperty;
         }
-        interface BoundingPoly {
+        interface GoogleCloudVisionV1BoundingPoly {
             /** The bounding polygon vertices. */
-            vertices?: Vertex[];
+            vertices?: GoogleCloudVisionV1Vertex[];
         }
-        interface Color {
-            /**
-             * The fraction of this color that should be applied to the pixel. That is,
-             * the final pixel color is defined by the equation:
-             *
-             * pixel color = alpha &#42; (this color) + (1.0 - alpha) &#42; (background color)
-             *
-             * This means that a value of 1.0 corresponds to a solid color, whereas
-             * a value of 0.0 corresponds to a completely transparent color. This
-             * uses a wrapper message rather than a simple float scalar so that it is
-             * possible to distinguish between a default value and the value being unset.
-             * If omitted, this color object is to be rendered as a solid color
-             * (as if the alpha value had been explicitly given with a value of 1.0).
-             */
-            alpha?: number;
-            /** The amount of blue in the color as a value in the interval [0, 1]. */
-            blue?: number;
-            /** The amount of green in the color as a value in the interval [0, 1]. */
-            green?: number;
-            /** The amount of red in the color as a value in the interval [0, 1]. */
-            red?: number;
-        }
-        interface ColorInfo {
+        interface GoogleCloudVisionV1ColorInfo {
             /** RGB components of the color. */
-            color?: Color;
+            color?: GoogleTypeColor;
             /**
              * The fraction of pixels the color occupies in the image.
              * Value in range [0, 1].
@@ -131,12 +107,12 @@ declare namespace gapi.client {
             /** Image-specific score for this color. Value in range [0, 1]. */
             score?: number;
         }
-        interface CropHint {
+        interface GoogleCloudVisionV1CropHint {
             /**
              * The bounding polygon for the crop region. The coordinates of the bounding
              * box are in the original image's scale, as returned in `ImageParams`.
              */
-            boundingPoly?: BoundingPoly;
+            boundingPoly?: GoogleCloudVisionV1BoundingPoly;
             /** Confidence of this being a salient region.  Range [0, 1]. */
             confidence?: number;
             /**
@@ -145,11 +121,11 @@ declare namespace gapi.client {
              */
             importanceFraction?: number;
         }
-        interface CropHintsAnnotation {
+        interface GoogleCloudVisionV1CropHintsAnnotation {
             /** Crop hint results. */
-            cropHints?: CropHint[];
+            cropHints?: GoogleCloudVisionV1CropHint[];
         }
-        interface CropHintsParams {
+        interface GoogleCloudVisionV1CropHintsParams {
             /**
              * Aspect ratios in floats, representing the ratio of the width to the height
              * of the image. For example, if the desired aspect ratio is 4/3, the
@@ -160,32 +136,16 @@ declare namespace gapi.client {
              */
             aspectRatios?: number[];
         }
-        interface DetectedBreak {
-            /** True if break prepends the element. */
-            isPrefix?: boolean;
-            /** Detected break type. */
-            type?: string;
-        }
-        interface DetectedLanguage {
-            /** Confidence of detected language. Range [0, 1]. */
-            confidence?: number;
-            /**
-             * The BCP-47 language code, such as "en-US" or "sr-Latn". For more
-             * information, see
-             * http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
-             */
-            languageCode?: string;
-        }
-        interface DominantColorsAnnotation {
+        interface GoogleCloudVisionV1DominantColorsAnnotation {
             /** RGB color values with their score and pixel fraction. */
-            colors?: ColorInfo[];
+            colors?: GoogleCloudVisionV1ColorInfo[];
         }
-        interface EntityAnnotation {
+        interface GoogleCloudVisionV1EntityAnnotation {
             /**
              * Image region to which this entity belongs. Not produced
              * for `LABEL_DETECTION` features.
              */
-            boundingPoly?: BoundingPoly;
+            boundingPoly?: GoogleCloudVisionV1BoundingPoly;
             /**
              * The accuracy of the entity detection in an image.
              * For example, for an image in which the "Eiffel Tower" entity is detected,
@@ -207,17 +167,18 @@ declare namespace gapi.client {
              * may indicate the location of the place where the image was taken.
              * Location information is usually present for landmarks.
              */
-            locations?: LocationInfo[];
+            locations?: GoogleCloudVisionV1LocationInfo[];
             /**
              * Opaque entity ID. Some IDs may be available in
-             * [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).
+             * [Google Knowledge Graph Search
+             * API](https://developers.google.com/knowledge-graph/).
              */
             mid?: string;
             /**
              * Some entities may have optional user-supplied `Property` (name/value)
              * fields, such a score or string that qualifies the entity.
              */
-            properties?: Property[];
+            properties?: GoogleCloudVisionV1Property[];
             /** Overall score of the result. Range [0, 1]. */
             score?: number;
             /**
@@ -229,7 +190,7 @@ declare namespace gapi.client {
              */
             topicality?: number;
         }
-        interface FaceAnnotation {
+        interface GoogleCloudVisionV1FaceAnnotation {
             /** Anger likelihood. */
             angerLikelihood?: string;
             /** Blurred likelihood. */
@@ -243,7 +204,7 @@ declare namespace gapi.client {
              * `BoundingPoly` (the polygon will be unbounded) if only a partial face
              * appears in the image to be annotated.
              */
-            boundingPoly?: BoundingPoly;
+            boundingPoly?: GoogleCloudVisionV1BoundingPoly;
             /** Detection confidence. Range [0, 1]. */
             detectionConfidence?: number;
             /**
@@ -254,7 +215,7 @@ declare namespace gapi.client {
              * landmarker results, only on the initial face detection, hence
              * the <code>fd</code> (face detection) prefix.
              */
-            fdBoundingPoly?: BoundingPoly;
+            fdBoundingPoly?: GoogleCloudVisionV1BoundingPoly;
             /** Headwear likelihood. */
             headwearLikelihood?: string;
             /** Joy likelihood. */
@@ -262,7 +223,7 @@ declare namespace gapi.client {
             /** Face landmarking confidence. Range [0, 1]. */
             landmarkingConfidence?: number;
             /** Detected face landmarks. */
-            landmarks?: Landmark[];
+            landmarks?: GoogleCloudVisionV1FaceAnnotationLandmark[];
             /**
              * Yaw angle, which indicates the leftward/rightward angle that the face is
              * pointing relative to the vertical plane perpendicular to the image. Range
@@ -287,13 +248,19 @@ declare namespace gapi.client {
             /** Under-exposed likelihood. */
             underExposedLikelihood?: string;
         }
-        interface Feature {
+        interface GoogleCloudVisionV1FaceAnnotationLandmark {
+            /** Face landmark position. */
+            position?: GoogleCloudVisionV1Position;
+            /** Face landmark type. */
+            type?: string;
+        }
+        interface GoogleCloudVisionV1Feature {
             /** Maximum number of results of this type. */
             maxResults?: number;
             /** The feature type. */
             type?: string;
         }
-        interface Image {
+        interface GoogleCloudVisionV1Image {
             /**
              * Image content, represented as a stream of bytes.
              * Note: as with all `bytes` fields, protobuffers use a pure binary
@@ -305,11 +272,11 @@ declare namespace gapi.client {
              * are provided for an image, `content` takes precedence and is
              * used to perform the image annotation request.
              */
-            source?: ImageSource;
+            source?: GoogleCloudVisionV1ImageSource;
         }
-        interface ImageContext {
+        interface GoogleCloudVisionV1ImageContext {
             /** Parameters for crop hints annotation request. */
-            cropHintsParams?: CropHintsParams;
+            cropHintsParams?: GoogleCloudVisionV1CropHintsParams;
             /**
              * List of languages to use for TEXT_DETECTION. In most cases, an empty value
              * yields the best results since it enables automatic language detection. For
@@ -322,13 +289,13 @@ declare namespace gapi.client {
              */
             languageHints?: string[];
             /** lat/long rectangle that specifies the location of the image. */
-            latLongRect?: LatLongRect;
+            latLongRect?: GoogleCloudVisionV1LatLongRect;
         }
-        interface ImageProperties {
+        interface GoogleCloudVisionV1ImageProperties {
             /** If present, dominant colors completed successfully. */
-            dominantColors?: DominantColorsAnnotation;
+            dominantColors?: GoogleCloudVisionV1DominantColorsAnnotation;
         }
-        interface ImageSource {
+        interface GoogleCloudVisionV1ImageSource {
             /**
              * NOTE: For new code `image_uri` below is preferred.
              * Google Cloud Storage image URI, which must be in the following form:
@@ -352,39 +319,27 @@ declare namespace gapi.client {
              */
             imageUri?: string;
         }
-        interface Landmark {
-            /** Face landmark position. */
-            position?: Position;
-            /** Face landmark type. */
-            type?: string;
-        }
-        interface LatLng {
-            /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
-            latitude?: number;
-            /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
-            longitude?: number;
-        }
-        interface LatLongRect {
+        interface GoogleCloudVisionV1LatLongRect {
             /** Max lat/long pair. */
-            maxLatLng?: LatLng;
+            maxLatLng?: GoogleTypeLatLng;
             /** Min lat/long pair. */
-            minLatLng?: LatLng;
+            minLatLng?: GoogleTypeLatLng;
         }
-        interface LocationInfo {
+        interface GoogleCloudVisionV1LocationInfo {
             /** lat/long location coordinates. */
-            latLng?: LatLng;
+            latLng?: GoogleTypeLatLng;
         }
-        interface Page {
+        interface GoogleCloudVisionV1Page {
             /** List of blocks of text, images etc on this page. */
-            blocks?: Block[];
+            blocks?: GoogleCloudVisionV1Block[];
             /** Page height in pixels. */
             height?: number;
             /** Additional information detected on the page. */
-            property?: TextProperty;
+            property?: GoogleCloudVisionV1TextAnnotationTextProperty;
             /** Page width in pixels. */
             width?: number;
         }
-        interface Paragraph {
+        interface GoogleCloudVisionV1Paragraph {
             /**
              * The bounding box for the paragraph.
              * The vertices are in the order of top-left, top-right, bottom-right,
@@ -402,13 +357,13 @@ declare namespace gapi.client {
              * 1----0
              * and the vertice order will still be (0, 1, 2, 3).
              */
-            boundingBox?: BoundingPoly;
+            boundingBox?: GoogleCloudVisionV1BoundingPoly;
             /** Additional information detected for the paragraph. */
-            property?: TextProperty;
+            property?: GoogleCloudVisionV1TextAnnotationTextProperty;
             /** List of words in this paragraph. */
-            words?: Word[];
+            words?: GoogleCloudVisionV1Word[];
         }
-        interface Position {
+        interface GoogleCloudVisionV1Position {
             /** X coordinate. */
             x?: number;
             /** Y coordinate. */
@@ -416,7 +371,7 @@ declare namespace gapi.client {
             /** Z coordinate (or depth). */
             z?: number;
         }
-        interface Property {
+        interface GoogleCloudVisionV1Property {
             /** Name of the property. */
             name?: string;
             /** Value of numeric properties. */
@@ -424,7 +379,7 @@ declare namespace gapi.client {
             /** Value of the property. */
             value?: string;
         }
-        interface SafeSearchAnnotation {
+        interface GoogleCloudVisionV1SafeSearchAnnotation {
             /**
              * Represents the adult content likelihood for the image. Adult content may
              * contain elements such as nudity, pornographic images or cartoons, or
@@ -442,22 +397,7 @@ declare namespace gapi.client {
             /** Likelihood that this image contains violent content. */
             violence?: string;
         }
-        interface Status {
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /**
-             * A list of messages that carry the error details.  There is a common set of
-             * message types for APIs to use.
-             */
-            details?: Array<Record<string, any>>;
-            /**
-             * A developer-facing error message, which should be in English. Any
-             * user-facing error message should be localized and sent in the
-             * google.rpc.Status.details field, or localized by the client.
-             */
-            message?: string;
-        }
-        interface Symbol {
+        interface GoogleCloudVisionV1Symbol {
             /**
              * The bounding box for the symbol.
              * The vertices are in the order of top-left, top-right, bottom-right,
@@ -475,50 +415,66 @@ declare namespace gapi.client {
              * 1----0
              * and the vertice order will still be (0, 1, 2, 3).
              */
-            boundingBox?: BoundingPoly;
+            boundingBox?: GoogleCloudVisionV1BoundingPoly;
             /** Additional information detected for the symbol. */
-            property?: TextProperty;
+            property?: GoogleCloudVisionV1TextAnnotationTextProperty;
             /** The actual UTF-8 representation of the symbol. */
             text?: string;
         }
-        interface TextAnnotation {
+        interface GoogleCloudVisionV1TextAnnotation {
             /** List of pages detected by OCR. */
-            pages?: Page[];
+            pages?: GoogleCloudVisionV1Page[];
             /** UTF-8 text detected on the pages. */
             text?: string;
         }
-        interface TextProperty {
-            /** Detected start or end of a text segment. */
-            detectedBreak?: DetectedBreak;
-            /** A list of detected languages together with confidence. */
-            detectedLanguages?: DetectedLanguage[];
+        interface GoogleCloudVisionV1TextAnnotationDetectedBreak {
+            /** True if break prepends the element. */
+            isPrefix?: boolean;
+            /** Detected break type. */
+            type?: string;
         }
-        interface Vertex {
+        interface GoogleCloudVisionV1TextAnnotationDetectedLanguage {
+            /** Confidence of detected language. Range [0, 1]. */
+            confidence?: number;
+            /**
+             * The BCP-47 language code, such as "en-US" or "sr-Latn". For more
+             * information, see
+             * http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+             */
+            languageCode?: string;
+        }
+        interface GoogleCloudVisionV1TextAnnotationTextProperty {
+            /** Detected start or end of a text segment. */
+            detectedBreak?: GoogleCloudVisionV1TextAnnotationDetectedBreak;
+            /** A list of detected languages together with confidence. */
+            detectedLanguages?: GoogleCloudVisionV1TextAnnotationDetectedLanguage[];
+        }
+        interface GoogleCloudVisionV1Vertex {
             /** X coordinate. */
             x?: number;
             /** Y coordinate. */
             y?: number;
         }
-        interface WebDetection {
+        interface GoogleCloudVisionV1WebDetection {
             /**
              * Fully matching images from the Internet.
              * Can include resized copies of the query image.
              */
-            fullMatchingImages?: WebImage[];
+            fullMatchingImages?: GoogleCloudVisionV1WebDetectionWebImage[];
             /** Web pages containing the matching images from the Internet. */
-            pagesWithMatchingImages?: WebPage[];
+            pagesWithMatchingImages?: GoogleCloudVisionV1WebDetectionWebPage[];
             /**
              * Partial matching images from the Internet.
              * Those images are similar enough to share some key-point features. For
              * example an original image will likely have partial matching for its crops.
              */
-            partialMatchingImages?: WebImage[];
+            partialMatchingImages?: GoogleCloudVisionV1WebDetectionWebImage[];
             /** The visually similar image results. */
-            visuallySimilarImages?: WebImage[];
+            visuallySimilarImages?: GoogleCloudVisionV1WebDetectionWebImage[];
             /** Deduced entities from similar images on the Internet. */
-            webEntities?: WebEntity[];
+            webEntities?: GoogleCloudVisionV1WebDetectionWebEntity[];
         }
-        interface WebEntity {
+        interface GoogleCloudVisionV1WebDetectionWebEntity {
             /** Canonical description of the entity, in English. */
             description?: string;
             /** Opaque entity ID. */
@@ -529,19 +485,19 @@ declare namespace gapi.client {
              */
             score?: number;
         }
-        interface WebImage {
+        interface GoogleCloudVisionV1WebDetectionWebImage {
             /** (Deprecated) Overall relevancy score for the image. */
             score?: number;
             /** The result image URL. */
             url?: string;
         }
-        interface WebPage {
+        interface GoogleCloudVisionV1WebDetectionWebPage {
             /** (Deprecated) Overall relevancy score for the web page. */
             score?: number;
             /** The result web page URL. */
             url?: string;
         }
-        interface Word {
+        interface GoogleCloudVisionV1Word {
             /**
              * The bounding box for the word.
              * The vertices are in the order of top-left, top-right, bottom-right,
@@ -559,14 +515,57 @@ declare namespace gapi.client {
              * 1----0
              * and the vertice order will still be (0, 1, 2, 3).
              */
-            boundingBox?: BoundingPoly;
+            boundingBox?: GoogleCloudVisionV1BoundingPoly;
             /** Additional information detected for the word. */
-            property?: TextProperty;
+            property?: GoogleCloudVisionV1TextAnnotationTextProperty;
             /**
              * List of symbols in the word.
              * The order of the symbols follows the natural reading order.
              */
-            symbols?: Symbol[];
+            symbols?: GoogleCloudVisionV1Symbol[];
+        }
+        interface GoogleRpcStatus {
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+            /**
+             * A list of messages that carry the error details.  There is a common set of
+             * message types for APIs to use.
+             */
+            details?: Array<Record<string, any>>;
+            /**
+             * A developer-facing error message, which should be in English. Any
+             * user-facing error message should be localized and sent in the
+             * google.rpc.Status.details field, or localized by the client.
+             */
+            message?: string;
+        }
+        interface GoogleTypeColor {
+            /**
+             * The fraction of this color that should be applied to the pixel. That is,
+             * the final pixel color is defined by the equation:
+             *
+             * pixel color = alpha &#42; (this color) + (1.0 - alpha) &#42; (background color)
+             *
+             * This means that a value of 1.0 corresponds to a solid color, whereas
+             * a value of 0.0 corresponds to a completely transparent color. This
+             * uses a wrapper message rather than a simple float scalar so that it is
+             * possible to distinguish between a default value and the value being unset.
+             * If omitted, this color object is to be rendered as a solid color
+             * (as if the alpha value had been explicitly given with a value of 1.0).
+             */
+            alpha?: number;
+            /** The amount of blue in the color as a value in the interval [0, 1]. */
+            blue?: number;
+            /** The amount of green in the color as a value in the interval [0, 1]. */
+            green?: number;
+            /** The amount of red in the color as a value in the interval [0, 1]. */
+            red?: number;
+        }
+        interface GoogleTypeLatLng {
+            /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
+            latitude?: number;
+            /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
+            longitude?: number;
         }
         interface ImagesResource {
             /** Run image detection and annotation for a batch of images. */
@@ -597,7 +596,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchAnnotateImagesResponse>;
+            }): Request<GoogleCloudVisionV1BatchAnnotateImagesResponse>;
         }
+
+        const images: vision.ImagesResource;
     }
 }

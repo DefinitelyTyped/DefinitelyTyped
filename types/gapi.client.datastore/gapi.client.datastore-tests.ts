@@ -34,30 +34,37 @@ gapi.load('client', () => {
          * Allocates IDs for the given keys, which is useful for referencing an entity
          * before it is inserted.
          */
-        await gapi.client.projects.allocateIds({
+        await gapi.client.datastore.projects.allocateIds({
             projectId: "projectId",
         });
         /** Begins a new transaction. */
-        await gapi.client.projects.beginTransaction({
+        await gapi.client.datastore.projects.beginTransaction({
             projectId: "projectId",
         });
         /**
          * Commits a transaction, optionally creating, deleting or modifying some
          * entities.
          */
-        await gapi.client.projects.commit({
+        await gapi.client.datastore.projects.commit({
             projectId: "projectId",
         });
         /** Looks up entities by key. */
-        await gapi.client.projects.lookup({
+        await gapi.client.datastore.projects.lookup({
+            projectId: "projectId",
+        });
+        /**
+         * Prevents the supplied keys' IDs from being auto-allocated by Cloud
+         * Datastore.
+         */
+        await gapi.client.datastore.projects.reserveIds({
             projectId: "projectId",
         });
         /** Rolls back a transaction. */
-        await gapi.client.projects.rollback({
+        await gapi.client.datastore.projects.rollback({
             projectId: "projectId",
         });
         /** Queries for entities. */
-        await gapi.client.projects.runQuery({
+        await gapi.client.datastore.projects.runQuery({
             projectId: "projectId",
         });
     }

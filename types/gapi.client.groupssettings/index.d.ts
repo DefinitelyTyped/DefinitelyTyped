@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "groupssettings", version: "v1"): PromiseLike<void>;
     function load(name: "groupssettings", version: "v1", callback: () => any): void;
 
-    const groups: groupssettings.GroupsResource;
-
     namespace groupssettings {
         interface Groups {
             /** Are external members allowed to join the group. */
@@ -160,5 +158,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Groups>;
         }
+
+        const groups: groupssettings.GroupsResource;
     }
 }

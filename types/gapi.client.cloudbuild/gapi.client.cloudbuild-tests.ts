@@ -40,7 +40,7 @@ gapi.load('client', () => {
          * an Operation.error value with a google.rpc.Status.code of 1,
          * corresponding to `Code.CANCELLED`.
          */
-        await gapi.client.operations.cancel({
+        await gapi.client.cloudbuild.operations.cancel({
             name: "name",
         });
         /**
@@ -48,7 +48,7 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get({
+        await gapi.client.cloudbuild.operations.get({
             name: "name",
         });
         /**
@@ -63,7 +63,7 @@ gapi.load('client', () => {
          * collection id, however overriding users must ensure the name binding
          * is the parent resource, without the operations collection id.
          */
-        await gapi.client.operations.list({
+        await gapi.client.cloudbuild.operations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,

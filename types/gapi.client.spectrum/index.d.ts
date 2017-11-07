@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "spectrum", version: "v1explorer"): PromiseLike<void>;
     function load(name: "spectrum", version: "v1explorer", callback: () => any): void;
 
-    const paws: spectrum.PawsResource;
-
     namespace spectrum {
         interface AntennaCharacteristics {
             /**
@@ -837,5 +835,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<PawsVerifyDeviceResponse>;
         }
+
+        const paws: spectrum.PawsResource;
     }
 }

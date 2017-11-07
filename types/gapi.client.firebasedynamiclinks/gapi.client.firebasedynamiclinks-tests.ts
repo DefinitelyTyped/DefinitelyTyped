@@ -39,19 +39,19 @@ gapi.load('client', () => {
          * The Dynamic Link domain in the request must be owned by requester's
          * Firebase project.
          */
-        await gapi.client.shortLinks.create({
+        await gapi.client.firebasedynamiclinks.shortLinks.create({
         });
         /**
          * Fetches analytics stats of a short Dynamic Link for a given
          * duration. Metrics include number of clicks, redirects, installs,
          * app first opens, and app reopens.
          */
-        await gapi.client.v1.getLinkStats({
+        await gapi.client.firebasedynamiclinks.v1.getLinkStats({
             durationDays: "durationDays",
             dynamicLink: "dynamicLink",
         });
         /** Get iOS strong/weak-match info for post-install attribution. */
-        await gapi.client.v1.installAttribution({
+        await gapi.client.firebasedynamiclinks.v1.installAttribution({
         });
     }
 });

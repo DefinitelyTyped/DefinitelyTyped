@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "groupsmigration", version: "v1"): PromiseLike<void>;
     function load(name: "groupsmigration", version: "v1", callback: () => any): void;
 
-    const archive: groupsmigration.ArchiveResource;
-
     namespace groupsmigration {
         interface Groups {
             /** The kind of insert resource this is. */
@@ -49,5 +47,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Groups>;
         }
+
+        const archive: groupsmigration.ArchiveResource;
     }
 }

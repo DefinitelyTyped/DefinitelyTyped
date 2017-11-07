@@ -16,16 +16,6 @@ declare namespace gapi.client {
     function load(name: "androidpublisher", version: "v2"): PromiseLike<void>;
     function load(name: "androidpublisher", version: "v2", callback: () => any): void;
 
-    const edits: androidpublisher.EditsResource;
-
-    const entitlements: androidpublisher.EntitlementsResource;
-
-    const inappproducts: androidpublisher.InappproductsResource;
-
-    const purchases: androidpublisher.PurchasesResource;
-
-    const reviews: androidpublisher.ReviewsResource;
-
     namespace androidpublisher {
         interface Apk {
             /** Information about the binary payload of this APK. */
@@ -241,43 +231,12 @@ declare namespace gapi.client {
             description?: string;
             title?: string;
         }
-        interface InappproductsBatchRequest {
-            entrys?: InappproductsBatchRequestEntry[];
-        }
-        interface InappproductsBatchRequestEntry {
-            batchId?: number;
-            inappproductsinsertrequest?: InappproductsInsertRequest;
-            inappproductsupdaterequest?: InappproductsUpdateRequest;
-            methodName?: string;
-        }
-        interface InappproductsBatchResponse {
-            entrys?: InappproductsBatchResponseEntry[];
-            /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#inappproductsBatchResponse". */
-            kind?: string;
-        }
-        interface InappproductsBatchResponseEntry {
-            batchId?: number;
-            inappproductsinsertresponse?: InappproductsInsertResponse;
-            inappproductsupdateresponse?: InappproductsUpdateResponse;
-        }
-        interface InappproductsInsertRequest {
-            inappproduct?: InAppProduct;
-        }
-        interface InappproductsInsertResponse {
-            inappproduct?: InAppProduct;
-        }
         interface InappproductsListResponse {
             inappproduct?: InAppProduct[];
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#inappproductsListResponse". */
             kind?: string;
             pageInfo?: PageInfo;
             tokenPagination?: TokenPagination;
-        }
-        interface InappproductsUpdateRequest {
-            inappproduct?: InAppProduct;
-        }
-        interface InappproductsUpdateResponse {
-            inappproduct?: InAppProduct;
         }
         interface Listing {
             /** Full description of the app; this may be up to 4000 characters in length. */
@@ -1602,25 +1561,6 @@ declare namespace gapi.client {
             }): Request<EntitlementsListResponse>;
         }
         interface InappproductsResource {
-            batch(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /**
-                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-                 * Overrides userIp if both are provided.
-                 */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-            }): Request<InappproductsBatchResponse>;
             /** Delete an in-app product for an app. */
             delete(request: {
                 /** Data format for the response. */
@@ -2058,5 +1998,15 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<ReviewsReplyResponse>;
         }
+
+        const edits: androidpublisher.EditsResource;
+
+        const entitlements: androidpublisher.EntitlementsResource;
+
+        const inappproducts: androidpublisher.InappproductsResource;
+
+        const purchases: androidpublisher.PurchasesResource;
+
+        const reviews: androidpublisher.ReviewsResource;
     }
 }

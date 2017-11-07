@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "iam", version: "v1"): PromiseLike<void>;
     function load(name: "iam", version: "v1", callback: () => any): void;
 
-    const organizations: iam.OrganizationsResource;
-
-    const permissions: iam.PermissionsResource;
-
-    const projects: iam.ProjectsResource;
-
-    const roles: iam.RolesResource;
-
     namespace iam {
         interface AuditData {
             /** Policy delta between the original policy and the newly set policy. */
@@ -318,7 +310,7 @@ declare namespace gapi.client {
              */
             name?: string;
             /**
-             * @OutputOnly. The OAuth2 client id for the service account.
+             * @OutputOnly The OAuth2 client id for the service account.
              * This is used in conjunction with the OAuth2 clientconfig API to make
              * three legged OAuth2 (3LO) flows to access the data of Google users.
              */
@@ -1604,5 +1596,13 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<QueryGrantableRolesResponse>;
         }
+
+        const organizations: iam.OrganizationsResource;
+
+        const permissions: iam.PermissionsResource;
+
+        const projects: iam.ProjectsResource;
+
+        const roles: iam.RolesResource;
     }
 }

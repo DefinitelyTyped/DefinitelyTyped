@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudbilling", version: "v1"): PromiseLike<void>;
     function load(name: "cloudbilling", version: "v1", callback: () => any): void;
 
-    const billingAccounts: cloudbilling.BillingAccountsResource;
-
-    const projects: cloudbilling.ProjectsResource;
-
-    const services: cloudbilling.ServicesResource;
-
     namespace cloudbilling {
         interface AggregationInfo {
             /**
@@ -636,5 +630,11 @@ declare namespace gapi.client {
             }): Request<ListServicesResponse>;
             skus: SkusResource;
         }
+
+        const billingAccounts: cloudbilling.BillingAccountsResource;
+
+        const projects: cloudbilling.ProjectsResource;
+
+        const services: cloudbilling.ServicesResource;
     }
 }

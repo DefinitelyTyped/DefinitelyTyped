@@ -31,66 +31,66 @@ gapi.load('client', () => {
 
     async function run() {
         /** Creates the URI used by the IdP to authenticate the user. */
-        await gapi.client.relyingparty.createAuthUri({
+        await gapi.client.identitytoolkit.relyingparty.createAuthUri({
         });
         /** Delete user account. */
-        await gapi.client.relyingparty.deleteAccount({
+        await gapi.client.identitytoolkit.relyingparty.deleteAccount({
         });
         /** Batch download user accounts. */
-        await gapi.client.relyingparty.downloadAccount({
+        await gapi.client.identitytoolkit.relyingparty.downloadAccount({
         });
         /** Reset password for a user. */
-        await gapi.client.relyingparty.emailLinkSignin({
+        await gapi.client.identitytoolkit.relyingparty.emailLinkSignin({
         });
         /** Returns the account info. */
-        await gapi.client.relyingparty.getAccountInfo({
+        await gapi.client.identitytoolkit.relyingparty.getAccountInfo({
         });
         /** Get a code for user action confirmation. */
-        await gapi.client.relyingparty.getOobConfirmationCode({
+        await gapi.client.identitytoolkit.relyingparty.getOobConfirmationCode({
         });
         /** Get project configuration. */
-        await gapi.client.relyingparty.getProjectConfig({
+        await gapi.client.identitytoolkit.relyingparty.getProjectConfig({
             delegatedProjectNumber: "delegatedProjectNumber",
             projectNumber: "projectNumber",
         });
         /** Get token signing public key. */
-        await gapi.client.relyingparty.getPublicKeys({
+        await gapi.client.identitytoolkit.relyingparty.getPublicKeys({
         });
         /** Get recaptcha secure param. */
-        await gapi.client.relyingparty.getRecaptchaParam({
+        await gapi.client.identitytoolkit.relyingparty.getRecaptchaParam({
         });
         /** Reset password for a user. */
-        await gapi.client.relyingparty.resetPassword({
+        await gapi.client.identitytoolkit.relyingparty.resetPassword({
         });
         /** Send SMS verification code. */
-        await gapi.client.relyingparty.sendVerificationCode({
+        await gapi.client.identitytoolkit.relyingparty.sendVerificationCode({
         });
         /** Set account info for a user. */
-        await gapi.client.relyingparty.setAccountInfo({
+        await gapi.client.identitytoolkit.relyingparty.setAccountInfo({
         });
         /** Set project configuration. */
-        await gapi.client.relyingparty.setProjectConfig({
+        await gapi.client.identitytoolkit.relyingparty.setProjectConfig({
         });
         /** Sign out user. */
-        await gapi.client.relyingparty.signOutUser({
+        await gapi.client.identitytoolkit.relyingparty.signOutUser({
         });
         /** Signup new user. */
-        await gapi.client.relyingparty.signupNewUser({
+        await gapi.client.identitytoolkit.relyingparty.signupNewUser({
         });
         /** Batch upload existing user accounts. */
-        await gapi.client.relyingparty.uploadAccount({
+        await gapi.client.identitytoolkit.relyingparty.uploadAccount({
         });
         /** Verifies the assertion returned by the IdP. */
-        await gapi.client.relyingparty.verifyAssertion({
+        await gapi.client.identitytoolkit.relyingparty.verifyAssertion({
         });
         /** Verifies the developer asserted ID token. */
-        await gapi.client.relyingparty.verifyCustomToken({
+        await gapi.client.identitytoolkit.relyingparty.verifyCustomToken({
         });
         /** Verifies the user entered password. */
-        await gapi.client.relyingparty.verifyPassword({
+        await gapi.client.identitytoolkit.relyingparty.verifyPassword({
         });
         /** Verifies ownership of a phone number and creates/updates the user account accordingly. */
-        await gapi.client.relyingparty.verifyPhoneNumber({
+        await gapi.client.identitytoolkit.relyingparty.verifyPhoneNumber({
         });
     }
 });

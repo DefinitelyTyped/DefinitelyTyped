@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "identitytoolkit", version: "v3"): PromiseLike<void>;
     function load(name: "identitytoolkit", version: "v3", callback: () => any): void;
 
-    const relyingparty: identitytoolkit.RelyingpartyResource;
-
     namespace identitytoolkit {
         interface CreateAuthUriResponse {
             /** all providers the user has once used to do federated login */
@@ -1159,5 +1157,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<IdentitytoolkitRelyingpartyVerifyPhoneNumberResponse>;
         }
+
+        const relyingparty: identitytoolkit.RelyingpartyResource;
     }
 }

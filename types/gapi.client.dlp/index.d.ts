@@ -16,16 +16,6 @@ declare namespace gapi.client {
     function load(name: "dlp", version: "v2beta1"): PromiseLike<void>;
     function load(name: "dlp", version: "v2beta1", callback: () => any): void;
 
-    const content: dlp.ContentResource;
-
-    const dataSource: dlp.DataSourceResource;
-
-    const inspect: dlp.InspectResource;
-
-    const riskAnalysis: dlp.RiskAnalysisResource;
-
-    const rootCategories: dlp.RootCategoriesResource;
-
     namespace dlp {
         interface GoogleLongrunningListOperationsResponse {
             /** The standard List next-page token. */
@@ -273,6 +263,15 @@ declare namespace gapi.client {
             /** The native way to select the alphabet. Must be in the range [2, 62]. */
             radix?: number;
         }
+        interface GooglePrivacyDlpV2beta1CustomInfoType {
+            /** Dictionary-based custom info type. */
+            dictionary?: GooglePrivacyDlpV2beta1Dictionary;
+            /**
+             * Info type configuration. All custom info types must have configurations
+             * that do not conflict with built-in info types or other custom info types.
+             */
+            infoType?: GooglePrivacyDlpV2beta1InfoType;
+        }
         interface GooglePrivacyDlpV2beta1DatastoreKey {
             /** Datastore entity key. */
             entityKey?: GooglePrivacyDlpV2beta1Key;
@@ -325,6 +324,10 @@ declare namespace gapi.client {
             items?: GooglePrivacyDlpV2beta1ContentItem[];
             /** A review of the transformations that took place for each item. */
             summaries?: GooglePrivacyDlpV2beta1DeidentificationSummary[];
+        }
+        interface GooglePrivacyDlpV2beta1Dictionary {
+            /** List of words or phrases to search for. */
+            wordList?: GooglePrivacyDlpV2beta1WordList;
         }
         interface GooglePrivacyDlpV2beta1EntityId {
             /** Composite key indicating which field contains the entity identifier. */
@@ -481,6 +484,8 @@ declare namespace gapi.client {
             transformations?: GooglePrivacyDlpV2beta1InfoTypeTransformation[];
         }
         interface GooglePrivacyDlpV2beta1InspectConfig {
+            /** Custom info types provided by the user. */
+            customInfoTypes?: GooglePrivacyDlpV2beta1CustomInfoType[];
             /** When true, excludes type information of the findings. */
             excludeTypes?: boolean;
             /**
@@ -558,6 +563,17 @@ declare namespace gapi.client {
             /**
              * Optional message indicating that each distinct `EntityId` should not
              * contribute to the k-anonymity count more than once per equivalence class.
+             * If an entity_id appears on several rows with different quasi-identifier
+             * tuples, it will contribute to each count exactly once. This can lead to
+             * unexpected results, consider for example the following table:
+             * entity_id | quasi_id
+             * --------------------
+             * 1 |    "foo"
+             * 2 |    "bar"
+             * 3 |    "foo"
+             * 3 |    "bar"
+             * The anonymity value associated to entity_id 3 will be 2, even if it is
+             * the only entity_id to be associated to both values "foo" and "bar".
              */
             entityId?: GooglePrivacyDlpV2beta1EntityId;
             /**
@@ -979,6 +995,14 @@ declare namespace gapi.client {
             count?: string;
             /** A value contained in the field in question. */
             value?: GooglePrivacyDlpV2beta1Value;
+        }
+        interface GooglePrivacyDlpV2beta1WordList {
+            /**
+             * Words or phrases defining the dictionary. The dictionary must contain
+             * at least one phrase and every phrase must contain at least 2 characters
+             * that are letters or digits. [required]
+             */
+            words?: string[];
         }
         interface GoogleRpcStatus {
             /** The status code, which should be an enum value of google.rpc.Code. */
@@ -1608,5 +1632,15 @@ declare namespace gapi.client {
             }): Request<GooglePrivacyDlpV2beta1ListRootCategoriesResponse>;
             infoTypes: InfoTypesResource;
         }
+
+        const content: dlp.ContentResource;
+
+        const dataSource: dlp.DataSourceResource;
+
+        const inspect: dlp.InspectResource;
+
+        const riskAnalysis: dlp.RiskAnalysisResource;
+
+        const rootCategories: dlp.RootCategoriesResource;
     }
 }

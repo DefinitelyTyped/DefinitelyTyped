@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "youtubeanalytics", version: "v1"): PromiseLike<void>;
     function load(name: "youtubeanalytics", version: "v1", callback: () => any): void;
 
-    const groupItems: youtubeanalytics.GroupItemsResource;
-
-    const groups: youtubeanalytics.GroupsResource;
-
-    const reports: youtubeanalytics.ReportsResource;
-
     namespace youtubeanalytics {
         interface Group {
             contentDetails?: {
@@ -377,5 +371,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<ResultTable>;
         }
+
+        const groupItems: youtubeanalytics.GroupItemsResource;
+
+        const groups: youtubeanalytics.GroupsResource;
+
+        const reports: youtubeanalytics.ReportsResource;
     }
 }

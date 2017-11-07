@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudiot", version: "v1"): PromiseLike<void>;
     function load(name: "cloudiot", version: "v1", callback: () => any): void;
 
-    const projects: cloudiot.ProjectsResource;
-
     namespace cloudiot {
         interface AuditConfig {
             /**
@@ -671,6 +669,11 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** JSONP */
                 callback?: string;
+                /**
+                 * The fields of the `Device` resource to be returned in the response. If the
+                 * field mask is unset or empty, all fields are returned.
+                 */
+                fieldMask?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1065,8 +1068,8 @@ declare namespace gapi.client {
                  * Only updates the `device_registry` fields indicated by this mask.
                  * The field mask must not be empty, and it must not contain fields that
                  * are immutable or only set by the server.
-                 * Mutable top-level fields: `event_notification_config`, `mqtt_config`, and
-                 * `state_notification_config`.
+                 * Mutable top-level fields: `event_notification_config`, `http_config`,
+                 * `mqtt_config`, and `state_notification_config`.
                  */
                 updateMask?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1157,5 +1160,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             locations: LocationsResource;
         }
+
+        const projects: cloudiot.ProjectsResource;
     }
 }

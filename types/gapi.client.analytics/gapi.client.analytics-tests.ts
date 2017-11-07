@@ -39,7 +39,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Creates an account ticket. */
-        await gapi.client.provisioning.createAccountTicket({
+        await gapi.client.analytics.provisioning.createAccountTicket({
         });
     }
 });

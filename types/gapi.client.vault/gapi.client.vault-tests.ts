@@ -31,11 +31,11 @@ gapi.load('client', () => {
 
     async function run() {
         /** Adds an account as a matter collaborator. */
-        await gapi.client.matters.addPermissions({
+        await gapi.client.vault.matters.addPermissions({
             matterId: "matterId",
         });
         /** Closes the specified matter. Returns matter with updated state. */
-        await gapi.client.matters.close({
+        await gapi.client.vault.matters.close({
             matterId: "matterId",
         });
         /**
@@ -43,34 +43,34 @@ gapi.load('client', () => {
          * is open, and the owner is the method caller. Returns the created matter
          * with default view.
          */
-        await gapi.client.matters.create({
+        await gapi.client.vault.matters.create({
         });
         /** Deletes the specified matter. Returns matter with updated state. */
-        await gapi.client.matters.delete({
+        await gapi.client.vault.matters.delete({
             matterId: "matterId",
         });
         /** Gets the specified matter. */
-        await gapi.client.matters.get({
+        await gapi.client.vault.matters.get({
             matterId: "matterId",
             view: "view",
         });
         /** Lists matters the user has access to. */
-        await gapi.client.matters.list({
+        await gapi.client.vault.matters.list({
             pageSize: 1,
             pageToken: "pageToken",
             state: "state",
             view: "view",
         });
         /** Removes an account as a matter collaborator. */
-        await gapi.client.matters.removePermissions({
+        await gapi.client.vault.matters.removePermissions({
             matterId: "matterId",
         });
         /** Reopens the specified matter. Returns matter with updated state. */
-        await gapi.client.matters.reopen({
+        await gapi.client.vault.matters.reopen({
             matterId: "matterId",
         });
         /** Undeletes the specified matter. Returns matter with updated state. */
-        await gapi.client.matters.undelete({
+        await gapi.client.vault.matters.undelete({
             matterId: "matterId",
         });
         /**
@@ -79,7 +79,7 @@ gapi.load('client', () => {
          * matter id. Changes to any other fields are ignored.
          * Returns the default view of the matter.
          */
-        await gapi.client.matters.update({
+        await gapi.client.vault.matters.update({
             matterId: "matterId",
         });
     }

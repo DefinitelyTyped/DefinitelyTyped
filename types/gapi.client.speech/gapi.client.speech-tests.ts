@@ -40,7 +40,7 @@ gapi.load('client', () => {
          * an Operation.error value with a google.rpc.Status.code of 1,
          * corresponding to `Code.CANCELLED`.
          */
-        await gapi.client.operations.cancel({
+        await gapi.client.speech.operations.cancel({
             name: "name",
         });
         /**
@@ -49,7 +49,7 @@ gapi.load('client', () => {
          * operation. If the server doesn't support this method, it returns
          * `google.rpc.Code.UNIMPLEMENTED`.
          */
-        await gapi.client.operations.delete({
+        await gapi.client.speech.operations.delete({
             name: "name",
         });
         /**
@@ -57,7 +57,7 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get({
+        await gapi.client.speech.operations.get({
             name: "name",
         });
         /**
@@ -72,7 +72,7 @@ gapi.load('client', () => {
          * collection id, however overriding users must ensure the name binding
          * is the parent resource, without the operations collection id.
          */
-        await gapi.client.operations.list({
+        await gapi.client.speech.operations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,
@@ -84,13 +84,13 @@ gapi.load('client', () => {
          * `Operation.error` or an `Operation.response` which contains
          * a `LongRunningRecognizeResponse` message.
          */
-        await gapi.client.speech.longrunningrecognize({
+        await gapi.client.speech.speech.longrunningrecognize({
         });
         /**
          * Performs synchronous speech recognition: receive results after all audio
          * has been sent and processed.
          */
-        await gapi.client.speech.recognize({
+        await gapi.client.speech.speech.recognize({
         });
     }
 });

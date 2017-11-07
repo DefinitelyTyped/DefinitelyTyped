@@ -16,26 +16,6 @@ declare namespace gapi.client {
     function load(name: "partners", version: "v2"): PromiseLike<void>;
     function load(name: "partners", version: "v2", callback: () => any): void;
 
-    const analytics: partners.AnalyticsResource;
-
-    const clientMessages: partners.ClientMessagesResource;
-
-    const companies: partners.CompaniesResource;
-
-    const exams: partners.ExamsResource;
-
-    const leads: partners.LeadsResource;
-
-    const offers: partners.OffersResource;
-
-    const userEvents: partners.UserEventsResource;
-
-    const userStates: partners.UserStatesResource;
-
-    const users: partners.UsersResource;
-
-    const v2: partners.V2Resource;
-
     namespace partners {
         interface AdWordsManagerAccountInfo {
             /** Name of the customer this account represents. */
@@ -790,6 +770,8 @@ declare namespace gapi.client {
             languages?: string[];
             /** A list of ids representing which markets the user was interested in. */
             markets?: string[];
+            /** Whether or not to migrate the user's exam data to Academy for Ads. */
+            migrateToAfa?: boolean;
             /** The user's phone number. */
             phoneNumber?: string;
             /** The user's primary country, an ISO 2-character code. */
@@ -1893,5 +1875,25 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<Lead>;
         }
+
+        const analytics: partners.AnalyticsResource;
+
+        const clientMessages: partners.ClientMessagesResource;
+
+        const companies: partners.CompaniesResource;
+
+        const exams: partners.ExamsResource;
+
+        const leads: partners.LeadsResource;
+
+        const offers: partners.OffersResource;
+
+        const userEvents: partners.UserEventsResource;
+
+        const userStates: partners.UserStatesResource;
+
+        const users: partners.UsersResource;
+
+        const v2: partners.V2Resource;
     }
 }

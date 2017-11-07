@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "discovery", version: "v1"): PromiseLike<void>;
     function load(name: "discovery", version: "v1", callback: () => any): void;
 
-    const apis: discovery.ApisResource;
-
     namespace discovery {
         interface DirectoryList {
             /** Indicate the version of the Discovery API used to generate this doc. */
@@ -318,5 +316,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<DirectoryList>;
         }
+
+        const apis: discovery.ApisResource;
     }
 }

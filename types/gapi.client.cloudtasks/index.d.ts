@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudtasks", version: "v2beta2"): PromiseLike<void>;
     function load(name: "cloudtasks", version: "v2beta2", callback: () => any): void;
 
-    const projects: cloudtasks.ProjectsResource;
-
     namespace cloudtasks {
         interface AcknowledgeTaskRequest {
             /**
@@ -122,7 +120,7 @@ declare namespace gapi.client {
             appEngineRoutingOverride?: AppEngineRouting;
         }
         interface AppEngineQueueConfig {
-            /** Deprecated. Use AppEngineTarget.app_engine_routing_override. */
+            /** Deprecated. Use AppEngineHttpTarget.app_engine_routing_override. */
             appEngineRoutingOverride?: AppEngineRouting;
         }
         interface AppEngineRouting {
@@ -1254,10 +1252,10 @@ declare namespace gapi.client {
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /**
-                 * Sort order used for the query. The fields supported for sorting
-                 * are Task.schedule_time and PullMessage.tag. All results will be
-                 * returned in ascending order. The default ordering is by
-                 * Task.schedule_time.
+                 * Sort order used for the query. The only fields supported for sorting
+                 * are `schedule_time` and `pull_message.tag`. All results will be
+                 * returned in approximately ascending order. The default ordering is by
+                 * `schedule_time`.
                  */
                 orderBy?: string;
                 /**
@@ -1797,12 +1795,6 @@ declare namespace gapi.client {
              * queue is paused. The state of the queue is stored in
              * Queue.queue_state; if paused it will be set to
              * Queue.QueueState.PAUSED.
-             *
-             * WARNING: This method is only available to whitelisted
-             * users. Using this method carries some risk. Read
-             * [Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)
-             * carefully and then sign up for
-             * [whitelist access to this method](https://goo.gl/Fe5mUy).
              */
             pause(request: {
                 /** V1 error format. */
@@ -1890,12 +1882,6 @@ declare namespace gapi.client {
              * a queue is stored in Queue.queue_state; after calling this method it
              * will be set to Queue.QueueState.RUNNING.
              *
-             * WARNING: This method is only available to whitelisted
-             * users. Using this method carries some risk. Read
-             * [Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)
-             * carefully and then sign up for
-             * [whitelist access to this method](https://goo.gl/Fe5mUy).
-             *
              * WARNING: Resuming many high-QPS queues at the same time can
              * lead to target overloading. If you are resuming high-QPS
              * queues, follow the 500/50/5 pattern described in
@@ -1939,6 +1925,9 @@ declare namespace gapi.client {
             /**
              * Sets the access control policy for a Queue. Replaces any existing
              * policy.
+             *
+             * Note: The Cloud Console does not check queue-level IAM permissions yet.
+             * Project-level permissions are required to use the Cloud Console.
              *
              * Authorization requires the following [Google IAM](/iam) permission on the
              * specified resource parent:
@@ -2096,5 +2085,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             locations: LocationsResource;
         }
+
+        const projects: cloudtasks.ProjectsResource;
     }
 }

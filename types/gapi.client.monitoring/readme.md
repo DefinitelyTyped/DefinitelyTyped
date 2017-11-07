@@ -59,5 +59,10 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 
 After that you can use Stackdriver Monitoring API resources:
 
-```typescript
+```typescript 
+    
+/* 
+Returns the list of IPs that checkers run from  
+*/
+await gapi.client.uptimeCheckIps.list({  });
 ```

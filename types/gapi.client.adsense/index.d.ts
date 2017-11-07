@@ -16,26 +16,6 @@ declare namespace gapi.client {
     function load(name: "adsense", version: "v1.4"): PromiseLike<void>;
     function load(name: "adsense", version: "v1.4", callback: () => any): void;
 
-    const accounts: adsense.AccountsResource;
-
-    const adclients: adsense.AdclientsResource;
-
-    const adunits: adsense.AdunitsResource;
-
-    const alerts: adsense.AlertsResource;
-
-    const customchannels: adsense.CustomchannelsResource;
-
-    const metadata: adsense.MetadataResource;
-
-    const payments: adsense.PaymentsResource;
-
-    const reports: adsense.ReportsResource;
-
-    const savedadstyles: adsense.SavedadstylesResource;
-
-    const urlchannels: adsense.UrlchannelsResource;
-
     namespace adsense {
         interface Account {
             creation_time?: string;
@@ -1525,5 +1505,25 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<UrlChannels>;
         }
+
+        const accounts: adsense.AccountsResource;
+
+        const adclients: adsense.AdclientsResource;
+
+        const adunits: adsense.AdunitsResource;
+
+        const alerts: adsense.AlertsResource;
+
+        const customchannels: adsense.CustomchannelsResource;
+
+        const metadata: adsense.MetadataResource;
+
+        const payments: adsense.PaymentsResource;
+
+        const reports: adsense.ReportsResource;
+
+        const savedadstyles: adsense.SavedadstylesResource;
+
+        const urlchannels: adsense.UrlchannelsResource;
     }
 }

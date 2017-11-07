@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "firestore", version: "v1beta1"): PromiseLike<void>;
     function load(name: "firestore", version: "v1beta1", callback: () => any): void;
 
-    const projects: firestore.ProjectsResource;
-
     namespace firestore {
         interface ArrayValue {
             /** Values in the array. */
@@ -100,10 +98,7 @@ declare namespace gapi.client {
             collectionId?: string;
         }
         interface CommitRequest {
-            /**
-             * If non-empty, applies all writes in this transaction, and commits it.
-             * Otherwise, applies the writes as if they were in their own transaction.
-             */
+            /** If set, applies all writes in this transaction, and commits it. */
             transaction?: string;
             /**
              * The writes to apply.
@@ -301,12 +296,14 @@ declare namespace gapi.client {
             collectionId?: string;
             /** The fields to index. */
             fields?: IndexField[];
-            /** The resource name of the index. */
+            /**
+             * The resource name of the index.
+             * Output only.
+             */
             name?: string;
             /**
              * The state of the index.
-             * The state is read-only.
-             * @OutputOnly
+             * Output only.
              */
             state?: string;
         }
@@ -321,35 +318,20 @@ declare namespace gapi.client {
             /** The field's mode. */
             mode?: string;
         }
-        interface IndexOperationMetadata {
-            /**
-             * True if the [google.longrunning.Operation] was cancelled. If the
-             * cancellation is in progress, cancelled will be true but
-             * google.longrunning.Operation.done will be false.
-             */
-            cancelled?: boolean;
-            /** Progress of the existing operation, measured in number of documents. */
-            documentProgress?: Progress;
-            /**
-             * The time the operation ended, either successfully or otherwise. Unset if
-             * the operation is still active.
-             */
-            endTime?: string;
-            /**
-             * The index resource that this operation is acting on. For example:
-             * `projects/{project_id}/databases/{database_id}/indexes/{index_id}`
-             */
-            index?: string;
-            /** The type of index operation. */
-            operationType?: string;
-            /** The time that work began on the operation. */
-            startTime?: string;
-        }
         interface LatLng {
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
             /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
             longitude?: number;
+        }
+        interface ListCollectionIdsRequest {
+            /** The maximum number of results to return. */
+            pageSize?: number;
+            /**
+             * A page token. Must be a value from
+             * ListCollectionIdsResponse.
+             */
+            pageToken?: string;
         }
         interface ListCollectionIdsResponse {
             /** The collection ids. */
@@ -460,18 +442,6 @@ declare namespace gapi.client {
              * that time.
              */
             updateTime?: string;
-        }
-        interface Progress {
-            /**
-             * An estimate of how much work has been completed. Note that this may be
-             * greater than `work_estimated`.
-             */
-            workCompleted?: string;
-            /**
-             * An estimate of how much work needs to be performed. Zero if the
-             * work estimate is unavailable. May change as work progresses.
-             */
-            workEstimated?: string;
         }
         interface Projection {
             /**
@@ -1190,13 +1160,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** The maximum number of results to return. */
-                pageSize?: number;
-                /**
-                 * A page token. Must be a value from
-                 * ListCollectionIdsResponse.
-                 */
-                pageToken?: string;
                 /**
                  * The parent document. In the format:
                  * `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -1575,5 +1538,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             databases: DatabasesResource;
         }
+
+        const projects: firestore.ProjectsResource;
     }
 }

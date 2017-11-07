@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "classroom", version: "v1"): PromiseLike<void>;
     function load(name: "classroom", version: "v1", callback: () => any): void;
 
-    const courses: classroom.CoursesResource;
-
-    const invitations: classroom.InvitationsResource;
-
-    const registrations: classroom.RegistrationsResource;
-
-    const userProfiles: classroom.UserProfilesResource;
-
     namespace classroom {
         interface Announcement {
             /**
@@ -4035,5 +4027,13 @@ declare namespace gapi.client {
             guardianInvitations: GuardianInvitationsResource;
             guardians: GuardiansResource;
         }
+
+        const courses: classroom.CoursesResource;
+
+        const invitations: classroom.InvitationsResource;
+
+        const registrations: classroom.RegistrationsResource;
+
+        const userProfiles: classroom.UserProfilesResource;
     }
 }

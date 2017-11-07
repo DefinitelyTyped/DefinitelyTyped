@@ -16,100 +16,6 @@ declare namespace gapi.client {
     function load(name: "compute", version: "v1"): PromiseLike<void>;
     function load(name: "compute", version: "v1", callback: () => any): void;
 
-    const acceleratorTypes: compute.AcceleratorTypesResource;
-
-    const addresses: compute.AddressesResource;
-
-    const autoscalers: compute.AutoscalersResource;
-
-    const backendBuckets: compute.BackendBucketsResource;
-
-    const backendServices: compute.BackendServicesResource;
-
-    const diskTypes: compute.DiskTypesResource;
-
-    const disks: compute.DisksResource;
-
-    const firewalls: compute.FirewallsResource;
-
-    const forwardingRules: compute.ForwardingRulesResource;
-
-    const globalAddresses: compute.GlobalAddressesResource;
-
-    const globalForwardingRules: compute.GlobalForwardingRulesResource;
-
-    const globalOperations: compute.GlobalOperationsResource;
-
-    const healthChecks: compute.HealthChecksResource;
-
-    const httpHealthChecks: compute.HttpHealthChecksResource;
-
-    const httpsHealthChecks: compute.HttpsHealthChecksResource;
-
-    const images: compute.ImagesResource;
-
-    const instanceGroupManagers: compute.InstanceGroupManagersResource;
-
-    const instanceGroups: compute.InstanceGroupsResource;
-
-    const instanceTemplates: compute.InstanceTemplatesResource;
-
-    const instances: compute.InstancesResource;
-
-    const licenses: compute.LicensesResource;
-
-    const machineTypes: compute.MachineTypesResource;
-
-    const networks: compute.NetworksResource;
-
-    const projects: compute.ProjectsResource;
-
-    const regionAutoscalers: compute.RegionAutoscalersResource;
-
-    const regionBackendServices: compute.RegionBackendServicesResource;
-
-    const regionCommitments: compute.RegionCommitmentsResource;
-
-    const regionInstanceGroupManagers: compute.RegionInstanceGroupManagersResource;
-
-    const regionInstanceGroups: compute.RegionInstanceGroupsResource;
-
-    const regionOperations: compute.RegionOperationsResource;
-
-    const regions: compute.RegionsResource;
-
-    const routers: compute.RoutersResource;
-
-    const routes: compute.RoutesResource;
-
-    const snapshots: compute.SnapshotsResource;
-
-    const sslCertificates: compute.SslCertificatesResource;
-
-    const subnetworks: compute.SubnetworksResource;
-
-    const targetHttpProxies: compute.TargetHttpProxiesResource;
-
-    const targetHttpsProxies: compute.TargetHttpsProxiesResource;
-
-    const targetInstances: compute.TargetInstancesResource;
-
-    const targetPools: compute.TargetPoolsResource;
-
-    const targetSslProxies: compute.TargetSslProxiesResource;
-
-    const targetTcpProxies: compute.TargetTcpProxiesResource;
-
-    const targetVpnGateways: compute.TargetVpnGatewaysResource;
-
-    const urlMaps: compute.UrlMapsResource;
-
-    const vpnTunnels: compute.VpnTunnelsResource;
-
-    const zoneOperations: compute.ZoneOperationsResource;
-
-    const zones: compute.ZonesResource;
-
     namespace compute {
         interface AcceleratorConfig {
             /** The number of the guest accelerator cards exposed to this instance. */
@@ -465,7 +371,7 @@ declare namespace gapi.client {
             mode?: string;
             /**
              * Specifies a valid partial or full URL to an existing Persistent Disk resource. When creating a new instance, one of initializeParams.sourceImage or
-             * disks.source is required.
+             * disks.source is required except for local SSD.
              *
              * If desired, you can also attach existing non-root persistent disks using this property. This field is only applicable for persistent disks.
              *
@@ -493,7 +399,8 @@ declare namespace gapi.client {
              */
             diskType?: string;
             /**
-             * The source image to create this disk. When creating a new instance, one of initializeParams.sourceImage or disks.source is required.
+             * The source image to create this disk. When creating a new instance, one of initializeParams.sourceImage or disks.source is required except for local
+             * SSD.
              *
              * To create a disk with one of the public operating system images, specify the image by its family name. For example, specify family/debian-8 to use the
              * latest Debian 8 image:
@@ -711,14 +618,14 @@ declare namespace gapi.client {
         }
         interface AutoscalingPolicyCustomMetricUtilization {
             /**
-             * The identifier (type) of the Stackdriver Monitoring metric. The metric cannot have negative values and should be a utilization metric, which means that
-             * the number of virtual machines handling requests should increase or decrease proportionally to the metric.
+             * The identifier (type) of the Stackdriver Monitoring metric. The metric cannot have negative values.
              *
              * The metric must have a value type of INT64 or DOUBLE.
              */
             metric?: string;
             /**
-             * The target value of the metric that autoscaler should maintain. This must be a positive value.
+             * The target value of the metric that autoscaler should maintain. This must be a positive value. A utilization metric scales number of virtual machines
+             * handling requests to increase or decrease proportionally to the metric.
              *
              * For example, a good metric to use as a utilization_target is compute.googleapis.com/instance/network/received_bytes_count. The autoscaler will work to
              * keep this value constant for each of the instances.
@@ -1714,6 +1621,15 @@ declare namespace gapi.client {
              */
             sourceRanges?: string[];
             /**
+             * If source service accounts are specified, the firewall will apply only to traffic originating from an instance with a service account in this list.
+             * Source service accounts cannot be used to control traffic to an instance's external IP address because service accounts are associated with an
+             * instance, not an IP address. sourceRanges can be set at the same time as sourceServiceAccounts. If both are set, the firewall will apply to traffic
+             * that has source IP address within sourceRanges OR the source IP belongs to an instance with service account listed in sourceServiceAccount. The
+             * connection does not need to match both properties for the firewall to apply. sourceServiceAccounts cannot be used at the same time as sourceTags or
+             * targetTags.
+             */
+            sourceServiceAccounts?: string[];
+            /**
              * If source tags are specified, the firewall rule applies only to traffic with source IPs that match the primary network interfaces of VM instances that
              * have the tag and are in the same VPC network. Source tags cannot be used to control traffic to an instance's external IP address, it only applies to
              * traffic between instances in the same virtual network. Because tags are associated with instances, not IP addresses. One or both of sourceRanges and
@@ -1722,8 +1638,15 @@ declare namespace gapi.client {
              */
             sourceTags?: string[];
             /**
-             * A list of instance tags indicating sets of instances located in the network that may make network connections as specified in allowed[]. If no
-             * targetTags are specified, the firewall rule applies to all instances on the specified network.
+             * A list of service accounts indicating sets of instances located in the network that may make network connections as specified in allowed[].
+             * targetServiceAccounts cannot be used at the same time as targetTags or sourceTags. If neither targetServiceAccounts nor targetTags are specified, the
+             * firewall rule applies to all instances on the specified network.
+             */
+            targetServiceAccounts?: string[];
+            /**
+             * A list of tags that controls which instances the firewall rule applies to. If targetTags are specified, then the firewall rule applies only to
+             * instances in the VPC network that have one of those tags. If no targetTags are specified, the firewall rule applies to all instances on the specified
+             * network.
              */
             targetTags?: string[];
         }
@@ -1769,13 +1692,23 @@ declare namespace gapi.client {
             /**
              * The IP address that this forwarding rule is serving on behalf of.
              *
-             * For global forwarding rules, the address must be a global IP. For regional forwarding rules, the address must live in the same region as the forwarding
-             * rule. By default, this field is empty and an ephemeral IPv4 address from the same scope (global or regional) will be assigned. A regional forwarding
-             * rule supports IPv4 only. A global forwarding rule supports either IPv4 or IPv6.
+             * Addresses are restricted based on the forwarding rule's load balancing scheme (EXTERNAL or INTERNAL) and scope (global or regional).
              *
-             * When the load balancing scheme is INTERNAL, this can only be an RFC 1918 IP address belonging to the network/subnetwork configured for the forwarding
-             * rule. A reserved address cannot be used. If the field is empty, the IP address will be automatically allocated from the internal IP range of the
-             * subnetwork or network configured for this forwarding rule.
+             * When the load balancing scheme is EXTERNAL, for global forwarding rules, the address must be a global IP, and for regional forwarding rules, the
+             * address must live in the same region as the forwarding rule. If this field is empty, an ephemeral IPv4 address from the same scope (global or regional)
+             * will be assigned. A regional forwarding rule supports IPv4 only. A global forwarding rule supports either IPv4 or IPv6.
+             *
+             * When the load balancing scheme is INTERNAL, this can only be an RFC 1918 IP address belonging to the network/subnet configured for the forwarding rule.
+             * By default, if this field is empty, an ephemeral internal IP address will be automatically allocated from the IP range of the subnet or network
+             * configured for this forwarding rule.
+             *
+             * An address can be specified either by a literal IP address or a URL reference to an existing Address resource. The following examples are all valid:
+             * - 100.1.2.3
+             * - https://www.googleapis.com/compute/v1/projects/project/regions/region/addresses/address
+             * - projects/project/regions/region/addresses/address
+             * - regions/region/addresses/address
+             * - global/addresses/address
+             * - address
              */
             IPAddress?: string;
             /**
@@ -2429,6 +2362,8 @@ declare namespace gapi.client {
             cpuPlatform?: string;
             /** [Output Only] Creation timestamp in RFC3339 text format. */
             creationTimestamp?: string;
+            /** Whether the resource should be protected against deletion. */
+            deletionProtection?: boolean;
             /** An optional description of this resource. Provide this property when you create the resource. */
             description?: string;
             /** Array of disks associated with this instance. Persistent disks must be created before you can assign them. */
@@ -3204,6 +3139,350 @@ declare namespace gapi.client {
              * If the disk is not protected with a customer-supplied encryption key it should not be specified.
              */
             disks?: CustomerEncryptionKeyProtectedDisk[];
+        }
+        interface Interconnect {
+            /**
+             * Administrative status of the interconnect. When this is set to ?true?, the Interconnect is functional and may carry traffic (assuming there are
+             * functional InterconnectAttachments and other requirements are satisfied). When set to ?false?, no packets will be carried over this Interconnect and no
+             * BGP routes will be exchanged over it. By default, it is set to ?true?.
+             */
+            adminEnabled?: boolean;
+            /** [Output Only] List of CircuitInfo objects, that describe the individual circuits in this LAG. */
+            circuitInfos?: InterconnectCircuitInfo[];
+            /** [Output Only] Creation timestamp in RFC3339 text format. */
+            creationTimestamp?: string;
+            /** Customer name, to put in the Letter of Authorization as the party authorized to request a crossconnect. */
+            customerName?: string;
+            /** An optional description of this resource. Provide this property when you create the resource. */
+            description?: string;
+            /** [Output Only] List of outages expected for this Interconnect. */
+            expectedOutages?: InterconnectOutageNotification[];
+            /** [Output Only] IP address configured on the Google side of the Interconnect link. This can be used only for ping tests. */
+            googleIpAddress?: string;
+            /** [Output Only] Google reference ID; to be used when raising support tickets with Google or otherwise to debug backend connectivity issues. */
+            googleReferenceId?: string;
+            /** [Output Only] The unique identifier for the resource. This identifier is defined by the server. */
+            id?: string;
+            /** [Output Only] A list of the URLs of all InterconnectAttachments configured to use this Interconnect. */
+            interconnectAttachments?: string[];
+            interconnectType?: string;
+            /** [Output Only] Type of the resource. Always compute#interconnect for interconnects. */
+            kind?: string;
+            linkType?: string;
+            /** URL of the InterconnectLocation object that represents where this connection is to be provisioned. */
+            location?: string;
+            /**
+             * Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035.
+             * Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]&#42;[a-z0-9])? which means the first character must be
+             * a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
+             */
+            name?: string;
+            /**
+             * Email address to contact the customer NOC for operations and maintenance notifications regarding this Interconnect. If specified, this will be used for
+             * notifications in addition to all other forms described, such as Stackdriver logs alerting and Cloud Notifications.
+             */
+            nocContactEmail?: string;
+            /** [Output Only] The current status of whether or not this Interconnect is functional. */
+            operationalStatus?: string;
+            /**
+             * [Output Only] IP address configured on the customer side of the Interconnect link. The customer should configure this IP address during turnup when
+             * prompted by Google NOC. This can be used only for ping tests.
+             */
+            peerIpAddress?: string;
+            /** [Output Only] Number of links actually provisioned in this interconnect. */
+            provisionedLinkCount?: number;
+            /** Target number of physical links in the link bundle, as requested by the customer. */
+            requestedLinkCount?: number;
+            /** [Output Only] Server-defined URL for the resource. */
+            selfLink?: string;
+        }
+        interface InterconnectAttachment {
+            /** [Output Only] IPv4 address + prefix length to be configured on Cloud Router Interface for this interconnect attachment. */
+            cloudRouterIpAddress?: string;
+            /** [Output Only] Creation timestamp in RFC3339 text format. */
+            creationTimestamp?: string;
+            /** [Output Only] IPv4 address + prefix length to be configured on the customer router subinterface for this interconnect attachment. */
+            customerRouterIpAddress?: string;
+            /** An optional description of this resource. Provide this property when you create the resource. */
+            description?: string;
+            /** [Output Only] Google reference ID, to be used when raising support tickets with Google or otherwise to debug backend connectivity issues. */
+            googleReferenceId?: string;
+            /** [Output Only] The unique identifier for the resource. This identifier is defined by the server. */
+            id?: string;
+            /** URL of the underlying Interconnect object that this attachment's traffic will traverse through. */
+            interconnect?: string;
+            /** [Output Only] Type of the resource. Always compute#interconnectAttachment for interconnect attachments. */
+            kind?: string;
+            /**
+             * Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035.
+             * Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]&#42;[a-z0-9])? which means the first character must be
+             * a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
+             */
+            name?: string;
+            /** [Output Only] The current status of whether or not this interconnect attachment is functional. */
+            operationalStatus?: string;
+            /** [Output Only] Information specific to a Private InterconnectAttachment. Only populated if the interconnect that this is attached is of type IT_PRIVATE. */
+            privateInterconnectInfo?: InterconnectAttachmentPrivateInfo;
+            /** [Output Only] URL of the region where the regional interconnect attachment resides. */
+            region?: string;
+            /**
+             * URL of the cloud router to be used for dynamic routing. This router must be in the same region as this InterconnectAttachment. The
+             * InterconnectAttachment will automatically connect the Interconnect to the network & region within which the Cloud Router is configured.
+             */
+            router?: string;
+            /** [Output Only] Server-defined URL for the resource. */
+            selfLink?: string;
+        }
+        interface InterconnectAttachmentAggregatedList {
+            /** [Output Only] Unique identifier for the resource; defined by the server. */
+            id?: string;
+            /** A list of InterconnectAttachmentsScopedList resources. */
+            items?: Record<string, InterconnectAttachmentsScopedList>;
+            /** [Output Only] Type of resource. Always compute#interconnectAttachmentAggregatedList for aggregated lists of interconnect attachments. */
+            kind?: string;
+            /**
+             * [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the
+             * nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to
+             * continue paging through the results.
+             */
+            nextPageToken?: string;
+            /** [Output Only] Server-defined URL for this resource. */
+            selfLink?: string;
+            /** [Output Only] Informational warning message. */
+            warning?: {
+                /** [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response. */
+                code?: string;
+                /**
+                 * [Output Only] Metadata about this warning in key: value format. For example:
+                 * "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+                 */
+                data?: Array<{
+                    /**
+                     * [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for
+                     * a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and
+                     * a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled
+                     * for IP forwarding).
+                     */
+                    key?: string;
+                    /** [Output Only] A warning data value corresponding to the key. */
+                    value?: string;
+                }>;
+                /** [Output Only] A human-readable description of the warning code. */
+                message?: string;
+            };
+        }
+        interface InterconnectAttachmentList {
+            /** [Output Only] Unique identifier for the resource; defined by the server. */
+            id?: string;
+            /** A list of InterconnectAttachment resources. */
+            items?: InterconnectAttachment[];
+            /** [Output Only] Type of resource. Always compute#interconnectAttachmentList for lists of interconnect attachments. */
+            kind?: string;
+            /**
+             * [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the
+             * nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to
+             * continue paging through the results.
+             */
+            nextPageToken?: string;
+            /** [Output Only] Server-defined URL for this resource. */
+            selfLink?: string;
+            /** [Output Only] Informational warning message. */
+            warning?: {
+                /** [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response. */
+                code?: string;
+                /**
+                 * [Output Only] Metadata about this warning in key: value format. For example:
+                 * "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+                 */
+                data?: Array<{
+                    /**
+                     * [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for
+                     * a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and
+                     * a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled
+                     * for IP forwarding).
+                     */
+                    key?: string;
+                    /** [Output Only] A warning data value corresponding to the key. */
+                    value?: string;
+                }>;
+                /** [Output Only] A human-readable description of the warning code. */
+                message?: string;
+            };
+        }
+        interface InterconnectAttachmentPrivateInfo {
+            /** [Output Only] 802.1q encapsulation tag to be used for traffic between Google and the customer, going to and from this network and region. */
+            tag8021q?: number;
+        }
+        interface InterconnectAttachmentsScopedList {
+            /** List of interconnect attachments contained in this scope. */
+            interconnectAttachments?: InterconnectAttachment[];
+            /** Informational warning which replaces the list of addresses when the list is empty. */
+            warning?: {
+                /** [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response. */
+                code?: string;
+                /**
+                 * [Output Only] Metadata about this warning in key: value format. For example:
+                 * "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+                 */
+                data?: Array<{
+                    /**
+                     * [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for
+                     * a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and
+                     * a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled
+                     * for IP forwarding).
+                     */
+                    key?: string;
+                    /** [Output Only] A warning data value corresponding to the key. */
+                    value?: string;
+                }>;
+                /** [Output Only] A human-readable description of the warning code. */
+                message?: string;
+            };
+        }
+        interface InterconnectCircuitInfo {
+            /** Customer-side demarc ID for this circuit. This will only be set if it was provided by the Customer to Google during circuit turn-up. */
+            customerDemarcId?: string;
+            /** Google-assigned unique ID for this circuit. Assigned at circuit turn-up. */
+            googleCircuitId?: string;
+            /** Google-side demarc ID for this circuit. Assigned at circuit turn-up and provided by Google to the customer in the LOA. */
+            googleDemarcId?: string;
+        }
+        interface InterconnectList {
+            /** [Output Only] Unique identifier for the resource; defined by the server. */
+            id?: string;
+            /** A list of Interconnect resources. */
+            items?: Interconnect[];
+            /** [Output Only] Type of resource. Always compute#interconnectList for lists of interconnects. */
+            kind?: string;
+            /**
+             * [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the
+             * nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to
+             * continue paging through the results.
+             */
+            nextPageToken?: string;
+            /** [Output Only] Server-defined URL for this resource. */
+            selfLink?: string;
+            /** [Output Only] Informational warning message. */
+            warning?: {
+                /** [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response. */
+                code?: string;
+                /**
+                 * [Output Only] Metadata about this warning in key: value format. For example:
+                 * "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+                 */
+                data?: Array<{
+                    /**
+                     * [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for
+                     * a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and
+                     * a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled
+                     * for IP forwarding).
+                     */
+                    key?: string;
+                    /** [Output Only] A warning data value corresponding to the key. */
+                    value?: string;
+                }>;
+                /** [Output Only] A human-readable description of the warning code. */
+                message?: string;
+            };
+        }
+        interface InterconnectLocation {
+            /** [Output Only] The postal address of the Point of Presence, each line in the address is separated by a newline character. */
+            address?: string;
+            /**
+             * Availability zone for this location. Within a city, maintenance will not be simultaneously scheduled in more than one availability zone. Example:
+             * "zone1" or "zone2".
+             */
+            availabilityZone?: string;
+            /**
+             * City designator used by the Interconnect UI to locate this InterconnectLocation within the Continent. For example: "Chicago, IL", "Amsterdam,
+             * Netherlands".
+             */
+            city?: string;
+            /** Continent for this location. Used by the location picker in the Interconnect UI. */
+            continent?: string;
+            /** [Output Only] Creation timestamp in RFC3339 text format. */
+            creationTimestamp?: string;
+            /** [Output Only] An optional description of the resource. */
+            description?: string;
+            /** [Output Only] The name of the provider for this facility (e.g., EQUINIX). */
+            facilityProvider?: string;
+            /** [Output Only] A provider-assigned Identifier for this facility (e.g., Ashburn-DC1). */
+            facilityProviderFacilityId?: string;
+            /** [Output Only] The unique identifier for the resource. This identifier is defined by the server. */
+            id?: string;
+            /** [Output Only] Type of the resource. Always compute#interconnectLocation for interconnect locations. */
+            kind?: string;
+            /** [Output Only] Name of the resource. */
+            name?: string;
+            /** [Output Only] The peeringdb identifier for this facility (corresponding with a netfac type in peeringdb). */
+            peeringdbFacilityId?: string;
+            /**
+             * [Output Only] A list of InterconnectLocation.RegionInfo objects, that describe parameters pertaining to the relation between this InterconnectLocation
+             * and various Google Cloud regions.
+             */
+            regionInfos?: InterconnectLocationRegionInfo[];
+            /** [Output Only] Server-defined URL for the resource. */
+            selfLink?: string;
+        }
+        interface InterconnectLocationList {
+            /** [Output Only] Unique identifier for the resource; defined by the server. */
+            id?: string;
+            /** A list of InterconnectLocation resources. */
+            items?: InterconnectLocation[];
+            /** [Output Only] Type of resource. Always compute#interconnectLocationList for lists of interconnect locations. */
+            kind?: string;
+            /**
+             * [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the
+             * nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to
+             * continue paging through the results.
+             */
+            nextPageToken?: string;
+            /** [Output Only] Server-defined URL for this resource. */
+            selfLink?: string;
+            /** [Output Only] Informational warning message. */
+            warning?: {
+                /** [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response. */
+                code?: string;
+                /**
+                 * [Output Only] Metadata about this warning in key: value format. For example:
+                 * "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+                 */
+                data?: Array<{
+                    /**
+                     * [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for
+                     * a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and
+                     * a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled
+                     * for IP forwarding).
+                     */
+                    key?: string;
+                    /** [Output Only] A warning data value corresponding to the key. */
+                    value?: string;
+                }>;
+                /** [Output Only] A human-readable description of the warning code. */
+                message?: string;
+            };
+        }
+        interface InterconnectLocationRegionInfo {
+            /** Expected round-trip time in milliseconds, from this InterconnectLocation to a VM in this region. */
+            expectedRttMs?: string;
+            /** Identifies the network presence of this location. */
+            locationPresence?: string;
+            /** URL for the region of this location. */
+            region?: string;
+        }
+        interface InterconnectOutageNotification {
+            /** Iff issue_type is IT_PARTIAL_OUTAGE, a list of the Google-side circuit IDs that will be affected. */
+            affectedCircuits?: string[];
+            /** Short user-visible description of the purpose of the outage. */
+            description?: string;
+            endTime?: string;
+            issueType?: string;
+            /** Unique identifier for this outage notification. */
+            name?: string;
+            source?: string;
+            /** Scheduled start and end times for the outage (milliseconds since Unix epoch). */
+            startTime?: string;
+            state?: string;
         }
         interface License {
             /** [Output Only] Deprecated. This field no longer reflects whether a license charges a usage fee. */
@@ -4349,6 +4628,11 @@ declare namespace gapi.client {
              * 169.254.0.1/30. NOTE: Do not truncate the address as it represents the IP address of the interface.
              */
             ipRange?: string;
+            /**
+             * URI of the linked interconnect attachment. It must be in the same region as the router. Each interface can have at most one linked resource and it
+             * could either be a VPN Tunnel or an interconnect attachment.
+             */
+            linkedInterconnectAttachment?: string;
             /**
              * URI of the linked VPN tunnel. It must be in the same region as the router. Each interface can have at most one linked resource and it could either be a
              * VPN Tunnel or an interconnect attachment.
@@ -11062,6 +11346,45 @@ declare namespace gapi.client {
                 /** The name of the zone for this request. */
                 zone: string;
             }): Request<Operation>;
+            /** Sets deletion protection on the instance. */
+            setDeletionProtection(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Whether the resource should be protected against deletion. */
+                deletionProtection?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /**
+                 * An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the
+                 * request if it has already been completed.
+                 *
+                 * For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID,
+                 * the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from
+                 * accidentally creating duplicate commitments.
+                 *
+                 * The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+                 */
+                requestId?: string;
+                /** Name of the resource for this request. */
+                resource: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+                /** The name of the zone for this request. */
+                zone: string;
+            }): Request<Operation>;
             /** Sets the auto-delete flag for a disk attached to an instance. */
             setDiskAutoDelete(request: {
                 /** Data format for the response. */
@@ -11477,9 +11800,9 @@ declare namespace gapi.client {
                 zone: string;
             }): Request<Operation>;
             /**
-             * Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur per-minute,
-             * virtual machine usage charges while they are stopped, but any resources that the virtual machine is using, such as persistent disks and static IP
-             * addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance.
+             * Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur VM usage
+             * charges while they are stopped. However, resources that the VM is using, such as persistent disks and static IP addresses, will continue to be charged
+             * until they are deleted. For more information, see Stopping an instance.
              */
             stop(request: {
                 /** Data format for the response. */
@@ -11516,6 +11839,490 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone for this request. */
                 zone: string;
+            }): Request<Operation>;
+        }
+        interface InterconnectAttachmentsResource {
+            /** Retrieves an aggregated list of interconnect attachments. */
+            aggregatedList(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /**
+                 * Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.
+                 *
+                 * The field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string
+                 * must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of
+                 * field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The
+                 * literal value must match the entire field.
+                 *
+                 * For example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.
+                 *
+                 * You can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering
+                 * on nested fields to take advantage of labels to organize and search for results based on label values.
+                 *
+                 * To filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+                 * us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.
+                 */
+                filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a
+                 * nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
+                 */
+                maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
+                 *
+                 * You can also sort results in descending order based on the creation timestamp using orderBy="creationTimestamp desc". This sorts results based on the
+                 * creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation
+                 * is returned first.
+                 *
+                 * Currently, only sorting by name or creationTimestamp desc is supported.
+                 */
+                orderBy?: string;
+                /** Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results. */
+                pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<InterconnectAttachmentAggregatedList>;
+            /** Deletes the specified interconnect attachment. */
+            delete(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Name of the interconnect attachment to delete. */
+                interconnectAttachment: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** Name of the region for this request. */
+                region: string;
+                /**
+                 * An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the
+                 * request if it has already been completed.
+                 *
+                 * For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID,
+                 * the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from
+                 * accidentally creating duplicate commitments.
+                 *
+                 * The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+                 */
+                requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Operation>;
+            /** Returns the specified interconnect attachment. */
+            get(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Name of the interconnect attachment to return. */
+                interconnectAttachment: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** Name of the region for this request. */
+                region: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<InterconnectAttachment>;
+            /** Creates an InterconnectAttachment in the specified project using the data included in the request. */
+            insert(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** Name of the region for this request. */
+                region: string;
+                /**
+                 * An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the
+                 * request if it has already been completed.
+                 *
+                 * For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID,
+                 * the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from
+                 * accidentally creating duplicate commitments.
+                 *
+                 * The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+                 */
+                requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Operation>;
+            /** Retrieves the list of interconnect attachments contained within the specified region. */
+            list(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /**
+                 * Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.
+                 *
+                 * The field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string
+                 * must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of
+                 * field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The
+                 * literal value must match the entire field.
+                 *
+                 * For example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.
+                 *
+                 * You can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering
+                 * on nested fields to take advantage of labels to organize and search for results based on label values.
+                 *
+                 * To filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+                 * us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.
+                 */
+                filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a
+                 * nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
+                 */
+                maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
+                 *
+                 * You can also sort results in descending order based on the creation timestamp using orderBy="creationTimestamp desc". This sorts results based on the
+                 * creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation
+                 * is returned first.
+                 *
+                 * Currently, only sorting by name or creationTimestamp desc is supported.
+                 */
+                orderBy?: string;
+                /** Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results. */
+                pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** Name of the region for this request. */
+                region: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<InterconnectAttachmentList>;
+        }
+        interface InterconnectLocationsResource {
+            /** Returns the details for the specified interconnect location. Get a list of available interconnect locations by making a list() request. */
+            get(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Name of the interconnect location to return. */
+                interconnectLocation: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<InterconnectLocation>;
+            /** Retrieves the list of interconnect locations available to the specified project. */
+            list(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /**
+                 * Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.
+                 *
+                 * The field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string
+                 * must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of
+                 * field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The
+                 * literal value must match the entire field.
+                 *
+                 * For example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.
+                 *
+                 * You can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering
+                 * on nested fields to take advantage of labels to organize and search for results based on label values.
+                 *
+                 * To filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+                 * us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.
+                 */
+                filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a
+                 * nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
+                 */
+                maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
+                 *
+                 * You can also sort results in descending order based on the creation timestamp using orderBy="creationTimestamp desc". This sorts results based on the
+                 * creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation
+                 * is returned first.
+                 *
+                 * Currently, only sorting by name or creationTimestamp desc is supported.
+                 */
+                orderBy?: string;
+                /** Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results. */
+                pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<InterconnectLocationList>;
+        }
+        interface InterconnectsResource {
+            /** Deletes the specified interconnect. */
+            delete(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Name of the interconnect to delete. */
+                interconnect: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /**
+                 * An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the
+                 * request if it has already been completed.
+                 *
+                 * For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID,
+                 * the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from
+                 * accidentally creating duplicate commitments.
+                 *
+                 * The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+                 */
+                requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Operation>;
+            /** Returns the specified interconnect. Get a list of available interconnects by making a list() request. */
+            get(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Name of the interconnect to return. */
+                interconnect: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Interconnect>;
+            /** Creates a Interconnect in the specified project using the data included in the request. */
+            insert(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /**
+                 * An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the
+                 * request if it has already been completed.
+                 *
+                 * For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID,
+                 * the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from
+                 * accidentally creating duplicate commitments.
+                 *
+                 * The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+                 */
+                requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Operation>;
+            /** Retrieves the list of interconnect available to the specified project. */
+            list(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /**
+                 * Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.
+                 *
+                 * The field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string
+                 * must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of
+                 * field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The
+                 * literal value must match the entire field.
+                 *
+                 * For example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.
+                 *
+                 * You can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering
+                 * on nested fields to take advantage of labels to organize and search for results based on label values.
+                 *
+                 * To filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq
+                 * us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.
+                 */
+                filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a
+                 * nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
+                 */
+                maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
+                 *
+                 * You can also sort results in descending order based on the creation timestamp using orderBy="creationTimestamp desc". This sorts results based on the
+                 * creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation
+                 * is returned first.
+                 *
+                 * Currently, only sorting by name or creationTimestamp desc is supported.
+                 */
+                orderBy?: string;
+                /** Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results. */
+                pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<InterconnectList>;
+            /**
+             * Updates the specified interconnect with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and
+             * processing rules.
+             */
+            patch(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Name of the interconnect to update. */
+                interconnect: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Project ID for this request. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /**
+                 * An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the
+                 * request if it has already been completed.
+                 *
+                 * For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID,
+                 * the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from
+                 * accidentally creating duplicate commitments.
+                 *
+                 * The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+                 */
+                requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Operation>;
         }
         interface LicensesResource {
@@ -17363,5 +18170,105 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<ZoneList>;
         }
+
+        const acceleratorTypes: compute.AcceleratorTypesResource;
+
+        const addresses: compute.AddressesResource;
+
+        const autoscalers: compute.AutoscalersResource;
+
+        const backendBuckets: compute.BackendBucketsResource;
+
+        const backendServices: compute.BackendServicesResource;
+
+        const diskTypes: compute.DiskTypesResource;
+
+        const disks: compute.DisksResource;
+
+        const firewalls: compute.FirewallsResource;
+
+        const forwardingRules: compute.ForwardingRulesResource;
+
+        const globalAddresses: compute.GlobalAddressesResource;
+
+        const globalForwardingRules: compute.GlobalForwardingRulesResource;
+
+        const globalOperations: compute.GlobalOperationsResource;
+
+        const healthChecks: compute.HealthChecksResource;
+
+        const httpHealthChecks: compute.HttpHealthChecksResource;
+
+        const httpsHealthChecks: compute.HttpsHealthChecksResource;
+
+        const images: compute.ImagesResource;
+
+        const instanceGroupManagers: compute.InstanceGroupManagersResource;
+
+        const instanceGroups: compute.InstanceGroupsResource;
+
+        const instanceTemplates: compute.InstanceTemplatesResource;
+
+        const instances: compute.InstancesResource;
+
+        const interconnectAttachments: compute.InterconnectAttachmentsResource;
+
+        const interconnectLocations: compute.InterconnectLocationsResource;
+
+        const interconnects: compute.InterconnectsResource;
+
+        const licenses: compute.LicensesResource;
+
+        const machineTypes: compute.MachineTypesResource;
+
+        const networks: compute.NetworksResource;
+
+        const projects: compute.ProjectsResource;
+
+        const regionAutoscalers: compute.RegionAutoscalersResource;
+
+        const regionBackendServices: compute.RegionBackendServicesResource;
+
+        const regionCommitments: compute.RegionCommitmentsResource;
+
+        const regionInstanceGroupManagers: compute.RegionInstanceGroupManagersResource;
+
+        const regionInstanceGroups: compute.RegionInstanceGroupsResource;
+
+        const regionOperations: compute.RegionOperationsResource;
+
+        const regions: compute.RegionsResource;
+
+        const routers: compute.RoutersResource;
+
+        const routes: compute.RoutesResource;
+
+        const snapshots: compute.SnapshotsResource;
+
+        const sslCertificates: compute.SslCertificatesResource;
+
+        const subnetworks: compute.SubnetworksResource;
+
+        const targetHttpProxies: compute.TargetHttpProxiesResource;
+
+        const targetHttpsProxies: compute.TargetHttpsProxiesResource;
+
+        const targetInstances: compute.TargetInstancesResource;
+
+        const targetPools: compute.TargetPoolsResource;
+
+        const targetSslProxies: compute.TargetSslProxiesResource;
+
+        const targetTcpProxies: compute.TargetTcpProxiesResource;
+
+        const targetVpnGateways: compute.TargetVpnGatewaysResource;
+
+        const urlMaps: compute.UrlMapsResource;
+
+        const vpnTunnels: compute.VpnTunnelsResource;
+
+        const zoneOperations: compute.ZoneOperationsResource;
+
+        const zones: compute.ZonesResource;
     }
 }

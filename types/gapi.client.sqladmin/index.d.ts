@@ -16,22 +16,6 @@ declare namespace gapi.client {
     function load(name: "sqladmin", version: "v1beta4"): PromiseLike<void>;
     function load(name: "sqladmin", version: "v1beta4", callback: () => any): void;
 
-    const backupRuns: sqladmin.BackupRunsResource;
-
-    const databases: sqladmin.DatabasesResource;
-
-    const flags: sqladmin.FlagsResource;
-
-    const instances: sqladmin.InstancesResource;
-
-    const operations: sqladmin.OperationsResource;
-
-    const sslCerts: sqladmin.SslCertsResource;
-
-    const tiers: sqladmin.TiersResource;
-
-    const users: sqladmin.UsersResource;
-
     namespace sqladmin {
         interface AclEntry {
             /** The time when this access control entry expires in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. */
@@ -234,6 +218,41 @@ declare namespace gapi.client {
             /** This is always sql#databasesList. */
             kind?: string;
         }
+        interface DemoteMasterConfiguration {
+            /** This is always sql#demoteMasterConfiguration. */
+            kind?: string;
+            /**
+             * MySQL specific configuration when replicating from a MySQL on-premises master. Replication configuration information such as the username, password,
+             * certificates, and keys are not stored in the instance metadata. The configuration information is used only to set up the replication connection and is
+             * stored by MySQL in a file named master.info in the data directory.
+             */
+            mysqlReplicaConfiguration?: DemoteMasterMySqlReplicaConfiguration;
+        }
+        interface DemoteMasterContext {
+            /** This is always sql#demoteMasterContext. */
+            kind?: string;
+            /** The name of the instance which will act as on-premises master in the replication setup. */
+            masterInstanceName?: string;
+            /** Configuration specific to read-replicas replicating from the on-premises master. */
+            replicaConfiguration?: DemoteMasterConfiguration;
+        }
+        interface DemoteMasterMySqlReplicaConfiguration {
+            /** PEM representation of the trusted CA's x509 certificate. */
+            caCertificate?: string;
+            /** PEM representation of the slave's x509 certificate. */
+            clientCertificate?: string;
+            /**
+             * PEM representation of the slave's private key. The corresponsing public key is encoded in the client's certificate. The format of the slave's private
+             * key can be either PKCS #1 or PKCS #8.
+             */
+            clientKey?: string;
+            /** This is always sql#demoteMasterMysqlReplicaConfiguration. */
+            kind?: string;
+            /** The password for the replication connection. */
+            password?: string;
+            /** The username for the replication connection. */
+            username?: string;
+        }
         interface ExportContext {
             /** Options for exporting data as CSV. */
             csvExportOptions?: {
@@ -332,6 +351,10 @@ declare namespace gapi.client {
         interface InstancesCloneRequest {
             /** Contains details about the clone operation. */
             cloneContext?: CloneContext;
+        }
+        interface InstancesDemoteMasterRequest {
+            /** Contains details about the demoteMaster operation. */
+            demoteMasterContext?: DemoteMasterContext;
         }
         interface InstancesExportRequest {
             /** Contains details about the export operation. */
@@ -1036,6 +1059,30 @@ declare namespace gapi.client {
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Operation>;
+            /** Demotes the standalone instance to be a read replica Cloud SQL instance of an on-premises master. */
+            demoteMaster(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Cloud SQL instance name. */
+                instance: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** ID of the project that contains the instance. */
+                project: string;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Operation>;
             /** Exports data from a Cloud SQL instance to a Google Cloud Storage bucket as a MySQL dump file. */
             export(request: {
                 /** Data format for the response. */
@@ -1727,5 +1774,21 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Operation>;
         }
+
+        const backupRuns: sqladmin.BackupRunsResource;
+
+        const databases: sqladmin.DatabasesResource;
+
+        const flags: sqladmin.FlagsResource;
+
+        const instances: sqladmin.InstancesResource;
+
+        const operations: sqladmin.OperationsResource;
+
+        const sslCerts: sqladmin.SslCertsResource;
+
+        const tiers: sqladmin.TiersResource;
+
+        const users: sqladmin.UsersResource;
     }
 }

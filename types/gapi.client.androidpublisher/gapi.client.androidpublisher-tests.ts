@@ -29,7 +29,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Commits/applies the changes made in this edit back to the app. */
-        await gapi.client.edits.commit({
+        await gapi.client.androidpublisher.edits.commit({
             editId: "editId",
             packageName: "packageName",
         });
@@ -37,76 +37,74 @@ gapi.load('client', () => {
          * Deletes an edit for an app. Creating a new edit will automatically delete any of your previous edits so this method need only be called if you want to
          * preemptively abandon an edit.
          */
-        await gapi.client.edits.delete({
+        await gapi.client.androidpublisher.edits.delete({
             editId: "editId",
             packageName: "packageName",
         });
         /** Returns information about the edit specified. Calls will fail if the edit is no long active (e.g. has been deleted, superseded or expired). */
-        await gapi.client.edits.get({
+        await gapi.client.androidpublisher.edits.get({
             editId: "editId",
             packageName: "packageName",
         });
         /** Creates a new edit for an app, populated with the app's current state. */
-        await gapi.client.edits.insert({
+        await gapi.client.androidpublisher.edits.insert({
             packageName: "packageName",
         });
         /** Checks that the edit can be successfully committed. The edit's changes are not applied to the live app. */
-        await gapi.client.edits.validate({
+        await gapi.client.androidpublisher.edits.validate({
             editId: "editId",
             packageName: "packageName",
         });
         /** Lists the user's current inapp item or subscription entitlements */
-        await gapi.client.entitlements.list({
+        await gapi.client.androidpublisher.entitlements.list({
             maxResults: 1,
             packageName: "packageName",
             productId: "productId",
             startIndex: 4,
             token: "token",
         });
-        await gapi.client.inappproducts.batch({
-        });
         /** Delete an in-app product for an app. */
-        await gapi.client.inappproducts.delete({
+        await gapi.client.androidpublisher.inappproducts.delete({
             packageName: "packageName",
             sku: "sku",
         });
         /** Returns information about the in-app product specified. */
-        await gapi.client.inappproducts.get({
+        await gapi.client.androidpublisher.inappproducts.get({
             packageName: "packageName",
             sku: "sku",
         });
         /** Creates a new in-app product for an app. */
-        await gapi.client.inappproducts.insert({
+        await gapi.client.androidpublisher.inappproducts.insert({
             autoConvertMissingPrices: true,
             packageName: "packageName",
         });
         /** List all the in-app products for an Android app, both subscriptions and managed in-app products.. */
-        await gapi.client.inappproducts.list({
+        await gapi.client.androidpublisher.inappproducts.list({
             maxResults: 1,
             packageName: "packageName",
             startIndex: 3,
             token: "token",
         });
         /** Updates the details of an in-app product. This method supports patch semantics. */
-        await gapi.client.inappproducts.patch({
+        await gapi.client.androidpublisher.inappproducts.patch({
             autoConvertMissingPrices: true,
             packageName: "packageName",
             sku: "sku",
         });
         /** Updates the details of an in-app product. */
-        await gapi.client.inappproducts.update({
+        await gapi.client.androidpublisher.inappproducts.update({
             autoConvertMissingPrices: true,
             packageName: "packageName",
             sku: "sku",
         });
         /** Returns a single review. */
-        await gapi.client.reviews.get({
+        await gapi.client.androidpublisher.reviews.get({
             packageName: "packageName",
             reviewId: "reviewId",
             translationLanguage: "translationLanguage",
         });
         /** Returns a list of reviews. Only reviews from last week will be returned. */
-        await gapi.client.reviews.list({
+        await gapi.client.androidpublisher.reviews.list({
             maxResults: 1,
             packageName: "packageName",
             startIndex: 3,
@@ -114,7 +112,7 @@ gapi.load('client', () => {
             translationLanguage: "translationLanguage",
         });
         /** Reply to a single review, or update an existing reply. */
-        await gapi.client.reviews.reply({
+        await gapi.client.androidpublisher.reviews.reply({
             packageName: "packageName",
             reviewId: "reviewId",
         });

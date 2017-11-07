@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "acceleratedmobilepageurl", version: "v1"): PromiseLike<void>;
     function load(name: "acceleratedmobilepageurl", version: "v1", callback: () => any): void;
 
-    const ampUrls: acceleratedmobilepageurl.AmpUrlsResource;
-
     namespace acceleratedmobilepageurl {
         interface AmpUrl {
             /** The AMP URL pointing to the publisher's web server. */
@@ -93,5 +91,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<BatchGetAmpUrlsResponse>;
         }
+
+        const ampUrls: acceleratedmobilepageurl.AmpUrlsResource;
     }
 }

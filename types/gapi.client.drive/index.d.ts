@@ -16,24 +16,6 @@ declare namespace gapi.client {
     function load(name: "drive", version: "v3"): PromiseLike<void>;
     function load(name: "drive", version: "v3", callback: () => any): void;
 
-    const about: drive.AboutResource;
-
-    const changes: drive.ChangesResource;
-
-    const channels: drive.ChannelsResource;
-
-    const comments: drive.CommentsResource;
-
-    const files: drive.FilesResource;
-
-    const permissions: drive.PermissionsResource;
-
-    const replies: drive.RepliesResource;
-
-    const revisions: drive.RevisionsResource;
-
-    const teamdrives: drive.TeamdrivesResource;
-
     namespace drive {
         interface About {
             /** Whether the user has installed the requesting app. */
@@ -683,6 +665,8 @@ declare namespace gapi.client {
             };
             /** The color of this Team Drive as an RGB hex string. It can only be set on a drive.teamdrives.update request that does not set themeId. */
             colorRgb?: string;
+            /** The time at which the Team Drive was created (RFC 3339 date-time). */
+            createdTime?: string;
             /** The ID of this Team Drive which is also the ID of the top level folder for this Team Drive. */
             id?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "drive#teamDrive". */
@@ -1351,6 +1335,11 @@ declare namespace gapi.client {
                  * the side effect.
                  */
                 transferOwnership?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Permission>;
@@ -1377,6 +1366,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<void>;
@@ -1403,6 +1397,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Permission>;
@@ -1434,6 +1433,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<PermissionList>;
@@ -1467,6 +1471,11 @@ declare namespace gapi.client {
                  * the side effect.
                  */
                 transferOwnership?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Permission>;
@@ -1777,6 +1786,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the Team Drive belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<TeamDrive>;
@@ -1796,11 +1810,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query string for searching Team Drives. */
+                q?: string;
                 /**
                  * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
                  * Overrides userIp if both are provided.
                  */
                 quotaUser?: string;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then all Team Drives of the domain in which the
+                 * requester is an administrator are returned.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<TeamDriveList>;
@@ -1827,5 +1848,23 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<TeamDrive>;
         }
+
+        const about: drive.AboutResource;
+
+        const changes: drive.ChangesResource;
+
+        const channels: drive.ChannelsResource;
+
+        const comments: drive.CommentsResource;
+
+        const files: drive.FilesResource;
+
+        const permissions: drive.PermissionsResource;
+
+        const replies: drive.RepliesResource;
+
+        const revisions: drive.RevisionsResource;
+
+        const teamdrives: drive.TeamdrivesResource;
     }
 }

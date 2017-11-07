@@ -16,7 +16,7 @@ gapi.load('client', () => {
          * Returns AMP URL(s) and equivalent
          * [AMP Cache URL(s)](/amp/cache/overview#amp-cache-url-format).
          */
-        await gapi.client.ampUrls.batchGet({
+        await gapi.client.acceleratedmobilepageurl.ampUrls.batchGet({
         });
     }
 });

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "sheets", version: "v4"): PromiseLike<void>;
     function load(name: "sheets", version: "v4", callback: () => any): void;
 
-    const spreadsheets: sheets.SpreadsheetsResource;
-
     namespace sheets {
         interface AddBandingRequest {
             /**
@@ -1763,10 +1761,7 @@ declare namespace gapi.client {
              * with an `=` character.
              */
             formula?: string;
-            /**
-             * A name to use for the value. This is only used if formula was set.
-             * Otherwise, the column name is used.
-             */
+            /** A name to use for the value. */
             name?: string;
             /**
              * The column offset of the source range that this value reads from.
@@ -3306,5 +3301,7 @@ declare namespace gapi.client {
             sheets: SheetsResource;
             values: ValuesResource;
         }
+
+        const spreadsheets: sheets.SpreadsheetsResource;
     }
 }

@@ -31,64 +31,64 @@ gapi.load('client', () => {
 
     async function run() {
         /** Get information about the selected AdSense account. */
-        await gapi.client.accounts.get({
+        await gapi.client.adsense.accounts.get({
             accountId: "accountId",
             tree: true,
         });
         /** List all accounts available to this AdSense account. */
-        await gapi.client.accounts.list({
+        await gapi.client.adsense.accounts.list({
             maxResults: 1,
             pageToken: "pageToken",
         });
         /** List all ad clients in this AdSense account. */
-        await gapi.client.adclients.list({
+        await gapi.client.adsense.adclients.list({
             maxResults: 1,
             pageToken: "pageToken",
         });
         /** Gets the specified ad unit in the specified ad client. */
-        await gapi.client.adunits.get({
+        await gapi.client.adsense.adunits.get({
             adClientId: "adClientId",
             adUnitId: "adUnitId",
         });
         /** Get ad code for the specified ad unit. */
-        await gapi.client.adunits.getAdCode({
+        await gapi.client.adsense.adunits.getAdCode({
             adClientId: "adClientId",
             adUnitId: "adUnitId",
         });
         /** List all ad units in the specified ad client for this AdSense account. */
-        await gapi.client.adunits.list({
+        await gapi.client.adsense.adunits.list({
             adClientId: "adClientId",
             includeInactive: true,
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Dismiss (delete) the specified alert from the publisher's AdSense account. */
-        await gapi.client.alerts.delete({
+        await gapi.client.adsense.alerts.delete({
             alertId: "alertId",
         });
         /** List the alerts for this AdSense account. */
-        await gapi.client.alerts.list({
+        await gapi.client.adsense.alerts.list({
             locale: "locale",
         });
         /** Get the specified custom channel from the specified ad client. */
-        await gapi.client.customchannels.get({
+        await gapi.client.adsense.customchannels.get({
             adClientId: "adClientId",
             customChannelId: "customChannelId",
         });
         /** List all custom channels in the specified ad client for this AdSense account. */
-        await gapi.client.customchannels.list({
+        await gapi.client.adsense.customchannels.list({
             adClientId: "adClientId",
             maxResults: 2,
             pageToken: "pageToken",
         });
         /** List the payments for this AdSense account. */
-        await gapi.client.payments.list({
+        await gapi.client.adsense.payments.list({
         });
         /**
          * Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format
          * specify "alt=csv" as a query parameter.
          */
-        await gapi.client.reports.generate({
+        await gapi.client.adsense.reports.generate({
             accountId: "accountId",
             currency: "currency",
             dimension: "dimension",
@@ -103,16 +103,16 @@ gapi.load('client', () => {
             useTimezoneReporting: true,
         });
         /** Get a specific saved ad style from the user's account. */
-        await gapi.client.savedadstyles.get({
+        await gapi.client.adsense.savedadstyles.get({
             savedAdStyleId: "savedAdStyleId",
         });
         /** List all saved ad styles in the user's account. */
-        await gapi.client.savedadstyles.list({
+        await gapi.client.adsense.savedadstyles.list({
             maxResults: 1,
             pageToken: "pageToken",
         });
         /** List all URL channels in the specified ad client for this AdSense account. */
-        await gapi.client.urlchannels.list({
+        await gapi.client.adsense.urlchannels.list({
             adClientId: "adClientId",
             maxResults: 2,
             pageToken: "pageToken",

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "sourcerepo", version: "v1"): PromiseLike<void>;
     function load(name: "sourcerepo", version: "v1", callback: () => any): void;
 
-    const projects: sourcerepo.ProjectsResource;
-
     namespace sourcerepo {
         interface AuditConfig {
             /**
@@ -131,7 +129,7 @@ declare namespace gapi.client {
             url?: string;
             /**
              * ID of the webhook listening to updates to trigger mirroring.
-             * Removing this webook from the other hosting service will stop
+             * Removing this webhook from the other hosting service will stop
              * Google Cloud Source Repositories from receiving notifications,
              * and thereby disabling mirroring.
              */
@@ -485,5 +483,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             repos: ReposResource;
         }
+
+        const projects: sourcerepo.ProjectsResource;
     }
 }

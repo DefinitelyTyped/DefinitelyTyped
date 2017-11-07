@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "dns", version: "v1"): PromiseLike<void>;
     function load(name: "dns", version: "v1", callback: () => any): void;
 
-    const changes: dns.ChangesResource;
-
-    const managedZones: dns.ManagedZonesResource;
-
-    const projects: dns.ProjectsResource;
-
-    const resourceRecordSets: dns.ResourceRecordSetsResource;
-
     namespace dns {
         interface Change {
             /** Which ResourceRecordSets to add? */
@@ -388,5 +380,13 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<ResourceRecordSetsListResponse>;
         }
+
+        const changes: dns.ChangesResource;
+
+        const managedZones: dns.ManagedZonesResource;
+
+        const projects: dns.ProjectsResource;
+
+        const resourceRecordSets: dns.ResourceRecordSetsResource;
     }
 }

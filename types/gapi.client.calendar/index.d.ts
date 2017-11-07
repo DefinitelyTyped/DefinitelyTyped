@@ -16,22 +16,6 @@ declare namespace gapi.client {
     function load(name: "calendar", version: "v3"): PromiseLike<void>;
     function load(name: "calendar", version: "v3", callback: () => any): void;
 
-    const acl: calendar.AclResource;
-
-    const calendarList: calendar.CalendarListResource;
-
-    const calendars: calendar.CalendarsResource;
-
-    const channels: calendar.ChannelsResource;
-
-    const colors: calendar.ColorsResource;
-
-    const events: calendar.EventsResource;
-
-    const freebusy: calendar.FreebusyResource;
-
-    const settings: calendar.SettingsResource;
-
     namespace calendar {
         interface Acl {
             /** ETag of the collection. */
@@ -696,6 +680,8 @@ declare namespace gapi.client {
                  * Overrides userIp if both are provided.
                  */
                 quotaUser?: string;
+                /** Whether to send notifications about the calendar sharing change. Optional. The default is True. */
+                sendNotifications?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<AclRule>;
@@ -770,6 +756,8 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** ACL rule identifier. */
                 ruleId: string;
+                /** Whether to send notifications about the calendar sharing change. Note that there are no notifications on access removal. Optional. The default is True. */
+                sendNotifications?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<AclRule>;
@@ -797,6 +785,8 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** ACL rule identifier. */
                 ruleId: string;
+                /** Whether to send notifications about the calendar sharing change. Note that there are no notifications on access removal. Optional. The default is True. */
+                sendNotifications?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<AclRule>;
@@ -1942,5 +1932,21 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Channel>;
         }
+
+        const acl: calendar.AclResource;
+
+        const calendarList: calendar.CalendarListResource;
+
+        const calendars: calendar.CalendarsResource;
+
+        const channels: calendar.ChannelsResource;
+
+        const colors: calendar.ColorsResource;
+
+        const events: calendar.EventsResource;
+
+        const freebusy: calendar.FreebusyResource;
+
+        const settings: calendar.SettingsResource;
     }
 }

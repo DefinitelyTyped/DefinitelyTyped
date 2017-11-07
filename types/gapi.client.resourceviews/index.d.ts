@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "resourceviews", version: "v1beta2"): PromiseLike<void>;
     function load(name: "resourceviews", version: "v1beta2", callback: () => any): void;
 
-    const zoneOperations: resourceviews.ZoneOperationsResource;
-
-    const zoneViews: resourceviews.ZoneViewsResource;
-
     namespace resourceviews {
         interface Label {
             /** Key of the label. */
@@ -501,5 +497,9 @@ declare namespace gapi.client {
                 zone: string;
             }): Request<Operation>;
         }
+
+        const zoneOperations: resourceviews.ZoneOperationsResource;
+
+        const zoneViews: resourceviews.ZoneViewsResource;
     }
 }

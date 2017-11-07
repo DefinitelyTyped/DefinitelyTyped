@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "consumersurveys", version: "v2"): PromiseLike<void>;
     function load(name: "consumersurveys", version: "v2", callback: () => any): void;
 
-    const mobileapppanels: consumersurveys.MobileapppanelsResource;
-
-    const results: consumersurveys.ResultsResource;
-
-    const surveys: consumersurveys.SurveysResource;
-
     namespace consumersurveys {
         interface FieldMask {
             fields?: FieldMask[];
@@ -393,5 +387,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Survey>;
         }
+
+        const mobileapppanels: consumersurveys.MobileapppanelsResource;
+
+        const results: consumersurveys.ResultsResource;
+
+        const surveys: consumersurveys.SurveysResource;
     }
 }

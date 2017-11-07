@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "youtubereporting", version: "v1"): PromiseLike<void>;
     function load(name: "youtubereporting", version: "v1", callback: () => any): void;
 
-    const jobs: youtubereporting.JobsResource;
-
-    const media: youtubereporting.MediaResource;
-
-    const reportTypes: youtubereporting.ReportTypesResource;
-
     namespace youtubereporting {
         interface Job {
             /** The creation date/time of the job. */
@@ -479,5 +473,11 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<ListReportTypesResponse>;
         }
+
+        const jobs: youtubereporting.JobsResource;
+
+        const media: youtubereporting.MediaResource;
+
+        const reportTypes: youtubereporting.ReportTypesResource;
     }
 }

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "manufacturers", version: "v1"): PromiseLike<void>;
     function load(name: "manufacturers", version: "v1", callback: () => any): void;
 
-    const accounts: manufacturers.AccountsResource;
-
     namespace manufacturers {
         interface Attributes {
             /**
@@ -132,7 +130,7 @@ declare namespace gapi.client {
              */
             productPageUrl?: string;
             /**
-             * The category of the product. For more information, see
+             * The type or category of the product. For more information, see
              * https://support.google.com/manufacturers/answer/6124116#producttype.
              */
             productType?: string[];
@@ -167,10 +165,10 @@ declare namespace gapi.client {
              */
             suggestedRetailPrice?: Price;
             /**
-             * The target account id. Should only be used in the accounts of the data
+             * The target client id. Should only be used in the accounts of the data
              * partners.
              */
-            targetAccountId?: string;
+            targetClientId?: string;
             /**
              * The theme of the product. For more information, see
              * https://support.google.com/manufacturers/answer/6124116#theme.
@@ -546,5 +544,7 @@ declare namespace gapi.client {
         interface AccountsResource {
             products: ProductsResource;
         }
+
+        const accounts: manufacturers.AccountsResource;
     }
 }

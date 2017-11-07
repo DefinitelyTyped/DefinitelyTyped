@@ -39,7 +39,7 @@ gapi.load('client', () => {
          * authenticated users, also returns all services the calling user has
          * "servicemanagement.services.bind" permission for.
          */
-        await gapi.client.services.search({
+        await gapi.client.serviceuser.services.search({
             pageSize: 1,
             pageToken: "pageToken",
         });

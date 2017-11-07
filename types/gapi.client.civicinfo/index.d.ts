@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "civicinfo", version: "v2"): PromiseLike<void>;
     function load(name: "civicinfo", version: "v2", callback: () => any): void;
 
-    const divisions: civicinfo.DivisionsResource;
-
-    const elections: civicinfo.ElectionsResource;
-
-    const representatives: civicinfo.RepresentativesResource;
-
     namespace civicinfo {
         interface AdministrationRegion {
             /** The election administration body for this area. */
@@ -595,5 +589,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<RepresentativeInfoData>;
         }
+
+        const divisions: civicinfo.DivisionsResource;
+
+        const elections: civicinfo.ElectionsResource;
+
+        const representatives: civicinfo.RepresentativesResource;
     }
 }

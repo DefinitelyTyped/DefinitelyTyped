@@ -16,30 +16,6 @@ declare namespace gapi.client {
     function load(name: "adexchangebuyer", version: "v1.4"): PromiseLike<void>;
     function load(name: "adexchangebuyer", version: "v1.4", callback: () => any): void;
 
-    const accounts: adexchangebuyer.AccountsResource;
-
-    const billingInfo: adexchangebuyer.BillingInfoResource;
-
-    const budget: adexchangebuyer.BudgetResource;
-
-    const creatives: adexchangebuyer.CreativesResource;
-
-    const marketplacedeals: adexchangebuyer.MarketplacedealsResource;
-
-    const marketplacenotes: adexchangebuyer.MarketplacenotesResource;
-
-    const marketplaceprivateauction: adexchangebuyer.MarketplaceprivateauctionResource;
-
-    const performanceReport: adexchangebuyer.PerformanceReportResource;
-
-    const pretargetingConfig: adexchangebuyer.PretargetingConfigResource;
-
-    const products: adexchangebuyer.ProductsResource;
-
-    const proposals: adexchangebuyer.ProposalsResource;
-
-    const pubprofiles: adexchangebuyer.PubprofilesResource;
-
     namespace adexchangebuyer {
         interface Account {
             /** Your bidder locations that have distinct URLs. */
@@ -1985,5 +1961,29 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<GetPublisherProfilesByAccountIdResponse>;
         }
+
+        const accounts: adexchangebuyer.AccountsResource;
+
+        const billingInfo: adexchangebuyer.BillingInfoResource;
+
+        const budget: adexchangebuyer.BudgetResource;
+
+        const creatives: adexchangebuyer.CreativesResource;
+
+        const marketplacedeals: adexchangebuyer.MarketplacedealsResource;
+
+        const marketplacenotes: adexchangebuyer.MarketplacenotesResource;
+
+        const marketplaceprivateauction: adexchangebuyer.MarketplaceprivateauctionResource;
+
+        const performanceReport: adexchangebuyer.PerformanceReportResource;
+
+        const pretargetingConfig: adexchangebuyer.PretargetingConfigResource;
+
+        const products: adexchangebuyer.ProductsResource;
+
+        const proposals: adexchangebuyer.ProposalsResource;
+
+        const pubprofiles: adexchangebuyer.PubprofilesResource;
     }
 }

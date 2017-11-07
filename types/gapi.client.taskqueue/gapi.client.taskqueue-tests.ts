@@ -31,30 +31,30 @@ gapi.load('client', () => {
 
     async function run() {
         /** Get detailed information about a TaskQueue. */
-        await gapi.client.taskqueues.get({
+        await gapi.client.taskqueue.taskqueues.get({
             getStats: true,
             project: "project",
             taskqueue: "taskqueue",
         });
         /** Delete a task from a TaskQueue. */
-        await gapi.client.tasks.delete({
+        await gapi.client.taskqueue.tasks.delete({
             project: "project",
             task: "task",
             taskqueue: "taskqueue",
         });
         /** Get a particular task from a TaskQueue. */
-        await gapi.client.tasks.get({
+        await gapi.client.taskqueue.tasks.get({
             project: "project",
             task: "task",
             taskqueue: "taskqueue",
         });
         /** Insert a new task in a TaskQueue */
-        await gapi.client.tasks.insert({
+        await gapi.client.taskqueue.tasks.insert({
             project: "project",
             taskqueue: "taskqueue",
         });
         /** Lease 1 or more tasks from a TaskQueue. */
-        await gapi.client.tasks.lease({
+        await gapi.client.taskqueue.tasks.lease({
             groupByTag: true,
             leaseSecs: 2,
             numTasks: 3,
@@ -63,19 +63,19 @@ gapi.load('client', () => {
             taskqueue: "taskqueue",
         });
         /** List Tasks in a TaskQueue */
-        await gapi.client.tasks.list({
+        await gapi.client.taskqueue.tasks.list({
             project: "project",
             taskqueue: "taskqueue",
         });
         /** Update tasks that are leased out of a TaskQueue. This method supports patch semantics. */
-        await gapi.client.tasks.patch({
+        await gapi.client.taskqueue.tasks.patch({
             newLeaseSeconds: 1,
             project: "project",
             task: "task",
             taskqueue: "taskqueue",
         });
         /** Update tasks that are leased out of a TaskQueue. */
-        await gapi.client.tasks.update({
+        await gapi.client.taskqueue.tasks.update({
             newLeaseSeconds: 1,
             project: "project",
             task: "task",

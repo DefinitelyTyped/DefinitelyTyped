@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "androidmanagement", version: "v1"): PromiseLike<void>;
     function load(name: "androidmanagement", version: "v1", callback: () => any): void;
 
-    const enterprises: androidmanagement.EnterprisesResource;
-
-    const signupUrls: androidmanagement.SignupUrlsResource;
-
     namespace androidmanagement {
         interface ApiLevelCondition {
             /**
@@ -145,9 +141,10 @@ declare namespace gapi.client {
             /** Whether the device is compliant with its policy. */
             policyCompliant?: boolean;
             /**
-             * The name of the policy that is intended to be applied to the device. If empty, the policy with id default is applied. This field may be modified by an
-             * update request. The name of the policy is in the form enterprises/{enterpriseId}/policies/{policyId}. It is also permissible to only specify the
-             * policyId when updating this field as long as the policyId contains no slashes since the rest of the policy name can be inferred from context.
+             * The name of the policy that is intended to be applied to the device. If empty, the policy_name for the user that owns this device is applied. This
+             * field may be modified by an update request. The name of the policy is in the form enterprises/{enterpriseId}/policies/{policyId}. It is also
+             * permissible to only specify the policyId when updating this field as long as the policyId contains no slashes since the rest of the policy name can be
+             * inferred from context.
              */
             policyName?: string;
             /**
@@ -167,10 +164,7 @@ declare namespace gapi.client {
              * between ACTIVE and DISABLED states. Use the delete device method to cause the device to enter the DELETED state.
              */
             state?: string;
-            /**
-             * The resource name of the user of the device in the form enterprises/{enterpriseId}/users/{userId}. This is the name of the device account automatically
-             * created for this device.
-             */
+            /** The resource name of the user that owns this device in the form enterprises/{enterpriseId}/users/{userId}. */
             userName?: string;
         }
         interface Display {
@@ -207,8 +201,9 @@ declare namespace gapi.client {
             name?: string;
             /**
              * The name of the policy that will be initially applied to the enrolled device in the form enterprises/{enterpriseId}/policies/{policyId}. If not
-             * specified, the policy with id default is applied. It is permissible to only specify the policyId when updating this field as long as the policyId
-             * contains no slashes since the rest of the policy name can be inferred from context.
+             * specified, the policy_name for the user that owns the device is applied. If user_name also isn't specified, the policy defaults to
+             * enterprises/{enterpriseId}/policies/default. It is permissible to only specify the policyId when updating this field as long as the policyId contains
+             * no slashes since the rest of the policy name can be inferred from context.
              */
             policyName?: string;
             /**
@@ -550,8 +545,8 @@ declare namespace gapi.client {
              */
             stayOnPluggedModes?: string[];
             /**
-             * The system update policy, which controls how OS updates are applied. If the update type is WINDOWED and the device has a device account, the update
-             * window will automatically apply to Play app updates as well.
+             * The system update policy, which controls how OS updates are applied. If the update type is WINDOWED, the update window will automatically apply to Play
+             * app updates as well.
              */
             systemUpdate?: SystemUpdate;
             /** Whether the microphone is muted and adjusting microphone volume is disabled. */
@@ -1381,5 +1376,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<SignupUrl>;
         }
+
+        const enterprises: androidmanagement.EnterprisesResource;
+
+        const signupUrls: androidmanagement.SignupUrlsResource;
     }
 }

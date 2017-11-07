@@ -35,18 +35,18 @@ gapi.load('client', () => {
 
     async function run() {
         /** Atomically update the ResourceRecordSet collection. */
-        await gapi.client.changes.create({
+        await gapi.client.dns.changes.create({
             managedZone: "managedZone",
             project: "project",
         });
         /** Fetch the representation of an existing Change. */
-        await gapi.client.changes.get({
+        await gapi.client.dns.changes.get({
             changeId: "changeId",
             managedZone: "managedZone",
             project: "project",
         });
         /** Enumerate Changes to a ResourceRecordSet collection. */
-        await gapi.client.changes.list({
+        await gapi.client.dns.changes.list({
             managedZone: "managedZone",
             maxResults: 2,
             pageToken: "pageToken",
@@ -55,32 +55,32 @@ gapi.load('client', () => {
             sortOrder: "sortOrder",
         });
         /** Create a new ManagedZone. */
-        await gapi.client.managedZones.create({
+        await gapi.client.dns.managedZones.create({
             project: "project",
         });
         /** Delete a previously created ManagedZone. */
-        await gapi.client.managedZones.delete({
+        await gapi.client.dns.managedZones.delete({
             managedZone: "managedZone",
             project: "project",
         });
         /** Fetch the representation of an existing ManagedZone. */
-        await gapi.client.managedZones.get({
+        await gapi.client.dns.managedZones.get({
             managedZone: "managedZone",
             project: "project",
         });
         /** Enumerate ManagedZones that have been created but not yet deleted. */
-        await gapi.client.managedZones.list({
+        await gapi.client.dns.managedZones.list({
             dnsName: "dnsName",
             maxResults: 2,
             pageToken: "pageToken",
             project: "project",
         });
         /** Fetch the representation of an existing Project. */
-        await gapi.client.projects.get({
+        await gapi.client.dns.projects.get({
             project: "project",
         });
         /** Enumerate ResourceRecordSets that have been created but not yet deleted. */
-        await gapi.client.resourceRecordSets.list({
+        await gapi.client.dns.resourceRecordSets.list({
             managedZone: "managedZone",
             maxResults: 2,
             name: "name",

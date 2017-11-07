@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "appengine", version: "v1"): PromiseLike<void>;
     function load(name: "appengine", version: "v1", callback: () => any): void;
 
-    const apps: appengine.AppsResource;
-
     namespace appengine {
         interface ApiConfigHandler {
             /** Action to take when users access resources that require authentication. Defaults to redirect. */
@@ -507,18 +505,6 @@ declare namespace gapi.client {
             /** Type of this operation. Deprecated, use method field instead. Example: "create_version".@OutputOnly */
             operationType?: string;
             /** Name of the resource that this operation is acting on. Example: apps/myapp/modules/default.@OutputOnly */
-            target?: string;
-            /** User who requested this operation.@OutputOnly */
-            user?: string;
-        }
-        interface OperationMetadataExperimental {
-            /** Time that this operation completed.@OutputOnly */
-            endTime?: string;
-            /** Time that this operation was created.@OutputOnly */
-            insertTime?: string;
-            /** API method that initiated this operation. Example: google.appengine.experimental.CustomDomains.CreateCustomDomain.@OutputOnly */
-            method?: string;
-            /** Name of the resource that this operation is acting on. Example: apps/myapp/customDomains/example.com.@OutputOnly */
             target?: string;
             /** User who requested this operation.@OutputOnly */
             user?: string;
@@ -1082,6 +1068,8 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Whether the domain creation should override any existing mappings for this domain. By default, overrides are rejected. */
+                overrideStrategy?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
@@ -2259,5 +2247,7 @@ declare namespace gapi.client {
             operations: OperationsResource;
             services: ServicesResource;
         }
+
+        const apps: appengine.AppsResource;
     }
 }

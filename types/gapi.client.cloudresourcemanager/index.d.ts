@@ -16,16 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudresourcemanager", version: "v1"): PromiseLike<void>;
     function load(name: "cloudresourcemanager", version: "v1", callback: () => any): void;
 
-    const folders: cloudresourcemanager.FoldersResource;
-
-    const liens: cloudresourcemanager.LiensResource;
-
-    const operations: cloudresourcemanager.OperationsResource;
-
-    const organizations: cloudresourcemanager.OrganizationsResource;
-
-    const projects: cloudresourcemanager.ProjectsResource;
-
     namespace cloudresourcemanager {
         interface Ancestor {
             /** Resource id of the ancestor. */
@@ -2230,5 +2220,15 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<Project>;
         }
+
+        const folders: cloudresourcemanager.FoldersResource;
+
+        const liens: cloudresourcemanager.LiensResource;
+
+        const operations: cloudresourcemanager.OperationsResource;
+
+        const organizations: cloudresourcemanager.OrganizationsResource;
+
+        const projects: cloudresourcemanager.ProjectsResource;
     }
 }

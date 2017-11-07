@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "clouddebugger", version: "v2"): PromiseLike<void>;
     function load(name: "clouddebugger", version: "v2", callback: () => any): void;
 
-    const controller: clouddebugger.ControllerResource;
-
     namespace clouddebugger {
         interface AliasContext {
             /** The alias kind. */
@@ -813,5 +811,7 @@ declare namespace gapi.client {
         interface DebuggerResource {
             debuggees: DebuggeesResource;
         }
+
+        const controller: clouddebugger.ControllerResource;
     }
 }

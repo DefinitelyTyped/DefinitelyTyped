@@ -44,22 +44,22 @@ gapi.load('client', () => {
          * Deletes the dataset specified by the datasetId value. Before you can delete a dataset, you must delete all its tables, either manually or by specifying
          * deleteContents. Immediately after deletion, you can create another dataset with the same name.
          */
-        await gapi.client.datasets.delete({
+        await gapi.client.bigquery.datasets.delete({
             datasetId: "datasetId",
             deleteContents: true,
             projectId: "projectId",
         });
         /** Returns the dataset specified by datasetID. */
-        await gapi.client.datasets.get({
+        await gapi.client.bigquery.datasets.get({
             datasetId: "datasetId",
             projectId: "projectId",
         });
         /** Creates a new empty dataset. */
-        await gapi.client.datasets.insert({
+        await gapi.client.bigquery.datasets.insert({
             projectId: "projectId",
         });
         /** Lists all datasets in the specified project to which you have been granted the READER dataset role. */
-        await gapi.client.datasets.list({
+        await gapi.client.bigquery.datasets.list({
             all: true,
             filter: "filter",
             maxResults: 3,
@@ -70,7 +70,7 @@ gapi.load('client', () => {
          * Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that
          * are provided in the submitted dataset resource. This method supports patch semantics.
          */
-        await gapi.client.datasets.patch({
+        await gapi.client.bigquery.datasets.patch({
             datasetId: "datasetId",
             projectId: "projectId",
         });
@@ -78,7 +78,7 @@ gapi.load('client', () => {
          * Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that
          * are provided in the submitted dataset resource.
          */
-        await gapi.client.datasets.update({
+        await gapi.client.bigquery.datasets.update({
             datasetId: "datasetId",
             projectId: "projectId",
         });
@@ -86,7 +86,7 @@ gapi.load('client', () => {
          * Requests that a job be cancelled. This call will return immediately, and the client will need to poll for the job status to see if the cancel completed
          * successfully. Cancelled jobs may still incur costs.
          */
-        await gapi.client.jobs.cancel({
+        await gapi.client.bigquery.jobs.cancel({
             jobId: "jobId",
             projectId: "projectId",
         });
@@ -94,12 +94,12 @@ gapi.load('client', () => {
          * Returns information about a specific job. Job information is available for a six month period after creation. Requires that you're the person who ran
          * the job, or have the Is Owner project role.
          */
-        await gapi.client.jobs.get({
+        await gapi.client.bigquery.jobs.get({
             jobId: "jobId",
             projectId: "projectId",
         });
         /** Retrieves the results of a query job. */
-        await gapi.client.jobs.getQueryResults({
+        await gapi.client.bigquery.jobs.getQueryResults({
             jobId: "jobId",
             maxResults: 2,
             pageToken: "pageToken",
@@ -108,14 +108,14 @@ gapi.load('client', () => {
             timeoutMs: 6,
         });
         /** Starts a new asynchronous job. Requires the Can View project role. */
-        await gapi.client.jobs.insert({
+        await gapi.client.bigquery.jobs.insert({
             projectId: "projectId",
         });
         /**
          * Lists all jobs that you started in the specified project. Job information is available for a six month period after creation. The job list is sorted in
          * reverse chronological order, by job creation time. Requires the Can View project role, or the Is Owner project role if you set the allUsers property.
          */
-        await gapi.client.jobs.list({
+        await gapi.client.bigquery.jobs.list({
             allUsers: true,
             maxResults: 2,
             pageToken: "pageToken",
@@ -124,26 +124,26 @@ gapi.load('client', () => {
             stateFilter: "stateFilter",
         });
         /** Runs a BigQuery SQL query synchronously and returns query results if the query completes within a specified timeout. */
-        await gapi.client.jobs.query({
+        await gapi.client.bigquery.jobs.query({
             projectId: "projectId",
         });
         /** Returns the email address of the service account for your project used for interactions with Google Cloud KMS. */
-        await gapi.client.projects.getServiceAccount({
+        await gapi.client.bigquery.projects.getServiceAccount({
             projectId: "projectId",
         });
         /** Lists all projects to which you have been granted any project role. */
-        await gapi.client.projects.list({
+        await gapi.client.bigquery.projects.list({
             maxResults: 1,
             pageToken: "pageToken",
         });
         /** Streams data into BigQuery one record at a time without needing to run a load job. Requires the WRITER dataset role. */
-        await gapi.client.tabledata.insertAll({
+        await gapi.client.bigquery.tabledata.insertAll({
             datasetId: "datasetId",
             projectId: "projectId",
             tableId: "tableId",
         });
         /** Retrieves table data from a specified set of rows. Requires the READER dataset role. */
-        await gapi.client.tabledata.list({
+        await gapi.client.bigquery.tabledata.list({
             datasetId: "datasetId",
             maxResults: 2,
             pageToken: "pageToken",
@@ -153,7 +153,7 @@ gapi.load('client', () => {
             tableId: "tableId",
         });
         /** Deletes the table specified by tableId from the dataset. If the table contains data, all the data will be deleted. */
-        await gapi.client.tables.delete({
+        await gapi.client.bigquery.tables.delete({
             datasetId: "datasetId",
             projectId: "projectId",
             tableId: "tableId",
@@ -162,19 +162,19 @@ gapi.load('client', () => {
          * Gets the specified table resource by table ID. This method does not return the data in the table, it only returns the table resource, which describes
          * the structure of this table.
          */
-        await gapi.client.tables.get({
+        await gapi.client.bigquery.tables.get({
             datasetId: "datasetId",
             projectId: "projectId",
             selectedFields: "selectedFields",
             tableId: "tableId",
         });
         /** Creates a new, empty table in the dataset. */
-        await gapi.client.tables.insert({
+        await gapi.client.bigquery.tables.insert({
             datasetId: "datasetId",
             projectId: "projectId",
         });
         /** Lists all tables in the specified dataset. Requires the READER dataset role. */
-        await gapi.client.tables.list({
+        await gapi.client.bigquery.tables.list({
             datasetId: "datasetId",
             maxResults: 2,
             pageToken: "pageToken",
@@ -184,7 +184,7 @@ gapi.load('client', () => {
          * Updates information in an existing table. The update method replaces the entire table resource, whereas the patch method only replaces fields that are
          * provided in the submitted table resource. This method supports patch semantics.
          */
-        await gapi.client.tables.patch({
+        await gapi.client.bigquery.tables.patch({
             datasetId: "datasetId",
             projectId: "projectId",
             tableId: "tableId",
@@ -193,7 +193,7 @@ gapi.load('client', () => {
          * Updates information in an existing table. The update method replaces the entire table resource, whereas the patch method only replaces fields that are
          * provided in the submitted table resource.
          */
-        await gapi.client.tables.update({
+        await gapi.client.bigquery.tables.update({
             datasetId: "datasetId",
             projectId: "projectId",
             tableId: "tableId",

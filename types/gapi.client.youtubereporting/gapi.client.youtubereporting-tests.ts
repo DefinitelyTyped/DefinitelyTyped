@@ -31,21 +31,21 @@ gapi.load('client', () => {
 
     async function run() {
         /** Creates a job and returns it. */
-        await gapi.client.jobs.create({
+        await gapi.client.youtubereporting.jobs.create({
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Deletes a job. */
-        await gapi.client.jobs.delete({
+        await gapi.client.youtubereporting.jobs.delete({
             jobId: "jobId",
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Gets a job. */
-        await gapi.client.jobs.get({
+        await gapi.client.youtubereporting.jobs.get({
             jobId: "jobId",
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Lists jobs. */
-        await gapi.client.jobs.list({
+        await gapi.client.youtubereporting.jobs.list({
             includeSystemManaged: true,
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
             pageSize: 3,
@@ -55,11 +55,11 @@ gapi.load('client', () => {
          * Method for media download. Download is supported
          * on the URI `/v1/media/{+name}?alt=media`.
          */
-        await gapi.client.media.download({
+        await gapi.client.youtubereporting.media.download({
             resourceName: "resourceName",
         });
         /** Lists report types. */
-        await gapi.client.reportTypes.list({
+        await gapi.client.youtubereporting.reportTypes.list({
             includeSystemManaged: true,
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
             pageSize: 3,

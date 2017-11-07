@@ -16,30 +16,6 @@ declare namespace gapi.client {
     function load(name: "books", version: "v1"): PromiseLike<void>;
     function load(name: "books", version: "v1", callback: () => any): void;
 
-    const bookshelves: books.BookshelvesResource;
-
-    const cloudloading: books.CloudloadingResource;
-
-    const dictionary: books.DictionaryResource;
-
-    const layers: books.LayersResource;
-
-    const myconfig: books.MyconfigResource;
-
-    const mylibrary: books.MylibraryResource;
-
-    const notification: books.NotificationResource;
-
-    const onboarding: books.OnboardingResource;
-
-    const personalizedstream: books.PersonalizedstreamResource;
-
-    const promooffer: books.PromoofferResource;
-
-    const series: books.SeriesResource;
-
-    const volumes: books.VolumesResource;
-
     namespace books {
         interface Annotation {
             /** Anchor text after excerpt. For requests, if the user bookmarked a screen that has no flowing text on it, then this field should be empty. */
@@ -2443,5 +2419,29 @@ declare namespace gapi.client {
             recommended: RecommendedResource;
             useruploaded: UseruploadedResource;
         }
+
+        const bookshelves: books.BookshelvesResource;
+
+        const cloudloading: books.CloudloadingResource;
+
+        const dictionary: books.DictionaryResource;
+
+        const layers: books.LayersResource;
+
+        const myconfig: books.MyconfigResource;
+
+        const mylibrary: books.MylibraryResource;
+
+        const notification: books.NotificationResource;
+
+        const onboarding: books.OnboardingResource;
+
+        const personalizedstream: books.PersonalizedstreamResource;
+
+        const promooffer: books.PromoofferResource;
+
+        const series: books.SeriesResource;
+
+        const volumes: books.VolumesResource;
     }
 }

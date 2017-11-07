@@ -37,44 +37,44 @@ gapi.load('client', () => {
 
     async function run() {
         /** Removes an item from a group. */
-        await gapi.client.groupItems.delete({
+        await gapi.client.youtubeanalytics.groupItems.delete({
             id: "id",
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Creates a group item. */
-        await gapi.client.groupItems.insert({
+        await gapi.client.youtubeanalytics.groupItems.insert({
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Returns a collection of group items that match the API request parameters. */
-        await gapi.client.groupItems.list({
+        await gapi.client.youtubeanalytics.groupItems.list({
             groupId: "groupId",
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Deletes a group. */
-        await gapi.client.groups.delete({
+        await gapi.client.youtubeanalytics.groups.delete({
             id: "id",
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Creates a group. */
-        await gapi.client.groups.insert({
+        await gapi.client.youtubeanalytics.groups.insert({
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /**
          * Returns a collection of groups that match the API request parameters. For example, you can retrieve all groups that the authenticated user owns, or you
          * can retrieve one or more groups by their unique IDs.
          */
-        await gapi.client.groups.list({
+        await gapi.client.youtubeanalytics.groups.list({
             id: "id",
             mine: true,
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
             pageToken: "pageToken",
         });
         /** Modifies a group. For example, you could change a group's title. */
-        await gapi.client.groups.update({
+        await gapi.client.youtubeanalytics.groups.update({
             onBehalfOfContentOwner: "onBehalfOfContentOwner",
         });
         /** Retrieve your YouTube Analytics reports. */
-        await gapi.client.reports.query({
+        await gapi.client.youtubeanalytics.reports.query({
             currency: "currency",
             dimensions: "dimensions",
             "end-date": "end-date",

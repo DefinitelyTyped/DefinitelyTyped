@@ -16,22 +16,6 @@ declare namespace gapi.client {
     function load(name: "storage", version: "v1"): PromiseLike<void>;
     function load(name: "storage", version: "v1", callback: () => any): void;
 
-    const bucketAccessControls: storage.BucketAccessControlsResource;
-
-    const buckets: storage.BucketsResource;
-
-    const channels: storage.ChannelsResource;
-
-    const defaultObjectAccessControls: storage.DefaultObjectAccessControlsResource;
-
-    const notifications: storage.NotificationsResource;
-
-    const objectAccessControls: storage.ObjectAccessControlsResource;
-
-    const objects: storage.ObjectsResource;
-
-    const projects: storage.ProjectsResource;
-
     namespace storage {
         interface Bucket {
             /** Access controls on the bucket. */
@@ -540,7 +524,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;
             /** Returns the ACL entry for the specified entity on the specified bucket. */
@@ -566,7 +550,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;
             /** Creates a new ACL entry on the specified bucket. */
@@ -590,7 +574,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;
             /** Retrieves ACL entries on the specified bucket. */
@@ -614,7 +598,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControls>;
             /** Updates an ACL entry on the specified bucket. This method supports patch semantics. */
@@ -640,7 +624,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;
             /** Updates an ACL entry on the specified bucket. */
@@ -666,7 +650,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;
         }
@@ -696,7 +680,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;
             /** Returns metadata for the specified bucket. */
@@ -726,7 +710,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Bucket>;
             /** Returns an IAM policy for the specified bucket. */
@@ -750,7 +734,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;
             /** Creates a new bucket. */
@@ -780,7 +764,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. */
                 userProject?: string;
             }): Request<Bucket>;
             /** Retrieves a list of buckets for a given project. */
@@ -812,7 +796,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. */
                 userProject?: string;
             }): Request<Buckets>;
             /**
@@ -849,7 +833,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Bucket>;
             /** Updates an IAM policy for the specified bucket. */
@@ -873,7 +857,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;
             /** Tests a set of permissions on the given bucket to see which, if any, are held by the caller. */
@@ -899,7 +883,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<TestIamPermissionsResponse>;
             /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. */
@@ -933,7 +917,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Bucket>;
         }
@@ -983,7 +967,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;
             /** Returns the default object ACL entry for the specified entity on the specified bucket. */
@@ -1009,7 +993,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
             /** Creates a new default object ACL entry on the specified bucket. */
@@ -1033,7 +1017,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
             /** Retrieves default object ACL entries on the specified bucket. */
@@ -1061,7 +1045,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControls>;
             /** Updates a default object ACL entry on the specified bucket. This method supports patch semantics. */
@@ -1087,7 +1071,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
             /** Updates a default object ACL entry on the specified bucket. */
@@ -1113,7 +1097,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
         }
@@ -1141,7 +1125,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;
             /** View a notification configuration. */
@@ -1167,7 +1151,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Notification>;
             /** Creates a notification subscription for a given bucket. */
@@ -1191,7 +1175,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Notification>;
             /** Retrieves a list of notification subscriptions for a given bucket. */
@@ -1215,7 +1199,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Notifications>;
         }
@@ -1247,7 +1231,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;
             /** Returns the ACL entry for the specified entity on the specified object. */
@@ -1277,7 +1261,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
             /** Creates a new ACL entry on the specified object. */
@@ -1305,7 +1289,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
             /** Retrieves ACL entries on the specified object. */
@@ -1333,7 +1317,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControls>;
             /** Updates an ACL entry on the specified object. This method supports patch semantics. */
@@ -1363,7 +1347,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
             /** Updates an ACL entry on the specified object. */
@@ -1393,7 +1377,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;
         }
@@ -1435,7 +1419,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;
             /** Copies a source object to a destination object. Optionally overrides metadata. */
@@ -1496,7 +1480,7 @@ declare namespace gapi.client {
                 sourceObject: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;
             /** Deletes an object and its metadata. Deletions are permanent if versioning is not enabled for the bucket, or if the generation parameter is used. */
@@ -1538,7 +1522,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;
             /** Retrieves an object or its metadata. */
@@ -1582,7 +1566,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;
             /** Returns an IAM policy for the specified object. */
@@ -1610,7 +1594,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;
             /** Stores a new object and metadata. */
@@ -1667,7 +1651,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;
             /** Retrieves a list of objects matching the criteria. */
@@ -1708,12 +1692,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
                 versions?: boolean;
             }): Request<Objects>;
-            /** Updates an object's metadata. This method supports patch semantics. */
+            /** Patches an object's metadata. */
             patch(request: {
                 /** Data format for the response. */
                 alt?: string;
@@ -1835,7 +1819,7 @@ declare namespace gapi.client {
                 sourceObject: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<RewriteResponse>;
             /** Updates an IAM policy for the specified object. */
@@ -1863,7 +1847,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;
             /** Tests a set of permissions on the given object to see which, if any, are held by the caller. */
@@ -1893,7 +1877,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<TestIamPermissionsResponse>;
             /** Updates an object's metadata. */
@@ -1939,7 +1923,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;
             /** Watch for changes on all objects in a bucket. */
@@ -1980,7 +1964,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. Required for Requester Pays buckets. */
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
                 versions?: boolean;
@@ -2008,12 +1992,28 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project to be billed for this request, for Requester Pays buckets. */
+                /** The project to be billed for this request. */
                 userProject?: string;
             }): Request<ServiceAccount>;
         }
         interface ProjectsResource {
             serviceAccount: ServiceAccountResource;
         }
+
+        const bucketAccessControls: storage.BucketAccessControlsResource;
+
+        const buckets: storage.BucketsResource;
+
+        const channels: storage.ChannelsResource;
+
+        const defaultObjectAccessControls: storage.DefaultObjectAccessControlsResource;
+
+        const notifications: storage.NotificationsResource;
+
+        const objectAccessControls: storage.ObjectAccessControlsResource;
+
+        const objects: storage.ObjectsResource;
+
+        const projects: storage.ProjectsResource;
     }
 }

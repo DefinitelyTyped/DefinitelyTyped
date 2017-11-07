@@ -39,7 +39,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves an aggregated list of accelerator types. */
-        await gapi.client.acceleratorTypes.aggregatedList({
+        await gapi.client.compute.acceleratorTypes.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -47,13 +47,13 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Returns the specified accelerator type. Get a list of available accelerator types by making a list() request. */
-        await gapi.client.acceleratorTypes.get({
+        await gapi.client.compute.acceleratorTypes.get({
             acceleratorType: "acceleratorType",
             project: "project",
             zone: "zone",
         });
         /** Retrieves a list of accelerator types available to the specified project. */
-        await gapi.client.acceleratorTypes.list({
+        await gapi.client.compute.acceleratorTypes.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -62,7 +62,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Retrieves an aggregated list of addresses. */
-        await gapi.client.addresses.aggregatedList({
+        await gapi.client.compute.addresses.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -70,26 +70,26 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified address resource. */
-        await gapi.client.addresses.delete({
+        await gapi.client.compute.addresses.delete({
             address: "address",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Returns the specified address resource. */
-        await gapi.client.addresses.get({
+        await gapi.client.compute.addresses.get({
             address: "address",
             project: "project",
             region: "region",
         });
         /** Creates an address resource in the specified project using the data included in the request. */
-        await gapi.client.addresses.insert({
+        await gapi.client.compute.addresses.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of addresses contained within the specified region. */
-        await gapi.client.addresses.list({
+        await gapi.client.compute.addresses.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -98,7 +98,7 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Retrieves an aggregated list of autoscalers. */
-        await gapi.client.autoscalers.aggregatedList({
+        await gapi.client.compute.autoscalers.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -106,26 +106,26 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified autoscaler. */
-        await gapi.client.autoscalers.delete({
+        await gapi.client.compute.autoscalers.delete({
             autoscaler: "autoscaler",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Returns the specified autoscaler resource. Get a list of available autoscalers by making a list() request. */
-        await gapi.client.autoscalers.get({
+        await gapi.client.compute.autoscalers.get({
             autoscaler: "autoscaler",
             project: "project",
             zone: "zone",
         });
         /** Creates an autoscaler in the specified project using the data included in the request. */
-        await gapi.client.autoscalers.insert({
+        await gapi.client.compute.autoscalers.insert({
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves a list of autoscalers contained within the specified zone. */
-        await gapi.client.autoscalers.list({
+        await gapi.client.compute.autoscalers.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -137,37 +137,37 @@ gapi.load('client', () => {
          * Updates an autoscaler in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge
          * patch format and processing rules.
          */
-        await gapi.client.autoscalers.patch({
+        await gapi.client.compute.autoscalers.patch({
             autoscaler: "autoscaler",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Updates an autoscaler in the specified project using the data included in the request. */
-        await gapi.client.autoscalers.update({
+        await gapi.client.compute.autoscalers.update({
             autoscaler: "autoscaler",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Deletes the specified BackendBucket resource. */
-        await gapi.client.backendBuckets.delete({
+        await gapi.client.compute.backendBuckets.delete({
             backendBucket: "backendBucket",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified BackendBucket resource. Get a list of available backend buckets by making a list() request. */
-        await gapi.client.backendBuckets.get({
+        await gapi.client.compute.backendBuckets.get({
             backendBucket: "backendBucket",
             project: "project",
         });
         /** Creates a BackendBucket resource in the specified project using the data included in the request. */
-        await gapi.client.backendBuckets.insert({
+        await gapi.client.compute.backendBuckets.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of BackendBucket resources available to the specified project. */
-        await gapi.client.backendBuckets.list({
+        await gapi.client.compute.backendBuckets.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -178,19 +178,19 @@ gapi.load('client', () => {
          * Updates the specified BackendBucket resource with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch
          * format and processing rules.
          */
-        await gapi.client.backendBuckets.patch({
+        await gapi.client.compute.backendBuckets.patch({
             backendBucket: "backendBucket",
             project: "project",
             requestId: "requestId",
         });
         /** Updates the specified BackendBucket resource with the data included in the request. */
-        await gapi.client.backendBuckets.update({
+        await gapi.client.compute.backendBuckets.update({
             backendBucket: "backendBucket",
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of all BackendService resources, regional and global, available to the specified project. */
-        await gapi.client.backendServices.aggregatedList({
+        await gapi.client.compute.backendServices.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -198,18 +198,18 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified BackendService resource. */
-        await gapi.client.backendServices.delete({
+        await gapi.client.compute.backendServices.delete({
             backendService: "backendService",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified BackendService resource. Get a list of available backend services by making a list() request. */
-        await gapi.client.backendServices.get({
+        await gapi.client.compute.backendServices.get({
             backendService: "backendService",
             project: "project",
         });
         /** Gets the most recent health check results for this BackendService. */
-        await gapi.client.backendServices.getHealth({
+        await gapi.client.compute.backendServices.getHealth({
             backendService: "backendService",
             project: "project",
         });
@@ -217,12 +217,12 @@ gapi.load('client', () => {
          * Creates a BackendService resource in the specified project using the data included in the request. There are several restrictions and guidelines to
          * keep in mind when creating a backend service. Read  Restrictions and Guidelines for more information.
          */
-        await gapi.client.backendServices.insert({
+        await gapi.client.compute.backendServices.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of BackendService resources available to the specified project. */
-        await gapi.client.backendServices.list({
+        await gapi.client.compute.backendServices.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -234,7 +234,7 @@ gapi.load('client', () => {
          * updating a backend service. Read  Restrictions and Guidelines for more information. This method supports PATCH semantics and uses the JSON merge patch
          * format and processing rules.
          */
-        await gapi.client.backendServices.patch({
+        await gapi.client.compute.backendServices.patch({
             backendService: "backendService",
             project: "project",
             requestId: "requestId",
@@ -243,13 +243,13 @@ gapi.load('client', () => {
          * Updates the specified BackendService resource with the data included in the request. There are several restrictions and guidelines to keep in mind when
          * updating a backend service. Read  Restrictions and Guidelines for more information.
          */
-        await gapi.client.backendServices.update({
+        await gapi.client.compute.backendServices.update({
             backendService: "backendService",
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves an aggregated list of disk types. */
-        await gapi.client.diskTypes.aggregatedList({
+        await gapi.client.compute.diskTypes.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -257,13 +257,13 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Returns the specified disk type. Get a list of available disk types by making a list() request. */
-        await gapi.client.diskTypes.get({
+        await gapi.client.compute.diskTypes.get({
             diskType: "diskType",
             project: "project",
             zone: "zone",
         });
         /** Retrieves a list of disk types available to the specified project. */
-        await gapi.client.diskTypes.list({
+        await gapi.client.compute.diskTypes.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -272,7 +272,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Retrieves an aggregated list of persistent disks. */
-        await gapi.client.disks.aggregatedList({
+        await gapi.client.compute.disks.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -280,7 +280,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Creates a snapshot of a specified persistent disk. */
-        await gapi.client.disks.createSnapshot({
+        await gapi.client.compute.disks.createSnapshot({
             disk: "disk",
             guestFlush: true,
             project: "project",
@@ -291,14 +291,14 @@ gapi.load('client', () => {
          * Deletes the specified persistent disk. Deleting a disk removes its data permanently and is irreversible. However, deleting a disk does not delete any
          * snapshots previously made from the disk. You must separately delete snapshots.
          */
-        await gapi.client.disks.delete({
+        await gapi.client.compute.disks.delete({
             disk: "disk",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Returns a specified persistent disk. Get a list of available persistent disks by making a list() request. */
-        await gapi.client.disks.get({
+        await gapi.client.compute.disks.get({
             disk: "disk",
             project: "project",
             zone: "zone",
@@ -308,14 +308,14 @@ gapi.load('client', () => {
          * an empty 500 GB data disk by omitting all properties. You can also create a disk that is larger than the default size by specifying the sizeGb
          * property.
          */
-        await gapi.client.disks.insert({
+        await gapi.client.compute.disks.insert({
             project: "project",
             requestId: "requestId",
             sourceImage: "sourceImage",
             zone: "zone",
         });
         /** Retrieves a list of persistent disks contained within the specified zone. */
-        await gapi.client.disks.list({
+        await gapi.client.compute.disks.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -324,37 +324,37 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Resizes the specified persistent disk. */
-        await gapi.client.disks.resize({
+        await gapi.client.compute.disks.resize({
             disk: "disk",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Sets the labels on a disk. To learn more about labels, read the Labeling Resources documentation. */
-        await gapi.client.disks.setLabels({
+        await gapi.client.compute.disks.setLabels({
             project: "project",
             requestId: "requestId",
             resource: "resource",
             zone: "zone",
         });
         /** Deletes the specified firewall. */
-        await gapi.client.firewalls.delete({
+        await gapi.client.compute.firewalls.delete({
             firewall: "firewall",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified firewall. */
-        await gapi.client.firewalls.get({
+        await gapi.client.compute.firewalls.get({
             firewall: "firewall",
             project: "project",
         });
         /** Creates a firewall rule in the specified project using the data included in the request. */
-        await gapi.client.firewalls.insert({
+        await gapi.client.compute.firewalls.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of firewall rules available to the specified project. */
-        await gapi.client.firewalls.list({
+        await gapi.client.compute.firewalls.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -365,7 +365,7 @@ gapi.load('client', () => {
          * Updates the specified firewall rule with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format
          * and processing rules.
          */
-        await gapi.client.firewalls.patch({
+        await gapi.client.compute.firewalls.patch({
             firewall: "firewall",
             project: "project",
             requestId: "requestId",
@@ -374,13 +374,13 @@ gapi.load('client', () => {
          * Updates the specified firewall rule with the data included in the request. Using PUT method, can only update following fields of firewall rule:
          * allowed, description, sourceRanges, sourceTags, targetTags.
          */
-        await gapi.client.firewalls.update({
+        await gapi.client.compute.firewalls.update({
             firewall: "firewall",
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves an aggregated list of forwarding rules. */
-        await gapi.client.forwardingRules.aggregatedList({
+        await gapi.client.compute.forwardingRules.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -388,26 +388,26 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified ForwardingRule resource. */
-        await gapi.client.forwardingRules.delete({
+        await gapi.client.compute.forwardingRules.delete({
             forwardingRule: "forwardingRule",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Returns the specified ForwardingRule resource. */
-        await gapi.client.forwardingRules.get({
+        await gapi.client.compute.forwardingRules.get({
             forwardingRule: "forwardingRule",
             project: "project",
             region: "region",
         });
         /** Creates a ForwardingRule resource in the specified project and region using the data included in the request. */
-        await gapi.client.forwardingRules.insert({
+        await gapi.client.compute.forwardingRules.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of ForwardingRule resources available to the specified project and region. */
-        await gapi.client.forwardingRules.list({
+        await gapi.client.compute.forwardingRules.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -416,30 +416,30 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Changes target URL for forwarding rule. The new target should be of the same type as the old target. */
-        await gapi.client.forwardingRules.setTarget({
+        await gapi.client.compute.forwardingRules.setTarget({
             forwardingRule: "forwardingRule",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Deletes the specified address resource. */
-        await gapi.client.globalAddresses.delete({
+        await gapi.client.compute.globalAddresses.delete({
             address: "address",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified address resource. Get a list of available addresses by making a list() request. */
-        await gapi.client.globalAddresses.get({
+        await gapi.client.compute.globalAddresses.get({
             address: "address",
             project: "project",
         });
         /** Creates an address resource in the specified project using the data included in the request. */
-        await gapi.client.globalAddresses.insert({
+        await gapi.client.compute.globalAddresses.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves a list of global addresses. */
-        await gapi.client.globalAddresses.list({
+        await gapi.client.compute.globalAddresses.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -447,23 +447,23 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified GlobalForwardingRule resource. */
-        await gapi.client.globalForwardingRules.delete({
+        await gapi.client.compute.globalForwardingRules.delete({
             forwardingRule: "forwardingRule",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified GlobalForwardingRule resource. Get a list of available forwarding rules by making a list() request. */
-        await gapi.client.globalForwardingRules.get({
+        await gapi.client.compute.globalForwardingRules.get({
             forwardingRule: "forwardingRule",
             project: "project",
         });
         /** Creates a GlobalForwardingRule resource in the specified project using the data included in the request. */
-        await gapi.client.globalForwardingRules.insert({
+        await gapi.client.compute.globalForwardingRules.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves a list of GlobalForwardingRule resources available to the specified project. */
-        await gapi.client.globalForwardingRules.list({
+        await gapi.client.compute.globalForwardingRules.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -471,13 +471,13 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Changes target URL for the GlobalForwardingRule resource. The new target should be of the same type as the old target. */
-        await gapi.client.globalForwardingRules.setTarget({
+        await gapi.client.compute.globalForwardingRules.setTarget({
             forwardingRule: "forwardingRule",
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves an aggregated list of all operations. */
-        await gapi.client.globalOperations.aggregatedList({
+        await gapi.client.compute.globalOperations.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -485,17 +485,17 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified Operations resource. */
-        await gapi.client.globalOperations.delete({
+        await gapi.client.compute.globalOperations.delete({
             operation: "operation",
             project: "project",
         });
         /** Retrieves the specified Operations resource. Get a list of operations by making a list() request. */
-        await gapi.client.globalOperations.get({
+        await gapi.client.compute.globalOperations.get({
             operation: "operation",
             project: "project",
         });
         /** Retrieves a list of Operation resources contained within the specified project. */
-        await gapi.client.globalOperations.list({
+        await gapi.client.compute.globalOperations.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -503,23 +503,23 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified HealthCheck resource. */
-        await gapi.client.healthChecks.delete({
+        await gapi.client.compute.healthChecks.delete({
             healthCheck: "healthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified HealthCheck resource. Get a list of available health checks by making a list() request. */
-        await gapi.client.healthChecks.get({
+        await gapi.client.compute.healthChecks.get({
             healthCheck: "healthCheck",
             project: "project",
         });
         /** Creates a HealthCheck resource in the specified project using the data included in the request. */
-        await gapi.client.healthChecks.insert({
+        await gapi.client.compute.healthChecks.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of HealthCheck resources available to the specified project. */
-        await gapi.client.healthChecks.list({
+        await gapi.client.compute.healthChecks.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -530,35 +530,35 @@ gapi.load('client', () => {
          * Updates a HealthCheck resource in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON
          * merge patch format and processing rules.
          */
-        await gapi.client.healthChecks.patch({
+        await gapi.client.compute.healthChecks.patch({
             healthCheck: "healthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Updates a HealthCheck resource in the specified project using the data included in the request. */
-        await gapi.client.healthChecks.update({
+        await gapi.client.compute.healthChecks.update({
             healthCheck: "healthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Deletes the specified HttpHealthCheck resource. */
-        await gapi.client.httpHealthChecks.delete({
+        await gapi.client.compute.httpHealthChecks.delete({
             httpHealthCheck: "httpHealthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified HttpHealthCheck resource. Get a list of available HTTP health checks by making a list() request. */
-        await gapi.client.httpHealthChecks.get({
+        await gapi.client.compute.httpHealthChecks.get({
             httpHealthCheck: "httpHealthCheck",
             project: "project",
         });
         /** Creates a HttpHealthCheck resource in the specified project using the data included in the request. */
-        await gapi.client.httpHealthChecks.insert({
+        await gapi.client.compute.httpHealthChecks.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of HttpHealthCheck resources available to the specified project. */
-        await gapi.client.httpHealthChecks.list({
+        await gapi.client.compute.httpHealthChecks.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -569,35 +569,35 @@ gapi.load('client', () => {
          * Updates a HttpHealthCheck resource in the specified project using the data included in the request. This method supports PATCH semantics and uses the
          * JSON merge patch format and processing rules.
          */
-        await gapi.client.httpHealthChecks.patch({
+        await gapi.client.compute.httpHealthChecks.patch({
             httpHealthCheck: "httpHealthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Updates a HttpHealthCheck resource in the specified project using the data included in the request. */
-        await gapi.client.httpHealthChecks.update({
+        await gapi.client.compute.httpHealthChecks.update({
             httpHealthCheck: "httpHealthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Deletes the specified HttpsHealthCheck resource. */
-        await gapi.client.httpsHealthChecks.delete({
+        await gapi.client.compute.httpsHealthChecks.delete({
             httpsHealthCheck: "httpsHealthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified HttpsHealthCheck resource. Get a list of available HTTPS health checks by making a list() request. */
-        await gapi.client.httpsHealthChecks.get({
+        await gapi.client.compute.httpsHealthChecks.get({
             httpsHealthCheck: "httpsHealthCheck",
             project: "project",
         });
         /** Creates a HttpsHealthCheck resource in the specified project using the data included in the request. */
-        await gapi.client.httpsHealthChecks.insert({
+        await gapi.client.compute.httpsHealthChecks.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of HttpsHealthCheck resources available to the specified project. */
-        await gapi.client.httpsHealthChecks.list({
+        await gapi.client.compute.httpsHealthChecks.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -608,19 +608,19 @@ gapi.load('client', () => {
          * Updates a HttpsHealthCheck resource in the specified project using the data included in the request. This method supports PATCH semantics and uses the
          * JSON merge patch format and processing rules.
          */
-        await gapi.client.httpsHealthChecks.patch({
+        await gapi.client.compute.httpsHealthChecks.patch({
             httpsHealthCheck: "httpsHealthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Updates a HttpsHealthCheck resource in the specified project using the data included in the request. */
-        await gapi.client.httpsHealthChecks.update({
+        await gapi.client.compute.httpsHealthChecks.update({
             httpsHealthCheck: "httpsHealthCheck",
             project: "project",
             requestId: "requestId",
         });
         /** Deletes the specified image. */
-        await gapi.client.images.delete({
+        await gapi.client.compute.images.delete({
             image: "image",
             project: "project",
             requestId: "requestId",
@@ -630,23 +630,23 @@ gapi.load('client', () => {
          *
          * If an empty request body is given, clears the deprecation status instead.
          */
-        await gapi.client.images.deprecate({
+        await gapi.client.compute.images.deprecate({
             image: "image",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified image. Get a list of available images by making a list() request. */
-        await gapi.client.images.get({
+        await gapi.client.compute.images.get({
             image: "image",
             project: "project",
         });
         /** Returns the latest image that is part of an image family and is not deprecated. */
-        await gapi.client.images.getFromFamily({
+        await gapi.client.compute.images.getFromFamily({
             family: "family",
             project: "project",
         });
         /** Creates an image in the specified project using the data included in the request. */
-        await gapi.client.images.insert({
+        await gapi.client.compute.images.insert({
             forceCreate: true,
             project: "project",
             requestId: "requestId",
@@ -656,7 +656,7 @@ gapi.load('client', () => {
          * does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of
          * publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.
          */
-        await gapi.client.images.list({
+        await gapi.client.compute.images.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -664,7 +664,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Sets the labels on an image. To learn more about labels, read the Labeling Resources documentation. */
-        await gapi.client.images.setLabels({
+        await gapi.client.compute.images.setLabels({
             project: "project",
             resource: "resource",
         });
@@ -679,14 +679,14 @@ gapi.load('client', () => {
          *
          * You can specify a maximum of 1000 instances with this method per request.
          */
-        await gapi.client.instanceGroupManagers.abandonInstances({
+        await gapi.client.compute.instanceGroupManagers.abandonInstances({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves the list of managed instance groups and groups them by zone. */
-        await gapi.client.instanceGroupManagers.aggregatedList({
+        await gapi.client.compute.instanceGroupManagers.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -697,7 +697,7 @@ gapi.load('client', () => {
          * Deletes the specified managed instance group and all of the instances in that group. Note that the instance group must not belong to a backend service.
          * Read  Deleting an instance group for more information.
          */
-        await gapi.client.instanceGroupManagers.delete({
+        await gapi.client.compute.instanceGroupManagers.delete({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
@@ -714,14 +714,14 @@ gapi.load('client', () => {
          *
          * You can specify a maximum of 1000 instances with this method per request.
          */
-        await gapi.client.instanceGroupManagers.deleteInstances({
+        await gapi.client.compute.instanceGroupManagers.deleteInstances({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Returns all of the details about the specified managed instance group. Get a list of available managed instance groups by making a list() request. */
-        await gapi.client.instanceGroupManagers.get({
+        await gapi.client.compute.instanceGroupManagers.get({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             zone: "zone",
@@ -733,13 +733,13 @@ gapi.load('client', () => {
          *
          * A managed instance group can have up to 1000 VM instances per group. Please contact Cloud Support if you need an increase in this limit.
          */
-        await gapi.client.instanceGroupManagers.insert({
+        await gapi.client.compute.instanceGroupManagers.insert({
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves a list of managed instance groups that are contained within the specified project and zone. */
-        await gapi.client.instanceGroupManagers.list({
+        await gapi.client.compute.instanceGroupManagers.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -752,7 +752,7 @@ gapi.load('client', () => {
          * instance group is performing on the instance. For example, if the group is still creating an instance, the currentAction is CREATING. If a previous
          * action failed, the list displays the errors for that failed action.
          */
-        await gapi.client.instanceGroupManagers.listManagedInstances({
+        await gapi.client.compute.instanceGroupManagers.listManagedInstances({
             filter: "filter",
             instanceGroupManager: "instanceGroupManager",
             maxResults: 3,
@@ -771,7 +771,7 @@ gapi.load('client', () => {
          *
          * You can specify a maximum of 1000 instances with this method per request.
          */
-        await gapi.client.instanceGroupManagers.recreateInstances({
+        await gapi.client.compute.instanceGroupManagers.recreateInstances({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
@@ -785,7 +785,7 @@ gapi.load('client', () => {
          * If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has
          * elapsed before the VM instance is removed or deleted.
          */
-        await gapi.client.instanceGroupManagers.resize({
+        await gapi.client.compute.instanceGroupManagers.resize({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
@@ -796,7 +796,7 @@ gapi.load('client', () => {
          * Specifies the instance template to use when creating new instances in this group. The templates for existing instances in the group do not change
          * unless you recreate them.
          */
-        await gapi.client.instanceGroupManagers.setInstanceTemplate({
+        await gapi.client.compute.instanceGroupManagers.setInstanceTemplate({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
@@ -807,7 +807,7 @@ gapi.load('client', () => {
          * instances in the managed instance group. This operation is marked DONE when you make the request even if the instances have not yet been added to their
          * target pools. The change might take some time to apply to all of the instances in the group depending on the size of the group.
          */
-        await gapi.client.instanceGroupManagers.setTargetPools({
+        await gapi.client.compute.instanceGroupManagers.setTargetPools({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             requestId: "requestId",
@@ -817,14 +817,14 @@ gapi.load('client', () => {
          * Adds a list of instances to the specified instance group. All of the instances in the instance group must be in the same network/subnetwork. Read
          * Adding instances for more information.
          */
-        await gapi.client.instanceGroups.addInstances({
+        await gapi.client.compute.instanceGroups.addInstances({
             instanceGroup: "instanceGroup",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves the list of instance groups and sorts them by zone. */
-        await gapi.client.instanceGroups.aggregatedList({
+        await gapi.client.compute.instanceGroups.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -835,26 +835,26 @@ gapi.load('client', () => {
          * Deletes the specified instance group. The instances in the group are not deleted. Note that instance group must not belong to a backend service. Read
          * Deleting an instance group for more information.
          */
-        await gapi.client.instanceGroups.delete({
+        await gapi.client.compute.instanceGroups.delete({
             instanceGroup: "instanceGroup",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Returns the specified instance group. Get a list of available instance groups by making a list() request. */
-        await gapi.client.instanceGroups.get({
+        await gapi.client.compute.instanceGroups.get({
             instanceGroup: "instanceGroup",
             project: "project",
             zone: "zone",
         });
         /** Creates an instance group in the specified project using the parameters that are included in the request. */
-        await gapi.client.instanceGroups.insert({
+        await gapi.client.compute.instanceGroups.insert({
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves the list of instance groups that are located in the specified project and zone. */
-        await gapi.client.instanceGroups.list({
+        await gapi.client.compute.instanceGroups.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -863,7 +863,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Lists the instances in the specified instance group. */
-        await gapi.client.instanceGroups.listInstances({
+        await gapi.client.compute.instanceGroups.listInstances({
             filter: "filter",
             instanceGroup: "instanceGroup",
             maxResults: 3,
@@ -878,14 +878,14 @@ gapi.load('client', () => {
          * If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration
          * before the VM instance is removed or deleted.
          */
-        await gapi.client.instanceGroups.removeInstances({
+        await gapi.client.compute.instanceGroups.removeInstances({
             instanceGroup: "instanceGroup",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Sets the named ports for the specified instance group. */
-        await gapi.client.instanceGroups.setNamedPorts({
+        await gapi.client.compute.instanceGroups.setNamedPorts({
             instanceGroup: "instanceGroup",
             project: "project",
             requestId: "requestId",
@@ -895,13 +895,13 @@ gapi.load('client', () => {
          * Deletes the specified instance template. If you delete an instance template that is being referenced from another instance group, the instance group
          * will not be able to create or recreate virtual machine instances. Deleting an instance template is permanent and cannot be undone.
          */
-        await gapi.client.instanceTemplates.delete({
+        await gapi.client.compute.instanceTemplates.delete({
             instanceTemplate: "instanceTemplate",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified instance template. Get a list of available instance templates by making a list() request. */
-        await gapi.client.instanceTemplates.get({
+        await gapi.client.compute.instanceTemplates.get({
             instanceTemplate: "instanceTemplate",
             project: "project",
         });
@@ -909,12 +909,12 @@ gapi.load('client', () => {
          * Creates an instance template in the specified project using the data that is included in the request. If you are creating a new template to update an
          * existing instance group, your new instance template must use the same network or, if applicable, the same subnetwork as the original template.
          */
-        await gapi.client.instanceTemplates.insert({
+        await gapi.client.compute.instanceTemplates.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves a list of instance templates that are contained within the specified project and zone. */
-        await gapi.client.instanceTemplates.list({
+        await gapi.client.compute.instanceTemplates.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -922,7 +922,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Adds an access config to an instance's network interface. */
-        await gapi.client.instances.addAccessConfig({
+        await gapi.client.compute.instances.addAccessConfig({
             instance: "instance",
             networkInterface: "networkInterface",
             project: "project",
@@ -930,7 +930,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Retrieves aggregated list of instances. */
-        await gapi.client.instances.aggregatedList({
+        await gapi.client.compute.instances.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -941,21 +941,21 @@ gapi.load('client', () => {
          * Attaches an existing Disk resource to an instance. You must first create the disk before you can attach it. It is not possible to create and attach a
          * disk at the same time. For more information, read Adding a persistent disk to your instance.
          */
-        await gapi.client.instances.attachDisk({
+        await gapi.client.compute.instances.attachDisk({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Deletes the specified Instance resource. For more information, see Stopping or Deleting an Instance. */
-        await gapi.client.instances.delete({
+        await gapi.client.compute.instances.delete({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Deletes an access config from an instance's network interface. */
-        await gapi.client.instances.deleteAccessConfig({
+        await gapi.client.compute.instances.deleteAccessConfig({
             accessConfig: "accessConfig",
             instance: "instance",
             networkInterface: "networkInterface",
@@ -964,7 +964,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Detaches a disk from an instance. */
-        await gapi.client.instances.detachDisk({
+        await gapi.client.compute.instances.detachDisk({
             deviceName: "deviceName",
             instance: "instance",
             project: "project",
@@ -972,13 +972,13 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Returns the specified Instance resource. Get a list of available instances by making a list() request. */
-        await gapi.client.instances.get({
+        await gapi.client.compute.instances.get({
             instance: "instance",
             project: "project",
             zone: "zone",
         });
         /** Returns the specified instance's serial port output. */
-        await gapi.client.instances.getSerialPortOutput({
+        await gapi.client.compute.instances.getSerialPortOutput({
             instance: "instance",
             port: 2,
             project: "project",
@@ -986,13 +986,13 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Creates an instance resource in the specified project using the data included in the request. */
-        await gapi.client.instances.insert({
+        await gapi.client.compute.instances.insert({
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves the list of instances contained within the specified zone. */
-        await gapi.client.instances.list({
+        await gapi.client.compute.instances.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1001,14 +1001,22 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Performs a reset on the instance. For more information, see Resetting an instance. */
-        await gapi.client.instances.reset({
+        await gapi.client.compute.instances.reset({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
+        /** Sets deletion protection on the instance. */
+        await gapi.client.compute.instances.setDeletionProtection({
+            deletionProtection: true,
+            project: "project",
+            requestId: "requestId",
+            resource: "resource",
+            zone: "zone",
+        });
         /** Sets the auto-delete flag for a disk attached to an instance. */
-        await gapi.client.instances.setDiskAutoDelete({
+        await gapi.client.compute.instances.setDiskAutoDelete({
             autoDelete: true,
             deviceName: "deviceName",
             instance: "instance",
@@ -1017,28 +1025,28 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Sets labels on an instance. To learn more about labels, read the Labeling Resources documentation. */
-        await gapi.client.instances.setLabels({
+        await gapi.client.compute.instances.setLabels({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Changes the number and/or type of accelerator for a stopped instance to the values specified in the request. */
-        await gapi.client.instances.setMachineResources({
+        await gapi.client.compute.instances.setMachineResources({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Changes the machine type for a stopped instance to the machine type specified in the request. */
-        await gapi.client.instances.setMachineType({
+        await gapi.client.compute.instances.setMachineType({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Sets metadata for the specified instance to the data included in the request. */
-        await gapi.client.instances.setMetadata({
+        await gapi.client.compute.instances.setMetadata({
             instance: "instance",
             project: "project",
             requestId: "requestId",
@@ -1048,65 +1056,147 @@ gapi.load('client', () => {
          * Changes the minimum CPU platform that this instance should use. This method can only be called on a stopped instance. For more information, read
          * Specifying a Minimum CPU Platform.
          */
-        await gapi.client.instances.setMinCpuPlatform({
+        await gapi.client.compute.instances.setMinCpuPlatform({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Sets an instance's scheduling options. */
-        await gapi.client.instances.setScheduling({
+        await gapi.client.compute.instances.setScheduling({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Sets the service account on the instance. For more information, read Changing the service account and access scopes for an instance. */
-        await gapi.client.instances.setServiceAccount({
+        await gapi.client.compute.instances.setServiceAccount({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Sets tags for the specified instance to the data included in the request. */
-        await gapi.client.instances.setTags({
+        await gapi.client.compute.instances.setTags({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Starts an instance that was stopped using the using the instances().stop method. For more information, see Restart an instance. */
-        await gapi.client.instances.start({
+        await gapi.client.compute.instances.start({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Starts an instance that was stopped using the using the instances().stop method. For more information, see Restart an instance. */
-        await gapi.client.instances.startWithEncryptionKey({
+        await gapi.client.compute.instances.startWithEncryptionKey({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /**
-         * Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur per-minute,
-         * virtual machine usage charges while they are stopped, but any resources that the virtual machine is using, such as persistent disks and static IP
-         * addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance.
+         * Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur VM usage
+         * charges while they are stopped. However, resources that the VM is using, such as persistent disks and static IP addresses, will continue to be charged
+         * until they are deleted. For more information, see Stopping an instance.
          */
-        await gapi.client.instances.stop({
+        await gapi.client.compute.instances.stop({
             instance: "instance",
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
+        /** Retrieves an aggregated list of interconnect attachments. */
+        await gapi.client.compute.interconnectAttachments.aggregatedList({
+            filter: "filter",
+            maxResults: 2,
+            orderBy: "orderBy",
+            pageToken: "pageToken",
+            project: "project",
+        });
+        /** Deletes the specified interconnect attachment. */
+        await gapi.client.compute.interconnectAttachments.delete({
+            interconnectAttachment: "interconnectAttachment",
+            project: "project",
+            region: "region",
+            requestId: "requestId",
+        });
+        /** Returns the specified interconnect attachment. */
+        await gapi.client.compute.interconnectAttachments.get({
+            interconnectAttachment: "interconnectAttachment",
+            project: "project",
+            region: "region",
+        });
+        /** Creates an InterconnectAttachment in the specified project using the data included in the request. */
+        await gapi.client.compute.interconnectAttachments.insert({
+            project: "project",
+            region: "region",
+            requestId: "requestId",
+        });
+        /** Retrieves the list of interconnect attachments contained within the specified region. */
+        await gapi.client.compute.interconnectAttachments.list({
+            filter: "filter",
+            maxResults: 2,
+            orderBy: "orderBy",
+            pageToken: "pageToken",
+            project: "project",
+            region: "region",
+        });
+        /** Returns the details for the specified interconnect location. Get a list of available interconnect locations by making a list() request. */
+        await gapi.client.compute.interconnectLocations.get({
+            interconnectLocation: "interconnectLocation",
+            project: "project",
+        });
+        /** Retrieves the list of interconnect locations available to the specified project. */
+        await gapi.client.compute.interconnectLocations.list({
+            filter: "filter",
+            maxResults: 2,
+            orderBy: "orderBy",
+            pageToken: "pageToken",
+            project: "project",
+        });
+        /** Deletes the specified interconnect. */
+        await gapi.client.compute.interconnects.delete({
+            interconnect: "interconnect",
+            project: "project",
+            requestId: "requestId",
+        });
+        /** Returns the specified interconnect. Get a list of available interconnects by making a list() request. */
+        await gapi.client.compute.interconnects.get({
+            interconnect: "interconnect",
+            project: "project",
+        });
+        /** Creates a Interconnect in the specified project using the data included in the request. */
+        await gapi.client.compute.interconnects.insert({
+            project: "project",
+            requestId: "requestId",
+        });
+        /** Retrieves the list of interconnect available to the specified project. */
+        await gapi.client.compute.interconnects.list({
+            filter: "filter",
+            maxResults: 2,
+            orderBy: "orderBy",
+            pageToken: "pageToken",
+            project: "project",
+        });
+        /**
+         * Updates the specified interconnect with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and
+         * processing rules.
+         */
+        await gapi.client.compute.interconnects.patch({
+            interconnect: "interconnect",
+            project: "project",
+            requestId: "requestId",
+        });
         /** Returns the specified License resource. */
-        await gapi.client.licenses.get({
+        await gapi.client.compute.licenses.get({
             license: "license",
             project: "project",
         });
         /** Retrieves an aggregated list of machine types. */
-        await gapi.client.machineTypes.aggregatedList({
+        await gapi.client.compute.machineTypes.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1114,13 +1204,13 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Returns the specified machine type. Get a list of available machine types by making a list() request. */
-        await gapi.client.machineTypes.get({
+        await gapi.client.compute.machineTypes.get({
             machineType: "machineType",
             project: "project",
             zone: "zone",
         });
         /** Retrieves a list of machine types available to the specified project. */
-        await gapi.client.machineTypes.list({
+        await gapi.client.compute.machineTypes.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1129,29 +1219,29 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Adds a peering to the specified network. */
-        await gapi.client.networks.addPeering({
+        await gapi.client.compute.networks.addPeering({
             network: "network",
             project: "project",
             requestId: "requestId",
         });
         /** Deletes the specified network. */
-        await gapi.client.networks.delete({
+        await gapi.client.compute.networks.delete({
             network: "network",
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified network. Get a list of available networks by making a list() request. */
-        await gapi.client.networks.get({
+        await gapi.client.compute.networks.get({
             network: "network",
             project: "project",
         });
         /** Creates a network in the specified project using the data included in the request. */
-        await gapi.client.networks.insert({
+        await gapi.client.compute.networks.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of networks available to the specified project. */
-        await gapi.client.networks.list({
+        await gapi.client.compute.networks.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1159,35 +1249,35 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Patches the specified network with the data included in the request. */
-        await gapi.client.networks.patch({
+        await gapi.client.compute.networks.patch({
             network: "network",
             project: "project",
             requestId: "requestId",
         });
         /** Removes a peering from the specified network. */
-        await gapi.client.networks.removePeering({
+        await gapi.client.compute.networks.removePeering({
             network: "network",
             project: "project",
             requestId: "requestId",
         });
         /** Switches the network mode from auto subnet mode to custom subnet mode. */
-        await gapi.client.networks.switchToCustomMode({
+        await gapi.client.compute.networks.switchToCustomMode({
             network: "network",
             project: "project",
             requestId: "requestId",
         });
         /** Disable this project as a shared VPC host project. */
-        await gapi.client.projects.disableXpnHost({
+        await gapi.client.compute.projects.disableXpnHost({
             project: "project",
             requestId: "requestId",
         });
         /** Disable a serivce resource (a.k.a service project) associated with this host project. */
-        await gapi.client.projects.disableXpnResource({
+        await gapi.client.compute.projects.disableXpnResource({
             project: "project",
             requestId: "requestId",
         });
         /** Enable this project as a shared VPC host project. */
-        await gapi.client.projects.enableXpnHost({
+        await gapi.client.compute.projects.enableXpnHost({
             project: "project",
             requestId: "requestId",
         });
@@ -1195,20 +1285,20 @@ gapi.load('client', () => {
          * Enable service resource (a.k.a service project) for a host project, so that subnets in the host project can be used by instances in the service
          * project.
          */
-        await gapi.client.projects.enableXpnResource({
+        await gapi.client.compute.projects.enableXpnResource({
             project: "project",
             requestId: "requestId",
         });
         /** Returns the specified Project resource. */
-        await gapi.client.projects.get({
+        await gapi.client.compute.projects.get({
             project: "project",
         });
         /** Get the shared VPC host project that this project links to. May be empty if no link exists. */
-        await gapi.client.projects.getXpnHost({
+        await gapi.client.compute.projects.getXpnHost({
             project: "project",
         });
         /** Get service resources (a.k.a service project) associated with this host project. */
-        await gapi.client.projects.getXpnResources({
+        await gapi.client.compute.projects.getXpnResources({
             filter: "filter",
             maxResults: 2,
             order_by: "order_by",
@@ -1216,7 +1306,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** List all shared VPC host projects visible to the user in an organization. */
-        await gapi.client.projects.listXpnHosts({
+        await gapi.client.compute.projects.listXpnHosts({
             filter: "filter",
             maxResults: 2,
             order_by: "order_by",
@@ -1224,17 +1314,17 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Moves a persistent disk from one zone to another. */
-        await gapi.client.projects.moveDisk({
+        await gapi.client.compute.projects.moveDisk({
             project: "project",
             requestId: "requestId",
         });
         /** Moves an instance and its attached persistent disks from one zone to another. */
-        await gapi.client.projects.moveInstance({
+        await gapi.client.compute.projects.moveInstance({
             project: "project",
             requestId: "requestId",
         });
         /** Sets metadata common to all instances within the specified project using the data included in the request. */
-        await gapi.client.projects.setCommonInstanceMetadata({
+        await gapi.client.compute.projects.setCommonInstanceMetadata({
             project: "project",
             requestId: "requestId",
         });
@@ -1242,31 +1332,31 @@ gapi.load('client', () => {
          * Enables the usage export feature and sets the usage export bucket where reports are stored. If you provide an empty request body using this method, the
          * usage export feature will be disabled.
          */
-        await gapi.client.projects.setUsageExportBucket({
+        await gapi.client.compute.projects.setUsageExportBucket({
             project: "project",
             requestId: "requestId",
         });
         /** Deletes the specified autoscaler. */
-        await gapi.client.regionAutoscalers.delete({
+        await gapi.client.compute.regionAutoscalers.delete({
             autoscaler: "autoscaler",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Returns the specified autoscaler. */
-        await gapi.client.regionAutoscalers.get({
+        await gapi.client.compute.regionAutoscalers.get({
             autoscaler: "autoscaler",
             project: "project",
             region: "region",
         });
         /** Creates an autoscaler in the specified project using the data included in the request. */
-        await gapi.client.regionAutoscalers.insert({
+        await gapi.client.compute.regionAutoscalers.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of autoscalers contained within the specified region. */
-        await gapi.client.regionAutoscalers.list({
+        await gapi.client.compute.regionAutoscalers.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1278,34 +1368,34 @@ gapi.load('client', () => {
          * Updates an autoscaler in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge
          * patch format and processing rules.
          */
-        await gapi.client.regionAutoscalers.patch({
+        await gapi.client.compute.regionAutoscalers.patch({
             autoscaler: "autoscaler",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Updates an autoscaler in the specified project using the data included in the request. */
-        await gapi.client.regionAutoscalers.update({
+        await gapi.client.compute.regionAutoscalers.update({
             autoscaler: "autoscaler",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Deletes the specified regional BackendService resource. */
-        await gapi.client.regionBackendServices.delete({
+        await gapi.client.compute.regionBackendServices.delete({
             backendService: "backendService",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Returns the specified regional BackendService resource. */
-        await gapi.client.regionBackendServices.get({
+        await gapi.client.compute.regionBackendServices.get({
             backendService: "backendService",
             project: "project",
             region: "region",
         });
         /** Gets the most recent health check results for this regional BackendService. */
-        await gapi.client.regionBackendServices.getHealth({
+        await gapi.client.compute.regionBackendServices.getHealth({
             backendService: "backendService",
             project: "project",
             region: "region",
@@ -1314,13 +1404,13 @@ gapi.load('client', () => {
          * Creates a regional BackendService resource in the specified project using the data included in the request. There are several restrictions and
          * guidelines to keep in mind when creating a regional backend service. Read  Restrictions and Guidelines for more information.
          */
-        await gapi.client.regionBackendServices.insert({
+        await gapi.client.compute.regionBackendServices.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves the list of regional BackendService resources available to the specified project in the given region. */
-        await gapi.client.regionBackendServices.list({
+        await gapi.client.compute.regionBackendServices.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1333,7 +1423,7 @@ gapi.load('client', () => {
          * mind when updating a backend service. Read  Restrictions and Guidelines for more information. This method supports PATCH semantics and uses the JSON
          * merge patch format and processing rules.
          */
-        await gapi.client.regionBackendServices.patch({
+        await gapi.client.compute.regionBackendServices.patch({
             backendService: "backendService",
             project: "project",
             region: "region",
@@ -1343,14 +1433,14 @@ gapi.load('client', () => {
          * Updates the specified regional BackendService resource with the data included in the request. There are several restrictions and guidelines to keep in
          * mind when updating a backend service. Read  Restrictions and Guidelines for more information.
          */
-        await gapi.client.regionBackendServices.update({
+        await gapi.client.compute.regionBackendServices.update({
             backendService: "backendService",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves an aggregated list of commitments. */
-        await gapi.client.regionCommitments.aggregatedList({
+        await gapi.client.compute.regionCommitments.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1358,19 +1448,19 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Returns the specified commitment resource. Get a list of available commitments by making a list() request. */
-        await gapi.client.regionCommitments.get({
+        await gapi.client.compute.regionCommitments.get({
             commitment: "commitment",
             project: "project",
             region: "region",
         });
         /** Creates a commitment in the specified project using the data included in the request. */
-        await gapi.client.regionCommitments.insert({
+        await gapi.client.compute.regionCommitments.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of commitments contained within the specified region. */
-        await gapi.client.regionCommitments.list({
+        await gapi.client.compute.regionCommitments.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1389,14 +1479,14 @@ gapi.load('client', () => {
          *
          * You can specify a maximum of 1000 instances with this method per request.
          */
-        await gapi.client.regionInstanceGroupManagers.abandonInstances({
+        await gapi.client.compute.regionInstanceGroupManagers.abandonInstances({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Deletes the specified managed instance group and all of the instances in that group. */
-        await gapi.client.regionInstanceGroupManagers.delete({
+        await gapi.client.compute.regionInstanceGroupManagers.delete({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
@@ -1413,14 +1503,14 @@ gapi.load('client', () => {
          *
          * You can specify a maximum of 1000 instances with this method per request.
          */
-        await gapi.client.regionInstanceGroupManagers.deleteInstances({
+        await gapi.client.compute.regionInstanceGroupManagers.deleteInstances({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Returns all of the details about the specified managed instance group. */
-        await gapi.client.regionInstanceGroupManagers.get({
+        await gapi.client.compute.regionInstanceGroupManagers.get({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
@@ -1432,13 +1522,13 @@ gapi.load('client', () => {
          *
          * A regional managed instance group can contain up to 2000 instances.
          */
-        await gapi.client.regionInstanceGroupManagers.insert({
+        await gapi.client.compute.regionInstanceGroupManagers.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves the list of managed instance groups that are contained within the specified region. */
-        await gapi.client.regionInstanceGroupManagers.list({
+        await gapi.client.compute.regionInstanceGroupManagers.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1450,7 +1540,7 @@ gapi.load('client', () => {
          * Lists the instances in the managed instance group and instances that are scheduled to be created. The list includes any current actions that the group
          * has scheduled for its instances.
          */
-        await gapi.client.regionInstanceGroupManagers.listManagedInstances({
+        await gapi.client.compute.regionInstanceGroupManagers.listManagedInstances({
             filter: "filter",
             instanceGroupManager: "instanceGroupManager",
             maxResults: 3,
@@ -1469,7 +1559,7 @@ gapi.load('client', () => {
          *
          * You can specify a maximum of 1000 instances with this method per request.
          */
-        await gapi.client.regionInstanceGroupManagers.recreateInstances({
+        await gapi.client.compute.regionInstanceGroupManagers.recreateInstances({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
@@ -1484,7 +1574,7 @@ gapi.load('client', () => {
          * If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has
          * elapsed before the VM instance is removed or deleted.
          */
-        await gapi.client.regionInstanceGroupManagers.resize({
+        await gapi.client.compute.regionInstanceGroupManagers.resize({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
@@ -1492,27 +1582,27 @@ gapi.load('client', () => {
             size: 5,
         });
         /** Sets the instance template to use when creating new instances or recreating instances in this group. Existing instances are not affected. */
-        await gapi.client.regionInstanceGroupManagers.setInstanceTemplate({
+        await gapi.client.compute.regionInstanceGroupManagers.setInstanceTemplate({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Modifies the target pools to which all new instances in this group are assigned. Existing instances in the group are not affected. */
-        await gapi.client.regionInstanceGroupManagers.setTargetPools({
+        await gapi.client.compute.regionInstanceGroupManagers.setTargetPools({
             instanceGroupManager: "instanceGroupManager",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Returns the specified instance group resource. */
-        await gapi.client.regionInstanceGroups.get({
+        await gapi.client.compute.regionInstanceGroups.get({
             instanceGroup: "instanceGroup",
             project: "project",
             region: "region",
         });
         /** Retrieves the list of instance group resources contained within the specified region. */
-        await gapi.client.regionInstanceGroups.list({
+        await gapi.client.compute.regionInstanceGroups.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1524,7 +1614,7 @@ gapi.load('client', () => {
          * Lists the instances in the specified instance group and displays information about the named ports. Depending on the specified options, this method can
          * list all instances or only the instances that are running.
          */
-        await gapi.client.regionInstanceGroups.listInstances({
+        await gapi.client.compute.regionInstanceGroups.listInstances({
             filter: "filter",
             instanceGroup: "instanceGroup",
             maxResults: 3,
@@ -1534,26 +1624,26 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Sets the named ports for the specified regional instance group. */
-        await gapi.client.regionInstanceGroups.setNamedPorts({
+        await gapi.client.compute.regionInstanceGroups.setNamedPorts({
             instanceGroup: "instanceGroup",
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Deletes the specified region-specific Operations resource. */
-        await gapi.client.regionOperations.delete({
+        await gapi.client.compute.regionOperations.delete({
             operation: "operation",
             project: "project",
             region: "region",
         });
         /** Retrieves the specified region-specific Operations resource. */
-        await gapi.client.regionOperations.get({
+        await gapi.client.compute.regionOperations.get({
             operation: "operation",
             project: "project",
             region: "region",
         });
         /** Retrieves a list of Operation resources contained within the specified region. */
-        await gapi.client.regionOperations.list({
+        await gapi.client.compute.regionOperations.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1562,12 +1652,12 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Returns the specified Region resource. Get a list of available regions by making a list() request. */
-        await gapi.client.regions.get({
+        await gapi.client.compute.regions.get({
             project: "project",
             region: "region",
         });
         /** Retrieves the list of region resources available to the specified project. */
-        await gapi.client.regions.list({
+        await gapi.client.compute.regions.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1575,7 +1665,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Retrieves an aggregated list of routers. */
-        await gapi.client.routers.aggregatedList({
+        await gapi.client.compute.routers.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1583,32 +1673,32 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified Router resource. */
-        await gapi.client.routers.delete({
+        await gapi.client.compute.routers.delete({
             project: "project",
             region: "region",
             requestId: "requestId",
             router: "router",
         });
         /** Returns the specified Router resource. Get a list of available routers by making a list() request. */
-        await gapi.client.routers.get({
+        await gapi.client.compute.routers.get({
             project: "project",
             region: "region",
             router: "router",
         });
         /** Retrieves runtime information of the specified router. */
-        await gapi.client.routers.getRouterStatus({
+        await gapi.client.compute.routers.getRouterStatus({
             project: "project",
             region: "region",
             router: "router",
         });
         /** Creates a Router resource in the specified project and region using the data included in the request. */
-        await gapi.client.routers.insert({
+        await gapi.client.compute.routers.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of Router resources available to the specified project. */
-        await gapi.client.routers.list({
+        await gapi.client.compute.routers.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1620,43 +1710,43 @@ gapi.load('client', () => {
          * Patches the specified Router resource with the data included in the request. This method supports PATCH semantics and uses JSON merge patch format and
          * processing rules.
          */
-        await gapi.client.routers.patch({
+        await gapi.client.compute.routers.patch({
             project: "project",
             region: "region",
             requestId: "requestId",
             router: "router",
         });
         /** Preview fields auto-generated during router create and update operations. Calling this method does NOT create or update the router. */
-        await gapi.client.routers.preview({
+        await gapi.client.compute.routers.preview({
             project: "project",
             region: "region",
             router: "router",
         });
         /** Updates the specified Router resource with the data included in the request. */
-        await gapi.client.routers.update({
+        await gapi.client.compute.routers.update({
             project: "project",
             region: "region",
             requestId: "requestId",
             router: "router",
         });
         /** Deletes the specified Route resource. */
-        await gapi.client.routes.delete({
+        await gapi.client.compute.routes.delete({
             project: "project",
             requestId: "requestId",
             route: "route",
         });
         /** Returns the specified Route resource. Get a list of available routes by making a list() request. */
-        await gapi.client.routes.get({
+        await gapi.client.compute.routes.get({
             project: "project",
             route: "route",
         });
         /** Creates a Route resource in the specified project using the data included in the request. */
-        await gapi.client.routes.insert({
+        await gapi.client.compute.routes.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of Route resources available to the specified project. */
-        await gapi.client.routes.list({
+        await gapi.client.compute.routes.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1669,18 +1759,18 @@ gapi.load('client', () => {
          *
          * For more information, see Deleting snaphots.
          */
-        await gapi.client.snapshots.delete({
+        await gapi.client.compute.snapshots.delete({
             project: "project",
             requestId: "requestId",
             snapshot: "snapshot",
         });
         /** Returns the specified Snapshot resource. Get a list of available snapshots by making a list() request. */
-        await gapi.client.snapshots.get({
+        await gapi.client.compute.snapshots.get({
             project: "project",
             snapshot: "snapshot",
         });
         /** Retrieves the list of Snapshot resources contained within the specified project. */
-        await gapi.client.snapshots.list({
+        await gapi.client.compute.snapshots.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1688,28 +1778,28 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Sets the labels on a snapshot. To learn more about labels, read the Labeling Resources documentation. */
-        await gapi.client.snapshots.setLabels({
+        await gapi.client.compute.snapshots.setLabels({
             project: "project",
             resource: "resource",
         });
         /** Deletes the specified SslCertificate resource. */
-        await gapi.client.sslCertificates.delete({
+        await gapi.client.compute.sslCertificates.delete({
             project: "project",
             requestId: "requestId",
             sslCertificate: "sslCertificate",
         });
         /** Returns the specified SslCertificate resource. Get a list of available SSL certificates by making a list() request. */
-        await gapi.client.sslCertificates.get({
+        await gapi.client.compute.sslCertificates.get({
             project: "project",
             sslCertificate: "sslCertificate",
         });
         /** Creates a SslCertificate resource in the specified project using the data included in the request. */
-        await gapi.client.sslCertificates.insert({
+        await gapi.client.compute.sslCertificates.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of SslCertificate resources available to the specified project. */
-        await gapi.client.sslCertificates.list({
+        await gapi.client.compute.sslCertificates.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1717,7 +1807,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Retrieves an aggregated list of subnetworks. */
-        await gapi.client.subnetworks.aggregatedList({
+        await gapi.client.compute.subnetworks.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1725,33 +1815,33 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified subnetwork. */
-        await gapi.client.subnetworks.delete({
+        await gapi.client.compute.subnetworks.delete({
             project: "project",
             region: "region",
             requestId: "requestId",
             subnetwork: "subnetwork",
         });
         /** Expands the IP CIDR range of the subnetwork to a specified value. */
-        await gapi.client.subnetworks.expandIpCidrRange({
+        await gapi.client.compute.subnetworks.expandIpCidrRange({
             project: "project",
             region: "region",
             requestId: "requestId",
             subnetwork: "subnetwork",
         });
         /** Returns the specified subnetwork. Get a list of available subnetworks list() request. */
-        await gapi.client.subnetworks.get({
+        await gapi.client.compute.subnetworks.get({
             project: "project",
             region: "region",
             subnetwork: "subnetwork",
         });
         /** Creates a subnetwork in the specified project using the data included in the request. */
-        await gapi.client.subnetworks.insert({
+        await gapi.client.compute.subnetworks.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of subnetworks available to the specified project. */
-        await gapi.client.subnetworks.list({
+        await gapi.client.compute.subnetworks.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1760,30 +1850,30 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Set whether VMs in this subnet can access Google services without assigning external IP addresses through Private Google Access. */
-        await gapi.client.subnetworks.setPrivateIpGoogleAccess({
+        await gapi.client.compute.subnetworks.setPrivateIpGoogleAccess({
             project: "project",
             region: "region",
             requestId: "requestId",
             subnetwork: "subnetwork",
         });
         /** Deletes the specified TargetHttpProxy resource. */
-        await gapi.client.targetHttpProxies.delete({
+        await gapi.client.compute.targetHttpProxies.delete({
             project: "project",
             requestId: "requestId",
             targetHttpProxy: "targetHttpProxy",
         });
         /** Returns the specified TargetHttpProxy resource. Get a list of available target HTTP proxies by making a list() request. */
-        await gapi.client.targetHttpProxies.get({
+        await gapi.client.compute.targetHttpProxies.get({
             project: "project",
             targetHttpProxy: "targetHttpProxy",
         });
         /** Creates a TargetHttpProxy resource in the specified project using the data included in the request. */
-        await gapi.client.targetHttpProxies.insert({
+        await gapi.client.compute.targetHttpProxies.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of TargetHttpProxy resources available to the specified project. */
-        await gapi.client.targetHttpProxies.list({
+        await gapi.client.compute.targetHttpProxies.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1791,29 +1881,29 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Changes the URL map for TargetHttpProxy. */
-        await gapi.client.targetHttpProxies.setUrlMap({
+        await gapi.client.compute.targetHttpProxies.setUrlMap({
             project: "project",
             requestId: "requestId",
             targetHttpProxy: "targetHttpProxy",
         });
         /** Deletes the specified TargetHttpsProxy resource. */
-        await gapi.client.targetHttpsProxies.delete({
+        await gapi.client.compute.targetHttpsProxies.delete({
             project: "project",
             requestId: "requestId",
             targetHttpsProxy: "targetHttpsProxy",
         });
         /** Returns the specified TargetHttpsProxy resource. Get a list of available target HTTPS proxies by making a list() request. */
-        await gapi.client.targetHttpsProxies.get({
+        await gapi.client.compute.targetHttpsProxies.get({
             project: "project",
             targetHttpsProxy: "targetHttpsProxy",
         });
         /** Creates a TargetHttpsProxy resource in the specified project using the data included in the request. */
-        await gapi.client.targetHttpsProxies.insert({
+        await gapi.client.compute.targetHttpsProxies.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of TargetHttpsProxy resources available to the specified project. */
-        await gapi.client.targetHttpsProxies.list({
+        await gapi.client.compute.targetHttpsProxies.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1821,19 +1911,19 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Replaces SslCertificates for TargetHttpsProxy. */
-        await gapi.client.targetHttpsProxies.setSslCertificates({
+        await gapi.client.compute.targetHttpsProxies.setSslCertificates({
             project: "project",
             requestId: "requestId",
             targetHttpsProxy: "targetHttpsProxy",
         });
         /** Changes the URL map for TargetHttpsProxy. */
-        await gapi.client.targetHttpsProxies.setUrlMap({
+        await gapi.client.compute.targetHttpsProxies.setUrlMap({
             project: "project",
             requestId: "requestId",
             targetHttpsProxy: "targetHttpsProxy",
         });
         /** Retrieves an aggregated list of target instances. */
-        await gapi.client.targetInstances.aggregatedList({
+        await gapi.client.compute.targetInstances.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1841,26 +1931,26 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified TargetInstance resource. */
-        await gapi.client.targetInstances.delete({
+        await gapi.client.compute.targetInstances.delete({
             project: "project",
             requestId: "requestId",
             targetInstance: "targetInstance",
             zone: "zone",
         });
         /** Returns the specified TargetInstance resource. Get a list of available target instances by making a list() request. */
-        await gapi.client.targetInstances.get({
+        await gapi.client.compute.targetInstances.get({
             project: "project",
             targetInstance: "targetInstance",
             zone: "zone",
         });
         /** Creates a TargetInstance resource in the specified project and zone using the data included in the request. */
-        await gapi.client.targetInstances.insert({
+        await gapi.client.compute.targetInstances.insert({
             project: "project",
             requestId: "requestId",
             zone: "zone",
         });
         /** Retrieves a list of TargetInstance resources available to the specified project and zone. */
-        await gapi.client.targetInstances.list({
+        await gapi.client.compute.targetInstances.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1869,21 +1959,21 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Adds health check URLs to a target pool. */
-        await gapi.client.targetPools.addHealthCheck({
+        await gapi.client.compute.targetPools.addHealthCheck({
             project: "project",
             region: "region",
             requestId: "requestId",
             targetPool: "targetPool",
         });
         /** Adds an instance to a target pool. */
-        await gapi.client.targetPools.addInstance({
+        await gapi.client.compute.targetPools.addInstance({
             project: "project",
             region: "region",
             requestId: "requestId",
             targetPool: "targetPool",
         });
         /** Retrieves an aggregated list of target pools. */
-        await gapi.client.targetPools.aggregatedList({
+        await gapi.client.compute.targetPools.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1891,32 +1981,32 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified target pool. */
-        await gapi.client.targetPools.delete({
+        await gapi.client.compute.targetPools.delete({
             project: "project",
             region: "region",
             requestId: "requestId",
             targetPool: "targetPool",
         });
         /** Returns the specified target pool. Get a list of available target pools by making a list() request. */
-        await gapi.client.targetPools.get({
+        await gapi.client.compute.targetPools.get({
             project: "project",
             region: "region",
             targetPool: "targetPool",
         });
         /** Gets the most recent health check results for each IP for the instance that is referenced by the given target pool. */
-        await gapi.client.targetPools.getHealth({
+        await gapi.client.compute.targetPools.getHealth({
             project: "project",
             region: "region",
             targetPool: "targetPool",
         });
         /** Creates a target pool in the specified project and region using the data included in the request. */
-        await gapi.client.targetPools.insert({
+        await gapi.client.compute.targetPools.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of target pools available to the specified project and region. */
-        await gapi.client.targetPools.list({
+        await gapi.client.compute.targetPools.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1925,21 +2015,21 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Removes health check URL from a target pool. */
-        await gapi.client.targetPools.removeHealthCheck({
+        await gapi.client.compute.targetPools.removeHealthCheck({
             project: "project",
             region: "region",
             requestId: "requestId",
             targetPool: "targetPool",
         });
         /** Removes instance URL from a target pool. */
-        await gapi.client.targetPools.removeInstance({
+        await gapi.client.compute.targetPools.removeInstance({
             project: "project",
             region: "region",
             requestId: "requestId",
             targetPool: "targetPool",
         });
         /** Changes a backup target pool's configurations. */
-        await gapi.client.targetPools.setBackup({
+        await gapi.client.compute.targetPools.setBackup({
             failoverRatio: 1,
             project: "project",
             region: "region",
@@ -1947,23 +2037,23 @@ gapi.load('client', () => {
             targetPool: "targetPool",
         });
         /** Deletes the specified TargetSslProxy resource. */
-        await gapi.client.targetSslProxies.delete({
+        await gapi.client.compute.targetSslProxies.delete({
             project: "project",
             requestId: "requestId",
             targetSslProxy: "targetSslProxy",
         });
         /** Returns the specified TargetSslProxy resource. Get a list of available target SSL proxies by making a list() request. */
-        await gapi.client.targetSslProxies.get({
+        await gapi.client.compute.targetSslProxies.get({
             project: "project",
             targetSslProxy: "targetSslProxy",
         });
         /** Creates a TargetSslProxy resource in the specified project using the data included in the request. */
-        await gapi.client.targetSslProxies.insert({
+        await gapi.client.compute.targetSslProxies.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of TargetSslProxy resources available to the specified project. */
-        await gapi.client.targetSslProxies.list({
+        await gapi.client.compute.targetSslProxies.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -1971,41 +2061,41 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Changes the BackendService for TargetSslProxy. */
-        await gapi.client.targetSslProxies.setBackendService({
+        await gapi.client.compute.targetSslProxies.setBackendService({
             project: "project",
             requestId: "requestId",
             targetSslProxy: "targetSslProxy",
         });
         /** Changes the ProxyHeaderType for TargetSslProxy. */
-        await gapi.client.targetSslProxies.setProxyHeader({
+        await gapi.client.compute.targetSslProxies.setProxyHeader({
             project: "project",
             requestId: "requestId",
             targetSslProxy: "targetSslProxy",
         });
         /** Changes SslCertificates for TargetSslProxy. */
-        await gapi.client.targetSslProxies.setSslCertificates({
+        await gapi.client.compute.targetSslProxies.setSslCertificates({
             project: "project",
             requestId: "requestId",
             targetSslProxy: "targetSslProxy",
         });
         /** Deletes the specified TargetTcpProxy resource. */
-        await gapi.client.targetTcpProxies.delete({
+        await gapi.client.compute.targetTcpProxies.delete({
             project: "project",
             requestId: "requestId",
             targetTcpProxy: "targetTcpProxy",
         });
         /** Returns the specified TargetTcpProxy resource. Get a list of available target TCP proxies by making a list() request. */
-        await gapi.client.targetTcpProxies.get({
+        await gapi.client.compute.targetTcpProxies.get({
             project: "project",
             targetTcpProxy: "targetTcpProxy",
         });
         /** Creates a TargetTcpProxy resource in the specified project using the data included in the request. */
-        await gapi.client.targetTcpProxies.insert({
+        await gapi.client.compute.targetTcpProxies.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Retrieves the list of TargetTcpProxy resources available to the specified project. */
-        await gapi.client.targetTcpProxies.list({
+        await gapi.client.compute.targetTcpProxies.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2013,19 +2103,19 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Changes the BackendService for TargetTcpProxy. */
-        await gapi.client.targetTcpProxies.setBackendService({
+        await gapi.client.compute.targetTcpProxies.setBackendService({
             project: "project",
             requestId: "requestId",
             targetTcpProxy: "targetTcpProxy",
         });
         /** Changes the ProxyHeaderType for TargetTcpProxy. */
-        await gapi.client.targetTcpProxies.setProxyHeader({
+        await gapi.client.compute.targetTcpProxies.setProxyHeader({
             project: "project",
             requestId: "requestId",
             targetTcpProxy: "targetTcpProxy",
         });
         /** Retrieves an aggregated list of target VPN gateways. */
-        await gapi.client.targetVpnGateways.aggregatedList({
+        await gapi.client.compute.targetVpnGateways.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2033,26 +2123,26 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified target VPN gateway. */
-        await gapi.client.targetVpnGateways.delete({
+        await gapi.client.compute.targetVpnGateways.delete({
             project: "project",
             region: "region",
             requestId: "requestId",
             targetVpnGateway: "targetVpnGateway",
         });
         /** Returns the specified target VPN gateway. Get a list of available target VPN gateways by making a list() request. */
-        await gapi.client.targetVpnGateways.get({
+        await gapi.client.compute.targetVpnGateways.get({
             project: "project",
             region: "region",
             targetVpnGateway: "targetVpnGateway",
         });
         /** Creates a target VPN gateway in the specified project and region using the data included in the request. */
-        await gapi.client.targetVpnGateways.insert({
+        await gapi.client.compute.targetVpnGateways.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of target VPN gateways available to the specified project and region. */
-        await gapi.client.targetVpnGateways.list({
+        await gapi.client.compute.targetVpnGateways.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2061,29 +2151,29 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Deletes the specified UrlMap resource. */
-        await gapi.client.urlMaps.delete({
+        await gapi.client.compute.urlMaps.delete({
             project: "project",
             requestId: "requestId",
             urlMap: "urlMap",
         });
         /** Returns the specified UrlMap resource. Get a list of available URL maps by making a list() request. */
-        await gapi.client.urlMaps.get({
+        await gapi.client.compute.urlMaps.get({
             project: "project",
             urlMap: "urlMap",
         });
         /** Creates a UrlMap resource in the specified project using the data included in the request. */
-        await gapi.client.urlMaps.insert({
+        await gapi.client.compute.urlMaps.insert({
             project: "project",
             requestId: "requestId",
         });
         /** Initiates a cache invalidation operation, invalidating the specified path, scoped to the specified UrlMap. */
-        await gapi.client.urlMaps.invalidateCache({
+        await gapi.client.compute.urlMaps.invalidateCache({
             project: "project",
             requestId: "requestId",
             urlMap: "urlMap",
         });
         /** Retrieves the list of UrlMap resources available to the specified project. */
-        await gapi.client.urlMaps.list({
+        await gapi.client.compute.urlMaps.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2094,24 +2184,24 @@ gapi.load('client', () => {
          * Patches the specified UrlMap resource with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format
          * and processing rules.
          */
-        await gapi.client.urlMaps.patch({
+        await gapi.client.compute.urlMaps.patch({
             project: "project",
             requestId: "requestId",
             urlMap: "urlMap",
         });
         /** Updates the specified UrlMap resource with the data included in the request. */
-        await gapi.client.urlMaps.update({
+        await gapi.client.compute.urlMaps.update({
             project: "project",
             requestId: "requestId",
             urlMap: "urlMap",
         });
         /** Runs static validation for the UrlMap. In particular, the tests of the provided UrlMap will be run. Calling this method does NOT create the UrlMap. */
-        await gapi.client.urlMaps.validate({
+        await gapi.client.compute.urlMaps.validate({
             project: "project",
             urlMap: "urlMap",
         });
         /** Retrieves an aggregated list of VPN tunnels. */
-        await gapi.client.vpnTunnels.aggregatedList({
+        await gapi.client.compute.vpnTunnels.aggregatedList({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2119,26 +2209,26 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Deletes the specified VpnTunnel resource. */
-        await gapi.client.vpnTunnels.delete({
+        await gapi.client.compute.vpnTunnels.delete({
             project: "project",
             region: "region",
             requestId: "requestId",
             vpnTunnel: "vpnTunnel",
         });
         /** Returns the specified VpnTunnel resource. Get a list of available VPN tunnels by making a list() request. */
-        await gapi.client.vpnTunnels.get({
+        await gapi.client.compute.vpnTunnels.get({
             project: "project",
             region: "region",
             vpnTunnel: "vpnTunnel",
         });
         /** Creates a VpnTunnel resource in the specified project and region using the data included in the request. */
-        await gapi.client.vpnTunnels.insert({
+        await gapi.client.compute.vpnTunnels.insert({
             project: "project",
             region: "region",
             requestId: "requestId",
         });
         /** Retrieves a list of VpnTunnel resources contained in the specified project and region. */
-        await gapi.client.vpnTunnels.list({
+        await gapi.client.compute.vpnTunnels.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2147,19 +2237,19 @@ gapi.load('client', () => {
             region: "region",
         });
         /** Deletes the specified zone-specific Operations resource. */
-        await gapi.client.zoneOperations.delete({
+        await gapi.client.compute.zoneOperations.delete({
             operation: "operation",
             project: "project",
             zone: "zone",
         });
         /** Retrieves the specified zone-specific Operations resource. */
-        await gapi.client.zoneOperations.get({
+        await gapi.client.compute.zoneOperations.get({
             operation: "operation",
             project: "project",
             zone: "zone",
         });
         /** Retrieves a list of Operation resources contained within the specified zone. */
-        await gapi.client.zoneOperations.list({
+        await gapi.client.compute.zoneOperations.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -2168,12 +2258,12 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Returns the specified Zone resource. Get a list of available zones by making a list() request. */
-        await gapi.client.zones.get({
+        await gapi.client.compute.zones.get({
             project: "project",
             zone: "zone",
         });
         /** Retrieves the list of Zone resources available to the specified project. */
-        await gapi.client.zones.list({
+        await gapi.client.compute.zones.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "vault", version: "v1"): PromiseLike<void>;
     function load(name: "vault", version: "v1", callback: () => any): void;
 
-    const matters: vault.MattersResource;
-
     namespace vault {
         interface AddMatterPermissionsRequest {
             /**
@@ -800,5 +798,7 @@ declare namespace gapi.client {
             }): Request<Matter>;
             holds: HoldsResource;
         }
+
+        const matters: vault.MattersResource;
     }
 }

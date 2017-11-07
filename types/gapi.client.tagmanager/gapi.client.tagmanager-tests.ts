@@ -41,15 +41,15 @@ gapi.load('client', () => {
 
     async function run() {
         /** Gets a GTM Account. */
-        await gapi.client.accounts.get({
+        await gapi.client.tagmanager.accounts.get({
             path: "path",
         });
         /** Lists all GTM Accounts that a user has access to. */
-        await gapi.client.accounts.list({
+        await gapi.client.tagmanager.accounts.list({
             pageToken: "pageToken",
         });
         /** Updates a GTM Account. */
-        await gapi.client.accounts.update({
+        await gapi.client.tagmanager.accounts.update({
             fingerprint: "fingerprint",
             path: "path",
         });

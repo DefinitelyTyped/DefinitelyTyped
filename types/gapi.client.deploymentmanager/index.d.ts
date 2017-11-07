@@ -16,16 +16,6 @@ declare namespace gapi.client {
     function load(name: "deploymentmanager", version: "v2"): PromiseLike<void>;
     function load(name: "deploymentmanager", version: "v2", callback: () => any): void;
 
-    const deployments: deploymentmanager.DeploymentsResource;
-
-    const manifests: deploymentmanager.ManifestsResource;
-
-    const operations: deploymentmanager.OperationsResource;
-
-    const resources: deploymentmanager.ResourcesResource;
-
-    const types: deploymentmanager.TypesResource;
-
     namespace deploymentmanager {
         interface AuditConfig {
             /** The configuration for logging of each type of permission. */
@@ -1171,5 +1161,15 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<TypesListResponse>;
         }
+
+        const deployments: deploymentmanager.DeploymentsResource;
+
+        const manifests: deploymentmanager.ManifestsResource;
+
+        const operations: deploymentmanager.OperationsResource;
+
+        const resources: deploymentmanager.ResourcesResource;
+
+        const types: deploymentmanager.TypesResource;
     }
 }

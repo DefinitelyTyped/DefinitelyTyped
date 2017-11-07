@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "doubleclickbidmanager", version: "v1"): PromiseLike<void>;
     function load(name: "doubleclickbidmanager", version: "v1", callback: () => any): void;
 
-    const lineitems: doubleclickbidmanager.LineitemsResource;
-
-    const queries: doubleclickbidmanager.QueriesResource;
-
-    const reports: doubleclickbidmanager.ReportsResource;
-
-    const sdf: doubleclickbidmanager.SdfResource;
-
     namespace doubleclickbidmanager {
         interface DownloadLineItemsRequest {
             /** File specification (column names, types, order) in which the line items will be returned. Default to EWF. */
@@ -431,5 +423,13 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<DownloadResponse>;
         }
+
+        const lineitems: doubleclickbidmanager.LineitemsResource;
+
+        const queries: doubleclickbidmanager.QueriesResource;
+
+        const reports: doubleclickbidmanager.ReportsResource;
+
+        const sdf: doubleclickbidmanager.SdfResource;
     }
 }

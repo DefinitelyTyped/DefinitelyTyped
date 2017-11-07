@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "ml", version: "v1"): PromiseLike<void>;
     function load(name: "ml", version: "v1", callback: () => any): void;
 
-    const projects: ml.ProjectsResource;
-
     namespace ml {
         interface GoogleApi__HttpBody {
             /** The HTTP Content-Type string representing the content type of the body. */
@@ -380,15 +378,34 @@ declare namespace gapi.client {
              * <dt>standard_gpu</dt>
              * <dd>
              * A machine equivalent to <code suppresswarning="true">standard</code> that
-             * also includes a
+             * also includes a single NVIDIA Tesla K80 GPU. See more about
              * <a href="/ml-engine/docs/how-tos/using-gpus">
-             * GPU that you can use in your trainer</a>.
+             * using GPUs for training your model</a>.
              * </dd>
              * <dt>complex_model_m_gpu</dt>
              * <dd>
              * A machine equivalent to
              * <code suppresswarning="true">complex_model_m</code> that also includes
-             * four GPUs.
+             * four NVIDIA Tesla K80 GPUs.
+             * </dd>
+             * <dt>complex_model_l_gpu</dt>
+             * <dd>
+             * A machine equivalent to
+             * <code suppresswarning="true">complex_model_l</code> that also includes
+             * eight NVIDIA Tesla K80 GPUs.
+             * </dd>
+             * <dt>standard_p100</dt>
+             * <dd>
+             * A machine equivalent to <code suppresswarning="true">standard</code> that
+             * also includes a single NVIDIA Tesla P100 GPU. The availability of these
+             * GPUs is in the Alpha launch stage.
+             * </dd>
+             * <dt>complex_model_m_p100</dt>
+             * <dd>
+             * A machine equivalent to
+             * <code suppresswarning="true">complex_model_m</code> that also includes
+             * four NVIDIA Tesla P100 GPUs. The availability of these GPUs is in
+             * the Alpha launch stage.
              * </dd>
              * </dl>
              *
@@ -1139,6 +1156,8 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Optional. Specifies the subset of versions to retrieve. */
+                filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1437,6 +1456,8 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Optional. Specifies the subset of models to retrieve. */
+                filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1851,5 +1872,7 @@ declare namespace gapi.client {
             models: ModelsResource;
             operations: OperationsResource;
         }
+
+        const projects: ml.ProjectsResource;
     }
 }

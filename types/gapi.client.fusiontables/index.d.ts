@@ -16,18 +16,6 @@ declare namespace gapi.client {
     function load(name: "fusiontables", version: "v2"): PromiseLike<void>;
     function load(name: "fusiontables", version: "v2", callback: () => any): void;
 
-    const column: fusiontables.ColumnResource;
-
-    const query: fusiontables.QueryResource;
-
-    const style: fusiontables.StyleResource;
-
-    const table: fusiontables.TableResource;
-
-    const task: fusiontables.TaskResource;
-
-    const template: fusiontables.TemplateResource;
-
     namespace fusiontables {
         interface Bucket {
             /** Color of line or the interior of a polygon in #RRGGBB format. */
@@ -1184,5 +1172,17 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Template>;
         }
+
+        const column: fusiontables.ColumnResource;
+
+        const query: fusiontables.QueryResource;
+
+        const style: fusiontables.StyleResource;
+
+        const table: fusiontables.TableResource;
+
+        const task: fusiontables.TaskResource;
+
+        const template: fusiontables.TemplateResource;
     }
 }

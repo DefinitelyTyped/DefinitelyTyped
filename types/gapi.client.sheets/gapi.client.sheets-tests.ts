@@ -57,11 +57,11 @@ gapi.load('client', () => {
          * collaborator changes. If there are no collaborators, the spreadsheet
          * should reflect your changes.
          */
-        await gapi.client.spreadsheets.batchUpdate({
+        await gapi.client.sheets.spreadsheets.batchUpdate({
             spreadsheetId: "spreadsheetId",
         });
         /** Creates a spreadsheet, returning the newly created spreadsheet. */
-        await gapi.client.spreadsheets.create({
+        await gapi.client.sheets.spreadsheets.create({
         });
         /**
          * Returns the spreadsheet at the given ID.
@@ -86,7 +86,7 @@ gapi.load('client', () => {
          * return only the portions of the spreadsheet that intersect the requested
          * ranges. Ranges are specified using A1 notation.
          */
-        await gapi.client.spreadsheets.get({
+        await gapi.client.sheets.spreadsheets.get({
             includeGridData: true,
             ranges: "ranges",
             spreadsheetId: "spreadsheetId",
@@ -115,7 +115,7 @@ gapi.load('client', () => {
          * For large spreadsheets, it is recommended to retrieve only the specific
          * fields of the spreadsheet that you want.
          */
-        await gapi.client.spreadsheets.getByDataFilter({
+        await gapi.client.sheets.spreadsheets.getByDataFilter({
             spreadsheetId: "spreadsheetId",
         });
     }

@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "proximitybeacon", version: "v1beta1"): PromiseLike<void>;
     function load(name: "proximitybeacon", version: "v1beta1", callback: () => any): void;
 
-    const beaconinfo: proximitybeacon.BeaconinfoResource;
-
-    const beacons: proximitybeacon.BeaconsResource;
-
-    const namespaces: proximitybeacon.NamespacesResource;
-
-    const v1beta1: proximitybeacon.V1beta1Resource;
-
     namespace proximitybeacon {
         interface AdvertisedId {
             /**
@@ -1363,5 +1355,13 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<EphemeralIdRegistrationParams>;
         }
+
+        const beaconinfo: proximitybeacon.BeaconinfoResource;
+
+        const beacons: proximitybeacon.BeaconsResource;
+
+        const namespaces: proximitybeacon.NamespacesResource;
+
+        const v1beta1: proximitybeacon.V1beta1Resource;
     }
 }

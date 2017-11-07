@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "firebaseremoteconfig", version: "v1"): PromiseLike<void>;
     function load(name: "firebaseremoteconfig", version: "v1", callback: () => any): void;
 
-    const projects: firebaseremoteconfig.ProjectsResource;
-
     namespace firebaseremoteconfig {
         interface RemoteConfig {
             /**
@@ -50,6 +48,14 @@ declare namespace gapi.client {
             parameters?: Record<string, RemoteConfigParameter>;
         }
         interface RemoteConfigCondition {
+            /**
+             * Optional.
+             * A description for this Condition. Length must be less than or equal to
+             * 100 characters (or more precisely, unicode code points, which is defined in
+             * java/com/google/wireless/android/config/ConstsExporter.java).
+             * A description may contain any Unicode characters
+             */
+            description?: string;
             /** Required. */
             expression?: string;
             /**
@@ -83,6 +89,14 @@ declare namespace gapi.client {
              * evaluate to <code>true</code>.
              */
             defaultValue?: RemoteConfigParameterValue;
+            /**
+             * Optional.
+             * A description for this Parameter. Length must be less than or equal to
+             * 100 characters (or more precisely, unicode code points, which is defined in
+             * java/com/google/wireless/android/config/ConstsExporter.java).
+             * A description may contain any Unicode characters
+             */
+            description?: string;
         }
         interface RemoteConfigParameterValue {
             /** if true, omit the parameter from the map of fetched parameter values */
@@ -193,5 +207,7 @@ declare namespace gapi.client {
                 validateOnly?: boolean;
             }): Request<RemoteConfig>;
         }
+
+        const projects: firebaseremoteconfig.ProjectsResource;
     }
 }

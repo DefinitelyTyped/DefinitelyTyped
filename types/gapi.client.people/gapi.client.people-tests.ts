@@ -48,18 +48,18 @@ gapi.load('client', () => {
          * Get a list of contact groups owned by the authenticated user by specifying
          * a list of contact group resource names.
          */
-        await gapi.client.contactGroups.batchGet({
+        await gapi.client.people.contactGroups.batchGet({
             maxMembers: 1,
             resourceNames: "resourceNames",
         });
         /** Create a new contact group owned by the authenticated user. */
-        await gapi.client.contactGroups.create({
+        await gapi.client.people.contactGroups.create({
         });
         /**
          * Delete an existing contact group owned by the authenticated user by
          * specifying a contact group resource name.
          */
-        await gapi.client.contactGroups.delete({
+        await gapi.client.people.contactGroups.delete({
             deleteContacts: true,
             resourceName: "resourceName",
         });
@@ -67,7 +67,7 @@ gapi.load('client', () => {
          * Get a specific contact group owned by the authenticated user by specifying
          * a contact group resource name.
          */
-        await gapi.client.contactGroups.get({
+        await gapi.client.people.contactGroups.get({
             maxMembers: 1,
             resourceName: "resourceName",
         });
@@ -75,7 +75,7 @@ gapi.load('client', () => {
          * List all contact groups owned by the authenticated user. Members of the
          * contact groups are not populated.
          */
-        await gapi.client.contactGroups.list({
+        await gapi.client.people.contactGroups.list({
             pageSize: 1,
             pageToken: "pageToken",
             syncToken: "syncToken",
@@ -84,15 +84,15 @@ gapi.load('client', () => {
          * Update the name of an existing contact group owned by the authenticated
          * user.
          */
-        await gapi.client.contactGroups.update({
+        await gapi.client.people.contactGroups.update({
             resourceName: "resourceName",
         });
         /** Create a new contact and return the person resource for that contact. */
-        await gapi.client.people.createContact({
+        await gapi.client.people.people.createContact({
             parent: "parent",
         });
         /** Delete a contact person. Any non-contact data will not be deleted. */
-        await gapi.client.people.deleteContact({
+        await gapi.client.people.people.deleteContact({
             resourceName: "resourceName",
         });
         /**
@@ -101,7 +101,7 @@ gapi.load('client', () => {
          * <br>
          * The request throws a 400 error if 'personFields' is not specified.
          */
-        await gapi.client.people.get({
+        await gapi.client.people.people.get({
             personFields: "personFields",
             "requestMask.includeField": "requestMask.includeField",
             resourceName: "resourceName",
@@ -113,7 +113,7 @@ gapi.load('client', () => {
          * <br>
          * The request throws a 400 error if 'personFields' is not specified.
          */
-        await gapi.client.people.getBatchGet({
+        await gapi.client.people.people.getBatchGet({
             personFields: "personFields",
             "requestMask.includeField": "requestMask.includeField",
             resourceNames: "resourceNames",
@@ -132,7 +132,7 @@ gapi.load('client', () => {
          * since its data was read. Clients should get the latest person and re-apply
          * their updates to the latest person.
          */
-        await gapi.client.people.updateContact({
+        await gapi.client.people.people.updateContact({
             resourceName: "resourceName",
             updatePersonFields: "updatePersonFields",
         });

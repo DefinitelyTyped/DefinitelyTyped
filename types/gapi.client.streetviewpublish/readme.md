@@ -69,7 +69,8 @@ CreatePhoto.
 
 This method returns the following error codes:
 
-* google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
+* google.rpc.Code.INVALID_ARGUMENT if the request is malformed or if
+the uploaded photo is not a 360 photo.
 * google.rpc.Code.NOT_FOUND if the upload reference does not exist.
 * google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the
 storage limit.  

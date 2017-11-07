@@ -16,18 +16,6 @@ declare namespace gapi.client {
     function load(name: "adsensehost", version: "v4.1"): PromiseLike<void>;
     function load(name: "adsensehost", version: "v4.1", callback: () => any): void;
 
-    const accounts: adsensehost.AccountsResource;
-
-    const adclients: adsensehost.AdclientsResource;
-
-    const associationsessions: adsensehost.AssociationsessionsResource;
-
-    const customchannels: adsensehost.CustomchannelsResource;
-
-    const reports: adsensehost.ReportsResource;
-
-    const urlchannels: adsensehost.UrlchannelsResource;
-
     namespace adsensehost {
         interface Account {
             /** Unique identifier of this account. */
@@ -963,5 +951,17 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<UrlChannels>;
         }
+
+        const accounts: adsensehost.AccountsResource;
+
+        const adclients: adsensehost.AdclientsResource;
+
+        const associationsessions: adsensehost.AssociationsessionsResource;
+
+        const customchannels: adsensehost.CustomchannelsResource;
+
+        const reports: adsensehost.ReportsResource;
+
+        const urlchannels: adsensehost.UrlchannelsResource;
     }
 }

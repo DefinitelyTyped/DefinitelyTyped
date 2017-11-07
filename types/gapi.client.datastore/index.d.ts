@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "datastore", version: "v1"): PromiseLike<void>;
     function load(name: "datastore", version: "v1", callback: () => any): void;
 
-    const projects: datastore.ProjectsResource;
-
     namespace datastore {
         interface AllocateIdsRequest {
             /**
@@ -561,6 +559,15 @@ declare namespace gapi.client {
             /** The transaction identifier of the transaction being retried. */
             previousTransaction?: string;
         }
+        interface ReserveIdsRequest {
+            /** If not empty, the ID of the database against which to make the request. */
+            databaseId?: string;
+            /**
+             * A list of keys with complete key paths whose numeric IDs should not be
+             * auto-allocated.
+             */
+            keys?: Key[];
+        }
         interface RollbackRequest {
             /**
              * The transaction identifier, returned by a call to
@@ -959,6 +966,40 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<LookupResponse>;
+            /**
+             * Prevents the supplied keys' IDs from being auto-allocated by Cloud
+             * Datastore.
+             */
+            reserveIds(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** The ID of the project against which to make the request. */
+                projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
             /** Rolls back a transaction. */
             rollback(request: {
                 /** V1 error format. */
@@ -1023,5 +1064,7 @@ declare namespace gapi.client {
             }): Request<RunQueryResponse>;
             operations: OperationsResource;
         }
+
+        const projects: datastore.ProjectsResource;
     }
 }

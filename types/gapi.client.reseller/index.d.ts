@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "reseller", version: "v1"): PromiseLike<void>;
     function load(name: "reseller", version: "v1", callback: () => any): void;
 
-    const customers: reseller.CustomersResource;
-
-    const resellernotify: reseller.ResellernotifyResource;
-
-    const subscriptions: reseller.SubscriptionsResource;
-
     namespace reseller {
         interface Address {
             /** A customer's physical address. An address can be composed of one to three lines. The addressline2 and addressLine3 are optional. */
@@ -789,5 +783,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Subscription>;
         }
+
+        const customers: reseller.CustomersResource;
+
+        const resellernotify: reseller.ResellernotifyResource;
+
+        const subscriptions: reseller.SubscriptionsResource;
     }
 }

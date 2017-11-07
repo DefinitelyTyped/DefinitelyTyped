@@ -13,28 +13,28 @@ gapi.load('client', () => {
 
     async function run() {
         /** Searches for political divisions by their natural name or OCD ID. */
-        await gapi.client.divisions.search({
+        await gapi.client.civicinfo.divisions.search({
             query: "query",
         });
         /** List of available elections to query. */
-        await gapi.client.elections.electionQuery({
+        await gapi.client.civicinfo.elections.electionQuery({
         });
         /** Looks up information relevant to a voter based on the voter's registered address. */
-        await gapi.client.elections.voterInfoQuery({
+        await gapi.client.civicinfo.elections.voterInfoQuery({
             address: "address",
             electionId: "electionId",
             officialOnly: true,
             returnAllAvailableData: true,
         });
         /** Looks up political geography and representative information for a single address. */
-        await gapi.client.representatives.representativeInfoByAddress({
+        await gapi.client.civicinfo.representatives.representativeInfoByAddress({
             address: "address",
             includeOffices: true,
             levels: "levels",
             roles: "roles",
         });
         /** Looks up representative information for a single geographic division. */
-        await gapi.client.representatives.representativeInfoByDivision({
+        await gapi.client.civicinfo.representatives.representativeInfoByDivision({
             levels: "levels",
             ocdId: "ocdId",
             recursive: true,

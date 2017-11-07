@@ -16,12 +16,6 @@ declare namespace gapi.client {
     function load(name: "plus", version: "v1"): PromiseLike<void>;
     function load(name: "plus", version: "v1", callback: () => any): void;
 
-    const activities: plus.ActivitiesResource;
-
-    const comments: plus.CommentsResource;
-
-    const people: plus.PeopleResource;
-
     namespace plus {
         interface Acl {
             /** Description of the access granted, suitable for display. */
@@ -902,5 +896,11 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<PeopleFeed>;
         }
+
+        const activities: plus.ActivitiesResource;
+
+        const comments: plus.CommentsResource;
+
+        const people: plus.PeopleResource;
     }
 }

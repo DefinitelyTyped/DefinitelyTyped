@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "dataproc", version: "v1"): PromiseLike<void>;
     function load(name: "dataproc", version: "v1", callback: () => any): void;
 
-    const projects: dataproc.ProjectsResource;
-
     namespace dataproc {
         interface AcceleratorConfig {
             /** The number of the accelerator cards of this type exposed to this instance. */
@@ -959,12 +957,12 @@ declare namespace gapi.client {
                 fields?: string;
                 /**
                  * Optional. A filter constraining the jobs to list. Filters are case-sensitive and have the following syntax:field = value AND field = value ...where
-                 * field is status.state or labels.[KEY], and [KEY] is a label key. value can be &#42; to match all values. status.state can be either ACTIVE or INACTIVE.
+                 * field is status.state or labels.[KEY], and [KEY] is a label key. value can be &#42; to match all values. status.state can be either ACTIVE or NON_ACTIVE.
                  * Only the logical AND operator is supported; space-separated items are treated as having an implicit AND operator.Example filter:status.state = ACTIVE
                  * AND labels.env = staging AND labels.starred = &#42;
                  */
                 filter?: string;
-                /** Optional. Specifies enumerated categories of jobs to list (default = match ALL jobs). */
+                /** Optional. Specifies enumerated categories of jobs to list. (default = match ALL jobs).If filter is provided, jobStateMatcher will be ignored. */
                 jobStateMatcher?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -1221,5 +1219,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             regions: RegionsResource;
         }
+
+        const projects: dataproc.ProjectsResource;
     }
 }

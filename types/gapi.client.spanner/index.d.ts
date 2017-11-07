@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "spanner", version: "v1"): PromiseLike<void>;
     function load(name: "spanner", version: "v1", callback: () => any): void;
 
-    const projects: spanner.ProjectsResource;
-
     namespace spanner {
         interface BeginTransactionRequest {
             /** Required. Options for the new transaction. */
@@ -2701,5 +2699,7 @@ declare namespace gapi.client {
             instanceConfigs: InstanceConfigsResource;
             instances: InstancesResource;
         }
+
+        const projects: spanner.ProjectsResource;
     }
 }

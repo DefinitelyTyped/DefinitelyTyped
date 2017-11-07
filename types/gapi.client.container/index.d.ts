@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "container", version: "v1"): PromiseLike<void>;
     function load(name: "container", version: "v1", callback: () => any): void;
 
-    const projects: container.ProjectsResource;
-
     namespace container {
         interface AcceleratorConfig {
             /** The number of the accelerator cards exposed to an instance. */
@@ -2197,5 +2195,7 @@ declare namespace gapi.client {
         interface ProjectsResource {
             zones: ZonesResource;
         }
+
+        const projects: container.ProjectsResource;
     }
 }

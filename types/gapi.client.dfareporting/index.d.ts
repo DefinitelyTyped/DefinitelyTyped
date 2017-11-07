@@ -16,126 +16,6 @@ declare namespace gapi.client {
     function load(name: "dfareporting", version: "v2.8"): PromiseLike<void>;
     function load(name: "dfareporting", version: "v2.8", callback: () => any): void;
 
-    const accountActiveAdSummaries: dfareporting.AccountActiveAdSummariesResource;
-
-    const accountPermissionGroups: dfareporting.AccountPermissionGroupsResource;
-
-    const accountPermissions: dfareporting.AccountPermissionsResource;
-
-    const accountUserProfiles: dfareporting.AccountUserProfilesResource;
-
-    const accounts: dfareporting.AccountsResource;
-
-    const ads: dfareporting.AdsResource;
-
-    const advertiserGroups: dfareporting.AdvertiserGroupsResource;
-
-    const advertisers: dfareporting.AdvertisersResource;
-
-    const browsers: dfareporting.BrowsersResource;
-
-    const campaignCreativeAssociations: dfareporting.CampaignCreativeAssociationsResource;
-
-    const campaigns: dfareporting.CampaignsResource;
-
-    const changeLogs: dfareporting.ChangeLogsResource;
-
-    const cities: dfareporting.CitiesResource;
-
-    const connectionTypes: dfareporting.ConnectionTypesResource;
-
-    const contentCategories: dfareporting.ContentCategoriesResource;
-
-    const conversions: dfareporting.ConversionsResource;
-
-    const countries: dfareporting.CountriesResource;
-
-    const creativeAssets: dfareporting.CreativeAssetsResource;
-
-    const creativeFieldValues: dfareporting.CreativeFieldValuesResource;
-
-    const creativeFields: dfareporting.CreativeFieldsResource;
-
-    const creativeGroups: dfareporting.CreativeGroupsResource;
-
-    const creatives: dfareporting.CreativesResource;
-
-    const dimensionValues: dfareporting.DimensionValuesResource;
-
-    const directorySiteContacts: dfareporting.DirectorySiteContactsResource;
-
-    const directorySites: dfareporting.DirectorySitesResource;
-
-    const dynamicTargetingKeys: dfareporting.DynamicTargetingKeysResource;
-
-    const eventTags: dfareporting.EventTagsResource;
-
-    const files: dfareporting.FilesResource;
-
-    const floodlightActivities: dfareporting.FloodlightActivitiesResource;
-
-    const floodlightActivityGroups: dfareporting.FloodlightActivityGroupsResource;
-
-    const floodlightConfigurations: dfareporting.FloodlightConfigurationsResource;
-
-    const inventoryItems: dfareporting.InventoryItemsResource;
-
-    const landingPages: dfareporting.LandingPagesResource;
-
-    const languages: dfareporting.LanguagesResource;
-
-    const metros: dfareporting.MetrosResource;
-
-    const mobileCarriers: dfareporting.MobileCarriersResource;
-
-    const operatingSystemVersions: dfareporting.OperatingSystemVersionsResource;
-
-    const operatingSystems: dfareporting.OperatingSystemsResource;
-
-    const orderDocuments: dfareporting.OrderDocumentsResource;
-
-    const orders: dfareporting.OrdersResource;
-
-    const placementGroups: dfareporting.PlacementGroupsResource;
-
-    const placementStrategies: dfareporting.PlacementStrategiesResource;
-
-    const placements: dfareporting.PlacementsResource;
-
-    const platformTypes: dfareporting.PlatformTypesResource;
-
-    const postalCodes: dfareporting.PostalCodesResource;
-
-    const projects: dfareporting.ProjectsResource;
-
-    const regions: dfareporting.RegionsResource;
-
-    const remarketingListShares: dfareporting.RemarketingListSharesResource;
-
-    const remarketingLists: dfareporting.RemarketingListsResource;
-
-    const reports: dfareporting.ReportsResource;
-
-    const sites: dfareporting.SitesResource;
-
-    const sizes: dfareporting.SizesResource;
-
-    const subaccounts: dfareporting.SubaccountsResource;
-
-    const targetableRemarketingLists: dfareporting.TargetableRemarketingListsResource;
-
-    const targetingTemplates: dfareporting.TargetingTemplatesResource;
-
-    const userProfiles: dfareporting.UserProfilesResource;
-
-    const userRolePermissionGroups: dfareporting.UserRolePermissionGroupsResource;
-
-    const userRolePermissions: dfareporting.UserRolePermissionsResource;
-
-    const userRoles: dfareporting.UserRolesResource;
-
-    const videoFormats: dfareporting.VideoFormatsResource;
-
     namespace dfareporting {
         interface Account {
             /** Account permissions assigned to this account. */
@@ -9846,5 +9726,125 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<VideoFormatsListResponse>;
         }
+
+        const accountActiveAdSummaries: dfareporting.AccountActiveAdSummariesResource;
+
+        const accountPermissionGroups: dfareporting.AccountPermissionGroupsResource;
+
+        const accountPermissions: dfareporting.AccountPermissionsResource;
+
+        const accountUserProfiles: dfareporting.AccountUserProfilesResource;
+
+        const accounts: dfareporting.AccountsResource;
+
+        const ads: dfareporting.AdsResource;
+
+        const advertiserGroups: dfareporting.AdvertiserGroupsResource;
+
+        const advertisers: dfareporting.AdvertisersResource;
+
+        const browsers: dfareporting.BrowsersResource;
+
+        const campaignCreativeAssociations: dfareporting.CampaignCreativeAssociationsResource;
+
+        const campaigns: dfareporting.CampaignsResource;
+
+        const changeLogs: dfareporting.ChangeLogsResource;
+
+        const cities: dfareporting.CitiesResource;
+
+        const connectionTypes: dfareporting.ConnectionTypesResource;
+
+        const contentCategories: dfareporting.ContentCategoriesResource;
+
+        const conversions: dfareporting.ConversionsResource;
+
+        const countries: dfareporting.CountriesResource;
+
+        const creativeAssets: dfareporting.CreativeAssetsResource;
+
+        const creativeFieldValues: dfareporting.CreativeFieldValuesResource;
+
+        const creativeFields: dfareporting.CreativeFieldsResource;
+
+        const creativeGroups: dfareporting.CreativeGroupsResource;
+
+        const creatives: dfareporting.CreativesResource;
+
+        const dimensionValues: dfareporting.DimensionValuesResource;
+
+        const directorySiteContacts: dfareporting.DirectorySiteContactsResource;
+
+        const directorySites: dfareporting.DirectorySitesResource;
+
+        const dynamicTargetingKeys: dfareporting.DynamicTargetingKeysResource;
+
+        const eventTags: dfareporting.EventTagsResource;
+
+        const files: dfareporting.FilesResource;
+
+        const floodlightActivities: dfareporting.FloodlightActivitiesResource;
+
+        const floodlightActivityGroups: dfareporting.FloodlightActivityGroupsResource;
+
+        const floodlightConfigurations: dfareporting.FloodlightConfigurationsResource;
+
+        const inventoryItems: dfareporting.InventoryItemsResource;
+
+        const landingPages: dfareporting.LandingPagesResource;
+
+        const languages: dfareporting.LanguagesResource;
+
+        const metros: dfareporting.MetrosResource;
+
+        const mobileCarriers: dfareporting.MobileCarriersResource;
+
+        const operatingSystemVersions: dfareporting.OperatingSystemVersionsResource;
+
+        const operatingSystems: dfareporting.OperatingSystemsResource;
+
+        const orderDocuments: dfareporting.OrderDocumentsResource;
+
+        const orders: dfareporting.OrdersResource;
+
+        const placementGroups: dfareporting.PlacementGroupsResource;
+
+        const placementStrategies: dfareporting.PlacementStrategiesResource;
+
+        const placements: dfareporting.PlacementsResource;
+
+        const platformTypes: dfareporting.PlatformTypesResource;
+
+        const postalCodes: dfareporting.PostalCodesResource;
+
+        const projects: dfareporting.ProjectsResource;
+
+        const regions: dfareporting.RegionsResource;
+
+        const remarketingListShares: dfareporting.RemarketingListSharesResource;
+
+        const remarketingLists: dfareporting.RemarketingListsResource;
+
+        const reports: dfareporting.ReportsResource;
+
+        const sites: dfareporting.SitesResource;
+
+        const sizes: dfareporting.SizesResource;
+
+        const subaccounts: dfareporting.SubaccountsResource;
+
+        const targetableRemarketingLists: dfareporting.TargetableRemarketingListsResource;
+
+        const targetingTemplates: dfareporting.TargetingTemplatesResource;
+
+        const userProfiles: dfareporting.UserProfilesResource;
+
+        const userRolePermissionGroups: dfareporting.UserRolePermissionGroupsResource;
+
+        const userRolePermissions: dfareporting.UserRolePermissionsResource;
+
+        const userRoles: dfareporting.UserRolesResource;
+
+        const videoFormats: dfareporting.VideoFormatsResource;
     }
 }

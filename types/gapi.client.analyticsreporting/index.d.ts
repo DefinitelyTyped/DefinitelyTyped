@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "analyticsreporting", version: "v4"): PromiseLike<void>;
     function load(name: "analyticsreporting", version: "v4", callback: () => any): void;
 
-    const reports: analyticsreporting.ReportsResource;
-
     namespace analyticsreporting {
         interface Cohort {
             /**
@@ -694,5 +692,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<GetReportsResponse>;
         }
+
+        const reports: analyticsreporting.ReportsResource;
     }
 }

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "playcustomapp", version: "v1"): PromiseLike<void>;
     function load(name: "playcustomapp", version: "v1", callback: () => any): void;
 
-    const accounts: playcustomapp.AccountsResource;
-
     namespace playcustomapp {
         interface CustomApp {
             /** Default listing language in BCP 47 format. */
@@ -52,5 +50,7 @@ declare namespace gapi.client {
         interface AccountsResource {
             customApps: CustomAppsResource;
         }
+
+        const accounts: playcustomapp.AccountsResource;
     }
 }

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "tagmanager", version: "v2"): PromiseLike<void>;
     function load(name: "tagmanager", version: "v2", callback: () => any): void;
 
-    const accounts: tagmanager.AccountsResource;
-
     namespace tagmanager {
         interface Account {
             /** The Account ID uniquely identifies the GTM Account. */
@@ -2466,5 +2464,7 @@ declare namespace gapi.client {
             containers: ContainersResource;
             user_permissions: User_permissionsResource;
         }
+
+        const accounts: tagmanager.AccountsResource;
     }
 }

@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "searchconsole", version: "v1"): PromiseLike<void>;
     function load(name: "searchconsole", version: "v1", callback: () => any): void;
 
-    const urlTestingTools: searchconsole.UrlTestingToolsResource;
-
     namespace searchconsole {
         interface BlockedResource {
             /** URL of the blocked resource. */
@@ -98,5 +96,7 @@ declare namespace gapi.client {
         interface UrlTestingToolsResource {
             mobileFriendlyTest: MobileFriendlyTestResource;
         }
+
+        const urlTestingTools: searchconsole.UrlTestingToolsResource;
     }
 }

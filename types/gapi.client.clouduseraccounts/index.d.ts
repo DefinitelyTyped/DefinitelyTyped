@@ -16,14 +16,6 @@ declare namespace gapi.client {
     function load(name: "clouduseraccounts", version: "vm_alpha"): PromiseLike<void>;
     function load(name: "clouduseraccounts", version: "vm_alpha", callback: () => any): void;
 
-    const globalAccountsOperations: clouduseraccounts.GlobalAccountsOperationsResource;
-
-    const groups: clouduseraccounts.GroupsResource;
-
-    const linux: clouduseraccounts.LinuxResource;
-
-    const users: clouduseraccounts.UsersResource;
-
     namespace clouduseraccounts {
         interface AuditConfig {
             /**
@@ -1080,5 +1072,13 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<TestPermissionsResponse>;
         }
+
+        const globalAccountsOperations: clouduseraccounts.GlobalAccountsOperationsResource;
+
+        const groups: clouduseraccounts.GroupsResource;
+
+        const linux: clouduseraccounts.LinuxResource;
+
+        const users: clouduseraccounts.UsersResource;
     }
 }

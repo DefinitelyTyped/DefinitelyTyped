@@ -43,7 +43,7 @@ gapi.load('client', () => {
          * reliability, the server may inject these errors to prohibit any hard
          * dependency on the quota functionality.
          */
-        await gapi.client.services.allocateQuota({
+        await gapi.client.servicecontrol.services.allocateQuota({
             serviceName: "serviceName",
         });
         /**
@@ -61,7 +61,7 @@ gapi.load('client', () => {
          * on the specified service. For more information, see
          * [Google Cloud IAM](https://cloud.google.com/iam).
          */
-        await gapi.client.services.check({
+        await gapi.client.servicecontrol.services.check({
             serviceName: "serviceName",
         });
         /**
@@ -72,7 +72,7 @@ gapi.load('client', () => {
          * permission on the specified service. For more information, see
          * [Google Cloud IAM](https://cloud.google.com/iam).
          */
-        await gapi.client.services.endReconciliation({
+        await gapi.client.servicecontrol.services.endReconciliation({
             serviceName: "serviceName",
         });
         /**
@@ -88,7 +88,7 @@ gapi.load('client', () => {
          * reliability, the server may inject these errors to prohibit any hard
          * dependency on the quota functionality.
          */
-        await gapi.client.services.releaseQuota({
+        await gapi.client.servicecontrol.services.releaseQuota({
             serviceName: "serviceName",
         });
         /**
@@ -107,7 +107,7 @@ gapi.load('client', () => {
          * on the specified service. For more information, see
          * [Google Cloud IAM](https://cloud.google.com/iam).
          */
-        await gapi.client.services.report({
+        await gapi.client.servicecontrol.services.report({
             serviceName: "serviceName",
         });
         /**
@@ -137,7 +137,7 @@ gapi.load('client', () => {
          * permission on the specified service. For more information, see
          * [Google Cloud IAM](https://cloud.google.com/iam).
          */
-        await gapi.client.services.startReconciliation({
+        await gapi.client.servicecontrol.services.startReconciliation({
             serviceName: "serviceName",
         });
     }

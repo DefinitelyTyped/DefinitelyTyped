@@ -16,16 +16,6 @@ declare namespace gapi.client {
     function load(name: "bigquery", version: "v2"): PromiseLike<void>;
     function load(name: "bigquery", version: "v2", callback: () => any): void;
 
-    const datasets: bigquery.DatasetsResource;
-
-    const jobs: bigquery.JobsResource;
-
-    const projects: bigquery.ProjectsResource;
-
-    const tabledata: bigquery.TabledataResource;
-
-    const tables: bigquery.TablesResource;
-
     namespace bigquery {
         interface BigtableColumn {
             /**
@@ -556,11 +546,11 @@ declare namespace gapi.client {
             /** [Deprecated] The format of the schemaInline property. */
             schemaInlineFormat?: string;
             /**
-             * [Experimental] Allows the schema of the desitination table to be updated as a side effect of the load job if a schema is autodetected or supplied in
-             * the job configuration. Schema update options are supported in two cases: when writeDisposition is WRITE_APPEND; when writeDisposition is WRITE_TRUNCATE
-             * and the destination table is a partition of a table, specified by partition decorators. For normal tables, WRITE_TRUNCATE will always overwrite the
-             * schema. One or more of the following values are specified: ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema. ALLOW_FIELD_RELAXATION:
-             * allow relaxing a required field in the original schema to nullable.
+             * Allows the schema of the destination table to be updated as a side effect of the load job if a schema is autodetected or supplied in the job
+             * configuration. Schema update options are supported in two cases: when writeDisposition is WRITE_APPEND; when writeDisposition is WRITE_TRUNCATE and the
+             * destination table is a partition of a table, specified by partition decorators. For normal tables, WRITE_TRUNCATE will always overwrite the schema. One
+             * or more of the following values are specified: ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema. ALLOW_FIELD_RELAXATION: allow
+             * relaxing a required field in the original schema to nullable.
              */
             schemaUpdateOptions?: string[];
             /**
@@ -580,7 +570,7 @@ declare namespace gapi.client {
              * backups: Exactly one URI can be specified. Also, the '&#42;' wildcard character is not allowed.
              */
             sourceUris?: string[];
-            /** [Experimental] If specified, configures time-based partitioning for the destination table. */
+            /** If specified, configures time-based partitioning for the destination table. */
             timePartitioning?: TimePartitioning;
             /**
              * [Optional] Specifies the action that occurs if the destination table already exists. The following values are supported: WRITE_TRUNCATE: If the table
@@ -639,9 +629,9 @@ declare namespace gapi.client {
             /** Query parameters for standard SQL queries. */
             queryParameters?: QueryParameter[];
             /**
-             * [Experimental] Allows the schema of the destination table to be updated as a side effect of the query job. Schema update options are supported in two
-             * cases: when writeDisposition is WRITE_APPEND; when writeDisposition is WRITE_TRUNCATE and the destination table is a partition of a table, specified by
-             * partition decorators. For normal tables, WRITE_TRUNCATE will always overwrite the schema. One or more of the following values are specified:
+             * Allows the schema of the destination table to be updated as a side effect of the query job. Schema update options are supported in two cases: when
+             * writeDisposition is WRITE_APPEND; when writeDisposition is WRITE_TRUNCATE and the destination table is a partition of a table, specified by partition
+             * decorators. For normal tables, WRITE_TRUNCATE will always overwrite the schema. One or more of the following values are specified:
              * ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema. ALLOW_FIELD_RELAXATION: allow relaxing a required field in the original schema to
              * nullable.
              */
@@ -651,7 +641,7 @@ declare namespace gapi.client {
              * defining these properties, the data source can then be queried as if it were a standard BigQuery table.
              */
             tableDefinitions?: Record<string, ExternalDataConfiguration>;
-            /** [Experimental] If specified, configures time-based partitioning for the destination table. */
+            /** If specified, configures time-based partitioning for the destination table. */
             timePartitioning?: TimePartitioning;
             /**
              * Specifies whether to use BigQuery's legacy SQL dialect for this query. The default value is true. If set to false, the query will use BigQuery's
@@ -761,6 +751,15 @@ declare namespace gapi.client {
             billingTier?: number;
             /** [Output-only] Whether the query result was fetched from the query cache. */
             cacheHit?: boolean;
+            /**
+             * [Output-only, Experimental] The DDL operation performed, possibly dependent on the pre-existence of the DDL target. Possible values (new values might
+             * be added in the future): "CREATE": The query created the DDL target. "SKIP": No-op. Example cases: the query is CREATE TABLE IF NOT EXISTS while the
+             * table already exists, or the query is DROP TABLE IF EXISTS while the table does not exist. "REPLACE": The query replaced the DDL target. Example case:
+             * the query is CREATE OR REPLACE TABLE, and the table already exists. "DROP": The query deleted the DDL target.
+             */
+            ddlOperationPerformed?: string;
+            /** [Output-only, Experimental] The DDL target table. Present only for CREATE/DROP TABLE/VIEW queries. */
+            ddlTargetTable?: TableReference;
             /** [Output-only] The number of rows affected by a DML statement. Present only for DML statements INSERT, UPDATE or DELETE. */
             numDmlAffectedRows?: string;
             /** [Output-only] Describes execution plan for the query. */
@@ -1023,7 +1022,7 @@ declare namespace gapi.client {
             streamingBuffer?: Streamingbuffer;
             /** [Required] Reference describing the ID of this table. */
             tableReference?: TableReference;
-            /** [Experimental] If specified, configures time-based partitioning for this table. */
+            /** If specified, configures time-based partitioning for this table. */
             timePartitioning?: TimePartitioning;
             /**
              * [Output-only] Describes the table type. The following values are supported: TABLE: A normal BigQuery table. VIEW: A virtual table defined by a SQL
@@ -1133,7 +1132,7 @@ declare namespace gapi.client {
                 labels?: Record<string, string>;
                 /** A reference uniquely identifying the table. */
                 tableReference?: TableReference;
-                /** [Experimental] The time-based partitioning for this table. */
+                /** The time-based partitioning for this table. */
                 timePartitioning?: TimePartitioning;
                 /** The type of table. Possible values are: TABLE, VIEW. */
                 type?: string;
@@ -1806,5 +1805,15 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Table>;
         }
+
+        const datasets: bigquery.DatasetsResource;
+
+        const jobs: bigquery.JobsResource;
+
+        const projects: bigquery.ProjectsResource;
+
+        const tabledata: bigquery.TabledataResource;
+
+        const tables: bigquery.TablesResource;
     }
 }

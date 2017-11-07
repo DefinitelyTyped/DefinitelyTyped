@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "fitness", version: "v1"): PromiseLike<void>;
     function load(name: "fitness", version: "v1", callback: () => any): void;
 
-    const users: fitness.UsersResource;
-
     namespace fitness {
         interface AggregateBucket {
             /** Available for Bucket.Type.ACTIVITY_TYPE, Bucket.Type.ACTIVITY_SEGMENT */
@@ -763,5 +761,7 @@ declare namespace gapi.client {
             dataset: DatasetResource;
             sessions: SessionsResource;
         }
+
+        const users: fitness.UsersResource;
     }
 }

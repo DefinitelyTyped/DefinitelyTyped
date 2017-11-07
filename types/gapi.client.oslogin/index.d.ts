@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "oslogin", version: "v1alpha"): PromiseLike<void>;
     function load(name: "oslogin", version: "v1alpha", callback: () => any): void;
 
-    const users: oslogin.UsersResource;
-
     namespace oslogin {
         interface ImportSshPublicKeyResponse {
             /** The login profile information for the user. */
@@ -34,6 +32,8 @@ declare namespace gapi.client {
             suspended?: boolean;
         }
         interface PosixAccount {
+            /** Output only. A POSIX account identifier. */
+            accountId?: string;
             /** The GECOS (user information) entry for this account. */
             gecos?: string;
             /** The default group ID. */
@@ -57,10 +57,7 @@ declare namespace gapi.client {
         interface SshPublicKey {
             /** An expiration time in microseconds since epoch. */
             expirationTimeUsec?: string;
-            /**
-             * The SHA-256 fingerprint of the SSH public key.
-             * Output only.
-             */
+            /** Output only. The SHA-256 fingerprint of the SSH public key. */
             fingerprint?: string;
             /**
              * Public key text in SSH format, defined by
@@ -68,6 +65,43 @@ declare namespace gapi.client {
              * section 6.6.
              */
             key?: string;
+        }
+        interface ProjectsResource {
+            /** Deletes a POSIX account. */
+            delete(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * A reference to the POSIX account to update. POSIX accounts are identified
+                 * by the project ID they are associated with. A reference to the POSIX
+                 * account is in format `users/{user}/projects/{project}`.
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;
         }
         interface SshPublicKeysResource {
             /** Deletes an SSH public key. */
@@ -244,6 +278,8 @@ declare namespace gapi.client {
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project ID of the Google Cloud Platform project. */
+                projectId?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -251,7 +287,10 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<ImportSshPublicKeyResponse>;
+            projects: ProjectsResource;
             sshPublicKeys: SshPublicKeysResource;
         }
+
+        const users: oslogin.UsersResource;
     }
 }

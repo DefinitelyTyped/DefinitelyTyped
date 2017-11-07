@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "people", version: "v1"): PromiseLike<void>;
     function load(name: "people", version: "v1", callback: () => any): void;
 
-    const contactGroups: people.ContactGroupsResource;
-
-    const people: people.PeopleResource;
-
     namespace people {
         interface Address {
             /** The city of the address. */
@@ -1501,5 +1497,9 @@ declare namespace gapi.client {
             }): Request<Person>;
             connections: ConnectionsResource;
         }
+
+        const contactGroups: people.ContactGroupsResource;
+
+        const people: people.PeopleResource;
     }
 }

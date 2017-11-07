@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "appsactivity", version: "v1"): PromiseLike<void>;
     function load(name: "appsactivity", version: "v1", callback: () => any): void;
 
-    const activities: appsactivity.ActivitiesResource;
-
     namespace appsactivity {
         interface Activity {
             /** The fields common to all of the singleEvents that make up the Activity. */
@@ -164,5 +162,7 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<ListActivitiesResponse>;
         }
+
+        const activities: appsactivity.ActivitiesResource;
     }
 }

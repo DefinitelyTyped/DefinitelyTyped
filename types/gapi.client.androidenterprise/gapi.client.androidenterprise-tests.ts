@@ -29,7 +29,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves the details of a device. */
-        await gapi.client.devices.get({
+        await gapi.client.androidenterprise.devices.get({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             userId: "userId",
@@ -39,13 +39,13 @@ gapi.load('client', () => {
          * devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is
          * only supported for Google-managed users.
          */
-        await gapi.client.devices.getState({
+        await gapi.client.androidenterprise.devices.getState({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Retrieves the IDs of all of a user's devices. */
-        await gapi.client.devices.list({
+        await gapi.client.androidenterprise.devices.list({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
@@ -54,20 +54,20 @@ gapi.load('client', () => {
          * devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is
          * only supported for Google-managed users.
          */
-        await gapi.client.devices.setState({
+        await gapi.client.androidenterprise.devices.setState({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Acknowledges notifications that were received from Enterprises.PullNotificationSet to prevent subsequent calls from returning the same notifications. */
-        await gapi.client.enterprises.acknowledgeNotificationSet({
+        await gapi.client.androidenterprise.enterprises.acknowledgeNotificationSet({
             notificationSetId: "notificationSetId",
         });
         /**
          * Completes the signup flow, by specifying the Completion token and Enterprise token. This request must not be called multiple times for a given
          * Enterprise Token.
          */
-        await gapi.client.enterprises.completeSignup({
+        await gapi.client.androidenterprise.enterprises.completeSignup({
             completionToken: "completionToken",
             enterpriseToken: "enterpriseToken",
         });
@@ -75,30 +75,30 @@ gapi.load('client', () => {
          * Returns a unique token to access an embeddable UI. To generate a web UI, pass the generated token into the managed Google Play javascript API. Each
          * token may only be used to start one UI session. See the javascript API documentation for further information.
          */
-        await gapi.client.enterprises.createWebToken({
+        await gapi.client.androidenterprise.enterprises.createWebToken({
             enterpriseId: "enterpriseId",
         });
         /**
          * Deletes the binding between the EMM and enterprise. This is now deprecated. Use this method only to unenroll customers that were previously enrolled
          * with the insert call, then enroll them again with the enroll call.
          */
-        await gapi.client.enterprises.delete({
+        await gapi.client.androidenterprise.enterprises.delete({
             enterpriseId: "enterpriseId",
         });
         /** Enrolls an enterprise with the calling EMM. */
-        await gapi.client.enterprises.enroll({
+        await gapi.client.androidenterprise.enterprises.enroll({
             token: "token",
         });
         /** Generates a sign-up URL. */
-        await gapi.client.enterprises.generateSignupUrl({
+        await gapi.client.androidenterprise.enterprises.generateSignupUrl({
             callbackUrl: "callbackUrl",
         });
         /** Retrieves the name and domain of an enterprise. */
-        await gapi.client.enterprises.get({
+        await gapi.client.androidenterprise.enterprises.get({
             enterpriseId: "enterpriseId",
         });
         /** Returns the Android Device Policy config resource. */
-        await gapi.client.enterprises.getAndroidDevicePolicyConfig({
+        await gapi.client.androidenterprise.enterprises.getAndroidDevicePolicyConfig({
             enterpriseId: "enterpriseId",
         });
         /**
@@ -112,16 +112,16 @@ gapi.load('client', () => {
          *
          * Once the service account is bound to the enterprise, it can be managed using the serviceAccountKeys resource.
          */
-        await gapi.client.enterprises.getServiceAccount({
+        await gapi.client.androidenterprise.enterprises.getServiceAccount({
             enterpriseId: "enterpriseId",
             keyType: "keyType",
         });
         /** Returns the store layout for the enterprise. If the store layout has not been set, returns "basic" as the store layout type and no homepage. */
-        await gapi.client.enterprises.getStoreLayout({
+        await gapi.client.androidenterprise.enterprises.getStoreLayout({
             enterpriseId: "enterpriseId",
         });
         /** Establishes the binding between the EMM and an enterprise. This is now deprecated; use enroll instead. */
-        await gapi.client.enterprises.insert({
+        await gapi.client.androidenterprise.enterprises.insert({
             token: "token",
         });
         /**
@@ -129,7 +129,7 @@ gapi.load('client', () => {
          * needed for enterprises created via the EMM-initiated flow since the EMM learns the enterprise ID in the callback specified in the
          * Enterprises.generateSignupUrl call.
          */
-        await gapi.client.enterprises.list({
+        await gapi.client.androidenterprise.enterprises.list({
             domain: "domain",
         });
         /**
@@ -143,22 +143,22 @@ gapi.load('client', () => {
          * caller, if any are pending.
          * If no notifications are present, an empty notification list is returned. Subsequent requests may return more notifications once they become available.
          */
-        await gapi.client.enterprises.pullNotificationSet({
+        await gapi.client.androidenterprise.enterprises.pullNotificationSet({
             requestMode: "requestMode",
         });
         /** Sends a test notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise. */
-        await gapi.client.enterprises.sendTestPushNotification({
+        await gapi.client.androidenterprise.enterprises.sendTestPushNotification({
             enterpriseId: "enterpriseId",
         });
         /** Sets the account that will be used to authenticate to the API as the enterprise. */
-        await gapi.client.enterprises.setAccount({
+        await gapi.client.androidenterprise.enterprises.setAccount({
             enterpriseId: "enterpriseId",
         });
         /**
          * Sets the Android Device Policy config resource. EMM may use this method to enable or disable Android Device Policy support for the specified
          * enterprise. To learn more about managing devices and apps with Android Device Policy, see the Android Management API.
          */
-        await gapi.client.enterprises.setAndroidDevicePolicyConfig({
+        await gapi.client.androidenterprise.enterprises.setAndroidDevicePolicyConfig({
             enterpriseId: "enterpriseId",
         });
         /**
@@ -167,74 +167,74 @@ gapi.load('client', () => {
          * the page are sorted in order of their product ID value. If you create a custom store layout (by setting storeLayoutType = "custom" and setting a
          * homepage), the basic store layout is disabled.
          */
-        await gapi.client.enterprises.setStoreLayout({
+        await gapi.client.androidenterprise.enterprises.setStoreLayout({
             enterpriseId: "enterpriseId",
         });
         /** Unenrolls an enterprise from the calling EMM. */
-        await gapi.client.enterprises.unenroll({
+        await gapi.client.androidenterprise.enterprises.unenroll({
             enterpriseId: "enterpriseId",
         });
         /** Removes an entitlement to an app for a user. */
-        await gapi.client.entitlements.delete({
+        await gapi.client.androidenterprise.entitlements.delete({
             enterpriseId: "enterpriseId",
             entitlementId: "entitlementId",
             userId: "userId",
         });
         /** Retrieves details of an entitlement. */
-        await gapi.client.entitlements.get({
+        await gapi.client.androidenterprise.entitlements.get({
             enterpriseId: "enterpriseId",
             entitlementId: "entitlementId",
             userId: "userId",
         });
         /** Lists all entitlements for the specified user. Only the ID is set. */
-        await gapi.client.entitlements.list({
+        await gapi.client.androidenterprise.entitlements.list({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Adds or updates an entitlement to an app for a user. This method supports patch semantics. */
-        await gapi.client.entitlements.patch({
+        await gapi.client.androidenterprise.entitlements.patch({
             enterpriseId: "enterpriseId",
             entitlementId: "entitlementId",
             install: true,
             userId: "userId",
         });
         /** Adds or updates an entitlement to an app for a user. */
-        await gapi.client.entitlements.update({
+        await gapi.client.androidenterprise.entitlements.update({
             enterpriseId: "enterpriseId",
             entitlementId: "entitlementId",
             install: true,
             userId: "userId",
         });
         /** Retrieves details of an enterprise's group license for a product. */
-        await gapi.client.grouplicenses.get({
+        await gapi.client.androidenterprise.grouplicenses.get({
             enterpriseId: "enterpriseId",
             groupLicenseId: "groupLicenseId",
         });
         /** Retrieves IDs of all products for which the enterprise has a group license. */
-        await gapi.client.grouplicenses.list({
+        await gapi.client.androidenterprise.grouplicenses.list({
             enterpriseId: "enterpriseId",
         });
         /** Retrieves the IDs of the users who have been granted entitlements under the license. */
-        await gapi.client.grouplicenseusers.list({
+        await gapi.client.androidenterprise.grouplicenseusers.list({
             enterpriseId: "enterpriseId",
             groupLicenseId: "groupLicenseId",
         });
         /** Requests to remove an app from a device. A call to get or list will still show the app as installed on the device until it is actually removed. */
-        await gapi.client.installs.delete({
+        await gapi.client.androidenterprise.installs.delete({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             installId: "installId",
             userId: "userId",
         });
         /** Retrieves details of an installation of an app on a device. */
-        await gapi.client.installs.get({
+        await gapi.client.androidenterprise.installs.get({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             installId: "installId",
             userId: "userId",
         });
         /** Retrieves the details of all apps installed on the specified device. */
-        await gapi.client.installs.list({
+        await gapi.client.androidenterprise.installs.list({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             userId: "userId",
@@ -243,84 +243,84 @@ gapi.load('client', () => {
          * Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary.
          * This method supports patch semantics.
          */
-        await gapi.client.installs.patch({
+        await gapi.client.androidenterprise.installs.patch({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             installId: "installId",
             userId: "userId",
         });
         /** Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary. */
-        await gapi.client.installs.update({
+        await gapi.client.androidenterprise.installs.update({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             installId: "installId",
             userId: "userId",
         });
         /** Removes a per-device managed configuration for an app for the specified device. */
-        await gapi.client.managedconfigurationsfordevice.delete({
+        await gapi.client.androidenterprise.managedconfigurationsfordevice.delete({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             managedConfigurationForDeviceId: "managedConfigurationForDeviceId",
             userId: "userId",
         });
         /** Retrieves details of a per-device managed configuration. */
-        await gapi.client.managedconfigurationsfordevice.get({
+        await gapi.client.androidenterprise.managedconfigurationsfordevice.get({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             managedConfigurationForDeviceId: "managedConfigurationForDeviceId",
             userId: "userId",
         });
         /** Lists all the per-device managed configurations for the specified device. Only the ID is set. */
-        await gapi.client.managedconfigurationsfordevice.list({
+        await gapi.client.androidenterprise.managedconfigurationsfordevice.list({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Adds or updates a per-device managed configuration for an app for the specified device. This method supports patch semantics. */
-        await gapi.client.managedconfigurationsfordevice.patch({
+        await gapi.client.androidenterprise.managedconfigurationsfordevice.patch({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             managedConfigurationForDeviceId: "managedConfigurationForDeviceId",
             userId: "userId",
         });
         /** Adds or updates a per-device managed configuration for an app for the specified device. */
-        await gapi.client.managedconfigurationsfordevice.update({
+        await gapi.client.androidenterprise.managedconfigurationsfordevice.update({
             deviceId: "deviceId",
             enterpriseId: "enterpriseId",
             managedConfigurationForDeviceId: "managedConfigurationForDeviceId",
             userId: "userId",
         });
         /** Removes a per-user managed configuration for an app for the specified user. */
-        await gapi.client.managedconfigurationsforuser.delete({
+        await gapi.client.androidenterprise.managedconfigurationsforuser.delete({
             enterpriseId: "enterpriseId",
             managedConfigurationForUserId: "managedConfigurationForUserId",
             userId: "userId",
         });
         /** Retrieves details of a per-user managed configuration for an app for the specified user. */
-        await gapi.client.managedconfigurationsforuser.get({
+        await gapi.client.androidenterprise.managedconfigurationsforuser.get({
             enterpriseId: "enterpriseId",
             managedConfigurationForUserId: "managedConfigurationForUserId",
             userId: "userId",
         });
         /** Lists all the per-user managed configurations for the specified user. Only the ID is set. */
-        await gapi.client.managedconfigurationsforuser.list({
+        await gapi.client.androidenterprise.managedconfigurationsforuser.list({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Adds or updates a per-user managed configuration for an app for the specified user. This method supports patch semantics. */
-        await gapi.client.managedconfigurationsforuser.patch({
+        await gapi.client.androidenterprise.managedconfigurationsforuser.patch({
             enterpriseId: "enterpriseId",
             managedConfigurationForUserId: "managedConfigurationForUserId",
             userId: "userId",
         });
         /** Adds or updates a per-user managed configuration for an app for the specified user. */
-        await gapi.client.managedconfigurationsforuser.update({
+        await gapi.client.androidenterprise.managedconfigurationsforuser.update({
             enterpriseId: "enterpriseId",
             managedConfigurationForUserId: "managedConfigurationForUserId",
             userId: "userId",
         });
         /** Retrieves details of an Android app permission for display to an enterprise admin. */
-        await gapi.client.permissions.get({
+        await gapi.client.androidenterprise.permissions.get({
             language: "language",
             permissionId: "permissionId",
         });
@@ -330,7 +330,7 @@ gapi.load('client', () => {
          *
          * To learn how to use managed Google Play to design and create a store layout to display approved products to your users, see Store Layout Design.
          */
-        await gapi.client.products.approve({
+        await gapi.client.androidenterprise.products.approve({
             enterpriseId: "enterpriseId",
             productId: "productId",
         });
@@ -342,13 +342,13 @@ gapi.load('client', () => {
          * this URL as the approvalUrlInfo.approvalUrl property in a Products.approve call to approve the product. This URL can only be used to display
          * permissions for up to 1 day.
          */
-        await gapi.client.products.generateApprovalUrl({
+        await gapi.client.androidenterprise.products.generateApprovalUrl({
             enterpriseId: "enterpriseId",
             languageCode: "languageCode",
             productId: "productId",
         });
         /** Retrieves details of a product for display to an enterprise admin. */
-        await gapi.client.products.get({
+        await gapi.client.androidenterprise.products.get({
             enterpriseId: "enterpriseId",
             language: "language",
             productId: "productId",
@@ -358,18 +358,18 @@ gapi.load('client', () => {
          * configurations have been defined. This schema can be used to populate a UI that allows an admin to configure the product. To apply a managed
          * configuration based on the schema obtained using this API, see Managed Configurations through Play.
          */
-        await gapi.client.products.getAppRestrictionsSchema({
+        await gapi.client.androidenterprise.products.getAppRestrictionsSchema({
             enterpriseId: "enterpriseId",
             language: "language",
             productId: "productId",
         });
         /** Retrieves the Android app permissions required by this app. */
-        await gapi.client.products.getPermissions({
+        await gapi.client.androidenterprise.products.getPermissions({
             enterpriseId: "enterpriseId",
             productId: "productId",
         });
         /** Finds approved products that match a query, or all approved products if there is no query. */
-        await gapi.client.products.list({
+        await gapi.client.androidenterprise.products.list({
             approved: true,
             enterpriseId: "enterpriseId",
             language: "language",
@@ -378,7 +378,7 @@ gapi.load('client', () => {
             token: "token",
         });
         /** Unapproves the specified product (and the relevant app permissions, if any) */
-        await gapi.client.products.unapprove({
+        await gapi.client.androidenterprise.products.unapprove({
             enterpriseId: "enterpriseId",
             productId: "productId",
         });
@@ -386,7 +386,7 @@ gapi.load('client', () => {
          * Removes and invalidates the specified credentials for the service account associated with this enterprise. The calling service account must have been
          * retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.
          */
-        await gapi.client.serviceaccountkeys.delete({
+        await gapi.client.androidenterprise.serviceaccountkeys.delete({
             enterpriseId: "enterpriseId",
             keyId: "keyId",
         });
@@ -396,7 +396,7 @@ gapi.load('client', () => {
          *
          * Only the type of the key should be populated in the resource to be inserted.
          */
-        await gapi.client.serviceaccountkeys.insert({
+        await gapi.client.androidenterprise.serviceaccountkeys.insert({
             enterpriseId: "enterpriseId",
         });
         /**
@@ -404,73 +404,73 @@ gapi.load('client', () => {
          * account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling
          * Enterprises.SetAccount.
          */
-        await gapi.client.serviceaccountkeys.list({
+        await gapi.client.androidenterprise.serviceaccountkeys.list({
             enterpriseId: "enterpriseId",
         });
         /** Deletes a cluster. */
-        await gapi.client.storelayoutclusters.delete({
+        await gapi.client.androidenterprise.storelayoutclusters.delete({
             clusterId: "clusterId",
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Retrieves details of a cluster. */
-        await gapi.client.storelayoutclusters.get({
+        await gapi.client.androidenterprise.storelayoutclusters.get({
             clusterId: "clusterId",
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Inserts a new cluster in a page. */
-        await gapi.client.storelayoutclusters.insert({
+        await gapi.client.androidenterprise.storelayoutclusters.insert({
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Retrieves the details of all clusters on the specified page. */
-        await gapi.client.storelayoutclusters.list({
+        await gapi.client.androidenterprise.storelayoutclusters.list({
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Updates a cluster. This method supports patch semantics. */
-        await gapi.client.storelayoutclusters.patch({
+        await gapi.client.androidenterprise.storelayoutclusters.patch({
             clusterId: "clusterId",
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Updates a cluster. */
-        await gapi.client.storelayoutclusters.update({
+        await gapi.client.androidenterprise.storelayoutclusters.update({
             clusterId: "clusterId",
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Deletes a store page. */
-        await gapi.client.storelayoutpages.delete({
+        await gapi.client.androidenterprise.storelayoutpages.delete({
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Retrieves details of a store page. */
-        await gapi.client.storelayoutpages.get({
+        await gapi.client.androidenterprise.storelayoutpages.get({
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Inserts a new store page. */
-        await gapi.client.storelayoutpages.insert({
+        await gapi.client.androidenterprise.storelayoutpages.insert({
             enterpriseId: "enterpriseId",
         });
         /** Retrieves the details of all pages in the store. */
-        await gapi.client.storelayoutpages.list({
+        await gapi.client.androidenterprise.storelayoutpages.list({
             enterpriseId: "enterpriseId",
         });
         /** Updates the content of a store page. This method supports patch semantics. */
-        await gapi.client.storelayoutpages.patch({
+        await gapi.client.androidenterprise.storelayoutpages.patch({
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Updates the content of a store page. */
-        await gapi.client.storelayoutpages.update({
+        await gapi.client.androidenterprise.storelayoutpages.update({
             enterpriseId: "enterpriseId",
             pageId: "pageId",
         });
         /** Deleted an EMM-managed user. */
-        await gapi.client.users.delete({
+        await gapi.client.androidenterprise.users.delete({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
@@ -480,7 +480,7 @@ gapi.load('client', () => {
          *
          * This call only works with EMM-managed accounts.
          */
-        await gapi.client.users.generateAuthenticationToken({
+        await gapi.client.androidenterprise.users.generateAuthenticationToken({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
@@ -490,17 +490,17 @@ gapi.load('client', () => {
          *
          * This call only works with Google managed accounts.
          */
-        await gapi.client.users.generateToken({
+        await gapi.client.androidenterprise.users.generateToken({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Retrieves a user's details. */
-        await gapi.client.users.get({
+        await gapi.client.androidenterprise.users.get({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Retrieves the set of products a user is entitled to access. */
-        await gapi.client.users.getAvailableProductSet({
+        await gapi.client.androidenterprise.users.getAvailableProductSet({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
@@ -511,14 +511,14 @@ gapi.load('client', () => {
          * If a corresponding user already exists with the same account identifier, the user will be updated with the resource. In this case only the displayName
          * field can be changed.
          */
-        await gapi.client.users.insert({
+        await gapi.client.androidenterprise.users.insert({
             enterpriseId: "enterpriseId",
         });
         /**
          * Looks up a user by primary email address. This is only supported for Google-managed users. Lookup of the id is not needed for EMM-managed users because
          * the id is already returned in the result of the Users.insert call.
          */
-        await gapi.client.users.list({
+        await gapi.client.androidenterprise.users.list({
             email: "email",
             enterpriseId: "enterpriseId",
         });
@@ -528,12 +528,22 @@ gapi.load('client', () => {
          * Can be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the
          * displayName field can be changed. Other fields must either be unset or have the currently active value. This method supports patch semantics.
          */
-        await gapi.client.users.patch({
+        await gapi.client.androidenterprise.users.patch({
+            enterpriseId: "enterpriseId",
+            userId: "userId",
+        });
+        /**
+         * Revokes access to all devices currently provisioned to the user. The user will no longer be able to use the managed Play store on any of their managed
+         * devices.
+         *
+         * This call only works with EMM-managed accounts.
+         */
+        await gapi.client.androidenterprise.users.revokeDeviceAccess({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
         /** Revokes a previously generated token (activation code) for the user. */
-        await gapi.client.users.revokeToken({
+        await gapi.client.androidenterprise.users.revokeToken({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
@@ -541,7 +551,7 @@ gapi.load('client', () => {
          * Modifies the set of products that a user is entitled to access (referred to as whitelisted products). Only products that are approved or products that
          * were previously approved (products with revoked approval) can be whitelisted.
          */
-        await gapi.client.users.setAvailableProductSet({
+        await gapi.client.androidenterprise.users.setAvailableProductSet({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });
@@ -551,7 +561,7 @@ gapi.load('client', () => {
          * Can be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the
          * displayName field can be changed. Other fields must either be unset or have the currently active value.
          */
-        await gapi.client.users.update({
+        await gapi.client.androidenterprise.users.update({
             enterpriseId: "enterpriseId",
             userId: "userId",
         });

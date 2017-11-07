@@ -16,22 +16,6 @@ declare namespace gapi.client {
     function load(name: "gamesmanagement", version: "v1management"): PromiseLike<void>;
     function load(name: "gamesmanagement", version: "v1management", callback: () => any): void;
 
-    const achievements: gamesmanagement.AchievementsResource;
-
-    const applications: gamesmanagement.ApplicationsResource;
-
-    const events: gamesmanagement.EventsResource;
-
-    const players: gamesmanagement.PlayersResource;
-
-    const quests: gamesmanagement.QuestsResource;
-
-    const rooms: gamesmanagement.RoomsResource;
-
-    const scores: gamesmanagement.ScoresResource;
-
-    const turnBasedMatches: gamesmanagement.TurnBasedMatchesResource;
-
     namespace gamesmanagement {
         interface AchievementResetAllResponse {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#achievementResetAllResponse. */
@@ -831,5 +815,21 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<void>;
         }
+
+        const achievements: gamesmanagement.AchievementsResource;
+
+        const applications: gamesmanagement.ApplicationsResource;
+
+        const events: gamesmanagement.EventsResource;
+
+        const players: gamesmanagement.PlayersResource;
+
+        const quests: gamesmanagement.QuestsResource;
+
+        const rooms: gamesmanagement.RoomsResource;
+
+        const scores: gamesmanagement.ScoresResource;
+
+        const turnBasedMatches: gamesmanagement.TurnBasedMatchesResource;
     }
 }

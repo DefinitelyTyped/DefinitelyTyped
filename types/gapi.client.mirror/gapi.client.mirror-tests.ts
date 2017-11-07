@@ -31,71 +31,71 @@ gapi.load('client', () => {
 
     async function run() {
         /** Inserts a new account for a user */
-        await gapi.client.accounts.insert({
+        await gapi.client.mirror.accounts.insert({
             accountName: "accountName",
             accountType: "accountType",
             userToken: "userToken",
         });
         /** Deletes a contact. */
-        await gapi.client.contacts.delete({
+        await gapi.client.mirror.contacts.delete({
             id: "id",
         });
         /** Gets a single contact by ID. */
-        await gapi.client.contacts.get({
+        await gapi.client.mirror.contacts.get({
             id: "id",
         });
         /** Inserts a new contact. */
-        await gapi.client.contacts.insert({
+        await gapi.client.mirror.contacts.insert({
         });
         /** Retrieves a list of contacts for the authenticated user. */
-        await gapi.client.contacts.list({
+        await gapi.client.mirror.contacts.list({
         });
         /** Updates a contact in place. This method supports patch semantics. */
-        await gapi.client.contacts.patch({
+        await gapi.client.mirror.contacts.patch({
             id: "id",
         });
         /** Updates a contact in place. */
-        await gapi.client.contacts.update({
+        await gapi.client.mirror.contacts.update({
             id: "id",
         });
         /** Gets a single location by ID. */
-        await gapi.client.locations.get({
+        await gapi.client.mirror.locations.get({
             id: "id",
         });
         /** Retrieves a list of locations for the user. */
-        await gapi.client.locations.list({
+        await gapi.client.mirror.locations.list({
         });
         /** Gets a single setting by ID. */
-        await gapi.client.settings.get({
+        await gapi.client.mirror.settings.get({
             id: "id",
         });
         /** Deletes a subscription. */
-        await gapi.client.subscriptions.delete({
+        await gapi.client.mirror.subscriptions.delete({
             id: "id",
         });
         /** Creates a new subscription. */
-        await gapi.client.subscriptions.insert({
+        await gapi.client.mirror.subscriptions.insert({
         });
         /** Retrieves a list of subscriptions for the authenticated user and service. */
-        await gapi.client.subscriptions.list({
+        await gapi.client.mirror.subscriptions.list({
         });
         /** Updates an existing subscription in place. */
-        await gapi.client.subscriptions.update({
+        await gapi.client.mirror.subscriptions.update({
             id: "id",
         });
         /** Deletes a timeline item. */
-        await gapi.client.timeline.delete({
+        await gapi.client.mirror.timeline.delete({
             id: "id",
         });
         /** Gets a single timeline item by ID. */
-        await gapi.client.timeline.get({
+        await gapi.client.mirror.timeline.get({
             id: "id",
         });
         /** Inserts a new item into the timeline. */
-        await gapi.client.timeline.insert({
+        await gapi.client.mirror.timeline.insert({
         });
         /** Retrieves a list of timeline items for the authenticated user. */
-        await gapi.client.timeline.list({
+        await gapi.client.mirror.timeline.list({
             bundleId: "bundleId",
             includeDeleted: true,
             maxResults: 3,
@@ -105,11 +105,11 @@ gapi.load('client', () => {
             sourceItemId: "sourceItemId",
         });
         /** Updates a timeline item in place. This method supports patch semantics. */
-        await gapi.client.timeline.patch({
+        await gapi.client.mirror.timeline.patch({
             id: "id",
         });
         /** Updates a timeline item in place. */
-        await gapi.client.timeline.update({
+        await gapi.client.mirror.timeline.update({
             id: "id",
         });
     }

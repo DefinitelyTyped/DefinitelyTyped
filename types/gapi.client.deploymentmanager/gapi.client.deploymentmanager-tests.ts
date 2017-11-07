@@ -35,33 +35,33 @@ gapi.load('client', () => {
 
     async function run() {
         /** Cancels and removes the preview currently associated with the deployment. */
-        await gapi.client.deployments.cancelPreview({
+        await gapi.client.deploymentmanager.deployments.cancelPreview({
             deployment: "deployment",
             project: "project",
         });
         /** Deletes a deployment and all of the resources in the deployment. */
-        await gapi.client.deployments.delete({
+        await gapi.client.deploymentmanager.deployments.delete({
             deletePolicy: "deletePolicy",
             deployment: "deployment",
             project: "project",
         });
         /** Gets information about a specific deployment. */
-        await gapi.client.deployments.get({
+        await gapi.client.deploymentmanager.deployments.get({
             deployment: "deployment",
             project: "project",
         });
         /** Gets the access control policy for a resource. May be empty if no such policy or resource exists. */
-        await gapi.client.deployments.getIamPolicy({
+        await gapi.client.deploymentmanager.deployments.getIamPolicy({
             project: "project",
             resource: "resource",
         });
         /** Creates a deployment and all of the resources described by the deployment manifest. */
-        await gapi.client.deployments.insert({
+        await gapi.client.deploymentmanager.deployments.insert({
             preview: true,
             project: "project",
         });
         /** Lists all deployments for a given project. */
-        await gapi.client.deployments.list({
+        await gapi.client.deploymentmanager.deployments.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -69,7 +69,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Updates a deployment and all of the resources described by the deployment manifest. This method supports patch semantics. */
-        await gapi.client.deployments.patch({
+        await gapi.client.deploymentmanager.deployments.patch({
             createPolicy: "createPolicy",
             deletePolicy: "deletePolicy",
             deployment: "deployment",
@@ -77,22 +77,22 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Sets the access control policy on the specified resource. Replaces any existing policy. */
-        await gapi.client.deployments.setIamPolicy({
+        await gapi.client.deploymentmanager.deployments.setIamPolicy({
             project: "project",
             resource: "resource",
         });
         /** Stops an ongoing operation. This does not roll back any work that has already been completed, but prevents any new work from being started. */
-        await gapi.client.deployments.stop({
+        await gapi.client.deploymentmanager.deployments.stop({
             deployment: "deployment",
             project: "project",
         });
         /** Returns permissions that a caller has on the specified resource. */
-        await gapi.client.deployments.testIamPermissions({
+        await gapi.client.deploymentmanager.deployments.testIamPermissions({
             project: "project",
             resource: "resource",
         });
         /** Updates a deployment and all of the resources described by the deployment manifest. */
-        await gapi.client.deployments.update({
+        await gapi.client.deploymentmanager.deployments.update({
             createPolicy: "createPolicy",
             deletePolicy: "deletePolicy",
             deployment: "deployment",
@@ -100,13 +100,13 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Gets information about a specific manifest. */
-        await gapi.client.manifests.get({
+        await gapi.client.deploymentmanager.manifests.get({
             deployment: "deployment",
             manifest: "manifest",
             project: "project",
         });
         /** Lists all manifests for a given deployment. */
-        await gapi.client.manifests.list({
+        await gapi.client.deploymentmanager.manifests.list({
             deployment: "deployment",
             filter: "filter",
             maxResults: 3,
@@ -115,12 +115,12 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Gets information about a specific operation. */
-        await gapi.client.operations.get({
+        await gapi.client.deploymentmanager.operations.get({
             operation: "operation",
             project: "project",
         });
         /** Lists all operations for a project. */
-        await gapi.client.operations.list({
+        await gapi.client.deploymentmanager.operations.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -128,13 +128,13 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Gets information about a single resource. */
-        await gapi.client.resources.get({
+        await gapi.client.deploymentmanager.resources.get({
             deployment: "deployment",
             project: "project",
             resource: "resource",
         });
         /** Lists all resources in a given deployment. */
-        await gapi.client.resources.list({
+        await gapi.client.deploymentmanager.resources.list({
             deployment: "deployment",
             filter: "filter",
             maxResults: 3,
@@ -143,7 +143,7 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Lists all resource types for Deployment Manager. */
-        await gapi.client.types.list({
+        await gapi.client.deploymentmanager.types.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",

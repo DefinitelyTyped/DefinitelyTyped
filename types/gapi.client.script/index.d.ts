@@ -1,4 +1,4 @@
-// Type definitions for Google Google Apps Script Execution API v1 1.0
+// Type definitions for Google Google Apps Script API v1 1.0
 // Project: https://developers.google.com/apps-script/execution/rest/v1/scripts/run
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,11 +12,9 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client {
-    /** Load Google Apps Script Execution API v1 */
+    /** Load Google Apps Script API v1 */
     function load(name: "script", version: "v1"): PromiseLike<void>;
     function load(name: "script", version: "v1", callback: () => any): void;
-
-    const scripts: script.ScriptsResource;
 
     namespace script {
         interface ExecutionError {
@@ -40,7 +38,7 @@ declare namespace gapi.client {
             /**
              * If `true` and the user is an owner of the script, the script runs at the
              * most recently saved version rather than the version deployed for use with
-             * the Execution API. Optional; default is `false`.
+             * the Apps Script API. Optional; default is `false`.
              */
             devMode?: boolean;
             /**
@@ -59,12 +57,13 @@ declare namespace gapi.client {
             /**
              * For Android add-ons only. An ID that represents the user's current session
              * in the Android app for Google Docs or Sheets, included as extra data in the
-             * [`Intent`](https://developer.android.com/guide/components/intents-filters.html)
+             * [Intent](https://developer.android.com/guide/components/intents-filters.html)
              * that launches the add-on. When an Android add-on is run with a session
              * state, it gains the privileges of a
-             * [bound](https://developers.google.com/apps-script/guides/bound) script &mdash;
-             * that is, it can access information like the user's current cursor position
-             * (in Docs) or selected cell (in Sheets). To retrieve the state, call
+             * [bound](https://developers.google.com/apps-script/guides/bound)
+             * script&mdash;that is, it can access information like the user's current
+             * cursor position (in Docs) or selected cell (in Sheets). To retrieve the
+             * state, call
              * `Intent.getStringExtra("com.google.android.apps.docs.addons.SessionState")`.
              * Optional.
              */
@@ -73,7 +72,7 @@ declare namespace gapi.client {
         interface ExecutionResponse {
             /**
              * The return value of the script function. The type matches the object type
-             * returned in Apps Script. Functions called through the Execution API cannot
+             * returned in Apps Script. Functions called using the Apps Script API cannot
              * return Apps Script-specific objects (such as a `Document` or a `Calendar`);
              * they can only return primitive types such as a `string`, `number`, `array`,
              * `object`, or `boolean`.
@@ -82,21 +81,16 @@ declare namespace gapi.client {
         }
         interface Operation {
             /**
-             * This field is only used with asynchronous executions and indicates whether or not the script execution has completed. A completed execution has a
-             * populated response field containing the `ExecutionResponse` from function that was executed.
+             * This field is only used with asynchronous executions. It indicates whether the script execution has completed. A completed execution has a populated
+             * `response` field containing the ExecutionResponse from function that was executed.
              */
             done?: boolean;
             /**
-             * If a `run` call succeeds but the script function (or Apps Script itself) throws an exception, this field will contain a `Status` object. The `Status`
-             * object's `details` field will contain an array with a single `ExecutionError` object that provides information about the nature of the error.
+             * If a `run` or `runAsync` call succeeds but the script function (or Apps Script itself) throws an exception, this field contains a Status object. The
+             * `Status` object's `details` field contains an array with a single ExecutionError object that provides information about the nature of the error.
              */
             error?: Status;
-            /** This field is not used. */
-            metadata?: Record<string, any>;
-            /**
-             * If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's
-             * `result` field.
-             */
+            /** If the script function returns successfully, this field contains an ExecutionResponse object with the function's return value. */
             response?: Record<string, any>;
         }
         interface ScriptStackTraceElement {
@@ -106,20 +100,23 @@ declare namespace gapi.client {
             lineNumber?: number;
         }
         interface Status {
-            /** The status code. For this API, this value will always be 3, corresponding to an <code>INVALID_ARGUMENT</code> error. */
+            /**
+             * The status code. For this API, this value either:
+             * <ul> <li> 3, indicating an `INVALID_ARGUMENT` error, or</li> <li> 1, indicating a `CANCELLED` asynchronous execution.</li> </ul>
+             */
             code?: number;
-            /** An array that contains a single `ExecutionError` object that provides information about the nature of the error. */
+            /** An array that contains a single ExecutionError object that provides information about the nature of the error. */
             details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the
-             * [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client.
+             * [google.rpc.Status.details](google.rpc.Status.details) field, or localized by the client.
              */
             message?: string;
         }
         interface ScriptsResource {
             /**
              * Runs a function in an Apps Script project. The project must be deployed
-             * for use with the Apps Script Execution API.
+             * for use with the Apps Script API.
              *
              * This method requires authorization with an OAuth 2.0 token that includes at
              * least one of the scopes listed in the [Authorization](#authorization)
@@ -162,5 +159,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<Operation>;
         }
+
+        const scripts: script.ScriptsResource;
     }
 }

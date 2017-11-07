@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "taskqueue", version: "v1beta2"): PromiseLike<void>;
     function load(name: "taskqueue", version: "v1beta2", callback: () => any): void;
 
-    const taskqueues: taskqueue.TaskqueuesResource;
-
-    const tasks: taskqueue.TasksResource;
-
     namespace taskqueue {
         interface Task {
             /** Time (in seconds since the epoch) at which the task was enqueued. */
@@ -296,5 +292,9 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<Task>;
         }
+
+        const taskqueues: taskqueue.TaskqueuesResource;
+
+        const tasks: taskqueue.TasksResource;
     }
 }

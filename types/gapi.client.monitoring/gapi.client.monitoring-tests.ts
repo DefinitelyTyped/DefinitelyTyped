@@ -34,5 +34,10 @@ gapi.load('client', () => {
     });
 
     async function run() {
+        /** Returns the list of IPs that checkers run from */
+        await gapi.client.monitoring.uptimeCheckIps.list({
+            pageSize: 1,
+            pageToken: "pageToken",
+        });
     }
 });

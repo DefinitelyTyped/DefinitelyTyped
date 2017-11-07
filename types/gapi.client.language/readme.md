@@ -84,5 +84,10 @@ await gapi.client.documents.analyzeSyntax({  });
 A convenience method that provides all the features that analyzeSentiment,
 analyzeEntities, and analyzeSyntax provide in one call.  
 */
-await gapi.client.documents.annotateText({  });
+await gapi.client.documents.annotateText({  }); 
+    
+/* 
+Classifies a document into categories.  
+*/
+await gapi.client.documents.classifyText({  });
 ```

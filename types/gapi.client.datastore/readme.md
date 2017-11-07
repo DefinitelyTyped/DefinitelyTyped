@@ -79,6 +79,12 @@ Looks up entities by key.
 await gapi.client.projects.lookup({ projectId: "projectId",  }); 
     
 /* 
+Prevents the supplied keys' IDs from being auto-allocated by Cloud
+Datastore.  
+*/
+await gapi.client.projects.reserveIds({ projectId: "projectId",  }); 
+    
+/* 
 Rolls back a transaction.  
 */
 await gapi.client.projects.rollback({ projectId: "projectId",  }); 

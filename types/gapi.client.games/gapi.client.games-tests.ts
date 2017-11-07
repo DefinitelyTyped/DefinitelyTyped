@@ -33,21 +33,21 @@ gapi.load('client', () => {
 
     async function run() {
         /** Lists all the achievement definitions for your application. */
-        await gapi.client.achievementDefinitions.list({
+        await gapi.client.games.achievementDefinitions.list({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Increments the steps of the achievement with the given ID for the currently authenticated player. */
-        await gapi.client.achievements.increment({
+        await gapi.client.games.achievements.increment({
             achievementId: "achievementId",
             consistencyToken: "consistencyToken",
             requestId: "requestId",
             stepsToIncrement: 4,
         });
         /** Lists the progress for all your application's achievements for the currently authenticated player. */
-        await gapi.client.achievements.list({
+        await gapi.client.games.achievements.list({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
@@ -56,7 +56,7 @@ gapi.load('client', () => {
             state: "state",
         });
         /** Sets the state of the achievement with the given ID to REVEALED for the currently authenticated player. */
-        await gapi.client.achievements.reveal({
+        await gapi.client.games.achievements.reveal({
             achievementId: "achievementId",
             consistencyToken: "consistencyToken",
         });
@@ -64,77 +64,77 @@ gapi.load('client', () => {
          * Sets the steps for the currently authenticated player towards unlocking an achievement. If the steps parameter is less than the current number of steps
          * that the player already gained for the achievement, the achievement is not modified.
          */
-        await gapi.client.achievements.setStepsAtLeast({
+        await gapi.client.games.achievements.setStepsAtLeast({
             achievementId: "achievementId",
             consistencyToken: "consistencyToken",
             steps: 3,
         });
         /** Unlocks this achievement for the currently authenticated player. */
-        await gapi.client.achievements.unlock({
+        await gapi.client.games.achievements.unlock({
             achievementId: "achievementId",
             consistencyToken: "consistencyToken",
         });
         /** Updates multiple achievements for the currently authenticated player. */
-        await gapi.client.achievements.updateMultiple({
+        await gapi.client.games.achievements.updateMultiple({
             consistencyToken: "consistencyToken",
         });
         /**
          * Retrieves the metadata of the application with the given ID. If the requested application is not available for the specified platformType, the returned
          * response will not include any instance data.
          */
-        await gapi.client.applications.get({
+        await gapi.client.games.applications.get({
             applicationId: "applicationId",
             consistencyToken: "consistencyToken",
             language: "language",
             platformType: "platformType",
         });
         /** Indicate that the the currently authenticated user is playing your application. */
-        await gapi.client.applications.played({
+        await gapi.client.games.applications.played({
             consistencyToken: "consistencyToken",
         });
         /** Verifies the auth token provided with this request is for the application with the specified ID, and returns the ID of the player it was granted for. */
-        await gapi.client.applications.verify({
+        await gapi.client.games.applications.verify({
             applicationId: "applicationId",
             consistencyToken: "consistencyToken",
         });
         /** Returns a list showing the current progress on events in this application for the currently authenticated user. */
-        await gapi.client.events.listByPlayer({
+        await gapi.client.games.events.listByPlayer({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Returns a list of the event definitions in this application. */
-        await gapi.client.events.listDefinitions({
+        await gapi.client.games.events.listDefinitions({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Records a batch of changes to the number of times events have occurred for the currently authenticated user of this application. */
-        await gapi.client.events.record({
+        await gapi.client.games.events.record({
             consistencyToken: "consistencyToken",
             language: "language",
         });
         /** Retrieves the metadata of the leaderboard with the given ID. */
-        await gapi.client.leaderboards.get({
+        await gapi.client.games.leaderboards.get({
             consistencyToken: "consistencyToken",
             language: "language",
             leaderboardId: "leaderboardId",
         });
         /** Lists all the leaderboard metadata for your application. */
-        await gapi.client.leaderboards.list({
+        await gapi.client.games.leaderboards.list({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Return the metagame configuration data for the calling application. */
-        await gapi.client.metagame.getMetagameConfig({
+        await gapi.client.games.metagame.getMetagameConfig({
             consistencyToken: "consistencyToken",
         });
         /** List play data aggregated per category for the player corresponding to playerId. */
-        await gapi.client.metagame.listCategoriesByPlayer({
+        await gapi.client.games.metagame.listCategoriesByPlayer({
             collection: "collection",
             consistencyToken: "consistencyToken",
             language: "language",
@@ -143,13 +143,13 @@ gapi.load('client', () => {
             playerId: "playerId",
         });
         /** Retrieves the Player resource with the given ID. To retrieve the player for the currently authenticated user, set playerId to me. */
-        await gapi.client.players.get({
+        await gapi.client.games.players.get({
             consistencyToken: "consistencyToken",
             language: "language",
             playerId: "playerId",
         });
         /** Get the collection of players for the currently authenticated user. */
-        await gapi.client.players.list({
+        await gapi.client.games.players.list({
             collection: "collection",
             consistencyToken: "consistencyToken",
             language: "language",
@@ -157,31 +157,31 @@ gapi.load('client', () => {
             pageToken: "pageToken",
         });
         /** Removes a push token for the current user and application. Removing a non-existent push token will report success. */
-        await gapi.client.pushtokens.remove({
+        await gapi.client.games.pushtokens.remove({
             consistencyToken: "consistencyToken",
         });
         /** Registers a push token for the current user and application. */
-        await gapi.client.pushtokens.update({
+        await gapi.client.games.pushtokens.update({
             consistencyToken: "consistencyToken",
         });
         /**
          * Report that a reward for the milestone corresponding to milestoneId for the quest corresponding to questId has been claimed by the currently authorized
          * user.
          */
-        await gapi.client.questMilestones.claim({
+        await gapi.client.games.questMilestones.claim({
             consistencyToken: "consistencyToken",
             milestoneId: "milestoneId",
             questId: "questId",
             requestId: "requestId",
         });
         /** Indicates that the currently authorized user will participate in the quest. */
-        await gapi.client.quests.accept({
+        await gapi.client.games.quests.accept({
             consistencyToken: "consistencyToken",
             language: "language",
             questId: "questId",
         });
         /** Get a list of quests for your application and the currently authenticated player. */
-        await gapi.client.quests.list({
+        await gapi.client.games.quests.list({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
@@ -189,53 +189,53 @@ gapi.load('client', () => {
             playerId: "playerId",
         });
         /** Checks whether the games client is out of date. */
-        await gapi.client.revisions.check({
+        await gapi.client.games.revisions.check({
             clientRevision: "clientRevision",
             consistencyToken: "consistencyToken",
         });
         /** Create a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-        await gapi.client.rooms.create({
+        await gapi.client.games.rooms.create({
             consistencyToken: "consistencyToken",
             language: "language",
         });
         /** Decline an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-        await gapi.client.rooms.decline({
+        await gapi.client.games.rooms.decline({
             consistencyToken: "consistencyToken",
             language: "language",
             roomId: "roomId",
         });
         /** Dismiss an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-        await gapi.client.rooms.dismiss({
+        await gapi.client.games.rooms.dismiss({
             consistencyToken: "consistencyToken",
             roomId: "roomId",
         });
         /** Get the data for a room. */
-        await gapi.client.rooms.get({
+        await gapi.client.games.rooms.get({
             consistencyToken: "consistencyToken",
             language: "language",
             roomId: "roomId",
         });
         /** Join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-        await gapi.client.rooms.join({
+        await gapi.client.games.rooms.join({
             consistencyToken: "consistencyToken",
             language: "language",
             roomId: "roomId",
         });
         /** Leave a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-        await gapi.client.rooms.leave({
+        await gapi.client.games.rooms.leave({
             consistencyToken: "consistencyToken",
             language: "language",
             roomId: "roomId",
         });
         /** Returns invitations to join rooms. */
-        await gapi.client.rooms.list({
+        await gapi.client.games.rooms.list({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Updates sent by a client reporting the status of peers in a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-        await gapi.client.rooms.reportStatus({
+        await gapi.client.games.rooms.reportStatus({
             consistencyToken: "consistencyToken",
             language: "language",
             roomId: "roomId",
@@ -245,7 +245,7 @@ gapi.load('client', () => {
          * ALL to retrieve data for all leaderboards in a given time span.
          * NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same request; only one parameter may be set to 'ALL'.
          */
-        await gapi.client.scores.get({
+        await gapi.client.games.scores.get({
             consistencyToken: "consistencyToken",
             includeRankType: "includeRankType",
             language: "language",
@@ -256,7 +256,7 @@ gapi.load('client', () => {
             timeSpan: "timeSpan",
         });
         /** Lists the scores in a leaderboard, starting from the top. */
-        await gapi.client.scores.list({
+        await gapi.client.games.scores.list({
             collection: "collection",
             consistencyToken: "consistencyToken",
             language: "language",
@@ -266,7 +266,7 @@ gapi.load('client', () => {
             timeSpan: "timeSpan",
         });
         /** Lists the scores in a leaderboard around (and including) a player's score. */
-        await gapi.client.scores.listWindow({
+        await gapi.client.games.scores.listWindow({
             collection: "collection",
             consistencyToken: "consistencyToken",
             language: "language",
@@ -278,7 +278,7 @@ gapi.load('client', () => {
             timeSpan: "timeSpan",
         });
         /** Submits a score to the specified leaderboard. */
-        await gapi.client.scores.submit({
+        await gapi.client.games.scores.submit({
             consistencyToken: "consistencyToken",
             language: "language",
             leaderboardId: "leaderboardId",
@@ -286,18 +286,18 @@ gapi.load('client', () => {
             scoreTag: "scoreTag",
         });
         /** Submits multiple scores to leaderboards. */
-        await gapi.client.scores.submitMultiple({
+        await gapi.client.games.scores.submitMultiple({
             consistencyToken: "consistencyToken",
             language: "language",
         });
         /** Retrieves the metadata for a given snapshot ID. */
-        await gapi.client.snapshots.get({
+        await gapi.client.games.snapshots.get({
             consistencyToken: "consistencyToken",
             language: "language",
             snapshotId: "snapshotId",
         });
         /** Retrieves a list of snapshots created by your application for the player corresponding to the player ID. */
-        await gapi.client.snapshots.list({
+        await gapi.client.games.snapshots.list({
             consistencyToken: "consistencyToken",
             language: "language",
             maxResults: 3,
@@ -305,23 +305,23 @@ gapi.load('client', () => {
             playerId: "playerId",
         });
         /** Cancel a turn-based match. */
-        await gapi.client.turnBasedMatches.cancel({
+        await gapi.client.games.turnBasedMatches.cancel({
             consistencyToken: "consistencyToken",
             matchId: "matchId",
         });
         /** Create a turn-based match. */
-        await gapi.client.turnBasedMatches.create({
+        await gapi.client.games.turnBasedMatches.create({
             consistencyToken: "consistencyToken",
             language: "language",
         });
         /** Decline an invitation to play a turn-based match. */
-        await gapi.client.turnBasedMatches.decline({
+        await gapi.client.games.turnBasedMatches.decline({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",
         });
         /** Dismiss a turn-based match from the match list. The match will no longer show up in the list and will not generate notifications. */
-        await gapi.client.turnBasedMatches.dismiss({
+        await gapi.client.games.turnBasedMatches.dismiss({
             consistencyToken: "consistencyToken",
             matchId: "matchId",
         });
@@ -329,32 +329,32 @@ gapi.load('client', () => {
          * Finish a turn-based match. Each player should make this call once, after all results are in. Only the player whose turn it is may make the first call
          * to Finish, and can pass in the final match state.
          */
-        await gapi.client.turnBasedMatches.finish({
+        await gapi.client.games.turnBasedMatches.finish({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",
         });
         /** Get the data for a turn-based match. */
-        await gapi.client.turnBasedMatches.get({
+        await gapi.client.games.turnBasedMatches.get({
             consistencyToken: "consistencyToken",
             includeMatchData: true,
             language: "language",
             matchId: "matchId",
         });
         /** Join a turn-based match. */
-        await gapi.client.turnBasedMatches.join({
+        await gapi.client.games.turnBasedMatches.join({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",
         });
         /** Leave a turn-based match when it is not the current player's turn, without canceling the match. */
-        await gapi.client.turnBasedMatches.leave({
+        await gapi.client.games.turnBasedMatches.leave({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",
         });
         /** Leave a turn-based match during the current player's turn, without canceling the match. */
-        await gapi.client.turnBasedMatches.leaveTurn({
+        await gapi.client.games.turnBasedMatches.leaveTurn({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",
@@ -362,7 +362,7 @@ gapi.load('client', () => {
             pendingParticipantId: "pendingParticipantId",
         });
         /** Returns turn-based matches the player is or was involved in. */
-        await gapi.client.turnBasedMatches.list({
+        await gapi.client.games.turnBasedMatches.list({
             consistencyToken: "consistencyToken",
             includeMatchData: true,
             language: "language",
@@ -374,7 +374,7 @@ gapi.load('client', () => {
          * Create a rematch of a match that was previously completed, with the same participants. This can be called by only one player on a match still in their
          * list; the player must have called Finish first. Returns the newly created match; it will be the caller's turn.
          */
-        await gapi.client.turnBasedMatches.rematch({
+        await gapi.client.games.turnBasedMatches.rematch({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",
@@ -384,7 +384,7 @@ gapi.load('client', () => {
          * Returns turn-based matches the player is or was involved in that changed since the last sync call, with the least recent changes coming first. Matches
          * that should be removed from the local cache will have a status of MATCH_DELETED.
          */
-        await gapi.client.turnBasedMatches.sync({
+        await gapi.client.games.turnBasedMatches.sync({
             consistencyToken: "consistencyToken",
             includeMatchData: true,
             language: "language",
@@ -393,7 +393,7 @@ gapi.load('client', () => {
             pageToken: "pageToken",
         });
         /** Commit the results of a player turn. */
-        await gapi.client.turnBasedMatches.takeTurn({
+        await gapi.client.games.turnBasedMatches.takeTurn({
             consistencyToken: "consistencyToken",
             language: "language",
             matchId: "matchId",

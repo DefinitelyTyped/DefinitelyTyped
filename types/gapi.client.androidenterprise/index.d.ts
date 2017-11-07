@@ -16,34 +16,6 @@ declare namespace gapi.client {
     function load(name: "androidenterprise", version: "v1"): PromiseLike<void>;
     function load(name: "androidenterprise", version: "v1", callback: () => any): void;
 
-    const devices: androidenterprise.DevicesResource;
-
-    const enterprises: androidenterprise.EnterprisesResource;
-
-    const entitlements: androidenterprise.EntitlementsResource;
-
-    const grouplicenses: androidenterprise.GrouplicensesResource;
-
-    const grouplicenseusers: androidenterprise.GrouplicenseusersResource;
-
-    const installs: androidenterprise.InstallsResource;
-
-    const managedconfigurationsfordevice: androidenterprise.ManagedconfigurationsfordeviceResource;
-
-    const managedconfigurationsforuser: androidenterprise.ManagedconfigurationsforuserResource;
-
-    const permissions: androidenterprise.PermissionsResource;
-
-    const products: androidenterprise.ProductsResource;
-
-    const serviceaccountkeys: androidenterprise.ServiceaccountkeysResource;
-
-    const storelayoutclusters: androidenterprise.StorelayoutclustersResource;
-
-    const storelayoutpages: androidenterprise.StorelayoutpagesResource;
-
-    const users: androidenterprise.UsersResource;
-
     namespace androidenterprise {
         interface Administrator {
             /** The admin's email address. */
@@ -507,9 +479,9 @@ declare namespace gapi.client {
              */
             productSetBehavior?: string;
             /**
-             * Other products that are part of the set, in addition to those specified in the productId array. The only difference between this field and the
-             * productId array is that it's possible to specify additional information about this product visibility, see ProductVisibility and its fields for more
-             * information. Specifying the same product ID both here and in the productId array is not allowed and it will result in an error.
+             * Additional list of product IDs making up the product set. Unlike the productID array, in this list It's possible to specify which tracks (alpha, beta,
+             * production) of a product are visible to the user. See ProductVisibility and its fields for more information. Specifying the same product ID both here
+             * and in the productId array is not allowed and it will result in an error.
              */
             productVisibility?: ProductVisibility[];
         }
@@ -523,15 +495,14 @@ declare namespace gapi.client {
             certificateHashSha256?: string;
         }
         interface ProductVisibility {
-            /** The product ID that should be made visible to the user. This is required. */
+            /** The product ID to make visible to the user. Required for each item in the productVisibility list. */
             productId?: string;
             /**
-             * This allows to only grant visibility to the specified tracks of the app. For example, if an app has a prod version, a beta version and an alpha version
-             * and the enterprise has been granted visibility to both the alpha and beta tracks, if tracks is {"beta", "production"} the user will be able to install
-             * the app and they will get the beta version of the app. If there are no app versions in the specified track or if the enterprise wasn't granted
-             * visibility for the track, adding the "alpha" and "beta" values to the list of tracks will have no effect for now; however they will take effect once
-             * both conditions are met. Note that the enterprise itself needs to be granted access to the alpha and/or beta tracks, regardless of whether individual
-             * users or admins have access to those tracks.
+             * Grants visibility to the specified track(s) of the product to the user. The track available to the user is based on the following order of preference:
+             * alpha, beta, production. For example, if an app has a prod version, a beta version and an alpha version and the enterprise has been granted visibility
+             * to both the alpha and beta tracks, if tracks is {"beta", "production"} the user will be able to install the app and they will get the beta version of
+             * the app. If there are no app versions in the specified track adding the "alpha" and "beta" values to the list of tracks will have no effect. Note that
+             * the enterprise requires access to alpha and/or beta tracks before users can be granted visibility to apps in those tracks.
              *
              * The allowed sets are: {} (considered equivalent to {"production"}) {"production"} {"beta", "production"} {"alpha", "beta", "production"} The order of
              * elements is not relevant. Any other set of tracks will be rejected with an error.
@@ -2745,6 +2716,35 @@ declare namespace gapi.client {
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<User>;
+            /**
+             * Revokes access to all devices currently provisioned to the user. The user will no longer be able to use the managed Play store on any of their managed
+             * devices.
+             *
+             * This call only works with EMM-managed accounts.
+             */
+            revokeDeviceAccess(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** The ID of the enterprise. */
+                enterpriseId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** The ID of the user. */
+                userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<void>;
             /** Revokes a previously generated token (activation code) for the user. */
             revokeToken(request: {
                 /** Data format for the response. */
@@ -2826,5 +2826,33 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<User>;
         }
+
+        const devices: androidenterprise.DevicesResource;
+
+        const enterprises: androidenterprise.EnterprisesResource;
+
+        const entitlements: androidenterprise.EntitlementsResource;
+
+        const grouplicenses: androidenterprise.GrouplicensesResource;
+
+        const grouplicenseusers: androidenterprise.GrouplicenseusersResource;
+
+        const installs: androidenterprise.InstallsResource;
+
+        const managedconfigurationsfordevice: androidenterprise.ManagedconfigurationsfordeviceResource;
+
+        const managedconfigurationsforuser: androidenterprise.ManagedconfigurationsforuserResource;
+
+        const permissions: androidenterprise.PermissionsResource;
+
+        const products: androidenterprise.ProductsResource;
+
+        const serviceaccountkeys: androidenterprise.ServiceaccountkeysResource;
+
+        const storelayoutclusters: androidenterprise.StorelayoutclustersResource;
+
+        const storelayoutpages: androidenterprise.StorelayoutpagesResource;
+
+        const users: androidenterprise.UsersResource;
     }
 }

@@ -16,28 +16,6 @@ declare namespace gapi.client {
     function load(name: "genomics", version: "v1"): PromiseLike<void>;
     function load(name: "genomics", version: "v1", callback: () => any): void;
 
-    const annotations: genomics.AnnotationsResource;
-
-    const annotationsets: genomics.AnnotationsetsResource;
-
-    const callsets: genomics.CallsetsResource;
-
-    const datasets: genomics.DatasetsResource;
-
-    const operations: genomics.OperationsResource;
-
-    const readgroupsets: genomics.ReadgroupsetsResource;
-
-    const reads: genomics.ReadsResource;
-
-    const references: genomics.ReferencesResource;
-
-    const referencesets: genomics.ReferencesetsResource;
-
-    const variants: genomics.VariantsResource;
-
-    const variantsets: genomics.VariantsetsResource;
-
     namespace genomics {
         interface Annotation {
             /** The annotation set to which this annotation belongs. */
@@ -3915,5 +3893,27 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<SearchVariantSetsResponse>;
         }
+
+        const annotations: genomics.AnnotationsResource;
+
+        const annotationsets: genomics.AnnotationsetsResource;
+
+        const callsets: genomics.CallsetsResource;
+
+        const datasets: genomics.DatasetsResource;
+
+        const operations: genomics.OperationsResource;
+
+        const readgroupsets: genomics.ReadgroupsetsResource;
+
+        const reads: genomics.ReadsResource;
+
+        const references: genomics.ReferencesResource;
+
+        const referencesets: genomics.ReferencesetsResource;
+
+        const variants: genomics.VariantsResource;
+
+        const variantsets: genomics.VariantsetsResource;
     }
 }

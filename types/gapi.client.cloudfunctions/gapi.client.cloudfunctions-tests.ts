@@ -33,7 +33,7 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get({
+        await gapi.client.cloudfunctions.operations.get({
             name: "name",
         });
         /**
@@ -48,7 +48,7 @@ gapi.load('client', () => {
          * collection id, however overriding users must ensure the name binding
          * is the parent resource, without the operations collection id.
          */
-        await gapi.client.operations.list({
+        await gapi.client.cloudfunctions.operations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,

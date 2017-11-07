@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "slides", version: "v1"): PromiseLike<void>;
     function load(name: "slides", version: "v1", callback: () => any): void;
 
-    const presentations: slides.PresentationsResource;
-
     namespace slides {
         interface AffineTransform {
             /** The X coordinate scaling element. */
@@ -117,7 +115,7 @@ declare namespace gapi.client {
              * cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
              * format.
              *
-             * The provided URL can be at maximum 2K bytes large.
+             * The provided URL can be at most 2 kB in length.
              */
             url?: string;
         }
@@ -475,6 +473,33 @@ declare namespace gapi.client {
             /** The collection of elements in the group. The minimum size of a group is 2. */
             children?: PageElement[];
         }
+        interface GroupObjectsRequest {
+            /**
+             * The object IDs of the objects to group.
+             *
+             * Only page elements can be grouped. There should be at least two page
+             * elements on the same page that are not already in another group. Some page
+             * elements, such as videos, tables and placeholder shapes cannot be grouped.
+             */
+            childrenObjectIds?: string[];
+            /**
+             * A user-supplied object ID for the group to be created.
+             *
+             * If you specify an ID, it must be unique among all pages and page elements
+             * in the presentation. The ID must start with an alphanumeric character or an
+             * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
+             * may include those as well as a hyphen or colon (matches regex
+             * `[a-zA-Z0-9_-:]`).
+             * The length of the ID must not be less than 5 or greater than 50.
+             *
+             * If you don't specify an ID, a unique one is generated.
+             */
+            groupObjectId?: string;
+        }
+        interface GroupObjectsResponse {
+            /** The object ID of the created group. */
+            objectId?: string;
+        }
         interface Image {
             /**
              * An URL to an image with a default lifetime of 30 minutes.
@@ -504,7 +529,7 @@ declare namespace gapi.client {
             cropProperties?: CropProperties;
             /** The hyperlink destination of the image. If unset, there is no link. */
             link?: Link;
-            /** The outline of the image. If not set, the the image has no outline. */
+            /** The outline of the image. If not set, the image has no outline. */
             outline?: Outline;
             /**
              * The recolor effect of the image. If not set, the image is not recolored.
@@ -703,6 +728,19 @@ declare namespace gapi.client {
             /** The human-readable name of the master. */
             displayName?: string;
         }
+        interface MergeTableCellsRequest {
+            /** The object ID of the table. */
+            objectId?: string;
+            /**
+             * The table range specifying which cells of the table to merge.
+             *
+             * Any text in the cells being merged will be concatenated and stored in the
+             * upper-left ("head") cell of the range. If the range is non-rectangular
+             * (which can occur in some cases where the range covers cells that are
+             * already merged), a 400 bad request error is returned.
+             */
+            tableRange?: TableRange;
+        }
         interface NestingLevel {
             /** The style of a bullet at this level of nesting. */
             bulletStyle?: TextStyle;
@@ -739,9 +777,9 @@ declare namespace gapi.client {
             /**
              * The outline property state.
              *
-             * Updating the the outline on a page element will implicitly update this
-             * field to`RENDERED`, unless another value is specified in the same request.
-             * To have no outline on a page element, set this field to `NOT_RENDERED`. In
+             * Updating the outline on a page element will implicitly update this field
+             * to `RENDERED`, unless another value is specified in the same request. To
+             * have no outline on a page element, set this field to `NOT_RENDERED`. In
              * this case, any other outline fields set in the same request will be
              * ignored.
              */
@@ -1060,7 +1098,7 @@ declare namespace gapi.client {
              * cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
              * format.
              *
-             * The provided URL can be at maximum 2K bytes large.
+             * The provided URL can be at most 2 kB in length.
              */
             imageUrl?: string;
             /**
@@ -1155,12 +1193,16 @@ declare namespace gapi.client {
             deleteText?: DeleteTextRequest;
             /** Duplicates a slide or page element. */
             duplicateObject?: DuplicateObjectRequest;
+            /** Groups objects, such as page elements. */
+            groupObjects?: GroupObjectsRequest;
             /** Inserts columns into a table. */
             insertTableColumns?: InsertTableColumnsRequest;
             /** Inserts rows into a table. */
             insertTableRows?: InsertTableRowsRequest;
             /** Inserts text into a shape or table cell. */
             insertText?: InsertTextRequest;
+            /** Merges cells in a Table. */
+            mergeTableCells?: MergeTableCellsRequest;
             /** Refreshes a Google Sheets chart. */
             refreshSheetsChart?: RefreshSheetsChartRequest;
             /** Replaces all shapes matching some criteria with an image. */
@@ -1169,6 +1211,10 @@ declare namespace gapi.client {
             replaceAllShapesWithSheetsChart?: ReplaceAllShapesWithSheetsChartRequest;
             /** Replaces all instances of specified text. */
             replaceAllText?: ReplaceAllTextRequest;
+            /** Ungroups objects, such as groups. */
+            ungroupObjects?: UngroupObjectsRequest;
+            /** Unmerges cells in a Table. */
+            unmergeTableCells?: UnmergeTableCellsRequest;
             /** Updates the properties of an Image. */
             updateImageProperties?: UpdateImagePropertiesRequest;
             /** Updates the properties of a Line. */
@@ -1183,8 +1229,17 @@ declare namespace gapi.client {
             updateShapeProperties?: UpdateShapePropertiesRequest;
             /** Updates the position of a set of slides in the presentation. */
             updateSlidesPosition?: UpdateSlidesPositionRequest;
+            /** Updates the properties of the table borders in a Table. */
+            updateTableBorderProperties?: UpdateTableBorderPropertiesRequest;
             /** Updates the properties of a TableCell. */
             updateTableCellProperties?: UpdateTableCellPropertiesRequest;
+            /**
+             * Updates the properties of a Table
+             * column.
+             */
+            updateTableColumnProperties?: UpdateTableColumnPropertiesRequest;
+            /** Updates the properties of a Table row. */
+            updateTableRowProperties?: UpdateTableRowPropertiesRequest;
             /** Updates the styling of text within a Shape or Table. */
             updateTextStyle?: UpdateTextStyleRequest;
             /** Updates the properties of a Video. */
@@ -1207,6 +1262,8 @@ declare namespace gapi.client {
             createVideo?: CreateVideoResponse;
             /** The result of duplicating an object. */
             duplicateObject?: DuplicateObjectResponse;
+            /** The result of grouping objects. */
+            groupObjects?: GroupObjectsResponse;
             /**
              * The result of replacing all shapes matching some criteria with an
              * image.
@@ -1246,9 +1303,9 @@ declare namespace gapi.client {
             /**
              * The shadow property state.
              *
-             * Updating the the shadow on a page element will implicitly update this field
-             * to `RENDERED`, unless another value is specified in the same request. To
-             * have no shadow on a page element, set this field to `NOT_RENDERED`. In this
+             * Updating the shadow on a page element will implicitly update this field to
+             * `RENDERED`, unless another value is specified in the same request. To have
+             * no shadow on a page element, set this field to `NOT_RENDERED`. In this
              * case, any other shadow fields set in the same request will be ignored.
              */
             propertyState?: string;
@@ -1283,7 +1340,7 @@ declare namespace gapi.client {
             /**
              * The background fill property state.
              *
-             * Updating the the fill on a shape will implicitly update this field to
+             * Updating the fill on a shape will implicitly update this field to
              * `RENDERED`, unless another value is specified in the same request. To
              * have no fill on a shape, set this field to `NOT_RENDERED`. In this case,
              * any other fill fields set in the same request will be ignored.
@@ -1396,7 +1453,7 @@ declare namespace gapi.client {
              * cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
              * format.
              *
-             * The provided URL can be at maximum 2K bytes large.
+             * The provided URL can be at most 2 kB in length.
              */
             contentUrl?: string;
             /** The original size of the picture fill. This field is read-only. */
@@ -1416,6 +1473,15 @@ declare namespace gapi.client {
         interface Table {
             /** Number of columns in the table. */
             columns?: number;
+            /**
+             * Properties of horizontal cell borders.
+             *
+             * A table's horizontal cell borders are represented as a grid. The grid has
+             * one more row than the number of rows in the table and the same number of
+             * columns as the table. For example, if the table is 3 x 3, its horizontal
+             * borders will be represented as a grid with 4 rows and 3 columns.
+             */
+            horizontalBorderRows?: TableBorderRow[];
             /** Number of rows in the table. */
             rows?: number;
             /** Properties of each column. */
@@ -1428,6 +1494,40 @@ declare namespace gapi.client {
              * than 1.
              */
             tableRows?: TableRow[];
+            /**
+             * Properties of vertical cell borders.
+             *
+             * A table's vertical cell borders are represented as a grid. The grid has the
+             * same number of rows as the table and one more column than the number of
+             * columns in the table. For example, if the table is 3 x 3, its vertical
+             * borders will be represented as a grid with 3 rows and 4 columns.
+             */
+            verticalBorderRows?: TableBorderRow[];
+        }
+        interface TableBorderCell {
+            /** The location of the border within the border table. */
+            location?: TableCellLocation;
+            /** The border properties. */
+            tableBorderProperties?: TableBorderProperties;
+        }
+        interface TableBorderFill {
+            /** Solid fill. */
+            solidFill?: SolidFill;
+        }
+        interface TableBorderProperties {
+            /** The dash style of the border. */
+            dashStyle?: string;
+            /** The fill of the table border. */
+            tableBorderFill?: TableBorderFill;
+            /** The thickness of the border. */
+            weight?: Dimension;
+        }
+        interface TableBorderRow {
+            /**
+             * Properties of each border cell. When a border's adjacent table cells are
+             * merged, it is not included in the response.
+             */
+            tableBorderCells?: TableBorderCell[];
         }
         interface TableCell {
             /** Column span of the cell. */
@@ -1445,7 +1545,7 @@ declare namespace gapi.client {
             /**
              * The background fill property state.
              *
-             * Updating the the fill on a table cell will implicitly update this field
+             * Updating the fill on a table cell will implicitly update this field
              * to `RENDERED`, unless another value is specified in the same request. To
              * have no fill on a table cell, set this field to `NOT_RENDERED`. In this
              * case, any other fill fields set in the same request will be ignored.
@@ -1491,6 +1591,16 @@ declare namespace gapi.client {
              * the number of columns of the entire table.
              */
             tableCells?: TableCell[];
+            /** Properties of the row. */
+            tableRowProperties?: TableRowProperties;
+        }
+        interface TableRowProperties {
+            /**
+             * Minimum height of the row. The row will be rendered in the Slides editor at
+             * a height equal to or greater than this value in order to show all the text
+             * in the row's cell(s).
+             */
+            minRowHeight?: Dimension;
         }
         interface TextContent {
             /** The bulleted lists contained in this text, keyed by list ID. */
@@ -1665,6 +1775,31 @@ declare namespace gapi.client {
             /** The positive width in pixels of the thumbnail image. */
             width?: number;
         }
+        interface UngroupObjectsRequest {
+            /**
+             * The object IDs of the objects to ungroup.
+             *
+             * Only groups that are not inside other
+             * groups can be ungrouped. All the groups
+             * should be on the same page. The group itself is deleted. The visual sizes
+             * and positions of all the children are preserved.
+             */
+            objectIds?: string[];
+        }
+        interface UnmergeTableCellsRequest {
+            /** The object ID of the table. */
+            objectId?: string;
+            /**
+             * The table range specifying which cells of the table to unmerge.
+             *
+             * All merged cells in this range will be unmerged, and cells that are already
+             * unmerged will not be affected. If the range has no merged cells, the
+             * request will do nothing. If there is text in any of the merged cells, the
+             * text will remain in the upper-left ("head") cell of the resulting block of
+             * unmerged cells.
+             */
+            tableRange?: TableRange;
+        }
         interface UpdateImagePropertiesRequest {
             /**
              * The fields that should be updated.
@@ -1795,6 +1930,38 @@ declare namespace gapi.client {
              */
             slideObjectIds?: string[];
         }
+        interface UpdateTableBorderPropertiesRequest {
+            /**
+             * The border position in the table range the updates should apply to. If a
+             * border position is not specified, the updates will apply to all borders in
+             * the table range.
+             */
+            borderPosition?: string;
+            /**
+             * The fields that should be updated.
+             *
+             * At least one field must be specified. The root `tableBorderProperties` is
+             * implied and should not be specified. A single `"&#42;"` can be used as
+             * short-hand for listing every field.
+             *
+             * For example to update the table border solid fill color, set
+             * `fields` to `"tableBorderFill.solidFill.color"`.
+             *
+             * To reset a property to its default value, include its field name in the
+             * field mask but leave the field itself unset.
+             */
+            fields?: string;
+            /** The object ID of the table. */
+            objectId?: string;
+            /** The table border properties to update. */
+            tableBorderProperties?: TableBorderProperties;
+            /**
+             * The table range representing the subset of the table to which the updates
+             * are applied. If a table range is not specified, the updates will apply to
+             * the entire table.
+             */
+            tableRange?: TableRange;
+        }
         interface UpdateTableCellPropertiesRequest {
             /**
              * The fields that should be updated.
@@ -1820,6 +1987,60 @@ declare namespace gapi.client {
              * the entire table.
              */
             tableRange?: TableRange;
+        }
+        interface UpdateTableColumnPropertiesRequest {
+            /**
+             * The list of zero-based indices specifying which columns to update. If no
+             * indices are provided, all columns in the table will be updated.
+             */
+            columnIndices?: number[];
+            /**
+             * The fields that should be updated.
+             *
+             * At least one field must be specified. The root `tableColumnProperties` is
+             * implied and should not be specified. A single `"&#42;"` can be used as
+             * short-hand for listing every field.
+             *
+             * For example to update the column width, set `fields` to `"column_width"`.
+             *
+             * If '"column_width"' is included in the field mask but the property is left
+             * unset, the column width will default to 406,400 EMU (32 points).
+             */
+            fields?: string;
+            /** The object ID of the table. */
+            objectId?: string;
+            /**
+             * The table column properties to update.
+             *
+             * If the value of `table_column_properties#column_width` in the request is
+             * less than 406,400 EMU (32 points), a 400 bad request error is returned.
+             */
+            tableColumnProperties?: TableColumnProperties;
+        }
+        interface UpdateTableRowPropertiesRequest {
+            /**
+             * The fields that should be updated.
+             *
+             * At least one field must be specified. The root `tableRowProperties` is
+             * implied and should not be specified. A single `"&#42;"` can be used as
+             * short-hand for listing every field.
+             *
+             * For example to update the minimum row height, set `fields` to
+             * `"min_row_height"`.
+             *
+             * If '"min_row_height"' is included in the field mask but the property is
+             * left unset, the minimum row height will default to 0.
+             */
+            fields?: string;
+            /** The object ID of the table. */
+            objectId?: string;
+            /**
+             * The list of zero-based indices specifying which rows to update. If no
+             * indices are provided, all rows in the table will be updated.
+             */
+            rowIndices?: number[];
+            /** The table row properties to update. */
+            tableRowProperties?: TableRowProperties;
         }
         interface UpdateTextStyleRequest {
             /**
@@ -2141,5 +2362,7 @@ declare namespace gapi.client {
             }): client.Request<Presentation>;
             pages: PagesResource;
         }
+
+        const presentations: slides.PresentationsResource;
     }
 }

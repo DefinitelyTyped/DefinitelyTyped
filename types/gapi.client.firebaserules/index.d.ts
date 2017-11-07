@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "firebaserules", version: "v1"): PromiseLike<void>;
     function load(name: "firebaserules", version: "v1", callback: () => any): void;
 
-    const projects: firebaserules.ProjectsResource;
-
     namespace firebaserules {
         interface Arg {
             /** Argument matches any value provided. */
@@ -272,6 +270,12 @@ declare namespace gapi.client {
             /** Collection of test cases associated with the `TestSuite`. */
             testCases?: TestCase[];
         }
+        interface UpdateReleaseRequest {
+            /** `Release` to update. */
+            release?: Release;
+            /** Specifies which fields to update. */
+            updateMask?: string;
+        }
         interface ReleasesResource {
             /**
              * Create a `Release`.
@@ -517,6 +521,47 @@ declare namespace gapi.client {
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
             }): Request<ListReleasesResponse>;
+            /**
+             * Update a `Release` via PATCH.
+             *
+             * Only updates to the `ruleset_name` and `test_suite_name` fields will be
+             * honored. `Release` rename is not supported. To create a `Release` use the
+             * CreateRelease method.
+             */
+            patch(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /**
+                 * Resource name for the project which owns this `Release`.
+                 *
+                 * Format: `projects/{project_id}`
+                 */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Release>;
             /**
              * Update a `Release`.
              *
@@ -824,5 +869,7 @@ declare namespace gapi.client {
             releases: ReleasesResource;
             rulesets: RulesetsResource;
         }
+
+        const projects: firebaserules.ProjectsResource;
     }
 }

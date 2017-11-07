@@ -16,10 +16,6 @@ declare namespace gapi.client {
     function load(name: "firebasedynamiclinks", version: "v1"): PromiseLike<void>;
     function load(name: "firebasedynamiclinks", version: "v1", callback: () => any): void;
 
-    const shortLinks: firebasedynamiclinks.ShortLinksResource;
-
-    const v1: firebasedynamiclinks.V1Resource;
-
     namespace firebasedynamiclinks {
         interface AnalyticsInfo {
             /** Google Play Campaign Measurements. */
@@ -64,6 +60,10 @@ declare namespace gapi.client {
             /** Information about potential warnings on link creation. */
             warning?: DynamicLinkWarning[];
         }
+        interface DesktopInfo {
+            /** Link to open on desktop. */
+            desktopFallbackLink?: string;
+        }
         interface DeviceInfo {
             /** Device model name. */
             deviceModelName?: string;
@@ -95,6 +95,11 @@ declare namespace gapi.client {
              * [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
              */
             androidInfo?: AndroidInfo;
+            /**
+             * Desktop related information. See desktop related parameters in the
+             * [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
+             */
+            desktopInfo?: DesktopInfo;
             /**
              * Dynamic Links domain that the project owns, e.g. abcd.app.goo.gl
              * [Learn more](https://firebase.google.com/docs/dynamic-links/android/receive)
@@ -426,5 +431,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
             }): Request<GetIosPostInstallAttributionResponse>;
         }
+
+        const shortLinks: firebasedynamiclinks.ShortLinksResource;
+
+        const v1: firebasedynamiclinks.V1Resource;
     }
 }

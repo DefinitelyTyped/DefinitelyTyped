@@ -260,7 +260,7 @@ Retrieves a list of objects matching the criteria.
 await gapi.client.objects.list({ bucket: "bucket",  }); 
     
 /* 
-Updates an object's metadata. This method supports patch semantics.  
+Patches an object's metadata.  
 */
 await gapi.client.objects.patch({ bucket: "bucket", object: "object",  }); 
     
