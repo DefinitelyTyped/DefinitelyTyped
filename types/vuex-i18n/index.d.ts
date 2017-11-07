@@ -2,7 +2,7 @@
 // Project: https://github.com/dkfbasel/vuex-i18n
 // Definitions by: Cedric Kemp <https://github.com/jaeggerr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// TypeScript Version: 2.3
+// TypeScript Version: 2.3
 
 import _Vue, { PluginObject } from "vue";
 
