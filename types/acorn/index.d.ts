@@ -228,9 +228,8 @@ declare namespace acorn {
 
     const version: string;
 
-    interface IParse {
-        (input: string, options?: Options): ESTree.Program;
-    }
+    // TODO: rename type.
+    type IParse = (input: string, options?: Options) => ESTree.Program;
 
     const parse: IParse;
 
