@@ -171,8 +171,8 @@ export class Exception {
 
     code: number;
     name: string;
-    path: number;
-    constructor(code: number, name: string, path: number);
+    path?: string;
+    constructor(code: number, name: string, path?: string);
     toString(): string;
     getCode(): number;
     getName(): string;
