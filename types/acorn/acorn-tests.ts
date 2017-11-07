@@ -41,7 +41,7 @@ class LooseParser {
 
     }
 }
-acorn.addLooseExports(function () {
+acorn.addLooseExports(() => {
     return {
         type: 'Program',
         sourceType: 'script',
@@ -63,7 +63,7 @@ acorn.isIdentifierChar(56);
 
 acorn.getLineInfo('string', 56);
 
-acorn.plugins['test'] = function (p: acorn.Parser, config: any) {
+acorn.plugins['test'] = (p: acorn.Parser, config: any) => {
 }
 
 acorn.tokenizer('console.log("hello world)', {locations: true}).getToken();
