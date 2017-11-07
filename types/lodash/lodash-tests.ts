@@ -8574,7 +8574,7 @@ namespace TestIsWeakSet {
     {
         let value: number | WeakSet<object> = 0;
 
-        if (_.isWeakSet<object>(value)) {
+        if (_.isWeakSet(value)) {
             let result: WeakSet<object> = value;
         }
         else {
