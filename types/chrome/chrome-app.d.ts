@@ -1,6 +1,6 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>
+// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Nikolai Ommundsen <https://github/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="index.d.ts"/>
@@ -93,10 +93,20 @@ declare namespace chrome.app.window {
         minHeight?: number;
         maxWidth?: number;
         maxHeight?: number;
-        frame?: any; // string ("none", "chrome") or FrameOptions
+        /**
+         * @description
+         * @type {(string | FrameOptions)} string ("none", "chrome") or FrameOptions
+         * @memberof CreateWindowOptions
+         */
+        frame?: string | FrameOptions;
         bounds?: ContentBounds;
         alphaEnabled?: boolean;
-        state?: string; // "normal", "fullscreen", "maximized", "minimized"
+        /**
+         * @description
+         * @type {string} "normal", "fullscreen", "maximized", "minimized"
+         * @memberof CreateWindowOptions
+         */
+        state?: string;
         hidden?: boolean;
         resizable?: boolean;
         singleton?: boolean;
