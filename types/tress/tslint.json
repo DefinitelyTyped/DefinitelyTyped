@@ -1,6 +1,7 @@
 {
 	"extends": "dtslint/dt.json",
 	"rules": {
-		"space-before-function-paren": false
+		"space-before-function-paren": false,
+		"strict-export-declare-modifiers": false
 	}
 }
