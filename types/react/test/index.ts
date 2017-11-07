@@ -141,6 +141,14 @@ const StatelessComponent3: React.SFC<SCProps> =
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 
+const StatelessComponent4: React.SFC<SCProps> =
+    // allows returning multiple element
+    props => [
+        DOM.div({ key: 1 }, props.foo),
+        DOM.div({ key: 2 }, props.foo),
+        DOM.div({ key: 3 }, props.foo),
+    ];
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);

@@ -21,6 +21,14 @@ StatelessComponent2.defaultProps = {
 };
 <StatelessComponent2>24</StatelessComponent2>;
 
+const StatelessComponent3: React.SFC<SCProps> = ({ foo }) => {
+    return [
+        <div key={1}>{foo}</div>,
+        <div key={2}>{foo}</div>
+    ];
+};
+<StatelessComponent3 foo={3}></StatelessComponent3>;
+
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
     <g>

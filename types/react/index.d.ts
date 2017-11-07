@@ -14,6 +14,7 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -319,7 +320,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactNode;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -3517,7 +3518,7 @@ declare namespace React {
 declare global {
     namespace JSX {
         // tslint:disable:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        type Element = React.ReactNode;
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
