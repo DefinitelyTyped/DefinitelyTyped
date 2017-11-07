@@ -1,4 +1,5 @@
-import * as moment from 'moment';
+import moment = require('moment');
+import 'moment-holiday';
 
 let holidayResult: moment.Moment | false | { [holidayName: string]: moment.Moment };
 holidayResult = moment().holiday([]);
