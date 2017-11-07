@@ -55,5 +55,5 @@ export class Merge {
     static commits(repo: Repository, ourCommit: Commit, theirCommit: Commit, options?: MergeOptions): any;
     static fileInitInput(opts: MergeFileInput, version: number): number;
     static initOptions(opts: MergeOptions, version: number): number;
-    static trees(repo: Repository, ancestorTree: Tree, ourTree: Tree, theirTree: Tree, opts: MergeOptions): Promise<Index>;
+    static trees(repo: Repository, ancestorTree: Tree, ourTree: Tree, theirTree: Tree, opts?: MergeOptions): Promise<Index>;
 }
