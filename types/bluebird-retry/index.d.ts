@@ -22,7 +22,6 @@ declare namespace retry {
         context?: any;
         args?: any;
     }
-
 }
 
 export = retry;
