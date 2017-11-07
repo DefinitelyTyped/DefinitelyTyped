@@ -2,12 +2,13 @@
 // Project: http://mozilla.github.io/nunjucks/
 // Definitions by: Ruben Slabbert <https://github.com/RubenSlabbert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-export function render(name: string, context?: Object): string;
-export function render(name: string, context?: Object, callback?: (err: any, res: string) => any): void;
+export function render(name: string, context?: object): string;
+export function render(name: string, context?: object, callback?: (err: any, res: string) => any): void;
 
-export function renderString(src: string, context: Object): string;
-export function renderString(src: string, context: Object, callback?: (err: any, res: string) => any): void;
+export function renderString(src: string, context: object): string;
+export function renderString(src: string, context: object, callback?: (err: any, res: string) => any): void;
 
 export function compile(src: string, env?: Environment, callback?: (err: any, res: Template) => any): Template;
 
@@ -26,8 +27,8 @@ export interface PrecompileOptions {
 
 export class Template {
     constructor(src: string, env?: Environment, eagerCompile?: boolean);
-    render(context?: Object): string;
-    render(context?: Object, callback?: (err: any, res: string) => any): void;
+    render(context?: object): string;
+    render(context?: object, callback?: (err: any, res: string) => any): void;
 }
 
 export function configure(options: ConfigureOptions): Environment;
@@ -44,7 +45,7 @@ export interface ConfigureOptions {
         useCache?: boolean,
         async?: boolean
     };
-    express?: Object;
+    express?: object;
     tags?: {
         blockStart?: string,
         blockEnd?: string,
@@ -61,11 +62,11 @@ export class Environment {
     };
 
     constructor(loader?: ILoader | ILoader[], opts?: ConfigureOptions);
-    render(name: string, context?: Object): string;
-    render(name: string, context?: Object, callback?: (err: any, res: string) => any): void;
+    render(name: string, context?: object): string;
+    render(name: string, context?: object, callback?: (err: any, res: string) => any): void;
 
-    renderString(name: string, context: Object): string;
-    renderString(name: string, context: Object, callback?: (err: any, res: string) => any): void;
+    renderString(name: string, context: object): string;
+    renderString(name: string, context: object, callback?: (err: any, res: string) => any): void;
 
     addFilter(name: string, func: (...args: any[]) => any, async?: boolean): void;
     getFilter(name: string): void;
@@ -80,7 +81,7 @@ export class Environment {
     getTemplate(name: string, eagerCompile?: boolean): Template;
     getTemplate(name: string, eagerCompile?: boolean, callback?: (err: any, templ: Template) => Template): void;
 
-    express(app: Object): void;
+    express(app: object): void;
 }
 
 export interface Extension {
