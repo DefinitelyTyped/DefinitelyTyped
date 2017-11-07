@@ -1172,4 +1172,54 @@ declare namespace chrome.networking.onc {
          */
         DeviceEditable?: boolean
     }
+    export interface ManagedLong {
+        /**
+         * @description The active value currently used by the network configuration manager (e.g. Shill).
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        Active?: number,
+        /**
+         * @description The source from which the effective property value was determined.
+         * @type {string}
+         * @memberof ManagedLong
+         */
+        Effective?: string,
+        /**
+         * @description The property value provided by the user policy.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        UserPolicy?: number,
+        /**
+         * @description The property value provided by the device policy.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        DevicePolicy?: number,
+        /**
+         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        UserSettings?: number,
+        /**
+         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        SharedSettings?: number,
+        /**
+         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedLong
+         */
+        UserEditable?: boolean,
+        /**
+         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedLong
+         */
+        DeviceEditable?: boolean
+    }
 }
