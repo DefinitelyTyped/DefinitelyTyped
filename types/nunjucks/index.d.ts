@@ -10,7 +10,6 @@ declare namespace Nunjucks {
     function renderString(src: string, context: Object): string;
     function renderString(src: string, context: Object, callback?: (err: any, res: string) => any): void;
 
-    function compile(src: string, env?: Environment): Template;
     function compile(src: string, env?: Environment, callback?: (err: any, res: Template) => any): Template;
 
     function precompile(path: string, opts?: PrecompileOptions): string;
@@ -33,8 +32,7 @@ declare namespace Nunjucks {
     }
 
     function configure(options: ConfigureOptions): Environment;
-    function configure(path: string, options?: ConfigureOptions): Environment;
-    function configure(path: string[], options?: ConfigureOptions): Environment;
+    function configure(path: string | string[], options?: ConfigureOptions): Environment;
 
     interface ConfigureOptions {
         autoescape?: boolean;
@@ -63,10 +61,7 @@ declare namespace Nunjucks {
             autoescape: boolean;
         };
 
-        constructor();
-        constructor(loader: ILoader, opts?: ConfigureOptions);
-        constructor(loaders: ILoader[], opts?: ConfigureOptions);
-
+        constructor(loader?: ILoader | ILoader[], opts?: ConfigureOptions);
         render(name: string, context?: Object): string;
         render(name: string, context?: Object, callback?: (err: any, res: string) => any): void;
 

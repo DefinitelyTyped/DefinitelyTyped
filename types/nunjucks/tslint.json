@@ -6,7 +6,6 @@
         "export-just-namespace": false,
         "interface-name": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "unified-signatures": false
+        "strict-export-declare-modifiers": false
     }
 }
