@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="bluebird" />
-
 import Promise = require('bluebird');
 
 declare function retry<T>(func: (param: T) => void, options?: retry.Options): Promise<T>;
