@@ -4,13 +4,18 @@ nunjucks.configure({ autoescape: false });
 
 let rendered = nunjucks.render("./noexists.html");
 
+nunjucks.render('foo.html', { username: 'James' });
+nunjucks.render('async.html', (err: any, res: string) => {});
+
 const ctx = { items: ["Hello", "this", "is", "for", "testing"] };
 const src = "{% for item in items %}{{item}}{% endfor %}";
 
 rendered = nunjucks.renderString(src, ctx);
+nunjucks.renderString('Hello {{ username }}', { username: 'James' });
 
 const compiled = nunjucks.compile(src);
 rendered = compiled.render(ctx);
+nunjucks.compile('Hello {{ username }}').render({ username: 'James' });
 
 rendered = nunjucks.precompileString(src, {
     name: "TestyWesty"
@@ -20,6 +25,11 @@ const template = new nunjucks.Template(src);
 rendered = template.render(ctx);
 
 let env = nunjucks.configure({ autoescape: false });
+nunjucks.configure('/views');
+nunjucks.configure('views', {
+    autoescape: true,
+    watch: true
+});
 rendered = env.renderString(src, ctx);
 
 env.addExtension("SpawnGlitter", {
