@@ -2,9 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-reference-import": false,
-        "no-var-keyword": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
         "prefer-template": false,
         "strict-export-declare-modifiers": false
     }
