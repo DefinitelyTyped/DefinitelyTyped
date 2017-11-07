@@ -1,4 +1,4 @@
-// Type definitions for URI Template JS 0.3.4
+// Type definitions for URI Template JS 0.3
 // Project: https://github.com/fxa/uritemplate-js
 // Definitions by: Chui Tey <https://github.com/teyc>
 //                 Ruben Taelman <https://github.com/rubensworks>
@@ -10,7 +10,6 @@
 */
 
 export class UriTemplate {
-
     /**
      * Expands template into a string using parameter
      * supplied
@@ -18,10 +17,10 @@ export class UriTemplate {
     expand(data: {}): string;
 }
 
-interface UriTemplateErrorOptions {
-    expressionText: string
-    message: string
-    position: number
+export interface UriTemplateErrorOptions {
+    expressionText: string;
+    message: string;
+    position: number;
 }
 
 export class UriTemplateError {
