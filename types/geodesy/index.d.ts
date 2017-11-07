@@ -1,7 +1,8 @@
-// Type definitions for geodesy 1.1
+// Type definitions for geodesy 1.2
 // Project: https://github.com/chrisveness/geodesy
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // 		   Gilbert Handy <https://github.com/HandyG52>
+//         Harry Nicholls <https://github.com/excelulous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type format = 'd' | 'dm' | 'dms';
@@ -168,3 +169,27 @@ export class LatLonSpherical {
     static areaOf(polygon: LatLonSpherical[], radius?: number): number;
     toString(format?: string, dp?: number): string;
 }
+
+export class LatLonVectors {
+    lat: number;
+    lon: number;
+    constructor(lat: number, lon: number);
+    toVector(): Vector3d;
+    greatCircle(bearing: number): Vector3d;
+    distanceTo(point: LatLonVectors, radius?: number): number;
+    bearingTo(point: LatLonVectors): number;
+    midpointTo(point: LatLonVectors): number;
+    intermediatePointTo(point: LatLonVectors, fraction: number): LatLonVectors;
+    intermediatePointOnChordTo(point: LatLonVectors, fraction: number): LatLonVectors;
+    destinationPoint(distance: number, bearing: number, radius?: number): LatLonVectors;
+    static intersection(path1start: LatLonVectors, path1brngEnd: LatLonVectors | number, path2start: LatLonVectors, path2brngEnd: LatLonVectors | number): LatLonVectors;
+    crossTrackDistanceTo(pathStart: LatLonVectors, pathBrngEnd: LatLonVectors | number, radius?: number): number;
+    alongTrackDistanceTo(pathStart: LatLonVectors, pathBrngEnd: LatLonVectors | number, radius?: number): number;
+    nearestPointOnSegment(point1: LatLonVectors, point2: LatLonVectors): LatLonVectors;
+    isBetween(point1: LatLonVectors, point2: LatLonVectors): boolean;
+    enclosedBy(polygon: LatLonVectors[]): boolean;
+    static areaOf(polygon: LatLonVectors[], radius?: number): number;
+    static meanOf(points: ReadonlyArray<LatLonVectors>): LatLonVectors;
+    equals(point: LatLonVectors): boolean;
+    toString(format?: string, dp?: number): string;
+  }
