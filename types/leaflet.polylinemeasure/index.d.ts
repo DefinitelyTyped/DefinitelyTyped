@@ -3,16 +3,15 @@
 // Definitions by: Rinat Sultanov <https://github.com/RiON69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare module L {
+declare module 'leaflet' {
     namespace Control {
-
-        export interface PolylineMeasure extends L.Control {
+        interface PolylineMeasure extends Control {
             new (options?: PolylineMeasureOptions): any;
         }
 
-        export interface PolylineMeasureOptions {
+        interface PolylineMeasureOptions {
             position?: string;
             unit?: string;
             measureControlTitleOn?: string;
@@ -36,7 +35,7 @@ declare module L {
         }
     }
 
-    export namespace control {
-        export function polylineMeasure (options?: Control.PolylineMeasureOptions): Control.PolylineMeasure;
+    namespace control {
+        function polylineMeasure(options?: Control.PolylineMeasureOptions): Control.PolylineMeasure;
     }
 }
