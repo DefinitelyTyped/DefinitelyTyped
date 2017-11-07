@@ -61,7 +61,7 @@ export class Environment {
         autoescape: boolean;
     };
 
-    constructor(loader?: ILoader | ILoader[], opts?: ConfigureOptions);
+    constructor(loader?: ILoader | ILoader[] | null, opts?: ConfigureOptions);
     render(name: string, context?: object): string;
     render(name: string, context?: object, callback?: (err: any, res: string) => any): void;
 
