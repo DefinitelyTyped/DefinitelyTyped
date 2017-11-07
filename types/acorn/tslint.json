@@ -7,7 +7,6 @@
         "interface-name": false,
         "no-empty-interface": false,
         "no-reference-import": false,
-        "no-unnecessary-class": false,
-        "no-var-keyword": false
+        "no-unnecessary-class": false
     }
 }
