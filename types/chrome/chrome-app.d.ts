@@ -10,7 +10,7 @@
 // App
 ////////////////////
 declare namespace chrome.app {
-	interface AppDetails extends chrome.runtime.Manifest {
+	export interface AppDetails extends chrome.runtime.Manifest {
 		id: string;
 	}
 
@@ -21,7 +21,7 @@ declare namespace chrome.app {
 // App Runtime
 ////////////////////
 declare namespace chrome.app.runtime {
-    interface LaunchData {
+    export interface LaunchData {
         id?: string;
         items?: LaunchDataItem[];
         url?: string;
@@ -29,31 +29,31 @@ declare namespace chrome.app.runtime {
         isKioskSession?: boolean;
     }
 
-    interface LaunchDataItem {
+    export interface LaunchDataItem {
         entry: FileEntry;
         type: string;
     }
 
-    interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> {}
+    export interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> {}
 
-    interface RestartedEvent extends chrome.events.Event<() => void> {}
+    export interface RestartedEvent extends chrome.events.Event<() => void> {}
 
-    var onLaunched: LaunchedEvent;
-    var onRestarted: RestartedEvent;
+    export var onLaunched: LaunchedEvent;
+    export var onRestarted: RestartedEvent;
 }
 
 ////////////////////
 // App Window
 ////////////////////
 declare namespace chrome.app.window {
-    interface ContentBounds {
+    export interface ContentBounds {
         left?: number;
         top?: number;
         width?: number;
         height?: number;
     }
 
-    interface BoundsSpecification {
+    export interface BoundsSpecification {
         left?: number;
         top?: number;
         width?: number;
@@ -64,7 +64,7 @@ declare namespace chrome.app.window {
         maxHeight?: number;
     }
 
-    interface Bounds {
+    export interface Bounds {
         left: number;
         top: number;
         width: number;
@@ -78,14 +78,14 @@ declare namespace chrome.app.window {
         setMinimumSize(minWidth: number, minHeight: number): void;
         setMaximumSize(maxWidth: number, maxHeight: number): void;
     }
-    interface FrameOptions {
+    export interface FrameOptions {
         type?: string;
         color?: string;
         activeColor?: string;
         inactiveColor?: string;
     }
 
-    interface CreateWindowOptions {
+    export interface CreateWindowOptions {
         id?: string;
         innerBounds?: BoundsSpecification;
         outerBounds?: BoundsSpecification;
@@ -105,7 +105,7 @@ declare namespace chrome.app.window {
         visibleOnAllWorkspaces?: boolean;
     }
 
-    interface AppWindow {
+    export interface AppWindow {
         focus: () => void;
         fullscreen: () => void;
         isFullscreen: () => boolean;
@@ -144,14 +144,14 @@ declare namespace chrome.app.window {
     export function getAll(): AppWindow[];
     export function canSetVisibleOnAllWorkspaces(): boolean;
 
-    interface WindowEvent extends chrome.events.Event<() => void> {}
+    export interface WindowEvent extends chrome.events.Event<() => void> {}
 
-    var onBoundsChanged: WindowEvent;
-    var onClosed: WindowEvent;
-    var onFullscreened: WindowEvent;
-    var onMaximized: WindowEvent;
-    var onMinimized: WindowEvent;
-    var onRestored: WindowEvent;
+    export var onBoundsChanged: WindowEvent;
+    export var onClosed: WindowEvent;
+    export var onFullscreened: WindowEvent;
+    export var onMaximized: WindowEvent;
+    export var onMinimized: WindowEvent;
+    export var onRestored: WindowEvent;
 }
 
 ////////////////////
@@ -159,13 +159,13 @@ declare namespace chrome.app.window {
 ////////////////////
 declare namespace chrome.fileSystem {
 
-    interface AcceptOptions {
+    export interface AcceptOptions {
         description?: string;
         mimeTypes?: string[];
         extensions?: string[];
     }
 
-    interface ChooseEntryOptions {
+    export interface ChooseEntryOptions {
         type?: string;
         suggestedName?: string;
         accepts?: AcceptOptions[];
@@ -189,11 +189,11 @@ declare namespace chrome.fileSystem {
 // Media Galleries
 ////////////////////
 declare namespace chrome.mediaGalleries {
-    interface MediaFileSystemsOptions {
+    export interface MediaFileSystemsOptions {
         interactive?: 'no' | 'yes' | 'if_needed';
     }
 
-    interface MediaFileSystemMetadata {
+    export interface MediaFileSystemMetadata {
         name: string;
         galleryId: string;
         deviceId?: string;
@@ -202,16 +202,16 @@ declare namespace chrome.mediaGalleries {
         isAvailable: boolean;
     }
 
-    interface MetadataOptions {
+    export interface MetadataOptions {
         metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
     }
 
-    interface RawTag {
+    export interface RawTag {
         type: string;
         tags: { [name: string]: string; };
     }
 
-    interface Metadata {
+    export interface Metadata {
         // The browser sniffed mime type.
         mimeType: string;
         // Defined for images and video. In pixels.
@@ -248,17 +248,17 @@ declare namespace chrome.mediaGalleries {
         attachedImages: Blob[];
     }
 
-    interface GalleryWatchResult {
+    export interface GalleryWatchResult {
         galleryId: string;
         success: boolean;
     }
 
-    interface GalleryChangedEventArgs {
+    export interface GalleryChangedEventArgs {
         type: 'contents_changed' | 'watch_dropped';
         galleryId: string;
     }
 
-    interface ScanProgressEventArgs {
+    export interface ScanProgressEventArgs {
         // The type of progress event, i.e. start, finish, etc.
         type: 'start' | 'cancel' | 'finish' | 'error';
         // The number of Galleries found.
@@ -285,40 +285,40 @@ declare namespace chrome.mediaGalleries {
     export function getAllGalleryWatch(callback: (galleryIds: string[]) => void): void;
     export function removeAllGalleryWatch(): void;
 
-    var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
-    var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
+    export var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
+    export var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
 }
 
 ////////////////////
 // Sockets
 ////////////////////
 declare namespace chrome.sockets.tcp {
-    interface CreateInfo {
+    export interface CreateInfo {
         socketId: number;
     }
 
-    interface SendInfo {
+    export interface SendInfo {
         resultCode: number;
         bytesSent?: number;
     }
 
-    interface ReceiveEventArgs {
+    export interface ReceiveEventArgs {
         socketId: number;
         data: ArrayBuffer;
     }
 
-    interface ReceiveErrorEventArgs {
+    export interface ReceiveErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
 
-    interface SocketProperties {
+    export interface SocketProperties {
         persistent?: boolean;
         name?: string;
         bufferSize?: number;
     }
 
-    interface SocketInfo {
+    export interface SocketInfo {
         socketId: number;
         persistent: boolean;
         name?: string;
@@ -351,8 +351,8 @@ declare namespace chrome.sockets.tcp {
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-    var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
-    var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+    export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+    export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
 /**
@@ -364,23 +364,23 @@ declare namespace chrome.sockets.tcp {
  * @see https://developer.chrome.com/apps/sockets_udp
  */
 declare namespace chrome.sockets.udp {
-    interface CreateInfo {
+    export interface CreateInfo {
         socketId: number;
     }
 
-    interface SendInfo {
+    export interface SendInfo {
         resultCode: number;
         bytesSent?: number;
     }
 
-    interface ReceiveEventArgs {
+    export interface ReceiveEventArgs {
         socketId: number;
         data: ArrayBuffer;
         remoteAddress: string;
         remotePort: number;
     }
 
-    interface ReceiveErrorEventArgs {
+    export interface ReceiveErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
@@ -388,7 +388,7 @@ declare namespace chrome.sockets.udp {
     /**
      * @see https://developer.chrome.com/apps/sockets_udp#type-SocketProperties
      */
-    interface SocketProperties {
+    export interface SocketProperties {
         /**
          * Flag indicating if the socket is left open when the event page of the
          * application is unloaded. The default value is "false." When the
@@ -412,7 +412,7 @@ declare namespace chrome.sockets.udp {
     /**
      * @see https://developer.chrome.com/apps/sockets_udp#type-SocketInfo
      */
-    interface SocketInfo {
+    export interface SocketInfo {
         /** The socket identifier. */
         socketId: number;
 
@@ -636,7 +636,7 @@ declare namespace chrome.sockets.udp {
      *
      * @see https://developer.chrome.com/apps/sockets_udp#event-onReceive
      */
-    var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+    export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
 
     /**
      * Event raised when a network error occured while the runtime was waiting
@@ -646,7 +646,7 @@ declare namespace chrome.sockets.udp {
      *
      * @see https://developer.chrome.com/apps/sockets_udp#event-onReceiveError
      */
-    var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+    export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
 /**
@@ -658,16 +658,16 @@ declare namespace chrome.sockets.udp {
  * @see https://developer.chrome.com/apps/sockets_tcpServer
  */
 declare namespace chrome.sockets.tcpServer {
-    interface CreateInfo {
+    export interface CreateInfo {
         socketId: number;
     }
 
-    interface AcceptEventArgs {
+    export interface AcceptEventArgs {
         socketId: number;
         clientSocketId: number;
     }
 
-    interface AcceptErrorEventArgs {
+    export interface AcceptErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
@@ -675,7 +675,7 @@ declare namespace chrome.sockets.tcpServer {
     /**
      * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
      */
-    interface SocketProperties {
+    export interface SocketProperties {
         /**
          * Flag indicating if the socket remains open when the event page of the
          * application is unloaded. The default value is "false." When the
@@ -693,7 +693,7 @@ declare namespace chrome.sockets.tcpServer {
     /**
      * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketInfo
      */
-    interface SocketInfo {
+    export interface SocketInfo {
         /** The socket identifier. */
         socketId: number;
 
@@ -836,7 +836,7 @@ declare namespace chrome.sockets.tcpServer {
      *
      * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAccept
      */
-    var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
+    export var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
 
     /**
      * Event raised when a network error occured while the runtime was waiting
@@ -846,7 +846,7 @@ declare namespace chrome.sockets.tcpServer {
      *
      * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
      */
-    var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
+    export var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
 }
 
 ////////////////////
@@ -858,7 +858,7 @@ declare namespace chrome.sockets.tcpServer {
  * @since Chrome 30.
  */
 declare namespace chrome.system.display {
-    interface Bounds {
+    export interface Bounds {
         /**  The x-coordinate of the upper-left corner. */
         left: number;
         /**  The y-coordinate of the upper-left corner. */
@@ -869,7 +869,7 @@ declare namespace chrome.system.display {
         height: number;
     }
 
-    interface Insets {
+    export interface Insets {
         /** The x-axis distance from the left bound. */
         left: number;
         /** The y-axis distance from the top bound. */
@@ -880,7 +880,7 @@ declare namespace chrome.system.display {
         bottom: number;
     }
 
-    interface DisplayInfo {
+    export interface DisplayInfo {
         /** The unique identifier of the display. */
         id: string;
         /** The user-friendly name (e.g. "HP LCD monitor"). */
@@ -908,7 +908,7 @@ declare namespace chrome.system.display {
     }
 
     /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|. */
-    interface DisplayProps {
+    export interface DisplayProps {
         /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
         mirroringSourceId?: string;
         /** If set to true, makes the display primary. No-op if set to false. */
@@ -923,7 +923,7 @@ declare namespace chrome.system.display {
         boundsOriginY?: number;
     }
 
-    interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
+    export interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
 
     /** Queries basic CPU information of the system. */
     export function getInfo(callback: (info: DisplayInfo[]) => void): void;
@@ -938,7 +938,7 @@ declare namespace chrome.system.display {
 // System - Network
 ////////////////////
 declare namespace chrome.system.network {
-    interface NetworkInterface {
+    export interface NetworkInterface {
         name: string;
         address: string;
         prefixLength: number;
@@ -948,7 +948,7 @@ declare namespace chrome.system.network {
 }
 
 declare namespace chrome.runtime {
-	interface Manifest {
+	export interface Manifest {
 		app?: {
 			background?: {
 				scripts?: string[];
@@ -999,7 +999,7 @@ declare namespace chrome.runtime {
 declare namespace chrome.usb {
 	type Direction = 'in' | 'out';
 
-	interface Device {
+	export interface Device {
 		device: number,
 		vendorId: number,
 		productId: number,
@@ -1008,13 +1008,13 @@ declare namespace chrome.usb {
 		serialNumber: string
 	}
 
-	interface ConnectionHandle {
+	export interface ConnectionHandle {
 		handle: number,
 		vendorId: number,
 		productId: number
 	}
 
-	interface EndpointDescriptor {
+	export interface EndpointDescriptor {
 		address: number,
 		type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
 		direction: Direction,
@@ -1025,7 +1025,7 @@ declare namespace chrome.usb {
 		extra_data: ArrayBuffer
 	}
 
-	interface InterfaceDescriptor {
+	export interface InterfaceDescriptor {
 		interfaceNumber: number,
 		alternateSetting: number,
 		interfaceClass: number,
@@ -1036,7 +1036,7 @@ declare namespace chrome.usb {
 		extra_data: ArrayBuffer
 	}
 
-	interface ConfigDescriptor {
+	export interface ConfigDescriptor {
 		active: boolean,
 		configurationValue: number,
 		description?: string,
@@ -1047,7 +1047,7 @@ declare namespace chrome.usb {
 		extra_data: ArrayBuffer
 	}
 
-	interface GenericTransferInfo {
+	export interface GenericTransferInfo {
 		direction: Direction,
 		endpoint: number,
 		length?: number,
@@ -1055,12 +1055,12 @@ declare namespace chrome.usb {
 		timeout?: number
 	}
 
-	interface TransferResultInfo {
+	export interface TransferResultInfo {
 		resultCode: number,
 		data?: ArrayBuffer
 	}
 
-	interface DeviceFilter {
+	export interface DeviceFilter {
 		vendorId?: number,
 		productId?: number,
 		interfaceClass?: number,
@@ -1068,7 +1068,7 @@ declare namespace chrome.usb {
 		interfaceProtocol?: number
 	}
 
-	interface TransferInfo {
+	export interface TransferInfo {
 		direction: Direction;
 		recipient: 'device' | 'interface' | 'endpoint' | 'other';
 		requestType: 'standard' | 'class' | 'vendor' | 'reserved';
@@ -1080,7 +1080,7 @@ declare namespace chrome.usb {
 		timeout?: number;
 	}
 
-	interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
+	export interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
 
 	export var onDeviceAdded: DeviceEvent;
 	export var onDeviceRemoved: DeviceEvent;
