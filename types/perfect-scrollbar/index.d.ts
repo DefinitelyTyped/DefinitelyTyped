@@ -3,7 +3,7 @@
 // Definitions by: Kombu <https://github.com/aicest>
 //                 Cyrus <https://github.com/CarbonAtom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5.3
+// TypeScript Version: 2.3
 
 interface HTMLPerfectScrollbarElementEventMap extends HTMLElementEventMap {
     /**
