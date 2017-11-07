@@ -21,5 +21,6 @@ type RetryableFn = ((retry: (error: any) => never, attempt: number) => Promise<a
  * @param options The options for how long/often to retry the function for.
  * @returns The Promise resolved by the input retryableFn, or rejected (if not retried) from its catch block.
  */
-declare function promiseRetry(retryableFn: RetryableFn | WrapOptions, options?: WrapOptions | RetryableFn): Promise<any>;
+declare function promiseRetry(retryableFn: RetryableFn, options?: WrapOptions): Promise<any>;
+declare function promiseRetry(options: WrapOptions, retryableFn: RetryableFn): Promise<any>;
 export = promiseRetry;
