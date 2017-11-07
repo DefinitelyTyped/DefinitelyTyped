@@ -1114,3 +1114,62 @@ declare namespace chrome.usb {
 	export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
 	export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
 }
+
+declare namespace chrome.networking.onc {
+    export type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
+    export type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
+    export type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected';
+    export type IPConfigType = 'DHCP' | 'Static';
+    export type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX';
+    export type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
+    export interface ManagedBoolean {
+        /**
+         * @description The active value currently used by the network configuration manager (e.g. Shill).
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        Active?: boolean,
+        /**
+         * @description The source from which the effective property value was determined.
+         * @type {string}
+         * @memberof ManagedBoolean
+         */
+        Effective?: string,
+        /**
+         * @description The property value provided by the user policy.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserPolicy?: boolean,
+        /**
+         * @description The property value provided by the device policy.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        DevicePolicy?: boolean,
+        /**
+         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserSettings?: boolean,
+        /**
+         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        SharedSettings?: boolean,
+        /**
+         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserEditable?: boolean,
+        /**
+         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        DeviceEditable?: boolean
+    }
+}
