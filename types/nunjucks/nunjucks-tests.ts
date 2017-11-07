@@ -1,6 +1,4 @@
-
 import nunjucks = require("nunjucks");
-
 
 nunjucks.configure({ autoescape: false });
 
