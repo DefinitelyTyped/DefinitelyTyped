@@ -10,6 +10,13 @@ import {
   ReactElement
 } from "react";
 
+export type FieldState = {
+    active?: boolean;
+    touched?: boolean;
+    visited?: boolean;
+    error?: any;
+}
+
 export type FieldType = "Field" | "FieldArray";
 
 export interface ErrorOther<T = void> {
@@ -27,6 +34,10 @@ export interface WarningOther<T = void> {
 export type FormWarnings<FormData = {}, T = void> = {
     [P in keyof FormData]?: ReactElement<any> | string | WarningOther<T>;
 };
+
+export type FormMeta<FormData = {}> = {
+    [P in keyof FormData]?: FieldState;
+}
 
 export interface RegisteredFieldState {
     name: string;

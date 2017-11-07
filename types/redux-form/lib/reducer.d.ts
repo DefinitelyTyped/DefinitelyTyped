@@ -1,5 +1,5 @@
 import { Action, Reducer } from "redux";
-import { FieldType } from "../index";
+import { FieldType, FieldState } from "../index";
 
 export interface FormReducer extends Reducer<FormStateMap> {
     plugin(reducers: FormReducerMapObject): Reducer<FormStateMap>;
@@ -29,12 +29,6 @@ export interface FormState {
 export interface RegisteredFieldState {
     name: string;
     type: FieldType;
-}
-
-export interface FieldState {
-    active?: boolean;
-    touched?: boolean;
-    visited?: boolean;
 }
 
 export default reducer;
