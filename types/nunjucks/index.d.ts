@@ -128,7 +128,7 @@ declare namespace Nunjucks {
         constructor(searchPaths?: string | string[], opts?: FileSystemLoaderOptions);
     }
 
-    export class WebLoader implements ILoader {
+    class WebLoader implements ILoader {
         constructor(baseUrl: string, opts?: any);
         getSource(name: string): LoaderSource;
     }
