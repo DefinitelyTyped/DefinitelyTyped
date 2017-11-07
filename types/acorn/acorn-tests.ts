@@ -1,13 +1,13 @@
 import acorn = require('acorn');
 import * as ESTree from 'estree';
 
-declare var token: acorn.Token;
-declare var tokens: acorn.Token[];
-declare var comment: acorn.Comment;
-declare var comments: acorn.Comment[];
-declare var program: ESTree.Program;
-var any: any;
-var string: string;
+declare let token: acorn.Token;
+declare let tokens: acorn.Token[];
+declare let comment: acorn.Comment;
+declare let comments: acorn.Comment[];
+declare let program: ESTree.Program;
+let any: any;
+let string: string;
 
 // acorn
 string = acorn.version;
