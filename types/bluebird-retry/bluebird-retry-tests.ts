@@ -7,7 +7,7 @@ function promiseSuccess(text: string) {
 
 let count = 0;
 function myfunc() {
-    console.log('myfunc called ' + (++count) + ' times');
+    console.log(`myfunc called ${++count} times`);
     if (count < 3) {
         throw new Error('i fail the first two times');
     } else {
