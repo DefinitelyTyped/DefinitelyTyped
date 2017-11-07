@@ -1,4 +1,4 @@
-// Type definitions for coverup v0.1
+// Type definitions for coverup 0.1
 // Project: https://github.com/jsonmaur/coverup
 // Definitions by: Vadim Belorussov <https://github.com/bevalorous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ export = coverup;
 declare function coverup(value: string, options?: coverup.Options): string;
 
 declare namespace coverup {
-    export interface Options {
+    interface Options {
         char?: string;
         keepLeft?: number;
         keepRight?: number;
