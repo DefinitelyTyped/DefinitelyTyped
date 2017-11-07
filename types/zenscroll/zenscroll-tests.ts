@@ -1,5 +1,3 @@
-
-
 import * as zenscroll from 'zenscroll';
 
 // Scroll to the top of an element
@@ -37,9 +35,9 @@ myScroller.toY(500);
 myScroller.intoView(target);
 
 // Execute something when the scrolling is done
-zenscroll.intoView(myDiv, 100, function () { myScroller.center(target) });
-zenscroll.intoView(myDiv, 100, function () { myScroller.toY(35) });
-zenscroll.intoView(myDiv, 100, function () { myScroller.intoView(target) });
+zenscroll.intoView(myDiv, 100, () => myScroller.center(target));
+zenscroll.intoView(myDiv, 100, () => myScroller.toY(35));
+zenscroll.intoView(myDiv, 100, () => myScroller.intoView(target));
 
 // Change settings
 zenscroll.setup(defaultDuration, edgeOffset);
