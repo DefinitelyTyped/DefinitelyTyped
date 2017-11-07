@@ -1,8 +1,9 @@
+import { Disposable } from "event-kit";
 import { GrammarRegistry, Grammar, ScopeSelector } from "first-mate";
 
-declare let subscription: EventKit.Disposable;
-declare let grammar: FirstMate.Grammar;
-declare let grammars: FirstMate.Grammar[];
+declare let subscription: Disposable;
+declare let grammar: Grammar;
+declare let grammars: Grammar[];
 
 // NPM Examples ===============================================================
 const selector = new ScopeSelector("a | b");

@@ -1,13 +1,13 @@
 import { Disposable, CompositeDisposable, Emitter } from "event-kit";
 
 declare let bool: boolean;
-declare let subscription: EventKit.Disposable;
-declare let subscriptions: EventKit.CompositeDisposable;
-declare let emitter: EventKit.Emitter;
+declare let subscription: Disposable;
+declare let subscriptions: CompositeDisposable;
+declare let emitter: Emitter;
 
 // NPM Usage Tests ============================================================
 class User {
-    private readonly emitter: EventKit.Emitter;
+    private readonly emitter: Emitter;
     name: string;
 
     constructor() {
@@ -81,3 +81,8 @@ subscription = emitter.preempt("test-event", value => {});
 // Event Emission
 emitter.emit("test-event");
 emitter.emit("test-event", 42);
+
+async function testEmitAsync() {
+    await emitter.emitAsync("test-event");
+    await emitter.emitAsync("test-event", 42);
+}
