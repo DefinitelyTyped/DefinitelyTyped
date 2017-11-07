@@ -9,10 +9,10 @@ import { PluginFunction } from "vue";
 declare namespace VueScrollTo {
     interface Options {
         // The element you want to scroll to.
-        el?: string;
-        element?: string;
+        el?: string | Element;
+        element?: string | Element;
         // The container that has to be scrolled. Default: body
-        container?: string;
+        container?: string | Element;
         // The duration (in milliseconds) of the scrolling animation. Default: 500
         duration?: number;
         // The easing to be used when animating. Default: ease
@@ -31,17 +31,23 @@ declare namespace VueScrollTo {
         // Whether or not we want scrolling on the y axis. Default: true
         y?: boolean;
     }
+
+    interface VueStatic {
+        (options: Options): void;
+        (element: string | Element, options?: Options): void;
+        (element: string | Element, duration: number, options?: Options): void;
+    }
 }
 
 declare class VueScrollTo {
     static install: PluginFunction<never>;
 
-    scrollTo(element: string | HTMLElement, options?: VueScrollTo.Options): void;
+    scrollTo: VueScrollTo.VueStatic;
 }
 
-declare module "vue/types/vue" {
+declare module 'vue/types/vue' {
     interface Vue {
-        $scrollTo: typeof VueScrollTo.prototype.scrollTo;
+        $scrollTo: VueScrollTo.VueStatic;
     }
 }
 
