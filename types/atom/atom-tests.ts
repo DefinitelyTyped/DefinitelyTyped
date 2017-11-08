@@ -825,8 +825,12 @@ function testDock() {
     subscription = dock.onDidChangeActivePane(pane => pane.activate());
     subscription = dock.observeActivePane(pane => pane.activate());
     subscription = dock.onDidAddPaneItem(event => event.index && event.item && event.pane);
-    subscription = dock.onWillDestroyPaneItem(event => event.index && event.item && event.pane);
-    subscription = dock.onDidDestroyPaneItem(event => event.index && event.item && event.pane);
+    subscription = dock.onWillDestroyPaneItem(event => {
+        event.index && event.item && event.pane;
+    });
+    subscription = dock.onDidDestroyPaneItem(event => {
+        event.index && event.item && event.pane;
+    });
 
     // Pane Items
     objs = dock.getPaneItems();
@@ -2987,8 +2991,9 @@ function testWorkspace() {
     subscription = atom.workspace.observeActivePane(pane => pane.activate());
     subscription = atom.workspace.onDidAddPaneItem(event => event.index && event.item &&
         event.pane);
-    subscription = atom.workspace.onWillDestroyPaneItem(event => event.index &&
-        event.item && event.pane);
+    subscription = atom.workspace.onWillDestroyPaneItem(event => {
+        event.index && event.item && event.pane;
+    });
     subscription = atom.workspace.onDidDestroyPaneItem(event => event.index &&
         event.item && event.pane);
     subscription = atom.workspace.onDidAddTextEditor(event => event.index && event.pane &&

@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.21
+// Type definitions for Atom 1.22
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>,
 //                 smhxx <https://github.com/smhxx>
@@ -6,7 +6,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.21.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.22.0/exports/atom.js
 
 /// <reference types="jquery" />
 /// <reference types="node" />
@@ -201,6 +201,10 @@ export interface AtomEnvironment {
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog.
+     *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
+     *  selecting a button the first button will be clicked unless a "Cancel" or "No"
+     *  button is provided.
+     *
      *  Returns the chosen button index number if the buttons option was an array.
      */
     confirm(options: {
@@ -211,6 +215,10 @@ export interface AtomEnvironment {
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog.
+     *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
+     *  selecting a button the first button will be clicked unless a "Cancel" or "No"
+     *  button is provided.
+     *
      *  Returns the chosen button index number if the buttons option was an array.
      */
     confirm(options: {
@@ -223,10 +231,10 @@ export interface AtomEnvironment {
 
     // Managing the Dev Tools
     /** Open the dev tools for the current window. */
-    openDevTools(): Promise<undefined>;
+    openDevTools(): Promise<null>;
 
     /** Toggle the visibility of the dev tools for the current window. */
-    toggleDevTools(): Promise<undefined>;
+    toggleDevTools(): Promise<null>;
 
     /** Execute code in dev tools. */
     executeJavaScriptInDevTools(code: string): void;
@@ -2516,8 +2524,12 @@ export interface Workspace {
     /**
      *  Invoke the given callback when a pane item is about to be destroyed,
      *  before the user is prompted to save it.
+     *  @param callback The function to be called before pane items are destroyed.
+     *      If this function returns a Promise, then the item will not be destroyed
+     *      until the promise resolves.
      */
-    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void|Promise<void>):
+        Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -2786,8 +2798,12 @@ export interface WorkspaceCenter {
     /**
      *  Invoke the given callback when a pane item is about to be destroyed, before the user
      *  is prompted to save it.
+     *  @param callback The function to be called before pane items are destroyed.
+     *      If this function returns a Promise, then the item will not be destroyed
+     *      until the promise resolves.
      */
-    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void|Promise<void>):
+        Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -3299,8 +3315,12 @@ export interface Dock {
     /**
      *  Invoke the given callback when a pane item is about to be destroyed, before the user is
      *  prompted to save it.
+     *  @param callback The function to be called before pane items are destroyed.
+     *      If this function returns a Promise, then the item will not be destroyed
+     *      until the promise resolves.
      */
-    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void|Promise<void>):
+        Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -3956,6 +3976,15 @@ export interface PackageManager {
 
     /** Returns an Array of strings of all the available package metadata. */
     getAvailablePackageMetadata(): string[];
+
+    /** Activate a single package by name or path. */
+    activatePackage(nameOrPath: string): Promise<Package>;
+
+    /** Triggers the given package activation hook. */
+    triggerActivationHook(hook: string): void;
+
+    /** Trigger all queued activation hooks immediately. */
+    triggerDeferredActivationHooks(): void;
 }
 
 /** A container for presenting content in the center of the workspace. */
@@ -4072,16 +4101,16 @@ export interface Pane {
     moveItemToPane(item: object, pane: Pane, index: number): void;
 
     /** Destroy the active item and activate the next item. */
-    destroyActiveItem(): void;
+    destroyActiveItem(): Promise<boolean>;
 
     /** Destroy the given item. */
     destroyItem(item: object, force?: boolean): Promise<boolean>;
 
     /** Destroy all items. */
-    destroyItems(): void;
+    destroyItems(): Promise<boolean[]>;
 
     /** Destroy all items except for the active item. */
-    destroyInactiveItems(): void;
+    destroyInactiveItems(): Promise<boolean[]>;
 
     /** Save the active item. */
     saveActiveItem<T = void>(nextAction?: (error?: Error) => T):
@@ -4158,7 +4187,6 @@ export interface Pane {
  *  should not create a Panel directly, instead use Workspace::addTopPanel and
  *  friends to add panels.
  */
-// TODO: constraints once Item is defined.
 export interface Panel<T = object> {
     /** Whether or not the Panel is visible. */
     visible: boolean;
@@ -4675,6 +4703,12 @@ export class TextBuffer {
     /** The unique identifier for this buffer. */
     id: string;
 
+    /** The number of retainers for the buffer. */
+    refcount: number;
+
+    /** Whether or not the bufffer has been destroyed. */
+    destroyed: boolean;
+
     /** Create a new buffer backed by the given file path. */
     static load(source: string, params?: BufferLoadOptions): Promise<TextBuffer>;
 
@@ -4702,6 +4736,9 @@ export class TextBuffer {
          */
         shouldDestroyOnFileDelete?(): boolean
     });
+
+    /** Returns the unique identifier for this buffer. */
+    getId(): string;
 
     // Event Subscription
     /**
@@ -5093,6 +5130,33 @@ export class TextBuffer {
 
     /** Reload the buffer's contents from disk. */
     reload(): void;
+
+    /** Destroy the buffer, even if there are retainers for it. */
+    destroy(): void;
+
+    /** Returns whether or not this buffer is alive. */
+    isAlive(): boolean;
+
+    /** Returns whether or not this buffer has been destroyed. */
+    isDestroyed(): boolean;
+
+    /** Returns whether or not this buffer has a retainer. */
+    isRetained(): boolean;
+
+    /**
+     *  Places a retainer on the buffer, preventing its destruction until the
+     *  final retainer has called ::release().
+     */
+    retain(): TextBuffer;
+
+    /**
+     *  Releases a retainer on the buffer, destroying the buffer if there are
+     *  no additional retainers.
+     */
+    release(): TextBuffer;
+
+    /** Identifies if the buffer belongs to multiple editors. */
+    hasMultipleEditors(): boolean;
 }
 
 /** Handles loading and activating available themes. */
@@ -5477,7 +5541,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.21.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.22.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -5640,6 +5704,12 @@ export interface ConfigValues {
      *  `Soft Wrap At Preferred Line Length` setting enabled, in number of characters.
      */
     "editor.preferredLineLength": number;
+
+    /**
+     * Defines the maximum width of the editor window before soft wrapping is enforced,
+     * in number of characters.
+     */
+    "editor.maxScreenLineLength": number;
 
     /** Number of spaces used to represent a tab. */
     "editor.tabLength": number;
@@ -6483,8 +6553,8 @@ export interface WindowLoadSettings {
     appVersion: string;
     atomHome: string;
     devMode: boolean;
-    env: { [key: string]: string|undefined };
-    profileStartup: boolean;
     resourcePath: string;
     safeMode: boolean;
+    env?: { [key: string]: string|undefined };
+    profileStartup?: boolean;
 }
