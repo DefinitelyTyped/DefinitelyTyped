@@ -7,4 +7,5 @@ export class MergeOptions {
     defaultDriver?: string;
     flags?: number;
     recursionLimit?: number;
+    [key: string]: any;
 }

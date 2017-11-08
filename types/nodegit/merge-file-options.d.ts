@@ -5,4 +5,5 @@ export interface MergeFileOptions {
     theirLabel?: string;
     favor?: number;
     flags?: number;
+    [key: string]: any;
 }

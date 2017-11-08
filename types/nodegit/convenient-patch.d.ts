@@ -1,3 +1,4 @@
+import { ConvenientHunk } from './convenient-hunk';
 import { DiffFile } from './diff-file';
 
 export class ConvenientPatch {
@@ -16,7 +17,7 @@ export class ConvenientPatch {
     /**
      * The hunks in this patch
      */
-    hunks(): Promise<any[]>;
+    hunks(): Promise<ConvenientHunk[]>;
     /**
      * The status of this patch (unmodified, added, deleted)
      */
