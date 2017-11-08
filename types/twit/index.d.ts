@@ -2,6 +2,7 @@
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="geojson" />

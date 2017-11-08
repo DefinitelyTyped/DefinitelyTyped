@@ -2,6 +2,7 @@
 // Project: https://github.com/pa7/heatmap.js/
 // Definitions by: Yang Guan <https://github.com/lookuptable>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Leaflet from "leaflet";
 

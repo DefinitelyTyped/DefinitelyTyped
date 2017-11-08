@@ -5,6 +5,7 @@
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as webpack from 'webpack';
 import * as core from 'express-serve-static-core';
