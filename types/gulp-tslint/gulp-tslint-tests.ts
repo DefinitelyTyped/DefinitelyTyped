@@ -79,12 +79,17 @@ gulp.task('tslint', function(){
 
 const tslintOptions: tslint.Options = {
     configuration: {},
+    fix: false,
+    formatter: 'prose',
+    formattersDirectory: null,
     rulesDirectory: null,
-    tslint: null
+    tslint: null,
+    program: null
 };
 
 const reportOptions: tslint.ReportOptions = {
     emitError: true,
     reportLimit: 0,
-    summarizeFailureOutput: false
+    summarizeFailureOutput: false,
+    allowWarnings: false
 };

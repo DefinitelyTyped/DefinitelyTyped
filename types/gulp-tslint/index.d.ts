@@ -1,4 +1,4 @@
-// Type definitions for gulp-tslint 3.6.0
+// Type definitions for gulp-tslint 8.1
 // Project: https://github.com/panuhorsmalahti/gulp-tslint
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,15 +16,20 @@ declare namespace gulpTsLint {
     }
 
     interface Options {
-        configuration?: {},
-        rulesDirectory?: string,
-        tslint?: GulpTsLint
+        configuration?: {};
+        fix?: boolean;
+        formatter?: string;
+        formattersDirectory?: string;
+        rulesDirectory?: string;
+        tslint?: GulpTsLint;
+        program?: any;
     }
 
     interface ReportOptions {
         emitError?: boolean,
         reportLimit?: number,
         summarizeFailureOutput?: boolean
+        allowWarnings?: boolean;
     }
 
     interface Position {
