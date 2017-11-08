@@ -255,7 +255,7 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
     fontWeight?: string;
 
     /**
-     * Icon configuration
+     * Icon configuration for icon on right side of title
      */
     iconRight?: ButtonIcon;
 
