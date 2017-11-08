@@ -657,6 +657,7 @@ export interface TooltipProps {
 	itemSorter?: RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
+	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Tooltip extends React.Component<TooltipProps, {}> {}
