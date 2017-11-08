@@ -6,12 +6,13 @@
 
 /// <reference types="jquery" />
 
-interface JQuery {
-    fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
-}
+export = BootstrapFileInput;
+export as namespace BootstrapFileInput;
 
-declare module 'bootstrap-fileinput' {
-    export = BootstrapFileInput;
+declare global {
+   interface JQuery {
+        fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
+    }
 }
 
 declare module BootstrapFileInput {
