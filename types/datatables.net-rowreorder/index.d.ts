@@ -2,7 +2,7 @@
 // Project: http://datatables.net/extensions/rowreorder/
 // Definitions by: Vincent Biret <https://github.com/baywet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>

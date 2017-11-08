@@ -2,6 +2,7 @@
 // Project: https://github.com/janhommes/odata
 // Definitions by: Jan Hommes <https://github.com/janhommes>, Jean-Christophe Chalte <https://github.com/jcchalte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare module 'odata' {
     import Q = require("q");
