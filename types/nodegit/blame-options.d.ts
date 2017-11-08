@@ -8,4 +8,5 @@ export class BlameOptions {
     oldestCommit?: Oid;
     minLine?: number;
     maxLine?: number;
+    [key: string]: any;
 }
