@@ -37,7 +37,7 @@ export function mkdirp(dir: string): Promise<void>;
 export function mkdirp(dir: string, callback: (err: Error | null) => void): void;
 export function mkdirsSync(dir: string): void;
 export function mkdirpSync(dir: string): void;
-                                                                                
+
 export function outputFile(file: string, data: any, options?: WriteFileOptions | string): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error | null) => void): void;
 export function outputFile(file: string, data: any, options: WriteFileOptions | string, callback: (err: Error | null) => void): void;
@@ -280,7 +280,7 @@ export interface ReadOptions {
     encoding?: string;
     flag?: string;
 }
-                                                                                
+
 export interface WriteFileOptions {
     encoding?: string;
     flag?: string;
