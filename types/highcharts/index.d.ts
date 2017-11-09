@@ -1036,7 +1036,7 @@ declare namespace Highcharts {
          * Datetime axis only. An array determining what time intervals the ticks are allowed to fall on. Each array item is
          * an array where the first value is the time unit and the second value another array of allowed multiples.
          */
-        units?: [string, number[]][];
+        units?: Array<[string, number[]]>;
         /**
          * Whether axis, including axis title, line, ticks and labels, should be visible.
          * @default true
@@ -6575,7 +6575,7 @@ declare namespace Highcharts {
          * a subset is supported: absolute moveTo (M), absolute lineTo (L), absolute curveTo (C) and close (Z).
          * @param  path An SVG path split up in array form.
          */
-        path(path: (string | number)[]): ElementObject;
+        path(path: Array<string | number>): ElementObject;
         /**
          * Add a rectangle.
          * @param  x The x position of the rectangle's upper left corner.
