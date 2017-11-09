@@ -8541,12 +8541,10 @@ namespace TestIsUndefined {
 // _.isWeakMap
 namespace TestIsWeakMap {
     {
-        interface Obj { a: string };
-
-        let value: number|WeakMap<Obj, number> = 0;
+        let value: number | WeakMap<object, number> = 0;
 
         if (_.isWeakMap(value)) {
-            let result: WeakMap<Obj, number> = value;
+            let result: WeakMap<object, number> = value;
         }
         else {
             let result: number = value;
@@ -8574,10 +8572,10 @@ namespace TestIsWeakMap {
 // _.isWeakSet
 namespace TestIsWeakSet {
     {
-        let value: number|WeakSet<string> = 0;
+        let value: number | WeakSet<object> = 0;
 
-        if (_.isWeakSet<string>(value)) {
-            let result: WeakSet<string> = value;
+        if (_.isWeakSet(value)) {
+            let result: WeakSet<object> = value;
         }
         else {
             let result: number = value;

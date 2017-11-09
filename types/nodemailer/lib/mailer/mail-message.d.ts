@@ -16,6 +16,8 @@ declare class MailMessage {
 
     resolveAll(callback: (err?: Error | null, data?: Mail.Options) => void): void;
 
+    normalize(callback: (err?: Error | null, data?: Mail.Options) => void): void;
+
     setMailerHeader(): void;
 
     setPriorityHeaders(): void;
