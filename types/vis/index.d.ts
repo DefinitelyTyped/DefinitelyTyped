@@ -1700,6 +1700,7 @@ export interface Edge {
 export interface Locales {
   [language: string]: LocaleMessages | undefined;
   en?: LocaleMessages;
+  cn?: LocaleMessages;
   de?: LocaleMessages;
   es?: LocaleMessages;
   it?: LocaleMessages;
