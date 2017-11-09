@@ -228,6 +228,6 @@ declare namespace pusher {
 
 declare var pusher: pusher.PusherStatic;
 
-export as namespace pusher;
+export as namespace Pusher;
 
 export = pusher;
