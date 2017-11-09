@@ -380,13 +380,12 @@ draggable.disable();
 draggable.on('drag', () => {});
 
 let twoCoords: [number, number] = [1, 2];
-let outCoords: [number, number] | [number, number, number];
 latLng = L.GeoJSON.coordsToLatLng(twoCoords);
-outCoords = L.GeoJSON.latLngToCoords(latLng);
+twoCoords = L.GeoJSON.latLngToCoords(latLng) as [number, number];
 
 let threeCoords: [number, number, number] = [1, 2, 3];
 latLng = L.GeoJSON.coordsToLatLng(threeCoords);
-outCoords = L.GeoJSON.latLngToCoords(latLng);
+threeCoords = L.GeoJSON.latLngToCoords(latLng) as [number, number, number];
 
 let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
