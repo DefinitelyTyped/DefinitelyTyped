@@ -31,8 +31,8 @@ export class Parser extends EventEmitter {
 export interface Options {
     async?: boolean;
     attrkey?: string;
-    attrNameProcessors?: [(name: string) => any];
-    attrValueProcessors?: [(name: string) => any];
+    attrNameProcessors?: ((name: string) => any)[];
+    attrValueProcessors?: ((name: string) => any)[];
     charkey?: string;
     charsAsChildren?: boolean;
     childkey?: string;
@@ -47,10 +47,10 @@ export interface Options {
     normalize?: boolean;
     normalizeTags?: boolean;
     strict?: boolean;
-    tagNameProcessors?: [(name: string) => any];
+    tagNameProcessors?: ((name: string) => any)[];
     trim?: boolean;
     validator?: Function;
-    valueProcessors?: [(name: string) => any];
+    valueProcessors?: ((name: string) => any)[];
     xmlns?: boolean;
 }
 

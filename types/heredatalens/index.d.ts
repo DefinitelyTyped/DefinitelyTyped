@@ -141,7 +141,7 @@ declare namespace H.datalens {
             /** Column names */
             columns: string[];
             /** Rows of data */
-            rows: [any[]];
+            rows: any[][];
         }
     }
 
