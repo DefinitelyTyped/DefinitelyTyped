@@ -2787,6 +2787,8 @@ declare namespace React {
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
         href?: string;
         hrefLang?: string;
         integrity?: string;
@@ -2794,8 +2796,6 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
-        as?: string;
-        crossOrigin?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
