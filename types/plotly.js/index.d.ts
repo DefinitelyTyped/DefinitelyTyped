@@ -151,7 +151,7 @@ export interface Axis {
 	type: AxisType;
 	tickformat: string;
 	hoverformat: string;
-    exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
+	exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	range: [Datum, Datum];
