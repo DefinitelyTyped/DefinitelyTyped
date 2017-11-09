@@ -3,8 +3,6 @@
 // Definitions by: Amit Beckenstein <https://github.com/amitbeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace Format;
-
 /**
  * Appends a '/' to the end of the path unless it exists.
  * @param path A path.
