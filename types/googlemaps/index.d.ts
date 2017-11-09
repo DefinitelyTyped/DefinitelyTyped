@@ -2697,7 +2697,7 @@ declare namespace google.maps {
              * Accepted values are 'marker', 'polygon', 'polyline', 'rectangle', 'circle', or null. A drawing mode
              * of null means that the user can interact with the map as normal, and clicks do not draw anything.
              */
-            drawingMode?: OverlayType;
+            drawingMode?: OverlayType | null;
             /**
              * The Map to which the DrawingManager is attached, which is the Map on which the overlays created
              * will be placed.
