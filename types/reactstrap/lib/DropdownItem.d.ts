@@ -9,6 +9,7 @@ interface Props {
   className?: string;
   cssModule?: CSSModule;
   href?: string;
+  toggle?: boolean;
 }
 
 declare var DropdownItem: React.StatelessComponent<Props>;

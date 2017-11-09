@@ -3,8 +3,6 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* tslint:disable */
-
 // Latest patch version of module validated against: 3.5.17
 
 export = d3;

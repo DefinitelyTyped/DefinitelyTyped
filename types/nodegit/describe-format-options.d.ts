@@ -3,4 +3,5 @@ export class DescribeFormatOptions {
     abbreviatedSize?: number;
     alwaysUseLongFormat?: number;
     dirtySuffix?: string;
+    [key: string]: any;
 }

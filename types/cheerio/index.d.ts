@@ -172,7 +172,7 @@ interface Cheerio {
 
     empty(): Cheerio;
 
-    html(): string;
+    html(): string | null;
     html(html: string): Cheerio;
 
     text(): string;

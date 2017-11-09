@@ -1,8 +1,9 @@
+import { Disposable } from "event-kit";
 import KeymapManager = require("atom-keymap");
 import * as ImportTest from "atom-keymap";
 
 declare const element: HTMLElement;
-declare let sub: EventKit.Disposable;
+declare let sub: Disposable;
 declare const event: KeyboardEvent;
 
 // NPM Examples ===============================================================

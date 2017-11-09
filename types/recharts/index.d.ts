@@ -654,6 +654,7 @@ export interface SectorProps {
 	startAngle?: number;
 	endAngle?: number;
 	cornerRadius?: number;
+	fill?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -716,6 +717,7 @@ export interface TooltipProps {
 	itemSorter?: ItemSorter<TooltipPayload>;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
+	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	filterNull?: boolean;
 }
