@@ -352,14 +352,14 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
      * @default null
      */
     containerViewStyle?: StyleProp<ViewStyle>;
-    
+
     /**
      * Styling for loading spinner
      *
      * @default null
      */
     activityIndicatorStyle?: StyleProp<ViewStyle>;
-    
+
     /**
      * Display a loading spinner
      *
