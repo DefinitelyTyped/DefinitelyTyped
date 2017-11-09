@@ -242,7 +242,7 @@ declare namespace R {
          * the supplied arguments.
          */
         applySpec<T>(obj: any): (...args: any[]) => T;
-                                                                                    
+
         /**
          * Takes a value and applies a function to it.
          * This function is also known as the thrush combinator.
