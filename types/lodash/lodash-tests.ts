@@ -6822,28 +6822,28 @@ namespace TestFlow {
     {
         let result: (m: number, n: number) => number;
 
-        result = _.flow(Fn1, Fn2);
-        result = _.flow(Fn1, Fn1, Fn2);
-        result = _.flow(Fn1, Fn1, Fn1, Fn2);
+        result = _.flow(Fn2, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1);
         result = _.flow([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
 
-        result = _(Fn1).flow(Fn2);
-        result = _(Fn1).flow(Fn1, Fn2);
-        result = _(Fn1).flow(Fn1, Fn1, Fn2);
-        result = _(Fn1).flow([Fn1, Fn1, Fn2]);
+        result = _(Fn2).flow(Fn1);
+        result = _(Fn2).flow(Fn1, Fn1);
+        result = _(Fn2).flow(Fn1, Fn1, Fn1);
+        result = _(Fn2).flow([Fn1, Fn1, Fn1]);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
 
-        result = _(Fn1).chain().flow(Fn2);
-        result = _(Fn1).chain().flow(Fn1, Fn2);
-        result = _(Fn1).chain().flow(Fn1, Fn1, Fn2);
-        result = _(Fn1).chain().flow([Fn1, Fn1, Fn2]);
+        result = _(Fn2).chain().flow(Fn1);
+        result = _(Fn2).chain().flow(Fn1, Fn1);
+        result = _(Fn2).chain().flow(Fn1, Fn1, Fn1);
+        result = _(Fn2).chain().flow([Fn1, Fn1, Fn1]);
     }
 }
 
