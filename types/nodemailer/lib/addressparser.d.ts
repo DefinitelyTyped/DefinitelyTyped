@@ -19,6 +19,6 @@ declare namespace addressparser {
  * @param str Address field
  * @return An array of address objects
  */
-declare function addressparser(address: string): addressparser.Address;
+declare function addressparser(address: string): addressparser.Address[];
 
 export = addressparser;
