@@ -763,7 +763,18 @@ declare namespace google.maps {
 
     export enum Animation {
         BOUNCE,
-        DROP
+        DROP,
+        Ro,
+        Wo
+    }
+
+    export enum NavigationControlStyle {
+        DEFAULT,
+        SMALL,
+        ANDROID,
+        ZOOM_PAN,
+        Xo,
+        ak
     }
 
     /**
