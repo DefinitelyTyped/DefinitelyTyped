@@ -1,15 +1,15 @@
+import EmailTemplates = require('swig-email-templates');
 
-import emailTemplates = require('swig-email-templates');
+let templates = new EmailTemplates(),
+    withOptions = new EmailTemplates({ root: '' });
 
-var options = {
-  root: "root"
-};
+templates.generateText('templatePath', {}, 'html', function () { });
+templates.generateSubject('templatePath', {}, function () { });
+templates.rewriteUrls(function () {}, function () {});
+templates.render('templatePath', {}, function () { });
 
-emailTemplates(options, function(err, render) {
-  var context = {
-    meatballCount: 9001,
-  };
-  render('meatball-sandwich.html', context, function(err, html, text) {
-    // send html/text email
-  });
-});
+withOptions.generateText('templatePath', {}, 'html', function () { });
+withOptions.generateSubject('templatePath', {}, function () { });
+withOptions.rewriteUrls(function () {}, function () {});
+withOptions.render('templatePath', {}, function () { });
+
