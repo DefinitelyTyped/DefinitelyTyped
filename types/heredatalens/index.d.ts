@@ -2,6 +2,7 @@
 // Project: https://developer.here.com/
 // Definitions by: Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="heremaps" />
 
