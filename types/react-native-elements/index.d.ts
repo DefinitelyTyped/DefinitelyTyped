@@ -255,11 +255,9 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
     fontWeight?: string;
 
     /**
-     * Moves icon to right of title
-     *
-     * @default false
+     * Icon configuration for icon on right side of title
      */
-    iconRight?: boolean;
+    iconRight?: ButtonIcon;
 
     /**
      * onPress method
