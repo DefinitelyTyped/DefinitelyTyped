@@ -735,15 +735,19 @@ export interface TreemapProps {
 	animationEasing?: AnimationEasingType;
 }
 
-export interface Label {
+export interface LabelProps {
 	viewBox?: ViewBox | PolarViewBox;
 	formatter?: LabelFormatter;
-	value: string | number;
+	value?: string | number;
 	position?: PositionType;
 	offset?: number;
 	content?: React.ReactElement<any> | ContentRenderer<Label>;
 	children?: any;
+	angle?: number;
+	style?: React.CSSProperties;
 }
+
+export interface Label extends React.Component<LabelProps> { }
 
 export class Treemap extends React.Component<TreemapProps> { }
 
