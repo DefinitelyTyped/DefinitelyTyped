@@ -975,6 +975,16 @@ declare namespace Stripe {
             statement_descriptor?: string;
         }
 
+        interface IChargeCaptureOptions extends IDataOptions {
+            /**
+             * A positive integer in the smallest currency unit (e.g 100 cents to charge
+             * $1.00, or 1 to charge ¥1, a 0-decimal currency) representing how much to
+             * charge the card. The minimum amount is £0.50 (or equivalent in charge
+             * currency).
+             */
+            amount?: number;
+        }
+
         interface IChargeUpdateOptions extends IDataOptionsWithMetadata {
             /**
              * An arbitrary string which you can attach to a charge object. It is displayed when in the web interface alongside the charge.
@@ -4785,8 +4795,7 @@ declare namespace Stripe {
              * you created a charge with the capture option set to false. Uncaptured payments expire exactly seven days after they are
              * created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.
              */
-            capture(id: string, options: HeaderOptions, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
-            capture(id: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+            capture(id: string, data?: charges.IChargeCaptureOptions, options?: HeaderOptions, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
 
             /**
              * Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges

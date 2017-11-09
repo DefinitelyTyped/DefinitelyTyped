@@ -1,6 +1,6 @@
-// Type definitions for Passport 0.3
+// Type definitions for Passport 0.4
 // Project: http://passportjs.org
-// Definitions by: Horiuchi_H <https://github.com/horiuchi>, Eric Naeseth <https://github.com/enaeseth>
+// Definitions by: Horiuchi_H <https://github.com/horiuchi>, Eric Naeseth <https://github.com/enaeseth>, Igor Belagorudsky <https://github.com/theigor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,6 +42,7 @@ declare module 'passport' {
             successReturnToOrRedirect?: string;
             pauseStream?: boolean;
             userProperty?: string;
+            passReqToCallback?: boolean;
         }
 
         interface Passport {

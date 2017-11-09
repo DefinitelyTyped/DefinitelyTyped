@@ -18,6 +18,10 @@ import { Merge } from './merge';
 import { MergeOptions } from './merge-options';
 import { Refdb } from './ref-db';
 import { Revwalk } from './rev-walk';
+import { StatusFile } from './status-file';
+import { StatusOptions } from './status-options';
+import { DiffLine } from './diff-line';
+import { Treebuilder } from './tree-builder';
 
 export interface RepositoryInitOptions {
     description: string;
@@ -46,7 +50,7 @@ export class Repository {
     config(): Promise<Config>;
     configSnapshot(): Promise<Config>;
     detachHead(): number;
-    fetchheadForeach(callback: Function): Promise<any>;
+    fetchheadForeach(callback?: Function): Promise<any>;
 
     free(): void;
     getNamespace(): string;
@@ -57,7 +61,7 @@ export class Repository {
     isBare(): number;
     isEmpty(): number;
     isShallow(): number;
-    mergeheadForeach(callback: Function): Promise<any>;
+    mergeheadForeach(callback?: Function): Promise<any>;
     messageRemove(): number;
     odb(): Promise<Odb>;
     path(): string;
@@ -103,7 +107,7 @@ export class Repository {
      * Lookup reference names for a repository.
      */
     getReferenceNames(type: Reference.TYPE): Promise<string[]>;
-    getCommit(string: string | Oid): Promise<Commit>;
+    getCommit(string: string | Commit| Oid): Promise<Commit>;
     /**
      * Retrieve the blob represented by the oid.
      */
@@ -128,7 +132,7 @@ export class Repository {
     /**
      * Deletes a tag from a repository by the tag name.
      */
-    deleteTagByName(Short: string): Promise<any>;
+    deleteTagByName(Short: string): Promise<number>;
     /**
      * Instantiate a new revision walker for browsing the Repository"s history. See also Commit.prototype.history()
      */
@@ -141,16 +145,16 @@ export class Repository {
      * Retrieve the commit that HEAD is currently pointing to
      */
     getHeadCommit(): Promise<Commit>;
-    createCommit(updateRef: string, author: Signature, committer: Signature, message: string, Tree: Tree | Oid | string, parents: any[]): Promise<Oid>;
+    createCommit(updateRef: string, author: Signature, committer: Signature, message: string, Tree: Tree | Oid | string, parents: Array<string | Commit | Oid>, callback?: Function): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files
      */
-    createCommitOnHead(filesToAdd: any[], author: Signature, committer: Signature, message: string): Promise<Oid>;
+    createCommitOnHead(filesToAdd: string[], author: Signature, committer: Signature, message: string): Promise<Oid>;
     /**
      * Create a blob from a buffer
      */
     createBlobFromBuffer(buffer: Buffer): Oid;
-    treeBuilder(tree: Tree): any;
+    treeBuilder(tree: Tree): Promise<Treebuilder>;
     /**
      * Gets the default signature for the default user and now timestamp
      */
@@ -158,20 +162,20 @@ export class Repository {
     /**
      * Lists out the remotes in the given repository.
      */
-    getRemotes(Optional: Function): Promise<Object>;
+    getRemotes(callback?: Function): Promise<Remote[]>;
     /**
      * Gets a remote from the repo
      */
-    getRemote(remote: string | Remote, callback: Function): Promise<Remote>;
+    getRemote(remote: string | Remote, callback?: Function): Promise<Remote>;
     /**
      * Fetches from a remote
      */
-    fetch(remote: string | Remote, fetchOptions: Object | FetchOptions): Promise<void>;
+    fetch(remote: string | Remote, fetchOptions?: FetchOptions): Promise<void>;
     /**
      * Fetches from all remotes. This is done in series due to deadlocking issues with fetching from many remotes that can happen.
      */
-    fetchAll(fetchOptions: Object | FetchOptions, callback: Function): Promise<void>;
-    mergeBranches(to: string | Reference, from: string | Reference, signature: Signature, mergePreference: Merge.PREFERENCE, mergeOptions: MergeOptions): Promise<Oid>;
+    fetchAll(fetchOptions?: FetchOptions, callback?: Function): Promise<void>;
+    mergeBranches(to: string | Reference, from: string | Reference, signature: Signature, mergePreference: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
     /**
      * Rebases a branch onto another branch
      */
@@ -180,11 +184,11 @@ export class Repository {
     /**
      * Get the status of a repo to it's working directory
      */
-    getStatus(opts: any): Promise<any[]>;
+    getStatus(opts?: StatusOptions): Promise<StatusFile[]>;
     /**
      * Get extended statuses of a repo to it's working directory. Status entries have status, headToIndex delta, and indexToWorkdir deltas
      */
-    getStatusExt(opts: any): Promise<any[]>;
+    getStatusExt(opts?: StatusOptions): Promise<StatusFile[]>;
     /**
      * Get the names of the submodules in the repository.
      */
@@ -192,19 +196,19 @@ export class Repository {
     /**
      * This will set the HEAD to point to the reference and then attempt to update the index and working tree to match the content of the latest commit on that reference
      */
-    checkoutRef(reference: Reference, opts: Object | CheckoutOptions): Promise<any>;
+    checkoutRef(reference: Reference, opts?: CheckoutOptions): Promise<Reference>;
     /**
      * This will set the HEAD to point to the local branch and then attempt to update the index and working tree to match the content of the latest commit on that branch
      */
-    checkoutBranch(branch: string | Reference, opts: Object | CheckoutOptions): Promise<any>;
+    checkoutBranch(branch: string | Reference, opts?: CheckoutOptions): Promise<Reference>;
     /**
      * Stages or unstages line selection of a specified file
      */
-    stageFilemode(filePath: string | any[], stageNew: boolean): Promise<number>;
+    stageFilemode(filePath: string | string[], stageNew: boolean): Promise<number>;
     /**
      * Stages or unstages line selection of a specified file
      */
-    stageLines(filePath: string, newLines: any[], isStaged: boolean): Promise<number>;
+    stageLines(filePath: string, newLines: DiffLine[], isStaged: boolean): Promise<number>;
     /**
      * Returns true if the repository is in the default NONE state.
      */
@@ -236,7 +240,7 @@ export class Repository {
     /**
      * Discard line selection of a specified file. Assumes selected lines are unstaged.
      */
-    discardLines(filePath: string, selectedLines: any[]): Promise<number>;
+    discardLines(filePath: string, selectedLines: DiffLine[]): Promise<number>;
     /**
      * Grabs a fresh copy of the index from the repository. Invalidates all previously grabbed indexes
      */

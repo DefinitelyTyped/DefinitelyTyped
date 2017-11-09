@@ -717,6 +717,7 @@ export interface TooltipProps {
 	itemSorter?: ItemSorter<TooltipPayload>;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
+	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	filterNull?: boolean;
 }
