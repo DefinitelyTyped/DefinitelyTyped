@@ -316,12 +316,12 @@ interface ICounterDispatchProps {
     onIncrement: () => void
 }
 // with higher order functions
-connect<ICounterStateProps, ICounterDispatchProps>(
+connect<CounterState, ICounterStateProps, ICounterDispatchProps>(
     () => mapStateToProps,
     () => mapDispatchToProps
 )(Counter);
 // with higher order functions using parameters
-connect<ICounterStateProps, ICounterDispatchProps, {}>(
+connect<CounterState, ICounterStateProps, ICounterDispatchProps, {}>(
     (initialState: CounterState, ownProps) => mapStateToProps,
     (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
 )(Counter);
@@ -330,12 +330,12 @@ connect<ICounterStateProps>(
     () => mapStateToProps
 )(Counter);
 // wrap only one argument
-connect<ICounterStateProps, ICounterDispatchProps>(
+connect<CounterState, ICounterStateProps, ICounterDispatchProps>(
     mapStateToProps,
     () => mapDispatchToProps
 )(Counter);
 // with extra arguments
-connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICounterDispatchProps>(
+connect<CounterState, ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICounterDispatchProps>(
     () => mapStateToProps,
     () => mapDispatchToProps,
     (s: ICounterStateProps, d: ICounterDispatchProps) =>
@@ -621,7 +621,7 @@ namespace TestTOwnPropsInference {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
-    const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+    const ConnectedWithTypeHint = connect<CounterState, StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
@@ -652,7 +652,7 @@ namespace TestTOwnPropsInference {
     type PickedOwnProps = Pick<AllProps, "own">
     type PickedStateProps = Pick<AllProps, "state">
 
-    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps> = (state: any): PickedStateProps => {
+    const mapStateToPropsForPicked: MapStateToProps<CounterState, PickedStateProps, PickedOwnProps> = (state: any): PickedStateProps => {
         return { state: "string" }
     }
     const ConnectedWithPickedOwnProps = connect(mapStateToPropsForPicked)(AllPropsComponent);
@@ -691,7 +691,7 @@ namespace TestMergedPropsInference {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<CounterState, StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -699,7 +699,7 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<CounterState, void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -707,7 +707,7 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<CounterState, void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
@@ -733,7 +733,7 @@ namespace Issue16652 {
         };
     };
 
-    const ConnectedCommentList = connect<GeneratedStateProps, {}, PassedProps>(mapStateToProps)(
+    const ConnectedCommentList = connect<CounterState, GeneratedStateProps, {}, PassedProps>(mapStateToProps)(
         CommentList
     );
 
@@ -878,8 +878,8 @@ namespace TestCreateProvider {
 
     interface AProps { a: number };
     const A = (props: AProps) => (<h1>A is {props.a}</h1>);
-    const A1 = connect<AProps>(state => state)(A);
-    const A2 = myStoreConnect<AProps>(state => state)(A);
+    const A1 = connect<State, AProps>(state => state)(A);
+    const A2 = myStoreConnect<State, AProps>(state => state)(A);
 
     const Combined = () => (
         <Provider store={store}>
