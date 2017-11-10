@@ -1,4 +1,4 @@
-// Type definitions for joi v13.0.1
+// Type definitions for joi v10.6.0
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -95,7 +95,7 @@ export interface EmailOptions {
     /**
      * Specifies a list of acceptable TLDs.
      */
-    tldWhitelist?: string[] | object;
+    tldWhitelist?: string[] | Object;
     /**
      * Number of atoms required for the domain. Be careful since some domains, such as io, directly allow email.
      */
@@ -145,9 +145,6 @@ export interface WhenOptions {
 export interface ReferenceOptions {
     separator?: string;
     contextPrefix?: string;
-    default?: any;
-    strict?: boolean;
-    functions?: boolean;
 }
 
 export interface IPOptions {
@@ -168,7 +165,7 @@ export interface ValidationError extends Error, JoiObject {
 export interface ValidationErrorItem {
     message: string;
     type: string;
-    path: string[];
+    path: string;
     options?: ValidationOptions;
     context?: Context;
 }
@@ -201,8 +198,6 @@ export type Schema = AnySchema
     | LazySchema;
 
 export interface AnySchema extends JoiObject {
-
-    schemaType?: Types | string;
 
     /**
      * Validates a value using the schema and options.
@@ -393,8 +388,6 @@ export interface Description {
 
 export interface Context {
     [key: string]: any;
-    key?: string;
-    label?: string;
 }
 
 export interface State {
@@ -507,6 +500,7 @@ export interface StringSchema extends AnySchema {
      */
     max(limit: number, encoding?: string): this;
     max(limit: Reference, encoding?: string): this;
+
 
     /**
      * Specifies whether the string.max() limit should be used as a truncation.
@@ -1058,20 +1052,6 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
 export function extend(extention: Extension): any;
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-import * as Module from 'joi';
-export type Root = typeof Module;
-export type DefaultsFunction = (root: Schema) => Schema;
-
-/**
- * Creates a new Joi instance that will apply defaults onto newly created schemas
- * through the use of the fn function that takes exactly one argument, the schema being created.
- *
- * @param fn - The function must always return a schema, even if untransformed.
- */
-export function defaults(fn: DefaultsFunction): Root;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // Below are undocumented APIs. use at your own risk
