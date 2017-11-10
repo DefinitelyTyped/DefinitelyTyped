@@ -6879,12 +6879,6 @@ declare namespace EngineAPI {
         qSignature: string;
     }
 
-    interface IQOptions {
-        qBookmarkId: string;
-
-        qExpires: number;
-    }
-
     interface IQDownloadInfo {
         /**
          * URL of the generated QVF
@@ -7103,14 +7097,6 @@ declare namespace EngineAPI {
          * @returns The operation is successful if qSuccess is set to true.
          */
         exportApp(qTargetPath: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
-
-        /**
-         * Reduce an app in the memory to the current selection of a specified bookmark
-         * and make it as http download available.
-         * @params - optional qOptions
-         * @returns - A Promise of qDownloadInfo
-         */
-        exportReducedData(qOptions?: IQOptions): Promise<IQDownloadInfo>;
 
         /**
          * Returns the handle of the current app.
