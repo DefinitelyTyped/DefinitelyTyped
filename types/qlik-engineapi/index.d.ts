@@ -4060,7 +4060,7 @@ declare namespace EngineAPI {
         /**
          * Identifier and type of the dimension.
          */
-        qDim: INxLibraryMeasureDef;
+        qDim: INxLibraryDimensionDef;
 
         /**
          * Cardinal and tags related to the dimension.
@@ -6087,7 +6087,7 @@ declare namespace EngineAPI {
          * @returns - Information about the measure.
          * >> This parameter is mandatory.
          */
-        getMeasure(): Promise<INxLibraryMeasureDef>;
+        getMeasure(): Promise<IGenericMeasureProperties>;
 
         /**
          * Shows the properties of an object.
