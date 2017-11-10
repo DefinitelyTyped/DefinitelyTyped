@@ -2365,7 +2365,7 @@ declare namespace Xrm {
                  * @param callbackFunction The callback function must accept a parameter that contains an object with
                  *                         dictionary properties where the name of the property is the Id of the
                  *                         business process flow and the value of the property is the name of the
-                 *                         business process flow.                 *                        
+                 *                         business process flow.
                  *                         The enabled processes are filtered according to the user’s privileges. The
                  *                         list of enabled processes is the same ones a user can see in the UI if they
                  *                         want to change the process manually.
