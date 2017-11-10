@@ -1,13 +1,17 @@
 // Status Bar 1.x
 // https://atom.io/packages/status-bar
 
+/// <reference path="./config.d.ts" />
+
 export interface AddTileOptions {
-    /** A DOM element, a jQuery object, or a model object for which a view provider
+    /**
+     *  A DOM element, a jQuery object, or a model object for which a view provider
      *  has been registered in the the view registry.
      */
     item: object;
 
-    /** Determines the placement of the tile within the status bar. Lower priority
+    /**
+     *  Determines the placement of the tile within the status bar. Lower priority
      *  will result in closer placement to the anchor.
      */
     priority: number;
@@ -25,12 +29,14 @@ export interface Tile {
 }
 
 export interface StatusBar {
-    /** Add a tile to the left side of the status bar. Lower priority tiles are placed
+    /**
+     *  Add a tile to the left side of the status bar. Lower priority tiles are placed
      *  further to the left.
      */
     addLeftTile(options: AddTileOptions): Tile;
 
-    /** Add a tile to the right side of the status bar. Lower priority tiles are placed
+    /**
+     *  Add a tile to the right side of the status bar. Lower priority tiles are placed
      *  further to the right.
      */
     addRightTile(options: AddTileOptions): Tile;

@@ -191,7 +191,7 @@ export interface ElementHandle extends JSHandle {
   screenshot(options?: ScreenshotOptions): Promise<Buffer>;
   tap(): Promise<void>;
   toString(): string;
-  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
+  type(text: string, options?: { delay: number }): Promise<void>;
   uploadFile(...filePaths: string[]): Promise<void>;
 }
 
