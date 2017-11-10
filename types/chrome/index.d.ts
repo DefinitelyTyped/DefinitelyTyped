@@ -7030,8 +7030,9 @@ declare namespace chrome.webNavigation {
         /**
          * The ID of the process runs the renderer for this tab.
          * @since Chrome 22.
+         * @deprecated since Chrome 49. Frames are now uniquely identified by their tab ID and frame ID; the process ID is no longer needed and therefore ignored.
          */
-        processId: number;
+        processId?: number;
         /** The ID of the tab in which the frame is. */
         tabId: number;
         /** The ID of the frame in the given tab. */
