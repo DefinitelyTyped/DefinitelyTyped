@@ -1036,9 +1036,10 @@ namespace smtp_connection_test {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
                 if (err) {
-                    const code: string = err.code;
-                    const response: string = err.response;
-                    const responseCode: number = err.responseCode;
+                    const code: string = err.code || '???';
+                    const response: string = err.response || '???';
+                    const responseCode: number = err.responseCode || 0;
+                    const command: string = err.command || '???';
                     throw err;
                 }
                 connection.reset(() => {
