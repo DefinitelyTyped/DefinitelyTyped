@@ -9,7 +9,7 @@ declare namespace hljs
 		name: string,
 		value: string,
 		ignore_illegals?: boolean,
-		continuation?: boolean) : IHighlightResult;
+		continuation?: ICompiledMode) : IHighlightResult;
 	export function highlightAuto(
 		value: string,
 		languageSubset?: string[]) : IAutoHighlightResult;
