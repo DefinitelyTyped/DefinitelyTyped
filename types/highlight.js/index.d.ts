@@ -154,6 +154,6 @@ declare namespace hljs
 	}
 }
 
-declare module 'highlight.js' {
-	export = hljs;
-}
+
+export = hljs;
+export as namespace hljs;
