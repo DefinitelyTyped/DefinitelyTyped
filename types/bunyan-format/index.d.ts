@@ -22,6 +22,7 @@ declare namespace BunyanFormatWritable {
 }
 
 declare class BunyanFormatWritable extends Writable {
+    /** Creates a writable stream that formats bunyan records written to it. */
     constructor(options: BunyanFormatWritable.Options, output?: Writable);
 }
 
