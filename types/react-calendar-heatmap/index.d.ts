@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 export interface Props {
-    classForValue?: (value: any) => 'color-filled' | 'color-empty';
+    classForValue?: (value: any) => any;
     endDate?: string | number | Date;
     gutterSize?: number;
     horizontal?: boolean;
