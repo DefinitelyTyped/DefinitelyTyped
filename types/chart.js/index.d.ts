@@ -6,6 +6,7 @@
 //                 Larry Bahr <https://github.com/larrybahr>
 //                 Daniel Luz <https://github.com/mernen>
 //                 Joseph Page <https://github.com/josefpaij>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -153,7 +154,7 @@ declare namespace Chart {
         responsiveAnimationDuration?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
-        onClick?(any?: any): any;
+        onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
@@ -328,6 +329,8 @@ declare namespace Chart {
     interface GridLineOptions {
         display?: boolean;
         color?: ChartColor;
+        borderDash?: number[];
+        borderDashOffset?: number;
         lineWidth?: number;
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
@@ -335,6 +338,8 @@ declare namespace Chart {
         tickMarkLength?: number;
         zeroLineWidth?: number;
         zeroLineColor?: ChartColor;
+        zeroLineBorderDash?: number[];
+        zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
     }
 
@@ -406,8 +411,8 @@ declare namespace Chart {
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[];
-        borderWidth?: number;
-        borderColor?: ChartColor;
+        borderWidth?: number | number[];
+        borderColor?: ChartColor | ChartColor[];
         borderCapStyle?: string;
         borderDash?: number[];
         borderDashOffset?: number;

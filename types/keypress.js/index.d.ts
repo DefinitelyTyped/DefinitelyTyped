@@ -19,18 +19,18 @@ export interface ListenerDefaults {
 }
 
 export interface Combo {
-    keys: string;
-    on_keydown(event?: KeyboardEvent, count?: number): any;
-    on_keyup(event?: KeyboardEvent): any;
-    on_release(event?: KeyboardEvent): any;
-    this: Element;
-    prevent_default: boolean;
-    prevent_repeat: boolean;
-    is_unordered: boolean;
-    is_counting: boolean;
-    is_exclusive: boolean;
-    is_sequence: boolean;
-    is_solitary: boolean;
+    keys?: string;
+    on_keydown?(event?: KeyboardEvent, count?: number): any;
+    on_keyup?(event?: KeyboardEvent): any;
+    on_release?(event?: KeyboardEvent): any;
+    this?: Element;
+    prevent_default?: boolean;
+    prevent_repeat?: boolean;
+    is_unordered?: boolean;
+    is_counting?: boolean;
+    is_exclusive?: boolean;
+    is_sequence?: boolean;
+    is_solitary?: boolean;
 }
 
 export class Listener {
