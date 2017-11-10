@@ -11,7 +11,7 @@ export interface ReadDirItem {
   // The creation date of the file (iOS only)
   ctime: Date | undefined;
   // The last modified date of the file
-  mtime: Date;
+  mtime: Date | undefined;
   // The name of the item
   name: string;
   // The absolute path to the item
@@ -36,7 +36,7 @@ export interface StatResult {
   // Created date
   ctime: number;
   // Updated date
-  utime: number;
+  mtime: number;
   // Is the file just a file?
   isFile(): boolean;
   // Is the file a directory?
