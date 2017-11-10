@@ -1,8 +1,3 @@
-// Type definitions for jQuery jqgrid Plugin 1.3
-// Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
-//   			   xiao liu <https://github.com/LiuXiao617111>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 var mydata: any[] = [];
 var myFun = function () { };
 
