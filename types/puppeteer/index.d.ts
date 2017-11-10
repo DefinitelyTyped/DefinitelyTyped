@@ -96,6 +96,25 @@ export interface Cookie {
   sameSite: "Strict" | "Lax";
 }
 
+export interface DeleteCookie {
+  name: string;
+  url?: string;
+  domain?: string;
+  path?: string;
+  secure?: boolean;
+}
+
+export interface SetCookie {
+  name: string;
+  value: string;
+  domain?: string;
+  path?: string;
+  expires?: number;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: "Strict" | "Lax";
+}
+
 export interface Viewport {
   width: number;
   height: number;
@@ -359,15 +378,7 @@ export interface Page extends FrameBase {
   close(): Promise<void>;
   content(): Promise<string>;
   cookies(...urls: string[]): Promise<Cookie[]>;
-  deleteCookie(
-    ...cookies: Array<{
-      name: string;
-      url?: string;
-      domain?: string;
-      path?: string;
-      secure?: boolean;
-    }>
-  ): Promise<void>;
+  deleteCookie(...cookies: DeleteCookie[]): Promise<void>;
   emulate(options: Partial<EmulateOptions>): Promise<void>;
   emulateMedia(mediaType: 'screen' | 'print' | null): Promise<void>;
   evaluateHandle(
@@ -398,7 +409,7 @@ export interface Page extends FrameBase {
   screenshot(options?: ScreenshotOptions): Promise<Buffer>;
   select(selector: string, ...values: string[]): Promise<void>;
   setContent(html: string): Promise<void>;
-  setCookie(...cookies: Cookie[]): Promise<void>;
+  setCookie(...cookies: SetCookie[]): Promise<void>;
   setExtraHTTPHeaders(headers: Headers): Promise<void>;
   setJavaScriptEnabled(enabled: boolean): Promise<void>;
   setRequestInterceptionEnabled(value: boolean): Promise<void>;
