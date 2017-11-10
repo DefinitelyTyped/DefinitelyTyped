@@ -1,5 +1,5 @@
 // Type definitions for keypair 1.0
-// Project: https://www.npmjs.com/package/keypair
+// Project: https://github.com/juliangruber/keypair
 // Definitions by: eskelter <https://github.com/eskelter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
