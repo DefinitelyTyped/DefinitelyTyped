@@ -41,7 +41,7 @@ export interface ClientOpts {
     retry_unfulfilled_commands?: boolean;
     auth_pass?: string;
     password?: string;
-    db?: string;
+    db?: string | number;
     family?: string;
     rename_commands?: { [command: string]: string };
     tls?: any;

@@ -85,7 +85,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         const theme = {
             input: 'themed-input-class',
             container: 'themed-container-class',
-            suggestionFocused: 'active'
+            suggestionFocused: 'active',
+            sectionTitle: { color: 'blue' }
         };
 
         return <Autosuggest

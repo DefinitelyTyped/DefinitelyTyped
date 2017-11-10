@@ -115,6 +115,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "change-case",
             "typingsPackageName": "change-case",
             "sourceRepoURL": "https://github.com/blakeembrey/change-case",
@@ -217,6 +223,12 @@
             "asOfVersion": "5.14.0"
         },
         {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
@@ -317,6 +329,12 @@
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
             "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "jsplumb",
+            "typingsPackageName": "jsplumb",
+            "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
+            "asOfVersion": "2.5.7"
         },
         {
             "libraryName": "knockout-paging",
