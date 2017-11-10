@@ -177,7 +177,7 @@ ctrl.getVisible();
 ctrl.setVisible(true);
 
 // Demonstrate getEntityMetadata
-Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then(function(metadata){
+Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
     console.log(metadata.Attributes["statuscode"].optionSet[0].Label.LocalizedLabels[0].Label);
 });
 
@@ -194,6 +194,6 @@ Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' ma
             <attribute name='name' />
         </link-entity>
     </entity>
-    </fetch>`).then(function (response) {
+    </fetch>`).then((response) => {
         console.log("Query Returned : " + response.entities.length);
     });
