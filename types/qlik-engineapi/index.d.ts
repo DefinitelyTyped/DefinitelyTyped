@@ -4106,7 +4106,7 @@ declare namespace EngineAPI {
          *
          * @returns - A promise GenericDimension.
          */
-        getDimension(): Promise<IGenericDimension>;
+        getDimension(): Promise<IGenericDimensionProperties>;
 
         /**
          * Returns the type and identifier of the object.
