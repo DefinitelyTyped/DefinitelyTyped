@@ -43,7 +43,7 @@ interface jsPlumbInstance {
 	clear(): void;
 	batch(fn: () => void, doNotRepaintAfterwards?: boolean): void;
 	remove(el: ElementLocator): void;
-	deleteConnection(Connection): void;
+	deleteConnection(connectionObject: Connection): void;
 	removeAllEndpoints(): void;
 
     SVG: string;
