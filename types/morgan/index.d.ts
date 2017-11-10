@@ -3,7 +3,7 @@
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Paolo Scanferla <https://github.com/pscanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
 import express = require('express');
 

@@ -55,6 +55,12 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "askmethat-rating",
+            "typingsPackageName": "askmethat-rating",
+            "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
+            "asOfVersion": "0.4.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -107,6 +113,12 @@
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "change-case",
@@ -211,6 +223,12 @@
             "asOfVersion": "5.14.0"
         },
         {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
@@ -311,6 +329,12 @@
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
             "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "jsplumb",
+            "typingsPackageName": "jsplumb",
+            "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
+            "asOfVersion": "2.5.7"
         },
         {
             "libraryName": "knockout-paging",

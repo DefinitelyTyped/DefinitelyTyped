@@ -2,7 +2,8 @@
 // Project: http://rethinkdb.com/
 // Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
+// TypeScript Version: 2.3
+
 // Reference: https://rethinkdb.com/api/javascript/
 //
 // Notes:

@@ -67,16 +67,16 @@ let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
 };
 
 let point: GeoJSON.Point = {
-	type: "Point",
-	coordinates: [100.0, 0.0]
+    type: "Point",
+    coordinates: [100.0, 0.0]
 };
 
 // This type is commonly used in the turf package
 let pointCoordinates: number[] = point.coordinates;
 
 let lineString: GeoJSON.LineString = {
-	type: "LineString",
-	coordinates: [ [100.0, 0.0], [101.0, 1.0] ]
+    type: "LineString",
+    coordinates: [ [100.0, 0.0], [101.0, 1.0] ]
 };
 
 let polygon: GeoJSON.Polygon = {
@@ -112,7 +112,7 @@ let multiPolygon: GeoJSON.MultiPolygon = {
     coordinates: [
         [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
         [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
-         [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
+            [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
     ]
 };
 
@@ -172,31 +172,31 @@ featureCollection = {
         {
             type: "Feature",
             geometry: lineString,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }, {
             type: "Feature",
             geometry: polygon,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }, {
             type: "Feature",
             geometry: polygonWithHole,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }, {
             type: "Feature",
             geometry: multiPoint,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }, {
             type: "Feature",
             geometry: multiLineString,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }, {
             type: "Feature",
             geometry: multiPolygon,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }, {
             type: "Feature",
             geometry: geometryCollection,
-            properties: {test: 'OK'}
+            properties: {test: "OK"}
         }
     ],
     crs: {
@@ -210,17 +210,41 @@ featureCollection = {
 
 // Allow access to custom properties
 const pt: GeoJSON.Feature<GeoJSON.Point> = {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-        foo: 'bar',
-        hello: 'world',
+        foo: "bar",
+        hello: "world",
         1: 2
     },
     geometry: {
-        type: 'Point',
+        type: "Point",
         coordinates: [0, 0]
     }
 };
 pt.properties.foo;
 pt.properties.hello;
 pt.properties[1];
+
+// Optional generic for properties
+
+interface TestProperty {
+    foo: "bar" | "baz";
+    hello: string;
+}
+
+const typedPropertiesFeature: GeoJSON.Feature<GeoJSON.Point, TestProperty> = {
+    type: "Feature",
+    properties: {
+        foo: "bar",
+        hello: "world",
+    },
+    geometry: {
+        type: "Point",
+        coordinates: [0, 0]
+    }
+};
+
+const typedPropertiesFeatureCollection: GeoJSON.FeatureCollection<GeoJSON.Point, TestProperty> = {
+    type: "FeatureCollection",
+    features: [typedPropertiesFeature]
+};
