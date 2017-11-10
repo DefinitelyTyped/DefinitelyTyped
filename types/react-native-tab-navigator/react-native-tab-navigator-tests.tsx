@@ -10,7 +10,7 @@ const tabBarImage = 'https://assets-cdn.github.com/images/modules/logos_page/Git
 
 class TabTest extends React.Component<any, TabTestState> {
     constructor() {
-        super();
+        super({});
 
         this.state = {
             selectedTab: 'home'

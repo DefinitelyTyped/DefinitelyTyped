@@ -3,8 +3,9 @@
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
 // 	                Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 // TypeScript Version: 2.1
+
+/// <reference types="node" />
 
 import stream = require("stream");
 import tls = require("tls");

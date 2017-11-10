@@ -38,9 +38,10 @@ export function mkdirp(dir: string, callback: (err: Error | null) => void): void
 export function mkdirsSync(dir: string): void;
 export function mkdirpSync(dir: string): void;
 
-export function outputFile(file: string, data: any): Promise<void>;
+export function outputFile(file: string, data: any, options?: WriteFileOptions | string): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error | null) => void): void;
-export function outputFileSync(file: string, data: any): void;
+export function outputFile(file: string, data: any, options: WriteFileOptions | string, callback: (err: Error | null) => void): void;
+export function outputFileSync(file: string, data: any, options?: WriteFileOptions | string): void;
 
 export function readJson(file: string, options?: ReadOptions): Promise<any>;
 export function readJson(file: string, callback: (err: Error | null, jsonObject: any) => void): void;
@@ -234,8 +235,8 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, offset: number, encoding?: string): Promise<WriteResult>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException | null) => void): void;
-export function writeFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
-export function writeFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException | null) => void): void;
+export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;
+export function writeFile(file: string | Buffer | number, data: any, options: WriteFileOptions | string, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
@@ -280,13 +281,16 @@ export interface ReadOptions {
     flag?: string;
 }
 
-export interface WriteOptions {
-    fs?: object;
-    replacer?: any;
-    spaces?: number;
+export interface WriteFileOptions {
     encoding?: string;
     flag?: string;
     mode?: number;
+}
+
+export interface WriteOptions extends WriteFileOptions {
+    fs?: object;
+    replacer?: any;
+    spaces?: number;
 }
 
 export interface ReadResult {
