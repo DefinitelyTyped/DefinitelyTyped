@@ -13,11 +13,16 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "xrm": [
+                "xrm/v8"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     }
