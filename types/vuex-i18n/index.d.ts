@@ -6,8 +6,15 @@
 
 import _Vue, { PluginObject } from "vue";
 
-// augment typings of Vue.js
-import "./vue";
+declare module "vue/types/vue" {
+  interface Vue {
+    $i18n: Ii18n;
+  }
+
+  interface VueConstructor<V extends Vue = Vue> {
+    i18n: Ii18n;
+  }
+}
 
 export interface Translations {
   [key: string]: string;
