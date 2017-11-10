@@ -300,7 +300,7 @@ declare namespace Showdown {
          * @param optionKey
          * @param string
          */
-        setOption(optionKey: string, value: string): void;
+        setOption(optionKey: string, value: any): void;
 
         /**
          * Get the option of this Converter instance.
