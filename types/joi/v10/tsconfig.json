@@ -7,12 +7,17 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "joi": [
+                "joi/v10"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
