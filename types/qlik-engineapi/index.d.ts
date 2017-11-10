@@ -5071,31 +5071,10 @@ declare namespace EngineAPI {
     }
 
     /**
-     * ImplementOn...
-     */
-    interface IImplementOn {
-        /**
-         * register a function for events
-         * @param event - function called if this event occures
-         * @param func - function that is called
-         */
-        on(event: "changed" | "closed", func: () => void): void;
-
-        /**
-         * manual emit an events
-         * @param event - event that occures
-         */
-        emit(event: "changed" | "closed"): void;
-
-        // ? not in Docu
-        id: string;
-    }
-
-    /**
      * This class describes all the methods that apply at generic object level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic object.
      */
-    interface IGenericObject extends IImplementOn {
+    interface IGenericObject extends enigmaJS.IGeneratedAPI {
         /**
          * app describes all the methods that apply at app level.
          */
@@ -6010,7 +5989,7 @@ declare namespace EngineAPI {
     interface IGenericDerivedFieldProperties extends IGenericProperties {
     }
 
-    interface IGenericDerivedFields extends IImplementOn {
+    interface IGenericDerivedFields extends enigmaJS.IGeneratedAPI {
         /**
          * Shows the properties of an object.
          * Returns the identifier and the definition of the derived field.
@@ -6054,7 +6033,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at measure level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the measure.
      */
-    interface IGenericMeasure extends IImplementOn {
+    interface IGenericMeasure extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
@@ -6122,7 +6101,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at generic variable level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic variable.
      */
-    interface IGenericVariable extends IImplementOn {
+    interface IGenericVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of a variable. Allows an update to some of the properties.
          *
@@ -6245,7 +6224,7 @@ declare namespace EngineAPI {
      *
      * The handle member in the JSON request for all methods listed in this section is the handle of the variable.
      */
-    interface IVariable extends IImplementOn {
+    interface IVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Sets the value of a dual variable overriding any input constraints.
          *
@@ -9714,3 +9693,8 @@ declare namespace EngineAPI {
     }
 }
 //#endregion
+
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+    }
+}

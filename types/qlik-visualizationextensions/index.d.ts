@@ -2565,3 +2565,23 @@ declare module "qvangular" {
     const e: IQVAngular;
     export = e;
 }
+
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+        /**
+         * register a function for events
+         * @param event - function called if this event occures
+         * @param func - function that is called
+         */
+        on(event: "changed" | "closed", func: () => void): void;
+
+        /**
+         * manual emit an events
+         * @param event - event that occures
+         */
+        emit(event: "changed" | "closed"): void;
+
+        // ? not in Docu
+        id: string;
+    }
+}
