@@ -76,7 +76,7 @@ declare namespace SMTPConnection {
         /** the last response received from the server (if the error is caused by an error response from the server) */
         response: string;
         /** the numeric response code of the response string (if available) */
-        responseCode: string;
+        responseCode: number;
     }
 
     interface SentMessageInfo {
