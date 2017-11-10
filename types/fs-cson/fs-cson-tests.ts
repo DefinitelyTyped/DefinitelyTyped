@@ -10,7 +10,7 @@ fsCson.readFile('sample.cson', (err, data) => {
 
 const data = fsCson.readFileSync('sample.cson');
 
-function updater (data: any) {
+function updater(data: any) {
   const result: any = {};
   for (const key in data) {
     const value = data[key];
