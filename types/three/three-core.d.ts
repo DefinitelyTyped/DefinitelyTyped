@@ -6128,7 +6128,7 @@ export namespace ShapeUtils {
     export function isClockWise(pts: ArrayLike<{x: number, y: number}>): boolean;
 
     export function triangulate<T extends ArrayLike<{x: number, y: number}> | number[][]>(contour: T, indices?: boolean): T[];
-    export function triangulate(contour: ArrayLike<{x: number, y: number}> | number[][], indices: true): number[][];
+    export function triangulate(contour: ArrayLike<{x: number, y: number}> | number[][], indices: true): [number, number, number][];
 
     export function triangulateShape(contour: Vector2[], holes: Vector2[][]): number[][];
 }
