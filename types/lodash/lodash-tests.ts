@@ -6822,28 +6822,28 @@ namespace TestFlow {
     {
         let result: (m: number, n: number) => number;
 
-        result = _.flow(Fn1, Fn2);
-        result = _.flow(Fn1, Fn1, Fn2);
-        result = _.flow(Fn1, Fn1, Fn1, Fn2);
+        result = _.flow(Fn2, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1);
         result = _.flow([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
 
-        result = _(Fn1).flow(Fn2);
-        result = _(Fn1).flow(Fn1, Fn2);
-        result = _(Fn1).flow(Fn1, Fn1, Fn2);
-        result = _(Fn1).flow([Fn1, Fn1, Fn2]);
+        result = _(Fn2).flow(Fn1);
+        result = _(Fn2).flow(Fn1, Fn1);
+        result = _(Fn2).flow(Fn1, Fn1, Fn1);
+        result = _(Fn2).flow([Fn1, Fn1, Fn1]);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
 
-        result = _(Fn1).chain().flow(Fn2);
-        result = _(Fn1).chain().flow(Fn1, Fn2);
-        result = _(Fn1).chain().flow(Fn1, Fn1, Fn2);
-        result = _(Fn1).chain().flow([Fn1, Fn1, Fn2]);
+        result = _(Fn2).chain().flow(Fn1);
+        result = _(Fn2).chain().flow(Fn1, Fn1);
+        result = _(Fn2).chain().flow(Fn1, Fn1, Fn1);
+        result = _(Fn2).chain().flow([Fn1, Fn1, Fn1]);
     }
 }
 
@@ -8060,7 +8060,11 @@ namespace TestIsFunction {
             let result: Function = value;
         }
         else {
-            let result: number = value;
+            let result: number|Function = value;
+        }
+
+        if (_.isFunction(any)) {
+            any();
         }
     }
 
@@ -8537,12 +8541,10 @@ namespace TestIsUndefined {
 // _.isWeakMap
 namespace TestIsWeakMap {
     {
-        interface Obj { a: string };
-
-        let value: number|WeakMap<Obj, number> = 0;
+        let value: number | WeakMap<object, number> = 0;
 
         if (_.isWeakMap(value)) {
-            let result: WeakMap<Obj, number> = value;
+            let result: WeakMap<object, number> = value;
         }
         else {
             let result: number = value;
@@ -8570,10 +8572,10 @@ namespace TestIsWeakMap {
 // _.isWeakSet
 namespace TestIsWeakSet {
     {
-        let value: number|WeakSet<string> = 0;
+        let value: number | WeakSet<object> = 0;
 
-        if (_.isWeakSet<string>(value)) {
-            let result: WeakSet<string> = value;
+        if (_.isWeakSet(value)) {
+            let result: WeakSet<object> = value;
         }
         else {
             let result: number = value;
@@ -11181,6 +11183,12 @@ namespace TestPick {
         result = _.pick(obj, 'a');
         result = _.pick(obj, 0, 'a');
         result = _.pick(obj, ['b', 1], 0, 'a');
+    }
+
+    {
+        let result: Pick<TResult, 'a' | 'b'>;
+        result = _.pick(obj, 'a', 'b');
+        result = _.pick(obj, ['a', 'b']);
     }
 
     {

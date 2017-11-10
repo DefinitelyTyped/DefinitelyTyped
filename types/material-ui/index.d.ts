@@ -947,6 +947,7 @@ declare namespace __MaterialUI {
     export interface ChipProps {
         backgroundColor?: string;
         className?: string;
+        containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
         onRequestDelete?: React.TouchEventHandler<Chip>;

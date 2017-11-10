@@ -262,7 +262,7 @@ class RefComponent extends React.Component<RCProps> {
     }
 }
 
-let componentRef: RefComponent | null = new RefComponent();
+let componentRef: RefComponent | null = new RefComponent({});
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
 RefComponent.create({ ref: c => componentRef = c });
@@ -609,8 +609,8 @@ if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
 
 if (TestUtils.isDOMComponent(container)) {
     container.getAttribute("className");
-} else if (TestUtils.isCompositeComponent(new ModernComponent())) {
-    new ModernComponent().props;
+} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
+    new ModernComponent({ hello: 'hi', foo: 3 }).props;
 }
 
 //
@@ -698,3 +698,11 @@ declare var x: React.DOMElement<{
         transition: string;
     };
 }, Element>;
+
+// React 16 should be able to render its children directly
+class RenderChildren extends React.Component {
+    render() {
+        const { children } = this.props;
+        return children !== undefined ? children : null;
+    }
+}
