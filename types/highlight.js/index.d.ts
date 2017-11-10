@@ -1,4 +1,4 @@
-// Type definitions for highlight.js v9.1.0
+// Type definitions for highlight.js v9.12.0
 // Project: https://github.com/isagalaev/highlight.js
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
