@@ -3,8 +3,8 @@
         "module": "commonjs",
         "target": "es5",
         "lib": [
-            "es5",
-            "es2015"
+            "es6",
+            "dom"
         ],
         "types": [],
         "baseUrl": "../",
@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "vue.d.ts",
         "vuex-i18n-tests.ts"
     ]
 }
