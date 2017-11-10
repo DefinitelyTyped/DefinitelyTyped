@@ -6,5 +6,5 @@ interface Props {
   cssModule?: CSSModule;
 }
 
-declare var PopoverTitle: React.StatelessComponent<Props>;
-export default PopoverTitle;
+declare var PopoverHeader: React.StatelessComponent<Props>;
+export default PopoverHeader;
