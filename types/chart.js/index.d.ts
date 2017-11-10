@@ -115,17 +115,17 @@ declare namespace Chart {
     }
 
     interface ChartTooltipCallback {
-        beforeTitle?(item?: ChartTooltipItem[], data?: any): void;
-        title?(item?: ChartTooltipItem[], data?: any): void;
-        afterTitle?(item?: ChartTooltipItem[], data?: any): void;
-        beforeBody?(item?: ChartTooltipItem[], data?: any): void;
-        beforeLabel?(tooltipItem?: ChartTooltipItem, data?: any): void;
-        label?(tooltipItem?: ChartTooltipItem, data?: any): void;
-        afterLabel?(tooltipItem?: ChartTooltipItem, data?: any): void;
-        afterBody?(item?: ChartTooltipItem[], data?: any): void;
-        beforeFooter?(item?: ChartTooltipItem[], data?: any): void;
-        footer?(item?: ChartTooltipItem[], data?: any): void;
-        afterFooter?(item?: ChartTooltipItem[], data?: any): void;
+        beforeTitle?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        title?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        afterTitle?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        beforeBody?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        beforeLabel?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
+        label?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
+        afterLabel?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
+        afterBody?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        beforeFooter?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        footer?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        afterFooter?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
     }
 
     interface ChartAnimationParameter {
