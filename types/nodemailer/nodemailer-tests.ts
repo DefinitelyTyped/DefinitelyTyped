@@ -1035,7 +1035,12 @@ namespace smtp_connection_test {
         connection.login({ user: 'user', pass: 'pass' }, (err) => {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
-                if (err) throw err;
+                if (err) {
+                    const code: string = err.code;
+                    const response: string = err.response;
+                    const responseCode: number = err.responseCode;
+                    throw err;
+                }
                 connection.reset(() => {
                     if (err) throw err;
                     connection.quit();
