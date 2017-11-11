@@ -103,6 +103,16 @@ declare namespace Xrm {
          * @return The client state, as either "Online" or "Offline"
          */
         getClientState(): ClientState;
+
+        /**
+         * Use this method to get information about the kind of device the user is using.
+         */
+        getFormFactor(): XrmEnum.ClientFormFactor;
+
+        /**
+         * Returns information whether the server is online or offline.
+         */
+        isOffline(): boolean;
     }
 
     /**
@@ -1047,14 +1057,26 @@ declare namespace Xrm {
              */
             then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>): PromiseLike<U>;
             then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => void): PromiseLike<U>;
+
             /**
-             * Add handlers to be called when the Deferred object is rejected.
+             * UNDOCUMENTED (Web Client only) Add handlers to be called when the Deferred object is rejected.
              */
             fail<U>(onRejected?: (reason: ErrorResponse) => U | PromiseLike<U>): PromiseLike<U>;
+
             /**
-             * Add handlers to be called when the Deferred object is either resolved or rejected.
+             * UNDOCUMENTED (Web Client only): Add handlers to be called when the Deferred object is either resolved or rejected.
              */
             always<U>(alwaysCallback: (() => U | PromiseLike<U>)): PromiseLike<U>;
+
+            /**
+             * UNDOCUMENTED (Unified Client only): Add handlers to be called when the Deferred object is rejected.
+             */
+            catch<U>(onRejected?: (reason: ErrorResponse) => U | PromiseLike<U>): PromiseLike<U>;
+
+            /**
+             * UNDOCUMENTED (Unified Client only): Add handlers to be called when the Deferred object is either resolved or rejected.
+             */
+            finally<U>(finallyCallback: (() => U | PromiseLike<U>)): PromiseLike<U>;
         }
     }
 
@@ -4531,5 +4553,12 @@ declare namespace XrmEnum {
     const enum RoleType {
         Referencing = 1,
         AssociationEntity = 2
+    }
+
+    const enum ClientFormFactor {
+        Unknown = 1,
+        Desktop = 2,
+        Tablet = 3,
+        Phone = 4
     }
 }
