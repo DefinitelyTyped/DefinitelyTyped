@@ -6911,7 +6911,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at global level.
      * The handle member in the JSON request for all methods listed in this section is -1.
      */
-    interface IGlobal {
+    interface IGlobal extends enigmaJS.IGeneratedAPI {
         /**
          * Sets an abort flag on all pending and ongoing requests in the current engine session.
          * If an abort flag is set on a pending request, the request is aborted.
