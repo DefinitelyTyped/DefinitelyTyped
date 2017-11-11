@@ -4060,7 +4060,7 @@ declare namespace EngineAPI {
         /**
          * Identifier and type of the dimension.
          */
-        qDim: INxLibraryMeasureDef;
+        qDim: INxLibraryDimensionDef;
 
         /**
          * Cardinal and tags related to the dimension.
@@ -4106,7 +4106,7 @@ declare namespace EngineAPI {
          *
          * @returns - A promise GenericDimension.
          */
-        getDimension(): Promise<IGenericDimension>;
+        getDimension(): Promise<IGenericDimensionProperties>;
 
         /**
          * Returns the type and identifier of the object.
@@ -6087,7 +6087,7 @@ declare namespace EngineAPI {
          * @returns - Information about the measure.
          * >> This parameter is mandatory.
          */
-        getMeasure(): Promise<INxLibraryMeasureDef>;
+        getMeasure(): Promise<IGenericMeasureProperties>;
 
         /**
          * Shows the properties of an object.
@@ -6879,12 +6879,6 @@ declare namespace EngineAPI {
         qSignature: string;
     }
 
-    interface IQOptions {
-        qBookmarkId: string;
-
-        qExpires: number;
-    }
-
     interface IQDownloadInfo {
         /**
          * URL of the generated QVF
@@ -7103,14 +7097,6 @@ declare namespace EngineAPI {
          * @returns The operation is successful if qSuccess is set to true.
          */
         exportApp(qTargetPath: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
-
-        /**
-         * Reduce an app in the memory to the current selection of a specified bookmark
-         * and make it as http download available.
-         * @params - optional qOptions
-         * @returns - A Promise of qDownloadInfo
-         */
-        exportReducedData(qOptions?: IQOptions): Promise<IQDownloadInfo>;
 
         /**
          * Returns the handle of the current app.

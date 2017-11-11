@@ -2,6 +2,7 @@
 // Project: https://github.com/kprimice/react-native-sensor-manager
 // Definitions by: Sahin Vardar <https://github.com/SahinVardar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="react-native" />
 

@@ -3,7 +3,7 @@
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 import {
@@ -255,11 +255,9 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
     fontWeight?: string;
 
     /**
-     * Moves icon to right of title
-     *
-     * @default false
+     * Icon configuration for icon on right side of title
      */
-    iconRight?: boolean;
+    iconRight?: ButtonIcon;
 
     /**
      * onPress method

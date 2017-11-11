@@ -10,12 +10,12 @@
 
     var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, objects: THREE.Mesh[];
     var particleLight: THREE.Mesh;
-    var materials: ( THREE.MeshBasicMaterial |
-                     THREE.MeshPhongMaterial |
-                     THREE.MeshNormalMaterial |
-                     THREE.MeshLambertMaterial |
-                     THREE.MeshFaceMaterial |
-                     THREE.MeshDepthMaterial ) [] = [];
+    var materials: (THREE.MeshBasicMaterial |
+        THREE.MeshPhongMaterial |
+        THREE.MeshNormalMaterial |
+        THREE.MeshLambertMaterial |
+        THREE.MeshFaceMaterial |
+        THREE.MeshDepthMaterial)[] = [];
 
     init();
     animate();
@@ -100,7 +100,7 @@
             let material = materials[i];
 
             geometry = material instanceof THREE.MeshFaceMaterial ? geometry_pieces :
-            (material.shading == THREE.FlatShading ? geometry_flat : geometry_smooth);
+                (material.shading == THREE.FlatShading ? geometry_flat : geometry_smooth);
 
             sphere = new THREE.Mesh(geometry, material);
 
@@ -177,9 +177,8 @@
         var image = context.getImageData(0, 0, 256, 256);
 
         var x = 0, y = 0;
-        var l = image.data.length;
-        var j = 0;
-        for (var i = 0; i < l; i += 4) {
+
+        for (var i = 0, j = 0, l = image.data.length; i < l;) {
 
             x = j % 256;
             y = x == 0 ? y + 1 : y;
@@ -188,7 +187,9 @@
             image.data[i + 1] = 255;
             image.data[i + 2] = 255;
             image.data[i + 3] = Math.floor(x ^ y);
+            i += 4;
             j++;
+
         }
 
         context.putImageData(image, 0, 0);

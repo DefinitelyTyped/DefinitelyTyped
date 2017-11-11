@@ -24,7 +24,7 @@
         scene = new THREE.Scene();
 
         var image = document.createElement('img');
-        image.addEventListener('load', function (event: Event) {
+        image.addEventListener('load', function(event: Event) {
 
             for (var i = 0; i < particlesTotal; i++) {
 
@@ -85,7 +85,7 @@
                 Math.random() * 4000 - 2000,
                 Math.random() * 4000 - 2000,
                 Math.random() * 4000 - 2000
-                );
+            );
 
         }
 
@@ -102,7 +102,7 @@
                 radius * Math.cos(theta) * Math.sin(phi),
                 radius * Math.sin(theta) * Math.sin(phi),
                 radius * Math.cos(phi)
-                );
+            );
 
         }
 
@@ -137,8 +137,8 @@
 
         var offset = current * particlesTotal * 3;
         var duration = 2000;
-        var j = offset;
-        for (var i = 0; i < particlesTotal; i++) {
+
+        for (var i = 0, j = offset; i < particlesTotal;) {
 
             var object = objects[i];
 
@@ -150,7 +150,7 @@
                 }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
                 .start();
-
+            i++ ;
             j += 3;
         }
 
