@@ -1,8 +1,8 @@
-// Type definitions for prettier 1.7
+// Type definitions for prettier 1.8
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { File } from 'babel-types';
 
@@ -18,7 +18,8 @@ export type BuiltInParserName =
     | 'less'
     | 'scss'
     | 'json'
-    | 'graphql';
+    | 'graphql'
+    | 'markdown';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -76,6 +77,20 @@ export interface Options {
      * This is very useful when gradually transitioning large, unformatted codebases to prettier.
      */
     requirePragma?: boolean;
+    /**
+     * Prettier can insert a special @format marker at the top of files specifying that
+     * the file has been formatted with prettier. This works well when used in tandem with
+     * the --require-pragma option. If there is already a docblock at the top of
+     * the file then this option will add a newline to it with the @format marker.
+     */
+    insertPragma?: boolean;
+    /**
+     * By default, Prettier will wrap markdown text at the specified print width.
+     * In some cases you may want to rely on editor/viewer soft wrapping instead,
+     * so this option allows you to opt out. When prose wrapping is disabled,
+     * each paragraph will be printed on its own line.
+     */
+    proseWrap?: boolean;
 }
 
 export interface CursorOptions extends Options {

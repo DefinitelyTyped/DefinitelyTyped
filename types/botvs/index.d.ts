@@ -282,21 +282,18 @@ declare global {
             /**
              * 返回交易所名称(string)
              *
-             * @return {string}
              */
             GetName(): string;
 
             /**
              * 返回交易所自定义的标签(string)
              *
-             * @return {string}
              */
             GetLabel(): string;
 
             /**
              * 返回交易所使用的美元的汇率, OKCoin期货返回官方提供的汇率, 该值不受SetRate影响
              *
-             * @return {number}
              */
             GetUSDCNY(): number;
 
@@ -306,7 +303,6 @@ declare global {
              * 汇率接口调用雅虎提供的接口, 5分钟更新一次
              * 所有函数自动经过汇率转换,如果为1指禁用汇率转换
              *
-             * @return {number}
              */
             GetRate(): number;
 
@@ -317,7 +313,6 @@ declare global {
              * SetRate(), 如果不加参数，则恢复系统内置汇率
              * SetRate(1), 就是禁用汇率转换
              *
-             * @param {number} rate
              */
             SetRate(rate?: number): void;
 
@@ -326,43 +321,36 @@ declare global {
              *
              * exchange.SetPrecision(2, 3); // 设置价格小数位精度为2位, 品种下单量小数位精度为3位
              *
-             * @param {number} PricePrecision
-             * @param {number} AmountPrecision
              */
             SetPrecision(PricePrecision: number, AmountPrecision: number): void;
 
             /**
              * 返回交易所操作的货币名称(string), 传统期货CTP返回的固定为STOCK
              *
-             * @return {string}
              */
             GetCurrency(): string;
 
             /**
              * 返回交易所操作的基础货币名称(string), BTC_CNY就返回CNY, ETH_BTC就返回BTC
              *
-             * @return {string}
              */
             GetBaseCurrency(): string;
 
             /**
              * 返回一个Ticker结构
              *
-             * @return {botvs.Ticker}
              */
             GetTicker(): Ticker;
 
             /**
              * 返回一个Depth结构
              *
-             * @return {botvs.Depth}
              */
             GetDepth(): Depth;
 
             /**
              * 返回一个Trade数组, 按时间从低到高的顺序, 只支持数字货币(BTC/LTC)
              *
-             * @return {botvs.Trade[]}
              */
             GetTrades(): Trade[];
 
@@ -373,15 +361,12 @@ declare global {
              * 支持: PERIOD_M1 指1分钟, PERIOD_M5 指5分钟, PERIOD_M15 指15分钟,
              * PERIOD_M30 指30分钟, PERIOD_H1 指1小时, PERIOD_D1 指一天
              *
-             * @param {number} Period
-             * @return {botvs.Record[]}
              */
             GetRecords(Period?: VPeriod): Record[];
 
             /**
              * 返回一个Account结构, 如exchange.GetAccount(), 将返回主交易所账户信息
              *
-             * @return {botvs.Account}
              */
             GetAccount(): Account;
 
@@ -392,59 +377,43 @@ declare global {
              * 支持现货(火币/BitVC/OKCoin/OKCoin国际/OKCoin期货/BTCChina/BitYes)市价单, 市价单价格指定为-1
              * exchange.Buy(1000), 指买市价1000元的币, BTCChina例外exchange.Buy(0.3)指市价买0.3个币
              *
-             * @param {number} Price
-             * @param {number} Amount
-             * @param {*[]} args
-             * @return {string} - 订单ID
+             * @return - 订单ID
              */
             Buy(Price: number, Amount: number, ...args: any[]): string;
 
             /**
              * 跟Buy函数一样的调用方法和场景 {@see Exchange#Buy}
              *
-             * @param {number} Price
-             * @param {number} Amount
-             * @return {string}
              */
             Sell(Price: number, Amount: number): string;
 
             /**
              * 获取所有未完成的订单, 返回一个Order数组结构
              *
-             * @return {botvs.Order[]}
              */
             GetOrders(): Order[];
 
             /**
              * 根据订单号获取订单详情, 返回一个Order结构
              *
-             * @param {string} orderId
-             * @return {botvs.Order}
              */
             GetOrder(orderId: string): Order;
 
             /**
              * 根据订单号取消一个订单, 返回true或者false
              *
-             * @param {string} orderId
-             * @return {boolean}
              */
             CancelOrder(orderId: string): boolean;
 
             /**
              * 不下单, 只记录交易信息, logType可为LOG_TYPE_BUY/LOG_TYPE_SELL/LOG_TYPE_CANCEL
              *
-             * @param {VLogType} logType
-             * @param {string} orderId
-             * @param {number} price
-             * @param {number} amount
              */
             Log(logType: VLogType, orderId: string, price: number, amount: number): void;
 
             /**
              * 返回币最小交易数量
              *
-             * @return {number}
              */
             GetMinStock(): number;
 
@@ -453,14 +422,12 @@ declare global {
              *
              * Bitstamp要求5美元(程序会根据汇率自动转换为人民币), 其它没有限制
              *
-             * @return {number}
              */
             GetMinPrice(): number;
 
             /**
              * 返回一个Fee结构
              *
-             * @return {botvs.Fee}
              */
             GetFee(): Fee;
 
@@ -476,7 +443,6 @@ declare global {
              * Log(exchange.GetRawJSON());//在GetAccount成功后调用, 获取更详细的账户信息, 可以用JSON.parse解析
              * 也支持GetTicker, GetDepth后的exchange.GetRawJSON(), 以及GetPosition与GetOrders,GetOrder这三个调用后的详细反馈数据
              *
-             * @return {string}
              */
             GetRawJSON(): string;
 
@@ -501,9 +467,6 @@ declare global {
              * ret, ok = d.wait() // ok是一定返回True的, 除非策略被停止
              * ret, ok = d.wait(100) // ok返回False, 如果等待超时, 或者wait了一个已经结束的实例
              *
-             * @param {keyof botvs.Exchange} Method
-             * @param Args
-             * @return {botvs.AsyncJob<T>}
              */
             Go<T>(Method: keyof Exchange, ...Args: any[]): AsyncJob<T>;
 
@@ -553,10 +516,6 @@ declare global {
              * exchange.IO("wait_instrument"); // 有任何品种更新行情信息时才返回, 可带第二个参数(毫秒数)
              * 指定超时, 超时返回空字符串, 正常返回触发事件的品种名称, 只支持实盘
              *
-             * @param {"api" | "usd" | "cny" | "currency" | string} Api
-             * @param {string} ApiName
-             * @param {string} Args
-             * @return {T}
              */
             IO<T = any>(Api: 'api' | 'usd' | 'cny' | 'currency' | string, ApiName?: string, Args?: string): T;
 
@@ -565,7 +524,6 @@ declare global {
              *
              * 返回一个Position数组, (BitVC和OKCoin)可以传入一个参数, 指定要获取的合约类型
              *
-             * @return {botvs.Position[]}
              */
             GetPosition(): Position[];
 
@@ -576,7 +534,6 @@ declare global {
              * 796支持5,10,20,50三个选项, BitVC的LTC不支持20倍杠杆, OKCoin支持10倍和20倍
              * 如: exchange.SetMarginLevel(5)
              *
-             * @param {number} MarginLevel
              */
             SetMarginLevel(MarginLevel: number): void;
 
@@ -617,8 +574,6 @@ declare global {
              * exchange.SetDirection("sell");
              * exchange.Sell(1000, 1);
              *
-             * @param {"buy" | "closebuy" | "sell" | "closesell" | "closebuy_today" | "closesell_today"} Direction
-             * @constructor
              */
             SetDirection(Direction: 'buy' | 'closebuy' | 'sell' | 'closesell' | 'closebuy_today' | 'closesell_today'): void;
 
@@ -634,7 +589,6 @@ declare global {
              * 在合约后加"@A"或"@B", 如: "day@A" 为日合约A子账户 BitVC有week和quarter和next_week三个可选参数, OKCoin期货有this_week,
              * next_week, quarter三个参数 exchange.SetContractType("week");
              *
-             * @param {string} ContractType
              */
             SetContractType(ContractType: string): void;
         }
@@ -646,11 +600,6 @@ declare global {
          *
          * MACD(数据, 快周期, 慢周期, 信号周期), 默认参数为(12, 26, 9), 返回二维数组, 分别是[DIF, DEA, MACD]
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} LongPeriod
-         * @param {number} ShortPeriod
-         * @param {number} SignalPeriod
-         * @return {[number[] , number[] , number[]]}
          */
         function MACD(
             Records: botvs.Record[],
@@ -664,11 +613,6 @@ declare global {
          *
          * KDJ(数据, 周期1, 周期2, 周期3), 默认参数为(9, 3, 3), 返回二维数组, 分别是[K, D, J]
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} FirstPeriod
-         * @param {number} SecondPeriod
-         * @param {number} ThirdPeriod
-         * @return {[number[] , number[] , number[]]}
          */
         function KDJ(
             Records: botvs.Record[],
@@ -682,9 +626,6 @@ declare global {
          *
          * RSI(数据, 周期), 默认参数为14, 返回一个一维数组
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function RSI(Records: botvs.Record[], Period?: number): number[];
 
@@ -693,9 +634,6 @@ declare global {
          *
          * ATR(数据, 周期), 默认参数为14, 返回一个一维数组
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function ATR(Records: botvs.Record[], Period?: number): number[];
 
@@ -704,8 +642,6 @@ declare global {
          *
          * OBV(数据), 返回一个一维数组
          *
-         * @param {botvs.Record[]} Records
-         * @return {[number[] , number[]]}
          */
         function OBV(Records: botvs.Record[]): [number[], number[]];
 
@@ -714,9 +650,6 @@ declare global {
          *
          * MA(数据, 周期), 默认参数为9, 返回一个一维数组
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function MA(Records: botvs.Record[], Period?: number): number[];
 
@@ -724,9 +657,6 @@ declare global {
          * 指数平均数指标
          * EMA(数据, 周期), 默认参数为9, 返回一个一维数组
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function EMA(Records: botvs.Record[], Period?: number): number[];
 
@@ -735,11 +665,6 @@ declare global {
          *
          * Alligator(数据, 下颚周期,牙齿周期,上唇周期), 鳄鱼线指标, 默认参数为(13,8,5) 返回一个二维数组[下颚,牙齿,上唇]
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} JawPeriod
-         * @param {number} TeethPeriod
-         * @param {number} LibsPeriod
-         * @return {[number[] , number[] , number[]]}
          */
         function Alligator(
             Records: botvs.Record[],
@@ -753,9 +678,6 @@ declare global {
          *
          * CMF(数据, 周期), 默认周期参数为20, 返回一个一维数组
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @return {number[]}
          */
         function CMF(Records: botvs.Record[], Period?: number): number[];
 
@@ -765,11 +687,6 @@ declare global {
          * Highest(数据, 周期, 属性), 返回最近周期内的最大值(不包含当前Bar),
          * 如TA.Highest(records, 30, 'High'), 如果周期为0指所有, 如属性不指定则视数据为普通数组
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @param {keyof botvs.Record} Property
-         * @return {number}
-         * @constructor
          */
         function Highest(Records: botvs.Record[], Period?: number, Property?: keyof botvs.Record): number;
 
@@ -778,10 +695,6 @@ declare global {
          *
          * Lowest(数据, 周期, 属性), 同上, 求最小值
          *
-         * @param {botvs.Record[]} Records
-         * @param {number} Period
-         * @param {keyof botvs.Record} Property
-         * @return {number}
          */
         function Lowest(Records: botvs.Record[], Period?: number, Property?: keyof botvs.Record): number;
     }
@@ -792,8 +705,6 @@ declare global {
          *
          * Log(talib.help('MACD')); // 在回测环境下调用
          *
-         * @param {string} Func
-         * @return {string}
          */
         function help(Func: string): string;
 
@@ -802,8 +713,6 @@ declare global {
          *
          * ACOS(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function ACOS(Records: botvs.Record[] | number[]): number[];
 
@@ -812,8 +721,6 @@ declare global {
          *
          * AD(Records[High,Low,Close,Volume]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function AD(Records: botvs.Record[]): number[];
         /**
@@ -821,11 +728,6 @@ declare global {
          *
          * AD(Records[High,Low,Close,Volume]) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @return {number[]}
          */
         function AD(High: number[], Low: number[], Close: number[], Volume: number[]): number[];
 
@@ -834,10 +736,6 @@ declare global {
          *
          * ADOSC(Records[High,Low,Close,Volume],Fast Period = 3,Slow Period = 10) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=3} FastPeriod
-         * @param {number=10} SlowPeriod
-         * @return {number[]}
          */
         function ADOSC(Records: botvs.Record[], FastPeriod: number, SlowPeriod: number): number[];
         /**
@@ -845,13 +743,6 @@ declare global {
          *
          * ADOSC(Records[High,Low,Close,Volume],Fast Period = 3,Slow Period = 10) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @param {number=3} FastPeriod
-         * @param {number=10} SlowPeriod
-         * @return {number[]}
          */
         function ADOSC(
             High: number[],
@@ -867,9 +758,6 @@ declare global {
          *
          * ADX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADX(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -877,11 +765,6 @@ declare global {
          *
          * ADX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADX(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -890,9 +773,6 @@ declare global {
          *
          * ADXR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADXR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -900,11 +780,6 @@ declare global {
          *
          * ADXR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ADXR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -913,11 +788,6 @@ declare global {
          *
          * APO(Records[Close],Fast Period = 12,Slow Period = 26,MA Type = 0) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=26} SlowPeriod
-         * @param {number=0} MAType
-         * @return {number[]}
          */
         function APO(
             Records: botvs.Record[] | number[],
@@ -931,9 +801,6 @@ declare global {
          *
          * AROON(Records[High,Low],Time Period = 14) = [Array(outAroonDown),Array(outAroonUp)]
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {[number[], number[]]}
          */
         function AROON(Records: botvs.Record[], TimePeriod: number): [number[], number[]];
         /**
@@ -941,10 +808,6 @@ declare global {
          *
          * AROON(Records[High,Low],Time Period = 14) = [Array(outAroonDown),Array(outAroonUp)]
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {[number[], number[]]}
          */
         function AROON(High: number[], Low: number[], TimePeriod: number): [number[], number[]];
 
@@ -953,9 +816,6 @@ declare global {
          *
          * AROONOSC(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function AROONOSC(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -963,10 +823,6 @@ declare global {
          *
          * AROONOSC(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function AROONOSC(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -975,8 +831,6 @@ declare global {
          *
          * ASIN(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function ASIN(Records: botvs.Record[] | number[]): number[];
 
@@ -985,8 +839,6 @@ declare global {
          *
          * ATAN(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function ATAN(Records: botvs.Record[] | number[]): number[];
 
@@ -995,9 +847,6 @@ declare global {
          *
          * ATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ATR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -1005,11 +854,6 @@ declare global {
          *
          * ATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function ATR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -1018,8 +862,6 @@ declare global {
          *
          * AVGPRICE(Records[Open,High,Low,Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function AVGPRICE(Records: botvs.Record[]): number[];
         /**
@@ -1027,11 +869,6 @@ declare global {
          *
          * AVGPRICE(Records[Open,High,Low,Close]) = Array(outReal)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function AVGPRICE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1041,12 +878,6 @@ declare global {
          * BBANDS(Records[Close],Time Period = 5,Deviations up = 2,Deviations down = 2,MA Type = 0) =
          * [Array(outRealUpperBand),Array(outRealMiddleBand),Array(outRealLowerBand)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=2} Deviationsup
-         * @param {number=2} Deviationsdown
-         * @param {number=0} MAType
-         * @return {[number[], number[], number[]]}
          */
         function BBANDS(
             Records: botvs.Record[] | number[],
@@ -1061,8 +892,6 @@ declare global {
          *
          * BOP(Records[Open,High,Low,Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function BOP(Records: botvs.Record[]): number[];
         /**
@@ -1070,11 +899,6 @@ declare global {
          *
          * BOP(Records[Open,High,Low,Close]) = Array(outReal)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function BOP(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1083,9 +907,6 @@ declare global {
          *
          * CCI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function CCI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -1093,11 +914,6 @@ declare global {
          *
          * CCI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function CCI(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -1106,8 +922,6 @@ declare global {
          *
          * CDL2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL2CROWS(Records: botvs.Record[]): number[];
         /**
@@ -1115,11 +929,6 @@ declare global {
          *
          * CDL2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL2CROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1128,8 +937,6 @@ declare global {
          *
          * CDL3BLACKCROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3BLACKCROWS(Records: botvs.Record[]): number[];
         /**
@@ -1137,11 +944,6 @@ declare global {
          *
          * CDL3BLACKCROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3BLACKCROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1150,8 +952,6 @@ declare global {
          *
          * CDL3INSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3INSIDE(Records: botvs.Record[]): number[];
         /**
@@ -1159,11 +959,6 @@ declare global {
          *
          * CDL3INSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3INSIDE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1172,8 +967,6 @@ declare global {
          *
          * CDL3LINESTRIKE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3LINESTRIKE(Records: botvs.Record[]): number[];
         /**
@@ -1181,11 +974,6 @@ declare global {
          *
          * CDL3LINESTRIKE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3LINESTRIKE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1194,8 +982,6 @@ declare global {
          *
          * CDL3OUTSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3OUTSIDE(Records: botvs.Record[]): number[];
         /**
@@ -1203,11 +989,6 @@ declare global {
          *
          * CDL3OUTSIDE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3OUTSIDE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1216,8 +997,6 @@ declare global {
          *
          * CDL3STARSINSOUTH(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3STARSINSOUTH(Records: botvs.Record[]): number[];
         /**
@@ -1225,11 +1004,6 @@ declare global {
          *
          * CDL3STARSINSOUTH(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3STARSINSOUTH(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1238,8 +1012,6 @@ declare global {
          *
          * CDL3WHITESOLDIERS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDL3WHITESOLDIERS(Records: botvs.Record[]): number[];
         /**
@@ -1247,11 +1019,6 @@ declare global {
          *
          * CDL3WHITESOLDIERS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDL3WHITESOLDIERS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1260,9 +1027,6 @@ declare global {
          *
          * CDLABANDONEDBABY(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLABANDONEDBABY(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -1270,12 +1034,6 @@ declare global {
          *
          * CDLABANDONEDBABY(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLABANDONEDBABY(
             Open: number[],
@@ -1290,8 +1048,6 @@ declare global {
          *
          * CDLADVANCEBLOCK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLADVANCEBLOCK(Records: botvs.Record[]): number[];
         /**
@@ -1299,11 +1055,6 @@ declare global {
          *
          * CDLADVANCEBLOCK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLADVANCEBLOCK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1312,8 +1063,6 @@ declare global {
          *
          * CDLBELTHOLD(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLBELTHOLD(Records: botvs.Record[]): number[];
         /**
@@ -1321,11 +1070,6 @@ declare global {
          *
          * CDLBELTHOLD(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLBELTHOLD(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1334,8 +1078,6 @@ declare global {
          *
          * CDLBREAKAWAY(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLBREAKAWAY(Records: botvs.Record[]): number[];
         /**
@@ -1343,11 +1085,6 @@ declare global {
          *
          * CDLBREAKAWAY(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLBREAKAWAY(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1356,8 +1093,6 @@ declare global {
          *
          * CDLCLOSINGMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLCLOSINGMARUBOZU(Records: botvs.Record[]): number[];
         /**
@@ -1365,11 +1100,6 @@ declare global {
          *
          * CDLCLOSINGMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLCLOSINGMARUBOZU(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1378,8 +1108,6 @@ declare global {
          *
          * CDLCONCEALBABYSWALL(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLCONCEALBABYSWALL(Records: botvs.Record[]): number[];
         /**
@@ -1387,11 +1115,6 @@ declare global {
          *
          * CDLCONCEALBABYSWALL(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLCONCEALBABYSWALL(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1400,8 +1123,6 @@ declare global {
          *
          * CDLCOUNTERATTACK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLCOUNTERATTACK(Records: botvs.Record[]): number[];
         /**
@@ -1409,11 +1130,6 @@ declare global {
          *
          * CDLCOUNTERATTACK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLCOUNTERATTACK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1422,9 +1138,6 @@ declare global {
          *
          * CDLDARKCLOUDCOVER(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLDARKCLOUDCOVER(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -1432,12 +1145,6 @@ declare global {
          *
          * CDLDARKCLOUDCOVER(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLDARKCLOUDCOVER(
             Open: number[],
@@ -1452,8 +1159,6 @@ declare global {
          *
          * CDLDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLDOJI(Records: botvs.Record[]): number[];
         /**
@@ -1461,11 +1166,6 @@ declare global {
          *
          * CDLDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1474,8 +1174,6 @@ declare global {
          *
          * CDLDOJISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLDOJISTAR(Records: botvs.Record[]): number[];
         /**
@@ -1483,11 +1181,6 @@ declare global {
          *
          * CDLDOJISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLDOJISTAR(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1496,8 +1189,6 @@ declare global {
          *
          * CDLDRAGONFLYDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLDRAGONFLYDOJI(Records: botvs.Record[]): number[];
         /**
@@ -1505,11 +1196,6 @@ declare global {
          *
          * CDLDRAGONFLYDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLDRAGONFLYDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1518,8 +1204,6 @@ declare global {
          *
          * CDLENGULFING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLENGULFING(Records: botvs.Record[]): number[];
         /**
@@ -1527,11 +1211,6 @@ declare global {
          *
          * CDLENGULFING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLENGULFING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1540,9 +1219,6 @@ declare global {
          *
          * CDLEVENINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGDOJISTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -1550,12 +1226,6 @@ declare global {
          *
          * CDLEVENINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGDOJISTAR(
             Open: number[],
@@ -1570,9 +1240,6 @@ declare global {
          *
          * CDLEVENINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGSTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -1580,12 +1247,6 @@ declare global {
          *
          * CDLEVENINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLEVENINGSTAR(
             Open: number[],
@@ -1600,8 +1261,6 @@ declare global {
          *
          * CDLGAPSIDESIDEWHITE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLGAPSIDESIDEWHITE(Records: botvs.Record[]): number[];
         /**
@@ -1609,11 +1268,6 @@ declare global {
          *
          * CDLGAPSIDESIDEWHITE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLGAPSIDESIDEWHITE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1622,8 +1276,6 @@ declare global {
          *
          * CDLGRAVESTONEDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLGRAVESTONEDOJI(Records: botvs.Record[]): number[];
         /**
@@ -1631,11 +1283,6 @@ declare global {
          *
          * CDLGRAVESTONEDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLGRAVESTONEDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1644,8 +1291,6 @@ declare global {
          *
          * CDLHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHAMMER(Records: botvs.Record[]): number[];
         /**
@@ -1653,11 +1298,6 @@ declare global {
          *
          * CDLHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHAMMER(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1666,8 +1306,6 @@ declare global {
          *
          * CDLHANGINGMAN(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHANGINGMAN(Records: botvs.Record[]): number[];
         /**
@@ -1675,11 +1313,6 @@ declare global {
          *
          * CDLHANGINGMAN(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHANGINGMAN(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1688,8 +1321,6 @@ declare global {
          *
          * CDLHARAMI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHARAMI(Records: botvs.Record[]): number[];
         /**
@@ -1697,11 +1328,6 @@ declare global {
          *
          * CDLHARAMI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHARAMI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1710,8 +1336,6 @@ declare global {
          *
          * CDLHARAMICROSS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHARAMICROSS(Records: botvs.Record[]): number[];
         /**
@@ -1719,11 +1343,6 @@ declare global {
          *
          * CDLHARAMICROSS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHARAMICROSS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1732,8 +1351,6 @@ declare global {
          *
          * CDLHIGHWAVE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHIGHWAVE(Records: botvs.Record[]): number[];
         /**
@@ -1741,11 +1358,6 @@ declare global {
          *
          * CDLHIGHWAVE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHIGHWAVE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1754,8 +1366,6 @@ declare global {
          *
          * CDLHIKKAKE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHIKKAKE(Records: botvs.Record[]): number[];
         /**
@@ -1763,11 +1373,6 @@ declare global {
          *
          * CDLHIKKAKE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHIKKAKE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1776,8 +1381,6 @@ declare global {
          *
          * CDLHIKKAKEMOD(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHIKKAKEMOD(Records: botvs.Record[]): number[];
         /**
@@ -1785,11 +1388,6 @@ declare global {
          *
          * CDLHIKKAKEMOD(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHIKKAKEMOD(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1798,8 +1396,6 @@ declare global {
          *
          * CDLHOMINGPIGEON(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLHOMINGPIGEON(Records: botvs.Record[]): number[];
         /**
@@ -1807,11 +1403,6 @@ declare global {
          *
          * CDLHOMINGPIGEON(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLHOMINGPIGEON(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1820,8 +1411,6 @@ declare global {
          *
          * CDLIDENTICAL3CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLIDENTICAL3CROWS(Records: botvs.Record[]): number[];
         /**
@@ -1829,11 +1418,6 @@ declare global {
          *
          * CDLIDENTICAL3CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLIDENTICAL3CROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1842,8 +1426,6 @@ declare global {
          *
          * CDLINNECK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLINNECK(Records: botvs.Record[]): number[];
         /**
@@ -1851,11 +1433,6 @@ declare global {
          *
          * CDLINNECK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLINNECK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1864,8 +1441,6 @@ declare global {
          *
          * CDLINVERTEDHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLINVERTEDHAMMER(Records: botvs.Record[]): number[];
         /**
@@ -1873,11 +1448,6 @@ declare global {
          *
          * CDLINVERTEDHAMMER(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLINVERTEDHAMMER(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1886,8 +1456,6 @@ declare global {
          *
          * CDLKICKING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLKICKING(Records: botvs.Record[]): number[];
         /**
@@ -1895,11 +1463,6 @@ declare global {
          *
          * CDLKICKING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLKICKING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1908,8 +1471,6 @@ declare global {
          *
          * CDLKICKINGBYLENGTH(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLKICKINGBYLENGTH(Records: botvs.Record[]): number[];
         /**
@@ -1917,11 +1478,6 @@ declare global {
          *
          * CDLKICKINGBYLENGTH(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLKICKINGBYLENGTH(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1930,8 +1486,6 @@ declare global {
          *
          * CDLLADDERBOTTOM(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLLADDERBOTTOM(Records: botvs.Record[]): number[];
         /**
@@ -1939,11 +1493,6 @@ declare global {
          *
          * CDLLADDERBOTTOM(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLLADDERBOTTOM(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1952,8 +1501,6 @@ declare global {
          *
          * CDLLONGLEGGEDDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLLONGLEGGEDDOJI(Records: botvs.Record[]): number[];
         /**
@@ -1961,11 +1508,6 @@ declare global {
          *
          * CDLLONGLEGGEDDOJI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLLONGLEGGEDDOJI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1974,8 +1516,6 @@ declare global {
          *
          * CDLLONGLINE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLLONGLINE(Records: botvs.Record[]): number[];
         /**
@@ -1983,11 +1523,6 @@ declare global {
          *
          * CDLLONGLINE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLLONGLINE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -1996,8 +1531,6 @@ declare global {
          *
          * CDLMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLMARUBOZU(Records: botvs.Record[]): number[];
         /**
@@ -2005,11 +1538,6 @@ declare global {
          *
          * CDLMARUBOZU(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLMARUBOZU(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2018,8 +1546,6 @@ declare global {
          *
          * CDLMATCHINGLOW(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLMATCHINGLOW(Records: botvs.Record[]): number[];
         /**
@@ -2027,11 +1553,6 @@ declare global {
          *
          * CDLMATCHINGLOW(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLMATCHINGLOW(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2040,9 +1561,6 @@ declare global {
          *
          * CDLMATHOLD(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLMATHOLD(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -2050,12 +1568,6 @@ declare global {
          *
          * CDLMATHOLD(Records[Open,High,Low,Close],Penetration = 0.5) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.5} Penetration
-         * @return {number[]}
          */
         function CDLMATHOLD(
             Open: number[],
@@ -2070,9 +1582,6 @@ declare global {
          *
          * CDLMORNINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGDOJISTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -2080,12 +1589,6 @@ declare global {
          *
          * CDLMORNINGDOJISTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGDOJISTAR(
             Open: number[],
@@ -2100,9 +1603,6 @@ declare global {
          *
          * CDLMORNINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGSTAR(Records: botvs.Record[], Penetration: number): number[];
         /**
@@ -2110,12 +1610,6 @@ declare global {
          *
          * CDLMORNINGSTAR(Records[Open,High,Low,Close],Penetration = 0.3) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=0.3} Penetration
-         * @return {number[]}
          */
         function CDLMORNINGSTAR(
             Open: number[],
@@ -2130,8 +1624,6 @@ declare global {
          *
          * CDLONNECK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLONNECK(Records: botvs.Record[]): number[];
         /**
@@ -2139,11 +1631,6 @@ declare global {
          *
          * CDLONNECK(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLONNECK(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2152,8 +1639,6 @@ declare global {
          *
          * CDLPIERCING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLPIERCING(Records: botvs.Record[]): number[];
         /**
@@ -2161,11 +1646,6 @@ declare global {
          *
          * CDLPIERCING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLPIERCING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2174,8 +1654,6 @@ declare global {
          *
          * CDLRICKSHAWMAN(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLRICKSHAWMAN(Records: botvs.Record[]): number[];
         /**
@@ -2183,11 +1661,6 @@ declare global {
          *
          * CDLRICKSHAWMAN(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLRICKSHAWMAN(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2196,8 +1669,6 @@ declare global {
          *
          * CDLRISEFALL3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLRISEFALL3METHODS(Records: botvs.Record[]): number[];
         /**
@@ -2205,11 +1676,6 @@ declare global {
          *
          * CDLRISEFALL3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLRISEFALL3METHODS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2218,8 +1684,6 @@ declare global {
          *
          * CDLSEPARATINGLINES(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSEPARATINGLINES(Records: botvs.Record[]): number[];
         /**
@@ -2227,11 +1691,6 @@ declare global {
          *
          * CDLSEPARATINGLINES(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSEPARATINGLINES(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2240,8 +1699,6 @@ declare global {
          *
          * CDLSHOOTINGSTAR(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSHOOTINGSTAR(Records: botvs.Record[]): number[];
         /**
@@ -2249,11 +1706,6 @@ declare global {
          *
          * CDLSHOOTINGSTAR(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSHOOTINGSTAR(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2262,8 +1714,6 @@ declare global {
          *
          * CDLSHORTLINE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSHORTLINE(Records: botvs.Record[]): number[];
         /**
@@ -2271,11 +1721,6 @@ declare global {
          *
          * CDLSHORTLINE(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSHORTLINE(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2284,8 +1729,6 @@ declare global {
          *
          * CDLSPINNINGTOP(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSPINNINGTOP(Records: botvs.Record[]): number[];
         /**
@@ -2293,11 +1736,6 @@ declare global {
          *
          * CDLSPINNINGTOP(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSPINNINGTOP(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2306,8 +1744,6 @@ declare global {
          *
          * CDLSTALLEDPATTERN(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSTALLEDPATTERN(Records: botvs.Record[]): number[];
         /**
@@ -2315,11 +1751,6 @@ declare global {
          *
          * CDLSTALLEDPATTERN(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSTALLEDPATTERN(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2328,8 +1759,6 @@ declare global {
          *
          * CDLSTICKSANDWICH(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLSTICKSANDWICH(Records: botvs.Record[]): number[];
         /**
@@ -2337,11 +1766,6 @@ declare global {
          *
          * CDLSTICKSANDWICH(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLSTICKSANDWICH(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2350,8 +1774,6 @@ declare global {
          *
          * CDLTAKURI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTAKURI(Records: botvs.Record[]): number[];
         /**
@@ -2359,11 +1781,6 @@ declare global {
          *
          * CDLTAKURI(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTAKURI(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2372,8 +1789,6 @@ declare global {
          *
          * CDLTASUKIGAP(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTASUKIGAP(Records: botvs.Record[]): number[];
         /**
@@ -2381,11 +1796,6 @@ declare global {
          *
          * CDLTASUKIGAP(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTASUKIGAP(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2394,8 +1804,6 @@ declare global {
          *
          * CDLTHRUSTING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTHRUSTING(Records: botvs.Record[]): number[];
         /**
@@ -2403,11 +1811,6 @@ declare global {
          *
          * CDLTHRUSTING(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTHRUSTING(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2416,8 +1819,6 @@ declare global {
          *
          * CDLTRISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLTRISTAR(Records: botvs.Record[]): number[];
         /**
@@ -2425,11 +1826,6 @@ declare global {
          *
          * CDLTRISTAR(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLTRISTAR(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2438,8 +1834,6 @@ declare global {
          *
          * CDLUNIQUE3RIVER(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLUNIQUE3RIVER(Records: botvs.Record[]): number[];
         /**
@@ -2447,11 +1841,6 @@ declare global {
          *
          * CDLUNIQUE3RIVER(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLUNIQUE3RIVER(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2460,8 +1849,6 @@ declare global {
          *
          * CDLUPSIDEGAP2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLUPSIDEGAP2CROWS(Records: botvs.Record[]): number[];
         /**
@@ -2469,11 +1856,6 @@ declare global {
          *
          * CDLUPSIDEGAP2CROWS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLUPSIDEGAP2CROWS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2482,8 +1864,6 @@ declare global {
          *
          * CDLXSIDEGAP3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function CDLXSIDEGAP3METHODS(Records: botvs.Record[]): number[];
         /**
@@ -2491,11 +1871,6 @@ declare global {
          *
          * CDLXSIDEGAP3METHODS(Records[Open,High,Low,Close]) = Array(outInteger)
          *
-         * @param {number[]} Open
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function CDLXSIDEGAP3METHODS(Open: number[], High: number[], Low: number[], Close: number[]): number[];
 
@@ -2504,8 +1879,6 @@ declare global {
          *
          * CEIL(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function CEIL(Records: botvs.Record[] | number[]): number[];
 
@@ -2514,9 +1887,6 @@ declare global {
          *
          * CMO(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function CMO(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2525,8 +1895,6 @@ declare global {
          *
          * COS(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function COS(Records: botvs.Record[] | number[]): number[];
 
@@ -2535,8 +1903,6 @@ declare global {
          *
          * COSH(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function COSH(Records: botvs.Record[] | number[]): number[];
 
@@ -2545,9 +1911,6 @@ declare global {
          *
          * DEMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function DEMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2556,9 +1919,6 @@ declare global {
          *
          * DX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function DX(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -2566,11 +1926,6 @@ declare global {
          *
          * DX(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function DX(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -2579,9 +1934,6 @@ declare global {
          *
          * EMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function EMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2590,8 +1942,6 @@ declare global {
          *
          * EXP(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function EXP(Records: botvs.Record[] | number[]): number[];
 
@@ -2600,8 +1950,6 @@ declare global {
          *
          * FLOOR(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function FLOOR(Records: botvs.Record[] | number[]): number[];
 
@@ -2610,8 +1958,6 @@ declare global {
          *
          * HT_DCPERIOD(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_DCPERIOD(Records: botvs.Record[] | number[]): number[];
 
@@ -2620,8 +1966,6 @@ declare global {
          *
          * HT_DCPHASE(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_DCPHASE(Records: botvs.Record[] | number[]): number[];
 
@@ -2630,8 +1974,6 @@ declare global {
          *
          * HT_PHASOR(Records[Close]) = [Array(outInPhase),Array(outQuadrature)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {[number[], number[]]}
          */
         function HT_PHASOR(Records: botvs.Record[] | number[]): [number[], number[]];
 
@@ -2640,8 +1982,6 @@ declare global {
          *
          * HT_SINE(Records[Close]) = [Array(outSine),Array(outLeadSine)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {[number[], number[]]}
          */
         function HT_SINE(Records: botvs.Record[] | number[]): [number[], number[]];
 
@@ -2650,8 +1990,6 @@ declare global {
          *
          * HT_TRENDLINE(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_TRENDLINE(Records: botvs.Record[] | number[]): number[];
 
@@ -2660,8 +1998,6 @@ declare global {
          *
          * HT_TRENDMODE(Records[Close]) = Array(outInteger)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function HT_TRENDMODE(Records: botvs.Record[] | number[]): number[];
 
@@ -2670,9 +2006,6 @@ declare global {
          *
          * KAMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function KAMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2681,9 +2014,6 @@ declare global {
          *
          * LINEARREG(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2692,9 +2022,6 @@ declare global {
          *
          * LINEARREG_ANGLE(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG_ANGLE(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2703,9 +2030,6 @@ declare global {
          *
          * LINEARREG_INTERCEPT(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG_INTERCEPT(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2714,9 +2038,6 @@ declare global {
          *
          * LINEARREG_SLOPE(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function LINEARREG_SLOPE(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2725,8 +2046,6 @@ declare global {
          *
          * LN(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function LN(Records: botvs.Record[] | number[]): number[];
 
@@ -2735,8 +2054,6 @@ declare global {
          *
          * LOG10(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function LOG10(Records: botvs.Record[] | number[]): number[];
 
@@ -2745,10 +2062,6 @@ declare global {
          *
          * MA(Records[Close],Time Period = 30,MA Type = 0) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @param {number=0} MAType
-         * @return {number[]}
          */
         function MA(Records: botvs.Record[] | number[], TimePeriod: number, MAType: number): number[];
 
@@ -2758,11 +2071,6 @@ declare global {
          * MACD(Records[Close],Fast Period = 12,Slow Period = 26,Signal Period = 9) =
          * [Array(outMACD),Array(outMACDSignal),Array(outMACDHist)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=26} SlowPeriod
-         * @param {number=9} SignalPeriod
-         * @return {[number[], number[], number[]]}
          */
         function MACD(
             Records: botvs.Record[] | number[],
@@ -2778,14 +2086,6 @@ declare global {
          * =
          * 0) = [Array(outMACD),Array(outMACDSignal),Array(outMACDHist)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=0} FastMA
-         * @param {number=26} SlowPeriod
-         * @param {number=0} SlowMA
-         * @param {number=9} SignalPeriod
-         * @param {number=0} SignalMA
-         * @return {[number[], number[], number[]]}
          */
         function MACDEXT(
             Records: botvs.Record[] | number[],
@@ -2802,9 +2102,6 @@ declare global {
          *
          * MACDFIX(Records[Close],Signal Period = 9) = [Array(outMACD),Array(outMACDSignal),Array(outMACDHist)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=9} SignalPeriod
-         * @return {[number[], number[], number[]]}
          */
         function MACDFIX(Records: botvs.Record[] | number[], SignalPeriod: number): [number[], number[], number[]];
 
@@ -2813,10 +2110,6 @@ declare global {
          *
          * MAMA(Records[Close],Fast Limit = 0.5,Slow Limit = 0.05) = [Array(outMAMA),Array(outFAMA)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=0.5} FastLimit
-         * @param {number=0.05} SlowLimit
-         * @return {[number[], number[]]}
          */
         function MAMA(Records: botvs.Record[] | number[], FastLimit: number, SlowLimit: number): [number[], number[]];
 
@@ -2825,9 +2118,6 @@ declare global {
          *
          * MAX(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MAX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2836,9 +2126,6 @@ declare global {
          *
          * MAXINDEX(Records[Close],Time Period = 30) = Array(outInteger)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MAXINDEX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2847,8 +2134,6 @@ declare global {
          *
          * MEDPRICE(Records[High,Low]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function MEDPRICE(Records: botvs.Record[]): number[];
         /**
@@ -2856,9 +2141,6 @@ declare global {
          *
          * MEDPRICE(Records[High,Low]) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @return {number[]}
          */
         function MEDPRICE(High: number[], Low: number[]): number[];
 
@@ -2867,9 +2149,6 @@ declare global {
          *
          * MFI(Records[High,Low,Close,Volume],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MFI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -2877,12 +2156,6 @@ declare global {
          *
          * MFI(Records[High,Low,Close,Volume],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MFI(High: number[], Low: number[], Close: number[], Volume: number[], TimePeriod: number): number[];
 
@@ -2891,9 +2164,6 @@ declare global {
          *
          * MIDPOINT(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MIDPOINT(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2902,9 +2172,6 @@ declare global {
          *
          * MIDPRICE(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MIDPRICE(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -2912,10 +2179,6 @@ declare global {
          *
          * MIDPRICE(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MIDPRICE(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -2924,9 +2187,6 @@ declare global {
          *
          * MIN(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MIN(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2935,9 +2195,6 @@ declare global {
          *
          * MININDEX(Records[Close],Time Period = 30) = Array(outInteger)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function MININDEX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -2946,9 +2203,6 @@ declare global {
          *
          * MINMAX(Records[Close],Time Period = 30) = [Array(outMin),Array(outMax)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {[number[], number[]]}
          */
         function MINMAX(Records: botvs.Record[] | number[], TimePeriod: number): [number[], number[]];
 
@@ -2957,9 +2211,6 @@ declare global {
          *
          * MINMAXINDEX(Records[Close],Time Period = 30) = [Array(outMinIdx),Array(outMaxIdx)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {[number[], number[]]}
          */
         function MINMAXINDEX(Records: botvs.Record[] | number[], TimePeriod: number): [number[], number[]];
 
@@ -2968,9 +2219,6 @@ declare global {
          *
          * MINUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -2978,11 +2226,6 @@ declare global {
          *
          * MINUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DI(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -2991,9 +2234,6 @@ declare global {
          *
          * MINUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DM(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -3001,10 +2241,6 @@ declare global {
          *
          * MINUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function MINUS_DM(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -3013,9 +2249,6 @@ declare global {
          *
          * MOM(Records[Close],Time Period = 10) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function MOM(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3024,9 +2257,6 @@ declare global {
          *
          * NATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function NATR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -3034,11 +2264,6 @@ declare global {
          *
          * NATR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function NATR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -3047,8 +2272,6 @@ declare global {
          *
          * OBV(Records[Close],Records[Volume]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function OBV(Records: botvs.Record[]): number[];
 
@@ -3057,9 +2280,6 @@ declare global {
          *
          * OBV(Records[Close],Records[Volume]) = Array(outReal)
          *
-         * @param {number[]} Close
-         * @param {number[]} Volume
-         * @return {number[]}
          */
         function OBV(Close: number[], Volume: number[]): number[];
 
@@ -3068,9 +2288,6 @@ declare global {
          *
          * PLUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DI(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -3078,11 +2295,6 @@ declare global {
          *
          * PLUS_DI(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DI(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -3091,9 +2303,6 @@ declare global {
          *
          * PLUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DM(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -3101,10 +2310,6 @@ declare global {
          *
          * PLUS_DM(Records[High,Low],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function PLUS_DM(High: number[], Low: number[], TimePeriod: number): number[];
 
@@ -3113,11 +2318,6 @@ declare global {
          *
          * PPO(Records[Close],Fast Period = 12,Slow Period = 26,MA Type = 0) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=12} FastPeriod
-         * @param {number=26} SlowPeriod
-         * @param {number=0} MAType
-         * @return {number[]}
          */
         function PPO(
             Records: botvs.Record[] | number[],
@@ -3131,9 +2331,6 @@ declare global {
          *
          * ROC(Records[Close],Time Period = 10) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROC(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3142,9 +2339,6 @@ declare global {
          *
          * ROCP(Records[Close],Time Period = 10) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROCP(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3153,9 +2347,6 @@ declare global {
          *
          * ROCR(Records[Close],Time Period = 10) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROCR(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3164,9 +2355,6 @@ declare global {
          *
          * ROCR100(Records[Close],Time Period = 10) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=10} TimePeriod
-         * @return {number[]}
          */
         function ROCR100(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3175,9 +2363,6 @@ declare global {
          *
          * RSI(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function RSI(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3186,10 +2371,6 @@ declare global {
          *
          * SAR(Records[High,Low],Acceleration Factor = 0.02,AF Maximum = 0.2) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0.02} AccelerationFactor
-         * @param {number=0.2} AFMaximum
-         * @return {number[]}
          */
         function SAR(Records: botvs.Record[], AccelerationFactor: number, AFMaximum: number): number[];
         /**
@@ -3197,11 +2378,6 @@ declare global {
          *
          * SAR(Records[High,Low],Acceleration Factor = 0.02,AF Maximum = 0.2) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=0.02} AccelerationFactor
-         * @param {number=0.2} AFMaximum
-         * @return {number[]}
          */
         function SAR(High: number[], Low: number[], AccelerationFactor: number, AFMaximum: number): number[];
 
@@ -3212,16 +2388,6 @@ declare global {
          * Long =
          * 0.2,AF Init Short = 0.02,AF Short = 0.02,AF Max Short = 0.2) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=0} StartValue
-         * @param {number=0} OffsetonReverse
-         * @param {number=0.02} AFInitLong
-         * @param {number=0.02} AFLong
-         * @param {number=0.2} AFMaxLong
-         * @param {number=0.02} AFInitShort
-         * @param {number=0.02} AFShort
-         * @param {number=0.2} AFMaxShort
-         * @return {number[]}
          */
         function SAREXT(
             Records: botvs.Record[],
@@ -3241,17 +2407,6 @@ declare global {
          * Long =
          * 0.2,AF Init Short = 0.02,AF Short = 0.02,AF Max Short = 0.2) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number=0} StartValue
-         * @param {number=0} OffsetonReverse
-         * @param {number=0.02} AFInitLong
-         * @param {number=0.02} AFLong
-         * @param {number=0.2} AFMaxLong
-         * @param {number=0.02} AFInitShort
-         * @param {number=0.02} AFShort
-         * @param {number=0.2} AFMaxShort
-         * @return {number[]}
          */
         function SAREXT(
             High: number[],
@@ -3271,8 +2426,6 @@ declare global {
          *
          * SIN(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function SIN(Records: botvs.Record[] | number[]): number[];
 
@@ -3281,8 +2434,6 @@ declare global {
          *
          * SINH(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function SINH(Records: botvs.Record[] | number[]): number[];
 
@@ -3291,9 +2442,6 @@ declare global {
          *
          * SMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function SMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3302,8 +2450,6 @@ declare global {
          *
          * SQRT(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function SQRT(Records: botvs.Record[] | number[]): number[];
 
@@ -3312,10 +2458,6 @@ declare global {
          *
          * STDDEV(Records[Close],Time Period = 5,Deviations = 1) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=1} Deviations
-         * @return {number[]}
          */
         function STDDEV(Records: botvs.Record[] | number[], TimePeriod: number, Deviations: number): number[];
 
@@ -3326,13 +2468,6 @@ declare global {
          * = 0)
          * = [Array(outSlowK),Array(outSlowD)]
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Slow_KPeriod
-         * @param {number=0} Slow_KMA
-         * @param {number=3} Slow_DPeriod
-         * @param {number=0} Slow_DMA
-         * @return {[number[], number[]]}
          */
         function STOCH(
             Records: botvs.Record[],
@@ -3349,15 +2484,6 @@ declare global {
          * = 0)
          * = [Array(outSlowK),Array(outSlowD)]
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Slow_KPeriod
-         * @param {number=0} Slow_KMA
-         * @param {number=3} Slow_DPeriod
-         * @param {number=0} Slow_DMA
-         * @return {[number[], number[]]}
          */
         function STOCH(
             High: number[],
@@ -3376,11 +2502,6 @@ declare global {
          * STOCHF(Records[High,Low,Close],Fast-K Period = 5,Fast-D Period = 3,Fast-D MA = 0) =
          * [Array(outFastK),Array(outFastD)]
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Fast_DPeriod
-         * @param {number=0} Fast_DMA
-         * @return {[number[], number[]]}
          */
         function STOCHF(
             Records: botvs.Record[],
@@ -3394,13 +2515,6 @@ declare global {
          * STOCHF(Records[High,Low,Close],Fast-K Period = 5,Fast-D Period = 3,Fast-D MA = 0) =
          * [Array(outFastK),Array(outFastD)]
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Fast_DPeriod
-         * @param {number=0} Fast_DMA
-         * @return {[number[], number[]]}
          */
         function STOCHF(
             High: number[],
@@ -3417,12 +2531,6 @@ declare global {
          * STOCHRSI(Records[Close],Time Period = 14,Fast-K Period = 5,Fast-D Period = 3,Fast-D MA = 0) =
          * [Array(outFastK),Array(outFastD)]
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @param {number=5} Fast_KPeriod
-         * @param {number=3} Fast_DPeriod
-         * @param {number=0} Fast_DMA
-         * @return {[number[], number[]]}
          */
         function STOCHRSI(
             Records: botvs.Record[] | number[],
@@ -3437,9 +2545,6 @@ declare global {
          *
          * SUM(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function SUM(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3448,10 +2553,6 @@ declare global {
          *
          * T3(Records[Close],Time Period = 5,Volume Factor = 0.7) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=0.7} VolumeFactor
-         * @return {number[]}
          */
         function T3(Records: botvs.Record[] | number[], TimePeriod: number, VolumeFactor: number): number[];
 
@@ -3460,8 +2561,6 @@ declare global {
          *
          * TAN(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function TAN(Records: botvs.Record[] | number[]): number[];
 
@@ -3470,8 +2569,6 @@ declare global {
          *
          * TANH(Records[Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
          */
         function TANH(Records: botvs.Record[] | number[]): number[];
 
@@ -3480,9 +2577,6 @@ declare global {
          *
          * TEMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function TEMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3491,8 +2585,6 @@ declare global {
          *
          * TRANGE(Records[High,Low,Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function TRANGE(Records: botvs.Record[]): number[];
         /**
@@ -3500,10 +2592,6 @@ declare global {
          *
          * TRANGE(Records[High,Low,Close]) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function TRANGE(High: number[], Low: number[], Close: number[]): number[];
 
@@ -3512,9 +2600,6 @@ declare global {
          *
          * TRIMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function TRIMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3523,9 +2608,6 @@ declare global {
          *
          * TRIX(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function TRIX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3534,9 +2616,6 @@ declare global {
          *
          * TSF(Records[Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function TSF(Records: botvs.Record[] | number[], TimePeriod: number): number[];
 
@@ -3545,8 +2624,6 @@ declare global {
          *
          * TYPPRICE(Records[High,Low,Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function TYPPRICE(Records: botvs.Record[]): number[];
         /**
@@ -3554,10 +2631,6 @@ declare global {
          *
          * TYPPRICE(Records[High,Low,Close]) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function TYPPRICE(High: number[], Low: number[], Close: number[]): number[];
 
@@ -3566,11 +2639,6 @@ declare global {
          *
          * ULTOSC(Records[High,Low,Close],First Period = 7,Second Period = 14,Third Period = 28) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=7} FirstPeriod
-         * @param {number=14} SecondPeriod
-         * @param {number=28} ThirdPeriod
-         * @return {number[]}
          */
         function ULTOSC(
             Records: botvs.Record[],
@@ -3583,13 +2651,6 @@ declare global {
          *
          * ULTOSC(Records[High,Low,Close],First Period = 7,Second Period = 14,Third Period = 28) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=7} FirstPeriod
-         * @param {number=14} SecondPeriod
-         * @param {number=28} ThirdPeriod
-         * @return {number[]}
          */
         function ULTOSC(
             High: number[],
@@ -3605,10 +2666,6 @@ declare global {
          *
          * VAR(Records[Close],Time Period = 5,Deviations = 1) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=5} TimePeriod
-         * @param {number=1} Deviations
-         * @return {number[]}
          */
         function VAR(Records: botvs.Record[] | number[], TimePeriod: number, Deviations: number): number[];
 
@@ -3617,8 +2674,6 @@ declare global {
          *
          * WCLPRICE(Records[High,Low,Close]) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @return {number[]}
          */
         function WCLPRICE(Records: botvs.Record[]): number[];
         /**
@@ -3626,10 +2681,6 @@ declare global {
          *
          * WCLPRICE(Records[High,Low,Close]) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @return {number[]}
          */
         function WCLPRICE(High: number[], Low: number[], Close: number[]): number[];
 
@@ -3638,9 +2689,6 @@ declare global {
          *
          * WILLR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {botvs.Record[]} Records
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function WILLR(Records: botvs.Record[], TimePeriod: number): number[];
         /**
@@ -3648,11 +2696,6 @@ declare global {
          *
          * WILLR(Records[High,Low,Close],Time Period = 14) = Array(outReal)
          *
-         * @param {number[]} High
-         * @param {number[]} Low
-         * @param {number[]} Close
-         * @param {number=14} TimePeriod
-         * @return {number[]}
          */
         function WILLR(High: number[], Low: number[], Close: number[], TimePeriod: number): number[];
 
@@ -3661,9 +2704,6 @@ declare global {
          *
          * WMA(Records[Close],Time Period = 30) = Array(outReal)
          *
-         * @param {botvs.Record[]|number[]} Records
-         * @param {number=30} TimePeriod
-         * @return {number[]}
          */
         function WMA(Records: botvs.Record[] | number[], TimePeriod: number): number[];
     }
@@ -3780,7 +2820,6 @@ declare global {
      * plt.plot([3,6,2,4,7,1])
      * Log(plt)
      *
-     * @param {string} arg
      */
     function Log(arg: string): void;
 
@@ -3789,7 +2828,6 @@ declare global {
      *
      * 参数为毫秒数,如Sleep(1000)为休眠一秒
      *
-     * @param {number} Millisecond
      */
     function Sleep(Millisecond: number): void;
 
@@ -3798,28 +2836,24 @@ declare global {
      *
      * 模拟回测状态返回true,实盘返回false
      *
-     * @return {boolean}
      */
     function IsVirtual(): boolean;
 
     /**
      * 记录盈利值,这个为总盈利的值,参数类型为浮点数
      *
-     * @param {number} Profit
      */
     function LogProfit(Profit: number): void;
 
     /**
      * 清空所有收益日志, 可以带一个数字参数, 指定保留的条数
      *
-     * @param {number} reserve
      */
     function LogProfitReset(reserve?: number): void;
 
     /**
      * 清空所有日志, 可以带一个数字参数, 指定保留的条数
      *
-     * @param {number} reserve
      */
     function LogReset(reserve?: number): void;
 
@@ -3856,14 +2890,12 @@ declare global {
      * LogStatus('`' + JSON.stringify({'type':'button', 'class': 'btn btn-xs btn-danger', 'cmd': 'coverAll', 'name':
      * '平仓'}) + '`')
      *
-     * @param {string} Msg
      */
     function LogStatus(Msg: string): void;
 
     /**
      * 打开或者关闭定单和出错信息的日志记录
      *
-     * @param {boolean} IsEnable
      */
     function EnableLog(IsEnable: boolean): void;
 
@@ -3883,8 +2915,6 @@ declare global {
      * series的数据, 指定序列3指的是图表3的第一个series的数据 HighStocks:
      * http://api.highcharts.com/highstock
      *
-     * @param {botvs.ChartOptions} options
-     * @return {botvs.RChart}
      */
     function Chart(...options: botvs.ChartOptions[]): botvs.RChart;
 
@@ -3894,13 +2924,6 @@ declare global {
      * Mail(smtpServer, smtpUsername, smtpPassword, mailTo, title, body); ret true or false
      * Mail("smtp.163.com", "asdf@163.com", "password", "111@163.com", "title", "body")
      *
-     * @param {string} smtpServer
-     * @param {string} smtpUsername
-     * @param {string} smtpPassword
-     * @param {string} mailTo
-     * @param {string} title
-     * @param {string} body
-     * @return {boolean}
      */
     function Mail(
         smtpServer: string,
@@ -3918,21 +2941,18 @@ declare global {
      * SetErrorFilter("502:|503:|tcp|character|unexpected|network|timeout|WSARecv|Connect|GetAddr|no
      * such|reset|http|received|EOF|reused");
      *
-     * @param {string} RegEx
      */
     function SetErrorFilter(RegEx: string): void;
 
     /**
      * 返回机器人进程ID
      *
-     * @return {number}
      */
     function GetPid(): number;
 
     /**
      * 获取最近一次出错信息,一般无需使用,因为程序会把出错信息自动上传到日志系统
      *
-     * @return {string}
      */
     function GetLastError(): string;
 
@@ -3948,8 +2968,6 @@ declare global {
      * _G(); // 返回当前机器人的ID
      * _G(null); // 删除所有全局变量
      *
-     * @param {string} K
-     * @param {T} V
      */
     function _G<T>(K: string, V: T): void;
 
@@ -3965,7 +2983,6 @@ declare global {
      * Sleep(1000);
      * }
      *
-     * @return {string}
      */
     function GetCommand(): string | null;
 
@@ -3989,9 +3006,6 @@ declare global {
      * }
      * ```
      *
-     * @param {string} Address
-     * @param {number} Timeout
-     * @return {botvs.Socket}
      */
     function Dial(Address: string, Timeout?: number): botvs.Socket | void;
 
@@ -4009,11 +3023,6 @@ declare global {
      * HttpQuery("http://www.baidu.com/", null, "a=10; b=20", "User-Agent: Mobile\nContent-Type: text/html", true);
      * // will return {Header: HTTP Header, Body: HTML}
      *
-     * @param {string} Url
-     * @param {string | null | {method: string; data?: string}} PostData
-     * @param {string} Cookies
-     * @param {string} Headers
-     * @return {string}
      */
     function HttpQuery(
         Url: string,
@@ -4036,10 +3045,6 @@ declare global {
      * Log(Hash('md5', 'hex', 'hello'));
      * Log(Hash('sha512', 'base64', 'hello'));
      *
-     * @param {"md5" | "sha256" | "sha512" | "sha1"} Algo
-     * @param {"hex" | "base64"} OutputAlgo
-     * @param {string} Data
-     * @return {string}
      */
     function Hash(
         Algo: 'md5' | 'sha256' | 'sha512' | 'sha1',
@@ -4054,11 +3059,6 @@ declare global {
      * Log(HMAC('md5', 'hex', 'hello', 'pass'));
      * Log(HMAC('sha512', 'base64', 'hello', 'pass'));
      *
-     * @param {"md5" | "sha256" | "sha512" | "sha1"} Algo
-     * @param {"hex" | "base64" | "raw"} OutputAlgo
-     * @param {string} Data
-     * @param {string} password
-     * @return {string}
      */
     function HMAC(
         Algo: 'md5' | 'sha256' | 'sha512' | 'sha1',
@@ -4071,18 +3071,13 @@ declare global {
      * 返回指定时间戳(ms)字符串, 不传任何参数就返回当前时间,
      * 如_D(),或者_D(1478570053241), 默认格式为yyyy-MM-dd hh:mm:ss
      *
-     * @param {string} timestamp
-     * @param {string} format
-     * @return {string}
      */
     function _D(timestamp: string, format: string): string;
 
     /**
      * 格式化一个浮点函数
      *
-     * @param {number} num
-     * @param {number=4} precision
-     * @return {string}
+     * @param precision Default 4
      */
     function _N(num: number, precision?: number): string;
 
@@ -4091,16 +3086,12 @@ declare global {
      * 比如_C(exchange.GetTicker), 默认重试间隔为3秒, 可以调用_CDelay函数来控制重试间隔
      * 比如_CDelay(1000), 指改变_C函数重试间隔为1秒
      *
-     * @param {(...args: any[]) => T} func
-     * @param args
-     * @return {T}
      */
     function _C<T>(func: (...args: any[]) => T, ...args: any[]): T;
 
     /**
      * 比如_CDelay(1000), 指改变_C函数重试间隔为1秒, 默认为3秒
      *
-     * @param {number} delay
      */
     function _CDelay(delay: number): void;
 }

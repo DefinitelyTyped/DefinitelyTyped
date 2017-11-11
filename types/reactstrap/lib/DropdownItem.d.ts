@@ -9,6 +9,7 @@ export interface DropdownItemProps {
   className?: string;
   cssModule?: CSSModule;
   href?: string;
+  toggle?: boolean;
 }
 
 export const DropdownItem: React.StatelessComponent<DropdownItemProps>;

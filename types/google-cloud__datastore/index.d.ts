@@ -223,7 +223,7 @@ declare module '@google-cloud/datastore/request' {
 
         runQuery(query: Query, options: QueryOptions, callback: QueryCallback): void;
         runQuery(query: Query, callback: QueryCallback): void;
-        runQuery(query: Query, options?: QueryOptions): QueryResult;
+        runQuery(query: Query, options?: QueryOptions): Promise<QueryResult>;
 
         runQueryStream(query: Query, options?: QueryOptions): NodeJS.ReadableStream;
 
