@@ -9,24 +9,24 @@ const errorCb = (err: Error): void => { };
 const stringArrayCallback = (paths: string[]): void => { };
 const singleStringCb = (paths: string): void => { };
 
-find.file(rootDir, (dirs: string[]): void => { }).error(emptyCb);
-find.file(rootDir, (dirs: string[]): void => { }).error(errorCb);
-find.file(stringPattern, rootDir, (dirs: string[]): void => { }).error(errorCb);
-find.file(regexPattern, rootDir, (dirs: string[]): void => { }).error(errorCb);
-find.fileSync(rootDir).push("");
-find.fileSync(stringPattern, rootDir).push("");
-find.fileSync(regexPattern, rootDir).push("");
-find.eachFile(rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb);
-find.eachFile(stringPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb);
-find.eachFile(regexPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb);
+find.file(rootDir, (dirs: string[]): void => { }).error(emptyCb); // $ExpectType void
+find.file(rootDir, (dirs: string[]): void => { }).error(errorCb); // $ExpectType void
+find.file(stringPattern, rootDir, (dirs: string[]): void => { }).error(errorCb); // $ExpectType void
+find.file(regexPattern, rootDir, (dirs: string[]): void => { }).error(errorCb); // $ExpectType void
+find.fileSync(rootDir); // $ExpectType string[]
+find.fileSync(stringPattern, rootDir); // $ExpectType string[]
+find.fileSync(regexPattern, rootDir); // $ExpectType string[]
+find.eachFile(rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb); // $ExpectType FindEachStream
+find.eachFile(stringPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb); // $ExpectType FindEachStream
+find.eachFile(regexPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb); // $ExpectType FindEachStream
 
-find.dir(stringPattern, rootDir, (dirs: string[]): void => { }).error(emptyCb);
-find.dir(stringPattern, rootDir, (dirs: string[]): void => { }).error(errorCb);
-find.dir(regexPattern, rootDir, (dirs: string[]): void => { }).error(errorCb);
-find.dir(rootDir, (dirs: string[]): void => { }).error(errorCb);
-find.dirSync(rootDir).push("");
-find.dirSync(stringPattern, rootDir).push("");
-find.dirSync(regexPattern, rootDir).push("");
-find.eachDir(rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb);
-find.eachDir(stringPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb);
-find.eachDir(regexPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb);
+find.dir(stringPattern, rootDir, (dirs: string[]): void => { }).error(emptyCb); // $ExpectType void
+find.dir(stringPattern, rootDir, (dirs: string[]): void => { }).error(errorCb); // $ExpectType void
+find.dir(regexPattern, rootDir, (dirs: string[]): void => { }).error(errorCb); // $ExpectType void
+find.dir(rootDir, (dirs: string[]): void => { }).error(errorCb); // $ExpectType void
+find.dirSync(rootDir); // $ExpectType string[]
+find.dirSync(stringPattern, rootDir); // $ExpectType string[]
+find.dirSync(regexPattern, rootDir); // $ExpectType string[]
+find.eachDir(rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb); // $ExpectType FindEachStream
+find.eachDir(stringPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb); // $ExpectType FindEachStream
+find.eachDir(regexPattern, rootDir, singleStringCb).end(emptyCb).error(errorCb).end(emptyCb); // $ExpectType FindEachStream
