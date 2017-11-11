@@ -68,8 +68,8 @@ export { Pagination,                    PaginationProps                 } from '
 export { PaginationItem,                PaginationItemProps             } from './lib/PaginationItem';
 export { PaginationLink,                PaginationLinkProps             } from './lib/PaginationLink';
 export { Popover,                       PopoverProps                    } from './lib/Popover';
-export { PopoverContent,                PopoverContentProps             } from './lib/PopoverContent';
-export { PopoverTitle,                  PopoverTitleProps               } from './lib/PopoverTitle';
+export { PopoverBody,                   PopoverBodyProps                } from './lib/PopoverBody';
+export { PopoverHeader,                 PopoverHeaderProps              } from './lib/PopoverHeader';
 export { Progress,                      ProgressProps                   } from './lib/Progress';
 export { Row,                           RowProps                        } from './lib/Row';
 export { TabContent,                    TabContentProps                 } from './lib/TabContent';
