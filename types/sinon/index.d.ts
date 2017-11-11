@@ -204,6 +204,9 @@ declare namespace Sinon {
         setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): number;
         clearInterval(id: number): void;
         tick(ms: number): number;
+        next(): void;
+        runAll(): void;
+        runToLast(): void;
         reset(): void;
         Date(): Date;
         Date(year: number): Date;
