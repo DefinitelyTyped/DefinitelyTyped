@@ -1676,7 +1676,7 @@ declare namespace chrome.devtools.inspectedWindow {
      * Parameter result: The result of evaluation.
      * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
      */
-    export function eval(expression: string, callback?: (result: Object, exceptionInfo: EvaluationExceptionInfo) => void): void;
+    export function eval<T>(expression: string, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
     /**
      * Retrieves the list of resources from the inspected page.
      * @param callback A function that receives the list of resources when the request completes.
