@@ -14,3 +14,4 @@ export interface NavProps extends React.HTMLProps<HTMLUListElement> {
 }
 
 export const Nav: React.StatelessComponent<NavProps>;
+export default Nav;

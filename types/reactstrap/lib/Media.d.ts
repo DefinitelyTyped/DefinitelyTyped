@@ -18,3 +18,4 @@ export interface MediaProps {
 }
 
 export const Media: React.StatelessComponent<MediaProps>;
+export default Media;

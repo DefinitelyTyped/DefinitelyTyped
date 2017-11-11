@@ -13,3 +13,4 @@ export interface CardImgProps {
 }
 
 export const CardImg: React.StatelessComponent<CardImgProps>;
+export default CardImg;

@@ -7,3 +7,4 @@ export interface CardDeckProps {
 }
 
 export const CardDeck: React.StatelessComponent<CardDeckProps>;
+export default CardDeck;

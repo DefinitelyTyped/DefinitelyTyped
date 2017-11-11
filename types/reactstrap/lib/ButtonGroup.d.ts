@@ -11,3 +11,4 @@ export interface ButtonGroupProps {
 }
 
 export const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
+export default ButtonGroup;

@@ -38,3 +38,4 @@ export interface TooltipProps extends UncontrolledTooltipProps {
 }
 
 export const Tooltip: React.StatelessComponent<TooltipProps>;
+export default Tooltip;

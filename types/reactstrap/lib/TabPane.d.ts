@@ -8,3 +8,4 @@ export interface TabPaneProps {
 }
 
 export const TabPane: React.StatelessComponent<TabPaneProps>;
+export default TabPane;

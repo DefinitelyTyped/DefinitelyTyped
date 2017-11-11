@@ -8,3 +8,4 @@ export interface RowProps extends React.HTMLProps< HTMLElement> {
 }
 
 export const Row: React.StatelessComponent<RowProps>;
+export default Row;

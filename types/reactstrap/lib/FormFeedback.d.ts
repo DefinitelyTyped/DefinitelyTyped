@@ -7,3 +7,4 @@ export interface FormFeedbackProps {
 }
 
 export const FormFeedback: React.StatelessComponent<FormFeedbackProps>;
+export default FormFeedback;

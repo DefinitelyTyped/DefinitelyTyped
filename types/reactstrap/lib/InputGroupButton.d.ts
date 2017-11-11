@@ -10,3 +10,4 @@ export interface InputGroupButtonProps {
 }
 
 export const InputGroupButton: React.StatelessComponent<InputGroupButtonProps>;
+export default InputGroupButton;

@@ -10,3 +10,4 @@ export interface NavbarTogglerProps extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 export const NavbarToggler: React.StatelessComponent<NavbarTogglerProps>;
+export default NavbarToggler;

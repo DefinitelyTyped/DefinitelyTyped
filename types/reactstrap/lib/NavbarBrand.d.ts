@@ -7,3 +7,4 @@ export interface NavbarBrandProps extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 export const NavbarBrand: React.StatelessComponent<NavbarBrandProps>;
+export default NavbarBrand;

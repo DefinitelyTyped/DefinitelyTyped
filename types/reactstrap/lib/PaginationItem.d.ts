@@ -9,3 +9,4 @@ export interface PaginationItemProps {
 }
 
 export const PaginationItem: React.StatelessComponent<PaginationItemProps>;
+export default PaginationItem;

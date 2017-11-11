@@ -15,3 +15,4 @@ export interface TetherContentProps {
 }
 
 export const TetherContent: React.StatelessComponent<TetherContentProps>;
+export default TetherContent;

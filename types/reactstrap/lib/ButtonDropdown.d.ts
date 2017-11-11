@@ -6,3 +6,4 @@ export interface UncontrolledButtonDropdownProps extends UncontrolledDropdownPro
 export interface ButtonDropdownProps extends DropdownProps { }
 
 export const ButtonDropdown: React.StatelessComponent<ButtonDropdownProps>;
+export default ButtonDropdown;

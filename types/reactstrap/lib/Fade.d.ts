@@ -17,3 +17,4 @@ export interface FadeProps {
 }
 
 export const Fade: React.StatelessComponent<FadeProps>;
+export default Fade;

@@ -9,3 +9,4 @@ export interface ModalHeaderProps {
 }
 
 export const ModalHeader: React.StatelessComponent<ModalHeaderProps>;
+export default ModalHeader;

@@ -23,3 +23,4 @@ export interface LabelProps extends Intermediate {
 }
 
 export const Label: React.StatelessComponent<LabelProps>;
+export default Label;

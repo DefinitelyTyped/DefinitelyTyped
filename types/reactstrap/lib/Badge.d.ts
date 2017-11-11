@@ -9,3 +9,4 @@ export interface BadgeProps {
 }
 
 export const Badge: React.StatelessComponent<BadgeProps>;
+export default Badge;

@@ -15,3 +15,4 @@ export interface TableProps {
 }
 
 export const Table: React.StatelessComponent<TableProps>;
+export default Table;

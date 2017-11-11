@@ -7,3 +7,4 @@ export interface BreadcrumbProps {
 }
 
 export const Breadcrumb: React.StatelessComponent<BreadcrumbProps>;
+export default Breadcrumb;

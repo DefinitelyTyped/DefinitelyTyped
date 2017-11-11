@@ -8,3 +8,4 @@ export interface ListGroupProps {
 }
 
 export const ListGroup: React.StatelessComponent<ListGroupProps>;
+export default ListGroup;

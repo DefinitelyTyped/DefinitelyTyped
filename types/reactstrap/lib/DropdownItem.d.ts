@@ -13,3 +13,4 @@ export interface DropdownItemProps {
 }
 
 export const DropdownItem: React.StatelessComponent<DropdownItemProps>;
+export default DropdownItem;

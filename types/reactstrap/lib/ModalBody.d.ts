@@ -7,3 +7,4 @@ export interface ModalBodyProps {
 }
 
 export const ModalBody: React.StatelessComponent<ModalBodyProps>;
+export default ModalBody;

@@ -7,3 +7,4 @@ export interface PopoverContentProps {
 }
 
 export const PopoverContent: React.StatelessComponent<PopoverContentProps>;
+export default PopoverContent;

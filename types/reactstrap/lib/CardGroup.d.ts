@@ -7,3 +7,4 @@ export interface CardGroupProps {
 }
 
 export const CardGroup: React.StatelessComponent<CardGroupProps>;
+export default CardGroup;

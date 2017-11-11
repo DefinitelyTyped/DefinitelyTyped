@@ -20,3 +20,4 @@ export interface ModalProps {
 }
 
 export const Modal: React.StatelessComponent<ModalProps>;
+export default Modal;

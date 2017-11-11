@@ -16,3 +16,4 @@ export interface AlertProps extends UncontrolledAlertProps {
 }
 
 export const Alert: React.StatelessComponent<AlertProps>;
+export default Alert;

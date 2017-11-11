@@ -21,3 +21,4 @@ export interface ColProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 export const Col: React.StatelessComponent<ColProps>;
+export default Col;

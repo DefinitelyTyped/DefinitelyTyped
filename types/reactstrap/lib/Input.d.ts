@@ -49,3 +49,4 @@ export interface InputProps extends Intermediate {
 }
 
 export const Input: React.StatelessComponent<InputProps>;
+export default Input;

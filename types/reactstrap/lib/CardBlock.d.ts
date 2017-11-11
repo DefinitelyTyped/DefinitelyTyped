@@ -7,3 +7,4 @@ export interface CardBlockProps {
 }
 
 export const CardBlock: React.StatelessComponent<CardBlockProps>;
+export default CardBlock;

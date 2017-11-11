@@ -31,3 +31,4 @@ export interface PopoverProps {
 }
 
 export const Popover: React.StatelessComponent<PopoverProps>;
+export default Popover;

@@ -8,3 +8,4 @@ export interface JumbotronProps {
 }
 
 export const Jumbotron: React.StatelessComponent<JumbotronProps>;
+export default Jumbotron;

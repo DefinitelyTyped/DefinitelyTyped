@@ -12,3 +12,4 @@ export interface CardProps {
 }
 
 export const Card: React.StatelessComponent<CardProps>;
+export default Card;

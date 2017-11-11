@@ -7,3 +7,4 @@ export interface CardTitleProps {
 }
 
 export const CardTitle: React.StatelessComponent<CardTitleProps>;
+export default CardTitle;
