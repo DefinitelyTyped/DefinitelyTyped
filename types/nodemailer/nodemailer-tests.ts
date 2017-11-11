@@ -1069,7 +1069,9 @@ namespace mailcomposer_build_test {
 
 namespace addressparser_test {
     const input = 'andris@tr.ee';
-    addressparser(input);
+    const result = addressparser(input);
+    const address: string = result[0].address;
+    const name: string = result[0].name;
 }
 
 // base64

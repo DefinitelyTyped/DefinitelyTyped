@@ -46,7 +46,7 @@ export namespace Submodule {
 
 export class Submodule {
     static addSetup(repo: Repository, url: string, path: string, useGitLink: number): Promise<Submodule>;
-    static foreach(repo: Repository, callback: Function, payload: any): Promise<number>;
+    static foreach(repo: Repository, callback?: Function): Promise<number>;
     static lookup(repo: Repository, name: string): Promise<Submodule>;
     static resolveUrl(repo: Repository, url: string): Promise<Buf>;
     static setBranch(repo: Repository, name: string, branch: string): number;
@@ -80,7 +80,7 @@ export class Submodule {
      *
      *
      */
-    update(init: number, options: SubmoduleUpdateOptions): Promise<number>;
+    update(init: number, options?: SubmoduleUpdateOptions): Promise<number>;
     updateStrategy(): number;
     url(): string;
     wdId(): Oid;
