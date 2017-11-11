@@ -18,8 +18,8 @@ declare namespace jsyaml {
 		public static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 	}
 
-	export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
-	export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
+	export function safeLoadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
+	export function loadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
 
 	export function safeDump(obj: any, opts?: DumpOptions): string;
 	export function dump(obj: any, opts?: DumpOptions): string;
