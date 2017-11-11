@@ -981,8 +981,8 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: Ord, b: Ord): Ord;
-        max(a: Ord): (b: Ord) => Ord;
+        max<T extends Ord>(a: T, b: T): T;
+        max<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -1084,8 +1084,8 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: Ord, b: Ord): Ord;
-        min(a: Ord): (b: Ord) => Ord;
+        min<T extends Ord>(a: T, b: T): T;
+        min<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
