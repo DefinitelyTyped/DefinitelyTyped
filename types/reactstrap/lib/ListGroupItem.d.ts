@@ -14,3 +14,4 @@ export interface ListGroupItemProps {
 }
 
 export const ListGroupItem: React.StatelessComponent<ListGroupItemProps>;
+export default ListGroupItem;

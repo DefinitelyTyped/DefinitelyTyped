@@ -7,3 +7,4 @@ export interface CardHeaderProps {
 }
 
 export const CardHeader: React.StatelessComponent<CardHeaderProps>;
+export default CardHeader;

@@ -6,3 +6,4 @@ export interface UncontrolledNavDropdownProps extends UncontrolledDropdownProps 
 export interface NavDropdownProps extends DropdownProps { }
 
 export const NavDropdown: React.StatelessComponent<NavDropdownProps>;
+export default NavDropdown;

@@ -17,3 +17,4 @@ export interface NavbarProps {
 }
 
 export const Navbar: React.StatelessComponent<NavbarProps>;
+export default Navbar;

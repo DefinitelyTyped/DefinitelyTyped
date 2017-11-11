@@ -11,3 +11,4 @@ export interface BreadcrumbItemProps {
 }
 
 export const BreadcrumbItem: React.StatelessComponent<BreadcrumbItemProps>;
+export default BreadcrumbItem;

@@ -15,3 +15,4 @@ export interface ProgressProps {
 }
 
 export const Progress: React.StatelessComponent<ProgressProps>;
+export default Progress;

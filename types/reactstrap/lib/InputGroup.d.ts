@@ -8,3 +8,4 @@ export interface InputGroupProps {
 }
 
 export const InputGroup: React.StatelessComponent<InputGroupProps>;
+export default InputGroup;

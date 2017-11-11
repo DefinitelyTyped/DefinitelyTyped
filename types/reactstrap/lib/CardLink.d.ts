@@ -9,3 +9,4 @@ export interface CardLinkProps {
 }
 
 export const CardLink: React.StatelessComponent<CardLinkProps>;
+export default CardLink;

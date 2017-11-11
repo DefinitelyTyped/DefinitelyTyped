@@ -8,3 +8,4 @@ export interface DropdownMenuProps {
 }
 
 export const DropdownMenu: React.StatelessComponent<DropdownMenuProps>;
+export default DropdownMenu;

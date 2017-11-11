@@ -9,3 +9,4 @@ export interface TagProps {
 }
 
 export const Tag: React.StatelessComponent<TagProps>;
+export default Tag;

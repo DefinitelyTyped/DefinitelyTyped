@@ -9,3 +9,4 @@ export interface ButtonToolbarProps {
 }
 
 export const ButtonToolbar: React.StatelessComponent<ButtonToolbarProps>;
+export default ButtonToolbar;

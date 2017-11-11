@@ -8,3 +8,4 @@ export interface TabContentProps {
 }
 
 export const TabContent: React.StatelessComponent<TabContentProps>;
+export default TabContent;

@@ -7,3 +7,4 @@ export interface NavItemProps {
 }
 
 export const NavItem: React.StatelessComponent<NavItemProps>;
+export default NavItem;

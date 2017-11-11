@@ -9,3 +9,4 @@ export interface FormTextProps {
 }
 
 export const FormText: React.StatelessComponent<FormTextProps>;
+export default FormText;

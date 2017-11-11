@@ -7,3 +7,4 @@ export interface ListGroupItemTextProps {
 }
 
 export const ListGroupItemText: React.StatelessComponent<ListGroupItemTextProps>;
+export default ListGroupItemText;

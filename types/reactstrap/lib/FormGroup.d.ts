@@ -11,3 +11,4 @@ export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 export const FormGroup: React.StatelessComponent<FormGroupProps>;
+export default FormGroup;

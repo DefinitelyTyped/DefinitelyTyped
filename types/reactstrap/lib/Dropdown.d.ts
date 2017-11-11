@@ -19,3 +19,4 @@ export interface DropdownProps extends UncontrolledDropdownProps {
 }
 
 export const Dropdown: React.StatelessComponent<DropdownProps>;
+export default Dropdown;

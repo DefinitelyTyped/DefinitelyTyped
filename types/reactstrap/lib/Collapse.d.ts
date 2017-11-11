@@ -15,3 +15,4 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
 }
 
 export const Collapse: React.StatelessComponent<CollapseProps>;
+export default Collapse;

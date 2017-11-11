@@ -8,3 +8,4 @@ export interface ContainerProps {
 }
 
 export const Container: React.StatelessComponent<ContainerProps>;
+export default Container;

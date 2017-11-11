@@ -16,3 +16,4 @@ export interface DropdownToggleProps {
 }
 
 export const DropdownToggle: React.StatelessComponent<DropdownToggleProps>;
+export default DropdownToggle;

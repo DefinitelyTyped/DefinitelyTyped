@@ -7,3 +7,4 @@ export interface PopoverTitleProps {
 }
 
 export const PopoverTitle: React.StatelessComponent<PopoverTitleProps>;
+export default PopoverTitle;

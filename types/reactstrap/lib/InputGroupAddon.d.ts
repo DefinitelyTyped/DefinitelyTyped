@@ -7,3 +7,4 @@ export interface InputGroupAddonProps {
 }
 
 export const InputGroupAddon: React.StatelessComponent<InputGroupAddonProps>;
+export default InputGroupAddon;

@@ -7,3 +7,4 @@ export interface CardFooterProps {
 }
 
 export const CardFooter: React.StatelessComponent<CardFooterProps>;
+export default CardFooter;

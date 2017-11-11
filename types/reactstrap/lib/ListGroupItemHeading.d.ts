@@ -7,3 +7,4 @@ export interface ListGroupItemHeadingProps {
 }
 
 export const ListGroupItemHeading: React.StatelessComponent<ListGroupItemHeadingProps>;
+export default ListGroupItemHeading;

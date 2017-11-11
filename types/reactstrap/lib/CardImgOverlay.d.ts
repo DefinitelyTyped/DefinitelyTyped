@@ -7,3 +7,4 @@ export interface CardImgOverlayProps {
 }
 
 export const CardImgOverlay: React.StatelessComponent<CardImgOverlayProps>;
+export default CardImgOverlay;

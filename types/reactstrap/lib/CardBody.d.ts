@@ -7,3 +7,4 @@ export interface CardBodyProps {
 }
 
 export const CardBody: React.StatelessComponent<CardBodyProps>;
+export default CardBody;

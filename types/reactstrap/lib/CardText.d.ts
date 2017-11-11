@@ -7,3 +7,4 @@ export interface CardTextProps {
 }
 
 export const CardText: React.StatelessComponent<CardTextProps>;
+export default CardText;

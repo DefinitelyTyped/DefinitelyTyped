@@ -7,3 +7,4 @@ export interface CardColumnsProps {
 }
 
 export const CardColumns: React.StatelessComponent<CardColumnsProps>;
+export default CardColumns;

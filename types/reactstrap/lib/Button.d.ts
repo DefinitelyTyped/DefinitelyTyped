@@ -18,3 +18,4 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 }
 
 export const Button: React.StatelessComponent<ButtonProps>;
+export default Button;
