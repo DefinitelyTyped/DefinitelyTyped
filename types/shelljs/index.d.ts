@@ -26,7 +26,7 @@ export function pwd(): string;
  * @param  ...paths Paths to search.
  * @return          An array of files in the given path(s).
  */
-export function ls(...paths: string[]): string[];
+export function ls(...paths: (string | string[])[]): string[];
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
@@ -34,50 +34,21 @@ export function ls(...paths: string[]): string[];
  * @param  ...paths Paths to search.
  * @return          An array of files in the given path(s).
  */
-export function ls(options: string, ...paths: string[]): string[];
-
-/**
- * Returns array of files in the given path, or in current directory if no path provided.
- * @param  paths Paths to search.
- * @return       An array of files in the given path(s).
- */
-export function ls(paths: string[]): string[];
-
-/**
- * Returns array of files in the given path, or in current directory if no path provided.
- * @param    options  Available options: -R (recursive), -A (all files, include files beginning with ., except for . and ..)
- * @param  paths    Paths to search.
- * @return          An array of files in the given path(s).
- */
-export function ls(options: string, paths: string[]): string[];
+export function ls(options: string, ...paths: (string | string[])[]): string[];
 
 /**
  * Returns array of all files (however deep) in the given paths.
  * @param ...path   The path(s) to search.
  * @return          An array of all files (however deep) in the given path(s).
  */
-export function find(...path: string[]): string[];
-
-/**
- * Returns array of all files (however deep) in the given paths.
- * @param path   The path(s) to search.
- * @return       An array of all files (however deep) in the given path(s).
- */
-export function find(path: string[]): string[];
+export function find(...path: (string | string[])[]): string[];
 
 /**
  * Copies files. The wildcard * is accepted.
  * @param source  The source.
  * @param   dest  The destination.
  */
-export function cp(source: string, dest: string): void;
-
-/**
- * Copies files. The wildcard * is accepted.
- * @param source  The source.
- * @param   dest    The destination.
- */
-export function cp(source: string[], dest: string): void;
+export function cp(source: string | string[], dest: string): void;
 
 /**
  * Copies files. The wildcard * is accepted.
@@ -85,81 +56,40 @@ export function cp(source: string[], dest: string): void;
  * @param source  The source.
  * @param dest    The destination.
  */
-export function cp(options: string, source: string, dest: string): void;
-
-/**
- * Copies files. The wildcard * is accepted.
- * @param   options Available options: -f (force), -r, -R (recursive)
- * @param source  The source.
- * @param   dest    The destination.
- */
-export function cp(options: string, source: string[], dest: string): void;
+export function cp(options: string, source: string | string[], dest: string): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param ...files Files to remove.
  */
-export function rm(...files: string[]): void;
-
-/**
- * Removes files. The wildcard * is accepted.
- * @param files Files to remove.
- */
-export function rm(files: string[]): void;
+export function rm(...files: (string | string[])[]): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param   options  Available options: -f (force), -r, -R (recursive)
  * @param ...files Files to remove.
  */
-export function rm(options: string, ...files: string[]): void;
-
-/**
- * Removes files. The wildcard * is accepted.
- * @param   options  Available options: -f (force), -r, -R (recursive)
- * @param ...files Files to remove.
- */
-export function rm(options: string, files: string[]): void;
+export function rm(options: string, ...files: (string | string[])[]): void;
 
 /**
  * Moves files. The wildcard * is accepted.
  * @param source The source.
  * @param dest   The destination.
  */
-export function mv(source: string, dest: string): void;
-
-/**
- * Moves files. The wildcard * is accepted.
- * @param source The source.
- * @param   dest   The destination.
- */
-export function mv(source: string[], dest: string): void;
+export function mv(source: string | string[], dest: string): void;
 
 /**
  * Creates directories.
  * @param ...dir Directories to create.
  */
-export function mkdir(...dir: string[]): void;
-
-/**
- * Creates directories.
- * @param dir Directories to create.
- */
-export function mkdir(dir: string[]): void;
+export function mkdir(...dir: (string | string[])[]): void;
 
 /**
  * Creates directories.
  * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param ...dir  The directories to create.
  */
-export function mkdir(options: string, ...dir: string[]): void;
-
-/**
- * Creates directories.
- * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
- * @param dir     The directories to create.
- */
-export function mkdir(options: string, dir: string[]): void;
+export function mkdir(options: string, ...dir: (string | string[])[]): void;
 
 /**
  * Evaluates expression using the available primaries and returns corresponding value.
@@ -174,29 +104,7 @@ export function test(option: string, path: string): boolean;
  * @param  ...files Files to use.
  * @return            A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
  */
-export function cat(...files: string[]): string;
-
-/**
- * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
- * @param  files Files to use.
- * @return         A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
- */
-export function cat(files: string[]): string;
-
-// Does not work yet.
-export interface String {
-    /**
-     * Analogous to the redirection operator > in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc). Like Unix redirections, to() will overwrite any existing file!
-     * @param file The file to use.
-     */
-    to(file: string): void;
-
-    /**
-     * Analogous to the redirect-and-append operator >> in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc).
-     * @param file The file to append to.
-     */
-    toEnd(file: string): void;
-}
+export function cat(...files: (string | string[])[]): string;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -205,16 +113,7 @@ export interface String {
  * @param  file        The file to process.
  * @return             The new string after replacement.
  */
-export function sed(searchRegex: RegExp, replacement: string, file: string): string;
-
-/**
- * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
- * @param  searchRegex The regular expression to use for search.
- * @param  replacement The replacement.
- * @param  file        The file to process.
- * @return             The new string after replacement.
- */
-export function sed(searchRegex: string, replacement: string, file: string): string;
+export function sed(searchRegex: string | RegExp, replacement: string, file: string): string;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -224,17 +123,7 @@ export function sed(searchRegex: string, replacement: string, file: string): str
  * @param  file        The file to process.
  * @return             The new string after replacement.
  */
-export function sed(options: string, searchRegex: RegExp, replacement: string, file: string): string;
-
-/**
- * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
- * @param  options     Available options: -i (Replace contents of 'file' in-place. Note that no backups will be created!)
- * @param  searchRegex The regular expression to use for search.
- * @param  replacement The replacement.
- * @param  file        The file to process.
- * @return             The new string after replacement.
- */
-export function sed(options: string, searchRegex: string, replacement: string, file: string): string;
+export function sed(options: string, searchRegex: string | RegExp, replacement: string, file: string): string;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -242,15 +131,7 @@ export function sed(options: string, searchRegex: string, replacement: string, f
  * @param  ...files     The files to process.
  * @return                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export function grep(regex_filter: RegExp, ...files: string[]): string;
-
-/**
- * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
- * @param    regex_filter The regular expression to use.
- * @param  ...files     The files to process.
- * @return                Returns a string containing all lines of the file that match the given regex_filter.
- */
-export function grep(regex_filter: RegExp, files: string[]): string;
+export function grep(regex_filter: string | RegExp, ...files: (string | string[])[]): string;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -259,16 +140,7 @@ export function grep(regex_filter: RegExp, files: string[]): string;
  * @param  ...files     The files to process.
  * @return                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export function grep(options: string, regex_filter: string, ...files: string[]): string;
-
-/**
- * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
- * @param    options      Available options: -v (Inverse the sense of the regex and print the lines not matching the criteria.)
- * @param    regex_filter The regular expression to use.
- * @param  files        The files to process.
- * @return                Returns a string containing all lines of the file that match the given regex_filter.
- */
-export function grep(options: string, regex_filter: string, files: string[]): string;
+export function grep(options: string, regex_filter: string | RegExp, ...files: (string | string[])[]): string;
 
 /**
  * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
@@ -474,6 +346,33 @@ export interface ExecOutputReturnValue {
     stderr: string;
 }
 
+export interface ShellReturnValue extends ExecOutputReturnValue {
+    /**
+     * Analogous to the redirection operator > in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc). Like Unix redirections, to() will overwrite any existing file!
+     * @param file The file to use.
+     */
+    to(file: string): void;
+
+    /**
+     * Analogous to the redirect-and-append operator >> in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc).
+     * @param file The file to append to.
+     */
+    toEnd(file: string): void;
+
+    cat(...files: string[]): string;
+    exec(callback: ExecCallback): child.ChildProcess;
+    exec(): ExecOutputReturnValue;
+    grep(...files: (string | string[])[]): string;
+    sed(replacement: string, file: string): string;
+}
+
+export interface ShellString extends String, ShellReturnValue {
+}
+
+export interface ShellArray extends Array<string>, ShellReturnValue {
+}
+
+
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
  * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
@@ -511,17 +410,15 @@ export type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
 /**
  * Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
  */
-export interface touchOptionsArray {
+export interface TouchOptionsArray {
     '-d'?: string;
     '-r'?: string;
 }
 
 export function touch(...files: string[]): void;
 export function touch(files: string[]): void;
-export function touch(options: TouchOptionsLiteral, ...files: string[]): void;
-export function touch(options: TouchOptionsLiteral, files: string[]): void;
-export function touch(options: touchOptionsArray, ...files: string[]): void;
-export function touch(options: touchOptionsArray, files: string[]): void;
+export function touch(options: TouchOptionsLiteral, ...files: (string | string[])[]): void;
+export function touch(options: TouchOptionsArray, ...files: (string | string[])[]): void;
 
 // Configuration
 
