@@ -222,8 +222,7 @@ class ButtonTest extends React.Component<any, any> {
 
                 <Button
                     large
-                    iconRight
-                    icon={{ name: 'code' }}
+                    iconRight = {{ name: 'code' }}
                     title="LARGE WITH RIGHT ICON"
                     onPress={() => this.handleButtonPress()}
                 />

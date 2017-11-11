@@ -2,6 +2,8 @@
 // Project: https://github.com/koajs/joi-router
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
+
 import * as Koa from 'koa';
 import * as Joi from 'joi';
 

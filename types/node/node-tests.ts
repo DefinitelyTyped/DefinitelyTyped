@@ -1651,6 +1651,15 @@ namespace path_tests {
     });
     // returns
     //    '/home/user/dir/file.txt'
+
+    path.format({
+        root: "/",
+        dir: "/home/user/dir",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
 }
 
 ////////////////////////////////////////////////////

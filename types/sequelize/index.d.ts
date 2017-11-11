@@ -5509,6 +5509,13 @@ declare namespace sequelize {
         quoteIdentifiers?: boolean;
 
         /**
+         * The version of the database. Most times, this is automatically detected and is not needed.
+         *
+         * Defaults to 0
+         */
+        databaseVersion?: number;
+
+        /**
          * Set the default transaction isolation level. See `Sequelize.Transaction.ISOLATION_LEVELS` for possible
          * options.
          *
