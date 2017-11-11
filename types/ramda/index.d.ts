@@ -10,6 +10,7 @@
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
+//                 Angelo Ocana <https://github.com/angeloocana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1196,19 +1197,18 @@ declare namespace R {
         pair<F, S>(fst: F, snd: S): [F, S];
 
         /**
-         * Accepts as its arguments a function and any number of values and returns a function that,
-         * when invoked, calls the original function with all of the values prepended to the
-         * original function's arguments list. In some libraries this function is named `applyLeft`.
+         * Takes a function `f` and a list of arguments, and returns a function `g`.
+         * When applied, `g` returns the result of applying `f` to the arguments
+         * provided initially followed by the arguments provided to `g`.
          */
-        partial(fn: (...a: any[]) => any, ...args: any[]): (...a: any[]) => any;
-        partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
+        partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
-         * Accepts as its arguments a function and any number of values and returns a function that,
-         * when invoked, calls the original function with all of the values appended to the original
-         * function's arguments list.
+         * Takes a function `f` and a list of arguments, and returns a function `g`.
+         * When applied, `g` returns the result of applying `f` to the arguments
+         * provided to `g` followed by the arguments provided initially.
          */
-        partialRight(fn: (...a: any[]) => any, ...args: any[]): (...a: any[]) => any;
+        partialRight<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
          * Takes a predicate and a list and returns the pair of lists of elements

@@ -456,8 +456,8 @@ declare namespace google {
             maxTextLines?: number;
             minTextSpacing?: number;
             showTextEvery?: number;
-            maxValue?: number;
-            minValue?: number;
+            maxValue?: number | Date | number[];
+            minValue?: number | Date | number[];
             viewWindowMode?: string;
             viewWindow?: ChartViewWindow;
         }
@@ -468,8 +468,8 @@ declare namespace google {
         }
 
         export interface ChartViewWindow {
-            max?: number;
-            min?: number;
+            max?: number | Date | number[];
+            min?: number | Date | number[];
         }
 
         export interface ChartTooltip {
@@ -645,6 +645,7 @@ declare namespace google {
             interpolateNulls?: boolean;
             legend?: ChartLegend | 'none';
             lineWidth?: number;
+            min?: number;
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
@@ -1009,7 +1010,7 @@ declare namespace google {
         export interface TableOptions {
             allowHtml?: boolean;
             alternatingRowStyle?: boolean;
-            cssClassName?: CssClassNames;
+            cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             height?: string;
             page?: string;

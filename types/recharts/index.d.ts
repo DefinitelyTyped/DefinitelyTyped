@@ -783,7 +783,8 @@ export interface TooltipProps extends Animatable {
     cursor?: boolean | object | React.ReactElement<any> | React.StatelessComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
-    label?: any;
+    label?: string | number;
+	  labelFormatter?: LabelFormatter;
     payload?: TooltipPayload[];
     itemSorter?: ItemSorter<TooltipPayload>;
     filterNull?: boolean;
