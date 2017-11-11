@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as chalk from 'chalk';
+import { Chalk } from 'chalk';
 
-export const EXPECTED_COLOR: chalk.ChalkChain;
-export const RECEIVED_COLOR: chalk.ChalkChain;
-export const EXPECTED_BG: chalk.ChalkChain; // TODO: removed in b430e51a
-export const RECEIVED_BG: chalk.ChalkChain; // TODO: removed in b430e51a
+export const EXPECTED_COLOR: Chalk;
+export const RECEIVED_COLOR: Chalk;
+export const EXPECTED_BG: Chalk; // TODO: removed in b430e51a
+export const RECEIVED_BG: Chalk; // TODO: removed in b430e51a
 export const SUGGEST_TO_EQUAL: string;
 
 export function stringify(object: any, maxDepth?: number): string;
 
 export function highlightTrailingWhitespace(
     text: string,
-    bgColor: chalk.ChalkChain // removed in b430e51a
+    bgColor: Chalk // removed in b430e51a
 ): string;
 
 export function printReceived(object: any): string;

@@ -154,7 +154,7 @@ declare namespace Chart {
         responsiveAnimationDuration?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
-        onClick?(any?: any): any;
+        onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
@@ -411,8 +411,8 @@ declare namespace Chart {
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[];
-        borderWidth?: number;
-        borderColor?: ChartColor;
+        borderWidth?: number | number[];
+        borderColor?: ChartColor | ChartColor[];
         borderCapStyle?: string;
         borderDash?: number[];
         borderDashOffset?: number;

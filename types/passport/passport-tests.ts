@@ -3,24 +3,24 @@ import * as express from 'express';
 import 'express-session';
 
 class TestStrategy implements passport.Strategy {
-  public name: string = 'test';
+  name = 'test';
   constructor() { }
   authenticate(req: express.Request) { }
 }
 
-const newFramework:passport.Framework = {
-  initialize: function () {
-    return function () { };
+const newFramework: passport.Framework = {
+  initialize() {
+    return () => { };
   },
-  authenticate: function (passport, name, options) {
-    return function () {
-      return 'authenticate(): ' + name + ' ' + options;
+  authenticate(passport, name, options) {
+    return () => {
+      return `authenticate(): ${name} ${options}`;
     };
   },
-  authorize: function (passport, name, options) {
-    return function () {
-      return 'authorize(): ' + name + ' ' + options;
-    }
+  authorize(passport, name, options) {
+    return () => {
+      return `authorize(): ${name} ${options}`;
+    };
   }
 };
 passport.use(new TestStrategy());
@@ -49,7 +49,7 @@ passport.deserializeUser<TestUser, number>((id, done) => {
 
   fetchUser(id)
     .then((user) => done(null, user))
-    .catch((err) => done(err));
+    .catch(done);
 });
 
 passport.use(new TestStrategy())
@@ -57,8 +57,7 @@ passport.use(new TestStrategy())
   .use(new TestStrategy())
   .framework(newFramework);
 
-
-var app = express();
+const app = express();
 app.configure(() => {
   app.use(passport.initialize());
   app.use(passport.session());
@@ -66,40 +65,39 @@ app.configure(() => {
 
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-  function (req, res) {
+  (req, res) => {
     res.redirect('/');
   });
 
-app.post('/login', function (req, res, next) {
-  passport.authenticate('local', function (err: any, user: { username: string; }, info: { message: string; }) {
-    if (err) { return next(err) }
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err: any, user: { username: string; }, info: { message: string; }) => {
+    if (err) { return next(err); }
     if (!user) {
       if (req.session) {
         req.session['error'] = info.message;
       }
-      return res.redirect('/login')
+      return res.redirect('/login');
     }
-    req.logIn(user, function (err) {
+    req.logIn(user, (err) => {
       if (err) { return next(err); }
       return res.redirect('/users/' + user.username);
     });
   })(req, res, next);
 });
 
-app.get('/logout', function (req, res) {
+app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
 
 app.post('/auth/token', passport.authenticate(['basic', 'oauth2-client-password'], { session: false }));
 
-
 function authSetting(): void {
-  var authOption = {
+  const authOption = {
     successRedirect: '/',
     failureRedirect: '/login',
   };
-  var successCallback = (req: express.Request, res: express.Response) => {
+  const successCallback = (req: express.Request, res: express.Response) => {
     res.redirect('/');
   };
 
@@ -120,7 +118,6 @@ function authSetting(): void {
     }));
   app.get('/auth/google/callback',
       passport.authenticate('google', authOption), successCallback);
-
 }
 
 function ensureAuthenticated(req: express.Request, res: express.Response, next: (err?: any) => void) {
@@ -130,8 +127,8 @@ function ensureAuthenticated(req: express.Request, res: express.Response, next: 
   }
 }
 
-const passportInstance: passport.Passport = new passport.Passport()
-passportInstance.use(new TestStrategy())
+const passportInstance: passport.Passport = new passport.Passport();
+passportInstance.use(new TestStrategy());
 
-const authenticator: passport.Passport = new passport.Authenticator()
-authenticator.use(new TestStrategy())
+const authenticator: passport.Passport = new passport.Authenticator();
+authenticator.use(new TestStrategy());

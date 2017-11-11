@@ -2,6 +2,7 @@
 // Project: https://github.com/lucasfeliciano/restling
 // Definitions by: Alessandro vergani <https://github.com/loghorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Promise from "bluebird";
 import * as Restler from "restler";

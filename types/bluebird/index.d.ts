@@ -43,24 +43,37 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   constructor(callback: (resolve: (thenableOrResult?: R | PromiseLike<R>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void);
 
   /**
-   * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
+   * Promises/A+ `.then()`. Returns a new promise chained from this promise.
+   *
+   * The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
   then<U>(onFulfill?: (value: R) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U>; // For simpler signature help.
-  then<TResult1 = R, TResult2 = never>(onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): Bluebird<TResult1 | TResult2>;
+  then<TResult1 = R, TResult2 = never>(
+      onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null
+    ): Bluebird<TResult1 | TResult2>;
 
   /**
-   * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
+   * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise.
+   *
+   * Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
   catch(onReject: (error: any) => R | PromiseLike<R>): Bluebird<R>;
-  catch<U>(onReject?: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
+  catch<U>(onReject: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
 
   /**
-   * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
+   * This extends `.catch` to work more like catch-clauses in languages like Java or C#.
    *
-   * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
+   * Instead of manually checking `instanceof` or `.name === "SomeError"`,
+   * you may specify a number of error constructors which are eligible for this catch handler.
+   * The catch handler that is first met that has eligible constructors specified, is the one that will be called.
+   *
+   * This method also supports predicate-based filters.
+   * If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument.
+   * The return result of the predicate will be used determine whether the error handler should be called.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
@@ -190,17 +203,23 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   ): Bluebird<U | R>;
 
   /**
-   * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
+   * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise.
+   *
+   * Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
   caught(onReject: (error: any) => R | PromiseLike<R>): Bluebird<R>;
-  caught<U>(onReject?: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
+  caught<U>(onReject: ((error: any) => U | PromiseLike<U>) | undefined | null): Bluebird<U | R>;
 
   /**
-   * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
+   * This extends `.catch` to work more like catch-clauses in languages like Java or C#.
    *
-   * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
+   * Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler.
+   * The catch handler that is first met that has eligible constructors specified, is the one that will be called.
+   *
+   * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument.
+   * The return result of the predicate will be used determine whether the error handler should be called.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
@@ -335,7 +354,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   error<U>(onReject: (reason: any) => U | PromiseLike<U>): Bluebird<U>;
 
   /**
-   * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise. There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
+   * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise.
+   *
+   * There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
    *
    * Alias `.lastly();` for compatibility with earlier ECMAScript version.
    */
@@ -344,7 +365,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   lastly<U>(handler: () => U | PromiseLike<U>): Bluebird<R>;
 
   /**
-   * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
+   * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`.
+   *
+   * Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
    */
   bind(thisArg: any): Bluebird<R>;
 
@@ -409,7 +432,11 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   timeout(ms: number, message?: string | Error): Bluebird<R>;
 
   /**
-   * Register a node-style callback on this promise. When this promise is is either fulfilled or rejected, the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument. The error argument will be `null` in case of success.
+   * Register a node-style callback on this promise.
+   *
+   * When this promise is is either fulfilled or rejected,
+   * the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument.
+   * The error argument will be `null` in case of success.
    * If the `callback` argument is not a function, this method does not do anything.
    */
   nodeify(callback: (err: any, value?: R) => void, options?: Bluebird.SpreadOption): this;
@@ -694,7 +721,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
    *
-   * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call. Otherwise it is passed as is as the first argument for the function call.
+   * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call.
+   * Otherwise it is passed as is as the first argument for the function call.
    *
    * Alias for `attempt();` for compatibility with earlier ECMAScript version.
    */
@@ -702,7 +730,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static attempt<R>(fn: () => R | PromiseLike<R>): Bluebird<R>;
 
   /**
-   * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
+   * Returns a new function that wraps the given function `fn`.
+   * The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
    * This method is convenient when a function can sometimes return synchronously or throw synchronously.
    */
   static method<R, A1>(fn: (arg1: A1) => R | PromiseLike<R>): (arg1: A1) => Bluebird<R>;
@@ -729,7 +758,10 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static defer<R>(): Bluebird.Resolver<R>;
 
   /**
-   * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
+   * Cast the given `value` to a trusted promise.
+   *
+   * If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value.
+   * If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
    */
   static cast<R>(value: R | PromiseLike<R>): Bluebird<R>;
 
@@ -744,7 +776,10 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static is(value: any): boolean;
 
   /**
-   * Call this right after the library is loaded to enabled long stack traces. Long stack traces cannot be disabled after being enabled, and cannot be enabled after promises have already been created. Long stack traces imply a substantial performance penalty, around 4-5x for throughput and 0.5x for latency.
+   * Call this right after the library is loaded to enabled long stack traces.
+   *
+   * Long stack traces cannot be disabled after being enabled, and cannot be enabled after promises have already been created.
+   * Long stack traces imply a substantial performance penalty, around 4-5x for throughput and 0.5x for latency.
    */
   static longStackTraces(): void;
 
@@ -757,24 +792,49 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static delay(ms: number): Bluebird<void>;
 
   /**
-   * Returns a function that will wrap the given `nodeFunction`. Instead of taking a callback, the returned function will return a promise whose fate is decided by the callback behavior of the given node function. The node function should conform to node.js convention of accepting a callback as last argument and calling that callback with error as the first argument and success value on the second argument.
+   * Returns a function that will wrap the given `nodeFunction`.
+   *
+   * Instead of taking a callback, the returned function will return a promise whose fate is decided by the callback behavior of the given node function.
+   * The node function should conform to node.js convention of accepting a callback as last argument and
+   * calling that callback with error as the first argument and success value on the second argument.
    *
    * If the `nodeFunction` calls its callback with multiple success values, the fulfillment value will be an array of them.
    *
    * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
    */
-  static promisify<T>(func: (callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
-  static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1) => Bluebird<T>;
-  static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2) => Bluebird<T>;
-  static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
+  static promisify<T>(
+      func: (callback: (err: any, result?: T) => void) => void,
+      options?: Bluebird.PromisifyOptions
+    ): () => Bluebird<T>;
+  static promisify<T, A1>(
+      func: (arg1: A1, callback: (err: any, result?: T) => void) => void,
+      options?: Bluebird.PromisifyOptions
+    ): (arg1: A1) => Bluebird<T>;
+  static promisify<T, A1, A2>(
+      func: (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void) => void,
+      options?: Bluebird.PromisifyOptions
+    ): (arg1: A1, arg2: A2) => Bluebird<T>;
+  static promisify<T, A1, A2, A3>(
+      func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void) => void,
+      options?: Bluebird.PromisifyOptions
+    ): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
+  static promisify<T, A1, A2, A3, A4>(
+      func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void) => void,
+      options?: Bluebird.PromisifyOptions
+    ): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
+  static promisify<T, A1, A2, A3, A4, A5>(
+      func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void) => void,
+      options?: Bluebird.PromisifyOptions
+    ): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
   static promisify(nodeFunction: (...args: any[]) => void, options?: Bluebird.PromisifyOptions): (...args: any[]) => Bluebird<any>;
 
   /**
-   * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain. The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
+   * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain.
    *
-   * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
+   * The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
+   *
+   * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example,
+   * if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
    */
   // TODO how to model promisifyAll?
   static promisifyAll<T extends object>(target: T, options?: Bluebird.PromisifyAllOptions<T>): T;
@@ -788,19 +848,49 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static fromCallback<T>(resolver: (callback: (err: any, result?: T) => void) => void, options?: Bluebird.FromNodeOptions): Bluebird<T>;
 
   /**
-   * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
+   * Returns a function that can use `yield` to run asynchronous code synchronously.
+   *
+   * This feature requires the support of generators which are drafted in the next version of the language.
+   * Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
    */
   // TODO: After https://github.com/Microsoft/TypeScript/issues/2983 is implemented, we can use
   // the return type propagation of generators to automatically infer the return type T.
-  static coroutine<T>(generatorFunction: () => IterableIterator<any>, options?: Bluebird.CoroutineOptions): () => Bluebird<T>;
-  static coroutine<T, A1>(generatorFunction: (a1: A1) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1) => Bluebird<T>;
-  static coroutine<T, A1, A2>(generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2) => Bluebird<T>;
-  static coroutine<T, A1, A2, A3>(generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
-  static coroutine<T, A1, A2, A3, A4>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
-  static coroutine<T, A1, A2, A3, A4, A5>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
-  static coroutine<T, A1, A2, A3, A4, A5, A6>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
-  static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
-  static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
+  static coroutine<T>(
+      generatorFunction: () => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): () => Bluebird<T>;
+  static coroutine<T, A1>(
+      generatorFunction: (a1: A1) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1) => Bluebird<T>;
+  static coroutine<T, A1, A2>(
+      generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3>(
+      generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4>(
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5>(
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6>(
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>,
+      options?: Bluebird.CoroutineOptions
+    ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
 
   /**
    * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
@@ -820,7 +910,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static onPossiblyUnhandledRejection(handler?: (error: Error, promise: Bluebird<any>) => void): void;
 
   /**
-   * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are fulfilled. The promise's fulfillment value is an array with fulfillment values at respective positions to the original array. If any promise in the array rejects, the returned promise is rejected with the rejection reason.
+   * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are fulfilled.
+   * The promise's fulfillment value is an array with fulfillment values at respective positions to the original array.
+   * If any promise in the array rejects, the returned promise is rejected with the rejection reason.
    */
   // TODO enable more overloads
   // array with promises of different types
@@ -833,9 +925,13 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static all<R>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>): Bluebird<R[]>;
 
   /**
-   * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
+   * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled.
    *
-   * If `object` is a trusted `Promise`, then it will be treated as a promise for object rather than for its properties. All other objects are treated for their properties as is returned by `Object.keys` - the object's own enumerable properties.
+   * The promise's fulfillment value is an object with fulfillment values at respective keys to the original object.
+   * If any promise in the object rejects, the returned promise is rejected with the rejection reason.
+   *
+   * If `object` is a trusted `Promise`, then it will be treated as a promise for object rather than for its properties.
+   * All other objects are treated for their properties as is returned by `Object.keys` - the object's own enumerable properties.
    *
    * *The original object is not modified.*
    */
@@ -859,7 +955,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static race<R>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>): Bluebird<R>;
 
   /**
-   * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises). When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
+   * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises).
+   * When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
    *
    * If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an array of rejection reasons in the order they were thrown in.
    *
@@ -874,60 +971,112 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * ) -> Promise
    * For coordinating multiple concurrent discrete promises.
    *
-   * Note: In 1.x and 0.x Promise.join used to be a Promise.all that took the values in as arguments instead in an array. This behavior has been deprecated but is still supported partially - when the last argument is an immediate function value the new semantics will apply
+   * Note: In 1.x and 0.x Promise.join used to be a Promise.all that took the values in as arguments instead in an array.
+   * This behavior has been deprecated but is still supported partially - when the last argument is an immediate function value the new semantics will apply
    */
-  static join<R, A1>(arg1: A1 | PromiseLike<A1>, handler: (arg1: A1) => R | PromiseLike<R>): Bluebird<R>;
-  static join<R, A1, A2>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, handler: (arg1: A1, arg2: A2) => R | PromiseLike<R>): Bluebird<R>;
-  static join<R, A1, A2, A3>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, handler: (arg1: A1, arg2: A2, arg3: A3) => R | PromiseLike<R>): Bluebird<R>;
-  static join<R, A1, A2, A3, A4>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => R | PromiseLike<R>): Bluebird<R>;
-  static join<R, A1, A2, A3, A4, A5>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, arg5: A5 | PromiseLike<A5>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => R | PromiseLike<R>): Bluebird<R>;
+  static join<R, A1>(
+      arg1: A1 | PromiseLike<A1>,
+      handler: (arg1: A1) => R | PromiseLike<R>
+    ): Bluebird<R>;
+  static join<R, A1, A2>(
+      arg1: A1 | PromiseLike<A1>,
+      arg2: A2 | PromiseLike<A2>,
+      handler: (arg1: A1, arg2: A2) => R | PromiseLike<R>
+    ): Bluebird<R>;
+  static join<R, A1, A2, A3>(
+      arg1: A1 | PromiseLike<A1>,
+      arg2: A2 | PromiseLike<A2>,
+      arg3: A3 | PromiseLike<A3>,
+      handler: (arg1: A1, arg2: A2, arg3: A3) => R | PromiseLike<R>
+    ): Bluebird<R>;
+  static join<R, A1, A2, A3, A4>(
+      arg1: A1 | PromiseLike<A1>,
+      arg2: A2 | PromiseLike<A2>,
+      arg3: A3 | PromiseLike<A3>,
+      arg4: A4 | PromiseLike<A4>,
+      handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => R | PromiseLike<R>
+    ): Bluebird<R>;
+  static join<R, A1, A2, A3, A4, A5>(
+      arg1: A1 | PromiseLike<A1>,
+      arg2: A2 | PromiseLike<A2>,
+      arg3: A3 | PromiseLike<A3>,
+      arg4: A4 | PromiseLike<A4>,
+      arg5: A5 | PromiseLike<A5>,
+      handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => R | PromiseLike<R>
+    ): Bluebird<R>;
 
   // variadic array
   /** @deprecated use .all instead */
   static join<R>(...values: Array<R | PromiseLike<R>>): Bluebird<R[]>;
 
   /**
-   * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+   * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array.
+   * If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * If the `mapper` function returns promises or thenables, the returned promise will wait for all the mapped results to be resolved as well.
    *
    * *The original array is not modified.*
    */
-  static map<R, U>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(
+      values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>,
+      mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>,
+      options?: Bluebird.ConcurrencyOption
+    ): Bluebird<U[]>;
 
   /**
-   * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+   * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array.
+   * If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * If the reducer function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    *
-   * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
+   * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned.
+   * If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
-  static reduce<R, U>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
+  static reduce<R, U>(
+      values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>,
+      reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>,
+      initialValue?: U
+    ): Bluebird<U>;
 
   /**
-   * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+   * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array.
+   * If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * The return values from the filtered functions are coerced to booleans, with the exception of promises and thenables which are awaited for their eventual result.
    *
    * *The original array is not modified.
    */
-  static filter<R>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
+  static filter<R>(
+      values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>,
+      filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>,
+      option?: Bluebird.ConcurrencyOption
+    ): Bluebird<R[]>;
 
   /**
-   * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
+   * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array.
+   * Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
    *
-   * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
+   * Resolves to the original array unmodified, this method is meant to be used for side effects.
+   * If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    */
-  static each<R, U>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
+  static each<R, U>(
+      values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>,
+      iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>
+    ): Bluebird<R[]>;
 
   /**
    * Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values), iterate over all the values in the Iterable into an array and iterate over the array serially, in-order.
    *
-   * Returns a promise for an array that contains the values returned by the iterator function in their respective positions. The iterator won't be called for an item until its previous item, and the promise returned by the iterator for that item are fulfilled. This results in a mapSeries kind of utility but it can also be used simply as a side effect iterator similar to Array#forEach.
+   * Returns a promise for an array that contains the values returned by the iterator function in their respective positions.
+   * The iterator won't be called for an item until its previous item, and the promise returned by the iterator for that item are fulfilled.
+   * This results in a mapSeries kind of utility but it can also be used simply as a side effect iterator similar to Array#forEach.
    *
    * If any promise in the input array is rejected or any promise returned by the iterator function is rejected, the result will be rejected as well.
    */
-  static mapSeries<R, U>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<U[]>;
+  static mapSeries<R, U>(
+      values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>,
+      iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>
+    ): Bluebird<U[]>;
 
   /**
    * A meta method used to specify the disposer method that cleans up a resource when using `Promise.using`.
@@ -946,9 +1095,21 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *  will be called when the promise returned by the callback passed to using has settled. The disposer is
    *  necessary because there is no standard interface in node for disposing resources.
    */
-  static using<R, T>(disposer: Bluebird.Disposer<R>, executor: (transaction: R) => PromiseLike<T>): Bluebird<T>;
-  static using<R1, R2, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, executor: (transaction1: R1, transaction2: R2) => PromiseLike<T>): Bluebird<T>;
-  static using<R1, R2, R3, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, disposer3: Bluebird.Disposer<R3>, executor: (transaction1: R1, transaction2: R2, transaction3: R3) => PromiseLike<T>): Bluebird<T>;
+  static using<R, T>(
+      disposer: Bluebird.Disposer<R>,
+      executor: (transaction: R) => PromiseLike<T>
+    ): Bluebird<T>;
+  static using<R1, R2, T>(
+      disposer: Bluebird.Disposer<R1>,
+      disposer2: Bluebird.Disposer<R2>,
+      executor: (transaction1: R1, transaction2: R2
+    ) => PromiseLike<T>): Bluebird<T>;
+  static using<R1, R2, R3, T>(
+      disposer: Bluebird.Disposer<R1>,
+      disposer2: Bluebird.Disposer<R2>,
+      disposer3: Bluebird.Disposer<R3>,
+      executor: (transaction1: R1, transaction2: R2, transaction3: R3) => PromiseLike<T>
+    ): Bluebird<T>;
 
   /**
    * Configure long stack traces, warnings, monitoring and cancellation.
@@ -1083,7 +1244,8 @@ declare namespace Bluebird {
     reject(reason: any): void;
 
     /**
-     * Gives you a callback representation of the `PromiseResolver`. Note that this is not a method but a property. The callback accepts error object in first argument and success values on the 2nd parameter and the rest, I.E. node js conventions.
+     * Gives you a callback representation of the `PromiseResolver`. Note that this is not a method but a property.
+     * The callback accepts error object in first argument and success values on the 2nd parameter and the rest, I.E. node js conventions.
      *
      * If the the callback is called with multiple success values, the resolver fullfills its promise with an array of the values.
      */
