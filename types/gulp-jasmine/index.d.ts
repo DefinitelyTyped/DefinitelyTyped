@@ -24,7 +24,7 @@ interface JasmineOptions {
     /**
      * Reporter(s) to use.
      */
-    reporter?: jasmine.CustomReporter | jasmine.CustomReporter[];
+    reporter?: jasmine.CustomReporter | ReadonlyArray<jasmine.CustomReporter>;
 
     /**
      * Time to wait in milliseconds before a test automatically fails.
