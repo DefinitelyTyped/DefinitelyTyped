@@ -12,7 +12,7 @@ http.createServer((req, res) => {
       res.writeHead(200, {'content-type': 'text/plain'});
       res.write('received upload:\n\n');
 
-      let array = fields.list as Array<string>;
+      let array = fields['an-array'] as Array<string>;
 
       res.end(util.inspect({fields: fields, files: files}));
     });
