@@ -1,12 +1,12 @@
-import * as express from "express"
-import * as expform from "express-formidable";
+import express = require("express");
+import expform = require("express-formidable");
 
 const app = express();
 
 app.use("/form1", expform(), (req, res, next) => {
-    console.log(req.fields)
-    console.log(req.files)
-    next()
+    console.log(req.fields);
+    console.log(req.files);
+    next();
 });
 
 app.use("/form2", expform({
