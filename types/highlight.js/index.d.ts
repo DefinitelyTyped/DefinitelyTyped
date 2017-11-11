@@ -1,4 +1,4 @@
-// Type definitions for highlight.js v9.1.0
+// Type definitions for highlight.js v9.12
 // Project: https://github.com/isagalaev/highlight.js
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,7 @@ declare namespace hljs
 		name: string,
 		value: string,
 		ignore_illegals?: boolean,
-		continuation?: boolean) : IHighlightResult;
+		continuation?: ICompiledMode) : IHighlightResult;
 	export function highlightAuto(
 		value: string,
 		languageSubset?: string[]) : IAutoHighlightResult;
@@ -154,6 +154,6 @@ declare namespace hljs
 	}
 }
 
-declare module 'highlight.js' {
-	export = hljs;
-}
+
+export = hljs;
+export as namespace hljs;
