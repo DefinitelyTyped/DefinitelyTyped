@@ -32,18 +32,19 @@ export interface Point {
 }
 
 /**
-* Encodes latitude/longitude to geohash, either to specified precision or to automatically
-* evaluated precision.
-*
-* @param   {number} lat - Latitude in degrees.
-* @param   {number} lon - Longitude in degrees.
-* @param   {number} [precision] - Number of characters in resulting geohash.
-* @returns {string} Geohash of supplied latitude/longitude.
-* @throws  Invalid geohash.
-*
-* @example
-*     var geohash = Geohash.encode(52.205, 0.119, 7); // geohash: 'u120fxw'
-*/
+ * Encodes latitude/longitude to geohash, either to specified precision or to automatically
+ * evaluated precision.
+ *
+ * @param   lat - Latitude in degrees.
+ * @param   lon - Longitude in degrees.
+ * @param   [precision] - Number of characters in resulting geohash.
+ * @returns Geohash of supplied latitude/longitude.
+ * @throws  Invalid geohash.
+ *
+ * @example
+ *     var geohash = Geohash.encode(52.205, 0.119, 7); // geohash: 'u120fxw'
+ */
+
 export function encode(
     latitude: number,
     longitude: number,
@@ -54,8 +55,8 @@ export function encode(
  * Decode geohash to latitude/longitude (location is approximate centre of geohash cell,
  *     to reasonable precision).
  *
- * @param   {string} geohash - Geohash string to be converted to latitude/longitude.
- * @returns {Point} (Center of) geohashed location.
+ * @param   geohash - Geohash string to be converted to latitude/longitude.
+ * @returns (Center of) geohashed location.
  * @throws  Invalid geohash.
  *
  * @example
@@ -66,8 +67,8 @@ export function decode(geohash: string): Point;
 /**
  * Returns SW/NE latitude/longitude bounds of specified geohash.
  *
- * @param   {string} geohash - Cell that bounds are required of.
- * @returns {Bounds}
+ * @param   geohash - Cell that bounds are required of.
+ * @returns The Bounds
  * @throws  Invalid geohash.
  */
 export function bounds(geohash: string): Bounds;
@@ -77,7 +78,7 @@ export function bounds(geohash: string): Bounds;
  *
  * @param   geohash - Cell to which adjacent cell is required.
  * @param   direction - Direction from geohash (N/S/E/W).
- * @returns {string} Geocode of adjacent cell.
+ * @returns Geocode of adjacent cell.
  * @throws  Invalid geohash.
  */
 export function adjacent(geohash: string, direction: Direction | string): string;
@@ -85,8 +86,8 @@ export function adjacent(geohash: string, direction: Direction | string): string
 /**
  * Returns all 8 adjacent cells to specified geohash.
  *
- * @param   {string} geohash - Geohash neighbours are required of.
- * @returns {Neighbours}
+ * @param   geohash - Geohash neighbours are required of.
+ * @returns The neighbours
  * @throws  Invalid geohash.
  */
 export function neighbours(geohash: string): Neighbours;
