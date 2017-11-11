@@ -1535,7 +1535,6 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
 };
 
 () => {
@@ -1546,7 +1545,6 @@ class Rectangle {
     const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
-    const s1 = favorite(alice);  // => undefined
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
@@ -1558,7 +1556,6 @@ class Rectangle {
 
 () => {
     R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
@@ -1859,7 +1856,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose<string, string, string>(R.toLower, R.prop("name")));
+    const sortByNameCaseInsensitive = R.sortBy(R.compose<Record<'name', string>, string, string>(R.toLower, R.prop("name")));
     const alice                     = {
         name: "ALICE",
         age : 101
