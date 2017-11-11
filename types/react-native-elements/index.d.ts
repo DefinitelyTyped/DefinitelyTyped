@@ -352,6 +352,13 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
      * @default null
      */
     containerViewStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * Indicates button is loading
+     *
+     * @default false
+     */
+    loading?: boolean;
 }
 
 /**
