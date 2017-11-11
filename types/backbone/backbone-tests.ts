@@ -180,6 +180,8 @@ function test_collection() {
 
     var alphabetical = books.sortBy((book: Book): number => null);
 
+    var copy = books.clone();
+
     let one: Book;
     let models: Book[];
     let bool: boolean;
