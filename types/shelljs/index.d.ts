@@ -368,8 +368,7 @@ export interface ShellReturnValue extends ExecOutputReturnValue {
 
 export type ShellString = string & ShellReturnValue;
 
-export type ShellArray = Array<string> & ShellReturnValue;
-
+export type ShellArray = string[] & ShellReturnValue;
 
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
