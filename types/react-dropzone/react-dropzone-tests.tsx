@@ -1,7 +1,6 @@
 import * as React from "react";
 import { DragEvent, SyntheticEvent } from "react";
-import Dropzone = require("react-dropzone");
-import { ImageFile } from "react-dropzone";
+import Dropzone, { ImageFile } from "react-dropzone";
 
 class Test extends React.Component {
 
@@ -23,7 +22,7 @@ class Test extends React.Component {
     return (
       <div>
         <Dropzone
-          ref={(node) => { this.dz = node }}
+          ref={(node: Dropzone) => { this.dz = node }}
           onClick={this.handleDefault}
           onDrop={this.handleDropFiles}
           onDropAccepted={this.handleDropFile }
