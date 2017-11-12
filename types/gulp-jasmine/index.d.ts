@@ -7,8 +7,6 @@
 /// <reference types="node" />
 /// <reference types="jasmine" />
 
-declare namespace gulpJasmine { }
-
 interface JasmineOptions {
     /**
      *  Display spec names in default reporter.
