@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.6
+// Type definitions for Chart.js 2.7
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -114,6 +114,11 @@ declare namespace Chart {
         index?: number;
     }
 
+    interface ChartTooltipLabelColor {
+        borderColor: ChartColor;
+        backgroundColor: ChartColor;
+    }
+
     interface ChartTooltipCallback {
         beforeTitle?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
         title?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
@@ -121,6 +126,8 @@ declare namespace Chart {
         beforeBody?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
         beforeLabel?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
         label?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
+        labelColor?(tooltipItem?: ChartTooltipItem, chart?: Chart): ChartTooltipLabelColor;
+        labelTextColor?(tooltipItem?: ChartTooltipItem, chart?: Chart): string;
         afterLabel?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
         afterBody?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
         beforeFooter?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
