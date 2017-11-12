@@ -2,7 +2,7 @@
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
