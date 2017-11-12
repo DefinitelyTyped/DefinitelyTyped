@@ -7,36 +7,9 @@ export import AWS = require("aws-sdk");
 import * as joi from "joi";
 import stream = require("stream");
 
+// Dynogels Data Members
 export let log: Log;
-
-interface Log {
-    info(...args: any[]): void;
-    warn(...args: any[]): void;
-}
-
-export let models: { [key: string]: any };
-export function dynamoDriver(dynamoDB: AWS.DynamoDB): AWS.DynamoDB;
-export function reset(): void;
-export function define(modelName: string, config: ModelConfiguration): Model;
-export function createTables(callback: (err: string) => void): void;
-export function createTables(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: string) => void): void;
-export function Set(...args: any[]): any;
-
-type DynogelsGlobalOptions = {
-    $dynogels: {
-        pollingInterval: number;
-    }
-};
-
-interface CreateTablesOptions {
-    readCapacity?: number;
-    writeCapacity?: number;
-    streamSpecification?: {
-        streamEnabled: boolean;
-        streamViewType: string;
-    };
-}
-
+export let models: { [key: string]: Model };
 export let types: {
     stringSet(): joi.AnySchema;
     numberSet(): joi.AnySchema;
@@ -45,8 +18,35 @@ export let types: {
     timeUUID(): joi.AnySchema;
 };
 
-type DynogelsItemCallback = (err: Error, data: Item) => void;
+export interface Log {
+    info(...args: any[]): void;
+    warn(...args: any[]): void;
+}
 
+//Dynogels global functions
+export function dynamoDriver(dynamoDB: AWS.DynamoDB): AWS.DynamoDB;
+export function reset(): void;
+export function define(modelName: string, config: ModelConfiguration): Model;
+export function createTables(callback: (err: string) => void): void;
+export function createTables(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: string) => void): void;
+export function Set(...args: any[]): any;
+
+export interface DynogelsGlobalOptions {
+    $dynogels: {
+        pollingInterval: number;
+    }
+}
+
+export interface CreateTablesOptions {
+    readCapacity?: number;
+    writeCapacity?: number;
+    streamSpecification?: {
+        streamEnabled: boolean;
+        streamViewType: string;
+    };
+}
+
+//Dynogels Model
 export interface Model {
     new(attrs: { [key: string]: any }): Item;
 
@@ -58,30 +58,40 @@ export interface Model {
     create(item: any, callback: DynogelsItemCallback): void;
     update(item: any, options: UpdateItemOptions, callback: DynogelsItemCallback): void;
     update(item: any, callback: DynogelsItemCallback): void;
-    destroy(hashKey: any, rangeKey: any, options: AWS.DynamoDB.DeleteItemInput, callback: DynogelsItemCallback): void;
-    destroy(haskKey: any, options: AWS.DynamoDB.DeleteItemInput, callback: DynogelsItemCallback): void;
+    destroy(hashKey: any, rangeKey: any, options: DestroyItemOptions, callback: DynogelsItemCallback): void;
+    destroy(haskKey: any, options: DestroyItemOptions, callback: DynogelsItemCallback): void;
     destroy(hashKey: any, callback: DynogelsItemCallback): void;
     destroy(hashKey: any, rangeKey: any, callback: DynogelsItemCallback): void;
-    destroy(item: any, options: AWS.DynamoDB.DeleteItemInput, callback: DynogelsItemCallback): void;
+    destroy(item: any, options: DestroyItemOptions, callback: DynogelsItemCallback): void;
     destroy(item: any, callback: DynogelsItemCallback): void;
     query(hashKey: any): Query;
     scan(): Scan;
     parallelScan(totalSegments: number): Scan;
     getItems(items: string[] | { [key: string]: string }[], callback: (err: Error, items: any[]) => void): void;
     getItems(items: string[] | { [key: string]: string }[], options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(): void;
-    createTable(): void;
-    updateTable(): void;
-    describeTable(): void;
+    batchGetItems(items: string[] | { [key: string]: string }[], callback: (err: Error, items: any[]) => void): void;
+    batchGetItems(items: string[] | { [key: string]: string }[], options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
+    createTable(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
+    createTable(callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
+    updateTable(throughput: Throughput, callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
+    updateTable(callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
+    describeTable(callback: (err: Error, data: AWS.DynamoDB.DescribeTableOutput) => void): void;
     deleteTable(callback: (err: Error) => void): void;
-    tableName(): void;
+    tableName(): string;
 
     after(): void;
     before(): void;
-    config(config: ModelConfig): void;
+    config(config: ModelConfig): { name: string };
 }
 
-interface CreateItemOptions {
+type DynogelsItemCallback = (err: Error, data: Item) => void;
+
+export interface Throughput {
+    readCapacity: number;
+    writeCapacity: number;
+}
+
+export interface CreateItemOptions {
     expected?: { [key: string]: any };
     overwrite?: boolean;
 
@@ -95,7 +105,7 @@ interface CreateItemOptions {
     ExpressionAttributeValues?: { [key: string]: any };
 }
 
-interface UpdateItemOptions {
+export interface UpdateItemOptions {
     expected?: { [key: string]: any };
 
     AttributeUpdates?: AWS.DynamoDB.AttributeUpdates;
@@ -110,7 +120,7 @@ interface UpdateItemOptions {
     ExpressionAttributeValues?: { [key: string]: any };
 }
 
-interface DestroyItemOptions {
+export interface DestroyItemOptions {
     Expected?: AWS.DynamoDB.ExpectedAttributeMap;
     ConditionalOperator?: AWS.DynamoDB.ConditionalOperator;
     ReturnValues?: AWS.DynamoDB.ReturnValue;
@@ -121,7 +131,7 @@ interface DestroyItemOptions {
     ExpressionAttributeValues?: { [key: string]: any };
 }
 
-interface GetItemOptions {
+export interface GetItemOptions {
     AttributesToGet?: AWS.DynamoDB.AttributeNameList;
     ConsistentRead?: AWS.DynamoDB.ConsistentRead;
     ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity;
@@ -129,24 +139,26 @@ interface GetItemOptions {
     ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap;
 }
 
-interface ModelConfig {
+export interface ModelConfig {
     tableName?: string;
     docClient?: any;
     dynamodb?: AWS.DynamoDB;
 }
 
+//Dynogels Item
 export interface Item {
     get(key: string): { [key: string]: any };
-    set(params: {}): void;
+    set(params: {}): Item;
     save(callback: DynogelsItemCallback): void;
-    update(options: AWS.DynamoDB.UpdateItemInput, callback: DynogelsItemCallback): void;
+    update(options: UpdateItemOptions, callback: DynogelsItemCallback): void;
     update(callback: DynogelsItemCallback): void;
-    destroy(options: AWS.DynamoDB.DeleteItemInput, callback: DynogelsItemCallback): void;
+    destroy(options: DestroyItemOptions, callback: DynogelsItemCallback): void;
     destroy(callback: DynogelsItemCallback): void;
     toJSON(): any;
     toPlainObject(): any;
 }
 
+//Dynogels Query
 export interface Query {
     limit(number: number): Query;
     filterExpression(expression: any): Query;
@@ -196,6 +208,7 @@ export interface Query {
     exec(callback: (err: Error, data: any) => void): void;
 }
 
+//Dynogels Scan
 export interface Scan {
     limit(number: number): Scan;
     addFilterCondition(condition: any): Scan;
@@ -246,7 +259,8 @@ export interface ModelConfiguration {
     indexes?: any[];
     log?: Log;
 }
-interface Document {
+
+export interface Document {
     [key: string]: any;
 }
 
