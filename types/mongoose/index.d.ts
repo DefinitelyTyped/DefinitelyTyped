@@ -849,7 +849,7 @@ declare module "mongoose" {
     get?: (value: T, schematype?: this) => T | Object;
 
     /** Declares the index options for this schematype. */
-    index?: SchemaTypeOpts.IndexOpts | boolean | string;
+    index?: SchemaTypeOpts.IndexOpts | SchemaTypeOpts.SchemaIndexFn | boolean | string;
 
     /**
      * Adds a required validator to this SchemaType. The validator gets added
@@ -969,6 +969,16 @@ declare module "mongoose" {
       sparse?: boolean,
       type?: string,
       unique?: boolean,
+    }
+
+    // Allows SchemaTypeOpts<T> to be compatible with the Schema interface.
+    // See: http://mongoosejs.com/docs/subdocs.html for usage example.
+    // Fixes: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20331
+    interface SchemaIndexFn {
+      (fields: Object, options?: {
+        expires?: string;
+        [other: string]: any;
+      }): Schema;
     }
   }
 
