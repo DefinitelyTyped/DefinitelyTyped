@@ -60,6 +60,7 @@ declare class Stripe {
     products: Stripe.resources.Products;
     skus: Stripe.resources.SKUs;
     webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
 
     setHost(host: string): void;
     setHost(host: string, port: string|number): void;
@@ -973,6 +974,16 @@ declare namespace Stripe {
              * incorrectly or not at all.
              */
             statement_descriptor?: string;
+        }
+
+        interface IChargeCaptureOptions extends IDataOptions {
+            /**
+             * A positive integer in the smallest currency unit (e.g 100 cents to charge
+             * $1.00, or 1 to charge ¥1, a 0-decimal currency) representing how much to
+             * charge the card. The minimum amount is £0.50 (or equivalent in charge
+             * currency).
+             */
+            amount?: number;
         }
 
         interface IChargeUpdateOptions extends IDataOptionsWithMetadata {
@@ -3142,6 +3153,36 @@ declare namespace Stripe {
         }
     }
 
+    namespace ephemeralKeys {
+        interface IStripeVersion {
+            /**
+             * https://stripe.com/docs/upgrades#api-changelog
+             */
+            stripe_version: string;
+        }
+
+        interface ICustomer {
+            /**
+             * customer id
+             */
+            customer: string;
+        }
+
+        interface IEphemeralKey extends IResourceObject {
+            object: "ephemeral_key";
+            associated_objects: Array<IAssociatedObject>
+            created: number;
+            expires: number;
+            livemode: boolean;
+            secret: string;
+        }
+
+        interface IAssociatedObject {
+            id: string;
+            type: string;
+        }
+    }
+
     namespace tokens {
         interface IToken extends ICardToken, IBankAccountToken { }
 
@@ -4785,8 +4826,7 @@ declare namespace Stripe {
              * you created a charge with the capture option set to false. Uncaptured payments expire exactly seven days after they are
              * created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.
              */
-            capture(id: string, options: HeaderOptions, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
-            capture(id: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+            capture(id: string, data?: charges.IChargeCaptureOptions, options?: HeaderOptions, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
 
             /**
              * Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges
@@ -6301,6 +6341,10 @@ declare namespace Stripe {
 
         class WebHooks {
             constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
+        }
+
+        class EphemeralKeys {
+            create(customer: ephemeralKeys.ICustomer, stripe_version: ephemeralKeys.IStripeVersion, response?: IResponseFn<ephemeralKeys.IEphemeralKey>): Promise<ephemeralKeys.IEphemeralKey>;
         }
     }
 

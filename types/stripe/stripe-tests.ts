@@ -105,7 +105,16 @@ stripe.charges.update(
         // asynchronously called
     });
 
-stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", function (err, charge) {
+stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", {amount: 1}, {}, function (err, charge) {
+    // asynchronously called
+});
+stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", {amount: 1}, {}).then( function (charge) {
+    // asynchronously called
+});
+stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", {}, {},function (err, charge) {
+    // asynchronously called
+});
+stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9", {}).then( function (charge) {
     // asynchronously called
 });
 stripe.charges.capture("ch_15fvyXEe31JkLCeQOo0SwFk9").then( function (charge) {
@@ -989,3 +998,10 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 });
 
 //#endregion
+
+//#region Ephemeral keys tests
+// ##################################################################################
+
+stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version: "2017-08-15" }).then(function(ephemeralKeys) {
+    // asynchronously called
+});
