@@ -26,7 +26,7 @@ export function pwd(): ShellString;
  * @param  ...paths Paths to search.
  * @return          An array of files in the given path(s).
  */
-export function ls(...paths: (string | string[])[]): ShellArray;
+export function ls(...paths: Array<string | string[]>): ShellArray;
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
@@ -34,14 +34,14 @@ export function ls(...paths: (string | string[])[]): ShellArray;
  * @param  ...paths Paths to search.
  * @return          An array of files in the given path(s).
  */
-export function ls(options: string, ...paths: (string | string[])[]): ShellArray;
+export function ls(options: string, ...paths: Array<string | string[]>): ShellArray;
 
 /**
  * Returns array of all files (however deep) in the given paths.
  * @param ...path   The path(s) to search.
  * @return          An array of all files (however deep) in the given path(s).
  */
-export function find(...path: (string | string[])[]): ShellArray;
+export function find(...path: Array<string | string[]>): ShellArray;
 
 /**
  * Copies files. The wildcard * is accepted.
@@ -62,14 +62,14 @@ export function cp(options: string, source: string | string[], dest: string): vo
  * Removes files. The wildcard * is accepted.
  * @param ...files Files to remove.
  */
-export function rm(...files: (string | string[])[]): void;
+export function rm(...files: Array<string | string[]>): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param   options  Available options: -f (force), -r, -R (recursive)
  * @param ...files Files to remove.
  */
-export function rm(options: string, ...files: (string | string[])[]): void;
+export function rm(options: string, ...files: Array<string | string[]>): void;
 
 /**
  * Moves files. The wildcard * is accepted.
@@ -82,14 +82,14 @@ export function mv(source: string | string[], dest: string): void;
  * Creates directories.
  * @param ...dir Directories to create.
  */
-export function mkdir(...dir: (string | string[])[]): void;
+export function mkdir(...dir: Array<string | string[]>): void;
 
 /**
  * Creates directories.
  * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param ...dir  The directories to create.
  */
-export function mkdir(options: string, ...dir: (string | string[])[]): void;
+export function mkdir(options: string, ...dir: Array<string | string[]>): void;
 
 /**
  * Evaluates expression using the available primaries and returns corresponding value.
@@ -104,7 +104,7 @@ export function test(option: string, path: string): boolean;
  * @param  ...files Files to use.
  * @return            A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
  */
-export function cat(...files: (string | string[])[]): ShellString;
+export function cat(...files: Array<string | string[]>): ShellString;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -131,7 +131,7 @@ export function sed(options: string, searchRegex: string | RegExp, replacement: 
  * @param  ...files     The files to process.
  * @return                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export function grep(regex_filter: string | RegExp, ...files: (string | string[])[]): ShellString;
+export function grep(regex_filter: string | RegExp, ...files: Array<string | string[]>): ShellString;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -140,7 +140,7 @@ export function grep(regex_filter: string | RegExp, ...files: (string | string[]
  * @param  ...files     The files to process.
  * @return                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export function grep(options: string, regex_filter: string | RegExp, ...files: (string | string[])[]): ShellString;
+export function grep(options: string, regex_filter: string | RegExp, ...files: Array<string | string[]>): ShellString;
 
 /**
  * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
@@ -362,13 +362,13 @@ export interface ShellReturnValue extends ExecOutputReturnValue {
     cat(...files: string[]): ShellString;
     exec(callback: ExecCallback): child.ChildProcess;
     exec(): ExecOutputReturnValue;
-    grep(...files: (string | string[])[]): ShellString;
+    grep(...files: Array<string | string[]>): ShellString;
     sed(replacement: string, file: string): ShellString;
 }
 
-type ShellString = string & ShellReturnValue;
+export type ShellString = string & ShellReturnValue;
 
-type ShellArray = Array<string> & ShellReturnValue;
+export type ShellArray = Array<string> & ShellReturnValue;
 
 
 /**
@@ -415,8 +415,8 @@ export interface TouchOptionsArray {
 
 export function touch(...files: string[]): void;
 export function touch(files: string[]): void;
-export function touch(options: TouchOptionsLiteral, ...files: (string | string[])[]): void;
-export function touch(options: TouchOptionsArray, ...files: (string | string[])[]): void;
+export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): void;
+export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): void;
 
 // Configuration
 
