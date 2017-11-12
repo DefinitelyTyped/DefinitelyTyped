@@ -60,6 +60,7 @@ declare class Stripe {
     products: Stripe.resources.Products;
     skus: Stripe.resources.SKUs;
     webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
 
     setHost(host: string): void;
     setHost(host: string, port: string|number): void;
@@ -3148,6 +3149,36 @@ declare namespace Stripe {
              * One of https://stripe.com/docs/api#event_types
              * E.g. account.updated
              */
+            type: string;
+        }
+    }
+
+    namespace ephemeralKeys {
+        interface IStripeVersion {
+            /**
+             * https://stripe.com/docs/upgrades#api-changelog
+             */
+            stripe_version: string;
+        }
+
+        interface ICustomer {
+            /**
+             * customer id
+             */
+            customer: string;
+        }
+
+        interface IEphemeralKey extends IResourceObject {
+            object: "ephemeral_key";
+            associated_objects: Array<IAssociatedObject>
+            created: number;
+            expires: number;
+            livemode: boolean;
+            secret: string;
+        }
+
+        interface IAssociatedObject {
+            id: string;
             type: string;
         }
     }
@@ -6310,6 +6341,10 @@ declare namespace Stripe {
 
         class WebHooks {
             constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
+        }
+
+        class EphemeralKeys {
+            create(customer: ephemeralKeys.ICustomer, stripe_version: ephemeralKeys.IStripeVersion, response?: IResponseFn<ephemeralKeys.IEphemeralKey>): Promise<ephemeralKeys.IEphemeralKey>;
         }
     }
 
