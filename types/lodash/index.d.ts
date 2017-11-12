@@ -17091,7 +17091,6 @@ declare namespace _ {
 declare global {
     interface Set<T> { }
     interface Map<K, V> { }
-    // @ts-ignore
     interface WeakSet<T> { }
     interface WeakMap<K extends object, V> { }
 }
