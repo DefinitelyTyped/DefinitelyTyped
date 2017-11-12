@@ -8,7 +8,6 @@ dynogels.AWS.config.loadFromPath('credentials.json');
 dynogels.AWS.config.update({ region: "REGION" });
 
 //Define a Model
-
 var Account = dynogels.define('Account', {
     hashKey: 'email',
 
@@ -805,26 +804,26 @@ var Account = dynogels.define('Account', {
 }); // INFO level on account table
 
 var Account = dynogels.define('Account', {
-  hashKey : 'email',
+    hashKey: 'email',
 
-  // add the timestamp attributes (updatedAt, createdAt)
-  timestamps : true,
+    // add the timestamp attributes (updatedAt, createdAt)
+    timestamps: true,
 
-  schema : {
-    email   : Joi.string().email(),
-    name    : Joi.string().required(),
-    age     : Joi.number(),
-  }
+    schema: {
+        email: Joi.string().email(),
+        name: Joi.string().required(),
+        age: Joi.number(),
+    }
 });
 
-Account.create({email: 'test@example.com', name : 'Test Account'}, function (err, acc) {
-  console.log('created account at', acc.get('created')); // prints created Date
+Account.create({ email: 'test@example.com', name: 'Test Account' }, function (err, acc) {
+    console.log('created account at', acc.get('created')); // prints created Date
 
-  acc.set({age: 22});
+    acc.set({ age: 22 });
 
-  acc.update(function (err) {
-    console.log('updated account age');
-  });
+    acc.update(function (err) {
+        console.log('updated account age');
+    });
 
 });
 
