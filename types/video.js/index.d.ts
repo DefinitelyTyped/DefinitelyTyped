@@ -29,7 +29,7 @@ declare namespace videojs {
 		autoplay?: boolean;
 		preload?: string;
 		sources?: Source[];
-		apsectRatio?: string;
+		aspectRatio?: string;
 		fluid?: boolean;
 		language?: string;
 		notSupportedMessage?: string;
