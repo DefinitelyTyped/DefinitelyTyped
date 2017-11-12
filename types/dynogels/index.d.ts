@@ -1,6 +1,6 @@
 // Type definitions for dynogels 8.0
 // Project: https://github.com/clarkie/dynogels#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Spartan Labs <https://github.com/SpartanLabs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export import AWS = require("aws-sdk");
