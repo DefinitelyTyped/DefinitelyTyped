@@ -2,12 +2,10 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "export-just-namespace": false,
         "max-line-length": [true, 240],
         "member-access": false,
         "no-empty-interface": false,
         "no-unnecessary-class": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }
