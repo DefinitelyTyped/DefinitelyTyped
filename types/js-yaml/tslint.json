@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "export-just-namespace": false,
         "max-line-length": [true, 240],
         "member-access": false,
