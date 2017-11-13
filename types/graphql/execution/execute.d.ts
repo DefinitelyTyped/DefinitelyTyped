@@ -22,18 +22,31 @@ export interface ExecutionContext {
     rootValue: any;
     operation: OperationDefinitionNode;
     variableValues: { [key: string]: any };
-    errors: Array<GraphQLError>;
+    fieldResolver: GraphQLFieldResolver<any, any>;
+    errors: GraphQLError[];
 }
 
 /**
  * The result of execution. `data` is the result of executing the
- * query, `errors` is null if no errors occurred, and is a
+ * query, `extensions` represents additional metadata, `errors` is
+ * null if no errors occurred, and is a
  * non-empty array if an error occurred.
  */
 export interface ExecutionResult {
     data?: { [key: string]: any };
-    errors?: Array<GraphQLError>;
+    extensions?: { [key: string]: any };
+    errors?: GraphQLError[];
 }
+
+export type ExecutionArgs = {
+  schema: GraphQLSchema,
+  document: DocumentNode,
+  rootValue?: any,
+  contextValue?: any,
+  variableValues?: {[key: string]: any},
+  operationName?: string,
+  fieldResolver?: GraphQLFieldResolver<any, any>
+};
 
 /**
  * Implements the "Evaluating requests" section of the GraphQL specification.
@@ -42,7 +55,10 @@ export interface ExecutionResult {
  *
  * If the arguments to this function do not result in a legal execution context,
  * a GraphQLError will be thrown immediately explaining the invalid input.
+ *
+ * Accepts either an object with named arguments, or individual arguments.
  */
+export function execute(args: ExecutionArgs): Promise<ExecutionResult>;
 export function execute(
     schema: GraphQLSchema,
     document: DocumentNode,
@@ -51,7 +67,8 @@ export function execute(
     variableValues?: {
         [key: string]: any
     },
-    operationName?: string
+    operationName?: string,
+    fieldResolver?: GraphQLFieldResolver<any, any>,
 ): Promise<ExecutionResult>;
 
 /**

@@ -1,14 +1,20 @@
-import * as $ from 'jquery';
+import $ = require('jquery');
 import * as angular from 'angular';
 
+// Fix TODOs once https://github.com/Microsoft/TypeScript/issues/18910 is fixed
+
 function JQuery() {
+    function indexSignature() {
+        $('p')[0]; // TODO: $ExpectType HTMLElement
+    }
+
     function addClass() {
         // $ExpectType JQuery<HTMLElement>
         $('p').addClass('className');
 
         // $ExpectType JQuery<HTMLElement>
         $('p').addClass(function(index, currentClassName) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -31,7 +37,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('#greatphoto').attr('alt', function(index, attr) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -43,7 +49,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('#greatphoto').attr('width', function(index, attr) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -55,7 +61,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('#greatphoto').attr('title', function(index, attr) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -65,7 +71,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('#greatphoto').attr('title', function(index, attr) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -82,24 +88,43 @@ function JQuery() {
             alt: 'jQuery Logo'
         });
 
-        // $ExpectType string
-        $('img').attr('src');
+        // @types/angular's definition wins here
+        // // $ExpectType string | undefined
+        // $('img').attr('src');
     }
 
     function bind() {
+        interface I1 { kind: 'I1'; }
+
         // $ExpectType JQuery<HTMLElement>
         $('p').bind('myEvent', 'myData', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, string>
+            // TODO: $ExpectType Event<HTMLElement, string>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('p').bind('myEvent', 'myData', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, string>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('p').bind('myEvent', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, null>
+            // TODO: $ExpectType Event<HTMLElement, null>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('p').bind('myEvent', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, null>
             event;
         });
 
@@ -108,11 +133,19 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('p').bind({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
+                // TODO: $ExpectType Event<HTMLElement, null>
+                event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, null>
+                event;
+            }
         });
 
         // $ExpectType JQuery<HTMLElement>
@@ -123,19 +156,35 @@ function JQuery() {
     }
 
     function children() {
-        $('p').children();
-
+        // $ExpectType JQuery<HTMLElement>
         $('p').children('span');
+
+        // $ExpectType JQuery<HTMLElement>
+        $('p').children();
     }
 
     function off() {
+        function defaultContext_defaultData(this: HTMLElement, event: JQueryEventObject) { }
+
+        function defaultContext_customData(this: HTMLElement, event: JQueryEventObject) { }
+
+        function customContext_defaultData(this: I1, event: JQueryEventObject) { }
+
+        function customContext_customData(this: I1, event: JQueryEventObject) { }
+
+        interface I1 { kind: 'I1'; }
+
         // $ExpectType JQuery<HTMLElement>
-        $('table').off('myEvent', 'td', function(event) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Event<HTMLElement, null>
-            event;
-        });
+        $('table').off('myEvent', 'td', defaultContext_defaultData);
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').off('myEvent', 'td', defaultContext_customData);
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').off('myEvent', 'td', customContext_defaultData);
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').off('myEvent', 'td', customContext_customData);
 
         // $ExpectType JQuery<HTMLElement>
         $('table').off('myEvent', 'td', false);
@@ -144,12 +193,16 @@ function JQuery() {
         $('table').off('myEvent', 'td');
 
         // $ExpectType JQuery<HTMLElement>
-        $('table').off('myEvent', function(event) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Event<HTMLElement, null>
-            event;
-        });
+        $('table').off('myEvent', defaultContext_defaultData);
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').off('myEvent', defaultContext_customData);
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').off('myEvent', customContext_defaultData);
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').off('myEvent', customContext_customData);
 
         // $ExpectType JQuery<HTMLElement>
         $('table').off('myEvent', false);
@@ -159,24 +212,20 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('table').off({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            },
-            myEvent2: false
+            myEvent1: false,
+            defaultContext_defaultData,
+            defaultContext_customData,
+            customContext_defaultData,
+            customContext_customData
         }, 'td');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').off({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            },
-            myEvent2: false
+            myEvent1: false,
+            defaultContext_defaultData,
+            defaultContext_customData,
+            customContext_defaultData,
+            customContext_customData
         });
 
         // $ExpectType JQuery<HTMLElement>
@@ -187,27 +236,53 @@ function JQuery() {
     }
 
     function on() {
+        interface I1 { kind: 'I1'; }
+
         // $ExpectType JQuery<HTMLElement>
         $('table').on('myEvent', 'td', 'myData', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, string>
+            // TODO: $ExpectType Event<HTMLElement, string>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').on('myEvent', 'td', 'myData', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, string>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on('myEvent', null, 'myData', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, string>
+            // TODO: $ExpectType Event<HTMLElement, string>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').on('myEvent', null, 'myData', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, string>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on('myEvent', 'td', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, null>
+            // TODO: $ExpectType Event<HTMLElement, null>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').on('myEvent', 'td', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, null>
             event;
         });
 
@@ -216,17 +291,33 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on('myEvent', 3, function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, number>
+            // TODO: $ExpectType Event<HTMLElement, number>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').on('myEvent', 3, function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, number>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on('myEvent', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, null>
+            // TODO: $ExpectType Event<HTMLElement, null>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').on('myEvent', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, null>
             event;
         });
 
@@ -235,82 +326,138 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // TODO: $ExpectType Event<HTMLElement, string>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, string>
+                event;
+            }
         }, 'td', 'myData');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // TODO: $ExpectType Event<HTMLElement, string>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, string>
+                event;
+            }
         }, null, 'myData');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // TODO: $ExpectType Event<HTMLElement, null>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, null>
+                event;
+            }
         }, 'td');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, number>
+                // TODO: $ExpectType Event<HTMLElement, number>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, number>
+                event;
+            }
         }, 3);
 
         // $ExpectType JQuery<HTMLElement>
         $('table').on({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // TODO: $ExpectType Event<HTMLElement, null>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, null>
+                event;
+            }
         });
     }
 
     function one() {
+        interface I1 { kind: 'I1'; }
+
         // $ExpectType JQuery<HTMLElement>
         $('table').one('myEvent', 'td', 'myData', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, string>
+            // TODO: $ExpectType Event<HTMLElement, string>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').one('myEvent', 'td', 'myData', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, string>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one('myEvent', null, 'myData', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, string>
+            // TODO: $ExpectType Event<HTMLElement, string>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').one('myEvent', null, 'myData', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, string>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one('myEvent', 'td', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, null>
+            // TODO: $ExpectType Event<HTMLElement, null>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').one('myEvent', 'td', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, null>
             event;
         });
 
@@ -319,17 +466,33 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one('myEvent', 3, function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, number>
+            // TODO: $ExpectType Event<HTMLElement, number>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').one('myEvent', 3, function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, number>
             event;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one('myEvent', function(event) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
-            // $ExpectType Event<HTMLElement, null>
+            // TODO: $ExpectType Event<HTMLElement, null>
+            event;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $('table').one('myEvent', function(this: I1, event) {
+            // $ExpectType I1
+            this;
+            // TODO: $ExpectType Event<HTMLElement, null>
             event;
         });
 
@@ -338,57 +501,87 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // TODO: $ExpectType Event<HTMLElement, string>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, string>
+                event;
+            }
         }, 'td', 'myData');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // TODO: $ExpectType Event<HTMLElement, string>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, string>
+                event;
+            }
         }, null, 'myData');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // TODO: $ExpectType Event<HTMLElement, null>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, null>
+                event;
+            }
         }, 'td');
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, number>
+                // TODO: $ExpectType Event<HTMLElement, number>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, number>
+                event;
+            }
         }, 3);
 
         // $ExpectType JQuery<HTMLElement>
         $('table').one({
-            myEvent1(event) {
-                // $ExpectType HTMLElement
+            myEvent1: false,
+            myEvent2(event) {
+                // TODO: $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // TODO: $ExpectType Event<HTMLElement, null>
                 event;
             },
-            myEvent2: false
+            myEvent3(this: I1, event) {
+                // $ExpectType I1
+                this;
+                // TODO: $ExpectType Event<HTMLElement, null>
+                event;
+            }
         });
     }
 
@@ -398,7 +591,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('p').removeClass(function(index, currentClassName) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -418,7 +611,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('p').toggleClass(function(index, className, state) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;
@@ -435,7 +628,7 @@ function JQuery() {
 
         // $ExpectType JQuery<HTMLElement>
         $('p').toggleClass(function(index, className, state) {
-            // $ExpectType HTMLElement
+            // TODO: $ExpectType HTMLElement
             this;
             // $ExpectType number
             index;

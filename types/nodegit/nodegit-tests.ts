@@ -4,7 +4,7 @@ Git.Repository.discover("startPath", 1, "ceilingDirs").then((string) => {
     // Use string
 });
 
-Git.Repository.init("path", true).then((repository) => {
+Git.Repository.init("path", 0).then((repository) => {
     // Use repository
 });
 
@@ -42,7 +42,7 @@ Git.Attr.get(repo, 1, "path", "name").then((string) => {
     // Use string
 });
 
-let array = Git.Attr.getMany(repo, 1, "path", 1, "names");
+const array = Git.Attr.getMany(repo, 1, "path", 1, "names");
 
 result = Git.Attr.value("attr");
 

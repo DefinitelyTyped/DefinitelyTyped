@@ -4,7 +4,7 @@
 // signature of window.open() added by InAppBrowser plugin
 // is similar to native window.open signature, so the compiler can's
 // select proper overload, but we cast result to InAppBrowser manually.
-const iab = <InAppBrowser> window.open('google.com', '_self');
+const iab = window.open('google.com', '_self');
 
 iab.addEventListener('loadstart', (ev: InAppBrowserEvent) => { console.log('Start opening ' + ev.url); });
 iab.addEventListener('loadstart', (ev) => { console.log('loadstart' + ev.url); });

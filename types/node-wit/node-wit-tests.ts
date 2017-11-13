@@ -7,7 +7,7 @@ const wit = new Wit({
             return new Promise((resolve, reject) => {
                 console.log(response.text);
                 console.log(request.entities);
-                return resolve();
+                resolve();
             });
         },
         myAction(request: WitRequest) {

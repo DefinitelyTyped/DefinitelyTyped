@@ -68,7 +68,7 @@ const uploadBegin: RNFS.UploadCallbackBegin = (response) => {
 
 const uploadProgress: RNFS.UploadCallbackProgress = (response) => {
   const percentage = Math.floor((response.totalBytesSent / response.totalBytesExpectedToSend) * 100);
-  console.log('UPLOAD IS ' + percentage + '% DONE!');
+  console.log(`UPLOAD IS ${percentage}% DONE!`);
 };
 
 // upload files

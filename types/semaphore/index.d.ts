@@ -1,6 +1,6 @@
 // Type definitions for semaphore v1.0.3
 // Project: https://github.com/abrkn/semaphore.js
-// Definitions by: Matt Frantz <https://github.com/mhfrantz/>
+// Definitions by: Matt Frantz <https://github.com/mhfrantz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

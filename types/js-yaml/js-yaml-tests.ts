@@ -106,4 +106,10 @@ value = yaml.dump(str, dumpOpts);
 
 value = new yaml.YAMLException();
 value = new yaml.Type(str, typeConstructorOptions);
-value = yaml.Schema.create([schemaDefinition]);
+value = new yaml.Schema(schemaDefinition);
+value = yaml.Schema.create([new yaml.Type(str)]);
+value = yaml.Schema.create(new yaml.Type(str));
+value = yaml.Schema.create(new yaml.Schema(schemaDefinition), [new yaml.Type(str)]);
+value = yaml.Schema.create([new yaml.Schema(schemaDefinition)], [new yaml.Type(str)]);
+value = yaml.Schema.create(new yaml.Schema(schemaDefinition), new yaml.Type(str));
+value = yaml.Schema.create([new yaml.Schema(schemaDefinition)], new yaml.Type(str));

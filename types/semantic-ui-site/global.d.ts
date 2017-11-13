@@ -11,16 +11,25 @@ declare namespace SemanticUI {
         settings: SiteSettings;
 
         (behavior: 'destroy'): JQuery;
-        <K extends keyof SiteSettings>(behavior: 'setting', name: K, value?: undefined): SiteSettings[K];
-        <K extends keyof SiteSettings>(behavior: 'setting', name: K, value: SiteSettings[K]): JQuery;
-        (behavior: 'setting', value: SiteSettings.Param): JQuery;
-        (settings?: SiteSettings.Param): JQuery;
+        <K extends keyof SiteSettings>(behavior: 'setting', name: K, value?: undefined): SiteSettings._Impl[K];
+        <K extends keyof SiteSettings>(behavior: 'setting', name: K, value: SiteSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: SiteSettings): JQuery;
+        (settings?: SiteSettings): JQuery;
     }
 
-    interface SiteSettings extends Pick<SiteSettings._Impl, keyof SiteSettings._Impl> { }
+    type SiteSettings = SiteSettings.Param;
 
     namespace SiteSettings {
-        type Param = SiteSettings | object;
+        type Param = (Pick<_Impl, 'modules'> |
+            Pick<_Impl, 'siteNamespace'> |
+            Pick<_Impl, 'namespaceStub'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             modules: string[];
@@ -68,10 +77,15 @@ declare namespace SemanticUI {
     }
 
     namespace Site {
-        interface NamespaceStubSettings extends Pick<NamespaceStubSettings._Impl, keyof NamespaceStubSettings._Impl> { }
+        type NamespaceStubSettings = NamespaceStubSettings.Param;
 
         namespace NamespaceStubSettings {
-            type Param = NamespaceStubSettings | object;
+            type Param = (Pick<_Impl, 'cache'> |
+                Pick<_Impl, 'config'> |
+                Pick<_Impl, 'sections'> |
+                Pick<_Impl, 'section'> |
+                Pick<_Impl, 'utilities'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 cache: any;

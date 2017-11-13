@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Radar} from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 const data = {
   labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
@@ -27,9 +27,7 @@ const data = {
   ]
 };
 
-export default React.createClass({
-  displayName: 'RadarExample',
-
+export default class RadarExample extends React.Component {
   render() {
     return (
       <div>
@@ -38,4 +36,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

@@ -1,6 +1,7 @@
-// Type definitions for Date Range Picker v2.1.19
+// Type definitions for Date Range Picker v2.1.25
 // Project: http://www.daterangepicker.com/
-// Definitions by: SirMartin <https://github.com/SirMartin/>
+// Definitions by: SirMartin <https://github.com/SirMartin>
+//                 Steven Masala <https://github.com/smasala>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,6 +25,10 @@ declare namespace daterangepicker {
 
         startDate: moment.Moment;
         endDate: moment.Moment;
+        
+        setStartDate(date: Date | moment.Moment | string): void;
+        setEndDate(date: Date | moment.Moment | string): void;
+        remove(): void;
     }
 
     interface DatepickerEventObject extends JQueryEventObject {

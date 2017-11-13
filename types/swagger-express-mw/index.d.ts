@@ -1,8 +1,8 @@
 // Type definitions for swagger-express-mw 0.7
 // Project: https://github.com/apigee-127/swagger-express#readme
-// Definitions by: Michael Mrowetz <https://github.com/micmro/>
+// Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
 
@@ -42,4 +42,4 @@ export { Config, ConnectMiddleware } from "swagger-node-runner";
  *
  * @see @link{https://github.com/apigee-127/swagger-express|Github}
  */
-export function create(config: Config, cb: (err: Error | undefined, runner: ConnectMiddleware) => void ): void;
+export function create(config: Config, cb: (err: Error | undefined, runner: ConnectMiddleware) => void): void;

@@ -1,6 +1,6 @@
 class Server implements App {
 	private usersPlaying: { [nick: string]: number } = {};
-	private isShuttingDown: boolean = false;
+	private isShuttingDown = false;
 
 	private htmlFile: HTMLFile = new HTMLFile('start.html');
 	private appContent: AppContent = AppContent.overlayContent(this.htmlFile, 243, 266);
@@ -17,7 +17,7 @@ class Server implements App {
 		const botNick = KnuddelsServer.getDefaultBotUser()
 			.getNick()
 			.escapeKCode();
-		user.sendPrivateMessage('Lust auf ne Runde Ziegenphobie? Mit nur _°BB>_h1 Knuddel|/appknuddel ' + botNick + '<°°°_ bist du dabei!');
+		user.sendPrivateMessage(`Lust auf ne Runde Ziegenphobie? Mit nur _°BB>_h1 Knuddel|/appknuddel ${botNick}<°°°_ bist du dabei!`);
 	}
 
 	onUserLeft(user: User) {
@@ -67,7 +67,7 @@ class Server implements App {
 			const botNick = KnuddelsServer.getDefaultBotUser()
 				.getNick()
 				.escapeKCode();
-			knuddelTransfer.reject('Du musst genau _°BB>_h1 Knuddel senden|/appknuddel ' + botNick + '<°°°_...');
+			knuddelTransfer.reject(`Du musst genau _°BB>_h1 Knuddel senden|/appknuddel ${botNick}<°°°_...`);
 		} else {
 			knuddelTransfer.accept();
 		}
@@ -111,7 +111,7 @@ class Server implements App {
 					const botNick = KnuddelsServer.getDefaultBotUser()
 						.getNick()
 						.escapeKCode();
-					user.sendPrivateMessage('Na, Lust auf _°BB>_hnoch eine Runde|/appknuddel ' + botNick + '<°°°_?');
+					user.sendPrivateMessage(`Na, Lust auf _°BB>_hnoch eine Runde|/appknuddel ${botNick}<°°°_?`);
 					user.getAppContentSessions()
 						.forEach((session: AppContentSession) => {
 							session.remove();

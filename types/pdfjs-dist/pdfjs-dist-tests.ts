@@ -1,10 +1,11 @@
-
+import { PDFJSStatic, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
 
 //
 // Fetch the PDF document from the URL using promises
 //
 var pdfDoc: PDFDocumentProxy;
 var pageNum: number;
+var PDFJS: PDFJSStatic;
 
 PDFJS.getDocument('helloworld.pdf').then(function (pdf) {
 	// Using promise to fetch the page

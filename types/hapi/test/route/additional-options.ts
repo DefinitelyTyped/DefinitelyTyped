@@ -70,4 +70,12 @@ var payloadOptions: Hapi.RoutePayloadConfigurationObject = {
     allow: 'multipart/form-data',
     maxBytes: 123,
     output: 'file',
+    timeout: 1000
+};
+
+var payloadOptions: Hapi.RoutePayloadConfigurationObject = {
+    allow: 'multipart/form-data',
+    maxBytes: 123,
+    output: 'file',
+    timeout: false
 };

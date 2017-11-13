@@ -9,15 +9,16 @@ function test_static() {
 
 function test_accordion() {
     const selector = '.ui.accordion';
-    $(selector).accordion('refresh') === $();
-    $(selector).accordion('open', 3) === $();
-    $(selector).accordion('close others') === $();
-    $(selector).accordion('close', 10) === $();
-    $(selector).accordion('toggle', 5) === $();
-    $(selector).accordion('destroy') === $();
-    $(selector).accordion('setting', 'debug', undefined) === false;
-    $(selector).accordion('setting', 'debug') === false;
-    $(selector).accordion('setting', 'debug', true) === $();
+    $(selector).accordion('refresh'); // $ExpectType JQuery<HTMLElement>
+    $(selector).accordion('open', 3); // $ExpectType JQuery<HTMLElement>
+    $(selector).accordion('close others'); // $ExpectType JQuery<HTMLElement>
+    $(selector).accordion('close', 10); // $ExpectType JQuery<HTMLElement>
+    $(selector).accordion('toggle', 5); // $ExpectType JQuery<HTMLElement>
+    $(selector).accordion('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).accordion('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).accordion('setting', 'debug'); // $ExpectType boolean
+    $(selector).accordion('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).accordion('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -25,7 +26,8 @@ function test_accordion() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).accordion({
         exclusive: true,
         on: 'on',
@@ -36,19 +38,19 @@ function test_accordion() {
         easing: 'easeInOutQuint',
         observeChanges: true,
         onOpening() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onOpen() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onClosing() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onClose() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onChange() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         selector: {
             accordion: 'accordion',
@@ -63,12 +65,16 @@ function test_accordion() {
         error: {
             method: 'method'
         }
-    }) === $();
-    $(selector).accordion() === $();
+    });
+    $(selector).accordion(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).accordion('foo'); // $ExpectError
+    $(selector).accordion({ foo: 'bar' }); // $ExpectError
 }
 
 import accordion = require('semantic-ui-accordion');
 
 function test_module() {
+    accordion; // $ExpectType Accordion
     $.fn.accordion = accordion;
 }

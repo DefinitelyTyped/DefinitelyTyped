@@ -1957,6 +1957,13 @@ specs[20] = {
   ]
 }
 
+const hoverFill21: Vega.ValueRefs = [{
+  "test": "datum.value < 30",
+  "value": "#f00"
+}, {
+  "value": "#f55"
+}];
+
 specs[21] = {
   "name": "wordcloud",
   "width": 400,
@@ -2006,10 +2013,15 @@ specs[21] = {
           "text": { "field": "data.text" }
         },
         "update": {
-          "fill": { "value": "steelblue" }
+          "fill": [{
+            "test": "datum.value < 30",
+            "value": "steelblue"
+          }, {
+            "value": "blue"
+          }]
         },
         "hover": {
-          "fill": { "value": "#f00" }
+          "fill": hoverFill21
         }
       }
     }

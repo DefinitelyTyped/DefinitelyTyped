@@ -12,7 +12,7 @@ import {
     TextStyle,
     ImageStyle,
 } from 'react-native';
-import SortableList, {RowProps} from 'react-native-sortable-list';
+import SortableList, {RowProps } from 'react-native-sortable-list';
 
 const window = Dimensions.get('window');
 

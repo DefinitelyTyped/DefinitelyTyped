@@ -113,37 +113,35 @@ export interface ScrollStatusObject {
 export default class Scrollbar {
     /**
      * Init scrollbar on given element, and returns scrollbar instance
-     * @param {HTMLElement} element Element to init scrollbar
-     * @param {ScrollbarOptions} options Scrollbar options
-     * @return {Scrollbar} Scrollbar instance
+     * @param element Element to init scrollbar
+     * @param options Scrollbar options
+     * @return Scrollbar instance
      */
     static init(element: HTMLElement, options?: ScrollbarOptions): Scrollbar;
     /**
      * Automatically init scrollbar on all elements refer to selector scrollbar, [scrollbar], [data-scrollbar]
-     * @return {Scrollbar[]} An array of scrollbars
+     * @return An array of scrollbars
      */
     static initAll(options?: ScrollbarOptions): Scrollbar[];
     /**
      * Check if scrollbar exists on given element:
-     * @param {HTMLElement} element HTML element
-     * @return {boolean}
+     * @param element HTML element
      */
     static has(element: HTMLElement): boolean;
     /**
      * Get scrollbar on the given element
-     * @param {HTMLElement} element HTML element
-     * @return {Scrollbar|undefined} Scrollbar instance of undefined if element doesn't have scrollbar
+     * @param element HTML element
+     * @return Scrollbar instance of undefined if element doesn't have scrollbar
      */
     static get(element: HTMLElement): Scrollbar | undefined;
     /**
      * Get all scrollbar instances
-     * @return {Scrollbar[]} An array of scrollbar instances
+     * @return An array of scrollbar instances
      */
     static getAll(): Scrollbar[];
     /**
      * Remove scrollbar on the given element
-     * @param {HTMLElement} element HTML element
-     * @param {boolean} isRemoval
+     * @param element HTML element
      */
     static destroy(element: HTMLElement, isRemoval?: boolean): void;
     /**
@@ -180,69 +178,69 @@ export default class Scrollbar {
     /**
      * Scrollbars are automatically updated with 100ms debounce (or childList changes if MutationObserver is supported).
      * You can call update() to force an update, this will be useful when you modified contents inside scrollbar
-     * @param {boolean} async By default, updating will operate synchronously, set to true to update asynchronously (in next frame).
+     * @param async By default, updating will operate synchronously, set to true to update asynchronously (in next frame).
      */
     update(async?: boolean): void;
     /**
      * Return the size of scrollbar container and scroll content
-     * @return {Object} Container and content dimensions
+     * @return Container and content dimensions
      */
     getSize(): { container: { width: number; height: number }; content: { width: number; height: number } };
     /**
      * Like window.scrollTo(), scroll content will be set to the given position immediately.
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {boolean} withoutCallbacks Set to true to disable callback functions temporarily.
+     * @param x X position
+     * @param y Y position
+     * @param withoutCallbacks Set to true to disable callback functions temporarily.
      */
     setPosition(x: number, y: number, withoutCallbacks?: boolean): void;
     /**
      * Scroll to given position with easing, callback will be invoked with instance after scrolling:
-     * @param {number} x X position
-     * @param {number} y Y position
-     * @param {number} duration description
-     * @param {Function} callback Callback
+     * @param x X position
+     * @param y Y position
+     * @param duration description
+     * @param callback Callback
      */
     scrollTo(x: number, y: number, duration?: number, callback?: (instance: this) => void): void;
     /**
      * Scroll target element into visible area of scrollbar, like DOM method element.scrollIntoView().
      * This will be helpful when you want to create some anchors.
-     * @param {HTMLElement} element Element to scroll into
-     * @param {ScrollIntoViewOptions} options Options
+     * @param element Element to scroll into
+     * @param options Options
      */
     scrollIntoView(element: HTMLElement, options?: ScrollIntoViewOptions): void;
     /**
      * Check if an element is visible in the current view area.
-     * @param {HTMLElement} element HTML element
-     * @return {boolean} True/false
+     * @param element HTML element
+     * @return True/false
      */
     isVisible(element: HTMLElement): boolean;
     /**
      * Register scrolling listener to scrollbar instance, callbacks will be invoked in every small scrolling.
-     * @param {Function} listener A listener
+     * @param listener A listener
      */
     addListener(listener: (status: ScrollStatusObject) => void): void;
     /**
      * Remove the given listeneer from listeners collection, like Element.removeEventListener().
-     * @param {Function} listener A listener
+     * @param listener A listener
      */
     removeListener(listener: (status: ScrollStatusObject) => void): void;
     /**
      * This is another useful method when you want to make infinite scrolling.
      * Callbacks will be invoked with status object when you scrolling down over a threshold.
-     * @param {Function} listener A listener
-     * @param {number} threshold Threshold, default 50
+     * @param listener A listener
+     * @param threshold Threshold, default 50
      */
     infiniteScroll(listener: (status: ScrollStatusObject) => void, threshold?: number): void;
     /**
      * Remove DOM event handlers that match regex rules
-     * @param {RegExp[]} regexps regexps
+     * @param regexps regexps
      * @example
      * instance.unregisterEvents(/touch/, /key/);
      */
     unregisterEvents(...regexps: RegExp[]): void;
     /**
      * Recover events that are unregistered.
-     * @param {RegExp[]} regexps regexps
+     * @param regexps regexps
      */
     registerEvents(...regexps: RegExp[]): void;
     /**
@@ -255,23 +253,23 @@ export default class Scrollbar {
     stop(): void;
     /**
      * Remove this scrollbar instance
-     * @param {boolean} isRemoval Set to true if scrollbar being removed from DOM
+     * @param isRemoval Set to true if scrollbar being removed from DOM
      */
     destroy(isRemoval?: boolean): void;
     /**
      * Get content element of the scrollbar, which contains all of your contents within scrollbar.
      * In other words, all contents that you've put them into target element, will be moved here after you initialized the scrollbar.
-     * @return {HTMLElement} HTML content element
+     * @return HTML content element
      */
     getContentElem(): HTMLElement;
     /**
      * Show scrollbar track, you can choose whether 'x' or 'y' or 'both', default is 'both' which will show tracks both on x-axis and y-axis.
-     * @param {"x"|"y"|"both"} direction Track direction
+     * @param direction Track direction
      */
     showTrack(direction?: "x" | "y" | "both"): void;
     /**
      * Like showTrack() method, but for hiding the track on specified direction.
-     * @param {"x"|"y"|"both"} direction Track direction
+     * @param direction Track direction
      */
     hideTrack(direction?: "x" | "y" | "both"): void;
 }

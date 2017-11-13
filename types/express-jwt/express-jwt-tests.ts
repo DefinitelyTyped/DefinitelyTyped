@@ -18,3 +18,14 @@ var jwtCheck = jwt({
 });
 jwtCheck.unless = unless;
 app.use(jwtCheck.unless({ path: '/api/login' }));
+
+app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+    if (err) {
+        if (err instanceof jwt.UnauthorizedError) {
+            res.status(err.status);
+            res.end();
+        }
+    } else {
+        next(err);
+    }
+});

@@ -28,7 +28,7 @@ export interface Location {
     search: Search;
     state: LocationState;
     hash: Hash;
-    key: LocationKey;
+    key?: LocationKey;
 }
 
 export interface LocationDescriptorObject {

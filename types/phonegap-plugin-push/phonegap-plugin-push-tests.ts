@@ -119,4 +119,10 @@ function test() {
 	}, () => {
 		console.log('did not getApplicationIconBadgeNumber');
 	});
+	
+	push.clearAllNotifications(() => {
+		console.log('did clearAllNotifications');
+	}, () => {
+		console.log('did not clearAllNotifications');
+	});
 }

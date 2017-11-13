@@ -1,6 +1,12 @@
 // Type definitions for Sequelize 4.0.0
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Brendan Abolivier <https://github.com/babolivier>
+// Definitions by: samuelneff <https://github.com/samuelneff>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Ivan Drinchev <https://github.com/drinchev>
+//                 Brendan Abolivier <https://github.com/babolivier>
+//                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
+//                 Sebastien Bramille <https://github.com/oktapodia>
+//                 Nick Mueller <https://github.com/morpheusxaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,6 +17,7 @@
 
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
 
@@ -259,7 +266,7 @@ declare namespace sequelize {
         /**
          * An optional where clause to limit the associated models.
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * Apply a scope on the related model, or remove its default scope by passing false.
@@ -346,7 +353,7 @@ declare namespace sequelize {
          */
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
-            options?: HasManySetAssociationsMixinOptions | FindOptions | InstanceUpdateOptions
+            options?: HasManySetAssociationsMixinOptions | AnyFindOptions | InstanceUpdateOptions
         ): Promise<void>;
     }
 
@@ -672,7 +679,7 @@ declare namespace sequelize {
         /**
          * An optional where clause to limit the associated models.
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * Apply a scope on the related model, or remove its default scope by passing false.
@@ -722,7 +729,7 @@ declare namespace sequelize {
         /**
          * An optional where clause to limit the associated models.
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * Apply a scope on the related model, or remove its default scope by passing false.
@@ -809,7 +816,7 @@ declare namespace sequelize {
          */
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
-            options?: BelongsToManySetAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
+            options?: BelongsToManySetAssociationsMixinOptions | AnyFindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
         ): Promise<void>;
     }
 
@@ -858,7 +865,7 @@ declare namespace sequelize {
          */
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
-            options?: BelongsToManyAddAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
+            options?: BelongsToManyAddAssociationsMixinOptions | AnyFindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
         ): Promise<void>;
     }
 
@@ -907,7 +914,7 @@ declare namespace sequelize {
          */
         (
             newAssociation?: TInstance | TInstancePrimaryKey,
-            options?: BelongsToManyAddAssociationMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
+            options?: BelongsToManyAddAssociationMixinOptions | AnyFindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
         ): Promise<void>;
     }
 
@@ -1135,7 +1142,7 @@ declare namespace sequelize {
         /**
          * An optional where clause to limit the associated models.
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * Apply a scope on the related model, or remove its default scope by passing false.
@@ -1352,6 +1359,11 @@ declare namespace sequelize {
          * target
          */
         otherKey?: string | AssociationForeignKeyOptions;
+
+        /**
+         * Should the join model have timestamps
+         */
+        timestamps?: boolean;
 
     }
 
@@ -2185,6 +2197,15 @@ declare namespace sequelize {
 
     }
 
+    interface EmptyResultError extends BaseError {
+
+        /**
+         * Thrown when a record was not found, Usually used with rejectOnEmpty mode (see message for details)
+         */
+        new (parent: Error): EmptyResultError;
+
+    }
+
     /**
      * Sequelize provides a host of custom error classes, to allow you to do easier debugging. All of these errors
      * are exposed on the sequelize object and the sequelize constructor. All sequelize errors inherit from the
@@ -2206,6 +2227,7 @@ declare namespace sequelize {
         HostNotReachableError: HostNotReachableError;
         InvalidConnectionError: InvalidConnectionError;
         ConnectionTimedOutError: ConnectionTimedOutError;
+        EmptyResultError: EmptyResultError;
     }
 
     //
@@ -2613,7 +2635,7 @@ declare namespace sequelize {
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions | Array<col | and | or | string>;
+        where?: AnyWhereOptions | Array<col | and | or | string>;
 
     }
 
@@ -2663,7 +2685,7 @@ declare namespace sequelize {
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions | Array<col | and | or | string>;
+        where?: AnyWhereOptions | Array<col | and | or | string>;
 
     }
 
@@ -2824,7 +2846,7 @@ declare namespace sequelize {
          * return a new instance. With this method, all references to the Instance are updated with the new data
          * and no new objects are created.
          */
-        reload(options?: FindOptions): Promise<this>;
+        reload(options?: AnyFindOptions): Promise<this>;
 
         /**
          * Validate the attribute of this instance according to validation rules set in the model definition.
@@ -3031,8 +3053,8 @@ declare namespace sequelize {
      * Where Complex nested query
      */
     interface WhereNested {
-        $and: Array<WhereOptions | WhereLogic>;
-        $or: Array<WhereOptions | WhereLogic>;
+        $and: Array<AnyWhereOptions | WhereLogic>;
+        $or: Array<AnyWhereOptions | WhereLogic>;
     }
 
     /**
@@ -3054,10 +3076,10 @@ declare namespace sequelize {
     /**
      * Logic of where statement
      */
-    interface WhereLogic {
+    type WhereLogic = Partial<{
         $ne: string | number | WhereLogic;
         $in: Array<string | number> | literal;
-        $not: boolean | string | number | WhereOptions;
+        $not: boolean | string | number | AnyWhereOptions;
         $notIn: Array<string | number> | literal;
         $gte: number | string | Date;
         $gt: number | string | Date;
@@ -3078,7 +3100,7 @@ declare namespace sequelize {
         "@>": any;
         $contained: any;
         "<@": any;
-    }
+    }>;
 
     /**
      * A hash of attributes to describe your search. See above for examples.
@@ -3086,8 +3108,15 @@ declare namespace sequelize {
      * We did put Object in the end, because there where query might be a JSON Blob. It cripples a bit the
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
-    interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object | null;
+    type WhereOptions<T> = {
+        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+    };
+
+    /**
+     * A hash of attributes to describe your search, accepting any field names. See `WhereOptions` for details.
+     */
+    interface AnyWhereOptions {
+        [field: string]: WhereOptions<any>[] | Object;
     }
 
     /**
@@ -3098,7 +3127,7 @@ declare namespace sequelize {
         /**
          * Filter on the join model for belongsToMany relations
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * A list of attributes to select from the join model for belongsToMany relations
@@ -3141,7 +3170,7 @@ declare namespace sequelize {
          * Where clauses to apply to the child models. Note that this converts the eager load to an inner join,
          * unless you explicitly set `required: false`
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * A list of attributes to select from the child model
@@ -3174,21 +3203,21 @@ declare namespace sequelize {
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+     * Shortcut for types used in FindOptions.attributes
+     */
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
-* Options that are passed to any model creating a SELECT query
-*
-* A hash of options to describe the scope of the search
-*/
-    interface FindOptions extends LoggingOptions, SearchPathOptions {
+     * Options that are passed to any model creating a SELECT query
+     *
+     * A hash of options to describe the scope of the search
+     */
+    interface FindOptions<T> extends LoggingOptions, SearchPathOptions {
 
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions | fn | Array<col | and | or | string>;
+        where?: WhereOptions<T> | where | fn | Array<col | and | or | string>;
 
         /**
          * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -3235,7 +3264,7 @@ declare namespace sequelize {
          * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
          * locks with joins. See [transaction.LOCK for an example](transaction#lock)
          */
-        lock?: string | { level: string, of: Model<any, any> };
+        lock?: TransactionLockLevel | { level: TransactionLockLevel, of: Model<any, any> };
 
         /**
          * Return raw result. See sequelize.query for more information.
@@ -3245,7 +3274,7 @@ declare namespace sequelize {
         /**
          * having ?!?
          */
-        having?: WhereOptions;
+        having?: AnyWhereOptions;
 
         /**
          * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
@@ -3263,7 +3292,14 @@ declare namespace sequelize {
          * Prevents a subquery on the main table when using include
          */
         subQuery?: boolean;
+
+        /**
+         * Throw EmptyResultError if a record is not found
+         */
+        rejectOnEmpty?: boolean;
     }
+
+    type AnyFindOptions = FindOptions<any>;
 
     /**
      * Options for Model.count method
@@ -3273,7 +3309,7 @@ declare namespace sequelize {
         /**
          * A hash of search attributes.
          */
-        where?: WhereOptions | string[];
+        where?: AnyWhereOptions | string[];
 
         /**
          * Include options. See `find` for details
@@ -3335,7 +3371,7 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> extends FindOptions {
+    interface FindOrInitializeOptions<TAttributes> extends AnyFindOptions {
 
         /**
          * Default values to use if building a new instance
@@ -3347,7 +3383,7 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindCreateFindOptions<TAttributes> extends FindOptions {
+    interface FindCreateFindOptions<TAttributes> extends FindOptions<TAttributes> {
 
         /**
          * Default values to use if building a new instance
@@ -3423,7 +3459,7 @@ declare namespace sequelize {
         /**
          * Filter the destroy
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * Run before / after bulk destroy hooks?
@@ -3462,7 +3498,7 @@ declare namespace sequelize {
         /**
          * Filter the restore
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * Run before / after bulk restore hooks?
@@ -3495,7 +3531,7 @@ declare namespace sequelize {
         /**
          * Options to describe the scope of the search.
          */
-        where: WhereOptions;
+        where: AnyWhereOptions;
 
         /**
          * Run before / after bulk update hooks?
@@ -3543,7 +3579,7 @@ declare namespace sequelize {
         /**
          * A hash of search attributes.
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
         /**
          * The type of the result. If `field` is a field in this Model, the default will be the type of that field,
@@ -3634,7 +3670,7 @@ declare namespace sequelize {
          * @param {Object}          [options]
          * @param {Boolean}         [options.override=false]
          */
-        addScope(name: string, scope: FindOptions | Function, options?: AddScopeOptions): void;
+        addScope(name: string, scope: AnyFindOptions | Function, options?: AddScopeOptions): void;
 
         /**
              * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
@@ -3646,7 +3682,7 @@ declare namespace sequelize {
              * @param {Object}          [options]
              * @param {Boolean}         [options.override=false]
              */
-        addScope(name: string, scope: FindOptions | Function, options?: AddScopeOptions): void;
+        addScope(name: string, scope: AnyFindOptions | Function, options?: AddScopeOptions): void;
 
         /**
  * Apply a scope created in `define` to the model. First let's look at how to create scopes:
@@ -3695,7 +3731,7 @@ declare namespace sequelize {
  * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
  *     model will clear the previous scope.
  */
-        scope(options?: string | ScopeOptions | WhereOptions | Array<string | ScopeOptions | WhereOptions>): this;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -3759,22 +3795,22 @@ declare namespace sequelize {
          *
          * @see    {Sequelize#query}
          */
-        findAll(options?: FindOptions): Promise<TInstance[]>;
-        all(optionz?: FindOptions): Promise<TInstance[]>;
+        findAll<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
+        all<TCustomAttributes>(optionz?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
 
         /**
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
+        findById<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
-        findOne(options?: FindOptions): Promise<TInstance | null>;
-        find(options?: FindOptions): Promise<TInstance | null>;
+        findOne<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        find<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Run an aggregation method on the specified field
@@ -3829,8 +3865,8 @@ declare namespace sequelize {
          * without
          * profiles will be counted
          */
-        findAndCount(options?: FindOptions): Promise<{ rows: TInstance[], count: number }>;
-        findAndCountAll(options?: FindOptions): Promise<{ rows: TInstance[], count: number }>;
+        findAndCount<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<{ rows: TInstance[], count: number }>;
+        findAndCountAll<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<{ rows: TInstance[], count: number }>;
 
         /**
          * Find the maximum value of field
@@ -3886,7 +3922,7 @@ declare namespace sequelize {
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
              * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
              */
-        findCreateFind(options: FindCreateFindOptions<TAttributes>): Promise<TInstance>;
+        findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<[TInstance, boolean]>;
 
         /**
  * Insert or update a single row. An update will be executed if a row which matches the supplied values on
@@ -3994,7 +4030,7 @@ declare namespace sequelize {
     interface AddCheckConstraintOptions {
         type: 'check';
         name?: string;
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
     }
 
     interface AddPrimaryKeyConstraintOptions {
@@ -4142,7 +4178,7 @@ declare namespace sequelize {
         /**
          * Adds a new index to a table
          */
-        addIndex(tableName: string | Object, attributes: string[], options?: QueryOptions,
+        addIndex(tableName: string | Object, attributes: string[], options?: DefineIndexOptions,
             rawTablename?: string): Promise<void>;
 
         /**
@@ -4404,7 +4440,7 @@ declare namespace sequelize {
          *
          * PostgreSQL only
          */
-        deferrable?: Deferrable;
+        deferrable?: DeferrableInitiallyDeferred | DeferrableInitiallyImmediate | DeferrableNot | DeferrableSetDeferred | DeferrableSetImmediate;
 
     }
 
@@ -4584,7 +4620,7 @@ declare namespace sequelize {
         /**
          * Set of flags that control when a query is automatically retried.
          */
-        retry?: { match?: string[], max?: number };
+        retry?: RetryOptions;
 
         /**
          * If false do not prepend the query with the search_path (Postgres only)
@@ -4736,7 +4772,7 @@ declare namespace sequelize {
         /**
          * only allow uuids
          */
-        isUUID?: number | { msg: string, args: number };
+        isUUID?: 3|4|5|"3"|"4"|"5"|"all" | { msg: string, args: number };
 
         /**
          * only allow date strings
@@ -4792,6 +4828,38 @@ declare namespace sequelize {
 
     }
 
+    interface DefineIndexOptions {
+        /**
+         * The index type
+         */
+        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
+        /**
+         * The name of the index. Default is __
+         */
+        indexName?: string;
+
+        /**
+         * For FULLTEXT columns set your parser
+         */
+        parser?: string;
+
+        /**
+         * Set a type for the index, e.g. BTREE. See the documentation of the used dialect
+         */
+        indexType?: string;
+
+        /**
+         * A function that receives the sql query, e.g. console.log
+         */
+        logging?: Function;
+
+        /**
+         * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
+         */
+        where?: AnyWhereOptions;
+    }
+
     /**
      * Interface for indexes property in DefineOptions
      *
@@ -4835,7 +4903,7 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
 
         /**
          * Method the index should use, for example 'gin' index.
@@ -4850,7 +4918,7 @@ declare namespace sequelize {
         /**
          * Condition for partioal index
          */
-        where?: WhereOptions;
+        where?: AnyWhereOptions;
 
     }
 
@@ -4901,7 +4969,7 @@ declare namespace sequelize {
         /**
          * Name of the scope and it's query
          */
-        [scopeName: string]: FindOptions | Function;
+        [scopeName: string]: AnyFindOptions | Function;
 
     }
 
@@ -4916,7 +4984,7 @@ declare namespace sequelize {
          * Define the default search scope to use for this model. Scopes have the same form as the options passed to
          * find / findAll.
          */
-        defaultScope?: FindOptions;
+        defaultScope?: AnyFindOptions;
 
         /**
          * More scopes, defined in the same way as defaultScope above. See `Model.scope` for more information about
@@ -5065,6 +5133,12 @@ declare namespace sequelize {
          */
         validate?: DefineValidateOptions;
 
+        /**
+         * Enable optimistic locking.  When enabled, sequelize will add a version count attribute
+         * to the model and throw an OptimisticLockingError error when stale instances are saved.
+         * Set to true or a string with the attribute name you want to use to enable.
+         */
+        version?: boolean | string;
     }
 
     /**
@@ -5138,10 +5212,20 @@ declare namespace sequelize {
         idle?: number;
 
         /**
+         * The maximum time, in milliseconds, that pool will try to get connection before throwing error
+         */
+        acquire?: number;
+
+        /**
          * A function that validates a connection. Called with client. The default function checks that client is an
          * object, and that its state is not disconnected.
          */
-        validateConnection?: (client?: any) => boolean;
+        validate?: (client?: any) => boolean;
+
+        /*
+         * The time interval, in milliseconds, for evicting stale connections
+         */
+        evict?: number;
 
     }
 
@@ -5169,6 +5253,107 @@ declare namespace sequelize {
         };
 
     }
+
+    /**
+     * Interface for retry Options in the sequelize constructor and QueryOptions
+     *
+     * @see Options, QueryOptions
+     */
+    interface RetryOptions {
+
+        /**
+         * Only retry a query if the error matches one of these strings.
+         */
+        match?: string[];
+
+        /**
+         * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.
+         */
+        max?: number
+
+    }
+
+    /**
+     * Operator symbols to be used when querying data
+     */
+    interface Operators {
+        eq: symbol;
+        ne: symbol;
+        gte: symbol;
+        gt: symbol;
+        lte: symbol;
+        lt: symbol;
+        not: symbol;
+        is: symbol;
+        in: symbol;
+        notIn: symbol;
+        like: symbol;
+        notLike: symbol;
+        iLike: symbol;
+        notILike: symbol;
+        regexp: symbol;
+        notRegexp: symbol;
+        iRegexp: symbol;
+        notIRegexp: symbol;
+        between: symbol;
+        notBetween: symbol;
+        overlap: symbol;
+        contains: symbol;
+        contained: symbol;
+        adjacent: symbol;
+        strictLeft: symbol;
+        strictRight: symbol;
+        noExtendRight: symbol;
+        noExtendLeft: symbol;
+        and: symbol;
+        or: symbol;
+        any: symbol;
+        all: symbol;
+        values: symbol;
+        col: symbol;
+        placeholder: symbol;
+        join: symbol;
+        raw: symbol;  //deprecated remove by v5.0
+    }
+
+    type OperatorsAliases = Partial<{
+        [key: string]: symbol;
+        $eq: symbol;
+        $ne: symbol;
+        $gte: symbol;
+        $gt: symbol;
+        $lte: symbol;
+        $lt: symbol;
+        $not: symbol;
+        $in: symbol;
+        $notIn: symbol;
+        $is: symbol;
+        $like: symbol;
+        $notLike: symbol;
+        $iLike: symbol;
+        $notILike: symbol;
+        $regexp: symbol;
+        $notRegexp: symbol;
+        $iRegexp: symbol;
+        $notIRegexp: symbol;
+        $between: symbol;
+        $notBetween: symbol;
+        $overlap: symbol;
+        $contains: symbol;
+        $contained: symbol;
+        $adjacent: symbol;
+        $strictLeft: symbol;
+        $strictRight: symbol;
+        $noExtendRight: symbol;
+        $noExtendLeft: symbol;
+        $and: symbol;
+        $or: symbol;
+        $any: symbol;
+        $all: symbol;
+        $values: symbol;
+        $col: symbol;
+        $raw: symbol;  //deprecated remove by v5.0
+    }>
 
     /**
      * Options for the constructor of Sequelize main class
@@ -5218,6 +5403,21 @@ declare namespace sequelize {
          * Defaults to 'tcp'
          */
         protocol?: string;
+
+        /**
+         * The username which is used to authenticate against the database.
+         */
+        username?: string;
+
+        /**
+         * The password which is used to authenticate against the database.
+         */
+        password?: string;
+
+        /**
+         * The name of the database
+         */
+        database?: string;
 
         /**
          * Default options for model definitions. See sequelize.define for options
@@ -5283,6 +5483,19 @@ declare namespace sequelize {
         replication?: ReplicationOptions;
 
         /**
+         * Set of flags that control when a query is automatically retried.
+         */
+        retry?: RetryOptions;
+
+        /**
+         * Run built in type validators on insert and update,
+         * e.g. validate that arguments passed to integer fields are integer-like.
+         *
+         * Defaults to false
+         */
+        typeValidation?: boolean;
+
+        /**
          * Connection pool options
          */
         pool?: PoolOptions;
@@ -5296,12 +5509,19 @@ declare namespace sequelize {
         quoteIdentifiers?: boolean;
 
         /**
+         * The version of the database. Most times, this is automatically detected and is not needed.
+         *
+         * Defaults to 0
+         */
+        databaseVersion?: number;
+
+        /**
          * Set the default transaction isolation level. See `Sequelize.Transaction.ISOLATION_LEVELS` for possible
          * options.
          *
          * Defaults to 'REPEATABLE_READ'
          */
-        isolationLevel?: string;
+        isolationLevel?: TransactionIsolationLevel;
 
         /**
          * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
@@ -5309,7 +5529,7 @@ declare namespace sequelize {
          *
          * Defaults to 'DEFERRED'
          */
-        transactionType?: string;
+        transactionType?: TransactionType;
 
         /**
          * Print query execution time in milliseconds when logging SQL.
@@ -5317,6 +5537,12 @@ declare namespace sequelize {
          * Defaults to false
          */
         benchmark?: boolean;
+
+        /**
+         * String based operator alias, default value is true which will enable all operators alias.
+         * Pass object to limit set of aliased operators or false to disable completely.
+         */
+        operatorsAliases?: boolean | OperatorsAliases;
     }
 
     /**
@@ -5369,6 +5595,8 @@ declare namespace sequelize {
          * A reference to the sequelize instance class.
          */
         Instance: Instance<any>;
+
+        Op: Operators;
 
         /**
          * Creates a object representing a database function. This can be used in search queries, both in where and
@@ -5507,9 +5735,19 @@ declare namespace sequelize {
         new (uri: string, options?: Options): Sequelize;
 
         /**
+         * Instantiate sequelize with an options object which containing username, password, database
+         * @name Sequelize
+         * @constructor
+         *
+         * @param options An object with options. See above for possible options
+         */
+        new (options: Options): Sequelize;
+
+        /**
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
+        useCLS(namespace:cls.Namespace): Sequelize;
 
     }
 
@@ -5541,6 +5779,11 @@ declare namespace sequelize {
          * Defined models.
          */
         models: ModelsHashInterface;
+
+        /**
+         * Defined options.
+         */
+        options: Options;
 
         /**
          * Returns the specified dialect.
@@ -6009,17 +6252,28 @@ declare namespace sequelize {
 
     }
 
+    type TransactionIsolationLevelReadUncommitted = 'READ UNCOMMITTED';
+    type TransactionIsolationLevelReadCommitted = 'READ COMMITTED';
+    type TransactionIsolationLevelRepeatableRead = 'REPEATABLE READ';
+    type TransactionIsolationLevelSerializable = 'SERIALIZABLE';
+    type TransactionIsolationLevel = TransactionIsolationLevelReadUncommitted | TransactionIsolationLevelReadCommitted | TransactionIsolationLevelRepeatableRead | TransactionIsolationLevelSerializable;
+
     /**
      * Isolations levels can be set per-transaction by passing `options.isolationLevel` to `sequelize.transaction`.
      * Default to `REPEATABLE_READ` but you can override the default isolation level by passing
      * `options.isolationLevel` in `new Sequelize`.
      */
     interface TransactionIsolationLevels {
-        READ_UNCOMMITTED: string; // 'READ UNCOMMITTED'
-        READ_COMMITTED: string; // 'READ COMMITTED'
-        REPEATABLE_READ: string; // 'REPEATABLE READ'
-        SERIALIZABLE: string; // 'SERIALIZABLE'
+        READ_UNCOMMITTED: TransactionIsolationLevelReadUncommitted; // 'READ UNCOMMITTED'
+        READ_COMMITTED: TransactionIsolationLevelReadCommitted; // 'READ COMMITTED'
+        REPEATABLE_READ: TransactionIsolationLevelRepeatableRead; // 'REPEATABLE READ'
+        SERIALIZABLE: TransactionIsolationLevelSerializable; // 'SERIALIZABLE'
     }
+
+    type TransactionTypeDeferred = 'DEFERRED';
+    type TransactionTypeImmediate = 'IMMEDIATE';
+    type TransactionTypeExclusive = 'EXCLUSIVE';
+    type TransactionType = TransactionTypeDeferred | TransactionTypeImmediate | TransactionTypeExclusive;
 
     /**
      * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
@@ -6027,19 +6281,25 @@ declare namespace sequelize {
      * `options.transactionType` in `new Sequelize`.
      */
     interface TransactionTypes {
-        DEFERRED: string; // 'DEFERRED'
-        IMMEDIATE: string; // 'IMMEDIATE'
-        EXCLUSIVE: string; // 'EXCLUSIVE'
+        DEFERRED: TransactionTypeDeferred; // 'DEFERRED'
+        IMMEDIATE: TransactionTypeImmediate; // 'IMMEDIATE'
+        EXCLUSIVE: TransactionTypeExclusive; // 'EXCLUSIVE'
     }
+
+    type TransactionLockLevelUpdate = 'UPDATE';
+    type TransactionLockLevelShare = 'SHARE';
+    type TransactionLockLevelKeyShare = 'KEY SHARE';
+    type TransactionLockLevelNoKeyUpdate = 'NO KEY UPDATE';
+    type TransactionLockLevel = TransactionLockLevelUpdate | TransactionLockLevelShare | TransactionLockLevelKeyShare | TransactionLockLevelNoKeyUpdate;
 
     /**
      * Possible options for row locking. Used in conjuction with `find` calls:
      */
     interface TransactionLock {
-        UPDATE: string; // 'UPDATE'
-        SHARE: string; // 'SHARE'
-        KEY_SHARE: string; // 'KEY SHARE'
-        NO_KEY_UPDATE: string; // 'NO KEY UPDATE'
+        UPDATE: TransactionLockLevelUpdate; // 'UPDATE'
+        SHARE: TransactionLockLevelShare; // 'SHARE'
+        KEY_SHARE: TransactionLockLevelKeyShare; // 'KEY SHARE'
+        NO_KEY_UPDATE: TransactionLockLevelNoKeyUpdate; // 'NO KEY UPDATE'
     }
 
     /**
@@ -6054,12 +6314,12 @@ declare namespace sequelize {
         /**
          *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
          */
-        isolationLevel?: string;
+        isolationLevel?: TransactionIsolationLevel;
 
         /**
          *  See `Sequelize.Transaction.TYPES` for possible options
          */
-        type?: string;
+        type?: TransactionType;
 
         /**
          * A function that gets executed while running the query to log the sql.

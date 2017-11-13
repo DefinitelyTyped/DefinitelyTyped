@@ -88,13 +88,13 @@ declare namespace Bull {
 
         /**
          * Removes a job from the queue and from any lists it may be included in.
-         * @returns {Promise} A promise that resolves when the job is removed.
+         * @returns A promise that resolves when the job is removed.
          */
         remove(): Promise<void>;
 
         /**
          * Re-run a job that has failed.
-         * @returns {Promise} A promise that resolves when the job is scheduled for retry.
+         * @returns A promise that resolves when the job is scheduled for retry.
          */
         retry(): Promise<void>;
 
@@ -104,6 +104,11 @@ declare namespace Bull {
          * since pubsub does not give any guarantees.
          */
         finished(): Promise<void>;
+
+        /**
+         * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
+         */
+        promote(): Promise<void>;
     }
 
     type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';

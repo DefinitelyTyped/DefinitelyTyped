@@ -1,7 +1,10 @@
-// Type definitions for Microsoft SharePoint: 2013.1
+// Type definitions for Microsoft SharePoint: 2016.0
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>, Vincent Biret <https://github.com/baywet>
-// Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: Stanislav Vyshchepan <https://github.com/gandjustas>
+//                 Andrey Markeev <https://github.com/andrei-markeev>
+//                 Vincent Biret <https://github.com/baywet>
+//                 Tero Arvola <https://github.com/teroarvola>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="microsoft-ajax" />
@@ -320,6 +323,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     ContentTypesEnabled: boolean;
     CurrentSelectedItems: boolean;
     CurrentUserId: number;
+    CurrentUserIsSiteAdmin: boolean;
     EnableMinorVersions: boolean;
     ExternalDataList: boolean;
     HasRelatedCascadeLists: boolean;
@@ -329,6 +333,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     LastSelectedItemIID: number;
     LastRowIndexSelected: number;
     RowFocusTimerID: number;
+    ListTitle: string;
     ListData: any; // SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
     ListSchema: SPClientTemplates.ListSchema;
     ModerationStatus: number;
@@ -337,6 +342,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     SelectAllCbx: HTMLElement;
     SendToLocationName: string;
     SendToLocationUrl: string;
+    SiteTitle: string;
     StateInitDone: boolean;
     TableCbxFocusHandler(instance: any, eventArgs: any): void;
     TableMouseoverHandler(instance: any, eventArgs: any): void;
@@ -1175,6 +1181,7 @@ declare namespace SPClientTemplates {
         ctxType: any; // not in View
         CurrentUserId: number;
         CurrentUserIsSiteAdmin: boolean;
+        LastSelectedItemIID: any;
         dictSel: any;
         /** Absolute path for the list display form */
         displayFormUrl: string;
@@ -3096,7 +3103,7 @@ declare namespace SP {
         set_validationFormula(value: string): void;
         get_validationMessage(): string;
         set_validationMessage(value: string): void;
-        validateSetValue(item: SP.ListItem, value: string): void;
+        validateSetValue<T = any>(item: SP.ListItem<T>, value: string): void;
         updateAndPushChanges(pushChangesToLists: boolean): void;
         update(): void;
         deleteObject(): void;
@@ -3360,7 +3367,7 @@ declare namespace SP {
         get_length(): number;
         get_level(): SP.FileLevel;
         /** Specifies the SPListItem corresponding to this file if this file belongs to a doclib. Values for all fields are returned also. */
-        get_listItemAllFields(): SP.ListItem;
+        get_listItemAllFields<T = any>(): SP.ListItem<T>;
         /** Returns the user that owns the current lock on the file. MUST return null if there is no lock. */
         get_lockedByUser(): SP.User;
         /** Specifies the major version of the file. */
@@ -3466,7 +3473,7 @@ declare namespace SP {
     class Folder extends SP.ClientObject {
         get_contentTypeOrder(): SP.ContentTypeId[];
         get_files(): SP.FileCollection;
-        get_listItemAllFields(): SP.ListItem;
+        get_listItemAllFields<T = any>(): SP.ListItem<T>;
         get_itemCount(): number;
         get_name(): string;
         get_parentFolder(): SP.Folder;
@@ -3604,7 +3611,7 @@ declare namespace SP {
     /** Represents a list on a SharePoint Web site. */
     class List<T = any> extends SP.SecurableObject {
         /** Gets item by id. */
-        getItemById(id: number): SP.ListItem;
+        getItemById(id: number): SP.ListItem<T>;
         /** Gets a value that specifies whether the list supports content types. */
         get_allowContentTypes(): boolean;
         /** Gets the list definition type on which the list is based. For lists based on OOTB list definitions, return value corresponds the SP.ListTemplateType enumeration. */
@@ -3816,7 +3823,7 @@ declare namespace SP {
         /** Returns collection of list items based on the specified CAML query. */
         getItems(query: SP.CamlQuery): SP.ListItemCollection<T>;
         /** Creates a new list item in the list. */
-        addItem(parameters: SP.ListItemCreationInformation): SP.ListItem;
+        addItem(parameters: SP.ListItemCreationInformation): SP.ListItem<T>;
     }
     /** Represents a collection of SP.List objects */
     class ListCollection extends SP.ClientObjectCollection<List> {
@@ -3970,9 +3977,9 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    class ListItemEntityCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
+    class ListItemEntityCollection<T> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
     }
     class ListItemFormUpdateValue extends SP.ClientValueObject {
         get_errorMessage(): string;
@@ -5619,9 +5626,9 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         class UsageAnalytics extends SP.ClientObject {
-            getAnalyticsItemData: (eventType: number, listItem: SP.ListItem) => AnalyticsItemData;
+            getAnalyticsItemData: <T = any>(eventType: number, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
-            getAnalyticsItemDataForApplicationEventType: (appEventType: SP.Guid, listItem: SP.ListItem) => AnalyticsItemData;
+            getAnalyticsItemDataForApplicationEventType: <T = any>(appEventType: SP.Guid, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
             deleteStandardEventUsageData: (eventType: number) => void;
 
@@ -6380,10 +6387,10 @@ declare namespace SP {
             set_attachment(value: SocialAttachment): SocialAttachment;
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            get_contentItems(): SocialDataItem;
+            get_contentItems(): SocialDataItem[];
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            set_contentItems(value: SocialDataItem): SocialDataItem;
+            set_contentItems(value: SocialDataItem[]): SocialDataItem[];
             /** Contains the text body of the post. */
             get_contentText(): string;
             /** Contains the text body of the post.
@@ -6869,11 +6876,11 @@ declare namespace SP {
             getFieldValueAsText(value: TaxonomyFieldValue): SP.StringResult;
             getFieldValueAsTaxonomyFieldValue(value: string): TaxonomyFieldValue;
             getFieldValueAsTaxonomyFieldValueCollection(value: string): TaxonomyFieldValueCollection;
-            setFieldValueByTerm(listItem: SP.ListItem, term: Term, lcid: number): void;
-            setFieldValueByTermCollection(listItem: SP.ListItem, terms: TermCollection, lcid: number): void;
-            setFieldValueByCollection(listItem: SP.ListItem, terms: Term[], lcid: number): void;
-            setFieldValueByValue(listItem: SP.ListItem, taxValue: TaxonomyFieldValue): void;
-            setFieldValueByValueCollection(listItem: SP.ListItem, taxValueCollection: TaxonomyFieldValueCollection): void;
+            setFieldValueByTerm<T = any>(listItem: SP.ListItem<T>, term: Term, lcid: number): void;
+            setFieldValueByTermCollection<T = any>(listItem: SP.ListItem<T>, terms: TermCollection, lcid: number): void;
+            setFieldValueByCollection<T = any>(listItem: SP.ListItem<T>, terms: Term[], lcid: number): void;
+            setFieldValueByValue<T = any>(listItem: SP.ListItem<T>, taxValue: TaxonomyFieldValue): void;
+            setFieldValueByValueCollection<T = any>(listItem: SP.ListItem<T>, taxValueCollection: TaxonomyFieldValueCollection): void;
             getFieldValueAsHtml(value: TaxonomyFieldValue): SP.StringResult;
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
@@ -6941,7 +6948,7 @@ declare namespace SP {
             static createVideo(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
             static uploadVideo(context: ClientContext, list: List, fileName: string, file: any[], overwriteIfExists: boolean, parentFolderPath: string): StringResult;
             static getEmbedCode(context: ClientContext, videoPath: string, properties: EmbedCodeConfiguration): StringResult;
-            static migrateVideo(context: ClientContext, videoFile: File): SP.ListItem;
+            static migrateVideo<T = any>(context: ClientContext, videoFile: File): SP.ListItem<T>;
         }
     }
 }
@@ -7922,8 +7929,8 @@ declare namespace SP {
             static logCustomAppError(context: SP.ClientRuntimeContext, error: string): SP.IntResult;
             static logCustomRemoteAppError(context: SP.ClientRuntimeContext, productId: SP.Guid, error: string): SP.IntResult;
             static getLocalizedString(context: SP.ClientRuntimeContext, source: string, defaultResourceFile: string, language: number): SP.StringResult;
-            static createNewDiscussion(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem;
-            static createNewDiscussionReply(context: SP.ClientRuntimeContext, parent: SP.ListItem): SP.ListItem;
+            static createNewDiscussion<T>(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem<T>;
+            static createNewDiscussionReply<T>(context: SP.ClientRuntimeContext, parent: SP.ListItem<T>): SP.ListItem<T>;
             static markDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static unmarkDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static searchPrincipals(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, maxCount: number): SP.Utilities.PrincipalInfo[];

@@ -9,7 +9,7 @@
 import stream = require('stream');
 
 declare class BufferList extends stream.Duplex {
-    new(callback?: (err: Error, buffer: Buffer) => void): void;
+    constructor(callback?: (err: Error, buffer: Buffer) => void);
 
     append(buffer: Buffer): void;
     get(index: number): number;

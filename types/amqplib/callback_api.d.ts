@@ -31,7 +31,7 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: Message) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void): void;
+    consume(queue: string, onMessage: (msg: Message | null) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void): void;
 
     cancel(consumerTag: string, callback?: (err: any, ok: Replies.Empty) => void): void;
     get(queue: string, options?: Options.Get, callback?: (err: any, ok: Message | false) => void): void;

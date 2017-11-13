@@ -1,6 +1,6 @@
 // Type definitions for Backbone 1.3.3
 // Project: http://backbonejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Natan Vivo <https://github.com/nvivo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -100,7 +100,6 @@ declare namespace Backbone {
     }
 
     class ModelBase extends Events {
-        url: any;
         parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
@@ -111,7 +110,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
         changed: any[];
@@ -133,6 +132,13 @@ declare namespace Backbone {
         id: any;
         idAttribute: string;
         validationError: any;
+
+        /**
+         * Returns the relative URL where the model's resource would be located on the server.
+         * @memberof Model
+         */
+        url: () => string;
+
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
@@ -205,7 +211,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         model: new (...args:any[]) => TModel;
         models: TModel[];
@@ -219,7 +225,7 @@ declare namespace Backbone {
         /**
          * Specify a model attribute name (string) or function that will be used to sort the collection.
          */
-        comparator: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number);
+        comparator: string | { bivarianceHack(element: TModel): number | string }["bivarianceHack"] | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
         add(model: {}|TModel, options?: AddOptions): TModel;
         add(models: ({}|TModel)[], options?: AddOptions): TModel[];
@@ -229,6 +235,7 @@ declare namespace Backbone {
          **/
         get(id: number|string|Model): TModel;
         has(key: number|string|Model): boolean;
+        clone(): this;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -314,6 +321,14 @@ declare namespace Backbone {
         take(): TModel;
         take(n: number): TModel[];
         toArray(): TModel[];
+
+        /**
+         * Sets the url property (or function) on a collection to reference its location on the server.
+         *
+         * @memberof Collection
+         */
+        url: string | (() => string);
+
         without(...values: TModel[]): TModel[];
     }
 
@@ -322,7 +337,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         /**
         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
@@ -388,7 +403,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;

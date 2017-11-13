@@ -325,7 +325,7 @@ let filterdGElements2: d3Selection.Selection<SVGGElement, any, HTMLElement, any>
 filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>('g');
 // filterdGElements2 = d3Selection.selectAll('.any-type').filter('g'); // fails without using narrowing generic on filter method
 
-filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function(){
+filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function() {
     const that: SVGElement = this;
     return that.tagName === 'g' || that.tagName === 'G';
 });
@@ -484,7 +484,7 @@ body = body
         const datum: BodyDatum = d;
         const index: number = i;
         const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
-        return '<div> Body Background Color: ' + this.bgColor + ', Foo Datum: ' + d.foo + '</div>'; // this context HTMLBodyElement, datum BodyDatum
+        return `<div> Body Background Color: ${this.bgColor}, Foo Datum: ${d.foo}</div>`; // this context HTMLBodyElement, datum BodyDatum
     });
 
 // ---------------------------------------------------------------------------------------
@@ -993,7 +993,7 @@ let customListener: (this: HTMLBodyElement, finalOpponent: string) => string;
 customListener = finalOpponent => {
     const e = <SuccessEvent> d3Selection.event;
 
-    return e.team + ' defeated ' + finalOpponent + ' in the EURO 2016 Cup. Who would have thought!!!';
+    return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
 };
 
 const resultText: string = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales');

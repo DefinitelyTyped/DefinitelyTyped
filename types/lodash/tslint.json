@@ -1,28 +1,29 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
-        "align": false,
+        // All are TODOs
         "array-type": false,
         "ban-types": false,
         "callable-types": false,
-        "comment-format": false,
-        "eofline": false,
+        "comment-format": [false],
         "interface-name": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "max-line-length": false,
+        "max-line-length": [false],
+        "no-any-union": false,
         "no-empty-interface": false,
+        "no-mergeable-namespace": false,
         "no-namespace": false,
-        "no-trailing-whitespace": false,
+        "no-unnecessary-generics": false,
+        "no-unnecessary-type-assertion": false,
+        "no-void-expression": false,
         "object-literal-key-quotes": false,
         "one-line": false,
-        "one-variable-per-declaration": false,
         "prefer-const": false,
         "semicolon": false,
-        "triple-equals": false,
-        "typedef-whitespace": false,
+        "space-within-parens": false,
+        "typedef-whitespace": [false],
         "unified-signatures": false,
-        "whitespace": false
+        "whitespace": [false]
     }
 }
