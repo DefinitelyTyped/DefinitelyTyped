@@ -6268,7 +6268,7 @@ export interface AccessibilityInfoStatic {
      * Query whether a screen reader is currently enabled.
      * Returns a promise which resolves to a boolean. The result is true when a screen reader is enabled and false otherwise.
      */
-    fetch(): Promise<boolean>;
+    fetch: () => Promise<boolean>;
 
     /**
      * Add an event handler. Supported events:
@@ -6281,26 +6281,26 @@ export interface AccessibilityInfoStatic {
      *                          - announcement: The string announced by the screen reader.
      *                          - success: A boolean indicating whether the announcement was successfully made.
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: Function): void;
+    addEventListener: (eventName: AccessibilityChangeEventName, handler: Function) => void;
 
     /**
      * Remove an event handler.
      */
-    removeEventListener(eventName: AccessibilityChangeEventName, handler: Function): void;
+    removeEventListener: (eventName: AccessibilityChangeEventName, handler: Function) => void;
 
     /**
      * Set acessibility focus to a react component.
      *
      * @platform ios
      */
-    setAccessibilityFocus(reactTag: number): void;
+    setAccessibilityFocus: (reactTag: number) => void;
 
     /**
      * Post a string to be announced by the screen reader.
      *
      * @platform ios
      */
-    announceFoAccessibility(announcement: string): void;
+    announceForAccessibility: (announcement: string) => void;
 }
 
 /**
