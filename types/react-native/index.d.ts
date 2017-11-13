@@ -6258,6 +6258,51 @@ export interface ShareStatic {
     dismissedAction: string
 }
 
+type AccessibilityChangeEventName = 'change' | 'announcementFinished';
+
+/**
+ * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
+ */
+export interface AccessibilityInfoStatic {
+    /**
+     * Query whether a screen reader is currently enabled. 
+     * Returns a promise which resolves to a boolean. The result is true when a screen reader is enabled and false otherwise.
+     */
+    fetch(): Promise<boolean>;
+    
+    /**
+     * Add an event handler. Supported events:
+     *  - change: Fires when the state of the screen reader changes. 
+     *            The argument to the event handler is a boolean. 
+     *            The boolean is true when a screen reader is enabled and false otherwise.
+     * 
+     * - announcementFinished: iOS-only event. Fires when the screen reader has finished making an announcement. 
+     *                         The argument to the event handler is a dictionary with these keys:
+     *                          - announcement: The string announced by the screen reader.
+     *                          - success: A boolean indicating whether the announcement was successfully made.
+     */
+    addEventListener(eventName: AccessibilityChangeEventName, handler: Function): void;
+
+    /**
+     * Remove an event handler.
+     */
+    removeEventListener(eventName: AccessibilityChangeEventName, handler: Function): void;
+
+    /**
+     * Set acessibility focus to a react component.
+     * 
+     * @platform ios
+     */
+    setAccessibilityFocus(reactTag: number): void;
+
+    /**
+     * Post a string to be announced by the screen reader.
+     * 
+     * @platform ios
+     */
+    announceFoAccessibility(announcement: string): void;
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/alert.html#content
  */
@@ -8409,6 +8454,9 @@ export type Share = ShareStatic
 
 export var AdSupportIOS: AdSupportIOSStatic
 export type AdSupportIOS = AdSupportIOSStatic
+
+export var AccessibilityInfo: AccessibilityInfoStatic
+export type AccessibilityInfo = AccessibilityInfoStatic
 
 export var Alert: AlertStatic
 export type Alert = AlertStatic
