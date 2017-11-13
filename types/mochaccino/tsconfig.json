@@ -11,7 +11,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["sinon"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

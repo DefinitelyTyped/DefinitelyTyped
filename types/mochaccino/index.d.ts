@@ -3,7 +3,7 @@
 // Definitions by: Thomas-P <https://github.com/thomas-p>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../sinon/index.d.ts" />
+/// <reference types="sinon" />
 
 
 declare module 'mochaccino' {
