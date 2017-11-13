@@ -1,8 +1,8 @@
 import React = require('react');
 
-import { EmojiData } from '..';
+import { EmojiData, EmojiSkin } from '..';
 
-import { Category, Emoji, EmojiProps } from '.';
+import { Category, Emoji, EmojiProps, BackgroundImageFn, EmojiSet, EmojiSheetSize } from '.';
 
 // tslint:disable-next-line interface-name
 export interface I18n {
@@ -33,14 +33,14 @@ export interface Props {
     title?: string;
     emoji?: string;
     color?: string;
-    set?: EmojiProps['set'];
-    skin?: EmojiProps['skin'];
+    set?: EmojiSet;
+    skin?: EmojiSkin;
     native?: boolean;
-    backgroundImageFn?: EmojiProps['backgroundImageFn'];
-    sheetSize?: EmojiProps['sheetSize'];
+    backgroundImageFn?: BackgroundImageFn;
+    sheetSize?: EmojiSheetSize;
     emojisToShowFilter?(emoji: EmojiData): boolean;
     showPreview?: boolean;
-    emojiTooltip?: EmojiProps['tooltip'];
+    emojiTooltip?: boolean;
     include?: string[];
     exclude?: string[];
     recent?: string[];
