@@ -1,3 +1,5 @@
+export type EmojiSkin = 1|2|3|4|5|6;
+
 export interface EmojiData {
     id: string;
     name: string;
@@ -5,7 +7,7 @@ export interface EmojiData {
     /** Reverse mapping to keyof emoticons */
     emoticons: string[];
     unified: string;
-    skin: 1|2|3|4|5|6|null;
+    skin: EmojiSkin|null;
     native: string;
 }
 
