@@ -30,7 +30,7 @@ declare namespace echarts {
     function registerTheme(themeName: string, theme: Object): void;
 
     interface LinearGradient {
-        colorStops: Array<object>;
+        colorStops: Array<Object>;
         global: boolean;
         type: string;
         x: number
