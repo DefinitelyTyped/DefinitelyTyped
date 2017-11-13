@@ -158,6 +158,29 @@ export interface Item {
     toPlainObject(): any;
 }
 
+export interface BaseChain<T>  {
+    equals(value: any): T;
+    eq(value: any): T;
+    lte(value: any): T;
+    lt(value: any): T;
+    gte(value: any): T;
+    gt(value: any): T;
+    null(): T;
+    exists(): T;
+    beginsWith(value: any): T;
+    between(value1: any, value2: any): T;
+}
+
+export interface ExtendedChain<T> extends BaseChain<T> {
+    contains(value: any): T;
+    notContains(value: any): T;
+    in(values: any[]): T; 
+    ne(value: any): T;
+}
+
+export type QueryWhereChain = BaseChain<Query>;
+export type QueryFilterChain = ExtendedChain<Query>;
+
 //Dynogels Query
 export interface Query {
     limit(number: number): Query;
@@ -176,36 +199,14 @@ export interface Query {
     select(value: any): Query;
     returnConsumedCapacity(value: any): Query;
     loadAll(): Query;
-    where(keyName: string): {
-        equals(value: any): Query;
-        eq(value: any): Query;
-        lte(value: any): Query;
-        lt(value: any): Query;
-        gte(value: any): Query;
-        gt(value: any): Query;
-        null(): Query;
-        exists(): Query;
-        beginsWith(value: any): Query;
-        between(value1: any, value2: any): Query;
-    };
-    filter(keyName: string): {
-        equals(value: any): Query;
-        eq(value: any): Query;
-        ne(value: any): Query;
-        lte(value: any): Query;
-        lt(value: any): Query;
-        gte(value: any): Query;
-        gt(value: any): Query;
-        null(): Query;
-        exists(): Query;
-        contains(value: any): Query;
-        notContains(value: any): Query;
-        in(values: any[]): Query;
-        beginsWith(value: any): Query;
-        between(value1: any, value2: any): Query;
-    };
+    where(keyName: string): QueryWhereChain;
+    filter(keyName: string): QueryFilterChain;
     exec(): stream.Readable;
     exec(callback: (err: Error, data: any) => void): void;
+}
+
+interface ScanWhereChain extends ExtendedChain<Scan> {
+    notNull(): Scan;
 }
 
 //Dynogels Scan
@@ -217,23 +218,7 @@ export interface Scan {
     select(value: any): Scan;
     returnConsumedCapacity(): Scan;
     segments(segment: any, totalSegments: number): Scan;
-    where(keyName: string): {
-        equals(value: any): Scan;
-        eq(value: any): Scan;
-        ne(value: any): Scan;
-        lte(value: any): Scan;
-        lt(value: any): Scan;
-        gte(value: any): Scan;
-        gt(value: any): Scan;
-        null(): Scan;
-        exists(): Scan;
-        contains(value: any): Scan;
-        notContains(value: any): Scan;
-        in(values: any[]): Scan;
-        beginsWith(value: any): Scan;
-        between(value1: any, value2: any): Scan;
-        notNull(): Scan;
-    };
+    where(keyName: string): ScanWhereChain;
     filterExpression(expression: any): Scan;
     expressionAttributeNames(data: any): Scan;
     expressionAttributeValues(data: any): Scan;
