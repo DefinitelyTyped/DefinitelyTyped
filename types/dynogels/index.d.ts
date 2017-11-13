@@ -46,6 +46,8 @@ export interface CreateTablesOptions {
     };
 }
 
+export type LifeCycleAction = "create" | "update" | "destroy";
+
 //Dynogels Model
 export interface Model {
     new(attrs: { [key: string]: any }): Item;
@@ -79,8 +81,8 @@ export interface Model {
     deleteTable(callback: (err: Error) => void): void;
     tableName(): string;
 
-    after(): void;
-    before(): void;
+    after(action: LifeCycleAction, listner: (item: Item) => void): void;
+    before(action: LifeCycleAction, listner: (data: object, next: (err: Error, data: object) => void) => void): void;
     config(config: ModelConfig): { name: string };
 }
 
