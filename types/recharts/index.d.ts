@@ -747,7 +747,7 @@ export interface LabelProps {
 	style?: React.CSSProperties;
 }
 
-export interface Label extends React.Component<LabelProps> { }
+export class Label extends React.Component<LabelProps> { }
 
 export class Treemap extends React.Component<TreemapProps> { }
 
