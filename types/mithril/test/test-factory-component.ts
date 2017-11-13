@@ -23,7 +23,7 @@ m.mount(document.getElementById('comp0')!, null);
 // 1.
 // Simple example. Vnode type for component methods is inferred.
 //
-function comp1(): Component<{}, {}> {
+function comp1(): Component {
 	return {
 		oncreate({dom}) {
 			// vnode.dom type inferred
@@ -89,7 +89,7 @@ interface Comp4Attrs {
 	name: string;
 }
 
-function comp4(): Component<Comp4Attrs, {}> {
+function comp4(): Component<Comp4Attrs> {
 	let count = 0;
 
 	function add(num: number) {
@@ -165,7 +165,7 @@ interface Attrs {
 	name: string;
 }
 
-export default (): Component<Attrs, {}> => {
+export default (): Component<Attrs> => {
 	const count = 0;
 	return {
 		view({attrs}) {
