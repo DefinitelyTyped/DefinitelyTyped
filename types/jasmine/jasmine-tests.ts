@@ -270,19 +270,24 @@ describe("Pending specs", () => {
 });
 
 describe("A spy", () => {
-    var foo: any, bar: any = null;
+    var foo: any, bar: any, baz: any = null;
 
     beforeEach(() => {
         foo = {
             setBar: (value: any) => {
                 bar = value;
+            },
+            setBaz: (value: any) => {
+                baz = value;
             }
         };
 
         spyOn(foo, 'setBar');
+        spyOn(foo, 'setBaz');
 
         foo.setBar(123);
         foo.setBar(456, 'another param');
+        foo.setBaz(789);
     });
 
     it("tracks that the spy was called", () => {
@@ -292,6 +297,10 @@ describe("A spy", () => {
     it("tracks all the arguments of its calls", () => {
         expect(foo.setBar).toHaveBeenCalledWith(123);
         expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
+    });
+
+    it("tracks the order in which spies were called", () => {
+        expect(foo.setBar).toHaveBeenCalledBefore(foo.setBaz);
     });
 
     it("stops all execution on a function", () => {
@@ -951,6 +960,16 @@ describe("Custom matcher: 'toBeGoofy'", () => {
         expect({
             hyuk: 'this is fun'
         }).not.toBeGoofy();
+    });
+
+    it("has a proper message on failure", () => {
+        const actual = { hyuk: 'this is fun' };
+
+        const matcher = customMatchers["toBeGoofy"](jasmine.matchersUtil, []);
+        const result = matcher.compare(actual, null);
+
+        expect(result.pass).toBe(false);
+        expect(result.message).toBe("Expected " + actual + " to be goofy, but it was not very goofy");
     });
 });
 

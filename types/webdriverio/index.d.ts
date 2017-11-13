@@ -3,6 +3,7 @@
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
 //                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
+//                 Tanvir ul Islam <https://github.com/tanvirislam06>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -34,6 +35,10 @@ declare namespace WebdriverIO {
     }
 
     interface ParsedCssProperty {
+        hex: string;
+        alpha: number;
+        rgb: string;
+        rgba: string;
         type: string;
         string: string;
         quote: string;
@@ -304,13 +309,13 @@ declare namespace WebdriverIO {
         ensureCleanSession?: boolean;
     }
 
-    interface Cookie extends RawResult<string> {
+    interface Cookie {
         name: string;
         value: string;
         path?: string;
         httpOnly?: boolean;
         expiry?: number;
-        secure: boolean;
+        secure?: boolean;
     }
 
     interface Suite {
@@ -401,13 +406,13 @@ declare namespace WebdriverIO {
         desiredCapabilities?: DesiredCapabilities;
         exclude?: string[];
         framework?: string;
-        hostname?: string;
+        host?: string;
         isWDIO?: boolean;
         protocol?: string;
         port?: number;
         path?: string;
         plugins?: { [name: string]: any; };
-        reporters?: string | ((...args: any[]) => void);
+        reporters?: string[] | ((...args: any[]) => void);
         reporterOptions?: { outputDir?: string; };
         logLevel?: string;
         maxInstances?: number;
@@ -416,7 +421,7 @@ declare namespace WebdriverIO {
         mochaOpts?: { [name: string]: any; };
         jasmineNodeOpts?: { [name: string]: any; };
         cucumberOpts?: { [name: string]: any; };
-        services?: string | ((...args: any[]) => void);
+        services?: string[] | ((...args: any[]) => void);
         screenshotPath?: string;
         specs?: string[];
         seleniumLogs?: string;
@@ -764,8 +769,8 @@ declare namespace WebdriverIO {
         deleteCookie(name?: string): Client<RawResult<null>> & RawResult<null>;
         deleteCookie<P>(name?: string): Client<P>;
 
-        getCookie(): Client<Cookie[]> & Cookie[];
-        getCookie(name: string): Client<Cookie> & Cookie;
+        getCookie(): Client<Cookie & Array<RawResult<string>>> & Cookie[] & Array<RawResult<string>>;
+        getCookie(name: string): Client<Cookie & RawResult<string>> & Cookie & RawResult<string>;
         getCookie<P>(name?: string): Client<P>;
 
         setCookie(cookie: Cookie): Client<RawResult<null>> & RawResult<null>;
@@ -1028,12 +1033,12 @@ declare namespace WebdriverIO {
         /** @deprecated in favour of Actions.pointerUp */
         buttonUp<P>(button?: string | Button): Client<P>;
 
-        cookie(): Client<RawResult<Cookie[]>> & RawResult<Cookie[]>;
+        cookie(): Client<RawResult<Cookie[] & Array<RawResult<string>>>> & RawResult<Cookie[] & Array<RawResult<string>>>;
 
         cookie(
             method: Method,
-            key?: Cookie | string
-        ): Client<RawResult<Cookie[]>> & RawResult<Cookie[]>;
+            key?: (Cookie & RawResult<string>) | string
+        ): Client<RawResult<Cookie[] & Array<RawResult<string>>>> & RawResult<Cookie[] & Array<RawResult<string>>>;
 
         /** @deprecated in favour of Actions.pointerDown(0) + Actions.pointerMove */
         doDoubleClick(): Client<RawResult<null>> & RawResult<null> & never;
@@ -1204,7 +1209,7 @@ declare namespace WebdriverIO {
         init<P>(capabilities?: DesiredCapabilities): Client<P>;
 
         /** @deprecated in favour of Actions.keyDown */
-        keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & never;
+        keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & Client<void>;
 
         /** @deprecated in favour of Actions.keyDown */
         keys<P>(value: string | string[]): Client<P>;
@@ -1556,7 +1561,7 @@ declare namespace WebdriverIO {
         $(selector: string): Client<RawResult<Element>> & RawResult<Element>;
         $<P>(selector: string): Client<P>;
 
-        $$(selector: string): Client<Array<RawResult<Element>>> & Array<RawResult<Element>>;
+        $$(selector: string): Array<Client<RawResult<Element>>> & Array<RawResult<Element>>;
         $$<P>(selector: string): Client<P>;
 
         addCommand(

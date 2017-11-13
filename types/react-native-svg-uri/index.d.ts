@@ -37,4 +37,4 @@ export interface SvgUriProps {
   fill?: string;
 }
 
-export default class SvgUri extends React.Component<SvgUriProps, {}> { }
+export default class SvgUri extends React.Component<SvgUriProps> { }

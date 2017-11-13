@@ -2,6 +2,7 @@
 // Project: https://github.com/cojs/co-body
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 /// <reference types="koa"/>
@@ -26,6 +27,7 @@ declare namespace CoBody {
         strict?: boolean;
         queryString?: qs.IParseOptions;
         jsonTypes?: string[];
+        returnRawBody?: boolean;
         formTypes?: string[];
         textTypes?: string[];
         encoding?: string;

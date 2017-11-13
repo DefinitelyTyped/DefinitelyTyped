@@ -1,5 +1,5 @@
 // Type definitions for Stats.js 0.16.0
-// Project: http://github.com/mrdoob/stats.js
+// Project: https://github.com/mrdoob/stats.js
 // Definitions by: Gregory Dalton <https://github.com/gregolai>, Harm Berntsen <https://github.com/hberntsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

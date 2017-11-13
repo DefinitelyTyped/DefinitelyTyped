@@ -91,7 +91,7 @@ declare namespace GoogleAppsScript {
       setPrefix(prefix: string): Contact;
       setShortName(shortName: string): Contact;
       setSuffix(suffix: string): Contact;
-      getEmailAddresses(): String[];
+      getEmailAddresses(): string[];
       getHomeAddress(): string;
       getHomeFax(): string;
       getHomePhone(): string;

@@ -47,6 +47,7 @@ import isMongoIdFunc = require('validator/lib/isMongoId');
 import isMultibyteFunc = require('validator/lib/isMultibyte');
 import isNullFunc = require('validator/lib/isNull');
 import isNumericFunc = require('validator/lib/isNumeric');
+import isPostalCodeFunc = require('validator/lib/isPostalCode');
 import isSurrogatePairFunc = require('validator/lib/isSurrogatePair');
 import isURLFunc = require('validator/lib/isURL');
 import isUUIDFunc = require('validator/lib/isUUID');
@@ -192,6 +193,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isNumeric = validator.isNumeric;
   _isNumeric = isNumericFunc;
+
+  let _isPostalCode = validator.isPostalCode;
+  _isPostalCode = isPostalCodeFunc;
 
   let _isSurrogatePair = validator.isSurrogatePair;
   _isSurrogatePair = isSurrogatePairFunc;
@@ -451,6 +455,7 @@ let any: any;
   result = validator.isMobilePhone('sample', 'hu-HU');
   result = validator.isMobilePhone('sample', 'it-IT');
   result = validator.isMobilePhone('sample', 'ja-JP');
+  result = validator.isMobilePhone('sample', 'ko-KR');
   result = validator.isMobilePhone('sample', 'ms-MY');
   result = validator.isMobilePhone('sample', 'nb-NO');
   result = validator.isMobilePhone('sample', 'nn-NO');
@@ -470,6 +475,42 @@ let any: any;
   result = validator.isNull('sample');
 
   result = validator.isNumeric('sample');
+
+  result = validator.isPostalCode('sample', 'AT');
+  result = validator.isPostalCode('sample', 'AU');
+  result = validator.isPostalCode('sample', 'BE');
+  result = validator.isPostalCode('sample', 'CA');
+  result = validator.isPostalCode('sample', 'CH');
+  result = validator.isPostalCode('sample', 'CZ');
+  result = validator.isPostalCode('sample', 'DE');
+  result = validator.isPostalCode('sample', 'DK');
+  result = validator.isPostalCode('sample', 'DZ');
+  result = validator.isPostalCode('sample', 'ES');
+  result = validator.isPostalCode('sample', 'FI');
+  result = validator.isPostalCode('sample', 'FR');
+  result = validator.isPostalCode('sample', 'GB');
+  result = validator.isPostalCode('sample', 'GR');
+  result = validator.isPostalCode('sample', 'IL');
+  result = validator.isPostalCode('sample', 'IN');
+  result = validator.isPostalCode('sample', 'IS');
+  result = validator.isPostalCode('sample', 'IT');
+  result = validator.isPostalCode('sample', 'JP');
+  result = validator.isPostalCode('sample', 'KE');
+  result = validator.isPostalCode('sample', 'LI');
+  result = validator.isPostalCode('sample', 'MX');
+  result = validator.isPostalCode('sample', 'NL');
+  result = validator.isPostalCode('sample', 'NO');
+  result = validator.isPostalCode('sample', 'PL');
+  result = validator.isPostalCode('sample', 'PT');
+  result = validator.isPostalCode('sample', 'RO');
+  result = validator.isPostalCode('sample', 'RU');
+  result = validator.isPostalCode('sample', 'SA');
+  result = validator.isPostalCode('sample', 'SE');
+  result = validator.isPostalCode('sample', 'TW');
+  result = validator.isPostalCode('sample', 'US');
+  result = validator.isPostalCode('sample', 'ZA');
+  result = validator.isPostalCode('sample', 'ZM');
+  result = validator.isPostalCode('sample', 'any');
 
   result = validator.isSurrogatePair('sample');
 

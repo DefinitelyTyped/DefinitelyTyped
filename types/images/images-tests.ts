@@ -1,9 +1,9 @@
 import * as images from "images";
 
 // from https://github.com/zhangyuanwei/node-images/blob/master/demo/uploadServer.js
-let tmp_path = "tmp_path";
-let out_path = "out_path";
-let photo = images(tmp_path);
+const tmp_path = "tmp_path";
+const out_path = "out_path";
+const photo = images(tmp_path);
 
 photo.size(800)
     .draw(images('./logo.png'), 800 - 421, photo.height() - 117)

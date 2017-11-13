@@ -386,7 +386,7 @@ animalSchema.virtual('name.full').get(function () {
   return this.name.first + ' ' + this.name.last;
 });
 new mongoose.Schema({
-  child: new mongoose.Schema({ name: String })
+  child: { name: String }
 });
 new mongoose.Schema({
   eggs: {
@@ -548,6 +548,7 @@ var myEntity = <MyEntity> {};
 var subDocArray = _.filter(myEntity.sub, function (sd) {
   sd.property1;
   sd.property2.toLowerCase();
+  return true;
 });
 
 

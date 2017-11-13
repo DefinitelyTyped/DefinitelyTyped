@@ -1,5 +1,5 @@
 function test_progress_static() {
-    $.fn.progress.settings.error.method = 'method';
+    $.fn.progress.settings.error!.method = 'method';
     $.fn.progress.settings.namespace = 'namespace';
     $.fn.progress.settings.name = 'name';
     $.fn.progress.settings.silent = false;
@@ -10,39 +10,42 @@ function test_progress_static() {
 
 function test_progress() {
     const selector = '.ui.progress';
-    $(selector).progress('set percent', 10) === $();
-    $(selector).progress('set progress', 25) === $();
-    $(selector).progress('increment', 5) === $();
-    $(selector).progress('decrement', 2) === $();
-    $(selector).progress('update progress', 45) === $();
-    $(selector).progress('complete') === $();
-    $(selector).progress('reset') === $();
-    $(selector).progress('set total', 100) === $();
-    $(selector).progress('get text', 'text') === 'text';
-    $(selector).progress('get normalized value', 20) === 40;
-    $(selector).progress('get percent') === 22;
-    $(selector).progress('get value') === 45;
-    $(selector).progress('get total') === 67;
-    $(selector).progress('is complete') === false;
-    $(selector).progress('is success') === false;
-    $(selector).progress('is warning') === false;
-    $(selector).progress('is error') === false;
-    $(selector).progress('is active') === false;
-    $(selector).progress('set active') === $();
-    $(selector).progress('set warning') === $();
-    $(selector).progress('set success') === $();
-    $(selector).progress('set error') === $();
-    $(selector).progress('set duration', 4) === $();
-    $(selector).progress('set label', 'label') === $();
-    $(selector).progress('set bar label', 'bar label') === $();
-    $(selector).progress('remove active') === $();
-    $(selector).progress('remove warning') === $();
-    $(selector).progress('remove success') === $();
-    $(selector).progress('remove error') === $();
-    $(selector).progress('destroy') === $();
-    $(selector).progress('setting', 'debug', undefined) === false;
-    $(selector).progress('setting', 'debug') === false;
-    $(selector).progress('setting', 'debug', true) === $();
+    $(selector).progress('set percent', 10); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set progress', 25); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('increment', 5); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('increment'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('decrement', 2); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('decrement'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('update progress', 45); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('complete'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('reset'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set total', 100); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('get text', 'text'); // $ExpectType string
+    $(selector).progress('get normalized value', 20); // $ExpectType number
+    $(selector).progress('get percent'); // $ExpectType number
+    $(selector).progress('get value'); // $ExpectType number
+    $(selector).progress('get total'); // $ExpectType number
+    $(selector).progress('is complete'); // $ExpectType boolean
+    $(selector).progress('is success'); // $ExpectType boolean
+    $(selector).progress('is warning'); // $ExpectType boolean
+    $(selector).progress('is error'); // $ExpectType boolean
+    $(selector).progress('is active'); // $ExpectType boolean
+    $(selector).progress('set active'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set warning'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set success'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set error'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set duration', 4); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set label', 'label'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('set bar label', 'bar label'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('remove active'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('remove warning'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('remove success'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('remove error'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).progress('setting', 'debug'); // $ExpectType boolean
+    $(selector).progress('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).progress('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -50,7 +53,8 @@ function test_progress() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).progress({
         autoSuccess: false,
         showActivity: true,
@@ -64,29 +68,29 @@ function test_progress() {
         total: 10,
         value: 20,
         onChange(percent, value, total) {
-            this === $();
-            percent === 10;
-            value === 20;
-            total === 30;
+            this; // $ExpectType JQuery<HTMLElement>
+            percent; // $ExpectType number
+            value; // $ExpectType number
+            total; // $ExpectType number
         },
         onSuccess(total) {
-            this === $();
-            total === 30;
+            this; // $ExpectType JQuery<HTMLElement>
+            total; // $ExpectType number
         },
         onActive(value, total) {
-            this === $();
-            value === 20;
-            total === 30;
+            this; // $ExpectType JQuery<HTMLElement>
+            value; // $ExpectType number
+            total; // $ExpectType number
         },
         onError(value, total) {
-            this === $();
-            value === 20;
-            total === 30;
+            this; // $ExpectType JQuery<HTMLElement>
+            value; // $ExpectType number
+            total; // $ExpectType number
         },
         onWarning(value, total) {
-            this === $();
-            value === 20;
-            total === 30;
+            this; // $ExpectType JQuery<HTMLElement>
+            value; // $ExpectType number
+            total; // $ExpectType number
         },
         text: {
             active: 'active',
@@ -119,12 +123,16 @@ function test_progress() {
             method: 'method',
             nonNumeric: 'nonNumeric'
         }
-    }) === $();
-    $(selector).progress() === $();
+    });
+    $(selector).progress(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).progress('foo'); // $ExpectError
+    $(selector).progress({ foo: 'bar' }); // $ExpectError
 }
 
 import progress = require('semantic-ui-progress');
 
 function test_module() {
+    progress; // $ExpectType Progress
     $.fn.progress = progress;
 }

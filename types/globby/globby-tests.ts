@@ -19,6 +19,6 @@ const tasks: Array<{
     options: IOptions
 }> = globby.generateGlobTasks(['*.tmp', '!b.tmp'], {ignore: ['c.tmp']});
 
-console.log(globby.hasMagic('**') === true);
-console.log(globby.hasMagic(['**', 'path1', 'path2']) === true);
-console.log(globby.hasMagic(['path1', 'path2']) === false);
+console.log(globby.hasMagic('**'));
+console.log(globby.hasMagic(['**', 'path1', 'path2']));
+console.log(!globby.hasMagic(['path1', 'path2']));

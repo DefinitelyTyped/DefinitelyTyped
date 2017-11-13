@@ -1,23 +1,68 @@
 import * as React from "react";
-import { create } from "react-test-renderer";
+import { create, ReactTestInstance } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';
 
-const tree = create(React.createElement("div"), {
+class TestComponent extends React.Component { }
+
+const renderer = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement<any>) => {
         return {};
     }
-}).toJSON();
+});
 
-tree.type = "t";
-tree.props = {
-    prop1: "p",
-};
-tree.children = [tree];
-tree.$$typeof = "t";
+const json = renderer.toJSON();
+if (json) {
+    json.type = "t";
+    json.props = {
+        prop1: "p",
+    };
+    json.children = [json];
+}
 
-class TestComponent extends React.Component { }
+const tree = renderer.toTree();
+if (tree) {
+    tree.type = "t";
+    tree.props = {
+        prop1: "p",
+    };
+    tree.children = [tree];
+    tree.rendered = tree;
+    tree.nodeType = "component";
+    tree.nodeType = "host";
+}
+
+renderer.update(React.createElement(TestComponent));
+
+renderer.unmount();
+renderer.unmount(React.createElement(TestComponent));
+
+function testInstance(inst: ReactTestInstance) {
+    inst.children = [inst, "a"];
+    inst.parent = instance;
+    inst.parent = null;
+    inst.props = {
+        prop1: "p",
+    };
+    inst.type = "t";
+    testInstance(inst.find(n => n.type === "t"));
+    testInstance(inst.findByProps({ prop1: "p" }));
+    testInstance(inst.findByType("t"));
+    testInstance(inst.findByType(TestComponent));
+    inst.findAll(n => n.type === "t", { deep: true }).map(testInstance);
+    inst.findAllByProps({ prop1: "p" }, { deep: true }).map(testInstance);
+    inst.findAllByType("t", { deep: true }).map(testInstance);
+    inst.findAllByType(TestComponent, { deep: true }).map(testInstance);
+}
+
+const instance = renderer.getInstance();
+if (instance) {
+    testInstance(instance);
+}
+
+testInstance(renderer.root);
 
 const component = React.createElement(TestComponent);
 const shallowRenderer = createRenderer();
 shallowRenderer.render(component);
 shallowRenderer.getRenderOutput();
+shallowRenderer.getMountedInstance();

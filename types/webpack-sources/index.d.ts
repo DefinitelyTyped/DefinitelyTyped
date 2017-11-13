@@ -1,15 +1,14 @@
-// Type definitions for webpack-sources v0.1.2
+// Type definitions for webpack-sources 0.1
 // Project: https://github.com/webpack/webpack-sources
-// Definitions by: e-cloud <http://github.com/e-cloud>
+// Definitions by: e-cloud <https://github.com/e-cloud>
+//                 Chris Eppstein <https://github.com/chriseppstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="source-map" />
-/// <reference types="source-list-map" />
 /// <reference types="node" />
 
-import { Hash } from 'crypto'
-import { SourceNode, RawSourceMap, SourceMapGenerator } from 'source-map'
-import { SourceListMap } from 'source-list-map'
+import { Hash } from 'crypto';
+import { SourceNode, RawSourceMap, SourceMapGenerator } from 'source-map';
+import { SourceListMap } from 'source-list-map';
 
 export abstract class Source {
     size(): number;
@@ -32,7 +31,7 @@ export abstract class Source {
     listMap(options?: any): any;
 }
 
-interface SourceAndMapMixin {
+export interface SourceAndMapMixin {
     map(options: { columns?: boolean }): RawSourceMap;
     sourceAndMap(options: { columns?: boolean }): {
         source: string;
@@ -67,9 +66,9 @@ export class CachedSource {
 }
 
 export class ConcatSource extends Source implements SourceAndMapMixin {
-    children: (string | Source)[];
+    children: Array<(string | Source)>;
 
-    constructor(...args: (string | Source)[]);
+    constructor(...args: Array<(string | Source)>);
 
     add(item: string | Source): void;
 
@@ -187,7 +186,10 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
     _innerSourceMap: RawSourceMap;
 
     constructor(
-        value: string, name: string, sourceMap: SourceMapGenerator | RawSourceMap, originalSource: string,
+        value: string,
+        name: string,
+        sourceMap: SourceMapGenerator | RawSourceMap,
+        originalSource?: string,
         innerSourceMap?: RawSourceMap
     );
 

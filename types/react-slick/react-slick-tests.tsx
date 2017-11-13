@@ -11,7 +11,7 @@ function RightNavArrow(props: CustomArrowProps): JSX.Element {
   const { className, style, onClick } = props;
   return <div
     className={className}
-    style={Object.assign(style, { display: 'block', background: 'green' })}
+    style={{ ...style, display: 'block', background: 'green' }}
     onClick={onClick}
   ></div>;
 }

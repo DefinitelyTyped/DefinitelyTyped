@@ -9,7 +9,7 @@ import SwipeableViews,
 } from 'react-swipeable-views';
 
 const onChangeIndex: OnChangeIndexCallback = (indexNew: number, indexLatest: number) => {
-    console.log('New index: ' + indexNew + ', latest index' + indexLatest);
+    console.log(`New index: ${indexNew}, latest index ${indexLatest}`);
 };
 
 const onSwitching: OnSwitchingCallback = (index: number, type: OnSwitchingCallbackTypeDescriptor) => {

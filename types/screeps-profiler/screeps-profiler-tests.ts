@@ -19,8 +19,8 @@ profiler.registerObject(testObj, "testObj");
 profiler.registerFN(testFunction);
 profiler.registerFN(testFunction, "testFunction");
 
-const ticks: number = 100;
-const filterName: string = "test";
+const ticks = 100;
+const filterName = "test";
 
 Game.profiler.profile(ticks);
 Game.profiler.profile(ticks, filterName);

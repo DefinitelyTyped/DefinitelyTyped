@@ -149,7 +149,7 @@ export interface Point {
 	y: number;
 }
 
-export interface ViewerMouseEvent<T>{
+export interface ViewerMouseEvent<T> {
 	originalEvent: React.MouseEvent<T>;
 	SVGViewer: SVGSVGElement;
 	point: Point;

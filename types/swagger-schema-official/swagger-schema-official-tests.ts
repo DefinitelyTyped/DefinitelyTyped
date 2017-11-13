@@ -75,7 +75,7 @@ const petStore: swagger.Spec = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "host": "petstore.swagger.io",
@@ -578,7 +578,7 @@ const externalDocs: swagger.Spec = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "externalDocs": {

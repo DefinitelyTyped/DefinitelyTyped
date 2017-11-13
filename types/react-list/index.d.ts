@@ -40,4 +40,4 @@ export interface ReactListProps extends Props<ReactList> {
     useTranslate3d?: boolean;
 }
 
-export default class ReactList extends Component<ReactListProps, {}> {}
+export default class ReactList extends Component<ReactListProps> {}

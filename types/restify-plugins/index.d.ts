@@ -2,8 +2,9 @@
 // Project: https://github.com/restify/plugins
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import {RequestHandler, Server, Request, Response, Route} from 'restify';
+import { RequestHandler, Server, Request, Response, Route } from 'restify';
 import Logger = require('bunyan');
 
 // *************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
@@ -14,9 +15,6 @@ export namespace pre {
    */
   function context(): RequestHandler;
 
-  /**
-   *
-   */
   function dedupeSlashes(): RequestHandler;
 
   /**
@@ -32,17 +30,17 @@ export namespace pre {
   /**
    * Automatically reuse incoming request header as the request id.
    */
-  function reqIdHeaders( options: {headers: string[]} ): RequestHandler;
+  function reqIdHeaders(options: {headers: string[]}): RequestHandler;
 
   /**
    * Checks req.urls query params with strict key/val format and rejects non-strict requests with status code 400.
    */
-  function strictQueryParams( options?: {message: string} ): RequestHandler;
+  function strictQueryParams(options?: {message: string}): RequestHandler;
 
   /**
    * Regexp to capture curl user-agents
    */
-  function userAgentConnection( options?: {userAgentRegExp: any} ): RequestHandler;
+  function userAgentConnection(options?: {userAgentRegExp: any}): RequestHandler;
 }
 
 // *************** This module includes the following header parser plugins:
@@ -73,23 +71,13 @@ export interface AuditLoggerOptions {
    */
   printLog?: boolean;
 
-  /**
-   *
-   */
   body?: boolean;
-}
-
-export interface AuditLoggerReturns {
-  req: Request;
-  res: Response;
-  route: Route;
-  err: Error;
 }
 
 /**
  * An audit logger for recording all handled requests
  */
-export function auditLogger(options: AuditLoggerOptions): AuditLoggerReturns;
+export function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
 
 /**
  * Authorization header
@@ -172,14 +160,8 @@ export interface BodyParserOptions {
    */
   rejectUnknown?: boolean;
 
-  /**
-   *
-   */
   reviver?: any;
 
-  /**
-   *
-   */
   maxFieldsSize?: number;
 }
 
@@ -191,7 +173,7 @@ export function bodyParser(options?: BodyParserOptions): RequestHandler[];
 /**
  * Reads the body of the request.
  */
-export function bodyReader( options?: {maxBodySize?: number} ): RequestHandler;
+export function bodyReader(options?: {maxBodySize?: number}): RequestHandler;
 
 export interface UrlEncodedBodyParser {
   mapParams?: boolean;
@@ -316,7 +298,7 @@ export function dateParser(delta?: number): RequestHandler;
 export function gzipResponse(options?: any): RequestHandler;
 
 export interface ServeStatic {
-  appendRequestPath?: boolean | undefined;
+  appendRequestPath?: boolean;
   directory?: string;
   maxAge?: number;
   match?: any;
@@ -349,9 +331,6 @@ export interface MetricsCallback {
    */
   err: Error;
 
-  /**
-   *
-   */
   metrics: MetricsCallbackOptions;
 
   req: Request;
@@ -395,24 +374,17 @@ export interface MetricsCallbackOptions {
   connectionState: TMetricsCallback;
 }
 
-export interface MetricsReturns {
-  req: Request;
-  res: Response;
-  route: Route;
-  err: Error;
-}
-
 /**
  * Listens to the server's after event and emits information about that request (5.x compatible only).
  *
  * ```
- * server.on('after', plugins.metrics( (err, metrics) =>
+ * server.on('after', plugins.metrics((err, metrics) =>
  * {
  *    // metrics is an object containing information about the request
  * }));
  * ```
  */
-export function metrics(opts: {server: Server}, callback: (options: MetricsCallback) => any ): MetricsReturns;
+export function metrics(opts: {server: Server}, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
 
 /**
  * Parse the client's request for an OAUTH2 access tokensTable

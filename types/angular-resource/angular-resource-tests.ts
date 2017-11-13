@@ -1,15 +1,74 @@
+// Examples of working with resource, previously from the angular.d.ts. readme
+// Working with $resource
 
-import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;
+// We have the option to define arguments for a custom resource
+interface IArticleParameters {
+    id: number;
+}
+
+interface IArticleResource extends ng.resource.IResource<IArticleResource> {
+    title: string;
+    text: string;
+    date: Date;
+    author: number;
+
+    // Although all actions defined on IArticleResourceClass are avaiable with
+    // the '$' prefix, we have the choice to expose only what we will use
+    $publish(): IArticleResource;
+    $unpublish(): IArticleResource;
+}
+
+// Let's define a custom resource
+interface IArticleResourceClass extends ng.resource.IResourceClass<IArticleResource> {
+    // Overload get to accept our custom parameters
+    get(): IArticleResource;
+    get(params: IArticleParameters, onSuccess: Function): IArticleResource;
+
+    // Add our custom resource actions
+    publish(params?: IArticleParameters): IArticleResource;
+    unpublish(params: IArticleParameters): IArticleResource;
+}
+
+function MainController($resource: ng.resource.IResourceService): void {
+    // IntelliSense will provide IActionDescriptor interface and will validate
+    // your assignment against it
+    const publishDescriptor: ng.resource.IActionDescriptor = {
+        method: 'GET',
+        isArray: false
+    };
+
+    // A call to the $resource service returns a IResourceClass. Since
+    // our own IArticleResourceClass defines 2 more actions, we cast the return
+    // value to make the compiler aware of that
+    const articleResource: IArticleResourceClass = $resource<IArticleResource, IArticleResourceClass>('/articles/:id', null, {
+        publish : publishDescriptor,
+        unpublish : {
+            method: 'POST'
+        }
+    });
+
+    // Now we can do this
+    articleResource.unpublish({ id: 1 });
+
+    // IResourceClass.get() will be automatically available here
+    const article: IArticleResource = articleResource.get({id: 1}, function success(): void {
+        // Again, default + custom action here...
+        article.title = 'New Title';
+        article.$save();
+        article.$publish();
+    });
+}
+
+import IHttpResponse = angular.IHttpResponse;
 
 interface IMyData {}
-interface IMyHttpPromiseCallbackArg extends IHttpPromiseCallbackArg<IMyData> {}
-interface IMyResource extends angular.resource.IResource<IMyResource> { }
-interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> { }
+interface IMyResource extends angular.resource.IResource<IMyResource> {}
+interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> {}
 
 ///////////////////////////////////////
 // IActionDescriptor
 ///////////////////////////////////////
-var actionDescriptor: angular.resource.IActionDescriptor;
+let actionDescriptor: angular.resource.IActionDescriptor;
 
 angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactoryService) {
     actionDescriptor.method = 'method action';
@@ -27,19 +86,18 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
     actionDescriptor.withCredentials = true;
     actionDescriptor.responseType = 'response type';
     actionDescriptor.interceptor = {
-        response: function<IMyData> () { return <IMyHttpPromiseCallbackArg>{}; },
-        responseError: function () {}
+        response() { return {} as IHttpResponse<IMyData>; },
+        responseError() {}
     };
     actionDescriptor.cancellable = true;
 });
 
-
 ///////////////////////////////////////
 // IResourceClass
 ///////////////////////////////////////
-var resourceClass: IMyResourceClass;
-var resource: IMyResource;
-var resourceArray: angular.resource.IResourceArray<IMyResource>;
+let resourceClass: IMyResourceClass;
+let resource: IMyResource;
+let resourceArray: angular.resource.IResourceArray<IMyResource>;
 
 resource = resourceClass.delete();
 resource = resourceClass.delete({ key: 'value' });
@@ -94,9 +152,9 @@ resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { 
 // IResource
 ///////////////////////////////////////
 
-var promise : angular.IPromise<IMyResource>;
-var arrayPromise : angular.IPromise<IMyResource[]>;
-var json: IMyResource;
+let promise: angular.IPromise<IMyResource>;
+let arrayPromise: angular.IPromise<IMyResource[]>;
+let json: IMyResource;
 
 promise = resource.$delete();
 promise = resource.$delete({ key: 'value' });
@@ -140,7 +198,7 @@ json    = resource.toJSON();
 ///////////////////////////////////////
 // IResourceService
 ///////////////////////////////////////
-var resourceService: angular.resource.IResourceService;
+let resourceService: angular.resource.IResourceService;
 resourceClass = resourceService<IMyResource, IMyResourceClass>('test');
 resourceClass = resourceService<IMyResource>('test');
 resourceClass = resourceService('test');
@@ -148,22 +206,20 @@ resourceClass = resourceService('test');
 ///////////////////////////////////////
 // IModule
 ///////////////////////////////////////
-var mod: ng.IModule;
-var resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<IMyResource>;
-var resourceService: angular.resource.IResourceService;
+let mod: ng.IModule;
+let resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<IMyResource>;
 
 resourceClass = resourceServiceFactoryFunction<IMyResourceClass>(resourceService);
 
-resourceServiceFactoryFunction = function (resourceService: angular.resource.IResourceService) { return <any>resourceClass; };
+resourceServiceFactoryFunction = function (resourceService: angular.resource.IResourceService) { return resourceClass as any; };
 mod = mod.factory('factory name', resourceServiceFactoryFunction);
 
 ///////////////////////////////////////
 // IResource
 ///////////////////////////////////////
 
-
 ///////////////////////////////////////
 // IResourceServiceProvider
 ///////////////////////////////////////
-var resourceServiceProvider: angular.resource.IResourceServiceProvider;
+let resourceServiceProvider: angular.resource.IResourceServiceProvider;
 resourceServiceProvider.defaults.stripTrailingSlashes = false;

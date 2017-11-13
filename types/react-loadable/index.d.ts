@@ -2,7 +2,7 @@
 // Project: https://github.com/thejameskyle/react-loadable#readme
 // Definitions by: Diogo Franco <https://github.com/Kovensky>, Oden S. <https://github.com/odensc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 
@@ -68,6 +68,11 @@ export interface OptionsWithRender<Props, Exports extends object> extends Common
      * ```
      */
     render(loaded: Exports, props: Props): React.ReactNode;
+
+    // NOTE: render is not optional if the loader return type is not compatible with the type
+    // expected in `OptionsWithoutRender`. If you do not want to provide a render function, ensure that your
+    // function is returning a promise for a React.ComponentType or is the result of import()ing a module
+    // that has a component as its `default` export.
 }
 
 export interface OptionsWithMap<Props, Exports extends { [key: string]: any }> extends CommonOptions {

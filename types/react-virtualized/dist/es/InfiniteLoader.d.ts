@@ -44,6 +44,14 @@ export type InfiniteLoaderProps = {
      * This value defaults to 15.
      */
     threshold?: number;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 };
 
 /**

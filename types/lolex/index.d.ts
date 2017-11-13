@@ -70,9 +70,10 @@ export interface LolexClock<TTimerId extends TimerId> {
      * 
      * @param callback   Callback to be fired.
      * @param timeout   How many ticks to wait to run the callback.
+     * @param args   Any extra arguments to pass to the callback.
      * @returns Time identifier for cancellation.
      */
-    setTimeout(callback: () => any, timeout: number): TTimerId;
+    setTimeout(callback: () => any, timeout: number, ...args: any[]): TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setTimeout.
@@ -86,9 +87,10 @@ export interface LolexClock<TTimerId extends TimerId> {
      * 
      * @param callback   Callback to be fired.
      * @param timeout   How many ticks to wait between callbacks.
+     * @param args   Any extra arguments to pass to the callback.
      * @returns Time identifier for cancellation.
      */
-    setInterval(callback: () => any, timeout: number): TTimerId;
+    setInterval(callback: () => any, timeout: number, ...args: any[]): TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setInterval.

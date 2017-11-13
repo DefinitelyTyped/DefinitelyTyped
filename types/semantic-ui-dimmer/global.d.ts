@@ -95,18 +95,41 @@ declare namespace SemanticUI {
          */
         (behavior: 'set disabled'): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof DimmerSettings>(behavior: 'setting', name: K, value?: undefined): DimmerSettings[K];
-        <K extends keyof DimmerSettings>(behavior: 'setting', name: K, value: DimmerSettings[K]): JQuery;
-        (behavior: 'setting', value: DimmerSettings | object): JQuery;
-        (settings?: DimmerSettings | object): JQuery;
+        <K extends keyof DimmerSettings>(behavior: 'setting', name: K, value?: undefined): DimmerSettings._Impl[K];
+        <K extends keyof DimmerSettings>(behavior: 'setting', name: K, value: DimmerSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: DimmerSettings): JQuery;
+        (settings?: DimmerSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/dimmer.html#/settings}
      */
-    interface DimmerSettings extends Pick<DimmerSettings._Impl, keyof DimmerSettings._Impl> { }
+    type DimmerSettings = DimmerSettings.Param;
 
     namespace DimmerSettings {
+        type Param = (Pick<_Impl, 'opacity'> |
+            Pick<_Impl, 'variation'> |
+            Pick<_Impl, 'dimmerName'> |
+            Pick<_Impl, 'closable'> |
+            Pick<_Impl, 'on'> |
+            Pick<_Impl, 'useCSS'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'transition'> |
+            Pick<_Impl, 'onShow'> |
+            Pick<_Impl, 'onHide'> |
+            Pick<_Impl, 'onChange'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'template'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
+
         interface _Impl {
             // region Behavior
 
@@ -244,9 +267,13 @@ declare namespace SemanticUI {
     }
 
     namespace Dimmer {
-        interface DurationSettings extends Pick<DurationSettings._Impl, keyof DurationSettings._Impl> { }
+        type DurationSettings = DurationSettings.Param;
 
         namespace DurationSettings {
+            type Param = (Pick<_Impl, 'show'> |
+                Pick<_Impl, 'hide'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default 500
@@ -259,9 +286,14 @@ declare namespace SemanticUI {
             }
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
+            type Param = (Pick<_Impl, 'dimmable'> |
+                Pick<_Impl, 'dimmer'> |
+                Pick<_Impl, 'content'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default '.dimmable'
@@ -278,17 +310,30 @@ declare namespace SemanticUI {
             }
         }
 
-        interface TemplateSettings extends Pick<TemplateSettings._Impl, keyof TemplateSettings._Impl> { }
+        type TemplateSettings = TemplateSettings.Param;
 
         namespace TemplateSettings {
+            type Param = (Pick<_Impl, 'dimmer'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 dimmer(): JQuery;
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
+            type Param = (Pick<_Impl, 'active'> |
+                Pick<_Impl, 'dimmable'> |
+                Pick<_Impl, 'dimmed'> |
+                Pick<_Impl, 'disabled'> |
+                Pick<_Impl, 'pageDimmer'> |
+                Pick<_Impl, 'hide'> |
+                Pick<_Impl, 'show'> |
+                Pick<_Impl, 'transition'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default 'active'
@@ -325,9 +370,12 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
+            type Param = (Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default 'The method you called is not defined.'

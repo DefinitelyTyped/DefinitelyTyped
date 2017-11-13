@@ -21,7 +21,7 @@ var MySchema: mongoose.Schema = new mongoose.Schema(...);
 
 Alternatively, you can import individual names and call them:
 ```typescript
-import {model, Schema} from 'mongoose';
+import { model, Schema } from 'mongoose';
 var MyModel = model(...);
 var MySchema: Schema = new Schema(...):
 ```

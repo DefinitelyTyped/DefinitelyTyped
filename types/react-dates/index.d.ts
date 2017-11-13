@@ -1,4 +1,4 @@
-// Type definitions for react-dates v12.1.0
+// Type definitions for react-dates v12.1.1
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/Artur-A>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -57,6 +57,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
+        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -144,6 +145,7 @@ declare namespace ReactDates {
         withPortal?: boolean,
         withFullScreenPortal?: boolean,
         initialVisibleMonth?: () => momentPropTypes.momentObj,
+        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
         numberOfMonths?: number,
         keepOpenOnDateSelect?: boolean,
         reopenPickerOnClearDates?: boolean,
@@ -226,6 +228,7 @@ declare namespace ReactDates {
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
+        hideKeyboardShortcutsPanel?: boolean;
         onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
         onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
 

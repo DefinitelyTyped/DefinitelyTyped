@@ -94,21 +94,57 @@ declare namespace SemanticUI {
          * Removes all events
          */
         (behavior: 'destroy'): JQuery;
-        <K extends keyof SearchSettings>(behavior: 'setting', name: K, value?: undefined): SearchSettings[K];
-        <K extends keyof SearchSettings>(behavior: 'setting', name: K, value: SearchSettings[K]): JQuery;
-        (behavior: 'setting', value: SearchSettings.Param): JQuery;
-        (settings?: SearchSettings.Param): JQuery;
+        <K extends keyof SearchSettings>(behavior: 'setting', name: K, value?: undefined): SearchSettings._Impl[K];
+        <K extends keyof SearchSettings>(behavior: 'setting', name: K, value: SearchSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: SearchSettings): JQuery;
+        (settings?: SearchSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/search.html#/settings}
      */
-    interface SearchSettings extends Pick<SearchSettings._Impl, keyof SearchSettings._Impl> { }
+    type SearchSettings = SearchSettings.Param;
 
     namespace SearchSettings {
-        type Param = SearchSettings | object;
+        type Param = (Pick<_Impl, 'apiSettings'> |
+            Pick<_Impl, 'type'> |
+            Pick<_Impl, 'minCharacters'> |
+            Pick<_Impl, 'transition'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'maxResults'> |
+            Pick<_Impl, 'cache'> |
+            Pick<_Impl, 'source'> |
+            Pick<_Impl, 'selectFirstResult'> |
+            Pick<_Impl, 'showNoResults'> |
+            Pick<_Impl, 'searchFullText'> |
+            Pick<_Impl, 'fields'> |
+            Pick<_Impl, 'searchFields'> |
+            Pick<_Impl, 'hideDelay'> |
+            Pick<_Impl, 'searchDelay'> |
+            Pick<_Impl, 'easing'> |
+            Pick<_Impl, 'onSelect'> |
+            Pick<_Impl, 'onResultsAdd'> |
+            Pick<_Impl, 'onSearchQuery'> |
+            Pick<_Impl, 'onResults'> |
+            Pick<_Impl, 'onResultsOpen'> |
+            Pick<_Impl, 'onResultsClose'> |
+            Pick<_Impl, 'templates'> |
+            Pick<_Impl, 'regExp'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'metadata'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
+            type: string;
+
             // region Behavior
 
             /**
@@ -306,10 +342,21 @@ declare namespace SemanticUI {
     }
 
     namespace Search {
-        interface FieldsSettings extends Pick<FieldsSettings._Impl, keyof FieldsSettings._Impl> { }
+        type FieldsSettings = FieldsSettings.Param;
 
         namespace FieldsSettings {
-            type Param = FieldsSettings | object;
+            type Param = (Pick<_Impl, 'categories'> |
+                Pick<_Impl, 'categoryName'> |
+                Pick<_Impl, 'categoryResults'> |
+                Pick<_Impl, 'description'> |
+                Pick<_Impl, 'image'> |
+                Pick<_Impl, 'price'> |
+                Pick<_Impl, 'results'> |
+                Pick<_Impl, 'title'> |
+                Pick<_Impl, 'action'> |
+                Pick<_Impl, 'actionText'> |
+                Pick<_Impl, 'actionURL'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -381,10 +428,14 @@ declare namespace SemanticUI {
             }
         }
 
-        interface TemplatesSettings extends Pick<TemplatesSettings._Impl, keyof TemplatesSettings._Impl> { }
+        type TemplatesSettings = TemplatesSettings.Param;
 
         namespace TemplatesSettings {
-            type Param = TemplatesSettings | object;
+            type Param = (Pick<_Impl, 'escape'> |
+                Pick<_Impl, 'message'> |
+                Pick<_Impl, 'category'> |
+                Pick<_Impl, 'standard'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 escape(string: string): string;
@@ -394,10 +445,12 @@ declare namespace SemanticUI {
             }
         }
 
-        interface RegExpSettings extends Pick<RegExpSettings._Impl, keyof RegExpSettings._Impl> { }
+        type RegExpSettings = RegExpSettings.Param;
 
         namespace RegExpSettings {
-            type Param = RegExpSettings | object;
+            type Param = (Pick<_Impl, 'escape'> |
+                Pick<_Impl, 'beginsWith'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -411,10 +464,15 @@ declare namespace SemanticUI {
             }
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'prompt'> |
+                Pick<_Impl, 'searchButton'> |
+                Pick<_Impl, 'results'> |
+                Pick<_Impl, 'category'> |
+                Pick<_Impl, 'result'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -440,10 +498,12 @@ declare namespace SemanticUI {
             }
         }
 
-        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
+        type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = MetadataSettings | object;
+            type Param = (Pick<_Impl, 'cache'> |
+                Pick<_Impl, 'results'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -457,10 +517,15 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'active'> |
+                Pick<_Impl, 'empty'> |
+                Pick<_Impl, 'focus'> |
+                Pick<_Impl, 'loading'> |
+                Pick<_Impl, 'pressed'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -486,10 +551,17 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'source'> |
+                Pick<_Impl, 'noResults'> |
+                Pick<_Impl, 'logging'> |
+                Pick<_Impl, 'noTemplate'> |
+                Pick<_Impl, 'serverError'> |
+                Pick<_Impl, 'maxResults'> |
+                Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

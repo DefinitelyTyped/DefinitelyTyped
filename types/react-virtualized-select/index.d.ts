@@ -22,7 +22,14 @@ export interface VirtualizedOptionRenderOptions<T> {
     valueArray: T[];
 }
 
-export interface VirtualizedSelectProps extends ReactSelectProps {
+/**
+ * Dummy interface to allow `VirtualizedSelectProps` to have an `optionRenderer` type
+ * incompatible with the one in `ReactSelectProps`.
+ */
+interface VirtualizedSelectPropsBase extends ReactSelectProps {
+    optionRenderer?: any;
+}
+export interface VirtualizedSelectProps extends VirtualizedSelectPropsBase {
     async?: boolean;
     maxHeight?: number;
     optionHeight?: number;
