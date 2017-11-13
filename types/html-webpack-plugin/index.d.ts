@@ -1,4 +1,4 @@
-// Type definitions for html-webpack-plugin 2.28
+// Type definitions for html-webpack-plugin 2.30
 // Project: https://github.com/ampedandwired/html-webpack-plugin
 // Definitions by: Simon Hartcher <https://github.com/deevus>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,7 +37,7 @@ declare namespace HtmlWebpackPlugin {
 		 * Allows to control how chunks should be sorted before they are included to the html.
 		 * Allowed values: `'none' | 'auto' | 'dependency' | {function}` - default: `'auto'`
 		 */
-		chunksSortMode?: 'none' | 'auto' | 'dependency' | ChunkComparator;
+		chunksSortMode?: 'none' | 'auto' | 'dependency' | 'manual' | ChunkComparator;
 		/** Allows you to add only some chunks (e.g. only the unit-test chunk) */
 		chunks?: string[];
 		/** Allows you to skip some chunks (e.g. don't add the unit-test chunk) */
