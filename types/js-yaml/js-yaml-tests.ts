@@ -1,5 +1,3 @@
-
-
 import yaml = require('js-yaml');
 import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
