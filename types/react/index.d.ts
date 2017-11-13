@@ -814,7 +814,7 @@ declare namespace React {
 
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
-    interface CSSProperties {
+    export interface CSSProperties {
         /**
          * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
          */
