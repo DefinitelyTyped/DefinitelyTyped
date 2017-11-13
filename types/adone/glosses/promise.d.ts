@@ -47,8 +47,8 @@ declare namespace adone {
         /**
          * Converts a function that returns promises to a node.js style callback function
          *
-         * @param {Function} fn Function
-         * @returns {Promise} the original promise
+         * @param fn Function
+         * @returns the original promise
          */
         export function callbackify<R>(fn: () => Promise<R>): (callback: (err?: any, result?: R) => void) => Promise<R>;
         export function callbackify<T, R>(fn: (a: T) => Promise<R>): (a: T, callback: (err?: any, result?: R) => void) => Promise<R>;

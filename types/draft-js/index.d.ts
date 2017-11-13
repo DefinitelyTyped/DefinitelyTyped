@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.10.3
+// Type definitions for Draft.js v0.10.4
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 //                 Eelco Lempsink <https://github.com/eelco>
@@ -156,6 +156,8 @@ declare namespace Draft {
                 onTab?(e: SyntheticKeyboardEvent): void,
                 onUpArrow?(e: SyntheticKeyboardEvent): void,
                 onDownArrow?(e: SyntheticKeyboardEvent): void,
+                onRightArrow?(e: SyntheticKeyboardEvent): void,
+                onLeftArrow?(e: SyntheticKeyboardEvent): void,
 
                 onBlur?(e: SyntheticEvent): void,
                 onFocus?(e: SyntheticEvent): void,

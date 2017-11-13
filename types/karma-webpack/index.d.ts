@@ -2,6 +2,7 @@
 // Project: http://github.com/webpack/karma-webpack
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as m from 'karma';
 import webpack = require('webpack');

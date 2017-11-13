@@ -5,6 +5,7 @@
 //                 William Yu <https://github.com/iwllyu>
 //                 Alvis HT Tang <https://github.com/alvis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -87,7 +88,7 @@ interface HighlandStatic {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	
+
 	/**
 	 * Returns true if `x` is a Highland Stream.
 	 *
@@ -337,7 +338,7 @@ interface HighlandStatic {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// OPERATORS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	
+
 	/**
 	 * Add two values. Can be partially applied.
 	 *
@@ -437,7 +438,7 @@ declare namespace Highland {
 		 * @api public
 		 */
 		end(): void;
-		
+
 		/**
 		 * Pauses the stream. All Highland Streams start in the paused state.
 		 *
@@ -479,7 +480,7 @@ declare namespace Highland {
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// TRANSFORMS
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		
+
 		/**
 		 * Adds a value to the end of a Stream.
 		 *
@@ -503,7 +504,7 @@ declare namespace Highland {
 		 * _([1, 2, 3, 4, 5]).batch(2)  // => [1, 2], [3, 4], [5]
 		 */
 		batch(n: number): Stream<R[]>;
-		
+
 		/**
 		 * Takes one Stream and batches incoming data within a maximum time frame
 		 * into arrays of a maximum length.
@@ -1267,7 +1268,7 @@ declare namespace Highland {
 		 * @api public
 		 */
 		pull(f: (err: Error, x: R) => void): void;
-		
+
 		/**
 		 * Collects all values from a Stream into an Array and calls a function with
 		 * once with the result. This function causes a **thunk**.

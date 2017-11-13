@@ -1,14 +1,17 @@
 // Type definitions for puppeteer 0.12
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
+//                 Christopher Deutsch <https://github.com/cdeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 export interface Keyboard {
-  down(key: string, options?: { text: string }): Promise<void>;
+  down(key: string, options?: { text?: string }): Promise<void>;
+  press(key: string, options?: { text?: string, delay?: number }): Promise<void>;
   sendCharacter(char: string): Promise<void>;
+  type(text: string, options?: { delay?: number }): Promise<void>;
   up(key: string): Promise<void>;
 }
 
@@ -39,6 +42,14 @@ export interface Dialog {
   dismiss(): Promise<void>;
   message(): string;
   type: "alert" | "beforeunload" | "confirm" | "prompt";
+}
+
+export interface ConsoleMessage {
+  args: JSHandle[];
+  text: string;
+  type: 'log' | 'debug' | 'info' | 'error' | 'warning' | 'dir' | 'dirxml' | 'table' |
+        'trace' | 'clear' | 'startGroup' | 'startGroupCollapsed' | 'endGroup' | 'assert' |
+        'profile' | 'profileEnd' | 'count' | 'timeEnd';
 }
 
 export type PageEvents =
@@ -85,6 +96,25 @@ export interface Cookie {
   sameSite: "Strict" | "Lax";
 }
 
+export interface DeleteCookie {
+  name: string;
+  url?: string;
+  domain?: string;
+  path?: string;
+  secure?: boolean;
+}
+
+export interface SetCookie {
+  name: string;
+  value: string;
+  domain?: string;
+  path?: string;
+  expires?: number;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: "Strict" | "Lax";
+}
+
 export interface Viewport {
   width: number;
   height: number;
@@ -99,7 +129,7 @@ export interface EmulateOptions {
   userAgent?: string;
 }
 
-export type EvaluateFn<T> = (elem?: ElementHandle) => Promise<T>;
+export type EvaluateFn = string | ((...args: any[]) => any);
 
 export interface NavigationOptions {
   timeout?: number;
@@ -149,13 +179,14 @@ export interface ScreenshotOptions {
   /** The quality of the image, between 0-100. Not applicable to png images. */
   quality?: number;
   fullPage?: boolean;
-  clip?: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  clip?: BoundingBox;
   omitBackground?: boolean;
+}
+
+export interface TagOptions {
+  url?: string;
+  path?: string;
+  content?: string;
 }
 
 export interface PageFnOptions {
@@ -163,12 +194,61 @@ export interface PageFnOptions {
   timeout?: number;
 }
 
-export interface ElementHandle {
+export interface BoundingBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface ElementHandle extends JSHandle {
+  boundingBox(): BoundingBox | null;
   click(options?: ClickOptions): Promise<void>;
-  dispose(): Promise<void>;
+  focus(): Promise<void>;
   hover(): Promise<void>;
+  press(key: string, options?: { text?: string, delay?: number }): Promise<void>;
+  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
   tap(): Promise<void>;
+  toString(): string;
+  type(text: string, options?: { delay: number }): Promise<void>;
   uploadFile(...filePaths: string[]): Promise<void>;
+}
+
+export interface ExecutionContext {
+  evaluate(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<any>;
+  evaluateHandle(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<JSHandle>;
+  queryObjects(prototypeHandle: JSHandle): JSHandle;
+}
+
+export interface JSHandle {
+  asElement(): ElementHandle | null;
+  dispose(): Promise<void>;
+  executionContext(): ExecutionContext;
+  getProperties(): Promise<Map<string, JSHandle>>;
+  getProperty(propertyName: string): Promise<JSHandle>;
+  jsonValue(): Promise<any>;
+}
+
+export interface Metrics {
+  Timestamp: number;
+  Documents: number;
+  Frames: number;
+  JSEventListeners: number;
+  Nodes: number;
+  LayoutCount: number;
+  RecalcStyleCount: number;
+  LayoutDuration: number;
+  RecalcStyleDuration: number;
+  ScriptDuration: number;
+  TaskDuration: number;
+  JSHeapUsedSize: number;
+  JSHeapTotalSize: number;
 }
 
 export type Headers = Record<string, string>;
@@ -216,7 +296,7 @@ export interface Request {
 export interface Response {
   buffer(): Promise<Buffer>;
   headers: Headers;
-  json(): Promise<object>;
+  json(): Promise<any>;
   ok: boolean;
   request(): Request;
   status: number;
@@ -224,28 +304,32 @@ export interface Response {
   url: string;
 }
 
-export type Serializable = boolean | number | string | object;
-
 export interface FrameBase {
-  $(selector: string): Promise<ElementHandle>;
+  $(selector: string): Promise<ElementHandle | null>;
   $$(selector: string): Promise<ElementHandle[]>;
+  $$eval(
+    selector: string,
+    fn: (...args: any[]) => void
+  ): Promise<any>;
   $eval(
     selector: string,
-    fn: (...args: Array<Serializable | ElementHandle>) => void
-  ): Promise<Serializable>;
-  addScriptTag(url: string): Promise<void>;
+    fn: (...args: any[]) => void
+  ): Promise<any>;
+  addScriptTag(options: TagOptions): Promise<void>;
+  addStyleTag(options: TagOptions): Promise<void>;
   injectFile(filePath: string): Promise<void>;
-  evaluate<T = string>(
-    fn: T | EvaluateFn<T>,
-    ...args: Array<object | ElementHandle>
-  ): Promise<T>;
+  evaluate(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<any>;
   title(): Promise<string>;
   url(): string;
   waitFor(
     // fn can be an abritary function
     // tslint:disable-next-line ban-types
     selectorOrFunctionOrTimeout: string | number | Function,
-    options?: object
+    options?: any,
+    ...args: any[]
   ): Promise<void>;
   waitForFunction(
     // fn can be an abritary function
@@ -254,7 +338,6 @@ export interface FrameBase {
     options?: PageFnOptions,
     ...args: any[]
   ): Promise<void>;
-  waitForNavigation(options?: NavigationOptions): Promise<Response>;
   waitForSelector(
     selector: string,
     options?: { visible: boolean; timeout: number }
@@ -263,19 +346,21 @@ export interface FrameBase {
 
 export interface Frame extends FrameBase {
   childFrames(): Frame[];
+  executionContext(): ExecutionContext;
   isDetached(): boolean;
   name(): string;
-  parentFrame(): Frame | undefined;
+  parentFrame(): Frame | null;
 }
 
 export interface EventObj {
-  console: string;
+  console: ConsoleMessage;
   dialog: Dialog;
   error: Error;
   frameattached: Frame;
   framedetached: Frame;
   framenavigated: Frame;
   load: undefined;
+  metrics: { title: string, metrics: any };
   pageerror: string;
   request: Request;
   requestfailed: Request;
@@ -284,7 +369,6 @@ export interface EventObj {
 }
 
 export interface Page extends FrameBase {
-  on(event: "console", handler: (...args: any[]) => void): void;
   on<K extends keyof EventObj>(
     event: K,
     handler: (e: EventObj[K], ...args: any[]) => void
@@ -294,41 +378,38 @@ export interface Page extends FrameBase {
   close(): Promise<void>;
   content(): Promise<string>;
   cookies(...urls: string[]): Promise<Cookie[]>;
-  deleteCookie(
-    ...cookies: Array<{
-      name: string;
-      url?: string;
-      domain?: string;
-      path?: string;
-      secure?: boolean;
-    }>
-  ): Promise<void>;
+  deleteCookie(...cookies: DeleteCookie[]): Promise<void>;
   emulate(options: Partial<EmulateOptions>): Promise<void>;
-  emulateMedia(mediaType: string | null): Promise<void>;
+  emulateMedia(mediaType: 'screen' | 'print' | null): Promise<void>;
+  evaluateHandle(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<JSHandle>;
   evaluateOnNewDocument(
-    fn: EvaluateFn<string>,
-    ...args: object[]
+    fn: EvaluateFn,
+    ...args: any[]
   ): Promise<void>;
 
   // Argument `fn` can be an arbitrary function
-  exposeFunction(name: string, fn: any): Promise<void>;
+  exposeFunction(name: string, fn: (...args: any[]) => any): Promise<void>;
 
   focus(selector: string): Promise<void>;
   frames(): Frame[];
-  goBack(options?: Partial<NavigationOptions>): Promise<Response>;
-  goForward(options?: Partial<NavigationOptions>): Promise<Response>;
-  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response>;
+  getMetrics(): Metrics;
+  goBack(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goForward(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
   hover(selector: string): Promise<void>;
   keyboard: Keyboard;
   mainFrame(): Frame;
   mouse: Mouse;
   pdf(options?: Partial<PDFOptions>): Promise<Buffer>;
-  plainText(): Promise<string>;
-  press(key: string, options?: { text: string; delay: number }): Promise<void>;
+  queryObjects(prototypeHandle: JSHandle): Promise<JSHandle>;
   reload(options?: NavigationOptions): Promise<Response>;
   screenshot(options?: ScreenshotOptions): Promise<Buffer>;
+  select(selector: string, ...values: string[]): Promise<void>;
   setContent(html: string): Promise<void>;
-  setCookie(...cookies: Cookie[]): Promise<void>;
+  setCookie(...cookies: SetCookie[]): Promise<void>;
   setExtraHTTPHeaders(headers: Headers): Promise<void>;
   setJavaScriptEnabled(enabled: boolean): Promise<void>;
   setRequestInterceptionEnabled(value: boolean): Promise<void>;
@@ -337,8 +418,9 @@ export interface Page extends FrameBase {
   tap(selector: string): Promise<void>;
   touchscreen: Touchscreen;
   tracing: Tracing;
-  type(text: string, options?: { delay: number }): Promise<void>;
+  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
   viewport(): Viewport;
+  waitForNavigation(options?: NavigationOptions): Promise<Response>;
 }
 
 export interface Browser {
@@ -383,6 +465,10 @@ export interface LaunchOptions {
   dumpio?: boolean;
   /** Path to a User Data Directory. */
   userDataDir?: string;
+  /** Specify environment variables that will be visible to Chromium. Defaults to process.env. */
+  env?: any;
+  /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
+  devtools?: boolean;
 }
 
 export interface ConnectOptions {

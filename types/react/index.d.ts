@@ -13,6 +13,7 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
+//                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,7 +33,7 @@ And since any object is assignable to {}, we would lose the type safety of the P
 Therefore, the type of props is left as Q, which should work for most cases.
 If you need to call cloneElement with key or ref, you'll need a type cast:
 interface ButtonProps {
-    label: string,
+    label: string;
     isDisabled?: boolean;
 }
 var element: React.CElement<ButtonProps, Button>;
@@ -70,7 +71,7 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ReactType<P = any> = string | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
@@ -123,6 +124,11 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
+    interface ReactPortal {
+        key: Key | null;
+        children: ReactNode;
+    }
+
     //
     // Factories
     // ----------------------------------------------------------------------
@@ -161,7 +167,7 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //
     // Top Level API
@@ -271,7 +277,7 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
-        constructor(props?: P, context?: any);
+        constructor(props: P, context?: any);
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
         // tslint:disable:unified-signatures
@@ -280,7 +286,7 @@ declare namespace React {
         // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | JSX.Element[] | string | number | null | false;
+        render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -321,7 +327,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+        new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -330,7 +336,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -341,8 +347,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T) &
+        (new (props: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -415,7 +421,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | Array<ReactElement<any>> | string | number | null;
+        render(): ReactNode;
 
         [propertyName: string]: any;
     }
@@ -919,6 +925,11 @@ declare namespace React {
          * Background-repeat defines if and how background images will be repeated after they have been sized and positioned
          */
         backgroundRepeat?: CSSWideKeyword | any;
+
+        /**
+         * Defines the size of the background images
+         */
+        backgroundSize?: CSSWideKeyword | any;
 
         /**
          * Obsolete - spec retired, not implemented.
@@ -2487,6 +2498,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
@@ -2596,6 +2608,7 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
+        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -2781,6 +2794,7 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
+        as?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3505,7 +3519,7 @@ declare global {
         // tslint:disable:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | Element[] | string | number | null | false;
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }

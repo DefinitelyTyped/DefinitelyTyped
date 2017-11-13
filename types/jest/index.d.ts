@@ -8,6 +8,7 @@
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
+//                 Jamie Mason <https://github.com/JamieMason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -198,9 +199,9 @@ declare namespace jest {
         /**
          * Creates a test closure.
          *
-         * @param {string} name The name of your test
-         * @param {fn?} ProvidesCallback The function for your test
-         * @param {timeout?} timeout The timeout for an async function test
+         * @param name The name of your test
+         * @param fn The function for your test
+         * @param timeout The timeout for an async function test
          */
         (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
@@ -240,7 +241,7 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, actual: any) => { message(): string, pass: boolean };
+        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
     }
 
     interface SnapshotSerializerOptions {
@@ -290,7 +291,7 @@ declare namespace jest {
          * The `expect` function is used every time you want to test a value.
          * You will rarely call `expect` by itself.
          *
-         * @param {any} actual The value to apply matchers against.
+         * @param actual The value to apply matchers against.
          */
         (actual: any): Matchers<void>;
         anything(): any;

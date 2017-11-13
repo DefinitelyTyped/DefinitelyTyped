@@ -2,6 +2,7 @@
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
+//                 Pr1st0n <https://github.com/Pr1st0n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -336,6 +337,11 @@ declare namespace CodeMirror {
         "subtract" Reduce the indentation of the line. */
         indentLine(line: number, dir?: string): void;
 
+        /** Tells you whether the editor's content can be edited by the user. */
+        isReadOnly(): boolean;
+
+        /** Runs the command with the given name on the editor. */
+        execCommand(name: string): void;
 
         /** Give the editor focus. */
         focus(): void;
@@ -686,7 +692,7 @@ declare namespace CodeMirror {
 
     interface EditorChangeCancellable extends CodeMirror.EditorChange {
         /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact. */
-        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string): void;
+        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
 
         cancel(): void;
     }

@@ -592,7 +592,6 @@ declare module 'ember' {
         /**
          * Implements some standard methods for comparing objects. Add this mixin to
          * any class you create that can compare its instances.
-         * @private
          */
         interface Comparable {
             compare(a: any, b: any): number;
@@ -704,7 +703,6 @@ declare module 'ember' {
         }
         /**
          * A container used to instantiate and cache objects.
-         * @private
          */
         class Container {
             /**
@@ -726,7 +724,6 @@ declare module 'ember' {
         }
         /**
          * Additional methods for the Controller.
-         * @private
          */
         interface ControllerMixin extends ActionHandler {
             replaceRoute(name: string, ...args: any[]): void;
@@ -741,7 +738,6 @@ declare module 'ember' {
          * Implements some standard methods for copying an object. Add this mixin to
          * any object you create that can create a copy of itself. This mixin is
          * added automatically to the built-in array.
-         * @private
          */
         interface Copyable {
             /**
@@ -761,29 +757,24 @@ declare module 'ember' {
             /**
             An overridable method called when objects are instantiated. By default,
             does nothing unless it is overridden during class definition.
-            @method init
             **/
             init(): void;
 
             /**
-            Defines the properties that will be concatenated from the superclass (instead of overridden).
-            @property concatenatedProperties
-            @type Array
-            @default null
-            **/
+             * Defines the properties that will be concatenated from the superclass (instead of overridden).
+             * @default null
+             */
             concatenatedProperties: any[];
 
             /**
             Destroyed object property flag. If this property is true the observers and bindings were
             already removed by the effect of calling the destroy() method.
-            @property isDestroyed
             @default false
             **/
             isDestroyed: boolean;
             /**
             Destruction scheduled flag. The destroy() method has been called. The object stays intact
             until the end of the run loop at which point the isDestroyed flag is set.
-            @property isDestroying
             @default false
             **/
             isDestroying: boolean;
@@ -795,22 +786,19 @@ declare module 'ember' {
             raised.
             Note that destruction is scheduled for the end of the run loop and does not
             happen immediately.  It will set an isDestroying flag immediately.
-            @method destroy
-            @return {Ember.Object} receiver
+            @return receiver
             */
             destroy(): CoreObject;
 
             /**
             Override to implement teardown.
-            @method willDestroy
             */
             willDestroy(): void;
 
             /**
             Returns a string representation which attempts to provide more information than Javascript's toString
             typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
-            @method toString
-            @return {String} string representation
+            @return string representation
             **/
             toString(): string;
 
@@ -1273,7 +1261,6 @@ declare module 'ember' {
          * corresponding `Ember.Views.` For example, when you click on a view,
          * `Ember.EventDispatcher` ensures that that view's `mouseDown` method gets
          * called.
-         * @private
          */
         class EventDispatcher extends Object {
             /**
@@ -1332,7 +1319,6 @@ declare module 'ember' {
          * The `Ember.Freezable` mixin implements some basic methods for marking an
          * object as frozen. Once an object is frozen it should be read only. No changes
          * may be made the internal state of the object.
-         * @private
          * @deprecated Use `Object.freeze` instead.
          */
         interface Freezable {
@@ -1344,13 +1330,11 @@ declare module 'ember' {
          * `Ember.HashLocation` implements the location API using the browser's
          * hash. At present, it relies on a `hashchange` event existing in the
          * browser.
-         * @protected
          */
         class HashLocation extends Object {}
         /**
          * Ember.HistoryLocation implements the location API using the browser's
          * history.pushState API.
-         * @protected
          */
         class HistoryLocation extends Object {}
         /**
@@ -1378,7 +1362,6 @@ declare module 'ember' {
          * The purpose of the Ember Instrumentation module is
          * to provide efficient, general-purpose instrumentation
          * for Ember.
-         * @private
          */
         const Instrumentation: {
             instrument(name: string, payload: any, callback: Function, binding: any): void;
@@ -1639,7 +1622,6 @@ declare module 'ember' {
          * testing, or when you need to manage state with your Router, but temporarily
          * don't want it to muck with the URL (for example when you embed your
          * application in a larger page).
-         * @private
          */
         class NoneLocation extends Object {}
         /**
@@ -1792,7 +1774,6 @@ declare module 'ember' {
         /**
          * A registry used to store factory and option information keyed
          * by type.
-         * @private
          */
         class Registry {
             register(
@@ -2945,7 +2926,6 @@ declare module 'ember' {
          * NOTE: This is a low-level method used by other parts of the API.
          * You almost never want to call this method directly. Instead you
          * should use Ember.mixin() to define new properties.
-         * @private
          */
         function defineProperty(
             obj: object,
@@ -2956,7 +2936,6 @@ declare module 'ember' {
         ): void;
         /**
          * Alias an old, deprecated method with its new counterpart.
-         * @private
          */
         function deprecateFunc<Func extends ((...args: any[]) => any)>(
             message: string,
@@ -2964,7 +2943,6 @@ declare module 'ember' {
             func: Func
         ): Func;
         /**
-         * @private
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
         function deprecateFunc<Func extends ((...args: any[]) => any)>(
@@ -3168,13 +3146,11 @@ declare module 'ember' {
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
-         * @private
          */
         function onLoad(name: string, callback: Function): any;
         /**
          * Called when an Ember.js package (e.g Ember.Application) has finished
          * loading. Triggers any callbacks registered for this event.
-         * @private
          */
         function runLoadHooks(name: string, object?: {}): any;
         /**
@@ -3234,7 +3210,6 @@ declare module 'ember' {
         /**
          * Convenience method to inspect an object. This method will attempt to
          * convert the object into a useful string description.
-         * @private
          */
         function inspect(obj: any): string;
         /**
@@ -3246,9 +3221,8 @@ declare module 'ember' {
          * Forces the passed object to be part of an array. If the object is already
          * an array, it will return the object. Otherwise, it will add the object to
          * an array. If obj is `null` or `undefined`, it will return an empty array.
-         * @private
          */
-        function makeArray<T>(obj?: T[] | T | null | undefined): T[];
+        function makeArray<T>(obj?: T[] | T | null): T[];
         /**
          * Framework objects in an Ember application (components, services, routes, etc.)
          * are created via a factory and dependency injection system. Each of these
@@ -3286,25 +3260,16 @@ declare module 'ember' {
          * application.
          */
         const testing: boolean;
-        /**
-         * @private
-         */
+
         const instrument: typeof Instrumentation.instrument;
-        /**
-         * @private
-         */
+
         const reset: typeof Instrumentation.reset;
-        /**
-         * @private
-         */
+
         const subscribe: typeof Instrumentation.subscribe;
-        /**
-         * @private
-         */
+
         const unsubscribe: typeof Instrumentation.unsubscribe;
         /**
          * Expands `pattern`, invoking `callback` for each expansion.
-         * @private
          */
         function expandProperties(pattern: string, callback: (expanded: string) => void): void;
     }

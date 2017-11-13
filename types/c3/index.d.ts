@@ -366,7 +366,7 @@ declare namespace c3 {
          * and it will recieve the data as argument.
          * Available Values: desc, asc, function (data1, data2) { ... }, null
          */
-        order?: string | ((...data: string[]) => void);
+        order?: string | ((...data: string[]) => void) | null;
         /**
          * Define regions for each data.
          * The values must be an array for each data and it should include an object that has start, end, style. If start is not set, the start will be the first data point. If end is not set, the

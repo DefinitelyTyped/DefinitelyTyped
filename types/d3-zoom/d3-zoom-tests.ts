@@ -121,6 +121,26 @@ let svgZoom: d3Zoom.ZoomBehavior<SVGRectElement, SVGDatum>;
 
 svgZoom = d3Zoom.zoom<SVGRectElement, SVGDatum>();
 
+// constrain() -------------------------------------------------------------
+
+// chainable
+svgZoom = svgZoom.constrain((transform, extent, translateExtent) => {
+    const t: d3Zoom.ZoomTransform = transform;
+    const ve: [[number, number], [number, number]] = extent;
+    const te: [[number, number], [number, number]] = translateExtent;
+    const dx0 = t.invertX(ve[0][0]) - te[0][0];
+    const dx1 = t.invertX(ve[1][0]) - te[1][0];
+    const dy0 = transform.invertY(ve[0][1]) - te[0][1];
+    const dy1 = transform.invertY(ve[1][1]) - te[1][1];
+    return t.translate(
+        dx1 > dx0 ? (dx0 + dx1) / 2 : Math.min(0, dx0) || Math.max(0, dx1),
+        dy1 > dy0 ? (dy0 + dy1) / 2 : Math.min(0, dy0) || Math.max(0, dy1)
+    );
+});
+
+let constraintFn: (transform: d3Zoom.ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => d3Zoom.ZoomTransform;
+constraintFn = svgZoom.constrain();
+
 // filter() ----------------------------------------------------------------
 
 // chainable

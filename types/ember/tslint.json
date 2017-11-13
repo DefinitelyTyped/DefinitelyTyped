@@ -22,6 +22,8 @@
         "prefer-const": false,
         "no-void-expression": false,
         "only-arrow-functions": false,
-        "no-submodule-imports": false
+        "no-submodule-imports": false,
+        
+        "no-unnecessary-class": false
     }
 }

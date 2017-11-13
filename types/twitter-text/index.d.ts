@@ -42,7 +42,7 @@ export declare function splitTags(text: string): string[];
 export declare function extractHashtags(text: string): string[];
 export declare function extractHashtagsWithIndices(text: string): HashtagWithIndices[];
 export declare function extractUrls(text: string): string[];
-export declare function extractUrlsWithIndices(text: string): UrlWithIndices[];
+export declare function extractUrlsWithIndices(text: string, options?: {extractUrlsWithoutProtocol: boolean}): UrlWithIndices[];
 export declare function extractMentions(text: string): string[];
 export declare function extractMentionsWithIndices(text: string): MentionWithIndices[];
 export declare function extractMentionsOrListsWithIndices(text: string): MentionOrListWithIndices[];
