@@ -1,4 +1,4 @@
-import * as cluster from 'express-cluster';
+import cluster = require('express-cluster');
 
 () => {
     cluster(worker => {}, {count: 5});

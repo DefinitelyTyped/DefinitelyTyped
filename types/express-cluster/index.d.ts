@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as cluster from 'cluster';
+import cluster = require('cluster');
 
 interface Config {
     count?: number;
