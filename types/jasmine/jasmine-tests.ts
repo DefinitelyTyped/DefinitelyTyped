@@ -769,6 +769,9 @@ describe("jasmine.arrayContaining", () => {
     it("matches arrays with some of the values", () => {
         expect(foo).toEqual(jasmine.arrayContaining([3, 1]));
         expect(foo).not.toEqual(jasmine.arrayContaining([6]));
+
+        expect(foo).toBe(jasmine.arrayContaining([3, 1]));
+        expect(foo).not.toBe(jasmine.arrayContaining([6]));
     });
 
     describe("when used with a spy", () => {
@@ -793,6 +796,9 @@ describe("jasmine.arrayWithExactContents", () => {
     it("matches arrays with exactly the same values", () => {
         expect(foo).toEqual(jasmine.arrayWithExactContents([1, 2, 3, 4]));
         expect(foo).not.toEqual(jasmine.arrayWithExactContents([6]));
+
+        expect(foo).toBe(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+        expect(foo).not.toBe(jasmine.arrayWithExactContents([6]));
     });
 
     describe("when used with a spy", () => {
