@@ -247,3 +247,12 @@ declare var DEBUG: boolean;
 interface NodeModule extends __WebpackModuleApi.Module {}
 
 declare var module: NodeModule;
+
+interface NodeProcess {
+    env: {
+        NODE_ENV: string,
+        [name: string]: string
+    }
+}
+
+declare var process: NodeProcess;
