@@ -3,12 +3,8 @@
 // Definitions by: Thomas-P <https://github.com/thomas-p>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-/// <reference types="sinon" />
-
 import * as Sinon from "sinon";
-
-interface Expect {
+export interface Expect {
     not: Expect;
     toBe(arg: any): void;
     toContain(arg: any): void;
@@ -27,27 +23,20 @@ interface Expect {
     toThrowError(errType: any): void;
     toMatch(matchExpression: any): void;
 }
-
-
-interface SpyProxy {
+export interface SpyProxy {
     and: SpyProxy;
     spyProxy: true;
     getSubject: () => Sinon.SinonStub;
     callThrough: () => void;
     returnValue: (obj: any) => void;
-    callFake: (fake: Function) => void;
+    callFake: (fake: (...args: any[]) => any) => void;
 }
-
-interface Dom {
+export interface Dom {
     exposedProperties: ['window', 'navigator', 'document'];
     create: () => void;
     destroy: () => void;
     clear: () => void;
 }
-
 export function expect(value: any): Expect;
-
 export function spy(...config: any[]): (...args: any[]) => SpyProxy;
-
 export const dom: Dom;
-

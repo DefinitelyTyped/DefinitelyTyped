@@ -4,7 +4,6 @@ import { dom, expect, spy } from 'mochaccino';
  *
  */
 const obj = {
-    funcName: () => {
     }
 };
 let s = spy();
