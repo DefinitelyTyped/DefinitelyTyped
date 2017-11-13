@@ -11,7 +11,7 @@ const request = {
     }
 };
 
-let negotiator = new Negotiator(request);
+const negotiator = new Negotiator(request);
 
 const availableMediaTypes = ['text/html', 'text/plain', 'application/json'];
 // $ExpectType string[]

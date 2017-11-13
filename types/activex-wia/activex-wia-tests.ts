@@ -37,14 +37,14 @@ let e = new Enumerator<WIA.Property>(dev.Properties);  // no foreach over Active
 e.moveFirst();
 while (!e.atEnd()) {
     const p = e.item();
-    let s = p.Name + ' (' + p.PropertyID + ') = ';
+    let s = `${p.Name} (${p.PropertyID}) = `;
     if (p.IsVector) {
         s += '[vector of data]';
     } else {
         s += p.Value;
         if (p.SubType !== WIA.WiaSubType.UnspecifiedSubType) {
             if (p.Value !== p.SubTypeDefault) {
-                s += ' (Default = ' + p.SubTypeDefault + ')';
+                s += ` (Default = ${p.SubTypeDefault})`;
             }
         }
     }
@@ -70,7 +70,7 @@ while (!e.atEnd()) {
                 s += ']';
                 break;
             case WIA.WiaSubType.RangeSubType:
-                s += ' [valid values in the range from ' + p.SubTypeMin + ' to ' + p.SubTypeMax + ' in increments of ' + p.SubTypeStep + ']';
+                s += ` [valid values in the range from ${p.SubTypeMin} to ${p.SubTypeMax} in increments of ${p.SubTypeStep}]`;
                 break;
         }
     }

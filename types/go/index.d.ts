@@ -5452,7 +5452,7 @@ declare namespace go {
 
         /**
          * Copies properties from this model to the given model, which must be of the same class as this model.
-         * @param {Model} copy 
+         * @param {Model} copy
          */
         protected cloneProtected(copy: Model): void;
 
@@ -6629,7 +6629,7 @@ declare namespace go {
 
         /**
          * Copies properties from this layout to the given layout, which must be of the same class as this layout.
-         * @param {Layout} copy 
+         * @param {Layout} copy
          */
         protected cloneProtected(copy: Layout): void;
 
@@ -8873,12 +8873,6 @@ declare namespace go {
         any(pred: (x: T) => boolean): boolean;
 
         /**
-        * Produce an Iterator that first iterates over the items of this Iterator and then iterates over the items of the given Iterator.
-        * @param {Iterable.<T>} it An Iterable
-        */
-        concat<S>(it: Iterable<S>): Iterator<S | T>;
-
-        /**
         * Call the given function on each item in the collection.
         * @param {(x: T) => void} func
         */
@@ -8894,12 +8888,6 @@ declare namespace go {
         * Return the first item in the collection, or null if there is none.
         */
         first(): T;
-
-        /**
-        * Call the given function on each item in the collection and present the results in an iterator.
-        * @param {function(T)} func This function must not modify the collection.
-        */
-        map<S>(func: (x: T) => S): Iterator<S>;
 
         /**
         * Call this method to advance the iterator to the next item in the collection.

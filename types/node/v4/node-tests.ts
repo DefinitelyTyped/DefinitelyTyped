@@ -484,6 +484,10 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() retuern a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
@@ -521,6 +525,8 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
 }
 
 ////////////////////////////////////////////////////

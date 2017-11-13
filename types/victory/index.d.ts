@@ -303,6 +303,14 @@ declare module "victory" {
             after?: (datum: any) => AnimationStyle;
         };
         /**
+         * Animation load transition configuration
+         */
+        onLoad?: {
+            duration?: number;
+            before?: (datum: any) => AnimationStyle;
+            after?: (datum: any) => AnimationStyle;
+        };
+        /**
          * The easing prop specifies an easing function name to use for tweening.
          * @default "quadInOut"
          */
@@ -358,10 +366,8 @@ declare module "victory" {
     /**
      * Data domain type
      */
-    type DomainPropType = [number, number] | {
-        x: [number, number];
-        y: [number, number];
-    };
+    type DomainTuple = [number, number] | [Date, Date];
+    type DomainPropType = DomainTuple | { x?: DomainTuple; y: DomainTuple; } | { x: DomainTuple; y?: DomainTuple; };
     /**
      * Domain padding
      */

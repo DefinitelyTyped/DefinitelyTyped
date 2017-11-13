@@ -36,7 +36,7 @@ import { Equation, Expression, Fraction, parse, toTex } from 'algebra.js';
   let expr1 = new Expression("a").add("b").add("c");
   let expr2 = new Expression("c").subtract("b");
   let expr3 = expr1.subtract(expr2);
-  expr1.toString() + " - (" + expr2.toString() + ") = " + expr3.toString();
+  `${expr1.toString()} - (${expr2.toString()}) = ${expr3.toString()}`;
 
   expr1 = new Expression("x");
   expr1 = expr1.add(2);
@@ -46,7 +46,7 @@ import { Equation, Expression, Fraction, parse, toTex } from 'algebra.js';
   expr2 = expr2.multiply(new Fraction(1, 3));
   expr2 = expr2.add(4);
   expr3 = expr1.multiply(expr2);
-  "(" + expr1.toString() + ")(" + expr2.toString() + ") = " + expr3.toString();
+  `(${expr1.toString()})(${expr2.toString()}) = ${expr3.toString()}`;
 
   x = new Expression("x").divide(2).divide(new Fraction(1, 5));
   x.toString();
@@ -58,7 +58,7 @@ import { Equation, Expression, Fraction, parse, toTex } from 'algebra.js';
   sum.toString();
   exp = new Expression("x").add(2);
   const exp3 = exp.pow(3);
-  "(" + exp.toString() + ")^3 = " + exp3.toString();
+  `(${exp.toString()})^3 = ${exp3.toString()}`;
 
   let expr = new Expression("x");
   expr = expr.multiply(2);

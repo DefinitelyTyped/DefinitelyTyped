@@ -1,5 +1,11 @@
 import * as sf from 'jsforce';
 
+export interface DummyRecord {
+    thing: boolean;
+    other: number;
+    person: string;
+}
+
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
     refreshToken: '',
@@ -8,6 +14,11 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         clientSecret: '',
     },
 });
+
+salesforceConnection.sobject<DummyRecord>("Dummy").select(["thing", "other"]);
+
+// note the following should never compile:
+// salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
 
 salesforceConnection.sobject("Account").create({
     Name: "Test Acc 2",
@@ -30,9 +41,9 @@ salesforceConnection.sobject("ContentVersion").create({
     }
 });
 
-salesforceConnection.sobject("ContentVersion").retrieve("world", {
+salesforceConnection.sobject<any>("ContentVersion").retrieve("world", {
     test: "test"
-}, (err: Error, ret: sf.Record) => {
+}, (err: Error, ret) => {
     if (err) {
         return;
     }
@@ -52,3 +63,29 @@ salesforceConnection.sobject("ContentDocumentLink").create({
 });
 
 sf.Date.YESTERDAY;
+
+salesforceConnection.sobject<any>('Coverage__c')
+    .select(['Id', 'Name'])
+    .include('Coverage_State_Configurations__r')
+    .select(['Id']).where({ Is_Active__c: true })
+    .end()
+    .where({ Is_Active__c: true }).execute();
+
+const records: any[] = [];
+salesforceConnection.query('SELECT Id FROM Account')
+    .on('record', (record) => {
+        records.push(record);
+    })
+    .on('end', (query: any) => {
+        console.log(records);
+    })
+    .on('error', (error) => {
+        console.log('Error returned from query:', error);
+    })
+    .run({ autoFetch: true, maxFetch: 25 });
+
+salesforceConnection.sobject<any>('Coverage__c')
+    .select(['Id', 'Name']).del(() => { });
+
+salesforceConnection.sobject<any>('Coverage__c')
+    .select(['Id', 'Name']).del("test", () => { });

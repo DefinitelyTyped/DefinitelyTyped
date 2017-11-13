@@ -1,13 +1,16 @@
-import * as program from "commander";
+import * as program from 'commander';
 
 interface ExtendedOptions extends program.CommandOptions {
     isNew: any;
 }
 
-const commandInstance = new program.Command("-f");
-const optionsInstance = new program.Option("-f");
+const commandInstance = new program.Command('-f');
+const optionsInstance = new program.Option('-f');
+
+const name = program.name();
 
 program
+    .name('set name')
     .version('0.0.1')
     .option('-p, --peppers', 'Add peppers')
     .option('-P, --pineapple', 'Add pineapple')

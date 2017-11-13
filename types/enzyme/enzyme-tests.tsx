@@ -35,7 +35,7 @@ function ShallowWrapperTest() {
     let boolVal: boolean;
     let stringVal: string;
     let numOrStringVal: number | string;
-    let elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>;
+    let elementWrapper: ShallowWrapper<HTMLAttributes<{}>>;
     let statelessWrapper: ShallowWrapper<StatelessProps, never>;
 
     function test_props_state_inferring() {
@@ -107,6 +107,10 @@ function ShallowWrapperTest() {
         }
 
         const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
+    }
+
+    function test_hostNodes() {
+	    shallowWrapper.hostNodes();
     }
 
     function test_equals() {
@@ -204,6 +208,14 @@ function ShallowWrapperTest() {
 
     function test_getNodes() {
         reactElements = shallowWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = shallowWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = shallowWrapper.getElements();
     }
 
     function test_getDOMNode() {
@@ -374,7 +386,7 @@ function ReactWrapperTest() {
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
-    let elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>;
+    let elementWrapper: ReactWrapper<HTMLAttributes<{}>>;
     let statelessWrapper: ReactWrapper<StatelessProps, never>;
 
     function test_prop_state_inferring() {
@@ -415,6 +427,10 @@ function ReactWrapperTest() {
 
     function test_detach() {
         reactWrapper.detach();
+    }
+
+    function test_hostNodes() {
+        reactWrapper.hostNodes();
     }
 
     function test_find() {
@@ -543,6 +559,14 @@ function ReactWrapperTest() {
 
     function test_getNodes() {
         reactElements = reactWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = reactWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = reactWrapper.getElements();
     }
 
     function test_getDOMNode() {

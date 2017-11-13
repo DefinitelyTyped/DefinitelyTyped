@@ -49,7 +49,7 @@ declare namespace wx {
      * 配置微信初始化成功后的回调
      * @param x 回调
      */
-    function ready(x: () => void ): void;
+    function ready(x: () => void): void;
 
     /**
      * 配置微信初始化失败后的回调
@@ -257,7 +257,7 @@ declare namespace wx {
         /**
          * 成功后的回调, localData是图片的base64数据，可以用img标签显示
          */
-        success(res: { localData: string} ): void;
+        success(res: { localData: string}): void;
     }
 
     /**

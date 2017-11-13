@@ -7,9 +7,9 @@
         ],
         "experimentalDecorators": true,
         "noImplicitAny": true,
-        "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [

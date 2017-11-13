@@ -167,7 +167,7 @@ popover.setList([
 popover.setList(['a', 'b', 'c'], item => {
     const text = typeof item === 'string' ? item : item.text;
     const value = typeof item === 'string' ? item : item.value;
-    return '<li><a class="padded-list" data-value="' + value + '">' + text + '</a></li>';
+    return `<li><a class="padded-list" data-value="${value}">${text}</a></li>`;
 });
 
 popover.attachButton('.button-trigger-popover', true);

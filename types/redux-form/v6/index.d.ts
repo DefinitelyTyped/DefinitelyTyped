@@ -2,7 +2,7 @@
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>, Karol Janyst <https://github.com/LKay>, Luka Zakrajsek <https://github.com/bancek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import {
   ComponentClass,
@@ -11,6 +11,13 @@ import {
 } from "react";
 
 export type FieldValue = any;
+
+export type FieldState = {
+    active?: boolean;
+    touched?: boolean;
+    visited?: boolean;
+    error?: any;
+}
 
 export type FieldType = "Field" | "FieldArray";
 
@@ -25,6 +32,10 @@ export type FormErrors<FormData extends DataShape> = {
 export type FormWarnings<FormData extends DataShape> = {
     [P in keyof FormData]?: ReactElement<any> | string | { _warning?: string };
 };
+
+export type FormMeta<FormData extends DataShape> = {
+    [P in keyof FormData]?: FieldState;
+}
 
 /**
  * A component class or stateless function component.

@@ -3,7 +3,7 @@ import typeis = require('type-is');
 
 http.createServer((req, res) => {
     const istext = typeis(req, ['text/*']);
-    res.end('you ' + (istext ? 'sent' : 'did not send') + ' me text');
+    res.end(`you ${istext ? 'sent' : 'did not send'} me text`);
 
     // $ExpectType string | false | null
     typeis(req, ['json']);
@@ -37,7 +37,8 @@ const app = express();
 
 app.use((req, res, next) => {
     if (!typeis.hasBody(req)) {
-        return next();
+        next();
+        return;
     }
 
     switch (typeis(req, ['urlencoded', 'json', 'multipart'])) {

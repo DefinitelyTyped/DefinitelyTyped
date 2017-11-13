@@ -12,6 +12,8 @@ class Test extends React.Component {
             <DatePicker autoFocus={ false }
                         onChange={ (value: string, c: string) => {} }
                         dateFormat="MM/DD/YYYY"
+                        minDate="2017-01-01T00:00:00.000Z"
+                        maxDate="2017-12-31T23:59:59.999Z"
                         clearButtonElement="x"
                         showClearButton={ true }
                         onClear={ () => {} }

@@ -42,6 +42,16 @@ chai.request(app)
 	.query({ name: 'foo', limit: 10 });
 
 chai.request(app)
+	.get('/download')
+	.buffer()
+	.parse((res, cb) => {
+		let data = '';
+		res.setEncoding('binary');
+		res.on('data', (chunk: any) => { data += chunk; });
+		res.on('end', () => { cb(undefined, new Buffer(data, 'binary')); });
+	});
+
+chai.request(app)
 	.put('/user/me')
 	.send({ passsword: '123', confirmPassword: '123' })
 	.end((err: any, res: ChaiHttp.Response) => {

@@ -1,6 +1,6 @@
 // Type definitions for Mapsjs 9.6.0
 // Project: https://github.com/mapsjs
-// Definitions by: Matthew James Davis <https://github.com/davismj/>
+// Definitions by: Matthew James Davis <https://github.com/davismj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

@@ -33,6 +33,18 @@ declare module 'opentok' {
       hasAudio?: boolean;
       hasVideo?: boolean;
       outputMode?: OutputMode;
+      layout?: ArchiveLayoutOptions;
+    }
+
+    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
+
+    export interface PredefinedArchiveLayoutOptions {
+      type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation';
+    }
+
+    export interface CustomArchiveLayoutOptions {
+      type: 'custom';
+      stylesheet: string;
     }
 
     export type MediaMode = 'relayed' | 'routed';

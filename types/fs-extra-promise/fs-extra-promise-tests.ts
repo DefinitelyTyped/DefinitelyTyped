@@ -47,13 +47,9 @@ let writeStream: stream.Writable;
 let isDirectory: boolean;
 
 fs.copy(src, dest, errorCallback);
-fs.copy(src, dest, (src: string) => {
-	return false;
-}, errorCallback);
+fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
 fs.copySync(src, dest);
-fs.copySync(src, dest, (src: string) => {
-	return false;
-});
+fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
@@ -206,7 +202,7 @@ readStream = fs.createReadStream(path, {
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	defaultEncoding: str
+	encoding: str
 });
 
 function isDirectoryCallback(err: Error, isDirectory: boolean) {}

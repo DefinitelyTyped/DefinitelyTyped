@@ -2,11 +2,11 @@ import * as MulterGridfsStorage from 'multer-gridfs-storage';
 import { Grid } from "gridfs-stream";
 
 // Exported interfaces
-let opt1: MulterGridfsStorage.GfsStorageOptions;
-let opt2: MulterGridfsStorage.UrlStorageOptions;
+declare const opt1: MulterGridfsStorage.GfsStorageOptions;
+declare const opt2: MulterGridfsStorage.UrlStorageOptions;
 
 // All options
-let gfsCtr = new MulterGridfsStorage({
+const gfsCtr = new MulterGridfsStorage({
 	gfs: new Grid(),
 	filename: (req, file, cb) => cb(null, ''),
 	chunkSize: (req, file, cb) => cb(null, 1),
@@ -16,7 +16,7 @@ let gfsCtr = new MulterGridfsStorage({
 	root: (req, file, cb) => cb(null, 'unicorns')
 });
 
-let urlCtr = new MulterGridfsStorage({
+const urlCtr = new MulterGridfsStorage({
 	url: '',
 	filename: (req, file, cb) => cb(null, ''),
 	chunkSize: (req, file, cb) => cb(null, 1),
@@ -27,11 +27,11 @@ let urlCtr = new MulterGridfsStorage({
 });
 
 // Other properties are optional
-let gfsOnly = new MulterGridfsStorage({
+const gfsOnly = new MulterGridfsStorage({
 	gfs: new Grid()
 });
 
-let urlOnly = new MulterGridfsStorage({
+const urlOnly = new MulterGridfsStorage({
 	url: ''
 });
 

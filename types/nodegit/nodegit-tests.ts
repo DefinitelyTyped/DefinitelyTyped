@@ -4,7 +4,7 @@ Git.Repository.discover("startPath", 1, "ceilingDirs").then((string) => {
     // Use string
 });
 
-Git.Repository.init("path", true).then((repository) => {
+Git.Repository.init("path", 0).then((repository) => {
     // Use repository
 });
 

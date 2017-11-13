@@ -135,7 +135,7 @@ declare namespace i18n {
         cloneInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
         on(event: string, listener: () => void): void;
-        on(initialized: 'initialized', listener: (options: i18n.Options) => void): void;
+        on(initialized: 'initialized', listener: (options: Options) => void): void;
         on(loaded: 'loaded', listener: (loaded: any) => void): void;
         on(failedLoading: 'failedLoading', listener: (lng: string, ns: string, msg: string) => void): void;
         on(missingKey: 'missingKey', listener: (lngs: any, namespace: string, key: string, res: any) => void): void;

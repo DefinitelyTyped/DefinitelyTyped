@@ -434,11 +434,12 @@ const minInvoice: paypal.invoice.Invoice = {};
 // Max Invoice
 const maxInvoice: paypal.invoice.Invoice = {
     allow_tip: true,
-    billing_info: {
+    billing_info: [{
         email: 'asfd',
         language: 'string',
         notification_channel: 'string',
-    },
+        additional_info: 'string',
+    }],
     discount: {
         percent: 2,
         amount: {

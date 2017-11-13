@@ -628,7 +628,7 @@ function Argv$commandArray() {
 }
 
 function Argv$check() {
-    let ya = yargs
+    const ya = yargs
         .check((argv, aliases) => {})
         .check((argv, aliases) => {}, false);
 }

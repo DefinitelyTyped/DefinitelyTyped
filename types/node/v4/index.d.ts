@@ -720,7 +720,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -745,7 +745,7 @@ declare module "cluster" {
         id: string;
         process: child.ChildProcess;
         suicide: boolean;
-        send(message: any, sendHandle?: any): void;
+        send(message: any, sendHandle?: any, callback?: (error: Error) => void): void;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
@@ -803,18 +803,25 @@ declare module "zlib" {
     export function createUnzip(options?: ZlibOptions): Unzip;
 
     export function deflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function gzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function gunzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function inflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function inflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function unzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function unzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
 
     // Constants
@@ -939,7 +946,7 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
@@ -1062,6 +1069,7 @@ declare module "child_process" {
         stdout: stream.Readable;
         stderr: stream.Readable;
         stdio: [stream.Writable, stream.Readable, stream.Readable];
+        killed: boolean;
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
@@ -1228,23 +1236,28 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
+    export interface UrlObject {
         href?: string;
         protocol?: string;
+        slashes?: boolean;
+        host?: string;
         auth?: string;
         hostname?: string;
-        port?: string;
-        host?: string;
+        port?: string | number;
         pathname?: string;
         search?: string;
-        query?: string | any;
-        slashes?: boolean;
-        hash?: string;
         path?: string;
+        query?: string | { [key: string]: any; };
+        hash?: string;
+    }
+
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: Url): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
 }
 

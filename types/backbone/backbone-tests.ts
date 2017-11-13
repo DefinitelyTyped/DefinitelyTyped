@@ -115,6 +115,8 @@ class Employee extends Backbone.Model {
         super(options);
         this.reports = new EmployeeCollection();
         this.reports.url = '../api/employees/' + this.id + '/reports';
+        // Test that collection url property can be set as a function returning a string.
+        this.reports.url = () => { return ""; };
     }
 
     more() {
@@ -177,6 +179,8 @@ function test_collection() {
         book.get("published") === true);
 
     var alphabetical = books.sortBy((book: Book): number => null);
+
+    var copy = books.clone();
 
     let one: Book;
     let models: Book[];

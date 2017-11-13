@@ -1,7 +1,8 @@
 // Type definitions for koa-session 3.0
 // Project: https://github.com/koajs/session
-// Definitions by: Yu Hsin Lu <https://github.com/kerol2r20/>
+// Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 // Definitions: https://github.com/kerol2r20/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -54,7 +55,7 @@ declare namespace session {
         /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
-        store?: session.stores;
+        store?: stores;
 
         /**
          * Hook: valid session value before use it
@@ -108,7 +109,7 @@ declare function session(app: Koa): Koa.Middleware;
 
 declare module 'koa' {
     interface Context {
-        session: session.sessionProps;
+        session: session.sessionProps | null;
     }
 }
 

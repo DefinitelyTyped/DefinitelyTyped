@@ -1,9 +1,10 @@
 // Type definitions for mersenne-twister 1.1
 // Project: https://github.com/boo1ean/mersenne-twister
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda/>
+// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = class MersenneTwister {
+export = MersenneTwister;
+declare class MersenneTwister {
     /**
      * constructs mt with a number
      * @params seed
@@ -44,4 +45,4 @@ export = class MersenneTwister {
      * generates a random number on [0,1) with 53-bit resolution
      */
     random_long(): number;
-};
+}

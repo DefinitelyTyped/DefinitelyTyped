@@ -1,9 +1,9 @@
 // Type definitions for jQuery Tooltipster 3.3.0
 // Project: https://github.com/iamceege/tooltipster
-// Definitions by: Patrick Magee <https://github.com/pjmagee/>,
-//                 Dmitry Pesterev <https://github.com/VorobeY1326/>,
+// Definitions by: Patrick Magee <https://github.com/pjmagee>,
+//                 Dmitry Pesterev <https://github.com/VorobeY1326>,
 //                 Leonard Thieu <https://github.com/leonard-thieu>,
-//                 Jan Hirzel <https://github.com/janhi/>
+//                 Jan Hirzel <https://github.com/janhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

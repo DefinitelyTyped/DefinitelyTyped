@@ -74,7 +74,8 @@ app.post('/login', authenticate, (req, res) => {
 function authenticate(req: express.Request, res: express.Response, next: express.NextFunction) {
     passport.authenticate('token', (err: any, user: any, info: any) => {
         if (err) {
-            return next(err);
+           next(err);
+           return;
         }
 
         if (!user) {

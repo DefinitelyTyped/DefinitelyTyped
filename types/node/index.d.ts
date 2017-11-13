@@ -3,7 +3,6 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
@@ -11,16 +10,20 @@
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
-//                 Daniel Imms <https://github.com/Tyriar>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
+//                 Kelvin Jin <https://github.com/kjin>
+//                 Alvis HT Tang <https://github.com/alvis>
+//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
 *               Node.js v8.x API                *
 *                                               *
 ************************************************/
+
+/** inspector module types */
+/// <reference path="./inspector.d.ts" />
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
@@ -77,10 +80,18 @@ declare var __filename: string;
 declare var __dirname: string;
 
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+declare namespace setTimeout {
+    export function __promisify__(ms: number): Promise<void>;
+    export function __promisify__<T>(ms: number, value: T): Promise<T>;
+}
 declare function clearTimeout(timeoutId: NodeJS.Timer): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+declare namespace setImmediate {
+    export function __promisify__(): Promise<void>;
+    export function __promisify__<T>(value: T): Promise<T>;
+}
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
@@ -92,8 +103,15 @@ interface NodeRequireFunction {
 interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
-    extensions: any;
+    extensions: NodeExtensions;
     main: NodeModule | undefined;
+}
+
+interface NodeExtensions {
+    '.js': (m: NodeModule, filename: string) => any;
+    '.json': (m: NodeModule, filename: string) => any;
+    '.node': (m: NodeModule, filename: string) => any;
+    [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
 declare var require: NodeRequire;
@@ -221,10 +239,10 @@ declare var Buffer: {
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
      *
-     * @param string string to test.
+     * @param string string to test. (TypedArray is also allowed, but it is only available starting ES2017)
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string, encoding?: string): number;
+    byteLength(string: string | Buffer | DataView | ArrayBuffer, encoding?: string): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -264,6 +282,10 @@ declare var Buffer: {
      * @param size count of octets to allocate
      */
     allocUnsafeSlow(size: number): Buffer;
+    /**
+     * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
+     */
+    poolSize: number;
 };
 
 /************************************************
@@ -323,7 +345,7 @@ declare namespace NodeJS {
         unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: ReadableStream): ReadableStream;
+        wrap(oldStream: ReadableStream): this;
     }
 
     export interface WritableStream extends EventEmitter {
@@ -416,10 +438,21 @@ declare namespace NodeJS {
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
+        _write(chunk: any, encoding: string, callback: Function): void;
+        _destroy(err: Error, callback: Function): void;
+        _final(callback: Function): void;
+        setDefaultEncoding(encoding: string): this;
+        cork(): void;
+        uncork(): void;
+        destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
+        _read(size: number): void;
+        _destroy(err: Error, callback: Function): void;
+        push(chunk: any, encoding?: string): boolean;
+        destroy(error?: Error): void;
     }
 
     export interface Process extends EventEmitter {
@@ -660,6 +693,24 @@ declare namespace NodeJS {
         ref(): void;
         unref(): void;
     }
+
+    class Module {
+        static runMain(): void;
+        static wrap(code: string): string;
+
+        static Module: typeof Module;
+
+        exports: any;
+        require: NodeRequireFunction;
+        id: string;
+        filename: string;
+        loaded: boolean;
+        parent: Module | null;
+        children: Module[];
+        paths: string[];
+
+        constructor(id: string, parent?: Module);
+    }
 }
 
 interface IterableIterator<T> { }
@@ -746,7 +797,7 @@ declare module "querystring" {
     }
 
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): any;
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): { [key: string]: string | string[] };
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -818,10 +869,10 @@ declare module "http" {
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        setTimeout(callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
-        listening: boolean;
         keepAliveTimeout: number;
     }
     /**
@@ -1011,7 +1062,7 @@ declare module "cluster" {
         id: string;
         process: child.ChildProcess;
         suicide: boolean;
-        send(message: any, sendHandle?: any): boolean;
+        send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
@@ -1030,7 +1081,7 @@ declare module "cluster" {
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "disconnect", listener: () => void): this;
-        addListener(event: "error", listener: (code: number, signal: string) => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
         addListener(event: "exit", listener: (code: number, signal: string) => void): this;
         addListener(event: "listening", listener: (address: Address) => void): this;
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
@@ -1038,7 +1089,7 @@ declare module "cluster" {
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect"): boolean;
-        emit(event: "error", code: number, signal: string): boolean;
+        emit(event: "error", error: Error): boolean;
         emit(event: "exit", code: number, signal: string): boolean;
         emit(event: "listening", address: Address): boolean;
         emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
@@ -1046,7 +1097,7 @@ declare module "cluster" {
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "disconnect", listener: () => void): this;
-        on(event: "error", listener: (code: number, signal: string) => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
         on(event: "exit", listener: (code: number, signal: string) => void): this;
         on(event: "listening", listener: (address: Address) => void): this;
         on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
@@ -1054,7 +1105,7 @@ declare module "cluster" {
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "disconnect", listener: () => void): this;
-        once(event: "error", listener: (code: number, signal: string) => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
         once(event: "exit", listener: (code: number, signal: string) => void): this;
         once(event: "listening", listener: (address: Address) => void): this;
         once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
@@ -1062,7 +1113,7 @@ declare module "cluster" {
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
-        prependListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
         prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
         prependListener(event: "listening", listener: (address: Address) => void): this;
         prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
@@ -1070,7 +1121,7 @@ declare module "cluster" {
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
         prependOnceListener(event: "listening", listener: (address: Address) => void): this;
         prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
@@ -1272,26 +1323,26 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    export function deflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function deflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function deflate(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateRaw(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function gzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function gzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gunzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function gunzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function inflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function inflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function inflate(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function inflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function inflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRaw(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function unzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
-    export function unzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function unzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
 
     export namespace constants {
@@ -1553,7 +1604,7 @@ declare module "https" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: tls.SecureContext) => any) => any;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -1565,15 +1616,8 @@ declare module "https" {
         ciphers?: string;
         rejectUnauthorized?: boolean;
         secureProtocol?: string;
+        servername?: string;
     }
-
-    export interface ClientRequest extends http.ClientRequest { }
-
-    export interface IncomingMessage extends http.IncomingMessage { }
-
-    export interface ServerResponse extends http.ServerResponse { }
-
-    export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
         pfx?: any;
@@ -1583,17 +1627,25 @@ declare module "https" {
         ca?: any;
         ciphers?: string;
         rejectUnauthorized?: boolean;
+        serverName?: string;
         secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
-    export var Agent: {
-        new(options?: AgentOptions): Agent;
-    };
-    export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export class Agent extends http.Agent {
+        constructor(options?: AgentOptions);
+    }
+
+    export class Server extends tls.Server {
+        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        timeout: number;
+        keepAliveTimeout: number;
+    }
+
+    export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
+    export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1631,6 +1683,9 @@ declare module "repl" {
 
     export interface REPLServer extends readline.ReadLine {
         context: any;
+        inputStream: NodeJS.ReadableStream;
+        outputStream: NodeJS.WritableStream;
+
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
@@ -1666,6 +1721,12 @@ declare module "repl" {
     }
 
     export function start(options?: string | ReplOptions): REPLServer;
+
+    export class Recoverable extends SyntaxError {
+        err: Error;
+
+        constructor(err: Error);
+    }
 }
 
 declare module "readline" {
@@ -1772,6 +1833,7 @@ declare module "readline" {
     export function createInterface(options: ReadLineOptions): ReadLine;
 
     export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
+    export function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: ReadLine): void;
     export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
     export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     export function clearScreenDown(stream: NodeJS.WritableStream): void;
@@ -1819,6 +1881,7 @@ declare module "child_process" {
         stdout: stream.Readable;
         stderr: stream.Readable;
         stdio: [stream.Writable, stream.Readable, stream.Readable];
+        killed: boolean;
         pid: number;
         kill(signal?: string): void;
         send(message: any, callback?: (error: Error) => void): boolean;
@@ -1893,6 +1956,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
 
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
@@ -1917,23 +1981,23 @@ declare module "child_process" {
     }
 
     // no `options` definitely means stdout/stderr are `string`.
-    export function exec(command: string, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    export function exec(command: string, options: ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: ExecOptions, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
-    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace exec {
@@ -1952,12 +2016,16 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
     export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
-        encoding: string | null; // specify `null`.
+        encoding: 'buffer' | null;
+    }
+    export interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
+        encoding: string;
     }
 
     export function execFile(file: string): ChildProcess;
@@ -1966,38 +2034,40 @@ declare module "child_process" {
     export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
-    export function execFile(file: string, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    export function execFile(file: string, options: { encoding: "buffer" | null } & ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: "buffer" | null } & ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    export function execFile(file: string, options: { encoding: BufferEncoding } & ExecFileOptions, callback: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: BufferEncoding } & ExecFileOptions, callback: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    export function execFile(file: string, options: { encoding: string } & ExecFileOptions, callback: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: string } & ExecFileOptions, callback: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    export function execFile(file: string, options: ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
-    export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace execFile {
         export function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, options: { encoding: "buffer" | null } & ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: "buffer" | null } & ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, options: { encoding: BufferEncoding } & ExecFileOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: BufferEncoding } & ExecFileOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        export function __promisify__(file: string, options: { encoding: string } & ExecFileOptions): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: string } & ExecFileOptions): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
         export function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
@@ -2013,6 +2083,7 @@ declare module "child_process" {
         stdio?: any[];
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
 
@@ -2028,6 +2099,7 @@ declare module "child_process" {
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2104,37 +2176,29 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
-        href?: string;
-        protocol?: string;
+    export interface UrlObject {
         auth?: string;
-        hostname?: string;
-        port?: string;
-        host?: string;
-        pathname?: string;
-        search?: string;
-        query?: string | any;
-        slashes?: boolean;
         hash?: string;
+        host?: string;
+        hostname?: string;
+        href?: string;
         path?: string;
+        pathname?: string;
+        port?: string | number;
+        protocol?: string;
+        query?: string | null | { [key: string]: string | string[] };
+        search?: string;
+        slashes?: boolean;
     }
 
-    export interface UrlObject {
-        protocol?: string;
-        slashes?: boolean;
-        auth?: string;
-        host?: string;
-        hostname?: string;
-        port?: string | number;
-        pathname?: string;
-        search?: string;
-        query?: { [key: string]: any; };
-        hash?: string;
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject): string;
+    export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
     export interface URLFormatOptions {
@@ -2144,21 +2208,21 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<string[]>);
+    export class URLSearchParams implements Iterable<[string, string]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
-        entries(): Iterator<string[]>;
+        entries(): IterableIterator<[string, string]>;
         forEach(callback: (value: string, name: string) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
-        keys(): Iterator<string>;
+        keys(): IterableIterator<string>;
         set(name: string, value: string): void;
         sort(): void;
         toString(): string;
-        values(): Iterator<string>;
-        [Symbol.iterator](): Iterator<string[]>;
+        values(): IterableIterator<string>;
+        [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
     export class URL {
@@ -2349,8 +2413,36 @@ declare module "dns" {
 declare module "net" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as dns from "dns";
 
-    export interface Socket extends stream.Duplex {
+    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+
+    export interface SocketConstructorOpts {
+        fd?: number;
+        allowHalfOpen?: boolean;
+        readable?: boolean;
+        writable?: boolean;
+    }
+
+    export interface TcpSocketConnectOpts {
+        port: number;
+        host?: string;
+        localAddress?: string;
+        localPort?: number;
+        hints?: number;
+        family?: number;
+        lookup?: LookupFunction;
+    }
+
+    export interface IpcSocketConnectOpts {
+        path: string;
+    }
+
+    export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+
+    export class Socket extends stream.Duplex {
+        constructor(options?: SocketConstructorOpts);
+
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -2359,8 +2451,11 @@ declare module "net" {
         write(str: string, encoding?: string, fd?: string): boolean;
         write(data: any, encoding?: string, callback?: Function): void;
 
-        connect(port: number, host?: string, connectionListener?: Function): void;
-        connect(path: string, connectionListener?: Function): void;
+        connect(options: SocketConnectOpts, connectionListener?: Function): this;
+        connect(port: number, host: string, connectionListener?: Function): this;
+        connect(port: number, connectionListener?: Function): this;
+        connect(path: string, connectionListener?: Function): this;
+
         bufferSize: number;
         setEncoding(encoding?: string): this;
         destroy(err?: any): void;
@@ -2462,10 +2557,6 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
-    export var Socket: {
-        new(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
-    };
-
     export interface ListenOptions {
         port?: number;
         host?: string;
@@ -2479,20 +2570,20 @@ declare module "net" {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, listeningListener?: Function): Server;
-        listen(path: string, backlog?: number, listeningListener?: Function): Server;
-        listen(path: string, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
-        listen(handle: any, backlog?: number, listeningListener?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-        close(callback?: Function): Server;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, hostname?: string, listeningListener?: Function): this;
+        listen(port?: number, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, listeningListener?: Function): this;
+        listen(path: string, backlog?: number, listeningListener?: Function): this;
+        listen(path: string, listeningListener?: Function): this;
+        listen(options: ListenOptions, listeningListener?: Function): this;
+        listen(handle: any, backlog?: number, listeningListener?: Function): this;
+        listen(handle: any, listeningListener?: Function): this;
+        close(callback?: Function): this;
         address(): { port: number; family: string; address: string; };
-        getConnections(cb: (error: Error, count: number) => void): void;
-        ref(): Server;
-        unref(): Server;
+        getConnections(cb: (error: Error | null, count: number) => void): void;
+        ref(): this;
+        unref(): this;
         maxConnections: number;
         connections: number;
         listening: boolean;
@@ -2540,12 +2631,23 @@ declare module "net" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
     }
+
+    export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
+
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    export function connect(options: { port: number, host?: string, localAddress?: string, localPort?: number, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { port: number, host?: string, localAddress?: string, localPort?: string, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
@@ -2555,6 +2657,7 @@ declare module "net" {
 
 declare module "dgram" {
     import * as events from "events";
+    import * as dns from "dns";
 
     interface RemoteInfo {
         address: string;
@@ -2579,14 +2682,17 @@ declare module "dgram" {
     interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
+        recvBufferSize?: number;
+        sendBufferSize?: number;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    export interface Socket extends events.EventEmitter {
-        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+    export class Socket extends events.EventEmitter {
+        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
@@ -2596,11 +2702,16 @@ declare module "dgram" {
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
+        setMulticastInterface(multicastInterface: string): void;
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
         ref(): this;
         unref(): this;
+        setRecvBufferSize(size: number): void;
+        setSendBufferSize(size: number): void;
+        getRecvBufferSize(): number;
+        getSendBufferSize(): number;
 
         /**
          * events.EventEmitter
@@ -2657,7 +2768,7 @@ declare module "fs" {
      */
     export type PathLike = string | Buffer | URL;
 
-    export interface Stats {
+    export class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -2695,26 +2806,26 @@ declare module "fs" {
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        addListener(event: "error", listener: (code: number, signal: string) => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        on(event: "error", listener: (code: number, signal: string) => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        once(event: "error", listener: (code: number, signal: string) => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
 
-    export interface ReadStream extends stream.Readable {
+    export class ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
         bytesRead: number;
@@ -2746,7 +2857,7 @@ declare module "fs" {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
-    export interface WriteStream extends stream.Writable {
+    export class WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
@@ -4079,6 +4190,9 @@ declare module "fs" {
         /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O. */
         export const O_SYNC: number;
 
+        /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O with write operations waiting for data integrity. */
+        export const O_DSYNC: number;
+
         /** Constant for fs.open(). Flag indicating to open the symbolic link itself rather than the resource it is pointing to. */
         export const O_SYMLINK: number;
 
@@ -4151,6 +4265,9 @@ declare module "fs" {
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
         export const S_IXOTH: number;
+
+        /** Constant for fs.copyFile. Flag indicating the destination file should not be overwritten if it already exists. */
+        export const COPYFILE_EXCL: number;
     }
 
     /**
@@ -4206,7 +4323,7 @@ declare module "fs" {
      */
     export function createWriteStream(path: PathLike, options?: string | {
         flags?: string;
-        defaultEncoding?: string;
+        encoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
@@ -4233,6 +4350,54 @@ declare module "fs" {
      * @param fd A file descriptor.
      */
     export function fdatasyncSync(fd: number): void;
+
+    /**
+     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * No arguments other than a possible exception are given to the callback function.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     */
+    export function copyFile(src: PathLike, dest: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    /**
+     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * No arguments other than a possible exception are given to the callback function.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFile(src: PathLike, dest: PathLike, flags: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace copyFile {
+        /**
+         * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+         * No arguments other than a possible exception are given to the callback function.
+         * Node.js makes no guarantees about the atomicity of the copy operation.
+         * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+         * to remove the destination.
+         * @param src A path to the source file.
+         * @param dest A path to the destination file.
+         * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+         */
+        export function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+    }
+
+    /**
+     * Synchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
 }
 
 declare module "path" {
@@ -4260,6 +4425,29 @@ declare module "path" {
          * The file name without extension (if any) such as 'index'
          */
         name: string;
+    }
+
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
     }
 
     /**
@@ -4340,7 +4528,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
@@ -4385,6 +4573,7 @@ declare module "string_decoder" {
 
 declare module "tls" {
     import * as crypto from "crypto";
+    import * as dns from "dns";
     import * as net from "net";
     import * as stream from "stream";
 
@@ -4500,7 +4689,7 @@ declare module "tls" {
              * SecureContext.) If SNICallback wasn't provided the default callback
              * with high-level API will be used (see below).
              */
-            SNICallback?: Function,
+            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
             /**
              * An optional Buffer instance containing a TLS session.
              */
@@ -4512,12 +4701,7 @@ declare module "tls" {
              */
             requestOCSP?: boolean
         });
-        /**
-         * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system.
-         * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
-         */
-        address(): { port: number; family: string; address: string };
+
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
          */
@@ -4562,27 +4746,6 @@ declare module "tls" {
          */
         getTLSTicket(): any;
         /**
-         * The string representation of the local IP address.
-         */
-        localAddress: string;
-        /**
-         * The numeric representation of the local port.
-         */
-        localPort: number;
-        /**
-         * The string representation of the remote IP address.
-         * For example, '74.125.127.100' or '2001:4860:a005::68'.
-         */
-        remoteAddress: string;
-        /**
-         * The string representation of the remote IP family. 'IPv4' or 'IPv6'.
-         */
-        remoteFamily: string;
-        /**
-         * The numeric representation of the remote port. For example, 443.
-         */
-        remotePort: number;
-        /**
          * Initiate TLS renegotiation process.
          *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
@@ -4592,7 +4755,7 @@ declare module "tls" {
          * @param {Function} callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: TlsOptions, callback: (err: Error) => any): any;
+        renegotiate(options: TlsOptions, callback: (err: Error | null) => void): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -4649,15 +4812,16 @@ declare module "tls" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: string[] | Buffer;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: SecureContext) => any) => any;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
         ecdhCurve?: string;
         dhparam?: string | Buffer;
         handshakeTimeout?: number;
         ALPNProtocols?: string[] | Buffer;
         sessionTimeout?: number;
-        ticketKeys?: any;
+        ticketKeys?: Buffer;
         sessionIdContext?: string;
         secureProtocol?: string;
+        secureOptions?: number;
     }
 
     export interface ConnectionOptions {
@@ -4679,18 +4843,15 @@ declare module "tls" {
         secureContext?: Object;
         session?: Buffer;
         minDHSize?: number;
+        lookup?: net.LookupFunction;
     }
 
-    export interface Server extends net.Server {
-        close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+    export class Server extends net.Server {
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
             ca: string;
         }): void;
-        maxConnections: number;
-        connections: number;
 
         /**
          * events.EventEmitter
@@ -4786,6 +4947,9 @@ declare module "tls" {
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
+    export function getCiphers(): string[];
+
+    export var DEFAULT_ECDH_CURVE: string;
 }
 
 declare module "crypto" {
@@ -4977,11 +5141,11 @@ declare module "stream" {
             pause(): this;
             resume(): this;
             isPaused(): boolean;
-            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
-            wrap(oldStream: NodeJS.ReadableStream): Readable;
+            wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
+            _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;
 
             /**
@@ -5051,12 +5215,14 @@ declare module "stream" {
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
+            final?: (callback: (error?: Error) => void) => void;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
@@ -5146,7 +5312,8 @@ declare module "stream" {
         export class Duplex extends Readable implements Writable {
             writable: boolean;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
@@ -5219,17 +5386,34 @@ declare module "util" {
         __promisify__: TCustom;
     }
 
+    export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, TResult>(fn: (arg1: T1) => Promise<TResult>): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3,  callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4,  callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, T6>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<TResult>(fn: (callback: (err: Error, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify(fn: (callback: (err: Error) => void) => void): () => Promise<void>;
+    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
@@ -5550,6 +5734,7 @@ declare module "constants" {
     export var O_NOATIME: number;
     export var O_NOFOLLOW: number;
     export var O_SYNC: number;
+    export var O_DSYNC: number;
     export var O_SYMLINK: number;
     export var O_DIRECT: number;
     export var O_NONBLOCK: number;
@@ -5591,6 +5776,10 @@ declare module "constants" {
     export var ALPN_ENABLED: number;
 }
 
+declare module "module" {
+    export = NodeJS.Module;
+}
+
 declare module "process" {
     export = process;
 }
@@ -5626,10 +5815,18 @@ declare module "v8" {
 
 declare module "timers" {
     export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export namespace setTimeout {
+        export function __promisify__(ms: number): Promise<void>;
+        export function __promisify__<T>(ms: number, value: T): Promise<T>;
+    }
     export function clearTimeout(timeoutId: NodeJS.Timer): void;
     export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
     export function clearInterval(intervalId: NodeJS.Timer): void;
     export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    export namespace setImmediate {
+        export function __promisify__(): Promise<void>;
+        export function __promisify__<T>(value: T): Promise<T>;
+    }
     export function clearImmediate(immediateId: any): void;
 }
 
@@ -5806,6 +6003,13 @@ declare module "async_hooks" {
         after?(asyncId: number): void;
 
         /**
+         * Called when a promise has resolve() called. This may not be in the same execution id
+         * as the promise itself.
+         * @param asyncId the unique id for the promise that was resolve()d.
+         */
+        promiseResolve?(asyncId: number): void;
+
+        /**
          * Called after the resource corresponding to asyncId is destroyed
          * @param asyncId a unique ID for the async resource
          */
@@ -5830,4 +6034,862 @@ declare module "async_hooks" {
      * @return an AsyncHooks instance used for disabling and enabling hooks
      */
     export function createHook(options: HookCallbacks): AsyncHook;
+
+    /**
+     * The class AsyncResource was designed to be extended by the embedder's async resources.
+     * Using this users can easily trigger the lifetime events of their own resources.
+     */
+    export class AsyncResource {
+        /**
+         * AsyncResource() is meant to be extended. Instantiating a
+         * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
+         * async_hook.executionAsyncId() is used.
+         * @param type the name of this async resource type
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
+         */
+        constructor(type: string, triggerAsyncId?: number)
+
+        /**
+         * Call AsyncHooks before callbacks.
+         */
+        emitBefore(): void;
+
+        /**
+         * Call AsyncHooks after callbacks
+         */
+        emitAfter(): void;
+
+        /**
+         * Call AsyncHooks destroy callbacks.
+         */
+        emitDestroy(): void;
+
+        /**
+         * @return the unique ID assigned to this AsyncResource instance.
+         */
+        asyncId(): number;
+
+        /**
+         * @return the trigger ID for this AsyncResource instance.
+         */
+        triggerAsyncId(): number;
+    }
+}
+
+declare module "http2" {
+    import * as events from "events";
+    import * as fs from "fs";
+    import * as net from "net";
+    import * as stream from "stream";
+    import * as tls from "tls";
+    import * as url from "url";
+
+    import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+    export { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+
+    // Http2Stream
+
+    export interface StreamPriorityOptions {
+        exclusive?: boolean;
+        parent?: number;
+        weight?: number;
+        silent?: boolean;
+    }
+
+    export interface StreamState {
+        localWindowSize?: number;
+        state?: number;
+        streamLocalClose?: number;
+        streamRemoteClose?: number;
+        sumDependencyWeight?: number;
+        weight?: number;
+    }
+
+    export interface ServerStreamResponseOptions {
+        endStream?: boolean;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
+    }
+
+    export interface StatOptions {
+        offset: number;
+        length: number;
+    }
+
+    export interface ServerStreamFileResponseOptions {
+        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void|boolean;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
+        offset?: number;
+        length?: number;
+    }
+
+    export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
+        onError?: (err: NodeJS.ErrnoException) => void;
+    }
+
+    export interface Http2Stream extends stream.Duplex {
+        readonly aborted: boolean;
+        readonly destroyed: boolean;
+        priority(options: StreamPriorityOptions): void;
+        readonly rstCode: number;
+        rstStream(code: number): void;
+        rstWithNoError(): void;
+        rstWithProtocolError(): void;
+        rstWithCancel(): void;
+        rstWithRefuse(): void;
+        rstWithInternalError(): void;
+        readonly session: Http2Session;
+        setTimeout(msecs: number, callback?: () => void): void;
+        readonly state: StreamState;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "aborted", listener: () => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "end", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+        addListener(event: "frameError", listener: (frameType: number, errorCode: number) => void): this;
+        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: "streamClosed", listener: (code: number) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
+        addListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "aborted"): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "data", chunk: Buffer | string): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "end"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "finish"): boolean;
+        emit(event: "frameError", frameType: number, errorCode: number): boolean;
+        emit(event: "pipe", src: stream.Readable): boolean;
+        emit(event: "unpipe", src: stream.Readable): boolean;
+        emit(event: "streamClosed", code: number): boolean;
+        emit(event: "timeout"): boolean;
+        emit(event: "trailers", trailers: IncomingHttpHeaders, flags: number): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "aborted", listener: () => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "data", listener: (chunk: Buffer | string) => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "end", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "finish", listener: () => void): this;
+        on(event: "frameError", listener: (frameType: number, errorCode: number) => void): this;
+        on(event: "pipe", listener: (src: stream.Readable) => void): this;
+        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        on(event: "streamClosed", listener: (code: number) => void): this;
+        on(event: "timeout", listener: () => void): this;
+        on(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "aborted", listener: () => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "data", listener: (chunk: Buffer | string) => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "end", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "finish", listener: () => void): this;
+        once(event: "frameError", listener: (frameType: number, errorCode: number) => void): this;
+        once(event: "pipe", listener: (src: stream.Readable) => void): this;
+        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        once(event: "streamClosed", listener: (code: number) => void): this;
+        once(event: "timeout", listener: () => void): this;
+        once(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "aborted", listener: () => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "end", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+        prependListener(event: "frameError", listener: (frameType: number, errorCode: number) => void): this;
+        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: "streamClosed", listener: (code: number) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
+        prependListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "aborted", listener: () => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "end", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener(event: "frameError", listener: (frameType: number, errorCode: number) => void): this;
+        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "streamClosed", listener: (code: number) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+    }
+
+    export interface ClientHttp2Stream extends Http2Stream {
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "headers", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        addListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        addListener(event: "response", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "headers", headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "push", headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "response", headers: IncomingHttpHeaders, flags: number): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "headers", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        on(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        on(event: "response", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "headers", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        once(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        once(event: "response", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "headers", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependListener(event: "response", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "headers", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependOnceListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependOnceListener(event: "response", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
+    }
+
+    export interface ServerHttp2Stream extends Http2Stream {
+        additionalHeaders(headers: OutgoingHttpHeaders): void;
+        readonly headersSent: boolean;
+        readonly pushAllowed: boolean;
+        pushStream(headers: OutgoingHttpHeaders, callback?: (pushStream: ServerHttp2Stream) => void): void;
+        pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (pushStream: ServerHttp2Stream) => void): void;
+        respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
+        respondWithFD(fd: number, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
+        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
+    }
+
+    // Http2Session
+
+    export interface Settings {
+        headerTableSize?: number;
+        enablePush?: boolean;
+        initialWindowSize?: number;
+        maxFrameSize?: number;
+        maxConcurrentStreams?: number;
+        maxHeaderListSize?: number;
+    }
+
+    export interface ClientSessionRequestOptions {
+        endStream?: boolean;
+        exclusive?: boolean;
+        parent?: number;
+        weight?: number;
+        getTrailers?: (trailers: OutgoingHttpHeaders, flags: number) => void;
+    }
+
+    export interface SessionShutdownOptions {
+        graceful?: boolean;
+        errorCode?: number;
+        lastStreamID?: number;
+        opaqueData?: Buffer | Uint8Array;
+    }
+
+    export interface SessionState {
+        effectiveLocalWindowSize?: number;
+        effectiveRecvDataLength?: number;
+        nextStreamID?: number;
+        localWindowSize?: number;
+        lastProcStreamID?: number;
+        remoteWindowSize?: number;
+        outboundQueueSize?: number;
+        deflateDynamicTableSize?: number;
+        inflateDynamicTableSize?: number;
+    }
+
+    export interface Http2Session extends events.EventEmitter {
+        destroy(): void;
+        readonly destroyed: boolean;
+        readonly localSettings: Settings;
+        readonly pendingSettingsAck: boolean;
+        readonly remoteSettings: Settings;
+        rstStream(stream: Http2Stream, code?: number): void;
+        setTimeout(msecs: number, callback?: () => void): void;
+        shutdown(callback?: () => void): void;
+        shutdown(options: SessionShutdownOptions, callback?: () => void): void;
+        readonly socket: net.Socket | tls.TLSSocket;
+        readonly state: SessionState;
+        priority(stream: Http2Stream, options: StreamPriorityOptions): void;
+        settings(settings: Settings): void;
+        readonly type: number;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
+        addListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        addListener(event: "localSettings", listener: (settings: Settings) => void): this;
+        addListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
+        addListener(event: "socketError", listener: (err: Error) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "frameError", frameType: number, errorCode: number, streamID: number): boolean;
+        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData: Buffer): boolean;
+        emit(event: "localSettings", settings: Settings): boolean;
+        emit(event: "remoteSettings", settings: Settings): boolean;
+        emit(event: "socketError", err: Error): boolean;
+        emit(event: "timeout"): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
+        on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        on(event: "localSettings", listener: (settings: Settings) => void): this;
+        on(event: "remoteSettings", listener: (settings: Settings) => void): this;
+        on(event: "socketError", listener: (err: Error) => void): this;
+        on(event: "timeout", listener: () => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
+        once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        once(event: "localSettings", listener: (settings: Settings) => void): this;
+        once(event: "remoteSettings", listener: (settings: Settings) => void): this;
+        once(event: "socketError", listener: (err: Error) => void): this;
+        once(event: "timeout", listener: () => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
+        prependListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        prependListener(event: "localSettings", listener: (settings: Settings) => void): this;
+        prependListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
+        prependListener(event: "socketError", listener: (err: Error) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
+        prependOnceListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        prependOnceListener(event: "localSettings", listener: (settings: Settings) => void): this;
+        prependOnceListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
+        prependOnceListener(event: "socketError", listener: (err: Error) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
+    }
+
+    export interface ClientHttp2Session extends Http2Session {
+        request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        addListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
+        emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        on(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        once(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        prependListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        prependOnceListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+    }
+
+    export interface ServerHttp2Session extends Http2Session {
+        readonly server: Http2Server | Http2SecureServer;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "connect", session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
+        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
+        prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+    }
+
+    // Http2Server
+
+    export interface SessionOptions {
+        maxDeflateDynamicTableSize?: number;
+        maxReservedRemoteStreams?: number;
+        maxSendHeaderBlockLength?: number;
+        paddingStrategy?: number;
+        peerMaxConcurrentStreams?: number;
+        selectPadding?: (frameLen: number, maxFrameLen: number) => number;
+        settings?: Settings;
+    }
+
+    export type ClientSessionOptions = SessionOptions;
+    export type ServerSessionOptions = SessionOptions;
+
+    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
+    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
+
+    export interface ServerOptions extends ServerSessionOptions {
+        allowHTTP1?: boolean;
+    }
+
+    export interface SecureServerOptions extends SecureServerSessionOptions {
+        allowHTTP1?: boolean;
+    }
+
+    export interface Http2Server extends net.Server {
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        addListener(event: "sessionError", listener: (err: Error) => void): this;
+        addListener(event: "socketError", listener: (err: Error) => void): this;
+        addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "sessionError", err: Error): boolean;
+        emit(event: "socketError", err: Error): boolean;
+        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "timeout"): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        on(event: "sessionError", listener: (err: Error) => void): this;
+        on(event: "socketError", listener: (err: Error) => void): this;
+        on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        on(event: "timeout", listener: () => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        once(event: "sessionError", listener: (err: Error) => void): this;
+        once(event: "socketError", listener: (err: Error) => void): this;
+        once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        once(event: "timeout", listener: () => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependListener(event: "socketError", listener: (err: Error) => void): this;
+        prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependOnceListener(event: "socketError", listener: (err: Error) => void): this;
+        prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
+    }
+
+    export interface Http2SecureServer extends tls.Server {
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        addListener(event: "sessionError", listener: (err: Error) => void): this;
+        addListener(event: "socketError", listener: (err: Error) => void): this;
+        addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
+        addListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "sessionError", err: Error): boolean;
+        emit(event: "socketError", err: Error): boolean;
+        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "timeout"): boolean;
+        emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        on(event: "sessionError", listener: (err: Error) => void): this;
+        on(event: "socketError", listener: (err: Error) => void): this;
+        on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        on(event: "timeout", listener: () => void): this;
+        on(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        once(event: "sessionError", listener: (err: Error) => void): this;
+        once(event: "socketError", listener: (err: Error) => void): this;
+        once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        once(event: "timeout", listener: () => void): this;
+        once(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependListener(event: "socketError", listener: (err: Error) => void): this;
+        prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
+        prependListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependOnceListener(event: "socketError", listener: (err: Error) => void): this;
+        prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
+    }
+
+    export interface Http2ServerRequest extends stream.Readable {
+        headers: IncomingHttpHeaders;
+        httpVersion: string;
+        method: string;
+        rawHeaders: string[];
+        rawTrailers: string[];
+        setTimeout(msecs: number, callback?: () => void): void;
+        socket: net.Socket | tls.TLSSocket;
+        stream: ServerHttp2Stream;
+        trailers: IncomingHttpHeaders;
+        url: string;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "aborted", hadError: boolean, code: number): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+    }
+
+    export interface Http2ServerResponse extends events.EventEmitter {
+        addTrailers(trailers: OutgoingHttpHeaders): void;
+        connection: net.Socket | tls.TLSSocket;
+        end(callback?: () => void): void;
+        end(data?: string | Buffer, callback?: () => void): void;
+        end(data?: string | Buffer, encoding?: string, callback?: () => void): void;
+        readonly finished: boolean;
+        getHeader(name: string): string;
+        getHeaderNames(): string[];
+        getHeaders(): OutgoingHttpHeaders;
+        hasHeader(name: string): boolean;
+        readonly headersSent: boolean;
+        removeHeader(name: string): void;
+        sendDate: boolean;
+        setHeader(name: string, value: number | string | string[]): void;
+        setTimeout(msecs: number, callback?: () => void): void;
+        socket: net.Socket | tls.TLSSocket;
+        statusCode: number;
+        statusMessage: '';
+        stream: ServerHttp2Stream;
+        write(chunk: string | Buffer, callback?: (err: Error) => void): boolean;
+        write(chunk: string | Buffer, encoding?: string, callback?: (err: Error) => void): boolean;
+        writeContinue(): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): void;
+        createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "aborted", hadError: boolean, code: number): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "error", error: Error): boolean;
+        emit(event: "finish"): boolean;
+
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
+        on(event: "finish", listener: () => void): this;
+
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
+        once(event: "finish", listener: () => void): this;
+
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+    }
+
+    // Public API
+
+    export const constants: {
+        NGHTTP2_SESSION_SERVER: number;
+        NGHTTP2_SESSION_CLIENT: number;
+        NGHTTP2_STREAM_STATE_IDLE: number;
+        NGHTTP2_STREAM_STATE_OPEN: number;
+        NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
+        NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
+        NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
+        NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
+        NGHTTP2_STREAM_STATE_CLOSED: number;
+        NGHTTP2_NO_ERROR: number;
+        NGHTTP2_PROTOCOL_ERROR: number;
+        NGHTTP2_INTERNAL_ERROR: number;
+        NGHTTP2_FLOW_CONTROL_ERROR: number;
+        NGHTTP2_SETTINGS_TIMEOUT: number;
+        NGHTTP2_STREAM_CLOSED: number;
+        NGHTTP2_FRAME_SIZE_ERROR: number;
+        NGHTTP2_REFUSED_STREAM: number;
+        NGHTTP2_CANCEL: number;
+        NGHTTP2_COMPRESSION_ERROR: number;
+        NGHTTP2_CONNECT_ERROR: number;
+        NGHTTP2_ENHANCE_YOUR_CALM: number;
+        NGHTTP2_INADEQUATE_SECURITY: number;
+        NGHTTP2_HTTP_1_1_REQUIRED: number;
+        NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
+        NGHTTP2_FLAG_NONE: number;
+        NGHTTP2_FLAG_END_STREAM: number;
+        NGHTTP2_FLAG_END_HEADERS: number;
+        NGHTTP2_FLAG_ACK: number;
+        NGHTTP2_FLAG_PADDED: number;
+        NGHTTP2_FLAG_PRIORITY: number;
+        DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
+        DEFAULT_SETTINGS_ENABLE_PUSH: number;
+        DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
+        MAX_MAX_FRAME_SIZE: number;
+        MIN_MAX_FRAME_SIZE: number;
+        MAX_INITIAL_WINDOW_SIZE: number;
+        NGHTTP2_DEFAULT_WEIGHT: number;
+        NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
+        NGHTTP2_SETTINGS_ENABLE_PUSH: number;
+        NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
+        NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
+        NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
+        PADDING_STRATEGY_NONE: number;
+        PADDING_STRATEGY_MAX: number;
+        PADDING_STRATEGY_CALLBACK: number;
+        HTTP2_HEADER_STATUS: string;
+        HTTP2_HEADER_METHOD: string;
+        HTTP2_HEADER_AUTHORITY: string;
+        HTTP2_HEADER_SCHEME: string;
+        HTTP2_HEADER_PATH: string;
+        HTTP2_HEADER_ACCEPT_CHARSET: string;
+        HTTP2_HEADER_ACCEPT_ENCODING: string;
+        HTTP2_HEADER_ACCEPT_LANGUAGE: string;
+        HTTP2_HEADER_ACCEPT_RANGES: string;
+        HTTP2_HEADER_ACCEPT: string;
+        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        HTTP2_HEADER_AGE: string;
+        HTTP2_HEADER_ALLOW: string;
+        HTTP2_HEADER_AUTHORIZATION: string;
+        HTTP2_HEADER_CACHE_CONTROL: string;
+        HTTP2_HEADER_CONNECTION: string;
+        HTTP2_HEADER_CONTENT_DISPOSITION: string;
+        HTTP2_HEADER_CONTENT_ENCODING: string;
+        HTTP2_HEADER_CONTENT_LANGUAGE: string;
+        HTTP2_HEADER_CONTENT_LENGTH: string;
+        HTTP2_HEADER_CONTENT_LOCATION: string;
+        HTTP2_HEADER_CONTENT_MD5: string;
+        HTTP2_HEADER_CONTENT_RANGE: string;
+        HTTP2_HEADER_CONTENT_TYPE: string;
+        HTTP2_HEADER_COOKIE: string;
+        HTTP2_HEADER_DATE: string;
+        HTTP2_HEADER_ETAG: string;
+        HTTP2_HEADER_EXPECT: string;
+        HTTP2_HEADER_EXPIRES: string;
+        HTTP2_HEADER_FROM: string;
+        HTTP2_HEADER_HOST: string;
+        HTTP2_HEADER_IF_MATCH: string;
+        HTTP2_HEADER_IF_MODIFIED_SINCE: string;
+        HTTP2_HEADER_IF_NONE_MATCH: string;
+        HTTP2_HEADER_IF_RANGE: string;
+        HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
+        HTTP2_HEADER_LAST_MODIFIED: string;
+        HTTP2_HEADER_LINK: string;
+        HTTP2_HEADER_LOCATION: string;
+        HTTP2_HEADER_MAX_FORWARDS: string;
+        HTTP2_HEADER_PREFER: string;
+        HTTP2_HEADER_PROXY_AUTHENTICATE: string;
+        HTTP2_HEADER_PROXY_AUTHORIZATION: string;
+        HTTP2_HEADER_RANGE: string;
+        HTTP2_HEADER_REFERER: string;
+        HTTP2_HEADER_REFRESH: string;
+        HTTP2_HEADER_RETRY_AFTER: string;
+        HTTP2_HEADER_SERVER: string;
+        HTTP2_HEADER_SET_COOKIE: string;
+        HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
+        HTTP2_HEADER_TRANSFER_ENCODING: string;
+        HTTP2_HEADER_TE: string;
+        HTTP2_HEADER_UPGRADE: string;
+        HTTP2_HEADER_USER_AGENT: string;
+        HTTP2_HEADER_VARY: string;
+        HTTP2_HEADER_VIA: string;
+        HTTP2_HEADER_WWW_AUTHENTICATE: string;
+        HTTP2_HEADER_HTTP2_SETTINGS: string;
+        HTTP2_HEADER_KEEP_ALIVE: string;
+        HTTP2_HEADER_PROXY_CONNECTION: string;
+        HTTP2_METHOD_ACL: string;
+        HTTP2_METHOD_BASELINE_CONTROL: string;
+        HTTP2_METHOD_BIND: string;
+        HTTP2_METHOD_CHECKIN: string;
+        HTTP2_METHOD_CHECKOUT: string;
+        HTTP2_METHOD_CONNECT: string;
+        HTTP2_METHOD_COPY: string;
+        HTTP2_METHOD_DELETE: string;
+        HTTP2_METHOD_GET: string;
+        HTTP2_METHOD_HEAD: string;
+        HTTP2_METHOD_LABEL: string;
+        HTTP2_METHOD_LINK: string;
+        HTTP2_METHOD_LOCK: string;
+        HTTP2_METHOD_MERGE: string;
+        HTTP2_METHOD_MKACTIVITY: string;
+        HTTP2_METHOD_MKCALENDAR: string;
+        HTTP2_METHOD_MKCOL: string;
+        HTTP2_METHOD_MKREDIRECTREF: string;
+        HTTP2_METHOD_MKWORKSPACE: string;
+        HTTP2_METHOD_MOVE: string;
+        HTTP2_METHOD_OPTIONS: string;
+        HTTP2_METHOD_ORDERPATCH: string;
+        HTTP2_METHOD_PATCH: string;
+        HTTP2_METHOD_POST: string;
+        HTTP2_METHOD_PRI: string;
+        HTTP2_METHOD_PROPFIND: string;
+        HTTP2_METHOD_PROPPATCH: string;
+        HTTP2_METHOD_PUT: string;
+        HTTP2_METHOD_REBIND: string;
+        HTTP2_METHOD_REPORT: string;
+        HTTP2_METHOD_SEARCH: string;
+        HTTP2_METHOD_TRACE: string;
+        HTTP2_METHOD_UNBIND: string;
+        HTTP2_METHOD_UNCHECKOUT: string;
+        HTTP2_METHOD_UNLINK: string;
+        HTTP2_METHOD_UNLOCK: string;
+        HTTP2_METHOD_UPDATE: string;
+        HTTP2_METHOD_UPDATEREDIRECTREF: string;
+        HTTP2_METHOD_VERSION_CONTROL: string;
+        HTTP_STATUS_CONTINUE: number;
+        HTTP_STATUS_SWITCHING_PROTOCOLS: number;
+        HTTP_STATUS_PROCESSING: number;
+        HTTP_STATUS_OK: number;
+        HTTP_STATUS_CREATED: number;
+        HTTP_STATUS_ACCEPTED: number;
+        HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
+        HTTP_STATUS_NO_CONTENT: number;
+        HTTP_STATUS_RESET_CONTENT: number;
+        HTTP_STATUS_PARTIAL_CONTENT: number;
+        HTTP_STATUS_MULTI_STATUS: number;
+        HTTP_STATUS_ALREADY_REPORTED: number;
+        HTTP_STATUS_IM_USED: number;
+        HTTP_STATUS_MULTIPLE_CHOICES: number;
+        HTTP_STATUS_MOVED_PERMANENTLY: number;
+        HTTP_STATUS_FOUND: number;
+        HTTP_STATUS_SEE_OTHER: number;
+        HTTP_STATUS_NOT_MODIFIED: number;
+        HTTP_STATUS_USE_PROXY: number;
+        HTTP_STATUS_TEMPORARY_REDIRECT: number;
+        HTTP_STATUS_PERMANENT_REDIRECT: number;
+        HTTP_STATUS_BAD_REQUEST: number;
+        HTTP_STATUS_UNAUTHORIZED: number;
+        HTTP_STATUS_PAYMENT_REQUIRED: number;
+        HTTP_STATUS_FORBIDDEN: number;
+        HTTP_STATUS_NOT_FOUND: number;
+        HTTP_STATUS_METHOD_NOT_ALLOWED: number;
+        HTTP_STATUS_NOT_ACCEPTABLE: number;
+        HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
+        HTTP_STATUS_REQUEST_TIMEOUT: number;
+        HTTP_STATUS_CONFLICT: number;
+        HTTP_STATUS_GONE: number;
+        HTTP_STATUS_LENGTH_REQUIRED: number;
+        HTTP_STATUS_PRECONDITION_FAILED: number;
+        HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
+        HTTP_STATUS_URI_TOO_LONG: number;
+        HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
+        HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
+        HTTP_STATUS_EXPECTATION_FAILED: number;
+        HTTP_STATUS_TEAPOT: number;
+        HTTP_STATUS_MISDIRECTED_REQUEST: number;
+        HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
+        HTTP_STATUS_LOCKED: number;
+        HTTP_STATUS_FAILED_DEPENDENCY: number;
+        HTTP_STATUS_UNORDERED_COLLECTION: number;
+        HTTP_STATUS_UPGRADE_REQUIRED: number;
+        HTTP_STATUS_PRECONDITION_REQUIRED: number;
+        HTTP_STATUS_TOO_MANY_REQUESTS: number;
+        HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
+        HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
+        HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
+        HTTP_STATUS_NOT_IMPLEMENTED: number;
+        HTTP_STATUS_BAD_GATEWAY: number;
+        HTTP_STATUS_SERVICE_UNAVAILABLE: number;
+        HTTP_STATUS_GATEWAY_TIMEOUT: number;
+        HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
+        HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
+        HTTP_STATUS_INSUFFICIENT_STORAGE: number;
+        HTTP_STATUS_LOOP_DETECTED: number;
+        HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
+        HTTP_STATUS_NOT_EXTENDED: number;
+        HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
+    };
+
+    export function getDefaultSettings(): Settings;
+    export function getPackedSettings(settings: Settings): Settings;
+    export function getUnpackedSettings(buf: Buffer | Uint8Array): Settings;
+
+    export function createServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
+    export function createServer(options: ServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
+
+    export function createSecureServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
+    export function createSecureServer(options: SecureServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
+
+    export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
+    export function connect(authority: string | url.URL, options?: ClientSessionOptions | SecureClientSessionOptions, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
 }

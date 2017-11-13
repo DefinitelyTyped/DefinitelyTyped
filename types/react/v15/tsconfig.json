@@ -15,10 +15,11 @@
             "react": [
                 "react/v15"
             ]
-        },        
+        },
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"

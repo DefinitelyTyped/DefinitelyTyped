@@ -4,17 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as leaflet from 'leaflet';
-import { esri as esriLeaflet } from 'esri-leaflet';
+import * as L from 'leaflet';
+import 'esri-leaflet';
 
-export = L;
-
-declare global {
-    namespace L.esri.Geocoding {
+declare module 'leaflet' {
+    namespace esri.Geocoding {
         type GeosearchConstructor = new (options?: GeosearchObject) => Geosearch;
-        type Geosearch = GeosearchControl & leaflet.Evented;
+        type Geosearch = GeosearchControl & Evented;
 
-        interface GeosearchControl extends leaflet.Control {
+        interface GeosearchControl extends Control {
             clear(): this;
             clearSuggestions(): this;
             disable(): this;
@@ -26,7 +24,7 @@ declare global {
         function geosearch(options?: GeosearchObject): Geosearch;
 
         interface GeosearchObject {
-            position?: leaflet.ControlPosition;
+            position?: ControlPosition;
             zoomToResult?: boolean;
             useMapBounds?: boolean | number;
             collapseAfterResult?: boolean;
@@ -35,10 +33,10 @@ declare global {
             providers?: GeosearchProvider[];
             placeholder?: string;
             title?: string;
-            searchBounds?: leaflet.LatLngBoundsExpression | null;
+            searchBounds?: LatLngBoundsExpression | null;
         }
 
-        class GeocodeService extends esriLeaflet.Service {
+        class GeocodeService extends Service {
             constructor(options?: GeocodeServiceOptions);
             geocode(): Geocode;
             suggest(): Suggest;
@@ -47,12 +45,12 @@ declare global {
 
         function geocodeService(options?: GeocodeServiceOptions): GeocodeService;
 
-        interface GeocodeServiceOptions extends esriLeaflet.ServiceOptions {
+        interface GeocodeServiceOptions extends ServiceOptions {
             supportsSuggest?: boolean;
         }
 
-        class Geocode extends esriLeaflet.Task {
-            constructor(options?: esriLeaflet.TaskOptions | esriLeaflet.Service);
+        class Geocode extends Task {
+            constructor(options?: TaskOptions | Service);
             text(text: string): this;
             address(text: string): this;
             neighborhood(text: string): this;
@@ -62,37 +60,37 @@ declare global {
             postal(text: string): this;
             country(text: string): this;
             category(text: string): this;
-            within(bounds: leaflet.LatLngBoundsExpression): this;
-            nearby(latlng: leaflet.LatLngExpression, distance: number): this;
+            within(bounds: LatLngBoundsExpression): this;
+            nearby(latlng: LatLngExpression, distance: number): this;
             run(callback: (error: any | undefined, results: { results: any[] }, response: any) => void, context?: any): this;
         }
 
-        function geocode(options?: esriLeaflet.TaskOptions | esriLeaflet.Service): Geocode;
+        function geocode(options?: TaskOptions | Service): Geocode;
 
-        class Suggest extends esriLeaflet.Task {
-            constructor(options?: esriLeaflet.TaskOptions | esriLeaflet.Service);
+        class Suggest extends Task {
+            constructor(options?: TaskOptions | Service);
             text(text: string): this;
             category(text: string): this;
-            within(bounds: leaflet.LatLngBoundsExpression): this;
-            nearby(latlng: leaflet.LatLngExpression, distance: number): this;
+            within(bounds: LatLngBoundsExpression): this;
+            nearby(latlng: LatLngExpression, distance: number): this;
             run(callback: (error: any | undefined, results: any, response: any) => void, context?: any): this;
         }
 
-        function suggest(options?: esriLeaflet.TaskOptions | esriLeaflet.Service): Suggest;
+        function suggest(options?: TaskOptions | Service): Suggest;
 
-        class ReverseGeocode extends esriLeaflet.Task {
-            constructor(options?: esriLeaflet.TaskOptions | esriLeaflet.Service);
-            latlng(latlng: leaflet.LatLngExpression): this;
+        class ReverseGeocode extends Task {
+            constructor(options?: TaskOptions | Service);
+            latlng(latlng: LatLngExpression): this;
             distance(distance: number): this;
             language(language: string): this;
-            run(callback: (error: any | undefined, results: { latlng: leaflet.LatLng; address: string; }, response: any) => void, context?: any): this;
+            run(callback: (error: any | undefined, results: { latlng: LatLng; address: string; }, response: any) => void, context?: any): this;
         }
 
-        function reverseGeocode(options?: esriLeaflet.TaskOptions | esriLeaflet.Service): ReverseGeocode;
+        function reverseGeocode(options?: TaskOptions | Service): ReverseGeocode;
 
         interface GeosearchProvider {
-            suggestions(text: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): esriLeaflet.Task;
-            results(text: string, key: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): esriLeaflet.Task;
+            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Task;
+            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Task;
         }
         type GeosearchCallback = (error: any | undefined, results: any) => void;
 
@@ -105,8 +103,8 @@ declare global {
 
         class ArcgisOnlineProvider extends GeocodeService implements GeosearchProvider {
             constructor(options?: ArcgisOnlineProviderOptions);
-            suggestions(text: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Suggest;
-            results(text: string, key: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Geocode;
+            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Suggest;
+            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Geocode;
         }
 
         function arcgisOnlineProvider(options?: ArcgisOnlineProviderOptions): ArcgisOnlineProvider;
@@ -119,8 +117,8 @@ declare global {
 
         class GeocodeServiceProvider extends GeocodeService implements GeosearchProvider {
             constructor(options?: GeocodeServiceProviderOptions);
-            suggestions(text: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Suggest;
-            results(text: string, key: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Geocode;
+            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Suggest;
+            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Geocode;
         }
 
         function geocodeServiceProvider(options?: GeocodeServiceProviderOptions): GeocodeServiceProvider;
@@ -129,10 +127,10 @@ declare global {
             url: string;
         }
 
-        class FeatureLayerProvider extends esriLeaflet.FeatureLayerService implements GeosearchProvider {
+        class FeatureLayerProvider extends FeatureLayerService implements GeosearchProvider {
             constructor(options?: FeatureLayerProviderOptions);
-            suggestions(text: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): esriLeaflet.Query;
-            results(text: string, key: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): esriLeaflet.Query;
+            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Query;
+            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Query;
         }
 
         function featureLayerProvider(options?: FeatureLayerProviderOptions): FeatureLayerProvider;
@@ -144,10 +142,10 @@ declare global {
             formatSuggestion?(featureInformation: any): string;
         }
 
-        class MapServiceProvider extends esriLeaflet.MapService implements GeosearchProvider {
+        class MapServiceProvider extends MapService implements GeosearchProvider {
             constructor(options?: MapServiceProviderOptions);
-            suggestions(text: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): esriLeaflet.Find;
-            results(text: string, key: string, bounds: leaflet.LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): esriLeaflet.Query | esriLeaflet.Find;
+            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Find;
+            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Query | Find;
         }
 
         function mapServiceProvider(options?: MapServiceProviderOptions): MapServiceProvider;
@@ -162,16 +160,16 @@ declare global {
 
         interface ResultObject {
             text?: string;
-            bounds?: leaflet.LatLngBoundsExpression;
-            latlng?: leaflet.LatLngExpression;
+            bounds?: LatLngBoundsExpression;
+            latlng?: LatLngExpression;
             properties?: any;
-            geojson?: leaflet.GeoJSON;
+            geojson?: GeoJSON;
             [key: string]: any;
         }
 
         interface Results {
-            bounds: leaflet.LatLngBoundsExpression;
-            latlng: leaflet.LatLngExpression;
+            bounds: LatLngBoundsExpression;
+            latlng: LatLngExpression;
             results: ResultObject[];
         }
     }

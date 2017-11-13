@@ -1,7 +1,8 @@
 // Type definitions for koa-jwt 3.2
 // Project: https://github.com/koajs/jwt
-// Definitions by: Bruno Krebs <https://github.com/brunokrebs/>
+// Definitions by: Bruno Krebs <https://github.com/brunokrebs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Koa = require("koa");
 

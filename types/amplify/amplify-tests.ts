@@ -151,7 +151,7 @@ amplify.request.define("twitter-search", "ajax", {
     }
 });
 
-amplify.request("twitter-search", { term: "amplifyjs" } );
+amplify.request("twitter-search", { term: "amplifyjs" });
 
 // Similarly, we can create a request that searches for mentions, by accepting a username:
 

@@ -47,7 +47,8 @@ const options: Logger.LoggerOptions = {
     }, {
         type: 'raw',
         stream: ringBuffer,
-        level: Logger.ERROR
+        level: Logger.ERROR,
+        reemitErrorEvents: true
     }]
 };
 
@@ -126,7 +127,7 @@ class MyLogger extends Logger {
     }
 }
 
-let child = log.child({ widget_type: 'wuzzle' });
+const child = log.child({ widget_type: 'wuzzle' });
 child.reopenFileStreams();
 log.addStream({ path: '/dev/null' });
 child.level(Logger.DEBUG);

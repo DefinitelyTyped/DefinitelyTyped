@@ -355,7 +355,7 @@ function test_ChartOptions() {
         },
         tooltip: {
             formatter() {
-                return '<b> ' + this.series.name + '</b> <br/> ' + this.x + ': ' + this.y;
+                return `<b> ${this.series.name}</b> <br/> ${this.x}: ${this.y}`;
             }
         },
         plotOptions: {},
@@ -1345,11 +1345,11 @@ function test_BoxPlot() {
         series: [{
             name: 'Observations',
             data: [
-                [760, 801, 848, 895, 965],
-                [733, 853, 939, 980, 1080],
-                [714, 762, 817, 870, 918],
-                [724, 802, 806, 871, 950],
-                [834, 836, 864, 882, 910]
+                760, 801, 848, 895, 965,
+                733, 853, 939, 980, 1080,
+                714, 762, 817, 870, 918,
+                724, 802, 806, 871, 950,
+                834, 836, 864, 882, 910
             ]
         }]
     });
@@ -2384,10 +2384,10 @@ function test_AxisObject() {
     });
     axis.removePlotLine('plot-line-1');
     const extremes = axis.getExtremes();
-    console.log('dataMax: ' + extremes.dataMax + '<br/> ' +
-        'dataMin: ' + extremes.dataMin + '<br/> ' +
-        'max: ' + extremes.max + '<br/> ' +
-        'min: ' + extremes.min + '<br/> ');
+    console.log(`dataMax: ${extremes.dataMax}<br/> ` +
+        `dataMin: ${extremes.dataMin}<br/> ` +
+        `max: ${extremes.max}<br/> ` +
+        `min: ${extremes.min}<br/> `);
     axis.remove();
     axis.remove(false);
     axis.setCategories(['A', 'B', 'C']);
@@ -2516,7 +2516,7 @@ function test_NumericSymbolMagnitude() {
         }]
     });
 
-    chart.update(<Highcharts.ChartOptions> {
+    chart.update({
         lang: {
             numericSymbols: ['万', '億'],
             numericSymbolMagnitude: 10000
@@ -2707,8 +2707,7 @@ function test_SoftMinSoftMax() {
         }]
     });
 
-    let toggle = false;
-    chart.series[0].data[11].update((toggle = (!toggle)) ? 120 : 54);
+    chart.series[0].data[11].update(120);
 }
 
 function test_StyledColorZones() {

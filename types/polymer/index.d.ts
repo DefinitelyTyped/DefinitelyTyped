@@ -185,7 +185,7 @@ declare global {
 
       // XStyling
 
-      updateStyles?(): void;
+      updateStyles?(styles?: {[prop: string]: string;}): void;
 
       /* common api */
 

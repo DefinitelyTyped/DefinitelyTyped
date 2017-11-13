@@ -1,17 +1,23 @@
 // Type definitions for bootstrap-datepicker
 // Project: https://github.com/eternicode/bootstrap-datepicker
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
+
+type DatepickerEvents = "show"|"hide"|"clearDate"|"changeDate"|"changeMonth"|"changeYear"|"changeDecade"|"changeCentury";
+
+type DatepickerViewModes = 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
+
+type DatepickerOrientations = "auto"|"left top"|"left bottom"|"right top"|"right bottom";
 
 /**
  * All options that take a “Date” can handle a Date object; a String
  * formatted according to the given format; or a timedelta relative
  * to today, eg “-1d”, “+6m +1y”, etc, where valid units are “d” (day),
  * “w” (week), “m” (month), and “y” (year).
- * 
+ *
  * See online docs for more info:
  *  https://bootstrap-datepicker.readthedocs.io/en/latest/options.html
  */
@@ -35,11 +41,11 @@ interface DatepickerOptions {
     daysOfWeekDisabled?: number[];
     forceParse?: boolean;
     inputs?: any[];
-    minViewMode?: 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
-    maxViewMode?: 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
+    minViewMode?: DatepickerViewModes;
+    maxViewMode?: DatepickerViewModes;
     multidate?: boolean|number;
     multidateSeparator?: string;
-    orientation?: "auto"|"left top"|"left bottom"|"right top"|"right bottom";
+    orientation?: DatepickerOrientations;
     assumeNearbyYear?: boolean|number;
     viewMode?: string;
     templates?: any;
@@ -91,10 +97,10 @@ interface JQuery {
     datepicker(methodName: string, params: any): any;
     datepicker(options: DatepickerOptions): JQuery;
 
-    off(events: "changeDate", selector?: string, handler?: (eventObject: DatepickerEventObject) => any): JQuery;
-    off(events: "changeDate", handler: (eventObject: DatepickerEventObject) => any): JQuery;
+    off(events: DatepickerEvents, selector?: string, handler?: (eventObject: DatepickerEventObject) => any): JQuery;
+    off(events: DatepickerEvents, handler: (eventObject: DatepickerEventObject) => any): JQuery;
 
-    on(events: "changeDate", selector: string, data: any, handler?: (eventObject: DatepickerEventObject) => any): JQuery;
-    on(events: "changeDate", selector: string, handler: (eventObject: DatepickerEventObject) => any): JQuery;
-    on(events: 'changeDate', handler: (eventObject: DatepickerEventObject) => any): JQuery;
+    on(events: DatepickerEvents, selector: string, data: any, handler?: (eventObject: DatepickerEventObject) => any): JQuery;
+    on(events: DatepickerEvents, selector: string, handler: (eventObject: DatepickerEventObject) => any): JQuery;
+    on(events: DatepickerEvents, handler: (eventObject: DatepickerEventObject) => any): JQuery;
 }

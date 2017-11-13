@@ -28,7 +28,7 @@ const serverWithCustomConnection = JsonRpcWs.createServer<CustomConnection>();
 serverWithCustomConnection.expose('join', function(params: { room: string }) {
     this.rooms = this.rooms || [];
     this.rooms.push(params.room);
-    console.log(this.id + ' joined ' + params.room);
+    console.log(`${this.id} joined ${params.room}`);
 });
 
 serverWithCustomConnection.start({ port: 8080 }, () => {

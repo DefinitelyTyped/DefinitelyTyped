@@ -1,4 +1,5 @@
 import * as rpn from 'request-promise-native';
+import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
 
 rpn('http://www.google.com')
@@ -88,10 +89,14 @@ rpn
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    if (req.method === 'PUT') {
-      req.pipe(rpn.put('http://mysite.com/doodle.png'));
-    } else if (req.method === 'GET' || req.method === 'HEAD') {
-      rpn.get('http://mysite.com/doodle.png').pipe(resp);
+    switch (req.method) {
+      case 'PUT':
+        req.pipe(rpn.put('http://mysite.com/doodle.png'));
+        break;
+      case 'GET':
+      case 'HEAD':
+        rpn.get('http://mysite.com/doodle.png').pipe(resp);
+        break;
     }
   }
 });
@@ -146,7 +151,8 @@ const data = {
 };
 rpn.post({ url: 'http://service.com/upload', formData: data }, function optionalCallback(err, httpResponse, body) {
   if (err) {
-    return console.error('upload failed:', err);
+    console.error('upload failed:', err);
+    return;
   }
   console.log('Upload successful!  Server responded with:', body);
 });
@@ -175,7 +181,8 @@ rpn({
 },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -195,7 +202,8 @@ rpn({
 },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -220,7 +228,7 @@ rpn.get('http://some.server.com/', {
 
 const username = 'username';
 const password = 'password';
-let url = 'http://' + username + ':' + password + '@some.server.com';
+let url = `http://${username}:${password}@some.server.com`;
 
 rpn({ url }, (error, response, body) => {
   // Do more stuff with 'body' here
@@ -264,8 +272,7 @@ rpn.post({ url, oauth }, (e, r, body) => {
 
   // step 2
   const req_data = qs.parse(body);
-  const uri = 'https://api.twitter.com/oauth/authenticate'
-    + '?' + qs.stringify({ oauth_token: req_data.oauth_token });
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({ oauth_token: req_data.oauth_token })}`;
   // redirect the user to the authorize uri
 
   // step 3
@@ -275,7 +282,7 @@ rpn.post({ url, oauth }, (e, r, body) => {
     consumer_key: CONSUMER_KEY,
     consumer_secret: CONSUMER_SECRET,
     token: auth_data.oauth_token,
-    token_secret: req_data.oauth_token_secret,
+    token_secret: req_data.oauth_token_secret as string,
     verifier: auth_data.oauth_verifier,
   };
   url = 'https://api.twitter.com/oauth/access_token';
@@ -445,7 +452,7 @@ rpn(
     // unmodified http.IncomingMessage object
     response.on('data', (data: any[]) => {
       // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data');
+      console.log(`received ${data.length} bytes of compressed data`);
     });
   });
 

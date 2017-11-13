@@ -43,7 +43,7 @@ interface ExecaReturns {
 type ExecaError = Error & ExecaReturns;
 
 interface ExecaChildPromise {
-    catch<TResult = never>(onrejected?: ((reason: ExecaError) => TResult | PromiseLike<TResult>) | undefined | null): Promise<ExecaReturns | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: ExecaError) => TResult | PromiseLike<TResult>) | null): Promise<ExecaReturns | TResult>;
 }
 type ExecaChildProcess = ChildProcess & ExecaChildPromise & Promise<ExecaReturns>;
 
@@ -55,8 +55,8 @@ declare namespace execa {
     function stderr(file: string, options?: Partial<Options>): Promise<string>;
     function stderr(file: string, args?: string[], options?: Partial<Options>): Promise<string>;
     function shell(command: string, options?: Partial<Options>): ExecaChildProcess;
-    function sync<T = string>(file: string, options?: Partial<SyncOptions>): ExecaReturns;
-    function sync<T = string>(file: string, args?: string[], options?: Partial<SyncOptions>): ExecaReturns;
+    function sync(file: string, options?: Partial<SyncOptions>): ExecaReturns;
+    function sync(file: string, args?: string[], options?: Partial<SyncOptions>): ExecaReturns;
     function shellSync(command: string, options?: Partial<Options>): ExecaReturns;
 }
 

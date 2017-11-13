@@ -103,7 +103,10 @@ declare module Mongo {
     interface ObjectIDStatic {
         new (hexString?: string): ObjectID;
     }
-    interface ObjectID { }
+    interface ObjectID {
+        toHexString(): string;
+        equals(otherID: ObjectID): boolean;
+    }
 
     function setConnectionOptions(options: any): void;
 }
@@ -204,7 +207,7 @@ declare module "meteor/mongo" {
         interface Cursor<T> {
             count(applySkipLimit?: boolean): number;
             fetch(): Array<T>;
-            forEach(callback: < T > (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
+            forEach(callback: (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
             map<U>(callback: (doc: T, index: number, cursor: Cursor<T>) => U, thisArg?: any): Array<U>;
             observe(callbacks: ObserveCallbacks): Meteor.LiveQueryHandle;
             observeChanges(callbacks: ObserveChangesCallbacks): Meteor.LiveQueryHandle;
@@ -214,7 +217,10 @@ declare module "meteor/mongo" {
         interface ObjectIDStatic {
             new (hexString?: string): ObjectID;
         }
-        interface ObjectID { }
+        interface ObjectID {
+            toHexString(): string;
+            equals(otherID: ObjectID): boolean;
+         }
 
         function setConnectionOptions(options: any): void;
     }

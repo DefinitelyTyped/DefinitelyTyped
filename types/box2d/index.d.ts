@@ -1,6 +1,6 @@
 // Type definitions for bootstrap.timepicker
 // Project: http://code.google.com/p/box2dweb/
-// Definitions by: jbaldwin <https://github.com/jbaldwin/>
+// Definitions by: jbaldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

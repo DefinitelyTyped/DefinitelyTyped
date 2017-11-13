@@ -33,7 +33,7 @@ function testSourceMapConsumer() {
         });
 
         // create from index map
-        let iscm: SourceMap.IndexedSourceMapConsumer = new SourceMap.SourceMapConsumer({
+        const iscm: SourceMap.IndexedSourceMapConsumer = new SourceMap.SourceMapConsumer({
             version: 3,
             sections: [
                 { offset: { line: 0, column: 0 }, map: {
@@ -47,7 +47,7 @@ function testSourceMapConsumer() {
         });
 
         let scg: SourceMap.SourceMapGenerator;
-        let bscm: SourceMap.BasicSourceMapConsumer = SourceMap.SourceMapConsumer.fromSourceMap(scg);
+        const bscm: SourceMap.BasicSourceMapConsumer = SourceMap.SourceMapConsumer.fromSourceMap(scg);
     }
 
     function testOriginalPositionFor(scm: SourceMap.SourceMapConsumer) {

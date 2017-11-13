@@ -1,6 +1,6 @@
 // Type definitions for FabricJS 1.5
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, Joseph Livecchi <https://github.com/joewashear007/>, Michael Randolph <https://github.com/mrand01/>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace fabric;
@@ -18,82 +18,78 @@ export function createCanvasForNode(width: number, height: number): Canvas;
 // ----------------------------------------------------------
 /**
  * Creates markup containing SVG referenced elements like patterns, gradients etc.
- * @param {fabric.Canvas} canvas instance of fabric.Canvas
+ * @param canvas instance of fabric.Canvas
  */
 export function createSVGRefElementsMarkup(canvas: StaticCanvas): string;
 /**
  * Creates markup containing SVG font faces
- * @param {Array} objects Array of fabric objects
+ * @param objects Array of fabric objects
  */
 export function createSVGFontFacesMarkup(objects: Object[]): string;
 /**
  * Takes string corresponding to an SVG document, and parses it into a set of fabric objects
- * @param {String} string
- * @param {Function} callback
- * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
+ * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
 export function loadSVGFromString(string: string, callback: (results: Object[], options: any) => void, reviver?: Function): void;
 /**
  * Takes url corresponding to an SVG document, and parses it into a set of fabric objects.
  * Note that SVG is fetched via XMLHttpRequest, so it needs to conform to SOP (Same Origin Policy)
- * @param {String} url
- * @param {Function} callback
- * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
+ * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
 export function loadSVGFromURL(url: string, callback: (results: Object[], options: any) => void, reviver?: Function): void;
 /**
  * Returns CSS rules for a given SVG document
- * @param {SVGDocument} doc SVG document to parse
+ * @param doc SVG document to parse
  */
 export function getCSSRules(doc: SVGElement): any;
 
 export function parseElements(elements: any[], callback: Function, options: any, reviver?: Function): void;
 /**
  * Parses "points" attribute, returning an array of values
- * @param {String} points points attribute string
+ * @param points points attribute string
  */
 export function parsePointsAttribute(points: string): any[];
 /**
  * Parses "style" attribute, retuning an object with values
- * @param {SVGElement} element Element to parse
+ * @param element Element to parse
  */
 export function parseStyleAttribute(element: SVGElement): any;
 /**
  * Transforms an array of svg elements to corresponding fabric.* instances
- * @param {Array} elements Array of elements to parse
- * @param {Function} callback Being passed an array of fabric instances (transformed from SVG elements)
- * @param {Object} [options] Options object
- * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
+ * @param elements Array of elements to parse
+ * @param callback Being passed an array of fabric instances (transformed from SVG elements)
+ * @param [options] Options object
+ * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
 export function parseElements(elements: any[], callback: Function, options?: any, reviver?: Function): void;
 /**
  * Returns an object of attributes' name/value, given element and an array of attribute names;
  * Parses parent "g" nodes recursively upwards.
- * @param {DOMElement} element Element to parse
- * @param {Array} attributes Array of attributes to parse
+ * @param element Element to parse
+ * @param attributes Array of attributes to parse
  */
 export function parseAttributes(element: HTMLElement, attributes: string[], svgUid?: string): { [key: string]: string };
 /**
  * Parses an SVG document, returning all of the gradient declarations found in it
- * @param {SVGDocument} doc SVG document to parse
+ * @param doc SVG document to parse
  */
 export function getGradientDefs(doc: SVGElement): { [key: string]: any };
 /**
  * Parses a short font declaration, building adding its properties to a style object
- * @param {String} value font declaration
- * @param {Object} oStyle definition
+ * @param value font declaration
+ * @param oStyle definition
  */
 export function parseFontDeclaration(value: string, oStyle: any): void;
 /**
  * Parses an SVG document, converts it to an array of corresponding fabric.* instances and passes them to a callback
- * @param {SVGDocument} doc SVG document to parse
- * @param {Function} callback Callback to call when parsing is finished; It's being passed an array of elements (parsed from a document).
- * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
+ * @param doc SVG document to parse
+ * @param callback Callback to call when parsing is finished; It's being passed an array of elements (parsed from a document).
+ * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
 export function parseSVGDocument(doc: SVGElement, callback: (results: Object[], options: any) => void, reviver?: Function): void;
 /**
  * Parses "transform" attribute, returning an array of values
- * @param {String} attributeValue String containing attribute value
+ * @param attributeValue String containing attribute value
  */
 export function parseTransformAttribute(attributeValue: string): number[];
 
@@ -208,74 +204,71 @@ interface ICollection<T> {
 	/**
 	 * Adds objects to collection, then renders canvas (if `renderOnAddRemove` is not `false`)
 	 * Objects should be instances of (or inherit from) fabric.Object
-	 * @param {...fabric.Object} object Zero or more fabric instances
+	 * @param object Zero or more fabric instances
 	 */
 	add(...object: Object[]): T;
 
 	/**
 	 * Inserts an object into collection at specified index, then renders canvas (if `renderOnAddRemove` is not `false`)
 	 * An object should be an instance of (or inherit from) fabric.Object
-	 * @param {Object} object Object to insert
-	 * @param {Number} index Index to insert object at
-	 * @param {Boolean} nonSplicing When `true`, no splicing (shifting) of objects occurs
-	 * @return {Self} thisArg
+	 * @param object Object to insert
+	 * @param index Index to insert object at
+	 * @param nonSplicing When `true`, no splicing (shifting) of objects occurs
+	 * @return thisArg
 	 * @chainable
 	 */
 	insertAt(object: Object, index: number, nonSplicing: boolean): T;
 
 	/**
 	 * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
-	 * @param {...fabric.Object} object Zero or more fabric instances
-	 * @return {Self} thisArg
+	 * @param object Zero or more fabric instances
+	 * @return thisArg
 	 * @chainable
 	 */
 	remove(...object: Object[]): T;
 
 	/**
 	 * Executes given function for each object in this group
-	 * @param {Function} callback
-	 * @param {Object} context Context (aka thisObject)
-	 * @return {Self} thisArg
+	 * @param context Context (aka thisObject)
+	 * @return thisArg
 	 */
 	forEachObject(callback: (element: Object, index: number, array: Object[]) => any, context?: any): T;
 
 	/**
 	 * Returns an array of children objects of this instance
 	 * Type parameter introduced in 1.3.10
-	 * @param {String} [type] When specified, only objects of this type are returned
-	 * @return {Array}
+	 * @param [type] When specified, only objects of this type are returned
 	 */
 	getObjects(type?: string): Object[];
 
 	/**
 	 * Returns object at specified index
-	 * @param {Number} index
-	 * @return {Self} thisArg
+	 * @return thisArg
 	 */
 	item(index: number): T;
 
 	/**
 	 * Returns true if collection contains no objects
-	 * @return {Boolean} true if collection is empty
+	 * @return true if collection is empty
 	 */
 	isEmpty(): boolean;
 
 	/**
 	 * Returns a size of a collection (i.e: length of an array containing its objects)
-	 * @return {Number} Collection size
+	 * @return Collection size
 	 */
 	size(): number;
 
 	/**
 	 * Returns true if collection contains an object
-	 * @param {Object} object Object to check against
-	 * @return {Boolean} `true` if collection contains an object
+	 * @param object Object to check against
+	 * @return `true` if collection contains an object
 	 */
 	contains(object: Object): boolean;
 
 	/**
 	 * Returns number representation of a collection complexity
-	 * @return {Number} complexity
+	 * @return complexity
 	 */
 	complexity(): number;
 }
@@ -295,8 +288,8 @@ interface IObservable<T> {
 	on(eventName: {[key: string]: Function}): T;
 	/**
 	 * Fires event with an optional options object
-	 * @param {String} eventName Event name to fire
-	 * @param {Object} [options] Options object
+	 * @param eventName Event name to fire
+	 * @param [options] Options object
 	 */
 	trigger(eventName: string, options?: any): T;
 	/**
@@ -308,38 +301,35 @@ interface IObservable<T> {
 	off(eventName?: string|any, handler?: (e: IEvent) => any): T;
 }
 
+interface Callbacks {
+	/** Invoked on completion */
+	onComplete?: Function;
+	/** Invoked on every step of animation */
+	onChange?: Function;
+}
+
 // animation mixin
 // ----------------------------------------------------
 interface ICanvasAnimation<T> {
 	FX_DURATION: number;
 	/**
 	 * Centers object horizontally with animation.
-	 * @param {fabric.Object} object Object to center
-	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
+	 * @param object Object to center
 	 */
-	fxCenterObjectH(object: Object, callbacks?: { onComplete: Function; onChange: Function; }): T;
+	fxCenterObjectH(object: Object, callbacks?: Callbacks): T;
 
 	/**
 	 * Centers object vertically with animation.
-	 * @param {fabric.Object} object Object to center
-	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
+	 * @param object Object to center
 	 */
-	fxCenterObjectV(object: Object, callbacks?: { onComplete: Function; onChange: Function; }): T;
+	fxCenterObjectV(object: Object, callbacks?: Callbacks): T;
 
 	/**
 	 * Same as `fabric.Canvas#remove` but animated
-	 * @param {fabric.Object} object Object to remove
-	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
-	 * @return {fabric.Canvas} thisArg
+	 * @param object Object to remove
 	 * @chainable
 	 */
-	fxRemove(object: Object, callbacks?: { onComplete: Function; onChange: Function; }): T;
+	fxRemove(object: Object): T;
 }
 interface IObjectAnimation<T> {
 	/**
@@ -393,7 +383,7 @@ export class Color {
 	/**
 	 * Color class
 	 * The purpose of Color is to abstract and encapsulate common color operations;
-	 * @param {String} color optional in hex or rgb(a) format
+	 * @param color optional in hex or rgb(a) format
 	 */
 	constructor(color?: string);
 
@@ -439,7 +429,7 @@ export class Color {
 
 	/**
 	 * Sets value of alpha channel for this color
-	 * @param {Number} alpha Alpha value 0-1
+	 * @param alpha Alpha value 0-1
 	 */
 	setAlpha(alpha: number): void;
 
@@ -450,66 +440,63 @@ export class Color {
 
 	/**
 	 * Transforms color to its black and white representation
-	 * @param {Number} threshold
 	 */
 	toBlackWhite(threshold: number): Color;
 	/**
 	 * Overlays color with another color
-	 * @param {String|fabric.Color} otherColor
 	 */
 	overlayWith(otherColor: string|Color): Color;
 
 	/**
 	 * Returns new color object, when given a color in RGB format
-	 * @param {String} color Color value ex: rgb(0-255,0-255,0-255)
+	 * @param color Color value ex: rgb(0-255,0-255,0-255)
 	 */
 	static fromRgb(color: string): Color;
 	/**
 	 * Returns new color object, when given a color in RGBA format
-	 * @param {String} color Color value ex: rgb(0-255,0-255,0-255)
+	 * @param color Color value ex: rgb(0-255,0-255,0-255)
 	 */
 	static fromRgba(color: string): Color;
 	/**
 	 * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in RGB or RGBA format
-	 * @param {String} color Color value ex: rgb(0-255,0-255,0-255), rgb(0%-100%,0%-100%,0%-100%)
+	 * @param color Color value ex: rgb(0-255,0-255,0-255), rgb(0%-100%,0%-100%,0%-100%)
 	 */
 	static sourceFromRgb(color: string): number[];
 	/**
 	 * Returns new color object, when given a color in HSL format
-	 * @param {String} color Color value ex: hsl(0-260,0%-100%,0%-100%)
+	 * @param color Color value ex: hsl(0-260,0%-100%,0%-100%)
 	 */
 	static fromHsl(color: string): Color;
 	/**
 	 * Returns new color object, when given a color in HSLA format
-	 * @param {String} color Color value ex: hsl(0-260,0%-100%,0%-100%)
+	 * @param color Color value ex: hsl(0-260,0%-100%,0%-100%)
 	 */
 	static fromHsla(color: string): Color;
 	/**
 	 * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in HSL or HSLA format.
-	 * @param {String} color Color value ex: hsl(0-360,0%-100%,0%-100%) or hsla(0-360,0%-100%,0%-100%, 0-1)
+	 * @param color Color value ex: hsl(0-360,0%-100%,0%-100%) or hsla(0-360,0%-100%,0%-100%, 0-1)
 	 */
 	static sourceFromHsl(color: string): number[];
 	/**
 	 * Returns new color object, when given a color in HEX format
-	 * @param {String} color Color value ex: FF5555
+	 * @param color Color value ex: FF5555
 	 */
 	static fromHex(color: string): Color;
 
 	/**
 	 * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in HEX format
-	 * @param {String} color ex: FF5555
+	 * @param color ex: FF5555
 	 */
 	static sourceFromHex(color: string): number[];
 	/**
 	 * Returns new color object, when given color in array representation (ex: [200, 100, 100, 0.5])
-	 * @param {Array} source
 	 */
 	static fromSource(source: number[]): Color;
 }
 
 interface IGradientOptions {
 	/**
-	 * @param {String} [options.type] Type of gradient 'radial' or 'linear'
+	 * @param [options.type] Type of gradient 'radial' or 'linear'
 	 */
 	type?: string;
 	/**
@@ -544,7 +531,7 @@ interface IGradientOptions {
 interface IGradient extends IGradientOptions {
 	/**
 	 * Adds another colorStop
-	 * @param {Object} colorStop Object with offset and color
+	 * @param colorStop Object with offset and color
 	 */
 	addColorStop(colorStop: any): IGradient;
 	/**
@@ -553,15 +540,15 @@ interface IGradient extends IGradientOptions {
 	toObject(): any;
 	/**
 	 * Returns SVG representation of an gradient
-	 * @param {Object} object Object to create a gradient for
-	 * @param {Boolean} normalize Whether coords should be normalized
-	 * @return {String} SVG representation of an gradient (linear/radial)
+	 * @param object Object to create a gradient for
+	 * @param normalize Whether coords should be normalized
+	 * @return SVG representation of an gradient (linear/radial)
 	 */
 	toSVG(object: Object, normalize?: boolean): string;
 
 	/**
 	 * Returns an instance of CanvasGradient
-	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 * @param ctx Context to render on
 	 */
 	toLive(ctx: CanvasRenderingContext2D, object?: PathGroup): CanvasGradient;
 }
@@ -569,14 +556,12 @@ interface IGrandientStatic {
 	new (options?: IGradientOptions): IGradient;
 	/**
 	 * Returns instance from an SVG element
-	 * @param {SVGGradientElement} el SVG gradient element
-	 * @param {fabric.Object} instance
+	 * @param el SVG gradient element
 	 */
 	fromElement(el: SVGGradientElement, instance: Object): IGradient;
 	/**
 	 * Returns instance from its object representation
-	 * @param {Object} obj
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	fromObject(obj: any, options: any[]): IGradient;
 }
@@ -647,7 +632,6 @@ export class Pattern  {
 	toObject(): any;
 	/**
 	 * Returns SVG representation of a pattern
-	 * @param {fabric.Object} object
 	 */
 	toSVG(object: Object): string;
 }
@@ -660,134 +644,111 @@ export class Point {
 
 	/**
 	 * Adds another point to this one and returns another one
-	 * @param {fabric.Point} that
 	 */
 	add(that: Point): Point;
 
 	/**
 	 * Adds another point to this one
-	 * @param {fabric.Point} that
 	 */
 	addEquals(that: Point): Point;
 
 	/**
 	 * Adds value to this point and returns a new one
-	 * @param {Number} scalar
 	 */
 	scalarAdd(scalar: number): Point;
 
 	/**
 	 * Adds value to this point
-	 * @param {Number} scalar
 	 */
 	scalarAddEquals(scalar: number): Point;
 
 	/**
 	 * Subtracts another point from this point and returns a new one
-	 * @param {fabric.Point} that
 	 */
 	subtract(that: Point): Point;
 
 	/**
 	 * Subtracts another point from this point
-	 * @param {fabric.Point} that
 	 */
 	subtractEquals(that: Point): Point;
 
 	/**
 	 * Subtracts value from this point and returns a new one
-	 * @param {Number} scalar
 	 */
 	scalarSubtract(scalar: number): Point;
 
 	/**
 	 * Subtracts value from this point
-	 * @param {Number} scalar
 	 */
 	scalarSubtractEquals(scalar: number): Point;
 
 	/**
 	 * Miltiplies this point by a value and returns a new one
-	 * @param {Number} scalar
 	 */
 	multiply(scalar: number): Point;
 
 	/**
 	 * Miltiplies this point by a value
-	 * @param {Number} scalar
 	 */
 	multiplyEquals(scalar: number): Point;
 
 	/**
 	 * Divides this point by a value and returns a new one
-	 * @param {Number} scalar
 	 */
 	divide(scalar: number): Point;
 
 	/**
 	 * Divides this point by a value
-	 * @param {Number} scalar
 	 */
 	divideEquals(scalar: number): Point;
 
 	/**
 	 * Returns true if this point is equal to another one
-	 * @param {fabric.Point} that
 	 */
 	eq(that: Point): Point;
 
 	/**
 	 * Returns true if this point is less than another one
-	 * @param {fabric.Point} that
 	 */
 	lt(that: Point): Point;
 
 	/**
 	 * Returns true if this point is less than or equal to another one
-	 * @param {fabric.Point} that
 	 */
 	lte(that: Point): Point;
 
 	/**
 	 * Returns true if this point is greater another one
-	 * @param {fabric.Point} that
 	 */
 	gt(that: Point): Point;
 
 	/**
 	 * Returns true if this point is greater than or equal to another one
-	 * @param {fabric.Point} that
 	 */
 	gte(that: Point): Point;
 
 	/**
 	 * Returns new point which is the result of linear interpolation with this one and another one
-	 * @param {fabric.Point} that
-	 * @param {Number} t
 	 */
 	lerp(that: Point, t: number): Point;
 
 	/**
 	 * Returns distance from this point and another one
-	 * @param {fabric.Point} that
 	 */
 	distanceFrom(that: Point): number;
 
 	/**
 	 * Returns the point between this point and another one
-	 * @param {fabric.Point} that
 	 */
 	midPointFrom(that: Point): Point;
 
 	/**
 	 * Returns a new point which is the min of this and another one
-	 * @param {fabric.Point} that
 	 */
 	min(that: Point): Point;
 
 	/**
 	 * Returns a new point which is the max of this and another one
-	 * @param {fabric.Point} that
 	 */
 	max(that: Point): Point;
 
@@ -798,20 +759,16 @@ export class Point {
 
 	/**
 	 * Sets x/y of this point
-	 * @param {Number} x
-	 * @param {Number} y
 	 */
 	setXY(x: number, y: number): Point;
 
 	/**
 	 * Sets x/y of this point from another point
-	 * @param {fabric.Point} that
 	 */
 	setFromPoint(that: Point): Point;
 
 	/**
 	 * Swaps x/y of this point and another point
-	 * @param {fabric.Point} that
 	 */
 	swap(that: Point): Point;
 }
@@ -856,7 +813,6 @@ export class IShadow {
 	toString(): string;
 	/**
 	 * Returns SVG representation of a shadow
-	 * @param {fabric.Object} object
 	 */
 	toSVG(object: Object): string;
 
@@ -972,8 +928,8 @@ export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOp
 export class StaticCanvas {
 	/**
 	 * Constructor
-	 * @param {HTMLElement|String} element <canvas> element to initialize instance on
-	 * @param {Object} [options] Options object
+	 * @param element <canvas> element to initialize instance on
+	 * @param [options] Options object
 	 */
 	constructor(element: HTMLCanvasElement|string, options?: ICanvasOptions);
 
@@ -985,31 +941,31 @@ export class StaticCanvas {
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayImage|overlay image} for this canvas
-	 * @param {(fabric.Image|String)} image fabric.Image instance or URL of an image to set overlay to
-	 * @param {Function} callback callback to invoke when image is loaded and set as an overlay
-	 * @param {Object} [options] Optional options to set for the {@link fabric.Image|overlay image}.
+	 * @param image fabric.Image instance or URL of an image to set overlay to
+	 * @param callback callback to invoke when image is loaded and set as an overlay
+	 * @param [options] Optional options to set for the {@link fabric.Image|overlay image}.
 	 */
 	setOverlayImage(image: Image|string, callback: Function, options?: IObjectOptions): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundImage|background image} for this canvas
-	 * @param {(fabric.Image|String)} image fabric.Image instance or URL of an image to set background to
-	 * @param {Function} callback Callback to invoke when image is loaded and set as background
-	 * @param {Object} [options] Optional options to set for the {@link fabric.Image|background image}.
+	 * @param image fabric.Image instance or URL of an image to set background to
+	 * @param callback Callback to invoke when image is loaded and set as background
+	 * @param [options] Optional options to set for the {@link fabric.Image|background image}.
 	 */
 	setBackgroundImage(image: Image|string, callback: Function, options?: IObjectOptions): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayColor|background color} for this canvas
-	 * @param {(String|fabric.Pattern)} overlayColor Color or pattern to set background color to
-	 * @param {Function} callback Callback to invoke when background color is set
+	 * @param overlayColor Color or pattern to set background color to
+	 * @param callback Callback to invoke when background color is set
 	 */
 	setOverlayColor(overlayColor: string|Pattern, callback: Function): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundColor|background color} for this canvas
-	 * @param {(String|fabric.Pattern)} backgroundColor Color or pattern to set background color to
-	 * @param {Function} callback Callback to invoke when background color is set
+	 * @param backgroundColor Color or pattern to set background color to
+	 * @param callback Callback to invoke when background color is set
 	 */
 	setBackgroundColor(backgroundColor: string|Pattern, callback: Function): StaticCanvas;
 
@@ -1025,22 +981,22 @@ export class StaticCanvas {
 
 	/**
 	 * Sets width of this canvas instance
-	 * @param {Number|String} value                         Value to set width to
-	 * @param {Object}        [options]                     Options object
+	 * @param value                         Value to set width to
+	 * @param        [options]                     Options object
 	 */
 	setWidth(value: number|string, options?: ICanvasDimensionsOptions): StaticCanvas;
 
 	/**
 	 * Sets height of this canvas instance
-	 * @param {Number|String} value                         Value to set height to
-	 * @param {Object}        [options]                     Options object
+	 * @param value                         Value to set height to
+	 * @param        [options]                     Options object
 	 */
 	setHeight(value: number|string, options?: ICanvasDimensionsOptions): StaticCanvas;
 
 	/**
 	 * Sets dimensions (width, height) of this canvas instance. when options.cssOnly flag active you should also supply the unit of measure (px/%/em)
-	 * @param {Object}        dimensions                    Object with width/height properties
-	 * @param {Object}        [options]                     Options object
+	 * @param        dimensions                    Object with width/height properties
+	 * @param        [options]                     Options object
 	 */
 	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): StaticCanvas;
 
@@ -1051,32 +1007,32 @@ export class StaticCanvas {
 
 	/**
 	 * Sets viewport transform of this canvas instance
-	 * @param {Array} vpt the transform in the form of context.transform
+	 * @param vpt the transform in the form of context.transform
 	 */
 	setViewportTransform(vpt: number[]): StaticCanvas;
 
 	/**
 	 * Sets zoom level of this canvas instance, zoom centered around point
-	 * @param {fabric.Point} point to zoom with respect to
-	 * @param {Number} value to set zoom to, less than 1 zooms out
+	 * @param point to zoom with respect to
+	 * @param value to set zoom to, less than 1 zooms out
 	 */
 	zoomToPoint(point: Point, value: number): StaticCanvas;
 
 	/**
 	 * Sets zoom level of this canvas instance
-	 * @param {Number} value to set zoom to, less than 1 zooms out
+	 * @param value to set zoom to, less than 1 zooms out
 	 */
 	setZoom(value: number): StaticCanvas;
 
 	/**
 	 * Pan viewport so as to place point at top left corner of canvas
-	 * @param {fabric.Point} point to move to
+	 * @param point to move to
 	 */
 	absolutePan(point: Point): StaticCanvas;
 
 	/**
 	 * Pans viewpoint relatively
-	 * @param {fabric.Point} point (position vector) to move by
+	 * @param point (position vector) to move by
 	 */
 	relativePan(point: Point): StaticCanvas;
 
@@ -1097,7 +1053,7 @@ export class StaticCanvas {
 
 	/**
 	 * Clears specified context of canvas element
-	 * @param {CanvasRenderingContext2D} ctx Context to clear
+	 * @param ctx Context to clear
 	 * @chainable
 	 */
 	clearContext(ctx: CanvasRenderingContext2D): StaticCanvas;
@@ -1114,7 +1070,7 @@ export class StaticCanvas {
 
 	/**
 	 * Renders both the top canvas and the secondary container canvas.
-	 * @param {Boolean} [allOnTop] Whether we want to force all images to be rendered on the top canvas
+	 * @param [allOnTop] Whether we want to force all images to be rendered on the top canvas
 	 * @chainable
 	 */
 	renderAll(allOnTop?: boolean): StaticCanvas;
@@ -1134,39 +1090,39 @@ export class StaticCanvas {
 	/**
 	 * Centers object horizontally.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
-	 * @param {fabric.Object} object Object to center horizontally
+	 * @param object Object to center horizontally
 	 */
 	centerObjectH(object: Object): StaticCanvas;
 
 	/**
 	 * Centers object vertically.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
-	 * @param {fabric.Object} object Object to center vertically
+	 * @param object Object to center vertically
 	 */
 	centerObjectV(object: Object): StaticCanvas;
 
 	/**
 	 * Centers object vertically and horizontally.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
-	 * @param {fabric.Object} object Object to center vertically and horizontally
+	 * @param object Object to center vertically and horizontally
 	 */
 	centerObject(object: Object): StaticCanvas;
 
 	/**
 	 * Returs dataless JSON representation of canvas
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toDatalessJSON(propertiesToInclude?: any[]): string;
 
 	/**
 	 * Returns object representation of canvas
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 
 	/**
 	 * Returns dataless object representation of canvas
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toDatalessObject(propertiesToInclude?: any[]): any;
 
@@ -1178,44 +1134,44 @@ export class StaticCanvas {
 
 	/**
 	 * Returns SVG representation of canvas
-	 * @param {Object} [options] Options object for SVG output
-	 * @param {Function} [reviver] Method for further parsing of svg elements, called after each fabric object converted into svg representation.
+	 * @param [options] Options object for SVG output
+	 * @param [reviver] Method for further parsing of svg elements, called after each fabric object converted into svg representation.
 	 */
 	toSVG(options: IToSVGOptions, reviver?: Function): string;
 
 	/**
 	 * Moves an object to the bottom of the stack of drawn objects
-	 * @param {fabric.Object} object Object to send to back
+	 * @param object Object to send to back
 	 * @chainable
 	 */
 	sendToBack(object: Object): StaticCanvas;
 
 	/**
 	 * Moves an object to the top of the stack of drawn objects
-	 * @param {fabric.Object} object Object to send
+	 * @param object Object to send
 	 * @chainable
 	 */
 	bringToFront(object: Object): StaticCanvas;
 
 	/**
 	 * Moves an object down in stack of drawn objects
-	 * @param {fabric.Object} object Object to send
-	 * @param {Boolean} [intersecting] If `true`, send object behind next lower intersecting object
+	 * @param object Object to send
+	 * @param [intersecting] If `true`, send object behind next lower intersecting object
 	 * @chainable
 	 */
 	sendBackwards(object: Object): StaticCanvas;
 
 	/**
 	 * Moves an object up in stack of drawn objects
-	 * @param {fabric.Object} object Object to send
-	 * @param {Boolean} [intersecting] If `true`, send object in front of next upper intersecting object
+	 * @param object Object to send
+	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
 	 * @chainable
 	 */
 	bringForward(object: Object): StaticCanvas;
 	/**
 	 * Moves an object to specified level in stack of drawn objects
-	 * @param {fabric.Object} object Object to send
-	 * @param {Number} index Position to move to
+	 * @param object Object to send
+	 * @param index Position to move to
 	 * @chainable
 	 */
 	moveTo(object: Object, index: number): StaticCanvas;
@@ -1232,32 +1188,32 @@ export class StaticCanvas {
 
 	/**
 	 * Exports canvas element to a dataurl image. Note that when multiplier is used, cropping is scaled appropriately
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	toDataURL(options?: IDataURLOptions): string;
 
 	/**
 	 * Provides a way to check support of some of the canvas methods
 	 * (either those of HTMLCanvasElement itself, or rendering context)
-	 * @param {String} methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
-	 * @return {Boolean | null} `true` if method is supported (or at least exists), null` if canvas element or context can not be initialized
+	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
+	 * @return `true` if method is supported (or at least exists), null` if canvas element or context can not be initialized
 	 */
 	supports(methodName: string): boolean;
 
 	/**
 	 * Populates canvas with data from the specified JSON.
 	 * JSON format must conform to the one of toJSON formats
-	 * @param {String|Object} json JSON string or object
-	 * @param {Function} callback Callback, invoked when json is parsed
+	 * @param json JSON string or object
+	 * @param callback Callback, invoked when json is parsed
 	 *                            and corresponding objects (e.g: {@link fabric.Image})
 	 *                            are initialized
-	 * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
+	 * @param [reviver] Method for further parsing of JSON elements, called after each fabric object created.
 	 */
 	loadFromJSON(json: string|any, callback: Function, reviver?: Function): Canvas;
 	/**
 	 * Clones canvas instance
-	 * @param {Object} [callback] Receives cloned instance as a first argument
-	 * @param {Array} [properties] Array of properties to include in the cloned canvas and children
+	 * @param [callback] Receives cloned instance as a first argument
+	 * @param [properties] Array of properties to include in the cloned canvas and children
 	 */
 	clone(callback: (canvas: StaticCanvas) => any, properties?: any[]): void;
 
@@ -1265,7 +1221,7 @@ export class StaticCanvas {
 	 * Clones canvas instance without cloning existing data.
 	 * This essentially copies canvas dimensions, clipping properties, etc.
 	 * but leaves data empty (so that you can populate it with your own)
-	 * @param {Object} [callback] Receives cloned instance as a first argument
+	 * @param [callback] Receives cloned instance as a first argument
 	 */
 	cloneWithoutData(callback: (canvas: StaticCanvas) => any): void;
 
@@ -1279,13 +1235,13 @@ export class StaticCanvas {
 
 	/**
 	 * Straightens object, then rerenders canvas
-	 * @param {fabric.Object} object Object to straighten
+	 * @param object Object to straighten
 	 */
 	straightenObject(object: Object): StaticCanvas;
 
 	/**
 	 * Same as straightenObject, but animated
-	 * @param {fabric.Object} object Object to straighten
+	 * @param object Object to straighten
 	 */
 	fxStraightenObject(object: Object): StaticCanvas;
 
@@ -1293,12 +1249,12 @@ export class StaticCanvas {
 	/**
 	 * Provides a way to check support of some of the canvas methods
 	 * (either those of HTMLCanvasElement itself, or rendering context)
-	 * @param {String} methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
+	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 */
 	static supports(methodName: string): boolean;
 	/**
 	 * Returns JSON representation of canvas
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	static toJSON(propertiesToInclude?: any[]): string;
 }
@@ -1409,8 +1365,8 @@ export interface Canvas extends ICanvasOptions {}
 export class Canvas {
 	/**
 	 * Constructor
-	 * @param {HTMLElement|String} element <canvas> element to initialize instance on
-	 * @param {Object} [options] Options object
+	 * @param element <canvas> element to initialize instance on
+	 * @param [options] Options object
 	 */
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
@@ -1418,93 +1374,90 @@ export class Canvas {
 
 	/**
 	 * Checks if point is contained within an area of given object
-	 * @param {Event} e Event object
-	 * @param {fabric.Object} target Object to test against
+	 * @param e Event object
+	 * @param target Object to test against
 	 */
 	containsPoint(e: Event, target: Object): boolean;
 	/**
 	 * Deactivates all objects on canvas, removing any active group or object
-	 * @return {fabric.Canvas} thisArg
+	 * @return thisArg
 	 */
 	deactivateAll(): Canvas;
 	/**
 	 * Deactivates all objects and dispatches appropriate events
-	 * @param {Event} [e] Event (passed along when firing)
-	 * @return {fabric.Canvas} thisArg
+	 * @param [e] Event (passed along when firing)
+	 * @return thisArg
 	 */
 	deactivateAllWithDispatch(e?: Event): Canvas;
 	/**
 	 * Discards currently active group
-	 * @param {Event} [e] Event (passed along when firing)
-	 * @return {fabric.Canvas} thisArg
+	 * @param [e] Event (passed along when firing)
+	 * @return thisArg
 	 */
 	discardActiveGroup(e?: Event): Canvas;
 	/**
 	 * Discards currently active object
-	 * @param {Event} [e] Event (passed along when firing)
-	 * @return {fabric.Canvas} thisArg
+	 * @param [e] Event (passed along when firing)
+	 * @return thisArg
 	 * @chainable
 	 */
 	discardActiveObject(e?: Event): Canvas;
 	/**
 	 * Draws objects' controls (borders/controls)
-	 * @param {CanvasRenderingContext2D} ctx Context to render controls on
+	 * @param ctx Context to render controls on
 	 */
 	drawControls(ctx: CanvasRenderingContext2D): void;
 	/**
 	 * Method that determines what object we are clicking on
-	 * @param {Event} e mouse event
-	 * @param {Boolean} skipGroup when true, group is skipped and only objects are traversed through
+	 * @param e mouse event
+	 * @param skipGroup when true, group is skipped and only objects are traversed through
 	 */
 	findTarget(e: MouseEvent, skipGroup: boolean): Canvas;
 	/**
 	 * Returns currently active group
-	 * @return {fabric.Group} Current group
+	 * @return Current group
 	 */
 	getActiveGroup(): Group;
 	/**
 	 * Returns currently active object
-	 * @return {fabric.Object} active object
+	 * @return active object
 	 */
 	getActiveObject(): Object;
 	/**
 	 * Returns pointer coordinates relative to canvas.
-	 * @param {Event} e
-	 * @return {Object} object with "x" and "y" number values
+	 * @return object with "x" and "y" number values
 	 */
 	getPointer(e: Event, ignoreZoom?: boolean, upperCanvasEl?: CanvasRenderingContext2D): { x: number; y: number; };
 	/**
 	 * Returns context of canvas where object selection is drawn
-	 * @return {CanvasRenderingContext2D}
 	 */
 	getSelectionContext(): CanvasRenderingContext2D;
 	/**
 	 * Returns <canvas> element on which object selection is drawn
-	 * @return {HTMLCanvasElement}
 	 */
 	getSelectionElement(): HTMLCanvasElement;
 	/**
 	 * Returns true if object is transparent at a certain location
-	 * @param {fabric.Object} target Object to check
-	 * @param {Number} x Left coordinate
-	 * @param {Number} y Top coordinate
+	 * @param target Object to check
+	 * @param x Left coordinate
+	 * @param y Top coordinate
 	 */
 	isTargetTransparent(target: Object, x: number, y: number): boolean;
 	/**
 	 * Sets active group to a speicified one
-	 * @param {fabric.Group} group Group to set as a current one
-	 * @param {Event} [e] Event (passed along when firing)
+	 * @param group Group to set as a current one
+	 * @param [e] Event (passed along when firing)
 	 */
 	setActiveGroup(group: Group, e?: Event): Canvas;
 	/**
 	 * Sets given object as the only active object on canvas
-	 * @param {fabric.Object} object Object to set as an active one
-	 * @param {Event} [e] Event (passed along when firing "object:selected")
+	 * @param object Object to set as an active one
+	 * @param [e] Event (passed along when firing "object:selected")
 	 */
 	setActiveObject(object: Object, e?: Event): Canvas;
 	/**
 	 * Set the cursor type of the canvas element
-	 * @param {String} value Cursor type of the canvas element.
+	 * @param value Cursor type of the canvas element.
 	 * @see http://www.w3.org/TR/css3-ui/#cursor
 	 */
 	setCursor(value: string): void;
@@ -1518,12 +1471,12 @@ export class Canvas {
 	/**
 	 * Provides a way to check support of some of the canvas methods
 	 * (either those of HTMLCanvasElement itself, or rendering context)
-	 * @param {String} methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
+	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 */
 	static supports(methodName: string): boolean;
 	/**
 	 * Returns JSON representation of canvas
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	static toJSON(propertiesToInclude?: any[]): string;
 }
@@ -1553,35 +1506,32 @@ export class Circle {
 
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity of this instance
+	 * @return complexity of this instance
 	 */
 	complexity(): number;
 	/**
 	 * Returns horizontal radius of an object (according to how an object is scaled)
-	 * @return {Number}
 	 */
 	getRadiusX(): number;
 	/**
 	 * Returns vertical radius of an object (according to how an object is scaled)
-	 * @return {Number}
 	 */
 	getRadiusY(): number;
 	/**
 	 * Sets radius of an object (and updates width accordingly)
-	 * @return {Number}
 	 */
 	setRadius(value: number): number;
 
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
@@ -1591,13 +1541,13 @@ export class Circle {
 	static ATTRIBUTE_NAMES: string[];
 	/**
 	 * Returns Circle instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options: ICircleOptions): Circle;
 	/**
 	 * Returns Circle instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Circle;
 }
@@ -1618,30 +1568,28 @@ export class Ellipse {
 
 	/**
 	 * Returns horizontal radius of an object (according to how an object is scaled)
-	 * @return {Number}
 	 */
 	getRx(): number;
 
 	/**
 	 * Returns Vertical radius of an object (according to how an object is scaled)
-	 * @return {Number}
 	 */
 	getRy(): number;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity
+	 * @return complexity
 	 */
 	complexity(): number;
 
@@ -1652,14 +1600,14 @@ export class Ellipse {
 
 	/**
 	 * Returns Ellipse instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options?: IEllipseOptions): Ellipse;
 
 	/**
 	 * Returns Ellipse instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Ellipse;
 }
@@ -1668,91 +1616,87 @@ export interface Group extends Object, ICollection<Group> {}
 export class Group {
 	/**
 	 * Constructor
-	 * @param {Object} objects Group objects
-	 * @param {Object} [options] Options object
+	 * @param objects Group objects
+	 * @param [options] Options object
 	 */
 	constructor(items?: any[], options?: IObjectOptions);
 
 	activateAllObjects(): Group;
 	/**
 	 * Adds an object to a group; Then recalculates group's dimension, position.
-	 * @param {Object} object
-	 * @return {fabric.Group} thisArg
+	 * @return thisArg
 	 * @chainable
 	 */
 	addWithUpdate(object: Object): Group;
 	containsPoint(point: Point): boolean;
 	/**
 	 * Destroys a group (restoring state of its objects)
-	 * @return {fabric.Group} thisArg
+	 * @return thisArg
 	 * @chainable
 	 */
 	destroy(): Group;
 	/**
 	 * Returns requested property
-	 * @param {String} prop Property to get
-	 * @return {Any}
+	 * @param prop Property to get
 	 */
 	get(prop: string): any;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
-	 * @return {Boolean} true if an object was moved (since fabric.Group#saveCoords was called)
+	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
 	 */
 	hasMoved(): boolean;
 	/**
 	 * Removes an object from a group; Then recalculates group's dimension, position.
-	 * @param {Object} object
-	 * @return {fabric.Group} thisArg
+	 * @return thisArg
 	 * @chainable
 	 */
 	removeWithUpdate(object: Object): Group;
 	/**
 	 * Renders instance on a given context
-	 * @param {CanvasRenderingContext2D} ctx context to render instance on
+	 * @param ctx context to render instance on
 	 */
 	render(ctx: CanvasRenderingContext2D): void;
 	/**
 	 * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
-	 * @param {...fabric.Object} object Zero or more fabric instances
-	 * @return {Self} thisArg
+	 * @param object Zero or more fabric instances
+	 * @return thisArg
 	 * @chainable
 	 */
 	remove(...object: Object[]): Group;
 	/**
 	 * Saves coordinates of this instance (to be used together with `hasMoved`)
 	 * @saveCoords
-	 * @return {fabric.Group} thisArg
+	 * @return thisArg
 	 * @chainable
 	 */
 	saveCoords(): Group;
 	/**
 	 * Sets coordinates of all group objects
-	 * @return {fabric.Group} thisArg
+	 * @return thisArg
 	 * @chainable
 	 */
 	setObjectsCoords(): Group;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns string represenation of a group
-	 * @return {String}
 	 */
 	toString(): string;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
 	/**
 	 * Returns {@link fabric.Group} instance from an object representation
-	 * @param {Object} object Object to create a group from
-	 * @param {Function} [callback] Callback to invoke when an group instance is created
+	 * @param object Object to create a group from
+	 * @param [callback] Callback to invoke when an group instance is created
 	 */
 	static fromObject(object: any, callback: (group: Group) => any): void;
 }
@@ -1791,41 +1735,41 @@ interface Image extends Object, IImageOptions {}
 export class Image {
 	/**
 	 * Constructor
-	 * @param {HTMLImageElement | String} element Image element
-	 * @param {Object} [options] Options object
+	 * @param element Image element
+	 * @param [options] Options object
 	 */
 	constructor(element: HTMLImageElement, objObjects: IObjectOptions);
 
 	initialize(element?: string|HTMLImageElement, options?: IImageOptions): void;
 	/**
 	 * Applies filters assigned to this image (from "filters" array)
-	 * @param {Function} callback Callback is invoked when all filters have been applied and new image is generated
+	 * @param callback Callback is invoked when all filters have been applied and new image is generated
 	 */
 	applyFilters(callback: Function): void;
 	/**
 	 * Returns a clone of an instance
-	 * @param {Function} callback Callback is invoked with a clone as a first argument
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param callback Callback is invoked with a clone as a first argument
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	clone(callback?: Function, propertiesToInclude?: any[]): Object;
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity of this instance
+	 * @return complexity of this instance
 	 */
 	complexity(): number;
 	/**
 	 * Returns image element which this instance if based on
-	 * @return {HTMLImageElement} Image element
+	 * @return Image element
 	 */
 	getElement(): HTMLImageElement;
 	/**
 	 * Returns original size of an image
-	 * @return {Object} Object with "width" and "height" properties
+	 * @return Object with "width" and "height" properties
 	 */
 	getOriginalSize(): { width: number; height: number; };
 	/**
 	 * Returns source of an image
-	 * @return {String} Source of an image
+	 * @return Source of an image
 	 */
 	getSrc(): string;
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
@@ -1834,9 +1778,8 @@ export class Image {
 	 * Sets image element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
 	 * You might need to call `canvas.renderAll` and `object.setCoords` after replacing, to render new image and update controls area.
-	 * @param {HTMLImageElement} element
-	 * @param {Function} [callback] Callback is invoked when all filters have been applied and new image is generated
-	 * @param {Object} [options] Options object
+	 * @param [callback] Callback is invoked when all filters have been applied and new image is generated
+	 * @param [options] Options object
 	 */
 	setElement(element: HTMLImageElement, callback: Function, options: IImageOptions): Image;
 	/**
@@ -1845,48 +1788,47 @@ export class Image {
 	setCrossOrigin(value: string): Image;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} Object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return Object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns string representation of an instance
-	 * @return {String} String representation of an instance
+	 * @return String representation of an instance
 	 */
 	toString(): string;
 	/**
 	 * Returns SVG representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 	/**
 	 * Sets source of an image
-	 * @param {String} src Source string (URL)
-	 * @param {Function} [callback] Callback is invoked when image has been loaded (and all filters have been applied)
-	 * @param {Object} [options] Options object
+	 * @param src Source string (URL)
+	 * @param [callback] Callback is invoked when image has been loaded (and all filters have been applied)
+	 * @param [options] Options object
 	 */
 	setSrc(src: string, callback?: Function, options?: IImageOptions): Image;
 
 	/**
 	 * Creates an instance of fabric.Image from an URL string
-	 * @param {String} url URL to create an image from
-	 * @param {Function} [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
-	 * @param {Object} [imgOptions] Options object
+	 * @param url URL to create an image from
+	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
+	 * @param [imgOptions] Options object
 	 */
 	static fromURL(url: string, callback?: (image: Image) => any, objObjects?: IObjectOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
-	 * @static
-	 * @param {Object} object Object to create an instance from
-	 * @param {Function} [callback] Callback to invoke when an image instance is created
+	 * @param object Object to create an instance from
+	 * @param [callback] Callback to invoke when an image instance is created
 	 */
 	static fromObject(object: any, callback: (image: Image) => {}): void;
 	/**
 	 * Returns Image instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Function} callback Callback to execute when fabric.Image object is created
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param callback Callback to execute when fabric.Image object is created
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, callback: Function, options?: IImageOptions): void;
 	/**
@@ -1919,40 +1861,40 @@ export interface Line extends Object, ILineOptions {}
 export class Line {
 	/**
 	 * Constructor
-	 * @param {Array} [points] Array of points
-	 * @param {Object} [options] Options object
+	 * @param [points] Array of points
+	 * @param [options] Options object
 	 */
 	constructor(points?: number[], objObjects?: IObjectOptions);
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity
+	 * @return complexity
 	 */
 	complexity(): number;
 	initialize(points?: number[], options?: ILineOptions): Line;
 	/**
 	 * Returns object representation of an instance
 	 * @methd toObject
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude: any[]): any;
 	/**
 	 * Returns SVG representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
 	static ATTRIBUTE_NAMES: string[];
 	/**
 	 * Returns fabric.Line instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options?: ILineOptions): Line;
 	/**
 	 * Returns fabric.Line instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Line;
 }
@@ -2195,7 +2137,6 @@ interface IObjectOptions {
 	/**
 	 * Function that determines clipping of an object (context is passed as a first argument)
 	 * Note that context origin is at the object's center point (not left/top corner)
-	 * @type Function
 	 */
 	clipTo?: Function;
 
@@ -2308,20 +2249,20 @@ export class Object {
 
 	/**
 	 * Transforms context when rendering an object
-	 * @param {CanvasRenderingContext2D} ctx Context
-	 * @param {Boolean} fromLeft When true, context is transformed to object's top/left corner. This is used when rendering text on Node
+	 * @param ctx Context
+	 * @param fromLeft When true, context is transformed to object's top/left corner. This is used when rendering text on Node
 	 */
 	transform(ctx: CanvasRenderingContext2D, fromLeft: boolean): void;
 
 	/**
 	 * Returns an object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 
 	/**
 	 * Returns (dataless) object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toDatalessObject(propertiesToInclude?: any[]): any;
 
@@ -2332,7 +2273,7 @@ export class Object {
 
 	/**
 	 * Basic getter
-	 * @param {String} property Property name
+	 * @param property Property name
 	 */
 	get(property: string): any;
 
@@ -2340,8 +2281,8 @@ export class Object {
 	 * Sets property to a given value.
 	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
 	 * If you need to update those, call `setCoords()`.
-	 * @param {String} key Property name
-	 * @param {Object|Function} value Property value (if function, the value is passed into it and its return value is used as a new one)
+	 * @param key Property name
+	 * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
 	 */
 	set(key: string, value: any|Function): Object;
 	/**
@@ -2354,13 +2295,13 @@ export class Object {
 
 	/**
 	 * Toggles specified property from `true` to `false` or from `false` to `true`
-	 * @param {String} property Property to toggle
+	 * @param property Property to toggle
 	 */
 	toggle(property: string): Object;
 
 	/**
 	 * Sets sourcePath of an object
-	 * @param {String} value Value to set sourcePath to
+	 * @param value Value to set sourcePath to
 	 */
 	setSourcePath(value: string): Object;
 
@@ -2371,21 +2312,21 @@ export class Object {
 
 	/**
 	 * Renders an object on a specified context
-	 * @param {CanvasRenderingContext2D} ctx Context to render on
-	 * @param {Boolean} [noTransform] When true, context is not transformed
+	 * @param ctx Context to render on
+	 * @param [noTransform] When true, context is not transformed
 	 */
 	render(ctx: CanvasRenderingContext2D, noTransform?: boolean): void;
 
 	/**
 	 * Clones an instance
-	 * @param {Function} callback Callback is invoked with a clone as a first argument
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param callback Callback is invoked with a clone as a first argument
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	clone(callback: Function, propertiesToInclude?: any[]): Object;
 
 	/**
 	 * Creates an instance of fabric.Image out of an object
-	 * @param {Function} callback callback, invoked with an instance as a first argument
+	 * @param callback callback, invoked with an instance as a first argument
 	 */
 	cloneAsImage(callback: (image: Image) => any): Object;
 
@@ -2397,7 +2338,7 @@ export class Object {
 
 	/**
 	 * Returns true if specified type is identical to the type of an instance
-	 * @param {String} type Type to check against
+	 * @param type Type to check against
 	 */
 	isType(type: string): boolean;
 
@@ -2408,26 +2349,26 @@ export class Object {
 
 	/**
 	 * Returns a JSON representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toJSON(propertiesToInclude?: any[]): any;
 
 	/**
 	 * Sets gradient (fill or stroke) of an object
 	 * <b>Backwards incompatibility note:</b> This method was named "setGradientFill" until v1.1.0
-	 * @param {String} property Property name 'stroke' or 'fill'
-	 * @param {Object} [options] Options object
+	 * @param property Property name 'stroke' or 'fill'
+	 * @param [options] Options object
 	 */
 	setGradient(property: string, options: IGradientOptions): Object;
 	/**
 	 * Sets pattern fill of an object
-	 * @param {Object} options Options object
+	 * @param options Options object
 	 */
 	setPatternFill(options: IFillOptions): Object;
 
 	/**
 	 * Sets shadow of an object
-	 * @param {String} [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
+	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
 	setShadow(options?: string): Object;
 	/**
@@ -2438,19 +2379,19 @@ export class Object {
 
 	/**
 	 * Sets "color" of an instance (alias of `set('fill', …)`)
-	 * @param {String} color Color value
+	 * @param color Color value
 	 */
 	setColor(color: string): Object;
 
 	/**
 	 * Sets "angle" of an instance
-	 * @param {Number} angle Angle value
+	 * @param angle Angle value
 	 */
 	setAngle(angle: number): Object;
 
 	/**
 	 * Sets "angle" of an instance
-	 * @param {Number} angle Angle value
+	 * @param angle Angle value
 	 */
 	rotate(angle: number): Object;
 
@@ -2479,19 +2420,19 @@ export class Object {
 
 	/**
 	 * Returns coordinates of a pointer relative to an object
-	 * @param {Event} e Event to operate upon
-	 * @param {Object} [pointer] Pointer to operate upon (instead of event)
+	 * @param e Event to operate upon
+	 * @param [pointer] Pointer to operate upon (instead of event)
 	 */
 	getLocalPointer(e: Event, pointer: any): any;
 
 	/**
 	 * Sets object's properties from options
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	setOptions(options: any): void;
 	/**
 	 * Sets sourcePath of an object
-	 * @param {String} value Value to set sourcePath to
+	 * @param value Value to set sourcePath to
 	 */
 	setSourcePath(value: string): Object;
 	// functions from object svg export mixin
@@ -2517,8 +2458,8 @@ export class Object {
 	hasStateChanged(): boolean;
 	/**
 	 * Saves state of an object
-	 * @param {Object} [options] Object with additional `stateProperties` array to include when saving state
-	 * @return {fabric.Object} thisArg
+	 * @param [options] Object with additional `stateProperties` array to include when saving state
+	 * @return thisArg
 	 */
 	saveState(options?: { stateProperties: any[] }): Object;
 	/**
@@ -2533,17 +2474,14 @@ export class Object {
 	straighten(): Object;
 	/**
 	 * Same as straighten but with animation
-	 * @param {Object} callbacks Object with callback functions
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
 	 */
-	fxStraighten(callbacks: { onComplete?: Function; onChange: Function }): Object;
+	fxStraighten(callbacks: Callbacks): Object;
 
 	// functions from object stacking mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Moves an object up in stack of drawn objects
-	 * @param {Boolean} [intersecting] If `true`, send object in front of next upper intersecting object
+	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
 	 */
 	bringForward(intersecting?: boolean): Object;
 	/**
@@ -2552,7 +2490,7 @@ export class Object {
 	bringToFront(): Object;
 	/**
 	 * Moves an object down in stack of drawn objects
-	 * @param {Boolean} [intersecting] If `true`, send object behind next lower intersecting object
+	 * @param [intersecting] If `true`, send object behind next lower intersecting object
 	 */
 	sendBackwards(intersecting?: boolean): Object;
 	/**
@@ -2561,7 +2499,7 @@ export class Object {
 	sendToBack(): Object;
 	/**
 	 * Moves an object to specified level in stack of drawn objects
-	 * @param {Number} index New position of object
+	 * @param index New position of object
 	 */
 	moveTo(index: number): Object;
 
@@ -2569,17 +2507,17 @@ export class Object {
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Translates the coordinates from origin to center coordinates (based on the object's dimensions)
-	 * @param {fabric.Point} point The point which corresponds to the originX and originY params
-	 * @param {String} originX Horizontal origin: 'left', 'center' or 'right'
-	 * @param {String} originY Vertical origin: 'top', 'center' or 'bottom'
+	 * @param point The point which corresponds to the originX and originY params
+	 * @param originX Horizontal origin: 'left', 'center' or 'right'
+	 * @param originY Vertical origin: 'top', 'center' or 'bottom'
 	 */
 	translateToCenterPoint(point: Point, originX: string, originY: string): Point;
 
 	/**
 	 * Translates the coordinates from center to origin coordinates (based on the object's dimensions)
-	 * @param {fabric.Point} center The point which corresponds to center of the object
-	 * @param {String} originX Horizontal origin: 'left', 'center' or 'right'
-	 * @param {String} originY Vertical origin: 'top', 'center' or 'bottom'
+	 * @param center The point which corresponds to center of the object
+	 * @param originX Horizontal origin: 'left', 'center' or 'right'
+	 * @param originY Vertical origin: 'top', 'center' or 'bottom'
 	 */
 	translateToOriginPoint(center: Point, originX: string, originY: string): Point;
 	/**
@@ -2589,40 +2527,39 @@ export class Object {
 
 	/**
 	 * Returns the coordinates of the object as if it has a different origin
-	 * @param {String} originX Horizontal origin: 'left', 'center' or 'right'
-	 * @param {String} originY Vertical origin: 'top', 'center' or 'bottom'
+	 * @param originX Horizontal origin: 'left', 'center' or 'right'
+	 * @param originY Vertical origin: 'top', 'center' or 'bottom'
 	 */
 	getPointByOrigin(): Point;
 
 	/**
 	 * Returns the point in local coordinates
-	 * @param {fabric.Point} point The point relative to the global coordinate system
-	 * @param {String} originX Horizontal origin: 'left', 'center' or 'right'
-	 * @param {String} originY Vertical origin: 'top', 'center' or 'bottom'
+	 * @param point The point relative to the global coordinate system
+	 * @param originX Horizontal origin: 'left', 'center' or 'right'
+	 * @param originY Vertical origin: 'top', 'center' or 'bottom'
 	 */
 	toLocalPoint(point: Point, originX: string, originY: string): Point;
 
 	/**
 	 * Sets the position of the object taking into consideration the object's origin
-	 * @param {fabric.Point} pos The new position of the object
-	 * @param {String} originX Horizontal origin: 'left', 'center' or 'right'
-	 * @param {String} originY Vertical origin: 'top', 'center' or 'bottom'
-	 * @return {void}
+	 * @param pos The new position of the object
+	 * @param originX Horizontal origin: 'left', 'center' or 'right'
+	 * @param originY Vertical origin: 'top', 'center' or 'bottom'
 	 */
 	setPositionByOrigin(pos: Point, originX: string, originY: string): void;
 
 	/**
-	 * @param {String} to One of 'left', 'center', 'right'
+	 * @param to One of 'left', 'center', 'right'
 	 */
 	adjustPosition(to: string): void;
 
 	// functions from interactivity mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
-	/**-
+	/**
 	 * Draws borders of an object's bounding box.
 	 * Requires public properties: width, height
 	 * Requires public options: padding, borderColor
-	 * @param {CanvasRenderingContext2D} ctx Context to draw on
+	 * @param ctx Context to draw on
 	 */
 	drawBorders(context: CanvasRenderingContext2D): Object;
 
@@ -2630,25 +2567,25 @@ export class Object {
 	 * Draws corners of an object's bounding box.
 	 * Requires public properties: width, height
 	 * Requires public options: cornerSize, padding
-	 * @param {CanvasRenderingContext2D} ctx Context to draw on
+	 * @param ctx Context to draw on
 	 */
 	drawCorners(context: CanvasRenderingContext2D): Object;
 
 	/**
 	 * Returns true if the specified control is visible, false otherwise.
-	 * @param {String} controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
+	 * @param controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
 	 */
 	isControlVisible(controlName: string): boolean;
 	/**
 	 * Sets the visibility of the specified control.
-	 * @param {String} controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
-	 * @param {Boolean} visible true to set the specified control visible, false otherwise
+	 * @param controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
+	 * @param visible true to set the specified control visible, false otherwise
 	 */
 	setControlVisible(controlName: string, visible: boolean): Object;
 
 	/**
 	 * Sets the visibility state of object controls.
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	setControlsVisibility(options?: {
 		bl?: boolean;
@@ -2670,50 +2607,50 @@ export class Object {
 	setCoords(): Object;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
-	 * @return {Object} Object with left, top, width, height properties
+	 * @return Object with left, top, width, height properties
 	 */
 	getBoundingRect(): { left: number; top: number; width: number; height: number };
 	/**
 	 * Checks if object is fully contained within area of another object
-	 * @param {Object} other Object to test
+	 * @param other Object to test
 	 */
 	isContainedWithinObject(other: Object): boolean;
 	/**
 	 * Checks if object is fully contained within area formed by 2 points
-	 * @param {Object} pointTL top-left point of area
-	 * @param {Object} pointBR bottom-right point of area
+	 * @param pointTL top-left point of area
+	 * @param pointBR bottom-right point of area
 	 */
 	isContainedWithinRect(pointTL: any, pointBR: any): boolean;
 	/**
 	 * Checks if point is inside the object
-	 * @param {fabric.Point} point Point to check against
+	 * @param point Point to check against
 	 */
 	containsPoint(point: Point): boolean;
 	/**
 	 * Scales an object (equally by x and y)
-	 * @param {Number} value Scale factor
-	 * @return {fabric.Object} thisArg
+	 * @param value Scale factor
+	 * @return thisArg
 	 */
 	scale(value: number): Object;
 	/**
 	 * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
-	 * @param {Number} value New height value
+	 * @param value New height value
 	 */
 	scaleToHeight(value: number): Object;
 	/**
 	 * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
-	 * @param {Number} value New width value
+	 * @param value New width value
 	 */
 	scaleToWidth(value: number): Object;
 	/**
 	 * Checks if object intersects with another object
-	 * @param {Object} other Object to test
+	 * @param other Object to test
 	 */
 	intersectsWithObject(other: Object): boolean;
 	/**
 	 * Checks if object intersects with an area formed by 2 points
-	 * @param {Object} pointTL top-left point of area
-	 * @param {Object} pointBR bottom-right point of area
+	 * @param pointTL top-left point of area
+	 * @param pointBR bottom-right point of area
 	 */
 	intersectsWithRect(pointTL: any, pointBR: any): boolean;
 }
@@ -2738,8 +2675,8 @@ export interface IPath extends Object, IPathOptions {}
 export class IPath {
 	/**
 	 * Constructor
-	 * @param {Array|String} path Path data (sequence of coordinates and corresponding "command" tokens)
-	 * @param {Object} [options] Options object
+	 * @param path Path data (sequence of coordinates and corresponding "command" tokens)
+	 * @param [options] Options object
 	 */
 	constructor(path?: string|any[], options?: IPathOptions);
 
@@ -2747,51 +2684,50 @@ export class IPath {
 
 	/**
 	 * Returns number representation of an instance complexity
-	 * @return {Number} complexity of this instance
+	 * @return complexity of this instance
 	 */
 	complexity(): number;
 
 	/**
 	 * Renders path on a specified context
-	 * @param {CanvasRenderingContext2D} ctx context to render path on
-	 * @param {Boolean} [noTransform] When true, context is not transformed
+	 * @param ctx context to render path on
+	 * @param [noTransform] When true, context is not transformed
 	 */
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 	/**
 	 * Returns dataless object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toDatalessObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns string representation of an instance
-	 * @return {String} string representation of an instance
+	 * @return string representation of an instance
 	 */
 	toString(): string;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
 	/**
 	 * Creates an instance of fabric.Path from an SVG <path> element
-	 * @param {SVGElement} element to parse
-	 * @param {Function} callback Callback to invoke when an fabric.Path instance is created
-	 * @param {Object} [options] Options object
+	 * @param element to parse
+	 * @param callback Callback to invoke when an fabric.Path instance is created
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, callback: (path: IPath) => any, options?: IPathOptions): void;
 	/**
 	 * Creates an instance of fabric.Path from an object
-	 * @param {Object} object
-	 * @param {Function} callback Callback to invoke when an fabric.Path instance is created
+	 * @param callback Callback to invoke when an fabric.Path instance is created
 	 */
 	static fromObject(object: any, callback: (path: IPath) => any): void;
 }
@@ -2799,63 +2735,60 @@ export class IPath {
 export class PathGroup extends Object {
 	/**
 	 * Constructor
-	 * @param {Array} paths
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	constructor(paths: IPath[], options?: IObjectOptions);
 
 	initialize(paths: IPath[], options?: IObjectOptions): void;
 	/**
 	 * Returns number representation of object's complexity
-	 * @return {Number} complexity
+	 * @return complexity
 	 */
 	complexity(): number;
 	/**
 	 * Returns true if all paths in this group are of same color
-	 * @return {Boolean} true if all paths are of the same color (`fill`)
+	 * @return true if all paths are of the same color (`fill`)
 	 */
 	isSameColor(): boolean;
 	/**
 	 * Renders this group on a specified context
-	 * @param {CanvasRenderingContext2D} ctx Context to render this instance on
+	 * @param ctx Context to render this instance on
 	 */
 	render(ctx: CanvasRenderingContext2D): void;
 	/**
 	 * Returns dataless object representation of this path group
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} dataless object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return dataless object representation of an instance
 	 */
 	toDatalessObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns object representation of this path group
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns a string representation of this path group
-	 * @return {String} string representation of an object
+	 * @return string representation of an object
 	 */
 	toString(): string;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 	/**
 	 * Returns all paths in this path group
-	 * @return {Array} array of path objects included in this path group
+	 * @return array of path objects included in this path group
 	 */
 	getObjects(): IPath[];
 
 	static fromObject(object: any): PathGroup;
 	/**
 	 * Creates fabric.PathGroup instance from an object representation
-	 * @static
-	 * @memberOf fabric.PathGroup
-	 * @param {Object} object Object to create an instance from
-	 * @param {Function} callback Callback to invoke when an fabric.PathGroup instance is created
+	 * @param object Object to create an instance from
+	 * @param callback Callback to invoke when an fabric.PathGroup instance is created
 	 */
 	static fromObject(object: any, callback: (group: PathGroup) => any): void;
 }
@@ -2880,27 +2813,27 @@ export interface Polygon extends IPolygonOptions {}
 export class Polygon extends Object {
 	/**
 	 * Constructor
-	 * @param {Array} points Array of points
-	 * @param {Object} [options] Options object
+	 * @param points Array of points
+	 * @param [options] Options object
 	 */
 	constructor(points: Array<{ x: number; y: number }>, options?: IObjectOptions, skipOffset?: boolean);
 
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity of this instance
+	 * @return complexity of this instance
 	 */
 	complexity(): number;
 
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
@@ -2911,13 +2844,13 @@ export class Polygon extends Object {
 
 	/**
 	 * Returns Polygon instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options?: IPolygonOptions): Polygon;
 	/**
 	 * Returns fabric.Polygon instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Polygon;
 }
@@ -2942,27 +2875,27 @@ export interface Polyline extends IPolylineOptions {}
 export class Polyline extends Object {
 	/**
 	 * Constructor
-	 * @param {Array} points Array of points (where each point is an object with x and y)
-	 * @param {Object} [options] Options object
-	 * @param {Boolean} [skipOffset] Whether points offsetting should be skipped
+	 * @param points Array of points (where each point is an object with x and y)
+	 * @param [options] Options object
+	 * @param [skipOffset] Whether points offsetting should be skipped
 	 */
 	constructor(points: Array<{ x: number; y: number }>, options?: IPolylineOptions);
 	initialize(points: Point[], options?: IPolylineOptions): void;
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity of this instance
+	 * @return complexity of this instance
 	 */
 	complexity(): number;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} Object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return Object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): any;
 	/**
 	 * Returns SVG representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
@@ -2973,13 +2906,13 @@ export class Polyline extends Object {
 
 	/**
 	 * Returns Polyline  instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options?: IPolylineOptions): Polyline;
 	/**
 	 * Returns fabric.Polyline instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Polyline;
 }
@@ -3002,25 +2935,25 @@ export interface Rect extends IRectOptions {}
 export class Rect extends Object {
 	/**
 	 * Constructor
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	constructor(options?: IRectOptions);
 	initialize(points?: number[], options?: any): Rect;
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity
+	 * @return complexity
 	 */
 	complexity(): number;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude: any[]): any;
 	/**
 	 * Returns svg representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
@@ -3030,13 +2963,13 @@ export class Rect extends Object {
 	static ATTRIBUTE_NAMES: string[];
 	/**
 	 * Returns Rect instance from an SVG element
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options?: IRectOptions): Rect;
 	/**
 	 * Returns Rect instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Rect;
 }
@@ -3093,8 +3026,8 @@ export interface Text extends ITextOptions {}
 export class Text extends Object {
 	/**
 	 * Constructor
-	 * @param {String} text Text string
-	 * @param {Object} [options] Options object
+	 * @param text Text string
+	 * @param [options] Options object
 	 */
 	constructor(text: string, options?: ITextOptions);
 	/**
@@ -3107,17 +3040,17 @@ export class Text extends Object {
 	toString(): string;
 	/**
 	 * Renders text instance on a specified context
-	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 * @param ctx Context to render on
 	 */
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 	/**
 	 * Returns object representation of an instance
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	toObject(propertiesToInclude?: any[]): Object;
 	/**
 	 * Returns SVG representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
+	 * @param [reviver] Method for further parsing of svg representation.
 	 */
 	toSVG(reviver?: Function): string;
 	/**
@@ -3126,7 +3059,7 @@ export class Text extends Object {
 	getFontSize(): number;
 	/**
 	 * Sets object's fontSize
-	 * @param {Number} fontSize Font size (in pixels)
+	 * @param fontSize Font size (in pixels)
 	 */
 	setFontSize(fontSize: number): Text;
 	/**
@@ -3135,7 +3068,7 @@ export class Text extends Object {
 	getFontWeight(): number|string;
 	/**
 	 * Sets object's fontWeight
-	 * @param {(Number|String)} fontWeight Font weight
+	 * @param fontWeight Font weight
 	 */
 	setFontWeight(fontWeight: string|number): Text;
 	/**
@@ -3144,7 +3077,7 @@ export class Text extends Object {
 	getFontFamily(): string;
 	/**
 	 * Sets object's fontFamily
-	 * @param {String} fontFamily Font family
+	 * @param fontFamily Font family
 	 */
 	setFontFamily(fontFamily: string): Text;
 	/**
@@ -3153,7 +3086,7 @@ export class Text extends Object {
 	getText(): string;
 	/**
 	 * Sets object's text
-	 * @param {String} text Text
+	 * @param text Text
 	 */
 	setText(text: string): Text;
 	/**
@@ -3162,7 +3095,7 @@ export class Text extends Object {
 	getTextDecoration(): string;
 	/**
 	 * Sets object's textDecoration
-	 * @param {String} textDecoration Text decoration
+	 * @param textDecoration Text decoration
 	 */
 	setTextDecoration(textDecoration: string): Text;
 	/**
@@ -3171,7 +3104,7 @@ export class Text extends Object {
 	getFontStyle(): string;
 	/**
 	 * Sets object's fontStyle
-	 * @param {String} fontStyle Font style
+	 * @param fontStyle Font style
 	 */
 	setFontStyle(fontStyle: string): Text;
 	/**
@@ -3180,7 +3113,7 @@ export class Text extends Object {
 	getLineHeight(): number;
 	/**
 	 * Sets object's lineHeight
-	 * @param {Number} lineHeight Line height
+	 * @param lineHeight Line height
 	 */
 	setLineHeight(lineHeight: number): Text;
 	/**
@@ -3189,7 +3122,7 @@ export class Text extends Object {
 	getTextAlign(): string;
 	/**
 	 * Sets object's textAlign
-	 * @param {String} textAlign Text alignment
+	 * @param textAlign Text alignment
 	 */
 	setTextAlign(textAlign: string): Text;
 	/**
@@ -3198,7 +3131,7 @@ export class Text extends Object {
 	getTextBackgroundColor(): string;
 	/**
 	 * Sets object's textBackgroundColor
-	 * @param {String} textBackgroundColor Text background color
+	 * @param textBackgroundColor Text background color
 	 */
 	setTextBackgroundColor(textBackgroundColor: string): Text;
 
@@ -3213,13 +3146,13 @@ export class Text extends Object {
 
 	/**
 	 * Returns fabric.Text instance from an SVG element (<b>not yet implemented</b>)
-	 * @param {SVGElement} element Element to parse
-	 * @param {Object} [options] Options object
+	 * @param element Element to parse
+	 * @param [options] Options object
 	 */
 	static fromElement(element: SVGElement, options?: ITextOptions): Text;
 	/**
 	 * Returns fabric.Text instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Text;
 }
@@ -3290,8 +3223,8 @@ export interface IText extends Text, IITextOptions {}
 export class IText extends Object {
 	/**
 	 * Constructor
-	 * @param {String} text Text string
-	 * @param {Object} [options] Options object
+	 * @param text Text string
+	 * @param [options] Options object
 	 */
 	constructor(text: string, options?: IITextOptions);
 	/**
@@ -3301,34 +3234,33 @@ export class IText extends Object {
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 	/**
 	 * Returns object representation of an instance
-	 * @method toObject
-	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return {Object} object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
 	 */
 	toObject(propertiesToInclude?: any[]): Object;
 
 	setText(value: string): Text;
 	/**
 	 * Sets selection start (left boundary of a selection)
-	 * @param {Number} index Index to set selection start to
+	 * @param index Index to set selection start to
 	 */
 	setSelectionStart(index: number): void;
 	/**
 	 * Sets selection end (right boundary of a selection)
-	 * @param {Number} index Index to set selection end to
+	 * @param index Index to set selection end to
 	 */
 	setSelectionEnd(index: number): void;
 	/**
 	 * Gets style of a current selection/cursor (at the start position)
-	 * @param {Number} [startIndex] Start index to get styles at
-	 * @param {Number} [endIndex] End index to get styles at
-	 * @return {Object} styles Style object at a specified (or current) index
+	 * @param [startIndex] Start index to get styles at
+	 * @param [endIndex] End index to get styles at
+	 * @return styles Style object at a specified (or current) index
 	 */
 	getSelectionStyles(startIndex: number, endIndex: number): any;
 	/**
 	 * Sets style of a current selection
-	 * @param {Object} [styles] Styles object
-	 * @return {fabric.IText} thisArg
+	 * @param [styles] Styles object
+	 * @return thisArg
 	 * @chainable
 	 */
 	setSelectionStyles(styles: any): Text;
@@ -3340,42 +3272,41 @@ export class IText extends Object {
 
 	/**
 	 * Returns 2d representation (lineIndex and charIndex) of cursor (or selection start)
-	 * @param {Number} [selectionStart] Optional index. When not given, current selectionStart is used.
+	 * @param [selectionStart] Optional index. When not given, current selectionStart is used.
 	 */
 	get2DCursorLocation(selectionStart?: number): void;
 	/**
 	 * Returns complete style of char at the current cursor
-	 * @param {Number} lineIndex Line index
-	 * @param {Number} charIndex Char index
-	 * @return {Object} Character style
+	 * @param lineIndex Line index
+	 * @param charIndex Char index
+	 * @return Character style
 	 */
 	getCurrentCharStyle(lineIndex: number, charIndex: number): any;
 
 	/**
 	 * Returns fontSize of char at the current cursor
-	 * @param {Number} lineIndex Line index
-	 * @param {Number} charIndex Char index
-	 * @return {Number} Character font size
+	 * @param lineIndex Line index
+	 * @param charIndex Char index
+	 * @return Character font size
 	 */
 	getCurrentCharFontSize(lineIndex: number, charIndex: number): number;
 
 	/**
 	 * Returns color (fill) of char at the current cursor
-	 * @param {Number} lineIndex Line index
-	 * @param {Number} charIndex Char index
-	 * @return {String} Character color (fill)
+	 * @param lineIndex Line index
+	 * @param charIndex Char index
+	 * @return Character color (fill)
 	 */
 	getCurrentCharColor(lineIndex: number, charIndex: number): string;
 	/**
 	 * Renders cursor
-	 * @param {Object} boundaries
 	 */
 	renderCursor(boundaries: any): void;
 
 	/**
 	 * Renders text selection
-	 * @param {Array} chars Array of characters
-	 * @param {Object} boundaries Object with left/top/leftOffset/topOffset
+	 * @param chars Array of characters
+	 * @param boundaries Object with left/top/leftOffset/topOffset
 	 */
 	renderSelection(chars: string[], boundaries: any): void;
 
@@ -3420,27 +3351,27 @@ export class IText extends Object {
 
 	/**
 	 * Find new selection index representing start of current word according to current selection index
-	 * @param {Number} startFrom Surrent selection index
-	 * @return {Number} New selection index
+	 * @param startFrom Surrent selection index
+	 * @return New selection index
 	 */
 	findWordBoundaryLeft(startFrom: number): number;
 
 	/**
 	 * Find new selection index representing end of current word according to current selection index
-	 * @param {Number} startFrom Current selection index
-	 * @return {Number} New selection index
+	 * @param startFrom Current selection index
+	 * @return New selection index
 	 */
 	findWordBoundaryRight(startFrom: number): number;
 
 	/**
 	 * Find new selection index representing start of current line according to current selection index
-	 * @param {Number} startFrom Current selection index
+	 * @param startFrom Current selection index
 	 */
 	findLineBoundaryLeft(startFrom: number): number;
 
 	/**
 	 * Find new selection index representing end of current line according to current selection index
-	 * @param {Number} startFrom Current selection index
+	 * @param startFrom Current selection index
 	 */
 	findLineBoundaryRight(startFrom: number): number;
 
@@ -3451,19 +3382,19 @@ export class IText extends Object {
 
 	/**
 	 * Finds index corresponding to beginning or end of a word
-	 * @param {Number} selectionStart Index of a character
-	 * @param {Number} direction: 1 or -1
+	 * @param selectionStart Index of a character
+	 * @param direction: 1 or -1
 	 */
 	searchWordBoundary(selectionStart: number, direction: number): number;
 
 	/**
 	 * Selects a word based on the index
-	 * @param {Number} selectionStart Index of a character
+	 * @param selectionStart Index of a character
 	 */
 	selectWord(selectionStart: number): void;
 	/**
 	 * Selects a line based on the index
-	 * @param {Number} selectionStart Index of a character
+	 * @param selectionStart Index of a character
 	 */
 	selectLine(selectionStart: number): void;
 
@@ -3478,51 +3409,51 @@ export class IText extends Object {
 	initMouseMoveHandler(): void;
 	/**
 	 * Exits from editing state
-	 * @return {fabric.IText} thisArg
+	 * @return thisArg
 	 * @chainable
 	 */
 	exitEditing(): IText;
 
 	/**
 	 * Inserts a character where cursor is (replacing selection if one exists)
-	 * @param {String} _chars Characters to insert
+	 * @param _chars Characters to insert
 	 */
 	insertChars(_chars: string, useCopiedStyle?: boolean): void;
 	/**
 	 * Inserts new style object
-	 * @param {Number} lineIndex Index of a line
-	 * @param {Number} charIndex Index of a char
-	 * @param {Boolean} isEndOfLine True if it's end of line
+	 * @param lineIndex Index of a line
+	 * @param charIndex Index of a char
+	 * @param isEndOfLine True if it's end of line
 	 */
 	insertNewlineStyleObject(lineIndex: number, charIndex: number, isEndOfLine: boolean): void;
 
 	/**
 	 * Inserts style object for a given line/char index
-	 * @param {Number} lineIndex Index of a line
-	 * @param {Number} charIndex Index of a char
-	 * @param {Object} [style] Style object to insert, if given
+	 * @param lineIndex Index of a line
+	 * @param charIndex Index of a char
+	 * @param [style] Style object to insert, if given
 	 */
 	insertCharStyleObject(lineIndex: number, charIndex: number, isEndOfLine: boolean): void;
 
 	/**
 	 * Inserts style object(s)
-	 * @param {String} _chars Characters at the location where style is inserted
-	 * @param {Boolean} isEndOfLine True if it's end of line
-	 * @param {Boolean} [useCopiedStyle] Style to insert
+	 * @param _chars Characters at the location where style is inserted
+	 * @param isEndOfLine True if it's end of line
+	 * @param [useCopiedStyle] Style to insert
 	 */
 	insertStyleObjects(_chars: string, isEndOfLine: boolean, useCopiedStyle?: boolean): void;
 
 	/**
 	 * Shifts line styles up or down
-	 * @param {Number} lineIndex Index of a line
-	 * @param {Number} offset Can be -1 or +1
+	 * @param lineIndex Index of a line
+	 * @param offset Can be -1 or +1
 	 */
 	shiftLineStyles(lineIndex: number, offset: number): void;
 
 	/**
 	 * Removes style object
-	 * @param {Boolean} isBeginningOfLine True if cursor is at the beginning of line
-	 * @param {Number} [index] Optional index. When not given, current selectionStart is used.
+	 * @param isBeginningOfLine True if cursor is at the beginning of line
+	 * @param [index] Optional index. When not given, current selectionStart is used.
 	 */
 	removeStyleObject(isBeginningOfLine: boolean, index?: number): void;
 	/**
@@ -3532,7 +3463,7 @@ export class IText extends Object {
 
 	/**
 	 * Returns fabric.IText instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): IText;
 }
@@ -3541,25 +3472,25 @@ interface ITriangleOptions extends IObjectOptions { }
 export class Triangle extends Object {
 	/**
 	 * Constructor
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	constructor(options?: ITriangleOptions);
 
 	/**
 	 * Returns complexity of an instance
-	 * @return {Number} complexity of this instance
+	 * @return complexity of this instance
 	 */
 	complexity(): number;
 	/**
 	 * Returns SVG representation of an instance
-	 * @param {Function} [reviver] Method for further parsing of svg representation.
-	 * @return {String} svg representation of an instance
+	 * @param [reviver] Method for further parsing of svg representation.
+	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
 
 	/**
 	 * Returns Triangle instance from an object representation
-	 * @param {Object} object Object to create an instance from
+	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Triangle;
 }
@@ -3571,200 +3502,184 @@ interface IAllFilters {
 	BaseFilter: {
 		/**
 		 * Constructor
-		 * @param {Object} [options] Options object
+		 * @param [options] Options object
 		 */
 		new (options?: any): IBaseFilter;
 	};
 	Blend: {
 		/**
 		 * Constructor
-		 * @param {Object} [options] Options object
+		 * @param [options] Options object
 		 */
 		new (options?: { color?: string; mode?: string; alpha?: number; image?: Image }): IBlendFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IBlendFilter
 	};
 	Brightness: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Number} [options.brightness=0] Value to brighten the image up (0..255)
-		 */
-		new (options?: { brightness: number }): IBrightnessFilter;
+		new (options?: {
+			/**
+			 * Value to brighten the image up (0..255)
+			 * @default 0
+			 */
+			brightness: number
+		}): IBrightnessFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IBrightnessFilter
 	};
 	Convolute: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Boolean} [options.opaque=false] Opaque value (true/false)
-		 * @param {Array} [options.matrix] Filter matrix
-		 */
-		new (options?: { opaque?: boolean; matrix?: number[] }): IConvoluteFilter;
+		new (options?: {
+			opaque?: boolean,
+			/** Filter matrix */
+			matrix?: number[],
+		}): IConvoluteFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IConvoluteFilter
 	};
 	GradientTransparency: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Number} [options.threshold=100] Threshold value
-		 */
-		new (options?: { threshold?: number; }): IGradientTransparencyFilter;
+		new (options?: {
+			/** @default 100 */
+			threshold?: number;
+		}): IGradientTransparencyFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IGradientTransparencyFilter
 	};
 	Grayscale: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 */
 		new (options?: any): IGrayscaleFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IGrayscaleFilter
 	};
 	Invert: {
 		/**
 		 * Constructor
-		 * @param {Object} [options] Options object
+		 * @param [options] Options object
 		 */
 		new (options?: any): IInvertFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IInvertFilter
 	};
 	Mask: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {fabric.Image} [options.mask] Mask image object
-		 * @param {Number} [options.channel=0] Rgb channel (0, 1, 2 or 3)
-		 */
-		new (options?: { mask?: Image; channel: number; }): IMaskFilter;
+		new (options?: {
+			/** Mask image object */
+			mask?: Image,
+			/**
+			 * Rgb channel (0, 1, 2 or 3)
+			 * @default 0
+			 */
+			channel: number,
+		}): IMaskFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IMaskFilter
 	};
 	Multiply: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Number} [options.color=#000000] Color to multiply the image pixels with
-		 */
-		new (options?: { color: string; }): IMultiplyFilter;
+		new (options?: {
+			/**
+			 * Color to multiply the image pixels with
+			 * @default #000000
+			 */
+			color: string;
+		}): IMultiplyFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IMultiplyFilter
 	};
 	Noise: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Number} [options.noise=0] Noise value
-		 */
-		new (options?: { noise: number; }): INoiseFilter;
+		new (options?: {
+			/** @default 0 */
+			noise: number,
+		}): INoiseFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): INoiseFilter
 	};
 	Pixelate: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Number} [options.blocksize=4] Blocksize for pixelate
-		 */
-		new (options?: { blocksize?: number; }): IPixelateFilter;
+		new (options?: {
+			/**
+			 * Blocksize for pixelate
+			 * @default 4
+			 */
+			blocksize?: number,
+		}): IPixelateFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IPixelateFilter
 	};
 	RemoveWhite: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {Number} [options.threshold=30] Threshold value
-		 * @param {Number} [options.distance=20] Distance value
-		 */
-		new (options?: { threshold?: number; distance?: number; }): IRemoveWhiteFilter;
+		new (options?: {
+			/** @default 30 */
+			threshold?: number,
+			/** @default 20 */
+			distance?: number,
+		}): IRemoveWhiteFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IRemoveWhiteFilter
 	};
 	Resize: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 */
 		new (options?: any): IResizeFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): IResizeFilter
 	};
 	Sepia2: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 */
 		new (options?: any): ISepia2Filter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): ISepia2Filter
 	};
 	Sepia: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 */
 		new (options?: any): ISepiaFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): ISepiaFilter
 	};
 	Tint: {
-		/**
-		 * Constructor
-		 * @param {Object} [options] Options object
-		 * @param {String} [options.color=#000000] Color to tint the image with
-		 * @param {Number} [options.opacity] Opacity value that controls the tint effect's transparency (0..1)
-		 */
-		new (options?: { color?: string; opacity?: number; }): ITintFilter;
+		new (options?: {
+			/**
+			 * Color to tint the image with
+			 * @default #000000
+			 */
+			color?: string;
+			/** Opacity value that controls the tint effect's transparency (0..1) */
+			opacity?: number;
+		}): ITintFilter;
 		/**
 		 * Returns filter instance from an object representation
-		 * @param {Object} object Object to create an instance from
+		 * @param object Object to create an instance from
 		 */
 		fromObject(object: any): ITintFilter
 	};
@@ -3772,7 +3687,7 @@ interface IAllFilters {
 interface IBaseFilter {
 	/**
 	 * Sets filter's properties from options
-	 * @param {Object} [options] Options object
+	 * @param [options] Options object
 	 */
 	setOptions(options?: any): void;
 	/**
@@ -3787,77 +3702,77 @@ interface IBaseFilter {
 interface IBlendFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IBrightnessFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IGradientTransparencyFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IGrayscaleFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IInvertFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IMaskFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IMultiplyFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface INoiseFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IPixelateFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IRemoveWhiteFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
@@ -3883,28 +3798,28 @@ interface IResizeFilter {
 	lanczosLobes: number;
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface ISepiaFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface ISepia2Filter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface ITintFilter {
 	/**
 	 * Applies filter to canvas element
-	 * @param {Object} canvasEl Canvas element to apply filter to
+	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
@@ -3946,7 +3861,7 @@ export class BaseBrush {
 
 	/**
 	 * Sets shadow of an object
-	 * @param {Object|String} [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
+	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
 	setShadow(options: string|any): BaseBrush;
 }
@@ -3958,13 +3873,11 @@ export class CircleBrush extends BaseBrush {
 	width: number;
 	/**
 	 * Invoked inside on mouse down and mouse move
-	 * @param {Object} pointer
 	 */
 	drawDot(pointer: any): void;
 
 	/**
-	 * @param {Object} pointer
-	 * @return {fabric.Point} Just added pointer point
+	 * @return Just added pointer point
 	 */
 	addPoint(pointer: any): Point;
 }
@@ -3996,9 +3909,7 @@ export class SprayBrush extends BaseBrush {
 	 * Whether overlapping dots (rectangles) should be removed (for performance reasons)
 	 */
 	optimizeOverlapping: boolean;
-	/**
-	 * @param {Object} pointer
-	 */
+
 	addSprayChunk(pointer: any): void;
 }
 export class PatternBrush extends PencilBrush {
@@ -4018,15 +3929,13 @@ export class PatternBrush extends PencilBrush {
 export class PencilBrush extends BaseBrush {
 	/**
 	 * Converts points to SVG path
-	 * @param {Array} points Array of points
-	 * @param {Number} minX
-	 * @param {Number} minY
+	 * @param points Array of points
 	 */
 	convertPointsToSVGPath(points: Array<{ x: number; y: number }>, minX?: number, minY?: number): string[];
 
 	/**
 	 * Creates fabric.Path object to add on canvas
-	 * @param {String} pathData Path data
+	 * @param pathData Path data
 	 */
 	createPath(pathData: string): IPath;
 }
@@ -4067,13 +3976,13 @@ interface IUtilAnimationOptions {
 interface IUtilAnimation {
 	/**
 	 * Changes value from one to another within certain period of time, invoking callbacks as value is being changed.
-	 * @param {Object} [options] Animation options
+	 * @param [options] Animation options
 	 */
 	animate(options?: IUtilAnimationOptions): void;
 	/**
 	 * requestAnimationFrame polyfill based on http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	 * In order to get a precise start time, `requestAnimFrame` should be called as an entry into the method
-	 * @param {Function} callback Callback to invoke
+	 * @param callback Callback to invoke
 	 */
 	requestAnimFrame(callback: Function): void;
 }
@@ -4116,35 +4025,25 @@ interface IUtilAnimEase {
 interface IUtilArc {
 	/**
 	 * Draws arc
-	 * @param {CanvasRenderingContext2D} ctx
-	 * @param {Number} fx
-	 * @param {Number} fy
-	 * @param {Array} coords
 	 */
 	drawArc(ctx: CanvasRenderingContext2D, fx: number, fy: number, coords: number[]): void;
 	/**
 	 * Calculate bounding box of a elliptic-arc
-	 * @param {Number} fx start point of arc
-	 * @param {Number} fy
-	 * @param {Number} rx horizontal radius
-	 * @param {Number} ry vertical radius
-	 * @param {Number} rot angle of horizontal axe
-	 * @param {Number} large 1 or 0, whatever the arc is the big or the small on the 2 points
-	 * @param {Number} sweep 1 or 0, 1 clockwise or counterclockwise direction
-	 * @param {Number} tx end point of arc
-	 * @param {Number} ty
+	 * @param fx start point of arc
+	 * @param rx horizontal radius
+	 * @param ry vertical radius
+	 * @param rot angle of horizontal axe
+	 * @param large 1 or 0, whatever the arc is the big or the small on the 2 points
+	 * @param sweep 1 or 0, 1 clockwise or counterclockwise direction
+	 * @param tx end point of arc
 	 */
 	getBoundsOfArc(fx: number, fy: number, rx: number, ry: number, rot: number, large: number, sweep: number, tx: number, ty: number): Point[];
 	/**
 	 * Calculate bounding box of a beziercurve
-	 * @param {Number} x0 starting point
-	 * @param {Number} y0
-	 * @param {Number} x1 first control point
-	 * @param {Number} y1
-	 * @param {Number} x2 secondo control point
-	 * @param {Number} y2
-	 * @param {Number} x3 end of beizer
-	 * @param {Number} y3
+	 * @param x0 starting point
+	 * @param x1 first control point
+	 * @param x2 secondo control point
+	 * @param x3 end of beizer
 	 */
 	getBoundsOfCurve(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): Point[];
 }
@@ -4152,24 +4051,18 @@ interface IUtilArc {
 interface IUtilDomEvent {
 	/**
 	 * Cross-browser wrapper for getting event's coordinates
-	 * @param {Event} event Event object
-	 * @param {HTMLCanvasElement} upperCanvasEl &lt;canvas> element on which object selection is drawn
+	 * @param event Event object
+	 * @param upperCanvasEl &lt;canvas> element on which object selection is drawn
 	 */
 	getPointer(event: Event, upperCanvasEl: HTMLCanvasElement): Point;
 
 	/**
 	 * Adds an event listener to an element
-	 * @param {HTMLElement} element
-	 * @param {String} eventName
-	 * @param {Function} handler
 	 */
 	addListener(element: HTMLElement, eventName: string, handler: Function): void;
 
 	/**
 	 * Removes an event listener from an element
-	 * @param {HTMLElement} element
-	 * @param {String} eventName
-	 * @param {Function} handler
 	 */
 	removeListener(element: HTMLElement, eventName: string, handler: Function): void;
 }
@@ -4177,67 +4070,63 @@ interface IUtilDomEvent {
 interface IUtilDomMisc {
 	/**
 	 * Takes id and returns an element with that id (if one exists in a document)
-	 * @param {String|HTMLElement} id
 	 */
 	getById(id: string|HTMLElement): HTMLElement;
 	/**
 	 * Converts an array-like object (e.g. arguments or NodeList) to an array
-	 * @param {Object} arrayLike
 	 */
 	toArray(arrayLike: any): any[];
 	/**
 	 * Creates specified element with specified attributes
-	 * @memberOf fabric.util
-	 * @param {String} tagName Type of an element to create
-	 * @param {Object} [attributes] Attributes to set on an element
-	 * @return {HTMLElement} Newly created element
+	 * @param tagName Type of an element to create
+	 * @param [attributes] Attributes to set on an element
+	 * @return Newly created element
 	 */
 	makeElement(tagName: string, attributes?: any): HTMLElement;
 	/**
 	 * Adds class to an element
-	 * @param {HTMLElement} element Element to add class to
-	 * @param {String} className Class to add to an element
+	 * @param element Element to add class to
+	 * @param className Class to add to an element
 	 */
 	addClass(element: HTMLElement, classname: string): void;
 	/**
 	 * Wraps element with another element
-	 * @param {HTMLElement} element Element to wrap
-	 * @param {HTMLElement|String} wrapper Element to wrap with
-	 * @param {Object} [attributes] Attributes to set on a wrapper
+	 * @param element Element to wrap
+	 * @param wrapper Element to wrap with
+	 * @param [attributes] Attributes to set on a wrapper
 	 */
 	wrapElement(element: HTMLElement, wrapper: HTMLElement|string, attributes?: any): HTMLElement;
 	/**
 	 * Returns element scroll offsets
-	 * @param {HTMLElement} element Element to operate on
-	 * @param {HTMLElement} upperCanvasEl Upper canvas element
+	 * @param element Element to operate on
+	 * @param upperCanvasEl Upper canvas element
 	 */
 	getScrollLeftTop(element: HTMLElement, upperCanvasEl: HTMLElement): { left: number; right: number; };
 	/**
 	 * Returns offset for a given element
-	 * @param {HTMLElement} element Element to get offset for
+	 * @param element Element to get offset for
 	 */
 	getElementOffset(element: HTMLElement): { left: number; right: number; };
 	/**
 	 * Returns style attribute value of a given element
-	 * @param {HTMLElement} element Element to get style attribute for
-	 * @param {String} attr Style attribute to get for element
+	 * @param element Element to get style attribute for
+	 * @param attr Style attribute to get for element
 	 */
 	getElementStyle(elment: HTMLElement, attr: string): string;
 	/**
 	 * Inserts a script element with a given url into a document; invokes callback, when that script is finished loading
-	 * @memberOf fabric.util
-	 * @param {String} url URL of a script to load
-	 * @param {Function} callback Callback to execute when script is finished loading
+	 * @param url URL of a script to load
+	 * @param callback Callback to execute when script is finished loading
 	 */
 	getScript(url: string, callback: Function): void;
 	/**
 	 * Makes element unselectable
-	 * @param {HTMLElement} element Element to make unselectable
+	 * @param element Element to make unselectable
 	 */
 	makeElementUnselectable(element: HTMLElement): HTMLElement;
 	/**
 	 * Makes element selectable
-	 * @param {HTMLElement} element Element to make selectable
+	 * @param element Element to make selectable
 	 */
 	makeElementSelectable(element: HTMLElement): HTMLElement;
 }
@@ -4245,19 +4134,19 @@ interface IUtilDomMisc {
 interface IUtilDomRequest {
 	/**
 	 * Cross-browser abstraction for sending XMLHttpRequest
-	 * @param {String} url URL to send XMLHttpRequest to
-	 * @param {Object} [options] Options object
-	 * @param {String} [options.method="GET"]
-	 * @param {Function} options.onComplete Callback to invoke when request is completed
+	 * @param url URL to send XMLHttpRequest to
 	 */
-	request(url: string, options?: { method?: string; onComplete: Function }): XMLHttpRequest;
+	request(url: string, options?: {
+		/** @default "GET" */
+		method?: string,
+		/** Callback to invoke when request is completed */
+		onComplete: Function,
+	}): XMLHttpRequest;
 }
 
 interface IUtilDomStyle {
 	/**
 	 * Cross-browser wrapper for setting element's style
-	 * @param {HTMLElement} element
-	 * @param {Object} styles
 	 */
 	setStyle(element: HTMLElement, styles: any): HTMLElement;
 }
@@ -4265,20 +4154,18 @@ interface IUtilDomStyle {
 interface IUtilArray {
 	/**
 	 * Invokes method on all items in a given array
-	 * @param {Array} array Array to iterate over
-	 * @param {String} method Name of a method to invoke
+	 * @param array Array to iterate over
+	 * @param method Name of a method to invoke
 	 */
 	invoke(array: any[], method: string): any[];
 	/**
 	 * Finds minimum value in array (not necessarily "first" one)
-	 * @param {Array} array Array to iterate over
-	 * @param {String} byProperty
+	 * @param array Array to iterate over
 	 */
 	min(array: any[], byProperty: string): any;
 	/**
 	 * Finds maximum value in array (not necessarily "first" one)
-	 * @param {Array} array Array to iterate over
-	 * @param {String} byProperty
+	 * @param array Array to iterate over
 	 */
 	max(array: any[], byProperty: string): any;
 }
@@ -4286,14 +4173,14 @@ interface IUtilArray {
 interface IUtilClass {
 	/**
 	 * Helper for creation of "classes".
-	 * @param {Function} [parent] optional "Class" to inherit from
-	 * @param {Object} [properties] Properties shared by all instances of this class
+	 * @param [parent] optional "Class" to inherit from
+	 * @param [properties] Properties shared by all instances of this class
 	 *                  (be careful modifying objects defined here as this would affect all instances)
 	 */
 	createClass(parent: Function, properties?: any): void;
 	/**
 	 * Helper for creation of "classes".
-	 * @param {Object} [properties] Properties shared by all instances of this class
+	 * @param [properties] Properties shared by all instances of this class
 	 *                  (be careful modifying objects defined here as this would affect all instances)
 	 */
 	createClass(properties?: any): void;
@@ -4302,16 +4189,14 @@ interface IUtilClass {
 interface IUtilObject {
 	/**
 	 * Copies all enumerable properties of one object to another
-	 * @param {Object} destination Where to copy to
-	 * @param {Object} source Where to copy from
+	 * @param destination Where to copy to
+	 * @param source Where to copy from
 	 */
 	extend(destination: any, source: any): any;
 
 	/**
 	 * Creates an empty object and copies all enumerable properties of another object to it
-	 * @memberOf fabric.util.object
-	 * @param {Object} object Object to clone
-	 * @return {Object}
+	 * @param object Object to clone
 	 */
 	clone(object: any): any;
 }
@@ -4319,14 +4204,14 @@ interface IUtilObject {
 interface IUtilString {
 	/**
 	 * Camelizes a string
-	 * @param {String} string String to camelize
+	 * @param string String to camelize
 	 */
 	camelize(string: string): string;
 
 	/**
 	 * Capitalizes a string
-	 * @param {String} string String to capitalize
-	 * @param {Boolean} [firstLetterOnly] If true only first letter is capitalized
+	 * @param string String to capitalize
+	 * @param [firstLetterOnly] If true only first letter is capitalized
 	 * and other letters stay untouched, if false first letter is capitalized
 	 * and other letters are converted to lowercase.
 	 */
@@ -4334,7 +4219,7 @@ interface IUtilString {
 
 	/**
 	 * Escapes XML in a string
-	 * @param {String} string String to escape
+	 * @param string String to escape
 	 */
 	escapeXml(string: string): string;
 }
@@ -4343,64 +4228,61 @@ interface IUtilMisc {
 	/**
 	 * Removes value from an array.
 	 * Presence of value (and its position in an array) is determined via `Array.prototype.indexOf`
-	 * @param {Array} array
-	 * @param {Any} value
 	 */
 	removeFromArray(array: any[], value: any): any[];
 
 	/**
 	 * Returns random number between 2 specified ones.
-	 * @param {Number} min lower limit
-	 * @param {Number} max upper limit
+	 * @param min lower limit
+	 * @param max upper limit
 	 */
 	getRandomInt(min: number, max: number): number;
 
 	/**
 	 * Transforms degrees to radians.
-	 * @param {Number} degrees value in degrees
+	 * @param degrees value in degrees
 	 */
 	degreesToRadians(degrees: number): number;
 
 	/**
 	 * Transforms radians to degrees.
-	 * @memberOf fabric.util
-	 * @param {Number} radians value in radians
+	 * @param radians value in radians
 	 */
 	radiansToDegrees(radians: number): number;
 
 	/**
 	 * Rotates `point` around `origin` with `radians`
-	 * @param {fabric.Point} point The point to rotate
-	 * @param {fabric.Point} origin The origin of the rotation
-	 * @param {Number} radians The radians of the angle for the rotation
+	 * @param point The point to rotate
+	 * @param origin The origin of the rotation
+	 * @param radians The radians of the angle for the rotation
 	 */
 	rotatePoint(point: Point, origin: Point, radians: number): Point;
 
 	/**
 	 * Apply transform t to point p
-	 * @param  {fabric.Point} p The point to transform
-	 * @param  {Array} t The transform
-	 * @param  {Boolean} [ignoreOffset] Indicates that the offset should not be applied
+	 * @param  p The point to transform
+	 * @param  t The transform
+	 * @param  [ignoreOffset] Indicates that the offset should not be applied
 	 */
 	transformPoint(p: Point, t: any[], ignoreOffset?: boolean): Point;
 
 	/**
 	 * Invert transformation t
-	 * @param {Array} t The transform
+	 * @param t The transform
 	 */
 	invertTransform(t: any[]): any[];
 
 	/**
 	 * A wrapper around Number#toFixed, which contrary to native method returns number, not string.
-	 * @param {Number|String} number number to operate on
-	 * @param {Number} fractionDigits number of fraction digits to "leave"
+	 * @param number number to operate on
+	 * @param fractionDigits number of fraction digits to "leave"
 	 */
 	toFixed(number: number, fractionDigits: number): number;
 
 	/**
 	 * Converts from attribute value to pixel value if applicable.
 	 * Returns converted pixels or original value not converted.
-	 * @param {Number|String} value number to operate on
+	 * @param value number to operate on
 	 */
 	parseUnit(value: number|string, fontSize?: number): number|string;
 
@@ -4411,65 +4293,65 @@ interface IUtilMisc {
 
 	/**
 	 * Returns klass "Class" object of given namespace
-	 * @param {String} type Type of object (eg. 'circle')
-	 * @param {String} namespace Namespace to get klass "Class" object from
+	 * @param type Type of object (eg. 'circle')
+	 * @param namespace Namespace to get klass "Class" object from
 	 */
 	getKlass(type: string, namespace: string): any;
 
 	/**
 	 * Returns object of given namespace
-	 * @param {String} namespace Namespace string e.g. 'fabric.Image.filter' or 'fabric'
+	 * @param namespace Namespace string e.g. 'fabric.Image.filter' or 'fabric'
 	 */
 	resolveNamespace(namespace: string): any;
 
 	/**
 	 * Loads image element from given url and passes it to a callback
-	 * @param {String} url URL representing an image
-	 * @param {Function} callback Callback; invoked with loaded image
-	 * @param {Any} [context] Context to invoke callback in
-	 * @param {Object} [crossOrigin] crossOrigin value to set image element to
+	 * @param url URL representing an image
+	 * @param callback Callback; invoked with loaded image
+	 * @param [context] Context to invoke callback in
+	 * @param [crossOrigin] crossOrigin value to set image element to
 	 */
 	loadImage(url: string, callback: (image: HTMLImageElement) => {}, context?: any, crossOrigin?: boolean): void;
 
 	/**
 	 * Creates corresponding fabric instances from their object representations
-	 * @param {Array} objects Objects to enliven
-	 * @param {Function} callback Callback to invoke when all objects are created
-	 * @param {String} namespace Namespace to get klass "Class" object from
-	 * @param {Function} reviver Method for further parsing of object elements, called after each fabric object created.
+	 * @param objects Objects to enliven
+	 * @param callback Callback to invoke when all objects are created
+	 * @param namespace Namespace to get klass "Class" object from
+	 * @param reviver Method for further parsing of object elements, called after each fabric object created.
 	 */
 	enlivenObjects(objects: any[], callback: Function, namespace: string, reviver?: Function): void;
 
 	/**
 	 * Groups SVG elements (usually those retrieved from SVG document)
-	 * @param {Array} elements SVG elements to group
-	 * @param {Object} [options] Options object
+	 * @param elements SVG elements to group
+	 * @param [options] Options object
 	 */
 	groupSVGElements(elements: any[], options?: any, path?: any): PathGroup;
 
 	/**
 	 * Populates an object with properties of another object
-	 * @param {Object} source Source object
-	 * @param {Object} destination Destination object
-	 * @param {Array} properties Propertie names to include
+	 * @param source Source object
+	 * @param destination Destination object
+	 * @param properties Propertie names to include
 	 */
 	populateWithProperties(source: any, destination: any, properties: any): void;
 
 	/**
 	 * Draws a dashed line between two points
 	 * This method is used to draw dashed line around selection area.
-	 * @param {CanvasRenderingContext2D} ctx context
-	 * @param {Number} x  start x coordinate
-	 * @param {Number} y start y coordinate
-	 * @param {Number} x2 end x coordinate
-	 * @param {Number} y2 end y coordinate
-	 * @param {Array} da dash array pattern
+	 * @param ctx context
+	 * @param x  start x coordinate
+	 * @param y start y coordinate
+	 * @param x2 end x coordinate
+	 * @param y2 end y coordinate
+	 * @param da dash array pattern
 	 */
 	drawDashedLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number, da: any[]): void;
 
 	/**
 	 * Creates canvas element and initializes it via excanvas if necessary
-	 * @param {CanvasElement} [canvasEl] optional canvas element to initialize;
+	 * @param [canvasEl] optional canvas element to initialize;
 	 * when not given, element is created implicitly
 	 */
 	createCanvasElement(canvasEl?: HTMLCanvasElement): HTMLCanvasElement;
@@ -4481,36 +4363,36 @@ interface IUtilMisc {
 
 	/**
 	 * Creates accessors (getXXX, setXXX) for a "class", based on "stateProperties" array
-	 * @param {Object} klass "Class" to create accessors for
+	 * @param klass "Class" to create accessors for
 	 */
 	createAccessors(klass: any): any;
 
 	/**
-	 * @param {fabric.Object} receiver Object implementing `clipTo` method
-	 * @param {CanvasRenderingContext2D} ctx Context to clip
+	 * @param receiver Object implementing `clipTo` method
+	 * @param ctx Context to clip
 	 */
 	clipContext(receiver: Object, ctx: CanvasRenderingContext2D): void;
 
 	/**
 	 * Multiply matrix A by matrix B to nest transformations
-	 * @param  {Array} a First transformMatrix
-	 * @param  {Array} b Second transformMatrix
+	 * @param  a First transformMatrix
+	 * @param  b Second transformMatrix
 	 */
 	multiplyTransformMatrices(a: any[], b: any[]): any[];
 
 	/**
 	 * Returns string representation of function body
-	 * @param {Function} fn Function to get body of
+	 * @param fn Function to get body of
 	 */
 	getFunctionBody(fn: Function): string;
 
 	/**
 	 * Returns true if context has transparent pixel
 	 * at specified location (taking tolerance into account)
-	 * @param {CanvasRenderingContext2D} ctx context
-	 * @param {Number} x x coordinate
-	 * @param {Number} y y coordinate
-	 * @param {Number} tolerance Tolerance
+	 * @param ctx context
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @param tolerance Tolerance
 	 */
 	isTransparent(ctx: CanvasRenderingContext2D, x: number, y: number, tolerance: number): boolean;
 }

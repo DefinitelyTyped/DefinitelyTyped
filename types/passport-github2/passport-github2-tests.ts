@@ -35,7 +35,7 @@ passport.use(new github.Strategy(
     },
     (accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) { return done(err); }
+            if (err) { done(err); return; }
             done(null, user);
         });
     })

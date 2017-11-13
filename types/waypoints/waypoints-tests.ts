@@ -35,7 +35,7 @@ let waypoint3 = new Waypoint({
 let waypoint4 = new Waypoint({
     element: document.getElementById('element-waypoint')!,
     handler(direction) {
-        notify(this.element.id + ' triggers at ' + this.triggerPoint);
+        notify(`${this.element.id} triggers at ${this.triggerPoint}`);
     },
     offset: '75%'
 });

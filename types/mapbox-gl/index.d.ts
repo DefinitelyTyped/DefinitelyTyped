@@ -1,7 +1,8 @@
-// Type definitions for Mapbox GL JS v0.39.1
+// Type definitions for Mapbox GL JS v0.40.1
 // Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>
+// Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="geojson" />
 
@@ -87,7 +88,7 @@ declare namespace mapboxgl {
 
 		getLayer(id: string): mapboxgl.Layer;
 
-		setFilter(layer: string, filter: any[]): this;
+		setFilter(layer: string, filter?: any[]): this;
 
 		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -224,7 +225,7 @@ declare namespace mapboxgl {
 		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
 		keyboard?: boolean;
 
-		logoPosition?: boolean;
+		logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 		/** If set, the map is constrained to the given bounds. */
 		maxBounds?: LngLatBoundsLike;
@@ -396,11 +397,15 @@ declare namespace mapboxgl {
 		maximumAge?: number;
 	}
 
+	export class FitBoundsOptions {
+		maxZoom?: number;
+	}
+
 	/**
 	 * Geolocate
 	 */
 	export class GeolocateControl extends Control {
-		constructor(options?: {positionOptions?: PositionOptions, watchPosition?: boolean});
+		constructor(options?: {positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean});
 	}
 
 	/**
@@ -719,7 +724,7 @@ declare namespace mapboxgl {
 		angleWidth(p: Point): number;
 
 		angleWithSep(x: number, y: number): number;
-	
+
 		static convert(a: PointLike): Point;
 	}
 
@@ -916,7 +921,7 @@ declare namespace mapboxgl {
 	}
 
 	export interface StyleFunction {
-		stops: any[][];
+		stops?: any[][];
 		property?: string;
 		base?: number;
 		type?: "identity" | "exponential" | "interval" | "categorical";
@@ -940,7 +945,7 @@ declare namespace mapboxgl {
 		"fill-antialias"?: boolean;
 		"fill-opacity"?: number | StyleFunction;
 		"fill-color"?: string | StyleFunction;
-		"fill-outline-color": string | StyleFunction;
+		"fill-outline-color"?: string | StyleFunction;
 		"fill-translate"?: number[];
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
@@ -954,9 +959,9 @@ declare namespace mapboxgl {
 		"fill-extrusion-color"?: string | StyleFunction;
 		"fill-extrusion-translate"?: number[];
 		"fill-extrusion-translate-anchor"?: "map" | "viewport";
-		"fill-extrusion-pattern": string;
+		"fill-extrusion-pattern"?: string;
 		"fill-extrusion-height"?: number | StyleFunction;
-		"fill-extrusion-base"?: number;
+		"fill-extrusion-base"?: number | StyleFunction;
 	}
 
 	export interface LineLayout {
@@ -991,6 +996,7 @@ declare namespace mapboxgl {
 		"icon-ignore-placement"?: boolean;
 		"icon-optional"?: boolean;
 		"icon-rotation-alignment"?: "map" | "viewport" | "auto";
+		"icon-pitch-alignment"?: "map"  | "viewport"| "auto";
 		"icon-size"?: number | StyleFunction;
 		"icon-text-fit"?: "none" | "both" | "width" | "height";
 		"icon-text-fit-padding"?: number[];
@@ -1064,6 +1070,7 @@ declare namespace mapboxgl {
 		"circle-translate"?: number[];
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
+		"circle-pitch-alignment"?: "map" | "viewport";
 		"circle-stroke-width"?: number | StyleFunction;
 		"circle-stroke-color"?: string | StyleFunction;
 		"circle-stroke-opacity"?: number | StyleFunction;

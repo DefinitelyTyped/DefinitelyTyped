@@ -1,4 +1,4 @@
-// Type definitions for react-monaco-editor 0.8
+// Type definitions for react-monaco-editor 0.10
 // Project: https://github.com/superRaytin/react-monaco-editor
 // Definitions by: Joshua Netterfield <https://github.com/jnetterf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,7 +31,7 @@ export interface ReactMonacoEditorProps {
     defaultValue?: string;
 
     /**
-     * The initial language of the auto created model in the editor.
+     * The initial language of the auto created model in the editor. Defaults to 'javascript'.
      */
     language?: string;
 
@@ -60,7 +60,7 @@ export interface ReactMonacoEditorProps {
     /**
      * An event emitted when the content of the current model has changed.
      */
-    onChange?(val: string, ev: monaco.editor.IModelContentChangedEvent2): void;
+    onChange?(val: string, ev: monaco.editor.IModelContentChangedEvent): void;
 
     /**
      * Optional, allow to config loader url and relative path of module, refer to require.config.

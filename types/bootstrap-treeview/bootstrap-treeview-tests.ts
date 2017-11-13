@@ -57,7 +57,7 @@ $('#tree').treeview({
 
 // Treeview functions.
 
-let nodeId: number = 5;
+let nodeId = 5;
 
 let node: BootstrapTreeViewNodeData = data[0];
 

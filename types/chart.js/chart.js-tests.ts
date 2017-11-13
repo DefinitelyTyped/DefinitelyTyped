@@ -6,7 +6,7 @@ import { Chart, ChartData } from 'chart.js';
 
 const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     type: 'bar',
-    data: <ChartData> {
+    data: {
         labels: ['group 1'],
         datasets: [
             {
@@ -36,7 +36,13 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 ticks: {
                     callback: Math.floor
                 },
-                gridLines: { display: false }
+                gridLines: {
+                    display: false,
+                    borderDash: [5, 15],
+                    borderDashOffset: 2,
+                    zeroLineBorderDash: [5, 15],
+                    zeroLineBorderDashOffset: 2
+                }
             }]
         }
     }

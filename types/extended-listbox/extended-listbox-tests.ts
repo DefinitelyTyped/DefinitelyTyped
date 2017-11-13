@@ -1,39 +1,38 @@
-/// <reference types="jquery" />
-
-var $test = $("#test");
+const testElement: HTMLElement = document.getElementById("test");
 
 // Create Listbox with defaults
-var instance: ExtendedListboxInstance = <ExtendedListboxInstance>$test.listbox();
+let instance: SingleSelectListBox = new SingleSelectListBox(testElement);
+instance = new MultiSelectListBox(testElement);
 
 
 // Create with options
-var options = <ListBoxOptions>{};
-options.multiple = true;
-options.searchBar = false;
-options.searchBarWatermark = "Search";
-options.searchBarButton = { icon: "fa fa-search", visible: true, onClick: function () { alert(); } };
-options.getItems = (): (string|ListboxItem)[] => {
+let settings = <ListBoxSettings>{};
+settings.searchBar = false;
+settings.searchBarWatermark = "Search";
+settings.searchBarButton = { icon: "fa fa-search", visible: true, onClick: function () { alert(); } };
+settings.getItems = (): (string|ListBoxItem)[] => {
     return ["Test1"];
 };
-options.onItemsChanged = (event: ListboxEvent): void => {
+settings.onItemsChanged = (event: ListBoxEvent): void => {
     console.log(event.eventName);
     console.log(event.args);
     console.log(event.target);
 };
-options.onFilterChanged = (event: ListboxEvent): void => {
+settings.onFilterChanged = (event: ListBoxEvent): void => {
     console.log(event.args);
 };
-options.onValueChanged = (event: ListboxEvent): void => {
+settings.onValueChanged = (event: ListBoxEvent): void => {
     console.log(event.args);
 };
-options.onItemDoubleClicked = (event: ListboxEvent): void => {
+settings.onItemDoubleClicked = (event: ListBoxEvent): void => {
     console.log(event.args);
 };
-options.onItemEnterPressed = (event: ListboxEvent): void => {
+settings.onItemEnterPressed = (event: ListBoxEvent): void => {
     console.log(event.args);
 };
 
-instance = <ExtendedListboxInstance>$test.listbox(options);
+instance = new SingleSelectListBox(testElement, settings);
+instance = new MultiSelectListBox(testElement, settings);
 
 
 /////// NEW API ///////
@@ -43,7 +42,7 @@ var id: string = instance.addItem("Test2");
 
 
 // Add item
-var item: ListboxItem = <ListboxItem>{};
+var item: ListBoxItem = <ListBoxItem>{};
 item.selected = true;
 item.disabled = false;
 item.childItems = [{ text: "Test4" }];
@@ -67,14 +66,14 @@ instance.removeItems([id, ids[0]]);
 
 
 // Get item
-var i: ListboxItem = instance.getItem(id);
+var i: ListBoxItem = instance.getItem(id);
 
 
 // Get items
-var allItems: ListboxItem[] = instance.getItems();
+var allItems: ListBoxItem[] = instance.getItems();
 
 // Get selected items
-var allItems: ListboxItem[] = instance.getSelection();
+var allItems: ListBoxItem[] = instance.getSelection();
 
 
 // Move item up
@@ -106,30 +105,30 @@ instance.destroy();
 
 
 // onValueChanged
-instance.onValueChanged((event: ListboxEvent) => {
+settings.onValueChanged = (event: ListBoxEvent) => {
     console.log(event.args);
-});
+};
 
 
 // onItemsChanged
-instance.onItemsChanged((event: ListboxEvent) => {
+settings.onItemsChanged = (event: ListBoxEvent) => {
     console.log(event.args);
-});
+};
 
 
 // onFilterChanged
-instance.onFilterChanged((event: ListboxEvent) => {
+settings.onFilterChanged = (event: ListBoxEvent) => {
     console.log(event.args);
-});
+};
 
 
 // onItemEnterPressed
-instance.onItemEnterPressed((event: ListboxEvent) => {
+settings.onItemEnterPressed = (event: ListBoxEvent) => {
     console.log(event.args);
-});
+};
 
 
 // onItemDoubleClicked
-instance.onItemDoubleClicked((event: ListboxEvent) => {
+settings.onItemDoubleClicked = (event: ListBoxEvent) => {
     console.log(event.args);
-});
+};

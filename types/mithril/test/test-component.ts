@@ -50,7 +50,7 @@ const comp2: Component<Comp2Attrs, {}> = {
 m(comp2, {title: '', description: ''});
 
 // Correct use with lifecycle method
-m(comp2, {title: '', description: '', oncreate: (v) => v.attrs.title + '\n' + v.attrs.description});
+m(comp2, {title: '', description: '', oncreate: (v) => `${v.attrs.title}\n${v.attrs.description}`});
 
 // Properties missing
 // $ExpectError
@@ -177,10 +177,11 @@ interface State {
 	count: number;
 }
 
-export default {
+// Using the Comp type will apply the State intersection type for us.
+const comp: Comp<Attrs, State> = {
 	count: 0,
 	view({attrs}) {
 		return m('span', `name: ${attrs.name}, count: ${this.count}`);
 	}
-} as Comp<Attrs, State>;
-// Using the Comp type will apply the State intersection type for us.
+};
+export default comp;

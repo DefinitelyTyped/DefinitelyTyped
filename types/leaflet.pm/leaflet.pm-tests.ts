@@ -1,3 +1,6 @@
+import * as L from 'leaflet';
+import 'leaflet-pm';
+
 const toolbarOptions: L.PM.ToolbarOptions = {
     position: 'topleft',
     drawMarker: true,

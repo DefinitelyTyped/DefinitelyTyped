@@ -66,34 +66,33 @@ export interface FetchBlobResponse {
     taskId: string;
     /**
      * get path of response temp file
-     * @return {string} File path of temp file.
+     * @return File path of temp file.
      */
     path(): string;
     type: "base64" | "path" | "utf8";
     data: any;
     /**
      * Convert result to javascript RNFetchBlob object.
-     * @return {Promise<Blob>} Return a promise resolves Blob object.
+     * @return Return a promise resolves Blob object.
      */
     blob(contentType: string, sliceSize: number): Promise<PolyfillBlob>;
     /**
      * Convert result to text.
-     * @return {string} Decoded base64 string.
+     * @return Decoded base64 string.
      */
     text(): string | Promise<any>;
     /**
      * Convert result to JSON object.
-     * @return {object} Parsed javascript object.
+     * @return Parsed javascript object.
      */
     json(): any;
     /**
      * Return BASE64 string directly.
-     * @return {string} BASE64 string of response body.
+     * @return BASE64 string of response body.
      */
     base64(): any;
     /**
      * Remove cahced file
-     * @return {Promise}
      */
     flush(): void;
     respInfo: RNFetchBlobResponseInfo;
@@ -101,12 +100,12 @@ export interface FetchBlobResponse {
     /**
      * Read file content with given encoding, if the response does not contains
      * a file path, show warning message
-     * @param  {String} encode Encode type, should be one of `base64`, `ascrii`, `utf8`.
+     * @param  encode Encode type, should be one of `base64`, `ascrii`, `utf8`.
      */
     readFile(encode: Encoding): Promise<any> | null;
     /**
      * Start read stream from cached file
-     * @param  {String} encode Encode type, should be one of `base64`, `ascrii`, `utf8`.
+     * @param  encode Encode type, should be one of `base64`, `ascrii`, `utf8`.
      */
     readStream(encode: Encoding): RNFetchBlobStream | null;
 }
@@ -154,15 +153,15 @@ export declare class PolyfillBlob extends EventTarget {
      *
      * @param data Content of Blob object
      * @param cType Content type settings of Blob object, `text/plain` by default
-     * @param {boolean} defer When this argument set to `true`, blob constructor will not invoke blob created event automatically.
+     * @param defer When this argument set to `true`, blob constructor will not invoke blob created event automatically.
      */
     constructor(data: any, cType: any, defer: boolean);
 
     /**
      * Since Blob content will asynchronously write to a file during creation,
      * use this method to register an event handler for Blob initialized event.
-     * @param  {(b:Blob) => void} fn An event handler invoked when Blob created
-     * @return {Blob} The Blob object instance itself
+     * @param  fn An event handler invoked when Blob created
+     * @return The Blob object instance itself
      */
     onCreated(fn: () => void): PolyfillBlob;
 
@@ -170,30 +169,27 @@ export declare class PolyfillBlob extends EventTarget {
 
     /**
      * Get file reference of the Blob object.
-     * @return {string} Blob file reference which can be consumed by RNFetchBlob fs
+     * @return Blob file reference which can be consumed by RNFetchBlob fs
      */
     getRNFetchBlobRef(): string;
 
     /**
      * Create a Blob object which is sliced from current object
-     * @param  {number} start    Start byte number
-     * @param  {number} end      End byte number
-     * @param  {string} contentType Optional, content type of new Blob object
-     * @return {Blob}
+     * @param  start    Start byte number
+     * @param  end      End byte number
+     * @param  contentType Optional, content type of new Blob object
      */
     slice(start?: number, end?: number, contentType?: string): PolyfillBlob;
 
     /**
      * Read data of the Blob object, this is not standard method.
-     * @param  {string} encoding Read data with encoding
-     * @return {Promise}
+     * @param  encoding Read data with encoding
      */
     readBlob(encoding: string): Promise<any>;
 
     /**
      * Release the resource of the Blob object.
      * @nonstandard
-     * @return {Promise}
      */
     close(): Promise<void>;
 }
@@ -220,9 +216,9 @@ export interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarge
     /**
      * XMLHttpRequest.open, always async, user and password not supported. When
      * this method invoked, headers should becomes empty again.
-     * @param  {string} method Request method
-     * @param  {string} url Request URL
-     * @param  {boolean} async Always async
+     * @param  method Request method
+     * @param  url Request URL
+     * @param  async Always async
      * @param  user NOT SUPPORTED
      * @param  password NOT SUPPORTED
      */
@@ -284,16 +280,15 @@ export interface PolyfillXMLHttpRequestEventTarget extends EventTarget {
 export interface Net {
     /**
      * Get cookie according to the given url.
-     * @param  {string} domain Domain of the cookies to be removed, remove all
-     * @return {Promise<Array<String>>}     Cookies of a specific domain.
+     * @param  domain Domain of the cookies to be removed, remove all
+     * @return     Cookies of a specific domain.
      */
     getCookies(domain: string): Promise<string[]>;
 
     /**
      * Remove cookies for a specific domain
-     * @param  {?string} domain Domain of the cookies to be removed, remove all
+     * @param  domain Domain of the cookies to be removed, remove all
      * cookies when this is null.
-     * @return {Promise<null>}
      */
     removeCookies(domain?: string): Promise<null>;
 }
@@ -303,22 +298,19 @@ export interface FS {
 
     /**
      * Remove file at path.
-     * @param  {string}   path:string Path of target file.
-     * @return {Promise}
+     * @param    path:string Path of target file.
      */
     unlink(path: string): Promise<void>;
 
     /**
      * Create a directory.
-     * @param  {string} path Path of directory to be created
-     * @return {Promise}
+     * @param  path Path of directory to be created
      */
     mkdir(path: string): Promise<void>;
 
     /**
      * Get a file cache session
-     * @param  {string} name Stream ID
-     * @return {RNFetchBlobSession}
+     * @param  name Stream ID
      */
     session(name: string): RNFetchBlobSession;
 
@@ -326,10 +318,10 @@ export interface FS {
 
     /**
      * Create file stream from file at `path`.
-     * @param  {string} path   The file path.
-     * @param  {string} encoding Data encoding, should be one of `base64`, `utf8`, `ascii`
-     * @param  {boolean} bufferSize Size of stream buffer.
-     * @return {RNFetchBlobStream} RNFetchBlobStream stream instance.
+     * @param  path   The file path.
+     * @param  encoding Data encoding, should be one of `base64`, `utf8`, `ascii`
+     * @param  bufferSize Size of stream buffer.
+     * @return RNFetchBlobStream stream instance.
      */
     readStream(path: string, encoding: Encoding, bufferSize?: number, tick?: number): Promise<RNFetchBlobReadStream>;
 
@@ -339,19 +331,18 @@ export interface FS {
 
     /**
      * Create write stream to a file.
-     * @param  {string} path Target path of file stream.
-     * @param  {string} encoding Encoding of input data.
-     * @param  {boolean} append  A flag represent if data append to existing ones.
-     * @return {Promise<{}>} A promise resolves a `WriteStream` object.
+     * @param  path Target path of file stream.
+     * @param  encoding Encoding of input data.
+     * @param  append  A flag represent if data append to existing ones.
+     * @return A promise resolves a `WriteStream` object.
      */
     writeStream(path: string, encoding: Encoding, append?: boolean): Promise<RNFetchBlobWriteStream>;
 
     /**
      * Write data to file.
-     * @param  {string} path  Path of the file.
-     * @param  {string | number[]} data Data to write to the file.
-     * @param  {string} encoding Encoding of data (Optional).
-     * @return {Promise}
+     * @param  path  Path of the file.
+     * @param  data Data to write to the file.
+     * @param  encoding Encoding of data (Optional).
      */
     writeFile(path: string, data: string | number[], encoding?: Encoding): Promise<void>;
 
@@ -359,15 +350,13 @@ export interface FS {
 
     /**
      * Wrapper method of readStream.
-     * @param  {string} path Path of the file.
-     * @param  {'base64' | 'utf8' | 'ascii'} encoding Encoding of read stream.
-     * @return {Promise<Array<number> | string>}
+     * @param  path Path of the file.
+     * @param  encoding Encoding of read stream.
      */
     readFile(path: string, encoding: Encoding, bufferSize?: number): Promise<any>;
     /**
      * Check if file exists and if it is a folder.
-     * @param  {string} path Path to check
-     * @return {Promise<boolean>}
+     * @param  path Path to check
      */
     exists(path: string): Promise<boolean>;
 
@@ -377,8 +366,7 @@ export interface FS {
 
     /**
      * Show statistic data of a path.
-     * @param  {string} path Target path
-     * @return {RNFetchBlobStat}
+     * @param  path Target path
      */
     stat(path: string): Promise<RNFetchBlobStat>;
 
@@ -386,8 +374,7 @@ export interface FS {
 
     /**
      * Android only method, request media scanner to scan the file.
-     * @param  {Array<Object<string, string>>} pairs Array contains Key value pairs with key `path` and `mime`.
-     * @return {Promise}
+     * @param  pairs Array contains Key value pairs with key `path` and `mime`.
      */
     scanFile(pairs: Array<{ [key: string]: string }>): Promise<void>;
 
@@ -568,6 +555,11 @@ export interface RNFetchBlobConfig {
     session?: string;
 
     addAndroidDownloads?: AddAndroidDownloads;
+
+    /**
+     * Fix IOS request timeout issue #368 by change default request setting to defaultSessionConfiguration, and make backgroundSessionConfigurationWithIdentifier optional
+     */
+    IOSBackgroundTask?: boolean;
 }
 
 export interface AddAndroidDownloads {

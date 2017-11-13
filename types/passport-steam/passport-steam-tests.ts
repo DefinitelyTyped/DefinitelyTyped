@@ -19,7 +19,7 @@ passport.use(new steam.Strategy({
 },
     (identifier: any, profile: any, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) { return done(err); }
+            if (err) { done(err); return; }
             done(null, user);
         });
     })

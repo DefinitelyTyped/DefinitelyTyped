@@ -23,7 +23,7 @@ m.mount(document.getElementById('comp0')!, null);
 // 1.
 // Simple example. Vnode type for component methods is inferred.
 //
-function comp1() {
+function comp1(): Component<{}, {}> {
 	return {
 		oncreate({dom}) {
 			// vnode.dom type inferred
@@ -31,7 +31,7 @@ function comp1() {
 		view(vnode) {
 			return m('span', "Test");
 		}
-	} as Component<{}, {}>;
+	};
 }
 
 ///////////////////////////////////////////////////////////

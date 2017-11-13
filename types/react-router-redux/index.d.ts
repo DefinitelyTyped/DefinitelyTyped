@@ -3,7 +3,7 @@
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Shoya Tanaka <https://github.com/8398a7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import {
     Store,
@@ -24,7 +24,7 @@ export interface ConnectedRouterProps<State> {
     store?: Store<State>;
     history?: History;
 }
-export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
+export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 

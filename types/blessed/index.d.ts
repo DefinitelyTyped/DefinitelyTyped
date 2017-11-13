@@ -1,4 +1,4 @@
-// Type definitions for blessed 0.1.5
+// Type definitions for blessed 0.1.6
 // Project: https://github.com/chjj/blessed
 // Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -74,7 +74,7 @@ declare namespace Blessed {
                 /**
                  * Shape of the cursor. Can be: block, underline, or line.
                 */
-                shape: boolean;
+                shape: 'block'|'underline'|'line';
                 /**
                  * Whether the cursor blinks.
                 */
@@ -2821,6 +2821,7 @@ declare namespace Blessed {
     export function question(options?: Widgets.QuestionOptions): Widgets.QuestionElement;
     export function message(options?: Widgets.MessageOptions): Widgets.MessageElement;
     export function loading(options?: Widgets.LoadingOptions): Widgets.LoadingElement;
+    export function log(options?: Widgets.LogOptions): Widgets.Log;
 
     export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.ProgressBarElement;
     export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;

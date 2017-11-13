@@ -7,7 +7,7 @@ import Bluebird = require('bluebird');
 // ~~~~~~~~~~
 //
 
-interface AnyAttributes { };
+interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
@@ -914,6 +914,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
@@ -937,6 +938,7 @@ User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as 
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
 User.findOne( { where : s.fn('count', []) } );
+User.findOne( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
@@ -1091,6 +1093,7 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
@@ -1203,6 +1206,17 @@ new Sequelize( {
     },
     typeValidation: true
 } );
+
+new Sequelize({
+    operatorsAliases: false,
+});
+
+new Sequelize({
+    operatorsAliases: {
+        $and: Sequelize.Op.and,
+        customAlias: Sequelize.Op.or,
+    },
+});
 
 s.model( 'Project' );
 s.models['Project'];
@@ -1466,6 +1480,13 @@ Chair.findAll({
     },
 });
 
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { [Sequelize.Op.in]: [3, 4] },
+    },
+});
+
 // If you want to use a property that isn't explicitly on the model's Attributes
 // use the find-function's generic type parameter.
 Chair.findAll<{ customProperty: number }>({
@@ -1625,6 +1646,40 @@ s.define( 'TriggerTest', {
     timestamps : false,
     underscored : true,
     hasTrigger : true
+} );
+
+s.define('DefineOptionsIndexesTest', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        validate: {
+            min: 1
+        }
+    },
+    email: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+        set: function (val) {
+            if (typeof val === "string") {
+                val = val.toLowerCase();
+            } else {
+                throw new Error("email must be a string");
+            }
+            this.setDataValue("email", val);
+        }
+    }
+}, {
+        timestamps: false,
+        indexes: [
+            {
+                name: "DefineOptionsIndexesTest_lower_email",
+                unique: true,
+                fields: [
+                    Sequelize.fn("LOWER", Sequelize.col("email"))
+                ]
+            }
+        ]
 } );
 
 //
