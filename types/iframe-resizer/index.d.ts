@@ -260,7 +260,7 @@ export interface IFrameResizedData {
 // tslint:disable-next-line:interface-name
 export interface IFrameMessageData {
   iframe: IFrameComponent;
-  message: string;
+  message: any;
 }
 
 // tslint:disable-next-line:interface-name
