@@ -2,14 +2,15 @@
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export function safeLoad(str: string, opts?: LoadOptions): any;
 export function load(str: string, opts?: LoadOptions): any;
 
 export interface Type extends TypeConstructorOptions { }
 export class Type {
-		constructor(tag: string, opts?: TypeConstructorOptions);
-		tag: string;
+	constructor(tag: string, opts?: TypeConstructorOptions);
+	tag: string;
 }
 export class Schema {
 	constructor(definition: SchemaDefinition);
@@ -40,7 +41,7 @@ export interface DumpOptions {
 	// specifies level of nesting, when to switch from block to flow style for collections. -1 means block style everwhere
 	flowLevel?: number;
 	// Each tag may have own set of styles.	- "tag" => "style" map.
-	styles?: Object;
+	styles?: { [x: string]: any; };
 	// specifies a schema to use.
 	schema?: any;
 	// if true, sort keys when dumping YAML. If a function, use the function to sort the keys. (default: false)
@@ -57,13 +58,13 @@ export interface DumpOptions {
 
 export interface TypeConstructorOptions {
 	kind?: string;
-	resolve?: Function;
-	construct?: Function;
-	instanceOf?: Object;
+	resolve?: (data: any) => boolean;
+	construct?: (data: any) => any;
+	instanceOf?: object;
 	predicate?: string;
-	represent?: Function;
+	represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
 	defaultStyle?: string;
-	styleAliases?: Object;
+	styleAliases?: { [x: string]: any; };
 }
 
 export interface SchemaDefinition {

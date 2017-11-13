@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "max-line-length": [true, 240],
         "no-empty-interface": false,
         "no-unnecessary-class": false,
