@@ -368,8 +368,8 @@ new mongoose.Schema({d: {type: Date, min: [
 new mongoose.Schema({
   integerOnly: {
     type: Number,
-    get: v => Math.round(v),
-    set: v => Math.round(v)
+    get: (v: number) => Math.round(v),
+    set: (v: number) => Math.round(v)
   }
 });
 new mongoose.Schema({ name: { type: String, validate: [
