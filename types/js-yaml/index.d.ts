@@ -7,12 +7,15 @@
 export function safeLoad(str: string, opts?: LoadOptions): any;
 export function load(str: string, opts?: LoadOptions): any;
 
-export interface Type extends TypeConstructorOptions { }
 export class Type {
 	constructor(tag: string, opts?: TypeConstructorOptions);
 	tag: string;
 }
-export class Schema {
+/* tslint:disable-next-line:no-empty-interface */
+export interface Type extends TypeConstructorOptions { }
+
+/* tslint:disable-next-line:no-unnecessary-class */
+export class Schema implements SchemaDefinition {
 	constructor(definition: SchemaDefinition);
 	static create(types: Type[] | Type): Schema;
 	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
@@ -74,17 +77,17 @@ export interface SchemaDefinition {
 }
 
 // only strings, arrays and plain objects: http://www.yaml.org/spec/1.2/spec.html#id2802346
-export let FAILSAFE_SCHEMA: any;
+export let FAILSAFE_SCHEMA: Schema;
 // only strings, arrays and plain objects: http://www.yaml.org/spec/1.2/spec.html#id2802346
-export let JSON_SCHEMA: any;
+export let JSON_SCHEMA: Schema;
 // same as JSON_SCHEMA: http://www.yaml.org/spec/1.2/spec.html#id2804923
-export let CORE_SCHEMA: any;
+export let CORE_SCHEMA: Schema;
 // all supported YAML types, without unsafe ones (!!js/undefined, !!js/regexp and !!js/function): http://yaml.org/type/
-export let DEFAULT_SAFE_SCHEMA: any;
+export let DEFAULT_SAFE_SCHEMA: Schema;
 // all supported YAML types.
-export let DEFAULT_FULL_SCHEMA: any;
-export let MINIMAL_SCHEMA: any;
-export let SAFE_SCHEMA: any;
+export let DEFAULT_FULL_SCHEMA: Schema;
+export let MINIMAL_SCHEMA: Schema;
+export let SAFE_SCHEMA: Schema;
 
 export class YAMLException extends Error {
 	constructor(reason?: any, mark?: any);
