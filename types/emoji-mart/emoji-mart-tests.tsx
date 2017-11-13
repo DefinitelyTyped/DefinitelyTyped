@@ -2,7 +2,7 @@
 
 import React = require('react');
 
-import { Picker, Emoji, EmojiProps, CustomEmoji } from '.';
+import { Picker, Emoji, EmojiProps, CustomEmoji } from 'emoji-mart';
 
 declare var console: { log(...args: any[]): void; };
 
