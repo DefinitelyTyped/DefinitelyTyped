@@ -7,10 +7,10 @@ import SchemaDefinition = yaml.SchemaDefinition;
 let bool: boolean;
 let num: number;
 let str: string;
-let obj: Object;
+let obj: { [x: string]: any; };
 let value: any;
 let array: any[];
-let fn: Function;
+let fn: (...args: any[]) => any;
 let schemaDefinition: SchemaDefinition = {
 	implicit: array,
 	explicit: array,
