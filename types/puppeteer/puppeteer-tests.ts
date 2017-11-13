@@ -151,7 +151,7 @@ puppeteer.launch().then(async browser => {
   });
 
   const inputElement = await page.$("input[type=submit]");
-  await inputElement.click();
+  if (inputElement) await inputElement.click();
 });
 
 // Example with launch options
@@ -178,9 +178,9 @@ puppeteer.launch().then(async browser => {
     }
   });
   const page = await browser.newPage();
-  const button = await page.$("#myButton");
-  const div = await page.$("#myDiv");
-  const input = await page.$("#myInput");
+  const button = (await page.$("#myButton"))!;
+  const div = (await page.$("#myDiv"))!;
+  const input = (await page.$("#myInput"))!;
 
   await page.addStyleTag({
       url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -223,7 +223,7 @@ puppeteer.launch().then(async browser => {
   console.log(navResponse.ok, navResponse.status, navResponse.url, navResponse.headers);
 
   // evaluate example
-  const bodyHandle = await page.$('body');
+  const bodyHandle = (await page.$('body'))!;
   const html = await page.evaluate(body => body.innerHTML, bodyHandle);
   await bodyHandle.dispose();
 

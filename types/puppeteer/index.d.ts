@@ -202,7 +202,7 @@ export interface BoundingBox {
 }
 
 export interface ElementHandle extends JSHandle {
-  boundingBox(): BoundingBox;
+  boundingBox(): BoundingBox | null;
   click(options?: ClickOptions): Promise<void>;
   focus(): Promise<void>;
   hover(): Promise<void>;
@@ -227,7 +227,7 @@ export interface ExecutionContext {
 }
 
 export interface JSHandle {
-  asElement(): ElementHandle;
+  asElement(): ElementHandle | null;
   dispose(): Promise<void>;
   executionContext(): ExecutionContext;
   getProperties(): Promise<Map<string, JSHandle>>;
@@ -305,7 +305,7 @@ export interface Response {
 }
 
 export interface FrameBase {
-  $(selector: string): Promise<ElementHandle>;
+  $(selector: string): Promise<ElementHandle | null>;
   $$(selector: string): Promise<ElementHandle[]>;
   $$eval(
     selector: string,
@@ -349,7 +349,7 @@ export interface Frame extends FrameBase {
   executionContext(): ExecutionContext;
   isDetached(): boolean;
   name(): string;
-  parentFrame(): Frame | undefined;
+  parentFrame(): Frame | null;
 }
 
 export interface EventObj {
@@ -396,9 +396,9 @@ export interface Page extends FrameBase {
   focus(selector: string): Promise<void>;
   frames(): Frame[];
   getMetrics(): Metrics;
-  goBack(options?: Partial<NavigationOptions>): Promise<Response>;
-  goForward(options?: Partial<NavigationOptions>): Promise<Response>;
-  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response>;
+  goBack(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goForward(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
   hover(selector: string): Promise<void>;
   keyboard: Keyboard;
   mainFrame(): Frame;
