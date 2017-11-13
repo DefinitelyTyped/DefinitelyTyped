@@ -150,9 +150,8 @@ puppeteer.launch().then(async browser => {
     browser.close();
   });
 
-  const inputElement = await page.$("input[type=submit]");
-  if (inputElement)
-    await inputElement.click();
+  const inputElement = (await page.$("input[type=submit]"))!;
+  await inputElement.click();
 });
 
 // Example with launch options
@@ -179,9 +178,9 @@ puppeteer.launch().then(async browser => {
     }
   });
   const page = await browser.newPage();
-  const button = await page.$("#myButton");
-  const div = await page.$("#myDiv");
-  const input = await page.$("#myInput");
+  const button = (await page.$("#myButton"))!;
+  const div = (await page.$("#myDiv"))!;
+  const input = (await page.$("#myInput"))!;
 
   if (!button)
     throw new Error('Unable to select myButton');
@@ -230,11 +229,10 @@ puppeteer.launch().then(async browser => {
   console.log(navResponse.ok, navResponse.status, navResponse.url, navResponse.headers);
 
   // evaluate example
-  const bodyHandle = await page.$('body');
-  if (bodyHandle) {
-    const html = await page.evaluate(body => body.innerHTML, bodyHandle);
-    await bodyHandle.dispose();
-  }
+  const bodyHandle = (await page.$('body'))!;
+  const html = await page.evaluate(body => body.innerHTML, bodyHandle);
+  await bodyHandle.dispose();
+
   // getProperties example
   const handle = await page.evaluateHandle(() => ({ window, document }));
   const properties = await handle.getProperties();

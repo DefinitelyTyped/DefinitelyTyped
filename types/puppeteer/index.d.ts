@@ -477,7 +477,7 @@ export interface JSHandle {
   /**
    * Returns a ElementHandle
    */
-  asElement(): ElementHandle;
+  asElement(): ElementHandle | null;
   /**
    * Stops referencing the element handle.
    */
@@ -736,7 +736,7 @@ export interface Frame extends FrameBase {
   /** Returns frame's name attribute as specified in the tag. */
   name(): string;
   /** Returns parent frame, if any. Detached frames and main frames return null. */
-  parentFrame(): Frame | undefined;
+  parentFrame(): Frame | null;
 }
 
 export interface PageEventObj {
@@ -872,20 +872,20 @@ export interface Page extends FrameBase {
    * Navigate to the previous page in history.
    * @param options The navigation parameters.
    */
-  goBack(options?: Partial<NavigationOptions>): Promise<Response>;
+  goBack(options?: Partial<NavigationOptions>): Promise<Response | null>;
 
   /**
    * Navigate to the next page in history.
    * @param options The navigation parameters.
    */
-  goForward(options?: Partial<NavigationOptions>): Promise<Response>;
+  goForward(options?: Partial<NavigationOptions>): Promise<Response | null>;
 
   /**
    * Navigates to a URL.
    * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
    * @param options The navigation parameters.
    */
-  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response>;
+  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
 
   /**
    * This method fetches an element with `selector`, scrolls it into view if needed,
