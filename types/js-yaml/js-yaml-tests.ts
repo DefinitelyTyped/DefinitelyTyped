@@ -4,19 +4,19 @@ import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
 import SchemaDefinition = yaml.SchemaDefinition;
 
-var bool: boolean;
-var num: number;
-var str: string;
-var obj: Object;
-var value: any;
-var array: any[];
-var fn: Function;
-var schemaDefinition: SchemaDefinition = {
+let bool: boolean;
+let num: number;
+let str: string;
+let obj: Object;
+let value: any;
+let array: any[];
+let fn: Function;
+let schemaDefinition: SchemaDefinition = {
 	implicit: array,
 	explicit: array,
 	include: array
 };
-var typeConstructorOptions: TypeConstructorOptions = {
+let typeConstructorOptions: TypeConstructorOptions = {
 	kind: str,
 	resolve: fn,
 	construct: fn,
@@ -27,8 +27,8 @@ var typeConstructorOptions: TypeConstructorOptions = {
 	styleAliases: obj
 };
 
-var loadOpts: LoadOptions;
-var dumpOpts: DumpOptions;
+let loadOpts: LoadOptions;
+let dumpOpts: DumpOptions;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

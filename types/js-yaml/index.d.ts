@@ -74,17 +74,17 @@ declare namespace jsyaml {
 	}
 
 	// only strings, arrays and plain objects: http://www.yaml.org/spec/1.2/spec.html#id2802346
-	export var FAILSAFE_SCHEMA: any;
+	export let FAILSAFE_SCHEMA: any;
 	// only strings, arrays and plain objects: http://www.yaml.org/spec/1.2/spec.html#id2802346
-	export var JSON_SCHEMA: any;
+	export let JSON_SCHEMA: any;
 	// same as JSON_SCHEMA: http://www.yaml.org/spec/1.2/spec.html#id2804923
-	export var CORE_SCHEMA: any;
+	export let CORE_SCHEMA: any;
 	// all supported YAML types, without unsafe ones (!!js/undefined, !!js/regexp and !!js/function): http://yaml.org/type/
-	export var DEFAULT_SAFE_SCHEMA: any;
+	export let DEFAULT_SAFE_SCHEMA: any;
 	// all supported YAML types.
-	export var DEFAULT_FULL_SCHEMA: any;
-	export var MINIMAL_SCHEMA: any;
-	export var SAFE_SCHEMA: any;
+	export let DEFAULT_FULL_SCHEMA: any;
+	export let MINIMAL_SCHEMA: any;
+	export let SAFE_SCHEMA: any;
 
 	export class YAMLException extends Error {
 		constructor(reason?: any, mark?: any);
