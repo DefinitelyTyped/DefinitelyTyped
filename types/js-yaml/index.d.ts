@@ -13,8 +13,8 @@ export class Type {
 }
 export class Schema {
 	constructor(definition: SchemaDefinition);
-	public static create(types: Type[] | Type): Schema;
-	public static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
+	static create(types: Type[] | Type): Schema;
+	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
 export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
