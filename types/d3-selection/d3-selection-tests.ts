@@ -325,7 +325,7 @@ let filterdGElements2: d3Selection.Selection<SVGGElement, any, HTMLElement, any>
 filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>('g');
 // filterdGElements2 = d3Selection.selectAll('.any-type').filter('g'); // fails without using narrowing generic on filter method
 
-filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function(){
+filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function() {
     const that: SVGElement = this;
     return that.tagName === 'g' || that.tagName === 'G';
 });

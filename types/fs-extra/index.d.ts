@@ -38,9 +38,10 @@ export function mkdirp(dir: string, callback: (err: Error | null) => void): void
 export function mkdirsSync(dir: string): void;
 export function mkdirpSync(dir: string): void;
 
-export function outputFile(file: string, data: any): Promise<void>;
+export function outputFile(file: string, data: any, options?: WriteFileOptions | string): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error | null) => void): void;
-export function outputFileSync(file: string, data: any): void;
+export function outputFile(file: string, data: any, options: WriteFileOptions | string, callback: (err: Error | null) => void): void;
+export function outputFileSync(file: string, data: any, options?: WriteFileOptions | string): void;
 
 export function readJson(file: string, options?: ReadOptions): Promise<any>;
 export function readJson(file: string, callback: (err: Error | null, jsonObject: any) => void): void;
@@ -154,15 +155,12 @@ export function lstat(path: string | Buffer): Promise<Stats>;
 /**
  * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
  *
- * @param path
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: string | Buffer, callback: (err?: NodeJS.ErrnoException | null) => void): void;
 /**
  * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
  *
- * @param path
- * @param mode
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: string | Buffer, mode: number | string, callback: (err?: NodeJS.ErrnoException | null) => void): void;
@@ -200,7 +198,6 @@ export function rename(oldPath: string, newPath: string): Promise<void>;
 /**
  * Asynchronous rmdir - removes the directory specified in {path}
  *
- * @param path
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function rmdir(path: string | Buffer, callback: (err?: NodeJS.ErrnoException | null) => void): void;
@@ -219,7 +216,6 @@ export function truncate(path: string | Buffer, len?: number): Promise<void>;
 /**
  * Asynchronous unlink - deletes the file specified in {path}
  *
- * @param path
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function unlink(path: string | Buffer, callback: (err?: NodeJS.ErrnoException | null) => void): void;
@@ -239,13 +235,12 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, offset: number, encoding?: string): Promise<WriteResult>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException | null) => void): void;
-export function writeFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
-export function writeFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException | null) => void): void;
+export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;
+export function writeFile(file: string | Buffer | number, data: any, options: WriteFileOptions | string, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
  *
- * @param prefix
  * @param callback The created folder path is passed as a string to the callback's second parameter.
  */
 export function mkdtemp(prefix: string): Promise<string>;
@@ -286,13 +281,16 @@ export interface ReadOptions {
     flag?: string;
 }
 
-export interface WriteOptions {
-    fs?: object;
-    replacer?: any;
-    spaces?: number;
+export interface WriteFileOptions {
     encoding?: string;
     flag?: string;
     mode?: number;
+}
+
+export interface WriteOptions extends WriteFileOptions {
+    fs?: object;
+    replacer?: any;
+    spaces?: number;
 }
 
 export interface ReadResult {

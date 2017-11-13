@@ -13,6 +13,7 @@ interface ErrorReporterProps {
 export interface AppContainerProps {
   children?: React.ReactElement<any>,
   errorReporter?: React.ComponentClass<ErrorReporterProps> | React.StatelessComponent<ErrorReporterProps>
+  warnings?: boolean
 }
 
 export class AppContainer extends React.Component<AppContainerProps, React.ComponentState> {}

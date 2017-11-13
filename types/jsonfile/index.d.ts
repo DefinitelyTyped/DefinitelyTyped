@@ -8,13 +8,13 @@
 import { Url } from 'url';
 
 export type FSReadOptions = {
-    encoding?: null | undefined;
-    flag?: string | undefined;
+    encoding?: null;
+    flag?: string;
     } | null | undefined;
 export type FSWriteOptions = string | {
-    encoding?: string | null | undefined;
-    mode?: string | number | undefined;
-    flag?: string | undefined;
+    encoding?: string | null;
+    mode?: string | number;
+    flag?: string;
     } | null | undefined;
 
 export type ReadCallback = (err: NodeJS.ErrnoException | null, data: Buffer) => void;
@@ -29,23 +29,23 @@ export interface FS {
 }
 
 export type JFReadOptions = {
-    encoding?: null | undefined;
-    flag?: string | undefined;
+    encoding?: null;
+    flag?: string;
     throws?: boolean;
     fs?: FS;
-    reviver?: ((key: any, value: any) => any) | undefined;
+    reviver?: (key: any, value: any) => any;
     } | null | undefined;
 
 export type JFWriteOptions = string | {
-    encoding?: string | null | undefined;
-    mode?: string | number | undefined;
-    flag?: string | undefined;
+    encoding?: string | null;
+    mode?: string | number;
+    flag?: string;
     throws?: boolean;
     fs?: FS;
     EOL?: string;
-    spaces?: string | number | undefined;
-    replacer?: ((key: string, value: any) => any) | undefined;
-    } | null | undefined;
+    spaces?: string | number;
+    replacer?: (key: string, value: any) => any;
+    } | null;
 
 export type JFReadCallback = (err: NodeJS.ErrnoException | null, data: any) => void;
 

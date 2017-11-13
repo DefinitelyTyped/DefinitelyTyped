@@ -2,6 +2,7 @@
 // Project: https://bitbucket.org/igor_sechyn/hystrixjs
 // Definitions by: Igor Sechyn <https://github.com/igorsechyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Q from "q";
 import * as RX from "rx";

@@ -68,7 +68,6 @@ declare class NativeObject {
 
     /**
      * Gets the current value of the given *property*.
-     * @param property
      */
     get(property: string): any;
 
@@ -116,14 +115,11 @@ declare class NativeObject {
 
     /**
      * Sets the given property.
-     * @param property
-     * @param value
      */
     set(property: string, value: any): this;
 
     /**
      * Sets all key-value pairs in the properties object as widget properties.
-     * @param properties
      */
     set(properties: object): this;
 
@@ -137,9 +133,8 @@ declare class NativeObject {
 
     /**
      * An application-wide unique identifier automatically assigned to all native objects on creation.
-     * @static
      */
-    readonly cid: string;
+    static readonly cid: string;
 }
 
 interface PropertyChangedEvent<T, U> {

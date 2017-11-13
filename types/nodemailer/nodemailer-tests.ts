@@ -1036,7 +1036,6 @@ namespace smtp_connection_test {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
                 if (err) throw err;
-                console.log(info);
                 connection.reset(() => {
                     if (err) throw err;
                     connection.quit();
@@ -1070,7 +1069,9 @@ namespace mailcomposer_build_test {
 
 namespace addressparser_test {
     const input = 'andris@tr.ee';
-    addressparser(input);
+    const result = addressparser(input);
+    const address: string = result[0].address;
+    const name: string = result[0].name;
 }
 
 // base64

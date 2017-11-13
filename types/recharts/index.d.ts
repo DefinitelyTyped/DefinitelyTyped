@@ -345,8 +345,8 @@ export interface PieProps extends Partial<CSSStyleDeclaration> {
 	label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	labelLine?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	data: any[];
-	activeIndex: any[];
-	activeShape: any | React.ReactElement<any> | RechartsFunction;
+	activeIndex?: number | number[];
+	activeShape?: any | React.ReactElement<any> | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType | RechartsFunction;
@@ -654,6 +654,7 @@ export interface SectorProps {
 	startAngle?: number;
 	endAngle?: number;
 	cornerRadius?: number;
+	fill?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -716,6 +717,7 @@ export interface TooltipProps {
 	itemSorter?: ItemSorter<TooltipPayload>;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
+	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	filterNull?: boolean;
 }

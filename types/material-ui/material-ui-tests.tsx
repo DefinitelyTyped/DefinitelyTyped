@@ -3030,6 +3030,8 @@ const ChipExampleSimple = () => (
     <Chip labelColor={blue500}>Blue Label Color</Chip>
     <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
     <Chip style={styles.chip}>Styled</Chip>
+    <Chip containerElement="span">String Container</Chip>
+    <Chip containerElement={() => {}}>ReactNode Container</Chip>
   </div>
 );
 
@@ -7002,7 +7004,7 @@ class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
   constructor() {
-    super();
+    super({});
     this.state = {
       index: 0
     };

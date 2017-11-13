@@ -123,6 +123,7 @@ export interface Layout {
 	dragmode: "lasso" | "pan" | "select" | "zoom";
 	shapes: Array<Partial<Shape>>;
 	legend: Partial<Legend>;
+	font: Partial<Font>;
 }
 
 export interface Legend {
@@ -150,6 +151,7 @@ export interface Axis {
 	type: AxisType;
 	tickformat: string;
 	hoverformat: string;
+	exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	range: [Datum, Datum];

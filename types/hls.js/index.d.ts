@@ -1540,7 +1540,7 @@ declare namespace Hls {
    *  Customized text track syncronization controller.
    */
   interface TimelineController {
-    /**d
+    /**
      * clean-up all used resources
      */
     destory(): void;

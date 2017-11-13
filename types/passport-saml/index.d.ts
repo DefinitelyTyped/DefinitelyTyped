@@ -2,6 +2,7 @@
 // Project: https://github.com/bergie/passport-saml
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import passport = require('passport');
 import express = require('express');
