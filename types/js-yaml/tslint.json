@@ -4,7 +4,7 @@
         "ban-types": false,
         "dt-header": false,
         "export-just-namespace": false,
-        "max-line-length": false,
+        "max-line-length": [true, 240],
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
