@@ -298,7 +298,7 @@ declare namespace Showdown {
          * Setting a "local" option only affects the specified Converter object.
          *
          * @param optionKey
-         * @param string
+         * @param value
          */
         setOption(optionKey: string, value: any): void;
 
