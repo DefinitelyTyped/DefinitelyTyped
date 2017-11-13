@@ -618,6 +618,10 @@ export interface ShadowPropTypesIOSStatic {
     shadowRadius: number
 }
 
+type GeoConfiguration = {
+    skipPermissionRequests: boolean;
+}
+
 type GeoOptions = {
     timeout?: number,
     maximumAge?: number,
@@ -8089,6 +8093,8 @@ export interface GeolocationStatic {
     stopObserving(): void
 
     requestAuthorization(): void;
+
+    setRNConfiguration(config: GeoConfiguration): void;
 }
 
 export interface OpenCameraDialogOptions {
