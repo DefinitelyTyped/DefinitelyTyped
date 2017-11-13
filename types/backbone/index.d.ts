@@ -235,6 +235,7 @@ declare namespace Backbone {
          **/
         get(id: number|string|Model): TModel;
         has(key: number|string|Model): boolean;
+        clone(): this;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;

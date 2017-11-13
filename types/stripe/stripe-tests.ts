@@ -998,3 +998,10 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 });
 
 //#endregion
+
+//#region Ephemeral keys tests
+// ##################################################################################
+
+stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version: "2017-08-15" }).then(function(ephemeralKeys) {
+    // asynchronously called
+});
