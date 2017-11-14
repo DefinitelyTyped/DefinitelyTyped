@@ -7,12 +7,17 @@
 export function safeLoad(str: string, opts?: LoadOptions): any;
 export function load(str: string, opts?: LoadOptions): any;
 
-export class Type {
+export class Type implements TypeConstructorOptions {
 	constructor(tag: string, opts?: TypeConstructorOptions);
-	tag: string;
+	kind: string | null;
+	resolve(data: any): boolean;
+	construct(data: any): any;
+	instanceOf: object | null;
+	predicate: string | null;
+	represent: ((data: object) => any) | { [x: string]: (data: object) => any; } | null;
+	defaultStyle: string | null;
+	styleAliases: { [x: string]: any; };
 }
-/* tslint:disable-next-line:no-empty-interface */
-export interface Type extends TypeConstructorOptions { }
 
 /* tslint:disable-next-line:no-unnecessary-class */
 export class Schema implements SchemaDefinition {
@@ -73,8 +78,8 @@ export interface TypeConstructorOptions {
 
 export interface SchemaDefinition {
 	implicit?: any[];
-	explicit?: any[];
-	include?: any[];
+	explicit?: Type[];
+	include?: Schema[];
 }
 
 // only strings, arrays and plain objects: http://www.yaml.org/spec/1.2/spec.html#id2802346

@@ -7,10 +7,13 @@ import SchemaDefinition = yaml.SchemaDefinition;
 let bool: boolean;
 let num: number;
 let str: string;
-let obj: { [x: string]: any; };
+let obj: object;
+let map: { [x: string]: any; };
 let value: any;
 let array: any[];
 let fn: (...args: any[]) => any;
+let fnOrFnMap: ((...args: any[]) => any) | { [x: string]: (...args: any[]) => any; };
+let type: yaml.Type;
 let schemaDefinition: SchemaDefinition = {
 	implicit: array,
 	explicit: array,
@@ -69,6 +72,17 @@ dumpOpts = {
 dumpOpts = {
 	schema: value
 };
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+str = type.kind;
+fn = type.resolve;
+fn = type.construct;
+obj = type.instanceOf;
+str = type.predicate;
+fnOrFnMap = type.represent;
+str = type.defaultStyle;
+map = type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
