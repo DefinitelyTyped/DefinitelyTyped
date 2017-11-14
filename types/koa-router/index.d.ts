@@ -140,7 +140,7 @@ declare class Router {
      * "down" the middleware stack.
      */
     use(...middleware: Array<Router.IMiddleware>): Router;
-    use(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    use(path: string | string[] | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP get method
