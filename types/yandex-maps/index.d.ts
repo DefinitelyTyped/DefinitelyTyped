@@ -2989,9 +2989,9 @@ declare namespace ymaps {
     }
 
     class Polygon extends GeoObject {
-        constructor(geometry: number[][][] | object | IPolygonGeometry, properties: object | IDataManager, options?: object)
+        constructor(geometry: number[][][] | object | IPolygonGeometry, properties?: object | IDataManager, options?: object)
     }
-	
+
 	interface IPopup<T> extends ICustomizable, IEventEmitter {
 		close(force?: boolean): Promise<T>;
 
