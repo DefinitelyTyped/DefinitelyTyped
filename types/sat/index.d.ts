@@ -14,7 +14,7 @@ declare namespace SAT {
 		 * @param {number} x The x-coordinate of the Vector.
 		 * @param {number} y The y-coordinate of the Vector.
 		 */
-        constructor();
+		constructor();
 		constructor(x: number, y: number);
 
 		x: number;
