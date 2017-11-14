@@ -20,7 +20,7 @@ let schemaDefinition: SchemaDefinition = {
 	include: array
 };
 let typeConstructorOptions: TypeConstructorOptions = {
-	kind: str,
+	kind: "scalar",
 	resolve: fn,
 	construct: fn,
 	instanceOf: obj,
