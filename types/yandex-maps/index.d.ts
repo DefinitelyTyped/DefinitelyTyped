@@ -2937,7 +2937,7 @@ declare namespace ymaps {
 
         getClosest(anchorPosition: number[]): object;
 
-        getCoordinates(): number[][];
+        getCoordinates(): [number,number][];
 
         getFillRule(): string;
 
@@ -2949,7 +2949,7 @@ declare namespace ymaps {
 
         set(index: number, path: number[]): ILinearRingGeometryAccess;
 
-        setCoordinates(coordinates: number[][]): ILinearRingGeometryAccess;
+        setCoordinates(coordinates: [number,number][]): ILinearRingGeometryAccess;
 
         setFillRule(fillRule: string): ILinearRingGeometryAccess;
 
@@ -2965,7 +2965,7 @@ declare namespace ymaps {
 
         getClosest(anchorPosition: number[]): object;
 
-        getCoordinates(): number[][][];
+        getCoordinates(): [number,number][][];
 
         getFillRule(): string;
 
@@ -2977,7 +2977,7 @@ declare namespace ymaps {
 
         set(index: number, path: number[][]): IPolygonGeometryAccess;
 
-        setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
+        setCoordinates(coordinates: [number,number][][]): IPolygonGeometryAccess;
 
         setFillRule(fillRule: string): IPolygonGeometryAccess;
 
@@ -2989,7 +2989,7 @@ declare namespace ymaps {
     }
 
     class Polygon extends GeoObject {
-        constructor(geometry: number[][][] | object | IPolygonGeometry, properties?: object | IDataManager, options?: object)
+        constructor(geometry: [number,number][][] | object | IPolygonGeometry, properties?: object | IDataManager, options?: object)
     }
 
 	interface IPopup<T> extends ICustomizable, IEventEmitter {
