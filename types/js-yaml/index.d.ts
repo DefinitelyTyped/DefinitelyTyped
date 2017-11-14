@@ -9,7 +9,7 @@ export function load(str: string, opts?: LoadOptions): any;
 
 export class Type implements TypeConstructorOptions {
 	constructor(tag: string, opts?: TypeConstructorOptions);
-	kind: string | null;
+	kind: 'sequence' | 'scalar' | 'mapping' | null;
 	resolve(data: any): boolean;
 	construct(data: any): any;
 	instanceOf: object | null;
@@ -66,7 +66,7 @@ export interface DumpOptions {
 }
 
 export interface TypeConstructorOptions {
-	kind?: string;
+	kind?: 'sequence' | 'scalar' | 'mapping';
 	resolve?: (data: any) => boolean;
 	construct?: (data: any) => any;
 	instanceOf?: object;
