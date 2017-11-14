@@ -39,6 +39,8 @@ export interface LoadOptions {
 	strict?: boolean;
 	// specifies a schema to use.
 	schema?: any;
+	// compatibility with JSON.parse behaviour.
+	json?: boolean;
 }
 
 export interface DumpOptions {
