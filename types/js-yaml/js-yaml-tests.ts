@@ -119,6 +119,8 @@ yaml.load(str, loadOpts);
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 // $ExpectType any
+yaml.safeLoadAll(str);
+// $ExpectType any
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 });
@@ -126,8 +128,11 @@ yaml.safeLoadAll(str, (doc) => {
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+value = yaml.safeLoadAll(str, undefined, loadOpts);
 
 // $ExpectType any
+value = yaml.loadAll(str);
+// $ExpectType any
 yaml.loadAll(str, (doc) => {
 	value = doc;
 });
@@ -135,6 +140,7 @@ yaml.loadAll(str, (doc) => {
 yaml.loadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+value = yaml.loadAll(str, undefined, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
