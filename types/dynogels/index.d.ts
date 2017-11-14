@@ -82,7 +82,7 @@ export interface Model {
     tableName(): string;
 
     after(action: LifeCycleAction, listner: (item: Item) => void): void;
-    before(action: LifeCycleAction, listner: (data: object, next: (err: Error, data: object) => void) => void): void;
+    before(action: LifeCycleAction, listner: (data: any, next: (err: Error | null, data: any) => void) => void): void;
     config(config: ModelConfig): { name: string };
 }
 
@@ -149,13 +149,13 @@ export interface ModelConfig {
 
 //Dynogels Item
 export interface Item {
-    get(key: string): { [key: string]: any };
+    get(key?: string): { [key: string]: any };
     set(params: {}): Item;
-    save(callback: DynogelsItemCallback): void;
-    update(options: UpdateItemOptions, callback: DynogelsItemCallback): void;
-    update(callback: DynogelsItemCallback): void;
-    destroy(options: DestroyItemOptions, callback: DynogelsItemCallback): void;
-    destroy(callback: DynogelsItemCallback): void;
+    save(callback?: DynogelsItemCallback): void;
+    update(options: UpdateItemOptions, callback?: DynogelsItemCallback): void;
+    update(callback?: DynogelsItemCallback): void;
+    destroy(options: DestroyItemOptions, callback?: DynogelsItemCallback): void;
+    destroy(callback?: DynogelsItemCallback): void;
     toJSON(): any;
     toPlainObject(): any;
 }
