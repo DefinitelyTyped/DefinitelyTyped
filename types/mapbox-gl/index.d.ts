@@ -901,7 +901,7 @@ declare namespace mapboxgl {
 
 	export interface Layer {
 		id: string;
-		type?: "fill" | "line" | "symbol" | "circle" | "fill-extrusion" | "raster" | "background";
+		type?: "fill" | "line" | "symbol" | "circle" | "fill-extrusion" | "raster" | "background" | "heatmap";
 
 		metadata?: any;
 		ref?: string;
