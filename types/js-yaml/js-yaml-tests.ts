@@ -87,19 +87,19 @@ dumpOpts = {
 // $ExpectType Type
 new yaml.Type(str, typeConstructorOptions);
 
-// $ExpectType "sequence" | "scalar" | "mapping"
+// $ExpectType "sequence" | "scalar" | "mapping" | null
 type.kind;
 // $ExpectType (data: any) => boolean
 type.resolve;
 // $ExpectType (data: any) => any
 type.construct;
-// $ExpectType object
+// $ExpectType object | null
 type.instanceOf;
-// $ExpectType string
+// $ExpectType string | null
 type.predicate;
-// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; }
+// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
 type.represent;
-// $ExpectType string
+// $ExpectType string | null
 type.defaultStyle;
 // $ExpectType { [x: string]: any; }
 type.styleAliases;
