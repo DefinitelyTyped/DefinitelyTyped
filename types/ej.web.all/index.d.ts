@@ -6,6 +6,7 @@
 
 /// <reference types="jquery" />
 
+
 /*!
 *  filename: ej.web.all.d.ts
 *  version : 15.4.0.17
@@ -7751,7 +7752,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set 'showHeader' as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
@@ -63571,9 +63572,9 @@ declare namespace ej.datavisualization {
         /** The exportImage method is used to export the image passed through argument with different image format and exporting options as like exportDiagram method.
          * @param {string} pass the base64String image to be exported.
          * @param {Diagram.Options} options to export the desired region of diagram to the desired formats.
-         * @returns {String}
+         * @returns {string}
          */
-        exportImage(image: string, options?: Diagram.Options): String;
+        exportImage(image: string, options?: Diagram.Options): string;
 
         /** Read a node/connector object by its name
          * @param {string} name of the node/connector that is to be identified
