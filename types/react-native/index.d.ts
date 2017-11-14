@@ -6281,12 +6281,12 @@ export interface AccessibilityInfoStatic {
      *                          - announcement: The string announced by the screen reader.
      *                          - success: A boolean indicating whether the announcement was successfully made.
      */
-    addEventListener: (eventName: AccessibilityChangeEventName, handler: Function) => void;
+    addEventListener: (eventName: AccessibilityChangeEventName, handler: () => void) => void;
 
     /**
      * Remove an event handler.
      */
-    removeEventListener: (eventName: AccessibilityChangeEventName, handler: Function) => void;
+    removeEventListener: (eventName: AccessibilityChangeEventName, handler: () => void) => void;
 
     /**
      * Set acessibility focus to a react component.
