@@ -25,9 +25,9 @@ export class SObject<T> {
     find<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T[]) => void): Query<T>;
     find<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T[]) => void): Query<T>;
 
-    findOne<T>(query?: any, callback?: (err: Error, ret: T) => void): void;
-    findOne<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T) => void): void;
-    findOne<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T) => void): void;
+    findOne<T>(query?: any, callback?: (err: Error, ret: T) => void): Query<T>;
+    findOne<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T) => void): Query<T>;
+    findOne<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T) => void): Query<T>;
 
     approvalLayouts(callback?: (layoutInfo: ApprovalLayoutInfo) => void): Promise<ApprovalLayoutInfo>;
     bulkload(operation: string, options?: { extIdField?: string }, input?: Array<Record<T>> | stream.Stream[] | string[], callback?: (err: Error, ret: RecordResult) => void): Batch;
@@ -52,9 +52,9 @@ export class SObject<T> {
     quickAction(actionName: string): QuickAction;
     quickActions(callback?: (err: Error, info: any) => void): Promise<any>;
     recent(callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
-    select(callback?: (err: Error, ret: T[]) => void): Promise<T[]>;
+    select(callback?: (err: Error, ret: T[]) => void): Query<T[]>;
     // TODO:use a typed pluck to turn `fields` into a subset of T's fields so that the output is slimmed down appropriately
-    select(fields?: {[P in keyof T]: boolean}  | Array<(keyof T)> | (keyof T), callback?: (err: Error, ret: Array<Partial<T>>) => void): Promise<Array<Partial<T>>>;
+    select(fields?: {[P in keyof T]: boolean}  | Array<(keyof T)> | (keyof T), callback?: (err: Error, ret: Array<Partial<T>>) => void): Query<Array<Partial<T>>>;
 }
 
 export interface ApprovalLayoutInfo {

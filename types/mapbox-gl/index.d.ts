@@ -1,7 +1,8 @@
-// Type definitions for Mapbox GL JS v0.39.1
+// Type definitions for Mapbox GL JS v0.40.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="geojson" />
 
@@ -87,7 +88,7 @@ declare namespace mapboxgl {
 
 		getLayer(id: string): mapboxgl.Layer;
 
-		setFilter(layer: string, filter: any[]): this;
+		setFilter(layer: string, filter?: any[]): this;
 
 		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -224,7 +225,7 @@ declare namespace mapboxgl {
 		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
 		keyboard?: boolean;
 
-		logoPosition?: boolean;
+		logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 		/** If set, the map is constrained to the given bounds. */
 		maxBounds?: LngLatBoundsLike;
@@ -395,7 +396,7 @@ declare namespace mapboxgl {
 		timeout?: number;
 		maximumAge?: number;
 	}
-	
+
 	export class FitBoundsOptions {
 		maxZoom?: number;
 	}
@@ -723,7 +724,7 @@ declare namespace mapboxgl {
 		angleWidth(p: Point): number;
 
 		angleWithSep(x: number, y: number): number;
-	
+
 		static convert(a: PointLike): Point;
 	}
 
@@ -920,7 +921,7 @@ declare namespace mapboxgl {
 	}
 
 	export interface StyleFunction {
-		stops: any[][];
+		stops?: any[][];
 		property?: string;
 		base?: number;
 		type?: "identity" | "exponential" | "interval" | "categorical";
@@ -944,7 +945,7 @@ declare namespace mapboxgl {
 		"fill-antialias"?: boolean;
 		"fill-opacity"?: number | StyleFunction;
 		"fill-color"?: string | StyleFunction;
-		"fill-outline-color": string | StyleFunction;
+		"fill-outline-color"?: string | StyleFunction;
 		"fill-translate"?: number[];
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
@@ -958,9 +959,9 @@ declare namespace mapboxgl {
 		"fill-extrusion-color"?: string | StyleFunction;
 		"fill-extrusion-translate"?: number[];
 		"fill-extrusion-translate-anchor"?: "map" | "viewport";
-		"fill-extrusion-pattern": string;
+		"fill-extrusion-pattern"?: string;
 		"fill-extrusion-height"?: number | StyleFunction;
-		"fill-extrusion-base"?: number;
+		"fill-extrusion-base"?: number | StyleFunction;
 	}
 
 	export interface LineLayout {

@@ -7,6 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -14,9 +15,13 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "paths":{
-            "@egjs/component": ["egjs__component"],
-            "@egjs/axes": ["egjs__axes"]
+        "paths": {
+            "@egjs/component": [
+                "egjs__component"
+            ],
+            "@egjs/axes": [
+                "egjs__axes"
+            ]
         }
     },
     "files": [

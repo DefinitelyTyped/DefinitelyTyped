@@ -1,6 +1,8 @@
-// Type definitions for react-jsonschema-form 0.43.0
+// Type definitions for react-jsonschema-form 0.51.0
 // Project: https://github.com/mozilla-services/react-jsonschema-form
-// Definitions by: Dan Fox <https://github.com/iamdanfox>, Jon Surrell <https://github.com/sirreal>
+// Definitions by: Dan Fox <https://github.com/iamdanfox>
+//                 Jon Surrell <https://github.com/sirreal>
+//                 Ivan Jiang <https://github.com/iplus26>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -23,6 +25,7 @@ declare module "react-jsonschema-form" {
         liveValidate?: boolean;
         safeRenderCompletion?: boolean;
         FieldTemplate?: any;
+        transformErrors?: (errors: any) => any;
     }
 
     export interface IChangeEvent {
@@ -34,5 +37,5 @@ declare module "react-jsonschema-form" {
         status: string;
     }
 
-    export default class Form extends React.Component<FormProps> {}
+    export default class Form extends React.Component<FormProps> { }
 }

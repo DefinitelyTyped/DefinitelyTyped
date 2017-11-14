@@ -303,6 +303,14 @@ declare module "victory" {
             after?: (datum: any) => AnimationStyle;
         };
         /**
+         * Animation load transition configuration
+         */
+        onLoad?: {
+            duration?: number;
+            before?: (datum: any) => AnimationStyle;
+            after?: (datum: any) => AnimationStyle;
+        };
+        /**
          * The easing prop specifies an easing function name to use for tweening.
          * @default "quadInOut"
          */

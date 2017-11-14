@@ -1,4 +1,13 @@
-import { connectRoutes, LocationState, RoutesMap } from 'redux-first-router';
+import {
+    connectRoutes,
+    LocationState,
+    RoutesMap,
+    actionToPath,
+    ReceivedAction,
+    redirect,
+    Action as ReduxFirstRouterAction,
+    QuerySerializer
+} from 'redux-first-router';
 import {
   createStore,
   applyMiddleware,
@@ -32,15 +41,30 @@ const {
   initialDispatch: false
 });
 
-const dumbMiddleware: Middleware = (store: MiddlewareAPI<LocationState>) => (next: Dispatch<LocationState>) => (action: Action) => {
-  next(action);
-};
+const dumbMiddleware: Middleware = store => next => action => next(action);
 
 const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 
 const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(enhancer, composedMiddleware);
 
 const store = createStore(reducer, storeEnhancer);
+
+const receivedAction: ReceivedAction = {
+    type: 'HOME',
+    payload: {}
+};
+actionToPath(receivedAction, routesMap); // $ExpectType string
+
+const querySerializer: QuerySerializer = {
+    stringify: (params) => '',
+    parse: (queryString) => ({})
+};
+actionToPath(receivedAction, routesMap, querySerializer); // $ExpectType string
+
+const action: ReduxFirstRouterAction = {
+    type: 'HOME'
+};
+redirect(action); // $ExpectType Action
 
 // $ExpectType Store<LocationState>
 store;

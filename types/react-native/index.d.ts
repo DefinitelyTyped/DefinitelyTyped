@@ -1,7 +1,6 @@
-// Type definitions for react-native 0.48
+// Type definitions for react-native 0.50
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -59,7 +58,7 @@ interface EventSubscription {
     subscriber: EventSubscriptionVendor;
 
     /**
-     * @param {EventSubscriptionVendor} subscriber the subscriber that controls
+     * @param subscriber the subscriber that controls
      *   this subscription.
      */
     new(subscriber: EventSubscriptionVendor): EventSubscription
@@ -81,15 +80,13 @@ interface EventSubscriptionVendor {
     /**
      * Adds a subscription keyed by an event type.
      *
-     * @param {string} eventType
-     * @param {EventSubscription} subscription
      */
     addSubscription(eventType: string, subscription: EventSubscription): EventSubscription
 
     /**
      * Removes a bulk set of the subscriptions.
      *
-     * @param {?string} eventType - Optional name of the event type whose
+     * @param eventType - Optional name of the event type whose
      *   registered supscriptions to remove, if null remove all subscriptions.
      */
     removeAllSubscriptions(eventType?: string): void
@@ -98,7 +95,6 @@ interface EventSubscriptionVendor {
      * Removes a specific subscription. Instead of calling this function, call
      * `subscription.remove()` directly.
      *
-     * @param {object} subscription
      */
     removeSubscription(subscription: any): void
 
@@ -109,8 +105,6 @@ interface EventSubscriptionVendor {
      * Note: This array can be potentially sparse as subscriptions are deleted
      * from it when they are removed.
      *
-     * @param {string} eventType
-     * @returns {?array}
      */
     getSubscriptionsForType(eventType: string): EventSubscription[]
 }
@@ -124,13 +118,13 @@ interface EmitterSubscription extends EventSubscription {
     context: any
 
     /**
-     * @param {EventEmitter} emitter - The event emitter that registered this
+     * @param emitter - The event emitter that registered this
      *   subscription
-     * @param {EventSubscriptionVendor} subscriber - The subscriber that controls
+     * @param subscriber - The subscriber that controls
      *   this subscription
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param listener - Function to invoke when the specified event is
      *   emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
     new(emitter: EventEmitter, subscriber: EventSubscriptionVendor, listener: () => any, context: any): EmitterSubscription
@@ -150,10 +144,10 @@ interface EventEmitterListener {
      * emitted. An optional calling context may be provided. The data arguments
      * emitted will be passed to the listener function.
      *
-     * @param {string} eventType - Name of the event to listen to
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke when the specified event is
      *   emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
     addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription
@@ -161,9 +155,8 @@ interface EventEmitterListener {
 
 interface EventEmitter extends EventEmitterListener {
     /**
-     * @constructor
      *
-     * @param {EventSubscriptionVendor} subscriber - Optional subscriber instance
+     * @param subscriber - Optional subscriber instance
      *   to use. If omitted, a new subscriber will be created for the emitter.
      */
     new(subscriber?: EventSubscriptionVendor): EventEmitter
@@ -172,10 +165,10 @@ interface EventEmitter extends EventEmitterListener {
      * Similar to addListener, except that the listener is removed after it is
      * invoked once.
      *
-     * @param {string} eventType - Name of the event to listen to
-     * @param {function} listener - Function to invoke only once when the
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke only once when the
      *   specified event is emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
     once(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription
@@ -184,7 +177,7 @@ interface EventEmitter extends EventEmitterListener {
      * Removes all of the registered listeners, including those registered as
      * listener maps.
      *
-     * @param {?string} eventType - Optional name of the event whose registered
+     * @param eventType - Optional name of the event whose registered
      *   listeners to remove
      */
     removeAllListeners(eventType?: string): void
@@ -222,8 +215,7 @@ interface EventEmitter extends EventEmitterListener {
      * Returns an array of listeners that are currently registered for the given
      * event.
      *
-     * @param {string} eventType - Name of the event to query
-     * @returns {array}
+     * @param eventType - Name of the event to query
      */
     listeners(eventType: string): EmitterSubscription[]
 
@@ -231,8 +223,8 @@ interface EventEmitter extends EventEmitterListener {
      * Emits an event of the given type with the given data. All handlers of that
      * particular type will be notified.
      *
-     * @param {string} eventType - Name of the event to emit
-     * @param {...*} Arbitrary arguments to be passed to each registered listener
+     * @param eventType - Name of the event to emit
+     * @param Arbitrary arguments to be passed to each registered listener
      *
      * @example
      *   emitter.addListener('someEvent', function(message) {
@@ -246,8 +238,8 @@ interface EventEmitter extends EventEmitterListener {
     /**
      * Removes the given listener for event of specific type.
      *
-     * @param {string} eventType - Name of the event to emit
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param eventType - Name of the event to emit
+     * @param listener - Function to invoke when the specified event is
      *   emitted
      *
      * @example
@@ -366,7 +358,7 @@ interface NativeSyntheticEvent<T> {
     preventDefault(): void
     stopPropagation(): void
     target: NodeHandle
-    timeStamp: Date
+    timeStamp: number
     type: string
 }
 
@@ -469,18 +461,18 @@ export type AppConfig = {
  * sure the JS execution environment is setup before other modules are
  * `require`d.
  */
-export class AppRegistry {
-    static registerConfig(config: AppConfig[]): void;
+export namespace AppRegistry {
+    function registerConfig(config: AppConfig[]): void;
 
-    static registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
+    function registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
 
-    static registerRunnable(appKey: string, func: Runnable): string;
+    function registerRunnable(appKey: string, func: Runnable): string;
 
-    static getAppKeys(): string[];
+    function getAppKeys(): string[];
 
-    static unmountApplicationComponentAtRootTag(rootTag: number): void;
+    function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
-    static runApplication(appKey: string, appParameters: any): void;
+    function runApplication(appKey: string, appParameters: any): void;
 }
 
 export interface LayoutAnimationTypes {
@@ -534,9 +526,9 @@ export interface LayoutAnimationStatic {
         linear: LayoutAnimationConfig
         spring: LayoutAnimationConfig
     }
-    easeInEaseOut: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    linear: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
+    easeInEaseOut: (onAnimationDidEnd?: () => void) => void
+    linear: (onAnimationDidEnd?: () => void) => void
+    spring: (onAnimationDidEnd?: () => void) => void
 }
 
 type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
@@ -624,6 +616,10 @@ export interface ShadowPropTypesIOSStatic {
      * @platform ios
      */
     shadowRadius: number
+}
+
+type GeoConfiguration = {
+    skipPermissionRequests: boolean;
 }
 
 type GeoOptions = {
@@ -930,8 +926,6 @@ export interface DocumentSelectionState extends EventEmitter {
      * Apply an update to the state. If either offset value has changed,
      * set the values and emit the `change` event. Otherwise no-op.
      *
-     * @param {number} anchor
-     * @param {number} focus
      */
     update(anchor: number, focus: number): void
 
@@ -939,7 +933,6 @@ export interface DocumentSelectionState extends EventEmitter {
      * Given a max text length, constrain our selection offsets to ensure
      * that the selection remains strictly within the text range.
      *
-     * @param {number} maxLength
      */
     constrainLength(maxLength: number): void
 
@@ -1256,14 +1249,14 @@ interface TextInputState {
     currentlyFocusedField(): number
 
     /**
-     * @param {number} TextInputID id of the text field to focus
+     * @param TextInputID id of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
     focusTextInput(textFieldID?: number): void
 
     /**
-     * @param {number} textFieldID id of the text field to focus
+     * @param textFieldID id of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
@@ -2217,13 +2210,11 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
     /**
      * Callback that is called when the user taps a segment;
      * passes the event as an argument
-     * @param event
      */
     onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
 
     /**
      * Callback that is called when the user taps a segment; passes the segment's value as an argument
-     * @param value
      */
     onValueChange?: (value: string) => void
 
@@ -2241,6 +2232,16 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
      * The labels for the control's segment buttons, in order.
      */
     values?: string[]
+}
+
+/**
+ * Renders nested content and automatically applies paddings reflect the portion of the view
+ * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
+ * Moreover, and most importantly, Safe Area's paddings feflect physical limitation of the screen,
+ * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
+ */
+export interface SafeAreaViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {
+
 }
 
 /**
@@ -2583,7 +2584,6 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
 
     /**
      * Function called whenever there is an interaction with the navigation view.
-     * @param event
      */
     onDrawerSlide?: (event: DrawerSlideEvent) => void
 
@@ -2597,7 +2597,6 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
      * - settling, meaning that there was an interaction with the
      *   navigation view, and the navigation view is now finishing
      *   it's closing or opening animation
-     * @param event
      */
     onDrawerStateChanged?: (event: "Idle" | "Dragging" | "Settling") => void
 
@@ -2711,8 +2710,6 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
      * following parameters:
      * - itemValue: the value prop of the item that was selected
      * - itemPosition: the index of the selected item in this picker
-     * @param itemValue
-     * @param itemPosition
      */
     onValueChange?: (itemValue: any, itemPosition: number) => void
 
@@ -3036,13 +3033,11 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
 
     /**
      * Callback called when the user finishes changing the value (e.g. when the slider is released).
-     * @param value
      */
     onSlidingComplete?: (value: number) => void
 
     /**
      * Callback continuously called while the user is dragging the slider.
-     * @param value
      */
     onValueChange?: (value: number) => void
 
@@ -3257,6 +3252,8 @@ export interface ImageURISource {
     scale?: number,
 }
 
+export type ImageRequireSource = number;
+
 export interface ImagePropertiesIOS {
     /**
      * The text that's read by the screen reader when the user interacts with the image.
@@ -3316,6 +3313,11 @@ interface ImagePropertiesAndroid {
      * It should also be used if the image is slightly bigger than the view.
      */
     resizeMethod?: 'auto' | 'resize' | 'scale'
+
+    /**
+     * Duration of fade in animation.
+     */
+    fadeDuration?: number;
 }
 
 /**
@@ -3406,7 +3408,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[]
+    source: ImageURISource | ImageURISource[] | ImageRequireSource
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -3514,7 +3516,7 @@ export interface FlatListProperties<ItemT> extends VirtualizedListProperties<Ite
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentType<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered when the list is empty.
@@ -3712,7 +3714,7 @@ export interface SectionBase<ItemT> {
 
     renderItem?: ListRenderItem<ItemT>
 
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
@@ -3726,7 +3728,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | null
 
     /**
      * Rendered when the list is empty.
@@ -3746,7 +3748,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentClass<any> | null
+    SectionSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -3754,6 +3756,18 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * stick it here and treat it immutably.
      */
     extraData?: any
+
+    /**
+     * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
+     * content if you know the height of items a priori. getItemLayout is the most efficient,
+     * and is easy to use if you have fixed height items, for example:
+     * ```
+     * getItemLayout={(data, index) => (
+     *   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+     * )}
+     * ```
+     */
+    getItemLayout?: (data: SectionListData<ItemT>[] | null, index: number) => {length: number, offset: number, index: number}
 
     /**
      * How many items to render in the initial batch
@@ -4455,8 +4469,6 @@ export interface TouchableWithoutFeedbackAndroidProperties {
     /**
      * Indicates to accessibility services to treat UI component like a native one.
      * Works for Android only.
-     *
-     * @enum('none', 'button', 'radiobutton_checked', 'radiobutton_unchecked' )
      */
     accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked'
 }
@@ -4743,77 +4755,6 @@ export interface TouchableNativeFeedbackStatic extends TouchableMixin, React.Cla
     Ripple( color: string, borderless?: boolean ): RippleBackgroundPropType
 }
 
-
-export interface LeftToRightGesture {
-    // If the gesture can end and restart during one continuous touch
-    isDetachable: boolean;
-    // How far the swipe must drag to start transitioning
-    gestureDetectMovement: number;
-    // Amplitude of release velocity that is considered still
-    notMoving: number;
-    // Fraction of directional move required.
-    directionRatio: number;
-    // Velocity to transition with when the gesture release was "not moving"
-    snapVelocity: number;
-    // Region that can trigger swipe. iOS default is 30px from the left edge
-    edgeHitWidth: number;
-    // Ratio of gesture completion when non-velocity release will cause action
-    stillCompletionRatio: number;
-    fullDistance: any;
-    direction: string;
-}
-
-export interface JumpGesture extends LeftToRightGesture {
-    overswipe: {
-        frictionConstant: number
-        frictionByDistance: number
-    }
-}
-
-// see /NavigatorSceneConfigs.js
-export interface SceneConfig {
-    // A list of all gestures that are enabled on this scene
-    gestures?: {
-        pop?: LeftToRightGesture,
-    },
-
-    // Rebound spring parameters when transitioning FROM this scene
-    springFriction: number;
-    springTension: number;
-
-    // Velocity to start at when transitioning without gesture
-    defaultTransitionVelocity: number;
-
-    // Animation interpolators for horizontal transitioning:
-    animationInterpolators: {
-        into: () => boolean,
-        out: () => boolean
-    };
-}
-
-export interface JumpSceneConfig extends SceneConfig {
-    gestures: {
-        pop?: LeftToRightGesture
-        jumpBack: JumpGesture
-        jumpForward: JumpGesture
-    }
-}
-
-// see /NavigatorSceneConfigs.js
-export interface SceneConfigs {
-    PushFromRight: SceneConfig;
-    PushFromLeft: SceneConfig;
-    FloatFromRight: SceneConfig;
-    FloatFromLeft: SceneConfig;
-    FloatFromBottom: SceneConfig;
-    FloatFromBottomAndroid: SceneConfig;
-    FadeAndroid: SceneConfig;
-    HorizontalSwipeJump: SceneConfig;
-    HorizontalSwipeJumpFromRight: SceneConfig;
-    VerticalUpSwipeJump: SceneConfig;
-    VerticalDownSwipeJump: SceneConfig;
-}
-
 export interface Route {
     component?: React.ComponentType<any>
     id?: string
@@ -4830,85 +4771,7 @@ export interface Route {
     index?: number
     onRightButtonPress?: () => void
     rightButtonTitle?: string
-    sceneConfig?: SceneConfig
     wrapperStyle?: any
-}
-
-
-/**
- * @see https://facebook.github.io/react-native/docs/navigator.html#content
- */
-export interface NavigatorProperties {
-    /**
-     * Optional function that allows configuration about scene animations and gestures.
-     * Will be invoked with `route` and `routeStack` parameters, where `route`
-     * corresponds to the current scene being rendered by the `Navigator` and
-     * `routeStack` is the set of currently mounted routes that the navigator
-     *  could transition to. The function should return a scene configuration object.
-     * @param route
-     * @param routeStack
-     */
-    configureScene?: (route: Route, routeStack: Route[]) => SceneConfig
-    /**
-     * Specify a route to start on.
-     * A route is an object that the navigator will use to identify each scene to render.
-     * initialRoute must be a route in the initialRouteStack if both props are provided.
-     * The initialRoute will default to the last item in the initialRouteStack.
-     */
-    initialRoute?: Route
-    /**
-     * Provide a set of routes to initially mount.
-     * Required if no initialRoute is provided.
-     * Otherwise, it will default to an array containing only the initialRoute
-     */
-    initialRouteStack?: Route[]
-
-    /**
-     * Optionally provide a navigation bar that persists across scene transitions
-     */
-    navigationBar?: React.ReactElement<NavigatorStatic.NavigationBarProperties>
-
-    /**
-     * Optionally provide the navigator object from a parent Navigator
-     */
-    navigator?: Navigator
-
-    /**
-     * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
-     */
-    onDidFocus?: () => any
-
-    /**
-     * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
-     */
-    onWillFocus?: () => any
-
-    /**
-     * Required function which renders the scene for a given route.
-     * Will be invoked with the route and the navigator object
-     * @param route
-     * @param navigator
-     */
-    renderScene: ( route: Route, navigator: Navigator ) => React.ReactElement<ViewProperties>
-
-    /**
-     * Styles to apply to the container of each scene
-     */
-    sceneStyle?: StyleProp<ViewStyle>
-
-}
-
-/**
- * Class that contains the info and methods for app navigation.
- */
-export interface NavigationContext {
-    parent: NavigationContext;
-    top: NavigationContext;
-    currentRoute: any;
-    appendChild(childContext: NavigationContext): void;
-    addListener(eventType: string, listener: () => void, useCapture?: boolean): NativeEventSubscription;
-    emit(eventType: string, data: any, didEmitCallback?: () => void): void;
-    dispose(): void;
 }
 
 interface InteractionMixin {
@@ -4917,7 +4780,6 @@ interface InteractionMixin {
     /**
      * Schedule work for after all interactions have completed.
      *
-     * @param {function} callback
      */
     runAfterInteractions(callback: () => any): void
 }
@@ -4931,216 +4793,12 @@ interface SubscribableMixin {
      * the subscription and therefore can guarantee it is retained in a way that
      * will be cleaned up.
      *
-     * @param {EventEmitter} eventEmitter emitter to subscribe to.
-     * @param {string} eventType Type of event to listen to.
-     * @param {function} listener Function to invoke when event occurs.
-     * @param {object} context Object to use as listener context.
+     * @param eventEmitter emitter to subscribe to.
+     * @param eventType Type of event to listen to.
+     * @param listener Function to invoke when event occurs.
+     * @param context Object to use as listener context.
      */
     addListenerOn( eventEmitter: any, eventType: string, listener: () => any, context: any ): void
-}
-
-/**
- * Use Navigator to transition between different scenes in your app.
- * To accomplish this, provide route objects to the navigator to identify each scene,
- * and also a renderScene function that the navigator can use to render the scene for a given route.
- *
- * To change the animation or gesture properties of the scene, provide a configureScene prop to get the config object for a given route.
- * See Navigator.SceneConfigs for default animations and more info on scene config options.
- * @see https://facebook.github.io/react-native/docs/navigator.html
- */
-export interface NavigatorStatic extends TimerMixin, InteractionMixin, SubscribableMixin, React.ComponentClass<NavigatorProperties> {
-    SceneConfigs: SceneConfigs;
-    NavigationBar: NavigatorStatic.NavigationBarStatic;
-    BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic;
-
-    navigationContext: NavigationContext;
-
-    /**
-     * returns the current list of routes
-     */
-    getCurrentRoutes(): Route[];
-
-    /**
-     * Jump backward without unmounting the current scen
-     */
-    jumpBack(): void;
-
-    /**
-     * Jump forward to the next scene in the route stack
-     */
-    jumpForward(): void;
-
-    /**
-     * Transition to an existing scene without unmounting
-     */
-    jumpTo(route: Route): void;
-
-    /**
-     * Navigate forward to a new scene, squashing any scenes that you could jumpForward to
-     */
-    push(route: Route): void;
-
-    /**
-     * Transition back and unmount the current scene
-     */
-    pop(): void;
-
-    /**
-     * Go back N scenes at once. When N=1, behavior matches `pop()`.
-     * When N is invalid(negative or bigger than current routes count), do nothing.
-     * @param {number} n The number of scenes to pop. Should be an integer.
-     */
-    popN(n: number): void
-
-    /**
-     * Replace the current scene with a new route
-     */
-    replace(route: Route): void;
-
-    /**
-     * Replace a scene as specified by an index
-     */
-    replaceAtIndex(route: Route, index: number): void;
-
-    /**
-     *  Replace the previous scene
-     */
-    replacePrevious(route: Route): void;
-
-    /**
-     * Reset every scene with an array of routes
-     */
-    immediatelyResetRouteStack(routes: Route[]): void;
-
-    /**
-     * Pop to a particular scene, as specified by its route. All scenes after it will be unmounted
-     */
-    popToRoute(route: Route): void;
-
-    /**
-     * Pop to the first scene in the stack, unmounting every other scene
-     */
-    popToTop(): void;
-
-    /**
-     *  Replace the previous scene and pop to it.
-     */
-    replacePreviousAndPop( route: Route ): void;
-
-    /**
-     * Navigate to a new scene and reset route stack.
-     */
-    resetTo( route: Route ): void;
-
-}
-
-export namespace NavigatorStatic {
-
-
-    export interface NavState {
-        routeStack: Route[]
-        presentedIndex: number
-    }
-
-    // @see NavigationBarStyle.ios.js
-    export interface NavigationBarStyle {
-        General: {
-            NavBarHeight: number
-            StatusBarHeight: number
-            TotalNavHeight: number
-        },
-        Interpolators: {
-            // Animating *into* the center stage from the right
-            RightToCenter: () => boolean
-            // Animating out of the center stage, to the left
-            CenterToLeft: () => boolean
-            // Both stages (animating *past* the center stage)
-            RightToLeft: () => boolean
-        },
-        Stages: {
-            Left: {
-                Title: FlexStyle
-                LeftButton: FlexStyle
-                RightButton: FlexStyle
-            },
-            Center: {
-                Title: FlexStyle
-                LeftButton: FlexStyle
-                RightButton: FlexStyle
-            },
-            Right: {
-                Title: FlexStyle
-                LeftButton: FlexStyle
-                RightButton: FlexStyle
-            },
-        }
-    }
-
-
-    export interface NavigationBarRouteMapper {
-        Title: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
-        LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
-        RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
-    }
-
-    /**
-     * @see NavigatorNavigationBar.js
-     */
-    export interface NavigationBarProperties {
-        navigator?: Navigator
-        routeMapper?: NavigationBarRouteMapper
-        navState?: NavState
-        navigationStyles?: NavigationBarStyle
-        style?: StyleProp<ViewStyle>
-    }
-
-    export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
-        Styles: NavigationBarStyle
-        StylesAndroid: NavigationBarStyle;
-        StylesIOS: NavigationBarStyle;
-
-        /**
-         * Stop transtion, immediately resets the cached state and re-render the
-         * whole view.
-         */
-        immediatelyRefresh(): void;
-    }
-
-    export type NavigationBar = NavigationBarStatic
-    export var NavigationBar: NavigationBarStatic
-
-
-    export interface BreadcrumbNavigationBarStyle {
-        //TODO &see NavigatorBreadcrumbNavigationBar.js
-    }
-
-    export interface BreadcrumbNavigationBarRouteMapper {
-        rightContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-        titleContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-        iconForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-        //in samples...
-        separatorForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-    }
-
-    /**
-     * @see NavigatorNavigationBar.js
-     */
-    export interface BreadcrumbNavigationBarProperties {
-        navigator?: Navigator
-        routeMapper?: BreadcrumbNavigationBarRouteMapper
-        navState?: NavState
-        style?: StyleProp<ViewStyle>
-    }
-
-    export interface BreadcrumbNavigationBarStatic extends React.ComponentClass<BreadcrumbNavigationBarProperties> {
-        Styles: BreadcrumbNavigationBarStyle
-
-        immediatelyRefresh(): void
-    }
-
-    export type BreadcrumbNavigationBar = BreadcrumbNavigationBarStatic
-    var BreadcrumbNavigationBar: BreadcrumbNavigationBarStatic
-
 }
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
@@ -5297,8 +4955,6 @@ export interface SystraceStatic {
      * Measures multiple methods of a class. For example, you can do:
      * Systrace.measureMethods(JSON, 'JSON', ['parse', 'stringify']);
      *
-     * @param object
-     * @param objectName
      * @param methodNames Map from method names to method display names.
      */
     measureMethods(object: any, objectName: string, methodNames: Array<string>): void
@@ -5307,10 +4963,7 @@ export interface SystraceStatic {
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
      *
-     * @param objName
-     * @param fnName
-     * @param {function} func
-     * @return {function} replacement function
+     * @return replacement function
      */
     measure<T extends Function>(objName: string, fnName: string, func: T): T
 }
@@ -5321,8 +4974,8 @@ export interface SystraceStatic {
 export interface DataSourceAssetCallback {
     rowHasChanged?: (r1: any, r2: any) => boolean
     sectionHeaderHasChanged?: (h1: any, h2: any) => boolean
-    getRowData?: <T>(dataBlob: any, sectionID: number | string, rowID: number | string) => T
-    getSectionHeaderData?: <T>(dataBlob: any, sectionID: number | string) => T
+    getRowData?: (dataBlob: any, sectionID: number | string, rowID: number | string) => any
+    getSectionHeaderData?: (dataBlob: any, sectionID: number | string) => any
 }
 
 /**
@@ -5382,7 +5035,7 @@ export interface ListViewDataSource {
      * handle merging of old and new data separately and then pass that into
      * this function as the `dataBlob`.
      */
-    cloneWithRows<T>(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
+    cloneWithRows(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
 
     /**
      * This performs the same function as the `cloneWithRows` function but here
@@ -5588,7 +5241,6 @@ export interface PixelRatioStatic {
     /**
      * Converts a layout size (dp) to pixel size (px).
      * Guaranteed to return an integer number.
-     * @param layoutSize
      */
     getPixelSizeForLayoutSize(layoutSize: number): number
 
@@ -5598,7 +5250,6 @@ export interface PixelRatioStatic {
      * on a device with a PixelRatio of 3,
      * PixelRatio.roundToNearestPixel(8.4) = 8.33,
      * which corresponds to exactly (8.33 * 3) = 25 pixels.
-     * @param layoutSize
      */
     roundToNearestPixel(layoutSize: number): number
 
@@ -5611,7 +5262,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -5620,7 +5271,12 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>( specifics: { ios?: T, android?: T} ): T;
+    select<T>( specifics: { [platform in PlatformOSType]?: T; } ): T;
+}
+
+interface PlatformIOSStatic extends PlatformStatic {
+    isPad: boolean
+    isTVOS: boolean
 }
 
 /**
@@ -5630,7 +5286,7 @@ interface PlatformStatic {
 interface DeviceEventEmitterStatic extends EventEmitter {
     sharedSubscriber: EventSubscriptionVendor
     new(): DeviceEventEmitterStatic;
-    addListener<T>( type: string, listener: ( data: T ) => void, context?: any ): EmitterSubscription;
+    addListener( type: string, listener: ( data: any ) => void, context?: any ): EmitterSubscription;
 }
 
 // Used by Dimensions below
@@ -5653,8 +5309,8 @@ export interface ScaledSize {
  *
  * Example: `var {height, width} = Dimensions.get('window');`
  *
- * @param {string} dim Name of dimension as defined when calling `set`.
- * @returns {Object?} Value for the dimension.
+ * @param dim Name of dimension as defined when calling `set`.
+ * @returns Value for the dimension.
  * @see https://facebook.github.io/react-native/docs/dimensions.html#content
  */
 export interface Dimensions {
@@ -5669,30 +5325,30 @@ export interface Dimensions {
      * example, using inline styles rather than setting a value in a
      * StyleSheet).
      * Example: var {height, width} = Dimensions.get('window');
-     @param {string} dim Name of dimension as defined when calling set.
-     @returns {Object?} Value for the dimension.
+     @param dim Name of dimension as defined when calling set.
+     @returns Value for the dimension.
      */
     get(dim: "window" | "screen"): ScaledSize;
 
     /**
      * This should only be called from native code by sending the didUpdateDimensions event.
-     * @param {object} dims Simple string-keyed object of dimensions to set
+     * @param dims Simple string-keyed object of dimensions to set
      */
     set( dims: {[key: string]: any} ): void;
 
     /**
      * Add an event listener for dimension changes
      *
-     * @param {string} type the type of event to listen to
-     * @param {function} handler the event handler
+     * @param type the type of event to listen to
+     * @param handler the event handler
      */
     addEventListener(type: "change", handler: () => void): void;
 
     /**
      * Remove an event listener
      *
-     * @param {string} type the type of event
-     * @param {function} handler the event handler
+     * @param type the type of event
+     * @param handler the event handler
      */
     removeEventListener(type: "change", handler: () => void): void;
 }
@@ -5717,7 +5373,6 @@ export interface InteractionManagerStatic extends EventEmitterListener {
     /**
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
-     * @param fn
      */
     runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
         then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>,
@@ -5855,7 +5510,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
     /**
      * Invoke this from an `onTouchEnd` event.
      *
-     * @param {SyntheticEvent} e Event.
+     * @param e Event.
      */
     scrollResponderHandleTouchEnd(e: ScrollResponderEvent): void
 
@@ -5904,7 +5559,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * responder). The `onResponderReject` won't fire in that case - it only
      * fires when a *current* responder rejects our request.
      *
-     * @param {SyntheticEvent} e Touch Start event.
+     * @param e Touch Start event.
      */
     scrollResponderHandleTouchStart(e: ScrollResponderEvent): void
 
@@ -5917,7 +5572,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * responder). The `onResponderReject` won't fire in that case - it only
      * fires when a *current* responder rejects our request.
      *
-     * @param {SyntheticEvent} e Touch Start event.
+     * @param e Touch Start event.
      */
     scrollResponderHandleTouchMove(e: ScrollResponderEvent): void
 
@@ -5963,10 +5618,10 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * This method should be used as the callback to onFocus in a TextInputs'
      * parent view. Note that any module using this mixin needs to return
      * the parent view's ref in getScrollViewRef() in order to use this method.
-     * @param {any} nodeHandle The TextInput node handle
-     * @param {number} additionalOffset The scroll view's top "contentInset".
+     * @param nodeHandle The TextInput node handle
+     * @param additionalOffset The scroll view's top "contentInset".
      *        Default is 0.
-     * @param {bool} preventNegativeScrolling Whether to allow pulling the content
+     * @param preventNegativeScrolling Whether to allow pulling the content
      *        down to make it meet the keyboard's top. Default is false.
      */
     scrollResponderScrollNativeHandleToKeyboard(nodeHandle: any, additionalOffset?: number, preventNegativeScrollOffset?: boolean): void
@@ -5976,10 +5631,10 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * screen - even if has some content inset. We then measure the offsets of the
      * keyboard, and compensate both for the scroll view's "contentInset".
      *
-     * @param {number} left Position of input w.r.t. table view.
-     * @param {number} top Position of input w.r.t. table view.
-     * @param {number} width Width of the text input.
-     * @param {number} height Height of the text input.
+     * @param left Position of input w.r.t. table view.
+     * @param top Position of input w.r.t. table view.
+     * @param width Width of the text input.
+     * @param height Height of the text input.
      */
     scrollResponderInputMeasureAndScrollToKeyboard(left: number, top: number, width: number, height: number): void
 
@@ -6129,6 +5784,12 @@ export interface ScrollViewPropertiesIOS {
      * Called when a scrolling animation ends.
      */
     onScrollAnimationEnd?: () => void
+
+    /**
+     * When true, ScrollView allows use of pinch gestures to zoom in and out.
+     * The default value is true.
+     */
+    pinchGestureEnabled?: boolean
 
     /**
      * This controls how often the scroll event will be fired while scrolling (in events per seconds).
@@ -6392,6 +6053,11 @@ export interface NativeScrollPoint {
     y: number;
 }
 
+export interface NativeScrollVelocity {
+    x: number;
+    y: number;
+}
+
 export interface NativeScrollSize {
     height: number;
     width: number;
@@ -6402,6 +6068,7 @@ export interface NativeScrollEvent {
     contentOffset: NativeScrollPoint;
     contentSize: NativeScrollSize;
     layoutMeasurement: NativeScrollSize;
+    velocity?: NativeScrollVelocity;
     zoomScale: number;
 }
 
@@ -6690,8 +6357,6 @@ export interface AlertIOSStatic {
 
     /**
      * Create and display a popup alert.
-     * @static
-     * @method alert
      * @param title The dialog's title.
      * @param message An optional message that appears below
      *     the dialog's title.
@@ -6708,8 +6373,6 @@ export interface AlertIOSStatic {
 
     /**
      * Create and display a prompt to enter some text.
-     * @static
-     * @method prompt
      * @param title The dialog's title.
      * @param message An optional message that appears above the text
      *    input.
@@ -6998,7 +6661,7 @@ export interface CameraRollStatic {
     /**
      * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
      *
-     * @param {object} params See getPhotosParamChecker.
+     * @param params See getPhotosParamChecker.
      */
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
@@ -7051,22 +6714,6 @@ export interface DatePickerAndroidStatic {
      * The dialog has been dismissed.
      */
     dismissedAction: string
-}
-
-export interface FetchableListenable<T> {
-    fetch: () => Promise<T>
-
-    /**
-     * eventName is expected to be `change`
-     * //FIXME: No doc - inferred from NetInfo.js
-     */
-    addEventListener: (eventName: string, listener: (result: T) => void) => void
-
-    /**
-     * eventName is expected to be `change`
-     * //FIXME: No doc - inferred from NetInfo.js
-     */
-    removeEventListener: (eventName: string, listener: (result: T) => void) => void
 }
 
 export interface IntentAndroidStatic {
@@ -7179,34 +6826,79 @@ export interface LinkingIOSStatic {
 
 /**
  * NetInfo exposes info about online/offline status
- *
- * Asynchronously determine if the device is online and on a cellular network.
- *
- * - `none` - device is offline
- * - `wifi` - device is online and connected via wifi, or is the iOS simulator
- * - `cell` - device is connected via Edge, 3G, WiMax, or LTE
- * - `unknown` - error case and the network status is unknown
  * @see https://facebook.github.io/react-native/docs/netinfo.html#content
  */
 
-// This is from code, a few items more than documentation@0.25
-export type NetInfoReturnType = "none" | "wifi" | "cell" | "unknown" |
+// @Deprecated ConnectionType
+export type ConnectionType = "none" | "wifi" | "cell" | "unknown" |
     "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
     "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
     "MOBILE_IMS" | "MOBILE_CBS" | "WIFI_P2P" | "MOBILE_IA" | "MOBILE_EMERGENCY" |
     "PROXY" | "VPN" | "UNKNOWN"
 
-export interface NetInfoStatic extends FetchableListenable<NetInfoReturnType> {
+export type EffectiveConnectionType = "2g" | "3g" | "4g" | "unknown"
+
+export interface ConnectionInfo {
+    type: ConnectionType
+    effectiveType: EffectiveConnectionType
+}
+
+export interface NetInfoStatic {
 
     /**
-     *
-     * Available on all platforms.
-     * Asynchronously fetch a boolean to determine internet connectivity.
+     * This function is deprecated. Use `getConnectionInfo` instead. Returns a promise that
+     * resolves with one of the deprecated connectivity types listed above.
      */
-    isConnected: FetchableListenable<boolean>
+    fetch: () => Promise<ConnectionType>
 
     /**
-     * Available on Android. Detect if the current active connection is
+     * Adds an event handler. Supported events:
+     *
+     * - `connectionChange`: Fires when the network status changes. The argument to the event
+     *   handler is an object with keys:
+     *   - `type`: A `DeprecatedConnectionType` (listed above)
+     *   - `effectiveType`: An `EffectiveConnectionType` (listed above)
+     * - `change`: This event is deprecated. Listen to `connectionChange` instead. Fires when
+     *   the network status changes. The argument to the event handler is one of the deprecated
+     *   connectivity types listed above.
+     */
+    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void
+
+    /**
+     * Removes the listener for network status changes.
+     */
+    removeEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void
+
+    /**
+     * Returns a promise that resolves to an object with `type` and `effectiveType` keys
+     * whose values are a `ConnectionType` and an `EffectiveConnectionType`, (described above),
+     * respectively.
+     */
+    getConnectionInfo: () => Promise<ConnectionInfo>
+
+    /**
+     * An object with the same methods as above but the listener receives a
+     * boolean which represents the internet connectivity.
+     * Use this if you are only interested with whether the device has internet
+     * connectivity.
+     */
+    isConnected: {
+
+        fetch: () => Promise<boolean>
+
+        /**
+         * eventName is expected to be `change`(deprecated) or `connectionChange`
+         */
+        addEventListener: (eventName: string, listener: (result: boolean) => void) => void
+
+        /**
+         * eventName is expected to be `change`(deprecated) or `connectionChange`
+         */
+        removeEventListener: (eventName: string, listener: (result: boolean) => void) => void
+    }
+
+    /**
+     * Detect if the current active connection is
      * metered or not. A network is classified as metered when the user is
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
@@ -7278,7 +6970,7 @@ export interface PanResponderGestureState {
  */
 export interface PanResponderCallbacks {
     onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
-    onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+    onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
     onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
@@ -7307,7 +6999,7 @@ export interface PanResponderInstance {
  */
 export interface PanResponderStatic {
     /**
-     * @param {PanResponderCallbacks} config Enhanced versions of all of the responder callbacks
+     * @param config Enhanced versions of all of the responder callbacks
      * that provide not only the typical `ResponderSyntheticEvent`, but also the
      * `PanResponder` gesture state.  Simply replace the word `Responder` with
      * `PanResponder` in each of the typical `onResponder*` callbacks. For
@@ -7598,14 +7290,10 @@ export interface SettingsStatic {
 }
 
 
-/**
- * @enum('default', 'light-content', 'dark-content')
- */
+
 export type StatusBarStyle = "default" | "light-content" | "dark-content"
 
-/**
- * @enum('fade', 'slide')
- */
+
 export type StatusBarAnimation = "none" | "fade" | "slide"
 
 export interface StatusBarPropertiesIOS {
@@ -8082,6 +7770,12 @@ export namespace Animated {
         flattenOffset(): void;
 
         /**
+         * Sets the offset value to the base value, and resets the base value to zero.
+         * The final output of the value is unchanged.
+         */
+        extractOffset(): void;
+
+        /**
          * Adds an asynchronous listener to the value so you can observe updates from
          * animations.  This is useful because there is no way to
          * synchronously read the value because it might be driven natively.
@@ -8123,9 +7817,11 @@ export namespace Animated {
 
         setOffset(offset: { x: number; y: number }): void;
 
-        flattenOffset(): void
+        flattenOffset(): void;
 
-    stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
+        extractOffset(): void;
+
+        stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
 
         addListener(callback: ValueXYListenerCallback): string;
 
@@ -8138,7 +7834,7 @@ export namespace Animated {
          *  style={this.state.anim.getLayout()}
          *```
          */
-    getLayout(): { [key: string]: AnimatedValue };
+        getLayout(): { [key: string]: AnimatedValue };
 
         /**
          * Converts `{x, y}` into a useable translation transform, e.g.
@@ -8351,7 +8047,7 @@ export namespace Animated {
      *```
      */
     export function event(
-        argMapping: Mapping[],
+        argMapping: Array<Mapping | null>,
         config?: EventConfig
     ): (...args: any[]) => void;
 
@@ -8367,6 +8063,7 @@ export namespace Animated {
     export var View: any;
     export var Image: any;
     export var Text: any;
+    export var ScrollView: any;
 }
 
 // tslint:disable-next-line:interface-name
@@ -8396,6 +8093,8 @@ export interface GeolocationStatic {
     stopObserving(): void
 
     requestAuthorization(): void;
+
+    setRNConfiguration(config: GeoConfiguration): void;
 }
 
 export interface OpenCameraDialogOptions {
@@ -8421,354 +8120,55 @@ export interface ImagePickerIOSStatic {
 }
 
 export interface ImageStoreStatic {
-        /**
-         * Check if the ImageStore contains image data for the specified URI.
-         * @platform ios
-         */
-        hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void
-        /**
-         * Delete an image from the ImageStore. Images are stored in memory and
-         * must be manually removed when you are finished with them, otherwise they
-         * will continue to use up RAM until the app is terminated. It is safe to
-         * call `removeImageForTag()` without first calling `hasImageForTag()`, it
-         * will simply fail silently.
-         * @platform ios
-         */
-        removeImageForTag(uri: string): void
-        /**
-         * Stores a base64-encoded image in the ImageStore, and returns a URI that
-         * can be used to access or display the image later. Images are stored in
-         * memory only, and must be manually deleted when you are finished with
-         * them by calling `removeImageForTag()`.
-         *
-         * Note that it is very inefficient to transfer large quantities of binary
-         * data between JS and native code, so you should avoid calling this more
-         * than necessary.
-         * @platform ios
-         */
-        addImageFromBase64(
-            base64ImageData: string,
-            success: (uri: string) => void,
-            failure: (error: any) => void
-        ): void
-        /**
-         * Retrieves the base64-encoded data for an image in the ImageStore. If the
-         * specified URI does not match an image in the store, the failure callback
-         * will be called.
-         *
-         * Note that it is very inefficient to transfer large quantities of binary
-         * data between JS and native code, so you should avoid calling this more
-         * than necessary. To display an image in the ImageStore, you can just pass
-         * the URI to an `<Image/>` component; there is no need to retrieve the
-         * base64 data.
-         */
-        getBase64ForTag(
-            uri: string,
-            success: (base64ImageData: string) => void,
-            failure: (error: any) => void
-        ): void
-}
-
-// Network Polyfill
-// TODO: Add proper support for fetch
-export type fetch = (url: string, options?: Object) => Promise<any>
-export const fetch: fetch;
-
-export interface TabsReducerStatic {
-    JumpToAction(index: number): any;
-}
-
-export type TabsReducerFunction = (params: any) => any;
-
-export interface NavigationTab {
-    key: string;
-}
-
-export interface NavigationAction {
-    type: string;
-}
-
-export interface NavigationRoute {
-    key: string;
-    title?: string;
-}
-
-export interface NavigationState extends NavigationRoute {
-    index: number;
-    routes: NavigationRoute[];
-}
-
-export type NavigationRenderer = (
-    route: NavigationState,
-    onNavigate: (action: NavigationAction) => boolean
-) => JSX.Element;
-
-interface SubViewProps extends NavigationSceneRendererProps {
-    onNavigateBack?(): void;
-}
-
-type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element | null;
-
-export interface NavigationHeaderProps extends NavigationSceneRendererProps {
-    onNavigateBack?(): void,
-    renderLeftComponent?: SubViewRenderer,
-    renderRightComponent?: SubViewRenderer,
-    renderTitleComponent?: SubViewRenderer,
-    style?: StyleProp<ViewStyle>,
-    viewProps?: any,
-    statusBarHeight?: number | NavigationAnimatedValue
-}
-
-export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
-    Title: NavigationHeaderTitleStatic
-    HEIGHT: number
-}
-
-export interface NavigationHeaderTitleProps {
-    children?: JSX.Element,
-    style?: StyleProp<ViewStyle>,
-    textStyle?: StyleProp<TextStyle>,
-    viewProps?: any
-}
-
-export interface NavigationHeaderTitleStatic extends React.ComponentClass<NavigationHeaderTitleProps> {
-}
-
-export interface NavigationCardStackProps {
     /**
-     * Custom style applied to the card.
+     * Check if the ImageStore contains image data for the specified URI.
+     * @platform ios
      */
-    cardStyle?: StyleProp<ViewStyle>
+    hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void
+
     /**
-     * Custom style interpolator for the card.
+     * Delete an image from the ImageStore. Images are stored in memory and
+     * must be manually removed when you are finished with them, otherwise they
+     * will continue to use up RAM until the app is terminated. It is safe to
+     * call `removeImageForTag()` without first calling `hasImageForTag()`, it
+     * will simply fail silently.
+     * @platform ios
      */
-    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => StyleProp<ViewStyle>
+    removeImageForTag(uri: string): void
+
     /**
-     * Direction of the cards movement. Value could be `horizontal` or
-     * `vertical`. Default value is `horizontal`.
-     */
-    direction?: 'horizontal' | 'vertical'
-    /**
-     * The distance from the edge of the card which gesture response can start
-     * for. Defaults value is `30`.
-     */
-    gestureResponseDistance?: number
-    /**
-     * Enable gestures. Default value is true
-     */
-    enableGestures?: boolean,
-    /**
-     * The controlled navigation state. Typically, the navigation state
-     * look like this:
+     * Stores a base64-encoded image in the ImageStore, and returns a URI that
+     * can be used to access or display the image later. Images are stored in
+     * memory only, and must be manually deleted when you are finished with
+     * them by calling `removeImageForTag()`.
      *
-     * ```js
-     * const navigationState = {
-     *   index: 0, // the index of the selected route.
-     *   routes: [ // A list of routes.
-     *     {key: 'page 1'}, // The 1st route.
-     *     {key: 'page 2'}, // The second route.
-     *   ],
-     * };
-     * ```
+     * Note that it is very inefficient to transfer large quantities of binary
+     * data between JS and native code, so you should avoid calling this more
+     * than necessary.
+     * @platform ios
      */
-    navigationState: NavigationState,
+    addImageFromBase64(
+        base64ImageData: string,
+        success: (uri: string) => void,
+        failure: (error: any) => void
+    ): void
+
     /**
-     * Callback that is called when the "back" action is performed.
-     * This happens when the back button is pressed or the back gesture is
-     * performed.
+     * Retrieves the base64-encoded data for an image in the ImageStore. If the
+     * specified URI does not match an image in the store, the failure callback
+     * will be called.
+     *
+     * Note that it is very inefficient to transfer large quantities of binary
+     * data between JS and native code, so you should avoid calling this more
+     * than necessary. To display an image in the ImageStore, you can just pass
+     * the URI to an `<Image/>` component; there is no need to retrieve the
+     * base64 data.
      */
-    onNavigateBack?: () => any,
-    /**
-     * Function that renders the header.
-     */
-    renderHeader?: NavigationSceneRenderer,
-    /**
-     * Function that renders the a scene for a route.
-     */
-    renderScene: NavigationSceneRenderer,
-    /**
-     * Custom style applied to the cards stack.
-     */
-    style?: StyleProp<ViewStyle>,
-}
-
-// Object Instances
-
-export type NavigationAnimatedValue = Animated.Value;
-
-// Value  & Structs.
-
-export type NavigationGestureDirection = 'horizontal' | 'vertical';
-
-export type NavigationLayout = {
-    height: NavigationAnimatedValue,
-    initHeight: number,
-    initWidth: number,
-    isMeasured: boolean,
-    width: NavigationAnimatedValue,
-};
-
-export type NavigationScene = {
-    index: number,
-    isActive: boolean,
-    isStale: boolean,
-    key: string,
-    route: NavigationRoute,
-};
-
-// Similar to `NavigationTransitionProps`, except that the prop `scene`
-// represents the scene for the renderer to render.
-export interface NavigationSceneRendererProps {
-    layout: NavigationLayout,
-    navigationState: NavigationState,
-    position: NavigationAnimatedValue,
-    progress: NavigationAnimatedValue,
-    scenes: Array<NavigationScene>,
-    scene: NavigationScene,
-    gestureResponseDistance?: number,
-}
-
-export interface NavigationSceneRenderer extends React.StatelessComponent<NavigationSceneRendererProps> {
-}
-
-export interface NavigationPropTypes {
-    // helpers
-    extractSceneRendererProps(props: NavigationSceneRendererProps): NavigationSceneRendererProps
-
-    // Bundled propTypes.
-    SceneRendererProps: {
-        layout: string,
-        navigationState: string,
-        position: string,
-        progress: string,
-        scene: string,
-        scenes: NavigationScene[],
-    }
-
-    // propTypes
-    SceneRenderer: any, // TODO: fix this
-    action: NavigationAction,
-    navigationState: NavigationState,
-    navigationRoute: NavigationRoute,
-    panHandlers: GestureResponderHandlers,
-}
-
-export interface NavigationCardProps extends React.ComponentClass<NavigationSceneRendererProps> {
-    onComponentRef: (ref: any) => void,
-    onNavigateBack?: () => any,
-    panHandlers?: GestureResponderHandlers,
-    pointerEvents: string,
-    renderScene: NavigationSceneRenderer,
-    style?: StyleProp<ViewStyle>,
-}
-
-export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
-}
-
-export interface NavigationCardStatic extends React.ComponentClass<NavigationCardProps> {
-}
-
-/**
- * Utilities to perform atomic operation with navigate state and routes.
- *
- * ```javascript
- * const state1 = {key: 'page 1'};
- * const state2 = NavigationStateUtils.push(state1, {key: 'page 2'});
- * ```
- */
-export interface NavigationStateUtils {
-    get(state: NavigationState, key: string): NavigationRoute
-    indexOf(state: NavigationState, key: string): number
-    has(state: NavigationState, key: string): boolean
-    push(state: NavigationState, route: NavigationRoute): NavigationState
-    pop(state: NavigationState): NavigationState
-    jumpToIndex(state: NavigationState, index: number): NavigationState
-    jumpTo(state: NavigationState, key: string): NavigationState
-    back(state: NavigationState): NavigationState
-    forward(state: NavigationState): NavigationState
-    replaceAt(
-        state: NavigationState,
-        key: string,
-        route: NavigationRoute
-    ): NavigationState
-    replaceAtIndex(
-        state: NavigationState,
-        index: number,
-        route: NavigationRoute
-    ): NavigationState
-    reset(
-        state: NavigationState,
-        routes: Array<NavigationRoute>,
-        index?: number
-    ): NavigationState
-}
-
-export type NavigationTransitionProps = {
-    // The layout of the transitioner of the scenes.
-    layout: NavigationLayout,
-
-    // The navigation state of the transitioner.
-    navigationState: NavigationState,
-
-    // The progressive index of the transitioner's navigation state.
-    position: NavigationAnimatedValue,
-
-    // The value that represents the progress of the transition when navigation
-    // state changes from one to another. Its numberic value will range from 0
-    // to 1.
-    //  progress.__getAnimatedValue() < 1 : transtion is happening.
-    //  progress.__getAnimatedValue() == 1 : transtion completes.
-    progress: NavigationAnimatedValue,
-
-    // All the scenes of the transitioner.
-    scenes: Array<NavigationScene>,
-
-    // The active scene, corresponding to the route at
-    // `navigationState.routes[navigationState.index]`.
-    scene: NavigationScene,
-
-    // The gesture distance for `horizontal` and `vertical` transitions
-    gestureResponseDistance?: number,
-}
-export type NavigationTransitionSpec = {
-    duration?: number,
-    // An easing function from `Easing`.
-    easing?: EasingFunction,
-    // A timing function such as `Animated.timing`.
-    timing?: (value: NavigationAnimatedValue, config: any) => any,
-}
-export interface NavigationTransitionerProps {
-    configureTransition?: (
-        a: NavigationTransitionProps,
-        b?: NavigationTransitionProps
-    ) => NavigationTransitionSpec,
-    navigationState: NavigationState,
-    onTransitionEnd?: () => void,
-    onTransitionStart?: () => void,
-    render: (a: NavigationTransitionProps, b?: NavigationTransitionProps) => any,
-    style: any,
-}
-
-export interface NavigationTransitioner extends React.ComponentClass<NavigationTransitionerProps> {
-}
-
-export interface NavigationCard extends React.ComponentClass<NavigationCardProps> {
-}
-
-export interface NavigationExperimentalStatic {
-    // Core
-    StateUtils: NavigationStateUtils
-
-    // Views
-    Transitioner: NavigationTransitioner,
-
-    //AnimatedView: NavigationAnimatedViewStatic;
-    // CustomComponents:
-    Card: NavigationCard,
-    CardStack: NavigationCardStackStatic;
-    Header: NavigationHeaderStatic;
-
-    PropTypes: NavigationPropTypes,
+    getBase64ForTag(
+        uri: string,
+        success: (base64ImageData: string) => void,
+        failure: (error: any) => void
+    ): void
 }
 
 //
@@ -8915,9 +8315,6 @@ export type MaskedView = MaskedViewStatic
 export var Modal: ModalStatic
 export type Modal = ModalStatic
 
-export var Navigator: NavigatorStatic
-export type Navigator = NavigatorStatic
-
 export var NavigatorIOS: NavigatorIOSStatic
 export type NavigatorIOS = NavigatorIOSStatic
 
@@ -8938,6 +8335,9 @@ export type RefreshControl = RefreshControlStatic
 
 export var RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic
 export type RecyclerViewBackedScrollView = RecyclerViewBackedScrollViewStatic
+
+export var SafeAreaView: SafeAreaViewStatic
+export type SafeAreaView = SafeAreaViewStatic
 
 export var SegmentedControlIOS: SegmentedControlIOSStatic
 export type SegmentedControlIOS = SegmentedControlIOSStatic
@@ -9123,9 +8523,6 @@ export type Vibration = VibrationStatic
 export var Dimensions: Dimensions;
 export var ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 
-export type NavigationExperimental = NavigationExperimentalStatic;
-export var NavigationExperimental: NavigationExperimentalStatic;
-
 export type Easing = EasingStatic;
 export var Easing: EasingStatic;
 
@@ -9161,6 +8558,7 @@ interface NativeModulesStatic {
  */
 export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
+export var PlatformIOS: PlatformIOSStatic
 export var PixelRatio: PixelRatioStatic
 
 export interface ComponentInterface<P> {
@@ -9248,6 +8646,8 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void
         debug(message?: any, ...optionalParams: any[]): void
         table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
     }
 
     var console: Console

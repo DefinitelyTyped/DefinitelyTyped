@@ -8,9 +8,9 @@ interface PersonProps {
     age: number;
 }
 
-const Person: React.ClassicComponentClass<PersonProps> = React.createClass<PersonProps, {}>({
+class Person extends React.Component<PersonProps> {
     render(): React.ReactElement<any> { return null; }
-});
+}
 
 const PersonTag = React.createFactory(Person);
 

@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-interface DatePickerProps {
+export interface DatePickerProps {
     mode?: 'date' | 'datetime' | 'time';
     date?: string | Date;
     format?: string;

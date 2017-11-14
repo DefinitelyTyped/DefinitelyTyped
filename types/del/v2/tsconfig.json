@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "del": ["del/v2"]
+            "del": [
+                "del/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

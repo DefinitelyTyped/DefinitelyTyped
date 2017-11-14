@@ -30,7 +30,8 @@ new Redis({
     family: 4,           // 4 (IPv4) or 6 (IPv6)
     password: 'auth',
     db: 0,
-    retryStrategy: function() { return false; }
+    retryStrategy: function() { return false; },
+    showFriendlyErrorStack: true
 })
 
 var pub = new Redis();

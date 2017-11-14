@@ -4,6 +4,7 @@
 //                 Alan Marcell <https://github.com/alanmarcell>
 //                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
+//                 Gaurav Lahoti <https://github.com/dante-101>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,8 +17,8 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export function connect(uri: string, callback: MongoCallback<Db>): void;
 export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
+export function connect(uri: string, callback: MongoCallback<Db>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
 
 export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
@@ -264,7 +265,7 @@ export class Db extends EventEmitter {
     indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
     indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
-    listCollections(filter: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
     logout(callback: MongoCallback<any>): void;
     logout(options?: { dbName?: string }): Promise<any>;
@@ -316,7 +317,7 @@ export interface DbAddUserOptions {
     roles?: Object[];
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#createCollection
 export interface CollectionCreateOptions {
     w?: number | string;
     wtimeout?: number;
@@ -327,9 +328,18 @@ export interface CollectionCreateOptions {
     serializeFunctions?: boolean;
     strict?: boolean;
     capped?: boolean;
+    autoIndexId?: boolean;
     size?: number;
     max?: number;
-    autoIndexId?: boolean;
+    flags?:	number;
+    storageEngine?:	object;
+    validator?: object;
+    validationLevel?: "off" | "strict" | "moderate";
+    validationAction?: "error" | "warn";
+    indexOptionDefaults?: object;
+    viewOn?: string;
+    pipeline?: any[];
+    collation?: object;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
@@ -506,9 +516,9 @@ export interface Collection<TSchema = Default> {
     /** @deprecated */
     find<T = TSchema>(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
-    findOne<T = TSchema>(filter: Object, callback: MongoCallback<T>): void;
-    findOne<T = TSchema>(filter: Object, options?: FindOneOptions): Promise<T>;
-    findOne<T = TSchema>(filter: Object, options: FindOneOptions, callback: MongoCallback<T>): void;
+    findOne<T = TSchema>(filter: Object, callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: Object, options?: FindOneOptions): Promise<T | null>;
+    findOne<T = TSchema>(filter: Object, options: FindOneOptions, callback: MongoCallback<T | null>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;

@@ -1,14 +1,16 @@
-// Type definitions for ramda 0.24
+// Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
-//                 Liam Goodacre <https://github.com/LiamGoodacre>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
+//                 Charles-Philippe Clermont <https://github.com/charlespwd>
+//                 Samson Keung <https://github.com/samsonkeung>
+//                 Angelo Ocana <https://github.com/angeloocana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -61,6 +63,11 @@ declare namespace R {
     interface Lens {
         <T, U>(obj: T): U;
         set<T, U>(str: string, obj: T): U;
+    }
+
+    interface Filter<T> {
+      (list: T[]): T[];
+      (obj: Dictionary<T>): Dictionary<T>;
     }
 
     type Evolver<T> =
@@ -189,8 +196,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: boolean | any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: boolean | any) => boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: any): boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -219,9 +226,8 @@ declare namespace R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<T, U>(el: U, list: T[]): Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
+        append<T>(el: T, list: T[]): T[];
+        append<T>(el: T): <T>(list: T[]) => T[];
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -236,6 +242,13 @@ declare namespace R {
          * the supplied arguments.
          */
         applySpec<T>(obj: any): (...args: any[]) => T;
+
+        /**
+         * Takes a value and applies a function to it.
+         * This function is also known as the thrush combinator.
+         */
+        applyTo<T, U>(el: T, fn: (t: T) => U): U;
+        applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
 
         /**
          * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
@@ -547,6 +560,14 @@ declare namespace R {
         empty<T>(x: T): T;
 
         /**
+         * Checks if a list ends with the provided values
+         */
+        endsWith(a: string, list: string): boolean;
+        endsWith(a: string): (list: string) => boolean;
+        endsWith<T>(a: T | T[], list: T[]): boolean;
+        endsWith<T>(a: T | T[]): (list: T[]) => boolean;
+
+        /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
@@ -583,8 +604,9 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        filter<T>(fn: (value: T) => boolean): Filter<T>;
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+        filter<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -687,7 +709,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: T[]): T;
+        head<T>(list: T[]): T | undefined;
         head(list: string): string;
 
         /**
@@ -787,7 +809,7 @@ declare namespace R {
         /**
          * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
          */
-        invertObj(obj: any | { [index: number]: string }): { [index: string]: string };
+        invertObj(obj: { [index: string]: string } | { [index: number]: string }): { [index: string]: string };
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -854,7 +876,7 @@ declare namespace R {
         /**
          * Returns the last element from a list.
          */
-        last<T>(list: T[]): T;
+        last<T>(list: T[]): T | undefined;
         last(list: string): string;
 
         /**
@@ -966,8 +988,8 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: Ord, b: Ord): Ord;
-        max(a: Ord): (b: Ord) => Ord;
+        max<T extends Ord>(a: T, b: T): T;
+        max<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -992,7 +1014,7 @@ declare namespace R {
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize(fn: (...a: any[]) => any): (...a: any[]) => any;
+        memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
          * Create a new object with the own properties of a
@@ -1069,8 +1091,8 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: Ord, b: Ord): Ord;
-        min(a: Ord): (b: Ord) => Ord;
+        min<T extends Ord>(a: T, b: T): T;
+        min<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -1100,6 +1122,7 @@ declare namespace R {
          * Any extraneous parameters will not be passed to the supplied function.
          */
         nAry(n: number, fn: (...arg: any[]) => any): (...a: any[]) => any;
+        nAry(n: number): (fn: (...arg: any[]) => any) => (...a: any[]) => any;
 
         /**
          * Negates its argument.
@@ -1152,6 +1175,7 @@ declare namespace R {
          * returned in subsequent invocations.
          */
         once(fn: (...a: any[]) => any): (...a: any[]) => any;
+        once<T>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
          * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
@@ -1180,18 +1204,18 @@ declare namespace R {
         pair<F, S>(fst: F, snd: S): [F, S];
 
         /**
-         * Accepts as its arguments a function and any number of values and returns a function that,
-         * when invoked, calls the original function with all of the values prepended to the
-         * original function's arguments list. In some libraries this function is named `applyLeft`.
+         * Takes a function `f` and a list of arguments, and returns a function `g`.
+         * When applied, `g` returns the result of applying `f` to the arguments
+         * provided initially followed by the arguments provided to `g`.
          */
-        partial(fn: (...a: any[]) => any, ...args: any[]): (...a: any[]) => any;
+        partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
-         * Accepts as its arguments a function and any number of values and returns a function that,
-         * when invoked, calls the original function with all of the values appended to the original
-         * function's arguments list.
+         * Takes a function `f` and a list of arguments, and returns a function `g`.
+         * When applied, `g` returns the result of applying `f` to the arguments
+         * provided to `g` followed by the arguments provided initially.
          */
-        partialRight(fn: (...a: any[]) => any, ...args: any[]): (...a: any[]) => any;
+        partialRight<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
          * Takes a predicate and a list and returns the pair of lists of elements
@@ -1220,9 +1244,9 @@ declare namespace R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: T, p: Path, obj: any): T | any;
-        pathOr<T>(d: T, p: Path): (obj: any) => T | any;
-        pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>;
+        pathOr<T>(defaultValue: T, path: Path, obj: any): any;
+        pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
+        pathOr<T>(defaultValue: T): CurriedFunction2<Path, any, any>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -1406,8 +1430,10 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<T>(p: string | number, list: any[]): T[];
-        pluck(p: string | number): <T>(list: any[]) => T[];
+        pluck<P extends string, T>(p: P, list: Array<Record<P, T>>): T[];
+        pluck<T>(p: number, list: Array<{ [k: number]: T }>): T[];
+        pluck<P extends string>(p: P): <T>(list: Array<Record<P, T>>) => T[];
+        pluck(p: number): <T>(list: Array<{ [k: number]: T }>) => T[];
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
@@ -1430,8 +1456,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<P extends string, T>(p: P, obj: Record<P, T>): T;
+        prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1470,8 +1496,8 @@ declare namespace R {
          * The only difference from `prop` is the parameter order.
          * Note: TS1.9 # replace any by dictionary
          */
-        props<T>(ps: string[], obj: any): T[];
-        props(ps: string[]): <T>(obj: any) => T[];
+        props<P extends string, T>(ps: P[], obj: Record<P, T>): T[];
+        props<P extends string>(ps: P[]): <T>(obj: Record<P, T>) => T[];
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.
@@ -1518,16 +1544,17 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: T[]): TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
+        reject<T>(fn: (value: T) => boolean): Filter<T>;
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
-        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
@@ -1630,8 +1657,10 @@ declare namespace R {
         /**
          * Checks if a list starts with the provided values
          */
-        startsWith(a: any, list: any): boolean;
-        startsWith(a: any): (list: any) => boolean;
+        startsWith(a: string, list: string): boolean;
+        startsWith(a: string): (list: string) => boolean;
+        startsWith<T>(a: T | T[], list: T[]): boolean;
+        startsWith<T>(a: T | T[]): (list: T[]) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1737,7 +1766,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
+        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1745,7 +1774,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
+        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
@@ -1806,7 +1835,7 @@ declare namespace R {
          * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
          * all as 'Object'.
          */
-        type(val: any): string;
+        type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
 
         /**
          * Takes a function fn, which takes a single array argument, and returns a function which:

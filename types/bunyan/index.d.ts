@@ -234,6 +234,7 @@ declare namespace Logger {
         period?: string;
         count?: number;
         name?: string;
+        reemitErrorEvents?: boolean;
     }
 
     interface LoggerOptions {

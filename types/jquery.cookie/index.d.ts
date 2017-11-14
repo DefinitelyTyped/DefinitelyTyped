@@ -92,7 +92,7 @@ interface JQueryStatic {
     /**
      * A simple, lightweight jQuery plugin for reading, writing and deleting cookies.
      */
-    cookie?: JQueryCookieStatic;
+    cookie: JQueryCookieStatic;
     /**
      * Deletes a cookie
      * @param name Name of cookie to delete

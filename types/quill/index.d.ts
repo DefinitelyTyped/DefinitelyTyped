@@ -51,6 +51,8 @@ export interface QuillOptionsStatic {
     theme?: string;
     formats?: string[];
     bounds?: HTMLElement | string;
+    scrollingContainer?: HTMLElement | string;
+    strict?: boolean;
 }
 
 export interface BoundsStatic {

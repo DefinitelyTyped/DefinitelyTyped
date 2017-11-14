@@ -1,6 +1,8 @@
 // Type definitions for leaflet-draw 0.4
 // Project: https://github.com/Leaflet/Leaflet.draw
-// Definitions by: Matt Guest <https://github.com/matt-guest>, Ryan Blace <https://github.com/reblace>
+// Definitions by: Matt Guest <https://github.com/matt-guest>
+//                 Ryan Blace <https://github.com/reblace>
+//                 Yun Shi <https://github.com/YunS-Stacy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -251,6 +253,60 @@ declare module 'leaflet' {
 			const EDITSTOP: string;
 			const DELETESTART: string;
 			const DELETESTOP: string;
+		}
+
+		class Feature extends Handler {
+			initialize(
+				map: Map,
+				options: DrawOptions.PolylineOptions | DrawOptions.PolygonOptions | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions | DrawOptions.EditHandlerOptions | DrawOptions.DeleteHandlerOptions
+			): void;
+
+			setOptions(
+				options: DrawOptions.PolylineOptions | DrawOptions.PolygonOptions | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions | DrawOptions.EditHandlerOptions | DrawOptions.DeleteHandlerOptions
+			): void;
+		}
+
+		class SimpleShape extends Feature { }
+		class Marker extends Feature {
+			constructor(
+				map: Map,
+				options?: DrawOptions.MarkerOptions
+			)
+		}
+
+		class CircleMarker extends Feature {
+			constructor(
+				map: Map,
+				options?: DrawOptions.MarkerOptions
+			)
+		}
+
+		class Circle extends Feature {
+			constructor(
+				map: Map,
+				options?: DrawOptions.CircleOptions
+			)
+		}
+
+		class Polyline extends Feature {
+			constructor(
+				map: Map,
+				options?: DrawOptions.PolylineOptions
+			)
+		}
+
+		class Rectangle extends Feature {
+			constructor(
+				map: Map,
+				options?: DrawOptions.RectangleOptions
+			)
+		}
+
+		class Polygon extends Feature {
+			constructor(
+				map: Map,
+				options?: DrawOptions.PolygonOptions
+			)
 		}
 	}
 

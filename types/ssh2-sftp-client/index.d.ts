@@ -1,47 +1,36 @@
-// Type definitions for ssh2-sftp-client v1.0.5
+// Type definitions for ssh2-sftp-client 2.0
 // Project: https://www.npmjs.com/package/ssh2-sftp-client
-// Definitions by: igrayson <https://github.com/igrayson>
+// Definitions by: igrayson <https://github.com/igrayson>, Ascari Andrea <https://github.com/ascariandrea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="ssh2"/>
+import * as ssh2 from 'ssh2';
 
-declare module "ssh2-sftp-client" {
-  import * as ssh2 from 'ssh2';
+export = sftp;
 
-  namespace sftp {
-
-    interface FileInfo {
-      type:string;
-      name:string;
-      size:number;
-      modifyTime:number;
-      accessTime:number;
-      rights:{
-        user:string;
-        group:string;
-        other:string;
-      };
-      owner:number;
-      group:number;
-    }
-
-    interface Client {
-      new():Client;
-      connect(options:ssh2.ConnectConfig):Promise<void>;
-      list(remoteFilePath:string):Promise<Array<FileInfo>>;
-      get(remoteFilePath:string, useCompression?:boolean):Promise<NodeJS.ReadableStream>;
-      put(localFilePath:string, remoteFilePath:string, useCompression?:boolean):Promise<void>;
-      put(buffer:Buffer, remoteFilePath:string, useCompression?:boolean):Promise<void>;
-      put(stream:NodeJS.ReadableStream, remoteFilePath:string, useCompression?:boolean):Promise<void>;
-      mkdir(remoteFilePath:string, recursive?:boolean):Promise<void>;
-      delete(remoteFilePath:string):Promise<void>;
-      rename(remoteSourcePath:string, remoteDestPath:string):Promise<void>;
-      end():Promise<void>;
-    }
-  }
-
-  var sftp:sftp.Client;
-
-  export = sftp;
+declare class sftp {
+  connect(options: ssh2.ConnectConfig): Promise<void>;
+  list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
+  get(remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<NodeJS.ReadableStream>;
+  put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
+  mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+  rmdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+  delete(remoteFilePath: string): Promise<void>;
+  rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
+  end(): Promise<void>;
 }
-
+declare namespace sftp {
+  interface FileInfo {
+    type: string;
+    name: string;
+    size: number;
+    modifyTime: number;
+    accessTime: number;
+    rights: {
+      user: string;
+      group: string;
+      other: string;
+    };
+    owner: number;
+    group: number;
+  }
+}

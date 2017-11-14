@@ -30,6 +30,8 @@ function TestBuilder() {
     builder = builder.withCapabilities({ something: true });
 }
 
+declare const promise: webdriver.promise.Promise<string>;
+
 function TestActionSequence() {
     let driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
@@ -37,7 +39,6 @@ function TestActionSequence() {
 
     let sequence: webdriver.ActionSequence = new webdriver.ActionSequence(driver);
     let element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
-    let promise: webdriver.promise.Promise<string>;
     element = new webdriver.WebElement(driver, promise);
 
     // Click
@@ -519,7 +520,7 @@ function TestWebDriverOptions() {
     promise = options.deleteAllCookies();
     promise = options.deleteCookie('name');
     options.getCookie('name').then((cookie: webdriver.IWebDriverCookie) => {
-        let expiry: number = cookie.expiry;
+        let expiry: number | undefined = cookie.expiry;
      });
     options.getCookies().then((cookies: webdriver.IWebDriverCookie[]) => { });
 
@@ -573,9 +574,13 @@ function TestWebDriverWindow() {
     voidPromise = window.setSize(12, 34);
 }
 
+declare const sessionPromise: webdriver.promise.Promise<webdriver.Session>;
+declare let booleanPromise: webdriver.promise.Promise<boolean>;
+declare const booleanCondition: webdriver.Condition<boolean>;
+declare const webElementCondition: webdriver.WebElementCondition;
+
 function TestWebDriver() {
     let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
-    let sessionPromise: webdriver.promise.Promise<webdriver.Session>;
     let httpClient: http.HttpClient = new http.HttpClient('http://someserver');
     let executor: http.Executor = new http.Executor(httpClient);
     let flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
@@ -586,7 +591,6 @@ function TestWebDriver() {
 
     let voidPromise: webdriver.promise.Promise<void>;
     let stringPromise: webdriver.promise.Promise<string>;
-    let booleanPromise: webdriver.promise.Promise<boolean>;
     let webElementPromise: webdriver.WebElementPromise;
 
     let actions: webdriver.ActionSequence = driver.actions();
@@ -643,7 +647,6 @@ function TestWebDriver() {
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
 
-    let booleanCondition: webdriver.Condition<boolean>;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
@@ -651,7 +654,6 @@ function TestWebDriver() {
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => webdriver.promise.Promise.resolve(true));
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
-    let webElementCondition: webdriver.WebElementCondition;
     webElementPromise = driver.wait(webElementCondition);
     voidPromise = driver.wait(webElementCondition).click();
 
@@ -659,8 +661,9 @@ function TestWebDriver() {
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
 }
 
+declare const serializable: webdriver.Serializable<string>;
+
 function TestSerializable() {
-    let serializable: webdriver.Serializable<string>;
     let serial: string | webdriver.promise.IThenable<string> = serializable.serialize();
 }
 
@@ -669,7 +672,6 @@ function TestWebElement() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    let promise: webdriver.promise.Promise<string>;
     let element: webdriver.WebElement;
 
     element = new webdriver.WebElement(driver, 'elementId');
@@ -764,13 +766,14 @@ function TestLoggingEntry() {
     let type: string = entry.type;
 }
 
+declare let stringPromise: webdriver.promise.Promise<string>;
+
 function TestPromiseModule() {
     let cancellationError: webdriver.promise.CancellationError = new webdriver.promise.CancellationError();
     cancellationError = new webdriver.promise.CancellationError('message');
     let str: string = cancellationError.message;
     str = cancellationError.name;
 
-    let stringPromise: webdriver.promise.Promise<string>;
     let numberPromise: webdriver.promise.Promise<number>;
     let booleanPromise: webdriver.promise.Promise<boolean>;
     let voidPromise: webdriver.promise.Promise<void>;
@@ -932,8 +935,9 @@ function TestDeferred() {
     deferred.removeAll();
 }
 
+declare const controlFlow: webdriver.promise.ControlFlow;
+
 function TestPromiseClass() {
-    let controlFlow: webdriver.promise.ControlFlow;
     let promise: webdriver.promise.Promise<string>;
     promise = new webdriver.promise.Promise<string>((resolve, reject) => {
         resolve("");

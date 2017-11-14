@@ -28,4 +28,4 @@ export interface MatchedRoute<T> {
 
 export function matchRoutes<T>(routes: RouteConfig[], pathname: string): Array<MatchedRoute<T>>;
 
-export function renderRoutes(routes: RouteConfig[] | undefined): JSX.Element;
+export function renderRoutes(routes: RouteConfig[] | undefined, extraProps?: any): JSX.Element;

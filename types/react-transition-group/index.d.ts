@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import CSSTransition = require("react-transition-group/CSSTransition");
-import Transition from "react-transition-group/Transition";
-import TransitionGroup = require("react-transition-group/TransitionGroup");
+import CSSTransition = require("./CSSTransition");
+import Transition from "./Transition";
+import TransitionGroup = require("./TransitionGroup");
 
-export = {
+export {
     CSSTransition,
     Transition,
     TransitionGroup
