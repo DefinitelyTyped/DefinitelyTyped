@@ -1,6 +1,7 @@
-// Type definitions for React OnSenui (react-onsenui) 2.1
+// Type definitions for React OnSenui (react-onsenui) 2.7.0
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>
+//                 Ringrid <https://github.com/ringrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -25,40 +26,42 @@ export interface AnimationOptions {
 
 /*** splitter ***/
 export class SplitterSide extends Component<{
-    side?: "left" | "right",
     collapse?: "portrait" | "landscape" | boolean,
+    swipeable?: boolean,
     isOpen?: boolean,
     onOpen?(e?: Event): void,
-    onPreOpen?(e?: Event): void,
-    onPreClose?(e?: Event): void,
-    onModeChange?(e?: Event): void,
     onClose?(e?: Event): void,
-    isSwipeable?: boolean,
+    side?: "left" | "right",
     swipeTargetWidth?: number,
     width?: number,
     animation?: "overlay" | "default"
     animationOptions?: AnimationOptions,
     openThreshold?: number,
     mode?: "collapse" | "split"
+    onPreOpen?(e?: Event): void,
+    onPreClose?(e?: Event): void,
+    onModeChange?(e?: Event): void,
 }, any> { }
 
 export class SplitterContent extends Component { }
 
-export class Splitter extends Component { }
+export class Splitter extends Component<{
+    onDeviceBackButton?(): void,
+}, any> { }
 
 /*** toolbar ***/
-
-export class Toolbar extends Component {}
+export class Toolbar extends Component<{
+    modifier?: string,
+}, any> { }
 
 export class BottomToolbar extends Component<{
     modifier?: string
-}, any> {}
+}, any> { }
 
 export class ToolbarButton extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onClick?(e?: Event): void
-}, any> {}
+}, any> { }
 
 /*** icon ***/
 export class Icon extends Component<{
@@ -68,7 +71,7 @@ export class Icon extends Component<{
     rotate?: 90 | 180 | 270,
     fixedWidth?: boolean,
     spin?: boolean
-}, any> {}
+}, any> { }
 
 /*** page ***/
 
@@ -81,24 +84,25 @@ export class Page extends Component<{
     renderFixed?(): void,
     onInit?(): void,
     onShow?(): void,
-    onHide?(): void
-}, any> {}
+    onHide?(): void,
+    onDeviceBackButton?(): void,
+}, any> { }
 
 /*** Grid ***/
 export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
     width?: string
-}, any> {}
+}, any> { }
 
 export class Row extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-}, any> {}
+}, any> { }
 
 /*** Navigation ***/
 export class BackButton extends Component<{
     modifier?: string,
     onClick?(navigator: Navigator): void
-}, any> {}
+}, any> { }
 
 export class Navigator extends Component<{
     renderPage(route: any, navigator: Navigator): JSX.Element,
@@ -109,12 +113,34 @@ export class Navigator extends Component<{
     onPrePop?(): void,
     onPostPop?(): void,
     animation?: "slide" | "lift" | "fade" | "none" | string,
-    animationOptions?: AnimationOptions
+    animationOptions?: AnimationOptions,
+    swipeable?: boolean,
+    swipePop?(popPage: any): void,
+    onDeviceBackButton?(): void,
 }, any> {
     resetPage(route: any, options?: any): void;
     resetPageStack(route: any, options?: any): void;
     pushPage(route: any, options?: any): void;
     popPage(options?: any): void;
+}
+
+export class RouterNavigator extends Component<{
+    renderPage(route: any, navigator: Navigator): JSX.Element,
+    initialRouteStack?: string[],
+    initialRoute?: any,
+    onPrePush?(): void,
+    onPostPush?(): void,
+    onPrePop?(): void,
+    onPostPop?(): void,
+    animation?: "slide" | "lift" | "fade" | "none" | string,
+    animationOptions?: AnimationOptions,
+    swipeable?: boolean,
+    swipePop?(popPage: any): void,
+    onDeviceBackButton?(): void,
+}, any> {
+    resetPageStack(route: any, options?: any): void;
+    pushPage(route: any, options?: any): void;
+    popPage(route: any, options?: any): void;
 }
 
 /*** Carousel ***/
@@ -133,13 +159,14 @@ export class Carousel extends Component<{
     autoRefresh?: boolean,
     onPostChange?(): void,
     onRefresh?(): void,
-    onOverscroll?(): void
-    animationOptions?: AnimationOptions
-}, any> {}
+    onOverscroll?(): void,
+    animationOptions?: AnimationOptions,
+    onSwipe?(): void,
+}, any> { }
 
 export class CarouselItem extends Component<{
     modifier: string
-}, any> {}
+}, any> { }
 
 /*** AlertDialog ***/
 export class AlertDialog extends Component<{
@@ -155,8 +182,17 @@ export class AlertDialog extends Component<{
     onPostShow?(): void,
     onPreHide?(): void,
     onPostHide?(): void,
-}, any> {}
+    onDeviceBackButton?(): void,
+}, any> { }
 
+/*** AlertDialogButton ***/
+export class AlertDialogButton extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onClick?(e: Event): void,
+}, any> { }
+
+/*** Dialog ***/
 export class Dialog extends Component<{
     onCancel?(): void,
     isOpen?: boolean,
@@ -170,15 +206,19 @@ export class Dialog extends Component<{
     onPostShow?(): void,
     onPreHide?(): void,
     onPostHide?(): void,
-}, any> {}
+    onDeviceBackButton?(): void,
+}, any> { }
 
 export class Modal extends Component<{
     animation?: "fade" | "none",
     animationOptions?: AnimationOptions
-    onShow?(): void,
-    onHide?(): void,
-    isOpen?: boolean
-}, any> {}
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    isOpen?: boolean,
+    onDeviceBackButton?(): void,
+}, any> { }
 
 export class Popover extends Component<{
     getTarget?(): React.ReactInstance,
@@ -194,27 +234,41 @@ export class Popover extends Component<{
     onPostShow?(): void,
     onPreHide?(): void,
     onPostHide?(): void,
-}, any> {}
+    onDeviceBackButton?(): void,
+}, any> { }
+
+/*** Toast ***/
+export class Toast extends Component<{
+    isOpen?: boolean,
+    animation?: "none" | "default",
+    modifier?: string,
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    onDeviceBackButton?(): void,
+}, any> { }
 
 export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
     intermediate?: boolean,
-}, any> {}
+}, any> { }
 
 export class ProgressCircular extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
     intermediate?: boolean,
-}, any> {}
+}, any> { }
 
 export class Ripple extends Component<{
     color?: string,
     background?: string,
     disabled?: boolean,
-}, any> {}
+}, any> { }
 
 /*** Forms ***/
 export class Fab extends Component<{
@@ -222,15 +276,15 @@ export class Fab extends Component<{
     ripple?: boolean,
     position?: string,
     disabled?: boolean,
-    onClick?(): void,
-}, any> {}
+    onClick?(e?: Event): void,
+}, any> { }
 
 export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
     onClick?(e?: Event): void
-}, any> {}
+}, any> { }
 
 export class Input extends Component<{
     modifier?: string,
@@ -242,22 +296,21 @@ export class Input extends Component<{
     type?: string,
     inputId?: string,
     float?: boolean,
-    name?: string,
-}, any> {}
+}, any> { }
 
 export class Range extends Component<{
     modifier?: string,
-    onChange?(e: Event): void,
+    onChange?(e?: Event): void,
     value?: number,
     disabled?: boolean,
-}, any> {}
+}, any> { }
 
 export class Switch extends Component<{
     onChange?(e: Event): void,
     checked?: boolean,
     disabled?: boolean,
     inputId?: string
-}, any> {}
+}, any> { }
 
 /**
  * Tabs
@@ -265,19 +318,19 @@ export class Switch extends Component<{
 
 export class Tab extends Component { }
 
-export class TabActive extends Component { }
-
-export class TabInactive extends Component { }
-
 export class Tabbar extends Component<{
     index?: number,
     renderTabs?(): any,
     position?: "bottom" | "top" | "auto",
+    swipeable?: boolean,
+    ignoreEdgeWidth?: number,
     animation: "none" | "slide" | "fade",
     animationOptions?: AnimationOptions,
+    tabBorder: boolean,
     onPreChange?(): void,
     onPostChange?(): void,
     onReactive?(): void,
+    onSwipe?(index: number, animationOptions: AnimationOptions): void,
 }, any> { }
 
 /**
@@ -297,18 +350,90 @@ export class List extends Component<{
     renderRow?(row: any, index?: number): JSX.Element | undefined,
     renderFooter?(): JSX.Element | undefined,
     renderHeader?(): JSX.Element | undefined,
-}, any> {}
+}, any> { }
 
 export class ListHeader extends Component<{
     modifier?: string,
-}, any> {}
+}, any> { }
 
 export class ListItem extends Component<{
     modifier?: string,
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
-    onClick?: React.MouseEventHandler<any>,
-}, any> {}
+}, any> { }
 
-export class Card extends Component { }
+export class ListTitle extends Component<{
+    modifier?: string,
+}, any> { }
+
+/*** Card ***/
+export class Card extends Component<{
+    modifier?: string,
+}, any> { }
+
+/*** Checkbox ***/
+export class Checkbox extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    checked?: boolean,
+    inputId?: string,
+}, any> { }
+
+/*** Radio ***/
+export class Radio extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    checked?: boolean,
+    inputId?: string,
+}, any> { }
+
+/*** SearchInput ***/
+export class SearchInput extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    inputId?: string,
+}, any> { }
+
+/*** Select ***/
+export class Select extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    multiple?: boolean,
+    autofocus?: boolean,
+    required?: boolean,
+    form?: string,
+    size?: string,
+}, any> { }
+
+/*** ActionSheet ***/
+export class ActionSheet extends Component<{
+    onCancel?(): void,
+    isOpen?: boolean,
+    isCancelable?: boolean,
+    isDisabled?: boolean,
+    animation?: "none" | "default",
+    modifier?: string,
+    maskColor?: string,
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    onDeviceBackButton?(): void,
+}, any> { }
+
+/*** ActionSheetButton ***/
+export class ActionSheetButton extends Component<{
+    modifier?: string,
+    icon?: string,
+    onClick?(e: Event): void,
+}, any> { }

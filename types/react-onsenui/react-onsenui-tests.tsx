@@ -26,7 +26,7 @@ export class App extends React.Component<AppProps, AppState> {
                     collapse={true}
                     isOpen={this.state.isOpen}
                     onClose={() => this.hide()}
-                    isSwipeable={true}>
+                    swipeable={true}>
                     <Page>
                         Menu content
 					</Page>
