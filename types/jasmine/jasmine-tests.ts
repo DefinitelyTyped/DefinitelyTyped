@@ -672,7 +672,7 @@ describe("Multiple spies, when created manually", () => {
 
 describe("jasmine.nothing", () => {
     it("matches any value", () => {
-        expect().nothing();
+        expect("s").nothing();
     });
 });
 

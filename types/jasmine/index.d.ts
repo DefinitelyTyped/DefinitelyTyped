@@ -88,7 +88,7 @@ declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
  * Create an expectation for a spec.
  * @param actual Actual computed value to test expectations against.
  */
-declare function expect<T>(actual?: T): jasmine.Matchers<T>;
+declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
 /**
  * Explicitly mark a spec as failed.
