@@ -4,22 +4,21 @@ import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
 import SchemaDefinition = yaml.SchemaDefinition;
 
-let bool: boolean;
-let num: number;
-let str: string;
-let obj: object;
-let map: { [x: string]: any; };
-let value: any;
-let array: any[];
-let fn: (...args: any[]) => any;
-let fnOrFnMap: ((...args: any[]) => any) | { [x: string]: (...args: any[]) => any; };
-let type: yaml.Type;
-let schemaDefinition: SchemaDefinition = {
+const bool = true;
+const num = 0;
+const str = "";
+const obj: object = {};
+const map: { [x: string]: any; } = {};
+const array: any[] = [];
+const fn: (...args: any[]) => any = () => {};
+const type = new yaml.Type(str);
+
+const schemaDefinition: SchemaDefinition = {
 	implicit: array,
 	explicit: array,
 	include: array
 };
-let typeConstructorOptions: TypeConstructorOptions = {
+const typeConstructorOptions: TypeConstructorOptions = {
 	kind: "scalar",
 	resolve: fn,
 	construct: fn,
@@ -27,20 +26,30 @@ let typeConstructorOptions: TypeConstructorOptions = {
 	predicate: str,
 	represent: fn,
 	defaultStyle: str,
-	styleAliases: obj
+	styleAliases: map
 };
 
+const schema: yaml.Schema = new yaml.Schema(schemaDefinition);
+
+let value: any;
 let loadOpts: LoadOptions;
 let dumpOpts: DumpOptions;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+// $ExpectType Schema
 yaml.FAILSAFE_SCHEMA;
+// $ExpectType Schema
 yaml.JSON_SCHEMA;
+// $ExpectType Schema
 yaml.CORE_SCHEMA;
+// $ExpectType Schema
 yaml.DEFAULT_SAFE_SCHEMA;
+// $ExpectType Schema
 yaml.DEFAULT_FULL_SCHEMA;
+// $ExpectType Schema
 yaml.MINIMAL_SCHEMA;
+// $ExpectType Schema
 yaml.SAFE_SCHEMA;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -75,53 +84,81 @@ dumpOpts = {
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-str = type.kind;
-fn = type.resolve;
-fn = type.construct;
-obj = type.instanceOf;
-str = type.predicate;
-fnOrFnMap = type.represent;
-str = type.defaultStyle;
-map = type.styleAliases;
+// $ExpectType Type
+new yaml.Type(str, typeConstructorOptions);
+
+// $ExpectType "sequence" | "scalar" | "mapping"
+type.kind;
+// $ExpectType (data: any) => boolean
+type.resolve;
+// $ExpectType (data: any) => any
+type.construct;
+// $ExpectType object
+type.instanceOf;
+// $ExpectType string
+type.predicate;
+// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; }
+type.represent;
+// $ExpectType string
+type.defaultStyle;
+// $ExpectType { [x: string]: any; }
+type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-value = yaml.safeLoad(str);
-value = yaml.safeLoad(str, loadOpts);
+// $ExpectType any
+yaml.safeLoad(str);
+// $ExpectType any
+yaml.safeLoad(str, loadOpts);
 
-value = yaml.load(str);
-value = yaml.load(str, loadOpts);
+// $ExpectType any
+yaml.load(str);
+// $ExpectType any
+yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-value = yaml.safeLoadAll(str, (doc) => {
+// $ExpectType any
+yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 });
-value = yaml.safeLoadAll(str, (doc) => {
+// $ExpectType any
+yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
 
-value = yaml.loadAll(str, (doc) => {
+// $ExpectType any
+yaml.loadAll(str, (doc) => {
 	value = doc;
 });
-value = yaml.loadAll(str, (doc) => {
+// $ExpectType any
+yaml.loadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-value = yaml.safeDump(str);
-value = yaml.safeDump(str, dumpOpts);
+// $ExpectType string
+yaml.safeDump(str);
+// $ExpectType string
+yaml.safeDump(str, dumpOpts);
 
-value = yaml.dump(str);
-value = yaml.dump(str, dumpOpts);
+// $ExpectType string
+yaml.dump(str);
+// $ExpectType string
+yaml.dump(str, dumpOpts);
 
-value = new yaml.YAMLException();
-value = new yaml.Type(str, typeConstructorOptions);
-value = new yaml.Schema(schemaDefinition);
-value = yaml.Schema.create([new yaml.Type(str)]);
-value = yaml.Schema.create(new yaml.Type(str));
-value = yaml.Schema.create(new yaml.Schema(schemaDefinition), [new yaml.Type(str)]);
-value = yaml.Schema.create([new yaml.Schema(schemaDefinition)], [new yaml.Type(str)]);
-value = yaml.Schema.create(new yaml.Schema(schemaDefinition), new yaml.Type(str));
-value = yaml.Schema.create([new yaml.Schema(schemaDefinition)], new yaml.Type(str));
+new yaml.YAMLException();
+
+// $ExpectType Schema
+yaml.Schema.create([type]);
+// $ExpectType Schema
+yaml.Schema.create(type);
+// $ExpectType Schema
+yaml.Schema.create(schema, [type]);
+// $ExpectType Schema
+yaml.Schema.create([schema], [type]);
+// $ExpectType Schema
+yaml.Schema.create(schema, type);
+// $ExpectType Schema
+yaml.Schema.create([schema], type);
