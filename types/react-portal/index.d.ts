@@ -7,7 +7,7 @@
 
 import * as React from "react";
 
-export interface PortalProps {
+export interface PortalProps extends React.Props<any> {
     children: React.ReactNode;
     node?: Element | null;
 }
@@ -21,7 +21,7 @@ export interface PortalFunctionParams {
     isOpen: boolean;
 }
 
-export interface PortalWithStateProps {
+export interface PortalWithStateProps extends React.Props<any> {
     children: (params: PortalFunctionParams) => React.ReactNode;
     node?: Element | null;
     defaultOpen?: boolean;
