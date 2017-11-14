@@ -96,6 +96,25 @@ export interface Cookie {
   sameSite: "Strict" | "Lax";
 }
 
+export interface DeleteCookie {
+  name: string;
+  url?: string;
+  domain?: string;
+  path?: string;
+  secure?: boolean;
+}
+
+export interface SetCookie {
+  name: string;
+  value: string;
+  domain?: string;
+  path?: string;
+  expires?: number;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: "Strict" | "Lax";
+}
+
 export interface Viewport {
   width: number;
   height: number;
@@ -183,7 +202,7 @@ export interface BoundingBox {
 }
 
 export interface ElementHandle extends JSHandle {
-  boundingBox(): BoundingBox;
+  boundingBox(): BoundingBox | null;
   click(options?: ClickOptions): Promise<void>;
   focus(): Promise<void>;
   hover(): Promise<void>;
@@ -191,7 +210,7 @@ export interface ElementHandle extends JSHandle {
   screenshot(options?: ScreenshotOptions): Promise<Buffer>;
   tap(): Promise<void>;
   toString(): string;
-  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
+  type(text: string, options?: { delay: number }): Promise<void>;
   uploadFile(...filePaths: string[]): Promise<void>;
 }
 
@@ -208,7 +227,7 @@ export interface ExecutionContext {
 }
 
 export interface JSHandle {
-  asElement(): ElementHandle;
+  asElement(): ElementHandle | null;
   dispose(): Promise<void>;
   executionContext(): ExecutionContext;
   getProperties(): Promise<Map<string, JSHandle>>;
@@ -286,7 +305,7 @@ export interface Response {
 }
 
 export interface FrameBase {
-  $(selector: string): Promise<ElementHandle>;
+  $(selector: string): Promise<ElementHandle | null>;
   $$(selector: string): Promise<ElementHandle[]>;
   $$eval(
     selector: string,
@@ -330,7 +349,7 @@ export interface Frame extends FrameBase {
   executionContext(): ExecutionContext;
   isDetached(): boolean;
   name(): string;
-  parentFrame(): Frame | undefined;
+  parentFrame(): Frame | null;
 }
 
 export interface EventObj {
@@ -359,15 +378,7 @@ export interface Page extends FrameBase {
   close(): Promise<void>;
   content(): Promise<string>;
   cookies(...urls: string[]): Promise<Cookie[]>;
-  deleteCookie(
-    ...cookies: Array<{
-      name: string;
-      url?: string;
-      domain?: string;
-      path?: string;
-      secure?: boolean;
-    }>
-  ): Promise<void>;
+  deleteCookie(...cookies: DeleteCookie[]): Promise<void>;
   emulate(options: Partial<EmulateOptions>): Promise<void>;
   emulateMedia(mediaType: 'screen' | 'print' | null): Promise<void>;
   evaluateHandle(
@@ -385,9 +396,9 @@ export interface Page extends FrameBase {
   focus(selector: string): Promise<void>;
   frames(): Frame[];
   getMetrics(): Metrics;
-  goBack(options?: Partial<NavigationOptions>): Promise<Response>;
-  goForward(options?: Partial<NavigationOptions>): Promise<Response>;
-  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response>;
+  goBack(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goForward(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
   hover(selector: string): Promise<void>;
   keyboard: Keyboard;
   mainFrame(): Frame;
@@ -398,7 +409,7 @@ export interface Page extends FrameBase {
   screenshot(options?: ScreenshotOptions): Promise<Buffer>;
   select(selector: string, ...values: string[]): Promise<void>;
   setContent(html: string): Promise<void>;
-  setCookie(...cookies: Cookie[]): Promise<void>;
+  setCookie(...cookies: SetCookie[]): Promise<void>;
   setExtraHTTPHeaders(headers: Headers): Promise<void>;
   setJavaScriptEnabled(enabled: boolean): Promise<void>;
   setRequestInterceptionEnabled(value: boolean): Promise<void>;

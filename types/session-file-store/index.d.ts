@@ -2,6 +2,7 @@
 // Project: https://github.com/valery-barysok/session-file-store
 // Definitions by: Gevik Babakhani <https://github.com/blendsdk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="express-session" />
 

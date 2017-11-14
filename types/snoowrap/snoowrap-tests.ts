@@ -1,6 +1,7 @@
 import * as Snoowrap from 'snoowrap';
 import {
   Comment,
+  Listing,
   LiveThread,
   MultiReddit,
   PrivateMessage,
@@ -44,4 +45,8 @@ export function subreddit(name: string): Subreddit {
 
 export function wiki(subreddit: string, page: string): WikiPage {
   return r.getSubreddit(subreddit).getWikiPage(page);
+}
+
+export function getNewComments(subreddit: string): Listing<Comment> {
+  return r.getNewComments(subreddit);
 }

@@ -54,22 +54,22 @@ export interface CommonWrapper<P = {}, S = {}> {
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      */
-    contains(node: ReactElement<any> | string): boolean;
+    contains(node: ReactElement<any> | Array<ReactElement<any>> | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
      */
-    containsMatchingElement(node: ReactElement<any>): boolean;
+    containsMatchingElement(node: ReactElement<any> | Array<ReactElement<any>>): boolean;
 
     /**
      * Returns whether or not all the given react elements exists in the shallow render tree
      */
-    containsAllMatchingElements(nodes: Array<ReactElement<any>>): boolean;
+    containsAllMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
 
     /**
      * Returns whether or not one of the given react elements exists in the shallow render tree.
      */
-    containsAnyMatchingElements(nodes: Array<ReactElement<any>>): boolean;
+    containsAnyMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
 
     /**
      * Returns whether or not the current render tree is equal to the given node, based on the expected value.
@@ -353,6 +353,7 @@ export interface CommonWrapper<P = {}, S = {}> {
     length: number;
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ShallowWrapper<P = {}, S = {}> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);

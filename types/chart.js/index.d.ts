@@ -78,7 +78,7 @@ interface Size {
 }
 
 declare namespace Chart {
-    type ChartType = 'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble';
+    type ChartType = 'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie';
 
     type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
@@ -411,8 +411,8 @@ declare namespace Chart {
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[];
-        borderWidth?: number;
-        borderColor?: ChartColor;
+        borderWidth?: number | number[];
+        borderColor?: ChartColor | ChartColor[];
         borderCapStyle?: string;
         borderDash?: number[];
         borderDashOffset?: number;

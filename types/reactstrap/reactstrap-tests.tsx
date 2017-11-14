@@ -62,8 +62,8 @@ import {
   PaginationItem,
   PaginationLink,
   Popover,
-  PopoverContent,
-  PopoverTitle,
+  PopoverBody,
+  PopoverHeader,
   Progress,
   TabPane,
   UncontrolledButtonDropdown,
@@ -2480,8 +2480,8 @@ class Example85 extends React.Component<any, any> {
           Launch Popover
         </Button>
         <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </div>
     );
@@ -2511,8 +2511,8 @@ class PopoverItem extends React.Component<any, any> {
           {this.props.item.text}
         </Button>
         <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </span>
     );
