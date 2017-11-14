@@ -318,6 +318,7 @@ declare namespace Bull {
      *
      * @param name Bull will only call the handler if the job name matches
      */
+    // tslint:disable-next-line:unified-signatures
     process(name: string, callback: (job: Job) => void): Promise<any>;
 
     /**
@@ -333,6 +334,7 @@ declare namespace Bull {
      *
      * @param name Bull will only call the handler if the job name matches
      */
+    // tslint:disable-next-line:unified-signatures
     process(name: string, callback: (job: Job, done: DoneCallback) => void): void;
 
     /**
