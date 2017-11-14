@@ -7,7 +7,7 @@
 export function safeLoad(str: string, opts?: LoadOptions): any;
 export function load(str: string, opts?: LoadOptions): any;
 
-export class Type implements TypeConstructorOptions {
+export class Type {
 	constructor(tag: string, opts?: TypeConstructorOptions);
 	kind: 'sequence' | 'scalar' | 'mapping' | null;
 	resolve(data: any): boolean;
