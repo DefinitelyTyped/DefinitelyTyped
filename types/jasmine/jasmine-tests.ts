@@ -54,6 +54,11 @@ describe("Included matchers:", () => {
             };
             expect(foo).toEqual(bar);
         });
+
+        it("should work for optional values", () => {
+            var opt: string | undefined = "s";
+            expect(opt as (string | undefined)).toEqual(undefined);
+        });
     });
 
     it("The 'toMatch' matcher is for regular expressions", () => {
