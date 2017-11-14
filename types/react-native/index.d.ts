@@ -8047,7 +8047,7 @@ export namespace Animated {
      *```
      */
     export function event(
-        argMapping: Mapping[],
+        argMapping: Array<Mapping | null>,
         config?: EventConfig
     ): (...args: any[]) => void;
 
