@@ -7752,7 +7752,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set 'showHeader' as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set showHeader as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
@@ -63654,9 +63654,9 @@ declare namespace ej.datavisualization {
         /** The printImage method is used to print the image passed through argument with desired region and multiple pages as like print method.
          * @param {string} pass the base64String image to be printed.
          * @param {Diagram.Options} options to export the desired region of diagram to the desired formats.
-         * @returns {String}
+         * @returns {string}
          */
-        printImage(image: string, options?: Diagram.Options): String;
+        printImage(image: string, options?: Diagram.Options): string;
 
         /** Restore the last action that was reverted
          * @returns {void}
