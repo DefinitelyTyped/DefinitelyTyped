@@ -13315,6 +13315,15 @@ declare namespace _ {
             path: PropertyPath,
             defaultValue?: any
         ): any;
+
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            object: any,
+            path: PropertyPath,
+            defaultValue?: any
+        ): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -13362,10 +13371,18 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get<TResult>(
+        get(
             path: PropertyPath,
             defaultValue?: any
         ): any;
+
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: PropertyPath,
+            defaultValue?: any
+        ): TResult;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -13417,6 +13434,14 @@ declare namespace _ {
             path: PropertyPath,
             defaultValue?: any
         ): LoDashExplicitWrapper<any>;
+
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: PropertyPath,
+            defaultValue?: any
+        ): LoDashExplicitWrapper<TResult>;
     }
 
     //_.has
