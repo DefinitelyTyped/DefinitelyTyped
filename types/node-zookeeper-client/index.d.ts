@@ -172,7 +172,13 @@ export class Exception {
     code: number;
     name: string;
     path?: string;
-    constructor(code: number, name: string, path?: string);
+
+    // tslint:disable-next-line ban-types
+    constructor(code: number, name: string, path: string, ctor: Function);
+
+    // tslint:disable-next-line ban-types
+    constructor(code: number, name: string, ctor: Function);
+
     toString(): string;
     getCode(): number;
     getName(): string;
