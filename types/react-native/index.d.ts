@@ -3728,7 +3728,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ItemSeparatorComponent?: React.ComponentType<any> | null
 
     /**
      * Rendered when the list is empty.
