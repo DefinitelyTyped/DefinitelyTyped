@@ -385,8 +385,14 @@ Animal['findByName']('fido', function(err: any, animals: any) {
 animalSchema.virtual('name.full').get(function () {
   return this.name.first + ' ' + this.name.last;
 });
-new mongoose.Schema({
-  child: { name: String }
+var childSchema = new mongoose.Schema({ name: String });
+var parentSchema = new mongoose.Schema({
+  children: [childSchema],
+  child: childSchema,
+  name: {
+    index: true,
+    required: true
+  }
 });
 new mongoose.Schema({
   eggs: {
