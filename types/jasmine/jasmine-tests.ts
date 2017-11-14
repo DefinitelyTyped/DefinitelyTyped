@@ -665,6 +665,12 @@ describe("Multiple spies, when created manually", () => {
     });
 });
 
+describe("jasmine.nothing", () => {
+    it("matches any value", () => {
+        expect().nothing();
+    });
+});
+
 describe("jasmine.any", () => {
     it("matches any value", () => {
         expect({}).toEqual(jasmine.any(Object));
@@ -754,7 +760,7 @@ describe("jasmine.objectContaining", () => {
 });
 
 describe("jasmine.arrayContaining", () => {
-    var foo: any;
+    var foo: Array<number>;
 
     beforeEach(() => {
         foo = [1, 2, 3, 4];
@@ -763,6 +769,9 @@ describe("jasmine.arrayContaining", () => {
     it("matches arrays with some of the values", () => {
         expect(foo).toEqual(jasmine.arrayContaining([3, 1]));
         expect(foo).not.toEqual(jasmine.arrayContaining([6]));
+
+        expect(foo).toBe(jasmine.arrayContaining([3, 1]));
+        expect(foo).not.toBe(jasmine.arrayContaining([6]));
     });
 
     describe("when used with a spy", () => {
@@ -773,6 +782,33 @@ describe("jasmine.arrayContaining", () => {
 
             expect(callback).toHaveBeenCalledWith(jasmine.arrayContaining([4, 2, 3]));
             expect(callback).not.toHaveBeenCalledWith(jasmine.arrayContaining([5, 2]));
+        });
+    });
+});
+
+describe("jasmine.arrayWithExactContents", () => {
+    var foo: Array<number>;
+
+    beforeEach(() => {
+        foo = [1, 2, 3, 4];
+    });
+
+    it("matches arrays with exactly the same values", () => {
+        expect(foo).toEqual(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+        expect(foo).not.toEqual(jasmine.arrayWithExactContents([6]));
+
+        expect(foo).toBe(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+        expect(foo).not.toBe(jasmine.arrayWithExactContents([6]));
+    });
+
+    describe("when used with a spy", () => {
+        it("is useful when comparing arguments", () => {
+            var callback = jasmine.createSpy('callback');
+
+            callback([1, 2, 3, 4]);
+
+            expect(callback).toHaveBeenCalledWith(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+            expect(callback).not.toHaveBeenCalledWith(jasmine.arrayWithExactContents([5, 2]));
         });
     });
 });
@@ -961,13 +997,13 @@ describe("Custom matcher: 'toBeGoofy'", () => {
             hyuk: 'this is fun'
         }).not.toBeGoofy();
     });
-    
+
     it("has a proper message on failure", () => {
         const actual = { hyuk: 'this is fun' };
-        
-        const matcher = customMatchers.toBeGoofy(jasmine.matchersUtil, []);
+
+        const matcher = customMatchers["toBeGoofy"](jasmine.matchersUtil, []);
         const result = matcher.compare(actual, null);
-        
+
         expect(result.pass).toBe(false);
         expect(result.message).toBe("Expected " + actual + " to be goofy, but it was not very goofy");
     });
