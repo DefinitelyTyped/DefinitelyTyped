@@ -63,6 +63,9 @@ loadOpts = {
 loadOpts = {
 	schema: bool
 };
+loadOpts = {
+	json: bool
+};
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
