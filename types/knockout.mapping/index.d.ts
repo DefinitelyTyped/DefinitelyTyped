@@ -46,6 +46,7 @@ declare global {
         fromJS<T>(jsObject: T[], targetOrOptions: any): KnockoutObservableType<T>[];
         fromJS<T>(jsObject: T[], inputOptions: any, target: any): KnockoutObservableType<T>[];
         fromJS<T>(jsObject: T): KnockoutObservableType<T>;
+        fromJS<T>(jsObject: T, targetOrOptions: any): KnockoutObservableType<T>;
         fromJS<T>(jsObject: T, inputOptions: any, target: any): KnockoutObservableType<T>;
         fromJSON(jsonString: string): any;
         fromJSON(jsonString: string, targetOrOptions: any): any;
