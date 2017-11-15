@@ -264,7 +264,7 @@ declare module "node-forge" {
                 safeBags: Bag[];
             }];
             getBags: (filter: BagsFilter) => {
-                [key: string]: Bag[]|undefined;
+                [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[];
                 friendlyName?: Bag[];
             };
@@ -272,8 +272,8 @@ declare module "node-forge" {
             getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
         }
 
-        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string) : Pkcs12Pfx;
-        function pkcs12FromAsn1(obj: any, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string): Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
     }
 
     namespace md {
@@ -293,6 +293,18 @@ declare module "node-forge" {
 
         namespace md5 {
             function create(): MessageDigest;
+        }
+    }
+
+    namespace cipher {
+        function createCipher(algorithm: string, payload: util.ByteBuffer): ForgeCipher;
+        function createDecipher(algorithm: string, payload: util.ByteBuffer): ForgeCipher;
+
+        interface ForgeCipher {
+            start: () => void;
+            update: (payload: util.ByteBuffer) => void;
+            finish: () => void;
+            output: util.ByteStringBuffer;
         }
     }
 }
