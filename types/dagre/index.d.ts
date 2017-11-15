@@ -68,7 +68,9 @@ export namespace graphlib {
     }
 }
 
-export type Label = {[key: string]: any};
+export interface Label {
+  [key: string]: any;
+}
 export type WeightFn = (edge: Edge) => number;
 export type EdgeFn = (outNodeName: string) => GraphEdge[];
 
