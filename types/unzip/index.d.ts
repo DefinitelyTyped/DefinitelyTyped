@@ -31,6 +31,3 @@ export interface Entry {
     pipe: (stream: NodeJS.WritableStream) => void;
     autodrain: () => void;
 }
-
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
