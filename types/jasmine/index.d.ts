@@ -88,7 +88,12 @@ declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
  * Create an expectation for a spec.
  * @param actual Actual computed value to test expectations against.
  */
-declare function expect<T>(actual?: T): jasmine.Matchers<T>;
+declare function expect<T>(actual: T): jasmine.Matchers<T>;
+
+/**
+ * Create an expectation for a spec.
+ */
+declare function expect(): jasmine.NothingMatcher;
 
 /**
  * Explicitly mark a spec as failed.
@@ -137,7 +142,7 @@ declare namespace jasmine {
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
-    function createSpy(name: string, originalFn?: Function): Spy;
+    function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: any[] | {[methodName: string]: any}): any;
     function createSpyObj<T>(baseName: string, methodNames: any[] | {[methodName: string]: any}): SpyObj<T>;
@@ -441,7 +446,6 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
-        nothing(): Any;
 
         not: Matchers<T>;
 
@@ -453,6 +457,10 @@ declare namespace jasmine {
         toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
         toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
+    }
+
+    interface NothingMatcher {
+        nothing(): void;
     }
 
     interface Reporter {
