@@ -27,20 +27,20 @@ export namespace graphlib {
         inEdges(inNodeName: string, outNodeName?: string): Edge[]|undefined;
         outEdges(outNodeName: string, inNodeName?: string): Edge[]|undefined;
         removeEdge(outNodeName: string, inNodeName: string): Graph;
-        setDefaultEdgeLabel(callback: string|(() => string|object)): Graph;
+        setDefaultEdgeLabel(callback: string|((edge: Edge) => string|Label)): Graph;
         setEdge(params: Edge, value?: string|{[key: string]: any}): Graph;
-        setEdge(sourceId: string, targetId: string, value?: string|{ [key: string]: any }, name?: string): Graph;
+        setEdge(sourceId: string, targetId: string, value?: string|Label, name?: string): Graph;
 
         children(parentName: string): string|undefined;
         hasNode(name: string): boolean;
         neighbors(name: string): Node[]|undefined;
-        node(id: string|object): Node;
+        node(id: string|Label): Node;
         nodeCount(): number;
         nodes(): string[];
         parent(childName: string): string|undefined;
         predecessors(name: string): Node[]|undefined;
         removeNode(name: string): Graph;
-        setDefaultNodeLabel(callback: string|(() => string|object)): Graph;
+        setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph;
         setNode(id: string, node: NodeConfig): Graph;
         setParent(childName: string, parentName: string): void;
         sources(): Node[];
@@ -48,16 +48,16 @@ export namespace graphlib {
     }
 
     class json {
-        static read(graph: object): Graph;
-        static write(graph: Graph): object;
+        static read(graph: any): Graph;
+        static write(graph: Graph): any;
     }
 
     class alg {
         static components(graph: Graph): string[][];
-        static dijkstra(graph: Graph, source: string, weightFn?: WeightFn, edgeFn?: EdgeFn): object;
-        static dijkstraAll(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): object;
+        static dijkstra(graph: Graph, source: string, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
+        static dijkstraAll(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
         static findCycles(graph: Graph): string[][];
-        static floydWarchall(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): object;
+        static floydWarchall(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
         static isAcyclic(graph: Graph): boolean;
         static postorder(graph: Graph, nodeNames: string|string[]): string[];
         static preorder(graph: Graph, nodeNames: string|string[]): string[];
@@ -67,6 +67,7 @@ export namespace graphlib {
     }
 }
 
+export type Label = {[key: string]: any};
 export type WeightFn = (edge: Edge) => number;
 export type EdgeFn = (outNodeName: string) => GraphEdge[];
 
