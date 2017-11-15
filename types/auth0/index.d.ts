@@ -529,8 +529,8 @@ export class ManagementClient {
   deleteEmailProvider(): Promise<any>;
   deleteEmailProvider(cb?: (err: Error, data: any) => void): void;
 
-  updateEmailProvider(data: Data): Promise<any>;
-  updateEmailProvider(data: Data, cb?: (err: Error, data: any) => void): void;
+  updateEmailProvider(params: {}, data: Data): Promise<any>;
+  updateEmailProvider(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Statistics
