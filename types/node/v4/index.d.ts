@@ -1,6 +1,8 @@
 // Type definitions for Node.js 4.2
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -1847,6 +1849,7 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        highWaterMark?: number;
     }): ReadStream;
     export function createWriteStream(path: string, options?: {
         flags?: string;
