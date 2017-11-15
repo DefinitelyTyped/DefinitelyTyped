@@ -113,6 +113,12 @@ uriOpts = { scheme: expArr };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+var base64Opts: Joi.Base64Options = null;
+
+base64Opts = { paddingRequired: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 var whenOpts: Joi.WhenOptions = null;
 
 whenOpts = { is: x };
@@ -777,6 +783,8 @@ strSchema = strSchema.truncate();
 strSchema = strSchema.truncate(false);
 strSchema = strSchema.normalize();
 strSchema = strSchema.normalize('NFKC');
+strSchema = strSchema.base64();
+strSchema = strSchema.base64(base64Opts);
 
 namespace common {
     strSchema = strSchema.allow(x);
