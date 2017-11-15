@@ -1,5 +1,5 @@
 // Type definitions for Video.js 6.2
-// Project: https://github.com/zencoder/video-js
+// Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
@@ -29,7 +29,7 @@ declare namespace videojs {
 		autoplay?: boolean;
 		preload?: string;
 		sources?: Source[];
-		apsectRatio?: string;
+		aspectRatio?: string;
 		fluid?: boolean;
 		language?: string;
 		notSupportedMessage?: string;

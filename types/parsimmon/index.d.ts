@@ -41,7 +41,7 @@
  * //=> {status: true, value: ['a', ['c', 'c', 'c', 'c', 'c']]}
  * ```
  */
-declare function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parsimmon.Parser<T>;
+declare function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parsimmon.Parser<T>;
 
 declare namespace Parsimmon {
 	type StreamType = string;
@@ -169,21 +169,21 @@ declare namespace Parsimmon {
 	/**
 	 * Alias of `Parsimmon(fn)` for backwards compatibility.
 	 */
-	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parser<T>;
+	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parser<T>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the successful parse went (index), and what value it created doing
 	 * so. See documentation for Parsimmon(fn).
 	 */
-	function makeSuccess<T>(index: number, value: T): Success<T>;
+	function makeSuccess<T>(index: number, value: T): SuccessReply<T>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the unsuccessful parse went (index), and what kind of syntax it
 	 * expected to see (expectation). See documentation for Parsimmon(fn).
 	 */
-	function makeFailure(furthest: number, expectation: string): Failure;
+	function makeFailure(furthest: number, expectation: string): FailureReply;
 
 	/**
 	 * Returns true if obj is a Parsimmon parser, otherwise false.
@@ -276,9 +276,27 @@ declare namespace Parsimmon {
 		p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>,
 		cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A) => B): Parser<B>;
 
-	type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
-	type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
-	type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
+	interface SuccessReply<T> {
+		status: true;
+		index: number;
+		value: T;
+		furthest: -1;
+		expected: string[];
+	}
+
+	interface FailureReply {
+		status: false;
+		index: -1;
+		value: null;
+		furthest: number;
+		expected: string[];
+	}
+
+	type Reply<T> = SuccessReply<T> | FailureReply;
+
+	type SuccessFunctionType<U> = (index: number, result: U) => Reply<U>;
+	type FailureFunctionType<U> = (index: number, msg: string) => Reply<U>;
+	type ParseFunctionType<U> = (stream: StreamType, index: number) => Reply<U>;
 	/**
 	 * allows to add custom primitive parsers.
 	 */
