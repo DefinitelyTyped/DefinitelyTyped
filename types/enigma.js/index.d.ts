@@ -4,15 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-// declare module "enigma.js" {
-//     const e: IEnigmaJSClass;
-//     export = e;
-// }
-declare const enigmaJS: IEnigmaClass;
-export = enigmaJS;
-export as namespace enigmaJS;
+declare module "enigma.js" {
+    const e: IEnigmaJSClass;
+    export = e;
+}
 
-interface IEnigmaClass {
+interface IEnigmaJSClass {
     /**
      * Create a session object.
      * @returns - Returns a session.
