@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "test-enigma.js.ts"
+        "enigma.js-tests.ts"
     ]
 }
