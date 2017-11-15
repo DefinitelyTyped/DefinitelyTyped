@@ -43,6 +43,7 @@ export namespace graphlib {
         setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph;
         setNode(id: string, node: NodeConfig): Graph;
         setParent(childName: string, parentName: string): void;
+        sinks(): Node[];
         sources(): Node[];
         successors(name: string): Node[]|undefined;
     }
