@@ -222,20 +222,20 @@ export class Fab extends Component<{
     ripple?: boolean,
     position?: string,
     disabled?: boolean,
-    onClick?(): void,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
 }, any> {}
 
 export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
-    onClick?(e?: Event): void
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
 }, any> {}
 
 export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onChange?: React.ChangeEvent<any>,
+    onChange?: React.ChangeEventHandler<HTMLInputElement>,
     value?: string,
     checked?: boolean,
     placeholder?: string,
@@ -247,13 +247,14 @@ export class Input extends Component<{
 
 export class Range extends Component<{
     modifier?: string,
-    onChange?(e: Event): void,
+    onChange?: React.ChangeEventHandler<HTMLInputElement>,
     value?: number,
     disabled?: boolean,
 }, any> {}
 
 export class Switch extends Component<{
-    onChange?(e: Event): void,
+    modifier?: string,
+    onChange?: React.ChangeEventHandler<HTMLInputElement>,
     checked?: boolean,
     disabled?: boolean,
     inputId?: string
@@ -308,7 +309,7 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
-    onClick?: React.MouseEventHandler<any>,
+    onClick?: React.MouseEventHandler<HTMLUListElement>,
 }, any> {}
 
 export class Card extends Component { }

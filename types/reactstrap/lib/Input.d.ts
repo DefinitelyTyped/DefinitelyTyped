@@ -40,12 +40,10 @@ interface InputProps extends Intermediate {
   valid?: boolean;
   tag?: React.ReactType;
   innerRef?: string | ((instance: HTMLInputElement) => any);
-  static?: boolean;
+  plaintext?: boolean;
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;
-  // We don't have the property 'static' here because 'static' is a reserved keyword in TypeScript
-  // Maybe reactstrap will support an 'isStatic' alias in the future
 }
 
 declare var Input: React.StatelessComponent<InputProps>;
