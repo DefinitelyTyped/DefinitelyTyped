@@ -3,7 +3,7 @@
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 //                 Lisa Vallfors <https://github.com/Frankrike>
 //                 Pete Vilter <https://github.com/vilterp>
-//                 David Newell <http://github.com/rustedgrail>
+//                 David Newell <https://github.com/rustedgrail>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
