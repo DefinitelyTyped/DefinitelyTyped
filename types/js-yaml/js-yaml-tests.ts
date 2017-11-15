@@ -82,19 +82,23 @@ value = yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+value = yaml.safeLoadAll(str);
 value = yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 });
 value = yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+value = yaml.safeLoadAll(str, undefined, loadOpts);
 
+value = yaml.loadAll(str);
 value = yaml.loadAll(str, (doc) => {
 	value = doc;
 });
 value = yaml.loadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+value = yaml.loadAll(str, undefined, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
