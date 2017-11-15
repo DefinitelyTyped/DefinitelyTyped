@@ -1,4 +1,4 @@
-// Type definitions for haversine 1.0
+// Type definitions for haversine 1.1
 // Project: https://github.com/njj/haversine
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,12 +8,12 @@ declare namespace haversine {
         longitude: number;
         latitude: number;
     }
-    
+
     interface CoordinateShortNames {
         lat: number;
         lon: number;
     }
-    
+
     interface LatLonTuple extends Array<number> {
         0: number;
         1: number;
@@ -22,10 +22,10 @@ declare namespace haversine {
     interface GeoJSON {
         geometry: {
             coordinates: LatLonTuple
-        }
+        };
     }
 
-    type coordinate = (CoordinateLongNames | CoordinateShortNames | LatLonTuple | GeoJSON);
+    type Coordinate = (CoordinateLongNames | CoordinateShortNames | LatLonTuple | GeoJSON);
 
     interface Options {
         /**
@@ -39,7 +39,7 @@ declare namespace haversine {
         /**
          * Format of coordinate arguments.
          */
-        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | 'geojson'
+        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | 'geojson';
     }
 }
 
@@ -47,8 +47,8 @@ declare namespace haversine {
  * Determines the great-circle distance between two points on a sphere given their longitudes and latitudes
  */
 declare function haversine(
-    start: coordinate,
-    end: coordinate,
+    start: haversine.Coordinate,
+    end: haversine.Coordinate,
     options?: haversine.Options
 ): number;
 
