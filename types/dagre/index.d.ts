@@ -48,23 +48,23 @@ export namespace graphlib {
         successors(name: string): Node[]|undefined;
     }
 
-    class json {
-        static read(graph: any): Graph;
-        static write(graph: Graph): any;
+    namespace json {
+        function read(graph: any): Graph;
+        function write(graph: Graph): any;
     }
 
-    class alg {
-        static components(graph: Graph): string[][];
-        static dijkstra(graph: Graph, source: string, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
-        static dijkstraAll(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
-        static findCycles(graph: Graph): string[][];
-        static floydWarchall(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
-        static isAcyclic(graph: Graph): boolean;
-        static postorder(graph: Graph, nodeNames: string|string[]): string[];
-        static preorder(graph: Graph, nodeNames: string|string[]): string[];
-        static prim(graph: Graph, weightFn?: WeightFn): Graph;
-        static tarjam(graph: Graph): string[][];
-        static topsort(graph: Graph): string[];
+    namespace alg {
+        function components(graph: Graph): string[][];
+        function dijkstra(graph: Graph, source: string, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
+        function dijkstraAll(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
+        function findCycles(graph: Graph): string[][];
+        function floydWarchall(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
+        function isAcyclic(graph: Graph): boolean;
+        function postorder(graph: Graph, nodeNames: string|string[]): string[];
+        function preorder(graph: Graph, nodeNames: string|string[]): string[];
+        function prim(graph: Graph, weightFn?: WeightFn): Graph;
+        function tarjam(graph: Graph): string[][];
+        function topsort(graph: Graph): string[];
     }
 }
 
