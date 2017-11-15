@@ -278,6 +278,7 @@ declare namespace React {
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
         constructor(props: P, context?: any);
+        constructor();
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
         // tslint:disable:unified-signatures
