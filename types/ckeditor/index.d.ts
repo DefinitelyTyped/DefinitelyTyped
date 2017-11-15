@@ -727,7 +727,7 @@ declare namespace CKEDITOR {
         magicline_holdDistance?: number;
         magicline_keystrokeNext?: number;
         magicline_keystrokePrevious?: number;
-        magicline_tabuList?: number;
+        magicline_tabuList?: string[];
         magicline_triggerOffset?: number;
         mathJaxLib?: string;
         menu_groups?: string;
