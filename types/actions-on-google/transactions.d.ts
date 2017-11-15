@@ -25,8 +25,8 @@ export interface Price {
  * Order rejection info.
  */
 export interface RejectionInfo {
-    /** One of Transaction.RejectionType. */
-    type: RejectionType;
+    /** One of Transaction.ReasonType. */
+    type: ReasonType;
     /** Reason for the order rejection. */
     reason: string;
 }
@@ -51,26 +51,16 @@ export interface CancellationInfo {
  * Order transit info.
  */
 export interface TransitInfo {
-    /** UTC timestamp of the transit update. */
-    updatedTime: {
-        /** Seconds since Unix epoch. */
-        seconds: number;
-        /** Partial seconds since Unix epoch. */
-        nanos?: number;
-    };
+    /** UTC timestamp of the transit update as an RFC 3339 string. */
+    updatedTime: string;
 }
 
 /**
  * Order fulfillment info.
  */
 export interface FulfillmentInfo {
-    /** UTC timestamp of the fulfillment update. */
-    deliveryTime: {
-        /** Seconds since Unix epoch. */
-        seconds: number;
-        /** Partial seconds since Unix epoch. */
-        nanos?: number;
-    };
+    /** UTC timestamp of the fulfillment update as an RFC 3339 string. */
+    deliveryTime: string;
 }
 
 /**
@@ -140,7 +130,7 @@ export interface Location {
  */
 export interface TransactionDecision {
     /** One of Transactions.ConfirmationDecision. */
-    userDecision: ConfirmationDecision;
+    userDecision: TransactionUserDecision;
     checkResult: {
         /** One of Transactions.ResultType. */
         resultType: ResultType;
@@ -175,32 +165,61 @@ export interface TransactionDecision {
 export const TransactionValues: {
     /** List of transaction card networks available when paying with Google. */
     readonly CardNetwork: typeof CardNetwork;
+    /**
+     * List of possible item types.
+     * @deprecated Use {@link TransactionValues.LineItemType} instead.
+     */
+    readonly ItemType: typeof LineItemType;
     /** List of possible item types. */
-    readonly ItemType: typeof ItemType;
+    readonly LineItemType: typeof LineItemType;
     /** List of price types. */
     readonly PriceType: typeof PriceType;
     /** List of possible item types. */
     readonly PaymentType: typeof PaymentType;
     /** List of customer information properties that can be requested. */
     readonly CustomerInfoProperties: typeof CustomerInfoProperties;
+    /**
+     * List of possible order confirmation user decisions
+     * @deprecated Use {@link TransactionValues.TransactionUserDecision} instead.
+     */
+    readonly ConfirmationDecision: typeof TransactionUserDecision;
     /** List of possible order confirmation user decisions */
-    readonly ConfirmationDecision: typeof ConfirmationDecision;
+    readonly TransactionUserDecision: typeof TransactionUserDecision;
     /** List of possible order states. */
     readonly OrderState: typeof OrderState;
+    /**
+     * List of possible actions to take on the order.
+     * @deprecated Use {@link TransactionValues.ActionType} instead.
+     */
+    readonly OrderAction: typeof ActionType;
     /** List of possible actions to take on the order. */
-    readonly OrderAction: typeof OrderAction;
+    readonly ActionType: typeof ActionType;
+    /**
+     * List of possible types of order rejection.
+     * @deprecated Use {@link TransactionValues.ReasonType} instead.
+     */
+    readonly RejectionType: typeof ReasonType;
     /** List of possible types of order rejection. */
-    readonly RejectionType: typeof RejectionType;
+    readonly ReasonType: typeof ReasonType;
     /** List of possible order state objects. */
     readonly OrderStateInfo: typeof OrderStateInfo;
     /** List of possible order transaction requirements check result types. */
     readonly ResultType: typeof ResultType;
     /** List of possible user decisions to give delivery address. */
-    readonly DeliveryAddressDecision: typeof DeliveryAddressDecision;
+    readonly DeliveryAddressDecision: typeof DeliveryAddressUserDecision;
+    /** List of possible user decisions to give delivery address. */
+    readonly DeliveryAddressUserDecision: typeof DeliveryAddressUserDecision;
+    /**
+     * List of possible order location types.
+     * @deprecated Use {@link TransactionValues.OrderLocationType} instead.
+     */
+    readonly LocationType: typeof OrderLocationType;
     /** List of possible order location types. */
-    readonly LocationType: typeof LocationType;
+    readonly OrderLocationType: typeof OrderLocationType;
     /** List of possible order time types. */
     readonly TimeType: typeof TimeType;
+    /** List of possible tokenization types for the payment method */
+    readonly PaymentMethodTokenizationType: typeof PaymentMethodTokenizationType;
 };
 
 /**
@@ -235,8 +254,14 @@ export enum CardNetwork {
 
 /**
  * List of possible item types.
+ * @deprecated Use {@link TransactionValues.LineItemType} instead.
  */
-export enum ItemType {
+export type ItemType = LineItemType;
+
+/**
+ * List of possible item types.
+ */
+export enum LineItemType {
     /**
      * Unspecified.
      */
@@ -323,13 +348,24 @@ export enum PaymentType {
  * List of customer information properties that can be requested.
  */
 export enum CustomerInfoProperties {
+    CUSTOMER_INFO_PROPERTY_UNSPECIFIED,
     EMAIL
 }
 
 /**
  * List of possible order confirmation user decisions
+ * @deprecated Use {@link TransactionValues.TransactionUserDecision} instead.
  */
-export enum ConfirmationDecision {
+export type ConfirmationDecision = TransactionUserDecision;
+
+/**
+ * List of possible order confirmation user decisions
+ */
+export enum TransactionUserDecision {
+    /**
+     * Unspecified user decision.
+     */
+    UNKNOWN_USER_DECISION,
     /**
      * Order was approved by user.
      */
@@ -353,6 +389,10 @@ export enum ConfirmationDecision {
  * List of possible order states.
  */
 export enum OrderState {
+    /**
+     * Order was created at the integrator's system.
+     */
+    CREATED,
     /**
      * Order was rejected.
      */
@@ -381,8 +421,18 @@ export enum OrderState {
 
 /**
  * List of possible actions to take on the order.
+ * @deprecated Use {@link TransactionValues.ActionType} instead.
  */
-export enum OrderAction {
+export type OrderAction = ActionType;
+
+/**
+ * List of possible actions to take on the order.
+ */
+export enum ActionType {
+    /**
+     * Unknown action.
+     */
+    UNKNOWN,
     /**
      * View details.
      */
@@ -418,13 +468,23 @@ export enum OrderAction {
     /**
      * Review.
      */
-    REVIEW
+    REVIEW,
+    /**
+     * Customer Service.
+     */
+    CUSTOMER_SERVICE
 }
 
 /**
  * List of possible types of order rejection.
+ * @deprecated Use {@link TransactionValues.ReasonType} instead.
  */
-export enum RejectionType {
+export type RejectionType = ReasonType;
+
+/**
+ * List of possible types of order rejection.
+ */
+export enum ReasonType {
     /**
      * Unknown
      */
@@ -494,8 +554,14 @@ export enum ResultType {
 
 /**
  * List of possible user decisions to give delivery address.
+ * @deprecated Use {@link TransactionValues.DeliveryAddressUserDecision} instead.
  */
-export enum DeliveryAddressDecision {
+export type DeliveryAddressDecision = DeliveryAddressUserDecision;
+
+/**
+ * List of possible user decisions to give delivery address.
+ */
+export enum DeliveryAddressUserDecision {
     /**
      * Unknown.
      */
@@ -512,8 +578,14 @@ export enum DeliveryAddressDecision {
 
 /**
  * List of possible order location types.
+ * @deprecated Use {@link TransactionValues.OrderLocationType} instead.
  */
-export enum LocationType {
+export type LocationType = OrderLocationType;
+
+/**
+ * List of possible order location types.
+ */
+export enum OrderLocationType {
     /**
      * Unknown.
      */
@@ -533,7 +605,11 @@ export enum LocationType {
     /**
      * Destination of the order.
      */
-    DESTINATION
+    DESTINATION,
+    /**
+     * Pick up location of the order.
+     */
+    PICK_UP
 }
 
 /**
@@ -556,6 +632,20 @@ export enum TimeType {
      * Reservation time.
      */
     RESERVATION_SLOT
+}
+
+/**
+ * List of possible tokenization types for the payment method
+ */
+export enum PaymentMethodTokenizationType {
+    /**
+     * Unspecified tokenization type.
+     */
+    UNSPECIFIED_TOKENIZATION_TYPE,
+    /**
+     * Use external payment gateway tokenization API to tokenize selected payment method.
+     */
+    PAYMENT_GATEWAY
 }
 
 /**
@@ -655,11 +745,11 @@ export class Order {
     /**
      * Adds an associated location to the order. Up to 2 locations can be added.
      *
-     * @param type One of TransactionValues.LocationType.
+     * @param type One of TransactionValues.OrderLocationType.
      * @param location Location to add.
      * @return Returns current constructed Order.
      */
-    addLocation(type: LocationType, location: Location): Order;
+    addLocation(type: OrderLocationType, location: Location): Order;
 
     /**
      * Sets an associated time to the order.
@@ -780,9 +870,9 @@ export class LineItem {
     image?: Image;
 
     /**
-     * Type of the item. One of TransactionValues.ItemType.
+     * Type of the item. One of TransactionValues.LineItemType.
      */
-    type?: ItemType;
+    type?: LineItemType;
 
     /**
      * Quantity of the item.
@@ -834,10 +924,10 @@ export class LineItem {
     /**
      * Set the type of the item.
      *
-     * @param type Type of the item. One of TransactionValues.ItemType.
+     * @param type Type of the item. One of TransactionValues.LineItemType.
      * @return Returns current constructed LineItem.
      */
-    setType(type: ItemType): LineItem;
+    setType(type: LineItemType): LineItem;
 
     /**
      * Set the quantity of the item.
@@ -898,9 +988,9 @@ export class OrderUpdate {
     lineItemUpdates: object;
 
     /**
-     * UTC timestamp of the order update.
+     * UTC timestamp of the order update as an RFC 3339 string.
      */
-    updateTime?: object;
+    updateTime?: string;
 
     /**
      * Actionable items presented to the user to manage the order.
@@ -946,7 +1036,7 @@ export class OrderUpdate {
      * Set the update time of the order.
      *
      * @param seconds Seconds since Unix epoch.
-     * @param nanos Partial time units.
+     * @param nanos Partial time units. It is rounded to the nearest millisecond.
      * @return Returns current constructed OrderUpdate.
      */
     setUpdateTime(seconds: number, nanos?: number): OrderUpdate;
@@ -974,12 +1064,12 @@ export class OrderUpdate {
     /**
      * Adds an actionable item for the user to manage the order.
      *
-     * @param type One of TransactionValues.OrderActions.
+     * @param type One of TransactionValues.ActionType.
      * @param label Button label.
      * @param url URL to open when button is clicked.
      * @return Returns current constructed OrderUpdate.
      */
-    addOrderManagementAction(type: OrderAction, label: string, url: string): OrderUpdate;
+    addOrderManagementAction(type: ActionType, label: string, url: string): OrderUpdate;
 
     /**
      * Adds a single price update for a particular line item in the order.
