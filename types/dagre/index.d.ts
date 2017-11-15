@@ -18,17 +18,17 @@ export namespace graphlib {
         isMultiGraph(): boolean;
         setGraph(label: GraphLabel): Graph;
 
-        edge(edgeObj: EdgeLabel): Edge;
-        edge(outNodeName: string, inNodeName: string, name?: string): Edge;
+        edge(edgeObj: Edge): GraphEdge;
+        edge(outNodeName: string, inNodeName: string, name?: string): GraphEdge;
         edgeCount(): number;
-        edges(): EdgeLabel[];
-        hasEdge(edgeObj: EdgeLabel): boolean;
+        edges(): Edge[];
+        hasEdge(edgeObj: Edge): boolean;
         hasEdge(outNodeName: string, inNodeName: string, name?: string): boolean;
-        inEdges(inNodeName: string, outNodeName?: string): EdgeLabel[]|undefined;
-        outEdges(outNodeName: string, inNodeName?: string): EdgeLabel[]|undefined;
+        inEdges(inNodeName: string, outNodeName?: string): Edge[]|undefined;
+        outEdges(outNodeName: string, inNodeName?: string): Edge[]|undefined;
         removeEdge(outNodeName: string, inNodeName: string): Graph;
         setDefaultEdgeLabel(callback: string|(() => string|object)): Graph;
-        setEdge(params: EdgeLabel, value?: string|{[key: string]: any}): Graph;
+        setEdge(params: Edge, value?: string|{[key: string]: any}): Graph;
         setEdge(sourceId: string, targetId: string, value?: string|{ [key: string]: any }, name?: string): Graph;
 
         children(parentName: string): string|undefined;
@@ -67,11 +67,12 @@ export namespace graphlib {
     }
 }
 
-export type WeightFn = (edge: EdgeLabel) => number;
-export type EdgeFn = (outNodeName: string) => Edge[];
+export type WeightFn = (edge: Edge) => number;
+export type EdgeFn = (outNodeName: string) => GraphEdge[];
 
 export interface GraphLabel {
-    label?: string;
+    width?: number;
+    height?: number;
     compound?: boolean;
     rankdir?: string;
     align?: string;
@@ -82,8 +83,6 @@ export interface GraphLabel {
     marginy?: number;
     acyclicer?: string;
     ranker?: string;
-    width?: number;
-    height?: number;
 }
 
 export interface NodeConfig {
@@ -102,13 +101,13 @@ export interface EdgeConfig {
 
 export function layout(graph: graphlib.Graph, layout?: GraphLabel&NodeConfig&EdgeConfig): void;
 
-export interface EdgeLabel {
+export interface Edge {
     v: string;
     w: string;
     name?: string;
 }
 
-export interface Edge {
+export interface GraphEdge {
     points: Array<{x: number, y: number}>;
     [key: string]: any;
 }
