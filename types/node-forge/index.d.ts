@@ -297,13 +297,20 @@ declare module "node-forge" {
     }
 
     namespace cipher {
-        function createCipher(algorithm: string, payload: util.ByteBuffer): ForgeCipher;
-        function createDecipher(algorithm: string, payload: util.ByteBuffer): ForgeCipher;
 
-        interface ForgeCipher {
-            start: () => void;
+        type Algorithm = "AES-ECB" | "AES-CBC" | "AES-CFB" | "AES-OFB" | "AES-CTR" | "AES-GCM" | "3DES-ECB" | "3DES-CBC" | "DES-ECB" | "DES-CBC";
+
+        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+
+        interface StartOptions {
+            iv: string | undefined
+        }
+
+        interface BlockCipher {
+            start: (options?: StartOptions) => void;
             update: (payload: util.ByteBuffer) => void;
-            finish: () => void;
+            finish: () => boolean;
             output: util.ByteStringBuffer;
         }
     }
