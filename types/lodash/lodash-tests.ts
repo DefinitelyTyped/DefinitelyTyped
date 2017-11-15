@@ -11382,6 +11382,21 @@ namespace TestGet {
         result = _({a: true}).get<boolean>('a', false);
         result = _({a: true}).get<boolean>(['a']);
         result = _({a: true}).get<boolean>(['a'], false);
+
+        result = _.get<boolean>({a: { b: true }}, 'a.b');
+        result = _.get<boolean>({a: { b: true }}, 'a.b', false);
+        result = _.get<boolean>({a: { b: true }}, ['a.b']);
+        result = _.get<boolean>({a: { b: true }}, ['a.b'], false);
+
+        result = _.get<boolean>({a: { b: true }}, 'a.b');
+        result = _.get<boolean>({a: { b: true }}, 'a.b', false);
+        result = _.get<boolean>({a: { b: true }}, ['a.b']);
+        result = _.get<boolean>({a: { b: true }}, ['a.b'], false);
+
+        result = _({a: { b: true }}).get<boolean>('a.b');
+        result = _({a: { b: true }}).get<boolean>('a.b', false);
+        result = _({a: { b: true }}).get<boolean>(['a.b']);
+        result = _({a: { b: true }}).get<boolean>(['a.b'], false);
     }
 
     {
@@ -11409,6 +11424,11 @@ namespace TestGet {
         result = _({a: true}).chain().get('a', false);
         result = _({a: true}).chain().get(['a']);
         result = _({a: true}).chain().get(['a'], false);
+
+        result = _({a: {b: true}}).chain().get<boolean>('a.b');
+        result = _({a: {b: true}}).chain().get<boolean>('a.b', false);
+        result = _({a: {b: true}}).chain().get<boolean>(['a.b']);
+        result = _({a: {b: true}}).chain().get<boolean>(['a.b'], false);
     }
 }
 
