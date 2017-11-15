@@ -1,5 +1,6 @@
-import parse = require("url-parse");
+import { URL, parse } from "url-parse";
 
+const url0 = new URL("foo/bar", true, true);
 const url1 = new URL("foo/bar", "https://github.com/");
 const url2 = parse("https://github.com/foo/bar?baz=true");
 const url3 = parse("https://github.com/foo/bar", true, true);
@@ -12,6 +13,7 @@ url2.query.baz;
 
 url3.slashes;
 url3.set("protocol", "http://");
+url3.set("slashes", false);
 
 parse.extractProtocol("https://github.com/foo/bar");
 parse.location("https://github.com/foo/bar");

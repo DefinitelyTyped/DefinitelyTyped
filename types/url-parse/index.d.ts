@@ -6,9 +6,11 @@
 
 import URLSearchParams = require("url-search-params");
 
-type UrlQueryParamsParser = (url: string) => string;
+export type UrlQueryParamsParser = (url: string) => string;
 
-declare class URL {
+export class URL {
+    constructor(url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean);
+    constructor(url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser);
     readonly auth: string;
     readonly hash: string;
     readonly host: string;
@@ -21,32 +23,30 @@ declare class URL {
     readonly protocol: string;
     query: { [key: string]: string | undefined };
     readonly search: string;
-    set(property: string, value: string | object | number | undefined): URL;
+    set(property: string, value: string | object | number | boolean | undefined): URL;
     readonly slashes: boolean;
     readonly username: string;
     readonly searchParams: URLSearchParams;
     toString(): string;
 }
 
-type ParseFunctionNodeType = (url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean) => URL;
-type ParseFunctionType = (url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser) => URL;
+export type ParseFunctionNodeType = (url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean) => URL;
+export type ParseFunctionType = (url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser) => URL;
 
-interface Protocol {
+export interface Protocol {
     slashes: boolean;
     protocol: string;
     rest: string;
 }
 
-type ExtractProtocolFunctionType = (url: string) => Protocol;
+export type ExtractProtocolFunctionType = (url: string) => Protocol;
 
-type LocationFunctionType = (url: string) => string;
+export type LocationFunctionType = (url: string) => string;
 
-interface ExtendedParseFunctionType extends ParseFunctionNodeType, ParseFunctionType {
+export interface ExtendedParseFunctionType extends ParseFunctionNodeType, ParseFunctionType {
     extractProtocol: ExtractProtocolFunctionType;
     location: LocationFunctionType;
     qs: any;
 }
 
-declare const parse: ExtendedParseFunctionType;
-
-export = parse;
+export const parse: ExtendedParseFunctionType;
