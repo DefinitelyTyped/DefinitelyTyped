@@ -843,7 +843,7 @@ export class RelayRecordSourceInspector {
 }
 
 // note RecordSourceInspector is only available in dev environment
-export type RecordSourceInspector = RelayRecordSourceInspector;
+export class RecordSourceInspector extends RelayRecordSourceInspector {}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayObservable
