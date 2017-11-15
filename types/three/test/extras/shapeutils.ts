@@ -6,7 +6,7 @@ const clockWisePointsAsVector2 = clockWisePoints2D.map( ([x,y]) => new Vector2(x
 
 // -------------------------------------------- area()
 
-// The value can be positive or negative
+// The returned value can be positive or negative
 
 ShapeUtils.area(clockWisePointsAsXY); // $ExpectType number
 ShapeUtils.area(clockWisePointsAsVector2); // $ExpectType number
