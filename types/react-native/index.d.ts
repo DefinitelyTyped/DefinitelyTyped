@@ -5,6 +5,7 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
+//                 Nikolas LeBlanc <https://github.com/nikolasleblanc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8286,7 +8287,8 @@ export interface ARTShapeProps {
     d: string,
     strokeWidth: number,
     strokeDash?: number[],
-    stroke: string
+    stroke: string,
+    fill: string
 }
 
 export interface ARTSurfaceProps {
@@ -8295,15 +8297,25 @@ export interface ARTSurfaceProps {
     height: number
 }
 
+export interface ARTGroupProps {
+    style: StyleProp<ViewStyle>,
+    x: number,
+    y: number
+}
+
 export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {
 }
 
 export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {
 }
 
+export interface GroupStatic extends React.ComponentClass<ARTGroupProps> {
+}
+
 export interface ARTStatic {
     Shape: ShapeStatic,
-    Surface: SurfaceStatic
+    Surface: SurfaceStatic,
+    Group: GroupStatic
 }
 
 export interface KeyboardStatic extends NativeEventEmitter {
