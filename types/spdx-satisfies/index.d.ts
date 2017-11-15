@@ -4,7 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function spdxSatisfies(first: string, second: string): boolean;
-declare namespace spdxSatisfies {
-    // empty
-}
 export = spdxSatisfies;

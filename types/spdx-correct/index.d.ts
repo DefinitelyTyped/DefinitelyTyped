@@ -4,7 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function spdxCorrect(identifier: string): string|null;
-declare namespace spdxCorrect {
-    // empty
-}
 export = spdxCorrect;
