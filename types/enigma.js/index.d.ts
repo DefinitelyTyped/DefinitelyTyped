@@ -4,12 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module "enigma.js" {
-    const e: IEnigmaJSClass;
-    export = e;
-}
+// declare module "enigma.js" {
+//     const e: IEnigmaJSClass;
+//     export = e;
+// }
+declare const enigmaJS: IEnigmaClass;
+export = enigmaJS;
+export as namespace enigmaJS;
 
-interface IEnigmaJSClass {
+interface IEnigmaClass {
     /**
      * Create a session object.
      * @returns - Returns a session.
@@ -27,7 +30,7 @@ declare namespace enigmaJS {
          * types such as barchart, story and myCustomType.
          * An API will get both their generic type as well as custom type mixins applied.
          */
-        types: [MixinType];
+        types: MixinType[];
 
         init(args: {config: any, api: IGeneratedAPI}): void;
 
