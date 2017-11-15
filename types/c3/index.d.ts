@@ -636,7 +636,7 @@ declare namespace c3 {
     }
 
     interface LineOptions {
-        value: number;
+        value: string | number | Date;
         text?: string;
         axis?: string;
         position?: string;
