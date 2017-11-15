@@ -264,7 +264,7 @@ declare module "node-forge" {
                 safeBags: Bag[];
             }];
             getBags: (filter: BagsFilter) => {
-                [key: string]: Bag[]|undefined;
+                [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[];
                 friendlyName?: Bag[];
             };
@@ -272,8 +272,8 @@ declare module "node-forge" {
             getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
         }
 
-        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string) : Pkcs12Pfx;
-        function pkcs12FromAsn1(obj: any, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string): Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
     }
 
     namespace md {
@@ -293,6 +293,25 @@ declare module "node-forge" {
 
         namespace md5 {
             function create(): MessageDigest;
+        }
+    }
+
+    namespace cipher {
+
+        type Algorithm = "AES-ECB" | "AES-CBC" | "AES-CFB" | "AES-OFB" | "AES-CTR" | "AES-GCM" | "3DES-ECB" | "3DES-CBC" | "DES-ECB" | "DES-CBC";
+
+        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+
+        interface StartOptions {
+            iv: string | undefined
+        }
+
+        interface BlockCipher {
+            start: (options?: StartOptions) => void;
+            update: (payload: util.ByteBuffer) => void;
+            finish: () => boolean;
+            output: util.ByteStringBuffer;
         }
     }
 }
