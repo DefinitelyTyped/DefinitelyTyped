@@ -44,6 +44,7 @@ declare namespace chrome.app.runtime {
         "installed_notification" = "installed_notification",
         "context_menu" = "context_menu",
     }
+
     interface LaunchData {
         id?: string;
         items?: LaunchDataItem[];
