@@ -1,3 +1,3 @@
-import spdxCorrect = require('spdx-correct');
+import * as spdxCorrect from 'spdx-correct';
 
 spdxCorrect('BSD');

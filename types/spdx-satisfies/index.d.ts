@@ -3,5 +3,6 @@
 // Definitions by: Jinwoo Lee <https://github.com/jinwoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function spdxSatisfies(first: string, second: string): boolean;
+type SpdxSatisfies = (first: string, second: string) => boolean;
+declare const spdxSatisfies: SpdxSatisfies;
 export = spdxSatisfies;
