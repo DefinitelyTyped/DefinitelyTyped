@@ -133,7 +133,7 @@ export interface Plugin {
 	 */
 	resolveId?(importee: string, importer: string): string | null | undefined | false | 0 | ''
 	/** A module transformer function */
-	transform?(source: string, id: string): string | { code: string, map: SourceMap }
+	transform?(this: TransformContext, source: string, id: string): string | { code: string, map: SourceMap }
 	/** A bundle transformer function */
 	transformBundle?(source: string, options: { format: Format }): string | { code: string, map: SourceMap }
 	/** Function hook called when bundle.generate() is being executed. */
@@ -148,6 +148,14 @@ export interface Plugin {
 	banner?: string | (() => string)
 	/** Apppend to the bundle. */
 	footer?: string | (() => string)
+}
+
+// See https://github.com/rollup/rollup/wiki/Plugins#warnings-and-errors
+export interface TransformContext {
+	/** Emit warnings to Rollup which will be logged during bundling */
+	warn(message: string | { message: string }, pos?: number | { line: number, column: number }): void;
+	/** Emit an error, which will abort the bundling process */
+	error(message: string | { message: string }, pos?: number | { line: number, column: number }): void;
 }
 
 /** Returns a Promise that resolves with a bundle */
