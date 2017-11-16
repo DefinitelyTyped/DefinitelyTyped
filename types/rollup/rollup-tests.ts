@@ -1,15 +1,15 @@
 import { rollup, Bundle, Plugin, ConfigFileOptions } from 'rollup'
 
-let console: any
+declare const console: { log(...messages: any[]): void, warn(message: string): void }
 
 let cache: Bundle | undefined
-let plugin: Plugin = {
+const plugin: Plugin = {
     name: 'test-plugin',
     transform(source, id) {
         if (id === 'rxjs') {
             this.error(new Error(`Don't import this directly`))
         }
-        let indexOfQuote = source.indexOf('"')
+        const indexOfQuote = source.indexOf('"')
         if (indexOfQuote >= 0) {
             this.warn(`Prefer ' over " for strings`, indexOfQuote)
         }
@@ -72,7 +72,6 @@ async function main() {
 }
 
 main()
-
 
 export const defaultConfig: ConfigFileOptions = {
     input: 'main.js',

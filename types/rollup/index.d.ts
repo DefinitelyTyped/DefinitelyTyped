@@ -1,6 +1,6 @@
 // Type definitions for rollup 0.41
 // Project: https://github.com/rollup/rollup
-// Definitions by: Philipp A. <https://github.com/flying-sheep>
+// Definitions by: Philipp A. <https://github.com/flying-sheep>, Christian Svensson <https://github.com/csvn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { RawSourceMap } from 'source-map'
@@ -157,9 +157,9 @@ export interface Plugin {
 // See https://github.com/rollup/rollup/wiki/Plugins#warnings-and-errors
 export interface TransformContext {
 	/** Emit warnings to Rollup which will be logged during bundling */
-	warn(message: string | { message: string }, pos?: number | { line: number, column: number }): void;
+	warn(message: string | { message: string }, pos?: number | { line: number, column: number }): void
 	/** Emit an error, which will abort the bundling process */
-	error(message: string | { message: string }, pos?: number | { line: number, column: number }): void;
+	error(message: string | { message: string }, pos?: number | { line: number, column: number }): void
 }
 
 /** Returns a Promise that resolves with a bundle */
