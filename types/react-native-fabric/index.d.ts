@@ -60,9 +60,9 @@ export namespace Crashlytics {
     function recordError(error: any): void;
     function logException(value: string): void;
     function log(message: string): void;
-    function setUserEmail(email: string | null): void;
-    function setUserIdentifier(id: string | null): void;
-    function setUserName(userName: string | null): void;
+    function setUserEmail(email: string): void;
+    function setUserIdentifier(id: string): void;
+    function setUserName(userName: string): void;
     function setBool(key: string, value: boolean): void;
     function setNumber(key: string, value: number): void;
     function setString(key: string, value: string): void;
