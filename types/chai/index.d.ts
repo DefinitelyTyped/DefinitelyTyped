@@ -1360,6 +1360,136 @@ declare namespace Chai {
          * @param message    Message to display on error.
          */
         isNotEmpty<T>(object: T, message?: string): void;
+
+        /**
+         * Asserts that `object` has at least one of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAnyKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has all and only all of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has all of the `keys` provided but may have more keys not listed.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        containsAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has none of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAnyKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` does not have at least one of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has at least one of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAnyDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has all and only all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` contains all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        containsAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` contains all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAnyDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` contains all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
     }
 
     export interface Config {
