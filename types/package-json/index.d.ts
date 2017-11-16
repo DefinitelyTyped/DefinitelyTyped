@@ -9,6 +9,6 @@ interface PackageJsonOptions {
     allVersions?: boolean;
 }
 
-declare function packageJson(name: string, options?: PackageJsonOptions): {};
+declare function packageJson(name: string, options?: PackageJsonOptions): Promise<{}>;
 
 export = packageJson;
