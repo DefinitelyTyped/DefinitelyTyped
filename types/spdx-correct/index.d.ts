@@ -3,5 +3,8 @@
 // Definitions by: Jinwoo Lee <https://github.com/jinwoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function spdxCorrect(identifier: string): string|null;
+interface SpdxCorrect {
+    (identifier: string): string|null;
+}
+declare const spdxCorrect: SpdxCorrect;
 export = spdxCorrect;
