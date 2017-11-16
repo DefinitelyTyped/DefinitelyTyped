@@ -90,3 +90,17 @@ Redis.Command.setArgumentTransformer('set', args => {
 Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
 });
+
+// multi
+redis.multi().set('foo', 'bar').set('foo', 'baz').get('foo', (err, result) => {
+    // result === 'QUEUED'
+}).exec((err, results) => {
+    // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
+});
+
+redis.multi([
+    ['set', 'foo', 'bar'],
+    ['get', 'foo']
+]).exec((err, results) => {
+    // results = [[null, 'OK'], [null, 'bar']]
+});
