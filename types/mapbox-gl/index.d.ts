@@ -54,9 +54,9 @@ declare namespace mapboxgl {
 
 		unproject(point: PointLike): mapboxgl.LngLat;
 
-		queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+		queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature[];
 
-		querySourceFeatures(sourceID: string, parameters?: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+		querySourceFeatures(sourceID: string, parameters?: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature[];
 
 		setStyle(style: mapboxgl.Style | string): this;
 
@@ -507,11 +507,11 @@ declare namespace mapboxgl {
 
 		constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-		setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
+		setData(data: GeoJSON.Feature | GeoJSON.FeatureCollection | String): this;
 	}
 
 	export interface GeoJSONSourceOptions {
-		data?: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | string;
+		data?: GeoJSON.Feature | GeoJSON.FeatureCollection | string;
 
 		maxzoom?: number;
 

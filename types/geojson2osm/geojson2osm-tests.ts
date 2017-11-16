@@ -1,6 +1,6 @@
 import { geojson2osm } from 'geojson2osm'
 
-const features: GeoJSON.FeatureCollection<any> = {
+const features: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
     features: [{
           type: 'Feature',

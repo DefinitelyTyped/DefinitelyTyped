@@ -49,7 +49,7 @@ const sampleExtendedGeometryCollection: d3Geo.ExtendedGeometryCollection<GeoJSON
     ]
 };
 
-const sampleFeature: GeoJSON.Feature<GeoJSON.Polygon> = {
+const sampleFeature: GeoJSON.Feature = {
     type: 'Feature',
     geometry: samplePolygon,
     properties: {
@@ -74,7 +74,7 @@ const sampleExtendedFeature2: d3Geo.ExtendedFeature<d3Geo.GeoSphere, SamplePrope
     }
 };
 
-const sampleFeatureCollection: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
+const sampleFeatureCollection: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
     features: [
         sampleFeature,
