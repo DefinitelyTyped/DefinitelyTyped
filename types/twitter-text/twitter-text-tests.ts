@@ -42,6 +42,7 @@ result = twitter.autoLinkUsernamesOrLists(text);
 result = twitter.autoLinkHashtags(text);
 result = twitter.autoLinkCashtags(text);
 result = twitter.autoLinkUrlsCustom(text, {targetBlank: true, suppressNoFollow: true});
+result = twitter.autoLinkUrlsCustom(text, {usernameIncludeSymbol: true, linkTextBlock: (entity, text) => {}});
 
 const len: number = twitter.getTweetLength(text);
 

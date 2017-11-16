@@ -1033,9 +1033,24 @@ namespace http_tests {
         request.abort();
     }
 
-	const options: http.RequestOptions = {
-        timeout: 30000
-	};
+	// http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
+    }
 }
 
 //////////////////////////////////////////////////////
