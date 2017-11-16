@@ -15,7 +15,7 @@ declare namespace shapefile {
     }
     interface Feature {
         done: boolean
-        value: GeoJSON.Feature<any>
+        value: GeoJSON.Feature
     }
     interface Shapefile {
         bbox: Array<number>
@@ -23,7 +23,7 @@ declare namespace shapefile {
     }
     interface ShapefileStatic {
         open(shp: any, dbf?: any, options?: Options): Promise<Shapefile>;
-        read(shp: any, dbf?: any, options?: Options): Promise<GeoJSON.FeatureCollection<any>>;
+        read(shp: any, dbf?: any, options?: Options): Promise<GeoJSON.FeatureCollection>;
     }
 }
 

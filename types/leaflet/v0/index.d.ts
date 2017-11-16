@@ -223,7 +223,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the circle (GeoJSON Point Feature).
           */
-        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
+        toGeoJSON(): GeoJSON.Feature;
 
     }
 }
@@ -1716,7 +1716,7 @@ declare namespace L {
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
           * Note: Descendent classes MultiPolygon & MultiPolyLine return `Feature`s, not `FeatureCollection`s
           */
-        toGeoJSON(): GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|GeoJSON.Feature<GeoJSON.MultiLineString|GeoJSON.MultiPolygon>;
+        toGeoJSON(): GeoJSON.FeatureCollection|GeoJSON.Feature;
 
         ////////////
         ////////////
@@ -2943,7 +2943,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
           */
-        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
+        toGeoJSON(): GeoJSON.Feature;
 
         /**
           * Marker dragging handler (by both mouse and touch).
@@ -3103,7 +3103,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
           */
-        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiPolygon>;
+        toGeoJSON(): GeoJSON.Feature;
     }
 }
 
@@ -3144,7 +3144,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
           */
-        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiLineString>;
+        toGeoJSON(): GeoJSON.Feature;
     }
 }
 
@@ -3565,7 +3565,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the polyline (GeoJSON LineString Feature).
           */
-        toGeoJSON(): GeoJSON.Feature<GeoJSON.LineString>;
+        toGeoJSON(): GeoJSON.Feature;
     }
 }
 
