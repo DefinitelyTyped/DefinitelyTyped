@@ -3,6 +3,7 @@
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
+//                 Ebrahim <https://github.com/br8h>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -344,8 +345,8 @@ declare namespace IORedis {
         type(key: string, callback: (err: Error, res: string) => void): void;
         type(key: string): Promise<string>;
 
-        multi(callback: (err: Error, res: string) => void): void;
-        multi(): Promise<string>;
+        multi(commands?: string[][], options?: MultiOptions): Pipeline;
+        multi(options: { pipeline: false }): Promise<string>;
 
         exec(callback: (err: Error, res: any) => void): void;
         exec(): Promise<any>;
@@ -843,5 +844,9 @@ declare namespace IORedis {
         retryDelayOnClusterDown?: number;
         retryDelayOnTryAgain?: number;
         redisOptions?: RedisOptions;
+    }
+
+    interface MultiOptions {
+        pipeline: boolean;
     }
 }
