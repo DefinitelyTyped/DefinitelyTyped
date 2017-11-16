@@ -1,5 +1,28 @@
 import { Configuration } from 'webpack';
-import * as WebpackManifestPlugin from 'webpack-manifest-plugin';
+import path = require('path');
+import WebpackManifestPlugin = require('webpack-manifest-plugin');
+
+const options: WebpackManifestPlugin.Options = {
+    filename: 'manifest.json',
+    basePath: '/src/',
+    seed: {
+        name: 'Hello world',
+    },
+    publicPath: 'prod',
+    writeToFileEmit: false,
+    filter: (file) => file.isInitial,
+    map: (file) => {
+        if (file.name) {
+            file.name = path.join(path.dirname(file.path), file.name);
+            return file;
+        }
+    },
+    reduce: (manifest, { name, path }) => {
+        if (name) {
+            return { ...manifest, [name]: path };
+        }
+    },
+};
 
 const c: Configuration = {
     plugins: [
