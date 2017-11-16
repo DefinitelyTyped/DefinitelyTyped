@@ -1,4 +1,4 @@
-// Type definitions for js-yaml 3.9.1
+// Type definitions for js-yaml 3.10.0
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,8 +18,8 @@ declare namespace jsyaml {
 		public static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 	}
 
-	export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
-	export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
+	export function safeLoadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
+	export function loadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
 
 	export function safeDump(obj: any, opts?: DumpOptions): string;
 	export function dump(obj: any, opts?: DumpOptions): string;
