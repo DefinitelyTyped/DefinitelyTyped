@@ -1,5 +1,9 @@
 import { Configuration } from 'webpack';
-import * as CaseSensitivePathsWebpackPlugin from 'case-sensitive-paths-webpack-plugin';
+import CaseSensitivePathsWebpackPlugin = require('case-sensitive-paths-webpack-plugin');
+
+const options: CaseSensitivePathsWebpackPlugin.Options = {
+    debug: true,
+};
 
 const c: Configuration = {
     plugins: [
