@@ -84,7 +84,7 @@ export interface WriteOptions extends BundleOptions {
 
 export interface Bundle {
 	/** Generate bundled code as an object */
-	generate(options: GenerateOptions): { code: string, map: SourceMap }
+	generate(options: GenerateOptions): Promise<{ code: string, map: SourceMap | null }>
 	/** writes the file (and accompanying sourcemap file, if appropriate) to the file system. */
 	write(options: WriteOptions): Promise<void>
 }

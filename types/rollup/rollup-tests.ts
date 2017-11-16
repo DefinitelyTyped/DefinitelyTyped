@@ -29,11 +29,13 @@ async function main() {
         plugins: plugin
     })
 
-    const result = bundle.generate({
+    const { code, map } = await bundle.generate({
         format: 'cjs',
         indent: false,
         sourcemap: true,
     })
+
+    console.log(code, map)
 
     cache = bundle
 
