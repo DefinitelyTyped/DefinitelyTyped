@@ -30,70 +30,44 @@ declare module commandLineArgs {
   export interface OptionDefinition {
     /**
      * The only required definition property is name, the value of each option will be either a Boolean or string.
-     *
-     * @type {string}
-     * @memberof OptionDefinition
      */
     name: string,
     /**
      * The type value is a setter function (you receive the output from this),
      * enabling you to be specific about the type and value received.
-     *
-     * @memberof OptionDefinition
      */
     type?: (arg: string) => any,
     /**
      * getopt-style short option names. Can be any single character (unicode included) except a digit or hypen.
-     *
-     * @type {string}
-     * @memberof OptionDefinition
      */
     alias?: string,
     /**
      * Set this flag if the option takes a list of values. You will receive an array of values, each passed
      * through the type function (if specified).
-     *
-     * @type {boolean}
-     * @memberof OptionDefinition
      */
     multiple?: boolean,
     /**
      * Any unclaimed command-line args will be set on this option. This flag is typically set on
      * the most commonly-used option to make for more concise usage
      * (i.e. $ myapp *.js instead of $ myapp --files *.js).
-     *
-     * @type {boolean}
-     * @memberof OptionDefinition
      */
     defaultOption?: boolean,
     /**
      * An initial value for the option.
-     *
-     * @type {*}
-     * @memberof OptionDefinition
      */
     defaultValue?: any,
     /**
      * When your app has a large amount of options it makes sense to organise them in groups.
      * There are two automatic groups: _all (contains all options) and _none (contains options
      * without a group specified in their definition).
-     *
-     * @type {(string | string[])}
-     * @memberof OptionDefinition
      */
     group?: string | string[],
     /**
      * Describes the option.
-     *
-     * @type {string}
-     * @memberof OptionDefinition
      */
     description?: string,
     /**
      * A label for the type, e.g. <ms>.
-     *
-     * @type {string}
-     * @memberof OptionDefinition
      */
     typeLabel?: string;
   }
@@ -101,16 +75,10 @@ declare module commandLineArgs {
   export interface Options {
     /**
      * An array of strings, which if passed will be parsed instead  of `process.argv`.
-     *
-     * @type {string[]}
-     * @memberof Options
      */
     argv?: string[];
     /**
      * If `true`, an array of unknown arguments is returned in the `_unknown` property of the output.
-     *
-     * @type {boolean}
-     * @memberof Options
      */
     partial?: boolean;
   }
