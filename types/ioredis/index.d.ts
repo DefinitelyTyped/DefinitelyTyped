@@ -346,6 +346,7 @@ declare namespace IORedis {
         type(key: string): Promise<string>;
 
         multi(commands?: string[][], options?: MultiOptions): Pipeline;
+        multi(options: { pipeline: false }): Promise<string>;
 
         exec(callback: (err: Error, res: any) => void): void;
         exec(): Promise<any>;
