@@ -1,4 +1,4 @@
-// Type definitions for rollup 0.41
+// Type definitions for rollup 0.51
 // Project: https://github.com/rollup/rollup
 // Definitions by: Philipp A. <https://github.com/flying-sheep>, Christian Svensson <https://github.com/csvn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
