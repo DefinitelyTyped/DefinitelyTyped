@@ -67,9 +67,9 @@ const clientConnection = createConnection('0.0.0.0', 1234, {
 
 const secureConnection = createConnection('0.0.0.0', 1234, {
     transport: TBufferedTransport,
-  protocol: TBinaryProtocol,
-  nodeOptions: httpsOptions
-})
+    protocol: TBinaryProtocol,
+    nodeOptions: httpsOptions
+});
 
 createClient<MockClient>(mockGeneratedService, clientConnection);
 
