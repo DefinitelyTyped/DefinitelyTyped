@@ -20,13 +20,13 @@ declare namespace WebpackManifestPlugin {
     }
 
     interface HooksOptions {
-        path?: string;
-        chunk?: Chunk;
-        name?: string;
-        isChunk?: boolean;
-        isInitial?: boolean;
-        isAsset?: boolean;
-        isModuleAsset?: boolean;
+        path: string;
+        chunk: Chunk;
+        name: string | null;
+        isChunk: boolean;
+        isInitial: boolean;
+        isAsset: boolean;
+        isModuleAsset: boolean;
     }
 
     interface Options {
@@ -45,11 +45,6 @@ declare namespace WebpackManifestPlugin {
          * A path prefix used only on output files, similar to Webpack's output.publicPath. Ignored if basePath was also provided.
          */
         publicPath?: string;
-
-        /**
-         * Removes unwanted strings from source filenames.
-         */
-        stripSrc?: string | RegExp;
 
         /**
          * If set to true will emit to build folder and memory in combination with webpack-dev-server
@@ -79,6 +74,6 @@ declare namespace WebpackManifestPlugin {
          * Create the manifest. It can return anything as long as it's serialisable by JSON.stringify. Use the seed options to populate manifest.
          * Default: (manifest, {name, path}) => ({...manifest, [name]: path})
          */
-        reduce?: (options: HooksOptions) => void;
+        reduce?: (manifest: any, options: HooksOptions) => void;
     }
 }
