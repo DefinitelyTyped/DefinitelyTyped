@@ -23,7 +23,7 @@ export interface Warning {
 
 export interface BundleOptions {
 	/** The format of the generated bundle. */
-	format?: Format
+	format: Format
 	/** What export mode to use. Defaults to auto, which guesses your intentions based on what the `entry` module exports. */
 	exports?: 'auto' | 'default' | 'named' | 'none'
 	/** An ID to use for AMD/UMD bundles. */
