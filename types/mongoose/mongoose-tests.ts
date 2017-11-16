@@ -1355,6 +1355,16 @@ MongoModel.findOne({ type: 'iphone' }, 'name').exec(function (err, adventure) {}
 MongoModel.findOne({ type: 'iphone' }, 'name', { lean: true }, cb);
 MongoModel.findOne({ type: 'iphone' }, 'name', { lean: true }).exec(cb);
 MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec(cb);
+interface ModelUser {
+  _id: any;
+  name: string;
+  abctest: string;
+}
+MongoModel.findOne({ type: 'iphone' }).select('name').lean<ModelUser>().exec().then(function(doc) {
+  doc._id;
+  doc.name;
+  doc.abctest;
+});
 MongoModel.findOneAndRemove({}, {}, cb);
 MongoModel.findOneAndRemove({}, {});
 MongoModel.findOneAndRemove({}, cb);

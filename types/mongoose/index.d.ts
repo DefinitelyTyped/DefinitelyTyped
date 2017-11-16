@@ -1623,6 +1623,7 @@ declare module "mongoose" {
      * @param bool defaults to true
      */
     lean(bool?: boolean): Query<Object>;
+    lean<U>(bool?: boolean): Query<U>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
