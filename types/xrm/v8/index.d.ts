@@ -1090,6 +1090,13 @@ declare namespace Xrm {
             getDepth(): number;
 
             /**
+             * Get event args returns null for non-save operations
+             *
+             * @return null
+             */
+            getEventArgs(): null;
+
+            /**
              * Gets a reference to the object for which event occurred.
              *
              * @return  The event source.
