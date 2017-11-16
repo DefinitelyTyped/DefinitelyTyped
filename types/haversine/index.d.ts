@@ -4,6 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace haversine {
+    interface CoordinateLongitudeLatitude {
+        longitude: number;
+        latitude: number;
+    }
+
+    interface CoordinateLonLat {
+        lon: number;
+        lat: number;
+    }
+
     type LatLonTuple = [number, number];
 
     interface GeoJSON {
@@ -12,13 +22,7 @@ declare namespace haversine {
         };
     }
 
-    type Coordinate = ({
-        longitude: number;
-        latitude: number;
-    } | {
-        lat: number;
-        lon: number;
-    } | LatLonTuple | GeoJSON);
+    type Coordinate = (CoordinateLongitudeLatitude | CoordinateLonLat | LatLonTuple | GeoJSON);
 
     interface Options {
         /**
