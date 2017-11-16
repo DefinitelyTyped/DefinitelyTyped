@@ -1,11 +1,11 @@
 import haversine = require('haversine');
 
-const start = {
+const start: haversine.CoordinateLongitudeLatitude = {
   longitude: 48.1548256,
   latitude: 11.4017529
 };
 
-const end = {
+const end: haversine.CoordinateLongitudeLatitude = {
   longitude: 52.5065133,
   latitude: 13.1445551
 };
@@ -17,12 +17,12 @@ const options: haversine.Options = {
 
 haversine(start, end, options);
 
-const startShort = {
+const startShort: haversine.CoordinateLonLat = {
   lon: 48.1548256,
   lat: 11.4017529
 };
 
-const endShort = {
+const endShort: haversine.CoordinateLonLat = {
   lon: 52.5065133,
   lat: 13.1445551
 };
