@@ -118,6 +118,10 @@ export interface Options {
 	legacy?: boolean
 }
 
+export interface ConfigFileOptions extends Options {
+	output: WriteOptions | WriteOptions[]
+}
+
 // https://github.com/rollup/rollup/wiki/Plugins#creating-plugins
 export interface Plugin {
 	/** The name of the plugin, for use in error messages and warnings */

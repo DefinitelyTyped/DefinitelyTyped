@@ -1,4 +1,4 @@
-import { rollup, Bundle, Plugin } from 'rollup'
+import { rollup, Bundle, Plugin, ConfigFileOptions } from 'rollup'
 
 let console: any
 
@@ -72,3 +72,26 @@ async function main() {
 }
 
 main()
+
+
+export const defaultConfig: ConfigFileOptions = {
+    input: 'main.js',
+    output: {
+        file: 'bundle.js',
+        format: 'iife',
+    }
+}
+
+export const multiConfig: ConfigFileOptions = {
+    input: 'main.js',
+    output: [
+        {
+            file: 'bundle.esm.js',
+            format: 'es',
+        },
+        {
+            file: 'bundle.cjs.js',
+            format: 'cjs',
+        }
+    ]
+}
