@@ -837,3 +837,44 @@ BlogPost.getItems([postKey1, postKey2], function (err, posts) {
 
 dynogels.log.info("test", "123", {});
 dynogels.log.warn("test", "123", {});
+
+// Lifecycle hooks
+Account.before('create', (data, next) => {
+    if (!data.name) {
+        data.name = 'Foo Bar';
+    }
+
+    return next(null, data);
+});
+
+Account.before('update', (data, next) => {
+    data.age = 45;
+    return next(null, data);
+});
+
+Account.after('create', item => {
+    console.log('Account created', item.get());
+});
+
+Account.after('update', item => {
+    console.log('Account updated', item.get());
+});
+
+Account.after('destroy', item => {
+    console.log('Account destroyed', item.get());
+});
+
+dynogels.createTables(err => {
+    if (err) {
+        console.log('Error creating tables', err);
+        process.exit(1);
+    }
+
+    Account.create({ email: 'test11@example.com' }, (err, acc) => {
+        acc.set({ age: 25 });
+
+        acc.update(() => {
+            acc.destroy({ ReturnValues: 'ALL_OLD' });
+        });
+    });
+});
