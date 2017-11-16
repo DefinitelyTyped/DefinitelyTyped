@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { computed } from 'mobx';
 import { ApolloClient } from 'apollo-client';
 import gql from 'graphql-tag';
