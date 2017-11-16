@@ -21,6 +21,9 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ isOpen: false });
     }
 
+    onChange(event: React.ChangeEvent<HTMLInputElement>) {}
+    onClick(event: React.MouseEvent<HTMLButtonElement>) {}
+
     render() {
         return (
             <Splitter>
@@ -37,8 +40,8 @@ export class App extends React.Component<AppProps, AppState> {
                 <SplitterContent>
                     <Page>
                         Test page
-                        <Input name='test' type='text' value='test' onChange={onChange} />
-                        <Button onClick={onClick} />
+                        <Input name='test' type='text' value='test' onChange={this.onChange} />
+                        <Button onClick={this.onClick} />
 					</Page>
                 </SplitterContent>
             </Splitter>
@@ -47,6 +50,3 @@ export class App extends React.Component<AppProps, AppState> {
 }
 
 ReactDOM.render(<App />, document.getElementById('react-body'));
-
-function onChange(event: React.ChangeEvent<HTMLInputElement>) { }
-function onClick(event: React.MouseEvent<HTMLButtonElement>) { }

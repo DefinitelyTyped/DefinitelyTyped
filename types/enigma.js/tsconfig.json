@@ -7,19 +7,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {},
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "hystrixjs-tests.ts"
+        "enigma.js-tests.ts"
     ]
 }

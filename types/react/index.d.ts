@@ -2656,6 +2656,7 @@ declare namespace React {
 
     interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+        width?: number | string;
     }
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
