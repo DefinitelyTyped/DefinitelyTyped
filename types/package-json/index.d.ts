@@ -9,7 +9,6 @@ interface PackageJsonOptions {
     allVersions?: boolean;
 }
 
-type PackageJson = (name: string, options?: PackageJsonOptions) => {};
+declare function packageJson(name: string, options?: PackageJsonOptions): {};
 
-declare const packageJson: PackageJson;
 export = packageJson;
