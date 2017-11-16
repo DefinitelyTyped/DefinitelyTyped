@@ -3,7 +3,19 @@ import { rollup, Bundle, Plugin } from 'rollup'
 let console: any
 
 let cache: Bundle | undefined
-let plugin: Plugin
+let plugin: Plugin = {
+    name: 'test-plugin',
+    transform(source, id) {
+        if (id === 'rxjs') {
+            this.error(new Error(`Don't import this directly`))
+        }
+        let indexOfQuote = source.indexOf('"')
+        if (indexOfQuote >= 0) {
+            this.warn(`Prefer ' over " for strings`, indexOfQuote)
+        }
+        return source
+    }
+}
 
 async function main() {
     const bundle = await rollup({
