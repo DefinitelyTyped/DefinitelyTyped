@@ -120,19 +120,19 @@ declare namespace Chart {
     }
 
     interface ChartTooltipCallback {
-        beforeTitle?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        title?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        afterTitle?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        beforeBody?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        beforeLabel?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
-        label?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
-        labelColor?(tooltipItem?: ChartTooltipItem, chart?: Chart): ChartTooltipLabelColor;
-        labelTextColor?(tooltipItem?: ChartTooltipItem, chart?: Chart): string;
-        afterLabel?(tooltipItem?: ChartTooltipItem, data?: ChartData): string | string[];
-        afterBody?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        beforeFooter?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        footer?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
-        afterFooter?(item?: ChartTooltipItem[], data?: ChartData): string | string[];
+        beforeTitle?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        title?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        afterTitle?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        beforeBody?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        beforeLabel?(tooltipItem: ChartTooltipItem, data: ChartData): string | string[];
+        label?(tooltipItem: ChartTooltipItem, data: ChartData): string | string[];
+        labelColor?(tooltipItem: ChartTooltipItem, chart: Chart): ChartTooltipLabelColor;
+        labelTextColor?(tooltipItem: ChartTooltipItem, chart: Chart): string;
+        afterLabel?(tooltipItem: ChartTooltipItem, data: ChartData): string | string[];
+        afterBody?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        beforeFooter?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        footer?(item: ChartTooltipItem[], data: ChartData): string | string[];
+        afterFooter?(item: ChartTooltipItem[], data: ChartData): string | string[];
     }
 
     interface ChartAnimationParameter {
