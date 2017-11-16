@@ -5,11 +5,15 @@
 // TypeScript Version: 2.2
 
 declare module "enigma.js" {
-    const e: IEnigmaJSClass;
+    const e: IEnigmaClass;
     export = e;
 }
 
-interface IEnigmaJSClass {
+// declare const enigmaJS: IEnigmaClass;
+// export = enigmaJS;
+// export as namespace enigmaJS;
+
+interface IEnigmaClass {
     /**
      * Create a session object.
      * @returns - Returns a session.
@@ -94,12 +98,6 @@ declare namespace enigmaJS {
     }
 
     interface ISession {
-        /**
-         * Establishes the websocket against the configured URL. Eventually resolved with the QIX global interface when the connection has been established.
-         * @return Promise.
-         */
-        open(): Promise<IGeneratedAPI>;
-
         /**
          * Establishes the websocket against the configured URL. Eventually resolved with the QIX global interface when the connection has been established.
          * @return Promise.
