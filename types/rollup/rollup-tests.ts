@@ -1,5 +1,7 @@
 import { rollup, Bundle, Plugin } from 'rollup'
 
+let console: any
+
 let cache: Bundle | undefined
 let plugin: Plugin
 
@@ -8,6 +10,16 @@ async function main() {
         input: 'main.js',
         external: ['external-module'],
         plugins: [plugin],
+        onwarn: ({ code, frame, loc, message }) => {
+            if (loc) {
+                const { file, line, column } = loc
+                console.log(`[${code}] - ${file}(${line},${column}): ${message}`)
+            } else {
+                console.log(`[${code}] - ${message}`)
+            }
+
+            if (frame) console.warn(frame)
+        },
         cache,
     })
 
@@ -20,13 +32,16 @@ async function main() {
     const result = bundle.generate({
         format: 'cjs',
         indent: false,
+        sourcemap: true,
     })
 
     cache = bundle
 
     await bundle.write({
         format: 'cjs',
-        dest: 'bundle.js',
+        file: 'bundle.js',
+        name: 'myLib',
+        interop: false,
         globals: {
             jquery: '$',
             lodash: '_',
@@ -36,6 +51,9 @@ async function main() {
         intro: 'var ENV = "production";',
         outro: 'var VERSION = "1.0.0";',
         indent: '  ',
+        sourcemap: 'inline',
+        sourcemapFile: 'bundle.js.map',
+        strict: true,
     })
 }
 
