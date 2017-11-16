@@ -1,23 +1,23 @@
+import * as fs from "fs";
 import * as uinput from 'uinput';
-import { WriteStream } from 'fs';
 
-const setupOptions: uinput.ISetupOptions = {
+const setupOptions: uinput.SetupOptions = {
   EV_KEY: [uinput.KEY_A, uinput.KEY_B]
 };
 
-const createID: uinput.ICreateID = {
+const createID: uinput.CreateID = {
   product: 123,
   vendor: 456,
   version: 789,
   bustype: uinput.BUS_VIRTUAL
 };
 
-const createOptions: uinput.ICreateOptions = {
+const createOptions: uinput.CreateOptions = {
   id: createID,
   name: "TestDevice"
 };
 
-uinput.setup(setupOptions, (err0: Error | undefined, stream: WriteStream): void => {
+uinput.setup(setupOptions, (err0: Error | undefined, stream: fs.WriteStream): void => {
   if (err0 instanceof Error) {
     throw err0;
   }

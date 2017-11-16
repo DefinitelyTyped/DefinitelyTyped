@@ -3,19 +3,21 @@
 // Definitions by: Florian Richter <https://github.com/Fidge123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { WriteStream } from "fs";
+/// <reference types="node" />
+
+import * as fs from "fs";
 
 declare module "uinput" {
-  interface ISetupOptions {
+  interface SetupOptions {
     EV_KEY: any[];
   }
 
-  interface ICreateOptions {
+  interface CreateOptions {
     name: string;
-    id: ICreateID;
+    id: CreateID;
   }
 
-  interface ICreateID {
+  interface CreateID {
     bustype: number;
     vendor: number;
     product: number;
@@ -28,28 +30,28 @@ declare module "uinput" {
   }
 
   function setup(
-    options: ISetupOptions,
-    callback: (err: Error, stream: WriteStream) => void
+    options: SetupOptions,
+    callback: (err: Error, stream: fs.WriteStream) => void
   ): void;
   function create(
-    stream: WriteStream,
-    options: ICreateOptions,
+    stream: fs.WriteStream,
+    options: CreateOptions,
     callback: (err: Error) => void
   ): void;
   function send_event(
-    stream: WriteStream,
+    stream: fs.WriteStream,
     typeParam: number,
     code: number,
     value: number,
     callback: (err: Error) => void
   ): void;
   function key_event(
-    stream: WriteStream,
+    stream: fs.WriteStream,
     code: number,
     callback: (err: Error) => void
   ): void;
   function emit_combo(
-    stream: WriteStream,
+    stream: fs.WriteStream,
     codes: number[],
     callback: (err: Error) => void
   ): void;
