@@ -1,4 +1,4 @@
-// Type definitions for rollup 0.41
+// Type definitions for rollup 0.50
 // Project: https://github.com/rollup/rollup
 // Definitions by: Philipp A. <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,12 +24,13 @@ export interface Warning {
 export interface BundleOptions {
 	/** The format of the generated bundle. */
 	format?: Format
-	/** What export mode to use. Defaults to auto, which guesses your intentions based on what the `entry` module exports. */
+	/** What export mode to use. Defaults to auto, which guesses your intentions based on what the `input` module exports. */
 	exports?: 'auto' | 'default' | 'named' | 'none'
 	/** An ID to use for AMD/UMD bundles. */
 	moduleId?: string
+	amd?:{ id?:string, define?:string }
 	/** The name to use for the module for UMD/IIFE bundles (required for bundles with exports). */
-	moduleName?: string
+	name?: string
 	/** Mapping of IDs → global variable names. Used for UMD/IIFE bundles. */
 	globals?: { [id: string]: string }
 	/**
@@ -55,26 +56,26 @@ export interface BundleOptions {
 	 * Whether to include the 'use strict' pragma at the top of generated non-ES6 bundles.
 	 * Strictly-speaking (geddit?), ES6 modules are always in strict mode, so you shouldn't disable this without good reason.
 	 */
-	useStrict?: boolean
+	strict?: boolean
 }
 
 export interface GenerateOptions extends BundleOptions {
 	/** Whether to generate a sourcemap. If true, the return value from `bundle.generate(...)` will include a map property */
-	sourceMap?: boolean
+	sourcemap?: boolean
 	/**
 	 * The location of the generated bundle. If this is an absolute path, all the sources paths in the sourcemap will be relative to it.
-	 * The map.file property is the basename of sourceMapFile, as the location of the sourcemap is assumed to be adjacent to the bundle.
+	 * The map.file property is the basename of sourcemapFile, as the location of the sourcemap is assumed to be adjacent to the bundle.
 	 */
-	sourceMapFile?: string
+	sourcemapFile?: string
 }
 
 export interface WriteOptions extends BundleOptions {
-	/** The file to write to. If `options.sourceMap === true`, two files will be created – `dest` and `dest + '.map`. */
-	dest: string
-	/** If `true`, a separate sourcemap file will be created. If `'inline'`, the sourcemap will be appended to the resulting dest file as a data URI. */
-	sourceMap?: boolean | 'inline'
-	/** This option is unnecessary, as it defaults to the value of dest. */
-	sourceMapFile?: string
+	/** The file to write to. If `options.sourcemap === true`, two files will be created – `file` and `file + '.map`. */
+	file: string
+	/** If `true`, a separate sourcemap file will be created. If `'inline'`, the sourcemap will be appended to the resulting file as a data URI. */
+	sourcemap?: boolean | 'inline'
+	/** This option is unnecessary, as it defaults to the value of file. */
+	sourcemapFile?: string
 }
 
 export interface Bundle {
@@ -86,7 +87,7 @@ export interface Bundle {
 
 export interface Options {
 	/** The bundle's entry point (e.g. your `main.js` or `app.js` or `index.js`) */
-	entry: string | string[]
+	input: string | string[]
 	/** A previous bundle. Use it to speed up subsequent bundles :) */
 	cache?: Bundle
 	/**
