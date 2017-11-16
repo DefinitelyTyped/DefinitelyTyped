@@ -8,6 +8,7 @@ import * as React from 'react';
 
 export interface DatePickerProps {
     mode?: 'date' | 'datetime' | 'time';
+    androidMode?: 'default' | 'calendar' | 'spinner';
     date?: string | Date;
     format?: string;
     minDate?: string | Date;

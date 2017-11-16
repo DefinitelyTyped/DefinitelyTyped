@@ -5,6 +5,7 @@
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -2879,6 +2880,7 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
         end?: number;
+        highWaterMark?: number;
     }): ReadStream;
     export function createWriteStream(path: string | Buffer, options?: {
         flags?: string;

@@ -1,6 +1,10 @@
 // Type definitions for Node.js v6.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>, Wilco Bakker <https://github.com/WilcoBakker>, Thomas Bouldin <https://github.com/inlined>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+//                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Thomas Bouldin <https://github.com/inlined>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -2746,6 +2750,7 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
         end?: number;
+        highWaterMark?: number;
     }): ReadStream;
     export function createWriteStream(path: string | Buffer, options?: {
         flags?: string;
