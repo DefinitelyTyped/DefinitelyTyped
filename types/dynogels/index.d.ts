@@ -3,6 +3,8 @@
 // Definitions by: Spartan Labs <https://github.com/SpartanLabs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export import AWS = require("aws-sdk");
 import * as joi from "joi";
 import stream = require("stream");
@@ -23,7 +25,7 @@ export interface Log {
     warn(...args: any[]): void;
 }
 
-//Dynogels global functions
+// Dynogels global functions
 export function dynamoDriver(dynamoDB: AWS.DynamoDB): AWS.DynamoDB;
 export function reset(): void;
 export function define(modelName: string, config: ModelConfiguration): Model;
@@ -34,7 +36,7 @@ export function Set(...args: any[]): any;
 export interface DynogelsGlobalOptions {
     $dynogels: {
         pollingInterval: number;
-    }
+    };
 }
 
 export interface CreateTablesOptions {
@@ -48,7 +50,7 @@ export interface CreateTablesOptions {
 
 export type LifeCycleAction = "create" | "update" | "destroy";
 
-//Dynogels Model
+// Dynogels Model
 export interface Model {
     new(attrs: { [key: string]: any }): Item;
 
@@ -69,10 +71,10 @@ export interface Model {
     query(hashKey: any): Query;
     scan(): Scan;
     parallelScan(totalSegments: number): Scan;
-    getItems(items: string[] | { [key: string]: string }[], callback: (err: Error, items: any[]) => void): void;
-    getItems(items: string[] | { [key: string]: string }[], options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(items: string[] | { [key: string]: string }[], callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(items: string[] | { [key: string]: string }[], options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
+    getItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
+    getItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
+    batchGetItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
+    batchGetItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
     createTable(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
     createTable(callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
     updateTable(throughput: Throughput, callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
@@ -86,7 +88,7 @@ export interface Model {
     config(config: ModelConfig): { name: string };
 }
 
-type DynogelsItemCallback = (err: Error, data: Item) => void;
+export type DynogelsItemCallback = (err: Error, data: Item) => void;
 
 export interface Throughput {
     readCapacity: number;
@@ -147,7 +149,7 @@ export interface ModelConfig {
     dynamodb?: AWS.DynamoDB;
 }
 
-//Dynogels Item
+// Dynogels Item
 export interface Item {
     get(key?: string): { [key: string]: any };
     set(params: {}): Item;
@@ -160,7 +162,7 @@ export interface Item {
     toPlainObject(): any;
 }
 
-export interface BaseChain<T>  {
+export interface BaseChain<T> {
     equals(value: any): T;
     eq(value: any): T;
     lte(value: any): T;
@@ -176,14 +178,14 @@ export interface BaseChain<T>  {
 export interface ExtendedChain<T> extends BaseChain<T> {
     contains(value: any): T;
     notContains(value: any): T;
-    in(values: any[]): T; 
+    in(values: any[]): T;
     ne(value: any): T;
 }
 
 export type QueryWhereChain = BaseChain<Query>;
 export type QueryFilterChain = ExtendedChain<Query>;
 
-//Dynogels Query
+// Dynogels Query
 export interface Query {
     limit(number: number): Query;
     filterExpression(expression: any): Query;
@@ -207,11 +209,11 @@ export interface Query {
     exec(callback: (err: Error, data: any) => void): void;
 }
 
-interface ScanWhereChain extends ExtendedChain<Scan> {
+export interface ScanWhereChain extends ExtendedChain<Scan> {
     notNull(): Scan;
 }
 
-//Dynogels Scan
+// Dynogels Scan
 export interface Scan {
     limit(number: number): Scan;
     addFilterCondition(condition: any): Scan;
@@ -230,18 +232,20 @@ export interface Scan {
     loadAll(): Scan;
 }
 
-type tableResolve = () => string;
+export type tableResolve = () => string;
 
-type schemaType = { [key: string]: joi.AnySchema | schemaType };
+export interface SchemaType {
+    [key: string]: joi.AnySchema | SchemaType;
+}
 
 export interface ModelConfiguration {
-    hashKey: string,
-    rangeKey?: string,
-    timestamps?: boolean,
-    createdAt?: boolean,
-    updatedAt?: string,
-    schema?: schemaType,
-    validation?: joi.ValidationOptions,
+    hashKey: string;
+    rangeKey?: string;
+    timestamps?: boolean;
+    createdAt?: boolean;
+    updatedAt?: string;
+    schema?: SchemaType;
+    validation?: joi.ValidationOptions;
     tableName?: string | tableResolve;
     indexes?: any[];
     log?: Log;
@@ -252,7 +256,7 @@ export interface Document {
 }
 
 export interface DocumentCollection {
-    Items: Document[],
-    Count: number,
-    ScannedCount: number
+    Items: Document[];
+    Count: number;
+    ScannedCount: number;
 }
