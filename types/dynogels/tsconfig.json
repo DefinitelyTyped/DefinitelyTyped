@@ -11,10 +11,9 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "node"
-        ],
+        "types": [],
         "noEmit": true,
+        "strictFunctionTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

@@ -1,14 +1,13 @@
-/// <reference path="index.d.ts" />
 import dynogels = require("dynogels");
 import { DynamoDB } from "aws-sdk";
 import * as Joi from "joi";
 
-//AWS Configs
+// AWS Configs
 dynogels.AWS.config.loadFromPath('credentials.json');
 dynogels.AWS.config.update({ region: "REGION" });
 
-//Define a Model
-var Account = dynogels.define('Account', {
+// Define a Model
+const Account = dynogels.define('Account', {
     hashKey: 'email',
 
     // add the timestamp attributes (updatedAt, createdAt)
@@ -29,7 +28,7 @@ var Account = dynogels.define('Account', {
     }
 });
 
-var BlogPost = dynogels.define('BlogPost', {
+const BlogPost = dynogels.define('BlogPost', {
     hashKey: 'email',
     rangeKey: 'title',
     schema: {
@@ -40,7 +39,7 @@ var BlogPost = dynogels.define('BlogPost', {
     }
 });
 
-var BlogPost = dynogels.define('BlogPost', {
+const BlogPost1 = dynogels.define('BlogPost', {
     hashKey: 'email',
     rangeKey: 'title',
     schema: {
@@ -53,18 +52,12 @@ var BlogPost = dynogels.define('BlogPost', {
     }
 });
 
-//Create Tables
-dynogels.createTables(function (err) {
-    if (err) {
-        console.log('Error creating tables: ', err);
-    } else {
-        console.log('Tables has been created');
-    }
-});
+// Create Tables
+dynogels.createTables((err) => { });
 
 dynogels.createTables({
-    'BlogPost': { readCapacity: 5, writeCapacity: 10 },
-    'Account': {
+    BlogPost: { readCapacity: 5, writeCapacity: 10 },
+    Account: {
         readCapacity: 20,
         writeCapacity: 4,
         streamSpecification: {
@@ -72,35 +65,17 @@ dynogels.createTables({
             streamViewType: 'NEW_IMAGE'
         }
     }
-}, function (err) {
-    if (err) {
-        console.log('Error creating tables: ', err);
-    } else {
-        console.log('Tables has been created');
-    }
-});
+}, (err) => { });
 
 dynogels.createTables({
     $dynogels: { pollingInterval: 100 }
-}, function (err) {
-    if (err) {
-        console.log('Error creating tables: ', err);
-    } else {
-        console.log('Tables has been created');
-    }
-});
+}, (err) => { });
 
 // Delete Table
-BlogPost.deleteTable(function (err) {
-    if (err) {
-        console.log('Error deleting table: ', err);
-    } else {
-        console.log('Table has been deleted');
-    }
-});
+BlogPost.deleteTable((err) => { });
 
-//UUID
-var Tweet = dynogels.define('Tweet', {
+// UUID
+const Tweet = dynogels.define('Tweet', {
     hashKey: 'TweetID',
     timestamps: true,
     schema: {
@@ -109,8 +84,8 @@ var Tweet = dynogels.define('Tweet', {
     }
 });
 
-//Configuration
-var Account = dynogels.define('Account', {
+// Configuration
+const Account1 = dynogels.define('Account', {
     hashKey: 'email',
 
     // add the timestamp attributes (updatedAt, createdAt)
@@ -121,7 +96,7 @@ var Account = dynogels.define('Account', {
     }
 });
 
-var Account = dynogels.define('Account', {
+const Account2 = dynogels.define('Account', {
     hashKey: 'email',
 
     // enable timestamps support
@@ -138,7 +113,7 @@ var Account = dynogels.define('Account', {
     }
 });
 
-var Event = dynogels.define('Event', {
+const Event = dynogels.define('Event', {
     hashKey: 'name',
     schema: {
         name: Joi.string(),
@@ -148,7 +123,7 @@ var Event = dynogels.define('Event', {
     tableName: 'deviceEvents'
 });
 
-var Event = dynogels.define('Event', {
+const Event1 = dynogels.define('Event', {
     hashKey: 'name',
     schema: {
         name: Joi.string(),
@@ -156,134 +131,105 @@ var Event = dynogels.define('Event', {
     },
 
     // store monthly event data
-    tableName: function () {
-        var d = new Date();
+    tableName: () => {
+        const d = new Date();
         return ['events', d.getFullYear(), d.getMonth() + 1].join('_');
     }
 });
 
 Account.config({ tableName: 'AccountsTable' });
 
-var dynamodb = new DynamoDB();
-Account.config({ dynamodb: dynamodb });
+const dynamodb = new DynamoDB();
+Account.config({ dynamodb });
 
 // or globally use custom DynamoDB instance
 // all defined models will now use this driver
 dynogels.dynamoDriver(dynamodb);
 
 // Saving Models To DynamoDB
-Account.create({ email: 'foo@example.com', name: 'Foo Bar', age: 21 }, function (err, acc) {
-    console.log('created account in DynamoDB', acc.get('email'));
+Account.create({ email: 'foo@example.com', name: 'Foo Bar', age: 21 }, (err, acc) => {
+    acc.get('email');
 });
 
-var acc = new Account({ email: 'test@example.com', name: 'Test Example' });
-acc.save(function (err) {
-    console.log('created account in DynamoDB', acc.get('email'));
+const acc = new Account({ email: 'test@example.com', name: 'Test Example' });
+acc.save((err) => {
+    acc.get('email');
 });
 
 BlogPost.create({
     email: 'werner@example.com',
     title: 'Expanding the Cloud',
     content: 'Today, we are excited to announce the limited preview...'
-}, function (err, post) {
-    console.log('created blog post', post.get('title'));
-});
+}, (err, post) => { });
 
-var item1 = { email: 'foo1@example.com', name: 'Foo 1', age: 10 };
-var item2 = { email: 'foo2@example.com', name: 'Foo 2', age: 20 };
-var item3 = { email: 'foo3@example.com', name: 'Foo 3', age: 30 };
+const item1 = { email: 'foo1@example.com', name: 'Foo 1', age: 10 };
+const item2 = { email: 'foo2@example.com', name: 'Foo 2', age: 20 };
+const item3 = { email: 'foo3@example.com', name: 'Foo 3', age: 30 };
 
-Account.create([item1, item2, item3], function (err, accounts) {
-    console.log('created 3 accounts in DynamoDB', accounts);
-});
+Account.create([item1, item2, item3], (err, accounts) => { });
 
-var params: dynogels.CreateItemOptions = {
+const params: dynogels.CreateItemOptions = {};
 
-};
 params.ConditionExpression = '#i <> :x';
 params.ExpressionAttributeNames = { '#i': 'id' };
 params.ExpressionAttributeValues = { ':x': 123 };
 
-Account.create({ id: 123, name: 'Kurt Warner' }, params, function (error, acc) {
-
-});
+Account.create({ id: 123, name: 'Kurt Warner' }, params, (error, acc) => { });
 
 // setting overwrite to false will generate
 // the same Condition Expression as in the previous example
-Account.create({ id: 123, name: 'Kurt Warner' }, { overwrite: false }, function (error, acc) { });
+Account.create({ id: 123, name: 'Kurt Warner' }, { overwrite: false }, (error, acc) => { });
 
 // Updating
-Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, function (err, acc) {
-    console.log('update account', acc.get('name'));
-});
+Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, (err, acc) => { });
 
-Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, { ReturnValues: 'ALL_OLD' }, function (err, acc) {
-    console.log('update account', acc.get('name')); // prints the old account name
-});
+Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, { ReturnValues: 'ALL_OLD' }, (err, acc) => { });
 
 // Only update the account if the current age of the account is 22
-Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, { expected: { age: 22 } }, function (err, acc) {
-    console.log('update account', acc.get('name'));
-});
+Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, { expected: { age: 22 } }, (err, acc) => { });
 
 // setting an attribute to null will delete the attribute from DynamoDB
-Account.update({ email: 'foo@example.com', age: null }, function (err, acc) {
-    console.log('update account', acc.get('age')); // prints null
-});
+Account.update({ email: 'foo@example.com', age: null }, (err, acc) => { });
 
 Account.update(
     { email: 'foo@example.com', name: 'FooBar Testers' },
     { expected: { email: { Exists: true } } },
-    (err, acc) => {
-        console.log(acc.get('name')); // FooBar Testers
-    }
+    (err, acc) => { }
 );
 
 Account.update(
     { email: 'baz@example.com', name: 'Bar Tester' },
     { expected: { email: { Exists: true } } },
-    (err, acc) => {
-        console.log(err); // Condition Expression failed: no Account with that hash key
-    }
+    (err, acc) => { }
 );
 
-Account.update({ email: 'foo@example.com', age: { $add: 1 } }, function (err, acc) {
-    console.log('incremented age by 1', acc.get('age'));
-});
+Account.update({ email: 'foo@example.com', age: { $add: 1 } }, (err, acc) => { });
 
 BlogPost.update({
     email: 'werner@example.com',
     title: 'Expanding the Cloud',
     tags: { $add: 'cloud' }
-}, function (err, post) {
-    console.log('added single tag to blog post', post.get('tags'));
-});
+}, (err, post) => { });
 
 BlogPost.update({
     email: 'werner@example.com',
     title: 'Expanding the Cloud',
     tags: { $add: ['cloud', 'dynamodb'] }
-}, function (err, post) {
-    console.log('added tags to blog post', post.get('tags'));
-});
+}, (err, post) => { });
 
 BlogPost.update({
     email: 'werner@example.com',
     title: 'Expanding the Cloud',
     tags: { $del: 'cloud' }
-}, function (err, post) {
-    console.log('removed cloud tag from blog post', post.get('tags'));
-});
+}, (err, post) => { });
 
 BlogPost.update({
     email: 'werner@example.com',
     title: 'Expanding the Cloud',
     tags: { $del: ['aws', 'node'] }
-}, function (err, post) {
-    console.log('removed multiple tags', post.get('tags'));
-});
+}, (err, post) => { });
 
-var params1: dynogels.UpdateItemOptions = {};
+const params1: dynogels.UpdateItemOptions = {};
 params1.UpdateExpression = 'SET #year = #year + :inc, #dir.titles = list_append(#dir.titles, :title), #act[0].firstName = :firstName ADD tags :tag';
 params1.ConditionExpression = '#year = :current';
 params1.ExpressionAttributeNames = {
@@ -300,67 +246,45 @@ params1.ExpressionAttributeValues = {
     ':tag': dynogels.Set(['Sports', 'Horror'], 'S')
 };
 
-BlogPost.update({ title: 'Movie 0', description: 'This is a description' }, params1, function (err, mov) { });
+BlogPost.update({ title: 'Movie 0', description: 'This is a description' }, params1, (err, mov) => { });
 
-//Deleting
-Account.destroy('foo@example.com', function (err) {
-    console.log('account deleted');
-});
+// Deleting
+Account.destroy('foo@example.com', (err) => { });
 
 // Destroy model using hash and range key
-BlogPost.destroy('foo@example.com', 'Hello World!', function (err) {
-    console.log('post deleted')
-});
+BlogPost.destroy('foo@example.com', 'Hello World!', (err) => { });
 
-BlogPost.destroy({ email: 'foo@example.com', title: 'Another Post' }, function (err) {
-    console.log('another post deleted')
-});
+BlogPost.destroy({ email: 'foo@example.com', title: 'Another Post' }, (err) => { });
 
-Account.destroy('foo@example.com', { ReturnValues: 'ALL_OLD' }, function (err, acc) {
-    console.log('account deleted');
-    console.log('deleted account name', acc.get('name'));
-});
+Account.destroy('foo@example.com', { ReturnValues: 'ALL_OLD' }, (err, acc) => { });
 
-Account.destroy('foo@example.com', { expected: { age: 22 } }, function (err) {
-    console.log('account deleted if the age was 22');
-});
+Account.destroy('foo@example.com', { expected: { age: 22 } }, (err) => { });
 
-var params2: dynogels.DestroyItemOptions = {};
+const params2: dynogels.DestroyItemOptions = {};
 params2.ConditionExpression = '#v = :x';
 params2.ExpressionAttributeNames = { '#v': 'version' };
 params2.ExpressionAttributeValues = { ':x': '2' };
 
-Account.destroy({ id: 123 }, params2, function (err, acc) { });
+Account.destroy({ id: 123 }, params2, (err, acc) => { });
 
-//Loading Models from DynamoDB
-Account.get('test@example.com', function (err, acc) {
+// Loading Models from DynamoDB
+Account.get('test@example.com', (err, acc) => {
     console.log('got account', acc.get('email'));
 });
 
-Account.get('test@example.com', { ConsistentRead: true }, function (err, acc) {
-    console.log('got account', acc.get('email'));
-});
+Account.get('test@example.com', { ConsistentRead: true }, (err, acc) => { });
 
-Account.get('test@example.com', { ConsistentRead: true, AttributesToGet: ['name', 'age'] }, function (err, acc) {
-    console.log('got account', acc.get('email'))
-    console.log(acc.get('name'));
-    console.log(acc.get('age'));
-    console.log(acc.get('email')); // prints null
-});
+Account.get('test@example.com', { ConsistentRead: true, AttributesToGet: ['name', 'age'] }, (err, acc) => { });
 
-BlogPost.get('werner@example.com', 'dynamodb-keeps-getting-better-and-cheaper', function (err, post) {
-    console.log('loaded post by range and hash key', post.get('content'));
-});
+BlogPost.get('werner@example.com', 'dynamodb-keeps-getting-better-and-cheaper', (err, post) => { });
 
-BlogPost.get({ email: 'werner@example.com', title: 'Expanding the Cloud' }, function (err, post) {
-    console.log('loded post', post.get('content'));
-});
+BlogPost.get({ email: 'werner@example.com', title: 'Expanding the Cloud' }, (err, post) => { });
 
-BlogPost.get({ id: '123456789' }, { ProjectionExpression: 'email, age, settings.nickname' }, function (err, acc) { });
+BlogPost.get({ id: '123456789' }, { ProjectionExpression: 'email, age, settings.nickname' }, (err, acc) => { });
 
 // Query
 
-var callback = () => { };
+const callback = () => { };
 // query for blog posts by werner@example.com
 BlogPost
     .query('werner@example.com')
@@ -405,13 +329,13 @@ BlogPost
 BlogPost
     .query('werner@example.com')
     .ascending()
-    .exec(callback)
+    .exec(callback);
 
 // sorting by title descending
 BlogPost
     .query('werner@example.com')
     .descending()
-    .exec(callback)
+    .exec(callback);
 
 // All query options are chainable
 BlogPost
@@ -494,7 +418,7 @@ BlogPost
     .projectionExpression('#title, tag')
     .exec();
 
-var GameScore = dynogels.define('GameScore', {
+const GameScore = dynogels.define('GameScore', {
     hashKey: 'userId',
     rangeKey: 'gameTitle',
     schema: {
@@ -516,7 +440,7 @@ GameScore
     .descending()
     .exec(callback);
 
-var GameScore = dynogels.define('GameScore', {
+const GameScore1 = dynogels.define('GameScore', {
     hashKey: 'userId',
     rangeKey: 'gameTitle',
     schema: {
@@ -532,8 +456,7 @@ var GameScore = dynogels.define('GameScore', {
         rangeKey: 'topScore',
         name: 'GameTitleIndex',
         type: 'global',
-        projection: { NonKeyAttributes: ['wins'], ProjectionType: 'INCLUDE' } //optional, defaults to ALL
-
+        projection: { NonKeyAttributes: ['wins'], ProjectionType: 'INCLUDE' } // optional, defaults to ALL
     }]
 });
 
@@ -542,11 +465,9 @@ GameScore
     .usingIndex('GameTitleIndex')
     .where('topScore').gt(1000)
     .descending()
-    .exec((err, data) => {
+    .exec((err, data) => { });
 
-    });
-
-var BlogPost = dynogels.define('Account', {
+const BlogPost5 = dynogels.define('Account', {
     hashKey: 'email',
     rangeKey: 'title',
     schema: {
@@ -632,7 +553,7 @@ Account
     .scan()
     .where('age').notNull()
     .startKey('foo@example.com')
-    .exec()
+    .exec();
 
 // equals
 Account
@@ -726,7 +647,7 @@ Account.scan()
     .projectionExpression('#age, #email')
     .exec();
 
-var totalSegments = 8;
+const totalSegments = 8;
 
 Account.parallelScan(totalSegments)
     .where('age').gte(18)
@@ -736,42 +657,42 @@ Account.parallelScan(totalSegments)
 // Load All accounts
 Account
     .parallelScan(totalSegments)
-    .exec()
+    .exec();
 
-Account.getItems(['foo@example.com', 'bar@example.com', 'test@example.com'], function (err, accounts) {
-    console.log('loaded ' + accounts.length + ' accounts'); // prints loaded 3 accounts
+Account.getItems(['foo@example.com', 'bar@example.com', 'test@example.com'], (err, accounts) => {
+    console.log(`loaded ${accounts.length} accounts`); // prints loaded 3 accounts
 });
 
 // Get both accounts, using a consistent read
-Account.getItems(['foo@example.com', 'bar@example.com'], { ConsistentRead: true }, function (err, accounts) {
-    console.log('loaded ' + accounts.length + ' accounts'); // prints loaded 2 accounts
+Account.getItems(['foo@example.com', 'bar@example.com'], { ConsistentRead: true }, (err, accounts) => {
+    console.log(`loaded ${accounts.length} accounts`); // prints loaded 2 accounts
 });
 
-//Streaming API
+// Streaming API
 
-var stream = Account.parallelScan(4).exec();
+const stream = Account.parallelScan(4).exec();
 
-stream.on('readable', function () {
+stream.on('readable', () => {
     console.log('single parallel scan response', stream.read());
 });
 
-stream.on('end', function () {
+stream.on('end', () => {
     console.log('Parallel scan of accounts finished');
 });
 
-var querystream = BlogPost.query('werner@dynogels.com').loadAll().exec();
+const querystream = BlogPost.query('werner@dynogels.com').loadAll().exec();
 
-querystream.on('readable', function () {
+querystream.on('readable', () => {
     console.log('single query response', stream.read());
 });
 
-querystream.on('end', function () {
+querystream.on('end', () => {
     console.log('query for blog posts finished');
 });
 
-//Dynamic Table Names
+// Dynamic Table Names
 
-var Event = dynogels.define('Event', {
+const Event2 = dynogels.define('Event', {
     hashKey: 'name',
     schema: {
         name: Joi.string(),
@@ -779,8 +700,8 @@ var Event = dynogels.define('Event', {
     },
 
     // store monthly event data
-    tableName: function () {
-        var d = new Date();
+    tableName: () => {
+        const d = new Date();
         return ['events', d.getFullYear(), d.getMonth() + 1].join('_');
     }
 });
@@ -788,22 +709,18 @@ var Event = dynogels.define('Event', {
 // Logging
 
 const accountLogger = {
-    info: (...args: any[]) => {
-
-    },
-    warn: (...args: any[]) => {
-
-    }
-}
+    info: (...args: any[]) => { },
+    warn: (...args: any[]) => { }
+};
 
 dynogels.log = accountLogger;
 
-var Account = dynogels.define('Account', {
+const Account3 = dynogels.define('Account', {
     hashKey: 'email',
     log: accountLogger
 }); // INFO level on account table
 
-var Account = dynogels.define('Account', {
+const Account4 = dynogels.define('Account', {
     hashKey: 'email',
 
     // add the timestamp attributes (updatedAt, createdAt)
@@ -816,22 +733,21 @@ var Account = dynogels.define('Account', {
     }
 });
 
-Account.create({ email: 'test@example.com', name: 'Test Account' }, function (err, acc) {
+Account.create({ email: 'test@example.com', name: 'Test Account' }, (err, acc) => {
     console.log('created account at', acc.get('created')); // prints created Date
 
     acc.set({ age: 22 });
 
-    acc.update(function (err) {
+    acc.update((err) => {
         console.log('updated account age');
     });
-
 });
 
 // For models with range keys you must pass in objects of hash and range key attributes
-var postKey1 = { email: 'test@example.com', title: 'Hello World!' };
-var postKey2 = { email: 'test@example.com', title: 'Another Post' };
+const postKey1 = { email: 'test@example.com', title: 'Hello World!' };
+const postKey2 = { email: 'test@example.com', title: 'Another Post' };
 
-BlogPost.getItems([postKey1, postKey2], function (err, posts) {
+BlogPost.getItems([postKey1, postKey2], (err, posts) => {
     console.log('loaded posts');
 });
 
@@ -844,12 +760,12 @@ Account.before('create', (data, next) => {
         data.name = 'Foo Bar';
     }
 
-    return next(null, data);
+    next(null, data);
 });
 
 Account.before('update', (data, next) => {
     data.age = 45;
-    return next(null, data);
+    next(null, data);
 });
 
 Account.after('create', item => {
@@ -866,7 +782,6 @@ Account.after('destroy', item => {
 
 dynogels.createTables(err => {
     if (err) {
-        console.log('Error creating tables', err);
         process.exit(1);
     }
 
