@@ -441,6 +441,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -918,6 +920,10 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() retuern a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
@@ -928,6 +934,25 @@ namespace http_tests {
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
+    }
+
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
     }
 }
 
@@ -955,6 +980,8 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
 }
 
 ////////////////////////////////////////////////////

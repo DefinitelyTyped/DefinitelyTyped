@@ -2323,7 +2323,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         negativeLineColor: string;
         /** Example: {precision:-1, decimalSeparator:'.', thousandsSeparator:','}. The graph uses this object's values to format the numbers. Uses chart's numberFormatter if not defined. */
         numberFormatter: Object;
-        /** Name of the open field (used by floating columns, candlesticks and ohlc) in your dataProvider. */
+        /** If you set it to true, column chart will begin new stack. This allows having Clustered and Stacked column/bar chart. */
+        newStack: boolean;
+        /** Name of the open field (used by floating columns, candlesticks and ohlc) in your dataProvider.
+            @default 50
+        */
         openField: string;
         /**Precision of values. Will use chart's precision if not set any.*/
         precision: number;

@@ -3,6 +3,7 @@
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
 //                 Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -16,6 +17,7 @@ declare function nano(
 declare namespace nano {
   interface Configuration {
     url: string;
+    cookie?: string;
     requestDefaults?: CoreOptions;
     log?(id: string, args: any): void;
     parseUrl?: boolean;
@@ -262,25 +264,37 @@ declare namespace nano {
     server: ServerScope;
   }
 
+  interface AttachmentData {
+      name: string;
+      data: any;
+      content_type: any;
+  }
+
   interface Multipart<D> {
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: AttachmentData[], callback?: Callback<DocumentInsertResponse>): Request;
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: AttachmentData[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
     get(docname: string, callback?: Callback<any>): Request;
     get(docname: string, params: any, callback?: Callback<any>): Request;
   }
 
   interface Attachment {
     insert(docname: string, attname: string, att: null, contenttype: string, params?: any): NodeJS.WritableStream;
-    insert(docname: string, attname: string, att: any, contenttype: string, callback?: Callback<any>): Request;
+    insert(
+      docname: string,
+      attname: string,
+      att: any,
+      contenttype: string,
+      callback?: Callback<DocumentInsertResponse>
+    ): Request;
     insert(
       docname: string,
       attname: string,
       att: any,
       contenttype: string,
       params: any,
-      callback?: Callback<any>
+      callback?: Callback<DocumentInsertResponse>
     ): Request;
     get(docname: string, attname: string): NodeJS.ReadableStream;
     get(docname: string, attname: string, callback?: Callback<any>): Request;
@@ -332,7 +346,7 @@ declare namespace nano {
   }
 
   interface DocumentScopeFollowUpdatesParams {
-    inlucde_docs?: boolean;
+    include_docs?: boolean;
     since?: string;
     heartbeat?: number;
     feed?: "continuous";

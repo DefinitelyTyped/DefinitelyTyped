@@ -1,4 +1,4 @@
-// Type definitions for bookshelfjs v0.9.3
+// Type definitions for bookshelfjs v0.9.4
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ interface Bookshelf extends Bookshelf.Events<any> {
 	Collection: typeof Bookshelf.Collection;
 
 	plugin(name: string | string[] | Function, options?: any): Bookshelf;
-	transaction<T>(callback: (transaction: knex.Transaction) => BlueBird<T>): BlueBird<T>;
+	transaction<T>(callback: (transaction: knex.Transaction) => PromiseLike<T>): BlueBird<T>;
 }
 
 declare function Bookshelf(knex: knex): Bookshelf;

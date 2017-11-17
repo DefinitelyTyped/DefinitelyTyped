@@ -113,9 +113,9 @@ declare module Elasticsearch {
     }
 
     export interface Explanation {
-        value: number,
-        description: string,
-        details: Explanation[]
+        value: number;
+        description: string;
+        details: Explanation[];
     }
 
     export interface GenericParams {
@@ -543,7 +543,7 @@ declare module Elasticsearch {
                 inline: string;
                 lang: string;
             }
-        }
+        };
     }
 
     export interface ReindexResponse {
@@ -555,7 +555,7 @@ declare module Elasticsearch {
         retries: {
             bulk: number;
             search: number;
-        }
+        };
         throttled_millis: number;
         failures: any[];
     }
@@ -1073,7 +1073,7 @@ declare module Elasticsearch {
         tokenizer?: string;
         explain?: boolean;
         attributes?: NameList;
-        format?: ""
+        format?: "";
     }
 
     export interface IndicesClearCacheParams extends GenericParams {
@@ -1370,7 +1370,7 @@ declare module Elasticsearch {
         masterTimeout?: TimeSpan;
         body: {
             actions: IndicesUpdateAliasesParamsAction[];
-        }
+        };
     }
 
     export interface IndicesUpdateAliasesParamsAction {
@@ -1386,7 +1386,7 @@ declare module Elasticsearch {
         };
         remove_index?: {
             index: string;
-        }
+        };
     }
 
     export interface IndicesUpgradeParams extends GenericParams {

@@ -1,12 +1,13 @@
 // Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-//                 Igor Oleinikov <https://github.com/Igorbek/>
-//                 Clément Bourgeois <https://github.com/moonpyk/>
-//                 Matt Brooks <https://github.com/EnableSoftware>
-//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, 
+//                 Igor Oleinikov <https://github.com/Igorbek>, 
+//                 Clément Bourgeois <https://github.com/moonpyk>, 
+//                 Matt Brooks <https://github.com/EnableSoftware>, 
+//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>, 
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 interface KnockoutExtensionFunctions {
     [key: string]: any;
@@ -151,8 +152,8 @@ interface KnockoutAllBindingsAccessor {
 
 interface KnockoutBindingHandler {
     after?: Array<string>;
-    init?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
-    update?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
+    init?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
+    update?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
     [s: string]: any;

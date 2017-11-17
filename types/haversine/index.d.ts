@@ -23,9 +23,6 @@ declare namespace haversine {
 
 /**
  * Determines the great-circle distance between two points on a sphere given their longitudes and latitudes
- * @param start
- * @param end
- * @param options
  */
 declare function haversine(
     start: haversine.Coordinate,

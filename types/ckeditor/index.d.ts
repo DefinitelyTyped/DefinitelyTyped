@@ -1,6 +1,6 @@
 // Type definitions for CKEditor
 // Project: http://ckeditor.com/
-// Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik>
+// Definitions by: Thomas Wittwer <https://github.com/wittwert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
@@ -727,7 +727,7 @@ declare namespace CKEDITOR {
         magicline_holdDistance?: number;
         magicline_keystrokeNext?: number;
         magicline_keystrokePrevious?: number;
-        magicline_tabuList?: number;
+        magicline_tabuList?: string[];
         magicline_triggerOffset?: number;
         mathJaxLib?: string;
         menu_groups?: string;
@@ -814,7 +814,7 @@ declare namespace CKEDITOR {
         toolbar?: string | (string | string[])[];
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
-        toolbarGroups?: toolbarGroups[];
+        toolbarGroups?: (toolbarGroups | string)[];
         toolbarLocation?: string;
         toolbarStartupExpanded?: boolean;
 

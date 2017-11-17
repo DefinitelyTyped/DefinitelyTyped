@@ -120,7 +120,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Collapse />
         <ControlLabel />
         <Dropdown id="foo" />
-        <DropdownButton id="foo" />
+        <DropdownButton id="foo" title="bar" />
         <DropdownMenu />
         <DropdownToggle />
         <Fade />
@@ -178,7 +178,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <ResponsiveEmbed />
         <Row />
         <SafeAnchor />
-        <SplitButton />
+        <SplitButton id="foo" title="bar" />
         <SplitToggle />
         <Tab />
         <TabContainer />

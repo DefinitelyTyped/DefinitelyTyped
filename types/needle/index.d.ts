@@ -15,6 +15,7 @@ declare namespace core {
         body: any;
         raw: Buffer;
         bytes: number;
+        cookies?: Cookies;
     }
 
     type ReadableStream = NodeJS.ReadableStream;
@@ -42,7 +43,7 @@ declare namespace core {
         /**
          * Alias for open_timeout
          */
-        timeout?: number;
+        timeout?: RequestOptions['open_timeout'];
 
         /**
          * Returns error if data transfer takes longer than X milisecs,
@@ -56,7 +57,7 @@ declare namespace core {
         /**
          * Alias for follow_max
          */
-        follow?: number;
+        follow?: RequestOptions['follow_max'];
 
         /**
          * Enables multipart/form-data encoding. Defaults to false.
@@ -155,7 +156,7 @@ declare namespace core {
         /**
          * Alias for decode_response
          */
-        decode?: boolean;
+        decode?: ResponseOptions['decode_response'];
 
         /**
          * Whether to parse XML or JSON response bodies automagically.
@@ -163,11 +164,11 @@ declare namespace core {
          * You can also set this to 'xml' or 'json' in which case Needle
          * will only parse the response if the content type matches.
          */
-        parse_response?: boolean;
+        parse_response?: boolean | 'json' | 'xml';
         /**
          * Alias for parse_response
          */
-        parse?: boolean;
+        parse?: ResponseOptions['parse_response'];
 
         /**
          * Whether to parse response’s Set-Cookie header.

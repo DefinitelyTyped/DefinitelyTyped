@@ -30,7 +30,7 @@ type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
 class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
   constructor() {
-    super();
+    super({});
 
     const sampleMarkup =
       '<b>Bold text</b>, <i>Italic text</i><br/ ><br />' +
@@ -68,13 +68,12 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
     return getDefaultKeyBinding(e);
   }
 
-  handleKeyCommand = (command: string) => {
+  handleKeyCommand = (command: string, editorState: EditorState) => {
     if (command === SPLIT_HEADER_BLOCK) {
       this.onChange(this.splitHeaderToNewBlock());
       return 'handled';
     }
 
-    const {editorState} = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
@@ -183,9 +182,17 @@ function getBlockStyle(block: ContentBlock) {
   }
 }
 
-class StyleButton extends React.Component<{key: string, active: boolean, label: string, onToggle: (blockType: string) => void, style: string}> {
-  constructor() {
-    super();
+interface Props {
+  key: string
+  active: boolean
+  label: string
+  onToggle: (blockType: string) => void
+  style: string
+}
+
+class StyleButton extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
   }
 
   onToggle: (event: Event) => void = (event: Event) => {

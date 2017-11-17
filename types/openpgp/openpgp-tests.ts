@@ -1,5 +1,3 @@
-
-
 // Open PGP Sample codes
 
 var options: openpgp.KeyOptions = {

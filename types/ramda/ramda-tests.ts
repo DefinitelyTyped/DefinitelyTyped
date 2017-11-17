@@ -77,6 +77,7 @@ class F2 {
     const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
     const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
 
+    R.nAry(0);
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
     R.nAry(1, takesTwoArgs);
@@ -151,9 +152,9 @@ class F2 {
 };
 
 () => {
-    const truncate  = R.when(
+    const truncate = R.when(
         R.propSatisfies(R.flip(R.gt)(10), "length"),
-        R.pipe(R.take(10), R.append("…"), R.join(""))
+        R.pipe<string, string, string[], string>(R.take(10), R.append("…") as (wrong: any) => string[], R.join(""))
     );
     const a: string = truncate("12345");         // => '12345'
     const b: string = truncate("0123456789ABC"); // => '0123456789…'
@@ -261,22 +262,22 @@ R.times(i, 5);
 })();
 
 (() => {
-    function multiply(a: number, b: number) {
+    function multiply(a: number, b: number): number {
         return a * b;
     }
 
-    const double = R.partial(multiply, 2);
+    const double = R.partial<number>(multiply, [2]);
     double(2); // => 4
 
     function greet(salutation: string, title: string, firstName: string, lastName: string) {
         return `${salutation}, ${title} ${firstName} ${lastName}!`;
     }
 
-    const sayHello     = R.partial(greet, "Hello");
-    const sayHelloToMs = R.partial(sayHello, "Ms.");
+    const sayHello     = R.partial(greet, ["Hello"]);
+    const sayHelloToMs = R.partial(sayHello, ["Ms."]);
     sayHelloToMs("Jane", "Jones"); // => 'Hello, Ms. Jane Jones!'
 
-    const greetMsJaneJones = R.partialRight(greet, "Ms.", "Jane", "Jones");
+    const greetMsJaneJones = R.partialRight(greet, ["Ms.", "Jane", "Jones"]);
     greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
 })();
 
@@ -300,12 +301,20 @@ R.times(i, 5);
     // Note that argument order matters
     memoTrackedAdd(2, 1); // => 3
     numberOfCalls; // => 3
+
+    function stringLength(str: string): number {
+      return str.length;
+    }
+    const memoStringLength = R.memoize<number>(stringLength);
+    const isLong = memoStringLength('short') > 10; // false
 })();
 
 (() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
+
+    const str = R.once<string>(() => 'test')();
 })();
 
 (() => {
@@ -317,8 +326,7 @@ R.times(i, 5);
 
 (() => {
     const numbers = [1, 2, 3];
-    const add     = (a: number, b: number) => a + b;
-    R.reduce(add, 10, numbers); // => 16;
+    R.reduce((a, b) => a + b, 10, numbers); // => 16;
 })();
 
 (() => {
@@ -328,7 +336,7 @@ R.times(i, 5);
 (() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]];
 
-    function flattenPairs(acc: [string, number], pair: [string, number]) {
+    function flattenPairs(pair: [string, number], acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
     }
 
@@ -443,10 +451,6 @@ R.times(i, 5);
     R.append("tests", ["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests")(["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests", []); // => ['tests']
-    R.append<string, string[]>(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append<string[]>(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
 };
 
 () => {
@@ -854,13 +858,9 @@ interface Obj {
 () => {
     const numbers = [1, 2, 3];
 
-    function add(a: number, b: number) {
-        return a + b;
-    }
-
-    R.reduce(add, 10, numbers); // => 16
+    R.reduce((a, b) => a + b, 10, numbers); // => 16
     R.reduce(add)(10, numbers); // => 16
-    R.reduce(add, 10)(numbers); // => 16
+    R.reduce<number, number>((a, b) => a + b, 10)(numbers); // => 16
 };
 
 interface Student {
@@ -911,7 +911,7 @@ type Pair = KeyValuePair<string, number>;
 () => {
     const pairs: Pair[] = [["a", 1], ["b", 2], ["c", 3]];
 
-    function flattenPairs(acc: Pair[], pair: Pair): Pair[] {
+    function flattenPairs(pair: Pair, acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
     }
 
@@ -1086,7 +1086,7 @@ type Pair = KeyValuePair<string, number>;
     R.transduce(transducer, fn, [], numbers); // => [2, 3]
     R.transduce(transducer, fn, [])(numbers); // => [2, 3]
     R.transduce(transducer, fn)([], numbers); // => [2, 3]
-    R.transduce(transducer)(fn, [], numbers); // => [2, 3]
+    R.transduce<number, number>(transducer)(fn, [], numbers); // => [2, 3]
 };
 
 () => {
@@ -1101,7 +1101,7 @@ type Pair = KeyValuePair<string, number>;
     const list = [1, 2, 3];
     R.traverse(of, fn, list);
     R.traverse(of, fn)(list);
-    R.traverse(of)(fn, list);
+    R.traverse<number, number[], {}>(of)(fn, list);
 };
 
 () => {
@@ -1535,7 +1535,6 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
 };
 
 () => {
@@ -1546,7 +1545,6 @@ class Rectangle {
     const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
-    const s1 = favorite(alice);  // => undefined
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
@@ -1558,7 +1556,6 @@ class Rectangle {
 
 () => {
     R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
@@ -1691,7 +1688,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe(R.prop("indent"), indentN),
+            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
             R.prop("value")
         ]
     );
@@ -1841,7 +1838,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByAgeDescending = R.sortBy(R.compose(R.negate, R.prop("age")));
+    const sortByAgeDescending = R.sortBy(R.compose<{}, number, number>(R.negate, R.prop("age")));
     const alice               = {
         name: "ALICE",
         age : 101
@@ -1859,7 +1856,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop("name")));
+    const sortByNameCaseInsensitive = R.sortBy(R.compose<Record<'name', string>, string, string>(R.toLower, R.prop("name")));
     const alice                     = {
         name: "ALICE",
         age : 101
@@ -1886,6 +1883,15 @@ class Rectangle {
 () => {
     const a: number[][] = R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
     const b: number[][] = R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
+};
+
+() => {
+    R.startsWith("a", "abc");   // => true
+    R.startsWith("a")("abc");   // => true
+    R.startsWith(1, [1, 2, 3]);   // => true
+    R.startsWith(1)([1, 2, 3]);   // => true
+    R.startsWith([1], [1, 2, 3]);   // => true
+    R.startsWith([1])([1, 2, 3]);   // => true
 };
 
 () => {
@@ -1977,8 +1983,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.max(7, 3); // => 7
-    const y: R.Ord = R.max("a", "z"); // => 'z'
+    const x: number = R.max(7, 3); // => 7
+    const y: string = R.max("a", "z"); // => 'z'
 };
 
 () => {
@@ -2008,8 +2014,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.min(9, 3); // => 3
-    const y: R.Ord = R.min("a", "z"); // => 'a'
+    const x: number = R.min(9, 3); // => 3
+    const y: string = R.min("a", "z"); // => 'a'
 };
 
 () => {
@@ -2234,6 +2240,15 @@ class Rectangle {
     R.isEmpty(null); // => false
     R.isEmpty({}); // =>true
     R.isEmpty({a: 1}); // => false
+};
+
+() => {
+    R.endsWith("c", "abc");   // => true
+    R.endsWith("c")("abc");   // => true
+    R.endsWith(3, [1, 2, 3]);   // => true
+    R.endsWith(3)([1, 2, 3]);   // => true
+    R.endsWith([3], [1, 2, 3]);   // => true
+    R.endsWith([3])([1, 2, 3]);   // => true
 };
 
 () => {
