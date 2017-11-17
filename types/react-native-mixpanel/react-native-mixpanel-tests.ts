@@ -1,4 +1,4 @@
-import Mixpanel = require('react-native-mixpanel');
+import * as Mixpanel from 'react-native-mixpanel';
 
 Mixpanel.sharedInstanceWithToken('1234567890');
 Mixpanel.track('Event name');
