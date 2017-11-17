@@ -1,0 +1,14 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "no-duplicate-variable": false,
+        "no-inferrable-types": false,
+        "no-misused-new": false,
+        "no-var-keyword": false,
+        "object-literal-shorthand": false,
+        "prefer-const": false,
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false
+    }
+}

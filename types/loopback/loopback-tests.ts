@@ -17,6 +17,14 @@ class Server {
 
         this.app.use(cookieParser());
 
+        this.app.use(loopback.favicon());
+        this.app.use(loopback.rest());
+        this.app.use(loopback.static('.'));
+        this.app.use(loopback.status());
+        this.app.use(loopback.rewriteUserLiteral());
+        this.app.use(loopback.token());
+        this.app.use(loopback.urlNotFound());
+
         this.app.start = async () => {
             // start the web server
             const models = this.app.models();
@@ -28,11 +36,19 @@ class Server {
                 console.dir(data.name);
             }
 
-            model.findOne<TestModel>({}, (err, instance) => {
+            model.findOne<TestModel>({}, (err: Error, instance: TestModel) => {
                 if (err) {
                     console.dir(err);
                 }
                 console.dir(instance.name);
+            });
+            model.remoteMethod('getStuff', {
+                description: "Get some stuff",
+                accepts: [
+                    {arg: 'aParam', type: "String", required: true, description: "A parameter to process"}
+                ],
+                http: {verb: "get", path: "/get-stuff"},
+                returns: {arg: "res", type: "Object"},
             });
         };
     }

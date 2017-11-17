@@ -1,7 +1,8 @@
-// Type definitions for Recharts 0.22
+// Type definitions for Recharts 1.0
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
+//                 Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,11 +10,23 @@ import * as React from 'react';
 
 export type Percentage = string;
 export type RechartsFunction = () => void;
+export type TickFormatterFunction = (value: any) => any;
+export type LabelFormatter = (label: string | number) => React.ReactNode;
+export type TooltipFormatter = (value: string | number | Array<string | number>, name: string,
+                                entry: TooltipPayload, index: number) => React.ReactNode;
+export type ItemSorter<T> = (a: T, b: T) => number;
+export type ContentRenderer<P> = (props: P) => React.ReactNode;
 
 export type LegendType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
 export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 export type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+export type PositionType = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
+	'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' | 'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
+
+export type PartialAndNumber<T> = {
+   [P in keyof T]?: number | T[P];
+};
 
 export interface Margin {
 	top: number;
@@ -131,7 +144,7 @@ export interface BrushProps {
 	travellerWidth?: number;
 	startIndex?: number;
 	endIndex?: number;
-	tickFormatter?: RechartsFunction;
+	tickFormatter?: TickFormatterFunction;
 	onChange?: RechartsFunction;
 }
 
@@ -143,14 +156,14 @@ export interface CartesianAxisProps {
 	width?: number;
 	height?: number;
 	orientation?: 'top' | 'bottom' | 'left' | 'right';
-	viewBox?: any;
+	viewBox?: ViewBox;
 	axisLine?: boolean | any;
 	tickLine?: boolean | any;
 	minTickGap?: number;
 	tickSize?: number;
 	interval?: "preserveStart" | "preserveEnd" | "preserveStartEnd" | number;
 	tick?: boolean | any | React.ReactElement<any> | RechartsFunction;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<CartesianAxisProps>;
 	mirror?: boolean;
 }
 
@@ -258,7 +271,7 @@ export interface LegendProps {
 	chartWidth?: number;
 	chartHeight?: number;
 	margin?: Margin;
-	content?: React.ReactElement<any> | RechartsFunction;
+	content?: React.ReactElement<any> | ContentRenderer<LegendProps>;
 	wrapperStyle?: any;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -332,8 +345,8 @@ export interface PieProps extends Partial<CSSStyleDeclaration> {
 	label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	labelLine?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	data: any[];
-	activeIndex: any[];
-	activeShape: any | React.ReactElement<any> | RechartsFunction;
+	activeIndex?: number | number[];
+	activeShape?: any | React.ReactElement<any> | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType | RechartsFunction;
@@ -371,7 +384,7 @@ export interface PolarAngleAxisProps {
 	tick?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	ticks: any[];
 	orient?: string;
-	tickFormatter: RechartsFunction;
+	tickFormatter: TickFormatterFunction;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -405,7 +418,7 @@ export interface PolarRadiusAxisProps {
 	orientation?: "left" | "right" | "middle";
 	axisLine?: boolean | any;
 	tick?: boolean | any | Element | RechartsFunction;
-	tickFormatter: RechartsFunction;
+	tickFormatter: TickFormatterFunction;
 	tickCount?: number;
 	scale?: ScaleType | RechartsFunction;
 	onClick?: RechartsFunction;
@@ -526,7 +539,7 @@ export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 
 export class Rectangle extends React.Component<RectangleProps> { }
 
-export interface ReferenceAreaProps {
+export interface ReferenceAreaProps extends PartialAndNumber<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x1?: number | string;
@@ -534,10 +547,10 @@ export interface ReferenceAreaProps {
 	y1?: number | string;
 	y2?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceAreaProps>;
 	isFront?: boolean;
 }
 
@@ -548,10 +561,11 @@ export interface ReferenceDotProps {
 	yAxisId?: string | number;
 	x: number | string;
 	y: number | string;
+	r: number;
 	alwaysShow?: boolean;
 	xAxis: any;
 	yAxis: any;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceDotProps>;
 	isFront?: boolean;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -565,16 +579,16 @@ export interface ReferenceDotProps {
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
-export interface ReferenceLineProps {
+export interface ReferenceLineProps extends PartialAndNumber<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x?: number | string;
 	y?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceLineProps>;
 	isFront?: boolean;
 }
 
@@ -586,6 +600,7 @@ export interface ResponsiveContainerProps {
 	height?: Percentage | number;
 	minWidth?: number;
 	minHeight?: number;
+    maxHeight?: Percentage | number;
 	debounce?: number;
 }
 
@@ -639,6 +654,7 @@ export interface SectorProps {
 	startAngle?: number;
 	endAngle?: number;
 	cornerRadius?: number;
+	fill?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -661,10 +677,18 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 export class Text extends React.Component<TextProps> { }
 
 export interface ViewBox {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+}
+export interface PolarViewBox {
+	cx?: number;
+	cy?: number;
+	innerRadius?: number;
+	outerRadius?: number;
+	startAngle?: number;
+	endAngle?: number;
 }
 export interface Coordinate {
 	x: number;
@@ -672,7 +696,7 @@ export interface Coordinate {
 }
 export interface TooltipPayload {
 	name: string;
-	value: number;
+	value: string | number | Array<string | number>;
 	unit: string;
 }
 export interface TooltipProps {
@@ -682,30 +706,43 @@ export interface TooltipProps {
 	wrapperStyle?: any;
 	labelStyle?: any;
 	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
-	viewBox: ViewBox;
+	viewBox?: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
 	label?: string | number;
-	content?: React.ReactElement<any> | React.StatelessComponent<any> | RechartsFunction;
-	formatter?: RechartsFunction;
-	labelFormatter?: RechartsFunction;
-	itemSorter?: RechartsFunction;
+	content?: React.ReactElement<any> | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+	formatter?: TooltipFormatter;
+	labelFormatter?: LabelFormatter;
+	itemSorter?: ItemSorter<TooltipPayload>;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
+	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
+	filterNull?: boolean;
 }
 
 export class Tooltip extends React.Component<TooltipProps> { }
 
 export interface TreemapProps {
-	width: number;
-	height: number;
+	data: any[];
+	width?: number;
+	height?: number;
 	dataKey?: string;
 	aspectRatio: number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
+}
+
+export interface Label {
+	viewBox?: ViewBox | PolarViewBox;
+	formatter?: LabelFormatter;
+	value: string | number;
+	position?: PositionType;
+	offset?: number;
+	content?: React.ReactElement<any> | ContentRenderer<Label>;
+	children?: any;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }
@@ -714,6 +751,7 @@ export interface XPadding {
 	left: number;
 	right: number;
 }
+
 export interface XAxisProps {
 	hide?: boolean;
 	dataKey?: string | number;
@@ -732,12 +770,12 @@ export interface XAxisProps {
 	axisLine?: boolean | any;
 	tickLine?: boolean | any;
 	tickSize?: number;
-	tickFormatter?: RechartsFunction;
+	tickFormatter?: TickFormatterFunction;
 	ticks?: any[];
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | Label;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;
@@ -775,12 +813,12 @@ export interface YAxisProps {
 	tickCount?: number;
 	tickLine?: boolean | any;
 	tickSize?: number;
-	tickFormatter?: RechartsFunction;
+	tickFormatter?: TickFormatterFunction;
 	ticks?: any[];
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | Label;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;

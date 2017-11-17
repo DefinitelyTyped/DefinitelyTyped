@@ -55,10 +55,6 @@ export interface ClientOptions {
 	/**
 	 * called when metrics are sent
 	 * Defaults to null
-	 *
-	 * @param {error} Error
-	 * @param {metrics}
-	 * @return void
 	 */
 	callback?(error: Error, metrics: any): void;
 }
@@ -68,19 +64,11 @@ export class Client {
 
 	/**
 	 * During the interval time option, if 2 or more metrics with the same name are sent, metrics will be added (summed)
-	 *
-	 * @param {name}
-	 * @param {value} number
-	 * @return void
 	 */
 	add(name: string, value: number): void;
 
 	/**
 	 * During the interval time option, if 2 or more metrics with the same name are sent, the last one will be used
-	 *
-	 * @param {name} metric name (my.test.metric)
-	 * @param {value} number
-	 * @return void
 	 */
 	put(name: string, value: number): void;
 

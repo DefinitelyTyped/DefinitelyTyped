@@ -1,4 +1,6 @@
-const test: NightWatchTests = {
+import { NightwatchAPI, NightwatchTests } from 'nightwatch';
+
+const test: NightwatchTests = {
   'Demo test Google': (browser) => {
     browser
       .url('http://www.google.com')

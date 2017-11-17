@@ -672,6 +672,7 @@ export class BufferAttribute {
     needsUpdate: boolean;
     count: number;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
     copy(source: this): this;
@@ -682,7 +683,7 @@ export class BufferAttribute {
     copyVector2sArray(vectors: {x: number, y: number}[]): BufferAttribute;
     copyVector3sArray(vectors: {x: number, y: number, z: number}[]): BufferAttribute;
     copyVector4sArray(vectors: {x: number, y: number, z: number, w: number}[]): BufferAttribute;
-    set(value: ArrayLike<number>, offset?: number): BufferAttribute;
+    set(value: ArrayLike<number>|ArrayBufferView, offset?: number): BufferAttribute;
     getX(index: number): number;
     setX(index: number, x: number): BufferAttribute;
     getY(index: number): number;
@@ -835,7 +836,7 @@ export class BufferGeometry extends EventDispatcher {
     drawRange: { start: number, count: number };
 
     getIndex(): BufferAttribute;
-    setIndex( index: BufferAttribute ): void;
+    setIndex( index: BufferAttribute|number[] ): void;
 
     addAttribute(name: string, attribute: BufferAttribute|InterleavedBufferAttribute): BufferGeometry;
 
@@ -1917,9 +1918,9 @@ export class LightShadow {
 export class AmbientLight extends Light {
     /**
      * This creates a Ambientlight with a color.
-     * @param hex Numeric value of the RGB component of the color.
+     * @param color Numeric value of the RGB component of the color or a Color instance.
      */
-    constructor(hex?: number|string, intensity?: number);
+    constructor(color?: number|string|Color, intensity?: number);
 
     castShadow: boolean;
 }
@@ -1936,7 +1937,7 @@ export class AmbientLight extends Light {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js">src/lights/DirectionalLight.js</a>
  */
 export class DirectionalLight extends Light {
-    constructor(hex?: number|string, intensity?: number);
+    constructor(color?: number|string|Color, intensity?: number);
 
     /**
      * Target used for shadow camera orientation.
@@ -1957,7 +1958,7 @@ export class DirectionalLightShadow extends LightShadow {
 }
 
 export class HemisphereLight extends Light {
-    constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
+    constructor(skyColor?: number|string|Color, groundColor?: number|string|Color, intensity?: number);
 
     groundColor: Color;
     intensity: number;
@@ -1972,7 +1973,7 @@ export class HemisphereLight extends Light {
  * scene.add( light );
  */
 export class PointLight extends Light {
-    constructor(hex?: number|string, intensity?: number, distance?: number, decay?: number);
+    constructor(color?: number|string|Color, intensity?: number, distance?: number, decay?: number);
 
     /*
         * Light's intensity.
@@ -1999,7 +2000,7 @@ export class PointLightShadow extends LightShadow {
  * A point light that can cast shadow in one direction.
  */
 export class SpotLight extends Light {
-    constructor(hex?: number|string, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
+    constructor(color?: number|string|Color, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
     /**
      * Spotlight focus points at target.position.
@@ -3627,6 +3628,18 @@ export class Matrix3 implements Matrix {
     toArray(): number[];
 
     /**
+     * Multiplies this matrix by m.
+     */
+    multiply(m: Matrix3): Matrix3;
+
+    premultiply(m: Matrix3): Matrix3;
+
+    /**
+     * Sets this matrix to a x b.
+     */
+    multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3;
+
+    /**
      * @deprecated
      */
     multiplyVector3(vector: Vector3): any;
@@ -4825,6 +4838,8 @@ export class Mesh extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
+    morphTargetInfluences?: number[];
+    morphTargetDictionary?: { [key: string]: number; };
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
@@ -5220,14 +5235,14 @@ export interface RenderTarget {} // not defined in the code, used in LightShadow
 
 export interface RenderItem
 {
-    id: number
-    object: THREE.Object3D,
-    geometry: THREE.Geometry | THREE.BufferGeometry,
-    material: THREE.Material,
-    program: THREE.WebGLProgram,
-    renderOrder: number,
-    z: number,
-    group: THREE.Group
+    id: number;
+    object: Object3D;
+    geometry: Geometry | BufferGeometry;
+    material: Material;
+    program: WebGLProgram;
+    renderOrder: number;
+    z: number;
+    group: Group;
 }
 
 export class WebGLRenderList
@@ -6588,8 +6603,8 @@ export class ExtrudeGeometry extends Geometry {
     constructor(shapes?: Shape[], options?: any);
 
     static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+        generateTopUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
     };
 
     addShapeList(shapes: Shape[], options?: any): void;

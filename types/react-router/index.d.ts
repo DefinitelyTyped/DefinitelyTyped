@@ -38,13 +38,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps> { }
+export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => void);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps> { }
+export class Prompt extends React.Component<PromptProps, any> { }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -54,7 +54,7 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps> { }
+export class Redirect extends React.Component<RedirectProps, any> { }
 
 export interface RouteComponentProps<P> {
   match: match<P>;
@@ -65,19 +65,19 @@ export interface RouteComponentProps<P> {
 
 export interface RouteProps {
   location?: H.Location;
-  component?: React.ComponentType<RouteComponentProps<any> | {}>;
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
   strict?: boolean;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
 export interface RouterProps {
   history: any;
 }
-export class Router extends React.Component<RouterProps> { }
+export class Router extends React.Component<RouterProps, any> { }
 
 export interface StaticRouterProps {
   basename?: string;
@@ -85,12 +85,12 @@ export interface StaticRouterProps {
   context?: object;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps> { }
+export class StaticRouter extends React.Component<StaticRouterProps, any> { }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps> { }
+export class Switch extends React.Component<SwitchProps, any> { }
 
 export interface match<P> {
   params: P;

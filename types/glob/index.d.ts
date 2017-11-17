@@ -11,8 +11,8 @@ import events = require("events");
 import fs = require('fs');
 import minimatch = require("minimatch");
 
-declare function G(pattern: string, cb: (err: Error, matches: string[]) => void): void;
-declare function G(pattern: string, options: G.IOptions, cb: (err: Error, matches: string[]) => void): void;
+declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): void;
+declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
 
 declare namespace G {
     function sync(pattern: string, options?: IOptions): string[];
@@ -57,8 +57,8 @@ declare namespace G {
     }
 
     interface IGlobStatic extends events.EventEmitter {
-        new (pattern: string, cb?: (err: Error, matches: string[]) => void): IGlob;
-        new (pattern: string, options: IOptions, cb?: (err: Error, matches: string[]) => void): IGlob;
+        new (pattern: string, cb?: (err: Error | null, matches: string[]) => void): IGlob;
+        new (pattern: string, options: IOptions, cb?: (err: Error | null, matches: string[]) => void): IGlob;
         prototype: IGlob;
     }
 

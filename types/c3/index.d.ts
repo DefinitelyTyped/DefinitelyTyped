@@ -366,7 +366,7 @@ declare namespace c3 {
          * and it will recieve the data as argument.
          * Available Values: desc, asc, function (data1, data2) { ... }, null
          */
-        order?: string | ((...data: string[]) => void);
+        order?: string | ((...data: string[]) => void) | null;
         /**
          * Define regions for each data.
          * The values must be an array for each data and it should include an object that has start, end, style. If start is not set, the start will be the first data point. If end is not set, the
@@ -459,11 +459,11 @@ declare namespace c3 {
         /**
          * Set max value of x axis range.
          */
-        max?: number;
+        max?: string | number | Date;
         /**
          * Set min value of x axis range.
          */
-        min?: number;
+        min?: string | number | Date;
         /**
          * Set padding for x axis.
          * If this option is set, the range of x axis will increase/decrease according to the values. If no padding is needed in the ragen of x axis, 0 should be set. On category axis, this option
@@ -636,7 +636,7 @@ declare namespace c3 {
     }
 
     interface LineOptions {
-        value: number;
+        value: string | number | Date;
         text?: string;
         axis?: string;
         position?: string;

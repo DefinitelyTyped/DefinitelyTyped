@@ -80,6 +80,7 @@ declare namespace TestUtils {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;
+        export var contextMenu: EventSimulator;
         export var copy: EventSimulator;
         export var cut: EventSimulator;
         export var doubleClick: EventSimulator;

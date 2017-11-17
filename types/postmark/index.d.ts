@@ -100,7 +100,7 @@ interface Options extends SimpleOptions {
 }
 
 declare class Client {
-    constructor(serverKey: string, options: Partial<Options>);
+    constructor(serverKey: string, options?: Partial<Options>);
     send(message: PostmarkMessage, callback: PostmarkCallback): void;
     sendEmailWithTemplate(
         message: PostmarkMessageWithTemplate,

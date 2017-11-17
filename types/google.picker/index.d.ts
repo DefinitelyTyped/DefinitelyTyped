@@ -146,6 +146,9 @@ declare namespace google {
 
             // For photo uploads, controls whether per-photo selection (as opposed to per-album) selection is enabled.
             SIMPLE_UPLOAD_ENABLED: string;
+            
+            // Whether Team Drive items should be included in results.
+            SUPPORT_TEAM_DRIVES: string;
         };
 
         export var ViewId:{
