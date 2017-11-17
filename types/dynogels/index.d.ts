@@ -2,6 +2,7 @@
 // Project: https://github.com/clarkie/dynogels#readme
 // Definitions by: Spartan Labs <https://github.com/SpartanLabs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 
