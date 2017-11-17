@@ -1404,6 +1404,7 @@ declare namespace Xrm {
              * @return The event arguments or null
              */
             getEventArgs(): SaveEventArguments | StageChangeEventArguments | StageSelectedEventArguments;
+
             /**
              * Gets a reference to the object for which event occurred.
              *
