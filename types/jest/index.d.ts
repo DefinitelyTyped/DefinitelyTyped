@@ -555,7 +555,7 @@ declare namespace jasmine {
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
-    function createSpy(name: string, originalFn?: (...args: any[]) => any): Spy;
+    function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
