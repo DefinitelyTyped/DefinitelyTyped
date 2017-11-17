@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.24.5
+// Type definitions for algoliasearch-client-js 3.24.6
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -809,8 +809,8 @@ declare namespace algoliasearch {
     }: {
       facetName: string;
       facetQuery: string;
-      qp: AlgoliaQueryParameters;
-    }): Promise<any>;
+    } & AlgoliaQueryParameters
+    ): Promise<any>;
     /**
      * Search in an index
      * @param params query parameter
@@ -826,8 +826,7 @@ declare namespace algoliasearch {
       }: {
         facetName: string;
         facetQuery: string;
-        qp: AlgoliaQueryParameters;
-      },
+      } & AlgoliaQueryParameters,
       cb: (err: Error, res: any) => void
     ): void;
     /**
