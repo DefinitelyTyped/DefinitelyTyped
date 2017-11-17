@@ -29,5 +29,7 @@ export * from "./three-trackballcontrols";
 export * from "./three-transformcontrols";
 export * from "./three-vrcontrols";
 export * from "./three-vreffect";
+export * from "./three-OutlinePass";
+export * from "./three-SMAAPass.d";
 
 export as namespace THREE;
