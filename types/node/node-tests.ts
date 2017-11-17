@@ -3751,3 +3751,27 @@ namespace module_tests {
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
 }
+
+////////////////////////////////////////////////////
+/// Node.js ES2017 Support
+////////////////////////////////////////////////////
+
+namespace es2017_tests {
+    const s: string = 'foo';
+    const s1: string = s.padStart();
+    const s11: string = s.padStart(10);
+    const s12: string = s.padStart(10, 'x');
+    const s2: string = s.padEnd();
+    const s21: string = s.padEnd(10);
+    const s22: string = s.padEnd(10, 'x');
+}
+
+////////////////////////////////////////////////////
+/// Node.js ESNEXT Support
+////////////////////////////////////////////////////
+
+namespace esnext_tests {
+    const s: string = 'foo';
+    const s1: string = s.trimLeft();
+    const s2: string = s.trimRight();
+}
