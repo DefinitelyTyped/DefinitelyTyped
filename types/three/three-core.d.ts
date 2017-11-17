@@ -463,6 +463,8 @@ export class CubeCamera extends Object3D {
     renderTarget: WebGLRenderTargetCube;
 
     updateCubeMap(renderer: Renderer, scene: Scene): void;
+
+    update(renderer: Renderer, scene: Scene): void;
 }
 
 /**
@@ -2757,7 +2759,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: Color;
+    emissive?: number|string|Color;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
