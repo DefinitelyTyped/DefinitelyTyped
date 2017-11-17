@@ -723,7 +723,7 @@ export interface FrameBase {
   ): Promise<void>;
   waitForSelector(
     selector: string,
-    options?: { visible: boolean; timeout: number }
+    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
   ): Promise<void>;
 }
 
@@ -1110,6 +1110,10 @@ export interface LaunchOptions {
   args?: string[];
   /** Close chrome process on Ctrl-C. Defaults to true. */
   handleSIGINT?: boolean;
+  /** Close chrome process on SIGTERM. Defaults to true. */
+  handleSIGTERM?: boolean;
+  /** Close chrome process on SIGHUP. Defaults to true. */
+  handleSIGHUP?: boolean;
   /**
    * Maximum time in milliseconds to wait for the Chrome instance to start.
    * Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
