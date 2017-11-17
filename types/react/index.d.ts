@@ -281,7 +281,7 @@ declare namespace React {
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
         // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: ReadOnly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
+        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         // tslint:enable:unified-signatures
 
