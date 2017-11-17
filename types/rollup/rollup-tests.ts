@@ -5,6 +5,12 @@ declare const console: { log(...messages: any[]): void, warn(message: string): v
 let cache: Bundle | undefined
 const plugin: Plugin = {
     name: 'test-plugin',
+    resolveId(importee, importer) {
+        if (importer === undefined) {
+            return 'custom/entry/point.js'
+        }
+        return importer.trim()
+    },
     transform(source, id) {
         if (id === 'rxjs') {
             this.error(new Error(`Don't import this directly`))

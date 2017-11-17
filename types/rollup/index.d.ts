@@ -135,7 +135,7 @@ export interface Plugin {
 	 * Returning null or undefined defers to other resolveId functions (and eventually the default resolution behavior);
 	 * returning any other falsy value signals that importee should be treated as an external module and not included in the bundle.
 	 */
-	resolveId?(importee: string, importer: string): string | null | undefined | false | 0 | ''
+	resolveId?(importee: string, importer: string | undefined): string | null | undefined | false | 0 | ''
 	/** A module transformer function */
 	transform?(this: TransformContext, source: string, id: string): string | { code: string, map: SourceMap }
 	/** A bundle transformer function */
