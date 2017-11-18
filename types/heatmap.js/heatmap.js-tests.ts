@@ -8,11 +8,6 @@ declare const container: HTMLElement;
 }
 
 {
-    // $ExpectError
-    const config: h337.HeatmapConfiguration = {};
-}
-
-{
     const config: h337.HeatmapConfiguration = {
         container,
         xField: 'x',
@@ -38,10 +33,6 @@ declare const container: HTMLElement;
 }
 
 // -- h337.create --
-
-{
-    h337.create(); // $ExpectError
-}
 
 {
     // $ExpectType Heatmap<"value", "x", "y">
@@ -175,8 +166,6 @@ declare const container: HTMLElement;
 
 {
     const heatmap = h337.create({ container });
-
-    heatmap.configure({}); // $ExpectError
 
     // $ExpectType Heatmap<"value", "x", "y">
     heatmap.configure({ container });
