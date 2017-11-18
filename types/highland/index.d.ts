@@ -614,9 +614,9 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).drop(2) // => 3, 4
 		 */
-		 drop(n: number): Stream<R>;
+        drop(n: number): Stream<R>;
 
-		 /**
+		/**
 		 * Extracts errors from a Stream and applies them to an error handler
 		 * function. Returns a new Stream with the errors removed (unless the error
 		 * handler chooses to rethrow them using `push`). Errors can also be
@@ -653,7 +653,7 @@ declare namespace Highland {
 		 */
 		find(f: (x: R) => boolean): Stream<R>;
 
-		 /**
+		/**
 		 * A convenient form of [where](#where), which returns the first object from a
 		 * Stream that matches a set of property values. findWhere is to [where](#where) as [find](#find) is to [filter](#filter).
 		 *
