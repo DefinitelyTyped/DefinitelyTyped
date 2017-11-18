@@ -1,6 +1,6 @@
 // Type definitions for rule-reactor 0.1
 // Project: https://github.com/anywhichway/rule-reactor
-// Definitions by: [Michael Müller] <https://github.com/mad-mike>
+// Definitions by: [Michael Mï¿½ller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -17,7 +17,7 @@ declare class RuleReactor {
     constructor(domain?: object, boost?: boolean);
 
     assert(instances: RuleReactor.Instance | RuleReactor.Instance[], callback?: () => void): void;
-    declare(domain: string, constructor: Function): void;
+    declare(domain: string, constructor: RuleReactor.Constructor): void;
     createRule(name: RuleReactor.RuleName, salience: RuleReactor.Salience, domain: RuleReactor.Domain,
         condition: RuleReactor.Condition | RuleReactor.Condition[], action: RuleReactor.Action): RuleReactor.Rule;
 
@@ -48,4 +48,8 @@ declare namespace RuleReactor {
     type TraceLevel = number;
 
     type Rule = any;
+
+    interface Constructor {
+        new(): any;
+    }
 }
