@@ -1,5 +1,4 @@
-// tslint:disable-next-line no-object-literal-type-assertion
-const container = {} as HTMLElement;
+declare const container: HTMLElement;
 
 // -- h337.HeatmapConfiguration --
 
