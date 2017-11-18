@@ -2,19 +2,21 @@
 
 import Map from 'ol/map';
 import View from 'ol/view';
-import OSM from 'ol/source/osm';
-import Tile from 'ol/layer/tile';
+import TileLayer from 'ol/layer/tile';
+import XYZ from 'ol/source/xyz';
 import proj from 'ol/proj';
 
-const map = new Map({
+new Map({
+    target: 'map',
     layers: [
-        new Tile({
-            source: new OSM()
+        new TileLayer({
+            source: new XYZ({
+            url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            })
         })
     ],
     view: new View({
-        center: proj.fromLonLat([113.5, 23.4])
-    }),
-    target: 'map',
-    renderer: 'canvas'
+        center: proj.fromLonLat([0, 0]),
+        zoom: 2
+    })
 });
