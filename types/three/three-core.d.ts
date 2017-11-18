@@ -4489,6 +4489,7 @@ export class Vector3 implements Vector {
      * http://en.wikipedia.org/wiki/Taxicab_geometry
      */
     lengthManhattan(): number;
+    manhattanDistanceTo():number;
 
     /**
      * Normalizes this vector.
