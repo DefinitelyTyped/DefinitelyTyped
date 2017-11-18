@@ -93,7 +93,7 @@ export class Pool extends events.EventEmitter {
 }
 
 export class Client extends events.EventEmitter {
-    constructor(config: ClientConfig);
+    constructor(config: string | ClientConfig);
 
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
