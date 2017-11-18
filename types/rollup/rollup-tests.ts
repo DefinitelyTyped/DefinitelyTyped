@@ -14,12 +14,23 @@ const plugin: Plugin = {
     transform(source, id) {
         if (id === 'rxjs') {
             this.error(new Error(`Don't import this directly`))
+            return null
         }
         const indexOfQuote = source.indexOf('"')
         if (indexOfQuote >= 0) {
             this.warn(`Prefer ' over " for strings`, indexOfQuote)
+            return undefined
         }
         return source
+    },
+    transformBundle(source, options) {
+        if (options.format === 'iife') {
+            return `window.nonModule = true\n${source}`
+        } else if (options.format === 'cjs') {
+            return null
+        }
+
+        return undefined
     }
 }
 
