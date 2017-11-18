@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 import Map from 'ol/map';
 import View from 'ol/view';
 import TileLayer from 'ol/layer/tile';

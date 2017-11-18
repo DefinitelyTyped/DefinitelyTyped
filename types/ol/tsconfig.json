@@ -18,7 +18,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "../openlayers/index.d.ts",
         "index.d.ts",
-        "openlayers-tests.ts"
+        "ol-tests.ts"
     ]
 }

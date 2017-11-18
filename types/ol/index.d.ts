@@ -3,8 +3,6 @@
 // Definitions by: Beginor <https://github.com/beginor>
 // this package is based on @types/openlayers;
 
-/// <reference path="../openlayers/index.d.ts" />
-
 declare module 'ol' {
     export default ol;
 }
