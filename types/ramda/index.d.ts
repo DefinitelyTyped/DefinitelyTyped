@@ -1456,8 +1456,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<P extends string, T>(p: P, obj: Record<P, T>): T;
-        prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
+        prop<K extends string, T extends {[P in K]: any}>(prop: K, obj: T): T[K];
+        prop<K extends string>(prop: K): <T extends {[P in K]: any}>(obj: T) => T[K];
 
         /**
          * Determines whether the given property of an object has a specific

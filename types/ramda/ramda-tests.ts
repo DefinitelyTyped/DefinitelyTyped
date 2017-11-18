@@ -1535,6 +1535,17 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
+
+    const obj = {
+        x: 100,
+        y: 'CaSe',
+    };
+
+    R.prop("x", obj).toFixed();
+    R.prop("x")(obj).toFixed();
+
+    R.prop("y", obj).toLowerCase();
+    R.prop("y")(obj).toLowerCase();
 };
 
 () => {
