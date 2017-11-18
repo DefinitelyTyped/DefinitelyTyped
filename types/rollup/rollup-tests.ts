@@ -1,4 +1,4 @@
-import { rollup, Bundle, Plugin, ConfigFileOptions } from 'rollup'
+import { rollup, watch, Bundle, Plugin, ConfigFileOptions } from 'rollup'
 
 declare const console: { log(...messages: any[]): void, warn(message: string): void }
 
@@ -69,6 +69,42 @@ async function main() {
         sourcemapFile: 'bundle.js.map',
         strict: true,
     })
+
+    const watcher = watch({
+        input: 'main.js',
+        output: {
+            file: 'bundle.js',
+            format: 'es'
+        },
+        watch: {
+            chokidar: true
+        }
+    })
+
+    watcher.on('event', e => {
+        switch (e.code) {
+            case 'START':
+                console.log(`We're rolling!`)
+                return
+            case 'END':
+                console.log(`We're all rolled up!`)
+                return
+            case 'ERROR':
+            case 'FATAL':
+                console.log(e.error.message)
+                return
+            case 'BUNDLE_START':
+                console.log(`Bundling: ${e.input}`)
+                return
+            case 'BUNDLE_END':
+                console.log(`Bundling: ${e.input}`)
+                return
+        }
+
+        assertNever(e)
+    })
+
+    watcher.close()
 }
 
 main()
@@ -93,4 +129,8 @@ export const multiConfig: ConfigFileOptions = {
             format: 'cjs',
         }
     ]
+}
+
+function assertNever(nope: never) {
+    throw new Error('Oh no!')
 }
