@@ -137,9 +137,9 @@ export interface Plugin {
 	 */
 	resolveId?(importee: string, importer: string | undefined): string | null | undefined | false | 0 | ''
 	/** A module transformer function */
-	transform?(this: TransformContext, source: string, id: string): string | { code: string, map: SourceMap }
+	transform?(this: TransformContext, source: string, id: string): string | null | undefined | { code: string, map: SourceMap }
 	/** A bundle transformer function */
-	transformBundle?(source: string, options: { format: Format }): string | { code: string, map: SourceMap }
+	transformBundle?(source: string, options: { format: Format }): string | null | undefined | { code: string, map: SourceMap }
 	/** Function hook called when bundle.generate() is being executed. */
 	ongenerate?(options: GenerateOptions, bundle: Bundle): void
 	/** Function hook called when bundle.write() is being executed, after the file has been written to disk. */
