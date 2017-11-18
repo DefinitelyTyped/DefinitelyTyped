@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "selenium-webdriver": [
+                "selenium-webdriver/v2"
+            ],
+            "selenium-webdriver/*": [
+                "selenium-webdriver/v2/*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "chrome.d.ts",
+        "edge.d.ts",
+        "executors.d.ts",
+        "firefox.d.ts",
+        "http.d.ts",
+        "ie.d.ts",
+        "opera.d.ts",
+        "remote.d.ts",
+        "safari.d.ts",
+        "testing.d.ts",
+        "test/index.ts",
+        "test/chrome.ts",
+        "test/firefox.ts",
+        "test/remote.ts"
+    ]
+}

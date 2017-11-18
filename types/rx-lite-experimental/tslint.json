@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "unified-signatures": false,
+        "no-declare-current-package": false,
+        "no-single-declare-module": false
+    }
+}
