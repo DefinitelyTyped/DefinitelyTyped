@@ -11,7 +11,17 @@ const model = mongoose.model(resourceName, schema);
 
 resourcejs(app, route, resourceName, model)
     .get()
-    .post()
+    .post({
+        after(req: resourcejs.Request, res: resourcejs.Response, next: express.NextFunction) {
+            res.resource.item = {
+                foo: "foo",
+                bar: "bar",
+                baz: "baz",
+            };
+
+            next();
+        },
+    })
     .delete()
     .put()
     .patch()

@@ -1,6 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { SplitterSide, Splitter, SplitterContent, Page } from "react-onsenui";
+import {
+    SplitterSide, Splitter, SplitterContent,
+    Page, Input, Button,
+} from "react-onsenui";
 
 class AppState {
     isOpen = false;
@@ -18,6 +21,9 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ isOpen: false });
     }
 
+    onChange(event: React.ChangeEvent<HTMLInputElement>) {}
+    onClick(event: React.MouseEvent<HTMLButtonElement>) {}
+
     render() {
         return (
             <Splitter>
@@ -34,6 +40,8 @@ export class App extends React.Component<AppProps, AppState> {
                 <SplitterContent>
                     <Page>
                         Test page
+                        <Input name='test' type='text' value='test' onChange={this.onChange} />
+                        <Button onClick={this.onClick} />
 					</Page>
                 </SplitterContent>
             </Splitter>

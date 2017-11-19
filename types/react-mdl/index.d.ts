@@ -418,7 +418,7 @@ declare namespace __ReactMDL {
         hideSpacer?: boolean;
     }
     interface HeaderRowProps extends __MDLOtherProps {
-        title?: string;
+        title?: any; // string | JSX.Element
         hideSpacer?: boolean;
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {

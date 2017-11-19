@@ -892,6 +892,118 @@ stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function
 
 //#endregion
 
+//#region Payouts tests
+// ##################################################################################
+stripe.payouts.create({
+    amount: 2000,
+    currency: "usd",
+    description: "The Payout",
+}, function(err, payout) {});
+stripe.payouts.create({
+    amount: 2000,
+    currency: "usd",
+    description: "The Payout",
+}).then(function(payout) {});
+stripe.payouts.create({
+    amount: 2000,
+    currency: "usd",
+    description: "The Payout",
+}, {
+    stripe_account: "acct_abc12345678",
+}, function(err, payout) {});
+stripe.payouts.create({
+    amount: 2000,
+    currency: "usd",
+    description: "The Payout",
+}, {
+    stripe_account: "acct_abc12345678",
+}).then(function(payout) {});
+
+stripe.payouts.retrieve(
+    "po_5rfJKDJkuxzh5Q",
+    function(err, payout) {}
+);
+stripe.payouts.retrieve("po_5rfJKDJkuxzh5Q").then(
+    function(payout) {}
+);
+stripe.payouts.retrieve(
+    "po_5rfJKDJkuxzh5Q",
+    { stripe_account: "acct_abc12345678" },
+    function(err, payout) {}
+);
+stripe.payouts.retrieve(
+    "po_5rfJKDJkuxzh5Q",
+    { stripe_account: "acct_abc12345678" }
+).then(function(payout) {});
+
+stripe.payouts.update(
+    "po_5rfJKDJkuxzh5Q",
+    { metadata: { key: "value" } },
+    function(err: Stripe.IStripeError, payout: Stripe.payouts.IPayout) {}
+);
+stripe.payouts.update(
+    "po_5rfJKDJkuxzh5Q",
+    { metadata: { key: "value" } },
+).then(function(payout) {});
+stripe.payouts.update(
+    "po_5rfJKDJkuxzh5Q",
+    { metadata: { key: "value" } },
+    { stripe_account: "acct_abc12345678" },
+    function(err, payout) {}
+);
+stripe.payouts.update(
+    "po_5rfJKDJkuxzh5Q",
+    { metadata: { key: "value" } },
+    { stripe_account: "acct_abc12345678" },
+).then(function(payout) {});
+
+stripe.payouts.list(
+    { limit: 100 },
+    { stripe_account: "acct_abc12345678" },
+    function(err, payouts) {}
+);
+stripe.payouts.list(
+    { limit: 100 },
+    { stripe_account: "acct_abc12345678" },
+).then(function(payouts) {});
+stripe.payouts.list(
+    { limit: 100 },
+    function(err, payouts) {}
+);
+stripe.payouts.list(
+    { limit: 100 },
+).then(function(payouts) {});
+stripe.payouts.list(
+    { stripe_account: "acct_abc12345678" },
+    function(err, payouts) {}
+);
+stripe.payouts.list(
+    { stripe_account: "acct_abc12345678" },
+).then(function(payouts) {});
+stripe.payouts.list(
+    function(err, payouts) {}
+);
+stripe.payouts.list().then(function(payouts) {});
+
+stripe.payouts.cancel(
+    "po_5rfJKDJkuxzh5Q",
+    { stripe_account: "acct_abc12345678" },
+    function(err, payout) {}
+);
+stripe.payouts.cancel(
+    "po_5rfJKDJkuxzh5Q",
+    { stripe_account: "acct_abc12345678" },
+).then(function(payout) {});
+stripe.payouts.cancel(
+    "po_5rfJKDJkuxzh5Q",
+    function(err, payout) {}
+);
+stripe.payouts.cancel(
+    "po_5rfJKDJkuxzh5Q",
+).then(function(payout) {});
+
+//#endregion
+
 //#region Plans tests
 // ##################################################################################
 
@@ -998,3 +1110,10 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 });
 
 //#endregion
+
+//#region Ephemeral keys tests
+// ##################################################################################
+
+stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version: "2017-08-15" }).then(function(ephemeralKeys) {
+    // asynchronously called
+});

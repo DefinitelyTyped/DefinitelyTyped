@@ -6,13 +6,17 @@
 
 import * as React from "react";
 
+export interface State {
+  isOpen: boolean;
+}
+
 export interface Props {
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
     crossButtonClassName?: string;
     crossClassName?: string;
-    customBurgerIcon?: Element | false;
-    customCrossIcon?: Element | false;
+    customBurgerIcon?: JSX.Element | false;
+    customCrossIcon?: JSX.Element | false;
     id?: string;
     isOpen?: boolean;
     itemListClassName?: string;
@@ -20,7 +24,7 @@ export interface Props {
     morphShapeClassName?: string;
     noOverlay?: boolean;
     disableOverlayClick?: boolean;
-    onStateChange?(): void;
+    onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string
     outerContainerId?: string;
