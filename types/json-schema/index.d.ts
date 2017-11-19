@@ -471,5 +471,3 @@ export interface JSONSchema6 {
    */
   examples?: JSONSchema6Type[];
 }
-
-export { JSONSchema6 as JSONSchema };
