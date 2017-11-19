@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/json-schema
 // Definitions by: Boris Cherny <https://github.com/bcherny>, Cyrille Tuzi <https://github.com/cyrilletuzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.2
 
 /* JSON Schema 4 */
 
@@ -22,8 +22,8 @@ export type JSONSchema4Type = any[] | boolean | number | null | object | string;
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04
  */
 export interface JSONSchema4 {
-  id?: string
-  $ref?: string
+  id?: string;
+  $ref?: string;
   $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
           | 'http://json-schema.org/draft-04/schema#' | 'http://json-schema.org/draft-04/hyper-schema#'
           | 'http://json-schema.org/draft-03/schema#' | 'http://json-schema.org/draft-03/hyper-schema#'
@@ -117,7 +117,7 @@ export interface JSONSchema4 {
 
   definitions?: {
     [k: string]: JSONSchema4;
-  }
+  };
 
   /**
    * This attribute is an object with property definitions that define the
@@ -134,7 +134,7 @@ export interface JSONSchema4 {
    */
   properties?: {
     [k: string]: JSONSchema4;
-  }
+  };
 
   /**
    * This attribute is an object that defines the schema for a set of
@@ -149,10 +149,10 @@ export interface JSONSchema4 {
    */
   patternProperties?: {
     [k: string]: JSONSchema4;
-  }
+  };
   dependencies?: {
     [k: string]: JSONSchema4 | string[];
-  }
+  };
 
   /**
    * This provides an enumeration of all possible values that are valid
@@ -206,11 +206,10 @@ export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 
 export type JSONSchema6Type = any[] | boolean | number | null | object | string;
 
 /**
-* JSON Schema V6
-* @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
-*/
+ * JSON Schema V6
+ * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
+ */
 export interface JSONSchema6 {
-
   $id?: string;
   $ref?: string;
   $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#' |
@@ -396,14 +395,14 @@ export interface JSONSchema6 {
   propertyNames?: boolean | JSONSchema6;
 
   /**
-  * This provides an enumeration of all possible values that are valid
-  * for the instance property. This MUST be an array, and each item in
-  * the array represents a possible value for the instance value. If
-  * this attribute is defined, the instance value MUST be one of the
-  * values in the array in order for the schema to be valid.
-  *
-  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.23
-  */
+   * This provides an enumeration of all possible values that are valid
+   * for the instance property. This MUST be an array, and each item in
+   * the array represents a possible value for the instance value. If
+   * this attribute is defined, the instance value MUST be one of the
+   * values in the array in order for the schema to be valid.
+   *
+   * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.23
+   */
   enum?: JSONSchema6Type[];
 
   /**
@@ -413,9 +412,9 @@ export interface JSONSchema6 {
   const?: JSONSchema6Type;
 
   /**
-  * A single type, or a union of simple types
-  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.25
-  */
+   * A single type, or a union of simple types
+   * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.25
+   */
   type?: JSONSchema6TypeName | JSONSchema6TypeName[];
 
   /**
@@ -471,5 +470,4 @@ export interface JSONSchema6 {
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.4
    */
   examples?: JSONSchema6Type[];
-
 }
