@@ -1,7 +1,9 @@
-// Type definitions for OpenLayers ES6 package (ol) v4.5.0
+// Type definitions for ol v4.5.0
 // Project: http://openlayers.org/
 // Definitions by: Beginor <https://github.com/beginor>
-// this package is based on @types/openlayers;
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Description: ol is openlayers es6 package
+// TypeScript Version: 2.3
 
 declare module 'ol' {
     export default ol;
