@@ -24,5 +24,5 @@
 
 declare module 'pouchdb' {
     const plugin: PouchDB.Static;
-    export = plugin;
+    export default plugin;
 }
