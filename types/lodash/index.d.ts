@@ -16128,18 +16128,14 @@ declare namespace _ {
         /**
          * @see _.constant
          */
-        constant<T>(this: LoDashImplicitWrapper<T>): LoDashImplicitWrapper<() => T>;
-        // Note: we can't use TValue here because of an issue with dtslint. Using T as a workaround; change back to TValue once dtsLint is working.
-        // constant(): LoDashImplicitWrapper<() => TValue>;
+        constant(): LoDashImplicitWrapper<() => TValue>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.constant
          */
-        constant<T>(this: LoDashExplicitWrapper<T>): LoDashExplicitWrapper<() => T>;
-        // Note: we can't use TValue here because of an issue with dtslint. Using T as a workaround; change back to TValue once dtsLint is working.
-        // constant(): LoDashExplicitWrapper<() => TValue>;
+        constant(): LoDashExplicitWrapper<() => TValue>;
     }
 
     //_.defaultTo
