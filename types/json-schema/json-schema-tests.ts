@@ -58,7 +58,7 @@ import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSch
       baz: { type: 'integer' }
     },
     enum: ['foo', 42],
-    type: ['string', 'array'],
+    type: 'string',
     allOf: [{}],
     anyOf: [{}],
     oneOf: [{}],
@@ -126,7 +126,7 @@ import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSch
       baz: { type: 'integer' }
     },
     enum: ['foo', 42],
-    type: ['string', 'array'],
+    type: 'string',
     allOf: [{}],
     anyOf: [{}],
     oneOf: [{}],
