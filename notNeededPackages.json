@@ -187,6 +187,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "error-stack-parser",
+            "typingsPackageName": "error-stack-parser",
+            "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",

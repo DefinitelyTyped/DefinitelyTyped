@@ -684,6 +684,7 @@ namespace util_tests {
         assert(typeof util.inspect.custom === 'symbol');
 
         // util.callbackify
+        // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
             static fn(): Promise<void> {
                 assert(arguments.length === 0);
@@ -1321,9 +1322,24 @@ namespace http_tests {
         request.abort();
     }
 
-    const options: http.RequestOptions = {
-        timeout: 30000
-    };
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
+    }
 }
 
 //////////////////////////////////////////////////////
