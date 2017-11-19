@@ -1,4 +1,4 @@
-import {createReadStream, createWriteStream} from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import * as br from 'iltorb';
 
 const opts: br.BrotliEncodeParams = {
