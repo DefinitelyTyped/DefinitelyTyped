@@ -14398,6 +14398,9 @@ declare namespace _ {
              ...props: Array<Many<U>>
         ): Pick<T, U>;
 
+        /**
+         * @see _.pick
+         */
         pick<T>(
             object: T | null | undefined,
             ...props: PropertyPath[]
@@ -14408,6 +14411,14 @@ declare namespace _ {
         /**
          * @see _.pick
          */
+        pick<T extends object, U extends keyof T>(
+            this: LoDashImplicitWrapper<T | null | undefined>,
+            ...props: Array<Many<U>>
+        ): LoDashImplicitWrapper<Pick<T, U>>;
+
+        /**
+         * @see _.pick
+         */
         pick<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             ...props: PropertyPath[]
@@ -14415,6 +14426,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.pick
+         */
+        pick<T extends object, U extends keyof T>(
+            this: LoDashExplicitWrapper<T | null | undefined>,
+            ...props: Array<Many<U>>
+        ): LoDashExplicitWrapper<Pick<T, U>>;
+
         /**
          * @see _.pick
          */

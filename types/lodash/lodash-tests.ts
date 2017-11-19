@@ -11821,7 +11821,7 @@ namespace TestPick {
     {
         let result: Pick<TResult, 'a' | 'b'>;
         result = _.pick(obj, 'a', 'b');
-        result = _.pick(obj, ['a', 'b']);
+        result = _.pick(obj, ['a' as 'a', 'b' as 'b']);
     }
 
     {
@@ -11833,11 +11833,25 @@ namespace TestPick {
     }
 
     {
+        let result: _.LoDashImplicitWrapper<Pick<TResult, 'a' | 'b'>>;
+
+        result = _(obj).pick('a', 'b');
+        result = _(obj).pick(['a' as 'a', 'b' as 'b']);
+    }
+
+    {
         let result: _.LoDashExplicitWrapper<Partial<TResult>>;
 
         result = _(obj).chain().pick<TResult>('a');
         result = _(obj).chain().pick<TResult>(0, 'a');
         result = _(obj).chain().pick<TResult>(['b', 1], 0, 'a');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<Pick<TResult, 'a' | 'b'>>;
+
+        result = _(obj).chain().pick('a', 'b');
+        result = _(obj).chain().pick(['a' as 'a', 'b' as 'b']);
     }
 }
 
