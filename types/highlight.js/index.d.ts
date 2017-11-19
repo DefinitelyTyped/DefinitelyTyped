@@ -3,6 +3,8 @@
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Node { }
+
 declare namespace hljs
 {
 	export function highlight(
