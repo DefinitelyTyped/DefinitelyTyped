@@ -16,7 +16,7 @@ export interface BrotliEncodeParams {
     size_hint?: number;
 }
 
-export type IltorbCallback = (err: Error | null | undefined, output: Buffer) => any;
+export type IltorbCallback = (err: Error | null | undefined, output: Buffer) => void;
 
 export function compress(buffer: Buffer, options: BrotliEncodeParams, callback: IltorbCallback): void;
 export function compress(buffer: Buffer, callback: IltorbCallback): void;
