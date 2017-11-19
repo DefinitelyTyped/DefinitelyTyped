@@ -1,4 +1,4 @@
-// Type definitions for Parsimmon 1.6.2
+// Type definitions for Parsimmon 1.6
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -73,7 +73,7 @@ declare namespace Parsimmon {
 		expected: string[];
 		index: Index;
 	}
-	
+
 	interface Rule {
 		[key: string]: (r?: Language) => Parser<any>;
 	}
@@ -115,7 +115,7 @@ declare namespace Parsimmon {
 		// tslint:disable-next-line:unified-signatures
 		then<U>(anotherParser: Parser<U>): Parser<U>;
 		/**
-		 * returns wrapper(this) from the parser. Useful for custom functions used 
+		 * returns wrapper(this) from the parser. Useful for custom functions used
 		 * to wrap your parsers, while keeping with Parsimmon chaining style.
 		 */
 		thru<U>(call: (wrapper: Parser<U>) => Parser<T>): Parser<T>;
@@ -192,7 +192,7 @@ declare namespace Parsimmon {
 	 * Starting point for building a language parser in Parsimmon
 	 */
 	function createLanguage(rules: Rule): Language;
-	
+
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the successful parse went (index), and what value it created doing
