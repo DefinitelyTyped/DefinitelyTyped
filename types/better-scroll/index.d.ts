@@ -31,10 +31,10 @@ interface PullUpOption {
   threshold?: number;
 }
 interface PageOption {
-  x: number,
-  y: number,
-  pageX: number,
-  pageY: number
+  x: number;
+  y: number;
+  pageX: number;
+  pageY: number;
 }
 interface BsOption {
   startX?: number;
