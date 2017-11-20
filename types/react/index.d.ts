@@ -204,7 +204,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
-        type: string | ReactElement<any>,
+        type: string | Element,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
 
