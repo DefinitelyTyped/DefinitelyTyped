@@ -5,6 +5,8 @@
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
+
+// TypeScript Version: 2.2
 interface Window {
   CKEDITOR_BASEPATH: string;
 }
