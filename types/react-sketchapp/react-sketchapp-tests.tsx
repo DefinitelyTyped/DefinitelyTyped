@@ -29,8 +29,7 @@ renderToJSON(<Document />);
 // Artboard is typed with a class so the prototype should be typed too (not very useful though)
 Artboard.prototype.componentDidMount;
 
-// context is a global but conflicts with others in this library
-// TODO: currently this interface returns any but it looks like this method produces a side-affect
+// TODO: currently this interface returns any but it looks like this method produces a side-effect
 // and the return type isn't used anyway
 TextStyles.create(context as any, {
     normal: {
