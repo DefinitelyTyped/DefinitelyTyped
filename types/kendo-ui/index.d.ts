@@ -3707,7 +3707,7 @@ declare namespace kendo.ui {
     interface GridColumnCommandItem {
         visible?: Function;
         name?: string;
-        text?: GridColumnCommandItemText;
+        text?: string|GridColumnCommandItemText;
         className?: string;
         click?: Function;
         iconClass?: string;
