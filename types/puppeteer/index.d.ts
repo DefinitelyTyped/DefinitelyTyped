@@ -249,6 +249,12 @@ export interface EmulateOptions {
 
 export type EvaluateFn = string | ((...args: any[]) => any);
 
+export type LoadEvent =
+  | "load"
+  | "domcontentloaded"
+  | "networkidle0"
+  | "networkidle2";
+
 /** The navigation options. */
 export interface NavigationOptions {
   /**
@@ -260,7 +266,7 @@ export interface NavigationOptions {
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
    */
-  waitUntil?: "load" | "domcontentloaded" | "networkidle0" | "networkidle2";
+  waitUntil?: LoadEvent | LoadEvent[];
 }
 
 export type PDFFormat =
