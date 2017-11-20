@@ -7,6 +7,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from "events";
+
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
   /**
@@ -781,11 +783,29 @@ export interface PageEventObj {
 }
 
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
-export interface Page extends FrameBase {
+export interface Page extends EventEmitter, FrameBase {
+  /**
+   * Adds the listener function to the end of the listeners array for the event named `eventName`.
+   * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
+   * `eventName` and listener will result in the listener being added, and called, multiple times.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
   on<K extends keyof PageEventObj>(
-    event: K,
+    eventName: K,
     handler: (e: PageEventObj[K], ...args: any[]) => void
-  ): void;
+  ): this;
+
+  /**
+   * Adds a one time listener function for the event named `eventName`.
+   * The next time `eventName` is triggered, this listener is removed and then invoked.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
+  once<K extends keyof PageEventObj>(
+    eventName: K,
+    handler: (e: PageEventObj[K], ...args: any[]) => void
+  ): this;
 
   /**
    * Provide credentials for http authentication.
@@ -1028,11 +1048,29 @@ export interface Page extends FrameBase {
 }
 
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
-export interface Browser {
+export interface Browser extends EventEmitter {
+  /**
+   * Adds the listener function to the end of the listeners array for the event named `eventName`.
+   * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
+   * `eventName` and listener will result in the listener being added, and called, multiple times.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
   on<K extends keyof BrowserEventObj>(
-    event: K,
+    eventName: K,
     handler: (e: BrowserEventObj[K], ...args: any[]) => void
-  ): void;
+  ): this;
+
+  /**
+   * Adds a one time listener function for the event named `eventName`.
+   * The next time `eventName` is triggered, this listener is removed and then invoked.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
+  once<K extends keyof BrowserEventObj>(
+    eventName: K,
+    handler: (e: BrowserEventObj[K], ...args: any[]) => void
+  ): this;
 
   /**
    * Closes browser with all the pages (if any were opened).
