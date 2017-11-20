@@ -1,4 +1,4 @@
-import * as beats from 'beats';
+import beats = require('beats');
 
 const bins: beats.Bin[] = [
     { lo: 0, hi: 512, threshold: 0, decay: 0.005 },
