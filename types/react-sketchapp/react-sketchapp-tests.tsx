@@ -1,4 +1,4 @@
-import { Artboard, View, Text, StyleSheet, TextStyles, render, renderToJSON } from './index';
+import { Artboard, View, Text, StyleSheet, TextStyles, render, renderToJSON } from 'react-sketchapp';
 
 // the styles object should be a mapped typed mapping the keys of the object literal to numbers
 const styles = StyleSheet.create({
@@ -19,13 +19,13 @@ const Document = () => <Artboard name="some artboard name" style={{ backgroundCo
   </View>
   <View style={styles.red}>
   </View>
-</Artboard>
+</Artboard>;
 
 render(<Document />);
 renderToJSON(<Document />);
 
 // Artboard is typed with a class so the prototype should be typed too (not very useful though)
-Artboard.prototype.componentDidMount
+Artboard.prototype.componentDidMount;
 
 // context is a global but conflicts with others in this library
 // TODO: currently this interface returns any but it looks like this method produces a side-affect
