@@ -1,11 +1,21 @@
 {
     "compilerOptions": {
         "target": "es2017",
-        "module": "es2015",
+        "module": "commonjs",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
         "jsx": "preserve",
-        "strict": true,
         "typeRoots": [
             "../"
-        ]
+        ],
+        "lib": [
+            "es2015"
+        ],
+        "types": [],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true
     }
 }
