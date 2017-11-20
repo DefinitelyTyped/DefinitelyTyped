@@ -50,6 +50,7 @@ export interface HookScenarioResult {
 }
 
 export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
+export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 // tslint:disable-next-line ban-types
 export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void) => void;
@@ -68,8 +69,12 @@ export interface HookOptions {
 export interface Hooks {
     Before(code: HookCode): void;
     Before(options: HookOptions, code: HookCode): void;
+    BeforeAll(code: GlobalHookCode): void;
+    BeforeAll(options: HookOptions, code: GlobalHookCode): void;
     After(code: HookCode): void;
     After(options: HookOptions, code: HookCode): void;
+    AfterAll(code: GlobalHookCode): void;
+    AfterAll(options: HookOptions, code: GlobalHookCode): void;
     Around(code: AroundCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
