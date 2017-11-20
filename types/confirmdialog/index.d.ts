@@ -8,7 +8,7 @@ interface JQueryStatic {
    *  confirm Dialog
    * @param {confirmOptions} pOtions
    */
-   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
+   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void  | any;
 
   /**
    * confirm alert
@@ -29,7 +29,7 @@ interface JQuery {
    * confirm Dialog
    * @param {confirmOptions} pOtions
    */
-   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
+   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void  | any;
 
   /**
    * confirm alert
