@@ -5,7 +5,7 @@
 //                 Isaiah Soung <https://github.com/isoung>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6.1
+// TypeScript Version: 2.6
 
 export interface World {
     [key: string]: any;
