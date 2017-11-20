@@ -2099,8 +2099,13 @@ declare module 'ember' {
             ): void;
             mount(
                 name: string,
-                options?: { as?: string, path?: string; resetNamespace?: boolean, engineInfo?: any }
-            ): void
+                options?: {
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
+                }
+            ): void;
         }
         class Service extends Object {}
         /**
