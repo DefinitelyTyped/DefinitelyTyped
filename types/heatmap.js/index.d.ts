@@ -159,7 +159,7 @@ export class Heatmap<V extends string, X extends string, Y extends string> {
      * // get the value at x=10, y=10
      * heatmapInstance.getValueAt({ x: 10, y: 10 }); // returns 100
      */
-    getValueAt(point: Point<'x', 'y'>): number;
+    getValueAt(point: { x: number, y: number }): number;
 
     /**
      * Returns a persistable and reimportable (with setData) JSON object.
@@ -306,12 +306,6 @@ export interface HeatmapOverlayConfiguration<
 }
 
 /**
- * A position in the heatmap.
- */
-export type Point<X extends string, Y extends string> =
-    Record<X | Y, number>;
-
-/**
  * A single data point on a heatmap. The interface of the data point can be
  * overridden by providing alternative values for `xKey` and `yKey` in the
  * config object.
@@ -320,8 +314,7 @@ export type DataPoint<
     V extends string = 'value',
     X extends string = 'x',
     Y extends string = 'y',
-> =
-    Record<V, number> & Point<X, Y>;
+> = Record<V | X | Y, number>;
 
 /**
  * Type of data returned by `Heatmap#hello`, which ignores custom `xField`,
