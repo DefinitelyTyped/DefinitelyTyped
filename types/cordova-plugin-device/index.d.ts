@@ -7,13 +7,9 @@
 // Licensed under the MIT license
 
 /**
- * This plugin defines a global device object, which describes the device's hardware and software.
- * Although the object is in the global scope, it is not available until after the deviceready event.
- */
- interface Window {
-    device: Device;
-}
-
+* This plugin defines a global device object, which describes the device's hardware and software.
+* Although the object is in the global scope, it is not available until after the deviceready event.
+*/
 interface Device {
     /** Get the version of Cordova running on the device. */
     cordova: string;
@@ -30,11 +26,16 @@ interface Device {
     uuid: string;
     /** Get the operating system version. */
     version: string;
-	/** Get the device's manufacturer. */
-	manufacturer: string;
-	/** Whether the device is running on a simulator. */
-	isVirtual: boolean;
-	/** Get the device hardware serial number. */
-	serial: string;}
+    /** Get the device's manufacturer. */
+    manufacturer: string;
+    /** Whether the device is running on a simulator. */
+    isVirtual: boolean;
+    /** Get the device hardware serial number. */
+    serial: string;
+}
+
+interface Window {
+    device: Device;
+}
 
 declare var device: Device;
