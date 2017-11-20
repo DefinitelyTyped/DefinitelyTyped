@@ -5,9 +5,7 @@
 
 export = beats;
 
-type DetectFunction = (frequencies: Uint8Array | Float32Array | ReadonlyArray<number>, dt?: number) => Float32Array;
-
-declare function beats(bins: ReadonlyArray<beats.Bin>, minSeparation?: number): DetectFunction;
+declare function beats(bins: ReadonlyArray<beats.Bin>, minSeparation?: number): (frequencies: Uint8Array | Float32Array | ReadonlyArray<number>, dt?: number) => Float32Array;
 
 declare namespace beats {
     interface Bin {
