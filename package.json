@@ -23,5 +23,8 @@
   "devDependencies": {
     "dtslint": "github:Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.2.16"
   }
 }
