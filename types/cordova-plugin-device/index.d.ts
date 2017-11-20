@@ -7,9 +7,9 @@
 // Licensed under the MIT license
 
 /**
-* This plugin defines a global device object, which describes the device's hardware and software.
-* Although the object is in the global scope, it is not available until after the deviceready event.
-*/
+ * This plugin defines a global device object, which describes the device's hardware and software.
+ * Although the object is in the global scope, it is not available until after the deviceready event.
+ */
 interface Device {
     /** Get the version of Cordova running on the device. */
     cordova: string;
