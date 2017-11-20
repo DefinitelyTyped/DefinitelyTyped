@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as React from "../react/index";
+import * as React from 'react';
 
 declare global {
     const context: SketchContext;
