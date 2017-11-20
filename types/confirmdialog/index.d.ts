@@ -5,10 +5,10 @@
 
 interface JQueryStatic {
   /**
-   *  confirm Dialog
+   * confirm Dialog
    * @param {confirmOptions} pOtions
    */
-   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void  | any;
+   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
 
   /**
    * confirm alert
@@ -29,7 +29,7 @@ interface JQuery {
    * confirm Dialog
    * @param {confirmOptions} pOtions
    */
-   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void  | any;
+   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
 
   /**
    * confirm alert
@@ -72,7 +72,7 @@ declare namespace options {
             dragWindowBorder?: boolean,
             dragWindowGap?: number,
             contentLoaded?: Function,
-            autoClose?: String,
+            autoClose?: string,
             backgroundDismiss?: boolean | Function | string,
             backgroundDismissAnimation?: string,
             escapeKey?: string | boolean,
