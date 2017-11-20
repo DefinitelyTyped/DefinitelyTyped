@@ -275,3 +275,9 @@ export function makeSymbol<P>(
  * Injects the symbols into Sketch's symbol page. **Call this before rendering.**
  */
 export function injectSymbols(context: SketchContext): void;
+
+export const Platform: {
+    OS: 'sketch',
+    Version: 1,
+    select: (obj: any) => any
+};
