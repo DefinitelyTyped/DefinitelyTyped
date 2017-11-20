@@ -10,24 +10,24 @@
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1
  */
 export type JSONSchema4TypeName = 'string' | 'number' | 'integer' | 'boolean'
-                                | 'object' | 'array' | 'null' | 'any';
+                                | 'object' | 'array' | 'null' | 'any'
 
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.5
  */
-export type JSONSchema4Type = any[] | boolean | number | null | object | string;
+export type JSONSchema4Type = any[] | boolean | number | null | object | string
 
 /**
  * JSON Schema V4
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04
  */
 export interface JSONSchema4 {
-  id?: string;
-  $ref?: string;
+  id?: string
+  $ref?: string
   $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
           | 'http://json-schema.org/draft-04/schema#' | 'http://json-schema.org/draft-04/hyper-schema#'
           | 'http://json-schema.org/draft-03/schema#' | 'http://json-schema.org/draft-03/hyper-schema#'
-          | string;
+          | string
 
   /**
    * This attribute is a string that provides a short description of the
@@ -35,7 +35,7 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.21
    */
-  title?: string;
+  title?: string
 
   /**
    * This attribute is a string that provides a full description of the of
@@ -43,17 +43,17 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.22
    */
-  description?: string;
+  description?: string
 
-  default?: JSONSchema4Type;
-  multipleOf?: number;
-  maximum?: number;
-  exclusiveMaximum?: boolean;
-  minimum?: number;
-  exclusiveMinimum?: boolean;
-  maxLength?: number;
-  minLength?: number;
-  pattern?: string;
+  default?: JSONSchema4Type
+  multipleOf?: number
+  maximum?: number
+  exclusiveMaximum?: boolean
+  minimum?: number
+  exclusiveMinimum?: boolean
+  maxLength?: number
+  minLength?: number
+  pattern?: string
 
   /**
    * May only be defined when "items" is defined, and is a tuple of JSONSchemas.
@@ -65,7 +65,7 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.6
    */
-  additionalItems?: boolean | JSONSchema4;
+  additionalItems?: boolean | JSONSchema4
 
   /**
    * This attribute defines the allowed items in an instance array, and
@@ -86,13 +86,13 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.5
    */
-  items?: JSONSchema4 | JSONSchema4[];
+  items?: JSONSchema4 | JSONSchema4[]
 
-  maxItems?: number;
-  minItems?: number;
-  uniqueItems?: boolean;
-  maxProperties?: number;
-  minProperties?: number;
+  maxItems?: number
+  minItems?: number
+  uniqueItems?: boolean
+  maxProperties?: number
+  minProperties?: number
 
   /**
    * This attribute indicates if the instance must have a value, and not
@@ -101,7 +101,7 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.7
    */
-  required?: false | string[];
+  required?: false | string[]
 
   /**
    * This attribute defines a schema for all properties that are not
@@ -113,11 +113,11 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.4
    */
-  additionalProperties?: boolean | JSONSchema4;
+  additionalProperties?: boolean | JSONSchema4
 
   definitions?: {
-    [k: string]: JSONSchema4;
-  };
+    [k: string]: JSONSchema4
+  }
 
   /**
    * This attribute is an object with property definitions that define the
@@ -133,8 +133,8 @@ export interface JSONSchema4 {
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.2
    */
   properties?: {
-    [k: string]: JSONSchema4;
-  };
+    [k: string]: JSONSchema4
+  }
 
   /**
    * This attribute is an object that defines the schema for a set of
@@ -148,11 +148,11 @@ export interface JSONSchema4 {
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.3
    */
   patternProperties?: {
-    [k: string]: JSONSchema4;
-  };
+    [k: string]: JSONSchema4
+  }
   dependencies?: {
-    [k: string]: JSONSchema4 | string[];
-  };
+    [k: string]: JSONSchema4 | string[]
+  }
 
   /**
    * This provides an enumeration of all possible values that are valid
@@ -163,17 +163,17 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.19
    */
-  enum?: JSONSchema4Type[];
+  enum?: JSONSchema4Type[]
 
   /**
    * A single type, or a union of simple types
    */
-  type?: JSONSchema4TypeName | JSONSchema4TypeName[];
+  type?: JSONSchema4TypeName | JSONSchema4TypeName[]
 
-  allOf?: JSONSchema4[];
-  anyOf?: JSONSchema4[];
-  oneOf?: JSONSchema4[];
-  not?: JSONSchema4;
+  allOf?: JSONSchema4[]
+  anyOf?: JSONSchema4[]
+  oneOf?: JSONSchema4[]
+  not?: JSONSchema4
 
   /**
    * The value of this property MUST be another schema which will provide
@@ -191,71 +191,71 @@ export interface JSONSchema4 {
    *
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.26
    */
-  extends?: string | string[];
+  extends?: string | string[]
 
   /**
    * @see https://tools.ietf.org/html/draft-zyp-json-schema-04#section-5.6
    */
-  [k: string]: any;
+  [k: string]: any
 }
 
 /* JSON Schema 6 */
 
-export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array' | 'null' | 'any';
+export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array' | 'null' | 'any'
 
-export type JSONSchema6Type = any[] | boolean | number | null | object | string;
+export type JSONSchema6Type = any[] | boolean | number | null | object | string
 
 /**
  * JSON Schema V6
  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
  */
 export interface JSONSchema6 {
-  $id?: string;
-  $ref?: string;
+  $id?: string
+  $ref?: string
   $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#' |
-  'http://json-schema.org/draft-06/schema#' | 'http://json-schema.org/draft-06/hyper-schema#';
+  'http://json-schema.org/draft-06/schema#' | 'http://json-schema.org/draft-06/hyper-schema#'
 
   /**
    * Must be strictly greater than 0.
    * A numeric instance is valid only if division by this keyword's value results in an integer.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.1
    */
-  multipleOf?: number;
+  multipleOf?: number
 
   /**
    * Representing an inclusive upper limit for a numeric instance.
    * This keyword validates only if the instance is less than or exactly equal to "maximum".
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.2
    */
-  maximum?: number;
+  maximum?: number
 
   /**
    * Representing an exclusive upper limit for a numeric instance.
    * This keyword validates only if the instance is strictly less than (not equal to) to "exclusiveMaximum".
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.3
    */
-  exclusiveMaximum?: number;
+  exclusiveMaximum?: number
 
   /**
    * Representing an inclusive lower limit for a numeric instance.
    * This keyword validates only if the instance is greater than or exactly equal to "minimum".
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.4
    */
-  minimum?: number;
+  minimum?: number
 
   /**
    * Representing an exclusive lower limit for a numeric instance.
    * This keyword validates only if the instance is strictly greater than (not equal to) to "exclusiveMinimum".
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.5
    */
-  exclusiveMinimum?: number;
+  exclusiveMinimum?: number
 
   /**
    * Must be a non-negative integer.
    * A string instance is valid against this keyword if its length is less than, or equal to, the value of this keyword.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.6
    */
-  maxLength?: number;
+  maxLength?: number
 
   /**
    * Must be a non-negative integer.
@@ -263,20 +263,20 @@ export interface JSONSchema6 {
    * Omitting this keyword has the same behavior as a value of 0.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.7
    */
-  minLength?: number;
+  minLength?: number
 
   /**
    * Should be a valid regular expression, according to the ECMA 262 regular expression dialect.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.8
    */
-  pattern?: string;
+  pattern?: string
 
   /**
    * This keyword determines how child instances validate for arrays, and does not directly validate the immediate instance itself.
    * Omitting this keyword has the same behavior as an empty schema.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.9
    */
-  items?: boolean | JSONSchema6 | JSONSchema6[];
+  items?: boolean | JSONSchema6 | JSONSchema6[]
 
   /**
    * This keyword determines how child instances validate for arrays, and does not directly validate the immediate instance itself.
@@ -287,14 +287,14 @@ export interface JSONSchema6 {
    * Omitting this keyword has the same behavior as an empty schema.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.10
    */
-  additionalItems?: boolean | JSONSchema6;
+  additionalItems?: boolean | JSONSchema6
 
   /**
    * Must be a non-negative integer.
    * An array instance is valid against "maxItems" if its size is less than, or equal to, the value of this keyword.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.11
    */
-  maxItems?: number;
+  maxItems?: number
 
   /**
    * Must be a non-negative integer.
@@ -302,7 +302,7 @@ export interface JSONSchema6 {
    * Omitting this keyword has the same behavior as a value of 0.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.12
    */
-  minItems?: number;
+  minItems?: number
 
   /**
    * If this keyword has boolean value false, the instance validates successfully.
@@ -310,20 +310,20 @@ export interface JSONSchema6 {
    * Omitting this keyword has the same behavior as a value of false.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.13
    */
-  uniqueItems?: boolean;
+  uniqueItems?: boolean
 
   /**
    * An array instance is valid against "contains" if at least one of its elements is valid against the given schema.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.14
    */
-  contains?: boolean | JSONSchema6;
+  contains?: boolean | JSONSchema6
 
   /**
    * Must be a non-negative integer.
    * An object instance is valid against "maxProperties" if its number of properties is less than, or equal to, the value of this keyword.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.15
    */
-  maxProperties?: number;
+  maxProperties?: number
 
   /**
    * Must be a non-negative integer.
@@ -332,7 +332,7 @@ export interface JSONSchema6 {
    * Omitting this keyword has the same behavior as a value of 0.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.16
    */
-  minProperties?: number;
+  minProperties?: number
 
   /**
    * Elements of this array must be unique.
@@ -341,7 +341,7 @@ export interface JSONSchema6 {
    *
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.17
    */
-  required?: string[];
+  required?: string[]
 
   /**
    * This keyword determines how child instances validate for objects, and does not directly validate the immediate instance itself.
@@ -352,7 +352,7 @@ export interface JSONSchema6 {
    */
   properties?: {
     [k: string]: boolean | JSONSchema6
-  };
+  }
 
   /**
    * This attribute is an object that defines the schema for a set of property names of an object instance.
@@ -364,7 +364,7 @@ export interface JSONSchema6 {
    */
   patternProperties?: {
     [k: string]: boolean | JSONSchema6
-  };
+  }
 
   /**
    * This attribute defines a schema for all properties that are not explicitly defined in an object type definition.
@@ -373,7 +373,7 @@ export interface JSONSchema6 {
    * The default value is an empty schema which allows any value for additional properties.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.20
    */
-  additionalProperties?: boolean | JSONSchema6;
+  additionalProperties?: boolean | JSONSchema6
 
   /**
    * This keyword specifies rules that are evaluated if the instance is an object and contains a certain property.
@@ -384,7 +384,7 @@ export interface JSONSchema6 {
    */
   dependencies?: {
     [k: string]: boolean | JSONSchema6 | string[]
-  };
+  }
 
   /**
    * Takes a schema which validates the names of all properties rather than their values.
@@ -392,7 +392,7 @@ export interface JSONSchema6 {
    * Omitting this keyword has the same behavior as an empty schema.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.22
    */
-  propertyNames?: boolean | JSONSchema6;
+  propertyNames?: boolean | JSONSchema6
 
   /**
    * This provides an enumeration of all possible values that are valid
@@ -403,71 +403,71 @@ export interface JSONSchema6 {
    *
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.23
    */
-  enum?: JSONSchema6Type[];
+  enum?: JSONSchema6Type[]
 
   /**
    * More readible form of a one-element "enum"
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.24
    */
-  const?: JSONSchema6Type;
+  const?: JSONSchema6Type
 
   /**
    * A single type, or a union of simple types
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.25
    */
-  type?: JSONSchema6TypeName | JSONSchema6TypeName[];
+  type?: JSONSchema6TypeName | JSONSchema6TypeName[]
 
   /**
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.26
    */
-  allOf?: JSONSchema6[];
+  allOf?: JSONSchema6[]
 
   /**
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.27
    */
-  anyOf?: JSONSchema6[];
+  anyOf?: JSONSchema6[]
 
   /**
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.28
    */
-  oneOf?: JSONSchema6[];
+  oneOf?: JSONSchema6[]
 
   /**
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.29
    */
-  not?: boolean | JSONSchema6;
+  not?: boolean | JSONSchema6
 
   /**
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.1
    */
   definitions?: {
     [k: string]: boolean | JSONSchema6
-  };
+  }
 
   /**
    * This attribute is a string that provides a short description of the instance property.
    *
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.2
    */
-  title?: string;
+  title?: string
 
   /**
    * This attribute is a string that provides a full description of the of purpose the instance property.
    *
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.2
    */
-  description?: string;
+  description?: string
 
   /**
    * This keyword can be used to supply a default JSON value associated with a particular schema.
    * It is RECOMMENDED that a default value be valid against the associated schema.
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.3
    */
-  default?: JSONSchema6Type;
+  default?: JSONSchema6Type
 
   /**
-   * Array of examples with no validation effect; the value of "default" is usable as an example without repeating it under this keyword
+   * Array of examples with no validation effect the value of "default" is usable as an example without repeating it under this keyword
    * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.4
    */
-  examples?: JSONSchema6Type[];
+  examples?: JSONSchema6Type[]
 }
