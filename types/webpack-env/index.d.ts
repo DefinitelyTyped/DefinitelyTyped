@@ -187,6 +187,10 @@ declare namespace __WebpackModuleApi {
         autoApply?: boolean;
     }
 
+    interface NodeProcess {
+        env?: any;
+    }
+
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
     type RequireLambda = __Require1 & __Require2;
@@ -248,11 +252,6 @@ interface NodeModule extends __WebpackModuleApi.Module {}
 
 declare var module: NodeModule;
 
-interface NodeProcess {
-    env: {
-        NODE_ENV: string,
-        [name: string]: string
-    }
-}
+interface Process extends __WebpackModuleApi.NodeProcess { }
 
-declare var process: NodeProcess;
+declare var process: NodeJS.Process;
