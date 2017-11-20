@@ -254,4 +254,4 @@ declare var module: NodeModule;
 
 interface Process extends __WebpackModuleApi.NodeProcess { }
 
-declare var process: NodeJS.Process;
+declare var process: Process;
