@@ -1,4 +1,4 @@
-// Type definitions for better-scroll.js 1.4.2
+// Type definitions for better-scroll.js 1.4.0
 // Project: https://github.com/ustbhuangyi/better-scroll
 // Definitions by: linxiaowu66 <https://github.com/linxiaowu66>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
