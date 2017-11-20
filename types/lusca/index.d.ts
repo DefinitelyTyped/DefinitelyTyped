@@ -2,6 +2,7 @@
 // Project: https://github.com/krakenjs/lusca#readme
 // Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import express = require('express');
 
@@ -17,13 +18,13 @@ declare namespace lusca {
         xframe?: string | false;
         p3p?: string | false;
         hsts?: hstsOptions | false;
-        xssProtection?: boolean;
+        xssProtection?: xssProtectionOptions | boolean;
         nosniff?: boolean;
         referrerPolicy?: string | false;
     }
 
     interface cspOptions {
-        policy?: string | object | (object | string)[];
+        policy?: string | object | Array<object | string>;
         reportOnly?: boolean;
         reportUri?: string;
         styleNonce?: boolean;
@@ -69,7 +70,7 @@ declare namespace lusca {
     function xframe(value: string): express.RequestHandler;
     function p3p(value: string): express.RequestHandler;
     function hsts(options?: hstsOptions): express.RequestHandler;
-    function xssProtection(options?: xssProtectionOptions): express.RequestHandler;
+    function xssProtection(options?: xssProtectionOptions | true): express.RequestHandler;
     function nosniff(): express.RequestHandler;
     function referrerPolicy(value: string): express.RequestHandler;
 }

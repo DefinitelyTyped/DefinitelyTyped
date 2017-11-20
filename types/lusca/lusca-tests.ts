@@ -13,9 +13,9 @@ app.use(lusca({
     nosniff: true,
     referrerPolicy: 'same-origin'
 }));
+
 app.use(lusca.csrf());
-app.use(lusca.csp({policy: [{ "img-src": "'self' http:" }, "block-all-mixed-content"]
-    , reportOnly: false}));
+app.use(lusca.csp({policy: [{ "img-src": "'self' http:" }, "block-all-mixed-content"], reportOnly: false}));
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.p3p('ABCDEF'));
 app.use(lusca.hsts({ maxAge: 31536000 }));
