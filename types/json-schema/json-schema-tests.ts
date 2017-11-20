@@ -1,24 +1,24 @@
-import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSchema6Type, JSONSchema6TypeName } from 'json-schema';
+import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSchema6Type, JSONSchema6TypeName } from 'json-schema'
 
 /* JSON Schema 4 */
 
 // SimpleType
 () => {
-  const a: JSONSchema4TypeName = 'string';
-  const b: JSONSchema4TypeName = 'null';
-  const c: JSONSchema4TypeName = 'any';
-};
+  const a: JSONSchema4TypeName = 'string'
+  const b: JSONSchema4TypeName = 'null'
+  const c: JSONSchema4TypeName = 'any'
+}
 
 // Type
 () => {
-  const a: JSONSchema4Type = 'foo';
-  const b: JSONSchema4Type = null;
-  const c: JSONSchema4Type = [1, 2];
-};
+  const a: JSONSchema4Type = 'foo'
+  const b: JSONSchema4Type = null
+  const c: JSONSchema4Type = [1, 2]
+}
 
 // JSONSchema4
 () => {
-  const a: JSONSchema4 = {};
+  const a: JSONSchema4 = {}
   const b: JSONSchema4 = {
     id: 'foo',
     $ref: 'foo/bar',
@@ -65,28 +65,28 @@ import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSch
     not: {},
     extends: 'foo',
     bar: 4
-  };
-};
+  }
+}
 
 /* JSON Schema 6 */
 
 // SimpleType
 () => {
-  const a: JSONSchema6TypeName = 'string';
-  const b: JSONSchema6TypeName = 'null';
-  const c: JSONSchema6TypeName = 'any';
-};
+  const a: JSONSchema6TypeName = 'string'
+  const b: JSONSchema6TypeName = 'null'
+  const c: JSONSchema6TypeName = 'any'
+}
 
 // Type
 () => {
-  const a: JSONSchema6Type = 'foo';
-  const b: JSONSchema6Type = null;
-  const c: JSONSchema6Type = [1, 2];
-};
+  const a: JSONSchema6Type = 'foo'
+  const b: JSONSchema6Type = null
+  const c: JSONSchema6Type = [1, 2]
+}
 
 // JSONSchema4
 () => {
-  const a: JSONSchema6 = {};
+  const a: JSONSchema6 = {}
   const b: JSONSchema6 = {
     $id: 'foo',
     $ref: 'foo/bar',
@@ -135,5 +135,5 @@ import { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName, JSONSchema6, JSONSch
     contains: {},
     examples: [{}],
     propertyNames: {}
-  };
-};
+  }
+}
