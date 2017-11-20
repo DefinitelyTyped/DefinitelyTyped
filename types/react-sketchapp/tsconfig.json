@@ -17,5 +17,9 @@
         "strictNullChecks": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "react-sketchapp-tests.tsx"
+    ]
 }
