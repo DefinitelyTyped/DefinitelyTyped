@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "es2015",
+        "jsx": "preserve",
+        "strict": true,
+        "typeRoots": [
+            "../"
+        ]
+    }
+}
