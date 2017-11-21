@@ -1,6 +1,6 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Nikolai Ommundsen <https://github/niikoo>
+// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Nikolai Ommundsen <https://github.com/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./index.d.ts"/>
