@@ -161,6 +161,33 @@ export namespace resolveConfig {
  */
 export function clearConfigCache(): void;
 
+export interface SupportLanguage {
+    name: string;
+    since: string;
+    parsers: string[];
+    group?: string;
+    tmScope: string;
+    aceMode: string;
+    codemirrorMode: string;
+    codemirrorMimeType: string;
+    aliases?: string[];
+    extensions: string[];
+    filenames?: string[];
+    linguistLanguageId: number;
+    vscodeLanguageIds: string[];
+}
+
+export interface SupportInfo {
+    languages: SupportLanguage[];
+}
+
+/**
+ * Returns an object representing the parsers, languages and file types Prettier supports.
+ * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
+ * otherwise information for the current version will be returned.
+ */
+export function getSupportInfo(version?: string): SupportInfo;
+
 /**
  * `version` field in `package.json`
  */
