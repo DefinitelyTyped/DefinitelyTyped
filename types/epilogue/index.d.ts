@@ -77,12 +77,32 @@ export interface Controllers {
     list: ListController;
 }
 
-export interface Errors {
-    NotFoundError: EpilogueError;
-    BadRequestError: EpilogueError;
-    EpilogueError: EpilogueError;
-    ForbiddenError: EpilogueError;
-    RequestCompleted: EpilogueError;
+export namespace Errors {
+    class EpilogueError extends Error {
+        constructor(status: number | EpilogueError, message?: string, errors?: string[], cause?: Error);
+
+        name: string;
+        message: string;
+        errors: string[];
+        status: number | EpilogueError;
+        cause: Error;
+    }
+
+    class NotFoundError extends EpilogueError {
+        constructor(message?: string, errors?: string[], cause?: Error);
+    }
+
+    class BadRequestError extends EpilogueError {
+        constructor(message?: string, errors?: string[], cause?: Error);
+    }
+
+    class ForbiddenError extends EpilogueError {
+        constructor(message?: string, errors?: string[], cause?: Error);
+    }
+
+    class RequestCompleted extends Error {
+        constructor();
+    }
 }
 
 export interface ResourceAssociationOptions extends AssociationOptions {
@@ -123,7 +143,7 @@ export interface Context {
     continue: () => void;
     skip: () => void;
     stop: () => void;
-    error: (status: number | EpilogueError, message?: string, errorList?: string[], cause?: Error) => void;
+    error: (status: number | Errors.EpilogueError, message?: string, errorList?: string[], cause?: Error) => void;
 }
 
 export class BaseController {
@@ -175,13 +195,5 @@ export interface ResourceOptions {
     updateMethod?: string;
 }
 
-export class EpilogueError extends Error {
-    name: string;
-    message: string;
-    errors: string[];
-    status: EpilogueError | number;
-    cause: Error;
-}
-
-export function initialize(options: InitializeOptions): undefined;
-export function resource(options: ResourceOptions): Resource;
+export function initialize(options?: InitializeOptions): undefined;
+export function resource(options?: ResourceOptions): Resource;
