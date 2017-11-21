@@ -185,7 +185,17 @@ async () => {
         info.modificationTime;
     }
 
-    const string = await FileSystem.readAsStringAsync('file');
+    const string: string = await FileSystem.readAsStringAsync('file');
     await FileSystem.writeAsStringAsync('file', 'content');
     await FileSystem.deleteAsync('file');
+    await FileSystem.moveAsync({ from: 'from', to: 'to'});
+    await FileSystem.copyAsync({ from: 'from', to: 'to' });
+    await FileSystem.makeDirectoryAsync('dir');
+    const dirs: string[] = await FileSystem.readDirectoryAsync('dir');
+    const result = await FileSystem.downloadAsync('from', 'to');
+
+    result.headers;
+    result.status;
+    result.uri;
+    result.md5;
 };
