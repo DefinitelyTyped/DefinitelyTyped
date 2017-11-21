@@ -80,6 +80,7 @@ declare module 'angular' {
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
+            required(required: boolean): IPromptDialog; // default: false
             placeholder(placeholder: string): IPromptDialog;
             initialValue(initialValue: string): IPromptDialog;
         }
