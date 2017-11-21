@@ -5,15 +5,32 @@ declare const console: { log(...messages: any[]): void, warn(message: string): v
 let cache: Bundle | undefined
 const plugin: Plugin = {
     name: 'test-plugin',
+    resolveId(importee, importer) {
+        if (importer === undefined) {
+            return 'custom/entry/point.js'
+        }
+        return importer.trim()
+    },
     transform(source, id) {
         if (id === 'rxjs') {
             this.error(new Error(`Don't import this directly`))
+            return null
         }
         const indexOfQuote = source.indexOf('"')
         if (indexOfQuote >= 0) {
             this.warn(`Prefer ' over " for strings`, indexOfQuote)
+            return undefined
         }
         return source
+    },
+    transformBundle(source, options) {
+        if (options.format === 'iife') {
+            return `window.nonModule = true\n${source}`
+        } else if (options.format === 'cjs') {
+            return null
+        }
+
+        return undefined
     }
 }
 
