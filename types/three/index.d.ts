@@ -22,14 +22,14 @@ export * from "./three-objloader";
 export * from "./three-octree";
 export * from "./three-orbitcontrols";
 export * from "./three-orthographictrackballcontrols";
+export * from "./three-outlinepass";
 export * from "./three-projector";
 export * from "./three-renderpass";
 export * from "./three-shaderpass";
+export * from "./three-smaapass";
 export * from "./three-trackballcontrols";
 export * from "./three-transformcontrols";
 export * from "./three-vrcontrols";
 export * from "./three-vreffect";
-export * from "./three-OutlinePass";
-export * from "./three-SMAAPass";
 
 export as namespace THREE;
