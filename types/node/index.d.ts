@@ -68,12 +68,8 @@ interface SymbolConstructor {
 }
 declare var Symbol: SymbolConstructor;
 
-// Node.js ES2017 and ESNEXT support
+// Node.js ESNEXT support
 interface String {
-    /** Pads the current string with another string (repeated, if needed) so that the resulting string reaches the given length. The padding is applied from the start (left) of the current string. */
-    padStart(targetLength?: number, padString?: string): string;
-    /** Pads the current string with a given string (repeated, if needed) so that the resulting string reaches a given length. The padding is applied from the end (right) of the current string. */
-    padEnd(targetLength?: number, padString?: string): string;
     /** Removes whitespace from the left end of a string. */
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
