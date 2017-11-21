@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-unnecessary-generics": false,
-        "array-type": false,
         "no-empty-interface": false
     }
 }
