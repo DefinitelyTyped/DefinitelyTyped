@@ -1,17 +1,14 @@
-import { computed } from 'mobx';
 import { ApolloClient } from 'apollo-client';
-import gql from 'graphql-tag';
-
 import query from 'mobx-apollo';
 
-const PostsQuery = gql`
+const PostsQuery = `
     {
         posts {
             id
             title
         }
     }
-`;
+` as any;
 
 interface Post {
     id: string;
@@ -19,7 +16,6 @@ interface Post {
 }
 
 class PostStore {
-    @computed
     private get postsQuery() {
         return query<{ posts: Post[] }>({
             client: new ApolloClient({
@@ -30,7 +26,6 @@ class PostStore {
         });
     }
 
-    @computed
     get posts() {
         return this.postsQuery.data.posts;
     }

@@ -3,7 +3,6 @@
         "module": "commonjs",
         "lib": ["es6"],
         "target": "es5",
-        "experimentalDecorators": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

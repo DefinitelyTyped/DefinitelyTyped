@@ -1,8 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "apollo-client": "^2.0.0",
-        "graphql-tag": "^2.0.0",
-        "mobx": "^3.0.0"
+        "apollo-client": "^2.0.0"
     }
 }
