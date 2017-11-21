@@ -463,6 +463,8 @@ export class CubeCamera extends Object3D {
     renderTarget: WebGLRenderTargetCube;
 
     updateCubeMap(renderer: Renderer, scene: Scene): void;
+
+    update(renderer: Renderer, scene: Scene): void;
 }
 
 /**
@@ -2758,7 +2760,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: Color;
+    emissive?: number|string|Color;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
@@ -4488,6 +4490,7 @@ export class Vector3 implements Vector {
      * http://en.wikipedia.org/wiki/Taxicab_geometry
      */
     lengthManhattan(): number;
+    manhattanDistanceTo(v:Vector3):number;
 
     /**
      * Normalizes this vector.
