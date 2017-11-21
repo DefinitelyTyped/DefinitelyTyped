@@ -14,12 +14,12 @@ declare namespace tilebelt {
          *
          * @name tileToGeoJSON
          * @param {Array<number>} tile
-         * @returns {Feature}
+         * @returns {Feature<Polygon>}
          * @example
          * var poly = tileToGeoJSON([5, 10, 10])
          * //=poly
          */
-        tileToGeoJSON(tile: Array<number>): GeoJSON.Feature
+        tileToGeoJSON(tile: Array<number>): GeoJSON.Feature<GeoJSON.Polygon>
 
         /**
          * Get the bbox of a tile

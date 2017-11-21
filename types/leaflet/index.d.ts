@@ -583,7 +583,7 @@ export interface PolylineOptions extends PathOptions {
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
     constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
-    toGeoJSON(): geojson.Feature;
+    toGeoJSON(): geojson.Feature<T, P>;
     getLatLngs(): LatLng[];
     setLatLngs(latlngs: LatLngExpression[]): this;
     isEmpty(): boolean;
@@ -591,7 +591,7 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     getBounds(): LatLngBounds;
     addLatLng(latlng: LatLngExpression | LatLngExpression[]): this;
 
-    feature?: geojson.Feature;
+    feature?: geojson.Feature<T, P>;
     options: PolylineOptions;
 }
 
@@ -616,14 +616,14 @@ export interface CircleMarkerOptions extends PathOptions {
 
 export class CircleMarker<P = any> extends Path {
     constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
-    toGeoJSON(): geojson.Feature;
+    toGeoJSON(): geojson.Feature<geojson.Point, P>;
     setLatLng(latLng: LatLngExpression): this;
     getLatLng(): LatLng;
     setRadius(radius: number): this;
     getRadius(): number;
 
     options: CircleMarkerOptions;
-    feature?: geojson.Feature;
+    feature?: geojson.Feature<geojson.Point, P>;
 }
 
 export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
@@ -671,7 +671,7 @@ export class LayerGroup<P = any> extends Layer {
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
      */
-    toGeoJSON(): geojson.FeatureCollection | geojson.Feature | geojson.GeometryCollection;
+    toGeoJSON(): geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
 
     /**
      * Adds the given layer to the group.
@@ -725,7 +725,7 @@ export class LayerGroup<P = any> extends Layer {
      */
     getLayerId(layer: Layer): number;
 
-    feature?: geojson.FeatureCollection | geojson.Feature | geojson.GeometryCollection;
+    feature?: geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
 }
 
 /**
@@ -765,7 +765,7 @@ export class FeatureGroup<P = any> extends LayerGroup<P> {
  */
 export function featureGroup(layers?: Layer[]): FeatureGroup;
 
-export type StyleFunction<P = any> = (feature?: geojson.Feature) => PathOptions;
+export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
 export interface GeoJSONOptions<P = any> extends LayerOptions {
     /**
@@ -781,7 +781,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * }
      * ```
      */
-    pointToLayer?(geoJsonPoint: geojson.Feature, latlng: LatLng): Layer; // should import GeoJSON typings
+    pointToLayer?(geoJsonPoint: geojson.Feature<geojson.Point, P>, latlng: LatLng): Layer; // should import GeoJSON typings
 
     /**
      * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -807,7 +807,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * function (feature, layer) {}
      * ```
      */
-    onEachFeature?(feature: geojson.Feature, layer: Layer): void;
+    onEachFeature?(feature: geojson.Feature<geojson.GeometryObject, P>, layer: Layer): void;
 
     /**
      * A Function that will be used to decide whether to show a feature or not.
@@ -820,7 +820,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * }
      * ```
      */
-    filter?(geoJsonFeature: geojson.Feature): boolean;
+    filter?(geoJsonFeature: geojson.Feature<geojson.GeometryObject, P>): boolean;
 
     /**
      * A Function that will be used for converting GeoJSON coordinates to LatLngs.
@@ -838,7 +838,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
      * and/or coordsToLatLng functions if provided as options.
      */
-    static geometryToLayer(featureData: geojson.Feature, options?: GeoJSONOptions): Layer;
+    static geometryToLayer<P = any>(featureData: geojson.Feature<geojson.GeometryObject, P>, options?: GeoJSONOptions<P>): Layer;
 
     /**
      * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
@@ -872,7 +872,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
     /**
      * Normalize GeoJSON geometries/features into GeoJSON features.
      */
-    static asFeature(geojson: geojson.Feature | geojson.GeometryObject): geojson.Feature;
+    static asFeature<P = any>(geojson: geojson.Feature<geojson.GeometryObject, P> | geojson.GeometryObject): geojson.Feature<geojson.GeometryObject, P>;
 
     constructor(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P>)
     /**
@@ -1454,7 +1454,7 @@ export interface MarkerOptions extends InteractiveLayerOptions {
 
 export class Marker<P = any> extends Layer {
     constructor(latlng: LatLngExpression, options?: MarkerOptions);
-    toGeoJSON(): geojson.Feature;
+    toGeoJSON(): geojson.Feature<geojson.Point, P>;
     getLatLng(): LatLng;
     setLatLng(latlng: LatLngExpression): this;
     setZIndexOffset(offset: number): this;
@@ -1465,7 +1465,7 @@ export class Marker<P = any> extends Layer {
     // Properties
     options: MarkerOptions;
     dragging?: Handler;
-    feature?: geojson.Feature;
+    feature?: geojson.Feature<geojson.Point, P>;
 }
 
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
