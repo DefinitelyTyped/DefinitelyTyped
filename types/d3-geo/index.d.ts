@@ -36,9 +36,7 @@ export type GeoGeometryObjects = GeoJSON.GeometryObject | GeoSphere;
 export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObjects> {
     type: string;
     bbox?: number[];
-    // GeoJSON removed the Coordinate System objects from the spec, but does allow
-    // "foreign members".
-    crs?: GeoJSON.GeoJsonObject;
+    crs?: GeoJSON.CoordinateReferenceSystem;
     geometries: GeometryType[];
 }
 

@@ -94,7 +94,7 @@ export class Supercluster {
  */
 export default function supercluster(options: Options): Supercluster;
 
-export type Point = GeoJSON.Feature;
+export type Point = GeoJSON.Feature<GeoJSON.Point>;
 export type Points = Point[];
 export type Clusters = Cluster[];
 export type TileFeatures = TileFeature[];
