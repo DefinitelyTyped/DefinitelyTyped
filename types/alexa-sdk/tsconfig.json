@@ -19,5 +19,10 @@
     "files": [
         "index.d.ts",
         "alexa-sdk-tests.ts"
+        "responseBuilder.d.ts",
+        "services.d.ts",
+        "templateBuilders.d.ts",
+        "types.d.ts",
+        "utils.d.ts",
     ]
 }
