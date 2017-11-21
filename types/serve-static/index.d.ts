@@ -3,6 +3,7 @@
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /* =================== USAGE ===================
 
@@ -54,7 +55,7 @@ declare namespace serveStatic {
          * The default value is false.
          */
         fallthrough?: boolean;
-        
+
         /**
          * Enable or disable the immutable directive in the Cache-Control response header.
          * If enabled, the maxAge option should also be specified to enable caching. The immutable directive will prevent supported clients from making conditional requests during the life of the maxAge option to check if the file has changed.

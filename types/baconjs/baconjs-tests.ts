@@ -188,10 +188,10 @@ function CommonMethodsInEventStreamsAndProperties() {
                 return adds.takeUntil(cancel).map(x => x.val);
             };
 
-        Bacon.sequentially(2, events)
+        Bacon.sequentially<string, {id:number; type:string; val?:number}>(2, events)
             .groupBy(keyF, limitF)
             .flatMap(groupedStream => groupedStream.fold(0, (acc, x) => acc + x))
-            .onValue(sum => {
+            .onValue((sum: number) => {
                 console.log(sum); // returns [-1, 2, 8] in an order
             });
     }

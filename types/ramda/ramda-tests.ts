@@ -266,18 +266,18 @@ R.times(i, 5);
         return a * b;
     }
 
-    const double = R.partial<number>(multiply, 2);
+    const double = R.partial<number>(multiply, [2]);
     double(2); // => 4
 
     function greet(salutation: string, title: string, firstName: string, lastName: string) {
         return `${salutation}, ${title} ${firstName} ${lastName}!`;
     }
 
-    const sayHello     = R.partial(greet, "Hello");
-    const sayHelloToMs = R.partial(sayHello, "Ms.");
+    const sayHello     = R.partial(greet, ["Hello"]);
+    const sayHelloToMs = R.partial(sayHello, ["Ms."]);
     sayHelloToMs("Jane", "Jones"); // => 'Hello, Ms. Jane Jones!'
 
-    const greetMsJaneJones = R.partialRight(greet, "Ms.", "Jane", "Jones");
+    const greetMsJaneJones = R.partialRight(greet, ["Ms.", "Jane", "Jones"]);
     greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
 })();
 
@@ -1535,7 +1535,6 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
 };
 
 () => {
@@ -1546,7 +1545,6 @@ class Rectangle {
     const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
-    const s1 = favorite(alice);  // => undefined
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
@@ -1558,7 +1556,6 @@ class Rectangle {
 
 () => {
     R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
@@ -1859,7 +1856,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose<string, string, string>(R.toLower, R.prop("name")));
+    const sortByNameCaseInsensitive = R.sortBy(R.compose<Record<'name', string>, string, string>(R.toLower, R.prop("name")));
     const alice                     = {
         name: "ALICE",
         age : 101
@@ -1986,8 +1983,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.max(7, 3); // => 7
-    const y: R.Ord = R.max("a", "z"); // => 'z'
+    const x: number = R.max(7, 3); // => 7
+    const y: string = R.max("a", "z"); // => 'z'
 };
 
 () => {
@@ -2017,8 +2014,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.min(9, 3); // => 3
-    const y: R.Ord = R.min("a", "z"); // => 'a'
+    const x: number = R.min(9, 3); // => 3
+    const y: string = R.min("a", "z"); // => 'a'
 };
 
 () => {

@@ -604,7 +604,7 @@ declare namespace webpack {
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */
-            cachedAssets?: true;
+            cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
             /** Add built modules information to chunk information */
@@ -618,7 +618,7 @@ declare namespace webpack {
             /** Context directory for request shortening */
             context?: string;
             /** Display the distance from the entry point for each module */
-            depth?: false;
+            depth?: boolean;
             /** Display the entry points with the corresponding bundles */
             entrypoints?: boolean;
             /** Add --env information */

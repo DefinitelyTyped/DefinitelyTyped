@@ -1,4 +1,4 @@
-// Type definitions for vis.js 4.18
+// Type definitions for vis.js 4.21
 // Project: https://github.com/almende/vis
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>
@@ -7,13 +7,14 @@
 //                 kaktus40 <https://github.com/kaktus40>
 //                 Matthieu Maitre <https://github.com/mmaitre314>
 //                 Adam Lewis <https://github.com/supercargo>
+//                 Alex Soh <https://github.com/takato1314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
 export type MomentConstructor1 =
-    (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
+  (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
 export type MomentConstructor2 =
-    (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
+  (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
 
 export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 
@@ -21,7 +22,7 @@ export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
 export type HeightWidthType = IdType;
-export type TimelineItemType = 'box'| 'point' | 'range' | 'background';
+export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
 export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
 export type TimelineTimeAxisScaleType = 'millisecond' | 'second' | 'minute' | 'hour' |
   'weekday' | 'day' | 'month' | 'year';
@@ -269,27 +270,66 @@ export interface TimelineOptions {
   zoomMin?: number;
 }
 
-export interface TimelineFitAnimation {
-  duration?: number;
-  easingFunction?: string;
-}
+/**
+ * If true (default) or an Object, the range is animated smoothly to the new window.
+ * An object can be provided to specify duration and easing function.
+ * Default duration is 500 ms, and default easing function is 'easeInOutQuad'.
+ */
+export type TimelineAnimationType = boolean | AnimationOptions;
 
-export type TimelineFitAnimationType = boolean | TimelineFitAnimation;
-
-export interface TimelineFitOptions {
-  animation?: TimelineFitAnimationType;
+export interface TimelineAnimationOptions {
+  animation?: TimelineAnimationType;
 }
 
 export interface TimelineEventPropertiesResult {
-  group?: number;
-  item?: number;
+  /**
+   *  The id of the clicked group
+   */
+  group?: number | null;
+
+  /**
+   * The id of the clicked item.
+   */
+  item?: number | null;
+
+  /**
+   * Absolute horizontal position of the click event.
+   */
   pageX: number;
+
+  /**
+   * Absolute vertical position of the click event.
+   */
   pageY: number;
+
+  /**
+   * Relative horizontal position of the click event.
+   */
   x: number;
+
+  /**
+   * Relative vertical position of the click event.
+   */
   y: number;
+
+  /**
+   *  Date of the clicked event.
+   */
   time: Date;
+
+  /**
+   * Date of the clicked event, snapped to a nice value.
+   */
   snappedTime: Date;
+
+  /**
+   * Name of the clicked thing.
+   */
   what?: TimelineEventPropertiesResultWhatType;
+
+  /**
+   * The original click event.
+   */
   event: Event;
 }
 
@@ -674,8 +714,8 @@ export class Graph2d {
 
   addCustomTime(time: DateType, id?: IdType): IdType;
   destroy(): void;
-  fit(options?: TimelineFitOptions): void;
-  focus(ids: IdType | IdType[], options?: TimelineFitOptions): void;
+  fit(options?: TimelineAnimationOptions): void;
+  focus(ids: IdType | IdType[], options?: TimelineAnimationOptions): void;
   getCurrentTime(): Date;
   getCustomTime(id?: IdType): Date;
   getEventProperties(event: Event): TimelineEventPropertiesResult;
@@ -683,7 +723,7 @@ export class Graph2d {
   getSelection(): IdType[];
   getVisibleItems(): IdType[];
   getWindow(): { start: Date, end: Date };
-  moveTo(time: DateType, options?: TimelineFitOptions): void;
+  moveTo(time: DateType, options?: TimelineAnimationOptions): void;
   on(event: TimelineEvents, callback: () => void): void;
   off(event: TimelineEvents, callback: () => void): void;
   redraw(): void;
@@ -696,7 +736,7 @@ export class Graph2d {
   setItems(items: DataItemCollectionType): void;
   setOptions(options: TimelineOptions): void;
   setSelection(ids: IdType | IdType[]): void;
-  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
+  setWindow(start: DateType, end: DateType, options?: TimelineAnimationOptions): void;
 }
 
 export interface Graph2d {
@@ -716,41 +756,174 @@ export class Timeline {
     groups: DataGroupCollectionType,
     options?: TimelineOptions
   );
+
   constructor(
     container: HTMLElement,
     items: DataItemCollectionType,
     options?: TimelineOptions
   );
 
+  /**
+   * Add new vertical bar representing a custom time that can be dragged by the user. Parameter time can be a Date, Number, or String, and is new Date() by default.
+   * Parameter id can be Number or String and is undefined by default. The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
+   * The method returns id of the created bar.
+   */
   addCustomTime(time: DateType, id?: IdType): IdType;
+
+  /**
+   * Destroy the Timeline. The timeline is removed from memory. all DOM elements and event listeners are cleaned up.
+   */
   destroy(): void;
-  fit(options?: TimelineFitOptions): void;
-  focus(ids: IdType | IdType[], options?: TimelineFitOptions): void;
+
+  /**
+   * Adjust the visible window such that it fits all items. See also focus(id).
+   */
+  fit(options?: TimelineAnimationOptions): void;
+
+  /**
+   * Adjust the visible window such that the selected item (or multiple items) are centered on screen. See also function fit()
+   */
+  focus(ids: IdType | IdType[], options?: TimelineAnimationOptions): void;
+
+  /**
+   * Get the current time. Only applicable when option showCurrentTime is true.
+   */
   getCurrentTime(): Date;
+
+  /**
+   * Retrieve the custom time from the custom time bar with given id.
+   * @param id Id is undefined by default.
+   */
   getCustomTime(id?: IdType): Date;
+
   getEventProperties(event: Event): TimelineEventPropertiesResult;
+
+  /**
+   * Get the range of all the items as an object containing min date and max date
+   */
   getItemRange(): { min: Date, max: Date };
+
+  /**
+   * Get an array with the ids of the currently selected items
+   */
   getSelection(): IdType[];
+
+  /**
+   * Get an array with the ids of the currently visible items.
+   */
   getVisibleItems(): IdType[];
+
+  /**
+   * Get the current visible window.
+   */
   getWindow(): TimelineWindow;
-  moveTo(time: DateType, options?: TimelineFitOptions): void;
-  on(event: TimelineEvents, callback: () => void): void;
-  off(event: TimelineEvents, callback: () => void): void;
+
+  /**
+   * Move the window such that given time is centered on screen.
+   */
+  moveTo(time: DateType, options?: TimelineAnimationOptions, callback?: (properties?: any) => void): void;
+
+  /**
+   * Create an event listener. The callback function is invoked every time the event is triggered.
+   */
+  on(event: TimelineEvents, callback?: (properties?: any) => void): void;
+
+  /**
+   * Remove an event listener created before via function on(event[, callback]).
+   */
+  off(event: TimelineEvents, callback?: (properties?: any) => void): void;
+
+  /**
+   * Force a redraw of the Timeline. The size of all items will be recalculated.
+   * Can be useful to manually redraw when option autoResize=false and the window has been resized, or when the items CSS has been changed.
+   */
   redraw(): void;
+
+  /**
+   * Remove vertical bars previously added to the timeline via addCustomTime method.
+   * @param id ID of the custom vertical bar returned by addCustomTime method.
+   */
   removeCustomTime(id: IdType): void;
+
+  /**
+   * Set a current time. This can be used for example to ensure that a client's time is synchronized with a shared server time. Only applicable when option showCurrentTime is true.
+   */
   setCurrentTime(time: DateType): void;
+
+  /**
+   * Adjust the time of a custom time bar.
+   * @param time The time the custom time bar should point to
+   * @param id Id of the custom time bar, and is undefined by default.
+   */
   setCustomTime(time: DateType, id?: IdType): void;
+
+  /**
+   * Adjust the title attribute of a custom time bar.
+   * @param title The title shown when hover over time bar
+   * @param id Id of the custom time bar, and is undefined by default.
+   */
   setCustomTimeTitle(title: string, id?: IdType): void;
+
+  /**
+   * Set both groups and items at once. Both properties are optional.
+   * This is a convenience method for individually calling both setItems(items) and setGroups(groups).
+   * Both items and groups can be an Array with Objects, a DataSet (offering 2 way data binding), or a DataView (offering 1 way data binding).
+   */
   setData(data: { groups?: DataGroupCollectionType; items?: DataItemCollectionType }): void;
+
+  /**
+   * Set a data set with groups for the Timeline.
+   */
   setGroups(groups?: DataGroupCollectionType): void;
+
+  /**
+   * Set a data set with items for the Timeline.
+   */
   setItems(items: DataItemCollectionType): void;
+
+  /**
+   * Set or update options. It is possible to change any option of the timeline at any time. You can for example switch orientation on the fly.
+   */
   setOptions(options: TimelineOptions): void;
-  setSelection(ids: IdType | IdType[]): void;
-  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions, callback?: () => void): void;
+
+  /**
+   * Select one or multiple items by their id. The currently selected items will be unselected. To unselect all selected items, call `setSelection([])`.
+   */
+  setSelection(ids: IdType | IdType[], options?: { focus: boolean, animation: TimelineAnimationOptions }): void;
+
+  /**
+   * Set the current visible window.
+   * @param start If the parameter value of start is null, the parameter will be left unchanged.
+   * @param end If the parameter value of end is null, the parameter will be left unchanged.
+   * @param options Timeline animation options. See {@link TimelineAnimationOptions}
+   * @param callback The callback function
+   */
+  setWindow(start: DateType, end: DateType, options?: TimelineAnimationOptions, callback?: () => void): void;
+
+  /**
+   * Toggle rollingMode.
+   */
+  toggleRollingMode(): void;
+
+  /**
+   * Zoom in the current visible window.
+   * @param percentage A number and must be between 0 and 1. If null, the window will be left unchanged.
+   * @param options Timeline animation options. See {@link TimelineAnimationOptions}
+   * @param callback The callback function
+   */
+  zoomIn(percentage: number, options?: TimelineAnimationOptions, callback?: () => void): void;
+
+  /**
+   * Zoom out the current visible window.
+   * @param percentage A number and must be between 0 and 1. If null, the window will be left unchanged.
+   * @param options Timeline animation options. See {@link TimelineAnimationOptions}
+   * @param callback The callback function
+   */
+  zoomOut(percentage: number, options?: TimelineAnimationOptions, callback?: () => void): void;
 }
 
 export interface TimelineStatic {
-  new (id: HTMLElement, data: any, options?: any): vis.Timeline;
+  new(id: HTMLElement, data: any, options?: any): vis.Timeline;
 }
 
 export interface Timeline {
@@ -760,6 +933,7 @@ export interface Timeline {
   setWindow(start: any, date: any): void;
   focus(selection: any): void;
   on(event?: string, callback?: (properties: any) => void): void;
+  off(event: string, callback?: (properties?: any) => void): void;
 }
 
 export interface TimelineWindow {
@@ -1360,8 +1534,23 @@ export interface AnimationOptions {
    * easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart,
    * easeInQuint, easeOutQuint, easeInOutQuint.
    */
-  easingFunction: string;
+  easingFunction: EasingFunction;
 }
+
+export type EasingFunction =
+  'linear' |
+  'easeInQuad' |
+  'easeOutQuad' |
+  'easeInOutQuad' |
+  'easeInCubic' |
+  'easeOutCubic' |
+  'easeInOutCubic' |
+  'easeInQuart' |
+  'easeOutQuart' |
+  'easeInOutQuart' |
+  'easeInQuint' |
+  'easeOutQuint' |
+  'easeInOutQuint';
 
 /**
  * Optional options for the fit method.
@@ -1376,7 +1565,7 @@ export interface FitOptions {
    * For animation you can either use a Boolean to use it with the default options or
    * disable it or you can define the duration (in milliseconds) and easing function manually.
    */
-  animation: AnimationOptions | boolean;
+  animation: TimelineAnimationType;
 }
 
 export interface SelectionOptions {
@@ -1509,30 +1698,31 @@ export interface Edge {
 }
 
 export interface Locales {
-    [language: string]: LocaleMessages | undefined;
-    en?: LocaleMessages;
-    de?: LocaleMessages;
-    es?: LocaleMessages;
-    it?: LocaleMessages;
-    nl?: LocaleMessages;
-    'pt-br'?: LocaleMessages;
-    ru?: LocaleMessages;
+  [language: string]: LocaleMessages | undefined;
+  en?: LocaleMessages;
+  cn?: LocaleMessages;
+  de?: LocaleMessages;
+  es?: LocaleMessages;
+  it?: LocaleMessages;
+  nl?: LocaleMessages;
+  'pt-br'?: LocaleMessages;
+  ru?: LocaleMessages;
 }
 
 export interface LocaleMessages {
-    edit: string;
-    del: string;
-    back: string;
-    addNode: string;
-    addEdge: string;
-    editNode: string;
-    editEdge: string;
-    addDescription: string;
-    edgeDescription: string;
-    editEdgeDescription: string;
-    createEdgeError: string;
-    deleteClusterError: string;
-    editClusterError: string;
+  edit: string;
+  del: string;
+  back: string;
+  addNode: string;
+  addEdge: string;
+  editNode: string;
+  editEdge: string;
+  addDescription: string;
+  edgeDescription: string;
+  editEdgeDescription: string;
+  createEdgeError: string;
+  deleteClusterError: string;
+  editClusterError: string;
 }
 
 export interface Options {

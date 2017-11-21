@@ -1,6 +1,6 @@
-// Type definitions for rollup 0.41
+// Type definitions for rollup 0.51
 // Project: https://github.com/rollup/rollup
-// Definitions by: Philipp A. <https://github.com/flying-sheep>
+// Definitions by: Philipp A. <https://github.com/flying-sheep>, Christian Svensson <https://github.com/csvn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { RawSourceMap } from 'source-map'
@@ -23,15 +23,20 @@ export interface Warning {
 
 export interface BundleOptions {
 	/** The format of the generated bundle. */
-	format?: Format
+	format: Format
 	/** What export mode to use. Defaults to auto, which guesses your intentions based on what the `entry` module exports. */
 	exports?: 'auto' | 'default' | 'named' | 'none'
 	/** An ID to use for AMD/UMD bundles. */
 	moduleId?: string
 	/** The name to use for the module for UMD/IIFE bundles (required for bundles with exports). */
-	moduleName?: string
+	name?: string
 	/** Mapping of IDs → global variable names. Used for UMD/IIFE bundles. */
 	globals?: { [id: string]: string }
+	/**
+	 * Function that takes an ID and returns a path, or Object of id: path pairs.
+	 * Where supplied, these paths will be used in the generated bundle instead of the module ID, allowing you to (for example) load dependencies from a CDN.
+	 */
+	paths?: ((id: string) => string) | { [id: string]: string }
 	/**
 	 * The indent string to use, for formats that require code to be indented (AMD, IIFE, UMD).
 	 * Can also be false (no indent), or true (the default – auto-indent)
@@ -55,38 +60,38 @@ export interface BundleOptions {
 	 * Whether to include the 'use strict' pragma at the top of generated non-ES6 bundles.
 	 * Strictly-speaking (geddit?), ES6 modules are always in strict mode, so you shouldn't disable this without good reason.
 	 */
-	useStrict?: boolean
+	strict?: boolean
 }
 
 export interface GenerateOptions extends BundleOptions {
 	/** Whether to generate a sourcemap. If true, the return value from `bundle.generate(...)` will include a map property */
-	sourceMap?: boolean
+	sourcemap?: boolean
 	/**
 	 * The location of the generated bundle. If this is an absolute path, all the sources paths in the sourcemap will be relative to it.
-	 * The map.file property is the basename of sourceMapFile, as the location of the sourcemap is assumed to be adjacent to the bundle.
+	 * The map.file property is the basename of sourcemapFile, as the location of the sourcemap is assumed to be adjacent to the bundle.
 	 */
-	sourceMapFile?: string
+	sourcemapFile?: string
 }
 
 export interface WriteOptions extends BundleOptions {
-	/** The file to write to. If `options.sourceMap === true`, two files will be created – `dest` and `dest + '.map`. */
-	dest: string
-	/** If `true`, a separate sourcemap file will be created. If `'inline'`, the sourcemap will be appended to the resulting dest file as a data URI. */
-	sourceMap?: boolean | 'inline'
-	/** This option is unnecessary, as it defaults to the value of dest. */
-	sourceMapFile?: string
+	/** The file to write to. If `options.sourcemap === true`, two files will be created – `file` and `file + '.map`. */
+	file: string
+	/** If `true`, a separate sourcemap file will be created. If `'inline'`, the sourcemap will be appended to the resulting file as a data URI. */
+	sourcemap?: boolean | 'inline'
+	/** This option is unnecessary, as it defaults to the value of file. */
+	sourcemapFile?: string
 }
 
 export interface Bundle {
 	/** Generate bundled code as an object */
-	generate(options: GenerateOptions): { code: string, map: SourceMap }
+	generate(options: GenerateOptions): Promise<{ code: string, map: SourceMap | null }>
 	/** writes the file (and accompanying sourcemap file, if appropriate) to the file system. */
 	write(options: WriteOptions): Promise<void>
 }
 
 export interface Options {
 	/** The bundle's entry point (e.g. your `main.js` or `app.js` or `index.js`) */
-	entry: string | string[]
+	input: string
 	/** A previous bundle. Use it to speed up subsequent bundles :) */
 	cache?: Bundle
 	/**
@@ -94,11 +99,6 @@ export interface Options {
 	 * The IDs should be either the name of an external dependency or a resolved ID (like an absolute path to a file)
 	 */
 	external?: ((id: string) => boolean) | string[]
-	/**
-	 * Function that takes an ID and returns a path, or Object of id: path pairs.
-	 * Where supplied, these paths will be used in the generated bundle instead of the module ID, allowing you to (for example) load dependencies from a CDN.
-	 */
-	paths?: ((id: string) => string) | { [id: string]: string }
 	/** Function that will intercept warning messages. If not supplied, warnings will be deduplicated and printed to the console. */
 	onwarn?(warning: Warning): void
 	/** Array of plugin objects or a single plugin object */
@@ -118,6 +118,10 @@ export interface Options {
 	legacy?: boolean
 }
 
+export interface ConfigFileOptions extends Options {
+	output: WriteOptions | WriteOptions[]
+}
+
 // https://github.com/rollup/rollup/wiki/Plugins#creating-plugins
 export interface Plugin {
 	/** The name of the plugin, for use in error messages and warnings */
@@ -133,7 +137,7 @@ export interface Plugin {
 	 */
 	resolveId?(importee: string, importer: string): string | null | undefined | false | 0 | ''
 	/** A module transformer function */
-	transform?(source: string, id: string): string | { code: string, map: SourceMap }
+	transform?(this: TransformContext, source: string, id: string): string | { code: string, map: SourceMap }
 	/** A bundle transformer function */
 	transformBundle?(source: string, options: { format: Format }): string | { code: string, map: SourceMap }
 	/** Function hook called when bundle.generate() is being executed. */
@@ -148,6 +152,14 @@ export interface Plugin {
 	banner?: string | (() => string)
 	/** Apppend to the bundle. */
 	footer?: string | (() => string)
+}
+
+// See https://github.com/rollup/rollup/wiki/Plugins#warnings-and-errors
+export interface TransformContext {
+	/** Emit warnings to Rollup which will be logged during bundling */
+	warn(message: string | { message: string }, pos?: number | { line: number, column: number }): void
+	/** Emit an error, which will abort the bundling process */
+	error(message: string | { message: string }, pos?: number | { line: number, column: number }): void
 }
 
 /** Returns a Promise that resolves with a bundle */

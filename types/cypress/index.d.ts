@@ -369,7 +369,7 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/then
      */
-    then(fn: (currentSubject: any) => any): Chainable;
+    then(fn: (currentSubject: any) => any, options?: Timeoutable): Chainable;
 
     /**
      * @see https://on.cypress.io/api/title

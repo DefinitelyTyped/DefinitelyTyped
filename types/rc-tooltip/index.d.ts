@@ -23,7 +23,7 @@ declare namespace RCTooltip {
 		overlayStyle?: React.CSSProperties;
 		prefixCls?: string;
 		transitionName?: string;
-		onVisibleChange?: () => void;
+		onVisibleChange?: (visible?: boolean) => void;
 		visible?: boolean;
 		defaultVisible?: boolean;
 		placement?: Placement | Object;
