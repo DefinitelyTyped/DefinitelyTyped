@@ -49,3 +49,6 @@ npm-debug.log
 
 # yarn
 yarn.lock
+
+# Tools
+types/chrome/doc-generator/
