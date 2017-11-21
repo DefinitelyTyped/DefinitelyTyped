@@ -130,7 +130,7 @@ export interface MultiPolygon extends GeometryObject {
  */
 export interface GeometryCollection extends GeometryObject {
     type: "GeometryCollection";
-    geometries: Array<Point | LineString | Polygon |MultiPoint | MultiLineString | MultiPoint>;
+    geometries: Array<Point | LineString | Polygon | MultiPoint | MultiLineString | MultiPoint>;
 }
 
 export type GeoJsonProperties = { [name: string]: any; } | null;
