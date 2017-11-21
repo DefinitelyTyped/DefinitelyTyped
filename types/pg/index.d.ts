@@ -47,6 +47,7 @@ export interface QueryConfig {
     name?: string;
     text: string;
     values?: any[];
+    rowMode?: string;
 }
 
 export interface QueryResult {
