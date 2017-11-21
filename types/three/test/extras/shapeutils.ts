@@ -44,7 +44,8 @@ ShapeUtils.triangulate([new Color('red'), new Color('yellow')]); // $ExpectError
 
 // -------------------------------------------- triangulateShape()
 
-ShapeUtils.triangulateShape(clockWisePointsAsVector2, []); // $ExpectType number[][]
-ShapeUtils.triangulateShape(clockWisePointsAsVector2, [clockWisePointsAsVector2]); // $ExpectType number[][]
+ShapeUtils.triangulateShape(clockWisePointsAsVector2, []); // $ExpectType [number, number, number][]
+
+ShapeUtils.triangulateShape(clockWisePointsAsVector2, [clockWisePointsAsVector2]); // $ExpectType [number, number, number][]
 
 ShapeUtils.triangulateShape(clockWisePointsAsVector2); // $ExpectError
