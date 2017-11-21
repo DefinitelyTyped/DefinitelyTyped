@@ -960,6 +960,37 @@ declare namespace chrome.system.display {
         offset: number;
     }
     /**
+     * @description DisplayMode - Since Chrome 52.
+     * @export
+     * @interface DisplayMode
+     */
+    export interface DisplayMode {
+        /** The display mode width in device independent (user visible) pixels. */
+        width: number;
+
+        /** The display mode height in device independent (user visible) pixels. */
+        height: number;
+
+        /** The display mode width in native pixels. */
+        widthInNativePixels: number;
+
+        /** The display mode height in native pixels. */
+        heightInNativePixels: number;
+
+        /** The display mode UI scale factor. */
+        uiScale: number;
+
+        /** The display mode device scale factor. */
+        deviceScaleFactor: number;
+
+        /** True if the mode is the display's native mode. */
+        isNative: boolean;
+
+        /** True if the display mode is currently selected. */
+        isSelected: boolean;
+    }
+
+    /**
      * @description TouchCalibrationPair - Since Chrome 57.
      * @export
      * @interface TouchCalibrationPair
