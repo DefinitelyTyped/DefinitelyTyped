@@ -6,7 +6,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
-//                 Simon Schick <demwizzy@gmail.com>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -466,7 +466,7 @@ export interface MGetParams extends GenericParams {
 }
 
 export interface MGetResponse<T> {
-    docs?: GetResponse<T>[];
+    docs?: Array<GetResponse<T>>;
 }
 
 export interface MSearchParams extends GenericParams {
@@ -477,7 +477,7 @@ export interface MSearchParams extends GenericParams {
 }
 
 export interface MSearchResponse<T> {
-    responses?: SearchResponse<T>[];
+    responses?: Array<SearchResponse<T>>;
 }
 
 export interface MSearchTemplateParams extends GenericParams {
@@ -627,7 +627,7 @@ export interface SearchResponse<T> {
     hits: {
         total: number;
         max_score: number;
-        hits: {
+        hits: Array<{
             _index: string;
             _type: string;
             _id: string;
@@ -638,7 +638,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
-        }[];
+        }>;
     };
     aggregations?: any;
 }
