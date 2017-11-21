@@ -35,6 +35,7 @@ export interface CommonFieldProps {
 
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
+    label?: string;
     component?: ComponentType<P> | "input" | "select" | "textarea",
     format?: Formatter | null;
     normalize?: Normalizer;

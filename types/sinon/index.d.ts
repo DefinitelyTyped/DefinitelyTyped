@@ -1,4 +1,4 @@
-// Type definitions for Sinon 2.3
+// Type definitions for Sinon 4.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -204,6 +204,9 @@ declare namespace Sinon {
         setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): number;
         clearInterval(id: number): void;
         tick(ms: number): number;
+        next(): void;
+        runAll(): void;
+        runToLast(): void;
         reset(): void;
         Date(): Date;
         Date(year: number): Date;

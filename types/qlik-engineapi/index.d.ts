@@ -4060,7 +4060,7 @@ declare namespace EngineAPI {
         /**
          * Identifier and type of the dimension.
          */
-        qDim: INxLibraryMeasureDef;
+        qDim: INxLibraryDimensionDef;
 
         /**
          * Cardinal and tags related to the dimension.
@@ -4106,7 +4106,7 @@ declare namespace EngineAPI {
          *
          * @returns - A promise GenericDimension.
          */
-        getDimension(): Promise<IGenericDimension>;
+        getDimension(): Promise<IGenericDimensionProperties>;
 
         /**
          * Returns the type and identifier of the object.
@@ -5071,31 +5071,10 @@ declare namespace EngineAPI {
     }
 
     /**
-     * ImplementOn...
-     */
-    interface IImplementOn {
-        /**
-         * register a function for events
-         * @param event - function called if this event occures
-         * @param func - function that is called
-         */
-        on(event: "changed" | "closed", func: () => void): void;
-
-        /**
-         * manual emit an events
-         * @param event - event that occures
-         */
-        emit(event: "changed" | "closed"): void;
-
-        // ? not in Docu
-        id: string;
-    }
-
-    /**
      * This class describes all the methods that apply at generic object level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic object.
      */
-    interface IGenericObject extends IImplementOn {
+    interface IGenericObject extends enigmaJS.IGeneratedAPI {
         /**
          * app describes all the methods that apply at app level.
          */
@@ -6010,7 +5989,7 @@ declare namespace EngineAPI {
     interface IGenericDerivedFieldProperties extends IGenericProperties {
     }
 
-    interface IGenericDerivedFields extends IImplementOn {
+    interface IGenericDerivedFields extends enigmaJS.IGeneratedAPI {
         /**
          * Shows the properties of an object.
          * Returns the identifier and the definition of the derived field.
@@ -6054,7 +6033,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at measure level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the measure.
      */
-    interface IGenericMeasure extends IImplementOn {
+    interface IGenericMeasure extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
@@ -6087,7 +6066,7 @@ declare namespace EngineAPI {
          * @returns - Information about the measure.
          * >> This parameter is mandatory.
          */
-        getMeasure(): Promise<INxLibraryMeasureDef>;
+        getMeasure(): Promise<IGenericMeasureProperties>;
 
         /**
          * Shows the properties of an object.
@@ -6122,7 +6101,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at generic variable level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic variable.
      */
-    interface IGenericVariable extends IImplementOn {
+    interface IGenericVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of a variable. Allows an update to some of the properties.
          *
@@ -6245,7 +6224,7 @@ declare namespace EngineAPI {
      *
      * The handle member in the JSON request for all methods listed in this section is the handle of the variable.
      */
-    interface IVariable extends IImplementOn {
+    interface IVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Sets the value of a dual variable overriding any input constraints.
          *
@@ -6879,12 +6858,6 @@ declare namespace EngineAPI {
         qSignature: string;
     }
 
-    interface IQOptions {
-        qBookmarkId: string;
-
-        qExpires: number;
-    }
-
     interface IQDownloadInfo {
         /**
          * URL of the generated QVF
@@ -6932,7 +6905,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at global level.
      * The handle member in the JSON request for all methods listed in this section is -1.
      */
-    interface IGlobal {
+    interface IGlobal extends enigmaJS.IGeneratedAPI {
         /**
          * Sets an abort flag on all pending and ongoing requests in the current engine session.
          * If an abort flag is set on a pending request, the request is aborted.
@@ -7103,14 +7076,6 @@ declare namespace EngineAPI {
          * @returns The operation is successful if qSuccess is set to true.
          */
         exportApp(qTargetPath: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
-
-        /**
-         * Reduce an app in the memory to the current selection of a specified bookmark
-         * and make it as http download available.
-         * @params - optional qOptions
-         * @returns - A Promise of qDownloadInfo
-         */
-        exportReducedData(qOptions?: IQOptions): Promise<IQDownloadInfo>;
 
         /**
          * Returns the handle of the current app.
@@ -9714,3 +9679,8 @@ declare namespace EngineAPI {
     }
 }
 //#endregion
+
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+    }
+}

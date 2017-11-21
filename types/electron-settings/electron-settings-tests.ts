@@ -12,6 +12,7 @@ settings.setAll({foo: {bar: 'test'}}, {prettify: true}); // $ExpectType Settings
 
 settings.get('foo.bar'); // $ExpectType JsonValue
 settings.get('foo.bar', 'test'); // $ExpectType JsonValue
+settings.get('foo.bar', 'test',  {prettify: true}); // $ExpectType JsonValue
 
 settings.getAll(); // $ExpectType JsonValue
 

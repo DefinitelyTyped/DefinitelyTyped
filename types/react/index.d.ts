@@ -71,7 +71,7 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ReactType<P = any> = string | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
@@ -277,11 +277,11 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
-        constructor(props?: P, context?: any);
+        constructor(props: P, context?: any);
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
         // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
+        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         // tslint:enable:unified-signatures
 
@@ -327,7 +327,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+        new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -336,7 +336,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -347,8 +347,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T) &
+        (new (props: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -2656,6 +2656,7 @@ declare namespace React {
 
     interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+        width?: number | string;
     }
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2787,6 +2788,8 @@ declare namespace React {
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
         href?: string;
         hrefLang?: string;
         integrity?: string;
@@ -2794,7 +2797,6 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
-        as?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3190,7 +3192,7 @@ declare namespace React {
         strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-        strokeMiterlimit?: string;
+        strokeMiterlimit?: number | string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         surfaceScale?: number | string;

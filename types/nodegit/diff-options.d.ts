@@ -14,4 +14,5 @@ export interface DiffOptions {
     newPrefix?: string;
     payload?: any;
     progressCb?: any;
+    [key: string]: any;
 }
