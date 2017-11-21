@@ -70,7 +70,7 @@ const com5 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps,
 
 const com6 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps, MergedProps>(
     (initialState: InitialState, options: StoreCreatorOptions<InitialState, ConnectStateProps, DispatchProps, OwnProps, MergedProps>) => {
-        if (options.isServer || options.req || options.query) {
+        if (options.isServer || options.req || options.query || options.res) {
             const a = 1;
         }
         return createStore(reducer, initialState);

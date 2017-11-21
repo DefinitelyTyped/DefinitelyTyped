@@ -1,6 +1,6 @@
 // Type definitions for Google Analytics (Classic and Universal)
 // Project: https://developers.google.com/analytics/devguides/collection/gajs/, https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
-// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>, Pat Kujawa <http://patkujawa.com>
+// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>, Pat Kujawa <http://patkujawa.com>, Tyler Murphy <https://github.com/tyler-murphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Tracker {
@@ -620,12 +620,17 @@ declare namespace UniversalAnalytics {
     }
 
     interface Tracker {
-        get<T>(fieldName: string): T;
-        send(hitType: string, opt_fieldObject?: {}): void;
-        set(fieldName: string, value: string): void;
-        set(fieldName: string, value: {}): void;
-        set(fieldName: string, value: number): void;
-        set(fieldName: string, value: boolean): void;
+        get(fieldName: string): any;
+        set(fieldName: string, fieldValue: any): void;
+        set(fieldsObject: {}): void;
+        send(hitType: string, ...fields: any[]): void;
+        send(hitType: string, fieldsObject: {}): void;
+    }
+
+    interface Model {
+        get(fieldName: string): any;
+        set(fieldName: string, fieldValue: any, temporary?: boolean): void;
+        set(fields: {}, fieldValue?: null, temporary?: boolean): void;
     }
 }
 

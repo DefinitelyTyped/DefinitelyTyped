@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-dom-tests.ts",
+        "react-dom-tests.tsx",
         "server/index.d.ts",
         "node-stream/index.d.ts",
         "test-utils/index.d.ts"
@@ -22,6 +22,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     }
 }

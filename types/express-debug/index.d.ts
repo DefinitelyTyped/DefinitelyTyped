@@ -2,6 +2,7 @@
 // Project: https://github.com/devoidfury/express-debug
 // Definitions by: Federico Bond <https://github.com/federicobond>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 

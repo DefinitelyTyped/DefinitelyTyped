@@ -115,12 +115,18 @@ declare namespace LocalizeJS.Context {
          */
         translateNumbers: boolean;
     }
+
+    interface RateData {
+        fromCurrency: string;
+        toCurrency: string;
+        rate: string;
+    }
 }
 
 declare var Localize: {
     /**
      * Initializes LocalizeJS with the supplied options.
-     * @param options  An object containing the supplied options.
+     * @param options An object containing the supplied options.
      */
     initialize(options: LocalizeJS.Context.Options): void;
 
@@ -139,13 +145,13 @@ declare var Localize: {
      * Returns the visitor's list of preferred languages, based on the browser's "accept-language" header.
      * @param callback Required.
      */
-    detectLanguage(callback: () => void): void
+    detectLanguage(callback: (error: any, languages: string[]) => void): void
 
     /**
      * Returns all available languages for the project.
      * @param callback Required.
      */
-    getAvailableLanguages(callback: () => void): void
+    getAvailableLanguages(callback: (error: any, languages: string[]) => void): void
 
     /**
      * Translates text or text within html.
@@ -163,7 +169,7 @@ declare var Localize: {
      * @param variables Optional. Object of variables that will be replaced in the input, if it's a string
      * @param callback Optional. Callback will trigger once translations have been fetched from Localize.
      */
-    translate(input: string, variables?: any, callback?: () => void): void
+    translate(input: string | HTMLElement, variables?: any, callback?: (translation: string | HTMLElement) => void): void
 
     /**
      * Translates all text on the page
@@ -205,14 +211,14 @@ declare var Localize: {
      * @param eventName Required. Name of event to bind to. Can optionally be namespaced: "setLanguage.ns"
      * @param fn Required. Event handler.
      */
-    on(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn: () => void): void
+    on(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn: (event: Event) => void): void
 
     /**
      * Remove an event handler.
      * @param eventName Required. Name of event to unbind to. Can optionally be namespaced: "setLanguage.ns"
-     * @param fn Optional. The () => void to unbind from the event.
+     * @param fn Optional. The function to unbind from the event.
      */
-    on(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn?: () => void): void
+    off(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn?: (event: Event) => void): void
 
     /**
      * Returns exchange rate for provided currencies.
@@ -221,5 +227,5 @@ declare var Localize: {
      * @param toCurrency Required. The new currency, to be converted to.
      * @param callback Required. Receives err and rateData arguments.
      */
-    getExchangeRate(fromCurrency: string, toCurrency: string, callback: () => void): void
+    getExchangeRate(fromCurrency: string, toCurrency: string, callback: (error: any, rateData: LocalizeJS.Context.RateData) => void): void
 };

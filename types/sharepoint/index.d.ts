@@ -323,6 +323,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     ContentTypesEnabled: boolean;
     CurrentSelectedItems: boolean;
     CurrentUserId: number;
+    CurrentUserIsSiteAdmin: boolean;
     EnableMinorVersions: boolean;
     ExternalDataList: boolean;
     HasRelatedCascadeLists: boolean;
@@ -332,6 +333,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     LastSelectedItemIID: number;
     LastRowIndexSelected: number;
     RowFocusTimerID: number;
+    ListTitle: string;
     ListData: any; // SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
     ListSchema: SPClientTemplates.ListSchema;
     ModerationStatus: number;
@@ -340,6 +342,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     SelectAllCbx: HTMLElement;
     SendToLocationName: string;
     SendToLocationUrl: string;
+    SiteTitle: string;
     StateInitDone: boolean;
     TableCbxFocusHandler(instance: any, eventArgs: any): void;
     TableMouseoverHandler(instance: any, eventArgs: any): void;
@@ -1178,6 +1181,7 @@ declare namespace SPClientTemplates {
         ctxType: any; // not in View
         CurrentUserId: number;
         CurrentUserIsSiteAdmin: boolean;
+        LastSelectedItemIID: any;
         dictSel: any;
         /** Absolute path for the list display form */
         displayFormUrl: string;

@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class IoIosGameControllerAOutline extends React.Component<IconBaseProps> { }
+declare class IoIosGameControllerAOutline extends React.Component<IconBaseProps> { }
+export = IoIosGameControllerAOutline;

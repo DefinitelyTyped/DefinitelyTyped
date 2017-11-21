@@ -10,6 +10,7 @@ declare namespace DropdownButton {
         navItem?: boolean;
         noCaret?: boolean;
         pullRight?: boolean;
+        title: React.ReactNode;
     }
 
     export type DropdownButtonProps = DropdownButtonBaseProps & React.HTMLProps<DropdownButton>;
