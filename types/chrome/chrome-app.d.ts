@@ -889,6 +889,17 @@ declare namespace chrome.system.display {
         /** The y-axis distance from the bottom bound. */
         bottom: number;
     }
+    /**
+     * @description Point - Since Chrome 57.
+     * @export
+     * @interface Point
+     */
+    export interface Point {
+        /** The x-coordinate of the point. */
+        x: number;
+        /** The y-coordinate of the point. */
+        y: number;
+    }
 
     export interface DisplayInfo {
         /** The unique identifier of the display. */
@@ -931,6 +942,33 @@ declare namespace chrome.system.display {
         boundsOriginX?: number;
         /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
         boundsOriginY?: number;
+    }
+
+    /**
+     * @description Display Layout - Since Chrome 53
+     * @export
+     * @interface DisplayLayout
+     */
+    export interface DisplayLayout {
+        /** The unique identifier of the display. */
+        id: string;
+        /** The unique identifier of the parent display. Empty if this is the root. */
+        parentId: string;
+        /** The layout position of this display relative to the parent. This will be ignored for the root. */
+        position: 'top' | 'right' | 'bottom' | 'left';
+        /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
+        offset: number;
+    }
+    /**
+     * @description TouchCalibrationPair - Since Chrome 57.
+     * @export
+     * @interface TouchCalibrationPair
+     */
+    export interface TouchCalibrationPair {
+        /**	The coordinates of the display point. */
+        displayPoint: Point;
+        /** The coordinates of the touch point corresponding to the display point. */
+        touchPoint: Point;
     }
 
     export interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
