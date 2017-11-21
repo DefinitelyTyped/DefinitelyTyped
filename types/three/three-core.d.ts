@@ -862,7 +862,8 @@ export class BufferGeometry extends EventDispatcher {
 
     center(): Vector3;
 
-    setFromObject(object: Object3D): void;
+    setFromObject(object: Object3D): BufferGeometry;
+    setFromPoints(points: Vector3[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
