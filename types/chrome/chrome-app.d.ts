@@ -3,7 +3,7 @@
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Nikolai Ommundsen <https://github/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="index.d.ts"/>
+/// <reference path="./index.d.ts"/>
 /// <reference types="filesystem"/>
 
 ////////////////////
@@ -1001,14 +1001,69 @@ declare namespace chrome.system.display {
         /** The coordinates of the touch point corresponding to the display point. */
         touchPoint: Point;
     }
+    /**
+     * @description Representation of info data to be used in chrome.system.display.setDisplayProperties()
+     * @export
+     * @interface DisplayPropertiesInfo
+     */
+    export interface DisplayPropertiesInfo {
+        /** Since Chrome 59. Chrome OS only. If set to true, changes the display mode to unified desktop (see enableUnifiedDesktop for details). If set to false, unified desktop mode will be disabled. This is only valid for the primary display. If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided. */
+        isUnified?: boolean;
+
+        /** Chrome OS only. If set and not empty, enables mirroring for this display. Otherwise disables mirroring for this display. This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties. If set, no other property may be set. */
+        mirroringSourceId?: string;
+
+        /** If set to true, makes the display primary. No-op if set to false. */
+        isPrimary?: boolean;
+
+        /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
+        overscan?: Insets;
+
+        /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
+        rotation?: number;
+
+        /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
+        boundsOriginX?: number;
+
+        /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
+        boundsOriginY: number;
+
+        /** Since Chrome 52. If set, updates the display mode to the mode matching this value. */
+        displayMode?: DisplayMode;
+    }
+
+    /**
+     * @description Options affecting how the information is returned. (Since Chrome 59)
+     * @export
+     * @interface DisplayInfoFlags
+     */
+    export interface DisplayInfoFlags {
+        /**
+         * @description If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode (see enableUnifiedDesktop). Defaults to false.
+         * @type {boolean}
+         * @memberof DisplayInfoFlags
+         */
+        singleUnified?: boolean;
+    }
 
     export interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
 
-    /** Queries basic CPU information of the system. */
-    export function getInfo(callback: (info: DisplayInfo[]) => void): void;
+    /**
+     * @description Requests the information for all attached display devices.
+     * @export
+     * @param {DisplayInfoFlags} [flags] Since Chrome 59. Options affecting how the information is returned.
+     * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
+     */
+    export function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
 
-    /** Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. */
-    export function setDisplayProperties(id: string, info: DisplayInfo, callback?: () => void): void;
+    /**
+     * @description Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+     * @export
+     * @param {string} id The display's unique identifier.
+     * @param {DisplayPropertiesInfo} info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
+     * @param {() => void} [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
 
     export var onDisplayChanged: DisplayChangedEvent;
 }
