@@ -27,7 +27,7 @@ export {
 
 export interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?(): void;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     forceRefresh?: boolean;
     keyLength?: number;
 }
@@ -35,7 +35,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string;
-    getUserConfirmation?(): void;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     hashType?: 'slash' | 'noslash' | 'hashbang';
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
