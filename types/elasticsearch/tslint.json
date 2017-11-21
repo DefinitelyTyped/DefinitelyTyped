@@ -3,7 +3,6 @@
     "rules": {
         "no-unnecessary-generics": false,
         "array-type": false,
-        "no-empty-interface": false,
-        "max-line-length": false
+        "no-empty-interface": false
     }
 }
