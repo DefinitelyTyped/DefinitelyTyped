@@ -34,14 +34,14 @@ export interface RouterChildContext<P> {
 export interface MemoryRouterProps {
   initialEntries?: H.LocationDescriptor[];
   initialIndex?: number;
-  getUserConfirmation?: (() => void);
+  getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
   keyLength?: number;
 }
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
 
 export interface PromptProps {
-  message: string | ((location: H.Location) => void);
+  message: string | ((location: H.Location) => string | boolean);
   when?: boolean;
 }
 export class Prompt extends React.Component<PromptProps, any> { }
