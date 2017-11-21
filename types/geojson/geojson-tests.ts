@@ -1,9 +1,10 @@
 import {
+    BBox,
     Feature, FeatureCollection, GeometryCollection, LineString,
-    MultiLineString, MultiPoint, MultiPolygon, Point, Polygon
+    MultiLineString, MultiPoint, MultiPolygon, Point, Polygon, GeometryObject
 } from "geojson";
 
-let featureCollection: FeatureCollection = {
+let featureCollection: FeatureCollection<Point | LineString | Polygon | MultiPoint | MultiLineString | MultiPolygon | GeometryCollection> = {
     type: "FeatureCollection",
     features: [
         {
@@ -49,20 +50,10 @@ let featureCollection: FeatureCollection = {
                 }
             }
         }
-    ],
-    // Coordinate Systems no longer supported in GeoJSON as of RFC 7946.
-    // This will still work due to the standard's allowance for
-    // "foregin members", however.
-    crs: {
-        type: "link",
-        properties: {
-            href: "http://example.com/crs/42",
-            type: "proj4"
-        }
-    }
+    ]
 };
 
-const featureWithPolygon: Feature = {
+const featureWithPolygon: Feature<Polygon> = {
     type: "Feature",
     bbox: [-180.0, -90.0, 180.0, 90.0],
     geometry: {
@@ -138,11 +129,12 @@ const geometryCollection: GeometryCollection = {
     ]
 };
 
-let feature: Feature = {
+let feature: Feature<GeometryObject> = {
     type: "Feature",
     geometry: lineString,
     properties: null
 };
+
 feature = {
     type: "Feature",
     geometry: polygon,
@@ -206,18 +198,11 @@ featureCollection = {
             geometry: geometryCollection,
             properties: { test: "OK" }
         }
-    ],
-    crs: {
-        type: "link",
-        properties: {
-            href: "http://example.com/crs/42",
-            type: "proj4"
-        }
-    }
+    ]
 };
 
 // Allow access to custom properties
-const pt: Feature = {
+const pt: Feature<Point> = {
     type: "Feature",
     properties: {
         foo: "bar",
@@ -250,7 +235,7 @@ const testProps: TestProperty = {
     hello: "world"
 };
 
-const typedPropertiesFeature: Feature = {
+const typedPropertiesFeature: Feature<Point> = {
     type: "Feature",
     properties: testProps,
     geometry: {
@@ -259,7 +244,7 @@ const typedPropertiesFeature: Feature = {
     }
 };
 
-const typedPropertiesFeatureCollection: FeatureCollection = {
+const typedPropertiesFeatureCollection: FeatureCollection<Point> = {
     type: "FeatureCollection",
     features: [typedPropertiesFeature]
 };
