@@ -1051,6 +1051,12 @@ declare namespace chrome.system.display {
     /**
      * @description Requests the information for all attached display devices.
      * @export
+     * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
+     */
+    export function getInfo(callback: (info: DisplayInfo[]) => void): void;
+    /**
+     * @description Requests the information for all attached display devices.
+     * @export
      * @param {DisplayInfoFlags} [flags] Since Chrome 59. Options affecting how the information is returned.
      * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
      */
