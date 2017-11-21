@@ -2,6 +2,7 @@
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import { EventSubscription } from 'fbemitter';
 import { Component, Ref } from 'react';
@@ -1346,7 +1347,7 @@ export namespace SQLite {
     interface Transaction {
         executeSql(
             sqlStatement: string,
-            arguments?: string[] | number[], // TypeScript Version: 2.4
+            arguments?: string[] | number[],
             success?: (transaction: Transaction, resultSet: ResultSet) => any,
             error?: (transaction: Transaction, error: Error) => any
         ): void;
