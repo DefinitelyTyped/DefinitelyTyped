@@ -1,4 +1,4 @@
-// Type definitions for Keypress 2.0
+// Type definitions for Keypress 2.1.4
 // Project: https://github.com/dmauro/Keypress/
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
