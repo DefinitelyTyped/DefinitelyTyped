@@ -70,6 +70,24 @@ export interface OptionInfo {
     synonyms: string[];
 }
 
+export interface StructuredResponse {
+    orderUpdate: OrderUpdate;
+}
+
+export interface RichResponseItemBasicCard {
+    basicCard: BasicCard;
+}
+
+export interface RichResponseItemSimpleResponse {
+    simpleResponse: SimpleResponse;
+}
+
+export interface RichResponseItemStructuredResponse {
+    structuredResponse: StructuredResponse;
+}
+
+export type RichResponseItem = RichResponseItemBasicCard | RichResponseItemSimpleResponse | RichResponseItemStructuredResponse;
+
 /**
  * Class for initializing and constructing Rich Responses with chainable interface.
  */
@@ -85,7 +103,7 @@ export class RichResponse {
      * Ordered list of either SimpleResponse objects or BasicCard objects.
      * First item must be SimpleResponse. There can be at most one card.
      */
-    items: Array<SimpleResponse | BasicCard>;
+    items: RichResponseItem[];
 
     /**
      * Ordered list of text suggestions to display. Optional.
