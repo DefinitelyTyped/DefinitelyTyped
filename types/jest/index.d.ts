@@ -145,10 +145,15 @@ declare namespace jest {
      */
     function runOnlyPendingTimers(): typeof jest;
     /**
-     * Executes only the macro task queue (i.e. all tasks queued by setTimeout()
-     * or setInterval() and setImmediate()).
+     * (renamed in Jest 21.3.0+ - use `advanceTimersByTime` instead) Executes only the macro
+     * task queue (i.e. all tasks queued by setTimeout() or setInterval() and setImmediate()).
      */
     function runTimersToTime(msToRun: number): typeof jest;
+    /**
+     * Explicitly supplies the mock object that the module system should return
+     * for the specified module.
+     */
+    function advanceTimersByTime(msToRun: number): typeof jest;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -867,6 +872,7 @@ declare namespace jest {
         runAllTicks(): void;
         runAllTimers(): void;
         runTimersToTime(msToRun: number): void;
+        advanceTimersByTime(msToRun: number): void;
         runOnlyPendingTimers(): void;
         runWithRealTimers(callback: any): void;
         useFakeTimers(): void;
