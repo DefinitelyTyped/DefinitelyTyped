@@ -24,6 +24,7 @@ export type Axis = number;
 export interface HashMap { [key: string]: any; }
 export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
 export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+export type Md5 = string;
 
 /**
  * Accelerometer
@@ -146,7 +147,7 @@ export interface PlaybackStatusToSet {
 export type Source = string | RequireSource | Asset;
 
 export class PlaybackObject {
-    loadAsync(source: Source, initialStatus: PlaybackStatusToSet, downloadFirst: boolean): Promise<PlaybackStatus>;
+    loadAsync(source: Source, initialStatus?: PlaybackStatusToSet, downloadFirst?: boolean): Promise<PlaybackStatus>;
     unloadAsync(): Promise<PlaybackStatus>;
     getStatusAsync(): Promise<PlaybackStatus>;
     setOnPlaybackStatusUpdate(onPlaybackStatusUpdate: (status: PlaybackStatus) => void): void;
@@ -335,7 +336,7 @@ export type AppLoadingProperties = {
 } | {
     startAsync: null;
     onFinish: null;
-    onError: null;
+    onError?: null;
 };
 export class AppLoading extends Component<AppLoadingProperties> { }
 
@@ -364,10 +365,10 @@ export class BlurView extends Component<BlurViewProps> { }
  * Brightness
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: number): Promise<void>;
-    function getBrightnessAsync(): Promise<number>;
-    function getSystemBrightnessAsync(): Promise<number>;
-    function setSystemBrightnessAsync(brightnessValue: number): Promise<void>;
+    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
+    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
+    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
 }
 
 /**
@@ -398,29 +399,29 @@ export class CameraObject {
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 export interface CameraProperties extends ViewProperties {
-    onCameraReady: () => void;
-    onMountError: () => void;
-    flashMode: string | number;
-    type: string | number;
-    ratio: string;
-    autoFocus: string | number | boolean;
-    focusDepth: FloatFromZeroToOne;
-    zoom: FloatFromZeroToOne;
-    whiteBalance: string | number;
-    barCodeTypes: string[];
-    onBarCodeRead: BarCodeReadCallback;
-    ref?: CameraObject;
+    flashMode?: string | number;
+    type?: string | number;
+    ratio?: string;
+    autoFocus?: string | number | boolean;
+    focusDepth?: FloatFromZeroToOne;
+    zoom?: FloatFromZeroToOne;
+    whiteBalance?: string | number;
+    barCodeTypes?: string[];
+    onCameraReady?: () => void;
+    onMountError?: () => void;
+    onBarCodeRead?: BarCodeReadCallback;
+    ref?: Ref<CameraObject>;
 }
 export interface CameraConstants {
-    Type: string;
-    FlashMode: string;
-    AutoFocus: string;
-    WhiteBalance: string;
-    VideoQuality: string;
-    BarCodeType: string;
+    readonly Type: string;
+    readonly FlashMode: string;
+    readonly AutoFocus: string;
+    readonly WhiteBalance: string;
+    readonly VideoQuality: string;
+    readonly BarCodeType: string;
 }
 export class Camera extends Component<CameraProperties> {
-    static Constants: CameraConstants;
+    static readonly Constants: CameraConstants;
 }
 
 /**
@@ -694,7 +695,7 @@ export namespace Contacts {
  */
 export namespace DocumentPicker {
     interface Options {
-        type: string;
+        type?: string;
     }
     type Response = {
         type: 'success';
@@ -705,7 +706,7 @@ export namespace DocumentPicker {
         type: 'cancel';
     };
 
-    function getDocumentAsync(options: Options): Response;
+    function getDocumentAsync(options?: Options): Promise<Response>;
 }
 
 /**
@@ -730,7 +731,7 @@ export namespace Facebook {
     } | {
         type: 'cancel';
     };
-    function logInWithReadPermissionsAsync(appId: string, options: Options): Promise<Response>;
+    function logInWithReadPermissionsAsync(appId: string, options?: Options): Promise<Response>;
 }
 
 /**
@@ -803,7 +804,7 @@ export namespace FileSystem {
         uri: string;
         size: number;
         modificationTime: number;
-        md5?: string;
+        md5?: Md5;
     } | {
         exists: false;
         isDirectory: false;
@@ -813,7 +814,7 @@ export namespace FileSystem {
         uri: string;
         status: number;
         headers: { [name: string]: string };
-        md5?: string;
+        md5?: Md5;
     }
 
     const documentDirectory: string;
@@ -825,9 +826,9 @@ export namespace FileSystem {
     function deleteAsync(fileUri: string, options?: { idempotent: boolean; }): Promise<void>;
     function moveAsync(options: { from: string, to: string; }): Promise<void>;
     function copyAsync(options: { from: string, to: string; }): Promise<void>;
-    function makeDirectoryAsync(fireUri: string, options?: { intermediates: boolean }): Promise<void>;
-    function readDirectoryAsync(fileUri: string): Promise<string[]>;
-    function downloadAsync(uri: string, fileUri: string, options?: { md5: boolean; }): Promise<DownloadResult>;
+    function makeDirectoryAsync(dirUri: string, options?: { intermediates: boolean }): Promise<void>;
+    function readDirectoryAsync(dirUri: string): Promise<string[]>;
+    function downloadAsync(uri: string, fileUri: string, options?: { md5?: boolean; }): Promise<DownloadResult>;
     function createDownloadResumable(
         uri: string,
         fileUri: string,
@@ -863,14 +864,6 @@ export namespace FileSystem {
             callback?: DownloadProgressCallback,
             resumeData?: string
         );
-        private _uuid: string;
-        private _url: string;
-        private _fileUri: string;
-        private _options: DownloadOptions;
-        private _emitter: NativeEventEmitter;
-        private _resumeData?: string;
-        private _callback?: DownloadProgressCallback;
-        private _subscription?: () => void;
 
         downloadAsync(): Promise<DownloadResult>;
         pauseAsync(): Promise<PauseResult>;
