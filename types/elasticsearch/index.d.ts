@@ -1613,46 +1613,47 @@ export namespace errors {
     class Generic extends _Abstract {}
     class ConnectionFault extends _Abstract {}
     class NoConnections extends _Abstract {}
-    class RequestTimeout extends _Abstract {}
     class Serialization extends _Abstract {}
     class RequestTypeError extends _Abstract {}
 
-    class MultipleChoices extends _Abstract {}
-    class MovedPermanently extends _Abstract {}
-    class SeeOther extends _Abstract {}
-    class NotModified extends _Abstract {}
-    class UseProxy extends _Abstract {}
-    class TemporaryRedirect extends _Abstract {}
-    class PermanentRedirect extends _Abstract {}
-    class BadRequest extends _Abstract {}
     class AuthenticationException extends _Abstract {}
-    class PaymentRequired extends _Abstract {}
     class AuthorizationException extends _Abstract {}
-    class NotFound extends _Abstract {}
-    class MethodNotAllowed extends _Abstract {}
-    class NotAcceptable extends _Abstract {}
-    class ProxyAuthenticationRequired extends _Abstract {}
-    class LengthRequired extends _Abstract {}
-    class PreconditionFailed extends _Abstract {}
-    class RequestEntityTooLarge extends _Abstract {}
-    class RequestURITooLong extends _Abstract {}
-    class UnsupportedMediaType extends _Abstract {}
-    class RequestedRangeNotSatisfiable extends _Abstract {}
-    class ExpectationFailed extends _Abstract {}
-    class ImATeapot extends _Abstract {}
-    class TooManyConnectionsFromThisIP extends _Abstract {}
-    class UpgradeRequired extends _Abstract {}
-    class TooManyRequests extends _Abstract {}
-    class BlockedByWindowsParentalControls extends _Abstract {}
-    class RequestHeaderTooLarge extends _Abstract {}
-    class HTTPToHTTPS extends _Abstract {}
-    class ClientClosedRequest extends _Abstract {}
-    class InternalServerError extends _Abstract {}
-    class NotImplemented extends _Abstract {}
     class BadGateway extends _Abstract {}
-    class ServiceUnavailable extends _Abstract {}
+    class BadRequest extends _Abstract {}
+    class BlockedByWindowsParentalControls extends _Abstract {}
+    class ClientClosedRequest extends _Abstract {}
+    class Conflict extends _Abstract {}
+    class ExpectationFailed extends _Abstract {}
     class GatewayTimeout extends _Abstract {}
+    class HTTPToHTTPS extends _Abstract {}
     class HTTPVersionNotSupported extends _Abstract {}
-    class VariantAlsoNegotiates extends _Abstract {}
+    class ImATeapot extends _Abstract {}
+    class InternalServerError extends _Abstract {}
+    class LengthRequired extends _Abstract {}
+    class MethodNotAllowed extends _Abstract {}
+    class MovedPermanently extends _Abstract {}
+    class MultipleChoices extends _Abstract {}
+    class NotAcceptable extends _Abstract {}
     class NotExtended extends _Abstract {}
+    class NotFound extends _Abstract {}
+    class NotImplemented extends _Abstract {}
+    class NotModified extends _Abstract {}
+    class PaymentRequired extends _Abstract {}
+    class PermanentRedirect extends _Abstract {}
+    class PreconditionFailed extends _Abstract {}
+    class ProxyAuthenticationRequired extends _Abstract {}
+    class RequestedRangeNotSatisfiable extends _Abstract {}
+    class RequestEntityTooLarge extends _Abstract {}
+    class RequestHeaderTooLarge extends _Abstract {}
+    class RequestTimeout extends _Abstract {}
+    class RequestURITooLong extends _Abstract {}
+    class SeeOther extends _Abstract {}
+    class ServiceUnavailable extends _Abstract {}
+    class TemporaryRedirect extends _Abstract {}
+    class TooManyConnectionsFromThisIP extends _Abstract {}
+    class TooManyRequests extends _Abstract {}
+    class UnsupportedMediaType extends _Abstract {}
+    class UpgradeRequired extends _Abstract {}
+    class UseProxy extends _Abstract {}
+    class VariantAlsoNegotiates extends _Abstract {}
 }
