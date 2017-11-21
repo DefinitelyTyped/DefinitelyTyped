@@ -8,8 +8,9 @@
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
+//                 Jamie Mason <https://github.com/JamieMason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -154,6 +155,11 @@ declare namespace jest {
      */
     function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
     /**
+     * Set the default timeout interval for tests and before/after hooks in milliseconds.
+     * Note: The default timeout interval is 5 seconds if this method is not called.
+     */
+    function setTimeout(timeout: number): typeof jest;
+    /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
     function spyOn<T extends {}, M extends keyof T>(object: T, method: M): SpyInstance<T[M]>;
@@ -193,9 +199,9 @@ declare namespace jest {
         /**
          * Creates a test closure.
          *
-         * @param {string} name The name of your test
-         * @param {fn?} ProvidesCallback The function for your test
-         * @param {timeout?} timeout The timeout for an async function test
+         * @param name The name of your test
+         * @param fn The function for your test
+         * @param timeout The timeout for an async function test
          */
         (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
@@ -235,7 +241,7 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, actual: any) => { message(): string, pass: boolean };
+        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
     }
 
     interface SnapshotSerializerOptions {
@@ -285,7 +291,7 @@ declare namespace jest {
          * The `expect` function is used every time you want to test a value.
          * You will rarely call `expect` by itself.
          *
-         * @param {any} actual The value to apply matchers against.
+         * @param actual The value to apply matchers against.
          */
         (actual: any): Matchers<void>;
         anything(): any;
@@ -488,12 +494,12 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T> extends Function, MockInstance<T> {
+    interface Mock<T = {}> extends Function, MockInstance<T> {
         new (...args: any[]): T;
         (...args: any[]): any;
     }
 
-    interface SpyInstance<T> extends MockInstance<T> {
+    interface SpyInstance<T = {}> extends MockInstance<T> {
         mockRestore(): void;
     }
 
@@ -549,7 +555,7 @@ declare namespace jasmine {
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
-    function createSpy(name: string, originalFn?: (...args: any[]) => any): Spy;
+    function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;

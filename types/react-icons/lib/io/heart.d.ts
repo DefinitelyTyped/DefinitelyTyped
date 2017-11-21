@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class IoHeart extends React.Component<IconBaseProps> { }
+declare class IoHeart extends React.Component<IconBaseProps> { }
+export = IoHeart;

@@ -97,7 +97,21 @@ function testAssert() {
 }
 
 function testSandbox() {
+    const config = {
+        injectInto: null,
+        properties: ["spy", "stub", "mock", "clock", "server", "requests"],
+        useFakeServer: true,
+        useFakeTimers: true,
+    };
+
     let sandbox = sinon.sandbox.create();
+    sandbox = sinon.sandbox.create(config);
+    sandbox = sinon.sandbox.create(sinon.defaultConfig);
+
+    sandbox = sinon.createSandbox();
+    sandbox = sinon.createSandbox(config);
+    sandbox = sinon.createSandbox(sinon.defaultConfig);
+
     sandbox = sandbox.usingPromise(Promise);
 
     sandbox.assert.notCalled(sinon.spy());

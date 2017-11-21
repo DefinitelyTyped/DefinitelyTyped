@@ -9,6 +9,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Onat Yigit Mercan <https://github.com/onatm>
 //                 Ian Johnson <https://github.com/ninjaferret>
+//                 Anton Novik <https://github.com/tehbi4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -184,6 +185,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * @default "Clear value"
      */
     clearValueText?: string;
+    /**
+     * whether to close the menu when a value is selected
+     * @default true
+     */
+    closeOnSelect?: boolean;
     /**
      * whether it is possible to reset value. if enabled, an X button will appear at the right side.
      * @default true

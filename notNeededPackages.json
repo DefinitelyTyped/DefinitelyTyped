@@ -55,6 +55,12 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "askmethat-rating",
+            "typingsPackageName": "askmethat-rating",
+            "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
+            "asOfVersion": "0.4.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -107,6 +113,12 @@
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "change-case",
@@ -175,6 +187,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "error-stack-parser",
+            "typingsPackageName": "error-stack-parser",
+            "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
@@ -209,6 +227,12 @@
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "gaea-model",
@@ -313,6 +337,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "jsplumb",
+            "typingsPackageName": "jsplumb",
+            "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
+            "asOfVersion": "2.5.7"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
@@ -355,6 +385,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "log4js",
+            "typingsPackageName": "log4js",
+            "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
+            "asOfVersion": "2.3.5"
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
@@ -395,6 +431,12 @@
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "MQTT",
+            "typingsPackageName": "mqtt",
+            "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "ng-table",
@@ -475,6 +517,12 @@
             "asOfVersion": "1.4.0"
         },
         {
+            "libraryName": "popper.js",
+            "typingsPackageName": "popper.js",
+            "sourceRepoURL": "https://github.com/FezVrasta/popper.js/",
+            "asOfVersion": "1.11.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
@@ -509,6 +557,12 @@
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
             "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "realm",
+            "typingsPackageName": "realm",
+            "sourceRepoURL": "https://github.com/realm/realm-js",
+            "asOfVersion": "1.13.0"
         },
         {
             "libraryName": "Redux",

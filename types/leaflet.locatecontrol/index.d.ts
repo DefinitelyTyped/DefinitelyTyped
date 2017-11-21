@@ -2,6 +2,7 @@
 // Project: https://github.com/domoritz/leaflet-locatecontrol
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as L from 'leaflet';
 

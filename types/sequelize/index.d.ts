@@ -17,6 +17,7 @@
 
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
 
@@ -3108,7 +3109,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
     };
 
     /**
@@ -5508,6 +5509,13 @@ declare namespace sequelize {
         quoteIdentifiers?: boolean;
 
         /**
+         * The version of the database. Most times, this is automatically detected and is not needed.
+         *
+         * Defaults to 0
+         */
+        databaseVersion?: number;
+
+        /**
          * Set the default transaction isolation level. See `Sequelize.Transaction.ISOLATION_LEVELS` for possible
          * options.
          *
@@ -5739,6 +5747,7 @@ declare namespace sequelize {
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
+        useCLS(namespace:cls.Namespace): Sequelize;
 
     }
 

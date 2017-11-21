@@ -2,9 +2,10 @@
 // http://gaearon.github.io/react-dnd/docs-tutorial.html
 
 import * as React from "react";
+import * as DOM from "react-dom-factories";
 import * as ReactDnd from "react-dnd";
 
-var r = React.DOM;
+var r = DOM;
 
 import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;

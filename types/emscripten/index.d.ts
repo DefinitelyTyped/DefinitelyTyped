@@ -40,8 +40,8 @@ declare namespace Module {
 
     var Runtime: any;
 
-    function ccall(ident: string, returnType: string, argTypes: string[], args: any[]): any;
-    function cwrap(ident: string, returnType: string, argTypes: string[]): any;
+    function ccall(ident: string, returnType: string | null, argTypes: string[], args: any[]): any;
+    function cwrap(ident: string, returnType: string | null, argTypes: string[]): any;
 
     function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     function getValue(ptr: number, type: string, noSafe?: boolean): number;

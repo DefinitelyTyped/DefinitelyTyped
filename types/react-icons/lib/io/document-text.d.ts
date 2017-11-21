@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class IoDocumentText extends React.Component<IconBaseProps> { }
+declare class IoDocumentText extends React.Component<IconBaseProps> { }
+export = IoDocumentText;

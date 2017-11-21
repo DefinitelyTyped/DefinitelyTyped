@@ -289,3 +289,21 @@ function testOnlyUpdateForKeys() {
     // This should be a compile error
     // onlyUpdateForKeys<Props>(['fo'])(component)
 }
+
+function testLifecycle() {
+    interface Props {
+        foo: number;
+        bar: string;
+    }
+    interface State {}
+    interface Instance {
+        instanceValue: number
+    }
+    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
+    lifecycle<Props, State, Instance>({
+        instanceValue: 1,
+        componentDidMount() {
+            this.instanceValue = 2
+        }
+    })(component)
+}
