@@ -4,16 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as ng from "angular";
+import * as angular from "angular";
+
+export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
+export type IWebSocketProvider = angular.websocket.IWebSocketProvider;
+export type IWebSocketMessageOptions = angular.websocket.IWebSocketMessageOptions;
+export type IWebSocketMessageHandler = angular.websocket.IWebSocketMessageHandler;
+export type IWebSocketQueueItem = angular.websocket.IWebSocketQueueItem;
+export type IWebSocket = angular.websocket.IWebSocket;
 
 declare module "angular" {
-    namespace websocket {
+    export namespace websocket {
 
         /**
          * Options available to be specified for IWebSocketProvider.
          */
         type IWebSocketConfigOptions = {
-        scope?: ng.IScope;
+        scope?: angular.IScope;
         rootScopeFailOver?: boolean;
         useApplyAsync?: boolean;
         initialTimeout?: number;
@@ -54,7 +61,7 @@ declare module "angular" {
         /** Type corresponding to items stored in $WebSocket#sendQueue instance. */
         type IWebSocketQueueItem = {
         message: any;
-        defered: ng.IPromise<void>;
+        defered: angular.IPromise<void>;
         }
 
         interface IWebSocket {
@@ -108,7 +115,7 @@ declare module "angular" {
              *
              * @param data data to send, if this is an object, it will be stringified before sending
              */
-            send(data: string | {}): ng.IPromise<any>;
+            send(data: string | {}): angular.IPromise<any>;
 
             /**
              * WebSocket instance.
