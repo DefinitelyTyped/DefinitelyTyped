@@ -24,16 +24,16 @@ declare const enum Sods {
     loaded = 4,
     error = 5
 }
-declare interface Sod {
-    url: string,
-    key: string,
-    loaded: boolean,
-    depkeys?: string[],
-    state: Sods,
-    qfn?: any[],
-    reset?: boolean
+interface Sod {
+    url: string;
+    key: string;
+    loaded: boolean;
+    depkeys?: string[];
+    state: Sods;
+    qfn?: any[];
+    reset?: boolean;
 }
-declare var _v_dictSod : { [address: string]: Sod };
+declare var _v_dictSod: { [address: string]: Sod };
 declare namespace SP {
     interface SOD {
         execute(fileName: string, functionName: string, ...args: any[]): void;
@@ -53,7 +53,7 @@ declare namespace SP {
         get_ribbonImagePrefetchEnabled(): boolean;
         set_ribbonImagePrefetchEnabled(value: boolean): void;
     }
-    var SOD: SOD;
+    let SOD: SOD;
 
     enum ListLevelPermissionMask {
         viewListItems, // : 1,
@@ -132,7 +132,7 @@ declare namespace SP {
     interface PageContextInfoInstance {
         get_pagePersonalizationScope(): string;
     }
-    var PageContextInfo: PageContextInfo;
+    let PageContextInfo: PageContextInfo;
 
     class ContextPermissions {
         has(perm: number): boolean;
@@ -178,7 +178,7 @@ declare class JSRequest {
     static PathName: string;
 }
 
-declare interface _spPageContextInfo {
+interface _spPageContextInfo {
     alertsEnabled: boolean; // true
     allowSilverlightPrompt: string; // "True"
     blockDownloadsExperienceEnabled: boolean; // true
@@ -264,13 +264,13 @@ declare interface _spPageContextInfo {
 }
 declare var _spPageContextInfo: _spPageContextInfo;
 
-declare interface _spFriendlyUrlPageContextInfo {
+interface _spFriendlyUrlPageContextInfo {
     termId: string;
     termSetId: string;
     termStoreId: string;
     title: string;
 }
-declare var _spFriendlyUrlPageContextInfo: _spFriendlyUrlPageContextInfo
+declare var _spFriendlyUrlPageContextInfo: _spFriendlyUrlPageContextInfo;
 
 declare function STSHtmlEncode(value: string): string;
 declare function STSHtmlDecode(value: string): string;
@@ -2155,7 +2155,7 @@ declare namespace SP {
     interface ClientObjectCollectionConstructor {
         new<T>(): ClientObjectCollection<T>;
     }
-    var ClientObjectCollection: ClientObjectCollectionConstructor;
+    let ClientObjectCollection: ClientObjectCollectionConstructor;
 
     interface ClientObjectList<T> extends SP.ClientObjectCollection<T> {
         new(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
@@ -2165,7 +2165,7 @@ declare namespace SP {
     interface ClientObjectListConstructor {
         new<T>(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any): ClientObjectList<T>;
     }
-    var ClientObjectList: ClientObjectListConstructor;
+    let ClientObjectList: ClientObjectListConstructor;
     class ClientObjectPrototype {
         retrieve(propertyNames?: string[]): void;
         retrieveObject(propertyName: string): SP.ClientObjectPrototype;
@@ -2456,7 +2456,7 @@ declare namespace SP {
         new(serverRelativeUrlOrFullUrl?: string): ClientContext;
         get_current(): SP.ClientContext;
     }
-    var ClientContext: ClientContextConstructor;
+    let ClientContext: ClientContextConstructor;
     enum ULSTraceLevel {
         verbose,
     }
@@ -4413,7 +4413,7 @@ declare namespace SP {
         remove(roleDefinition: SP.RoleDefinition): void;
         removeAll(): void;
     }
-    var RoleDefinitionBindingCollection : RoleDefinitionBindingCollectionConstructor;
+    let RoleDefinitionBindingCollection: RoleDefinitionBindingCollectionConstructor;
     interface RoleDefinitionCollection extends SP.ClientObjectCollection<RoleDefinition> {
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
@@ -5318,7 +5318,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
         interface StringCollectionConstructor {
             new(context: SP.ClientContext): StringCollection;
         }
-        var StringCollection: StringCollectionConstructor;
+        let StringCollection: StringCollectionConstructor;
 
         class QueryPersonalizationData extends SP.ClientObject {
             // It's really empty;
@@ -6936,7 +6936,7 @@ declare namespace SP {
         interface TaxonomyFieldValueCollectionConstructor {
             new(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field): TaxonomyFieldValueCollection;
         }
-        var TaxonomyFieldValueCollection: TaxonomyFieldValueCollectionConstructor;
+        let TaxonomyFieldValueCollection: TaxonomyFieldValueCollectionConstructor;
 
         class TaxonomyFieldValue extends SP.ClientValueObject {
             get_label(): string;
