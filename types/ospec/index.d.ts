@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export = ospec;
-
 declare namespace ospec {
     interface Assertion {
         equals: AssertionFn;
@@ -15,21 +13,13 @@ declare namespace ospec {
         [_: string]: AssertionFn;
     }
 
-    interface AssertionFn {
-        (value: any): (description: string) => void;
-    }
+    type AssertionFn = (value: any) => (description: string) => void;
 
-    interface done {
-        (): void;
-    }
+    type done = () => void;
 
-    interface timeout {
-        (timeout: number): void;
-    }
+    type timeout = (timeout: number) => void;
 
-    interface TestFn {
-        (done?: done, timeout?: timeout): void | Promise<void>;
-    }
+    type TestFn = (done?: done, timeout?: timeout) => void | Promise<void>;
 
     interface Spy<T extends Function = Function> {
         callCount: number;
@@ -51,18 +41,22 @@ declare namespace ospec {
         message: Error["message"] | string;
         context: string;
     }
+
+    interface Static {
+        (title: string, assertions: TestFn): void;
+        (value: any): Assertion;
+        after: (done: done, setup: timeout) => void;
+        afterEach: Static["after"];
+        before: (done: done, setup: timeout) => void;
+        beforeEach: Static["before"];
+        new: () => Static;
+        only: (title: string, assertions: TestFn) => void;
+        run(fn?: (result: ResultTrue | ResultFalse) => void): void;
+        spec: (title: string, tests: () => void) => void;
+        spy: SpyFn;
+    }
 }
 
-declare interface ospec {
-    (title: string, assertions: ospec.TestFn): void;
-    (value: any): ospec.Assertion;
-    after: (done: ospec.done, setup: ospec.timeout) => void;
-    afterEach: ospec["after"];
-    before: (done: ospec.done, setup: ospec.timeout) => void;
-    beforeEach: ospec["before"];
-    new: () => ospec;
-    only: (title: string, assertions: ospec.TestFn) => void;
-    run(fn?: (result: ospec.ResultTrue | ospec.ResultFalse) => void): void;
-    spec: (title: string, tests: () => void) => void;
-    spy: ospec.SpyFn;
-}
+declare var ospec: ospec.Static;
+
+export = ospec;
