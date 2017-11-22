@@ -17,7 +17,7 @@ declare function Pixelmatch(
   /** Height of the images. Note that all three images need to have the same dimensions. */
   height: number,
   /** Options. */
-  options: Options | undefined
+  options?: Options,
 ): number;
 
 interface Options {
