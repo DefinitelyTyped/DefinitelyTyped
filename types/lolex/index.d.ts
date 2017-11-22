@@ -51,7 +51,7 @@ type Clock = BrowserClock | NodeClock;
 /**
  * Names of clock methods that may be faked by install.
  */
-type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick";
+type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime";
 
 /**
  * Controls the flow of time.
