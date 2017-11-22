@@ -63,7 +63,7 @@ class Confirm implements server.Iperson {
                     text: 'Submit',
                     btnClass: 'btn-blue',
                     action: function() {
-                        let name;
+                        let name = this.$content.find('.name').val();
                         if (!name) {
                             $.alert('provide a valid name');
                             return false;
@@ -76,7 +76,13 @@ class Confirm implements server.Iperson {
                 },
             },
             onContentReady: function() {
-
+                // bind to events
+                var jc = this;
+                this.$content.find('form').on('submit', function(e) {
+                    // if the user submits the form by pressing enter in the field.
+                    e.preventDefault();
+                    jc.$$formSubmit.trigger('click'); // reference the button and click it
+                });
             }
         });
 
@@ -122,11 +128,11 @@ class Confirm implements server.Iperson {
     public confirm_5() {
         $.confirm({
             buttons: {
-                hello: function(helloButton:string) {
+                hello: function(helloButton) {
                     // shorthand method to define a button
                     // the button key will be used as button name
                 },
-                hey: function(heyButton:string) {
+                hey: function(heyButton) {
                     // access the button using jquery
                     this.$$hello.trigger('click'); // click the 'hello' button
                     this.$$hey.prop('disabled', true); // disable the current button using jquery method
@@ -144,7 +150,7 @@ class Confirm implements server.Iperson {
                     keys: ['enter', 'a'], // keyboard event for button
                     isHidden: false, // initially not hidden
                     isDisabled: false, // initially not disabled
-                    action: function(heyThereButton:string) {
+                    action: function(heyThereButton) {
                         // longhand method to define a button
                         // provides more features
                     }
@@ -199,12 +205,21 @@ class Confirm implements server.Iperson {
             buttons: {
                 buttonA: {
                     text: 'button a',
-                    action: function(buttonA:HTMLElement) {
-
+                    action: function(buttonA) {
+                        this.buttons.resetButton.setText('reset button!!!');
+                        this.buttons.resetButton.disable();
+                        this.buttons.resetButton.enable();
+                        this.buttons.resetButton.hide();
+                        this.buttons.resetButton.show();
+                        this.buttons.resetButton.addClass('btn-red');
+                        this.buttons.resetButton.removeClass('btn-red');
+                        // or
+                        this.$$resetButton // button's jquery element reference, go crazy
+                        this.buttons.buttonA == buttonA // both are the same.
                         return false; // prevent the modal from closing
                     }
                 },
-                resetButton: function(resetButton:HTMLElement) {}
+                resetButton: function(resetButton) {}
             }
         });
     }
@@ -325,7 +340,133 @@ class Confirm implements server.Iperson {
         });
     }
 
+    public ajaxLoading() {
+        $.confirm({
+            title: 'Title',
+            content: 'url:text.txt',
+            onContentReady: function() {
+                var self = this;
+                this.setContentPrepend('<div>Prepended text</div>');
+                setTimeout(function() {
+                    self.setContentAppend('<div>Appended text after 2 seconds</div>');
+                }, 2000);
+            },
+            columnClass: 'medium',
+        });
 
+        $.confirm({
+            content: function() {
+                var self = this;
+                return $.ajax({
+                    url: 'bower.json',
+                    dataType: 'json',
+                    method: 'get'
+                }).done(function(response) {
+                    self.setContent('Description: ' + response.description);
+                    self.setContentAppend('<br>Version: ' + response.version);
+                    self.setTitle(response.name);
+                }).fail(function() {
+                    self.setContent('Something went wrong.');
+                });
+            }
+        });
+
+        $.confirm({
+            content: 'url:text.txt',
+            contentLoaded: function(data, status, xhr) {
+                // data is already set in content
+                this.setContentAppend('<br>Status: ' + status);
+            }
+        });
+
+        $.confirm({
+            content: function() {
+                var self = this;
+                self.setContent('Checking callback flow');
+                return $.ajax({
+                    url: 'bower.json',
+                    dataType: 'json',
+                    method: 'get'
+                }).done(function(response) {
+                    self.setContentAppend('<div>Done!</div>');
+                }).fail(function() {
+                    self.setContentAppend('<div>Fail!</div>');
+                }).always(function() {
+                    self.setContentAppend('<div>Always!</div>');
+                });
+            },
+            contentLoaded: function(data, status, xhr) {
+                self.setContentAppend('<div>Content loaded!</div>');
+            },
+            onContentReady: function() {
+                this.setContentAppend('<div>Content ready!</div>');
+            }
+        });
+
+    }
+
+    public autoClose() {
+        $.confirm({
+            title: 'Delete user?',
+            content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
+            autoClose: 'cancelAction|8000',
+            buttons: {
+                deleteUser: {
+                    text: 'delete user',
+                    action: function() {
+                        $.alert('Deleted the user!');
+                    }
+                },
+                cancelAction: function() {
+                    $.alert('action is canceled');
+                }
+            }
+        });
+        $.confirm({
+            title: 'Logout?',
+            content: 'Your time is out, you will be automatically logged out in 10 seconds.',
+            autoClose: 'logoutUser|10000',
+            buttons: {
+                logoutUser: {
+                    text: 'logout myself',
+                    action: function() {
+                        $.alert('The user was logged out');
+                    }
+                },
+                cancel: function() {
+                    $.alert('canceled');
+                }
+            }
+        });
+    }
+
+    public backgroundDismisse() {
+        $.confirm({
+            backgroundDismiss: true, // this will just close the modal
+        });
+        $.confirm({
+            backgroundDismiss: function() {
+                return false; // modal wont close.
+            },
+        });
+        $.confirm({
+            backgroundDismiss: function() {
+                return 'buttonName'; // the button will handle it
+            },
+        });
+        $.confirm({
+            backgroundDismiss: 'buttonName',
+            content: 'in here the backgroundDismiss action is handled by buttonName' +
+                '<div class="checkbox"><label><input type="checkbox" id="enableCheckbox"> Enable backgroundDismiss</label></div>',
+            buttons: {
+                buttonName: function() {
+                    var $checkbox = this.$content.find('#enableCheckbox');
+                    return $checkbox.prop('checked');
+                },
+                close: function() {}
+            }
+        });
+    }
 
     public backgroundDismisseAnimation(){
       $.confirm({
@@ -378,7 +519,50 @@ $.confirm({
 
     }
 
-
+    public callBack(){
+      $.confirm({
+    title: false,
+    content: 'url:callback.html',
+    onContentReady: function () {
+        // when content is fetched & rendered in DOM
+        alert('onContentReady');
+        var self = this;
+        this.buttons.ok.disable();
+        this.$content.find('.btn').click(function(){
+            self.$content.find('input').val('Chuck norris');
+            self.buttons.ok.enable();
+        });
+    },
+    contentLoaded: function(data, status, xhr){
+        // when content is fetched
+        alert('contentLoaded: ' + status);
+    },
+    onOpenBefore: function () {
+        // before the modal is displayed.
+        alert('onOpenBefore');
+    },
+    onOpen: function () {
+        // after the modal is displayed.
+        alert('onOpen');
+    },
+    onClose: function () {
+        // before the modal is hidden.
+        alert('onClose');
+    },
+    onDestroy: function () {
+        // when the modal is removed from DOM
+        alert('onDestroy');
+    },
+    onAction: function (btnName) {
+        // when a button is clicked, with the button name
+        alert('onAction: ' + btnName);
+    },
+    buttons: {
+        ok: function(){
+        }
+    }
+});
+    }
     public globalSettings(){
       jconfirm.defaults = {
     title: 'Hello',
@@ -402,7 +586,8 @@ $.confirm({
             }
         },
     },
-
+    contentLoaded: function(data, status, xhr){
+    },
     icon: '',
     lazyOpen: false,
     bgOpacity: null,
@@ -448,6 +633,33 @@ $.confirm({
         // this === jc
         //jc.setTitle(title: string);
     }
+});
+    }
+
+
+    public confirm_84() {
+      $.confirm({
+  closeIcon: true,
+  buttons: {
+      buttonA: {
+          text: 'button a',
+          action: function (buttonA: HTMLElement) {
+              this.buttons.resetButton.setText('reset button!!!');
+              this.buttons.resetButton.disable();
+              this.buttons.resetButton.enable();
+              this.buttons.resetButton.hide();
+              this.buttons.resetButton.show();
+              this.buttons.resetButton.addClass('btn-red');
+              this.buttons.resetButton.removeClass('btn-red');
+              // or
+              this.$$resetButton // button's jquery element reference, go crazy
+              this.buttons.buttonA == buttonA // both are the same.
+              return false; // prevent the modal from closing
+          }
+      },
+      resetButton: function (resetButton: string) {
+      }
+  }
 });
     }
 
