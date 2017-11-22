@@ -36,6 +36,7 @@
         "request.d.ts",
         "route.d.ts",
         "withAttr.d.ts",
+        "ospec/ospec/index.d.ts",
         "stream/index.d.ts"
     ],
     "atom": {
