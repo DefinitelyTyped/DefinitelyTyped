@@ -48,4 +48,4 @@ declare class Dropzone extends Component<Dropzone.DropzoneProps> {
     open(): void;
 }
 
-export = Dropzone;
+export default Dropzone;
