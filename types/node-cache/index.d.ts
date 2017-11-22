@@ -257,7 +257,6 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 		cb?: Callback<boolean>,
 	): boolean;
 
-
 	/**
 	 * list all keys within this cache
 	 * @param cb Callback function
