@@ -6,6 +6,7 @@
 //                 Ben Bayard <https://github.com/benbayard>,
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Andris Causs <https://github.com/codeaid>
+//                 Florian Bachmann <https://github.com/baflo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -49,3 +50,7 @@ declare class Dropzone extends Component<Dropzone.DropzoneProps> {
 }
 
 export default Dropzone;
+export type ImageFile = Dropzone.ImageFile;
+export type DropFileEventHandler = Dropzone.DropFileEventHandler;
+export type DropFilesEventHandler = Dropzone.DropFilesEventHandler;
+export type DropzoneProps = Dropzone.DropzoneProps;
