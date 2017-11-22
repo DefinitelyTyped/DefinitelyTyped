@@ -411,9 +411,9 @@ export interface ElementHandle extends JSHandle {
    */
   $$(selector: string): Promise<ElementHandle[]>;
   /**
-   * This method returns the bounding box of the element (relative to the main frame), or null if the element is not visible.
+   * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
-  boundingBox(): BoundingBox | null;
+  boundingBox(): Promise<BoundingBox | null>;
   /**
    * This method scrolls element into view if needed, and then uses page.mouse to click in the center of the element.
    * If the element is detached from DOM, the method throws an error.
