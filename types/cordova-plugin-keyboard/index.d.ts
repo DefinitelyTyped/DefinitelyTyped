@@ -136,7 +136,18 @@ interface Keyboard {
      * </code>
      *
      */
-    automaticScrollToTopOnHiding: boolean
+    automaticScrollToTopOnHiding: boolean,
+
+    /**
+     * Deprecated Events
+     */
+    onshow(): void,
+
+    onhide(): void,
+
+    onhiding(): void,
+
+    onshowing(): void
 }
 
 interface CordovaKeyboardEvent extends Event {
@@ -144,42 +155,31 @@ interface CordovaKeyboardEvent extends Event {
     keyboardHeight: number;
 }
 
-interface Window {
+interface WindowEventMap {
     /**
-     * @param type This event is fired when keyboard fully shown.
-     *
-     * @param callback Function is called when keyboard is shown.
+     * This event is fired when keyboard fully shown.
      */
-    addEventListener(type: 'keyboardDidShow', callback: () => any, useCapture?: boolean): void;
+    'keyboardDidShow': Event,
 
     /**
-     * @param type This event is fired when the keyboard is fully closed.
-     *
-     * @param callback Function is called when keyboard is closed.
+     * This event is fired when the keyboard is fully closed.
      */
-    addEventListener(type: 'keyboardDidHide', callback: () => any, useCapture?: boolean): void;
+    'keyboardDidHide': Event,
 
     /**
-     * @param type This event fires before keyboard will be shown.
-     *
-     * @param callback Function is called when keyboard is about to be shown on the screen.
+     * This event fires before keyboard will be shown.
      */
-    addEventListener(type: 'keyboardWillShow', callback: () => any, useCapture?: boolean): void;
+    'keyboardWillShow': Event,
 
     /**
-     * @param type This event is fired when the keyboard is fully closed.
-     *
-     * @param callback Function is called when keyboard is about to be closed.
+     * This event is fired when the keyboard is fully closed.
      */
-    addEventListener(type: 'keyboardWillHide', callback: () => any, useCapture?: boolean): void;
+    'keyboardWillHide': Event,
 
     /**
-     * @param type This event is fired when the keyboard is fully closed.
-     *
-     * @param callback Function is called when keyboard is about to be closed. The function is
-     *                  passed an InAppBrowserEvent object as a parameter.
+     * This event is fired when the keyboard is fully closed.
      */
-    addEventListener(type: 'keyboardHeightWillChange', callback: (event: CordovaKeyboardEvent) => any, useCapture?: boolean): void;
-}
+    'keyboardHeightWillChange': CordovaKeyboardEvent
+  }
 
 declare var Keyboard: Keyboard;

@@ -28,4 +28,4 @@ window.addEventListener('keyboardWillShow', () => console.log('keyboardWillShow'
 
 window.addEventListener('keyboardWillHide', () => console.log('keyboardWillHide'));
 
-window.addEventListener('keyboardHeightWillChange', (event) => console.log(`keyboardHeightWillChange - keyboard height: ${event.keyboardHeight}`));
+window.addEventListener('keyboardHeightWillChange', (event: CordovaKeyboardEvent) => console.log(`keyboardHeightWillChange - keyboard height: ${event.keyboardHeight}`));
