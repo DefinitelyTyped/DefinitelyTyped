@@ -1,4 +1,4 @@
-// Type definitions for Microsoft SharePoint: 2016.0
+// Type definitions for Microsoft SharePoint: 2016.1
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
 // Definitions by: Stanislav Vyshchepan <https://github.com/gandjustas>
 //                 Andrey Markeev <https://github.com/andrei-markeev>
