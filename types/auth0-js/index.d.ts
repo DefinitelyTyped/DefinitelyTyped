@@ -2,6 +2,7 @@
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace auth0;
@@ -525,14 +526,21 @@ export interface Auth0Error {
     statusText?: string;
 }
 
+/**
+ * The contents of the authResult object returned by {@link WebAuth#parseHash }
+ * @export
+ * @interface Auth0DecodedHash
+ */
 export interface Auth0DecodedHash {
     accessToken?: string;
     idToken?: string;
     idTokenPayload?: any;
+    appState?: any;
     refreshToken?: string;
     state?: string;
     expiresIn?: number;
     tokenType?: string;
+    scope?: string;
 }
 
 /** Represents the response from an API Token Delegation request. */
