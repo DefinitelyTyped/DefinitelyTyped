@@ -195,5 +195,5 @@ export interface ResourceOptions {
     updateMethod?: string;
 }
 
-export function initialize(options?: InitializeOptions): undefined;
+export function initialize(options?: InitializeOptions): void;
 export function resource(options?: ResourceOptions): Resource;
