@@ -16,6 +16,6 @@
   },
   "files": [
     "index.d.ts",
-    "jquery-confirm.ts"
+    "jquery_confirm.ts"
   ]
 }
