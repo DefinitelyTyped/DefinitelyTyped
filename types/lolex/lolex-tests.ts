@@ -22,7 +22,7 @@ lolex.install<lolex.BrowserClock>({
 	now: 0,
 	shouldAdvanceTime: true,
 	target: {},
-	toFake: ["setTimeout"]
+	toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
 const browserNow: number = browserClock.now;
