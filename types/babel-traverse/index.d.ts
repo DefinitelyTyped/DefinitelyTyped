@@ -772,7 +772,7 @@ export class NodePath<T = Node> {
     isJSX(opts?: object): this is NodePath<t.JSX>;
     isNumberLiteral(opts?: object): this is NodePath<t.NumericLiteral>;
     isRegexLiteral(opts?: object): this is NodePath<t.RegExpLiteral>;
-    isReferencedIdentifier(opts?: object): this is NodePath<t.Identifier>;
+    isReferencedIdentifier(opts?: object): this is NodePath<t.Identifier | t.JSXIdentifier>;
     isReferencedMemberExpression(opts?: object): this is NodePath<t.MemberExpression>;
     isBindingIdentifier(opts?: object): this is NodePath<t.Identifier>;
     isScope(opts?: object): this is NodePath<t.Scopable>;
