@@ -17,7 +17,23 @@ declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
 declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
 declare var Strings: any;
-
+declare const enum Sods {
+    missing =  1,
+    loading = 2,
+    pending = 3,
+    loaded = 4,
+    error = 5
+}
+declare interface Sod {
+    url: string,
+    key: string,
+    loaded: boolean,
+    depkeys?: string[],
+    state: Sods,
+    qfn?: any[],
+    reset?: boolean
+}
+declare var _v_dictSod : { [address: string]: Sod };
 declare namespace SP {
     interface SOD {
         execute(fileName: string, functionName: string, ...args: any[]): void;
@@ -2193,8 +2209,8 @@ declare namespace SP {
     }
     class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {
     }
-    class ClientRuntimeContext implements Sys.IDisposable {
-        constructor(serverRelativeUrlOrFullUrl: string);
+    interface ClientRuntimeContext extends Sys.IDisposable {
+        new(serverRelativeUrlOrFullUrl: string);
         get_url(): string;
         get_viaUrl(): string;
         set_viaUrl(value: string): void;
