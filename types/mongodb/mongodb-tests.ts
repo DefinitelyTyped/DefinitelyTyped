@@ -98,4 +98,18 @@ let options = {
     type payment = typeof payment;
     let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
     }
+    {
+        let collection = db.collection('test_insert_generic');
+        interface ITestInsert {
+            field: string
+        };
+        collection.insertOne<ITestInsert>({ field: '123' }, function(err: mongodb.MongoError, res) {
+            // Locate all the entries using find
+            collection.find<ITestInsert>({}).toArray(function(err: mongodb.MongoError, results) {
+                console.dir(results);
+                // Let's close the db
+                db.close();
+            });
+        });
+    }
 })
