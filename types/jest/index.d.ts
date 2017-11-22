@@ -8,6 +8,7 @@
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
+//                 Jamie Mason <https://github.com/JamieMason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -240,7 +241,7 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, actual: any) => { message(): string, pass: boolean };
+        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
     }
 
     interface SnapshotSerializerOptions {
@@ -554,7 +555,7 @@ declare namespace jasmine {
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
-    function createSpy(name: string, originalFn?: (...args: any[]) => any): Spy;
+    function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;

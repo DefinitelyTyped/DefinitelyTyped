@@ -99,6 +99,7 @@ class Component extends React.Component<{}, ComponentState> {
                 </LineChart>
                 <PieChart width={800} height={400}>
                     <Pie
+                        dataKey="value"
                         activeIndex={this.state.activeIndex}
                         activeShape={renderActiveShape}
                         data={data}

@@ -244,6 +244,13 @@ declare namespace R {
         applySpec<T>(obj: any): (...args: any[]) => T;
 
         /**
+         * Takes a value and applies a function to it.
+         * This function is also known as the thrush combinator.
+         */
+        applyTo<T, U>(el: T, fn: (t: T) => U): U;
+        applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
+
+        /**
          * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
          */
         ascend<T>(fn: (obj: T) => any, a: T, b: T): number;
@@ -981,8 +988,8 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: Ord, b: Ord): Ord;
-        max(a: Ord): (b: Ord) => Ord;
+        max<T extends Ord>(a: T, b: T): T;
+        max<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -1084,8 +1091,8 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: Ord, b: Ord): Ord;
-        min(a: Ord): (b: Ord) => Ord;
+        min<T extends Ord>(a: T, b: T): T;
+        min<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -1423,8 +1430,10 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<T>(p: string | number, list: any[]): T[];
-        pluck(p: string | number): <T>(list: any[]) => T[];
+        pluck<P extends string, T>(p: P, list: Array<Record<P, T>>): T[];
+        pluck<T>(p: number, list: Array<{ [k: number]: T }>): T[];
+        pluck<P extends string>(p: P): <T>(list: Array<Record<P, T>>) => T[];
+        pluck(p: number): <T>(list: Array<{ [k: number]: T }>) => T[];
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
@@ -1447,8 +1456,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): (obj: any) => T;
+        prop<P extends string, T>(p: P, obj: Record<P, T>): T;
+        prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1487,8 +1496,8 @@ declare namespace R {
          * The only difference from `prop` is the parameter order.
          * Note: TS1.9 # replace any by dictionary
          */
-        props<T>(ps: string[], obj: any): T[];
-        props(ps: string[]): <T>(obj: any) => T[];
+        props<P extends string, T>(ps: P[], obj: Record<P, T>): T[];
+        props<P extends string>(ps: P[]): <T>(obj: Record<P, T>) => T[];
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.

@@ -137,11 +137,11 @@ export interface AtomEnvironment {
 
     // Managing the Atom Window
     /** Open a new Atom window using the given options. */
-    open(params: {
+    open(params?: {
         pathsToOpen: ReadonlyArray<string>,
-        newWindow: boolean,
-        devMode: boolean,
-        safeMode: boolean,
+        newWindow?: boolean,
+        devMode?: boolean,
+        safeMode?: boolean,
     }): void;
 
     /** Close the current window. */
@@ -270,15 +270,18 @@ export interface CommandRegistry {
     }): CompositeDisposable;
 
     /** Find all registered commands matching a query. */
-    findCommands(params: { target: Node }): Array<{
+    findCommands(params: { target: string|Node }): Array<{
         name: string,
         displayName: string,
         description?: string,
         tags?: string[],
     }>;
 
-    /** Simulate the dispatch of a command on a DOM node. */
-    dispatch(target: Node, commandName: string): void;
+    /**
+     *  Simulate the dispatch of a command on a DOM node.
+     *  @return Whether or not there was a matching command for the target.
+     */
+    dispatch(target: Node, commandName: string): boolean;
 
     /** Invoke the given callback before dispatching a command event. */
     onWillDispatch(callback: (event: CommandEvent) => void): Disposable;
@@ -1092,10 +1095,10 @@ export class Point {
 export class Range {
     // Properties
     /** A Point representing the start of the Range. */
-    start: PointLike;
+    start: Point;
 
     /** A Point representing the end of the Range. */
-    end: PointLike;
+    end: Point;
 
     // Construction
     /** Convert any range-compatible object to a Range. */
@@ -1114,7 +1117,7 @@ export class Range {
     negate(): Range;
 
     // Serialization and Deserialization
-    /** Returns a plain javascript object representation of the range. */
+    /** Returns a plain javascript object representation of the Range. */
     serialize(): number[][];
 
     // Range Details
@@ -4710,7 +4713,7 @@ export class TextBuffer {
     destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
-    static load(source: string, params?: BufferLoadOptions): Promise<TextBuffer>;
+    static load(filePath: string, params?: BufferLoadOptions): Promise<TextBuffer>;
 
     /**
      *  Create a new buffer backed by the given file path. For better performance,
@@ -4736,6 +4739,9 @@ export class TextBuffer {
          */
         shouldDestroyOnFileDelete?(): boolean
     });
+
+    /** Returns a plain javascript object representation of the TextBuffer. */
+    serialize(options?: { markerLayers?: boolean, history?: boolean }): object;
 
     /** Returns the unique identifier for this buffer. */
     getId(): string;
@@ -5259,7 +5265,7 @@ export interface CursorPositionChangedEvent {
     newBufferPosition: Point;
     newScreenPosition: Point;
     textChanged: boolean;
-    Cursor:	Cursor;
+    cursor:	Cursor;
 }
 
 export interface DecorationPropsChangedEvent {
