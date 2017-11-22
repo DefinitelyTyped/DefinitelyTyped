@@ -1,10 +1,12 @@
 // Type definitions for ospec 1.4
-// Project: https://mithril.js.org/
+// Project: https://github.com/MithrilJS/mithril.js#readme
 // Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare namespace o {
+export = ospec;
+
+declare namespace ospec {
     interface Assertion {
         equals: AssertionFn;
         notEquals: AssertionFn;
@@ -51,18 +53,16 @@ declare namespace o {
     }
 }
 
-declare interface o {
-    (title: string, assertions: o.TestFn): void;
-    (value: any): o.Assertion;
-    after: (done: o.done, setup: o.timeout) => void;
-    afterEach: o["after"];
-    before: (done: o.done, setup: o.timeout) => void;
-    beforeEach: o["before"];
-    new: () => o;
-    only: (title: string, assertions: o.TestFn) => void;
-    run(fn?: (result: o.ResultTrue | o.ResultFalse) => void): void;
+declare interface ospec {
+    (title: string, assertions: ospec.TestFn): void;
+    (value: any): ospec.Assertion;
+    after: (done: ospec.done, setup: ospec.timeout) => void;
+    afterEach: ospec["after"];
+    before: (done: ospec.done, setup: ospec.timeout) => void;
+    beforeEach: ospec["before"];
+    new: () => ospec;
+    only: (title: string, assertions: ospec.TestFn) => void;
+    run(fn?: (result: ospec.ResultTrue | ospec.ResultFalse) => void): void;
     spec: (title: string, tests: () => void) => void;
-    spy: o.SpyFn;
+    spy: ospec.SpyFn;
 }
-
-export = o;

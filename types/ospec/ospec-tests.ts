@@ -9,7 +9,7 @@ function call(cb, arg) { cb(arg); }
 o.spec("call()", () => {
     o("works", () => {
         const spy = o.spy();
-        call(spy, 1)
+        call(spy, 1);
 
         o(spy.callCount).equals(1);
         o(spy.args[0]).equals(1);
