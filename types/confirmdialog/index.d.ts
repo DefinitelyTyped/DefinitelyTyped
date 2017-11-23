@@ -3,6 +3,7 @@
 // Definitions by: Alli Pierre Yotti <https://github.com/allipierre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
 interface JQueryStatic {
   /**
    * confirm Dialog
@@ -21,6 +22,7 @@ interface JQueryStatic {
    * @param {any} pMessage
    */
    dialog( pOtions: options.confirmOptions | string):  void;
+
 }
 
 
