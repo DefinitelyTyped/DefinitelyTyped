@@ -11,7 +11,7 @@ export interface ColumnProps {
      * You can specify component to use specific tag
      * @default 'div'
      */
-    tagName?: keyof ElementTagNameMap;
+    tagName?: keyof HTMLElementTagNameMap;
     /**
      * Draws all child columns with "bounding boxes" for easy
      * visualization of the grid. This enables debug mode for all the
@@ -67,7 +67,7 @@ export interface PageProps {
      * You can specify component to use specific tag
      * @default 'div'
      */
-    tagName?: keyof ElementTagNameMap;
+    tagName?: keyof HTMLElementTagNameMap;
     /**
      * Draws all child columns with "bounding boxes" for easy
      * visualization of the grid. This enables debug mode for all the
@@ -96,7 +96,7 @@ export interface RowProps {
      * You can specify component to use specific tag
      * @default 'section'
      */
-    tagName?: keyof ElementTagNameMap;
+    tagName?: keyof HTMLElementTagNameMap;
     /**
      * The amount of horizontal columns this row creates.
      * @default 12

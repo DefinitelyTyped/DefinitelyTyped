@@ -74,7 +74,7 @@ declare namespace CloudflareApps {
 
         matchPage(patterns: string[]): boolean;
 
-        querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
+        querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
         querySelector(selectors: string): Element | null;
     }
 

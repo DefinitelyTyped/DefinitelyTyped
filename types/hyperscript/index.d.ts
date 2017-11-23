@@ -8,7 +8,7 @@ declare module 'hyperscript' {
 
 	interface HyperScript {
 		/** Creates an Element */
-		<T extends keyof ElementTagNameMap>(tagName: T, attrs?: Object, ...children: any[]): ElementTagNameMap[T];
+		<T extends keyof HTMLElementTagNameMap >(tagName: T, attrs?: Object, ...children: any[]): HTMLElementTagNameMap [T];
 		<T extends Element>(tagName: string, attrs?: Object, ...children: any[]): T;
 		/** Cleans up any event handlers created by this hyperscript context */
 		cleanup(): void;
