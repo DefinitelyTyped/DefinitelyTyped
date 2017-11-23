@@ -1,5 +1,5 @@
 // Type definitions for Notifier
-// Project: https://github.com/allipierre/Type-definitions-for-jquery-confirm/tree/master/types/confirmDialog-js
+// Project: https://github.com/allipierre/jquery-notifier
 // Definitions by: Alli Pierre Yotti <https://github.com/allipierre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
