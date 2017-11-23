@@ -13,7 +13,8 @@
     "typeRoots": ["../"],
     "types": [],
     "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "target": "es6"
   },
   "files": [
     "index.d.ts",
