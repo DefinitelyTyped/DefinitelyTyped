@@ -1360,7 +1360,8 @@ interface ModelUser {
   name: string;
   abctest: string;
 }
-MongoModel.findOne({ type: 'iphone' }).select('name').lean<ModelUser>().exec().then(function(doc) {
+MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec()
+.then(function(doc: ModelUser) {
   doc._id;
   doc.name;
   doc.abctest;
