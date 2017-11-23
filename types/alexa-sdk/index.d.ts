@@ -6,7 +6,7 @@
 //                  Ben <https://github.com/blforce>
 //                  rk-7 <https://github.com/rk-7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 import { i18n } from "i18next";
 export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
