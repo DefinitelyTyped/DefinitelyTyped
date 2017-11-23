@@ -22,10 +22,12 @@
   },
   "devDependencies": {
     "dtslint": "github:Microsoft/dtslint#production",
-    "types-publisher": "Microsoft/types-publisher#production"
+    "types-publisher": "Microsoft/types-publisher#production",
+    "typescript": "^2.6.1"
   },
   "dependencies": {
     "@types/jquery": "^3.2.16",
-    "jquery": "^3.2.1"
+    "jquery": "^3.1.1",
+    "typescript": "^2.6.1"
   }
 }

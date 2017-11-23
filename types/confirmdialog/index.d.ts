@@ -3,13 +3,14 @@
 // Definitions by: Alli Pierre Yotti <https://github.com/allipierre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery"/>
 
-interface JQueryStatic {
+ interface JQueryStatic {
   /**
    * confirm Dialog
    * @param {confirmOptions} pOtions
    */
-   confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
+    confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
 
   /**
    * confirm alert
@@ -26,7 +27,7 @@ interface JQueryStatic {
 }
 
 
-interface JQuery {
+ interface JQuery {
   /**
    * confirm Dialog
    * @param {confirmOptions} pOtions
@@ -49,6 +50,7 @@ interface JQuery {
 interface Window {
     setContentAppend: any;
 }
+
 
 
 

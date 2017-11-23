@@ -1,6 +1,3 @@
-import * as $ from 'jquery';
-
-
 namespace server {
     export interface Iperson {
         title: string,
