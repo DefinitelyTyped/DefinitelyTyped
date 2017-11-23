@@ -174,7 +174,7 @@ export interface Loadable {
      *   });
      * };
      * ```
-     * */
+     */
     preloadReady(): Promise<void>;
 
     Capture: React.ComponentType<LoadableCaptureProps>;
