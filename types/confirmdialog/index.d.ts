@@ -1,6 +1,6 @@
-// Type definitions for jquery-confirm v3.3.0 https://craftpip.github.io/jquery-confirm/
+// Type definitions for confirmdialog v3.3.0
 // Project: https://github.com/allipierre/Type-definitions-for-jquery-confirm/tree/master/types/confirmDialog-js
-// Definitions by: Alli Pierre Yotti https://github.com/allipierre
+// Definitions by: Alli Pierre Yotti <https://github.com/allipierre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JQueryStatic {

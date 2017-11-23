@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-/// <reference path="index.d.ts" />
 namespace server {
     export interface Iperson {
         title: string,
