@@ -16,6 +16,6 @@
   },
   "files": [
     "index.d.ts",
-    "jquery_confirm.ts"
+    "confirmdialog-tests.ts"
   ]
 }
