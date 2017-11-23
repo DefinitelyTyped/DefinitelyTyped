@@ -25,7 +25,6 @@ declare namespace L {
         setOptions?(options: HeatMapOptions): HeatLayer;
         addLatLng?(latlng: LatLng | HeatLatLngTuple): HeatLayer;
         setLatLngs?(latlngs: Array<LatLng | HeatLatLngTuple>): HeatLayer;
-        redraw(): HeatLayer;
     }
 
     function heatLayer(latlngs: Array<LatLng | HeatLatLngTuple>, options: HeatMapOptions): HeatLayer;
