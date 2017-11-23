@@ -10,6 +10,7 @@
 
 /** PLUGIN */
 export * from './definitions/plugin/plugin'
+export * from './definitions/plugin/plugin-registered'
 
 /** REQUEST */
 export * from './definitions/request/request'
@@ -17,14 +18,6 @@ export * from './definitions/request/request'
 /** RESPONSE */
 export * from './definitions/response/response-object'
 export * from './definitions/response/response-settings'
-
-/** SERVER */
-export * from './definitions/server/server'
-export * from './definitions/server/server-connection-options'
-export * from './definitions/server/server-options'
-export * from './definitions/server/server-options-cache'
-export * from './definitions/server/server-realm'
-export * from './definitions/server/server-state-options'
 
 /** ROUTE */
 export * from './definitions/route/route-options'
@@ -39,9 +32,12 @@ export * from './definitions/route/route-options-validate'
 /** SERVER */
 export * from './definitions/server/server'
 export * from './definitions/server/server-connection-options'
+export * from './definitions/server/server-events'
+export * from './definitions/server/server-info'
 export * from './definitions/server/server-options'
 export * from './definitions/server/server-options-cache'
 export * from './definitions/server/server-realm'
+export * from './definitions/server/server-state'
 export * from './definitions/server/server-state-options'
 
 /** UTIL */
