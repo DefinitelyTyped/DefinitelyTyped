@@ -10,7 +10,7 @@
    * confirm Dialog
    * @param {confirmOptions} pOtions
    */
-    confirm( pOtions: any | string, title?:string): boolean | void | HTMLElement | any;
+    confirm( pOtions: options.confirmOptions | string, title?:string): boolean | void | HTMLElement | any;
 
   /**
    * confirm alert
@@ -22,7 +22,7 @@
    * confirm Dialog
    * @param {any} pMessage
    */
-   dialog( pOtions: any | string):  void;
+   dialog( pOtions: options.confirmOptions | string):  void;
 
 }
 
