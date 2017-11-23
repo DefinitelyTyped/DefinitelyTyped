@@ -25,6 +25,7 @@
     "types-publisher": "Microsoft/types-publisher#production"
   },
   "dependencies": {
-    "@types/jquery": "^3.2.16"
+    "@types/jquery": "^3.2.16",
+    "jquery": "^3.2.1"
   }
 }
