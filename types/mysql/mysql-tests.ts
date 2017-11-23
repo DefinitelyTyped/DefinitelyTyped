@@ -41,6 +41,11 @@ connection.query('SELECT 1', (err, rows) => {
 
 connection = mysql.createConnection({
     host: 'localhost',
+    ssl: 'Amazon RDS'
+});
+
+connection = mysql.createConnection({
+    host: 'localhost',
     ssl: {
         ca: ''
     }

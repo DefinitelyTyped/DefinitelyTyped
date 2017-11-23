@@ -118,7 +118,7 @@ puppeteer.launch().then(async browser => {
 
   let currentURL: string;
   page
-    .waitForSelector("img")
+    .waitForSelector("img", { visible: true })
     .then(() => console.log("First URL with image: " + currentURL));
   for (currentURL of [
     "https://example.com",
@@ -160,7 +160,10 @@ puppeteer.launch().then(async browser => {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-    ]
+    ],
+    handleSIGINT: true,
+    handleSIGHUP: true,
+    handleSIGTERM: true,
   });
   const page = await browser.newPage();
   await page.goto("https://example.com");

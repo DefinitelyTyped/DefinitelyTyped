@@ -820,7 +820,7 @@ export interface Application extends IRouter, Express.Application {
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
      */
-    (req: Request, res: Response): any;
+    (req: Request | http.IncomingMessage, res: Response | http.ServerResponse): any;
 
     /**
      * Initialize the server.
