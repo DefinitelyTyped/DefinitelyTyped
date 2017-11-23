@@ -18,6 +18,7 @@ export * from './definitions/request/request'
 /** RESPONSE */
 export * from './definitions/response/response-object'
 export * from './definitions/response/response-settings'
+export * from './definitions/response/response-toolkit'
 
 /** ROUTE */
 export * from './definitions/route/route-options'
