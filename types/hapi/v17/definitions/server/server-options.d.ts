@@ -160,6 +160,7 @@ export interface ServerOptions {
      Sets the default configuration for every state (cookie) set explicitly via server.state() or implicitly (without definition) using the state configuration object.
      */
     // TODO I am not sure if I need to use all the server.state() definition (like the default value) OR only the options below. The v16 use "any" here.
+    // state?: ServerStateCookieOptions;
     state?: {
         strictHeader?: boolean,
         ignoreErrors?: boolean,

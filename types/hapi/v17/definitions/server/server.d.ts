@@ -1,9 +1,13 @@
 import {ServerOptions} from "./server-options";
+import {ServerRealm} from "./server-realm";
 import {ServerInfo} from "./server-info";
 import {Dictionary} from "../util/util";
 import {Request} from "../request/request";
 import * as http from "http";
 import * as events from 'events';
+import {PluginsListRegistered} from "../plugin/plugin-registered";
+import {ServerState} from "./server-state";
+import {MimosOptions} from "../../../../mimos/index";
 
 
 /**
@@ -16,7 +20,7 @@ export class Server extends events.EventEmitter {
      Creates a new server object where:
      @param options - (optional) a server configuration object.
     */
-     constructor(options: ServerOptions);
+    constructor(options: ServerOptions);
 
     /**
      * Provides a safe place to store server-specific run-time application data without potential conflicts with
@@ -41,7 +45,7 @@ export class Server extends events.EventEmitter {
      * Contains the default authentication configuration is a default strategy was set via [server.auth.default()](https://github.com/hapijs/hapi/blob/master/API.md#server.auth.default()).
      */
     // TODO it needs to be implemented. I didn't understand the description yet.
-    //server.auth.settings.default
+    //readonly server.auth.settings.default
 
 
     /**
@@ -51,7 +55,7 @@ export class Server extends events.EventEmitter {
      * * toolkit - decorations on the response toolkit.
      * * server - decorations on the server object.
      */
-    decorations: {
+    readonly decorations: {
         request: Request,
         toolkit: any, // TODO Request Toolkit (https://github.com/hapijs/hapi/blob/master/API.md#response-toolkit) needs to be implemented.
         server: Server
@@ -72,7 +76,7 @@ export class Server extends events.EventEmitter {
      * * 'socket' - UNIX domain socket or Windows named pipe.
      * * uri - a string representing the connection (e.g. 'http://example.com:8080' or 'socket:/unix/domain/socket/path'). Contains the uri value if set, otherwise constructed from the available settings. If no port is configured or is set to 0, the uri will not include a port component until the server is started.
      */
-    info: ServerInfo;
+    readonly info: ServerInfo;
 
     /**
      * Access: read only and listener public interface.
@@ -86,7 +90,7 @@ export class Server extends events.EventEmitter {
      * * heapUsed - V8 heap usage.
      * * rss - RSS memory usage.
      */
-    load: {
+    readonly load: {
         eventLoopDelay: number;
         heapUsed: number;
         rss: number;
@@ -101,7 +105,73 @@ export class Server extends events.EventEmitter {
      * server method name is an object property.
      */
     //methods: Dictionary<ServerMethod>;
-    methods: any; // TODO come back here after implements the server.method()
+    readonly methods: any; // TODO come back here after implements the server.method()
+
+    /**
+     * Provides access to the server MIME database used for setting content-type information. The object must not be
+     * modified directly but only through the [mime](https://github.com/hapijs/hapi/blob/master/API.md#server.options.mime) server setting.
+     */
+    mime: MimosOptions;
+
+    /**
+     * An object containing the values exposed by each registered plugin where each key is a plugin name and the values
+     * are the exposed properties by each plugin using server.expose(). Plugins may set the value of
+     * the server.plugins[name] object directly or via the server.expose() method.
+     */
+    plugins: any;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrealm)
+     * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When
+     * registering a plugin or an authentication scheme, a server object reference is provided with a new server.realm
+     * container specific to that registration. It allows each plugin to maintain its own settings without leaking
+     * and affecting other plugins.
+     * For example, a plugin can set a default file path for local resources without breaking other plugins' configured
+     * paths. When calling server.bind(), the active realm's settings.bind property is set which is then used by
+     * routes and extensions added at the same level (server root or plugin).
+     */
+    readonly realm: ServerRealm;
+
+    /**
+     * An object of the currently registered plugins where each key is a registered plugin name and the value is
+     * an object containing:
+     * * version - the plugin version.
+     * * name - the plugin name.
+     * * options - (optional) options passed to the plugin during registration.
+     */
+    readonly registrations: PluginsListRegistered;
+
+    /**
+     * The server configuration object after defaults applied.
+     */
+    readonly settings: ServerOptions;
+
+    /**
+     * The server cookies manager.
+     * Access: read only and statehood public interface.
+     */
+    readonly states: ServerState;
+
+    /**
+     * A string indicating the listener type where:
+     * * 'socket' - UNIX domain socket or Windows named pipe.
+     * * 'tcp' - an HTTP listener.
+     */
+    readonly type: 'socket' | 'tcp';
+
+    /**
+     * The hapi module version number.
+     */
+    readonly version: string;
+
+
+
+
+
+
+
+
+
 
 
     // TODO It"s not finished
