@@ -8,13 +8,13 @@ const handler = (event: Alexa.RequestBody<Alexa.Request>, context: Alexa.Context
 };
 
 const handlers: Alexa.Handlers<Alexa.Request> = {
-    'LaunchRequest': function () {
+    'LaunchRequest': function() {
         this.emit('SayHello');
     },
-    'HelloWorldIntent': function () {
+    'HelloWorldIntent': function() {
         this.emit('SayHello');
     },
-    'SayHello': function () {
+    'SayHello': function() {
         this.emit(':tell', 'Hello World!');
     }
 };
