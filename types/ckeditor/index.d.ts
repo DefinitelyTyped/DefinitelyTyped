@@ -85,8 +85,7 @@ declare namespace CKEDITOR {
     function appendTo(element: string, config?: config, data?: string): editor;
     function appendTo(element: HTMLElement, config?: config, data?: string): editor;
     function domReady(): void;
-    function dialogCommand(dialogName: string): void;
-    function editorConfig(config: config): void;
+        function editorConfig(config: config): void;
     function getCss(): string;
     function getTemplate(name: string): template;
     function getUrl(resource: string): string;
@@ -1876,5 +1875,11 @@ declare namespace CKEDITOR {
     class skin {
         icons: { [name: string]: { path: string } };
         addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
+    }
+
+    class dialogCommand{
+        dialogName: string;
+        constructor(dialogName: string);
+        constructor(dialogName: string, ext: any);
     }
 }
