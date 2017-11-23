@@ -120,7 +120,7 @@ export interface LolexClock<TTimerId extends TimerId> {
     /**
      * Simulates process.nextTick();
      */
-    nextTick(callback: () => any): void;
+    nextTick(callback: () => void): void;
 
     /**
      * Advances the clock to the the moment of the first scheduled timer, firing it.
@@ -177,29 +177,34 @@ export declare function createClock<TClock extends Clock>(now?: number | Date, l
 
 export interface LolexInstallOpts {
     /**
-     * installs lolex onto the specified target context (default: global)
+     * Installs lolex onto the specified target context (default: global)
      */
     target?: any;
+
     /**
-     * installs lolex with the specified unix epoch (default: 0)
+     * Installs lolex with the specified unix epoch (default: 0)
      */
     now?: number;
+
     /**
-     * an array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick
+     * An array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick
      * e.g., lolex.install({ toFake: ["setTimeout", "nextTick"]}) will fake only setTimeout and nextTick
      */
     toFake?: FakeMethod[];
+
     /**
-     * the maximum number of timers that will be run when calling runAll() (default: 1000)
+     * The maximum number of timers that will be run when calling runAll() (default: 1000)
      */
     loopLimit?: number;
+
     /**
-     * tells lolex to increment mocked time automatically based on the real system time shift (e.g. the mocked time will be incremented by
+     * Tells lolex to increment mocked time automatically based on the real system time shift (e.g. the mocked time will be incremented by
      * 20ms for every 20ms change in the real system time) (default: false)
      */
     shouldAdvanceTime?: boolean;
+
     /**
-     * relevant only when using with shouldAdvanceTime: true. increment mocked time by advanceTimeDelta ms every advanceTimeDelta ms change
+     * Relevant only when using with shouldAdvanceTime: true. increment mocked time by advanceTimeDelta ms every advanceTimeDelta ms change
      * in the real system time (default: 20)
      */
     advanceTimeDelta?: number;
