@@ -43,7 +43,7 @@
    * confirm Dialog
    *  {any} pMessage
    */
-   dialog(pOtions: options.confirmOptions | any): any;
+   dialog(pOtions: options.confirmOptions): any;
 }
 
 interface Window {
@@ -52,7 +52,7 @@ interface Window {
 
 declare namespace options {
     interface confirmOptions {
-            buttons?: buttonOptionss | any;
+            buttons?: any;
             title?: string | boolean;
             content?: any;
             onContentReady?: any;
