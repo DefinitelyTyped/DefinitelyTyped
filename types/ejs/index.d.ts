@@ -6,8 +6,8 @@
 declare namespace Ejs {
     type Data = { [name: string]: any };
     type Dependencies = string[];
-    var cache: Cache;
-    var localsName: string;
+    let cache: Cache;
+    let localsName: string;
     function resolveInclude(name: string, filename: string): string;
     function compile(template: string, opts?: Options): (TemplateFunction);
     function render(template: string, data?: Data, opts?: Options): string;
@@ -76,8 +76,8 @@ declare namespace Ejs {
     function isAbsolute(path: string): boolean;
     function join(...args: string[]): string;
     function relative(from: string, to: string): string;
-    var sep: string;
-    var delimiter: string;
+    let sep: string;
+    let delimiter: string;
     function dirname(path: string): string;
     function basename(path: string): string;
     function extname(path: string): string;
