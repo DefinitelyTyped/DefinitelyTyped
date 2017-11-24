@@ -6,8 +6,8 @@
 //                  Ben <https://github.com/blforce>
 //                  rk-7 <https://github.com/rk-7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-import { i18n } from "i18next";
+// TypeScript Version: 2.2
+
 export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
@@ -91,7 +91,7 @@ export interface Handler<T> {
     emitWithState: any;
     state: any;
     handler: any;
-    i18n: i18n;
+    i18n: any;
     locale: any;
     event: RequestBody<T>;
     attributes: any;
@@ -104,8 +104,16 @@ export interface Handler<T> {
 }
 
 export interface Context {
-    System: System;
-    AudioPlayer: AudioPlayer;
+    callbackWaitsForEmptyEventLoop: boolean;
+    logGroupName: string;
+    logStreamName: string;
+    functionName: string;
+    memoryLimitInMB: string;
+    functionVersion: string;
+    invokeid: string;
+    awsRequestId: string;
+    System?: System;
+    AudioPlayer?: AudioPlayer;
 }
 export interface Application {
     applicationId: string;
