@@ -35,6 +35,8 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
         stopPropagation
         nodeName="swipe"
         trackMouse
+        disabled
+        innerRef="swipe-ref"
         onClick={this.handleClick}
       >
         <div>
