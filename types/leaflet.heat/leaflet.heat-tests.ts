@@ -1,4 +1,4 @@
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../../leaflet/leaflet.d.ts" />
 /// <reference path="index.d.ts" />
 const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',

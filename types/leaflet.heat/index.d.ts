@@ -3,7 +3,7 @@
 // Definitions by: Önder Ceylan <https://github.com/onderceylan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../../leaflet/leaflet.d.ts" />
 
 declare namespace L {
     type HeatLatLngTuple = [number, number, number];
