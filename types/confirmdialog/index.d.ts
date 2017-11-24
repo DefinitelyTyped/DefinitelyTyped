@@ -9,19 +9,19 @@
  interface JQueryStatic {
   /**
    * confirm Dialog
-   * @param {confirmOptions} pOtions
+   *  {confirmOptions} pOtions
    */
     confirm(pOtions: options.confirmOptions | string, title?: string): any;
 
   /**
    * confirm alert
-   * @param {any} pMessage
+   *  {any} pMessage
    */
    alert(pMessage?: any | string, title?: string): any;
 
   /**
    * confirm Dialog
-   * @param {any} pMessage
+   *  {any} pMessage
    */
    dialog(pOtions: options.confirmOptions | string): any;
 }
@@ -29,19 +29,19 @@
  interface JQuery {
   /**
    * confirm Dialog
-   * @param {confirmOptions} pOtions
+   *  {confirmOptions} pOtions
    */
    confirm(pOtions: options.confirmOptions | string, title?: string): any;
 
   /**
    * confirm alert
-   * @param {any} pMessage
+   *  {any} pMessage
    */
    alert(pMessage?: any, title?: string): any;
 
   /**
    * confirm Dialog
-   * @param {any} pMessage
+   *  {any} pMessage
    */
    dialog(pOtions: options.confirmOptions | any): any;
 }
