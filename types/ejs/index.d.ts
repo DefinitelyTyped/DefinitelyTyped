@@ -19,9 +19,7 @@ declare namespace Ejs {
 
     function clearCache(): any;
 
-    interface TemplateFunction {
-        (data: Data): any;
-    }
+    type TemplateFunction = (data: Data) => any;
     interface Options {
         cache?: any;
         filename?: string;
