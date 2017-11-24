@@ -1,7 +1,6 @@
 /// <reference path="../leaflet/leaflet.d.ts" />
-/// <reference path="leaflet.heat.d.ts" />
-
-var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+/// <reference path="index.d.ts" />
+const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
     map = new L.Map('map', {
@@ -11,7 +10,7 @@ var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     });
 
 // Each point in the input array can be either an array like [50.5, 30.5, 0.5], or a Leaflet LatLng object.
-var heat: L.HeatLayer = L.heatLayer([
+const heat: L.HeatLayer = L.heatLayer([
     [50.5, 30.5, 0.2], // lat, lng, intensity
     [50.6, 30.4, 0.5],
     new L.LatLng(50.7, 30.3),
@@ -28,7 +27,7 @@ heat.setOptions({
 });
 
 // Add new point to heat layer
-var newLatLng = new L.LatLng(50.8, 30.2);
+const newLatLng = new L.LatLng(50.8, 30.2);
 heat.addLatLng(newLatLng);
 
 // Set new latLng list to the heat layer
