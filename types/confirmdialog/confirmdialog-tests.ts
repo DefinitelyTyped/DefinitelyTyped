@@ -1,37 +1,27 @@
-namespace server {
-    export interface Iperson {
-        title: string,
-            content: string,
-
-
-    }
-}
-
-class Confirm implements server.Iperson {
+class Confirm  {
     private title_: string;
     private conTent_: string;
-    constructor(public title: string, public content: string) {
+    constructor(title: string, content: string) {
         this.title_ = title;
         this.conTent_ = content;
     }
 
-
-    public confirm() {
+     confirm() {
         $.confirm({
             title: 'Confirm!',
             content: 'Simple confirm!',
             buttons: {
-                confirm: function() {
+                confirm: () => {
                     $.alert('Confirmed!');
                 },
-                cancel: function(cancel: string) {
+                cancel: (cancel: string) => {
                     $.alert('Canceled! ' + cancel);
                 },
                 somethingElse: {
                     text: 'Something else',
                     btnClass: 'btn-blue',
                     keys: ['enter', 'shift'],
-                    action: function() {
+                    action: () => {
                         alert('Something else?');
                     }
                 }
@@ -39,15 +29,14 @@ class Confirm implements server.Iperson {
         });
     }
 
-    public alert() {
+     alert() {
         $.alert({
             title: 'Alert!',
             content: 'Simple alert!',
         });
     }
 
-
-    public globalSettings(){
+     globalSettings() {
       jconfirm.defaults = {
     title: 'Hello',
     titleClass: '',
@@ -62,11 +51,11 @@ class Confirm implements server.Iperson {
     buttons: {},
     defaultButtons: {
         ok: {
-            action: function () {
+            action: () => {
             }
         },
         close: {
-            action: function () {
+            action: () => {
             }
         },
     },
@@ -100,46 +89,41 @@ class Confirm implements server.Iperson {
         containerFluid: 'container-fluid',
         row: 'row',
     },
-    onContentReady: function () {},
-    onOpenBefore: function () {},
-    onOpen: function () {},
-    onClose: function () {},
-    onDestroy: function () {},
-    onAction: function () {}
+    onContentReady: () => {},
+    onOpenBefore: () => {},
+    onOpen: () => {},
+    onClose: () => {},
+    onDestroy: () => {},
+    onAction: () => {}
 };
     }
 
-    public  api(){
-      var jc = $.confirm({
+      api() {
+      const jc = $.confirm({
     title: 'awesome',
-    onContentReady: function(){
-        // this === jc
-        //jc.setTitle(title: string);
+    onContentReady: () => {
+        jc.setTitle();
     }
 });
     }
 
-
-    public confirm_84() {
+     confirm_84() {
       $.confirm({
   closeIcon: true,
   buttons: {
       buttonA: {
           text: 'button a',
-          action: function (buttonA: HTMLElement) {
-
+          action:  (buttonA: string) => {
               return false; // prevent the modal from closing
           }
       },
-      resetButton: function (resetButton: string) {
+      resetButton:  (resetButton: string) => {
       }
   }
 });
     }
-
 }
 
-
-var firstName: string = 'Pierre';
-var lastName: string = 'Yotti';
-var type = new Confirm(firstName, lastName);
+let firstName = 'Pierre';
+let lastName = 'Yotti';
+let type = new Confirm(firstName, lastName);
