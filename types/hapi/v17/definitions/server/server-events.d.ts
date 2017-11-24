@@ -131,7 +131,6 @@ export interface ServerEvents {
          * * event name string which can be any of the built-in server events
          * * a custom application event registered with server.event().
          * * a criteria object
-         * @param listener - the handler method set to receive event updates. The function signature depends on the event argument, and the spread and tags options.
          * @return Return value: a promise that resolves when the event is emitted.
          */
         once(criteria: string): any;
