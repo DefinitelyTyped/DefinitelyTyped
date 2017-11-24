@@ -5,7 +5,6 @@
         "interface-over-type-literal": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
-        "prefer-const": false,
         "unified-signatures": false
     }
 }
