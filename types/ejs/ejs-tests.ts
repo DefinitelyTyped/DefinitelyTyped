@@ -1,5 +1,4 @@
 import ejs = require("ejs");
-import * as fs from 'graceful-fs';
 import LRU = require("lru-cache");
 import { TemplateFunction } from "ejs";
 
