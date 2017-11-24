@@ -46,7 +46,6 @@ declare namespace Ejs {
         generateSource(): any;
         parseTemplateText(): string[];
         scanLine(line: string): any;
-
     }
     namespace Template {
         interface MODES {
