@@ -17,7 +17,7 @@
    * confirm alert
    *  {any} pMessage
    */
-   alert(pMessage?: any | string, title?: string): any;
+   alert(pMessage?: any, title?: string): any;
 
   /**
    * confirm Dialog
@@ -57,7 +57,7 @@ declare namespace options {
             content?: any;
             onContentReady?: any;
             lazyOpen?: boolean;
-            closeIcon?: boolean | any;
+            closeIcon?: any;
             type?: string;
             typeAnimated?: boolean;
             icon?: string;
@@ -72,7 +72,7 @@ declare namespace options {
             dragWindowGap?: number;
             contentLoaded?: () => void;
             autoClose?: string;
-            backgroundDismiss?: boolean | any | string;
+            backgroundDismiss?: any;
             backgroundDismissAnimation?: string;
             escapeKey?: string | boolean;
             onOpenBefore?: () => void;
