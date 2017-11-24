@@ -6,7 +6,6 @@
 export interface Data {
     [name: string]: any;
 }
-export type Dependencies = string[];
 export let cache: Cache;
 export let localsName: string;
 export function resolveInclude(name: string, filename: string): string;
@@ -39,19 +38,9 @@ export interface Options {
 
 export function escapeRegexChars(s: string): string;
 export function escapeXML(markup: string): string;
-export function shallowCopy<T1>(to: T1, fro: any): T1;
 export interface Cache {
     _data: { [name: string]: any };
     set(key: string, val: any): any;
     get(key: string): any;
 }
-export function normalize(path: string): string;
-export function isAbsolute(path: string): boolean;
-export function join(...args: string[]): string;
-export function relative(from: string, to: string): string;
-export let sep: string;
 export let delimiter: string;
-export function dirname(path: string): string;
-export function basename(path: string): string;
-export function extname(path: string): string;
-export function filter(xs: any, f: any): any; // TODO WHUT?
