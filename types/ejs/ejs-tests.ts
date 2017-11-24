@@ -1,5 +1,7 @@
 import ejs = require("ejs");
 import * as fs from 'graceful-fs';
+import LRU = require("lru-cache");
+import { TemplateFunction } from "ejs";
 
 const fileName = 'test.ejs';
 const people = ['geddy', 'neil', 'alex'];
@@ -33,3 +35,5 @@ ejs.compile(template, options);
 ejs.fileLoader = (str: string) => str;
 
 ejs.clearCache();
+
+ejs.cache = LRU(100);
