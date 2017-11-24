@@ -63,16 +63,6 @@ export interface Cache {
     set(key: string, val: any): any;
     get(key: string): any;
 }
-export function resolve(from1: string, to: string): string;
-export function resolve(from1: string, from2: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, from4: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, from4: string, from5: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, from4: string, from5: string, from6: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, from4: string, from5: string, from6: string, from7: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, from4: string, from5: string, from6: string, from7: string, from8: string, to: string): string;
-export function resolve(from1: string, from2: string, from3: string, from4: string, from5: string, from6: string, from7: string, from8: string, from9: string, to: string): string;
-export function resolve(...args: string[]): string;
 export function normalize(path: string): string;
 export function isAbsolute(path: string): boolean;
 export function join(...args: string[]): string;
