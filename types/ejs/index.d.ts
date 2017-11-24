@@ -22,14 +22,19 @@ export function clearCache(): any;
 
 export type TemplateFunction = (data: Data) => any;
 export interface Options {
-    cache?: any;
+    cache?: boolean;
     filename?: string;
+    root?: string;
     context?: any;
     compileDebug?: boolean;
     client?: boolean;
     delimiter?: string;
-    debug?: any;
+    debug?: boolean;
+    strict?: boolean;
     _with?: boolean;
+    localsName?: string;
+    rmWhitespace?: boolean;
+    escape?(str: string): string;
 }
 export class Template {
     constructor(text: string, opts: Options);
