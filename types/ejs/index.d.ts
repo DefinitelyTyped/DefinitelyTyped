@@ -36,30 +36,7 @@ export interface Options {
     rmWhitespace?: boolean;
     escape?(str: string): string;
 }
-export class Template {
-    constructor(text: string, opts: Options);
-    opts: Options;
-    templateText: string;
-    mode: string;
-    truncate: boolean;
-    currentLine: number;
-    source: string;
-    dependencies: Dependencies;
-    createRegex(): RegExp;
-    compile(): TemplateFunction;
-    generateSource(): any;
-    parseTemplateText(): string[];
-    scanLine(line: string): any;
-}
-export namespace Template {
-    interface MODES {
-        EVAL: string;
-        ESCAPED: string;
-        RAW: string;
-        COMMENT: string;
-        LITERAL: string;
-    }
-}
+
 export function escapeRegexChars(s: string): string;
 export function escapeXML(markup: string): string;
 export function shallowCopy<T1>(to: T1, fro: any): T1;
