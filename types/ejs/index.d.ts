@@ -3,7 +3,9 @@
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Data = { [name: string]: any };
+export interface Data {
+    [name: string]: any;
+}
 export type Dependencies = string[];
 export let cache: Cache;
 export let localsName: string;
