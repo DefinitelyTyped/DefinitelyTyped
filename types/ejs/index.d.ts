@@ -1,6 +1,6 @@
-// Type definitions for ejs.js v2.3.3
+// Type definitions for ejs.js 2.3
 // Project: http://ejs.co/
-// Definitions by: Ben Liddicott <https://github.com/benliddicott/DefinitelyTyped>
+// Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Ejs {
