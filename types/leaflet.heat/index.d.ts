@@ -1,3 +1,4 @@
+// Type definitions for Leaflet.heat
 // Project: https://github.com/Leaflet/Leaflet.heat
 // Definitions by: Önder Ceylan <https://github.com/onderceylan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
