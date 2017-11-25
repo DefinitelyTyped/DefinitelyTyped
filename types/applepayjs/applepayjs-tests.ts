@@ -20,6 +20,70 @@ describe("ApplePaySession", () => {
                 break;
         }
     });
+    it("the contact fields are defined", () => {
+        const contacts = [
+            ApplePayJS.ApplePayContactField.email,
+            ApplePayJS.ApplePayContactField.name,
+            ApplePayJS.ApplePayContactField.phone,
+            ApplePayJS.ApplePayContactField.phoneticName,
+            ApplePayJS.ApplePayContactField.postalAddress
+        ];
+    });
+    it("the error codes are defined", () => {
+        const errorCodes = [
+            ApplePayJS.ApplePayErrorCode.addressUnserviceable,
+            ApplePayJS.ApplePayErrorCode.billingContactInvalid,
+            ApplePayJS.ApplePayErrorCode.shippingContactInvalid,
+            ApplePayJS.ApplePayErrorCode.unknown
+        ];
+    });
+    it("the error contact fields are defined", () => {
+        const contacts = [
+            ApplePayJS.ApplePayErrorContactField.addressLines,
+            ApplePayJS.ApplePayErrorContactField.administrativeArea,
+            ApplePayJS.ApplePayErrorContactField.country,
+            ApplePayJS.ApplePayErrorContactField.countryCode,
+            ApplePayJS.ApplePayErrorContactField.emailAddress,
+            ApplePayJS.ApplePayErrorContactField.locality,
+            ApplePayJS.ApplePayErrorContactField.name,
+            ApplePayJS.ApplePayErrorContactField.phoneNumber,
+            ApplePayJS.ApplePayErrorContactField.phoneticName,
+            ApplePayJS.ApplePayErrorContactField.postalAddress,
+            ApplePayJS.ApplePayErrorContactField.postalCode,
+            ApplePayJS.ApplePayErrorContactField.subAdministrativeArea,
+            ApplePayJS.ApplePayErrorContactField.subLocality
+        ];
+    });
+    it("the line item types are defined", () => {
+        const errorCodes = [
+            ApplePayJS.ApplePayLineItemType.final,
+            ApplePayJS.ApplePayLineItemType.pending
+        ];
+    });
+    it("the merchant capabilities are defined", () => {
+        const errorCodes = [
+            ApplePayJS.ApplePayMerchantCapability.supports3DS,
+            ApplePayJS.ApplePayMerchantCapability.supportsCredit,
+            ApplePayJS.ApplePayMerchantCapability.supportsDebit,
+            ApplePayJS.ApplePayMerchantCapability.supportsEMV
+        ];
+    });
+    it("the payment method types are defined", () => {
+        const errorCodes = [
+            ApplePayJS.ApplePayPaymentMethodType.credit,
+            ApplePayJS.ApplePayPaymentMethodType.debit,
+            ApplePayJS.ApplePayPaymentMethodType.prepaid,
+            ApplePayJS.ApplePayPaymentMethodType.store
+        ];
+    });
+    it("the shipping types are defined", () => {
+        const errorCodes = [
+            ApplePayJS.ApplePayShippingType.delivery,
+            ApplePayJS.ApplePayShippingType.servicePickup,
+            ApplePayJS.ApplePayShippingType.shipping,
+            ApplePayJS.ApplePayShippingType.storePickup
+        ];
+    });
     it("can create a new instance", () => {
         const version = 1;
         const paymentRequest = {
@@ -57,7 +121,7 @@ describe("ApplePaySession", () => {
             });
     });
     it("can call instance methods", () => {
-        const version = 1;
+        const version = 3;
         const paymentRequest = {
             countryCode: "US",
             currencyCode: "USD",
@@ -66,7 +130,9 @@ describe("ApplePaySession", () => {
                 "visa"
             ],
             merchantCapabilities: [
-                "supports3DS"
+                "supports3DS",
+                ApplePayJS.ApplePayMerchantCapability.supportsCredit,
+                ApplePayJS.ApplePayMerchantCapability.supportsDebit
             ],
             total: {
                 label: "My Store",
@@ -80,7 +146,21 @@ describe("ApplePaySession", () => {
         session.completeMerchantValidation({
             foo: "bar"
         });
+
         session.completePayment(ApplePaySession.STATUS_SUCCESS);
+
+        const authorizationResult = {
+            status: ApplePaySession.STATUS_FAILURE,
+            errors: [
+                {
+                    code: ApplePayJS.ApplePayErrorCode.addressUnserviceable,
+                    contactField: ApplePayJS.ApplePayErrorContactField.postalCode,
+                    message: "The specified postal code cannot be delivered to."
+                }
+            ]
+        };
+
+        session.completePayment(authorizationResult);
 
         const total = {
             label: "Subtotal",
@@ -97,11 +177,12 @@ describe("ApplePaySession", () => {
             {
                 label: "Free Shipping",
                 amount: "0.00",
-                type: "pending"
+                type: ApplePayJS.ApplePayLineItemType.final
             },
             {
                 label: "Estimated Tax",
-                amount: "3.06"
+                amount: "3.06",
+                type: ApplePayJS.ApplePayLineItemType.pending
             }
         ];
 
@@ -120,16 +201,34 @@ describe("ApplePaySession", () => {
 
         session.completePaymentMethodSelection(total, lineItems);
 
+        const paymentUpdate = {
+            newTotal: total
+        };
+
+        session.completePaymentMethodSelection(paymentUpdate);
+
         session.completeShippingContactSelection(
             ApplePaySession.STATUS_INVALID_SHIPPING_POSTAL_ADDRESS,
             shippingMethods,
             total,
             lineItems);
 
+        const contactUpdate = {
+            newTotal: total
+        };
+
+        session.completeShippingContactSelection(contactUpdate);
+
         session.completeShippingMethodSelection(
             ApplePaySession.STATUS_SUCCESS,
             total,
             lineItems);
+
+        const shippingUpdate = {
+            newTotal: total
+        };
+
+        session.completeShippingMethodSelection(shippingUpdate);
 
         session.oncancel = (event: ApplePayJS.Event): void => {
             event.cancelBubble = true;
@@ -175,7 +274,7 @@ describe("ApplePayPaymentRequest", () => {
             merchantCapabilities: [
                 "supports3DS",
                 "supportsCredit",
-                "supportsDebit"
+                ApplePayJS.ApplePayMerchantCapability.supportsDebit
             ],
             supportedNetworks: [
                 "amex",
@@ -197,11 +296,15 @@ describe("ApplePayPaymentRequest", () => {
             familyName: "Patel",
             givenName: "Ravi",
             phoneNumber: "(408) 555-5555",
+            phoneticFamilyName: "Patel",
+            phoneticGivenName: "Ravi",
             addressLines: [
                 "1 Infinite Loop"
             ],
             locality: "Cupertino",
+            subLocality: "",
             administrativeArea: "CA",
+            subAdministrativeArea: "",
             postalCode: "95014",
             country: "United States",
             countryCode: "US"
@@ -226,14 +329,14 @@ describe("ApplePayPaymentRequest", () => {
 
         paymentRequest.requiredBillingContactFields = [
             "postalAddress",
-            "name"
+            ApplePayJS.ApplePayContactField.name
         ];
 
         paymentRequest.requiredShippingContactFields = [
             "postalAddress",
             "name",
             "phone",
-            "email"
+            ApplePayJS.ApplePayContactField.name
         ];
 
         paymentRequest.shippingContact = {
@@ -241,11 +344,15 @@ describe("ApplePayPaymentRequest", () => {
             familyName: "Patel",
             givenName: "Ravi",
             phoneNumber: "(408) 555-5555",
+            phoneticFamilyName: "Patel",
+            phoneticGivenName: "Ravi",
             addressLines: [
                 "1 Infinite Loop"
             ],
             locality: "Cupertino",
+            subLocality: "",
             administrativeArea: "CA",
+            subAdministrativeArea: "",
             postalCode: "95014",
             country: "United States",
             countryCode: "US"
@@ -265,5 +372,6 @@ describe("ApplePayPaymentRequest", () => {
         ];
 
         paymentRequest.shippingType = "storePickup";
+        paymentRequest.shippingType = ApplePayJS.ApplePayShippingType.delivery;
     });
 });
