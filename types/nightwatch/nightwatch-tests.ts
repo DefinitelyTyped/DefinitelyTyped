@@ -7,7 +7,7 @@ const test: NightwatchTests = {
       .waitForElementVisible('body', 1000)
       .setValue('input[type=text]', 'nightwatch')
       .waitForElementVisible('button[name=btnG]', 1000)
-      .getTitle(function(result){
+      .getTitle(function(result) {
         this.assert.equal(typeof result, 'string');
       })
       .click('button[name=btnG]')
