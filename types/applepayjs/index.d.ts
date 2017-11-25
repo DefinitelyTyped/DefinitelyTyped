@@ -89,7 +89,8 @@ declare class ApplePaySession extends EventTarget {
 
     /**
      * Completes the payment authorization with a result.
-     * @param result - The status of the payment, whether it succeeded or failed for Apple Pay JS versions 1 and 2, or the result of the payment authorization, including its status and list of errors for Apple Pay JS version 3.
+     * @param result - The status of the payment, whether it succeeded or failed for Apple Pay JS versions 1 and 2,
+     * or the result of the payment authorization, including its status and list of errors for Apple Pay JS version 3.
      */
     completePayment(result: number | ApplePayJS.ApplePayPaymentAuthorizationResult): void;
 
