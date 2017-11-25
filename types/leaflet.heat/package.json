@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "leaflet": "^1.2.0",
-    "leaflet.heat": "^0.2.0"
-  }
-}
