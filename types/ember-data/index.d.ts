@@ -1033,6 +1033,14 @@ declare namespace DS {
    */
   class RESTAdapter extends Adapter implements BuildURLMixin {
     /**
+     * Takes a URL, an HTTP method and a hash of data, and makes an HTTP request.
+     */
+    ajax(url: string, type: string, options: object): Promise<any>;
+    /**
+     * Generate ajax options
+     */
+    ajaxOptions(url: string, type: string, options: object): object;
+    /**
      * By default, the RESTAdapter will send the query params sorted alphabetically to the
      * server.
      */
