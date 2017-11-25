@@ -16,7 +16,7 @@ declare var Xrm: Xrm.XrmStatic;
  * The method provides access to the global context without going through the form context.
  *
  * It is preferreed to use {@link Xrm.Utility.getGlobalContext Xrm.Utility.getGlobalContext()} instead.
- * @see Xrm.Utility.getGlobalContext
+ * @see {@link Xrm.Utility.getGlobalContext}
  */
 declare function GetGlobalContext(): Xrm.GlobalContext;
 
@@ -90,46 +90,46 @@ declare namespace Xrm {
 
     /**
      * Client Types for {@link GlobalContext.getClient globalContext.getClient()}.
-     * @see XrmEnum.Client
+     * @see {@link XrmEnum.Client}
      */
     type Client = "Web" | "Outlook" | "Mobile" | "UnifiedServiceDesk";
 
     /**
      * Client States for {@link GlobalContext.getClientState globalContext.getClientState()}.
-     * @see XrmEnum.ClientState
+     * @see {@link XrmEnum.ClientState}
      */
     type ClientState = "Online" | "Offline";
 
     /**
      * Display States for setDisplayState() on {@link Controls.ProcessControl.setDisplayState Processes} and {@link Controls.Tab.setDisplayState Tabs}.
-     * @see XrmEnum.DisplayState
+     * @see {@link XrmEnum.DisplayState}
      */
     type DisplayState = "collapsed" | "expanded";
 
     /**
      * The {@link Entity.save Entity}'s Save Mode
-     * @see XrmEnum.EntitySaveMode
-     * @see Entity
-     * @see Entity.save
+     * @see {@link XrmEnum.EntitySaveMode}
+     * @see {@link Entity}
+     * @see {@link Entity.save}
      */
     type EntitySaveMode = "saveandclose" | "saveandnew";
 
     /**
      * Form Notification Levels for {@link Ui.setFormNotification formContext.ui.setFormNotification()}.
-     * @see XrmEnum.FormNotificationLevel
+     * @see {@link XrmEnum.FormNotificationLevel}
      */
     type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
 
     /**
      * Submit Mode for {@link Attributes.Attribute.setSubmitMode} Attributes.Attribute.setSubmitMode().
-     * @see XrmEnum.SubmitMode
+     * @see {@link XrmEnum.SubmitMode}
      */
     type SubmitMode = "always" | "dirty" | "never";
 
     /**
      * Themes for {@link GlobalContext.getCurrentTheme globalContext.getCurrentTheme()}.
      * Note: getCurrentTheme() does not work with Dynamics CRM for tablets or in the unified interface.
-     * @see XrmEnum.Theme
+     * @see {@link XrmEnum.Theme}
      */
     type Theme = "default" | "Office12Blue" | "Office14Silver";
 
@@ -332,7 +332,7 @@ declare namespace Xrm {
         /**
          * Returns information about the advanced configuration settings for the organization.
          * @param setting Name of the configuration setting.
-         * @see XrmEnum.AdvancedConfigSettingOption
+         * @see {@link XrmEnum.AdvancedConfigSettingOption}
          */
         getAdvancedConfigSetting(setting: "MaxChildIncidentNumber" | "MaxIncidentMergeNumber"): number;
 
@@ -678,7 +678,7 @@ declare namespace Xrm {
          * In V9 this is only available in the Unified Client
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/attributes External Link: Attributes (Client API reference)}
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
-         * @see Attributes
+         * @see {@link Attributes}
          */
         attributes: Collection.ItemCollection<Attributes.Attribute>;
 
@@ -1433,8 +1433,8 @@ declare namespace Xrm {
 
         /**
          * Interface for a navigation item.
-         * @see UiElement
-         * @see UiFocusable
+         * @see {@link UiElement}
+         * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.NavigationItem} instead.
          */
         interface NavigationItem extends Controls.NavigationItem { }
@@ -1665,49 +1665,49 @@ declare namespace Xrm {
 
         /**
          * Interface for a Number attribute.
-         * @see Attribute
+         * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.NumberAttribute} instead.
          */
         interface NumberAttribute extends Attributes.NumberAttribute { }
 
         /**
          * Interface for a String attribute.
-         * @see Attribute
+         * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.StringAttribute} instead.
          */
         interface StringAttribute extends Attributes.StringAttribute { }
 
         /**
          * Common interface for enumeration attributes (OptionSet and Boolean).
-         * @see Attribute
+         * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.EnumAttribute} instead.
          */
         interface EnumAttribute extends Attributes.EnumAttribute { }
 
         /**
          * Interface for a Boolean attribute.
-         * @see EnumAttribute
+         * @see {@link EnumAttribute}
          * @deprecated Use {@link Xrm.Attributes.BooleanAttribute} instead.
          */
         interface BooleanAttribute extends Attributes.BooleanAttribute { }
 
         /**
          * Interface for a Date attribute.
-         * @see Attribute
+         * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.DateAttribute} instead.
          */
         interface DateAttribute extends Attributes.DateAttribute { }
 
         /**
          * Interface an OptionSet attribute.
-         * @see EnumAttribute
+         * @see {@link EnumAttribute}
          * @deprecated Use {@link Xrm.Attributes.OptionSetAttribute} instead.
          */
         interface OptionSetAttribute extends Attributes.OptionSetAttribute { }
 
         /**
          * Interface a Lookup attribute.
-         * @see Attribute
+         * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.LookupAttribute} instead.
          */
         interface LookupAttribute extends Attributes.LookupAttribute { }
@@ -1738,14 +1738,14 @@ declare namespace Xrm {
 
         /**
          * Interface for Xrm.Page.ui controls.
-         * @see UiElement
+         * @see {@link UiElement}
          * @deprecated Use {@link Xrm.Controls.Control} instead.
          */
         interface Control extends Controls.Control { }
 
         /**
          * Interface for a standard control.
-         * @see Control
+         * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.StandardControl} instead.
          */
         interface StandardControl extends Controls.StandardControl { }
@@ -1754,42 +1754,42 @@ declare namespace Xrm {
          * Interface for Auto Lookup Control.
          * This is not an Entity Lookup, but a control that supports AutoComplete / KeyPress Events (Text or Number)
          * @remarks This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
-         * @see StandardControl
+         * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.AutoLookupControl} instead.
          */
         interface AutoLookupControl extends Controls.AutoLookupControl { }
 
         /**
          * Interface for a String control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.StringControl} instead.
          */
         interface StringControl extends Controls.StringControl { }
 
         /**
          * Interface for a Number control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.NumberControl} instead.
          */
         interface NumberControl extends AutoLookupControl { }
 
         /**
          * Interface for a Date control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.DateControl} instead.
          */
         interface DateControl extends StandardControl { }
 
         /**
          * Interface for a Lookup control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.LookupControl} instead.
          */
         interface LookupControl extends Controls.LookupControl { }
 
         /**
          * Interface for an OptionSet control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.OptionSetControl} instead.
          */
         interface OptionSetControl extends Controls.OptionSetControl { }
@@ -1797,14 +1797,14 @@ declare namespace Xrm {
         /**
          * Interface for a CRM grid control.
          *
-         * @see Control
+         * @see {@link Control}
          * @deprecated  Use {@link Xrm.Controls.GridControl} instead.
          */
         interface GridControl extends Controls.GridControl { }
 
         /**
          * Interface for a framed control, which is either a Web Resource or an Iframe.
-         * @see Control
+         * @see {@link Control}
          * @remarks     An Iframe control provides additional methods, so use {@link IframeControl} where
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          * @deprecated  Use {@link Xrm.Controls.FramedControl} instead.
@@ -1813,36 +1813,36 @@ declare namespace Xrm {
 
         /**
          * Interface for an Iframe control.
-         * @see FramedControl
+         * @see {@link FramedControl}
          * @deprecated  Use {@link Xrm.Controls.IframeControl} instead.
          */
         interface IframeControl extends Controls.IframeControl { }
 
         /**
          * Interface for a Silverlight control.
-         * @see Control
+         * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.SilverlightControl} instead.
          */
         interface SilverlightControl extends Controls.SilverlightControl { }
 
         /**
          * Interface for a Timeline control.
-         * @see Control
+         * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.TimelineWall} instead.
          */
         interface TimelineWall extends Controls.TimelineWall { }
 
         /**
          * Interface for a form tab.
-         * @see UiElement
-         * @see UiFocusable
+         * @see {@link UiElement}
+         * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.Tab} instead.
          */
         interface Tab extends Controls.Tab { }
 
         /**
          * Interface for a form section.
-         * @see UiElement
+         * @see {@link UiElement}
          * @deprecated Use {@link Xrm.Controls.Section} instead.
          */
         interface Section extends Controls.Section { }
@@ -2033,47 +2033,47 @@ declare namespace Xrm {
         /**
          * Requirement Level for {@link Attributes.Attribute.getRequiredLevel Attributes.Attribute.getRequiredLevel()} and
          * {@link Attributes.Attribute.setRequiredLevel Attributes.Attribute.setRequiredLevel()}.
-         * @see XrmEnum.AttributeRequirementLevel
+         * @see {@link XrmEnum.AttributeRequirementLevel}
          */
         type RequirementLevel = "none" | "recommended" | "required";
 
         /**
          * Date attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.DateAttribute DateAttribute}.
-         * @see XrmEnum.DateAttributeFormat
+         * @see {@link XrmEnum.DateAttributeFormat}
          */
         type DateAttributeFormat = "date" | "datetime";
 
         /**
          * Integer attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.NumberAttribute NumberAttribute}.
-         * @see XrmEnum.IntegerAttributeFormat
+         * @see {@link XrmEnum.IntegerAttributeFormat}
          */
         type IntegerAttributeFormat = "duration" | "none";
 
         /**
          * OptionSet attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.OptionSetAttribute OptionSetAttribute}.
-         * @see XrmEnum.OptionSetAttributeFormat
+         * @see {@link XrmEnum.OptionSetAttributeFormat}
          */
         type OptionSetAttributeFormat = "language" | "timezone";
 
         /**
          * String attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.StringAttribute StringAttribute}.
-         * @see XrmEnum.StringAttributeFormat
+         * @see {@link XrmEnum.StringAttributeFormat}
          */
         type StringAttributeFormat = "email" | "phone" | "text" | "textarea" | "tickersymbol" | "url";
 
         /**
          * Attribute types for {@link Attributes.Attribute.setDisplayState()}.
-         * @see XrmEnum.AttributeType
+         * @see {@link XrmEnum.AttributeType}
          */
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" |
             "lookup" | "memo" | "money" | "multioptionset" | "optionset" | "string";
 
         /**
          * Attribute formats for {@link Attributes.Attribute.getFormat Attributes.Attribute.getFormat()}.
-         * @see XrmEnum.DateAttributeFormat
-         * @see XrmEnum.IntegerAttributeFormat
-         * @see XrmEnum.OptionSetAttributeFormat
-         * @see XrmEnum.StringAttributeFormat
+         * @see {@link XrmEnum.DateAttributeFormat}
+         * @see {@link XrmEnum.IntegerAttributeFormat}
+         * @see {@link XrmEnum.OptionSetAttributeFormat}
+         * @see {@link XrmEnum.StringAttributeFormat}
          */
         type AttributeFormat = DateAttributeFormat | IntegerAttributeFormat | OptionSetAttributeFormat | StringAttributeFormat;
 
@@ -2113,7 +2113,7 @@ declare namespace Xrm {
              *
              * @returns The format of the attribute.
              *
-             * @see getAttributeType
+             * @see {@link getAttributeType}
              *          Values returned are: date           (datetime)
              *                               datetime       (datetime)
              *                               duration       (integer)
@@ -2175,7 +2175,7 @@ declare namespace Xrm {
             /**
              * Sets the required level.
              * @param requirementLevel The requirement level, as either "none", "required", or "recommended"
-             * @see XrmEnum.AttributeRequirementLevel
+             * @see {@link XrmEnum.AttributeRequirementLevel}
              */
             setRequiredLevel(requirementLevel: RequirementLevel): void;
 
@@ -2183,7 +2183,7 @@ declare namespace Xrm {
              * Sets the submit mode.
              * @param submitMode The submit mode, as either "always", "never", or "dirty".
              * @default submitMode "dirty"
-             * @see XrmEnum.AttributeRequirementLevel
+             * @see {@link XrmEnum.AttributeRequirementLevel}
              */
             setSubmitMode(submitMode: SubmitMode): void;
 
@@ -2208,7 +2208,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Number attribute.
-         * @see Attribute
+         * @see {@link Attribute}
          */
         interface NumberAttribute extends Attribute {
             /**
@@ -2258,7 +2258,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a String attribute.
-         * @see Attribute
+         * @see {@link Attribute}
          */
         interface StringAttribute extends Attribute {
             /**
@@ -2302,7 +2302,7 @@ declare namespace Xrm {
 
         /**
          * Common interface for enumeration attributes (OptionSet and Boolean).
-         * @see Attribute
+         * @see {@link Attribute}
          */
         interface EnumAttribute extends Attribute {
             /**
@@ -2315,7 +2315,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Boolean attribute.
-         * @see EnumAttribute
+         * @see {@link EnumAttribute}
          */
         interface BooleanAttribute extends EnumAttribute {
             /**
@@ -2342,7 +2342,7 @@ declare namespace Xrm {
         /**
          * Interface for a Date attribute.
          *
-         * @see Attribute
+         * @see {@link Attribute}
          */
         interface DateAttribute extends Attribute {
             /**
@@ -2375,7 +2375,7 @@ declare namespace Xrm {
 
         /**
          * Interface an OptionSet attribute.
-         * @see EnumAttribute
+         * @see {@link EnumAttribute}
          */
         interface OptionSetAttribute extends EnumAttribute {
             /**
@@ -2450,7 +2450,7 @@ declare namespace Xrm {
         /**
          * Interface a Lookup attribute.
          *
-         * @see Attribute
+         * @see {@link Attribute}
          */
         interface LookupAttribute extends Attribute {
             /**
@@ -2492,7 +2492,7 @@ declare namespace Xrm {
 
         /**
          * Control types for {@link Controls.Control.getControlType Controls.Control.getControlType()}.
-         * @see XrmEnum.StandardControlType
+         * @see {@link XrmEnum.StandardControlType}
          */
         type ControlType = "standard" | "iframe" | "lookup" | "optionset" |
             "subgrid" | "webresource" | "notes" | "timercontrol" | "kbsearch" |
@@ -2655,7 +2655,7 @@ declare namespace Xrm {
         /**
          * Interface for controls.
          *
-         * @see UiElement
+         * @see {@link UiElement}
          */
         interface Control extends UiLabelElement, UiCanGetVisibleElement {
             /**
@@ -2713,8 +2713,8 @@ declare namespace Xrm {
 
         /**
          * Interface for a navigation item.
-         * @see UiElement
-         * @see UiFocusable
+         * @see {@link UiElement}
+         * @see {@link UiFocusable}
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-navigation External Link: formContext.ui.navigation item (Client API reference)}
          */
         interface NavigationItem extends UiStandardElement, UiFocusable {
@@ -2727,7 +2727,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a standard control.
-         * @see Control
+         * @see {@link Control}
          */
         interface StandardControl extends Control, UiStandardElement, UiFocusable {
             /**
@@ -2785,7 +2785,7 @@ declare namespace Xrm {
          * @remarks This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
          * @deprecated Deprecated in v9.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
-         * @see StandardControl
+         * @see {@link StandardControl}
          */
         interface AutoLookupControl extends StandardControl, UiKeyPressable {
             /**
@@ -2815,7 +2815,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a String control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          */
         interface StringControl extends AutoLookupControl {
             /**
@@ -2827,7 +2827,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Number control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          */
         interface NumberControl extends AutoLookupControl {
             /**
@@ -2839,7 +2839,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Date control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          */
         interface DateControl extends StandardControl {
             /**
@@ -2863,7 +2863,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Lookup control.
-         * @see StandardControl
+         * @see {@link StandardControl}
          */
         interface LookupControl extends StandardControl {
             /**
@@ -2875,7 +2875,7 @@ declare namespace Xrm {
             /**
              * Adds an additional custom filter to the lookup, with the "AND" filter operator.
              * Can only be used within a "pre search" event handler
-             * @see addPreSearch
+             * @see {@link addPreSearch}
              * @param filter Specifies the filter, as a serialized FetchXML "filter" node.
              * @param entityLogicalName (Optional) The logical name of the entity.
              * @remarks     If entityLogicalName is not specified, the filter will be applied to all entities
@@ -2942,7 +2942,7 @@ declare namespace Xrm {
         /**
          * Interface for an OptionSet control.
          *
-         * @see StandardControl
+         * @see {@link StandardControl}
          */
         interface OptionSetControl extends StandardControl {
             /**
@@ -2979,7 +2979,7 @@ declare namespace Xrm {
         /**
          * Interface for a CRM grid control.
          *
-         * @see Control
+         * @see {@link Control}
          */
         interface GridControl extends Control {
             /**
@@ -3130,7 +3130,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a framed control, which is either a Web Resource or an Iframe.
-         * @see Control
+         * @see {@link Control}
          * @remarks     An Iframe control provides additional methods, so use {@link IframeControl} where
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          */
@@ -3159,7 +3159,7 @@ declare namespace Xrm {
 
         /**
          * Interface for an Iframe control.
-         * @see FramedControl
+         * @see {@link FramedControl}
          */
         interface IframeControl extends FramedControl, UiCanSetVisibleElement {
             /**
@@ -3240,7 +3240,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Silverlight control.
-         * @see Control
+         * @see {@link Control}
          * @deprecated The Silverlight WebResource is deprecated on the web client, and is not supported on the new Unified Interface in v9.
          * Instead of silverlight, use custom controls created using the HTML web resources with HTML5 to create UI components to visualize and interact with data.
          */
@@ -3269,7 +3269,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Timeline control.
-         * @see Control
+         * @see {@link Control}
          */
         interface TimelineWall extends Control {
             /**
@@ -3280,8 +3280,8 @@ declare namespace Xrm {
 
         /**
          * Interface for a form tab.
-         * @see UiElement
-         * @see UiFocusable
+         * @see {@link UiElement}
+         * @see {@link UiFocusable}
          */
         interface Tab extends UiStandardElement, UiFocusable {
             /**
@@ -3317,7 +3317,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a form section.
-         * @see UiElement
+         * @see {@link UiElement}
          */
         interface Section extends UiStandardElement {
             /**
@@ -3561,19 +3561,19 @@ declare namespace Xrm {
     namespace ProcessFlow {
         /**
          * Direction types for a process stage change event
-         * @see XrmEnum.StageChangeDirection
+         * @see {@link XrmEnum.StageChangeDirection}
          */
         type StageChangeDirection = "Next" | "Previous";
 
         /**
          * Status for {@link ProcessFlow.Stage.getStatus Stage.getStatus()}.
-         * @see XrmEnum.StageStatus
+         * @see {@link XrmEnum.StageStatus}
          */
         type StageStatus = "active" | "inactive";
 
         /**
          * Status for {@link ProcessFlow.Process.getStatus Process.getStatus()}.
-         * @see XrmEnum.ProcessStatus
+         * @see {@link XrmEnum.ProcessStatus}
          */
         type ProcessStatus = "active" | "aborted" | "finished";
 
@@ -5024,7 +5024,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Client Types for {@link GlobalContext.getClient globalContext.getClient()}.
-     * @see Xrm.Client
+     * @see {@link Xrm.Client}
      */
     const enum Client {
         Web = "Web",
@@ -5036,7 +5036,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Client States for {@link GlobalContext.getClientState globalContext.getClientState()}.
-     * @see Xrm.ClientState
+     * @see {@link Xrm.ClientState}
      */
     const enum ClientState {
         Online = "Online",
@@ -5045,7 +5045,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Display States for setDisplayState() on {@link Controls.ProcessControl.setDisplayState Processes} and {@link Controls.Tab.setDisplayState Tabs}.
-     * @see Xrm.DisplayState
+     * @see {@link Xrm.DisplayState}
      */
     const enum DisplayState {
         Expanded = "expanded",
@@ -5054,9 +5054,9 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: {@link Entity.save Entity} Save Modes
-     * @see Xrm.EntitySaveMode
-     * @see Entity
-     * @see Entity.save
+     * @see {@link Xrm.EntitySaveMode}
+     * @see {@link Entity}
+     * @see {@link Entity.save}
      */
     const enum EntitySaveMode {
         SaveAndClose = "saveandclose",
@@ -5065,7 +5065,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Form Notification Levels for {@link Ui.setFormNotification formContext.ui.setFormNotification()}.
-     * @see Xrm.FormNotificationLevel
+     * @see {@link Xrm.FormNotificationLevel}
      */
     const enum FormNotificationLevel {
         Error = "ERROR",
@@ -5075,7 +5075,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Submit Modes for {@link Attributes.Attribute.setSubmitMode} Attributes.Attribute.setSubmitMode().
-     * @see Xrm.SubmitMode
+     * @see {@link Xrm.SubmitMode}
      */
     const enum SubmitMode {
         Always = "always",
@@ -5104,7 +5104,7 @@ declare namespace XrmEnum {
     /**
      * Constant Enum: Requirement Level for {@link Attributes.Attribute.getRequiredLevel Attributes.Attribute.getRequiredLevel()} and
      * {@link Attributes.Attribute.setRequiredLevel Attributes.Attribute.setRequiredLevel()}.
-     * @see Xrm.Attributes.RequirementLevel
+     * @see {@link Xrm.Attributes.RequirementLevel}
      */
     const enum AttributeRequirementLevel {
         None = "none",
@@ -5114,7 +5114,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Date attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.DateAttribute DateAttribute}.
-     * @see Xrm.Attributes.DateAttributeFormat
+     * @see {@link Xrm.Attributes.DateAttributeFormat}
      */
     const enum DateAttributeFormat {
         Date = "date",
@@ -5123,7 +5123,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Integer attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.NumberAttribute NumberAttribute}.
-     * @see Xrm.Attributes.IntegerAttributeFormat
+     * @see {@link Xrm.Attributes.IntegerAttributeFormat}
      */
     const enum IntegerAttributeFormat {
         Duration = "duration",
@@ -5132,7 +5132,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: OptionSet attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.OptionSetAttribute OptionSetAttribute}.
-     * @see Xrm.Attributes.OptionSetAttributeFormat
+     * @see {@link Xrm.Attributes.OptionSetAttributeFormat}
      */
     const enum OptionSetAttributeFormat {
         Language = "language",
@@ -5141,7 +5141,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: String attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.StringAttribute StringAttribute}.
-     * @see Xrm.Attributes.StringAttributeFormat
+     * @see {@link Xrm.Attributes.StringAttributeFormat}
      */
     const enum StringAttributeFormat {
         Email = "email",
@@ -5154,7 +5154,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Attribute types for {@link Attributes.Attribute.setDisplayState()}.
-     * @see Xrm.Attributes.AttributeType
+     * @see {@link Xrm.Attributes.AttributeType}
      */
     const enum AttributeType {
         Boolean = "boolean",
@@ -5171,7 +5171,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Control types for {@link Controls.Control.getControlType Controls.Control.getControlType()}.
-     * @see Xrm.Controls.ControlType
+     * @see {@link Xrm.Controls.ControlType}
      */
     const enum StandardControlType {
         Standard = "standard",
@@ -5189,7 +5189,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Direction types for a process stage change event
-     * @see ProcessFlow.StageChangeDirection
+     * @see {@link ProcessFlow.StageChangeDirection}
      */
     const enum StageChangeDirection {
         Next = "Next",
@@ -5198,7 +5198,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Status for {@link ProcessFlow.Stage.getStatus Stage.getStatus()}.
-     * @see ProcessFlow.StageStatus
+     * @see {@link ProcessFlow.StageStatus}
      */
     const enum StageStatus {
         Active = "active",
@@ -5207,7 +5207,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Status for {@link ProcessFlow.Process.getStatus Process.getStatus()}.
-     * @see ProcessFlow.ProcessStatus
+     * @see {@link ProcessFlow.ProcessStatus}
      */
     const enum ProcessStatus {
         Active = "active",
