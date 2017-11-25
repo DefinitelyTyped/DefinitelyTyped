@@ -4,7 +4,6 @@
 //                 Connor Schlesiger <https://github.com/schlesiger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* tslint:disable:max-line-length */
 
 export interface NightwatchCustomPageObjects {
     page: {};
@@ -633,7 +632,6 @@ export interface NightwatchTypedCallbackResult<T> {
     state: Error | string;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<any> {
 }
 
@@ -1305,7 +1303,7 @@ export interface NightwatchAPI {
      * callback providing a done callback function for completion as the first argument. Two parameters: allows for asynchronous execution
      * with the "api" object passed in as the first argument, followed by the done callback.
      */
-    perform(callback: (done?: () => void) => void): this; // tslint:disable-line:unified-signatures
+    perform(callback: (done?: () => void) => void): this; 
 
     /**
      * Resizes the current window.
@@ -2144,10 +2142,8 @@ export interface NightwatchAPI {
     launch_url: string;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface NightwatchCustomCommands {}
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface NightwatchCustomAssertions {}
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
@@ -2200,4 +2196,3 @@ export interface Nightwatch {
     client: NightwatchClient;
 }
 
-/* tslint:enable:max-line-length */
