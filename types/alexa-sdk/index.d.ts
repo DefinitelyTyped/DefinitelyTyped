@@ -11,6 +11,18 @@
 export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
+export type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
+export type DialogStates = "STARTED" | "IN_PROGRESS" | "COMPLETED";
+export type ListItemObjectStatus = "active" | "completed";
+export type ListObjectState = "active" | "archived";
+export type ImageSourceSize = "X_SMALL" | "SMALL" | "MEDIUM" | "LARGE" | "X_LARGE";
+export type TemplateBackButtonVisibility = "HIDDEN" | "VISIBLE";
+export type TemplateType = "BodyTemplate1" | "BodyTemplate2" | "BodyTemplate3" | "BodyTemplate6" | "BodyTemplate6" | "ListTemplate1" | "ListTemplate2";
+export type AudioPlayerActivity = "IDLE" | "PAUSED" | "PLAYING" | "BUFFER_UNDERRUN" | "FINISHED" | "STOPPED";
+export type CardType = "Standard" | "Simple" | "LinkAccount" | "AskForPermissionsConsent";
+export type HintType = "PlainText";
+export type DirectiveTypes = "AudioPlayer.Play" | "AudioPlayer.Stop" | "AudioPlayer.ClearQueue" | "Display.RenderTemplate" | "Hint" | "VideoApp.Launch";
+export type TextContentType = "PlainText" | "RichText";
 
 //#region Types
 export interface CardImage {
@@ -28,10 +40,14 @@ export interface ImageSource {
     widthPixels?: number;
     heightPixels?: number;
     /**
-     * Possible values: 'X_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'X_LARGE'
-     * Recommended size respectively (in px): 480 x 320 | 720 x 480 | 960 x 640 | 1200 x 800 | 1920 x 1280
+     * Recommended sizes for the following dimensions (in px):
+     * 480 x 320 for X_SMALL,
+     * 720 x 480 for SMALL,
+     * 960 x 640 for MEDIUM,
+     * 1200 x 800 for LARGE,
+     * 1920 x 1280 for X_LARGE
      */
-    size?: string;
+    size?: ImageSourceSize;
 }
 export interface Image {
     contentDescription: string;
@@ -51,18 +67,19 @@ export interface ListItem {
     token: string;
     textContent?: TextContent;
 }
+
 export interface Template {
     title?: string;
     token: string;
     backgroundImage?: Image;
     /**
-     * Possible values 'HIDDEN' | 'VISIBLE'
+     * Visibility of the back button.
      */
-    backButton?: string;
+    backButton?: TemplateBackButtonVisibility;
     /**
-     * Possible values 'BodyTemplate1' | 'BodyTemplate2'| 'BodyTemplate3'| 'BodyTemplate6'| 'ListTemplate1'| 'ListTemplate2'
+     * Template type.
      */
-    type: string;
+    type: TemplateType;
     image?: Image;
     listItems?: ListItem[];
 }
@@ -130,9 +147,9 @@ export interface AudioPlayer {
     token: string;
     offsetInMilliseconds: number;
     /**
-     * Possible values: 'IDLE'|'PAUSED'|'PLAYING'|'BUFFER_UNDERRUN'|'FINISHED'|'STOPPED'
+     * Player activity
      */
-    playerActivity: string;
+    playerActivity: AudioPlayerActivity;
 }
 export interface RequestBody<T> {
     version: string;
@@ -162,10 +179,7 @@ export interface Permissions {
 export interface LaunchRequest extends Request { }
 
 export interface IntentRequest extends Request {
-    /**
-     * Possible values: 'STARTED'| 'IN_PROGRESS'| 'COMPLETED'
-     */
-    dialogState?: string;
+    dialogState?: DialogStates;
     intent?: Intent;
 }
 
@@ -204,20 +218,14 @@ export interface Resolutions {
 }
 
 export interface SlotValue {
-    /**
-     * Possible values: 'NONE'| 'DENIED'| 'CONFIRMED'
-     */
-    confirmationStatus?: string;
+    confirmationStatus?: ConfirmationStatuses;
     name: string;
     value?: any;
     resolutions?: Resolutions;
 }
 
 export interface Intent {
-    /**
-     * Possible values: 'NONE'| 'DENIED'| 'CONFIRMED'
-     */
-    confirmationStatus?: string;
+    confirmationStatus?: ConfirmationStatuses;
     name: string;
     slots: Record<string, SlotValue>;
 }
@@ -243,7 +251,7 @@ export interface OutputSpeech {
 }
 
 export interface Card {
-    type: "Simple" | "Standard" | "LinkAccount";
+    type: CardType;
     title?: string;
     content?: string;
     text?: string;
@@ -253,31 +261,7 @@ export interface Card {
 export interface Reprompt {
     outputSpeech: OutputSpeech;
 }
-export const CARD_TYPES: {
-    STANDARD: 'Standard',
-    SIMPLE: 'Simple',
-    LINK_ACCOUNT: 'LinkAccount',
-    ASK_FOR_PERMISSIONS_CONSENT: 'AskForPermissionsConsent'
-};
 
-export const HINT_TYPES: {
-    PLAIN_TEXT: 'PlainText'
-};
-
-export const DIRECTIVE_TYPES: {
-    AUDIOPLAYER: {
-        PLAY: 'AudioPlayer.Play',
-        STOP: 'AudioPlayer.Stop',
-        CLEAR_QUEUE: 'AudioPlayer.ClearQueue'
-    },
-    DISPLAY: {
-        RENDER_TEMPLATE: 'Display.RenderTemplate'
-    },
-    HINT: 'Hint',
-    VIDEOAPP: {
-        LAUNCH: 'VideoApp.Launch'
-    }
-};
 export interface ApiClientOptions {
     hostname: string;
     port: string;
@@ -307,9 +291,8 @@ export interface ListItemObject {
     value: string;
     /**
      * item status
-     * Possible values: "active" or "completed"
      */
-    status?: string;
+    status?: ListItemObjectStatus;
     /**
      * item version (Positive integer | string)
      */
@@ -341,9 +324,10 @@ export interface ListObject {
      */
     name: string;
     /**
+     * state
      * "active" or "archived" (Enum)
      */
-    state?: string;
+    state?: ListObjectState;
     /**
      * Possibly status of the list (or state?)
      * Fetched from commit eebba0d at https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs/
@@ -359,15 +343,15 @@ export interface ListObject {
      * href is lint to the items having certain status.
      * The status can be "active" or "completed".
      */
-    statusMap: { href: string; status: string; };
+    statusMap: { href: string; status: ListItemObjectStatus; };
     /**
      * Items that belong to this list.
      */
     items: ListItemObject[];
 }
 //#endregion
-//#region templateBuilders
 
+//#region templateBuilders
 /**
  * Generates templates for Echo Show device.
  */
@@ -408,7 +392,7 @@ export namespace templateBuilders {
 
         /**
          * Sets the backButton behavior
-         * @param backButtonBehavior 'VISIBLE' or 'HIDDEN'
+         * @param backButtonBehavior "VISIBLE" or "HIDDEN"
          * @returns TemplateBuilder
          */
         setBackButtonBehavior(backButtonBehavior: string): T;
@@ -558,6 +542,7 @@ export namespace templateBuilders {
     }
 }
 //#endregion
+
 //#region services
 export namespace services {
     interface ApiClient {
@@ -642,7 +627,7 @@ export namespace services {
         constructor(apiClient: ApiClient);
 
         /**
-         * Set apiEndpoint address, default is 'https://api.amazonalexa.com'
+         * Set apiEndpoint address, default is "https://api.amazonalexa.com"
          * @param apiEndpoint apiEndpoint
          * @returns void
          */
@@ -672,11 +657,11 @@ export namespace services {
         /**
          * Retrieve list metadata including the items in the list with requested status
          * @param listId unique Id associated with the list
-         * @param itemStatus itemsStatus can be either 'active' or 'completed'
+         * @param itemStatus itemsStatus can be either "active" or "completed"
          * @param token bearer token for list management permission
          * @returns Promise<object>
          */
-        getList(listId: string, itemStatus: string, token: string): Promise<object>;
+        getList(listId: string, itemStatus: ListItemObjectStatus, token: string): Promise<object>;
 
         /**
          * Update a custom list. Only the list name or state can be updated
@@ -734,6 +719,7 @@ export namespace services {
     }
 }
 //#endregion
+
 //#region ResponseBuilder
 /**
  * Responsible for building JSON responses as per the Alexa skills kit interface
@@ -842,7 +828,7 @@ export class ResponseBuilder {
      * @param hintType (optional) Default value : PlainText
      * @returns ResponseBuilder
      */
-    hint(hintText: string, hintType: string): ResponseBuilder;
+    hint(hintText: string, hintType: HintType): ResponseBuilder;
 
     /**
      * Creates a VideoApp play directive to play a video
@@ -855,6 +841,7 @@ export class ResponseBuilder {
     playVideo(source: string, metadata: { title: string, subtitle: string }): ResponseBuilder;
 }
 //#endregion
+
 //#region directives
 export namespace directives {
     class VoicePlayerSpeakDirective {
@@ -869,6 +856,7 @@ export namespace directives {
     }
 }
 //#endregion
+
 //#region utils
 export namespace utils {
     namespace ImageUtils {
@@ -881,7 +869,7 @@ export namespace utils {
          * By default, for Echo Show, size takes the value X_SMALL. If the other size values are included,
          * then the order of precedence for displaying images begins with X_LARGE and proceeds downward,
          * which means that larger images will be downscaled for display on Echo Show if provided.
-         * example : ImageUtils.makeImage('https://url/to/my/img.png', 300, 400, 'SMALL', 'image description')
+         * example : ImageUtils.makeImage("https://url/to/my/img.png", 300, 400, "SMALL", "image description")
          * @param url url of the image
          * @param widthPixels (optional) width of the image in pixels
          * @param heightPixels (optional) height of the image in pixels
@@ -889,7 +877,7 @@ export namespace utils {
          * @param description text used to describe the image in a screen reader
          * @returns Image
          */
-        function makeImage(url: string, widthPixels?: number, heightPixels?: number, size?: string, description?: string): Image;
+        function makeImage(url: string, widthPixels?: number, heightPixels?: number, size?: ImageSourceSize, description?: string): Image;
         /**
          * Creates an image object with a multiple sources, source images are provided as an array of image objects
          * These images may be in either JPEG or PNG formats, with the appropriate file extensions.
@@ -901,16 +889,16 @@ export namespace utils {
          * which means that larger images will be downscaled for display on Echo Show if provided.
          * example :
          * let imgArr = [
-         *  { 'https://url/to/my/small.png', 300, 400, 'SMALL' },
-         *  { 'https://url/to/my/large.png', 900, 1200, 'LARGE' },
+         *  { "https://url/to/my/small.png", 300, 400, "SMALL" },
+         *  { "https://url/to/my/large.png", 900, 1200, "LARGE" },
          * ]
-         *  ImageUtils.makeImage(imgArr, 'image description')
+         *  ImageUtils.makeImage(imgArr, "image description")
          *
          * @param imgArr Array of Image
          * @param description text used to describe the image in a screen reader
          * @returns Image
          */
-        function makeImages(imgArr: Array<{ url: string, widthPixels: number, heightPixels: number, size: string }>, description: string): Image;
+        function makeImages(imgArr: Array<{ url: string, widthPixels: number, heightPixels: number, size: ImageSourceSize }>, description: string): Image;
     }
     /**
      * Utility methods for building TextField objects
@@ -937,8 +925,8 @@ export namespace utils {
          * @param tertiaryText tertiary Text
          * @returns TextContent
          */
-        function makeTextContent(primaryText: { type: string, text: string },
-            secondaryText: { type: string, text: string }, tertiaryText: { type: string, text: string }): TextContent;
+        function makeTextContent(primaryText: { type: TextContentType, text: string },
+            secondaryText: { type: TextContentType, text: string }, tertiaryText: { type: TextContentType, text: string }): TextContent;
     }
 }
 //#endregion
