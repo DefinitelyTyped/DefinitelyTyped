@@ -185,6 +185,7 @@ declare namespace stripe {
             blur(): void;
             clear(): void;
             unmount(): void;
+            destroy(): void;
             update(options: ElementsOptions): void;
         }
 
