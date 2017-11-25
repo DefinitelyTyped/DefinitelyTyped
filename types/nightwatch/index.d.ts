@@ -7,7 +7,7 @@
 /* tslint:disable:max-line-length */
 
 interface NightWatchCustomPageObjects {
-    page: {};
+    page: {[name: string]: () => NightWatchBrowser};
 }
 
 interface DesiredCapabilities {
