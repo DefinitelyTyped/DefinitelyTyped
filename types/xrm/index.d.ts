@@ -82,20 +82,19 @@ declare namespace Xrm {
 
         /**
          * Provides methods to encode strings.
-         *
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
          */
         Encoding: Encoding;
     }
 
     /**
-     * Client Types for {@link GlobalContext.getClient globalContext.getClient()}.
+     * Client Types for {@link ClientContext.getClient clientContext.getClient()}.
      * @see {@link XrmEnum.Client}
      */
     type Client = "Web" | "Outlook" | "Mobile" | "UnifiedServiceDesk";
 
     /**
-     * Client States for {@link GlobalContext.getClientState globalContext.getClientState()}.
+     * Client States for {@link ClientContext.getClientState clientContext.getClientState()}.
      * @see {@link XrmEnum.ClientState}
      */
     type ClientState = "Online" | "Offline";
@@ -128,7 +127,7 @@ declare namespace Xrm {
 
     /**
      * Themes for {@link GlobalContext.getCurrentTheme globalContext.getCurrentTheme()}.
-     * Note: getCurrentTheme() does not work with Dynamics CRM for tablets or in the unified interface.
+     * @remarks getCurrentTheme() does not work with Dynamics CRM for tablets or in the unified interface.
      * @see {@link XrmEnum.Theme}
      */
     type Theme = "default" | "Office12Blue" | "Office14Silver";
@@ -338,12 +337,11 @@ declare namespace Xrm {
 
         /**
          * Gets client's base URL for Dynamics CRM
-         *
          * @returns The client's base URL
-         *
-         * @example For Dynamics CRM On-Premises:               http(s)://server/org
-         *          For Dynamics CRM Online:                    https://org.crm.dynamics.com
-         *          For Dynamics CRM for Outlook (Offline):     http://localhost:2525
+         * @example
+         * * For Dynamics CRM On-Premises:               http(s)://server/org
+         * * For Dynamics CRM Online:                    https://org.crm.dynamics.com
+         * * For Dynamics CRM for Outlook (Offline):     http://localhost:2525
          */
         getClientUrl(): string;
 
@@ -359,15 +357,16 @@ declare namespace Xrm {
 
         /**
          * Returns the URL of the current business app in Customer Engagement.
-         * @example Online        https://[org].crm.dynamics.com/main.aspx?appid=[GUID]
-         *          OnPrem        https://[server]/[org]/main.aspx?appid=[GUID]
+         * @example
+         * * Online        https://**org**.crm.dynamics.com/main.aspx?appid=**GUID**
+         * * OnPrem        https://**server**\/**org**\/main.aspx?appid=**GUID**
          * @returns A string containing the url of the current business app.
          */
         getCurrentAppUrl(): string;
 
         /**
          * Gets current styling theme.
-         * Note: This function does not work with Dynamics CRM for tablets or in the unified interface.
+         * @remarks This function does not work with Dynamics CRM for tablets or in the unified interface.
          * @returns The name of the current theme, as either "default", "Office12Blue", or "Office14Silver"
          */
         getCurrentTheme(): Theme;
@@ -391,8 +390,7 @@ declare namespace Xrm {
 
         /**
          * Gets organization's unique name.
-         *
-         * Note: This value can be found on the Developer Resources page within Dynamics CRM.
+         * @remarks This value can be found on the Developer Resources page within Dynamics CRM.
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.uniqueName} globalContext.organizationSettings.uniqueName instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The organization's unique name.
@@ -409,7 +407,6 @@ declare namespace Xrm {
 
         /**
          * Returns the difference between the local time and Coordinated Universal Time (UTC).
-         *
          * @returns The time zone offset, in minutes.
          */
         getTimeZoneOffsetMinutes(): number;
@@ -428,7 +425,6 @@ declare namespace Xrm {
          * @deprecated Deprecated in v9. Use {@link Xrm.UserSettings.languageId globalContext.userSetings.languageId} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's language code.
-         *
          * @see {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx External Link: Microsoft Locale ID Values}
          */
         getUserLcid(): number;
@@ -452,7 +448,6 @@ declare namespace Xrm {
 
         /**
          * Returns the version number of the Dynamics 365 server.
-         *
          * @returns The version number
          */
         getVersion(): string;
@@ -464,7 +459,6 @@ declare namespace Xrm {
 
         /**
          * Prefixes the current organization's unique name to a string; typically a URL path.
-         *
          * @param sPath Local pathname of the resource.
          * @returns A path string with the organization name. Format: "/"+ OrgName + sPath
          */
@@ -478,28 +472,25 @@ declare namespace Xrm {
         interface SaveEventArguments {
             /**
              * @summary Gets save mode, as an integer.
-             *
              * @returns The save mode.
-             *
-             * @description Gets save mode, as an integer.
-             *          Values returned are: 1      Save
-             *                               2      Save and Close
-             *                               59     Save and New
-             *                               70     AutoSave (Where enabled; can be used with an OnSave handler
-             *                                                to conditionally disable auto-saving)
-             *                               58     Save as Completed (Activities)
-             *                               5      Deactivate
-             *                               6      Reactivate
-             *                               47     Assign (All user- or team-owned entities)
-             *                               7      Send (Email)
-             *                               16     Qualify (Lead)
-             *                               15     Disqualify (Lead)
+             * @description Gets save mode, as an integer.<BR>
+             * **Values returned are**:
+             * * 1      Save
+             * * 2      Save and Close
+             * * 59     Save and New
+             * * 70     AutoSave (Where enabled; can be used with an OnSave handler to conditionally disable auto-saving)
+             * * 58     Save as Completed (Activities)
+             * * 5      Deactivate
+             * * 6      Reactivate
+             * * 47     Assign (All user- or team-owned entities)
+             * * 7      Send (Email)
+             * * 16     Qualify (Lead)
+             * * 15     Disqualify (Lead)
              */
             getSaveMode(): XrmEnum.SaveMode;
 
             /**
              * Returns a boolean value to indicate if the record's save has been prevented.
-             *
              * @returns true if saving is prevented, otherwise false.
              */
             isDefaultPrevented(): boolean;
@@ -649,6 +640,7 @@ declare namespace Xrm {
 
     /**
      * Interface for the formContext.data object.
+     * @note NTOE NOTE
      * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data External Link: formContext.data (Client API reference)}
      */
     interface Data {
@@ -827,13 +819,14 @@ declare namespace Xrm {
         /**
          * Gets form type.
          * @returns The form type.
-         * @remarks     Values returned are: 0  Undefined
-         *                                   1  Create
-         *                                   2  Update
-         *                                   3  Read Only
-         *                                   4  Disabled
-         *                                   6  Bulk Edit
-         *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
+         * @remarks **Values returned are**:
+         * * 0  Undefined
+         * * 1  Create
+         * * 2  Update
+         * * 3  Read Only
+         * * 4  Disabled
+         * * 6  Bulk Edit
+         * * Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
          */
         getFormType(): XrmEnum.FormType;
 
@@ -870,14 +863,12 @@ declare namespace Xrm {
 
         /**
          * The form selector API.
-         *
          * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
          */
         formSelector: Controls.FormSelector;
 
         /**
          * The navigation API.
-         *
          * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
          */
         navigation: Controls.Navigation;
@@ -946,8 +937,8 @@ declare namespace Xrm {
 
         /**
          * Returns the entity metadata for the specified entity.
-         * @param entityName    The logical name of the entity.
-         * @param attributes  The attributes to get metadata for.
+         * @param entityName The logical name of the entity.
+         * @param attributes The attributes to get metadata for.
          */
         getEntityMetadata(entityName: string, attributes?: string[]): Async.PromiseLike<Metadata.EntityMetadata>;
 
@@ -959,8 +950,8 @@ declare namespace Xrm {
 
         /**
          * Returns the localized string for a given key associated with the specified web resource.
-         * @param webResourceName    The name of the web resource.
-         * @param key  The key for the localized string.
+         * @param webResourceName The name of the web resource.
+         * @param key The key for the localized string.
          * @returns A localized string.
          */
         getResourceString(webResourceName: string, key: string): string;
@@ -1056,14 +1047,15 @@ declare namespace Xrm {
          * @param width (Optional) The width of the new window.
          * @param height (Optional) The height of the new window.
          * @returns A Window reference, containing the opened Web Resource.
-         * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
-         *          Valid WebResource URL Parameters:   typename
-         *                                              type
-         *                                              id
-         *                                              orgname
-         *                                              userlcid
-         *                                              data (identical to this method's webResourceData parameter)
-         *                                              formid
+         * @remarks This function will not work with Microsoft Dynamics CRM for tablets.<BR>
+         * **Valid WebResource URL Parameters**:
+         * * typename
+         * * type
+         * * id
+         * * orgname
+         * * userlcid
+         * * data (identical to this method's webResourceData parameter)
+         * * formid
          */
         openWebResource(webResourceName: string, webResourceData?: string, width?: number, height?: number): Window;
     }
@@ -1102,10 +1094,10 @@ declare namespace Xrm {
          * @param entityType The logical name of the entity.
          * @param data A dictionary object containing key : value pairs for the record to create.
          * @returns Returns an asynchronous promise.
-         * @remarks  You cannot create intersect and activity party entities.
-         *           Only the following attribute types are supported in offline mode:
-         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
-         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         * @remarks  You cannot create intersect and activity party entities.<BR>
+         *           Only the following attribute types are supported in offline mode:<BR>
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName<BR>
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.createRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
@@ -1121,10 +1113,10 @@ declare namespace Xrm {
          * @example <caption>Example options</caption>
          * options: ?$select=name&$expand=primarycontactid($select=contactid,fullname)
          * @returns Returns an asynchronous promise.
-         * @remarks  Only $select option can be specified within $expand.
-         *           Only the following attribute types are supported in offline mode:
-         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
-         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         * @remarks  Only $select option can be specified within $expand.<BR>
+         *           Only the following attribute types are supported in offline mode:<BR>
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName<BR>
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.retrieveRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
@@ -1137,17 +1129,17 @@ declare namespace Xrm {
          * @param entityType The logical name of the entity.
          * @param options (Optional) The logical name of the enti
          * @param maxPageSize (Optional) A positive number to indicates the number of entity records to be returned per page.
-         *                               If you do not specify this parameter, the default value is passed as 5000.
-         *                               If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
-         *                               will be returned, and you can use the value of the @odata.nextLink property with a new GET
-         *                               request to return next set of records.
+         * * If you do not specify this parameter, the default value is passed as 5000.
+         * * If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
+         * will be returned, and you can use the value of the @odata.nextLink property with a new GET
+         * request to return next set of records.
          * @returns Returns an asynchronous promise.
          * @remarks  A maximum of 5000 related records can be retrieved when using $expand.
-         *           Only $select option can be specified within $expand.
-         *           $skip query option is not supported.
-         *           Only the following attribute types are supported in offline mode:
-         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
-         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         * * Only $select option can be specified within $expand.
+         * * $skip query option is not supported.
+         * * Only the following attribute types are supported in offline mode:<BR>
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName<BR>
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.retrieveMultipleRecords} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
@@ -1160,10 +1152,10 @@ declare namespace Xrm {
          * @param id GUID of the record to update.
          * @param data A dictionary object containing key : value pairs for the record to update.
          * @returns Returns an asynchronous promise.
-         * @remarks  You cannot update intersect and activity party entities.
-         *           Only the following attribute types are supported in offline mode:
-         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
-         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         * @remarks  You cannot update intersect and activity party entities.<BR>
+         *           Only the following attribute types are supported in offline mode:<BR>
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName<BR>
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.updateRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
@@ -1293,17 +1285,14 @@ declare namespace Xrm {
     namespace Collection {
         /**
          * Called for each item in an array
-         *
          * @param item The item.
          * @param index Zero-based index of the item array.
-         *
          * @returns true if the item matches, false if it does not.
          */
         type MatchingDelegate<T> = (item: T, index?: number) => boolean;
 
         /**
          * Called for each item in an array
-         *
          * @param item The item.
          * @param index Zero-based index of the item array.
          */
@@ -1311,7 +1300,6 @@ declare namespace Xrm {
 
         /**
          * Interface for an item collection.
-         *
          * @param T Generic type parameter.
          */
         interface Dictionary<T> {
@@ -1862,13 +1850,13 @@ declare namespace Xrm {
             /**
              * Called when method to get active processes is complete
              * @param status The result of the get active processes operation.
-             * @remarks     Returns object with the following key-value pairs:
-             *                          CreatedOn
-             *                          ProcessDefinitionID
-             *                          ProcessDefinitionName
-             *                          ProcessInstanceID
-             *                          ProcessInstanceName
-             *                          StatusCodeName
+             * @remarks **Returns object with the following key-value pairs**:
+             * * CreatedOn
+             * * ProcessDefinitionID
+             * * ProcessDefinitionName
+             * * ProcessInstanceID
+             * * ProcessInstanceName
+             * * StatusCodeName
              * @deprecated Use {@link Xrm.ProcessFlow.GetProcessInstancesDelegate} instead.
              */
             type GetProcessInstancesDelegate = ProcessFlow.GetProcessInstancesDelegate;
@@ -1876,8 +1864,9 @@ declare namespace Xrm {
             /**
              * Called when method to set active process is complete
              * @param status The result of the set active process operation.
-             * @remarks     Values returned are: success        (The operation succeeded.)
-             *                                   invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
+             * @remarks **Values returned are**:
+             * * success        (The operation succeeded.)
+             * * invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
              * @deprecated Use {@link Xrm.ProcessFlow.SetProcessInstanceDelegate} instead.
              */
             type SetProcessInstanceDelegate = ProcessFlow.SetProcessInstanceDelegate;
@@ -1885,24 +1874,23 @@ declare namespace Xrm {
             /**
              * Called when process change methods have completed.
              * @param status The result of the process change operation.
-             * @remarks     Values returned are: success        (The operation succeeded.)
-             *                                   crossEntity    (The previous stage is for a different entity.)
-             *                                   beginning      (The active stage is the first stage of the active path.)
-             *                                   invalid        (The operation failed because the selected stage isn’t the same
-             *                                   as the active stage.)
-             *                                   unreachable    (The stage exists on a different path.)
+             * @remarks **Values returned are**:
+             * * success        (The operation succeeded.)
+             * * crossEntity    (The previous stage is for a different entity.)
+             * * beginning      (The active stage is the first stage of the active path.)
+             * * invalid        (The operation failed because the selected stage isn’t the same as the active stage.)
+             * * unreachable    (The stage exists on a different path.)
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessCallbackDelegate} instead.
              */
             type ProcessCallbackDelegate = ProcessFlow.ProcessCallbackDelegate;
 
             /**
              * Called when process set status method has completed.
-             *
              * @param status The new status of the process instance
-             *
-             * @remarks     Values returned are: active
-             *                                   aborted
-             *                                   finished
+             * @remarks **Values returned are**:
+             * * active
+             * * aborted
+             * * finished
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessSetStatusDelegate} instead.
              */
             type ProcessSetStatusDelegate = ProcessFlow.ProcessSetStatusDelegate;
@@ -2094,38 +2082,38 @@ declare namespace Xrm {
 
             /**
              * Gets attribute type.
-             * @returns The attribute's type name.
-             *          Values returned are: boolean
-             *                               datetime
-             *                               decimal
-             *                               double
-             *                               integer
-             *                               lookup
-             *                               memo
-             *                               money
-             *                               optionset
-             *                               string
+             * @returns The attribute's type name.<BR><BR>
+             * **Values returned are**:
+             * * boolean
+             * * datetime
+             * * decimal
+             * * double
+             * * integer
+             * * lookup
+             * * memo
+             * * money
+             * * optionset
+             * * string
              */
             getAttributeType(): string;
 
             /**
              * Gets the attribute format.
-             *
-             * @returns The format of the attribute.
-             *
+             * @returns The format of the attribute.<BR><BR>
+             * **Values returned are**:
+             * * date           (datetime)
+             * * datetime       (datetime)
+             * * duration       (integer)
+             * * email          (string)
+             * * language       (optionset)
+             * * none           (integer)
+             * * phone          (string)
+             * * text           (string)
+             * * textarea       (string)
+             * * tickersymbol   (string)
+             * * timezone       (optionset)
+             * * url            (string)
              * @see {@link getAttributeType}
-             *          Values returned are: date           (datetime)
-             *                               datetime       (datetime)
-             *                               duration       (integer)
-             *                               email          (string)
-             *                               language       (optionset)
-             *                               none           (integer)
-             *                               phone          (string)
-             *                               text           (string)
-             *                               textarea       (string)
-             *                               tickersymbol   (string)
-             *                               timezone       (optionset)
-             *                               url            (string)
              */
             getFormat(): AttributeFormat;
 
@@ -2270,9 +2258,7 @@ declare namespace Xrm {
 
             /**
              * Gets maximum length allowed.
-             *
              * @returns The maximum length allowed.
-             *
              * @remarks The email form's "Description" attribute does not have the this method.
              */
             getMaxLength(): number;
@@ -2504,14 +2490,12 @@ declare namespace Xrm {
         interface UiLabelElement {
             /**
              * Gets the label.
-             *
              * @returns The label.
              */
             getLabel(): string;
 
             /**
              * Sets the label.
-             *
              * @param label The label.
              */
             setLabel(label: string): void;
@@ -2523,7 +2507,6 @@ declare namespace Xrm {
         interface UiCanGetVisibleElement {
             /**
              * Gets the visibility state.
-             *
              * @returns true if the tab is visible, otherwise false.
              */
             getVisible(): boolean;
@@ -2535,7 +2518,6 @@ declare namespace Xrm {
         interface UiCanSetVisibleElement {
             /**
              * Sets the visibility state.
-             *
              * @param visible true to show, false to hide.
              */
             setVisible(visible: boolean): void;
@@ -2547,7 +2529,6 @@ declare namespace Xrm {
         interface UiStandardElement extends UiCanGetVisibleElement, UiLabelElement {
             /**
              * Sets the visibility state.
-             *
              * @param visible true to show, false to hide.
              */
             setVisible(visible: boolean): void;
@@ -2660,19 +2641,20 @@ declare namespace Xrm {
         interface Control extends UiLabelElement, UiCanGetVisibleElement {
             /**
              * Gets the controls type.
-             * @returns The control type.
-             * @remarks Values returned are: standard
-             *                               iframe
-             *                               lookup
-             *                               optionset
-             *                               subgrid
-             *                               webresource
-             *                               notes
-             *                               timercontrol
-             *                               kbsearch (CRM Online Only, use parature.d.ts)
-             *                               quickform (see ui.QuickForm)
-             *                               customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
-             *                               customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
+             * @returns The control type.<BR><BR>
+             * **Values returned are**:
+             * * standard
+             * * iframe
+             * * lookup
+             * * optionset
+             * * subgrid
+             * * webresource
+             * * notes
+             * * timercontrol
+             * * kbsearch (CRM Online Only, use parature.d.ts)
+             * * quickform (see ui.QuickForm)
+             * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
+             * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
              */
             getControlType(): ControlType | string;
 
@@ -2694,7 +2676,6 @@ declare namespace Xrm {
 
             /**
              * Gets a reference to the Section parent of the control.
-             *
              * @returns The parent Section.
              */
             getParent(): Section;
@@ -3816,7 +3797,6 @@ declare namespace Xrm {
             /**
              * Moves to the previous stage.
              * @param callbackFunction (Optional) A function to call when the operation is complete.
-             *                                                          .
              */
             movePrevious(callbackFunction?: ProcessCallbackDelegate): void;
 
@@ -3849,33 +3829,34 @@ declare namespace Xrm {
         /**
          * Called when method to get active processes is complete
          * @param status The result of the get active processes operation.
-         * @remarks     Returns object with the following key-value pairs:
-         *                          CreatedOn
-         *                          ProcessDefinitionID
-         *                          ProcessDefinitionName
-         *                          ProcessInstanceID
-         *                          ProcessInstanceName
-         *                          StatusCodeName
+         * @remarks **Returns object with the following key-value pairs**:
+         * * CreatedOn
+         * * ProcessDefinitionID
+         * * ProcessDefinitionName
+         * * ProcessInstanceID
+         * * ProcessInstanceName
+         * * StatusCodeName
          */
         type GetProcessInstancesDelegate = (object: ProcessDictionary) => void;
 
         /**
          * Called when method to set active process is complete
          * @param status The result of the set active process operation.
-         * @remarks     Values returned are: success        (The operation succeeded.)
-         *                                   invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
+         * @remarks **Values returned are**:
+         * * success        (The operation succeeded.)
+         * * invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
          */
         type SetProcessInstanceDelegate = (status: string) => void;
 
         /**
          * Called when process change methods have completed.
          * @param status The result of the process change operation.
-         * @remarks      Values returned are: success        (The operation succeeded.)
-         *                                    crossEntity    (The previous stage is for a different entity.)
-         *                                    beginning      (The active stage is the first stage of the active path.)
-         *                                    invalid        (The operation failed because the selected stage isn’t the same
-         *                                    as the active stage.)
-         *                                    unreachable    (The stage exists on a different path.)
+         * @remarks **Values returned are**:
+         * * success        (The operation succeeded.)
+         * * crossEntity    (The previous stage is for a different entity.)
+         * * beginning      (The active stage is the first stage of the active path.)
+         * * invalid        (The operation failed because the selected stage isn’t the same as the active stage.)
+         * * unreachable    (The stage exists on a different path.)
          */
         type ProcessCallbackDelegate = (status: string) => void;
 
@@ -3920,16 +3901,19 @@ declare namespace Xrm {
     namespace Url {
         /**
          * Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
+         * @see {@link XrmEnum.CmdBarDisplay}
          */
         type CmdBarDisplay = "true" | "false";
 
         /**
          * Navigation Bar Display options for Xrm.Url.FormOpenParameters.navbar, Xrm.Url.ViewOpenParameters.navbar, and Xrm.Utility.FormOpenParameters.navbar.
+         * @see {@link XrmEnum.NavBarDisplay}
          */
         type NavBarDisplay = "entity" | "off" | "on";
 
         /**
          * Report Open Action options for Xrm.Url.ReportOpenParameters.actions.
+         * @see {@link XrmEnum.ReportAction}
          */
         type ReportAction = "filter" | "run";
 
@@ -3957,17 +3941,18 @@ declare namespace Xrm {
 
             /**
              * Controls whether the command bar is displayed.
-             * Accepted values are: "true"    (The command bar is displayed.)
-             *                      "false"   (The command bar is not displayed.)
+             * @remarks **Accepted values are**:
+             * * "true"    (The command bar is displayed.)
+             * * "false"   (The command bar is not displayed.)
              */
             cmdbar?: CmdBarDisplay;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
-             * Accepted values are: "on"      (The navigation bar is displayed.)
-             *                      "off"     (The navigation bar is not displayed.)
-             *                      "entity"  (On an entity form, only the navigation options for related
-             *                                entities are available.)
+             * @remarks **Accepted values are**:
+             * * "on"      (The navigation bar is displayed.)
+             * * "off"     (The navigation bar is not displayed.)
+             * * "entity"  (On an entity form, only the navigation options for related entities are available.)
              */
             navbar?: NavBarDisplay;
         }
@@ -3976,9 +3961,7 @@ declare namespace Xrm {
          * Interface for defining parameters on a request to open a view with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         *
          * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
-         *
          * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
          *           the URL, for views. Example:  "pagetype=entitylist"
          */
@@ -3996,24 +3979,26 @@ declare namespace Xrm {
 
             /**
              * The type of view identified by {@link viewid}.
-             * @remarks  Accepted values are:    1039    System View
-             *                                   4230    User View.
+             * @remarks **Accepted values are**:
+             * * 1039    System View
+             * * 4230    User View.
              */
             viewtype: XrmEnum.ViewType;
 
             /**
              * Controls whether the command bar is displayed.
-             * Accepted values are: "true"    (The command bar is displayed.)
-             *                      "false"   (The command bar is not displayed.)
+             * @remarks **Accepted values are**:
+             * * "true"    (The command bar is displayed.)
+             * * "false"   (The command bar is not displayed.)
              */
             cmdbar?: CmdBarDisplay;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
-             * Accepted values are: "on"      (The navigation bar is displayed.)
-             *                      "off"     (The navigation bar is not displayed.)
-             *                      "entity"  (On an entity form, only the navigation options for related
-             *                                entities are available.)
+             * @remarks **Accepted values are**:
+             * * "on"      (The navigation bar is displayed.)
+             * * "off"     (The navigation bar is not displayed.)
+             * * "entity"  (On an entity form, only the navigation options for related entities are available.)
              */
             navbar?: NavBarDisplay;
         }
@@ -4052,9 +4037,9 @@ declare namespace Xrm {
         interface ReportOpenParameters {
             /**
              * The action to perform, as either "run" or "filter".
-             *
-             * @remarks  "run"       Executes the report with default filters.
-             *           "filter"    Presents the user with the filter editor, and a "Run Report" button.
+             * @remarks **Actions**:
+             * * "run"       Executes the report with default filters.
+             * * "filter"    Presents the user with the filter editor, and a "Run Report" button.
              */
             action: ReportAction;
 
@@ -4101,17 +4086,18 @@ declare namespace Xrm {
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
-             * Accepted values are: "on"      (The navigation bar is displayed.)
-             *                      "off"     (The navigation bar is not displayed.)
-             *                      "entity"  (On an entity form, only the navigation options for related
-             *                                entities are available.)
+             * @remarks **Accepted values are**:
+             * * "on"      (The navigation bar is displayed.)
+             * * "off"     (The navigation bar is not displayed.)
+             * * "entity"  (On an entity form, only the navigation options for related entities are available.)
              */
             navbar?: Url.NavBarDisplay;
 
             /**
              * Controls whether the command bar is displayed.
-             * Accepted values are: "true"    (The command bar is displayed.)
-             *                      "false"   (The command bar is not displayed.)
+             * @remarks **Accepted values are**:
+             * * "true"    (The command bar is displayed.)
+             * * "false"   (The command bar is not displayed.)
              */
             cmdbar?: Url.CmdBarDisplay;
         }
@@ -4276,9 +4262,9 @@ declare namespace Xrm {
             isOfflineSyncError?: boolean;
             /**
              * Controls whether the navigation bar is displayed and whether application navigation is available using the areas and subareas defined in the sitemap.Valid vlaues are: "on", "off", or "entity".
-             *      on: The navigation bar is displayed.This is the default behavior if the navBar parameter is not used.
-             *      off: The navigation bar is not displayed.People can navigate using other user interface elements or the back and forward buttons.
-             *      entity: On an entity form, only the navigation options for related entities are available.After navigating to a related entity, a back button is displayed in the navigation bar to allow returning to the original record.
+             * * on: The navigation bar is displayed.This is the default behavior if the navBar parameter is not used.
+             * * off: The navigation bar is not displayed.People can navigate using other user interface elements or the back and forward buttons.
+             * * entity: On an entity form, only the navigation options for related entities are available.After navigating to a related entity, a back button is displayed in the navigation bar to allow returning to the original record.
              */
             navBar?: Url.NavBarDisplay;
             /**
@@ -4287,8 +4273,8 @@ declare namespace Xrm {
             openInNewWindow?: boolean;
             /**
              * Specify one of the following values for the window position of the form on the screen:
-             *                  1:center
-             *                  2:side
+             * * 1:center
+             * * 2:side
              */
             windowPosition?: XrmEnum.WindowPositions;
             /**
@@ -4332,14 +4318,14 @@ declare namespace Xrm {
             navigationPropertyName?: string;
             /**
              * Relationship type.Specify one of the following values:
-             *                       0:OneToMany
-             *                       1:ManyToMany
+             * * 0:OneToMany
+             * * 1:ManyToMany
              */
             relationshipType?: XrmEnum.RelationshipType;    //
             /**
              * Role type in relationship.Specify one of the following values:
-             *       1:Referencing
-             *       2:AssociationEntity
+             * * 1:Referencing
+             * * 2:AssociationEntity
              */
             roleType?: XrmEnum.RoleType;
         }
@@ -4588,6 +4574,7 @@ declare namespace Xrm {
 
         /**
          * Posible file types for Xrm.Device.pickFile options
+         * @see {@link XrmEnum.DevicePickFileType}
          */
         type PickFileTypes = "audio" | "video" | "image";
 
@@ -4704,28 +4691,28 @@ declare namespace Xrm {
         /**
          * Execute a single action, function, or CRUD operation.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/execute External Link: execute (Client API reference)}
-         * @param request     Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
-         * The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.
-         * The getMetadata method has the following parameters:
-         *                          -boundParameter: (Optional) String. The name of the bound parameter for the action or function to execute.
-         *                              Specify undefined if you are executing a CRUD request.
-         *                              Specify null if the action or function to execute is not bound to any entity.
-         *                              Specify entity logical name or entity set name in case the action or function to execute is bound to one.
-         *                          -operationName: (Optional). String. Name of the action, function, or one of the following values if you are executing a CRUD request: "Create", "Retrieve", "RetrieveMultiple", "Update", or "Delete".
-         *                          -operationType: (Optional). Number. Indicates the type of operation you are executing; specify one of the following values:
-         *                              0: Action
-         *                              1: Function
-         *                              2: CRUD
-         *                          -parameterTypes: Object. The metadata for parameter types. The object has the following attributes:
-         *                              -enumProperties: (Optional) Object. The metadata for enum types. The object has two string attributes: name and value
-         *                              -structuralProperty: Number. The category of the parameter type. Specify one of the following values:
-         *                              0: Unknown
-         *                              1: PrimitiveType
-         *                              2: ComplexType
-         *                              3: EnumerationType
-         *                              4: Collection
-         *                              5: EntityType
-         *                              -typeName: String. The fully qualified name of the parameter type.
+         * @param request Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
+         * @remarks The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.<BR>
+         * **The getMetadata method has the following parameters**:
+         *   - boundParameter: (Optional) String. The name of the bound parameter for the action or function to execute.
+         *       * Specify undefined if you are executing a CRUD request.
+         *       * Specify null if the action or function to execute is not bound to any entity.
+         *       * Specify entity logical name or entity set name in case the action or function to execute is bound to one.
+         *   - operationName: (Optional). String. Name of the action, function, or one of the following values if you are executing a CRUD request: "Create", "Retrieve", "RetrieveMultiple", "Update", or "Delete".
+         *   - operationType: (Optional). Number. Indicates the type of operation you are executing; specify one of the following values:
+         *       * 0: Action
+         *       * 1: Function
+         *       * 2: CRUD
+         *   - parameterTypes: Object. The metadata for parameter types. The object has the following attributes:
+         *   - enumProperties: (Optional) Object. The metadata for enum types. The object has two string attributes: name and value
+         *   - structuralProperty: Number. The category of the parameter type. Specify one of the following values:
+         *       * 0: Unknown
+         *       * 1: PrimitiveType
+         *       * 2: ComplexType
+         *       * 3: EnumerationType
+         *       * 4: Collection
+         *       * 5: EntityType
+         *   - typeName: String. The fully qualified name of the parameter type.
          */
         execute(request: any): Async.PromiseLike<ExecuteResponse>;
 
@@ -4733,13 +4720,13 @@ declare namespace Xrm {
          * Execute a collection of action, function, or CRUD operations.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/executemultiple External Link: executeMultiple (Client API reference)}
          * @param request   An array of one of one of the following types:
-         *                           -objects where each object is an action, function, or CRUD request that you want to execute
-         *                               against the Web API endpoint. Each object exposes a getMetadata method that lets you define
-         *                               the metadata for the action, function or CRUD request you want to execute. This is the same
-         *                               object that you pass in the execute method. For information about the object, see execute.
-         *                           -change set (an array of objects), where each object in the change set is as defined above.
-         *                               In this case, all the request objects specified in the change set will get executed in a
-         *                               transaction.
+         *    -objects where each object is an action, function, or CRUD request that you want to execute
+         *        * against the Web API endpoint. Each object exposes a getMetadata method that lets you define
+         *        the metadata for the action, function or CRUD request you want to execute. This is the same
+         *        object that you pass in the execute method. For information about the object, see execute.
+         *    -change set (an array of objects), where each object in the change set is as defined above.
+         *        * In this case, all the request objects specified in the change set will get executed in a
+         *        transaction.
          */
         executeMultiple(request: any[]): Async.PromiseLike<ExecuteResponse[]>;
     }
@@ -4770,18 +4757,18 @@ declare namespace Xrm {
          * Retrieves an entity record.
          * @param entityLogicalName The entity logical name of the record you want to retrieve. For example: "account".
          * @param id GUID of the entity record you want to retrieve.
-         * @param options            (Optional) OData system query options, $select and $expand, to retrieve your data.
-         *                                      -Use the $select system query option to limit the properties returned by including a comma-separated
-         *                                         list of property names. This is an important performance best practice. If properties aren’t
-         *                                         specified using $select, all properties will be returned.
-         *                                      -Use the $expand system query option to control what data from related entities is returned. If you
-         *                                         just include the name of the navigation property, you’ll receive all the properties for related
-         *                                         records. You can limit the properties returned for related records using the $select system query
-         *                                         option in parentheses after the navigation property name. Use this for both single-valued and
-         *                                         collection-valued navigation properties.
-         *                                      You can also specify multiple query options by using & to separate the query options.
-         * @example: <caption>options example:</caption>
-         *                  options: $select=name&$expand=primarycontactid($select=contactid,fullname)
+         * @param options (Optional) OData system query options, $select and $expand, to retrieve your data.
+         * - Use the $select system query option to limit the properties returned by including a comma-separated
+         *   list of property names. This is an important performance best practice. If properties aren’t
+         *   specified using $select, all properties will be returned.
+         * - Use the $expand system query option to control what data from related entities is returned. If you
+         *   just include the name of the navigation property, you’ll receive all the properties for related
+         *   records. You can limit the properties returned for related records using the $select system query
+         *   option in parentheses after the navigation property name. Use this for both single-valued and
+         *   collection-valued navigation properties.
+         * - You can also specify multiple query options by using & to separate the query options.
+         * @example <caption>options example:</caption>
+         * options: $select=name&$expand=primarycontactid($select=contactid,fullname)
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
@@ -4790,16 +4777,15 @@ declare namespace Xrm {
         /**
          * Retrieves a collection of entity records.
          * @param entityLogicalName The entity logical name of the records you want to retrieve. For example: "account".
-         * @param options           (Optional) OData system query options or FetchXML query to retrieve your data.
-         *                                      Following system query options are supported: $select, $top, $filter, $expand, and $orderby.
-         *                                      To specify a FetchXML query, use the fetchXml attribute to specify the query.
-         *                                      NOTE: You must always use the $select system query option to limit the properties returned for an entity
-         *                                      record by including a comma-separated list of property names. This is an important performance best practice.
-         *                                      If properties aren’t specified using $select, all properties will be returned.
-         *
-         *                                      You can specify multiple system query options by using & to separate the query options.
-         * @param maxPageSize        (Optional) Specify a positive number that indicates the number of entity records to be returned per page.
-         * If you do not specify this parameter, the default value is passed as 5000. If the number of records being retrieved is more than the specified
+         * @param options (Optional) OData system query options or FetchXML query to retrieve your data.
+         * * Following system query options are supported: $select, $top, $filter, $expand, and $orderby.
+         * * To specify a FetchXML query, use the fetchXml attribute to specify the query.
+         * * NOTE: You must always use the $select system query option to limit the properties returned for an entity
+         * record by including a comma-separated list of property names. This is an important performance best practice.
+         * * If properties aren’t specified using $select, all properties will be returned.
+         * * You can specify multiple system query options by using & to separate the query options.
+         * @param maxPageSize (Optional) Specify a positive number that indicates the number of entity records to be returned per page.
+         * * If you do not specify this parameter, the default value is passed as 5000. If the number of records being retrieved is more than the specified
          * maxPageSize value, nextLink attribute in the returned promise object will contain a link to retrieve the next set of entities.
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
@@ -5085,7 +5071,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Themes for {@link GlobalContext.getCurrentTheme globalContext.getCurrentTheme()}.
-     * Note: getCurrentTheme() does not work with Dynamics CRM for tablets or in the unified interface.
+     * @remarks getCurrentTheme() does not work with Dynamics CRM for tablets or in the unified interface.
      */
     const enum Theme {
         Default = "default",
@@ -5213,5 +5199,43 @@ declare namespace XrmEnum {
         Active = "active",
         Aborted = "aborted",
         Finished = "finished"
+    }
+
+     /**
+      * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
+      * @see {@link Xrm.Url.CmdBarDisplay}
+      */
+    const enum CmdBarDisplay {
+        True = "true",
+        False = "false"
+    }
+
+    /**
+     * Constant Enum: Navigation Bar Display options for Xrm.Url.FormOpenParameters.navbar, Xrm.Url.ViewOpenParameters.navbar, and Xrm.Utility.FormOpenParameters.navbar.
+     * @see {@link Xrm.Url.NavBarDisplay}
+     */
+    const enum NavBarDisplay {
+        Entity = "entity",
+        On = "on",
+        Off = "off"
+    }
+
+    /**
+     * Constant Enum: Report Open Action options for Xrm.Url.ReportOpenParameters.actions.
+     * @see {@link Xrm.Url.ReportAction}
+     */
+    const enum ReportAction {
+        Filter = "filter",
+        Run = "run"
+    }
+
+    /**
+     * Constant Enum: Posible file types for Xrm.Device.pickFile options
+     * @see {@link Xrm.Device.PickFileTypes}
+     */
+    const enum DevicePickFileType {
+        Audio = "audio",
+        Video = "vidoe",
+        Image = "image"
     }
 }
