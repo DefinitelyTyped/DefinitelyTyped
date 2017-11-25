@@ -294,9 +294,9 @@ export interface ListItemObject {
      */
     status?: ListItemObjectStatus;
     /**
-     * item version (Positive integer | string)
+     * item version (Positive integer)
      */
-    version?: any;
+    version?: number | string;
     /**
      * created time (ISO 8601 time format with time zone)
      */
@@ -335,9 +335,9 @@ export interface ListObject {
      */
     status?: string;
     /**
-     * list version (long | string)
+     * list version (Positive integer)
      */
-    version?: any;
+    version?: number;
     /**
      * Urls to active and completed items
      * href is lint to the items having certain status.
@@ -468,7 +468,7 @@ export namespace templateBuilders {
          * @param image image
          * @returns BodyTemplate3Builder
          */
-        setImage(image: any): BodyTemplate3Builder;
+        setImage(image: Image): BodyTemplate3Builder;
 
         /**
          * Sets the text content for the template
@@ -490,7 +490,7 @@ export namespace templateBuilders {
          * @param image image
          * @returns BodyTemplate6Builder
          */
-        setImage(image: any): BodyTemplate6Builder;
+        setImage(image: Image): BodyTemplate6Builder;
 
         /**
          * Sets the text content for the template
@@ -828,7 +828,7 @@ export class ResponseBuilder {
      * @param hintType (optional) Default value : PlainText
      * @returns ResponseBuilder
      */
-    hint(hintText: string, hintType: HintType): ResponseBuilder;
+    hint(hintText: string, hintType?: HintType): ResponseBuilder;
 
     /**
      * Creates a VideoApp play directive to play a video
@@ -838,7 +838,7 @@ export class ResponseBuilder {
      * information that can be displayed on VideoApp.
      * @returns ResponseBuilder
      */
-    playVideo(source: string, metadata: { title: string, subtitle: string }): ResponseBuilder;
+    playVideo(source: string, metadata?: { title: string, subtitle: string }): ResponseBuilder;
 }
 //#endregion
 
@@ -898,7 +898,7 @@ export namespace utils {
          * @param description text used to describe the image in a screen reader
          * @returns Image
          */
-        function makeImages(imgArr: Array<{ url: string, widthPixels: number, heightPixels: number, size: ImageSourceSize }>, description: string): Image;
+        function makeImages(imgArr: Array<{ url: string, widthPixels?: number, heightPixels?: number, size: ImageSourceSize }>, description: string): Image;
     }
     /**
      * Utility methods for building TextField objects
