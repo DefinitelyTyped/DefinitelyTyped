@@ -5009,7 +5009,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Client Types for {@link GlobalContext.getClient globalContext.getClient()}.
+     * Constant Enum: Client Types for {@link ClientContext.getClient clientContext.getClient()}.
      * @see {@link Xrm.Client}
      */
     const enum Client {
@@ -5021,7 +5021,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Client States for {@link GlobalContext.getClientState globalContext.getClientState()}.
+     * Constant Enum: Client States for {@link ClientContext.getClientState clientContext.getClientState()}.
      * @see {@link Xrm.ClientState}
      */
     const enum ClientState {
