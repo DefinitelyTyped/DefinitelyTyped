@@ -20,73 +20,9 @@ describe("ApplePaySession", () => {
                 break;
         }
     });
-    it("the contact fields are defined", () => {
-        const contactFields = [
-            ApplePayJS.ApplePayContactField.email,
-            ApplePayJS.ApplePayContactField.name,
-            ApplePayJS.ApplePayContactField.phone,
-            ApplePayJS.ApplePayContactField.phoneticName,
-            ApplePayJS.ApplePayContactField.postalAddress
-        ];
-    });
-    it("the error codes are defined", () => {
-        const errorCodes = [
-            ApplePayJS.ApplePayErrorCode.addressUnserviceable,
-            ApplePayJS.ApplePayErrorCode.billingContactInvalid,
-            ApplePayJS.ApplePayErrorCode.shippingContactInvalid,
-            ApplePayJS.ApplePayErrorCode.unknown
-        ];
-    });
-    it("the error contact fields are defined", () => {
-        const errorContacts = [
-            ApplePayJS.ApplePayErrorContactField.addressLines,
-            ApplePayJS.ApplePayErrorContactField.administrativeArea,
-            ApplePayJS.ApplePayErrorContactField.country,
-            ApplePayJS.ApplePayErrorContactField.countryCode,
-            ApplePayJS.ApplePayErrorContactField.emailAddress,
-            ApplePayJS.ApplePayErrorContactField.locality,
-            ApplePayJS.ApplePayErrorContactField.name,
-            ApplePayJS.ApplePayErrorContactField.phoneNumber,
-            ApplePayJS.ApplePayErrorContactField.phoneticName,
-            ApplePayJS.ApplePayErrorContactField.postalAddress,
-            ApplePayJS.ApplePayErrorContactField.postalCode,
-            ApplePayJS.ApplePayErrorContactField.subAdministrativeArea,
-            ApplePayJS.ApplePayErrorContactField.subLocality
-        ];
-    });
-    it("the line item types are defined", () => {
-        const lineItemTypes = [
-            ApplePayJS.ApplePayLineItemType.final,
-            ApplePayJS.ApplePayLineItemType.pending
-        ];
-    });
-    it("the merchant capabilities are defined", () => {
-        const capabilities = [
-            ApplePayJS.ApplePayMerchantCapability.supports3DS,
-            ApplePayJS.ApplePayMerchantCapability.supportsCredit,
-            ApplePayJS.ApplePayMerchantCapability.supportsDebit,
-            ApplePayJS.ApplePayMerchantCapability.supportsEMV
-        ];
-    });
-    it("the payment method types are defined", () => {
-        const paymentMethods = [
-            ApplePayJS.ApplePayPaymentMethodType.credit,
-            ApplePayJS.ApplePayPaymentMethodType.debit,
-            ApplePayJS.ApplePayPaymentMethodType.prepaid,
-            ApplePayJS.ApplePayPaymentMethodType.store
-        ];
-    });
-    it("the shipping types are defined", () => {
-        const shippingTypes = [
-            ApplePayJS.ApplePayShippingType.delivery,
-            ApplePayJS.ApplePayShippingType.servicePickup,
-            ApplePayJS.ApplePayShippingType.shipping,
-            ApplePayJS.ApplePayShippingType.storePickup
-        ];
-    });
     it("can create a new instance", () => {
         const version = 1;
-        const paymentRequest = {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: "US",
             currencyCode: "USD",
             supportedNetworks: [
@@ -122,7 +58,7 @@ describe("ApplePaySession", () => {
     });
     it("can call instance methods", () => {
         const version = 3;
-        const paymentRequest = {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: "US",
             currencyCode: "USD",
             supportedNetworks: [
@@ -131,8 +67,8 @@ describe("ApplePaySession", () => {
             ],
             merchantCapabilities: [
                 "supports3DS",
-                ApplePayJS.ApplePayMerchantCapability.supportsCredit,
-                ApplePayJS.ApplePayMerchantCapability.supportsDebit
+                "supportsCredit",
+                "supportsDebit"
             ],
             total: {
                 label: "My Store",
@@ -149,12 +85,12 @@ describe("ApplePaySession", () => {
 
         session.completePayment(ApplePaySession.STATUS_SUCCESS);
 
-        const authorizationResult = {
+        const authorizationResult: ApplePayJS.ApplePayPaymentAuthorizationResult = {
             status: ApplePaySession.STATUS_FAILURE,
             errors: [
                 {
-                    code: ApplePayJS.ApplePayErrorCode.addressUnserviceable,
-                    contactField: ApplePayJS.ApplePayErrorContactField.postalCode,
+                    code: "addressUnserviceable",
+                    contactField: "postalCode",
                     message: "The specified postal code cannot be delivered to."
                 }
             ]
@@ -162,13 +98,13 @@ describe("ApplePaySession", () => {
 
         session.completePayment(authorizationResult);
 
-        const total = {
+        const total: ApplePayJS.ApplePayLineItem = {
             label: "Subtotal",
             type: "final",
             amount: "35.00"
         };
 
-        const lineItems = [
+        const lineItems: ApplePayJS.ApplePayLineItem[] = [
             {
                 label: "Subtotal",
                 type: "final",
@@ -177,12 +113,12 @@ describe("ApplePaySession", () => {
             {
                 label: "Free Shipping",
                 amount: "0.00",
-                type: ApplePayJS.ApplePayLineItemType.final
+                type: "final"
             },
             {
                 label: "Estimated Tax",
                 amount: "3.06",
-                type: ApplePayJS.ApplePayLineItemType.pending
+                type: "pending"
             }
         ];
 
@@ -274,7 +210,7 @@ describe("ApplePayPaymentRequest", () => {
             merchantCapabilities: [
                 "supports3DS",
                 "supportsCredit",
-                ApplePayJS.ApplePayMerchantCapability.supportsDebit
+                "supportsDebit"
             ],
             supportedNetworks: [
                 "amex",
@@ -296,8 +232,6 @@ describe("ApplePayPaymentRequest", () => {
             familyName: "Patel",
             givenName: "Ravi",
             phoneNumber: "(408) 555-5555",
-            phoneticFamilyName: "Patel",
-            phoneticGivenName: "Ravi",
             addressLines: [
                 "1 Infinite Loop"
             ],
@@ -329,14 +263,14 @@ describe("ApplePayPaymentRequest", () => {
 
         paymentRequest.requiredBillingContactFields = [
             "postalAddress",
-            ApplePayJS.ApplePayContactField.name
+            "name"
         ];
 
         paymentRequest.requiredShippingContactFields = [
             "postalAddress",
             "name",
             "phone",
-            ApplePayJS.ApplePayContactField.name
+            "name"
         ];
 
         paymentRequest.shippingContact = {
@@ -372,6 +306,6 @@ describe("ApplePayPaymentRequest", () => {
         ];
 
         paymentRequest.shippingType = "storePickup";
-        paymentRequest.shippingType = ApplePayJS.ApplePayShippingType.delivery;
+        paymentRequest.shippingType = "delivery";
     });
 });
