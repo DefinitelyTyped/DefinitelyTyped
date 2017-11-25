@@ -887,7 +887,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The value of the attribute
      */
-    getAttribute(selector: string, attribute: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getAttribute(selector: string, attribute: string, callback?: (this:NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve a single cookie visible to the current page. The cookie is returned as a cookie JSON object, as defined here.
@@ -906,7 +906,7 @@ export interface NightwatchAPI {
      * @param callback: The callback function which will receive the response as an argument.
      * @returns The cookie object as a selenium cookie JSON object or null if the cookie wasn't found.
      */
-    getCookie(name: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getCookie(name: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve all cookies visible to the current page. The cookies are returned as an array of cookie JSON object,
@@ -924,7 +924,7 @@ export interface NightwatchAPI {
      * @param callback: The callback function which will receive the response as an argument.
      * @returns A list of cookies
      */
-    getCookies(callback?: (result: NightwatchCallbackResult) => void): this;
+    getCookies(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve the value of a css property for a given DOM element. Uses elementIdCssProperty protocol command.
@@ -944,7 +944,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The value of the css property
      */
-    getCssProperty(selector: string, cssProperty: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getCssProperty(selector: string, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's size in pixels. Uses elementIdSize protocol command.
@@ -964,7 +964,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The width and height of the element in pixels
      */
-    getElementSize(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getElementSize(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
@@ -985,7 +985,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The X and Y coordinates for the element on the page
      */
-    getLocation(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getLocation(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view. Uses elementIdLocationInView protocol command.
@@ -1005,7 +1005,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The X and Y coordinates for the element on the page.
      */
-    getLocationInView(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getLocationInView(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Gets a log from selenium
@@ -1059,7 +1059,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The element's tag name, as a lowercase string.
      */
-    getTagName(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getTagName(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Returns the visible text for the element. Uses elementIdText protocol command.
@@ -1078,7 +1078,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The element's visible text.
      */
-    getText(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getText(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Returns the title of the current page. Uses title protocol command.
@@ -1095,7 +1095,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The page title.
      */
-    getTitle(callback?: (result: NightwatchCallbackResult) => void): this;
+    getTitle(callback?: (this: NightwatchAPI, result?: string) => void): this;
 
     /**
      * Returns a form element current value. Uses elementIdValue protocol command.
@@ -1114,7 +1114,7 @@ export interface NightwatchAPI {
      * @param callback: Optional callback function to be called when the command finishes.
      * @returns The element's value.
      */
-    getValue(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    getValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * This command is an alias to url and also a convenience method when called without any arguments in the sense that it performs a call to .url() with passing the value of launch_url
@@ -1180,7 +1180,7 @@ export interface NightwatchAPI {
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    isVisible(selector: string, callback?: (result: NightwatchCallbackResult) => void): this;
+    isVisible(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Maximizes the current window.
