@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@types/leaflet": "^1.2.2"
+    "leaflet": "^1.2.0",
+    "leaflet.heat": "^0.2.0"
   }
 }
