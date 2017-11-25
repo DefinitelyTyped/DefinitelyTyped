@@ -667,7 +667,8 @@ export interface FrameBase {
    */
   $eval(
     selector: string,
-    fn: (...args: any[]) => void
+    fn: (ele: ElementHandle | null, ...args: any[]) => any,
+    ...args: any[]
   ): Promise<any>;
 
   /**
@@ -680,7 +681,7 @@ export interface FrameBase {
    */
   $$eval(
     selector: string,
-    fn: (...args: any[]) => void,
+    fn: (eles: ElementHandle[], ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 
