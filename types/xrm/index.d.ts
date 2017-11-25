@@ -4894,7 +4894,7 @@ declare namespace XrmEnum {
         /**
          * @deprecated ReadOptimized has been deprecated.
          */
-        ReadOptimized = 11,
+        ReadOptimized = 11
     }
 
     /**
@@ -4911,7 +4911,7 @@ declare namespace XrmEnum {
         Assign = 47,
         Send = 7,
         Qualify = 16,
-        Disqualify = 15,
+        Disqualify = 15
     }
 
     /**
@@ -4924,7 +4924,7 @@ declare namespace XrmEnum {
         Close = 3,
         Identify = 4,
         Research = 5,
-        Resolve = 6,
+        Resolve = 6
     }
 
     /**
@@ -4935,7 +4935,7 @@ declare namespace XrmEnum {
         RibbonContextForm = 1,
         RibbonContextListing = 2,
         FormContextUnrelated = 3,
-        FormContextRelated = 4,
+        FormContextRelated = 4
     }
 
     /**
@@ -4943,7 +4943,7 @@ declare namespace XrmEnum {
      */
     const enum ViewType {
         SystemView = 1039,
-        UserView = 4230,
+        UserView = 4230
     }
 
     /**
@@ -4970,7 +4970,7 @@ declare namespace XrmEnum {
         Virtual = 17,
         BigInt = 18,
         ManagedProperty = 19,
-        EntityName = 20,
+        EntityName = 20
     }
 
     /**
@@ -4980,7 +4980,7 @@ declare namespace XrmEnum {
         None = 0,
         SystemRequired = 1,
         ApplicationRequired = 2,
-        Recommended = 3,
+        Recommended = 3
     }
 
     /**
@@ -4988,7 +4988,7 @@ declare namespace XrmEnum {
      */
     const enum OpenFileOptions {
         Open = 1,
-        Save = 2,
+        Save = 2
     }
 
     /**
@@ -4996,7 +4996,7 @@ declare namespace XrmEnum {
      */
     const enum WindowPositions {
         Center = 1,
-        Side = 2,
+        Side = 2
     }
 
     /**
@@ -5004,7 +5004,7 @@ declare namespace XrmEnum {
      */
     const enum RelationshipType {
         OneToMany = 0,
-        ManyToMany = 1,
+        ManyToMany = 1
     }
 
     /**
@@ -5012,14 +5012,14 @@ declare namespace XrmEnum {
      */
     const enum RoleType {
         Referencing = 1,
-        AssociationEntity = 2,
+        AssociationEntity = 2
     }
 
     const enum ClientFormFactor {
         Unknown = 1,
         Desktop = 2,
         Tablet = 3,
-        Phone = 4,
+        Phone = 4
     }
 
     /**
