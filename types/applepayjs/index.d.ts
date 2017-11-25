@@ -85,19 +85,13 @@ declare class ApplePaySession extends EventTarget {
      * Completes the validation for a merchant session.
      * @param merchantSession - An opaque message session object.
      */
-    completeMerchantValidation(merchantSession: object): void;
+    completeMerchantValidation(merchantSession: any): void;
 
     /**
-     * Completes the payment authorization with a result for Apple Pay JS versions 1 and 2.
-     * @param status - The status of the payment, whether it succeeded or failed.
+     * Completes the payment authorization with a result.
+     * @param result - The status of the payment, whether it succeeded or failed for Apple Pay JS versions 1 and 2, or the result of the payment authorization, including its status and list of errors for Apple Pay JS version 3.
      */
-    completePayment(status: number): void;
-
-    /**
-     * Completes the payment authorization with a result for Apple Pay JS version 3.
-     * @param result - The result of the payment authorization, including its status and list of errors.
-     */
-    completePayment(result: ApplePayJS.ApplePayPaymentAuthorizationResult): void;
+    completePayment(result: number | ApplePayJS.ApplePayPaymentAuthorizationResult): void;
 
     /**
      * Call after a payment method has been selected for Apple Pay JS versions 1 and 2.
@@ -143,7 +137,7 @@ declare class ApplePaySession extends EventTarget {
      * Completes the selection of a shipping method with an update for Apple Pay JS version 3.
      * @param update - The updated shipping method.
      */
-    completeShippingMethodSelection(update: ApplePayJS.ApplePayShippingMethodUpdate): void
+    completeShippingMethodSelection(update: ApplePayJS.ApplePayShippingMethodUpdate): void;
 
     /**
      * The requested action succeeded.
@@ -187,7 +181,6 @@ declare class ApplePaySession extends EventTarget {
 }
 
 declare namespace ApplePayJS {
-
     /**
      * Field names used for requesting contact information in a payment request.
      */
