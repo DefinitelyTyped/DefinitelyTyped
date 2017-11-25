@@ -32,7 +32,12 @@ const newLatLng = new L.LatLng(50.8, 30.2);
 heat.addLatLng(newLatLng);
 
 // Set new latLng list to the heat layer
-heat.setLatLngs([newLatLng, newLatLng, newLatLng, [50.6, 30.4, 0.5],]);
+heat.setLatLngs([
+    newLatLng,
+    newLatLng,
+    newLatLng,
+    [50.6, 30.4, 0.5],
+]);
 
 // Redraw the heat layer
 heat.redraw();
