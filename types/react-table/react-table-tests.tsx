@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 // Import React Table
-import { ReactTable } from "react-table";
+import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 const columns = [

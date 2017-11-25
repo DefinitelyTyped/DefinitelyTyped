@@ -44,6 +44,14 @@ interface Person {
 
 const personFactory = Factory.define<Person>('Person').attr('firstName', 'John').sequence('id');
 
+// Building does not require the first (attributes) and second (options) arguments
+personFactory.build();
+personFactory.buildList(3);
+
+// Building with attributes does not require the second (options) argument
+personFactory.build({ firstName: "John" });
+personFactory.buildList(3, { firstName: "John" });
+
 // It will automatically type up to five dependencies
 personFactory.attr('fullName', ['firstName'], firstName => firstName);
 personFactory.attr('fullName', ['firstName', 'lastName'], (firstName, lastName) => lastName);
@@ -54,8 +62,35 @@ personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstN
 // You can go past five dependencies, but you need to specify types
 personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstName', 'firstName'], (firstName: string, lastName: string, age1: number, age2: number, firstNameAgain: string, firstNameThisIsTooMuch: string) => ({ name: firstNameAgain, value: age1 + age2 }));
 
-const personObj = Factory.build<Person>('Person');
-if (personObj.firstName !== 'John') { throw new Error('incorrect Person build'); }
+// Having defined 'Person', `build` will return an object of type Person, using the generic type.
+const person = Factory.build<Person>('Person');
+let aString = '';
+aString = person.firstName;
+
+class CustomClass {
+  type: string;
+
+  constructor(props: { type: string }) {
+    this.type = props.type;
+  }
+}
+
+Factory.define<CustomClass>('CustomClass', CustomClass);
+
+class CustomClass2 {
+  constructor(prop1: string, prop2: string, prop3: string) {
+  }
+}
+
+Factory.define<CustomClass2>('CustomClass2', CustomClass2);
+
+class CustomClassWithoutConstructor {
+  constructor() {
+    // set some state
+  }
+}
+
+Factory.define<CustomClassWithoutConstructor>('CustomClassWithoutConstructor', CustomClassWithoutConstructor);
 
 import rosie = require('rosie');
 

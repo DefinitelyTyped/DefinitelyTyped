@@ -316,26 +316,26 @@ interface ICounterDispatchProps {
     onIncrement: () => void
 }
 // with higher order functions
-connect<ICounterStateProps, ICounterDispatchProps>(
+connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     () => mapStateToProps,
     () => mapDispatchToProps
 )(Counter);
 // with higher order functions using parameters
-connect<ICounterStateProps, ICounterDispatchProps, {}>(
+connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     (initialState: CounterState, ownProps) => mapStateToProps,
     (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
 )(Counter);
 // only first argument
-connect<ICounterStateProps>(
+connect<ICounterStateProps, {}, {}, CounterState>(
     () => mapStateToProps
 )(Counter);
 // wrap only one argument
-connect<ICounterStateProps, ICounterDispatchProps>(
+connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     mapStateToProps,
     () => mapDispatchToProps
 )(Counter);
 // with extra arguments
-connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICounterDispatchProps>(
+connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICounterDispatchProps, CounterState>(
     () => mapStateToProps,
     () => mapDispatchToProps,
     (s: ICounterStateProps, d: ICounterDispatchProps) =>
@@ -652,7 +652,7 @@ namespace TestTOwnPropsInference {
     type PickedOwnProps = Pick<AllProps, "own">
     type PickedStateProps = Pick<AllProps, "state">
 
-    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps> = (state: any): PickedStateProps => {
+    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps, {}> = (state: any): PickedStateProps => {
         return { state: "string" }
     }
     const ConnectedWithPickedOwnProps = connect(mapStateToPropsForPicked)(AllPropsComponent);
@@ -878,8 +878,8 @@ namespace TestCreateProvider {
 
     interface AProps { a: number };
     const A = (props: AProps) => (<h1>A is {props.a}</h1>);
-    const A1 = connect<AProps>(state => state)(A);
-    const A2 = myStoreConnect<AProps>(state => state)(A);
+    const A1 = connect<AProps, {}, {}, State>(state => state)(A);
+    const A2 = myStoreConnect<AProps, {}, {}, State>(state => state)(A);
 
     const Combined = () => (
         <Provider store={store}>

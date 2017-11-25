@@ -14,7 +14,7 @@ declare namespace rosie {
      * @param {function(object): *=} constructor
      * @return {Factory}
      */
-    define<T = any>(name: string, constructor?: (opts?: any) => any): IFactory<T>;
+    define<T = any>(name: string, constructor?: ((...opts: any[]) => any) | (new<T>(...opts: any[]) => any)): IFactory<T>;
 
     /**
      * Locates a factory by name and calls #build on it.
@@ -210,9 +210,9 @@ declare namespace rosie {
      * @param {object=} options
      * @return {*}
      */
-    build(attributes: { [k in keyof T]?: T[k] }, options?: any): T;
+    build(attributes?: { [k in keyof T]?: T[k] }, options?: any): T;
 
-    buildList(size: number, attributes: { [k in keyof T]?: T[k] }, options: any): T[];
+    buildList(size: number, attributes?: { [k in keyof T]?: T[k] }, options?: any): T[];
 
     /**
      * Extends a given factory by copying over its attributes, options,

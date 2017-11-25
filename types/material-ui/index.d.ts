@@ -111,7 +111,7 @@ declare module "material-ui" {
     export import StepContentProps = __MaterialUI.Stepper.StepContentProps;
     export import StepLabel = __MaterialUI.Stepper.StepLabel;
     export import StepLabelProps = __MaterialUI.Stepper.StepLabelProps;
-    export import Stepper = __MaterialUI.Stepper;
+    export import Stepper = __MaterialUI.Stepper.Stepper;
     export import StepperProps = __MaterialUI.Stepper.StepperProps;
     export import Snackbar = __MaterialUI.Snackbar;
     export import SnackbarProps = __MaterialUI.SnackbarProps;
@@ -947,6 +947,7 @@ declare namespace __MaterialUI {
     export interface ChipProps {
         backgroundColor?: string;
         className?: string;
+        containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
         onRequestDelete?: React.TouchEventHandler<Chip>;

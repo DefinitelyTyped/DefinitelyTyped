@@ -42,6 +42,11 @@ client
       });
   });
 
+// allow passing trusted CA as option to TestAgent
+supertest.agent(app, {
+  ca: 'test ca',
+});
+
 // functional expect
 (request
   .get('/') as supertest.Test)

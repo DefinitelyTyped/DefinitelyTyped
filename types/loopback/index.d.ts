@@ -14,7 +14,7 @@
 ************************************************/
 
 import * as core from "express-serve-static-core";
-import { NextFunction } from "express";
+import { NextFunction, RequestHandler } from "express";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
@@ -1693,7 +1693,7 @@ declare namespace l {
        * Serve the LoopBack favicon.
        * @header loopback.favicon(
        */
-      function favicon(): void;
+      function favicon(): RequestHandler;
 
       /**
        * Expose models over REST
@@ -1704,7 +1704,7 @@ declare namespace l {
        * For more information, see [Exposing models over a REST API](docs.strongloop.com/display/DOC/Exposing+models+over+a+REST+API).
        * @header loopback.rest(
        */
-      function rest(): void;
+      function rest(): RequestHandler;
 
       /**
        * Serve static assets of a LoopBack application
@@ -1715,7 +1715,7 @@ declare namespace l {
        *   for the full list of available options.
        * @header loopback.static(root, [options])
        */
-      function static(root: string, options: any): void;
+      function static(root: string, options?: any): RequestHandler;
 
       /**
        * Return HTTP response with basic application status information:
@@ -1727,12 +1727,12 @@ declare namespace l {
        * }
        * ```
        */
-      function status(): void;
+      function status(): RequestHandler;
 
       /**
        * Rewrite the url to replace current user literal with the logged in user id
        */
-      function rewriteUserLiteral(): void;
+      function rewriteUserLiteral(): RequestHandler;
 
       /**
        * Check for an access token in cookies, headers, and query string parameters.
@@ -1775,14 +1775,14 @@ declare namespace l {
                   overwriteExistingToken?: boolean,
                   model?(): void|string,
                   currentUserLiteral?: string
-            }): void;
+            }): RequestHandler;
 
       /**
        * Convert any request not handled so far to a 404 error
        * to be handled by error-handling middleware.
        * @header loopback.urlNotFound(
        */
-      function urlNotFound(): void;
+      function urlNotFound(): RequestHandler;
 
       /**
        * Token based authentication and access control

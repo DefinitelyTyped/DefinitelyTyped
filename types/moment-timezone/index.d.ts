@@ -18,6 +18,7 @@ declare module "moment" {
 
         abbr(timestamp: number): string;
         offset(timestamp: number): number;
+        utcOffset(timestamp: number): number;
         parse(timestamp: number): number;
     }
 

@@ -1,3 +1,5 @@
+import { NightwatchAPI, NightwatchTests } from 'nightwatch';
+
 const test: NightwatchTests = {
   'Demo test Google': (browser) => {
     browser

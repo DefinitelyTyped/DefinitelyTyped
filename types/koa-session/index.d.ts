@@ -2,6 +2,7 @@
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 // Definitions: https://github.com/kerol2r20/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -108,7 +109,7 @@ declare function session(app: Koa): Koa.Middleware;
 
 declare module 'koa' {
     interface Context {
-        session: session.sessionProps;
+        session: session.sessionProps | null;
     }
 }
 

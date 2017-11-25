@@ -37,8 +37,10 @@ export function color(name: string, value: string): string;
 
 export function object<T>(name: string, value: T): T;
 
-export function select<T>(name: string, options: { [s: string]: T }, value: string): T;
-export function select(name: string, options: string[], value: string): string;
+export type SelectValue = string | number;
+export function select<T extends string>(name: string, options: { [s: string]: string }, value: T): T;
+export function select<T extends number>(name: string, options: { [s: number]: string }, value: T): T;
+export function select<T extends SelectValue>(name: string, options: T[], value: T): T;
 
 export function date(name: string, value?: Date): Date;
 

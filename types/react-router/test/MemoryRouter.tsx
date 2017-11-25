@@ -12,8 +12,13 @@ const initialRouterEntries = [
   }
 ];
 
+const getConfirmation = (message: string, callback: (ok: boolean) => void): void => {
+  const allowTransition = window.confirm(message);
+  callback(allowTransition);
+};
+
 const MemoryRouterExample = () => (
-  <MemoryRouter initialEntries={initialRouterEntries} initialIndex={1}>
+  <MemoryRouter initialEntries={initialRouterEntries} initialIndex={1} getUserConfirmation={getConfirmation}>
     <div>
       <ul>
         <li><Link to="/">Home</Link></li>

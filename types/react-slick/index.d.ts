@@ -1,6 +1,8 @@
-// Type definitions for react-slick 0.14
+// Type definitions for react-slick 0.15
 // Project: https://github.com/akiran/react-slick
-// Definitions by: Andrey Balokha <https://github.com/andrewBalekha>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,6 +14,8 @@ export interface CustomArrowProps {
   className?: string;
   style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<any>;
+  currentSlide?: number;
+  slideCount?: number;
 }
 
 export interface ResponsiveObject {

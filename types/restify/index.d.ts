@@ -64,9 +64,6 @@ export interface AddressInterface {
 export interface Server extends http.Server {
     /**
      * Returns the server address. Wraps node's address().
-     * @public
-     * @function address
-     * @returns  {String}
      */
     address(): AddressInterface;
 
@@ -78,106 +75,83 @@ export interface Server extends http.Server {
      *  server.listen(80, '127.0.0.1')
      *  server.listen('/tmp/server.sock')
      *
-     * @public
-     * @function listen
      * @throws   {TypeError}
-     * @param    {Function}  callback optionally get notified when listening.
-     * @returns  {undefined}
+     * @param     callback optionally get notified when listening.
      */
     listen(...args: any[]): any;
 
     /**
      * Shuts down this server, and invokes callback (optionally) when done.
      * Wraps node's close().
-     * @public
-     * @function close
-     * @param    {Function}  callback optional callback to invoke when done.
-     * @returns  {undefined}
+     * @param     callback optional callback to invoke when done.
      */
     close(...args: any[]): any;
 
     /**
      * Returns the number of currently inflight requests.
-     * @public
-     * @function inflightRequests
-     * @returns  {Number}
      */
     inflightRequests(): number;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function del
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     del(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function get
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     get(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function head
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     head(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function opts
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     opts(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function post
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     post(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function put
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     put(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
     /**
      * Mounts a chain on the given path against this HTTP verb
      *
-     * @public
-     * @function patch
-     * @param   {String | Object} opts if string, the URL to handle.
+     * @param   opts if string, the URL to handle.
      *                                 if options, the URL to handle, at minimum.
-     * @returns {Route}                the newly created route.
+     * @returns                the newly created route.
      */
     patch(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
 
@@ -195,11 +169,9 @@ export interface Server extends http.Server {
      *     // load the user's information here, always making sure to call next()
      *   });
      *
-     * @public
-     * @function param
-     * @param    {String}   name The name of the URL param to respond to
-     * @param    {Function} fn   The middleware function to execute
-     * @returns  {Object}        returns self
+     * @param      name The name of the URL param to respond to
+     * @param    fn   The middleware function to execute
+     * @returns         returns self
      */
     param(name: string, fn: RequestHandler): Server;
 
@@ -216,24 +188,19 @@ export interface Server extends http.Server {
      *     // do stuff that only applies to routes of this API version
      *   });
      *
-     * @public
-     * @function versionedUse
-     * @param    {String|Array} versions the version(s) the URL to respond to
-     * @param    {Function}     fn       the middleware function to execute, the
+     * @param    versions the version(s) the URL to respond to
+     * @param        fn       the middleware function to execute, the
      *                                   fourth parameter will be the selected
      *                                   version
-     * @returns  {undefined}
      */
     versionedUse(versions: string | string[], fn: RequestHandler): Server;
 
     /**
      * Removes a route from the server.
      * You pass in the route 'blob' you got from a mount call.
-     * @public
-     * @function rm
      * @throws   {TypeError} on bad input.
-     * @param    {String}    route the route name.
-     * @returns  {Boolean}         true if route was removed, false if not.
+     * @param       route the route name.
+     * @returns          true if route was removed, false if not.
      */
     rm(route: string): boolean;
 
@@ -242,9 +209,7 @@ export interface Server extends http.Server {
      * routes.
      *
      * You can pass in any combination of functions or array of functions.
-     * @public
-     * @function use
-     * @returns {Object} returns self
+     * @returns returns self
      */
     use(...handlers: RequestHandlerType[]): Server;
 
@@ -252,25 +217,17 @@ export interface Server extends http.Server {
      * Gives you hooks to run _before_ any routes are located.  This gives you
      * a chance to intercept the request and change headers, etc., that routing
      * depends on.  Note that req.params will _not_ be set yet.
-     * @public
-     * @function pre
-     * @returns {Object} returns self
+     * @returns returns self
      */
     pre(...pre: RequestHandlerType[]): Server;
 
     /**
      * toString() the server for easy reading/output.
-     * @public
-     * @function toString
-     * @returns  {String}
      */
     toString(): string;
 
     /**
      * Return debug information about the server.
-     * @public
-     * @method getDebugInfo
-     * @returns {Object}
      */
     getDebugInfo(): any;
 
@@ -311,52 +268,39 @@ export interface RouterOptions {
 export interface Router {
     /**
      * takes an object of route params and query params, and 'renders' a URL.
-     * @public
-     * @function render
-     * @param    {String} routeName the route name
-     * @param    {Object} params    an object of route params
-     * @param    {Object} query     an object of query params
-     * @returns  {String}
+     * @param    routeName the route name
+     * @param    params    an object of route params
+     * @param    query     an object of query params
      */
     render(routeName: string, params: any, query?: any): string;
 
     /**
      * adds a route.
-     * @public
-     * @function mount
-     * @param    {Object} options an options object
-     * @returns  {String} returns the route name if creation is successful.
+     * @param    options an options object
+     * @returns  returns the route name if creation is successful.
      */
     mount(options: RouteOptions): string | boolean;
 
     /**
      * unmounts a route.
-     * @public
-     * @function unmount
-     * @param    {String} name the route name
-     * @returns  {String}      the name of the deleted route.
+     * @param    name the route name
+     * @returns       the name of the deleted route.
      */
     unmount(name: string): string;
 
     /**
      * get a route from the router.
-     * @public
-     * @function get
-     * @param    {String}    name the name of the route to retrieve
-     * @param    {Object}    req  the request object
-     * @param    {Function}  cb   callback function
-     * @returns  {undefined}
+     * @param       name the name of the route to retrieve
+     * @param       req  the request object
+     * @param     cb   callback function
      */
     get(name: string, req: Request, cb: FindRouteCallback): void;
 
     /**
      * find a route from inside the router, handles versioned routes.
-     * @public
-     * @function find
-     * @param    {Object}   req      the request object
-     * @param    {Object}   res      the response object
-     * @param    {Function} callback callback function
-     * @returns  {undefined}
+     * @param      req      the request object
+     * @param      res      the response object
+     * @param    callback callback function
      */
     find(req: Request, res: Response, callback: FindRouteCallback): void;
 
@@ -364,26 +308,20 @@ export interface Router {
      * Find a route by path. Scans the route list for a route with the same RegEx.
      * i.e. /foo/:param1/:param2 would match an existing route with different
      * parameter names /foo/:id/:name since the compiled RegExs match.
-     * @public
-     * @function findByPath
-     * @param    {String | RegExp}    path      a path to find a route for.
-     * @param    {Object}             options   an options object
-     * @returns  {Object}             returns the route if a match is found
+     * @param       path      a path to find a route for.
+     * @param                options   an options object
+     * @returns              returns the route if a match is found
      */
     findByPath(path: string | RegExp): Route;
 
     /**
      * toString() serialization.
-     * @public
-     * @function toString
-     * @returns  {String}
      */
     toString(): string;
 
     /**
      * Return information about the routes registered in the router.
-     * @public
-     * @returns {object} The routes in the router.
+     * @returns The routes in the router.
      */
     getDebugInfo(): any;
 
@@ -426,108 +364,69 @@ export interface Request extends http.IncomingMessage {
     /**
      * checks if the accept header is present and has the value requested.
      * e.g., req.accepts('html');
-     * @public
-     * @function accepts
-     * @param    {String | Array} types an array of accept type headers
-     * @returns  {Boolean}
+     * @param    types an array of accept type headers
      */
     accepts(types: string | string[]): boolean;
 
     /**
      * checks if the request accepts the encoding types.
-     * @public
-     * @function acceptsEncoding
-     * @param    {String | Array} types an array of accept type headers
-     * @returns  {Boolean}
+     * @param    types an array of accept type headers
      */
     acceptsEncoding(types: string | string[]): boolean;
 
     /**
      * gets the content-length header off the request.
-     * @public
-     * @function getContentLength
-     * @returns {Number}
      */
     getContentLength(): number;
 
     /**
      * pass through to getContentLength.
-     * @public
-     * @function contentLength
-     * @returns {Number}
      */
     contentLength(): number;
 
     /**
      * gets the content-type header.
-     * @public
-     * @function getContentType
-     * @returns {String}
      */
     getContentType(): string;
 
     /**
      * pass through to getContentType.
-     * @public
-     * @function contentType
-     * @returns {Number}
      */
     contentType(): string;
 
     /**
      * retrieves the complete URI requested by the client.
-     * @public
-     * @function getHref
-     * @returns {String}
      */
     getHref(): string;
 
     /**
      * pass through to getHref.
-     * @public
-     * @function href
-     * @returns {String}
      */
     href(): string;
 
     /**
      * retrieves the request uuid. was created when the request was setup.
-     * @public
-     * @function getId
-     * @returns  {String}
      */
     getId(): string;
 
     /**
      * pass through to getId.
-     * @public
-     * @function id
-     * @returns {String}
      */
     id(): string;
 
     /**
      * retrieves the cleaned up url path.
      * e.g., /foo?a=1  =>  /foo
-     * @public
-     * @function getPath
-     * @returns  {String}
      */
     getPath(): string;
 
     /**
      * pass through to getPath.
-     * @public
-     * @function path
-     * @returns {String}
      */
     path(): string;
 
     /**
      * returns the raw query string
-     * @public
-     * @function getQuery
-     * @returns  {String}
      */
     getQuery(): string;
 
@@ -541,129 +440,84 @@ export interface Request extends http.IncomingMessage {
 
     /**
      * returns ms since epoch when request was setup.
-     * @public
-     * @function time
-     * @returns  {Number}
      */
     time(): number;
 
     /**
      * returns a parsed URL object.
-     * @public
-     * @function getUrl
-     * @returns  {Object}
      */
     getUrl(): url.Url;
 
     /**
      * returns the accept-version header.
-     * @public
-     * @function getVersion
-     * @returns  {String}
      */
     getVersion(): string;
 
     /**
      * pass through to getVersion.
-     * @public
-     * @function version
-     * @returns {String}
      */
     version(): string;
 
     /**
      * returns the version of the route that matched.
-     * @public
-     * @function matchedVersion
-     * @returns {String}
      */
     matchedVersion(): string;
 
     /**
      * returns any header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
-     * @public
-     * @function header
-     * @param    {String} name  the name of the header
-     * @param    {String} value default value if header isn't found on the req
-     * @returns  {String}
+     * @param    name  the name of the header
+     * @param    value default value if header isn't found on the req
      */
     header(name: string, value?: string): string;
 
     /**
      * returns any trailer header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
-     * @public
-     * @function trailer
-     * @param    {String} name  the name of the header
-     * @param    {String} value default value if header isn't found on the req
-     * @returns  {String}
+     * @param    name  the name of the header
+     * @param    value default value if header isn't found on the req
      */
     trailer(name: string, value?: string): string;
 
     /**
      * Check if the incoming request contains the Content-Type header field, and
      * if it contains the given mime type.
-     * @public
-     * @function is
-     * @param    {String} type  a content-type header value
-     * @returns  {Boolean}
+     * @param    type  a content-type header value
      */
     is(type: string): boolean;
 
     /**
      * Check if the incoming request is chunked.
-     * @public
-     * @function isChunked
-     * @returns  {Boolean}
      */
     isChunked(): boolean;
 
     /**
      * Check if the incoming request is kept alive.
-     * @public
-     * @function isKeepAlive
-     * @returns  {Boolean}
      */
     isKeepAlive(): boolean;
 
     /**
      * Check if the incoming request is encrypted.
-     * @public
-     * @function isSecure
-     * @returns  {Boolean}
      */
     isSecure(): boolean;
 
     /**
      * Check if the incoming request has been upgraded.
-     * @public
-     * @function isUpgradeRequest
-     * @returns  {Boolean}
      */
     isUpgradeRequest(): boolean;
 
     /**
      * Check if the incoming request is an upload verb.
-     * @public
-     * @function isUpload
-     * @returns  {Boolean}
      */
     isUpload(): boolean;
 
     /**
      * toString serialization
-     * @public
-     * @function toString
-     * @returns  {String}
      */
     toString(): string;
 
     /**
      * retrieves the user-agent header.
-     * @public
-     * @function userAgent
-     * @returns  {String}
      */
     userAgent(): string;
 
@@ -671,28 +525,19 @@ export interface Request extends http.IncomingMessage {
      * Start the timer for a request handler function. You must explicitly invoke
      * endHandlerTimer() after invoking this function. Otherwise timing information
      * will be inaccurate.
-     * @public
-     * @function startHandlerTimer
-     * @param    {String}    handlerName The name of the handler.
-     * @returns  {undefined}
+     * @param       handlerName The name of the handler.
      */
     startHandlerTimer(handlerName: string): void;
 
     /**
      * Stop the timer for a request handler function.
-     * @public
-     * @function endHandlerTimer
-     * @param    {String}    handlerName The name of the handler.
-     * @returns  {undefined}
+     * @param       handlerName The name of the handler.
      */
     endHandlerTimer(handlerName: string): void;
 
     /**
      * returns the connection state of the request. current valid values are
      * 'close' and 'aborted'.
-     * @public
-     * @function connectionState
-     * @returns {String}
      */
     connectionState(): string;
 
@@ -705,9 +550,6 @@ export interface Request extends http.IncomingMessage {
      *  versions: [],
      *  name: 'getpingname'
      * }
-     * @public
-     * @function getRoute
-     * @returns {Object}
      */
     getRoute(): RouteSpec;
 
@@ -741,74 +583,54 @@ export interface Response extends http.ServerResponse {
     /**
      * sets the cache-control header. `type` defaults to _public_,
      * and options currently only takes maxAge.
-     * @public
-     * @function cache
-     * @param    {String} type    value of the header
-     * @param    {Object} [options] an options object
-     * @returns  {String}         the value set to the header
+     * @param    type    value of the header
+     * @param    [options] an options object
+     * @returns          the value set to the header
      */
     cache(type: string, options?: CacheOptions): string;
 
     /**
      * sets the cache-control header. `type` defaults to _public_,
      * and options currently only takes maxAge.
-     * @public
-     * @function cache
-     * @param    {Object} [options] an options object
-     * @returns  {String}         the value set to the header
+     * @param    [options] an options object
+     * @returns          the value set to the header
      */
     cache(options?: CacheOptions): string;
 
     /**
      * turns off all cache related headers.
-     * @public
-     * @function noCache
-     * @returns  {Object} self, the response object
+     * @returns  self, the response object
      */
     noCache(): Response;
 
     /**
      * Appends the provided character set to the response's Content-Type.
      * e.g., res.charSet('utf-8');
-     * @public
-     * @function charSet
-     * @param    {String} type char-set value
-     * @returns  {Object} self, the response object
+     * @param    type char-set value
+     * @returns  self, the response object
      */
     charSet(type: string): Response;
 
     /**
      * retrieves a header off the response.
-     * @public
-     * @function get
-     * @param    {Object} name the header name
-     * @returns  {String}
+     * @param    name the header name
      */
     get(name: string): string;
 
     /**
      * retrieves all headers off the response.
-     * @public
-     * @function getHeaders
-     * @returns  {Object}
      */
     getHeaders(): any;
 
     /**
      * pass through to getHeaders.
-     * @public
-     * @function headers
-     * @returns  {Object}
      */
     headers(): any;
 
     /**
      * sets headers on the response.
-     * @public
-     * @function header
-     * @param    {String} name  the name of the header
-     * @param    {String} value the value of the header
-     * @returns  {Object}
+     * @param    name  the name of the header
+     * @param    value the value of the header
      */
     header(name: string, value?: any): any;
 
@@ -816,12 +638,9 @@ export interface Response extends http.ServerResponse {
      * short hand method for:
      *     res.contentType = 'json';
      *     res.send({hello: 'world'});
-     * @public
-     * @function json
-     * @param    {Number} code    http status code
-     * @param    {Object} object    value to json.stringify
-     * @param    {Object} [headers] headers to set on the response
-     * @returns  {Object}
+     * @param    code    http status code
+     * @param    object    value to json.stringify
+     * @param    [headers] headers to set on the response
      */
     json(code: number, object: any, headers?: { [header: string]: string }): any;
 
@@ -829,97 +648,77 @@ export interface Response extends http.ServerResponse {
      * short hand method for:
      *     res.contentType = 'json';
      *     res.send({hello: 'world'});
-     * @public
-     * @function json
-     * @param    {Object} object    value to json.stringify
-     * @param    {Object} [headers] headers to set on the response
-     * @returns  {Object}
+     * @param    object    value to json.stringify
+     * @param    [headers] headers to set on the response
      */
     json(object: any, headers?: { [header: string]: string }): any;
 
     /**
      * sets the link heaader.
-     * @public
-     * @function link
-     * @param    {String} l   the link key
-     * @param    {String} rel the link value
-     * @returns  {String}     the header value set to res
+     * @param    l   the link key
+     * @param    rel the link value
+     * @returns      the header value set to res
      */
     link(l: string, rel: string): string;
 
     /**
      * sends the response object. pass through to internal __send that uses a
      * formatter based on the content-type header.
-     * @public
-     * @function send
-     * @param    {Number} [code] http status code
-     * @param    {Object | Buffer | Error} [body] the content to send
-     * @param    {Object} [headers]  any add'l headers to set
-     * @returns  {Object} the response object
+     * @param    [code] http status code
+     * @param    [body] the content to send
+     * @param    [headers]  any add'l headers to set
+     * @returns  the response object
      */
     send(code?: any, body?: any, headers?: { [header: string]: string }): any;
 
     /**
      * sends the response object. pass through to internal __send that skips
      * formatters entirely and sends the content as is.
-     * @public
-     * @function sendRaw
-     * @param    {Number} [code] http status code
-     * @param    {Object | Buffer | Error} [body] the content to send
-     * @param    {Object} [headers]  any add'l headers to set
-     * @returns  {Object} the response object
+     * @param    [code] http status code
+     * @param    [body] the content to send
+     * @param    [headers]  any add'l headers to set
+     * @returns  the response object
      */
     sendRaw(code?: any, body?: any, headers?: { [header: string]: string }): any;
 
     /**
      * sets a header on the response.
-     * @public
-     * @function set
-     * @param    {String} name name of the header
-     * @param    {String} val  value of the header
-     * @returns  {Object}      self, the response object
+     * @param    name name of the header
+     * @param    val  value of the header
+     * @returns       self, the response object
      */
     set(name: string, val: string): Response;
 
     /**
      * sets the http status code on the response.
-     * @public
-     * @function status
-     * @param    {Number} code http status code
-     * @returns  {Number}     the status code passed in
+     * @param    code http status code
+     * @returns      the status code passed in
      */
     status(code: number): number;
 
     /**
      * toString() serialization.
-     * @public
-     * @function toString
-     * @returns  {String}
      */
     toString(): string;
 
-    /** redirect is sugar method for redirecting.
+    /**
+     * redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
      * `next` is mandatory, to complete the response and trigger audit logger.
-     * @public
-     * @param    {Number}   code the status code
-     * @param    {String}   url to redirect to
-     * @param    {Function} next fn
+     * @param      code the status code
+     * @param      url to redirect to
+     * @param    next fn
      * @emits    redirect
-     * @function redirect
-     * @return   {undefined}
      */
     redirect(code: number, url: string, next: Next): void;
 
-    /** redirect is sugar method for redirecting.
+    /**
+     * redirect is sugar method for redirecting.
      * res.redirect({...}, next);
      * `next` is mandatory, to complete the response and trigger audit logger.
-     * @public
-     * @param    {Object | String}   options the options or url to redirect to
-     * @param    {Function} next fn
+     * @param      options the options or url to redirect to
+     * @param    next fn
      * @emits    redirect
-     * @function redirect
-     * @return   {undefined}
      */
     redirect(options: object | string, next: Next): void;
 
@@ -1076,9 +875,6 @@ export namespace plugins {
          */
         function context(): RequestHandler;
 
-        /**
-         *
-         */
         function dedupeSlashes(): RequestHandler;
 
         /**
@@ -1140,9 +936,6 @@ export namespace plugins {
          */
         printLog?: boolean;
 
-        /**
-         *
-         */
         body?: boolean;
     }
 
@@ -1232,14 +1025,8 @@ export namespace plugins {
          */
         rejectUnknown?: boolean;
 
-        /**
-         *
-         */
         reviver?: any;
 
-        /**
-         *
-         */
         maxFieldsSize?: number;
     }
 
@@ -1376,7 +1163,7 @@ export namespace plugins {
     function gzipResponse(options?: any): RequestHandler;
 
     interface ServeStatic {
-        appendRequestPath?: boolean | undefined;
+        appendRequestPath?: boolean;
         directory?: string;
         maxAge?: number;
         match?: any;
@@ -1409,9 +1196,6 @@ export namespace plugins {
          */
         err: Error;
 
-        /**
-         *
-         */
         metrics: MetricsCallbackOptions;
 
         req: Request;
@@ -1522,9 +1306,6 @@ export namespace pre {
      */
     function context(): RequestHandler;
 
-    /**
-     *
-     */
     function dedupeSlashes(): RequestHandler;
 
     /**

@@ -10,6 +10,7 @@ export interface LinkState {
     onError?(error: any): void;
     href?: string | UrlLike;
     as?: string | UrlLike;
+    passHref?: boolean;
     children: React.ReactElement<any>;
 }
 

@@ -85,3 +85,7 @@ msg.destinationName = "test/topic5";
 msg.qos = 2;
 
 client.disconnect();
+
+import { Message, Client, Qos } from "paho-mqtt";
+new Message("some string").destinationName = "test/topic6";
+const qos: Qos = new Message(new Uint8Array(4)).qos = 0;
