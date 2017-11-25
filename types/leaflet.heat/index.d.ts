@@ -1,12 +1,12 @@
-// Type definitions for Leaflet.heat v0.2.0
+// Type definitions for Leaflet.heat 0.2
 // Project: https://github.com/Leaflet/Leaflet.heat
 // Definitions by: Önder Ceylan <https://github.com/onderceylan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     type HeatLatLngTuple = [number, number, number];
 
     interface ColorGradientConfig {
@@ -26,6 +26,7 @@ declare namespace L {
         setOptions(options: HeatMapOptions): HeatLayer;
         addLatLng(latlng: LatLng | HeatLatLngTuple): HeatLayer;
         setLatLngs(latlngs: Array<LatLng | HeatLatLngTuple>): HeatLayer;
+        redraw(): TileLayer;
     }
 
     function heatLayer(latlngs: Array<LatLng | HeatLatLngTuple>, options: HeatMapOptions): HeatLayer;
