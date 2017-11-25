@@ -21,7 +21,7 @@ describe("ApplePaySession", () => {
         }
     });
     it("the contact fields are defined", () => {
-        const contacts = [
+        const contactFields = [
             ApplePayJS.ApplePayContactField.email,
             ApplePayJS.ApplePayContactField.name,
             ApplePayJS.ApplePayContactField.phone,
@@ -38,7 +38,7 @@ describe("ApplePaySession", () => {
         ];
     });
     it("the error contact fields are defined", () => {
-        const contacts = [
+        const errorContacts = [
             ApplePayJS.ApplePayErrorContactField.addressLines,
             ApplePayJS.ApplePayErrorContactField.administrativeArea,
             ApplePayJS.ApplePayErrorContactField.country,
@@ -55,13 +55,13 @@ describe("ApplePaySession", () => {
         ];
     });
     it("the line item types are defined", () => {
-        const errorCodes = [
+        const lineItemTypes = [
             ApplePayJS.ApplePayLineItemType.final,
             ApplePayJS.ApplePayLineItemType.pending
         ];
     });
     it("the merchant capabilities are defined", () => {
-        const errorCodes = [
+        const capabilities = [
             ApplePayJS.ApplePayMerchantCapability.supports3DS,
             ApplePayJS.ApplePayMerchantCapability.supportsCredit,
             ApplePayJS.ApplePayMerchantCapability.supportsDebit,
@@ -69,7 +69,7 @@ describe("ApplePaySession", () => {
         ];
     });
     it("the payment method types are defined", () => {
-        const errorCodes = [
+        const paymentMethods = [
             ApplePayJS.ApplePayPaymentMethodType.credit,
             ApplePayJS.ApplePayPaymentMethodType.debit,
             ApplePayJS.ApplePayPaymentMethodType.prepaid,
@@ -77,7 +77,7 @@ describe("ApplePaySession", () => {
         ];
     });
     it("the shipping types are defined", () => {
-        const errorCodes = [
+        const shippingTypes = [
             ApplePayJS.ApplePayShippingType.delivery,
             ApplePayJS.ApplePayShippingType.servicePickup,
             ApplePayJS.ApplePayShippingType.shipping,
