@@ -9,9 +9,9 @@ export = SockJS;
 export as namespace SockJS;
 
 declare const SockJS: {
-    new (url: string, _reserved?: any, options?: SockJS.Options): SockJS.Socket;
-    (url: string, _reserved?: any, options?: SockJS.Options): SockJS.Socket;
-    prototype: SockJS.Socket;
+    new (url: string, _reserved?: any, options?: SockJS.Options): WebSocket;
+    (url: string, _reserved?: any, options?: SockJS.Options): WebSocket;
+    prototype: WebSocket;
     CONNECTING: SockJS.CONNECTING;
     OPEN: SockJS.OPEN;
     CLOSING: SockJS.CLOSING;
@@ -48,16 +48,5 @@ declare namespace SockJS {
         server?: string;
         sessionId?: number | SessionGenerator;
         transports?: string | string[];
-    }
-
-    interface Socket extends EventTarget {
-        readyState: State;
-        protocol: string;
-        url: string;
-        onopen(e: OpenEvent): any;
-        onclose(e: CloseEvent): any;
-        onmessage(e: MessageEvent): any;
-        send(data: any): void;
-        close(code?: number, reason?: string): void;
     }
 }
