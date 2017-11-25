@@ -37,7 +37,7 @@ declare namespace Xrm {
         /**
          * Provides a namespace container for the context, data and ui objects.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         Page: Page;
 
@@ -69,7 +69,7 @@ declare namespace Xrm {
          *
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi External Link: Xrm.WebApi (Client API reference)}
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/use-microsoft-dynamics-365-web-api External Link: Use the Customer Engagement Web API}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/webapi/get-started-web-api-client-side-javascript Get started with the Customer Engagement Web API (client-side JavaScript)}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/webapi/get-started-web-api-client-side-javascript External Link: Get started with the Customer Engagement Web API (client-side JavaScript)}
          */
         WebApi: WebApi;
 
@@ -375,7 +375,7 @@ declare namespace Xrm {
         /**
          * Gets whether automatic save is enabled.
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.isAutoSaveEnabled globalContext.organizationSettings.isAutoSaveEnabled} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns true if automatic saving is enabled, otherwise false.
          */
         getIsAutoSaveEnabled(): boolean;
@@ -383,7 +383,7 @@ declare namespace Xrm {
         /**
          * Gets organization's LCID (language code).
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.languageId globalContext.organizationSettings.languageId} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The organization language code.
          * @see {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx External Link: Microsoft Locale ID Values}
          */
@@ -394,7 +394,7 @@ declare namespace Xrm {
          *
          * Note: This value can be found on the Developer Resources page within Dynamics CRM.
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.uniqueName} globalContext.organizationSettings.uniqueName instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The organization's unique name.
          */
         getOrgUniqueName(): string;
@@ -403,7 +403,7 @@ declare namespace Xrm {
          * Gets query string parameters.
          * @returns The query string parameters, in a dictionary object representing name and value pairs.
          * @deprecated Deprecated in v9 (Still applicable in Web Client).
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         getQueryStringParameters(): { [index: string]: any };
 
@@ -417,7 +417,7 @@ declare namespace Xrm {
         /**
          * Gets user's unique identifier.
          * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.userId globalContext.userSettings.userId} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's identifier in Guid format.
          * @example Example: "{B05EC7CE-5D51-DF11-97E0-00155DB232D0}"
          */
@@ -426,7 +426,7 @@ declare namespace Xrm {
         /**
          * Gets user's LCID (language code).
          * @deprecated Deprecated in v9. Use {@link Xrm.UserSettings.languageId globalContext.userSetings.languageId} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's language code.
          *
          * @see {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx External Link: Microsoft Locale ID Values}
@@ -436,7 +436,7 @@ declare namespace Xrm {
         /**
          * Gets the name of the current user.
          * @deprecated Deprecated in v9. Use {@link Xrm.UserSettings.userName globalContext.userSettings.userName} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's name.
          */
         getUserName(): string;
@@ -444,7 +444,7 @@ declare namespace Xrm {
         /**
          * Gets all user security roles.
          * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.securityRoles globalContext.userSettings.securityRoles} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns An array of user role identifiers, in Guid format.
          * @example Example: ["cf4cc7ce-5d51-df11-97e0-00155db232d0"]
          */
@@ -541,6 +541,9 @@ declare namespace Xrm {
 
         /**
          * Interface for the event context.
+         * In the API documentation, this is sometimes refferred to as the executionContext.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/clientapi-execution-context External Link: Client API execution context}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface EventContext {
             /**
@@ -994,7 +997,7 @@ declare namespace Xrm {
         /**
          * Displays an alert dialog, with an "OK" button.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openAlertDialog} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param message The message.
          * @param onCloseCallback The "OK" callback.
          */
@@ -1003,7 +1006,7 @@ declare namespace Xrm {
         /**
          * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openConfirmDialog} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param message The message.
          * @param yesCloseCallback The "OK" callback.
          * @param noCloseCallback The "Cancel" callback.
@@ -1015,7 +1018,7 @@ declare namespace Xrm {
          * @deprecated Deprecated in v9. Use {@link Xrm.Utility.getEntityMetadata  Xrm.Utility.getEntityMetadata(entityName, ["IsActivity"])} instead.
          * @remarks The isActivityType method is synchronous so it was suitable for ribbon rules.
          * However, the replacement method, getEntityMetadata, is asynchronous, and is not suitable for ribbon rules.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param entityType Type of the entity.
          * @returns true if the entity is an Activity, false if not.
          */
@@ -1024,7 +1027,7 @@ declare namespace Xrm {
         /**
          * Opens quick create.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openForm} instead with the option {useQuickCreateForm:true}.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param entityLogicalName  The logical name of the entity to create.
          * @param createFromEntity (Optional) Designates a record that will provide default values based on mapped attribute values.
          * @param parameters (Optional) A dictionary object that passes extra query string parameters to the form. Invalid query string parameters will cause an error.
@@ -1036,7 +1039,7 @@ declare namespace Xrm {
         /**
          * Opens an entity form.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openForm} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param name The entity's logical name.
          * @param id (Optional) The unique identifier for the record.
          * @param parameters (Optional) A dictionary object that passes extra query string parameters to the form.
@@ -1047,7 +1050,7 @@ declare namespace Xrm {
         /**
          * Opens an HTML Web Resource in a new browser window.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openWebResource} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param webResourceName Name of the HTML web resource. Can be used to pass URL parameters.  See Remarks.
          * @param webResourceData (Optional) Data to pass into the Web Resource's data parameter. It is advised to use encodeURIcomponent() to encode the value.
          * @param width (Optional) The width of the new window.
@@ -1073,7 +1076,7 @@ declare namespace Xrm {
          * Provides methods to create and manage records in the mobile clients while working in the offline mode.
          * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx External Link: Xrm.Mobile.offline (client-side reference)}
          * @deprecated Use {@link Xrm.WebApi.offline} instead.  Xrm.WebApi.offline is implemented differently than Xrm.Mobile.offline
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         offline: MobileOffline;
     }
@@ -1082,7 +1085,7 @@ declare namespace Xrm {
      * Interface for the Mobile.offline methods to create and manage records in the mobile clients while working in the offline mode.
      * @deprecated Use {@link Xrm.WebApi.offline} instead.  Xrm.WebApi.offline is implemented differently than Xrm.Mobile.offline
      * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx External Link: Xrm.Mobile.offline (client-side reference)}
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
      */
     interface MobileOffline {
         /**
@@ -1090,7 +1093,7 @@ declare namespace Xrm {
          * @param entityType The logical name of the entity.
          * @returns True if the entity is offline enabled; otherwise False.
          * @deprecated Use {@link Xrm.WebApi.isAvailableOffline} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         isOfflineEnabled(entityType: string): boolean;
 
@@ -1105,7 +1108,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.createRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         createRecord(entityType: string, data: { [attributeName: string]: any }): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
@@ -1124,7 +1127,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.retrieveRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         retrieveRecord(entityType: string, id: string, options: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
@@ -1147,7 +1150,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.retrieveMultipleRecords} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         retrieveMultipleRecords(entityType: string, options: string, maxPageSize: number): Async.PromiseLike<Array<{ [key: string]: any }>>;
 
@@ -1163,7 +1166,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.updateRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         updateRecord(entityType: string, id: string, data: { [attributeName: string]: any }): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
@@ -1174,7 +1177,7 @@ declare namespace Xrm {
          * @returns Returns an asynchronous promise.
          * @remarks  You cannot delete intersect and activity party entities.
          * @deprecated Use {@link Xrm.WebApi.deleteRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         deleteRecord(entityType: string, id: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
     }
@@ -1318,7 +1321,7 @@ declare namespace Xrm {
 
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections Collections (Client API reference)}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         type ItemCollection<T> = Dictionary<T> & {
             /**
@@ -1382,13 +1385,13 @@ declare namespace Xrm {
     /**
      * Interface for Page context
      * @deprecated Use {@link Xrm.Events.EventContext.getFormContext formContext} instead.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}a
+     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}a
      */
     interface Page extends FormContext {
         /**
          * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         context: GlobalContext;
     }
@@ -1396,7 +1399,7 @@ declare namespace Xrm {
     /**
      * Xrm.Page namespace has been deprecated
      * @deprecated Use {@link Xrm.Events.EventContext.getFormContext formContext} instead.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
      */
     namespace Page {
         /**
@@ -2569,7 +2572,7 @@ declare namespace Xrm {
              * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
              * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
              * @deprecated Deprecated in v9.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * @param handler The function reference.
              */
             addOnKeyPress(handler: Events.ContextSensitiveHandler): void;
@@ -2582,7 +2585,7 @@ declare namespace Xrm {
             /**
              * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
              * @deprecated Deprecated in v9.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
              * @param handler The function reference.
              */
@@ -2712,7 +2715,7 @@ declare namespace Xrm {
          * Interface for a navigation item.
          * @see UiElement
          * @see UiFocusable
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-navigation formContext.ui.navigation item (Client API reference)}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-navigation External Link: formContext.ui.navigation item (Client API reference)}
          */
         interface NavigationItem extends UiStandardElement, UiFocusable {
             /**
@@ -2781,7 +2784,7 @@ declare namespace Xrm {
          * This is not an Entity Lookup, but a control that supports AutoComplete / KeyPress Events (Text or Number)
          * @remarks This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @see StandardControl
          */
         interface AutoLookupControl extends StandardControl, UiKeyPressable {
@@ -2796,7 +2799,7 @@ declare namespace Xrm {
             /**
              * Hides the auto-completion drop-down list configured for a specific text field
              * @deprecated Deprecated in v9.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              */
             hideAutoComplete(): void;
 
@@ -2804,7 +2807,7 @@ declare namespace Xrm {
              * Shows upt to 10 matching strings in a drop-down list as users press keys to type charactrer in a specific text field.
              * On selecting an item in the drop-down list, the value in the text field changes to the selected item, the drop-down list disappears, and the OnChange event for the text field is invoked
              * @deprecated Deprecated in v9.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * @param resultSet The results to show
              */
             showAutoComplete(resultSet: AutoCompleteResultSet): void;
@@ -3169,7 +3172,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a quick view control instance on a form.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms ExternalLink: formContext.ui.quickForms (Client API reference)}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
          */
         interface QuickFormControl extends Control, UiLabelElement, UiCanGetVisibleElement {
             /**
@@ -3532,7 +3535,7 @@ declare namespace Xrm {
         /**
          * Saves the record.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @remarks  When using quick create forms in the web application the saveandnew option is not
          *           applied. It will always work as if saveandclose were used. Quick create forms in
          *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
@@ -3542,7 +3545,7 @@ declare namespace Xrm {
         /**
          * Saves the record with the given save mode.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link:Deprecated Client APIs}
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param saveMode (Optional) the save mode to save, as either "saveandclose" or "saveandnew".
          */
         save(saveMode: EntitySaveMode): void;
@@ -3912,7 +3915,7 @@ declare namespace Xrm {
 
     /**
      * An definition module for URL-based, CRM component parameters.
-     * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link:Open forms, views, dialogs, and reports with a URL}
+     * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
      */
     namespace Url {
         /**
@@ -3934,7 +3937,7 @@ declare namespace Xrm {
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link:Open forms, views, dialogs, and reports with a URL}
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
          * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
          *           the URL, for forms. Example:  "pagetype=entityrecord"
          */
@@ -3974,7 +3977,7 @@ declare namespace Xrm {
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
          *
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link:Open forms, views, dialogs, and reports with a URL}
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
          *
          * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
          *           the URL, for views. Example:  "pagetype=entitylist"
@@ -4019,7 +4022,7 @@ declare namespace Xrm {
          * Interface for defining parameters of a request to open a dialog with rundialog.aspx (as with
          * window.open).  Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link:Open forms, views, dialogs, and reports with a URL}
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
          */
         interface DialogOpenParameters {
             /**
@@ -4044,7 +4047,7 @@ declare namespace Xrm {
          * window.open).  Useful for parsing out the keys and values into a string of the format:
          * "&key=value"
          *
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link:Open forms, views, dialogs, and reports with a URL}
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
          */
         interface ReportOpenParameters {
             /**
