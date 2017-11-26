@@ -9,6 +9,12 @@ import {FailAction} from "../util/fail-action";
 import {RouteOptionsValidate} from "./route-options-validate";
 import {PluginSpecificConfiguration} from "../plugin/plugin";
 
+/**
+ * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscompression)
+ * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder)
+ */
+export type RouteCompressionEncoderSettings = any;
+
 /** Each route can be customized to change the default behavior of the request lifecycle. */
 export interface RouteOptions {
 
@@ -37,7 +43,7 @@ export interface RouteOptions {
     /**
      An object where each key is a content-encoding name and each value is an object with the desired encoder settings. Note that decoder settings are set in compression.
      */
-    compression?: Dictionary<any>;
+    compression?: Dictionary<RouteCompressionEncoderSettings>;
 
     /**
      Default value: false (no CORS headers).
