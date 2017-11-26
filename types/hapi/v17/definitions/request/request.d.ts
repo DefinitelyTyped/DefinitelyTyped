@@ -1,12 +1,13 @@
 import * as stream from "stream";
 import * as url from "url";
 import * as http from "http";
-import {RouteOptions} from "../route/route-options";
 import {Server} from "../server/server";
-import {ServerRealm} from "../server/server-realm";
 import {ResponseObject} from "../response/response-object";
-import {HttpMethod, Dictionary} from "../util/util";
+import {Dictionary, HTTP_METHODS_PARTIAL, HTTP_METHODS_PARTIAL_LOWERCASE} from "../util/util";
 import {PluginsStates} from "../plugin/plugin";
+import {RequestRoute} from "./request-route";
+import {RequestAuth} from "./request-auth";
+import {RequestInfo} from "./request-info";
 
 /**
  * TODO both objects ReplyValue and _ReplyValue I found in the v16 TS definition, but I don't found it in the documentation. Need review.
@@ -15,74 +16,10 @@ import {PluginsStates} from "../plugin/plugin";
 export type ReplyValue = _ReplyValue | Promise<_ReplyValue>;
 export type _ReplyValue = null | undefined | string | number | boolean | Buffer | Error | stream.Stream | Object; // | array;
 
-export interface RequestAuth {
-    /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-    artifacts: any;
-    /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-    credentials: any;
-    /** the authentication error is failed and mode set to 'try'. */
-    error: Error;
-    /** true if the request has been successfully authenticated, otherwise false. */
-    isAuthenticated: boolean;
-    /** true is the request has been successfully authorized against the route authentication access configuration. If the route has not access rules defined or if the request failed authorization, set to false. */
-    isAuthorized: boolean;
-    /** the route authentication mode. */
-    mode: string;
-    /** the name of the strategy used. */
-    strategy: string;
-}
-
-export interface RequestInfo {
-    /** the request preferred encoding. */
-    acceptEncoding: string;
-    /** if CORS is enabled for the route, contains the following: */
-    cors: {
-        /**
-         * if the request 'Origin' header matches the configured CORS restrictions. Set to false if no 'Origin' header is found or if it does
-         * not match. Note that this is only available after the 'onRequest' extension point as CORS is configured per-route and no routing
-         * decisions are made at that point in the request lifecycle.
-         */
-        isOriginMatch?: boolean;
-    };
-    /** content of the HTTP 'Host' header (e.g. 'example.com:8080'). */
-    host: string;
-    /** the hostname part of the 'Host' header (e.g. 'example.com'). */
-    hostname: string;
-    /** request reception timestamp. */
-    received: number;
-    /** content of the HTTP 'Referrer' (or 'Referer') header. */
-    referrer: string;
-    /** remote client IP address. */
-    remoteAddress: string;
-    /**
-     * remote client port.
-     * Set to string in casethey're requesting from a UNIX domain socket.
-     * TODO, what type does Hapi return, should this be number | string?
-     */
-    remotePort: string;
-    /** request response timestamp (0 is not responded yet). */
-    responded: number;
-}
-
 export interface RequestOrig {
     params: any;
     query: any;
     payload: any;
-}
-
-export interface RequestRoute {
-    /** the route HTTP method. */
-    method: HttpMethod;
-    /** the route path. */
-    path: string;
-    /** the route vhost option if configured. */
-    vhost?: string | string[];
-    /** the active realm associated with the route.*/
-    realm: ServerRealm;
-    /** the route options object with all defaults applied. */
-    settings: RouteOptions;
-    /** the route internal normalized string representing the normalized path. */
-    fingerprint: string;
 }
 
 export interface Request {
@@ -104,7 +41,7 @@ export interface Request {
      mode - the route authentication mode.
      strategy - the name of the strategy used.
      */
-    auth: RequestAuth;
+    readonly auth: RequestAuth;
 
     /**
      Access: read only and the public podium interface.
@@ -137,7 +74,7 @@ export interface Request {
          responded - request response timestamp (0 is not responded yet).
      Note that the request.info object is not meant to be modified.
      */
-    info: RequestInfo;
+    readonly info: RequestInfo;
 
     /**
      Access: read only.
@@ -150,7 +87,7 @@ export interface Request {
      Access: read only.
      The request method in lower case (e.g. 'get', 'post').
      */
-    method: HttpMethod;
+    method: HTTP_METHODS_PARTIAL_LOWERCASE;
 
     /**
      Access: read only.
@@ -292,11 +229,11 @@ export interface Request {
     /**
      * request.setMethod(method)
      * Changes the request method before the router begins processing the request where:
+     * @param method - is the request HTTP method (e.g. 'GET').
      * Can only be called from an 'onRequest' extension method.
      * [See docs] (https://hapijs.com/api/17.0.1#-requestsetmethodmethod)
-     * @param method - is the request HTTP method (e.g. 'GET').
      */
-    setMethod(method: HttpMethod): void;
+    setMethod(method: HTTP_METHODS_PARTIAL): void;
 
     /**
      * request.setUrl(url, [stripTrailingSlash]
