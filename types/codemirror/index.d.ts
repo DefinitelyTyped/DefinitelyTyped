@@ -536,13 +536,13 @@ declare namespace CodeMirror {
         setCursor(pos: CodeMirror.Position): void;
 
         /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
-        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias: number, clearRedo: boolean, origin: string, scroll: boolean }): void;
+        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Sets a new set of selections. There must be at least one selection in the given array. When primary is a
         number, it determines which selection is the primary one. When it is not given, the primary index is taken from
         the previous selection, or set to the last range if the previous selection had less ranges than the new one.
         Supports the same options as setSelection. */
-        setSelections(ranges: Array<{ anchor: CodeMirror.Position, head: CodeMirror.Position }>, primary?: number, options?: { bias: number, clearRedo: boolean, origin: string, scroll: boolean }): void;
+        setSelections(ranges: Array<{ anchor: CodeMirror.Position, head: CodeMirror.Position }>, primary?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Similar to setSelection , but will, if shift is held or the extending flag is set,
         move the head of the selection while leaving the anchor at its current place.
