@@ -44,3 +44,13 @@ const UseAjaxOptions = DS.JSONAPIAdapter.extend({
         });
     }
 });
+
+const UseAjaxOptionsWithOptionalThirdParams = DS.JSONAPIAdapter.extend({
+    query(store: DS.Store, type: string, query: object) {
+        const url = 'https://api.example.com/my-api';
+        const options = this.ajaxOptions(url, 'DELETE');
+        return Ember.$.ajax(url, {
+            ...options
+        });
+    }
+});
