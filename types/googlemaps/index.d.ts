@@ -1160,7 +1160,7 @@ declare namespace google.maps {
         bounds?: LatLngBounds|LatLngBoundsLiteral;
         componentRestrictions?: GeocoderComponentRestrictions;
         location?: LatLng|LatLngLiteral;
-        placeId?: string;
+        place_id?: string;
         region?: string;
     }
 
