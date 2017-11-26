@@ -12,9 +12,14 @@ import {ServerState} from "./server-state";
 import {MimosOptions} from "../../../../mimos/index";
 import {
     ServerOptionsCache, ServerEventCriteria, ServerEventsApplication, ServerEventsApplicationObject,
-    PayloadCompressionDecoderSettings
+    PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, HTTP_METHODS
 } from "hapi";
-
+import {
+    RequestExtPointFunction, ServerExtEventsObject, ServerExtEventsRequestObject, ServerExtOptions,
+    ServerExtPointFunction, ServerExtRequestType, ServerExtType
+} from "./server-ext";
+import {ServerInjectOptions, ServerInjectResponse} from "./server-inject";
+import {RequestRoute} from "../request/request-route";
 
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
@@ -181,57 +186,6 @@ export class Server extends events.EventEmitter {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposekey-value)
-     * Used within a plugin to expose a property via server.plugins[name] where:
-     * @param key - the key assigned (server.plugins[name][key]).
-     * @param value - the value assigned.
-     * @return Return value: none.
-     */
-    expose(key: string, value: any): void;
-
-    /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposeobj)
-     * Merges an object into to the existing content of server.plugins[name] where:
-     * @param obj - the object merged into the exposed properties container.
-     * @return Return value: none.
-     * Note that all the properties of obj are deeply cloned into server.plugins[name], so avoid using this method
-     * for exposing large objects that may be expensive to clone or singleton objects such as database client
-     * objects. Instead favor server.expose(key, value), which only copies a reference to value.
-     */
-    expose(obj: Object): void;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverinfo)
@@ -400,6 +354,176 @@ export class Server extends events.EventEmitter {
      * @return Return value: none.
      */
     decoder(encoding: string, decoder: ((options: PayloadCompressionDecoderSettings) => zlib.Gunzip)): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
+     * Extends various framework interfaces with custom methods where:
+     * @param type - the interface being decorated. Supported types:
+     * 'handler' - adds a new handler type to be used in routes handlers.
+     * 'request' - adds methods to the Request object.
+     * 'server' - adds methods to the Server object.
+     * 'toolkit' - adds methods to the response toolkit.
+     * @param property - the object decoration key name.
+     * @param method - the extension function or other value.
+     * @param options - (optional) supports the following optional settings:
+     * apply - when the type is 'request', if true, the method function is invoked using the signature function(request) where request is the current request object and the returned value is assigned as the decoration.
+     * extend - if true, overrides an existing decoration. The method must be a function with the signature function(existing) where:
+     * existing - is the previously set decoration method value.
+     * must return the new decoration function or value.
+     * cannot be used to extend handler decorations.
+     * @return void;
+     */
+    decorate(type: 'request', property: string, method: ((request: Request) => Function), options?: {apply: true;  extend: false} ): void;
+    decorate(type: 'handler' | 'request' | 'reply' | 'server', property: string, method: Function, options?: {apply: boolean;  extend: boolean} ): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
+     * Used within a plugin to declare a required dependency on other plugins where:
+     * @param dependencies - a single string or an array of plugin name strings which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is initialized or started.
+     * @param after - (optional) a function that is called after all the specified dependencies have been registered and before the server starts. The function is only called if the server is initialized or started. The function signature is async function(server) where:
+     * server - the server the dependency() method was called on.
+     * @return Return value: none.
+     * The after method is identical to setting a server extension point on 'onPreStart'.
+     * If a circular dependency is detected, an exception is thrown (e.g. two plugins each has an after function to be called after the other).
+     * The method does not provide version dependency which should be implemented using npm peer dependencies.
+     */
+    dependency(dependencies: string | string[], after?: ((server: Server) => Function)): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder)
+     * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate' where:
+     * @param encoding - the encoder name string.
+     * @param encoder - a function using the signature function(options) where options are the encoding specific options configured in the route compression option, and the return value is an object compatible with the output of node's zlib.createGzip().
+     * @return Return value: none.
+     */
+    encoder(encoding: string, encoder: ((options: RouteCompressionEncoderSettings) => zlib.Gzip)): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposekey-value)
+     * Used within a plugin to expose a property via server.plugins[name] where:
+     * @param key - the key assigned (server.plugins[name][key]).
+     * @param value - the value assigned.
+     * @return Return value: none.
+     */
+    expose(key: string, value: any): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposeobj)
+     * Merges an object into to the existing content of server.plugins[name] where:
+     * @param obj - the object merged into the exposed properties container.
+     * @return Return value: none.
+     * Note that all the properties of obj are deeply cloned into server.plugins[name], so avoid using this method
+     * for exposing large objects that may be expensive to clone or singleton objects such as database client
+     * objects. Instead favor server.expose(key, value), which only copies a reference to value.
+     */
+    expose(obj: Object): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
+     * Registers an extension function in one of the request lifecycle extension points where:
+     * @param events - an object or array of objects with the following:
+     * * type - (required) the extension point event name. The available extension points include the request extension points as well as the following server extension points:
+     * * * 'onPreStart' - called before the connection listeners are started.
+     * * * 'onPostStart' - called after the connection listeners are started.
+     * * * 'onPreStop' - called before the connection listeners are stopped.
+     * * * 'onPostStop' - called after the connection listeners are stopped.
+     * * method - (required) a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is:
+     * * * server extension points: async function(server) where:
+     * * * * server - the server object.
+     * * * * this - the object provided via options.bind or the current active context set with server.bind().
+     * * * request extension points: a lifecycle method.
+     * * options - (optional) an object with the following:
+     * * * before - a string or array of strings of plugin names this method must execute before (on the same event). Otherwise, extension methods are executed in the order added.
+     * * * after - a string or array of strings of plugin names this method must execute after (on the same event). Otherwise, extension methods are executed in the order added.
+     * * * bind - a context object passed back to the provided method (via this) when called. Ignored if the method is an arrow function.
+     * * * sandbox - if set to 'plugin' when adding a request extension points the extension is only added to routes defined by the current plugin. Not allowed when configuring route-level extensions, or when adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
+     * @return void
+     */
+    ext(events: ServerExtEventsObject | ServerExtEventsObject[]): void;
+    ext(events: ServerExtEventsRequestObject | ServerExtEventsRequestObject[]): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options)
+     * Registers a single extension event using the same properties as used in server.ext(events), but passed as arguments.
+     * @return Return value: none.
+     */
+    ext(event: ServerExtType, method: ServerExtPointFunction, options?: ServerExtOptions): void;
+    ext(event: ServerExtRequestType, method: RequestExtPointFunction, options?: ServerExtOptions): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinitialize)
+     * Initializes the server (starts the caches, finalizes plugin registration) but does not start listening on the connection port.
+     * @return Return value: none.
+     * Note that if the method fails and throws an error, the server is considered to be in an undefined state and
+     * should be shut down. In most cases it would be impossible to fully recover as the various plugins, caches, and
+     * other event listeners will get confused by repeated attempts to start the server or make assumptions about the
+     * healthy state of the environment. It is recommended to abort the process when the server fails to start properly.
+     * If you must try to resume after an error, call server.stop() first to reset the server state.
+     */
+    initialize(): void;
+
+    /**
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
+     * Injects a request into the server simulating an incoming HTTP request without making an actual socket connection. Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead and limitations of the network stack.
+     * The method utilizes the shot module for performing injections, with some additional options and response properties:
+     * @param options - can be assigned a string with the requested URI, or an object with:
+     * * method - (optional) the request HTTP method (e.g. 'POST'). Defaults to 'GET'.
+     * * url - (required) the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.
+     * * headers - (optional) an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default shot headers.
+     * * payload - (optional) an string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.
+     * * credentials - (optional) an credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.
+     * * artifacts - (optional) an artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.
+     * * app - (optional) sets the initial value of request.app, defaults to {}.
+     * * plugins - (optional) sets the initial value of request.plugins, defaults to {}.
+     * * allowInternals - (optional) allows access to routes with config.isInternal set to true. Defaults to false.
+     * * remoteAddress - (optional) sets the remote address for the incoming connection.
+     * * simulate - (optional) an object with options used to simulate client request stream conditions for testing:
+     * * error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
+     * * close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
+     * * end - if false, does not end the stream. Defaults to true.
+     * * split - indicates whether the request payload will be split into chunks. Defaults to undefined, meaning payload will not be chunked.
+     * * validate - (optional) if false, the options inputs are not validated. This is recommended for run-time usage of inject() to make it perform faster where input validation can be tested separately.
+     * @return Return value: a response object with the following properties:
+     * * statusCode - the HTTP status code.
+     * * headers - an object containing the headers set.
+     * * payload - the response payload string.
+     * * rawPayload - the raw response payload buffer.
+     * * raw - an object with the injection request and response objects:
+     * * req - the simulated node request object.
+     * * res - the simulated node response object.
+     * * result - the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string).
+     * * request - the request object.
+     */
+    inject(options: string | ServerInjectOptions): ServerInjectResponse;
+
+    /**
+     * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or output to the console. The arguments are:
+     * @param tags - (required) a string or an array of strings (e.g. ['error', 'database', 'read']) used to identify the event. Tags are used instead of log levels and provide a much more expressive mechanism for describing and filtering events. Any logs generated by the server internally include the 'hapi' tag along with event-specific information.
+     * @param data - (optional) an message string or object with the application data being logged. If data is a function, the function signature is function() and it called once to generate (return value) the actual data emitted to the listeners. If no listeners match the event, the data function is not invoked.
+     * @param timestamp - (optional) an timestamp expressed in milliseconds. Defaults to Date.now() (now).
+     * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverlogtags-data-timestamp)
+     */
+    log(tags: string | string[], data?: string | Object | (() => Function), timestamp?: number): void;
+
+    /**
+     * Looks up a route configuration where:
+     * @param id - the route identifier.
+     * @return Return value: the route information if found, otherwise null.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverlookupid)
+     */
+    lookup(id: string): RequestRoute | null;
+
+    /**
+     * Looks up a route configuration where:
+     * @param method - the HTTP method (e.g. 'GET', 'POST').
+     * @param path - the requested path (must begin with '/').
+     * @param host - (optional) hostname (to match against routes with vhost).
+     * @return Return value: the route information if found, otherwise null.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermatchmethod-path-host)
+     */
+    match(method: HTTP_METHODS, path: string, host?: string): RequestRoute | null;
+
 
 
 
