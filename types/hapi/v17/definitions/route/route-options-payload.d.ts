@@ -16,6 +16,11 @@ export enum PayloadMultipartOutputEnum {
     Annotated = 'annotated',
 }
 
+/**
+  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadcompression)
+ */
+export type PayloadCompressionDecoderSettings = any;
+
 /**Determines how the request payload is processed.*/
 export interface RouteOptionsPayload {
 
@@ -35,7 +40,7 @@ export interface RouteOptionsPayload {
      Default value: none.
      An object where each key is a content-encoding name and each value is an object with the desired decoder settings. Note that encoder settings are set in compression.
      */
-    compression?: Dictionary<any>;
+    compression?: Dictionary<PayloadCompressionDecoderSettings>;
 
     /**
      Default value: 'application/json'.
