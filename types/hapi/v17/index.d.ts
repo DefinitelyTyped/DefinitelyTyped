@@ -32,7 +32,6 @@ export * from './definitions/route/route-options-validate'
 
 /** SERVER */
 export * from './definitions/server/server'
-export * from './definitions/server/server-connection-options'
 export * from './definitions/server/server-events'
 export * from './definitions/server/server-info'
 export * from './definitions/server/server-options'
