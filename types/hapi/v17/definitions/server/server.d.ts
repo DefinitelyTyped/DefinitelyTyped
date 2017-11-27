@@ -1,7 +1,6 @@
 import {ServerOptions} from "./server-options";
 import {ServerRealm} from "./server-realm";
 import {ServerInfo} from "./server-info";
-import {Dictionary} from "../util/util";
 import {Request} from "../request/request";
 import * as http from "http";
 import * as events from 'events';
@@ -20,6 +19,7 @@ import {
 } from "./server-ext";
 import {ServerInjectOptions, ServerInjectResponse} from "./server-inject";
 import {RequestRoute} from "../request/request-route";
+import {ServerAuth, ServerAuthConfig} from "./server-auth";
 
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
@@ -41,23 +41,9 @@ export class Server extends events.EventEmitter {
     app?: any;
 
     /**
-     * Access: authentication strategy specific.
-     * An object where each key is an authentication strategy name and the value is the exposed strategy API.
-     * Available only when the authentication scheme exposes an API by returning an api key in the object
-     * returned from its implementation function.
+     * Server Auth: properties and methods
      */
-        // TODO is that definition right? It's need review. The v16 is very different.
-    auth: {
-        api: Dictionary<any>;
-    }
-
-    /**
-     * Access: read only.
-     * Contains the default authentication configuration is a default strategy was set via [server.auth.default()](https://github.com/hapijs/hapi/blob/master/API.md#server.auth.default()).
-     */
-    // TODO it needs to be implemented. I didn't understand the description yet.
-    //readonly server.auth.settings.default
-
+    auth: ServerAuth;
 
     /**
      * Provides access to the decorations already applied to various framework interfaces. The object must not be
@@ -289,13 +275,6 @@ export class Server extends events.EventEmitter {
      * The hapi module version number.
      */
     readonly version: string;
-
-
-
-
-
-    // TODO Put SERVER AUTH here
-
 
     /**
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext)
