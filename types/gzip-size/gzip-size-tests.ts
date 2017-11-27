@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as gzipSize from 'gzip-size';
+import fs = require('fs');
+import gzipSize = require('gzip-size');
 
 const string = 'Lorem ipsum dolor sit amet.';
 
