@@ -35,6 +35,8 @@ export * from './definitions/route/route-options-validate'
 
 /** SERVER */
 export * from './definitions/server/server'
+export * from './definitions/server/server-auth'
+export * from './definitions/server/server-auth-scheme'
 export * from './definitions/server/server-events'
 export * from './definitions/server/server-ext'
 export * from './definitions/server/server-info'
@@ -47,4 +49,5 @@ export * from './definitions/server/server-state-options'
 
 /** UTIL */
 export * from './definitions/util/fail-action'
+export * from './definitions/util/lifecycle'
 export * from './definitions/util/util'
