@@ -8,7 +8,7 @@
 
 import * as React from 'react';
 
-declare class ReactSwipeable extends React.Component<ReactSwipeable.SwipeableProps> {}
+declare class ReactSwipeable<T extends Element = HTMLElement> extends React.Component<ReactSwipeable.SwipeableProps<T>> {}
 
 declare namespace ReactSwipeable {
     type OnSwipingCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number) => void;
@@ -17,7 +17,7 @@ declare namespace ReactSwipeable {
     type OnSwipingDirectionCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>, delta: number) => void;
     type OnTapCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>) => void;
 
-    interface SwipeableProps<T extends Element = HTMLElement> extends React.ClassAttributes<ReactSwipeable>, React.HTMLAttributes<T> {
+    interface SwipeableProps<T extends Element = HTMLElement> extends React.ClassAttributes<ReactSwipeable<T>>, React.HTMLAttributes<T> {
         onSwiped?: OnSwipedCallback<T>;
         onSwiping?: OnSwipingCallback<T>;
         onSwipingUp?: OnSwipingDirectionCallback<T>;
