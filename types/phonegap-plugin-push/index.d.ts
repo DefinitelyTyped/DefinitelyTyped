@@ -1,12 +1,14 @@
-// Type definitions for phonegap-plugin-push
+// Type definitions for phonegap-plugin-push v2.0.0
 // Project: https://github.com/phonegap/phonegap-plugin-push
 // Definitions by: Frederico Galvão <https://github.com/fredgalvao>, Larry Bahr <https://github.com/larrybahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace PhonegapPluginPush {
+declare namespace PhonegapPluginPush
+{
 	type EventResponse = RegistrationEventResponse | NotificationEventResponse | Error;
 
-	interface PushNotification {
+	interface PushNotification
+	{
 		/**
 		 * The event registration will be triggered on each successful registration with the 3rd party push service.
 		 * @param event
@@ -55,7 +57,7 @@ declare namespace PhonegapPluginPush {
 		 * @param topics
 		 */
 		unregister(successHandler: () => any, errorHandler?: () => any, topics?: string[]): void;
-        
+
 		/**
 		 * The subscribe method is used when the application wants to subscribe a new topic to receive push notifications.
 		 * @param topic Topic to subscribe to.
@@ -65,14 +67,14 @@ declare namespace PhonegapPluginPush {
 		subscribe(topic: string, successHandler: () => any, errorHandler: () => any): void;
 
 		/**
-		 * The unsubscribe method is used when the application no longer wants to receive push notifications 
+		 * The unsubscribe method is used when the application no longer wants to receive push notifications
 		 * from a specific topic but continue to receive other push messages.
 		 * @param topic Topic to unsubscribe from.
 		 * @param successHandler Is called when the api successfully unregisters.
 		 * @param errorHandler Is called when the api encounters an error while unregistering.
 		 */
 		unsubscribe(topic: string, successHandler: () => any, errorHandler: () => any): void;
-        
+
 		/*TODO according to js source code, "errorHandler" is optional, but is "count" also optional? I can't read objetive-C code (can anyone at all? I wonder...)*/
 		/**
 		 * Set the badge count visible when the app is not running
@@ -85,7 +87,7 @@ declare namespace PhonegapPluginPush {
 		 * @param count
 		 */
 		setApplicationIconBadgeNumber(successHandler: () => any, errorHandler: () => any, count: number): void;
-        
+
 		/**
 		 * Get the current badge count visible when the app is not running
 		 * successHandler gets called with an integer which is the current badge count
@@ -103,12 +105,20 @@ declare namespace PhonegapPluginPush {
 		 * @param id
 		 */
 		finish(successHandler?: () => any, errorHandler?: () => any, id?: string): void;
+
+		/**
+		 * Tells the OS to clear all notifications from the Notification Center
+		 * @param successHandler Is called when the api successfully clears the notifications.
+		 * @param errorHandler Is called when the api encounters an error when attempting to clears the notifications.
+		 */
+		clearAllNotifications(successHandler: () => any, errorHandler: () => any): void;
 	}
 
 	/**
 	 * platform specific initialization options.
 	 */
-	interface InitOptions {
+	interface InitOptions
+	{
 		/**
 		 * Android specific initialization options.
 		 */
@@ -207,35 +217,41 @@ declare namespace PhonegapPluginPush {
 		}
 	}
 
-	interface CategoryArray {
+	interface CategoryArray
+	{
 		[name: string]: CategoryAction;
 	}
 
-	interface CategoryAction {
+	interface CategoryAction
+	{
 		yes?: CategoryActionData;
 		no?: CategoryActionData;
 		maybe?: CategoryActionData;
 	}
 
-	interface CategoryActionData {
+	interface CategoryActionData
+	{
 		callback: string;
 		title: string;
 		foreground: boolean;
 		destructive: boolean;
 	}
 
-	interface HasPermissionCallbackParameters {
+	interface HasPermissionCallbackParameters
+	{
 		isEnabled: boolean; /** Whether the permission for push notifications has been granted. */
 	}
-
-	interface RegistrationEventResponse {
+	
+	interface RegistrationEventResponse
+	{
 		/**
 		 * The registration ID provided by the 3rd party remote push service.
 		 */
 		registrationId: string;
 	}
 
-	interface NotificationEventResponse {
+	interface NotificationEventResponse
+	{
 		/**
 		 * The text of the push message sent from the 3rd party service.
 		 */
@@ -271,7 +287,8 @@ declare namespace PhonegapPluginPush {
 	 * Ideally the developer would overload (merged declaration) this or create a new interface that would extend this one
 	 * so that he could specify any custom code without having to use array notation (map['prop']) for all of them.
 	 */
-	interface NotificationEventAdditionalData {
+	interface NotificationEventAdditionalData
+	{
 		[name: string]: any;
 
 		/**
@@ -301,7 +318,8 @@ declare namespace PhonegapPluginPush {
 	}
 }
 
-interface Window {
+interface Window
+{
 	PushNotification: PhonegapPluginPush.PushNotificationStatic;
 }
 

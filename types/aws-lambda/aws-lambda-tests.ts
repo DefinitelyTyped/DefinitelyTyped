@@ -4,6 +4,7 @@ var anyObj: any = { abc: 123 };
 var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
+var apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
 var apiGwEvt: AWSLambda.APIGatewayEvent;
 var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 var clientCtx: AWSLambda.ClientContext;
@@ -22,47 +23,70 @@ var snsEvtRec: AWSLambda.SNSEventRecord;
 var snsMsg: AWSLambda.SNSMessage;
 var snsMsgAttr: AWSLambda.SNSMessageAttribute;
 var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
-var S3CreateEvent: AWSLambda.S3CreateEvent = {
-    Records: [{
-        eventVersion: 'string',
-        eventSource: 'string',
-        awsRegion: 'string',
-        eventTime: 'string',
-        eventName: 'string',
-        userIdentity: {
-            principalId: 'string'
-        },
-        requestParameters: {
-            sourceIPAddress: 'string'
-        },
-        responseElements: {
-            'x-amz-request-id': 'string',
-            'x-amz-id-2': 'string'
-        },
-        s3: {
-            s3SchemaVersion: 'string',
-            configurationId: 'string',
-            bucket: {
-                name: 'string',
-                ownerIdentity: {
-                    principalId: 'string'
-                },
-                arn: 'string'
+var S3EvtRec: AWSLambda.S3EventRecord = {
+    eventVersion: '2.0',
+    eventSource: 'aws:s3',
+    awsRegion: 'us-east-1',
+    eventTime: '1970-01-01T00:00:00.000Z',
+    eventName: 'ObjectCreated:Put',
+    userIdentity: {
+        principalId: 'AIDAJDPLRKLG7UEXAMPLE'
+    },
+    requestParameters:{
+        sourceIPAddress: '127.0.0.1'
+    },
+    responseElements: {
+        'x-amz-request-id': 'C3D13FE58DE4C810',
+        'x-amz-id-2': 'FMyUVURIY8/IgAtTv8xRjskZQpcIZ9KG4V5Wp6S7S/JRWeUWerMUE5JgHvANOjpD'
+    },
+    s3: {
+        s3SchemaVersion: '1.0',
+        configurationId: 'testConfigRule',
+        bucket: {
+            name: 'mybucket',
+            ownerIdentity: {
+                principalId: 'A3NL1KOZZKExample'
             },
-            object: {
-                key: 'string',
-                size: 1,
-                eTag: 'string',
-                versionId: 'string',
-                sequencer: 'string'
-            }
+            arn: 'arn:aws:s3:::mybucket'
+        },
+        object: {
+            key: 'HappyFace.jpg',
+            size: 1024,
+            eTag: 'd41d8cd98f00b204e9800998ecf8427e',
+            versionId: '096fKKXTRTtl3on89fVO.nfljtsv6qko',
+            sequencer: '0055AED6DCD90281E5'
         }
     }
-    ]
+};
+
+var S3CreateEvent: AWSLambda.S3CreateEvent = {
+    Records: [S3EvtRec]
 };
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
+
+/* API Gateway Event request context */
+str = apiGwEvtReqCtx.accountId;
+str = apiGwEvtReqCtx.apiId;
+authResponseContext = apiGwEvtReqCtx.authorizer;
+str = apiGwEvtReqCtx.httpMethod;
+str = apiGwEvtReqCtx.identity.accessKey;
+str = apiGwEvtReqCtx.identity.accountId;
+str = apiGwEvtReqCtx.identity.apiKey;
+str = apiGwEvtReqCtx.identity.caller;
+str = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
+str = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
+str = apiGwEvtReqCtx.identity.cognitoIdentityId;
+str = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
+str = apiGwEvtReqCtx.identity.sourceIp;
+str = apiGwEvtReqCtx.identity.user;
+str = apiGwEvtReqCtx.identity.userAgent;
+str = apiGwEvtReqCtx.identity.userArn;
+str = apiGwEvtReqCtx.stage;
+str = apiGwEvtReqCtx.requestId;
+str = apiGwEvtReqCtx.resourceId;
+str = apiGwEvtReqCtx.resourcePath;
 
 /* API Gateway Event */
 str = apiGwEvt.body;
@@ -73,31 +97,17 @@ str = apiGwEvt.path;
 str = apiGwEvt.pathParameters["example"];
 str = apiGwEvt.queryStringParameters["example"];
 str = apiGwEvt.stageVariables["example"];
-str = apiGwEvt.requestContext.accountId;
-str = apiGwEvt.requestContext.apiId;
-str = apiGwEvt.requestContext.httpMethod;
-str = apiGwEvt.requestContext.identity.accessKey;
-str = apiGwEvt.requestContext.identity.accountId;
-str = apiGwEvt.requestContext.identity.apiKey;
-str = apiGwEvt.requestContext.identity.caller;
-str = apiGwEvt.requestContext.identity.cognitoAuthenticationProvider;
-str = apiGwEvt.requestContext.identity.cognitoAuthenticationType;
-str = apiGwEvt.requestContext.identity.cognitoIdentityId;
-str = apiGwEvt.requestContext.identity.cognitoIdentityPoolId;
-str = apiGwEvt.requestContext.identity.sourceIp;
-str = apiGwEvt.requestContext.identity.user;
-str = apiGwEvt.requestContext.identity.userAgent;
-str = apiGwEvt.requestContext.identity.userArn;
-str = apiGwEvt.requestContext.stage;
-str = apiGwEvt.requestContext.requestId;
-str = apiGwEvt.requestContext.resourceId;
-str = apiGwEvt.requestContext.resourcePath;
+apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
 
 /* API Gateway CustomAuthorizer Event */
 str = customAuthorizerEvt.type;
-str = customAuthorizerEvt.authorizationToken;
 str = customAuthorizerEvt.methodArn;
+str = customAuthorizerEvt.authorizationToken;
+str = apiGwEvt.pathParameters["example"];
+str = apiGwEvt.queryStringParameters["example"];
+str = apiGwEvt.stageVariables["example"];
+apiGwEvtReqCtx = apiGwEvt.requestContext;
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
@@ -129,6 +139,7 @@ num = proxyResult.statusCode;
 proxyResult.headers["example"] = str;
 proxyResult.headers["example"] = b;
 proxyResult.headers["example"] = num;
+b = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
 /* API Gateway CustomAuthorizer AuthResponse */

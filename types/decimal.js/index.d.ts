@@ -1,6 +1,6 @@
 // Type definitions for decimal.js
 // Project: http://mikemcl.github.io/decimal.js
-// Definitions by: Joseph Rossi <http://github.com/musicist288>
+// Definitions by: Joseph Rossi <https://github.com/musicist288>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Decimal: decimal.IDecimalStatic;

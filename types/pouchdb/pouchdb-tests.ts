@@ -38,7 +38,7 @@ function testAllDocs() {
 }
 
 function testDestroy() {
-    const db = new PouchDB<{}>();
+    const db = new PouchDB();
 
     db.destroy({}, (error) => {
     });

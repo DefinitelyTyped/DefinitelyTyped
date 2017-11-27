@@ -15,7 +15,8 @@ cy
 cy
   .get('form')
   .find('input')
-  .then($input => $input.click());
+  .then($input => $input.click())
+  .then($input => $input.click(), {timeout: 12});
 
 cy
   .wrap({ sum: (a: number, b: number, c: number) => a + b + c })

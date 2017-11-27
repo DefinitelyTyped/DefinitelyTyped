@@ -3,8 +3,6 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="i18next"/>
-
 declare module "i18next-sprintf-postprocessor" {
     import i18next = require("i18next");
 

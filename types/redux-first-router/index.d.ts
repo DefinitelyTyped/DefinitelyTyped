@@ -1,8 +1,11 @@
-// Type definitions for redux-first-router 1.4
+// Type definitions for redux-first-router 1.10
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
+//                 viggyfresh <https://github.com/viggyfresh>
+//                 janb87 <https://github.com/janb87>
+//                 corydeppen <https://github.com/corydeppen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import {
     Dispatch,
@@ -19,28 +22,45 @@ export type StateGetter = () => object;
 
 export type RouteString = string;
 
-export type RouteThunk = <S>(dispatch: Dispatch<S>, getState: StateGetter) => any | Promise<any>;
+export type RouteThunk = (
+    dispatch: Dispatch<any>,
+    getState: StateGetter
+) => any | Promise<any>;
 
-export interface RouteObject {
-    path: string;
+export type RouteObject<TKeys> = TKeys & {
     capitalizedWords?: boolean;
-    toPath?(param: string, key?: string): string;
-    fromPath?(path: string, key?: string): string;
-    thunk?: RouteThunk;
     navKey?: string;
-}
+    path: string;
+    thunk?: RouteThunk;
+    fromPath?(path: string, key?: string): string;
+    toPath?(param: string, key?: string): string;
+};
 
-export type Route = RouteString | RouteObject;
+export type Route<TKeys = {}> = RouteString | RouteObject<TKeys>;
 
-export interface RoutesMap {
-    [key: string]: Route;
+export interface RoutesMap<TKeys = {}> {
+    [key: string]: Route<TKeys>;
 }
 
 export interface ReceivedAction {
     type: string;
-    payload: object;
+    payload: Payload;
     meta?: object;
-    navKey?: string | null;
+    query?: object;
+    search?: string;
+    navKey?: Nullable<string>;
+}
+
+export interface ReceivedActionMeta {
+    type: string;
+    payload: Payload;
+    query?: object;
+    navKey?: Nullable<string>;
+    meta: {
+        notFoundPath?: string;
+        query?: object;
+        search?: string;
+    };
 }
 
 export interface HistoryData {
@@ -52,13 +72,17 @@ export interface HistoryData {
 export interface Location {
     pathname: string;
     type: string;
-    payload: object;
+    payload: Payload;
+    query?: object;
+    search?: string;
 }
 
 export interface LocationState {
     pathname: string;
     type: string;
-    payload: object;
+    payload: Payload;
+    query?: object;
+    search?: string;
     prev: Location;
     kind: Nullable<string>;
     history: Nullable<HistoryData>;
@@ -80,7 +104,7 @@ export interface NavigationAction {
     routeName?: string;
     actions?: NavigationAction[];
     action?: NavigationAction;
-    params?: object;
+    params?: Params;
     meta?: object;
 }
 
@@ -88,29 +112,44 @@ export interface Meta {
     location: ActionMetaLocation;
     notFoundPath?: string;
     navigation?: NavigationAction;
+    query?: object;
+    search?: string;
 }
 
 export interface Action {
     type: string;
-    payload: object;
-    meta: Meta;
-    navKey?: string;
+    payload?: Payload;
+    meta?: Meta;
+    query?: object;
+    navKey?: Nullable<string>;
 }
 
 export interface HistoryLocation {
     pathname: string;
+    search?: string;
 }
 
 export type HistoryAction = string;
 
-export type Listener = (location: HistoryLocation, action: HistoryAction) => void;
+export type Listener = (
+    location: HistoryLocation,
+    action: HistoryAction
+) => void;
 
 export type ScrollBehavior = object;
 
 export interface Router {
-    getStateForActionOriginal(action: object, state: Nullable<object>): Nullable<object>;
-    getStateForAction(action: object, state: Nullable<object>): Nullable<object>;
-    getPathAndParamsForState(state: object): { path: Nullable<string>, params: Nullable<object> };
+    getStateForActionOriginal(
+        action: object,
+        state: Nullable<object>
+    ): Nullable<object>;
+    getStateForAction(
+        action: object,
+        state: Nullable<object>
+    ): Nullable<object>;
+    getPathAndParamsForState(
+        state: object
+    ): { path: Nullable<string>; params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
@@ -120,6 +159,14 @@ export interface Navigator {
 
 export interface Navigators {
     [key: string]: Navigator;
+}
+
+export type SelectLocationState = (state: object) => LocationState;
+export type SelectTitleState = (state: object) => string;
+
+export interface QuerySerializer {
+    stringify(params: Params): string;
+    parse(queryString: string): object;
 }
 
 export interface NavigatorsConfig {
@@ -132,34 +179,43 @@ export interface NavigatorsConfig {
         navigationAction: Nullable<NavigationAction>,
         route: Nullable<Route>
     ): object;
-    navigationToAction<S>(
+    navigationToAction(
         navigators: Navigators,
-        store: Store<S>,
+        store: Store<any>,
         routesMap: RoutesMap,
         action: object
     ): {
-        action: object,
-        navigationAction: Nullable<NavigationAction>
+        action: object;
+        navigationAction: Nullable<NavigationAction>;
     };
 }
 
 export interface Options {
-    title?: string;
-    location?: string;
+    title?: string | SelectTitleState;
+    location?: string | SelectLocationState;
     notFoundPath?: string;
     scrollTop?: boolean;
-    onBeforeChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
-    onAfterChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
-    onBackNext?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
+    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter): void;
+    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter): void;
+    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter): void;
     restoreScroll?(history: History): ScrollBehavior;
+    initialDispatch?: boolean;
+    querySerializer?: QuerySerializer;
     navigators?: NavigatorsConfig;
 }
 
+export type Params = object;
+export type Payload = object;
+
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
-export const NOT_FOUND: string;
+export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
 
-export function actionToPath(action: ReceivedAction, routesMap: RoutesMap): string;
+export function actionToPath(
+    action: ReceivedAction,
+    routesMap: RoutesMap,
+    querySerializer?: QuerySerializer
+): string;
 
 export function back(): void;
 
@@ -169,11 +225,16 @@ export function canGoBack(): boolean;
 
 export function canGoForward(): boolean;
 
-export function connectRoutes(history: History, routesMap: RoutesMap, options?: Options): {
-    reducer: Reducer<LocationState>
-    middleware: Middleware,
-    thunk<S>(store: Store<S>): Promise<Nullable<RouteThunk>>,
-    enhancer: GenericStoreEnhancer
+export function connectRoutes(
+    history: History,
+    routesMap: RoutesMap,
+    options?: Options
+): {
+    reducer: Reducer<LocationState>;
+    middleware: Middleware;
+    thunk(store: Store<any>): Promise<Nullable<RouteThunk>>;
+    enhancer: GenericStoreEnhancer;
+    initialDispatch?(): void;
 };
 
 export function go(n: number): void;
@@ -186,7 +247,10 @@ export function next(): void;
 
 export function nextPath(): string | void;
 
-export function pathToAction(pathname: string, routesMap: RoutesMap): ReceivedAction;
+export function pathToAction(
+    pathname: string,
+    routesMap: RoutesMap
+): ReceivedAction;
 
 export function prevPath(): string | void;
 

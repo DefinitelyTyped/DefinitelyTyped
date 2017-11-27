@@ -1,6 +1,6 @@
 import * as leveldown from "leveldown";
 
-let db = leveldown("db1");
+const db = leveldown("db1");
 
 db.open((err) => {});
 db.open({createIfMissing: true}, (err) => {});
@@ -74,7 +74,7 @@ keyAndValueAsBufferIterator4.next((err, k, v) => {
 keyAndValueAsBufferIterator4.seek("k");
 keyAndValueAsBufferIterator4.end((err) => {});
 
-let s: string = db.getProperty("leveldb.stats");
+const s: string = db.getProperty("leveldb.stats");
 
 db.approximateSize("k1", "k2", (err, size) => {
     console.log(size.toExponential());

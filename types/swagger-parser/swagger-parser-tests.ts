@@ -1,5 +1,5 @@
 import parser = require("swagger-parser");
-import { Spec as Swagger } from '../swagger-schema-official';
+import { Spec as Swagger } from "swagger-schema-official";
 
 const swaggerMock: Swagger = {
     swagger: '',
@@ -8,7 +8,7 @@ const swaggerMock: Swagger = {
         version: ''
     },
     paths: { '': {} }
-}
+};
 
 // Without callback which returns a promise
 parser.parse("test.yaml").then((file) => {

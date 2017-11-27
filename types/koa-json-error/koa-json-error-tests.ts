@@ -4,5 +4,5 @@ import * as error from "koa-json-error";
 const app = new Koa();
 
 app.use(error({
-    preFormat: err => Object.assign({}, err)
+    preFormat: err => ({ ...err }),
 }));

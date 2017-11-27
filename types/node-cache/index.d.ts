@@ -1,9 +1,16 @@
-// Type definitions for node-cache v3.0.0
+// Type definitions for node-cache 4.1
 // Project: https://github.com/tcs-de/nodecache
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
+//                 Daniel Thunell <https://github.com/dthunell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+/**
+ * Since 4.1.0: Key-validation: The keys can be given as either string or number,
+ * but are casted to a string internally anyway.
+ */
+type Key = string | number;
 
 declare namespace NodeCache {
 	interface NodeCache {
@@ -23,9 +30,9 @@ declare namespace NodeCache {
 		 * @param cb Callback function
 		 */
 		get<T>(
-			key: string,
+			key: Key,
 			cb?: Callback<T>
-		): T;
+		): T | undefined;
 
 		/**
 		 * get multiple cached keys at once and change the stats
@@ -34,9 +41,9 @@ declare namespace NodeCache {
 		 * @param cb Callback function
 		 */
 		mget<T>(
-			keys: string[],
-			cb?: Callback<{[key: string]: T}>
-		): {[key: string]: T};
+			keys: Key[],
+			cb?: Callback<{ [key: string]: T }>
+		): { [key: string]: T };
 
 		/**
 		 * set a cached key and change the stats
@@ -48,14 +55,14 @@ declare namespace NodeCache {
 		 * @param cb Callback function
 		 */
 		set<T>(
-			key: string,
+			key: Key,
 			value: T,
-			ttl: number|string,
+			ttl: number | string,
 			cb?: Callback<boolean>
 		): boolean;
 
 		set<T>(
-			key: string,
+			key: Key,
 			value: T,
 			cb?: Callback<boolean>
 		): boolean;
@@ -67,7 +74,7 @@ declare namespace NodeCache {
 		 * @returns Number of deleted keys
 		 */
 		del(
-			keys: string|string[],
+			keys: Key | Key[],
 			cb?: Callback<number>
 		): number;
 
@@ -75,13 +82,13 @@ declare namespace NodeCache {
 		 * reset or redefine the ttl of a key. If `ttl` is not passed or set to 0 it's similar to `.del()`
 		 */
 		ttl(
-			key: string,
+			key: Key,
 			ttl: number,
 			cb?: Callback<boolean>
 		): boolean;
 
 		ttl(
-			key: string,
+			key: Key,
 			cb?: Callback<boolean>,
 			ttl?: number
 		): boolean;
@@ -140,9 +147,7 @@ declare namespace NodeCache {
 		v: T;
 	}
 
-	interface Callback<T> {
-		(err: any, data: T): void;
-	}
+	type Callback<T> = (err: any, data: T | undefined) => void;
 }
 
 import events = require("events");
@@ -171,9 +176,9 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 * @param cb Callback function
 	 */
 	get<T>(
-		key: string,
+		key: Key,
 		cb?: Callback<T>
-	): T;
+	): T | undefined;
 
 	/**
 	 * get multiple cached keys at once and change the stats
@@ -182,9 +187,9 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 * @param cb Callback function
 	 */
 	mget<T>(
-		keys: string[],
-		cb?: Callback<{[key: string]: T}>
-	): {[key: string]: T};
+		keys: Key[],
+		cb?: Callback<{ [key: string]: T }>
+	): { [key: string]: T };
 
 	/**
 	 * set a cached key and change the stats
@@ -196,14 +201,14 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 * @param cb Callback function
 	 */
 	set<T>(
-		key: string,
+		key: Key,
 		value: T,
-		ttl: number|string,
+		ttl: number | string,
 		cb?: Callback<boolean>
 	): boolean;
 
 	set<T>(
-		key: string,
+		key: Key,
 		value: T,
 		cb?: Callback<boolean>
 	): boolean;
@@ -215,7 +220,7 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 * @returns Number of deleted keys
 	 */
 	del(
-		keys: string|string[],
+		keys: Key | Key[],
 		cb?: Callback<number>
 	): number;
 
@@ -223,13 +228,13 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 * reset or redefine the ttl of a key. If `ttl` is not passed or set to 0 it's similar to `.del()`
 	 */
 	ttl(
-		key: string,
+		key: Key,
 		ttl: number,
 		cb?: Callback<boolean>
 	): boolean;
 
 	ttl(
-		key: string,
+		key: Key,
 		cb?: Callback<boolean>,
 		ttl?: number
 	): boolean;
@@ -260,4 +265,3 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 }
 
 export = NodeCache;
-

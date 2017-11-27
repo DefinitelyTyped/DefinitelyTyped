@@ -1,6 +1,6 @@
 // Type definitions for log4javascript v1.4.13
 // Project: http://log4javascript.org/
-// Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
+// Definitions by: Markus Wagner <https://github.com/Ritzlgrmft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace log4javascript {

@@ -1,6 +1,6 @@
 // Type definitions for Tabris.js 4.0
 // Project: https://github.com/gajus/table
-// Definitions by: Evan Shortiss <http://github.com/evanshortiss>
+// Definitions by: Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type borderType = 'honeywell' | 'norc' | 'ramac' | 'void';

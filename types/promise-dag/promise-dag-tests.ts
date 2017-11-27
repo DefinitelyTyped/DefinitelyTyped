@@ -19,7 +19,7 @@ const runCustomPromise = promiseDag.implement({
 runCustomPromise(mushroomPastaRecipe, ["meal"])["meal"].then(eat);
 
 function eat(meal: string) {
-	let consume = `eating ${meal}`;
+	const consume = `eating ${meal}`;
 }
 
 function p_boilWater(volume: string): Promise<string> {

@@ -1,13 +1,17 @@
 // Type definitions for mongoose-simple-random 0.4
 // Project: https://github.com/larryprice/mongoose-simple-random
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Roberts Slisans <https://github.com/rsxdalv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="mongoose" />
+// TypeScript Version: 2.3
 
-// tslint:disable-next-line no-single-declare-module
+import mongoose = require('mongoose');
+declare function pluginFunc(schema: mongoose.Schema): void;
+declare namespace pluginFunc {}
+export = pluginFunc;
+
 declare module "mongoose" {
     interface Model<T extends Document> extends NodeJS.EventEmitter, ModelProperties {
-        findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res: T[]) => void)
+        findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res?: T[]) => void)
             : void;
     }
 }

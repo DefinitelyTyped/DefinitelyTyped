@@ -1,6 +1,10 @@
+import { CSSModule } from '../index';
+
 interface Props {
   tag?: React.ReactType;
+  innerRef?: string | ((instance: HTMLButtonElement) => any);
   className?: string;
+  cssModule?: CSSModule;
   href?: string;
 }
 

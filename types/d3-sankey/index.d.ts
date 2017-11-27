@@ -3,7 +3,7 @@
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 0.7
+// Last module patch version validated against: 0.7.1
 
 import { Link } from 'd3-shape';
 
@@ -208,7 +208,7 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
      *
      * This method is intended to be called after computing the initial Sankey layout, for example when the diagram is repositioned interactively.
      *
-     * @param graph
+     * @param graph A previously initialized Sankey graph for which the link positions should be re-calculated
      */
     update(graph: SankeyGraph<N, L>): SankeyGraph<N, L>;
 
@@ -266,7 +266,7 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
     nodeId(nodeId: (node: SankeyNode<N, L>) => string | number): this;
 
     /**
-     * Return the current node alignment method, which defaults to d3.sankeyLeft.
+     * Return the current node alignment method, which defaults to d3.sankeyJustify.
      */
     nodeAlign(): (node: SankeyNode<N, L>, n: number) => number;
     /**

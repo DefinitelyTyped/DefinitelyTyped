@@ -39,7 +39,8 @@ const oauth2 = oauth2lib.create(credentials);
     // Save the access token
     oauth2.authorizationCode.getToken(tokenConfig, (error, result) => {
         if (error) {
-            return console.log('Access Token Error', error.message);
+            console.log('Access Token Error', error.message);
+            return;
         }
 
         const token = oauth2.accessToken.create(result);
@@ -64,7 +65,8 @@ const oauth2 = oauth2lib.create(credentials);
     // Get the access token object for the client
     oauth2.clientCredentials.getToken(tokenConfig, (error, result) => {
         if (error) {
-            return console.log('Access Token Error', error.message);
+            console.log('Access Token Error', error.message);
+            return;
         }
 
         const token = oauth2.accessToken.create(result);

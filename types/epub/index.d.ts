@@ -32,7 +32,7 @@
  **/
 declare module "epub" {
 
-	import {EventEmitter} from "events";
+	import { EventEmitter } from "events";
 
 	interface TocElement {
 		level: number;

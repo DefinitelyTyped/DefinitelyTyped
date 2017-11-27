@@ -9,7 +9,7 @@ player = new Player('handstick', {
     width: 640
 });
 
-let onPlay = (data: any ) => {
+const onPlay = (data: any) => {
     // data is an object containing properties specific to that event
 };
 
@@ -97,7 +97,7 @@ player.pause().then(() => {
     }
 });
 
-player.play().then( () => {
+player.play().then(() => {
     // the video was played
 }).catch((error) => {
     switch (error.name) {
@@ -116,15 +116,15 @@ player.play().then( () => {
     }
 });
 
-player.unload().then( () => {
+player.unload().then(() => {
     // the video was unloaded
-}).catch( (error) => {
+}).catch((error) => {
     // an error occurred
 });
 
-player.getAutopause().then( (autopause) => {
+player.getAutopause().then((autopause) => {
     // autopause = whether autopause is turned on or off
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'UnsupportedError':
             // Autopause is not supported with the current player or browser
@@ -136,9 +136,9 @@ player.getAutopause().then( (autopause) => {
     }
 });
 
-player.setAutopause(false).then( (autopause) => {
+player.setAutopause(false).then((autopause) => {
     // autopause was turned off
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'UnsupportedError':
             // Autopause is not supported with the current player or browser
@@ -150,15 +150,15 @@ player.setAutopause(false).then( (autopause) => {
     }
 });
 
-player.getColor().then( (color) => {
+player.getColor().then((color) => {
     // color = the hex color of the player
-}).catch( (error) => {
+}).catch((error) => {
     // an error occurred
 });
 
-player.setColor('#00adef').then( (color) => {
+player.setColor('#00adef').then((color) => {
     // color was successfully set
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'ContrastError':
             // the color was set, but the contrast is outside of the acceptable
@@ -181,9 +181,9 @@ player.setColor('#00adef').then( (color) => {
 
 player.addCuePoint(15, {
     customKey: 'customValue'
-}).then( (id) => {
+}).then((id) => {
     // cue point was added successfully
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'UnsupportedError':
             // cue points are not supported with the current player or browser
@@ -199,9 +199,9 @@ player.addCuePoint(15, {
     }
 });
 
-player.removeCuePoint('09ecf4e4-b587-42cf-ad9f-e666b679c9ab').then( (id) => {
+player.removeCuePoint('09ecf4e4-b587-42cf-ad9f-e666b679c9ab').then((id) => {
     // cue point was removed successfully
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'UnsupportedError':
             // cue points are not supported with the current player or browser
@@ -217,9 +217,9 @@ player.removeCuePoint('09ecf4e4-b587-42cf-ad9f-e666b679c9ab').then( (id) => {
     }
 });
 
-player.getCuePoints().then( (cuePoints) => {
+player.getCuePoints().then((cuePoints) => {
     // cuePoints = an array of cue point objects
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'UnsupportedError':
             // cue points are not supported with the current player or browser
@@ -231,15 +231,15 @@ player.getCuePoints().then( (cuePoints) => {
     }
 });
 
-player.getCurrentTime().then( (seconds) => {
+player.getCurrentTime().then((seconds) => {
     // seconds = the current playback position
-}).catch( (error) => {
+}).catch((error) => {
     // an error occurred
 });
 
-player.setCurrentTime(30.456).then( (seconds) => {
+player.setCurrentTime(30.456).then((seconds) => {
     // seconds = the actual time that the player seeked to
-}).catch( (error) => {
+}).catch((error) => {
     switch (error.name) {
         case 'RangeError':
             // the time was less than 0 or greater than the video’s duration
@@ -324,8 +324,8 @@ player.getVideoHeight().then((height) => {
 });
 
 Promise.all([player.getVideoWidth(), player.getVideoHeight()]).then((dimensions) => {
-    let width = dimensions[0];
-    let height = dimensions[1];
+    const width = dimensions[0];
+    const height = dimensions[1];
 });
 
 player.getVideoUrl().then((url) => {

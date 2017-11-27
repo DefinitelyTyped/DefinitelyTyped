@@ -6,7 +6,7 @@ declare function it(desc: string, fn: () => void): void;
 
 describe("ApplePaySession", () => {
     it("the constants are defined", () => {
-        let status = 0;
+        const status = 0;
         switch (status) {
             case ApplePaySession.STATUS_FAILURE:
             case ApplePaySession.STATUS_INVALID_BILLING_POSTAL_ADDRESS:
@@ -43,8 +43,8 @@ describe("ApplePaySession", () => {
     it("can call static methods", () => {
         const merchantIdentifier = "MyMerchantId";
 
-        let canMakePayments: boolean = ApplePaySession.canMakePayments();
-        let supported: boolean = ApplePaySession.supportsVersion(2);
+        const canMakePayments: boolean = ApplePaySession.canMakePayments();
+        const supported: boolean = ApplePaySession.supportsVersion(2);
 
         ApplePaySession.canMakePaymentsWithActiveCard(merchantIdentifier)
             .then((status: boolean) => {
@@ -168,7 +168,7 @@ describe("ApplePaySession", () => {
 });
 describe("ApplePayPaymentRequest", () => {
     it("can create a new instance", () => {
-        let paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             applicationData: "ApplicationData",
             countryCode: "GB",
             currencyCode: "GBP",
@@ -181,8 +181,8 @@ describe("ApplePayPaymentRequest", () => {
                 "amex",
                 "discover",
                 "jcb",
-                "master​Card",
-                "private​Label",
+                "masterCard",
+                "privateLabel",
                 "visa"
             ],
             total: {

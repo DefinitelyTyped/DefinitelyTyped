@@ -14,6 +14,8 @@ interface ConstructorOptions {
     seqMask?: number;
 }
 
+declare namespace FlakeId {}
+
 declare class FlakeId {
     constructor(options?: ConstructorOptions);
     next(callback?: (err: Error, id: Buffer) => void): Buffer;

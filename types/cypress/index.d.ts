@@ -2,6 +2,7 @@
 // Project: https://cypress.io
 // Definitions by: Gert Hengeveld <https://github.com/ghengeveld>
 //                 Mike Woudenberg <https://github.com/mikewoudenberg>
+//                 Robbert van Markus <https://github.com/rvanmarkus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -368,12 +369,18 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/then
      */
-    then(fn: (currentSubject: any) => any): Chainable;
+    then(fn: (currentSubject: any) => any, options?: Timeoutable): Chainable;
 
     /**
      * @see https://on.cypress.io/api/title
      */
     title(options?: Loggable): Chainable;
+
+    /**
+     * @description Trigger an event on a DOM element.
+     * @see https://docs.cypress.io/api/commands/trigger.html
+     */
+    trigger(eventName: string, position?: PositionType, x?: number, y?: number, options?: TriggerOptions): Chainable;
 
     /**
      * @see https://on.cypress.io/api/type
@@ -539,6 +546,16 @@ declare namespace Cypress {
     onBeforeLoad?(args: any[]): void;
     onLoad?(args: any[]): void;
   }
+
+  interface TriggerOptions {
+    log?: boolean;
+    force?: boolean;
+    bubbles?: boolean;
+    cancable?: boolean;
+    timeout?: number;
+  }
+
+  type PositionType = "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight";
 }
 
 declare const cy: Cypress.Chainable;

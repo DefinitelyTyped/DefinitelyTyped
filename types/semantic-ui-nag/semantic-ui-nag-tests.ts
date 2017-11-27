@@ -1,5 +1,5 @@
 function test_nag_static() {
-    $.fn.nag.settings.error.method = 'method';
+    $.fn.nag.settings.error!.method = 'method';
     $.fn.nag.settings.namespace = 'namespace';
     $.fn.nag.settings.name = 'name';
     $.fn.nag.settings.silent = false;
@@ -10,13 +10,14 @@ function test_nag_static() {
 
 function test_nag() {
     const selector = '.ui.nag';
-    $(selector).nag('show') === $();
-    $(selector).nag('hide') === $();
-    $(selector).nag('clear') === $();
-    $(selector).nag('destroy') === $();
-    $(selector).nag('setting', 'debug', undefined) === false;
-    $(selector).nag('setting', 'debug') === false;
-    $(selector).nag('setting', 'debug', true) === $();
+    $(selector).nag('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).nag('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).nag('clear'); // $ExpectType JQuery<HTMLElement>
+    $(selector).nag('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).nag('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).nag('setting', 'debug'); // $ExpectType boolean
+    $(selector).nag('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).nag('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -24,7 +25,8 @@ function test_nag() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).nag({
         persist: true,
         displayTime: 0,
@@ -43,7 +45,7 @@ function test_nag() {
         speed: 500,
         easing: 'easeOutQuad',
         onHide() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
             bottom: 'bottom',
@@ -57,12 +59,16 @@ function test_nag() {
             noStorage: 'noStorage',
             method: 'method'
         }
-    }) === $();
-    $(selector).nag() === $();
+    });
+    $(selector).nag(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).nag('foo'); // $ExpectError
+    $(selector).nag({ foo: 'bar' }); // $ExpectError
 }
 
 import nag = require('semantic-ui-nag');
 
 function test_module() {
+    nag; // $ExpectType Nag
     $.fn.nag = nag;
 }
