@@ -1,8 +1,8 @@
-// Type definitions for ejs.js 2.3
+// Type definitions for ejs.js 2.5
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 export interface Data {
     [name: string]: any;
