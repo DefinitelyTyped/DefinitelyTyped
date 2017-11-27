@@ -48,7 +48,7 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
 }
 
 class DivSwipeable extends Swipeable<HTMLDivElement> {}
-const TestComponent: React.StatelessComponent<{}> = (_) => {
+const TestComponent: React.StatelessComponent = (_) => {
     const handleSwiped = (event: React.TouchEvent<HTMLDivElement>) => {};
     return (
         <DivSwipeable
