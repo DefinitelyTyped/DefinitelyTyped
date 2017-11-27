@@ -1,4 +1,4 @@
-import {addWheelListener, removeWheelListener} from "wheel";
+import { addWheelListener, removeWheelListener } from "wheel";
 
 const wheelListener = (event: WheelEvent) => {
     event.preventDefault();
