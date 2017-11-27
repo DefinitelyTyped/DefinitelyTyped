@@ -58,7 +58,7 @@ declare namespace Xrm {
         Mobile: Mobile;
 
         /**
-         * Provides methods to display a web page in the side pane of web client.
+         * Provides a method to display a web page in the side pane of the Customer Engagement form.
          *
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-panel External Link: Xrm.Panel}
          */
@@ -1186,7 +1186,7 @@ declare namespace Xrm {
          * @remarks  This method is only supported for the web client.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-panel/loadpanel External Link: loadPanel (Client-side reference)}
          */
-        LoadPanel(url: string, title: string): void;
+        loadPanel(url: string, title: string): void;
     }
 
     /**
