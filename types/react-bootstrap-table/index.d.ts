@@ -544,17 +544,33 @@ export interface CellEdit<TRow extends object = any> {
 	 *   `cellName`: the column dataField cell name that has been modified.
 	 *   `cellValue`: the new cell value.
 	 *   `done`: a callback function to use if this is an async operation, to indicate if the save data is valid.
+	 *   `props`: an object containing the current cell's rowIndex and colIndex values.
 	 * If your validation is async, for example: you want to pop a confirm dialog for user to confim in this case,
 	 * react-bootstrap-table pass a callback function to you. You are supposed to call this callback function with a
 	 * bool value to perfom if it is valid or not in addition, you should return 1 from the main function to tell
 	 * react-bootstrap-table that this is a async operation.
 	 */
-	beforeSaveCell?<K extends keyof TRow>(row: TRow, cellName: K, cellValue: TRow[K], done: (isValid: boolean) => void): boolean | 1;
+	 beforeSaveCell?<K extends keyof TRow>(
+		row: TRow,
+		cellName: K,
+		cellValue: TRow[K],
+		done: (isValid: boolean) => void,
+		props: { rowIndex: number; colIndex: number }
+	): boolean | 1;
 	/**
 	 * Accept a custom callback function, after cell saving, this function will be called.
 	 * This callback function takes three arguments: row, cellName and cellValue
+	 *   `row`: the row data that was saved.
+	 *   `cellName`: the column dataField cell name that has been modified.
+	 *   `cellValue`: the new cell value.
+	 *   `props`: an object containing the current cell's rowIndex and colIndex values.
 	 */
-	afterSaveCell?<K extends keyof TRow>(row: TRow, cellName: K, cellValue: TRow[K]): void;
+	afterSaveCell?<K extends keyof TRow>(
+		row: TRow,
+		cellName: K,
+		cellValue: TRow[K],
+		props: { rowIndex: number; colIndex: number }
+	): void;
 }
 
 /**
@@ -1713,7 +1729,7 @@ export type Filter = TextFilter | SelectFilter | RegexFilter | NumberFilter | Da
  * The "value" type for a number filter
  */
 export interface NumberFilterValue {
-	number: number;
+	number: number | string;
 	comparator: FilterComparator;
 }
 
@@ -1834,6 +1850,10 @@ export interface KeyboardNavigation {
 	 * When set to true, pressing ENTER will expand or collapse the current row.
 	 */
 	enterToExpand?: boolean;
+	/**
+	 * When set to true, pressing ENTER will select or unselect the current row.
+	 */
+	enterToSelect?: boolean;
 }
 
 /**
