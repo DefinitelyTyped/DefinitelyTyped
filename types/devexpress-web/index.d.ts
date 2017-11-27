@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET v171.3
+// Type definitions for DevExpress ASP.NET v171.4
 // Project: http://devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2554,12 +2554,27 @@ interface ASPxClientDashboardDrillUpPerformedEventArgs extends ASPxClientEventAr
      */
     ItemName: string;
 }
+interface CardWidgetCustomizeTextEventArgs {
+    getValue(): Object;
+    getDefaultText(): string;
+}
+/**
+ * A Card widget that visualizes a Card dashboard item's data.
+ */
+interface CardWidget {
+    /**
+     * Gets or sets the background color for a card.
+     * Value: A string that specifies the <a href="https://www.w3schools.com/html/html_colors.asp">HTML color</a> used to paint a card's background.
+     */
+    cardBackColor: string;
+    onCustomizeText: Object;
+}
 /**
  * When implemented, represents the Web Dashboard extension.
  */
 interface IExtension {
     /**
-     * A unique name of a Web Dashboard extension.
+     * Gets a unique name of a Web Dashboard extension.
      * Value: A string value that is a unique name of a Web Dashboard extension.
      */
     name: string;
@@ -2577,12 +2592,12 @@ interface IExtension {
  */
 interface DashboardControl {
     /**
-     * Gets or sets knockout templates that you can used in the Web Dashboard.
-     * Value: A <see cref="KnockoutObservableArray" /> object that is a knockout template.
+     * Gets or sets knockout templates that you can use in the Web Dashboard.
+     * Value: A <see cref="KnockoutObservableArray" /> object that is a knockout template collection.
      */
     customTemplates: KnockoutObservableArray;
     /**
-     * Provide an access to the collection of registered dashboard extensions.
+     * Provides an access to the collection of registered dashboard extensions.
      * Value: An array of IExtension objects that are dashboard extensions.
      */
     extensions: IExtension[];
@@ -2719,7 +2734,7 @@ interface DashboardPanelExtension extends IExtension {
      */
     panelWidth: number;
     /**
-     * Allows you to control the Dashboard Panel's visibility.
+     * Gets or sets whether the Dashboard Panel is visible.
      * Value: true, to display the Dashboard Panel; otherwise, false.
      */
     visible: KnockoutObservableBoolean;
@@ -2739,8 +2754,8 @@ interface AvailableDataSourcesExtension extends IExtension {
  */
 interface DashboardMenuItem {
     /**
-     * Gets or sets a unique id of a dashboard menu item.
-     * Value: A string value that is a menu item's unique name.
+     * Gets or sets a unique identifier of a dashboard menu item.
+     * Value: A string value that is a menu item's unique identifier.
      */
     id: string;
     /**
@@ -2749,13 +2764,13 @@ interface DashboardMenuItem {
      */
     title: string;
     /**
-     * Gets or sets a position of the dashboard menu item group within the dashboard menu.
+     * Gets or sets a position of the dashboard menu item within the dashboard menu.
      * Value: A zero-based integer specifying the position of the current dashboard menu item.
      */
     index: number;
     /**
-     * Gets or sets a keyboard shortcut used to invoke the command.
-     * Value: An integer value that specifies a hotkey combination.
+     * Gets or sets a code of the key used in the keyboard shortcut. This shortcut allows you to invoke the current menu item.
+     * Value: An integer value that specifies a key code.
      */
     hotKey: number;
     /**
@@ -2774,7 +2789,7 @@ interface DashboardMenuItem {
      */
     selected: KnockoutObservableBoolean;
     /**
-     * Gets or sets whether a dashboard menu item should be disabled.
+     * Gets whether a dashboard menu item is disabled.
      * Value: true, if a dashboard menu item should be disabled; otherwise, false.
      */
     disabled: KnockoutObservableBoolean;
@@ -2845,7 +2860,7 @@ interface DashboardToolbarItem {
     title: string;
     /**
      * Gets or sets whether a toolbar item should be disabled.
-     * Value: true, if a toolbar item should be disabled; otherwise, false.
+     * Value: true, if a toolbar item is disabled; otherwise, false.
      */
     disabled: KnockoutObservableBoolean;
     /**
@@ -3441,6 +3456,10 @@ interface ASPxClientTextEdit extends ASPxClientEdit {
      * @param position An integer value that specifies the zero-based index of a text character that shall precede the caret.
      */
     SetCaretPosition(position: number): void;
+    /**
+     * Obtains the caret position within the edited text.
+     */
+    GetCaretPosition(): number;
     /**
      * Selects the specified portion of the editor's text.
      * @param startPos A zero-based integer value specifying the selection's starting position.
@@ -5022,6 +5041,11 @@ interface ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessingMo
      * Value: An integer value that is the toolbar index.
      */
     toolbarIndex: number;
+    /**
+     * Gets the toolbar name.
+     * Value: A string value that is the toolbar name.
+     */
+    toolbarName: string;
     /**
      * Gets the clicked toolbar item.
      * Value: A ASPxClientMenuItem object that is the toolbar item.
@@ -9900,7 +9924,7 @@ interface ASPxClientHtmlEditorDialogBase {
     GetCancelButton(): ASPxClientButton;
 }
 /**
- * Provides client functionality for Html Editor's dialogs operated with the elements.
+ * Provides client functionality for Html Editor dialogs operated with its elements.
  */
 interface ASPxClientHtmlEditorEditElementDialog extends ASPxClientHtmlEditorDialogBase {
     /**
@@ -10949,7 +10973,7 @@ interface RichEditCommands {
      */
     changeFontBackColor: ChangeFontBackColorCommand;
     /**
-     * Gets a command to reset the selected text's formatting to default.
+     * Gets a command to reset text and paragraph formatting in the selected range to default.
      * Value: A <see cref="ClearFormattingCommand" /> object that provides methods for executing the command and checking its state.
      */
     clearFormatting: ClearFormattingCommand;
@@ -10979,7 +11003,7 @@ interface RichEditCommands {
      */
     increaseIndent: IncreaseIndentCommand;
     /**
-     * Gets a command to decrement the indent level of paragraphs in a selected range.
+     * Gets a command to decrease the indent level of paragraphs in a selected range.
      * Value: A <see cref="DecreaseIndentCommand" /> object that provides methods for executing the command and checking its state.
      */
     decreaseIndent: DecreaseIndentCommand;
@@ -11079,7 +11103,7 @@ interface RichEditCommands {
      */
     openInsertTableDialog: OpenInsertTableDialogCommand;
     /**
-     * Gets a command to invoke the Insert Table dialog window.
+     * Gets a command to insert a rectangle table of a specified size.
      * Value: A <see cref="InsertTableCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertTable: InsertTableCommand;
@@ -11089,7 +11113,7 @@ interface RichEditCommands {
      */
     openInsertPictureDialog: OpenInsertPictureDialogCommand;
     /**
-     * Gets a command to insert a picture from a file.
+     * Gets a command to insert an inline picture stored by specifed web address.
      * Value: A <see cref="InsertPictureCommand" /> object that provides methods for executing the command and checking its state.
      */
     insertPicture: InsertPictureCommand;
@@ -11304,7 +11328,7 @@ interface RichEditCommands {
      */
     openTabsDialog: OpenTabsDialogCommand;
     /**
-     * Gets a command to change paragraph tab stops.
+     * Gets a command to change the tab stop value of a document or selected paragraphs
      * Value: A <see cref="ChangeTabsCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTabs: ChangeTabsCommand;
@@ -11334,7 +11358,7 @@ interface RichEditCommands {
      */
     decrementNumberingIndent: DecrementNumberingIndentCommand;
     /**
-     * Gets a command to create an empty field in the document.
+     * Gets a command to create a field with an empty code and populate it with the selection (if it is not collapsed).
      * Value: A <see cref="CreateFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createField: CreateFieldCommand;
@@ -11374,17 +11398,17 @@ interface RichEditCommands {
      */
     updateAllFields: UpdateAllFieldsCommand;
     /**
-     * Gets a command to insert a DATE field displaying the current date.
+     * Gets a command to insert and update a field with a DATE code.
      * Value: A <see cref="CreateDateFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createDateField: CreateDateFieldCommand;
     /**
-     * Gets a command to insert a TIME field displaying the current time.
+     * Gets a command to replace the selection with a TIME field displaying the current time.
      * Value: A <see cref="CreateTimeFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createTimeField: CreateTimeFieldCommand;
     /**
-     * A command to insert a PAGE field displaying the current page number.
+     * A command to replace the selection with a PAGE field displaying the current page number.
      * Value: A <see cref="CreatePageFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createPageField: CreatePageFieldCommand;
@@ -11434,7 +11458,7 @@ interface RichEditCommands {
      */
     mergeFieldDialog: MergeFieldDialogCommand;
     /**
-     * Gets a command to insert a MERGEFIELD field (with a data source column name) at the current position in the document.
+     * Gets a command to replace the selection with a MERGEFIELD (a data source column name is passed with a parameter).
      * Value: A <see cref="CreateMergeFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createMergeField: CreateMergeFieldCommand;
@@ -11504,7 +11528,7 @@ interface RichEditCommands {
      */
     closeHeaderFooter: CloseHeaderFooterCommand;
     /**
-     * Gets a command to insert a NUMPAGES field displaying the total number of pages.
+     * Gets a command to replace the selection with a NUMPAGES field displaying the total number of pages.
      * Value: A <see cref="CreatePageCountFieldCommand" /> object that provides methods for executing the command and checking its state.
      */
     createPageCountField: CreatePageCountFieldCommand;
@@ -11863,6 +11887,7 @@ interface RichEditCommands {
      * Value: A <see cref="ChangeTextBoxContentMarginsCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTextBoxContentMargins: ChangeTextBoxContentMarginsCommand;
+    changeTextBoxResizeShapeToFitText: ChangeTextBoxResizeShapeToFitTextCommand;
 }
 /**
  * Serves as a base for objects that implement different client command functionalities.
@@ -12762,9 +12787,9 @@ interface OpenInsertBookmarkDialogCommand extends CommandWithSimpleStateBase {
 interface InsertBookmarkCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertBookmarkCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param name A string value specifying name of creating bookmark.
-     * @param start An integer value specifying the start position of bookmark's range.
-     * @param length An integer value specifying the length of bookmark's range.
+     * @param name A string value specifying a name of the created bookmark.
+     * @param start An integer value specifying the start position of the bookmark's range.
+     * @param length An integer value specifying the length of the bookmark's range.
      */
     execute(name: string, start: number, length: number): boolean;
 }
@@ -12774,7 +12799,7 @@ interface InsertBookmarkCommand extends CommandWithSimpleStateBase {
 interface DeleteBookmarkCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the DeleteBookmarkCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param name A string value specifying name of the deleted bookmark.
+     * @param name A string value specifying a name of the deleted bookmark.
      */
     execute(name: string): boolean;
 }
@@ -13233,8 +13258,8 @@ interface HideFindResultsCommand extends CommandWithSimpleStateBase {
 interface ReplaceAllCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the ReplaceAllCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param text A string value specifying text to replace.
-     * @param replaceText A string value specifying replacing text.
+     * @param text A string value specifying a text to replace.
+     * @param replaceText A string value specifying the replacing text.
      * @param matchCase true, to perform a case-sensitive search; otherwise, false.
      */
     execute(text: string, replaceText: string, matchCase: boolean): boolean;
@@ -13446,6 +13471,10 @@ interface ChangeTextBoxContentMarginsCommand extends CommandBase {
     /**
      * Gets information about the command state.
      */
+    getState(): any;
+}
+interface ChangeTextBoxResizeShapeToFitTextCommand extends CommandBase {
+    execute(resizeShapeToFitText: boolean): boolean;
     getState(): any;
 }
 /**
@@ -13919,7 +13948,7 @@ interface InsertNumerationCommand extends CommandWithSimpleStateBase {
     execute(abstractNumberingListIndex: number): boolean;
     /**
      * Executes the InsertNumerationCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param numberingListIndex An integer value specifying index of numbering list.
+     * @param numberingListIndex An integer value specifying an index of the numbering list.
      * @param isAbstractNumberingList true, to insert an abstract numbering list; otherwise, false.
      */
     execute(numberingListIndex: number, isAbstractNumberingList: boolean): boolean;
@@ -14105,7 +14134,7 @@ interface InsertSymbolCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertSymbolCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      * @param symbol A string value specifying symbols to insert.
-     * @param fontName A string value specifying font of symbols to insert.
+     * @param fontName A string value specifying the font of symbols to insert.
      */
     execute(symbol: string, fontName: string): boolean;
 }
@@ -14124,7 +14153,7 @@ interface InsertParagraphCommand extends CommandWithSimpleStateBase {
 interface InsertTextCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertTextCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param text A string value specifying text to insert.
+     * @param text A string value specifying a text to insert.
      */
     execute(text: string): boolean;
 }
@@ -14217,7 +14246,15 @@ interface InsertTabCommand extends CommandWithSimpleStateBase {
  * Defines the scaling settings.
  */
 interface Scale {
+    /**
+     * Gets or sets the image's y-scale factor as a percent.
+     * Value: An integer value that is the y-scale factor as a percent.
+     */
     x: number;
+    /**
+     * Gets or sets the image's x-scale factor as a percent.
+     * Value: An integer value that is the x-scale factor as a percent.
+     */
     y: number;
 }
 /**
@@ -14346,7 +14383,7 @@ interface ChangeSectionColumnsCommand extends CommandBase {
 interface ChangePageColorCommand extends CommandBase {
     /**
      * Executes the ChangePageColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying background color of the page. May be specified as color name or hex color value.
+     * @param color A string specifying a background color the page. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -14427,7 +14464,7 @@ interface SetDifferentFirstPageHeaderFooterCommand extends CommandWithBooleanSta
     execute(): boolean;
     /**
      * Executes the SetDifferentFirstPageHeaderFooterCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param differentFirstPage true to apply different text for first page's header and footer, false to remove difference.
+     * @param differentFirstPage true to apply a different text for the first page's header and footer, false to remove the difference.
      */
     execute(differentFirstPage: boolean): boolean;
 }
@@ -14441,7 +14478,7 @@ interface SetDifferentOddAndEvenPagesHeaderFooterCommand extends CommandWithBool
     execute(): boolean;
     /**
      * Executes the SetDifferentOddAndEvenPagesHeaderFooterCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param differentOddAndEvenPages true to apply different text for odd and even pages' header and footer, false to remove difference.
+     * @param differentOddAndEvenPages true to apply a different text for the header and footer of the odd and even pages , false to remove the difference.
      */
     execute(differentOddAndEvenPages: boolean): boolean;
 }
@@ -14650,7 +14687,7 @@ interface RemoveSpacingAfterParagraphCommand extends CommandWithSimpleStateBase 
 interface ChangeParagraphBackColorCommand extends CommandBase {
     /**
      * Executes the ChangeParagraphBackColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying highlighting color of the paragraphs in a selected range. May be specified as color name or hex color value.
+     * @param color A string specifying a background color of the paragraphs in a selected range. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -14906,8 +14943,8 @@ interface OpenInsertTableDialogCommand extends CommandWithSimpleStateBase {
 interface InsertTableCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertTableCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param columnCount An integer value specifying number of columns in a generated table.
-     * @param rowCount An integer value specifying number of rows in a generated table.
+     * @param columnCount An integer value specifying a number of columns in a generated table.
+     * @param rowCount An integer value specifying a number of rows in a generated table.
      */
     execute(columnCount: number, rowCount: number): boolean;
 }
@@ -15122,9 +15159,9 @@ interface SplitTableCellsDialogCommand extends CommandWithSimpleStateBase {
 interface SplitTableCellsCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the SplitTableCellsCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param rowCount An integer value specifying number of rows in the splitted table cells.
-     * @param columnCount An integer value specifying number of columns in the splitted table cells.
-     * @param mergeBeforeSplit true to merge the selected cells before splitting; otherwise, false.
+     * @param rowCount An integer value specifying a number of rows in the split table cells.
+     * @param columnCount An integer value specifying a number of columns in the split table cells.
+     * @param mergeBeforeSplit true to merge the selected cells before the splitting; otherwise, false.
      */
     execute(rowCount: number, columnCount: number, mergeBeforeSplit: boolean): boolean;
 }
@@ -15385,7 +15422,7 @@ interface ChangeTableBorderRepositoryItemCommand extends CommandBase {
 interface ChangeTableCellShadingCommand extends CommandBase {
     /**
      * Executes the ChangeTableCellShadingCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying color of the selected cells' shading. May be specified as color name or hex color value.
+     * @param color A string specifying the color of the selected cells' shading. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -15856,7 +15893,7 @@ declare enum TableWidthUnitType {
 interface ChangeFontNameCommand extends CommandBase {
     /**
      * Executes the ChangeFontNameCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param fontName A string specifying font name.
+     * @param fontName A string specifying the font name.
      */
     execute(fontName: string): boolean;
     /**
@@ -15870,7 +15907,7 @@ interface ChangeFontNameCommand extends CommandBase {
 interface ChangeFontSizeCommand extends CommandBase {
     /**
      * Executes the ChangeFontSizeCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param fontSize An integer number specifying font size.
+     * @param fontSize An integer number specifying the font size.
      */
     execute(fontSize: number): boolean;
     /**
@@ -16022,7 +16059,7 @@ interface ChangeFontSubscriptCommand extends CommandWithBooleanStateBase {
 interface ChangeFontForeColorCommand extends CommandBase {
     /**
      * Executes the ChangeFontForeColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying font color. May be specified as color name or hex color value.
+     * @param color A string specifying the font color. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -16036,7 +16073,7 @@ interface ChangeFontForeColorCommand extends CommandBase {
 interface ChangeFontBackColorCommand extends CommandBase {
     /**
      * Executes the ChangeFontBackColorCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param color A string specifying highlighting color. May be specified as color name or hex color value.
+     * @param color A string specifying the background font color. May be specified as a color name or a hex color value.
      */
     execute(color: string): boolean;
     /**
@@ -16064,8 +16101,8 @@ interface ChangeStyleCommand extends CommandBase {
     execute(style: StyleBase): boolean;
     /**
      * Executes the ChangeStyleCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param styleName A string specifying the name of applying style.
-     * @param isParagraphStyle true to apply style to paragraph, false to apply style to character.
+     * @param styleName A string specifying the applying style's name.
+     * @param isParagraphStyle true to apply the style to a paragraph, false to apply the style to a character.
      */
     execute(styleName: string, isParagraphStyle: boolean): boolean;
     /**
@@ -16213,7 +16250,7 @@ interface SetFullscreenCommand extends CommandWithBooleanStateBase {
     execute(): boolean;
     /**
      * Executes the SetFullscreenCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param fullscreen true to apply fullscreen mode, false to remove fullscreen mode.
+     * @param fullscreen true to apply the fullscreen mode, false to disable the fullscreen mode.
      */
     execute(fullscreen: boolean): boolean;
 }
@@ -17101,7 +17138,7 @@ interface ASPxClientScheduler extends ASPxClientControl {
      */
     ActiveViewChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientScheduler>>;
     /**
-     * Occurs when an end-user pressers a keyboard shortcut.
+     * Occurs when an end-user presses a keyboard shortcut.
      */
     Shortcut: ASPxClientEvent<ShortcutEventHandler<ASPxClientScheduler>>;
     /**
@@ -17926,8 +17963,8 @@ interface ASPxClientToolTipBase {
      */
     Close(): void;
     /**
-     * 
-     * @param bounds 
+     * Gets the tooltip position.
+     * @param bounds An object that represents the tooltip bounds.
      */
     CalculatePosition(bounds: Object): ASPxClientPoint;
     /**
@@ -19185,6 +19222,11 @@ interface ASPxClientTreeListToolbarItemClickEventArgs extends ASPxClientProcessi
      */
     toolbarIndex: number;
     /**
+     * Gets the toolbar name.
+     * Value: A string object that is the toolbar name.
+     */
+    toolbarName: string;
+    /**
      * Gets the toolbar item related to the event.
      * Value: An ASPxClientMenuItem object that is the toolbar item.
      */
@@ -19527,11 +19569,6 @@ interface BootstrapClientDropDownEdit extends ASPxClientDropDownEdit {
 interface BootstrapClientFormLayout extends ASPxClientFormLayout {
 }
 /**
- * Represents a client-side equivalent of the BootstrapGridView control.
- */
-interface BootstrapClientGridView extends ASPxClientGridView {
-}
-/**
  * Represents a client-side equivalent of the BootstrapHyperLink control.
  */
 interface BootstrapClientHyperLink extends ASPxClientHyperLink {
@@ -19795,6 +19832,8 @@ interface BootstrapUIWidgetBase extends ASPxClientControl {
     IncidentOccurred: ASPxClientEvent<BootstrapUIWidgetErrorEventHandler<BootstrapUIWidgetBase>>;
     GetInstance(): Object;
     SetOptions(options: Object): void;
+    SetDataSource(dataSource: Object): void;
+    GetDataSource(): Object;
     ExportTo(format: string, fileName: string): void;
     Print(): void;
 }
@@ -19847,6 +19886,8 @@ interface BootstrapUIWidgetElementClickEventArgs extends BootstrapUIWidgetElemen
  * Represents a client-side equivalent of the BootstrapUploadControl.
  */
 interface BootstrapClientUploadControl extends ASPxClientUploadControl {
+}
+interface BootstrapClientGridView extends ASPxClientGridView {
 }
 /**
  * A client-side counterpart of the Calendar and CalendarFor extensions.
@@ -20489,6 +20530,9 @@ interface MVCxClientRoundPanel extends ASPxClientRoundPanel {
  * A client-side counterpart of the Scheduler extension.
  */
 interface MVCxClientScheduler extends ASPxClientScheduler {
+    /**
+     * Occurs on the client side when the tooltip is about to be displayed.
+     */
     ToolTipDisplaying: ASPxClientEvent<MVCxClientSchedulerToolTipDisplayingEventHandler<MVCxClientScheduler>>;
     /**
      * Occurs when a callback for server-side processing is initiated.
@@ -20515,6 +20559,10 @@ interface MVCxClientScheduler extends ASPxClientScheduler {
  * A template that is rendered to display a tooltip.
  */
 interface MVCxClientSchedulerTemplateToolTip extends ASPxClientToolTipBase {
+    /**
+     * Gets the tooltip type.
+     * Value: A MVCxSchedulerToolTipType object that specifies the tooltip type.
+     */
     type: MVCxSchedulerToolTipType;
 }
 /**
@@ -20532,7 +20580,15 @@ interface MVCxClientSchedulerToolTipDisplayingEventHandler<S> {
  * Provides data for the ToolTipDisplaying event.
  */
 interface MVCxClientSchedulerToolTipDisplayingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the tooltip related to the event.
+     * Value: A MVCxClientSchedulerTemplateToolTip object that specifies the tooltip.
+     */
     toolTip: MVCxClientSchedulerTemplateToolTip;
+    /**
+     * Gets information about the tooltip related to the event.
+     * Value: A ASPxClientSchedulerToolTipData object that specifies information about the tooltip.
+     */
     data: ASPxClientSchedulerToolTipData;
 }
 /**
@@ -23396,6 +23452,11 @@ interface ASPxClientHintShowingEventArgs extends ASPxClientEventArgs {
      * Value: An object representing the hint's title element related to the event.
      */
     titleElement: Object;
+    /**
+     * Gets or sets a value indicating whether the event should be canceled.
+     * Value: true, if the event should be canceled; otherwise, false.
+     */
+    cancel: boolean;
 }
 /**
  * A method that will handle the Hiding event.
@@ -32198,8 +32259,6 @@ interface BootstrapClientDropDownEditStatic extends ASPxClientDropDownEditStatic
 }
 interface BootstrapClientFormLayoutStatic extends ASPxClientFormLayoutStatic {
 }
-interface BootstrapClientGridViewStatic extends ASPxClientGridViewStatic {
-}
 interface BootstrapClientHyperLinkStatic extends ASPxClientHyperLinkStatic {
 }
 interface BootstrapClientImageStatic extends ASPxClientImageStatic {
@@ -32237,6 +32296,8 @@ interface BootstrapClientTreeViewStatic extends ASPxClientTreeViewStatic {
 interface BootstrapUIWidgetBaseStatic extends ASPxClientControlStatic {
 }
 interface BootstrapClientUploadControlStatic extends ASPxClientUploadControlStatic {
+}
+interface BootstrapClientGridViewStatic extends ASPxClientGridViewStatic {
 }
 interface MVCxClientCalendarStatic extends ASPxClientCalendarStatic {
     /**
@@ -32702,15 +32763,15 @@ interface ASPxClientHintStatic extends ASPxClientControlStatic {
      */
     Register(targetSelector: string, options: ASPxClientHintOptions): ASPxClientHint;
     /**
-     * 
-     * @param targetSelector 
-     * @param contentAttribute 
+     * Registers a hint's functionality with the specified settings.
+     * @param targetSelector A string value that is the CSS selector. Specifies to which UI elements the hint is displayed.
+     * @param contentAttribute A string value that is the attribute name. Specifies from which target element's attribute a hint obtains its content.
      */
     Register(targetSelector: string, contentAttribute: string): ASPxClientHint;
     /**
-     * 
-     * @param targetSelector 
-     * @param onShowing 
+     * Registers a hint's functionality with the specified settings.
+     * @param targetSelector A string value that is the CSS selector. Specifies for which UI elements the hint is displayed.
+     * @param onShowing An ASPxClientHintShowingEventHandler object that is a handler for the displayed event.
      */
     Register(targetSelector: string, onShowing: ASPxClientHintShowingEventHandler): ASPxClientHint;
     /**
@@ -33521,7 +33582,6 @@ declare var BootstrapClientComboBox: BootstrapClientComboBoxStatic;
 declare var BootstrapClientDateEdit: BootstrapClientDateEditStatic;
 declare var BootstrapClientDropDownEdit: BootstrapClientDropDownEditStatic;
 declare var BootstrapClientFormLayout: BootstrapClientFormLayoutStatic;
-declare var BootstrapClientGridView: BootstrapClientGridViewStatic;
 declare var BootstrapClientHyperLink: BootstrapClientHyperLinkStatic;
 declare var BootstrapClientImage: BootstrapClientImageStatic;
 declare var BootstrapClientListBox: BootstrapClientListBoxStatic;
@@ -33541,6 +33601,7 @@ declare var BootstrapClientButtonEdit: BootstrapClientButtonEditStatic;
 declare var BootstrapClientTreeView: BootstrapClientTreeViewStatic;
 declare var BootstrapUIWidgetBase: BootstrapUIWidgetBaseStatic;
 declare var BootstrapClientUploadControl: BootstrapClientUploadControlStatic;
+declare var BootstrapClientGridView: BootstrapClientGridViewStatic;
 declare var MVCxClientCalendar: MVCxClientCalendarStatic;
 declare var MVCxClientCallbackPanel: MVCxClientCallbackPanelStatic;
 declare var MVCxClientCardView: MVCxClientCardViewStatic;

@@ -190,6 +190,13 @@ declare namespace Fancytree {
 
         /** Write warning to browser console (prepending tree info) */
         warn(msg: any): void;
+
+        /** Temporarily suppress rendering to improve performance on bulk-updates.
+        *
+        * @param {boolean} flag
+        * @returns {boolean} previous status
+        * @since 2.19 */
+        enableUpdate(enabled: boolean): void;
     }
 
     /** A FancytreeNode represents the hierarchical data model and operations. */

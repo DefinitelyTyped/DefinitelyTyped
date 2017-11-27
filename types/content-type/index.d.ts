@@ -1,21 +1,26 @@
 // Type definitions for content-type 1.1
 // Project: https://www.npmjs.com/package/content-type
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-import * as express from 'express';
+export function parse(input: RequestLike | ResponseLike | string): ParsedMediaType;
+export function format(obj: MediaType): string;
 
-declare var ct: ct.StaticFunctions;
-export = ct;
+export interface ParsedMediaType {
+    type: string;
+    parameters: {[key: string]: string};
+}
 
-declare namespace ct {
-    interface StaticFunctions {
-        parse(input: express.Request | express.Response | string): MediaType;
-        format(obj: MediaType): string;
-    }
+export interface MediaType {
+    type: string;
+    parameters?: {[key: string]: string};
+}
 
-    interface MediaType {
-        type: string;
-        parameters?: any;
-    }
+export interface RequestLike {
+    headers: {[header: string]: string | string[] | undefined};
+}
+
+export interface ResponseLike {
+    getHeader(name: string): number | string | string[] | undefined;
 }

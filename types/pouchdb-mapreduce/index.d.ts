@@ -95,7 +95,7 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(callback: PouchDB.Core.Callback<Core.BasicResponse>): void;
+        viewCleanup(callback: Core.Callback<Core.BasicResponse>): void;
         /**
          * Cleans up any stale map/reduce indexes.
          *

@@ -368,8 +368,8 @@ new mongoose.Schema({d: {type: Date, min: [
 new mongoose.Schema({
   integerOnly: {
     type: Number,
-    get: v => Math.round(v),
-    set: v => Math.round(v)
+    get: (v: number) => Math.round(v),
+    set: (v: number) => Math.round(v)
   }
 });
 new mongoose.Schema({ name: { type: String, validate: [
@@ -385,8 +385,14 @@ Animal['findByName']('fido', function(err: any, animals: any) {
 animalSchema.virtual('name.full').get(function () {
   return this.name.first + ' ' + this.name.last;
 });
-new mongoose.Schema({
-  child: new mongoose.Schema({ name: String })
+var childSchema = new mongoose.Schema({ name: String });
+var parentSchema = new mongoose.Schema({
+  children: [childSchema],
+  child: childSchema,
+  name: {
+    index: true,
+    required: true
+  }
 });
 new mongoose.Schema({
   eggs: {
@@ -548,6 +554,7 @@ var myEntity = <MyEntity> {};
 var subDocArray = _.filter(myEntity.sub, function (sd) {
   sd.property1;
   sd.property2.toLowerCase();
+  return true;
 });
 
 
@@ -1348,6 +1355,17 @@ MongoModel.findOne({ type: 'iphone' }, 'name').exec(function (err, adventure) {}
 MongoModel.findOne({ type: 'iphone' }, 'name', { lean: true }, cb);
 MongoModel.findOne({ type: 'iphone' }, 'name', { lean: true }).exec(cb);
 MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec(cb);
+interface ModelUser {
+  _id: any;
+  name: string;
+  abctest: string;
+}
+MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec()
+.then(function(doc: ModelUser) {
+  doc._id;
+  doc.name;
+  doc.abctest;
+});
 MongoModel.findOneAndRemove({}, {}, cb);
 MongoModel.findOneAndRemove({}, {});
 MongoModel.findOneAndRemove({}, cb);

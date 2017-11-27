@@ -1,6 +1,6 @@
 // Type definitions for grcode-generator
 // Project: https://github.com/kazuhikoarase/qrcode-generator
-// Definitions by: Stefan Huber <https://github.com/stefanhuber/>
+// Definitions by: Stefan Huber <https://github.com/stefanhuber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function qrcode(type: number, errorCorrectionLevel: string) : QRCode;

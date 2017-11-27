@@ -1,6 +1,3 @@
-/// <reference types="when" />
-
-
 import fs = require('fs');
 import http = require('http');
 import chai = require('chai');
@@ -16,7 +13,7 @@ if (!global.Promise) {
 	chai.request.addPromises(when.promise);
 }
 
-var app: http.Server;
+declare const app: http.Server;
 
 chai.request(app).get('/');
 chai.request('http://localhost:8080').get('/');
@@ -42,7 +39,17 @@ chai.request(app)
 
 chai.request(app)
 	.get('/search')
-	.query({name: 'foo', limit: 10});
+	.query({ name: 'foo', limit: 10 });
+
+chai.request(app)
+	.get('/download')
+	.buffer()
+	.parse((res, cb) => {
+		let data = '';
+		res.setEncoding('binary');
+		res.on('data', (chunk: any) => { data += chunk; });
+		res.on('end', () => { cb(undefined, new Buffer(data, 'binary')); });
+	});
 
 chai.request(app)
 	.put('/user/me')
@@ -58,7 +65,7 @@ chai.request(app)
 	.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200))
 	.catch((err: any) => { throw err; });
 
-var agent = chai.request.agent(app);
+const agent = chai.request.agent(app);
 
 agent
 	.post('/session')
@@ -72,7 +79,7 @@ agent
 	});
 
 function test1() {
-	var req = chai.request(app).get('/');
+	const req = chai.request(app).get('/');
 	req.then((res: ChaiHttp.Response) => {
 		chai.expect(res).to.have.status(200);
 		chai.expect(res).to.have.header('content-type', 'text/plain');
@@ -94,9 +101,16 @@ function test1() {
 		chai.expect(res).to.have.cookie('session_id', '1234');
 		chai.expect(res).to.not.have.cookie('PHPSESSID');
 		chai.expect(res.body).to.have.property('version', '4.0.0');
+		chai.expect(res.text).to.equal('<html><body></body></html>');
 	}, (err: any) => {
 		throw err;
 	});
 }
 
 when(chai.request(app).get('/')).done(() => console.log('success'), () => console.log('failure'));
+
+Promise.resolve(1)
+	.then(val => chai.request(app).get(`/user/${val}`))
+	.then(res => {
+		chai.expect(res).to.have.status(200);
+	});

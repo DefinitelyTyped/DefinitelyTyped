@@ -1,7 +1,10 @@
 // Type definitions for express-graphql
 // Project: https://www.npmjs.org/package/express-graphql
-// Definitions by: Isman Usoh <https://github.com/isman-usoh>, Nitin Tutlani <https://github.com/nitintutlani>
+// Definitions by: Isman Usoh <https://github.com/isman-usoh>
+//                 Nitin Tutlani <https://github.com/nitintutlani>
+//                 Daniel Fader <https://github.com/hubel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Request, Response } from "express";
 
@@ -12,7 +15,7 @@ declare namespace graphqlHTTP {
      * Used to configure the graphQLHTTP middleware by providing a schema
      * and other configuration options.
      */
-    export type Options = ((req: Request) => OptionsObj) | OptionsObj
+    export type Options = ((req: Request) => OptionsObj) | ((req: Request) => Promise<OptionsObj>) | OptionsObj
     export type OptionsObj = {
         /**
          * A GraphQL schema from graphql-js.

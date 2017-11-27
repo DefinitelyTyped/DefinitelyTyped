@@ -27,19 +27,41 @@ declare namespace SemanticUI {
          */
         (behavior: 'toggle', index: number): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value?: undefined): AccordionSettings[K];
-        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value: AccordionSettings[K]): JQuery;
-        (behavior: 'setting', value: AccordionSettings.Param): JQuery;
-        (settings?: AccordionSettings.Param): JQuery;
+        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value?: undefined): AccordionSettings._Impl[K];
+        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value: AccordionSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: AccordionSettings): JQuery;
+        (settings?: AccordionSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/accordion.html#/settings}
      */
-    interface AccordionSettings extends Pick<AccordionSettings._Impl, keyof AccordionSettings._Impl> { }
+    type AccordionSettings = AccordionSettings.Param;
 
     namespace AccordionSettings {
-        type Param = AccordionSettings | object;
+        type Param = (Pick<_Impl, 'exclusive'> |
+            Pick<_Impl, 'on'> |
+            Pick<_Impl, 'animateChildren'> |
+            Pick<_Impl, 'closeNested'> |
+            Pick<_Impl, 'collapsible'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'easing'> |
+            Pick<_Impl, 'observeChanges'> |
+            Pick<_Impl, 'onOpening'> |
+            Pick<_Impl, 'onOpen'> |
+            Pick<_Impl, 'onClosing'> |
+            Pick<_Impl, 'onClose'> |
+            Pick<_Impl, 'onChange'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Behavior
@@ -181,10 +203,14 @@ declare namespace SemanticUI {
     }
 
     namespace Accordion {
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'accordion'> |
+                Pick<_Impl, 'title'> |
+                Pick<_Impl, 'trigger'> |
+                Pick<_Impl, 'content'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -206,10 +232,12 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'active'> |
+                Pick<_Impl, 'animating'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -223,10 +251,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

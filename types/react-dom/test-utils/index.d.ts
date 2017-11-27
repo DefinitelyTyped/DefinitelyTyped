@@ -59,7 +59,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
 export type EventSimulator = (element: Element | Component<any>, eventData?: SyntheticEventData) => void;
 
 export interface MockedComponentClass {
-    new (): any;
+    new (props: {}): any;
 }
 
 export interface ShallowRenderer {
@@ -83,9 +83,19 @@ export interface ShallowRenderer {
  * `Simulate` has a method for every event that React understands.
  */
 export namespace Simulate {
+    const abort: EventSimulator;
+    const animationEnd: EventSimulator;
+    const animationIteration: EventSimulator;
+    const animationStart: EventSimulator;
     const blur: EventSimulator;
+    const canPlay: EventSimulator;
+    const canPlayThrough: EventSimulator;
     const change: EventSimulator;
     const click: EventSimulator;
+    const compositionEnd: EventSimulator;
+    const compositionStart: EventSimulator;
+    const compositionUpdate: EventSimulator;
+    const contextMenu: EventSimulator;
     const copy: EventSimulator;
     const cut: EventSimulator;
     const doubleClick: EventSimulator;
@@ -97,11 +107,21 @@ export namespace Simulate {
     const dragOver: EventSimulator;
     const dragStart: EventSimulator;
     const drop: EventSimulator;
+    const durationChange: EventSimulator;
+    const emptied: EventSimulator;
+    const encrypted: EventSimulator;
+    const ended: EventSimulator;
+    const error: EventSimulator;
     const focus: EventSimulator;
     const input: EventSimulator;
+    const invalid: EventSimulator;
     const keyDown: EventSimulator;
     const keyPress: EventSimulator;
     const keyUp: EventSimulator;
+    const load: EventSimulator;
+    const loadStart: EventSimulator;
+    const loadedData: EventSimulator;
+    const loadedMetadata: EventSimulator;
     const mouseDown: EventSimulator;
     const mouseEnter: EventSimulator;
     const mouseLeave: EventSimulator;
@@ -110,12 +130,26 @@ export namespace Simulate {
     const mouseOver: EventSimulator;
     const mouseUp: EventSimulator;
     const paste: EventSimulator;
+    const pause: EventSimulator;
+    const play: EventSimulator;
+    const playing: EventSimulator;
+    const progress: EventSimulator;
+    const rateChange: EventSimulator;
     const scroll: EventSimulator;
+    const seeked: EventSimulator;
+    const seeking: EventSimulator;
+    const select: EventSimulator;
+    const stalled: EventSimulator;
     const submit: EventSimulator;
+    const suspend: EventSimulator;
+    const timeUpdate: EventSimulator;
     const touchCancel: EventSimulator;
     const touchEnd: EventSimulator;
     const touchMove: EventSimulator;
     const touchStart: EventSimulator;
+    const transitionEnd: EventSimulator;
+    const volumeChange: EventSimulator;
+    const waiting: EventSimulator;
     const wheel: EventSimulator;
 }
 
@@ -223,7 +257,7 @@ export function findRenderedDOMComponentWithTag(
 /**
  * Finds all instances of components with type equal to `componentClass`.
  */
-export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+export function scryRenderedComponentsWithType<T extends Component, C extends ComponentClass>(
     root: Component<any>,
     type: ClassType<any, T, C>): T[];
 
@@ -232,7 +266,7 @@ export function scryRenderedComponentsWithType<T extends Component<{}>, C extend
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
  */
-export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+export function findRenderedComponentWithType<T extends Component, C extends ComponentClass>(
     root: Component<any>,
     type: ClassType<any, T, C>): T;
 

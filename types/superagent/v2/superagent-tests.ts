@@ -34,7 +34,7 @@ agent
         if (res.error) {
             console.log('oh no ' + res.error.message);
         } else {
-            console.log('got ' + res.status + ' response');
+            console.log(`got ${res.status} response`);
         }
     });
 
@@ -212,7 +212,7 @@ const reqUrl: string = req.url;
 const reqMethod: string = req.method;
 const reqCookies: string = req.cookies;
 
-console.log(reqMethod + ' request to ' + reqUrl + ' cookies ' + reqCookies);
+console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
 // Basic authentication
 request.get('http://tobi:learnboost@local').end(callback);

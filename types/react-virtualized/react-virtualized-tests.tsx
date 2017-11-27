@@ -1656,7 +1656,7 @@ export class TableExample extends PureComponent<{}, any> {
     }
 }
 
-import {TableCellProps} from "react-virtualized"
+import { TableCellProps } from "react-virtualized"
 
 export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
     state;

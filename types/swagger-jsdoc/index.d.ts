@@ -2,6 +2,7 @@
 // Project: https://github.com/surnet/swagger-jsdoc
 // Definitions by: Daniel Grove <https://github.com/drGrove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /* =================== USAGE ===================
 

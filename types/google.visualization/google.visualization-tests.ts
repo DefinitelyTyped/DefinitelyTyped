@@ -68,7 +68,7 @@ function test_scatterChart() {
         [ 6.5,    7]
     ]);
 
-    var options = {
+    var options: google.visualization.ScatterChartOptions = {
         title: 'Age vs. Weight comparison',
         hAxis: {title: 'Age', minValue: 0, maxValue: 15},
         vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
@@ -96,7 +96,7 @@ function test_barChart() {
             role: "annotation" },
         2]);
 
-    var options = {
+    var options: google.visualization.BarChartOptions = {
         title: "Density of Precious Metals, in g/cm^3",
         width: 600,
         height: 400,
@@ -139,7 +139,7 @@ function test_histogram() {
         ['Ultrasaurus (ultra lizard)', 30.5],
         ['Velociraptor (swift robber)', 1.8]]);
 
-    var options = {
+    var options: google.visualization.HistogramOptions = {
         title: 'Lengths of dinosaurs, in meters',
         legend: { position: 'none' }
     };
@@ -344,7 +344,7 @@ function test_candlestickChart() {
         // Treat first row as data as well.
     ], true);
 
-    var options = {
+    var options: google.visualization.CandlestickChartOptions = {
         legend:'none'
     };
 
@@ -621,4 +621,23 @@ function test_OrgChart() {
     var children = chart.getChildrenIndexes(0);
     var collapsed = chart.getCollapsedNodes();
 
+}
+
+function test_addListeners() {
+    var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Fruit');
+        data.addColumn('number', 'Calories');
+        data.addRows([
+            ['Apple', 95],
+            ['Banana', 105],
+            ['Kiwi', 42]
+        ]);
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    google.visualization.events.addOneTimeListener(chart, 'ready', () => {
+        console.log('Fruit chart ready');
+    });
+    google.visualization.events.addListener(chart, 'error', (err: any) => {
+        console.log('Fruit chart ' + err.id + ' error: ' + err.message);
+    });
+    chart.draw(data, {});
 }

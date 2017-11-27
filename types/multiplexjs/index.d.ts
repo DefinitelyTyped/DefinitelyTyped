@@ -1,6 +1,6 @@
 // Type definitions for Multiplex.js 0.9
-// Project: http://github.com/multiplex/multiplex.js
-// Definitions by: Kamyar Nazeri <http://github.com/KamyarNazeri>
+// Project: https://github.com/multiplex/multiplex.js
+// Definitions by: Kamyar Nazeri <https://github.com/KamyarNazeri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

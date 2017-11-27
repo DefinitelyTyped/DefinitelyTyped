@@ -1,10 +1,10 @@
-// Type definitions for tempfile v1.1.0
+// Type definitions for tempfile 2.0
 // Project: https://github.com/sindresorhus/tempfile
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "tempfile" {
-	function tempfile(extension?: string): string;
-	module tempfile {}
-	export = tempfile;
-}
+export = tempfile;
+
+declare function tempfile(extension?: string): string;
+declare namespace tempfile {}

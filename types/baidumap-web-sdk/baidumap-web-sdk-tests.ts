@@ -4,8 +4,8 @@ namespace BMapTests {
         //document: http://lbsyun.baidu.com/index.php?title=jspopular
         public createMap(container: string | HTMLElement) {
             navigator.geolocation.getCurrentPosition((position: Position) => {
-                let point = new BMap.Point(position.coords.longitude, position.coords.latitude);
-                let map = new BMap.Map(container);
+                const point = new BMap.Point(position.coords.longitude, position.coords.latitude);
+                const map = new BMap.Map(container);
                 map.centerAndZoom(point, 15);
             }, console.log, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
         }
@@ -16,7 +16,7 @@ namespace BMapTests {
             map.addControl(new BMap.OverviewMapControl({ isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT }));
         }
         public addMarker(map: BMap.Map, point: BMap.Point) {
-            var marker = new BMap.Marker(point);
+            const marker = new BMap.Marker(point);
             map.addOverlay(marker);
             marker.setAnimation(BMAP_ANIMATION_BOUNCE);
         }

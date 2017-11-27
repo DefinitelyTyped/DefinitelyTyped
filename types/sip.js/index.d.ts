@@ -336,10 +336,10 @@ export interface IncomingMessage extends Request {
 
 /* Header */
 export class NameAddrHeader {
-    uri: string | URI;
+    uri: URI;
     displayName: string;
 
-    constructor(uri: string | sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>);
+    constructor(uri: sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>);
     static parse(name_addr_header: string): sipjs.NameAddrHeader;
 
     setParam(key: string, value?: string): void;

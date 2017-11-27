@@ -1,12 +1,12 @@
 import * as m from 'mithril';
-import {ClassComponent, Vnode, CVnode, CVnodeDOM} from 'mithril';
+import { ClassComponent, Vnode, CVnode, CVnodeDOM } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
 // Simplest component example - no attrs or state.
 //
-class Comp0 implements ClassComponent<{}> {
-	constructor(vnode: CVnode<{}>) {
+class Comp0 implements ClassComponent {
+	constructor(vnode: CVnode) {
 	}
 	view() {
 		return m('span', "Test");
@@ -23,12 +23,12 @@ m.mount(document.getElementById('comp0')!, null);
 // 1.
 // Simple example with lifecycle methods.
 //
-class Comp1 implements ClassComponent<{}> {
-	oninit(vnode: CVnode<{}>) {
+class Comp1 implements ClassComponent {
+	oninit(vnode: CVnode) {
 	}
-	oncreate({dom}: CVnodeDOM<{}>) {
+	oncreate({dom}: CVnodeDOM) {
 	}
-	view(vnode: CVnode<{}>) {
+	view(vnode: CVnode) {
 		return m('span', "Test");
 	}
 }
@@ -130,7 +130,7 @@ export interface Attrs {
 
 export default class MyComponent implements ClassComponent<Attrs> {
 	count = 0;
-	view({attrs}: Vnode<Attrs, MyComponent>) {
+	view({attrs}: CVnode<Attrs>) {
 		return m('span', `name: ${attrs.name}, count: ${this.count}`);
 	}
 }

@@ -33,10 +33,10 @@ connection.execSql(request);
 
 var requestError = new tedious.RequestError();
 requestError.message = 'test';
-requestError.code = 1;
-requestError = new tedious.RequestError('test', 50005);
+requestError.code = "ETIMEOUT";
+requestError = new tedious.RequestError('test', "ETIMEOUT");
 
 var connectionError = new tedious.ConnectionError();
 connectionError.message = 'test';
-connectionError.code = 1;
-connectionError = new tedious.ConnectionError('test', 50005);
+connectionError.code = "ETIMEOUT";
+connectionError = new tedious.ConnectionError('test', "ETIMEOUT");

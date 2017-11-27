@@ -2,7 +2,7 @@
 // Project: https://github.com/pshrmn/rrc#readme
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from "react";
 import * as H from "history";
@@ -22,10 +22,10 @@ export interface WithScrollOptions {
     alignToTop?: boolean;
 }
 
-export type ComponentConstructor<Props> = React.ComponentClass<Props> | React.SFC<Props>;
+export type ComponentConstructor<Props> = React.ComponentType<Props>;
 
-export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | undefined>, options?: WithScrollOptions)
-    : ComponentConstructor<RouteComponentProps<any> | undefined>;
+export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | {}>, options?: WithScrollOptions)
+    : ComponentConstructor<RouteComponentProps<any> | {}>;
 
 export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } };
 

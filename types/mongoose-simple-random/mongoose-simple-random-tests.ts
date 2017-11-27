@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as mongoose_simple_random from "mongoose-simple-random";
 
 // test compatibility with other libraries - from @types/mongoose
 import * as _ from 'lodash';
@@ -13,3 +14,5 @@ mongoose.Model.findRandom({
 }, {}, { limit: 1 }, (error, data) => {
     if (error) { console.error("Error!"); } else { console.log("Success!"); }
 });
+
+mongoose.plugin(mongoose_simple_random);
