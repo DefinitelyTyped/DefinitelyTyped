@@ -96,9 +96,8 @@ declare namespace setImmediate {
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
-/* tslint:disable:callable-types */
 interface NodeRequireFunction {
-    (id: string): any;
+    (id: string): any; // tslint:disable-line:callable-types
 }
 
 interface NodeRequire extends NodeRequireFunction {
