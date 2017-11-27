@@ -31,7 +31,7 @@ export interface SketchDocument {
     documentData: () => SketchDocumentData;
     pages: () => SketchPage[];
     addBlankPage: () => SketchPage;
-    currentPage: SketchPage;
+    currentPage: () => SketchPage;
 }
 export interface SketchContext { document: SketchDocument; }
 
