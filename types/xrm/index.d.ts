@@ -43,9 +43,9 @@ declare namespace Xrm {
         Mobile: Mobile;
 
         /**
-         * Provides methods to display a web page in the side pane of web client.
+         * Provides a method to display a web page in the side pane of Customer Engagement form.
          *
-         * @see {@link https://msdn.microsoft.com/en-us/library/mt790281.aspx} for details.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-panel} for details.
          */
         Panel: Panel;
 
@@ -981,14 +981,14 @@ declare namespace Xrm {
      */
     interface Panel {
         /**
-         * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
+         * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the Dynamics 365 Customer Engagement web client.
          *
          * @param url URL of the page to be loaded in the side pane static area.
          * @param title Title of the side pane static area.
          *
          * @remarks  This method is only supported for the web client.
          */
-        LoadPanel(url: string, title: string): void;
+        loadPanel(url: string, title: string): void;
     }
 
     /**

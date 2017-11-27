@@ -677,7 +677,7 @@ declare namespace Xrm {
          *
          * @remarks  This method is only supported for the web client.
          */
-        LoadPanel(url: string, title: string): void;
+        loadPanel(url: string, title: string): void;
     }
 
     /**
