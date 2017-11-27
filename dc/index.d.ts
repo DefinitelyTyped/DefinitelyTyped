@@ -428,6 +428,7 @@ declare namespace dc {
         units: Units;
         events: Events;
         errors: Errors;
+        filters: Filters;
         instanceOfChart(object: any): boolean;
         logger: Logger;
         override(object: any, fnName: string, newFn: Function): void;
