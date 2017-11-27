@@ -241,20 +241,20 @@ export abstract class Evented extends Class {
      */
     on(eventMap: LeafletEventHandlerFnMap): this;
 
-    /* tslint:disable:unified-signatures */ // With an eventMap there are no additional arguments allowed
     /**
      * Removes a previously added listener function. If no function is specified,
      * it will remove all the listeners of that particular event from the object.
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
+    // tslint:disable-next-line
     off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Removes a set of type/listener pairs.
      */
+    // tslint:disable-next-line
     off(eventMap: LeafletEventHandlerFnMap): this;
-    /* tslint:enable */
     /**
      * Removes all listeners to all events on the object.
      */
@@ -668,8 +668,10 @@ export function canvas(options?: RendererOptions): Canvas;
  */
 export class LayerGroup<P = any> extends Layer {
     constructor(layers?: Layer[]);
+    // tslint:disable-next-line
     constructor(layers: Layer[], options?: LayerOptions);
     initialize(layers?: Layer[]): this;
+    // tslint:disable-next-line
     initialize(layers: Layer[], options?: LayerOptions): this;
 
     /**
@@ -737,6 +739,7 @@ export class LayerGroup<P = any> extends Layer {
  * Create a layer group, optionally given an initial set of layers and an `options` object.
  */
 export function layerGroup(layers?: Layer[]): LayerGroup;
+// tslint:disable-next-line
 export function layerGroup(layers: Layer[], options?: LayerOptions): LayerGroup;
 
 /**
@@ -1134,9 +1137,9 @@ export interface PanOptions {
     noMoveStart?: boolean;
 }
 
-/* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
+// This is not empty, it extends two interfaces into one...
+// tslint:disable-next-line
 export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
-/* tslint:enable */
 
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression;
