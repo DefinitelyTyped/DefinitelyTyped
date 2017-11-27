@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom",
+            "scripthost"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "configuration.d.ts",
+        "document_store.d.ts",
+        "event_emitter.d.ts",
+        "indexr.d.ts",
+        "inverted_indexr.d.ts",
+        "pipeline.d.ts",
+        "sorted_set.d.ts",
+        "stemmer.d.ts",
+        "stop_word_filter.d.ts",
+        "tokenizer.d.ts",
+        "trimmer.d.ts",
+        "tsconfig.json",
+        "utils.d.ts",
+        "types.d.ts",
+        "index.d.ts",
+        "elasticlunr-tests.ts"
+    ]
+}
