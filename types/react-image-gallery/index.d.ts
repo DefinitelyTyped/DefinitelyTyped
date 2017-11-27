@@ -2,6 +2,7 @@
 // Project: https://github.com/xiaolin/react-image-gallery
 // Definitions by: Adam Webb <https://github.com/adamwpc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -23,7 +24,7 @@ export interface ReactImageGalleryItem {
 }
 
 export interface ReactImageGalleryProps {
-    items: Array<ReactImageGalleryItem>;
+    items: ReactImageGalleryItem[];
     infinite?: boolean;
     lazyLoad?: boolean;
     showNav?: boolean;
@@ -69,7 +70,7 @@ export interface ReactImageGalleryProps {
     renderLeftNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
     renderRightNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
     renderPlayPauseButton?: (onClick: React.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
-    renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode; 
+    renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
 }
 
 declare class ReactImageGallery extends React.Component<ReactImageGalleryProps> {
