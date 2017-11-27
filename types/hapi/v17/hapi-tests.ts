@@ -1,2 +1,12 @@
-import { Server } from "hapi";
-const server = new Server({ port: 3000, host: 'localhost' });
+import {Server, ServerOptions} from "hapi";
+
+const options:ServerOptions = {
+    port: 8000
+}
+
+const server = new Server(options);
+server.start();
+
+console.log('Server started at: ' + server.info.uri);
+
+

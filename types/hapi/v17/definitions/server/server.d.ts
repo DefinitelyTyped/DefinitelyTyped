@@ -21,6 +21,10 @@ import {ServerInjectOptions, ServerInjectResponse} from "./server-inject";
 import {RequestRoute} from "../request/request-route";
 import {ServerAuth, ServerAuthConfig} from "./server-auth";
 
+export interface ServerMethod {
+   // (...args: any[], ttl?: number): any;
+}
+
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
@@ -31,6 +35,7 @@ export class Server extends events.EventEmitter {
      Creates a new server object where:
      @param options - (optional) a server configuration object.
     */
+    constructor();
     constructor(options: ServerOptions);
 
     /**
@@ -503,8 +508,23 @@ export class Server extends events.EventEmitter {
      */
     match(method: HTTP_METHODS, path: string, host?: string): RequestRoute | null;
 
-
-
+    /**
+     * Registers a server method where:
+     * @param name - a unique method name used to invoke the method via server.methods[name].
+     * @param method - the method function with a signature async function(...args, [flags]) where:
+     * * ...args - the method function arguments (can be any number of arguments or none).
+     * * flags - when caching is enabled, an object used to set optional method result flags:
+     * * * ttl - 0 if result is valid but cannot be cached. Defaults to cache policy.
+     * @param options - (optional) configuration object:
+     * * bind - a context object passed back to the method function (via this) when called. Defaults to active context (set via server.bind() when the method is registered. Ignored if the method is an arrow function.
+     * * cache - the same cache configuration used in server.cache(). The generateTimeout option is required.
+     * * generateKey - a function used to generate a unique key (for caching) from the arguments passed to the method function (the flags argument is not passed as input). The server will automatically generate a unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which takes the same arguments as the function and returns a unique string (or null if no key can be generated).
+     * @return Return value: none.
+     * Method names can be nested (e.g. utils.users.get) which will automatically create the full path under server.methods (e.g. accessed via server.methods.utils.users.get).
+     * When configured with caching enabled, server.methods[name].cache is assigned an object with the following properties and methods: - await drop(...args) - a function that can be used to clear the cache for a given key. - stats - an object with cache statistics, see catbox for stats documentation.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
+     */
+   // method(name: string, method: Function, options?: any): void;
 
 
 
@@ -514,6 +534,16 @@ export class Server extends events.EventEmitter {
 
 
     // TODO It"s not finished
+
+
+    /**
+     * Starts the server by listening for incoming requests on the configured port (unless the connection was configured with autoListen set to false).
+     * @return Return value: none.
+     * Note that if the method fails and throws an error, the server is considered to be in an undefined state and should be shut down. In most cases it would be impossible to fully recover as the various plugins, caches, and other event listeners will get confused by repeated attempts to start the server or make assumptions about the healthy state of the environment. It is recommended to abort the process when the server fails to start properly. If you must try to resume after an error, call server.stop() first to reset the server state.
+     * If a started server is started again, the second call to server.start() is ignored. No events will be emitted and no extension points invoked.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstart)
+     */
+    start(): void;
 
 
 
