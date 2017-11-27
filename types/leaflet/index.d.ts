@@ -668,6 +668,10 @@ export function canvas(options?: RendererOptions): Canvas;
  */
 export class LayerGroup<P = any> extends Layer {
     constructor(layers?: Layer[]);
+    constructor(layers: Layer[], options?: LayerOptions);
+    initialize(layers?: Layer[]): this;
+    initialize(layers: Layer[], options?: LayerOptions): this;
+
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
      */
@@ -728,10 +732,12 @@ export class LayerGroup<P = any> extends Layer {
     feature?: geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
 }
 
+// @factory L.layerGroup(layers?: Layer[], options?: Object)
 /**
- * Create a layer group, optionally given an initial set of layers.
+ * Create a layer group, optionally given an initial set of layers and an `options` object.
  */
-export function layerGroup(layers: Layer[]): LayerGroup;
+export function layerGroup(layers?: Layer[]): LayerGroup;
+export function layerGroup(layers: Layer[], options?: LayerOptions): LayerGroup;
 
 /**
  * Extended LayerGroup that also has mouse events (propagated from
