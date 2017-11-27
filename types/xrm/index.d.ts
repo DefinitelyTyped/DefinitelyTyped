@@ -1180,7 +1180,7 @@ declare namespace Xrm {
      */
     interface Panel {
         /**
-         * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
+         * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the Customer Engagement web client.
          * @param url URL of the page to be loaded in the side pane static area.
          * @param title Title of the side pane static area.
          * @remarks  This method is only supported for the web client.
