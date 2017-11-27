@@ -127,19 +127,19 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
-	ternary: {} // TODO
-    geo: {} // TODO
-    mapbox: {}// TODO
-	radialaxis: {} // TODO
-    angularaxis: {} // TODO
+	ternary: {}; // TODO
+    geo: {}; // TODO
+    mapbox: {}; // TODO
+	radialaxis: {}; // TODO
+    angularaxis: {}; // TODO
     direction: 'clockwise' | 'counterclockwise';
     dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
     orientation: number;
-    annotations: {} //TODO
+    annotations: {}; // TODO
 	shapes: Array<Partial<Shape>>;
-    images: {} //TODO
-    updatemenus: {} //TODO
-    sliders: {} // TODO
+    images: {}; // TODO
+    updatemenus: {}; // TODO
+    sliders: {}; // TODO
     legend: Partial<Legend>;
 	font: Partial<Font>;
 	scene: Partial<Scene>;
@@ -182,9 +182,9 @@ export interface Axis {
     showspikes: boolean;
     spikecolor: Color;
     spikethickness: number;
-    categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array'
+    categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array';
     categoryarray: any[];
-    tickfont: Partial<Font>
+    tickfont: Partial<Font>;
     tickangle: number;
     tickprefix: string;
     showtickprefix: 'all' | 'first' | 'last' | 'none';
@@ -207,7 +207,8 @@ export interface Axis {
     calendar: Calendar;
 }
 
-export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' | 'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
+export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
+    'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
@@ -222,7 +223,7 @@ export interface LayoutAxis extends Axis {
     overlaying: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
     layer: 'above traces' | 'below traces';
     domain: number[];
-    position:number;
+    position: number;
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
 }
@@ -318,7 +319,6 @@ export interface ScatterData {
 	name: string;
 	connectgaps: boolean;
 }
-
 
 export interface ScatterMarker {
 	symbol: string | string[]; // Drawing.symbolList
@@ -532,7 +532,7 @@ export interface Scene {
 	zaxis: Partial<SceneAxis>;
 	dragmode: 'orbit' | 'turntable' | 'zoom' | 'pan' | false;
 	hovermode: 'closest' | false;
-	annotations: Partial<Annotations> | Partial<Annotations>[];
+	annotations: Partial<Annotations> | Array<Partial<Annotations>>;
 	captureevents: boolean;
 }
 
