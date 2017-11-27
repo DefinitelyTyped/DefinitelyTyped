@@ -54,7 +54,7 @@ export function renderFile<T>(path: string, data: Data, opts: Options, cb: Rende
  */
 export function clearCache(): void;
 
-export type TemplateFunction = (data: Data) => any;
+export type TemplateFunction = (data?: Data) => string;
 export interface Options {
     /** Compiled functions are cached, requires `filename` */
     cache?: boolean;
