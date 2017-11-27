@@ -1,4 +1,5 @@
 /// <reference path="chrome-app.d.ts" />
+
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Nikolai Ommundsen <https://github.com/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
