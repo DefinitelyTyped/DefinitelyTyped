@@ -1,7 +1,7 @@
 import {ServerOptionsCache} from "./server-options-cache";
 import * as http from "http";
 import * as https from "https";
-import * as Catbox from "catbox";
+import * as catbox from "catbox";
 import {MimosOptions} from "mimos";
 import {PluginSpecificConfiguration, RouteOptions} from "hapi";
 
@@ -47,7 +47,7 @@ export interface ServerOptions {
             partition - (optional) string used to isolate cached data. Defaults to 'hapi-cache'.
             other options passed to the catbox strategy used. Other options are only passed to catbox when engine above is a class or function and ignored if engine is a catbox engine object).
      */
-    cache?: Catbox.EnginePrototype | ServerOptionsCache | ServerOptionsCache[];
+    cache?: catbox.EnginePrototype | ServerOptionsCache | ServerOptionsCache[];
 
     /**
      Default value: { minBytes: 1024 }.

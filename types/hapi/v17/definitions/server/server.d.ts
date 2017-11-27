@@ -11,7 +11,9 @@ import {ServerState} from "./server-state";
 import {MimosOptions} from "../../../../mimos/index";
 import {
     ServerOptionsCache, ServerEventCriteria, ServerEventsApplication, ServerEventsApplicationObject,
-    PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, HTTP_METHODS
+    PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, HTTP_METHODS, ServerMethodOptions, ServerMethod,
+    ServerMethodConfigurationObject,
+    Plugin,
 } from "hapi";
 import {
     RequestExtPointFunction, ServerExtEventsObject, ServerExtEventsRequestObject, ServerExtOptions,
@@ -20,10 +22,7 @@ import {
 import {ServerInjectOptions, ServerInjectResponse} from "./server-inject";
 import {RequestRoute} from "../request/request-route";
 import {ServerAuth, ServerAuthConfig} from "./server-auth";
-
-export interface ServerMethod {
-   // (...args: any[], ttl?: number): any;
-}
+import {ServerRegisterPluginObject, ServerRegisterOptions} from "./server-register";
 
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
@@ -524,7 +523,65 @@ export class Server extends events.EventEmitter {
      * When configured with caching enabled, server.methods[name].cache is assigned an object with the following properties and methods: - await drop(...args) - a function that can be used to clear the cache for a given key. - stats - an object with cache statistics, see catbox for stats documentation.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
      */
-   // method(name: string, method: Function, options?: any): void;
+    method(name: string, method: ServerMethod, options?: ServerMethodOptions): void;
+
+    /**
+     * Registers a server method function as described in server.method() using a configuration object where:
+     * @param methods - an object or an array of objects where each one contains:
+     * * name - the method name.
+     * * method - the method function.
+     * * options - (optional) settings.
+     * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodmethods)
+     */
+    method(methods: ServerMethodConfigurationObject): void;
+    method(methods: ServerMethodConfigurationObject[]): void;
+
+    /**
+     * Sets the path prefix used to locate static resources (files and view templates) when relative paths are used where:
+     * @param relativeTo - the path prefix added to any relative file path starting with '.'.
+     * @return Return value: none.
+     * Note that setting a path within a plugin only applies to resources accessed by plugin methods. If no path is set, the server default route configuration files.relativeTo settings is used. The path only applies to routes added after it has been set.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverpathrelativeto)
+     */
+    path(relativeTo: string): void;
+
+    /**
+     * Registers a plugin where:
+     * @param plugins - one or an array of:
+     * * a plugin object.
+     * * an object with the following:
+     * * * plugin - a plugin object.
+     * * * options - (optional) options passed to the plugin during registration.
+     * * * once, routes - (optional) plugin-specific registration options as defined below.
+     * @paramoptions - (optional) registration options (different from the options passed to the registration function):
+     * * once - if true, subsequent registrations of the same plugin are skipped without error. Cannot be used with plugin options. Defaults to false. If not set to true, an error will be thrown the second time a plugin is registered on the server.
+     * * routes - modifiers applied to each route added by the plugin:
+     * * * prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
+     * * * vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
+     * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
+     */
+    register(plugins: Plugin | ServerRegisterPluginObject): void;
+    register(plugins: Plugin | ServerRegisterPluginObject, options: ServerRegisterOptions): void;
+    register(plugins: Plugin[] | ServerRegisterPluginObject[]): void;
+    register(plugins: Plugin[] | ServerRegisterPluginObject[], options: ServerRegisterOptions): void;
+
+    /**
+     * Adds a route where:
+     * @param route - a route configuration object or an array of configuration objects where each object contains:
+     * * path - (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the server's router configuration. The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters.
+     * * method - (required) the HTTP method. Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'. Any HTTP method is allowed, except for 'HEAD'. Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match). Can be assigned an array of methods which has the same result as adding the same route with different methods manually.
+     * * vhost - (optional) a domain string or an array of domain strings for limiting the route to only requests with a matching host header field. Matching is done against the hostname part of the header only (excluding the port). Defaults to all hosts.
+     * * handler - (required when handler is not set) the route handler function called to generate the response after successful authentication and validation.
+     * * options - additional route options. The options value can be an object or a function that returns an object using the signature function(server) where server is the server the route is being added to and this is bound to the current realm's bind option.
+     * * rules - route custom rules object. The object is passed to each rules processor registered with server.rules(). Cannot be used if route.options.rules is defined.
+     * @return Return value: none.
+     * Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrouteroute)
+     */
+    route(route: any): void; // TODO needs to be implemented. Depends of the route options TODO as well.
+
 
 
 
@@ -544,7 +601,5 @@ export class Server extends events.EventEmitter {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstart)
      */
     start(): void;
-
-
 
 }

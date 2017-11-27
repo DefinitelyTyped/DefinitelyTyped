@@ -4,7 +4,6 @@ export interface PluginsStates {
     [pluginName: string]: any;
 }
 
-// Similar to v16, using that interface without any definition.
 export interface PluginSpecificConfiguration {
 
 }
@@ -32,7 +31,7 @@ export interface Plugin {
      * registry) should use the same name as the name field in their 'package.json' file. Names must be
      * unique within each application.
      */
-    name?: string;
+    name: string;
 
     /** optional plugin version. The version is only used informatively to enable other plugins to find out the versions loaded. The version should be the same as the one specified in the plugin's 'package.json' file. */
     version?: string;
