@@ -12,7 +12,10 @@ const options = {
 };
 
 runner(options)
-    .then((result: string) => {
+    .then(({ coverage, result }) => {
+        const { failures, passed, pending, stats, tests } = result;
+        const { err, fullTitle, title } = failures[0];
+        const { duration, end, start } = stats;
         // ...
     });
 
