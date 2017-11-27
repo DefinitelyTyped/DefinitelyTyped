@@ -30,7 +30,7 @@ declare module "klaw" {
 
         type Event = "close" | "data" | "end" | "readable" | "error"
 
-        interface Walker {
+        interface Walker extends Readable {
             on(event: Event, listener: Function): this
             on(event: "close", listener: () => void): this
             on(event: "data", listener: (item: Item) => void): this
