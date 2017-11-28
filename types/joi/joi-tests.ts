@@ -1,4 +1,5 @@
 import Joi = require('joi');
+import { GuidVersions } from 'joi';
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -771,7 +772,7 @@ strSchema = strSchema.ip(ipOpts);
 strSchema = strSchema.uri();
 strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
-strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] });
+strSchema = strSchema.guid({ version: ['uuidv1' as GuidVersions, 'uuidv2'  as GuidVersions, 'uuidv3' as GuidVersions, 'uuidv4' as GuidVersions, 'uuidv5'  as GuidVersions]});
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
 strSchema = strSchema.hostname();
