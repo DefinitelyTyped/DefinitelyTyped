@@ -734,7 +734,6 @@ export class LayerGroup<P = any> extends Layer {
     feature?: geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
 }
 
-// @factory L.layerGroup(layers?: Layer[], options?: Object)
 /**
  * Create a layer group, optionally given an initial set of layers and an `options` object.
  */
@@ -1138,7 +1137,6 @@ export interface PanOptions {
 }
 
 // This is not empty, it extends two interfaces into one...
-// tslint:disable-next-line
 export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
 
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
