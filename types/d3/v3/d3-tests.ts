@@ -1051,7 +1051,7 @@ namespace forceCollapsable {
     var force = d3.layout.force<Node>()
         .on("tick", tick)
         .charge(function (d) { return d._children ? -d.size / 100 : -30; } )
-        .linkDistance(function (d) { return d.target._children ? 80 : 30; } )
+        .linkDistance(function (d) { return (d.target as Node)._children ? 80 : 30; } )
         .size([w, h - 160]);
 
     var vis = d3.select("body").append("svg:svg")
@@ -1083,10 +1083,10 @@ namespace forceCollapsable {
         // Enter any new links.
         link.enter().insert("svg:line", ".node")
             .attr("class", "link")
-            .attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
+            .attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
 
         // Exit any old links.
         link.exit().remove();
@@ -1114,10 +1114,10 @@ namespace forceCollapsable {
     }
 
     function tick() {
-        link.attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
+        link.attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
 
         node.attr("cx", function (d) { return d.x; } )
             .attr("cy", function (d) { return d.y; } );
@@ -1738,7 +1738,7 @@ namespace forceCollapsable2 {
     var force = d3.layout.force<Node>()
         .on("tick", tick)
         .charge(function (d) { return d._children ? -d.size / 100 : -30; } )
-        .linkDistance(function (d) { return d.target._children ? 80 : 30; } )
+        .linkDistance(function (d) { return (d.target as Node)._children ? 80 : 30; } )
         .size([w, h - 160]);
 
     var vis = d3.select("body").append("svg:svg")
@@ -1770,10 +1770,10 @@ namespace forceCollapsable2 {
         // Enter any new links.
         link.enter().insert("svg:line", ".node")
             .attr("class", "link")
-            .attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
+            .attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
 
         // Exit any old links.
         link.exit().remove();
@@ -1801,11 +1801,11 @@ namespace forceCollapsable2 {
     }
 
     function tick() {
-        link.attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
-
+        link.attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
+        
         node.attr("cx", function (d) { return d.x; } )
             .attr("cy", function (d) { return d.y; } );
     }
