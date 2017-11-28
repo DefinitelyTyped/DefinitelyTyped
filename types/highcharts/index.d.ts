@@ -6151,6 +6151,12 @@ declare namespace Highcharts {
          * @since 3.0
          */
         update(options: AxisOptions, redraw?: boolean): void;
+
+        /**
+         * ReadOnly. Get axis title of an AxisObject.
+         * @since 3.0
+         */
+        axisTitle: any;
     }
 
     /**
