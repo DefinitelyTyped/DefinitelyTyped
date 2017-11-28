@@ -273,6 +273,30 @@ namespace MapStateAndOptions {
     const verify = <Test foo='bar' />
 }
 
+namespace AreStatesEqual {
+    interface State { stuff: string; }
+    interface OwnProps { foo: string }
+    interface StateProps { bar: number }
+    interface DispatchProps { dispatch: Dispatch<any> }
+
+    class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
+
+    const mapStateToProps = (state: State) => ({
+        bar: 1
+    })
+
+    const Test = connect(
+        mapStateToProps,
+        null,
+        null,
+        {
+            areStatesEqual: (state: State, previousState: State) => state === previousState
+        }
+    )(TestComponent)
+
+    const verify = <Test foo='bar' />
+}
+
 interface CounterState {
     counter: number;
 }
