@@ -1357,6 +1357,56 @@ suite('assert', () => {
         assert.notInclude(undefined, 'bar');
     });
 
+    test('deepInclude', () => {
+        assert.deepInclude('foobar', 'bar');
+        assert.deepInclude([1, 2, 3], 3);
+        assert.deepInclude('foobar', 'baz');
+        assert.deepInclude(undefined, 'bar');
+    });
+
+    test('notDeepInclude', () => {
+        assert.notDeepInclude('foobar', 'baz');
+        assert.notDeepInclude([1, 2, 3], 4);
+        assert.notDeepInclude('foobar', 'bar');
+        assert.notDeepInclude(undefined, 'bar');
+    });
+
+    test('nestedInclude', () => {
+        assert.nestedInclude({'.a': {'b': 'x'}}, {'\\.a.[b]': 'x'});
+        assert.nestedInclude({'a': {'[b]': 'x'}}, {'a.\\[b\\]': 'x'});
+    });
+
+    test('notNestedInclude', () => {
+        assert.notNestedInclude({'.a': {'b': 'x'}}, {'\\.a.b': 'y'});
+        assert.notNestedInclude({'a': {'[b]': 'x'}}, {'a.\\[b\\]': 'y'});
+    });
+
+    test('deepNestedInclude', () => {
+        assert.deepNestedInclude({a: {b: [{x: 1}]}}, {'a.b[0]': {x: 1}});
+        assert.deepNestedInclude({'.a': {'[b]': {x: 1}}}, {'\\.a.\\[b\\]': {x: 1}});
+    });
+
+    test('notDeepNestedInclude', () => {
+        assert.notDeepNestedInclude({a: {b: [{x: 1}]}}, {'a.b[0]': {y: 1}})
+        assert.notDeepNestedInclude({'.a': {'[b]': {x: 1}}}, {'\\.a.\\[b\\]': {y: 2}});
+    });
+
+    test('ownInclude', () => {
+        assert.ownInclude({ a: 1 }, { a: 1 });
+    });
+
+    test('notOwnInclude', () => {
+        assert.notOwnInclude({ a: 1 }, { a: 1 });
+    });
+
+    test('deepOwnInclude', () => {
+        assert.deepOwnInclude({a: {b: 2}}, {a: {b: 2}});
+    });
+
+    test('notDeepOwnInclude', () => {
+        assert.notDeepOwnInclude({a: {b: 2}}, {a: {c: 3}});
+    });
+
     test('lengthOf', () => {
         assert.lengthOf([1, 2, 3], 3);
         assert.lengthOf('foobar', 6);
