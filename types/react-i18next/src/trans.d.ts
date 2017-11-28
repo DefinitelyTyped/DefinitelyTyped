@@ -1,5 +1,5 @@
 import * as React from "react";
-import {i18n, TranslationFunction} from "i18next";
+import { i18n, TranslationFunction } from "i18next";
 
 export interface TransProps {
     i18nKey?: string;

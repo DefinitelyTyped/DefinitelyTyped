@@ -1,4 +1,4 @@
-import {i18n} from "i18next";
+import { i18n } from "i18next";
 
 export interface ReactI18NextOptions {
     wait?: boolean;
@@ -17,10 +17,10 @@ export function setI18n(instance: i18n): void;
 
 export function getI18n(): i18n;
 
-export interface I18NextModule {
+export interface i18NextModule {
     type: string;
 
     init: (instance: i18n) => void;
 }
 
-export declare const reactI18nextModule: I18NextModule;
+export const reactI18nextModule: i18NextModule;

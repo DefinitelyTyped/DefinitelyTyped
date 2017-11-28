@@ -1,11 +1,11 @@
-// Type definitions for react-i18next 7.0.2
+// Type definitions for react-i18next 7.0
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-// Definitions by: Simon Baumann <https://github.com/chnoch>
+//                 Simon Baumann <https://github.com/chnoch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
-import {TranslationFunction} from "i18next";
+import { TranslationFunction } from "i18next";
 
 import {
     setDefaults,

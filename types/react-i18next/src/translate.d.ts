@@ -1,6 +1,6 @@
 import * as React from "react";
-import {i18n} from "i18next";
-import {ReactI18NextOptions} from "./context";
+import { i18n } from "i18next";
+import { ReactI18NextOptions } from "./context";
 
 export interface OtherTranslateOptions {
     i18n?: i18n;
@@ -15,4 +15,4 @@ export interface TranslateProps {
 }
 
 // tslint:disable-next-line:ban-types
-export default function translate<TKey extends string = string>(namespaces?: TKey[] | TKey, options?: TranslateOptions): <C extends Function>(WrappedComponent: C, props?: TranslateProps) => C;
+export default function translate<TKey extends string>(namespaces?: TKey | TKey[], options?: TranslateOptions): <C extends Function>(WrappedComponent: C, props?: TranslateProps) => C;

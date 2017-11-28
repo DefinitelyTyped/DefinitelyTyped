@@ -1,7 +1,7 @@
 import * as React from "react";
-import {i18n} from "i18next";
+import { i18n } from "i18next";
 
-export interface I18nProps {
+export interface i18nProps {
     wait?: boolean;
     ns: string | string[];
     nsMode?: string;
@@ -12,4 +12,4 @@ export interface I18nProps {
     initialLanguage?: string;
 }
 
-export default class I18n extends React.Component<I18nProps> { }
+export default class I18n extends React.Component<i18nProps> { }

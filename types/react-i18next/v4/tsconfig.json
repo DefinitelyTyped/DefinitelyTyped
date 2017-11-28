@@ -14,6 +14,9 @@
             "../../"
         ],
         "paths": {
+            "react-i18next": [
+                "react-i18next/v4"
+            ],
             "i18next": [
                 "i18next"
             ]
@@ -26,11 +29,11 @@
     },
     "files": [
         "index.d.ts",
-        "test/react-i18next-tests.tsx",
-        "src/I18nextProvider.d.ts",
-        "src/interpolate.d.ts",
-        "src/loadNamespaces.d.ts",
-        "src/trans.d.ts",
-        "src/translate.d.ts"
+        "react-i18next-tests.tsx",
+        "I18nextProvider.d.ts",
+        "interpolate.d.ts",
+        "loadNamespaces.d.ts",
+        "trans.d.ts",
+        "translate.d.ts"
     ]
 }

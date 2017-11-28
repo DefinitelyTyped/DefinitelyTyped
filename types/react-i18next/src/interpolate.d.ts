@@ -1,5 +1,5 @@
 import * as React from "react";
-import {i18n, InterpolationOptions, TranslationFunction} from "i18next";
+import { i18n, InterpolationOptions, TranslationFunction } from "i18next";
 
 export type InterpolateValue = string | JSX.Element;
 

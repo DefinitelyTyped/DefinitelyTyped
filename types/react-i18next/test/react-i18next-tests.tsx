@@ -62,7 +62,6 @@ class TranslatableView extends React.Component<InjectedTranslateProps> {
                     value='"some value in props"'
                     component={interpolateComponent}
                     i18n={i18n.init()}
-                    t={i18n.getFixedT('en')}
                 />
                 <a href='https://github.com/i18next/react-i18next' target='_blank'>{t('nav:link1')}</a>
             </div>
@@ -101,14 +100,14 @@ loadNamespaces({components: [App], i18n}).then(() => {
 
 type Key = "view" | "nav";
 
-@translate<Key>(['view', 'nav'])
+@translate<Key>(["view", "nav"] as Key[])
 class GenericsTest extends React.Component<InjectedTranslateProps> {
     render() {
         return null;
     }
 }
 
-@translate<Key>('view')
+@translate<Key>("view")
 class GenericsTest2 extends React.Component<InjectedTranslateProps> {
     render() {
         return null;
@@ -125,7 +124,7 @@ class GenericsTest2 extends React.Component<InjectedTranslateProps> {
             </div>
         )
     }
-</I18n>
+</I18n>;
 
 const defaults: ReactI18NextOptions = {
     wait: true,
