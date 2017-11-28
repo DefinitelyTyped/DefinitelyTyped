@@ -64,7 +64,7 @@ export const version: string;
  * horizontally.
  *
  */
-interface TableProps extends React.Props<Table> {
+export interface TableProps extends React.Props<Table> {
   /**
    * Pixel width of table. If all columns do not fit, a
    * horizontal scrollbar will appear.
@@ -264,7 +264,7 @@ interface TableProps extends React.Props<Table> {
 /**
  * Component that defines the attributes of table column.
  */
-interface ColumnProps extends React.Props<Column> {
+export interface ColumnProps extends React.Props<Column> {
   /**
    * The horizontal alignment of the table cell content.
    *
@@ -422,7 +422,7 @@ interface ColumnProps extends React.Props<Column> {
 /**
  * Component that defines the attributes of a table column group.
  */
-interface ColumnGroupProps extends React.Props<ColumnGroup> {
+export interface ColumnGroupProps extends React.Props<ColumnGroup> {
   /**
    * The horizontal alignment of the table cell content.
    * 'left', 'center', 'right'
@@ -485,7 +485,7 @@ interface ColumnGroupProps extends React.Props<ColumnGroup> {
  *   />
  * );
  */
-interface CellProps extends React.HTMLAttributes<Cell> {
+export interface CellProps extends React.HTMLAttributes<Cell> {
   /**
    * The row index of the cell.
    */
