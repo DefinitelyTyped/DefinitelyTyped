@@ -592,7 +592,9 @@ export interface TabViewConfig {
 }
 
 // From navigators/TabNavigator.js
-export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig { }
+export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig {
+  initialLayout?: { height: number, width: number };
+}
 
 // From navigators/TabNavigator.js
 export function TabNavigator(
