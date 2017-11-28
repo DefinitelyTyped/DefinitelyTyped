@@ -667,12 +667,8 @@ export function canvas(options?: RendererOptions): Canvas;
  * added/removed on the map as well. Extends Layer.
  */
 export class LayerGroup<P = any> extends Layer {
-    constructor(layers?: Layer[]);
-    // tslint:disable-next-line
-    constructor(layers: Layer[], options?: LayerOptions);
-    initialize(layers?: Layer[]): this;
-    // tslint:disable-next-line
-    initialize(layers: Layer[], options?: LayerOptions): this;
+    constructor(layers?: Layer[], options?: LayerOptions);
+    initialize(layers?: Layer[], options?: LayerOptions): this;
 
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
@@ -737,9 +733,7 @@ export class LayerGroup<P = any> extends Layer {
 /**
  * Create a layer group, optionally given an initial set of layers and an `options` object.
  */
-export function layerGroup(layers?: Layer[]): LayerGroup;
-// tslint:disable-next-line
-export function layerGroup(layers: Layer[], options?: LayerOptions): LayerGroup;
+export function layerGroup(layers?: Layer[], options?: LayerOptions): LayerGroup;
 
 /**
  * Extended LayerGroup that also has mouse events (propagated from
