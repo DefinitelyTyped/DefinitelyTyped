@@ -18,7 +18,7 @@ declare class Siema {
 }
 
 interface perPageInterface {
-  [key : number] : number;
+  [key: number]: number;
 }
 
 interface SiemaOptions {
