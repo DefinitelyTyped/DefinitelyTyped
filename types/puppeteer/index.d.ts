@@ -58,7 +58,7 @@ export interface Mouse {
    * @param y The y position.
    * @param options The click options.
    */
-  click(x: number, y: number, options: ClickOptions): Promise<void>;
+  click(x: number, y: number, options?: ClickOptions): Promise<void>;
   /**
    * Dispatches a `mousedown` event.
    * @param options The mouse press options.
