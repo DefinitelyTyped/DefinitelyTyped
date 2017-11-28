@@ -17,17 +17,21 @@ declare class Siema {
     destroy(restoreMarkup: boolean, callback?: () => void): void;
 }
 
+interface perPageInterface {
+  [key : number] : number;
+}
+
 interface SiemaOptions {
     selector?: string;
     duration?: number;
     easing?: string;
-    perPage?: number;
+    perPage?: number | perPageInterface;
     startIndex?: number;
     draggable?: boolean;
     multipleDrag?: boolean;
     threshold?: number;
     loop?: boolean;
-    onInit(): void;
+    onInit?(): void;
     onChange?(): void;
 }
 
