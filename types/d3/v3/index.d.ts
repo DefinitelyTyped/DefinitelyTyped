@@ -1,6 +1,8 @@
 // Type definitions for d3JS 3.5
 // Project: http://d3js.org/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Matthias Jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Latest patch version of module validated against: 3.5.17
@@ -233,28 +235,30 @@ declare namespace d3 {
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            insert(name: string, before: string): Update<Datum>;
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert 
+            insert(name: string, before?: string): Update<Datum>;
 
             /**
              * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before a function to determine the node to use as the next sibling
              */
-            insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert
+            insert(name: string, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
 
             /**
              * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the function to compute a new child
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: string): Update<Datum>;
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Update<Datum>;
 
             /**
              * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the function to compute a new child
              * @param before a function to determine the node to use as the next sibling
              */
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
 
             /**
              * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
@@ -429,7 +433,7 @@ declare namespace d3 {
     /**
      * Administrivia: JavaScript primitive types, or "things that toString() predictably".
      */
-    export type Primitive = number | string | boolean;
+    export type Primitive = number | string | boolean | Date | undefined;
 
     /**
      * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
@@ -626,28 +630,28 @@ declare namespace d3 {
          * @param name the element name to append. May be prefixed (see d3.ns.prefix).
          * @param before the selector to determine position (e.g., ":first-child")
          */
-        insert(name: string, before: string): Selection<Datum>;
+        insert(name: string, before?: string): Selection<Datum>;
 
         /**
          * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the element name to append. May be prefixed (see d3.ns.prefix).
          * @param before a function to determine the node to use as the next sibling
          */
-        insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+        insert(name: string, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
         /**
          * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the function to compute a new child
          * @param before the selector to determine position (e.g., ":first-child")
          */
-        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: string): Selection<Datum>;
+        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Selection<Datum>;
 
         /**
          * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the function to compute a new child
          * @param before a function to determine the node to use as the next sibling
          */
-        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
         /**
          * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
@@ -2605,7 +2609,8 @@ declare namespace d3 {
             y(): brush.Scale;
             y(y: brush.Scale): Brush<T>;
 
-            extent(): [number, number] | [[number, number], [number, number]];
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md#brush_extent
+            extent(): [number, number] | [[number, number], [number, number]] | [Date, Date];
             extent(extent: [number, number] | [[number, number], [number, number]]): Brush<T>;
 
             clamp(): boolean | [boolean, boolean];
@@ -2874,10 +2879,12 @@ declare namespace d3 {
         export function force<Node extends force.Node>(): Force<force.Link<Node>, Node>;
         export function force<Link extends force.Link<force.Node>, Node extends force.Node>(): Force<Link, Node>;
 
+        // https://github.com/d3/d3-3.x-api-reference/blob/master/Force-Layout.md#links
+        // Read the note at the end of the section where it talks about initial numbering
         namespace force {
             interface Link<T extends Node> {
-                source: T;
-                target: T;
+                source: T|number;
+                target: T|number;
             }
 
             interface Node {
