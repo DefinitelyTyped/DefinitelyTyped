@@ -95,6 +95,11 @@ function mixpanel_people() {
         'Starting Plan': 'Premium'
     }, () => {});
 
+    mixpanel.people.unset('Company');
+    mixpanel.people.unset('Company', () => {});
+    mixpanel.people.unset(['Company', 'Plan']);
+    mixpanel.people.unset(['Company', 'Plan'], () => {});
+
     mixpanel.people.increment('page_views');
     mixpanel.people.increment('page_views', 1);
     mixpanel.people.increment('credits_left', -1);

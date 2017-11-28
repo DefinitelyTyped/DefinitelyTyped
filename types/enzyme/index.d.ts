@@ -551,6 +551,12 @@ export class ReactWrapper<P = {}, S = {}> {
 }
 
 export interface ShallowRendererProps {
+    // See https://github.com/airbnb/enzyme/blob/enzyme@3.1.1/docs/api/shallow.md#arguments
+    /**
+     * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
+     * setProps and setContext. Default to false.
+     */
+    disableLifecycleMethods?: boolean;
     /**
      * Enable experimental support for full react lifecycle methods
      */
@@ -602,4 +608,14 @@ export class EnzymeAdapter {
  * Configure enzyme to use the correct adapter for the react verstion
  * This is enabling the Enzyme configuration with adapters in TS
  */
-export function configure(options: { adapter: EnzymeAdapter }): void;
+export function configure(options: {
+    adapter: EnzymeAdapter,
+    // See https://github.com/airbnb/enzyme/blob/enzyme@3.1.1/docs/guides/migration-from-2-to-3.md#lifecycle-methods
+    // Actually, `{adapter:} & Pick<ShallowRendererProps,"disableLifecycleMethods">` is more precise. However,
+    // in that case jsdoc won't be shown
+    /**
+     * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
+     * setProps and setContext. Default to false.
+     */
+    disableLifecycleMethods?: boolean;
+}): void;

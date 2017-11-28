@@ -273,6 +273,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   headerRight?: React.ReactElement<any>;
   headerStyle?: StyleProp<ViewStyle>;
   gesturesEnabled?: boolean;
+  gestureResponseDistance?: { vertical?: number; horizontal?: number };
 };
 
 export interface NavigationStackRouterConfig {
@@ -348,7 +349,8 @@ export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
       any
     > | null));
   drawerLabel?:
-    React.ReactElement<any>
+    string
+    | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null));

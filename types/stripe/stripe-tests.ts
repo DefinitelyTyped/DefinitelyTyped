@@ -82,9 +82,15 @@ stripe.charges.create({
 
 stripe.charges.retrieve("ch_15fvyXEe31JkLCeQOo0SwFk9", function (err, charge) {
     // asynchronously called
+    if (typeof charge.application_fee === "object") {
+        charge.application_fee.amount;
+    }
 });
 stripe.charges.retrieve("ch_15fvyXEe31JkLCeQOo0SwFk9").then(function (charge) {
     // asynchronously called
+    if (typeof charge.application_fee === "object") {
+        charge.application_fee.amount;
+    }
 });
 
 stripe.charges.update(
@@ -1083,9 +1089,15 @@ stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q
 
 stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt", function(err, subscription) {
     // asynchronously called
+    if (typeof subscription.customer === "object") {
+        subscription.customer.email;
+    }
 });
 stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt").then(function(subscription) {
     // asynchronously called
+    if (typeof subscription.customer === "object") {
+        subscription.customer.email;
+    }
 });
 
 stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }, function(err, subscription) {
