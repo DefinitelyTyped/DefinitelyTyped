@@ -247,13 +247,15 @@ export abstract class Evented extends Class {
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
-    // tslint:disable-next-line
+     // With an eventMap there are no additional arguments allowed
+    // tslint:disable-next-line:unified-signatures
     off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Removes a set of type/listener pairs.
      */
-    // tslint:disable-next-line
+     // With an eventMap there are no additional arguments allowed
+    // tslint:disable-next-line:unified-signatures
     off(eventMap: LeafletEventHandlerFnMap): this;
     /**
      * Removes all listeners to all events on the object.
