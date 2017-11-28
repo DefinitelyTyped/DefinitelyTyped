@@ -9,10 +9,15 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "i18next": [
+                "i18next"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -22,8 +27,6 @@
     "files": [
         "index.d.ts",
         "test/react-i18next-tests.tsx",
-        "src/context.d.ts",
-        "src/I18n.d.ts",
         "src/I18nextProvider.d.ts",
         "src/interpolate.d.ts",
         "src/loadNamespaces.d.ts",
