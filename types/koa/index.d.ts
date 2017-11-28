@@ -137,6 +137,11 @@ declare interface ContextDelegatedRequest {
     secure: boolean;
 
     /**
+     * Request remote address. Supports X-Forwarded-For when app.proxy is true.
+     */
+    ip: string;
+
+    /**
      * When `app.proxy` is `true`, parse
      * the "X-Forwarded-For" ip address list.
      *

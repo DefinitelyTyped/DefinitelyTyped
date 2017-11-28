@@ -251,6 +251,12 @@ export interface EmulateOptions {
 
 export type EvaluateFn = string | ((...args: any[]) => any);
 
+export type LoadEvent =
+  | "load"
+  | "domcontentloaded"
+  | "networkidle0"
+  | "networkidle2";
+
 /** The navigation options. */
 export interface NavigationOptions {
   /**
@@ -262,7 +268,7 @@ export interface NavigationOptions {
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
    */
-  waitUntil?: "load" | "domcontentloaded" | "networkidle0" | "networkidle2";
+  waitUntil?: LoadEvent | LoadEvent[];
 }
 
 export type PDFFormat =
@@ -411,9 +417,9 @@ export interface ElementHandle extends JSHandle {
    */
   $$(selector: string): Promise<ElementHandle[]>;
   /**
-   * This method returns the bounding box of the element (relative to the main frame), or null if the element is not visible.
+   * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
-  boundingBox(): BoundingBox | null;
+  boundingBox(): Promise<BoundingBox | null>;
   /**
    * This method scrolls element into view if needed, and then uses page.mouse to click in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -667,7 +673,8 @@ export interface FrameBase {
    */
   $eval(
     selector: string,
-    fn: (...args: any[]) => void
+    fn: (element: ElementHandle | null, ...args: any[]) => any,
+    ...args: any[]
   ): Promise<any>;
 
   /**
@@ -680,7 +687,7 @@ export interface FrameBase {
    */
   $$eval(
     selector: string,
-    fn: (...args: any[]) => void,
+    fn: (elements: ElementHandle[], ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 

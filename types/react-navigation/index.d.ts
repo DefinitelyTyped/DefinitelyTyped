@@ -349,7 +349,8 @@ export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
       any
     > | null));
   drawerLabel?:
-    React.ReactElement<any>
+    string
+    | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null));
