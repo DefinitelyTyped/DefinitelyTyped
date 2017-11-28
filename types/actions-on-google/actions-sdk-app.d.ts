@@ -35,6 +35,7 @@ export class ActionsSdkApp extends AssistantApp {
     constructor(options: ActionsSdkAppOptions);
 
     /**
+     * @deprecated
      * Validates whether request is from Assistant through signature verification.
      * Uses Google-Auth-Library to verify authorization token against given
      * Google Cloud Project ID. Auth token is given in request header with key,
@@ -57,6 +58,30 @@ export class ActionsSdkApp extends AssistantApp {
      * @actionssdk
      */
     isRequestFromAssistant(projectId: string): Promise<object>;
+
+    /**
+     * Validates whether request is from Google through signature verification.
+     * Uses Google-Auth-Library to verify authorization token against given
+     * Google Cloud Project ID. Auth token is given in request header with key,
+     * "Authorization".
+     *
+     * @example
+     * const app = new ActionsSdkApp({request, response});
+     * app.isRequestFromGoogle('nodejs-cloud-test-project-1234')
+     *   .then(() => {
+     *     app.ask('Hey there, thanks for stopping by!');
+     *   })
+     *   .catch(err => {
+     *     response.status(400).send();
+     *   });
+     *
+     * @param projectId Google Cloud Project ID for the Assistant app.
+     * @return Promise resolving with google-auth-library LoginTicket
+     *     if request is from a valid source, otherwise rejects with the error reason
+     *     for an invalid token.
+     * @actionssdk
+     */
+    isRequestFromGoogle(projectId: string): Promise<object>;
 
     /**
      * Gets the request Conversation API version.
