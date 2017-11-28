@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-geo module 1.10
+// Type definitions for D3JS d3-geo module 1.9
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Jayson Jacobs <https://github.com/j4ys0n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
