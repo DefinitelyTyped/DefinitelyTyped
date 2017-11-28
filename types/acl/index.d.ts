@@ -12,27 +12,28 @@ import http = require('http');
 import Promise = require("bluebird");
 import express = require("express");
 
-type strings = string|string[];
-type Value = string|number;
-type Values = Value|Value[];
-type Action = () => any;
-type Callback = (err: Error) => any;
-type AnyCallback = (err: Error, obj: any) => any;
-type AllowedCallback = (err: Error, allowed: boolean) => any;
-type GetUserId = (req: http.IncomingMessage, res: http.ServerResponse) => Value;
 
-interface AclStatic {
+export type strings = string|string[];
+export type Value = string|number;
+export type Values = Value|Value[];
+export type Action = () => any;
+export type Callback = (err: Error) => any;
+export type AnyCallback = (err: Error, obj: any) => any;
+export type AllowedCallback = (err: Error, allowed: boolean) => any;
+export type GetUserId = (req: http.IncomingMessage, res: http.ServerResponse) => Value;
+
+export interface AclStatic {
     new (backend: Backend<any>, logger: Logger, options: Option): Acl;
     new (backend: Backend<any>, logger: Logger): Acl;
     new (backend: Backend<any>): Acl;
     memoryBackend: MemoryBackendStatic;
 }
 
-interface Logger {
+export interface Logger {
     debug: (msg: string) => any;
 }
 
-interface Acl {
+export interface Acl {
     addUserRoles: (userId: Value, roles: strings, cb?: Callback) => Promise<void>;
     removeUserRoles: (userId: Value, roles: strings, cb?: Callback) => Promise<void>;
     userRoles: (userId: Value, cb?: (err: Error, roles: string[]) => any) => Promise<string[]>;
@@ -58,11 +59,11 @@ interface Acl {
     middleware: (numPathComponents?: number, userId?: Value | GetUserId, actions?: strings) => express.RequestHandler;
 }
 
-interface Option {
+export interface Option {
     buckets?: BucketsOption;
 }
 
-interface BucketsOption {
+export interface BucketsOption {
     meta?: string;
     parents?: string;
     permissions?: string;
@@ -71,25 +72,25 @@ interface BucketsOption {
     users?: string;
 }
 
-interface AclSet {
+export interface AclSet {
     roles: strings;
     allows: AclAllow[];
 }
 
-interface AclAllow {
+export interface AclAllow {
     resources: strings;
     permissions: strings;
 }
 
-interface MemoryBackend extends Backend<Action[]> { }
-interface MemoryBackendStatic {
+export interface MemoryBackend extends Backend<Action[]> { }
+export interface MemoryBackendStatic {
     new (): MemoryBackend;
 }
 
 //
 // For internal use
 //
-interface Backend<T> {
+export interface Backend<T> {
     begin: () => T;
     end: (transaction: T, cb?: Action) => void;
     clean: (cb?: Action) => void;
@@ -105,7 +106,7 @@ interface Backend<T> {
     unionAsync: Function;
 }
 
-interface Contract {
+export interface Contract {
     (args: IArguments): Contract | NoOp;
     debug: boolean;
     fulfilled: boolean;
@@ -115,7 +116,7 @@ interface Contract {
     end: () => void;
 }
 
-interface NoOp {
+export interface NoOp {
     params: (...types: string[]) => NoOp;
     end: () => void;
 }
@@ -123,12 +124,12 @@ interface NoOp {
 // for redis backend
 import redis = require('redis');
 
-interface AclStatic {
+export interface AclStatic {
     redisBackend: RedisBackendStatic;
 }
 
-interface RedisBackend extends Backend<redis.RedisClient> { }
-interface RedisBackendStatic {
+export interface RedisBackend extends Backend<redis.RedisClient> { }
+export interface RedisBackendStatic {
     new (redis: redis.RedisClient, prefix: string): RedisBackend;
     new (redis: redis.RedisClient): RedisBackend;
 }
@@ -136,16 +137,16 @@ interface RedisBackendStatic {
 // for mongodb backend
 import mongo = require('mongodb');
 
-interface AclStatic {
+export interface AclStatic {
     mongodbBackend: MongodbBackendStatic;
 }
 
-interface MongodbBackend extends Backend<Callback> { }
-interface MongodbBackendStatic {
+export interface MongodbBackend extends Backend<Callback> { }
+export interface MongodbBackendStatic {
     new (db: mongo.Db, prefix: string, useSingle: boolean): MongodbBackend;
     new (db: mongo.Db, prefix: string): MongodbBackend;
     new (db: mongo.Db): MongodbBackend;
 }
 
 declare var _: AclStatic;
-export = _;
+export default _;
