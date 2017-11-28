@@ -993,6 +993,7 @@ declare namespace DS {
      * Push some raw data into the store.
      */
     pushPayload(modelName: string, inputPayload: {}): any;
+    pushPayload(inputPayload: {}): any;
     /**
      * `normalize` converts a json payload into the normalized form that
      * [push](#method_push) expects.
