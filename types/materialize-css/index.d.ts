@@ -4,16 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+/// <reference types="jquery" />
+
 export = M;
 
 declare global {
     namespace M {
-         class Sidenav {
-            /**
-             * Construct Sidenav instance and set up overlay
-             */
-            constructor(elem: Element, options?: Partial<SidenavOptions>);
-
+        class Sidenav extends Component<SidenavOptions> {
             /**
              * Get Instance
              */
@@ -28,21 +25,6 @@ declare global {
              * Closes Sidenav
              */
             close(): void;
-
-            /**
-             * Destroy plugin instance and teardown
-             */
-            destroy(): void;
-
-            /**
-             * The DOM element the plugin was initialized with
-             */
-            el: Element;
-
-            /**
-             * The options the instance was initialized with
-             */
-            options: SidenavOptions;
 
             /**
              * Describes open/close state of Sidenav
@@ -91,22 +73,100 @@ declare global {
             /**
              * Function called when sidenav starts entering
              */
-            onOpenStart: (instance: Sidenav, elem: Element) => void;
+            onOpenStart: (this: Sidenav, elem: Element) => void;
 
             /**
              * Function called when sidenav finishes entering
              */
-            onOpenEnd: (instance: Sidenav, elem: Element) => void;
+            onOpenEnd: (this: Sidenav, elem: Element) => void;
 
             /**
              * Function called when sidenav starts exiting
              */
-            onCloseStart: (instance: Sidenav, elem: Element) => void;
+            onCloseStart: (this: Sidenav, elem: Element) => void;
 
             /**
              * Function called when sidenav finishes exiting
              */
-            onCloseEnd: (instance: Sidenav, elem: Element) => void;
+            onCloseEnd: (this: Sidenav, elem: Element) => void;
         }
+
+        class Tabs extends Component<TabsOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Tabs;
+
+            /**
+             * Show tab content that corresponds to the tab with the id
+             * @param tabId The id of the tab that you want to switch to
+             */
+            select(tabId: string): void;
+
+            /**
+             * The index of tab that is currently shown
+             */
+            index: number;
+        }
+
+        /**
+         * Options for the Tabs
+         */
+        interface TabsOptions {
+            /**
+             * Transition duration in milliseconds.
+             * @default 300
+             */
+            duration: number;
+
+            /**
+             * Callback for when a new tab content is shown
+             */
+            onShow: (this: Tabs, newContent: Element) => void;
+
+            /**
+             * Set to true to enable swipeable tabs. This also uses the responsiveThreshold option
+             * @default false
+             */
+            swipeable: boolean;
+
+            /**
+             * The maximum width of the screen, in pixels, where the swipeable functionality initializes.
+             * @default infinity
+             */
+            responsiveThreshold: number;
+        }
+
+        abstract class Component<TOptions> {
+            /**
+             * Construct component instance and set everything up
+             */
+            constructor(elem: Element, options?: Partial<TOptions>);
+
+            /**
+             * Destroy plugin instance and teardown
+             */
+            destroy(): void;
+
+            /**
+             * The DOM element the plugin was initialized with
+             */
+            el: Element;
+
+            /**
+             * The options the instance was initialized with
+             */
+            options: TOptions;
+        }
+    }
+
+    interface JQuery {
+        // Pick<T,K> to check methods exist.
+        sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
+        sidenav(options?: Partial<M.SidenavOptions>): JQuery;
+
+        tabs(method: keyof Pick<M.Tabs, "destroy">): JQuery;
+        tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
+        tabs(options?: Partial<M.TabsOptions>): JQuery;
     }
 }
