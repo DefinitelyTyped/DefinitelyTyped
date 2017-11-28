@@ -670,7 +670,6 @@ export function canvas(options?: RendererOptions): Canvas;
  */
 export class LayerGroup<P = any> extends Layer {
     constructor(layers?: Layer[], options?: LayerOptions);
-    initialize(layers?: Layer[], options?: LayerOptions): this;
 
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
