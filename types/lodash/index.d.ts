@@ -14343,15 +14343,10 @@ declare namespace _ {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        pick<T extends object, U extends keyof T>(
-            object: T | null | undefined,
-             ...props: Array<Many<U>>
-        ): Pick<T, U>;
-
-        pick<T>(
+        pick<T extends object>(
             object: T | null | undefined,
             ...props: PropertyPath[]
-        ): PartialDeep<T>;
+        ): PartialObject<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
