@@ -156,7 +156,7 @@ declare namespace Knex {
         delete(returning?: string | string[]): QueryBuilder;
         truncate(): QueryBuilder;
 
-        transacting(trx: Transaction): QueryBuilder;
+        transacting(trx?: Transaction): QueryBuilder;
         connection(connection: any): QueryBuilder;
 
         clone(): QueryBuilder;
