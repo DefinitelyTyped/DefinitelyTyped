@@ -1,8 +1,12 @@
-// Type definitions for simplebar.js 2.4
+// Type definitions for simplebar.js 2.5.1
 // Project: https://github.com/Grsmto/simplebar
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
+//                 Ryan Noble <https://github.com/RyRy79261>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.6.1
+
+export = SimpleBar;
+export as namespace SimpleBar;
 
 declare class SimpleBar {
     static removeObserver(): void;
