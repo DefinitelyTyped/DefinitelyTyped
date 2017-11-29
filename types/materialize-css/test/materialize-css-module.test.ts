@@ -29,6 +29,8 @@ sidenav.isOpen;
 
 // Tabs
 // $ExpectType Tabs
+new materialize.Tabs(elem);
+// $ExpectType Tabs
 const tabs = new materialize.Tabs(elem, {
     duration: 200,
     onShow(content) {
@@ -44,6 +46,8 @@ tabs.destroy();
 tabs.select("id");
 // $ExpectType TabsOptions
 tabs.options;
+// $ExpectType Element
+tabs.el;
 // $ExpectType number
 tabs.index;
 
@@ -72,3 +76,67 @@ modal.options;
 modal.el;
 // $ExpectType boolean
 modal.isOpen;
+
+// CharacterCounter
+// $ExpectType CharacterCounter
+const characterCounter = new materialize.CharacterCounter(elem);
+// $ExpectType void
+characterCounter.destroy();
+// $ExpectType Element
+characterCounter.el;
+
+// Autocomplete
+// $ExpectType Autocomplete
+new materialize.Autocomplete(elem);
+// $ExpectType Autocomplete
+const autocomplete = new materialize.Autocomplete(elem, {
+    data: {
+        Apple: null,
+        Google: "https://placehold.it/250x250"
+    },
+    minLength: 3,
+    onAutocomplete(text) {
+        // $ExpectType Autocomplete
+        this;
+        // $ExpectType string
+        text;
+    },
+    sortFunction(a, b, input) {
+        // $ExpectType string
+        a;
+        // $ExpectType string
+        b;
+        // $ExpectType string
+        input;
+        return 0;
+    }
+});
+// $ExpectType void
+autocomplete.updateData({ Microsoft: null });
+// $ExpectType void
+autocomplete.destroy();
+// $ExpectType AutocompleteOptions
+autocomplete.options;
+// $ExpectType Element
+autocomplete.el;
+// $ExpectType boolean
+autocomplete.isOpen;
+
+// Tooltip
+// $ExpectType Tooltip
+new materialize.Tooltip(elem);
+// $ExpectType Tooltip
+const tooltip = new materialize.Tooltip(elem, {
+    inDuration: 300,
+    position: "right"
+});
+// $ExpectType void
+tooltip.open();
+// $ExpectType void
+tooltip.destroy();
+// $ExpectType TooltipOptions
+tooltip.options;
+// $ExpectType Element
+tooltip.el;
+// $ExpectType boolean
+tooltip.isOpen;
