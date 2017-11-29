@@ -114,7 +114,7 @@ export interface RouteOptions {
      * Note: handlers using a fat arrow style function cannot be bound to any bind property. Instead, the bound context is available under h.context.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionshandler)
      */
-    handler?: Lifecycle.LifecycleMethod | Object; //TODO need to review
+    handler?: Lifecycle.Method | Object; //TODO need to review
 
     /**
      * Default value: none.

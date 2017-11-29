@@ -37,9 +37,9 @@ export interface ServerAuthSchemeObject {
      * * h.unauthenticated() - indicate request failed to authenticate.
      * @param request the request object.
      * @param h the ResponseToolkit
-     * @return the LifecycleReturnValue
+     * @return the Lifecycle.ReturnValue
      */
-    authenticate(request: Request, h: ResponseToolkit): Lifecycle.LifecycleReturnValue;
+    authenticate(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
 
     /**
      * A lifecycle method to authenticate the request payload.
@@ -48,17 +48,17 @@ export interface ServerAuthSchemeObject {
      * authentication may still be successful if the route auth.payload configuration is set to 'optional'.
      * @param request the request object.
      * @param h the ResponseToolkit
-     * @return the LifecycleReturnValue
+     * @return the Lifecycle.ReturnValue
      */
-    payload?(request: Request, h: ResponseToolkit): Lifecycle.LifecycleReturnValue;
+    payload?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
 
     /**
      * A lifecycle method to decorate the response with authentication headers before the response headers or payload is written.
      * @param request the request object.
      * @param h the ResponseToolkit
-     * @return the LifecycleReturnValue
+     * @return the Lifecycle.ReturnValue
      */
-    response?(request: Request, h: ResponseToolkit): Lifecycle.LifecycleReturnValue;
+    response?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
 
     /**
      * An object with the following keys:

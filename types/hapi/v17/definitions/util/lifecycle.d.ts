@@ -9,7 +9,7 @@ export namespace Lifecycle {
      * * h - the response toolkit the handler must call to set a response and return control back to the framework.
      * * err - an error object availble only when the method is used as a failAction value.
      */
-    export interface LifecycleMethod {
+    export interface Method {
 
         // TODO needs to be implemented.
 
@@ -20,7 +20,7 @@ export namespace Lifecycle {
      * without a value or resolves to an undefined value, an Internal Server Error (500) error response is sent.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
      */
-    export interface LifecycleReturnValue {
+    export interface ReturnValue {
 
         // TODO needs to be implemented.
 
@@ -37,7 +37,7 @@ export namespace Lifecycle {
      * * * err - the error object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-failaction-configuration)
      */
-    export type FailAction = 'error' | 'log' | 'ignore' | LifecycleMethod;
+    export type FailAction = 'error' | 'log' | 'ignore' | Method;
 
 }
 
