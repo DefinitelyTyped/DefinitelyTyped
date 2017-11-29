@@ -1,3 +1,8 @@
+import * as Boom from "../../../../boom/index";
+import * as stream from "stream";
+import {ResponseToolkit, Request} from "hapi";
+
+
 export namespace Lifecycle {
 
     /**
@@ -10,9 +15,8 @@ export namespace Lifecycle {
      * * err - an error object availble only when the method is used as a failAction value.
      */
     export interface Method {
-
-        // TODO needs to be implemented.
-
+        (request: Request, h: ResponseToolkit): void;
+        (request: Request, h: ResponseToolkit, err: Error): void;
     }
 
     /**
@@ -20,11 +24,16 @@ export namespace Lifecycle {
      * without a value or resolves to an undefined value, an Internal Server Error (500) error response is sent.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
      */
-    export interface ReturnValue {
-
-        // TODO needs to be implemented.
-
-    }
+    export type ReturnValue = ReturnValueTypes | (Promise<ReturnValueTypes>);
+    export type ReturnValueTypes =
+        (null | undefined | string | number | boolean) |
+        (Buffer) |
+        (Error | Boom.BoomError) |
+        (stream.Stream) |
+        (Object | Object[]) |
+        // a toolkit signal:
+        // a toolkit method response:
+        any; // TODO need review
 
     /**
      * Various configuration options allows defining how errors are handled. For example, when invalid payload is received or malformed cookie, instead of returning an error, the framework can be configured to perform another action. When supported the failAction option supports the following values:
