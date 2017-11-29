@@ -1,4 +1,4 @@
-// Type definitions for jschannel 1.0.2
+// Type definitions for jschannel 1.0
 // Project: https://github.com/yochannah/jschannel
 // Definitions by: Yitzchok Gottlieb <https://github.com/yitzchok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
