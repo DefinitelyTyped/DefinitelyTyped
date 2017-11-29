@@ -802,7 +802,7 @@ declare class MarkerClusterer extends google.maps.OverlayView {
      * @return The new extended object.
      * @ignore
      */
-    extend(obj1: object, obj2: object): object;
+    extend(obj1: Object, obj2: Object): Object;
 
     /**
      * The default function for determining the label text and style
