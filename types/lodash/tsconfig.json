@@ -6,6 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": false,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -53,6 +54,7 @@
         "deburr.d.ts",
         "defaults.d.ts",
         "defaultsDeep.d.ts",
+        "defaultTo.d.ts",
         "defer.d.ts",
         "delay.d.ts",
         "difference.d.ts",
