@@ -1,9 +1,8 @@
 // Type definitions for yup 0.23
 // Project: https://github.com/jquense/yup
-// Definitions by: 
-// Dominik Hardtke <https://github.com/dhardtke>
-// Vladyslav Tserman <https://github.com/vtserman>
+// Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace yup;
 
@@ -20,19 +19,19 @@ export function array(): ArraySchema;
 export function object(): ObjectSchema;
 
 export interface ValidationError {
-    errors: string | Array<string>;
+    errors: string | string[];
     value: any;
     path: string;
-    inner?: Array<ValidationError>;
+    inner?: ValidationError[];
 }
 
-interface Ref {
+export interface Ref {
 }
 
-interface Lazy {
+export interface Lazy {
 }
 
-interface Schema {
+export interface Schema {
     clone(): Schema;
     label(label: string): Schema;
     meta(metadata: any): Schema;
@@ -50,16 +49,16 @@ interface Schema {
     nullable(isNullable: boolean): Schema;
     required(message?: string): Schema;
     typeError(message?: string): Schema;
-    oneOf(arrayOfValues: Array<any>, message?: string): Schema;
-    equals(arrayOfValues: Array<any>, message?: string): Schema;
-    notOneOf(arrayOfValues: Array<any>, message?: string): Schema;
-    when(keys: string | Array<string>, builder: any | ((value: any, schema: Schema) => Schema)): Schema;
-    test(name: string, message: string, test: Function, callbackStyleAsync?: boolean): Schema;
+    oneOf(arrayOfValues: any[], message?: string): Schema;
+    equals(arrayOfValues: any[], message?: string): Schema;
+    notOneOf(arrayOfValues: any[], message?: string): Schema;
+    when(keys: string | any[], builder: any | ((value: any, schema: Schema) => Schema)): Schema;
+    test(name: string, message: string, test: (value: any) => boolean, callbackStyleAsync?: boolean): Schema;
     test(options: any): Schema;
     transform(transformation: (currentValue: any, originalValue: any) => any): Schema;
 }
 
-interface StringSchema extends Schema {
+export interface StringSchema extends Schema {
     required(message?: string): StringSchema;
     min(limit: number | Ref, message?: string): StringSchema;
     max(limit: number | Ref, message?: string): StringSchema;
@@ -72,7 +71,8 @@ interface StringSchema extends Schema {
     uppercase(message?: string): StringSchema;
 }
 
-interface NumberSchema extends Schema {
+export interface NumberSchema extends Schema {
+    required(message?: string): NumberSchema;
     min(limit: number | Ref, message?: string): NumberSchema;
     max(limit: number | Ref, message?: string): NumberSchema;
     positive(message?: string): NumberSchema;
@@ -82,16 +82,15 @@ interface NumberSchema extends Schema {
     round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
 }
 
-interface BooleanSchema extends Schema {
-
+export interface BooleanSchema extends Schema {
 }
 
-interface DateSchema extends Schema {
+export interface DateSchema extends Schema {
     min(limit: Date | string | Ref, message?: string): DateSchema;
     max(limit: Date | string | Ref, message?: string): DateSchema;
 }
 
-interface ArraySchema extends Schema {
+export interface ArraySchema extends Schema {
     of(type: Schema): ArraySchema;
     required(message?: string): ArraySchema;
     min(limit: number | Ref, message?: string): ArraySchema;
@@ -100,7 +99,7 @@ interface ArraySchema extends Schema {
     compact(rejector: (value: any) => boolean): ArraySchema;
 }
 
-interface ObjectSchema extends Schema {
+export interface ObjectSchema extends Schema {
     shape(fields: any, noSortEdges?: Array<[string, string]>): ObjectSchema;
     from(fromKey: string, toKey: string, alias: boolean): ObjectSchema;
     noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema;
@@ -108,14 +107,12 @@ interface ObjectSchema extends Schema {
     constantCase(): ObjectSchema;
 }
 
-interface ValidateOptions {
-
+export interface ValidateOptions {
 }
 
-interface SchemaDescription {
+export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<string>;
+    tests: string[];
 }
-
