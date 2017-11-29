@@ -2,6 +2,7 @@
 // Project: http://sipjs.com
 // Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace sipjs;
 
@@ -71,7 +72,7 @@ export namespace C {
     }
 }
 
-export type DescriptionModifier = (description: RTCSessionDescription) => Promise<RTCSessionDescription>
+export type DescriptionModifier = (description: RTCSessionDescription) => Promise<RTCSessionDescription>;
 
 export interface SessionDescriptionHandler {
     getDescription(options: SessionDescriptionHandlerParameters, modifiers: DescriptionModifier[]): Promise<any>;
@@ -219,12 +220,8 @@ export namespace WebRTC {
     class Simple {
         constructor(options: SimpleConfigurationParameters);
 
-        on(name: 'registered', callback: (ua: UA) => void): void;
-        on(name: 'unregistered', callback: (ua: UA) => void): void;
-        on(name: 'ringing', callback: (session: Session) => void): void;
-        on(name: 'connecting', callback: (session: Session) => void): void;
-        on(name: 'connected', callback: (session: Session) => void): void;
-        on(name: 'ended', callback: (session: Session) => void): void;
+        on(name: 'registered' | 'unregistered', callback: (ua: UA) => void): void;
+        on(name: 'ringing' | 'connecting' | 'connected' | 'ended', callback: (session: Session) => void): void;
         on(name: 'message', callback: (message: Message) => void): void;
 
         call(target: string | URI): Session;
