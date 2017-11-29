@@ -204,37 +204,39 @@ export interface RouteOptions {
     response?: RouteOptionsResponse;
 
     /**
-     Default value: false (security headers disabled).
-     Sets common security headers. To enable, set security to true or to an object with the following options:
-     hsts - controls the 'Strict-Transport-Security' header, where:
-            true - the header will be set to max-age=15768000. This is the default value.
-            a number - the maxAge parameter will be set to the provided value.
-            an object with the following fields:
-                maxAge - the max-age portion of the header, as a number. Default is 15768000.
-                includeSubDomains - a boolean specifying whether to add the includeSubDomains flag to the header.
-                preload - a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header.
-     xframe - controls the 'X-Frame-Options' header, where:
-            true - the header will be set to 'DENY'. This is the default value.
-            'deny' - the headers will be set to 'DENY'.
-            'sameorigin' - the headers will be set to 'SAMEORIGIN'.
-            an object for specifying the 'allow-from' rule, where:
-            rule - one of:
-                'deny'
-                'sameorigin'
-                'allow-from'
-            source - when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored. If rule is 'allow-from' but source is unset, the rule will be automatically changed to 'sameorigin'.
-     xss - boolean that controls the 'X-XSS-PROTECTION' header for Internet Explorer. Defaults to true which sets the header to equal '1; mode=block'.
-            Note: this setting can create a security vulnerability in versions of Internet Exploere below 8, as well as unpatched versions of IE8. See here and here for more information. If you actively support old versions of IE, it may be wise to explicitly set this flag to false.
-     noOpen - boolean controlling the 'X-Download-Options' header for Internet Explorer, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'.
-     noSniff - boolean controlling the 'X-Content-Type-Options' header. Defaults to true setting the header to its only and default option, 'nosniff'.
+     * Default value: false (security headers disabled).
+     * Sets common security headers. To enable, set security to true or to an object with the following options:
+     * * hsts - controls the 'Strict-Transport-Security' header, where:
+     * * * true - the header will be set to max-age=15768000. This is the default value.
+     * * * a number - the maxAge parameter will be set to the provided value.
+     * * * an object with the following fields:
+     * * * * maxAge - the max-age portion of the header, as a number. Default is 15768000.
+     * * * * includeSubDomains - a boolean specifying whether to add the includeSubDomains flag to the header.
+     * * * * preload - a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header.
+     * * xframe - controls the 'X-Frame-Options' header, where:
+     * * * true - the header will be set to 'DENY'. This is the default value.
+     * * * 'deny' - the headers will be set to 'DENY'.
+     * * * 'sameorigin' - the headers will be set to 'SAMEORIGIN'.
+     * * * an object for specifying the 'allow-from' rule, where:
+     * * * * rule - one of:
+     * * * * * 'deny'
+     * * * * * 'sameorigin'
+     * * * * * 'allow-from'
+     * * * * source - when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored. If rule is 'allow-from' but source is unset, the rule will be automatically changed to 'sameorigin'.
+     * * xss - boolean that controls the 'X-XSS-PROTECTION' header for Internet Explorer. Defaults to true which sets the header to equal '1; mode=block'.
+     *       Note: this setting can create a security vulnerability in versions of Internet Exploere below 8, as well as unpatched versions of IE8. See here and here for more information. If you actively support old versions of IE, it may be wise to explicitly set this flag to false.
+     * * noOpen - boolean controlling the 'X-Download-Options' header for Internet Explorer, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'.
+     * * noSniff - boolean controlling the 'X-Content-Type-Options' header. Defaults to true setting the header to its only and default option, 'nosniff'.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionssecurity)
      */
     security?: RouteOptionsSecure;
 
     /**
-     Default value: { parse: true, failAction: 'error' }.
-     HTTP state management (cookies) allows the server to store information on the client which is sent back to the server with every request (as defined in RFC 6265). state supports the following options:
-     parse - determines if incoming 'Cookie' headers are parsed and stored in the request.state object.
-     failAction - A failAction value which determines how to handle cookie parsing errors. Defaults to 'error' (return a Bad Request (400) error response).
+     * Default value: { parse: true, failAction: 'error' }.
+     * HTTP state management (cookies) allows the server to store information on the client which is sent back to the server with every request (as defined in RFC 6265). state supports the following options:
+     * parse - determines if incoming 'Cookie' headers are parsed and stored in the request.state object.
+     * failAction - A failAction value which determines how to handle cookie parsing errors. Defaults to 'error' (return a Bad Request (400) error response).
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsstate)
      */
     state?: {
         parse?: boolean;
@@ -242,26 +244,37 @@ export interface RouteOptions {
     }
 
     /**
-     Default value: none.
-     Route tags used for generating documentation (array of strings).
-     This setting is not available when setting server route defaults using server.options.routes.
+     * Default value: none.
+     * Route tags used for generating documentation (array of strings).
+     * This setting is not available when setting server route defaults using server.options.routes.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionstags)
      */
     tags?: string[];
 
     /**
-     Default value: { server: false }.
-     Timeouts for processing durations.
+     * Default value: { server: false }.
+     * Timeouts for processing durations.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionstimeout)
      */
     timeout?: {
-        /** response timeout in milliseconds. Sets the maximum time allowed for the server to respond to an incoming client request before giving up and responding with a Service Unavailable (503) error response. Disabled by default (false). */
+
+        /**
+         * Response timeout in milliseconds. Sets the maximum time allowed for the server to respond to an incoming request before giving up and responding with a Service Unavailable (503) error response.
+         */
         server?: boolean | number;
-        /** by default, node sockets automatically timeout after 2 minutes. Use this option to override this behavior. Defaults to undefined which leaves the node default unchanged. Set to false to disable socket timeouts. */
+
+        /**
+         * Default value: none (use node default of 2 minutes).
+         * By default, node sockets automatically timeout after 2 minutes. Use this option to override this behavior. Set to false to disable socket timeouts.
+         */
         socket?: boolean | number;
+
     };
 
     /**
-     Default value: { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
-     Request input validation rules for various request components.
+     * Default value: { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
+     * Request input validation rules for various request components.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidate)
      */
     validate?: RouteOptionsValidate;
 
