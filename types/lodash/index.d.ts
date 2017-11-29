@@ -11667,14 +11667,30 @@ declare namespace _ {
          * @see _.random
          */
         random(
-            min?: number,
-            floating?: boolean
+            max: number,
+            floating: boolean
         ): number;
 
         /**
          * @see _.random
          */
-        random(floating?: boolean): number;
+        random(floating: boolean): number;
+
+        /**
+         * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+         * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+         * number is returned instead of an integer.
+         *
+         * @param min The minimum possible value.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns the random number.
+         */
+        random(
+            min: number,
+            index: string | number,
+            guard: object
+        ): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -14394,7 +14410,7 @@ declare namespace _ {
          * // => { 'a': 1, 'c': 3 }
          */
         pick<T extends object, U extends keyof T>(
-            object: T | null | undefined,
+            object: T,
              ...props: Array<Many<U>>
         ): Pick<T, U>;
 
@@ -14412,7 +14428,7 @@ declare namespace _ {
          * @see _.pick
          */
         pick<T extends object, U extends keyof T>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
+            this: LoDashImplicitWrapper<T>,
             ...props: Array<Many<U>>
         ): LoDashImplicitWrapper<Pick<T, U>>;
 
@@ -14430,7 +14446,7 @@ declare namespace _ {
          * @see _.pick
          */
         pick<T extends object, U extends keyof T>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
+            this: LoDashExplicitWrapper<T>,
             ...props: Array<Many<U>>
         ): LoDashExplicitWrapper<Pick<T, U>>;
 
@@ -15667,12 +15683,31 @@ declare namespace _ {
          *
          * Note: This method is based on String#split.
          *
+         * @param string The string to trim.
+         * @param separator The separator pattern to split by.
+         * @param limit The length to truncate results to.
          * @return Returns the new array of string segments.
          */
         split(
             string: string,
             separator?: RegExp|string,
             limit?: number
+        ): string[];
+
+        /**
+         * Splits string by separator.
+         *
+         * Note: This method is based on String#split.
+         *
+         * @param string The string to trim.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns the new array of string segments.
+         */
+        split(
+            string: string,
+            index: string | number,
+            guard: object
         ): string[];
     }
 
@@ -15881,6 +15916,20 @@ declare namespace _ {
             string?: string,
             chars?: string
         ): string;
+
+        /**
+         * Removes leading and trailing whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns the trimmed string.
+         */
+        trim(
+            string: string,
+            index: string | number,
+            guard: object
+        ): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -15910,6 +15959,20 @@ declare namespace _ {
             string?: string,
             chars?: string
         ): string;
+
+        /**
+         * Removes trailing whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns the trimmed string.
+         */
+        trimEnd(
+            string: string,
+            index: string | number,
+            guard: object
+        ): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -15938,6 +16001,20 @@ declare namespace _ {
         trimStart(
             string?: string,
             chars?: string
+        ): string;
+
+        /**
+         * Removes leading whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns the trimmed string.
+         */
+        trimStart(
+            string: string,
+            index: string | number,
+            guard: object
         ): string;
     }
 
@@ -16085,6 +16162,20 @@ declare namespace _ {
         words(
             string?: string,
             pattern?: string|RegExp
+        ): string[];
+
+        /**
+         * Splits `string` into an array of its words.
+         *
+         * @param string The string to inspect.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns the words of `string`.
+         */
+        words(
+            string: string,
+            index: string | number,
+            guard: object
         ): string[];
     }
 
@@ -16746,6 +16837,22 @@ declare namespace _ {
             end?: number,
             step?: number
         ): number[];
+
+        /**
+         * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
+         * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
+         * range is created unless a negative step is specified.
+         *
+         * @param start The start of the range.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns a new range array.
+         */
+        range(
+            end: number,
+            index: string | number,
+            guard: object
+        ): number[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -16775,9 +16882,9 @@ declare namespace _ {
          * descending order.
          *
          * @category Util
-         * @param [start=0] The start of the range.
+         * @param start The start of the range.
          * @param end The end of the range.
-         * @param [step=1] The value to increment or decrement by.
+         * @param step The value to increment or decrement by.
          * @returns Returns the new array of numbers.
          * @example
          *
@@ -16806,6 +16913,21 @@ declare namespace _ {
             start: number,
             end?: number,
             step?: number
+        ): number[];
+
+        /**
+         * This method is like _.range except that it populates values in
+         * descending order.
+         *
+         * @param start The start of the range.
+         * @param index Not used in this overload.
+         * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
+         * @return Returns a new range array.
+         */
+        rangeRight(
+            end: number,
+            index: string | number,
+            guard: object
         ): number[];
     }
 
