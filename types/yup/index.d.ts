@@ -10,13 +10,15 @@ export function reach(schema: Schema, path: string, value?: any, context?: any):
 export function addMethod(schemaType: Schema, name: string, method: () => Schema): void;
 export function ref(path: string, options: { contextPrefix: string }): Ref;
 export function lazy(fn: (value: any) => Schema): Lazy;
-export function mixed(): Schema;
-export function string(): StringSchema;
-export function number(): NumberSchema;
-export function boolean(): BooleanSchema;
-export function date(): DateSchema;
-export function array(): ArraySchema;
-export function object(): ObjectSchema;
+
+export const mixed: SchemaConstructor;
+export const string: StringSchemaConstructor;
+export const number: NumberSchemaConstructor;
+export const boolean: BooleanSchemaConstructor;
+export const bool: BooleanSchemaConstructor;
+export const date: DateSchemaConstructor;
+export const array: ArraySchemaConstructor;
+export const object: ObjectSchemaConstructor;
 
 export interface ValidationError {
     errors: string | string[];
@@ -31,6 +33,11 @@ export interface Ref {
 export interface Lazy {
 }
 
+export interface SchemaConstructor {
+    (): Schema;
+    new(options?: any): Schema;
+}
+
 export interface Schema {
     clone(): Schema;
     label(label: string): Schema;
@@ -38,7 +45,8 @@ export interface Schema {
     describe(): SchemaDescription;
     concat(schema: Schema): Schema;
     validate(value: any, options?: ValidateOptions, callback?: () => void): Promise<any>;
-    isValid(value: any, options?: any, callback?: () => void): Promise<any>;
+    isValid(value: any, options?: any, callback?: () => void): Promise<boolean>;
+    isValidSync(value: any, options?: any): boolean;
     cast(value: any): any;
     isType(value: any): boolean;
     strict(isStrict: boolean): Schema;
@@ -50,12 +58,16 @@ export interface Schema {
     required(message?: string): Schema;
     typeError(message?: string): Schema;
     oneOf(arrayOfValues: any[], message?: string): Schema;
-    equals(arrayOfValues: any[], message?: string): Schema;
     notOneOf(arrayOfValues: any[], message?: string): Schema;
     when(keys: string | any[], builder: any | ((value: any, schema: Schema) => Schema)): Schema;
     test(name: string, message: string, test: (value: any) => boolean, callbackStyleAsync?: boolean): Schema;
-    test(options: any): Schema;
+    test(options: TestOptions): Schema;
     transform(transformation: (currentValue: any, originalValue: any) => any): Schema;
+}
+
+export interface StringSchemaConstructor {
+    (): StringSchema;
+    new(): StringSchema;
 }
 
 export interface StringSchema extends Schema {
@@ -71,6 +83,11 @@ export interface StringSchema extends Schema {
     uppercase(message?: string): StringSchema;
 }
 
+export interface NumberSchemaConstructor {
+    (): NumberSchema;
+    new(): NumberSchema;
+}
+
 export interface NumberSchema extends Schema {
     required(message?: string): NumberSchema;
     min(limit: number | Ref, message?: string): NumberSchema;
@@ -82,12 +99,27 @@ export interface NumberSchema extends Schema {
     round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
 }
 
+export interface BooleanSchemaConstructor {
+    (): BooleanSchema;
+    new(): BooleanSchema;
+}
+
 export interface BooleanSchema extends Schema {
+}
+
+export interface DateSchemaConstructor {
+    (): DateSchema;
+    new(): DateSchema;
 }
 
 export interface DateSchema extends Schema {
     min(limit: Date | string | Ref, message?: string): DateSchema;
     max(limit: Date | string | Ref, message?: string): DateSchema;
+}
+
+export interface ArraySchemaConstructor {
+    (): ArraySchema;
+    new(): ArraySchema;
 }
 
 export interface ArraySchema extends Schema {
@@ -99,6 +131,11 @@ export interface ArraySchema extends Schema {
     compact(rejector: (value: any) => boolean): ArraySchema;
 }
 
+export interface ObjectSchemaConstructor {
+    (): ObjectSchema;
+    new(): ObjectSchema;
+}
+
 export interface ObjectSchema extends Schema {
     shape(fields: any, noSortEdges?: Array<[string, string]>): ObjectSchema;
     from(fromKey: string, toKey: string, alias: boolean): ObjectSchema;
@@ -108,6 +145,53 @@ export interface ObjectSchema extends Schema {
 }
 
 export interface ValidateOptions {
+    /**
+     * Only validate the input, and skip and coercion or transformation. Default - false
+     */
+    strict?: boolean;
+    /**
+     * Teturn from validation methods on the first error rather than after all validations run. Default - true
+     */
+    abortEarly?: boolean;
+    /**
+     * Remove unspecified keys from objects. Default - false
+     */
+    stripUnknown?: boolean;
+    /**
+     * When false validations will not descend into nested schema (relevant for objects or arrays). Default - true
+     */
+    recursive?: boolean;
+    /**
+     * Any context needed for validating schema conditions (see: when())
+     */
+    context?: object;
+}
+
+export interface TestOptions {
+    /**
+     * Unique name identifying the test
+     */
+    name?: string;
+
+    /**
+     * Test function, determines schema validity
+     */
+    test: (value: any) => boolean;
+
+    /**
+     * The validation error message
+     */
+    message?: string;
+
+    /**
+     * Values passed to message for interpolation
+     */
+    params?: object;
+
+    /**
+     * Mark the test as exclusive, meaning only one of the same can be active at once
+     */
+    exclusive?: boolean;
 }
 
 export interface SchemaDescription {
