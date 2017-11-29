@@ -4,86 +4,19 @@ interface IFoodOrganic {
     name: string;
     organic: boolean;
 }
-
-interface IFoodType {
-    name: string;
-    type: string;
-}
-
-interface IFoodCombined {
-    name: string;
-    organic: boolean;
-    type: string;
-}
-
-interface IStoogesQuote {
-    name: string;
-    quotes: string[];
-}
-
 interface IStoogesAge {
     name: string;
     age: number;
-}
-
-interface IStoogesCombined {
-    name: string;
-    age: number;
-    quotes: string[];
-}
-
-interface IKey {
-    dir: string;
-    code: number;
-}
-
-interface IDictionary<T> {
-    [index: string]: T;
 }
 
 const foodsOrganic: IFoodOrganic[] = [
     { name: 'banana', organic: true },
     { name: 'beet', organic: false },
 ];
-const foodsType: IFoodType[] = [
-    { name: 'apple', type: 'fruit' },
-    { name: 'banana', type: 'fruit' },
-    { name: 'beet', type: 'vegetable' }
-];
-const foodsCombined: IFoodCombined[] = [
-    { 'name': 'apple', 'organic': false, 'type': 'fruit' },
-    { 'name': 'carrot', 'organic': true, 'type': 'vegetable' }
-];
-
-const stoogesQuotes: IStoogesQuote[] = [
-    { 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-    { 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
-];
 const stoogesAges: IStoogesAge[] = [
     { 'name': 'moe', 'age': 40 },
     { 'name': 'larry', 'age': 50 }
 ];
-const stoogesAgesDict: IDictionary<IStoogesAge> = {
-    first: { 'name': 'moe', 'age': 40 },
-    second: { 'name': 'larry', 'age': 50 }
-};
-const stoogesCombined: IStoogesCombined[] = [
-    { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-    { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
-];
-
-const keys: IKey[] = [
-    { 'dir': 'left', 'code': 97 },
-    { 'dir': 'right', 'code': 100 }
-];
-
-class Dog {
-    constructor(public name: string) { }
-
-    bark() {
-        // Woof
-    }
-}
 
 let result: any;
 
@@ -4591,9 +4524,9 @@ namespace TestFilter {
     let obj: any = {};
     let dictionary: _.Dictionary<TResult> | null | undefined = obj;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
+    let stringIterator = (char: string, index: number, string: string) => true;
+    let listIterator = (value: TResult, index: number, collection: _.List<TResult>) => true;
+    let dictionaryIterator = (value: TResult, key: string, collection: _.Dictionary<TResult>) => true;
 
     {
         let result: string[];
@@ -5207,7 +5140,7 @@ namespace TestFlatMapDepth {
 
     let listIterator: (value: number|number[], index: number, collection: _.List<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) =>[ 1];
 
-    let dictionaryIterator: (value: number|number[], key: number, collection: _.Dictionary<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) => [1];
+    let dictionaryIterator: (value: number|number[], key: string, collection: _.Dictionary<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) => [1];
 
     let numericDictionaryIterator: (value: number|number[], key: number, collection: _.NumericDictionary<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) => [1];
 
@@ -5776,8 +5709,8 @@ namespace TestGroupBy {
     {
         let result: _.Dictionary<string[]>;
 
-        result = _.groupBy<string>('');
-        result = _.groupBy<string>('', stringIterator);
+        result = _.groupBy('');
+        result = _.groupBy('', stringIterator);
     }
 
     {
@@ -5909,16 +5842,16 @@ namespace TestKeyBy {
     let dictionary: _.Dictionary<SampleObject> | null | undefined = obj;
     let numericDictionary: _.NumericDictionary<SampleObject> | null | undefined = obj;
 
-    let stringIterator: (value: string, index: number, collection: string) => any = (value: string, index: number, collection: string) => 1;
-    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => any = (value: SampleObject, index: number, collection: _.List<SampleObject>) => 1;
-    let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => any = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => 1;
-    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => any = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => 1;
+    let stringIterator = (value: string, index: number, collection: string) => "a";
+    let listIterator = (value: SampleObject, index: number, collection: _.List<SampleObject>) => 1;
+    let dictionaryIterator = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => Symbol.name;
+    let numericDictionaryIterator = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => "a";
 
     {
         let result: _.Dictionary<string>;
 
-        result = _.keyBy<string>('abcd');
-        result = _.keyBy<string>('abcd', stringIterator);
+        result = _.keyBy('abcd');
+        result = _.keyBy('abcd', stringIterator);
     }
 
     {
@@ -6464,9 +6397,9 @@ namespace TestReject {
     let obj: any = {};
     let dictionary: _.Dictionary<TResult> | null | undefined = obj;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
+    let stringIterator = (char: string, index: number, string: string) => true;
+    let listIterator = (value: TResult, index: number, collection: _.List<TResult>) => true;
+    let dictionaryIterator = (value: TResult, key: string, collection: _.Dictionary<TResult>) => true;
 
     {
         let result: string[];
@@ -8667,9 +8600,7 @@ namespace TestIsEqual {
 
 // _.isEqualWith
 namespace TestIsEqualWith {
-    let customizer = (value: any, other: any, indexOrKey: number|string|undefined, parent: any, otherParent: any, stack: any) => {
-        return value ? undefined : true;
-    };
+    let customizer = (value: any, other: any, indexOrKey: number|string|symbol|undefined, parent: any, otherParent: any, stack: any) => true;
 
     {
         let result: boolean;
@@ -8873,7 +8804,7 @@ namespace TestIsMatch {
 
 // _.isMatchWith
 namespace TestIsMatchWith {
-    let testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string) => true;
+    let testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol) => true;
 
     let result: boolean;
 
@@ -11890,7 +11821,7 @@ namespace TestPick {
     {
         let result: Pick<TResult, 'a' | 'b'>;
         result = _.pick(obj, 'a', 'b');
-        result = _.pick(obj, ['a', 'b']);
+        result = _.pick(obj, ['a' as 'a', 'b' as 'b']);
     }
 
     {
@@ -11902,11 +11833,25 @@ namespace TestPick {
     }
 
     {
+        let result: _.LoDashImplicitWrapper<Pick<TResult, 'a' | 'b'>>;
+
+        result = _(obj).pick('a', 'b');
+        result = _(obj).pick(['a' as 'a', 'b' as 'b']);
+    }
+
+    {
         let result: _.LoDashExplicitWrapper<Partial<TResult>>;
 
         result = _(obj).chain().pick<TResult>('a');
         result = _(obj).chain().pick<TResult>(0, 'a');
         result = _(obj).chain().pick<TResult>(['b', 1], 0, 'a');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<Pick<TResult, 'a' | 'b'>>;
+
+        result = _(obj).chain().pick('a', 'b');
+        result = _(obj).chain().pick(['a' as 'a', 'b' as 'b']);
     }
 }
 
