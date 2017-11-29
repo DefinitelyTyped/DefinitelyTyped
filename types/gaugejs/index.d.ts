@@ -36,7 +36,7 @@ declare module "gaugeJS" {
         lineWidth: number;
         paddingTop: number;
         paddingBottom: number;
-        percentColors: number[];
+        percentColors: any[];
         options: GaugeOptions;
 
         constructor(canvas: HTMLElement)
@@ -73,7 +73,8 @@ declare module "gaugeJS" {
     interface StaticLabels {
         font?: string;
         color?: string;
-        labels?: StaticLabel[];
+        labels?: StaticLabel[] | number[];
+        fractionDigits?: number;
     }
 
     interface StaticLabel {
@@ -81,13 +82,22 @@ declare module "gaugeJS" {
         font?: string;
     }
 
+    interface StaticZone {
+        min: number;
+        max: number;
+        strokeStyle: string;
+        height?: number;
+    }
+
     interface TicksOptions {
         divisions?: number;
-        subDivisions?: number;
-        divColor?: string;
-        subColor?: string;
+        divWidth?: number;
         divLength?: number;
+        divColor?: string;
+        subDivisions?: number;
         subLength?: number;
+        subWidth?: number;
+        subColor?: string;
     }
 
     interface DonutOptions {
@@ -114,11 +124,17 @@ declare module "gaugeJS" {
         limitMin?: boolean;
         generateGradient?: boolean;
         highDpiSupport?: boolean;
+        percentColors?: any[];
+        staticLabels?: StaticLabels;
+        staticZones?: StaticZone[];
     }
 
     interface PointerOptions {
-        length?: number;
         strokeWidth?: number;
+        length?: number;
+        color?: string;
+        iconPath?: string;
         iconScale?: number;
+        iconAngle?: number;
     }
 }
