@@ -1,4 +1,4 @@
-import {FailAction} from "../util/fail-action";
+import {Lifecycle} from "hapi";
 
 /**
  Default value: { headers: true, params: true, query: true, payload: true, failAction: 'error' }.
@@ -16,7 +16,7 @@ export interface RouteOptionsValidate {
      Default value: 'error' (return a Bad Request (400) error response).
      A failAction value which determines how to handle failed validations. When set to a function, the err argument includes the type of validation error under err.output.payload.validation.source.
      */
-    failAction?: FailAction;
+    failAction?: Lifecycle.FailAction;
 
     /**
      Default value: true (no validation).

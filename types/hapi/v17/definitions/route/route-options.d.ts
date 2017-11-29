@@ -5,9 +5,11 @@ import {RouteOptionsCors} from "./route-options-cors";
 import {RouteOptionsResponse} from "./route-options-response";
 import {RouteOptionsPayload} from "./route-options-payload";
 import {RouteOptionsSecure} from "./route-options-secure";
-import {FailAction} from "../util/fail-action";
 import {RouteOptionsValidate} from "./route-options-validate";
 import {PluginSpecificConfiguration} from "../plugin/plugin";
+import {Json} from "../util/util";
+import {RouteOptionsPreArray} from "./route-options-pre";
+import {Lifecycle} from "hapi";
 
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscompression)
@@ -15,152 +17,189 @@ import {PluginSpecificConfiguration} from "../plugin/plugin";
  */
 export type RouteCompressionEncoderSettings = any;
 
-/** Each route can be customized to change the default behavior of the request lifecycle. */
+/**
+ * Each route can be customized to change the default behavior of the request lifecycle.
+ * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
+ */
 export interface RouteOptions {
 
-    /** Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.*/
+    /**
+     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
     app?: any;
 
     /**
-     Route authentication configuration. Value can be:
-     false to disable authentication if a default strategy is set.
-     a string with the name of an authentication strategy registered with server.auth.strategy(). The strategy will be set to 'required' mode.
-     an authentication configuration object.
+     * Route authentication configuration. Value can be:
+     * false to disable authentication if a default strategy is set.
+     * a string with the name of an authentication strategy registered with server.auth.strategy(). The strategy will be set to 'required' mode.
+     * an authentication configuration object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
      */
     auth?: false | string | RouteOptionsAccess;
 
     /**
-     Default value: null.
-     An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
+     * Default value: null.
+     * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
      */
     bind?: any;
 
     /**
-     Default value: { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.
+     * Default value: { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.
+     * If the route method is 'GET', the route can be configured to include HTTP caching directives in the response. Caching can be customized using an object with the following options:
+     * privacy - determines the privacy flag included in client-side caching using the 'Cache-Control' header. Values are:
+     * * * 'default' - no privacy flag.
+     * * * 'public' - mark the response as suitable for public caching.
+     * * * 'private' - mark the response as suitable only for private caching.
+     * * expiresIn - relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt.
+     * * expiresAt - time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn.
+     * * statuses - an array of HTTP response status code numbers (e.g. 200) which are allowed to include a valid caching directive.
+     * * otherwise - a string with the value of the 'Cache-Control' header when caching is disabled.
+     * The default Cache-Control: no-cache header can be disabled by setting cache to false.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
      */
     cache?: false | RouteOptionsCache;
 
     /**
-     An object where each key is a content-encoding name and each value is an object with the desired encoder settings. Note that decoder settings are set in compression.
+     * An object where each key is a content-encoding name and each value is an object with the desired encoder settings. Note that decoder settings are set in compression.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscompression)
      */
     compression?: Dictionary<RouteCompressionEncoderSettings>;
 
     /**
-     Default value: false (no CORS headers).
+     * Default value: false (no CORS headers).
+     * The Cross-Origin Resource Sharing protocol allows browsers to make cross-origin API calls. CORS is required by web applications running inside a browser which are loaded from a different domain than the API server. To enable, set cors to true, or to an object with the following options:
+     * * origin - an array of allowed origin servers strings ('Access-Control-Allow-Origin'). The array can contain any combination of fully qualified origins along with origin strings containing a wildcard '*' character, or a single '*' origin string. If set to 'ignore', any incoming Origin header is ignored (present or not) and the 'Access-Control-Allow-Origin' header is set to '*'. Defaults to any origin ['*'].
+     * * maxAge - number of seconds the browser should cache the CORS response ('Access-Control-Max-Age'). The greater the value, the longer it will take before the browser checks for changes in policy. Defaults to 86400 (one day).
+     * * headers - a strings array of allowed headers ('Access-Control-Allow-Headers'). Defaults to ['Accept', 'Authorization', 'Content-Type', 'If-None-Match'].
+     * * additionalHeaders - a strings array of additional headers to headers. Use this to keep the default headers in place.
+     * * exposedHeaders - a strings array of exposed headers ('Access-Control-Expose-Headers'). Defaults to ['WWW-Authenticate', 'Server-Authorization'].
+     * * additionalExposedHeaders - a strings array of additional headers to exposedHeaders. Use this to keep the default headers in place.
+     * * credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). Defaults to false.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscors)
      */
     cors?: false | RouteOptionsCors;
 
     /**
-     Default value: none.
-     Route description used for generating documentation (string).
-     This setting is not available when setting server route defaults using server.options.routes.
+     * Default value: none.
+     * Route description used for generating documentation (string).
+     * This setting is not available when setting server route defaults using server.options.routes.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsdescription)
      */
     description?: string;
 
     /**
-     Default value: none.
-     Route-level request extension points by setting the option to an object with a key for each of the desired extension points ('onRequest' is not allowed), and the value is the same as the server.ext(events) event argument.
+     * Default value: none.
+     * Route-level request extension points by setting the option to an object with a key for each of the desired extension points ('onRequest' is not allowed), and the value is the same as the server.ext(events) event argument.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsext)
      */
-    ext?: any; //TODO need to review and rewrite this definition
+    ext?: any; //TODO need to review and rewrite this definition // I saw again and I keep not understanding.
 
     /**
-     Default value: { relativeTo: '.' }.
-     Defines the behavior for accessing files:
-     relativeTo - determines the folder relative paths are resolved against.
+     * Default value: { relativeTo: '.' }.
+     * Defines the behavior for accessing files:
+     * * relativeTo - determines the folder relative paths are resolved against.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsfiles)
      */
     files?: {
         relativeTo: string;
     }
 
     /**
-     Default value: none.
-     The route handler function performs the main business logic of the route and sets the respons. handler can be assigned:
-     a lifecycle method.
-     an object with a single property using the name of a handler type registred with the server.handler() method. The matching property value is passed as options to the registered handler generator.
-            const handler = function (request, h) {
-                return 'success';
-            };
-     Note: handlers using a fat arrow style function cannot be bound to any bind property. Instead, the bound context is available under h.context.
+     * Default value: none.
+     * The route handler function performs the main business logic of the route and sets the response. handler can be assigned:
+     * * a lifecycle method.
+     * * an object with a single property using the name of a handler type registred with the server.handler() method. The matching property value is passed as options to the registered handler generator.
+     * Note: handlers using a fat arrow style function cannot be bound to any bind property. Instead, the bound context is available under h.context.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionshandler)
      */
-    handler?: any; //TODO need to review and rewrite this definition
+    handler?: Lifecycle.LifecycleMethod | Object; //TODO need to review
 
     /**
-     Default value: none.
-     An optional unique identifier used to look up the route using server.lookup(). Cannot be assigned to routes added with an array of methods.
+     * Default value: none.
+     * An optional unique identifier used to look up the route using server.lookup(). Cannot be assigned to routes added with an array of methods.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsid)
      */
     id?: string;
 
     /**
-     Default value: false.
-     If true, the route cannot be accessed through the HTTP listener but only through the server.inject() interface with the allowInternals option set to true. Used for internal routes that should not be accessible to the outside world.
+     * Default value: false.
+     * If true, the route cannot be accessed through the HTTP listener but only through the server.inject() interface with the allowInternals option set to true. Used for internal routes that should not be accessible to the outside world.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsisinternal)
      */
     isInternal?: boolean;
 
     /**
-     Default value: none.
-     Optional arguments passed to JSON.stringify() when converting an object or error response to a string payload or escaping it after stringification. Supports the following:
-     replacer - the replacer function or array. Defaults to no action.
-     space - number of spaces to indent nested object keys. Defaults to no indentation.
-     suffix - string suffix added after conversion to JSON string. Defaults to no suffix.
-     escape - calls Hoek.jsonEscape() after conversion to JSON string. Defaults to false.
-
-     TODO this definition in v16 is a bit confuse for me. Need review and maybe rewrite.
+     * Default value: none.
+     * Optional arguments passed to JSON.stringify() when converting an object or error response to a string payload or escaping it after stringification. Supports the following:
+     * * replacer - the replacer function or array. Defaults to no action.
+     * * space - number of spaces to indent nested object keys. Defaults to no indentation.
+     * * suffix - string suffix added after conversion to JSON string. Defaults to no suffix.
+     * * escape - calls Hoek.jsonEscape() after conversion to JSON string. Defaults to false.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsjson)
      */
-    json?: {
-        replaces?: any | any[];
-        space?: number | string;
-        suffix?: string;
-        escape?: boolean; // TODO boolean only?
-    };
+    json?: Json.StringifyArguments;
 
     /**
-     Default value: none.
-     Enables JSONP support by setting the value to the query parameter name containing the function name used to wrap the response payload.
-     For example, if the value is 'callback', a request comes in with 'callback=me', and the JSON response is '{ "a":"b" }', the payload will be 'me({ "a":"b" });'. Cannot be used with stream responses.
-     The 'Content-Type' response header is set to 'text/javascript' and the 'X-Content-Type-Options' response header is set to 'nosniff', and will override those headers even if explicitly set by response.type().
+     * Default value: none.
+     * Enables JSONP support by setting the value to the query parameter name containing the function name used to wrap the response payload.
+     * For example, if the value is 'callback', a request comes in with 'callback=me', and the JSON response is '{ "a":"b" }', the payload will be 'me({ "a":"b" });'. Cannot be used with stream responses.
+     * The 'Content-Type' response header is set to 'text/javascript' and the 'X-Content-Type-Options' response header is set to 'nosniff', and will override those headers even if explicitly set by response.type().
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsjsonp)
      */
     jsonp?: string;
 
     /**
-     Default value: { collect: false }.
-     Request logging options:
-     collect - if true, request-level logs (both internal and application) are collected and accessible via request.logs.
+     * Default value: { collect: false }.
+     * Request logging options:
+     * collect - if true, request-level logs (both internal and application) are collected and accessible via request.logs.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionslog)
      */
-    log?: boolean;
+    log?: {
+        collect: boolean;
+    }
 
     /**
-     Default value: none.
-     Route notes used for generating documentation (string or array of strings).
-     This setting is not available when setting server route defaults using server.options.routes.
+     * Default value: none.
+     * Route notes used for generating documentation (string or array of strings).
+     * This setting is not available when setting server route defaults using server.options.routes.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsnotes)
      */
     notes?: string | string[];
 
-    /** Determines how the request payload is processed. */
+    /**
+     * Determines how the request payload is processed.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayload)
+     */
     payload?: RouteOptionsPayload;
 
     /**
-     Default value: {}.
-     Plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration.
+     * Default value: {}.
+     * Plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsplugins)
      */
-    plugins?: PluginSpecificConfiguration;
+    plugins?: Dictionary<PluginSpecificConfiguration>;
 
     /**
-     Default value: none.
-     The pre option allows defining methods for performing actions before the handler is called. These methods allow breaking the handler logic into smaller, reusable components that can be shared ascross routes, as well as provide a cleaner error handling of prerequisite operations (e.g. load required reference data from a database).
-     pre is assigned an ordered array of methods which are called serially in order. If the pre array contains another array of methods as one of its elements, those methods are called in parallel. Note that during parallel execution, if any of the methods error, return a takeover response, or abort signal, the other parallel methods will continue to execute but will be ignored once completed.
-     pre can be assigned a mixed array of:
-     an array containing the elements listed below, which are executed in parallel.
-     an object with:
-     method - a lifecycle method.
-     assign - key name used to assign the response of the method to in request.pre and request.preResponses.
-     failAction - A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
-     a method function - same as including an object with a single method key.
-     Note that pre-handler methods do not behave the same way other lifecycle methods do when a value is returned. Instead of the return value becoming the new response payload, the value is used to assign the corresponding request.pre and request.preResponses properties. Otherwise, the handling of errors, takeover response response, or abort signal behave the same as any other lifecycle methods.
+     * Default value: none.
+     * The pre option allows defining methods for performing actions before the handler is called. These methods allow breaking the handler logic into smaller, reusable components that can be shared ascross routes, as well as provide a cleaner error handling of prerequisite operations (e.g. load required reference data from a database).
+     * pre is assigned an ordered array of methods which are called serially in order. If the pre array contains another array of methods as one of its elements, those methods are called in parallel. Note that during parallel execution, if any of the methods error, return a takeover response, or abort signal, the other parallel methods will continue to execute but will be ignored once completed.
+     * pre can be assigned a mixed array of:
+     * * an array containing the elements listed below, which are executed in parallel.
+     * * an object with:
+     * * * method - a lifecycle method.
+     * * * assign - key name used to assign the response of the method to in request.pre and request.preResponses.
+     * * * failAction - A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
+     * * a method function - same as including an object with a single method key.
+     * Note that pre-handler methods do not behave the same way other lifecycle methods do when a value is returned. Instead of the return value becoming the new response payload, the value is used to assign the corresponding request.pre and request.preResponses properties. Otherwise, the handling of errors, takeover response response, or abort signal behave the same as any other lifecycle methods.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
      */
-    pre?: any; // TODO is necessary come back here. In v16 we can see the definition but in this moment we don't have all the definitions for make this one.
+    pre?: RouteOptionsPreArray;
 
     /**
      * Processing rules for the outgoing response.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponse)
      */
     response?: RouteOptionsResponse;
 
@@ -199,7 +238,7 @@ export interface RouteOptions {
      */
     state?: {
         parse?: boolean;
-        failAction?: FailAction;
+        failAction?: Lifecycle.FailAction;
     }
 
     /**
@@ -225,6 +264,5 @@ export interface RouteOptions {
      Request input validation rules for various request components.
      */
     validate?: RouteOptionsValidate;
-
 
 }
