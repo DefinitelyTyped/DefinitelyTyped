@@ -1,558 +1,373 @@
-// Type definitions for Lowdb 0.15
+// Type definitions for Lowdb 1.0.0
 // Project: https://github.com/typicode/lowdb
-// Definitions by: typicode, <https://github.com/typicode>
+// Definitions by: typicode <https://github.com/typicode>
+//                 Bazyli Brzóska <https://github.com/niieani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
+
+import { LoDashExplicitWrapper, LoDashStatic } from "lodash";
+
+declare let Lowdb: Lowdb.lowdb;
+export = Lowdb;
 
 declare namespace Lowdb {
-
-    interface PromiseLike<T> {
-        /**
-        * Attaches callbacks for the resolution and/or rejection of the Promise.
-        * @param onfulfilled The callback to execute when the Promise is resolved.
-        * @param onrejected The callback to execute when the Promise is rejected.
-        * @returns A Promise for the completion of which ever callback is executed.
-        */
-        then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): PromiseLike<TResult>;
-        then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): PromiseLike<TResult>;
-    }
-
-    interface StringRepresentable {
-        toString(): string;
-    }
-
-    interface List<T> {
-        [index: number]: T;
-        length: number;
-    }
-
-    interface Dictionary<T> {
-        [index: string]: T;
-    }
-
-    interface DictionaryIterator<T, TResult> {
-        (value: T, key?: string, collection?: Dictionary<T>): TResult;
-    }
-
-    interface ListIterator<T, TResult> {
-        (value: T, index: number, collection: List<T>): TResult;
-    }
-
-    interface StringIterator<TResult> {
-        (char: string, index?: number, string?: string): TResult;
-    }
-
-    interface MixinOptions {
-        chain?: boolean;
-    }
-
-    class LoDashWrapper<LowEntryClass extends LoDashWrapper<any>> {
-
-        /**
-         * @see  _.has
-         */
-        has(path: StringRepresentable | StringRepresentable[]): LowEntryClass;
-
-        /**
-         * @see  _.hasIn
-         */
-        hasIn(path: StringRepresentable | StringRepresentable[]): LowEntryClass;
-
-        /**
-         * @see _.assign
-         */
-        assign<TSource extends {}, TResult extends {}>(
-            source: TSource
-        ): LowEntryClass;
-
-        /**
-         * @see _.assign
-         */
-        assign<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
-            source1: TSource1,
-            source2: TSource2
-        ): LowEntryClass;
-
-        /**
-         * @see _.assign
-         */
-        assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LowEntryClass;
-
-        /**
-         * @see  _.assign
-         */
-        assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LowEntryClass;
-
-        /**
-         * @see _.assign
-         */
-        assign(): LowEntryClass;
-
-        /**
-         * @see _.assign
-         */
-        assign<TResult extends {}>(...otherArgs: any[]): LowEntryClass;
-
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep<T>(): LowEntryClass;
-
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep<T>(): LowEntryClass;
-
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeepWith<T>(customizer: (value: any) => any): LowEntryClass[];
-
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeepWith<T>(customizer: (value: any) => any): LowEntryClass;
-
-        /**
-       * @see _.defaults
-       */
-        defaults<S1 extends {}, TResult extends {}>(
-            source1: S1,
-            ...sources: {}[]
-        ): LowEntryClass;
-
-        /**
-         * @see _.defaults
-         */
-        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            ...sources: {}[]
-        ): LowEntryClass;
-
-        /**
-         * @see _.defaults
-         */
-        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            ...sources: {}[]
-        ): LowEntryClass;
-
-        /**
-         * @see _.defaults
-         */
-        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            source4: S4,
-            ...sources: {}[]
-        ): LowEntryClass;
-
-        /**
-         * @see _.defaults
-         */
-        defaults(): LowEntryClass;
-
-        /**
-         * @see _.defaults
-         */
-        defaults<TResult>(...sources: {}[]): LowEntryClass;
-
-        /**
-         * @see _.get
-         */
-        get<TResult>(object: any,
-            path: string | number | boolean | Array<string | number | boolean>,
-            defaultValue?: TResult
-        ): LowEntryClass;
-
-        /**
-         * @see _.get
-         */
-        get<TResult>(path: string | number | boolean | Array<string | number | boolean>,
-            defaultValue?: TResult
-        ): LowEntryClass;
-
-
-        /**
-         * @see _.mixin
-         */
-        mixin<TResult>(
-            source: Dictionary<() => void>,
-            options?: MixinOptions
-        ): LowEntryClass;
-
-        /**
-         * @see _.mixin
-         */
-        mixin<TResult>(
-            options?: MixinOptions
-        ): LowEntryClass;
-
-        /**
-         * @see _.set
-         */
-        set<TResult>(
-            path: StringRepresentable | StringRepresentable[],
-            value: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.set
-         */
-        set<V, TResult>(
-            path: StringRepresentable | StringRepresentable[],
-            value: V
-        ): LowEntryClass;
-
-        /**
-         * @see _.find
-         */
-        find<T>(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.find
-         */
-        find(
-            predicate?: string,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.find
-         */
-        find<TObject extends {}>(
-            predicate?: TObject
-        ): LowEntryClass;
-
-        /**
-         * @see _.find
-         */
-        filter<TObject extends {}>(
-            predicate?: TObject
-        ): LowEntryClass;
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.filter
-         */
-        filter(
-            predicate: string,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(
-            predicate: ListIterator<T, boolean> | DictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.filter
-         */
-        filter(
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.filter
-         */
-        filter<W>(predicate: W): LowEntryClass;
-        /**
-         * @see _.map
-         */
-        map<T, TResult>(
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.map
-         */
-        map<TResult>(
-            iteratee?: string
-        ): LowEntryClass;
-
-        /**
-         * @see _.map
-         */
-        map<TObject extends {}>(
-            iteratee?: TObject
-        ): LowEntryClass;
-        /**
-         * @see _.map
-         */
-        map<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult> | DictionaryIterator<TValue, TResult>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.range
-         */
-        range(
-            end?: number,
-            step?: number
-        ): LowEntryClass;
-
-        /**
-         * @see _.rangeRight
-         */
-        rangeRight(
-            end?: number,
-            step?: number
-        ): LowEntryClass;
-
-        /**
-       * @see _.remove
-       */
-        remove<T>(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.remove
-         */
-        remove(
-            predicate?: string,
-            thisArg?: any
-        ): LowEntryClass;
-
-        /**
-         * @see _.remove
-         */
-        remove<W>(
-            predicate?: W
-        ): LowEntryClass;
-
-        /**
-       * @see _.sortBy
-       */
-        sortBy<T, TSort>(
-            iteratee?: ListIterator<T, TSort>
-        ): LowEntryClass;
-
-        /**
-         * @see _.sortBy
-         */
-        sortBy(iteratee: string): LowEntryClass;
-
-        /**
-         * @see _.sortBy
-         */
-        sortBy<W extends {}>(whereValue: W): LowEntryClass;
-
-        /**
-         * @see _.sortBy
-         */
-        sortBy(): LowEntryClass;
-
-        /**
-         * @see _.sortBy
-         */
-        sortBy<T>(...iteratees: (ListIterator<T, boolean> | any | string)[]): LowEntryClass;
-
-        /**
-         * @see _.sortBy
-         */
-        sortBy<T>(iteratees: (ListIterator<T, any> | string | any)[]): LowEntryClass;
-
-        /**
-         * @see _.slice
-         */
-        slice(
-            start?: number,
-            end?: number
-        ): LowEntryClass;
-
-        /**
-         * @see _.size
-         */
-        size(): LowEntryClass;
-
-        /**
-         * @see _.take
-         */
-        take(n?: number): LowEntryClass;
-
-        /**
-         * @see _.times
-         */
-        times<TResult>(
-          iteratee: (num: number) => TResult
-        ): LowEntryClass;
-
-        /**
-         * @see _.times
-         */
-        times(): LowEntryClass;
-
-        /**
-         * @see _.uniqueId
-         */
-        uniqueId(): LowEntryClass;
-
-        value<T>(): T;
-
-        pop<T>(): T;
-        push<T>(...items: T[]): LowEntryClass;
-        shift<T>(): T;
-        sort<T>(compareFn?: (a: T, b: T) => number): LowEntryClass;
-        splice<T>(start: number): LowEntryClass;
-        splice<T>(start: number, deleteCount: number, ...items: any[]): LowEntryClass;
-        unshift<T>(...items: T[]): LowEntryClass;
-    }
-
-    export interface Storage {
-
-        /**
-          * Reads the database.
-          *
-          * @param source The source location.
-          * @param deserialize The deserialize function to apply.
-          * @return Returns a promise with the deserialized db object.
-        */
-        read?(source: string, deserialize: any): PromiseLike<any>
-
-        /**
-          * Reads the database.
-          *
-          * @param source The source location.
-          * @param deserialize The deserialize function to apply.
-          * @return Returns the deserialized db object.
-        */
-        read?(source: string, deserialize: any): {}
-
-        /**
-          * Writes to the database.
-          *
-          * @param destination The destination location.
-          * @param obj The object to write.
-          * @param serialize The serialize function to apply.
-        */
-        write?(destination: string, obj: any, serialize: any): void
-
-        /**
-          * Writes to the database.
-          *
-          * @param destination The destination location.
-          * @param obj The object to write.
-          * @param serialize The serialize function to apply.
-        */
-        write?(destination: string, obj: any, serialize: any): PromiseLike<void>
-    }
-
-    export interface Format {
-
-        /**
-          * Writes to the database.
-          *
-          * @param obj The object to serialize.
-          * @return Returns the serialized object string.
-        */
-        serialize(obj: any): string
-
-        /**
-          * Writes to the database.
-          *
-          * @param data The object to deserialize.
-          * @return Returns the deserialized object.
-        */
-        deserialize(data: string): any
-    }
-
-    export interface Options {
-
-        /**
-         * The custom "storage" object.
-         */
-        storage?: Storage
-
-        /**
-         * The custom "format" object.
-         */
-        format?: Format
-
-        /**
-         * The flag to automatically persist changes.
-         */
-        writeOnChange?: boolean
-
-    }
-
-    export class Lowdb extends LoDashWrapper<Lowdb> {
-
-        constructor(filePath: string, options?: Options);
-
-        /**
-         * Access current database state.
-         * Returns Returns the database state.
-         */
-        getState(): any
-
-        /**
-         * Drop or reset database state.
-         * @param newState New state of the database
-         */
-        setState(newState: any): void
-
-        /**
-         * Persist database.
-         * @param source The source location.
-         */
-        write(source?: string): void
-
-        /**
-         * Persist database.
-         * @param source The source location.
-         */
-        write(source?: string): PromiseLike<any>
-
-        /**
-         * Read database.
-         * @param source The source location.
-         */
-        read(source?: string): any
-
-        /**
-         * Read database.
-         * @param source The source location.
-         */
-        read(source?: string): PromiseLike<any>
-
+  export type AdapterOptions<SchemaT extends {} = any> = {
+    defaultValue?: SchemaT;
+    serialize?: (data: SchemaT) => string;
+    deserialize?: (serializedData: string) => SchemaT;
+  };
+
+  export interface BaseAdapter<SchemaT extends Object = any>
+    extends AdapterOptions<SchemaT> {
+    readonly "@@reference": SchemaT;
+    new <SchemaT extends {} = any>(
+      source: string,
+      options?: AdapterOptions<SchemaT>
+    ): BaseAdapter<SchemaT>;
+    source: string;
   }
 
-//   declare class lowdb {
-//     new (source?: string, opts?: Options): Low;
-//     (source?: string, opts?: Options) : Low;
-//   }
+  export interface AdapterSync<SchemaT extends {} = any>
+    extends BaseAdapter<SchemaT> {
+    new <SchemaT extends {} = any>(
+      source: string,
+      options?: AdapterOptions<SchemaT>
+    ): AdapterSync<SchemaT>;
+    readonly "@@isAsync": False;
+    write(state: Object): void;
+  }
+
+  export interface AdapterAsync<SchemaT extends {} = any>
+    extends BaseAdapter<SchemaT> {
+    new <SchemaT extends {} = any>(
+      source: string,
+      options?: AdapterOptions<SchemaT>
+    ): AdapterAsync<SchemaT>;
+    readonly "@@isAsync": True;
+    write(state: Object): Promise<void>;
+  }
+
+  export type Adapter<SchemaT extends {} = any> =
+    | AdapterSync<SchemaT>
+    | AdapterAsync<SchemaT>;
+
+  export interface LowdbBase<
+    SchemaT extends {},
+    AdapterT extends Adapter<SchemaT>
+  > {
+    read: () => Wrapper<this, AdapterT>;
+    getState: () => SchemaT;
+    setState: (state: SchemaT) => this;
+  }
+
+  export interface Lowdb<SchemaT extends {}, AdapterT extends Adapter<SchemaT>>
+    extends LowdbBase<SchemaT, AdapterT>,
+      LoDashExplicitWrapper<SchemaT> {
+    _: LoDashStatic;
+    /**
+     * @description Be careful: This function overwrites the whole database.
+     */
+    write<T = void>(returnValue?: T): Wrapper<T, AdapterT>;
+  }
+
+  export interface LowdbFp<
+    SchemaT extends {} = any,
+    AdapterT extends Adapter<SchemaT> = Adapter<SchemaT>
+  > extends LowdbBase<SchemaT, AdapterT> {
+    /**
+     * @description Be careful: This function overwrites the whole database.
+     */
+    write<T = void>(returnValue?: T): Wrapper<T, AdapterT>;
+    /**
+     * @description Returns a function that allows you to access/modify the database at a given path.
+     * @example
+     * ```js
+     *  const posts = db('posts')
+     *  const firstPost = posts(all => all[0])
+     *  posts.write((allPosts) => [...allPosts, {title: 'Yup!'}])
+     * ```
+     */
+    <TKey extends keyof SchemaT>(
+      path: TKey | [TKey],
+      defaultValue?: SchemaT[TKey]
+    ): FpReturn<SchemaT[TKey], AdapterT>;
+    <TKey extends keyof SchemaT, TSubKey extends keyof SchemaT[TKey]>(
+      path: [TKey, TSubKey],
+      defaultValue?: SchemaT[TKey][TSubKey]
+    ): FpReturn<SchemaT[TKey][TSubKey], AdapterT>;
+    <
+      TKey extends keyof SchemaT,
+      TSubKey extends keyof SchemaT[TKey],
+      TSubKey2 extends keyof SchemaT[TKey][TSubKey]
+    >(
+      path: [TKey, TSubKey, TSubKey2],
+      defaultValue?: SchemaT[TKey][TSubKey][TSubKey2]
+    ): FpReturn<SchemaT[TKey][TSubKey][TSubKey2], AdapterT>;
+    <
+      TKey extends keyof SchemaT,
+      TSubKey extends keyof SchemaT[TKey],
+      TSubKey2 extends keyof SchemaT[TKey][TSubKey],
+      TSubKey3 extends keyof SchemaT[TKey][TSubKey][TSubKey2]
+    >(
+      path: [TKey, TSubKey, TSubKey2, TSubKey3],
+      defaultValue?: SchemaT[TKey][TSubKey][TSubKey2][TSubKey3]
+    ): FpReturn<SchemaT[TKey][TSubKey][TSubKey2][TSubKey3], AdapterT>;
+    <
+      TKey extends keyof SchemaT,
+      TSubKey extends keyof SchemaT[TKey],
+      TSubKey2 extends keyof SchemaT[TKey][TSubKey],
+      TSubKey3 extends keyof SchemaT[TKey][TSubKey][TSubKey2],
+      TSubKey4 extends keyof SchemaT[TKey][TSubKey][TSubKey2][TSubKey3]
+    >(
+      path: [TKey, TSubKey, TSubKey2, TSubKey3, TSubKey4],
+      defaultValue?: SchemaT[TKey][TSubKey][TSubKey2][TSubKey3][TSubKey4]
+    ): FpReturn<SchemaT[TKey][TSubKey][TSubKey2][TSubKey3][TSubKey4], AdapterT>;
+    <T = any>(path: string | Array<string>, defaultValue?: T): T;
+  }
+  export interface FpReturn<PathT, AdapterT extends Adapter> {
+    /**
+     * Execute a series of functions on the data at a given path.
+     * Result of previous function is the input of the next one.
+     * Returns the result of the last function.
+     */
+    <R1>(f1: (a1: PathT) => R1): R1;
+    // <R1>(f1: [(a1: PathT) => R1]): R1;
+    <R1, R2>(f1: [(a1: PathT) => R1, (a: R1) => R2]): R2;
+    <R1, R2, R3>(f1: [(a1: PathT) => R1, (a: R1) => R2, (a: R2) => R3]): R3;
+    <R1, R2, R3, R4>(
+      f1: [(a1: PathT) => R1, (a: R1) => R2, (a: R2) => R3, (a: R3) => R4]
+    ): R4;
+    <R1, R2, R3, R4, R5>(
+      f1: [
+        (a1: PathT) => R1,
+        (a: R1) => R2,
+        (a: R2) => R3,
+        (a: R3) => R4,
+        (a: R4) => R5
+      ]
+    ): R5;
+    <R1, R2, R3, R4, R5, R6>(
+      f1: [
+        (a1: PathT) => R1,
+        (a: R1) => R2,
+        (a: R2) => R3,
+        (a: R3) => R4,
+        (a: R4) => R5,
+        (a: R5) => R6
+      ]
+    ): R6;
+    <R1, R2, R3, R4, R5, R6, R7>(
+      f1: [
+        (a1: PathT) => R1,
+        (a: R1) => R2,
+        (a: R2) => R3,
+        (a: R3) => R4,
+        (a: R4) => R5,
+        (a: R5) => R6,
+        (a: R6) => R7
+      ]
+    ): R7;
+    (funcs: Array<(a: any) => any>): any;
+
+    /**
+     * @description Writes the change to the database, based on the callback's return value.
+     * @example
+     * ```js
+     *  posts.write((allPosts) => [...allPosts, {title: 'Yup!'}])
+     * ```
+     */
+    write<R1 extends PathT>(f1: (a1: PathT) => R1): Wrapper<R1, AdapterT>;
+  }
+
+  export type lowdb = <
+    SchemaT extends AdapterT[ReferenceProperty],
+    AdapterT extends Adapter
+  >(
+    adapter: AdapterT
+  ) => If<
+    AdapterT[AsyncProperty],
+    Promise<Lowdb<RecursivelyExtend<SchemaT, AsyncTag>, AdapterT>>,
+    Lowdb<RecursivelyExtend<SchemaT, SyncTag>, AdapterT>
+  >;
+
+  export type lowdbFp = <
+    SchemaT extends AdapterT[ReferenceProperty],
+    AdapterT extends Adapter
+  >(
+    adapter: AdapterT
+  ) => If<
+    AdapterT[AsyncProperty],
+    Promise<LowdbFp<SchemaT & AsyncTag, AdapterT>>,
+    LowdbFp<SchemaT & SyncTag, AdapterT>
+  >;
+
+  export type Wrapper<T, AdapterT extends Adapter> = WrapInPromiseIfTrue<
+    T,
+    AdapterT[AsyncProperty]
+  >;
 }
 
-declare module "lowdb" {
-    export = Lowdb.Lowdb;
+/**
+ * lodash augmentation is necessary in order not to duplicate the whole lodash definition
+ * it's mostly harmless, aside from the fact that 'write' becomes a method in a lodash.chain()
+ */
+declare module "lodash" {
+  interface LoDashExplicitWrapper<TValue> {
+    write(): WrapInPromiseIfAsyncTag<TValue, GetReferenceTypeIfDefined<TValue>>;
+    // override lodash's methods only if source tag is present:
+    value(): GetReferenceTypeIfDefined<TValue>;
+  }
+}
+
+// utility types:
+type WrapInPromiseIfTrue<T, IsAsync extends Bool> = If<IsAsync, Promise<T>, T>;
+type ReferenceProperty = "@@reference";
+/**
+ * Hidden source property for resolving to the correct type.
+ * It is doubly nested so that we retain all nullability information
+ */
+type SourceReference<T> = {
+  readonly "@@reference"?: { readonly "@@reference": T };
+};
+type GetReferenceParent<T, U = NonNull<T>> = NonNull<
+  U[keyof U & ReferenceProperty]
+>;
+type GetDefinedReferenceType<
+  TValue,
+  SourceParent = GetReferenceParent<TValue>
+> = SourceParent[keyof SourceParent & ReferenceProperty];
+type AsyncProperty = "@@isAsync";
+type AsyncTag = { readonly "@@reference"?: { readonly "@@isAsync"?: true } };
+type SyncTag = {};
+type HasAsyncTag<TaggedT, ReferenceT = GetReferenceParent<TaggedT>> = If<
+  HasReferenceProperty<TaggedT>,
+  UnionHasKey<keyof ReferenceT, AsyncProperty>,
+  False
+>;
+type HasReferenceProperty<T> = UnionHasKey<keyof NonNull<T>, ReferenceProperty>;
+type WrapInPromiseIfAsyncTag<
+  TaggedT,
+  WrappedT = GetReferenceTypeIfDefined<TaggedT>
+> = WrapInPromiseIfTrue<WrappedT, HasAsyncTag<TaggedT>>;
+
+/**
+ * Resolves the hidden source type
+ * while preserving nullability as much as possible
+ */
+type GetReferenceType<TValue, Source = GetDefinedReferenceType<TValue>> = If<
+  IsEmptyType<TValue>,
+  Source | undefined,
+  Source
+>;
+
+type GetReferenceTypeIfDefined<T> = If<
+  HasReferenceProperty<T>,
+  GetReferenceType<T>,
+  T
+>;
+
+type RecursivelyExtend<T, AddT> = If<
+  IsArrayType<T>,
+  MapArrayType<T & List<{}>, AddT>,
+  MapScalarOrObjectType<T, AddT>
+> &
+  SourceReference<T>;
+
+type MapScalarOrObjectType<T, AddT> = If<
+  IsScalarOrInstance<T>,
+  T,
+  MapObjectWithPossibleArrays<T, AddT> & SourceReference<T> & AddT
+>;
+
+type MapObjectWithPossibleArrays<T, AddT> = {
+  [P in keyof T]: If<
+    IsArrayType<T[P]>,
+    MapArrayType<T[P] & List<{}>, AddT> & SourceReference<T[P]>,
+    MapScalarOrObjectType<T[P], AddT>
+  >
+};
+
+type MapArrayType<Arr extends List<T>, AddT, T = Arr[-1]> = Array<
+  MapObjectWithPossibleArrays<T, AddT> & SourceReference<T> & AddT
+> &
+  AddT;
+
+//////////////////////////////////////////
+// generic utils (some from https://github.com/tycho01/typical/):
+
+type False = "0";
+type True = "1";
+type Bool = True | False;
+type If<Cond extends Bool, Then, Else> = { 1: Then; 0: Else }[Cond];
+
+type Obj<T> = { [k: string]: T };
+
+type And<A extends Bool, B extends Bool> = ({ 1: { 1: "1" } & Obj<"0"> } & Obj<
+  Obj<"0">
+>)[A][B];
+
+type UnionHasKey<Union extends string, K extends string> = ({
+  [S in Union]: "1"
+} &
+  Obj<"0">)[K];
+
+type Indeterminate<T extends string> = And<
+  UnionHasKey<T, "0">,
+  UnionHasKey<T, "1">
+>;
+
+type Not<T extends Bool> = { "1": "0"; "0": "1" }[T];
+
+type Determinate<T extends Bool> = Not<Indeterminate<T>>;
+
+type DefinitelyYes<T extends Bool> = And<T, Determinate<T>>;
+
+type UnionContained<T extends string, U extends string> = DefinitelyYes<
+  ({ [P in U]: "1" } & Obj<"0">)[T | U]
+>;
+
+type UnionEmpty<T extends string> = And<
+  UnionContained<T, "foo">,
+  UnionContained<T, "bar">
+>;
+
+type UnionToObject<Keys extends string> = { [K in Keys]: K };
+
+type Keyed<T> = { [K in keyof T]: K };
+
+type KeyedSafe<T> = Keyed<T> & Obj<never>;
+
+type IntersectionUnions<Big extends string, Small extends string> = KeyedSafe<
+  UnionToObject<Small>
+>[Big];
+type UnionsOverlap<Big extends string, Small extends string> = Not<
+  UnionEmpty<IntersectionUnions<Big, Small>>
+>;
+
+type DiffUnion<T extends string, U extends string> = ({ [P in T]: P } &
+  { [P in U]: never } & { [k: string]: never })[T];
+
+type ObjectHasKey<O extends {}, K extends string> = UnionHasKey<keyof O, K>;
+
+type ArrayPrototypeProperties = DiffUnion<
+  keyof Array<any>,
+  "toString" | "toLocaleString"
+>;
+type IsArrayType<T> = DefinitelyYes<ObjectHasKey<T, ArrayPrototypeProperties>>;
+/**
+ * either: undefined, never, null or {}
+ * can also be used to check if one union contains one of the above
+ **/
+type IsEmptyType<T> = UnionEmpty<keyof T>;
+
+/**
+ * false for: undefined, interfaces
+ * true for: Array, boolean, number, string, Object
+ */
+type IsScalarOrInstance<T> = ObjectHasKeySafe<T, "valueOf">;
+type ObjectHasKeySafe<O, K extends string> = UnionsOverlap<keyof O, K>;
+type NonNull<T> = T & {};
+
+interface List<T> {
+  readonly [n: number]: T;
 }
