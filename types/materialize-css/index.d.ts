@@ -10,7 +10,7 @@ export = M;
 
 declare global {
     namespace M {
-        class Autocomplete extends Component<AutocompleteOptions>{
+        class Autocomplete extends Component<AutocompleteOptions> {
             /**
              * Get Instance
              */
@@ -26,7 +26,7 @@ declare global {
              * Update autocomplete options data.
              * @param data Autocomplete options data object.
              */
-            updateData(data: AutocompleteOptions): void;
+            updateData(data: AutocompleteData): void;
 
             /**
              * If the autocomplete is open.
@@ -45,7 +45,7 @@ declare global {
         }
 
         interface AutocompleteData {
-            [key: string]: string | null
+            [key: string]: string | null;
         }
 
         interface AutocompleteOptions {
@@ -282,16 +282,91 @@ declare global {
             endingTop: string;
         }
 
-        function updateTextFields(): void;
-
-        class CharacterCounter extends Component<CharacterCounterOptions>{
+        class Tooltip extends Component<TooltipOptions> {
             /**
              * Get Instance
              */
-            static getInstance(elem: Element): CharacterCounter
+            static getInstance(elem: Element): Tooltip;
+
+            /**
+             * Show tooltip.
+             */
+            open(): void;
+
+            /**
+             * Hide tooltip.
+             */
+            close(): void;
+
+            /**
+             * If tooltip is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * If tooltip is hovered.
+             */
+            isHovered: boolean;
         }
 
-        interface CharacterCounterOptions { }
+        interface TooltipOptions {
+            /**
+             * Delay time before tooltip disappears.
+             * @default 0
+             */
+            exitDelay: number;
+
+            /**
+             * Delay time before tooltip appears.
+             * @default 200
+             */
+            enterDelay: number;
+
+            /**
+             * Can take regular text or HTML strings.
+             * @default null
+             */
+            html: string | null;
+
+            /**
+             * Set distance tooltip appears away from its activator excluding transitionMovement.
+             * @default 5
+             */
+            margin: number;
+
+            /**
+             * Enter transition duration.
+             * @default 300
+             */
+            inDuration: number;
+
+            /**
+             * Exit transition duration.
+             * @default 250
+             */
+            outDuration: number;
+
+            /**
+             * Set the direction of the tooltip.
+             * @default 'bottom'
+             */
+            position: 'top' | 'right' | 'bottom' | 'left';
+
+            /**
+             * Amount in px that the tooltip moves during its transition.
+             * @default 10
+             */
+            transitionMovement: number;
+        }
+
+        function updateTextFields(): void;
+
+        class CharacterCounter extends Component<undefined> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): CharacterCounter;
+        }
 
         abstract class Component<TOptions> {
             /**
@@ -330,9 +405,14 @@ declare global {
         tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
         tabs(options?: Partial<M.TabsOptions>): JQuery;
 
+        tooltip(method: keyof Pick<M.Tooltip, "open" | "close" | "destroy">): JQuery;
+        tooltip(options?: Partial<M.TooltipOptions>): JQuery;
+
         modal(method: keyof Pick<M.Modal, "open" | "close" | "destroy">): JQuery;
         modal(options?: Partial<M.ModalOptions>): JQuery;
 
-        characterCounter(options?: Partial<M.CharacterCounterOptions>): JQuery
+        // tslint:disable-next-line unified-signatures
+        characterCounter(method: keyof Pick<M.CharacterCounter, "destroy">): JQuery;
+        characterCounter(): JQuery;
     }
 }
