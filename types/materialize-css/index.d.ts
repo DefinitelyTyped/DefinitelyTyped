@@ -10,6 +10,73 @@ export = M;
 
 declare global {
     namespace M {
+        class Autocomplete extends Component<AutocompleteOptions>{
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Autocomplete;
+
+            /**
+             * Select a specific autocomplete options.
+             * @param el Element of the autocomplete option.
+             */
+            selectOption(el: Element): void;
+
+            /**
+             * Update autocomplete options data.
+             * @param data Autocomplete options data object.
+             */
+            updateData(data: AutocompleteOptions): void;
+
+            /**
+             * If the autocomplete is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * Number of matching autocomplete options.
+             */
+            count: number;
+
+            /**
+             * Index of the current selected option.
+             */
+            activeIndex: number;
+        }
+
+        interface AutocompleteData {
+            [key: string]: string | null
+        }
+
+        interface AutocompleteOptions {
+            /**
+             * Data object defining autocomplete options with optional icon strings.
+             */
+            data: AutocompleteData;
+
+            /**
+             * Limit of results the autocomplete shows.
+             * @default infinity
+             */
+            limit: number;
+
+            /**
+             * Callback for when autocompleted.
+             */
+            onAutocomplete: (this: Autocomplete, text: string) => void;
+
+            /**
+             * Minimum number of characters before autocomplete starts.
+             * @default 1
+             */
+            minLength: number;
+
+            /**
+             * Sort function that defines the order of the list of autocomplete options.
+             */
+            sortFunction: (a: string, b: string, inputText: string) => number;
+        }
+
         class Sidenav extends Component<SidenavOptions> {
             /**
              * Get Instance
@@ -215,6 +282,17 @@ declare global {
             endingTop: string;
         }
 
+        function updateTextFields(): void;
+
+        class CharacterCounter extends Component<CharacterCounterOptions>{
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): CharacterCounter
+        }
+
+        interface CharacterCounterOptions { }
+
         abstract class Component<TOptions> {
             /**
              * Construct component instance and set everything up
@@ -240,6 +318,11 @@ declare global {
 
     interface JQuery {
         // Pick<T,K> to check methods exist.
+        autocomplete(method: keyof Pick<M.Autocomplete, "destroy">): JQuery;
+        autocomplete(method: keyof Pick<M.Autocomplete, "selectOption">, el: Element): JQuery;
+        autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
+        autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
+
         sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
         sidenav(options?: Partial<M.SidenavOptions>): JQuery;
 
@@ -249,5 +332,7 @@ declare global {
 
         modal(method: keyof Pick<M.Modal, "open" | "close" | "destroy">): JQuery;
         modal(options?: Partial<M.ModalOptions>): JQuery;
+
+        characterCounter(options?: Partial<M.CharacterCounterOptions>): JQuery
     }
 }
