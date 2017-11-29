@@ -1,4 +1,4 @@
-// Type definitions for nock v8.2.0
+// Type definitions for nock v9.1.3
 // Project: https://github.com/node-nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
