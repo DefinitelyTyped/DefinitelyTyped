@@ -23,9 +23,7 @@ export interface TableDefinition {
     hashes(): Array<{ [colName: string]: string }>;
 }
 
-export type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
-
-export type StepDefinitionCode = (this: World, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
+export type StepDefinitionCode = (this: World, ...stepArgs: any[]) => any;
 
 export interface StepDefinitionOptions {
     timeout?: number;

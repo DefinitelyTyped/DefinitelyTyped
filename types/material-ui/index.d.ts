@@ -1440,6 +1440,7 @@ declare namespace __MaterialUI {
         hintText?: React.ReactNode;
         iconStyle?: React.CSSProperties;
         id?: string;
+        name?: string;
         labelStyle?: React.CSSProperties;
         multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;

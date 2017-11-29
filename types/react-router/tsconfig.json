@@ -39,7 +39,6 @@
         "test/MemoryRouter.tsx",
         "test/Switch.tsx",
         "test/InheritingRoute.tsx",
-        "test/WithRouter.tsx",
-        "test/WithRouterDecorator.tsx"
+        "test/WithRouter.tsx"
     ]
 }
