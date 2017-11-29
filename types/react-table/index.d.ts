@@ -288,7 +288,7 @@ export namespace Column {
          * @example 'Cell Value'
          * @example ({data, column}) => <div>Cell Value</div>,
          */
-        render: TableCellRenderer;
+        Cell: TableCellRenderer;
 
         /**
          * Set the classname of the `td` element of the column
@@ -317,7 +317,7 @@ export namespace Column {
          * @example 'Header Name'
          * @example ({data, column}) => <div>Header Name</div>,
          */
-        header: TableCellRenderer;
+        Header: TableCellRenderer;
 
         /**
          * Set the classname of the `th` element of the column
