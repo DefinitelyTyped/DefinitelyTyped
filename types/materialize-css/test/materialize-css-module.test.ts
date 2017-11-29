@@ -46,3 +46,29 @@ tabs.select("id");
 tabs.options;
 // $ExpectType number
 tabs.index;
+
+// Modal
+// $ExpectType Modal
+new materialize.Modal(elem);
+// $ExpectType Modal
+const modal = new materialize.Modal(elem, {
+    inDuration: 300,
+    ready(el, trigger) {
+        // $ExpectType Modal
+        this;
+        // $ExpectType Element
+        el;
+        // $ExpectType Element
+        trigger;
+    }
+});
+// $ExpectType void
+modal.open();
+// $ExpectType void
+modal.destroy();
+// $ExpectType ModalOptions
+modal.options;
+// $ExpectType Element
+modal.el;
+// $ExpectType boolean
+modal.isOpen;
