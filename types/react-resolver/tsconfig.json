@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "test.tsx"
+        "react-resolver-tests.tsx"
     ]
 }
