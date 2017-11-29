@@ -249,7 +249,8 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/location
      */
-    location(options?: Loggable): Chainable;
+    location(options?: LoggableTimeoutable): Chainable;
+    location(key: string, options?: LoggableTimeoutable): Chainable;
 
     /**
      * @see https://on.cypress.io/api/log

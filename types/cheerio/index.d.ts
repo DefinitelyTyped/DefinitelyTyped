@@ -263,6 +263,7 @@ interface CheerioElement {
     parent: CheerioElement;
     parentNode: CheerioElement;
     nodeValue: string;
+    data?: string;
 }
 
 interface CheerioAPI extends CheerioSelector, CheerioStatic {
