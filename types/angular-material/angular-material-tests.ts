@@ -140,6 +140,9 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
     $scope['promptDialog'] = () => {
         $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
     };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().required(true));
+    };
     $scope['prerenderedDialog'] = () => {
         $mdDialog.show({
             template: '<md-dialog>Hello!</md-dialog>',

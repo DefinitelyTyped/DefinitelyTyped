@@ -135,11 +135,11 @@ export interface Plugin {
 	 * Returning null or undefined defers to other resolveId functions (and eventually the default resolution behavior);
 	 * returning any other falsy value signals that importee should be treated as an external module and not included in the bundle.
 	 */
-	resolveId?(importee: string, importer: string): string | null | undefined | false | 0 | ''
+	resolveId?(importee: string, importer: string | undefined): string | null | undefined | false | 0 | ''
 	/** A module transformer function */
-	transform?(this: TransformContext, source: string, id: string): string | { code: string, map: SourceMap }
+	transform?(this: TransformContext, source: string, id: string): string | null | undefined | { code: string, map: SourceMap }
 	/** A bundle transformer function */
-	transformBundle?(source: string, options: { format: Format }): string | { code: string, map: SourceMap }
+	transformBundle?(source: string, options: { format: Format }): string | null | undefined | { code: string, map: SourceMap }
 	/** Function hook called when bundle.generate() is being executed. */
 	ongenerate?(options: GenerateOptions, bundle: Bundle): void
 	/** Function hook called when bundle.write() is being executed, after the file has been written to disk. */
@@ -164,3 +164,54 @@ export interface TransformContext {
 
 /** Returns a Promise that resolves with a bundle */
 export function rollup(options: Options): Promise<Bundle>
+
+export interface WatchOptions extends ConfigFileOptions {
+	watch?: {
+		/**
+		 * If set to true, will use chokidar for file watching (requires installation).
+		 * If set to object, the settings are passed on to chokidar
+		 */
+		chokidar?: boolean | { [key: string]: any };
+		/** Limit the file-watching to certain files, e.g. 'src/**' */
+		include?: string;
+		/** Prevent files from being watched, e.g. 'node_modules/**' */
+		exclude?: string;
+	}
+}
+
+export interface StartEvent {
+	code: 'START'
+}
+export interface EndEvent {
+	code: 'END'
+}
+export interface ErrorEvent {
+	code: 'ERROR'
+	error: Error
+}
+export interface FatalEvent {
+	code: 'FATAL'
+	error: Error
+}
+export interface BundleStartEvent {
+	code: 'BUNDLE_START'
+	input: string
+	output: string[]
+}
+export interface BundleEndEvent {
+	code: 'BUNDLE_END'
+	input: string
+	output: string[]
+	duration: number
+}
+export type WatchEvent = StartEvent | EndEvent | ErrorEvent | FatalEvent | BundleStartEvent | BundleEndEvent
+
+export class Watcher {
+	/** Listen to the events that are emitted by rollup during watching */
+	on(type: 'event', callback: (e: WatchEvent) => void): void
+	/** Stop watching for file changes */
+	close(): void
+}
+
+/** Starts rollup in watch mode. Returns a watcher instance for closing or listening to events */
+export function watch(options: WatchOptions): Watcher
