@@ -1,7 +1,7 @@
 import {Server} from "./server";
-import {LifecycleReturnValue} from "../util/lifecycle";
 import {ResponseToolkit} from "../response/response-toolkit";
 import {Request} from "../request/request";
+import {Lifecycle} from "hapi";
 
 /**
  * The scheme options argument passed to server.auth.strategy() when instantiation a strategy.
@@ -39,7 +39,7 @@ export interface ServerAuthSchemeObject {
      * @param h the ResponseToolkit
      * @return the LifecycleReturnValue
      */
-    authenticate(request: Request, h: ResponseToolkit): LifecycleReturnValue;
+    authenticate(request: Request, h: ResponseToolkit): Lifecycle.LifecycleReturnValue;
 
     /**
      * A lifecycle method to authenticate the request payload.
@@ -50,7 +50,7 @@ export interface ServerAuthSchemeObject {
      * @param h the ResponseToolkit
      * @return the LifecycleReturnValue
      */
-    payload?(request: Request, h: ResponseToolkit): LifecycleReturnValue;
+    payload?(request: Request, h: ResponseToolkit): Lifecycle.LifecycleReturnValue;
 
     /**
      * A lifecycle method to decorate the response with authentication headers before the response headers or payload is written.
@@ -58,7 +58,7 @@ export interface ServerAuthSchemeObject {
      * @param h the ResponseToolkit
      * @return the LifecycleReturnValue
      */
-    response?(request: Request, h: ResponseToolkit): LifecycleReturnValue;
+    response?(request: Request, h: ResponseToolkit): Lifecycle.LifecycleReturnValue;
 
     /**
      * An object with the following keys:
