@@ -26,9 +26,11 @@ export * from './definitions/response/response-toolkit'
 /** ROUTE */
 export * from './definitions/route/route-options'
 export * from './definitions/route/route-options-access'
+export * from './definitions/route/route-options-access-scope'
 export * from './definitions/route/route-options-cache'
 export * from './definitions/route/route-options-cors'
 export * from './definitions/route/route-options-payload'
+export * from './definitions/route/route-options-pre'
 export * from './definitions/route/route-options-response'
 export * from './definitions/route/route-options-secure'
 export * from './definitions/route/route-options-validate'
@@ -50,6 +52,5 @@ export * from './definitions/server/server-state'
 export * from './definitions/server/server-state-options'
 
 /** UTIL */
-export * from './definitions/util/fail-action'
 export * from './definitions/util/lifecycle'
 export * from './definitions/util/util'
