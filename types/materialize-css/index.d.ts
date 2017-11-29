@@ -137,6 +137,84 @@ declare global {
             responsiveThreshold: number;
         }
 
+        class Modal extends Component<ModalOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Modal;
+
+            /**
+             * Open modal
+             */
+            open(): void;
+
+            /**
+             * Close modal
+             */
+            close(): void;
+
+            /**
+             * If the modal is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * ID of the modal element
+             */
+            id: string;
+        }
+
+        /**
+         * Options for the Modal
+         */
+        interface ModalOptions {
+            /**
+             * Opacity of the modal overlay.
+             * @default 0.5
+             */
+            opacity: number;
+
+            /**
+             * Transition in duration in milliseconds.
+             * @default 250
+             */
+            inDuration: number;
+
+            /**
+             * Transition out duration in milliseconds.
+             * @default 250
+             */
+            outDuration: number;
+
+            /**
+             * Callback function called when modal is finished entering.
+             */
+            ready: (this: Modal, elem: Element, openingTrigger: Element) => void;
+
+            /**
+             * Callback function called when modal is finished exiting.
+             */
+            complete: (this: Modal, elem: Element) => void;
+
+            /**
+             * Allow modal to be dismissed by keyboard or overlay click.
+             * @default true
+             */
+            dismissible: boolean;
+
+            /**
+             * Starting top offset
+             * @default '4%'
+             */
+            startingTop: string;
+
+            /**
+             * Ending top offset
+             * @default '10%'
+             */
+            endingTop: string;
+        }
+
         abstract class Component<TOptions> {
             /**
              * Construct component instance and set everything up
@@ -168,5 +246,8 @@ declare global {
         tabs(method: keyof Pick<M.Tabs, "destroy">): JQuery;
         tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
         tabs(options?: Partial<M.TabsOptions>): JQuery;
+
+        modal(method: keyof Pick<M.Modal, "open" | "close" | "destroy">): JQuery;
+        modal(options?: Partial<M.ModalOptions>): JQuery;
     }
 }
