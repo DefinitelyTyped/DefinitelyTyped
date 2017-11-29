@@ -13,6 +13,11 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "materialize-css": [
+                "materialize-css/v0"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
