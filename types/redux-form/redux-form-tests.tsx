@@ -11,7 +11,6 @@ import {
     formValueSelector,
     Field,
     GenericField,
-    BaseFieldProps,
     WrappedFieldProps,
     Fields,
     GenericFields,
