@@ -400,6 +400,10 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 * Table footer custom class
 	 */
 	tableFooterClass?: string;
+	/**
+	 * Render react-s-alert notifications
+	 */
+    renderAlert?: boolean;
 }
 
 /**
