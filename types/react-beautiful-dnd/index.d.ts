@@ -99,6 +99,7 @@ export interface DraggableProps {
     draggableId: DroppableId;
     type?: TypeId;
     isDragDisabled?: boolean;
+    disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
 }
 
