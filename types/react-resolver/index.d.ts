@@ -6,8 +6,6 @@
 
 import { ComponentType, StatelessComponent, Factory } from 'react';
 
-export type AnyComponent<P> = ComponentType<P>;
-
 export interface Resolver {
     resolve<P, D>(
     factory: Factory<P>,
@@ -27,7 +25,7 @@ export type ResolveFn<Props, V> = (props: Props) => Promise<V>;
 export function context<K extends string, V = any>(
     prop: K,
 ): <OwnProps>(
-    component: AnyComponent<OwnProps>,
+    component: ComponentType<OwnProps>,
 ) => StatelessComponent<OwnProps & Record<typeof prop, V>>;
 
 /**
@@ -36,9 +34,9 @@ export function context<K extends string, V = any>(
  * perform it only on the client.
  */
 export function client(
-    loadingComponent: AnyComponent<any>,
+    loadingComponent: ComponentType<any>,
 ): <OwnProps>(
-    component: AnyComponent<OwnProps>,
+    component: ComponentType<OwnProps>,
 ) => StatelessComponent<OwnProps>;
 
 export function resolve<
@@ -50,7 +48,7 @@ export function resolve<
     prop: K,
     resolveFn: ResolveFn<OwnProps & MoreProps, V>,
 ): (
-    component: AnyComponent<OwnProps & { [C in K]: V }>,
+    component: ComponentType<OwnProps & { [C in K]: V }>,
 ) => StatelessComponent<OwnProps & MoreProps>;
 
 export function resolve<
@@ -65,7 +63,7 @@ export function resolve<
     >
     },
 ): (
-    component: AnyComponent<
+    component: ComponentType<
     OwnProps & { [K in keyof ResolvableProps]?: ResolvableProps[K] }
     >,
 ) => StatelessComponent<OwnProps & MoreProps>;
