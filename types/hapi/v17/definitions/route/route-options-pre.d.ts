@@ -8,7 +8,7 @@ export type RouteOptionsPreArray = RouteOptionsPreAllOptions[];
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export type RouteOptionsPreAllOptions = RouteOptionsPreObject | RouteOptionsPreObject[] | Lifecycle.LifecycleMethod;
+export type RouteOptionsPreAllOptions = RouteOptionsPreObject | RouteOptionsPreObject[] | Lifecycle.Method;
 
 /**
  * An object with:
@@ -18,7 +18,7 @@ export type RouteOptionsPreAllOptions = RouteOptionsPreObject | RouteOptionsPreO
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
 export interface RouteOptionsPreObject {
-    method: Lifecycle.LifecycleMethod;
+    method: Lifecycle.Method;
     assign: string;
     failAction?: Lifecycle.FailAction;
 }
