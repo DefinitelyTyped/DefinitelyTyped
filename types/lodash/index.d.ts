@@ -6263,7 +6263,7 @@ declare namespace _ {
         partition<T>(
             collection: List<T> | null | undefined,
             callback: ValueIteratee<T>
-        ): T[][];
+        ): [T[], T[]];
 
         /**
          * @see _.partition
@@ -6271,7 +6271,7 @@ declare namespace _ {
         partition<T extends object>(
             collection: T | null | undefined,
             callback: ValueIteratee<T[keyof T]>
-        ): Array<Array<T[keyof T]>>;
+        ): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -6281,7 +6281,7 @@ declare namespace _ {
         partition<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             callback: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[][]>;
+        ): LoDashImplicitWrapper<[T[], T[]]>;
 
         /**
          * @see _.partition
@@ -6289,7 +6289,7 @@ declare namespace _ {
         partition<T>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             callback: ValueIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<Array<Array<T[keyof T]>>>;
+        ): LoDashImplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -6299,7 +6299,7 @@ declare namespace _ {
         partition<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             callback: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[][]>;
+        ): LoDashExplicitWrapper<[T[], T[]]>;
 
         /**
          * @see _.partition
@@ -6307,7 +6307,7 @@ declare namespace _ {
         partition<T>(
             this: LoDashExplicitWrapper<T | null | undefined>,
             callback: ValueIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<Array<Array<T[keyof T]>>>;
+        ): LoDashExplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
 
     //_.reduce
