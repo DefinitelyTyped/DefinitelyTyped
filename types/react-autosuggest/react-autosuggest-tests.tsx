@@ -15,6 +15,8 @@ function escapeRegexCharacters(str: string): string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+const LanguageAutosuggest = Autosuggest as { new (): Autosuggest<Language> }
+
 export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // region Fields
     static languages: Language[] = [
@@ -89,7 +91,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             sectionTitle: { color: 'blue' }
         };
 
-        return <Autosuggest
+        return <LanguageAutosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
             .onSuggestionsFetchRequested
@@ -240,7 +242,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
                 .bind(this)
         };
 
-        return <Autosuggest
+        return <LanguageAutosuggest
             multiSection={true}
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
@@ -272,7 +274,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.InputProps): JSX.Element {
+    protected renderInputComponent(inputProps: Autosuggest.InputProps<Language>): JSX.Element {
         return (
             <div>
                 <input {...inputProps} />
@@ -280,7 +282,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         );
     }
 
-    protected renderSuggestionsContainer(containerProps: any, children: any, query: string): JSX.Element {
+    protected renderSuggestionsContainer({containerProps, children, query}: Autosuggest.RenderSuggestionsContainerParams): JSX.Element {
         return (
             <div {...containerProps}>
                 <span>{children}</span>
@@ -345,6 +347,8 @@ interface Person {
     twitter: string;
 }
 
+const PersonAutosuggest = Autosuggest as { new (): Autosuggest<Person> }
+
 export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     // region Fields
     static people: Person[] = [
@@ -386,7 +390,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
                 .bind(this)
         };
 
-        return<Autosuggest
+        return<PersonAutosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             getSuggestionValue={this.getSuggestionValue}
