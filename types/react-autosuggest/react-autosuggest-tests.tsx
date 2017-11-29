@@ -15,7 +15,7 @@ function escapeRegexCharacters(str: string): string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-const LanguageAutosuggest = Autosuggest as { new (): Autosuggest<Language> }
+const LanguageAutosuggest = Autosuggest as { new (): Autosuggest<Language> };
 
 export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // region Fields
@@ -347,7 +347,7 @@ interface Person {
     twitter: string;
 }
 
-const PersonAutosuggest = Autosuggest as { new (): Autosuggest<Person> }
+const PersonAutosuggest = Autosuggest as { new (): Autosuggest<Person> };
 
 export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     // region Fields
