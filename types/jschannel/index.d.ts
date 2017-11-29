@@ -8,7 +8,7 @@ export as namespace Channel;
 
 export function build(config: ChannelConfiguration): MessagingChannel;
 
-interface MessagingChannel {
+export interface MessagingChannel {
     unbind: (method: string, doNotPublish?: boolean) => boolean;
     bind: (method: string, callback?: (transaction: MessageTransaction, params: any) => void, doNotPublish?: boolean) => MessagingChannel;
     call: (message: Message) => void;
