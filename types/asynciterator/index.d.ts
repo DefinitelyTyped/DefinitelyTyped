@@ -152,7 +152,7 @@ export class SimpleTransformIterator<S, T> extends TransformIterator<S, T> {
 export class MultiTransformIterator<S, T> extends TransformIterator<S, T> {
     _transformerQueue: S[];
 
-    protected _createTransformer(): AsyncIterator<S>;
+    protected _createTransformer(element: S): AsyncIterator<T>;
 
     constructor(source?: AsyncIterator<S> | TransformIteratorOptions<S>, options?: TransformIteratorOptions<S>);
 }
