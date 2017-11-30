@@ -5,6 +5,7 @@
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 Fábio Paiva <https://github.com/fabiopaiva>
 //                 FaithForHumans <https://github.com/FaithForHumans>
+//                 Kurt Preston <https://github.com/KurtPreston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
