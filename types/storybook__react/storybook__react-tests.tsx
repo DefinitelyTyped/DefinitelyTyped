@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { storiesOf, setAddon, addDecorator, configure, getStorybook, RenderFunction, Story } from '@storybook/react';
+import { Button, Welcome } from '@storybook/react/demo';
 
 const Decorator = (story: RenderFunction) => <div>{story()}</div>;
 
@@ -33,3 +34,11 @@ configure(() => undefined, module);
 
 // getStorybook
 getStorybook().forEach(({ kind, stories }) => stories.forEach(({ name, render }) => render()));
+
+// demo
+storiesOf('Welcome', module).
+    add('to Storybook', () => <Welcome showApp={() => {}} />);
+
+storiesOf('Button', module)
+    .add('with text', () => <Button onClick={() => {}}>Hello Button</Button>)
+    .add('with some emoji', () => <Button onClick={() => {}}>😀 😎 👍 💯</Button>);

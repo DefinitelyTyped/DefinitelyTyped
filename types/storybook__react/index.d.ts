@@ -8,31 +8,47 @@
 
 import * as React from 'react';
 
-export type Renderable = React.ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable;
+declare module '@storybook/react' {
+    export type Renderable = React.ComponentType | JSX.Element;
+    export type RenderFunction = () => Renderable;
 
-export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
+    export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
 
-export interface Story {
-    readonly kind: string;
-    add(storyName: string, callback: RenderFunction): this;
-    addDecorator(decorator: StoryDecorator): this;
+    export interface Story {
+        readonly kind: string;
+        add(storyName: string, callback: RenderFunction): this;
+        addDecorator(decorator: StoryDecorator): this;
+    }
+
+    export function addDecorator(decorator: StoryDecorator): void;
+    export function configure(fn: () => void, module: NodeModule): void;
+    export function setAddon(addon: object): void;
+    export function storiesOf(name: string, module: NodeModule): Story;
+    export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+
+    export interface StoryObject {
+        name: string;
+        render: RenderFunction;
+    }
+
+    export interface StoryBucket {
+        kind: string;
+        stories: StoryObject[];
+    }
+
+    export function getStorybook(): StoryBucket[];
 }
 
-export function addDecorator(decorator: StoryDecorator): void;
-export function configure(fn: () => void, module: NodeModule): void;
-export function setAddon(addon: object): void;
-export function storiesOf(name: string, module: NodeModule): Story;
-export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+declare module '@storybook/react/demo' {
+    export interface ButtonProps {
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    }
 
-export interface StoryObject {
-    name: string;
-    render: RenderFunction;
+    export const Button: React.StatelessComponent<ButtonProps>;
+
+    export interface WelcomeProps {
+        showApp?: React.MouseEventHandler<HTMLElement>;
+    }
+
+    export const Welcome: React.StatelessComponent<WelcomeProps>;
 }
-
-export interface StoryBucket {
-    kind: string;
-    stories: StoryObject[];
-}
-
-export function getStorybook(): StoryBucket[];

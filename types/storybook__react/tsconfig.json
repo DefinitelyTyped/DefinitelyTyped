@@ -17,6 +17,9 @@
         "paths": {
             "@storybook/react": [
                 "storybook__react"
+            ],
+            "@storybook/react/demo": [
+                "storybook__react"
             ]
         },
         "types": [],
