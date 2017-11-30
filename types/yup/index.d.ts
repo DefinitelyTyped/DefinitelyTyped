@@ -5,11 +5,12 @@
 // TypeScript Version: 2.2
 
 export function reach(schema: Schema, path: string, value?: any, context?: any): Schema;
-export function addMethod(schemaType: Schema, name: string, method: () => Schema): void;
-export function ref(path: string, options: { contextPrefix: string }): Ref;
+export function addMethod(schemaType: Schema, name: string, method: (this: Schema) => Schema): void;
+export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy(fn: (value: any) => Schema): Lazy;
+export function ValidationError(errors: string | string[], value: any, path: string, type?: any): ValidationError;
 
-export const mixed: SchemaConstructor;
+export const mixed: MixedSchemaConstructor;
 export const string: StringSchemaConstructor;
 export const number: NumberSchemaConstructor;
 export const boolean: BooleanSchemaConstructor;
@@ -18,51 +19,40 @@ export const date: DateSchemaConstructor;
 export const array: ArraySchemaConstructor;
 export const object: ObjectSchemaConstructor;
 
-export interface ValidationError {
-    errors: string | string[];
-    value: any;
-    path: string;
-    inner?: ValidationError[];
-}
-
-export interface Ref {
-}
-
-export interface Lazy {
-}
-
-export interface SchemaConstructor {
-    (): Schema;
-    new(options?: any): Schema;
-}
-
 export interface Schema {
-    clone(): Schema;
-    label(label: string): Schema;
-    meta(metadata: any): Schema;
+    clone(): this;
+    label(label: string): this;
+    meta(metadata: any): this;
     meta(): any;
     describe(): SchemaDescription;
-    concat(schema: Schema): Schema;
-    validate(value: any, options?: ValidateOptions, callback?: () => void): Promise<any>;
-    validateSync(value: any, options?: ValidateOptions): any;
-    isValid(value: any, options?: any, callback?: () => void): Promise<boolean>;
+    concat(schema: this): this;
+    validate<U>(value: U, options?: ValidateOptions): Promise<ValidationError|U>;
+    validateSync<U>(value: U, options?: ValidateOptions): ValidationError|U;
+    isValid(value: any, options?: any): Promise<boolean>;
     isValidSync(value: any, options?: any): boolean;
-    cast(value: any): any;
+    cast(value: any, options?: any): any;
     isType(value: any): boolean;
-    strict(isStrict: boolean): Schema;
-    strip(stripField: boolean): Schema;
-    withMutation(builder: (current: Schema) => void): void;
-    default(value: any): Schema;
-    default(): any;
-    nullable(isNullable: boolean): Schema;
-    required(message?: string): Schema;
-    typeError(message?: string): Schema;
-    oneOf(arrayOfValues: any[], message?: string): Schema;
-    notOneOf(arrayOfValues: any[], message?: string): Schema;
-    when(keys: string | any[], builder: ((value: any, schema: Schema) => Schema) | object): Schema;
-    test(name: string, message: string, test: (value: any) => boolean, callbackStyleAsync?: boolean): Schema;
-    test(options: TestOptions): Schema;
-    transform(transformation: (currentValue: any, originalValue: any) => any): Schema;
+    strict(isStrict: boolean): this;
+    strip(strip: boolean): this;
+    withMutation(fn: (current: this) => void): void;
+    default(value?: any): this;
+    nullable(isNullable: boolean): this;
+    required(message?: string): this;
+    typeError(message?: string): this;
+    oneOf(arrayOfValues: any[], message?: string): this;
+    notOneOf(arrayOfValues: any[], message?: string): this;
+    when(keys: string | any[], builder: WhenOptions<this>): this;
+    test(name: string, message: string, test: (value?: any) => boolean, callbackStyleAsync?: boolean): this;
+    test(options: TestOptions): this;
+    transform(fn: TransformFunction<this>): this;
+}
+
+export interface MixedSchemaConstructor {
+  (): MixedSchema;
+  new(options?: { type?: string, [key: string]: any }): MixedSchema;
+}
+
+export interface MixedSchema extends Schema {
 }
 
 export interface StringSchemaConstructor {
@@ -71,7 +61,6 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema extends Schema {
-    required(message?: string): StringSchema;
     min(limit: number | Ref, message?: string): StringSchema;
     max(limit: number | Ref, message?: string): StringSchema;
     matches(regex: RegExp, message?: string): StringSchema;
@@ -89,7 +78,6 @@ export interface NumberSchemaConstructor {
 }
 
 export interface NumberSchema extends Schema {
-    required(message?: string): NumberSchema;
     min(limit: number | Ref, message?: string): NumberSchema;
     max(limit: number | Ref, message?: string): NumberSchema;
     positive(message?: string): NumberSchema;
@@ -124,7 +112,6 @@ export interface ArraySchemaConstructor {
 
 export interface ArraySchema extends Schema {
     of(type: Schema): ArraySchema;
-    required(message?: string): ArraySchema;
     min(limit: number | Ref, message?: string): ArraySchema;
     max(limit: number | Ref, message?: string): ArraySchema;
     ensure(): ArraySchema;
@@ -132,18 +119,31 @@ export interface ArraySchema extends Schema {
 }
 
 export interface ObjectSchemaConstructor {
-    (): ObjectSchema;
+    (fields?: any): ObjectSchema;
     new(): ObjectSchema;
 }
 
 export interface ObjectSchema extends Schema {
     shape(fields: any, noSortEdges?: Array<[string, string]>): ObjectSchema;
-    from(fromKey: string, toKey: string, alias: boolean): ObjectSchema;
+    from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema;
     noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema;
-    transformKeys(callback: (key: any) => any): void
+    transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema;
     constantCase(): ObjectSchema;
 }
+
+export type TransformFunction<T> = ((this: T, value: any, originalValue: any) => any);
+
+export interface WhenOptionsBuilder<T> {
+    (value: any, schema: T): T;
+    (v1: any, v2: any, schema: T): T;
+    (v1: any, v2: any, v3: any, schema: T): T;
+    (v1: any, v2: any, v3: any, v4: any, schema: T): T;
+}
+
+export type WhenOptions<T> = WhenOptionsBuilder<T>
+| { is: boolean | ((value: any) => boolean), then: any, otherwise: any }
+| object;
 
 export interface ValidateOptions {
     /**
@@ -200,4 +200,30 @@ export interface SchemaDescription {
     label: string;
     meta: object;
     tests: string[];
+}
+
+export interface ValidationError {
+    name: string;
+    value: any;
+    /**
+     * A string, indicating where there error was thrown. path is empty at the root level.
+     */
+    path: string;
+    type: any;
+    /**
+     * array of error messages
+     */
+    errors: string | string[];
+
+    /**
+     * In the case of aggregate errors, inner is an array of ValidationErrors throw earlier in the validation chain.
+     */
+    inner?: ValidationError[];
+}
+
+export interface Ref {
+    [key: string]: any;
+}
+
+export interface Lazy extends Schema {
 }
