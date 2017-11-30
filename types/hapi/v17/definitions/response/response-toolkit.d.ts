@@ -1,5 +1,4 @@
 import {ServerRealm, ServerStateCookieOptions} from "hapi";
-import {Request} from "../request/request";
 import {ResponseObject} from "./response-object";
 
 /**
@@ -10,11 +9,11 @@ import {ResponseObject} from "./response-object";
 
 
 /**
- * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-toolkit)
  * The response toolkit is a collection of properties and utilities passed to every [lifecycle method](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
  * It is somewhat hard to define as it provides both utilities for manipulating responses as well as other information. Since the
  * toolkit is passed as a function argument, developers can name it whatever they want. For the purpose of this
  * document the h notation is used. It is named in the spirit of the RethinkDB r method, with h for hapi.
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-toolkit)
  */
 export interface ResponseToolkit {
 
@@ -53,7 +52,7 @@ export interface ResponseToolkit {
      * The [request] object. This is a duplication of the request lifecycle method argument used by
      * [toolkit decorations](https://github.com/hapijs/hapi/blob/master/API.md#server.decorate()) to access the current request.
      */
-    request: Request;
+    request: any; // TODO needs review
 
     /**
      * Used by the [authentication] method to pass back valid credentials where:
@@ -77,13 +76,16 @@ export interface ResponseToolkit {
      * @return Return value: - a response object if the response is unmodified. - undefined if the response has changed.
      * If undefined is returned, the developer must return a valid lifecycle method value. If a response is returned,
      * it should be used as the return value (but may be customize using the response methods).
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hentityoptions)
      */
+    entity(): ResponseObject | undefined;
     entity(options: {etag?: string, modified?: string, vary?: boolean}): ResponseObject | undefined;
 
     /**
      * Redirects the client to the specified uri. Same as calling h.response().redirect(uri).
      * @param url
      * @return Returns a response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hredirecturi)
      */
     redirect(uri: string): ResponseObject;
 
@@ -92,8 +94,10 @@ export interface ResponseToolkit {
      * (e.g. setting the HTTP status code, custom headers, etc.), where:
      * @param value - (optional) return value. Defaults to null.
      * @return Returns a response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue)
      */
-    response(value?: string): ResponseObject;
+    response(): ResponseObject;
+    response(value: string): ResponseObject;
 
     /**
      * Sets a response cookie using the same arguments as response.state().
@@ -101,8 +105,10 @@ export interface ResponseToolkit {
      * @param value of the cookie
      * @param (optional) ServerStateCookieOptions object.
      * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hstatename-value-options)
      */
-    state(name: string, value: string, options?: ServerStateCookieOptions): void;
+    state(name: string, value: string): void;
+    state(name: string, value: string, options: ServerStateCookieOptions): void;
 
     /**
      * Used by the [authentication] method to indicate authentication failed and pass back the credentials received where:
@@ -115,16 +121,19 @@ export interface ResponseToolkit {
      * expired credentials, it allows the method to pass back the user information (combined with a 'try'
      * authentication mode) for error customization.
      * There is no difference between throwing the error or passing it with the h.unauthenticated() method is no credentials are passed, but it might still be helpful for code clarity.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
-    unauthenticated(error: Error, data?: {credentials: any, artifacts?: any}): void;
+    unauthenticated(error: Error): void;
+    unauthenticated(error: Error, data: {credentials: any, artifacts?: any}): void;
 
     /**
      * Clears a response cookie using the same arguments as
-     * [response.unstate()](https://github.com/hapijs/hapi/blob/master/API.md#response.unstate()).
      * @param name of the cookie
      * @param options (optional) ServerStateCookieOptions object.
      * @return void.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunstatename-options)
      */
-    unstate(name: string, options?: ServerStateCookieOptions): void;
+    unstate(name: string): void;
+    unstate(name: string, options: ServerStateCookieOptions): void;
 
 }
