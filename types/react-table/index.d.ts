@@ -260,7 +260,7 @@ export interface ControlledStateCallbackProps {
 
     /**
      * Called when a user enters a value into a filter input field or the value passed
-     * to the onFiltersChange handler by the Filter option. 
+     * to the onFiltersChange handler by the Filter option.
      */
     onFilteredChange: FilteredChangeFunction;
 
@@ -487,7 +487,7 @@ export namespace Column {
 
         /**
          * A function returning a boolean that specifies the filtering logic for the column
-         * 'filter' == an object specifying which filter is being applied. Format: {id: [the filter column's id], value: [the value the user typed in the filter field], 
+         * 'filter' == an object specifying which filter is being applied. Format: {id: [the filter column's id], value: [the value the user typed in the filter field],
          * pivotId: [if filtering on a pivot column, the pivotId will be set to the pivot column's id and the `id` field will be set to the top level pivoting column]}
          * 'row' || 'rows' == the row (or rows, if filterAll is set to true) of data supplied to the table
          * 'column' == the column that the filter is on
