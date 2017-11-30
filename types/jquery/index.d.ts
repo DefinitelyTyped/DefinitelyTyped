@@ -5405,6 +5405,14 @@ declare namespace JQuery {
          * A string containing the URL to which the request is sent.
          */
         url?: string;
+        /**
+         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
+         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
+         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
+         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
+         * of the type of request.
+         */
+        beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettings<TContext>): false | void;
     }
 
     interface UrlAjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
@@ -5412,6 +5420,14 @@ declare namespace JQuery {
          * A string containing the URL to which the request is sent.
          */
         url: string;
+        /**
+         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
+         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
+         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
+         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
+         * of the type of request.
+         */
+        beforeSend?(this: TContext, jqXHR: jqXHR, settings: UrlAjaxSettings<TContext>): false | void;
     }
 
     namespace Ajax {
