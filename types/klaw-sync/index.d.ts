@@ -5,32 +5,36 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs"
+import * as fs from 'fs'
 
-export interface Item {
-  path: string
-  stats: fs.Stats
+declare namespace klawSync {
+  interface Item {
+    path: string
+    stats: fs.Stats
+  }
+
+  interface Options {
+    /**
+     *  any paths or `micromatch` patterns to ignore.
+     *
+     * For more information on micromatch patterns: https://github.com/jonschlinkert/micromatch#features
+     */
+    ignore?: string | string[]
+    /**
+     * True to only return files (ignore directories).
+     *
+     * Defaults to false if not specified.
+     */
+    nodir?: boolean
+    /**
+     * True to only return directories (ignore files).
+     *
+     * Defaults to false if not specified.
+     */
+    nofile?: boolean
+  }
 }
 
-export interface Options {
-  /**
-   *  any paths or `micromatch` patterns to ignore.
-   *
-   * For more information on micromatch patterns: https://github.com/jonschlinkert/micromatch#features
-   */
-  ignore?: string | string[]
-  /**
-   * True to only return files (ignore directories).
-   *
-   * Defaults to false if not specified.
-   */
-  nodir?: boolean
-  /**
-   * True to only return directories (ignore files).
-   *
-   * Defaults to false if not specified.
-   */
-  nofile?: boolean
-}
+declare function klawSync(root: string, options?: klawSync.Options): ReadonlyArray<klawSync.Item>
 
-export function klawSync(root: string, options?: Options): ReadonlyArray<Item>
+export = klawSync

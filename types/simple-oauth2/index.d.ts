@@ -2,6 +2,7 @@
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Bluebird = require("bluebird");
 
@@ -82,7 +83,7 @@ export interface OAuthClient {
     authorizationCode: {
         /**
          * Redirect the user to the autorization page
-         * @return {string} the absolute authorization url
+         * @return the absolute authorization url
          */
         authorizeURL(params?: {
             /** A string that represents the registered application URI where the user is redirected after authentication */

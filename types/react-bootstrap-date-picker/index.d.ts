@@ -1,8 +1,8 @@
 // Type definitions for react-bootstrap-date-picker 4.0
 // Project: https://github.com/pushtell/react-bootstrap-date-picker#readme
-// Definitions by: Karol Janyst <https://github.com/LKay>
+// Definitions by: Karol Janyst <https://github.com/LKay>, Antal Bodnar <https://github.com/ssi-hu-antal-bodnar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { ComponentClass, StatelessComponent, ReactNode, FocusEventHandler, HTMLAttributes } from "react";
 
@@ -19,6 +19,8 @@ declare namespace DatePicker {
     interface DatePickerProps {
         value?: string;
         defaultValue?: string;
+        minDate?: string;
+        maxDate?: string;
         style?: any;
         className?: string;
         autoFocus?: boolean;

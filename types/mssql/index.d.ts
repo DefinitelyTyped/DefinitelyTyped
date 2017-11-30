@@ -1,6 +1,6 @@
-// Type definitions for mssql 4.0.1
+// Type definitions for mssql 4.0.5
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>, Jørgen Elgaard Larsen <https://github.com/elhaard/>, Peter Keuter <https://github.com/pkeuter/>
+// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar>, Jørgen Elgaard Larsen <https://github.com/elhaard>, Peter Keuter <https://github.com/pkeuter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -57,6 +57,7 @@ export declare var TVP: ISqlTypeFactoryWithTvpType;
 export declare var UDT: ISqlTypeFactoryWithNoParams;
 export declare var Geography: ISqlTypeFactoryWithNoParams;
 export declare var Geometry: ISqlTypeFactoryWithNoParams;
+export declare var Variant: ISqlTypeFactoryWithNoParams;
 
 export declare var TYPES: {
     VarChar: ISqlTypeFactoryWithLength;
@@ -91,6 +92,7 @@ export declare var TYPES: {
     UDT: ISqlTypeFactoryWithNoParams;
     Geography: ISqlTypeFactoryWithNoParams;
     Geometry: ISqlTypeFactoryWithNoParams;
+    Variant: ISqlTypeFactoryWithNoParams;
 };
 
 export declare var MAX: number;
@@ -109,7 +111,7 @@ export interface IColumnMetadata {
         index: number;
         name: string;
         length: number;
-        type: ISqlType;
+        type: (() => ISqlType) | ISqlType;
         udt?: any;
     }
 }
@@ -124,6 +126,7 @@ export interface IProcedureResult<T> extends IResult<T> {
 }
 export interface IRecordSet<T> extends Array<T> {
     columns: IColumnMetadata;
+    toTable(): Table;
 }
 
 type IIsolationLevel = number;
@@ -146,11 +149,20 @@ export interface IOptions {
     trustedConnection?: boolean;
 }
 
-
 export interface IPool {
-    min: number;
-    max: number;
-    idleTimeoutMillis: number;
+    min?: number;
+    max?: number;
+    idleTimeoutMillis?: number;
+    maxWaitingClients?: number;
+    testOnBorrow?: boolean;
+    acquireTimeoutMillis?: number;
+    fifo?: boolean;
+    priorityRange?: number;
+    autostart?: boolean;
+    evictionRunIntervalMillis?: number;
+    numTestsPerRun?: number;
+    softIdleTimeoutMillis?: number;
+    Promise?: any;
 }
 
 export declare var pool: IPool;
@@ -166,6 +178,7 @@ export interface config {
     connectionTimeout?: number;
     requestTimeout?: number;
     stream?: boolean;
+    parseJSON?: boolean;
     options?: IOptions;
     pool?: IPool;
 }
@@ -191,25 +204,38 @@ export declare class ConnectionError implements Error {
     public code: string;
 }
 
-declare class columns {
-    public add(name: string, type: any, options: any): void;
+export interface IColumnOptions {
+    nullable?: boolean;
+    primary?: boolean;
 }
 
-declare class rows {
-    public add(...row: any[]): void;
+export interface IColumn extends ISqlType {
+    name: string;
+    nullable: boolean;
+    primary: boolean;
+}
+
+declare class columns extends Array {
+    public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
+}
+
+type IRow = (string | number | boolean | Date | Buffer | undefined)[];
+
+declare class rows extends Array {
+    public add(...row: IRow): number;
 }
 
 export declare class Table {
     public create: boolean;
     public columns: columns;
     public rows: rows;
-    public constructor(tableName: string);
+    public constructor(tableName?: string);
 }
 
 interface IRequestParameters {
     [name: string]: {
         name: string;
-        type: any;
+        type: (() => ISqlType) | ISqlType;
         io: number;
         value: any;
         length: number;
@@ -233,8 +259,8 @@ export declare class Request extends events.EventEmitter {
     public execute<Entity>(procedure: string): Promise<IProcedureResult<Entity>>;
     public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void): void;
     public input(name: string, value: any): Request;
-    public input(name: string, type: any, value: any): Request;
-    public output(name: string, type: any, value?: any): Request;
+    public input(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
+    public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
@@ -280,8 +306,8 @@ export declare class PreparedStatement extends events.EventEmitter {
     public parameters: IRequestParameters;
     public stream: any;
     public constructor(connection?: ConnectionPool);
-    public input(name: string, type: ISqlType): PreparedStatement;
-    public output(name: string, type: ISqlType): PreparedStatement;
+    public input(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
+    public output(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;
     public prepare(statement?: string, callback?: (err?: Error) => void): PreparedStatement;
     public execute(values: Object): Promise<void>;

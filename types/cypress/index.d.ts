@@ -2,6 +2,7 @@
 // Project: https://cypress.io
 // Definitions by: Gert Hengeveld <https://github.com/ghengeveld>
 //                 Mike Woudenberg <https://github.com/mikewoudenberg>
+//                 Robbert van Markus <https://github.com/rvanmarkus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -32,9 +33,9 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/commands
      */
-    addChildCommand(name: string, fn: (args: any[]) => void): void;
-    addDualCommand(name: string, fn: (args: any[]) => void): void;
-    addParentCommand(name: string, fn: (args: any[]) => void): void;
+    addChildCommand(name: string, fn: (...args: any[]) => void): void;
+    addDualCommand(name: string, fn: (...args: any[]) => void): void;
+    addParentCommand(name: string, fn: (...args: any[]) => void): void;
 
     _: any;
     $: any;
@@ -42,6 +43,7 @@ declare namespace Cypress {
     moment: any;
     Blob: any;
     Promise: any;
+    Log: any;
 
     /**
      * @see https://on.cypress.io/api/cookies
@@ -73,7 +75,7 @@ declare namespace Cypress {
      */
     and(chainers: string, value?: any): Chainable;
     and(chainers: string, method: string, value: any): Chainable;
-    and(fn: (args: any[]) => void): Chainable;
+    and(fn: (currentSubject?: any) => void): Chainable;
 
     /**
      * @see https://on.cypress.io/api/as
@@ -155,7 +157,7 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/each
      */
-    each(fn: (args: any[]) => void): Chainable;
+    each(fn: (element?: any, index?: number, $list?: any) => void): Chainable;
 
     /**
      * @see https://on.cypress.io/api/end
@@ -232,7 +234,7 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/invoke
      */
-    invoke(functionName: string, args: any[]): Chainable;
+    invoke(functionName: string, ...args: any[]): Chainable;
 
     /**
      * @see https://on.cypress.io/api/its
@@ -247,7 +249,8 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/location
      */
-    location(options?: Loggable): Chainable;
+    location(options?: LoggableTimeoutable): Chainable;
+    location(key: string, options?: LoggableTimeoutable): Chainable;
 
     /**
      * @see https://on.cypress.io/api/log
@@ -315,9 +318,9 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/route
      */
-    route(url: string, response?: any): Chainable;
-    route(method: string, url: string, response?: any): Chainable;
-    route(fn: (args: any[]) => void | RouteOptions): Chainable;
+    route(url: string | RegExp, response?: any): Chainable;
+    route(method: string, url: string | RegExp, response?: any): Chainable;
+    route(fn: (() => RouteOptions) | RouteOptions): Chainable;
 
     /**
      * @see https://on.cypress.io/api/screenshot
@@ -346,7 +349,7 @@ declare namespace Cypress {
      */
     should(chainers: string, value?: any): Chainable;
     should(chainers: string, method: string, value: any): Chainable;
-    should(fn: (args: any[]) => void): Chainable;
+    should(fn: (currentSubject?: any) => void): Chainable;
 
     /**
      * @see https://on.cypress.io/api/siblings
@@ -357,7 +360,7 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/spread
      */
-    spread(fn: (args: any[]) => void): Chainable;
+    spread(fn: (...args: any[]) => any): Chainable;
 
     /**
      * @see https://on.cypress.io/api/submit
@@ -367,12 +370,18 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/then
      */
-    then(fn: (args: any[]) => void): Chainable;
+    then(fn: (currentSubject: any) => any, options?: Timeoutable): Chainable;
 
     /**
      * @see https://on.cypress.io/api/title
      */
     title(options?: Loggable): Chainable;
+
+    /**
+     * @description Trigger an event on a DOM element.
+     * @see https://docs.cypress.io/api/commands/trigger.html
+     */
+    trigger(eventName: string, position?: PositionType, x?: number, y?: number, options?: TriggerOptions): Chainable;
 
     /**
      * @see https://on.cypress.io/api/type
@@ -415,8 +424,8 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/within
      */
-    within(fn: (args: any[]) => void): Chainable;
-    within(options: Loggable, fn: (args: any[]) => void): Chainable; // inconsistent argument order
+    within(fn: (currentSubject?: any) => void): Chainable;
+    within(options: Loggable, fn: (currentSubject?: any) => void): Chainable; // inconsistent argument order
 
     /**
      * @see https://on.cypress.io/api/wrap
@@ -435,7 +444,7 @@ declare namespace Cypress {
   }
 
   interface CookieDefaults {
-    whitelist?: string | string[] | RegExp | ((args: any[]) => void);
+    whitelist?: string | string[] | RegExp | ((cookie: any) => boolean);
   }
 
   interface Loggable {
@@ -494,9 +503,9 @@ declare namespace Cypress {
     delay?: number;
     headers?: object;
     force404?: boolean;
-    onRequest?(args: any[]): void;
-    onResponse?(args: any[]): void;
-    onAbort?(args: any[]): void;
+    onRequest?(...args: any[]): void;
+    onResponse?(...args: any[]): void;
+    onAbort?(...args: any[]): void;
   }
 
   interface SelectOptions extends Loggable, Timeoutable {
@@ -510,13 +519,13 @@ declare namespace Cypress {
     status?: number;
     headers?: object;
     response?: any;
-    onRequest?(args: any[]): void;
-    onResponse?(args: any[]): void;
-    onAbort?(args: any[]): void;
+    onRequest?(...args: any[]): void;
+    onResponse?(...args: any[]): void;
+    onAbort?(...args: any[]): void;
     enable?: boolean;
     force404?: boolean;
     urlMatchingOptions?: object;
-    whitelist?(args: any[]): void;
+    whitelist?(...args: any[]): void;
   }
 
   interface SetCookieOptions extends Loggable, Timeoutable {
@@ -538,6 +547,16 @@ declare namespace Cypress {
     onBeforeLoad?(args: any[]): void;
     onLoad?(args: any[]): void;
   }
+
+  interface TriggerOptions {
+    log?: boolean;
+    force?: boolean;
+    bubbles?: boolean;
+    cancable?: boolean;
+    timeout?: number;
+  }
+
+  type PositionType = "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight";
 }
 
 declare const cy: Cypress.Chainable;

@@ -3,7 +3,7 @@
 // Definitions by:  David-LeBlanc-git <https://github.com/David-LeBlanc-git>
 //                  kittimiyo <https://github.com/kittimiyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -47,7 +47,7 @@ declare module "react-custom-scrollbars" {
         autoHeightMax?: number;
     }
 
-    export default class Scrollbars extends React.Component<ScrollbarProps, {}> {
+    export default class Scrollbars extends React.Component<ScrollbarProps> {
         scrollTop(top: number): void;
         scrollLeft(left: number): void;
         scrollToTop(): void;

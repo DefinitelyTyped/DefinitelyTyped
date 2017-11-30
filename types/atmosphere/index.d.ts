@@ -1,7 +1,10 @@
 // Type definitions for Atmosphere v2.1.5
 // Project: https://github.com/Atmosphere/atmosphere-javascript
-// Definitions by: Kai Toedter <https://github.com/toedter/>
+// Definitions by: Kai Toedter <https://github.com/toedter> 
+//                 Fedor Kirpichev <https://github.com/Mory1879>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// This is deprecated due to module name change. Please use 'atmosphere.js' for future development..
 
 declare namespace Atmosphere {
     interface Atmosphere {

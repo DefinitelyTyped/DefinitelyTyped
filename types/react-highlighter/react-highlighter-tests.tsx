@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Highlight from 'react-highlighter';
 
-export class ReactHolderTest extends React.Component<any, any> {
+export class ReactHolderTest extends React.Component {
     render() {
         return (
             <div>

@@ -158,7 +158,7 @@ gui.App.quit();
 // Get the name field in manifest
 gui.App.manifest.name
 
-gui.App.addOriginAccessWhitelistEntry('http://github.com/', 'app', 'myapp', true);
+gui.App.addOriginAccessWhitelistEntry('https://github.com/', 'app', 'myapp', true);
 
 
 /* CLIPBOARD */

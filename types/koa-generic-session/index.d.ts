@@ -1,13 +1,15 @@
 // Type definitions for koa-generic-session 1.x
 // Project: https://github.com/koajs/generic-session
-// Definitions by: Nick Simmons <https://github.com/nsimmons/>
+// Definitions by: Nick Simmons <https://github.com/nsimmons>, Ragg <https://github.com/Ragg->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Koa from "koa";
 
 declare namespace koaSession {
     interface Session {
         cookie: any;
+        [key: string]: any;
     }
 
     interface SessionIdStore {
@@ -48,6 +50,14 @@ declare namespace koaSession {
     }
 
     const MemoryStore: SessionStore;
+}
+
+declare module 'koa' {
+    interface Context {
+        session: koaSession.Session|null;
+        sessionSave: boolean|null;
+        regenerateSession(): Generator;
+    }
 }
 
 declare function koaSession(options: koaSession.SessionOptions): Koa.Middleware;

@@ -1,7 +1,42 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Simon Ramsay <https://github.com/nexus-uw>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
+//                 Michael Skarum <https://github.com/skarum>
+//                 Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>
+//                 Toby Hede <https://github.com/tobyhede>
+//                 Rich Buggy <https://github.com/buggy>
+//                 Yoriki Yamaguchi <https://github.com/y13i>
+//                 wwwy3y3 <https://github.com/wwwy3y3>
+//                 Ishaan Malhi <https://github.com/OrthoDex>
+//                 Daniel Cottone <https://github.com/daniel-cottone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
+// API Gateway "event" request context
+interface APIGatewayEventRequestContext {
+    accountId: string;
+    apiId: string;
+    authorizer?: AuthResponseContext | null | undefined;
+    httpMethod: string;
+    identity: {
+        accessKey: string | null;
+        accountId: string | null;
+        apiKey: string | null;
+        caller: string | null;
+        cognitoAuthenticationProvider: string | null;
+        cognitoAuthenticationType: string | null;
+        cognitoIdentityId: string | null;
+        cognitoIdentityPoolId: string | null;
+        sourceIp: string;
+        user: string | null;
+        userAgent: string | null;
+        userArn: string | null;
+    },
+    stage: string;
+    requestId: string;
+    resourceId: string;
+    resourcePath: string;
+}
 
 // API Gateway "event"
 interface APIGatewayEvent {
@@ -13,37 +48,19 @@ interface APIGatewayEvent {
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
     stageVariables: { [name: string]: string } | null;
-    requestContext: {
-        accountId: string;
-        apiId: string;
-        httpMethod: string;
-        identity: {
-            accessKey: string | null;
-            accountId: string | null;
-            apiKey: string | null;
-            caller: string | null;
-            cognitoAuthenticationProvider: string | null;
-            cognitoAuthenticationType: string | null;
-            cognitoIdentityId: string | null;
-            cognitoIdentityPoolId: string | null;
-            sourceIp: string;
-            user: string | null;
-            userAgent: string | null;
-            userArn: string | null;
-        },
-        stage: string;
-        requestId: string;
-        resourceId: string;
-        resourcePath: string;
-    };
+    requestContext: APIGatewayEventRequestContext;
     resource: string;
 }
 
 // API Gateway CustomAuthorizer "event"
 interface CustomAuthorizerEvent {
     type: string;
-    authorizationToken: string;
     methodArn: string;
+    authorizationToken?: string;
+    headers?: { [name: string]: string };
+    pathParameters?: { [name: string]: string } | null;
+    queryStringParameters?: { [name: string]: string } | null;
+    requestContext?: APIGatewayEventRequestContext;
 }
 
 // SNS "event"
@@ -85,44 +102,147 @@ interface SNSEvent {
  * S3Create event
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html
  */
-interface S3CreateEvent {
-    Records: [{
-        eventVersion: string;
-        eventSource: string;
-        awsRegion: string
-        eventTime: string;
-        eventName: string;
-        userIdentity: {
-            principalId: string;
-        },
-        requestParameters: {
-            sourceIPAddress: string;
-        },
-        responseElements: {
-            'x-amz-request-id': string;
-            'x-amz-id-2': string;
-        },
-        s3: {
-            s3SchemaVersion: string;
-            configurationId: string;
-            bucket: {
-                name: string;
-                ownerIdentity: {
-                    principalId: string;
-                },
-                arn: string;
+interface S3EventRecord {
+    eventVersion: string;
+    eventSource: string;
+    awsRegion: string
+    eventTime: string;
+    eventName: string;
+    userIdentity: {
+        principalId: string;
+    },
+    requestParameters: {
+        sourceIPAddress: string;
+    },
+    responseElements: {
+        'x-amz-request-id': string;
+        'x-amz-id-2': string;
+    },
+    s3: {
+        s3SchemaVersion: string;
+        configurationId: string;
+        bucket: {
+            name: string;
+            ownerIdentity: {
+                principalId: string;
             },
-            object: {
-                key: string;
-                size: number;
-                eTag: string;
-                versionId: string;
-                sequencer: string;
-            }
+            arn: string;
+        },
+        object: {
+            key: string;
+            size: number;
+            eTag: string;
+            versionId: string;
+            sequencer: string;
         }
     }
-    ];
 }
+
+interface S3CreateEvent {
+    Records: Array<S3EventRecord>;
+}
+
+/**
+ * Cognito User Pool event
+ * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
+ */
+interface CognitoUserPoolEvent {
+    version: number;
+    triggerSource: "PreSignUp_SignUp" | "PostConfirmation_ConfirmSignUp" | "PreAuthentication_Authentication" | "PostAuthentication_Authentication" | "CustomMessage_SignUp" | "CustomMessage_AdminCreateUser" | "CustomMessage_ResendCode" | "CustomMessage_ForgotPassword" | "CustomMessage_UpdateUserAttribute" | "CustomMessage_VerifyUserAttribute" | "CustomMessage_Authentication" | "DefineAuthChallenge_Authentication" | "CreateAuthChallenge_Authentication" | "VerifyAuthChallengeResponse_Authentication";
+    region: string;
+    userPoolId: string;
+    userName?: string;
+    callerContext: {
+        awsSdkVersion: string;
+        clientId: string;
+    };
+    request: {
+        userAttributes: {[key: string]: string};
+        validationData?: {[key: string]: string};
+        codeParameter?: string;
+        usernameParameter?: string;
+        newDeviceUsed?: boolean;
+        session?: {
+            challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
+            challengeResult: boolean;
+            challengeMetaData?: string;
+        }[];
+        challengeName?: string;
+        privateChallengeParameters?: {[key: string]: string};
+        challengeAnswer?: {[key: string]: string};
+    };
+    response: {
+        autoConfirmUser?: boolean;
+        smsMessage?: string;
+        emailMessage?: string;
+        emailSubject?: string;
+        challengeName?: string;
+        issueTokens?: boolean;
+        failAuthentication?: boolean;
+        publicChallengeParameters?: {[key: string]: string};
+        privateChallengeParameters?: {[key: string]: string};
+        challengeMetaData?: string;
+        answerCorrect?: boolean;
+    };
+}
+
+/**
+ * CloudFormation Custom Resource event and response
+ * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref.html
+ */
+type CloudFormationCustomResourceEventCommon = {
+    ServiceToken: string;
+    ResponseURL: string;
+    StackId: string;
+    RequestId: string;
+    LogicalResourceId: string;
+    ResourceType: string;
+    ResourceProperties: {
+        ServiceToken: string;
+        [Key: string]: any;
+    }
+}
+
+type CloudFormationCustomResourceCreateEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Create";
+}
+
+type CloudFormationCustomResourceUpdateEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Update";
+    PhysicalResourceId: string;
+    OldResourceProperties: {
+        [Key: string]: any;
+    };
+}
+
+type CloudFormationCustomResourceDeleteEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Delete";
+    PhysicalResourceId: string;
+}
+
+export type CloudFormationCustomResourceEvent = CloudFormationCustomResourceCreateEvent | CloudFormationCustomResourceUpdateEvent | CloudFormationCustomResourceDeleteEvent;
+
+type CloudFormationCustomResourceResponseCommon = {
+    PhysicalResourceId: string;
+    StackId: string;
+    RequestId: string;
+    LogicalResourceId: string;
+    Data?: {
+        [Key: string]: any;
+    }
+}
+
+type CloudFormationCustomResourceSuccessResponse = CloudFormationCustomResourceResponseCommon & {
+    Status: "SUCCESS";
+    Reason?: string;
+}
+
+type CloudFormationCustomResourceFailedResponse = CloudFormationCustomResourceResponseCommon & {
+    Status: "FAILED";
+    Reason: string;
+}
+
+export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
 
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
@@ -185,6 +305,7 @@ interface ProxyResult {
         [header: string]: boolean | number | string;
     },
     body: string;
+    isBase64Encoded?: boolean;
 }
 
 /**
@@ -211,9 +332,9 @@ interface PolicyDocument {
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
 interface Statement {
-    Action: string | [string];
+    Action: string | string[];
     Effect: string;
-    Resource: string | [string];
+    Resource: string | string[];
 }
 
 /**
@@ -243,8 +364,8 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback = (error?: Error, result?: any) => void;
-export type ProxyCallback = (error?: Error, result?: ProxyResult) => void;
-export type CustomAuthorizerCallback = (error?: Error, result?: AuthResponse) => void;
+export type Callback = (error?: Error | null, result?: object) => void;
+export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
+export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 
 export as namespace AWSLambda;

@@ -1,5 +1,5 @@
-import React = require('react');
-import Fluxxor = require('fluxxor');
+import * as React from 'react';
+import * as Fluxxor from 'fluxxor';
 
 class DispatcherTest {
     v: Fluxxor.Dispatcher;

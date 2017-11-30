@@ -24,6 +24,46 @@ browserSync({
     proxy: "yourlocal.dev"
 });
 
+browserSync({
+    proxy: {
+        target: "http://yourlocal.dev",
+        proxyReq: function(proxyReq) {
+           console.log(proxyReq);
+        }
+    }
+});
+
+browserSync({
+    proxy: {
+        target: "http://yourlocal.dev",
+        proxyReq: [
+            function(proxyReq) {
+                console.log(proxyReq);
+            }
+        ]
+    }
+});
+
+browserSync({
+    proxy: {
+        target: "http://yourlocal.dev",
+        proxyRes: function(proxyRes, req, res) {
+            console.log(proxyRes);
+        }
+    }
+});
+
+browserSync({
+    proxy: {
+        target: "http://yourlocal.dev",
+        proxyRes: [
+            function(proxyRes, req, res) {
+                console.log(proxyRes);
+            }
+        ]
+    }
+});
+
 var config = {
     server: {
         baseDir: "./"
@@ -82,7 +122,7 @@ var has = browserSync.has("My server");
 var bs = browserSync.create();
 
 bs.init({
-    server: "./app"
+    server: { index: "./app" }
 });
 
 bs.reload();

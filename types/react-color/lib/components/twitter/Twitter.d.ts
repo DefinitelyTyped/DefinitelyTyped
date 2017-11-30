@@ -1,6 +1,11 @@
 import { Component } from "react";
-import { ColorPickerProps } from "react-color";
+import { ColorPickerProps, Color } from "../../..";
 
-export type TwitterPickerProps = ColorPickerProps<TwitterPicker>;
+export interface TwitterPickerProps extends ColorPickerProps<TwitterPicker> {
+    colors?: string[];
+    width?: string;
+    triangle?: 'hide' | 'top-left' | 'top-right';
+    onSwatchHover?(color: Color, event: MouseEvent): void;
+}
 
-export default class TwitterPicker extends Component<TwitterPickerProps, any> {}
+export default class TwitterPicker extends Component<TwitterPickerProps> {}

@@ -1,6 +1,6 @@
 // Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var _: _.UnderscoreStatic;
@@ -920,7 +920,7 @@ declare module _ {
         **/
         uniq<T, TSort>(
             array: _.List<T>,
-            iterator?: _.ListIterator<T, TSort>,
+            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**
@@ -937,7 +937,7 @@ declare module _ {
         unique<T, TSort>(
             array: _.List<T>,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, TSort>,
+            iterator?: _.ListIterator<T, TSort>  | _.IterateePropertyShorthand,
             context?: any): T[];
 
 
@@ -1058,12 +1058,15 @@ declare module _ {
         * @param list The sorted list.
         * @param value The value to determine its index within `list`.
         * @param iterator Iterator to compute the sort ranking of each value, optional.
+        * @param context `this` object in `iterator`, optional.
         * @return The index where `value` should be inserted into `list`.
         **/
         sortedIndex<T, TSort>(
             list: _.List<T>,
             value: T,
-            iterator?: (x: T) => TSort, context?: any): number;
+            iterator?: ((x: T) => TSort) | string,
+            context?: any
+        ): number;
 
         /**
         * A function to create flexibly-numbered lists of integers, handy for each and map loops. start, if omitted,
@@ -4512,7 +4515,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any>): T[];
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> |  _.IterateePropertyShorthand): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -5472,23 +5475,23 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any>): _Chain<T>;
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq<TSort>(iterator?: _.ListIterator<T, TSort>, context?: any): _Chain<T>;
+        uniq<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
 
         /**
         * @see _.uniq
         **/
-        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort>): _Chain<T>;
+        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand): _Chain<T>;
 
         /**
         * @see _.uniq
         **/
-        unique<TSort>(iterator?: _.ListIterator<T, TSort>, context?: any): _Chain<T>;
+        unique<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5689,7 +5692,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<T>;
+        pairs(): _Chain<T[]>;
 
         /**
         * Wrapped type `object`.
@@ -6042,7 +6045,7 @@ declare module _ {
         * @param compareFn Optional. Specifies a function that defines the sort order. If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.
         * @return The sorted array.
         **/
-        sort(compareFn: (a: T, b: T) => boolean): _Chain<T>;
+        sort(compareFn?: (a: T, b: T) => boolean): _Chain<T>;
 
         /**
         * Changes the content of an array by removing existing elements and/or adding new elements.

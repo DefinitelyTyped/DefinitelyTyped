@@ -3,73 +3,92 @@
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace ECharts {
-    function init(dom:HTMLDivElement|HTMLCanvasElement, theme?:Object|string, opts?:{
+declare namespace echarts {
+    function init(dom: HTMLDivElement | HTMLCanvasElement, theme?: Object | string, opts?: {
         devicePixelRatio?: number
         renderer?: string
-    }):ECharts;
+    }): ECharts;
 
-    function connect(group:string|Array<string>):void;
+    const graphic: {
+        clipPointsByRect(points: number[][], rect: ERectangle): number[][];
+        clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
+        LinearGradient: { new  (x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): LinearGradient }
 
-    function disConnect(group:string):void;
+    };
 
-    function dispose(target:ECharts|HTMLDivElement|HTMLCanvasElement):void;
 
-    function getInstanceByDom(target:HTMLDivElement|HTMLCanvasElement):void;
+    function connect(group: string | Array<string>): void;
 
-    function registerMap(mapName:string, geoJson:Object, specialAreas?:Object):void;
+    function disConnect(group: string): void;
 
-    function registerTheme(themeName:string, theme:Object):void;
+    function dispose(target: ECharts | HTMLDivElement | HTMLCanvasElement): void;
 
-    class ECharts {
-        group:string;
+    function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement): void;
 
-        setOption(option:EChartOption, notMerge?:boolean, notRefreshImmediately?:boolean):void
+    function registerMap(mapName: string, geoJson: Object, specialAreas?: Object): void;
 
-        getWidth():number
+    function registerTheme(themeName: string, theme: Object): void;
 
-        getHeight():number
+    interface LinearGradient {
+        colorStops: Array<Object>;
+        global: boolean;
+        type: string;
+        x: number
+        x2: number
+        y: number
+        y2: number
+    }
 
-        getDom():HTMLCanvasElement|HTMLDivElement
 
-        getOption():Object
+    interface ECharts {
+        group: string;
 
-        resize():void
+        setOption(option: EChartOption, notMerge?: boolean, notRefreshImmediately?: boolean): void
 
-        dispatchAction(payload:Object):void
+        getWidth(): number
 
-        on(eventName:string, handler:Function, context?:Object):void
+        getHeight(): number
 
-        off(eventName:string, handler?:Function):void
+        getDom(): HTMLCanvasElement | HTMLDivElement
 
-        showLoading(type?:string, opts?:Object):void
+        getOption(): Object
 
-        hideLoading():void
+        resize(): void
 
-        getDataURL(opts:{
+        dispatchAction(payload: Object): void
+
+        on(eventName: string, handler: Function, context?: Object): void
+
+        off(eventName: string, handler?: Function): void
+
+        showLoading(type?: string, opts?: Object): void
+
+        hideLoading(): void
+
+        getDataURL(opts: {
             // 导出的格式，可选 png, jpeg
             type?: string,
             // 导出的图片分辨率比例，默认为 1。
             pixelRatio?: number,
             // 导出的图片背景色，默认使用 option 里的 backgroundColor
             backgroundColor?: string
-        }):string
+        }): string
 
-        getConnectedDataURL(opts:{
+        getConnectedDataURL(opts: {
             // 导出的格式，可选 png, jpeg
             type: string,
             // 导出的图片分辨率比例，默认为 1。
             pixelRatio: number,
             // 导出的图片背景色，默认使用 option 里的 backgroundColor
             backgroundColor: string
-        }):string
+        }): string
 
-        clear():void
+        clear(): void
 
-        isDisposed():boolean
+        isDisposed(): boolean
 
-        dispose():void
-        
+        dispose(): void
+
         // 转换逻辑点到像素
         convertToPixel(finder: {
             seriesIndex?: number,
@@ -87,7 +106,32 @@ declare namespace ECharts {
             gridIndex?: number,
             gridId?: string
             gridName?: string
-        } | string, value: string|Array<any>): string|Array<any>
+        } | string, value: string | Array<any>): string | Array<any>
+
+        convertFromPixel(finder: {
+            seriesIndex?: number,
+            seriesId?: string,
+            seriesName?: string,
+            geoIndex?: number,
+            geoId?: string,
+            geoName?: string,
+            xAxisIndex?: number,
+            xAxisId?: string,
+            xAxisName?: string,
+            yAxisIndex?: number,
+            yAxisId?: string,
+            yAxisName?: string,
+            gridIndex?: number,
+            gridId?: string
+            gridName?: string
+        } | string, value: Array<any> | string): Array<any> | string
+    }
+
+    interface ERectangle {
+        x: number,
+        y: number,
+        width: number,
+        height: number
     }
 
     interface EChartOption {
@@ -147,6 +191,6 @@ declare namespace ECharts {
     }
 }
 
-declare module "echarts" {
-    export = ECharts;
+declare module 'echarts' {
+    export = echarts;
 }

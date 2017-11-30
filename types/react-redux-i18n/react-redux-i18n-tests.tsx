@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as I18n from "react-redux-i18n";
 
-class ReactReduxI18nTests_Translate1 extends React.Component<React.Props<{}>, {}>{
+class ReactReduxI18nTests_Translate1 extends React.Component<React.Props<{}>>{
 
   render() {
     return (
@@ -12,7 +12,7 @@ class ReactReduxI18nTests_Translate1 extends React.Component<React.Props<{}>, {}
 
 
 
-class ReactReduxI18nTests_Translate2 extends React.Component<React.Props<{}>, {}>{
+class ReactReduxI18nTests_Translate2 extends React.Component<React.Props<{}>>{
 
   render() {
     return (
@@ -22,7 +22,7 @@ class ReactReduxI18nTests_Translate2 extends React.Component<React.Props<{}>, {}
 }
 
 
-class ReactReduxI18nTests_Translate3 extends React.Component<React.Props<{}>, {}>{
+class ReactReduxI18nTests_Translate3 extends React.Component<React.Props<{}>>{
 
   render() {
     return (
@@ -32,7 +32,7 @@ class ReactReduxI18nTests_Translate3 extends React.Component<React.Props<{}>, {}
 }
 
 
-class ReactReduxI18nTests_Translate4 extends React.Component<React.Props<{}>, {}>{
+class ReactReduxI18nTests_Translate4 extends React.Component<React.Props<{}>>{
 
   render() {
     return (
@@ -43,8 +43,8 @@ class ReactReduxI18nTests_Translate4 extends React.Component<React.Props<{}>, {}
 
 function testI18Helper() {
   I18n.I18n.t('application.title'); // => returns 'Toffe app met i18n!'
-  I18n.I18n.t('application.name', { name: 'Aad' }); // => returns 'Hallo, Aad!' 
+  I18n.I18n.t('application.name', { name: 'Aad' }); // => returns 'Hallo, Aad!'
 
   I18n.I18n.l(1385856000000, { dateFormat: 'date.long' }); // => returns '1 december 2013'
-  I18n.I18n.l(Math.PI, { maximumFractionDigits: 2 }); // => returns '3,14' 
+  I18n.I18n.l(Math.PI, { maximumFractionDigits: 2 }); // => returns '3,14'
 }

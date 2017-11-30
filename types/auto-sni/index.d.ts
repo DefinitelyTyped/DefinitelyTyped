@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import {Server} from "https";
+import { Server } from "https";
 
 declare namespace createServer {
 	interface Options {

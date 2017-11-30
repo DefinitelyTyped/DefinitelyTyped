@@ -1,13 +1,21 @@
-// Type definitions for react-big-calendar 0.12.3
+// Type definitions for react-big-calendar 0.15.0
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-big-calendar' {
     import * as React from 'react';
 
     type stringOrDate = string | Date;
+
+    interface CalendarEvent {
+        title: string;
+        allDay: boolean;
+        start: Date;
+        end: Date;
+        desc: string;
+    }
 
     interface BigCalendarProps extends React.Props<BigCalendar> {
         date?: stringOrDate;
@@ -16,7 +24,7 @@ declare module 'react-big-calendar' {
         onNavigate?: Function;
         onView?: Function;
         onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[] }) => void;
-        onSelectEvent?: (event: Object) => void;
+        onSelectEvent?: (event: CalendarEvent) => void;
         onSelecting?: (slotInfo: { start: stringOrDate, end: stringOrDate }) => boolean;
         views?: Object;
         toolbar?: boolean;
@@ -42,7 +50,7 @@ declare module 'react-big-calendar' {
         elementProps?: React.HTMLAttributes<HTMLElement>;
     }
 
-    class BigCalendar extends React.Component<BigCalendarProps, {}> {
+    class BigCalendar extends React.Component<BigCalendarProps> {
         /**
          * Setup the localizer by providing the moment Object
          */
@@ -53,9 +61,5 @@ declare module 'react-big-calendar' {
         static globalizeLocalizer(globalizeInstance: Object): void;
     }
 
-    /* This enables 'import * as BigCalendar' syntax when compiling to es2015 */
-    namespace BigCalendar {}
-
-    /* react-big-calendar is exported as a commonjs module (it uses babel-preset-jason) */
-    export = BigCalendar;
+    export default BigCalendar;
 }

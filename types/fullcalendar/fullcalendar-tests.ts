@@ -418,7 +418,7 @@ $('#calendar').fullCalendar({
 
 $('#calendar').fullCalendar({
     dayClick(date, jsEvent, view) {
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        alert(`Coordinates: ${jsEvent.pageX},${jsEvent.pageY}`);
 
         alert('Current view: ' + view.name);
 
@@ -430,7 +430,7 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar({
     eventClick(calEvent, jsEvent, view) {
         alert('Event: ' + calEvent.title);
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        alert(`Coordinates: ${jsEvent.pageX},${jsEvent.pageY}`);
         alert('View: ' + view.name);
 
         // change the border color just for fun
@@ -622,11 +622,8 @@ $('#calendar').fullCalendar({
     eventColor: '#378006'
 });
 
-interface EventWithDescription extends FullCalendar.EventObject {
-    description: string;
-}
-interface JQuery {
-    qtip: any; // dummy plugin interface
+interface JQueryQTip extends JQuery {
+    qtip(options: Object): JQuery; // dummy plugin interface
 }
 
 $('#calendar').fullCalendar({
@@ -638,7 +635,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender(event: EventWithDescription, element: any, view: any) {
+    eventRender(event: FullCalendar.EventObject, element: JQueryQTip, view: FullCalendar.ViewObject) {
         element.qtip({
             content: event.description
         });
@@ -652,7 +649,7 @@ $('#my-draggable').draggable({
 $('#calendar').fullCalendar({
     droppable: true,
     drop(date, allDay) {
-        alert("Dropped on " + date + " with allDay=" + allDay);
+        alert(`Dropped on ${date} with allDay=${allDay}`);
     }
 });
 
@@ -674,7 +671,6 @@ $(document).ready(() => {
     const y = date.getFullYear();
 
     $('#calendar').fullCalendar({
-        theme: true,
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -793,7 +789,6 @@ $(document).ready(() => {
     const y = date.getFullYear();
 
     $('#calendar').fullCalendar({
-        theme: true,
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -827,7 +822,6 @@ $(document).ready(() => {
     });
 
     $('#calendar').fullCalendar({
-        theme: true,
         header: {
             left: 'prev,next today',
             center: 'title',

@@ -1,7 +1,9 @@
 // Type definitions for jquery.fancytree 2.7.0
 // Project: https://github.com/mar10/fancytree
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
+//                 Mahdi Abedi <https://github.com/abedi-ir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 ///<reference types="jquery" />
@@ -188,6 +190,13 @@ declare namespace Fancytree {
 
         /** Write warning to browser console (prepending tree info) */
         warn(msg: any): void;
+
+        /** Temporarily suppress rendering to improve performance on bulk-updates.
+        *
+        * @param {boolean} flag
+        * @returns {boolean} previous status
+        * @since 2.19 */
+        enableUpdate(enabled: boolean): void;
     }
 
     /** A FancytreeNode represents the hierarchical data model and operations. */
@@ -720,6 +729,8 @@ declare namespace Fancytree {
         restore?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was selected */
         select?(event: JQueryEventObject, data: EventData): void;
+        /** Enable RTL version, default is false */
+        rtl?: boolean;
     }
 
     interface FancytreeOptions extends FancytreeEvents {

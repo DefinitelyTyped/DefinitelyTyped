@@ -2,6 +2,7 @@
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="express-session" />
 
@@ -90,14 +91,16 @@ declare namespace connectMongo {
         mongooseConnection: mongoose.Connection;
     }
 
-    export interface NaitiveMongoOptions extends DefaultOptions {
+    export interface NativeMongoOptions extends DefaultOptions {
         db: mongodb.Db;
     }
 
+    export interface NativeMongoPromiseOptions extends DefaultOptions {
+        dbPromise: Promise<mongodb.Db>;
+    }
+
     export interface MongoStoreFactory {
-        new (options: MongoUrlOptions): MongoStore;
-        new (options: MogooseConnectionOptions): MongoStore;
-        new (options: NaitiveMongoOptions): MongoStore;
+        new(options: MongoUrlOptions | MogooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
     }
 
     export class MongoStore extends session.Store {

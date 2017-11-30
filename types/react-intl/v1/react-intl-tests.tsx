@@ -5,7 +5,7 @@
 import * as React from 'react'
 
 import * as reactMixin from 'react-mixin'
-import {IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate} from 'react-intl'
+import { IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate } from 'react-intl'
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ namespace I18nDirect {
     export interface Props extends IntlComponent.Props {}
 }
 
-class I18nDirect extends React.Component<I18nDirect.Props, any> {
+class I18nDirect extends React.Component<I18nDirect.Props> {
 
     private _currentLocale: string
     private _messages: {[key: string]: string}
@@ -102,7 +102,7 @@ namespace I18nMixin {
 }
 
 @reactMixin.decorate( IntlMixin )
-class I18nMixin extends React.Component<I18nMixin.Props, any> implements IntlComponent {
+class I18nMixin extends React.Component<I18nMixin.Props> implements IntlComponent {
 
     private _currentLocale: string
 

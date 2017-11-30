@@ -2,6 +2,7 @@
 // Project: http://isotope.metafizzy.co/
 // Definitions by: Anže Videnič <https://github.com/avidenic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

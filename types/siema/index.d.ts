@@ -1,4 +1,4 @@
-// Type definitions for siema 1.0
+// Type definitions for siema 1.4
 // Project: https://github.com/pawelgrzybek/siema
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,14 @@ declare class Siema {
 
     constructor(options?: SiemaOptions);
 
-    next(): void;
-    prev(): void;
-    goTo(index: number): void;
+    next(index?: number, callback?: () => void): void;
+    prev(index?: number, callback?: () => void): void;
+    goTo(index: number, callback?: () => void): void;
+    remove(index: number, callback?: () => void): void;
+    insert(item: any, index: number, callback?: () => void): void;
+    prepend(item: any, callback?: () => void): void;
+    append(item: any, callback?: () => void): void;
+    destroy(restoreMarkup: boolean, callback?: () => void): void;
 }
 
 interface SiemaOptions {
@@ -19,8 +24,11 @@ interface SiemaOptions {
     perPage?: number;
     startIndex?: number;
     draggable?: boolean;
+    multipleDrag?: boolean;
     threshold?: number;
     loop?: boolean;
+    onInit(): void;
+    onChange?(): void;
 }
 
 export = Siema;

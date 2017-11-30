@@ -1,5 +1,7 @@
 function testConstructor() {
-    type MyModel = { numericProperty: number };
+    interface MyModel {
+        numericProperty: number;
+    }
 
     let db = new PouchDB<MyModel>(null, {
         adapter: 'memory',

@@ -2,7 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
@@ -62,7 +62,7 @@ declare namespace TestUtils {
     }
 
     export interface EventSimulator {
-        (element: Element | Component<any, any>, eventData?: SyntheticEventData): void;
+        (element: Element | Component<any>, eventData?: SyntheticEventData): void;
     }
 
     export interface MockedComponentClass {
@@ -80,6 +80,7 @@ declare namespace TestUtils {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;
+        export var contextMenu: EventSimulator;
         export var copy: EventSimulator;
         export var cut: EventSimulator;
         export var doubleClick: EventSimulator;
@@ -119,10 +120,10 @@ declare namespace TestUtils {
         element: DOMElement<any, T>): T;
     export function renderIntoDocument(
         element: SFCElement<any>): void;
-    export function renderIntoDocument<T extends Component<any, any>>(
+    export function renderIntoDocument<T extends Component<any>>(
         element: CElement<any, T>): T;
     export function renderIntoDocument<P>(
-        element: ReactElement<P>): Component<P, {}> | Element | void;
+        element: ReactElement<P>): Component<P> | Element | void;
 
     export function mockComponent(
         mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
@@ -133,38 +134,38 @@ declare namespace TestUtils {
         element: ReactElement<any>, type: string): element is DOMElement<P, T>;
     export function isElementOfType<P>(
         element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
-    export function isElementOfType<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+    export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
         element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
 
     export function isDOMComponent(instance: ReactInstance): instance is Element;
-    export function isCompositeComponent(instance: ReactInstance): instance is Component<any, any>;
-    export function isCompositeComponentWithType<T extends Component<any, any>, C extends ComponentClass<any>>(
+    export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
+    export function isCompositeComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
         instance: ReactInstance, type: ClassType<any, T, C>): T;
 
     export function findAllInRenderedTree(
-        root: Component<any, any>,
+        root: Component<any>,
         fn: (i: ReactInstance) => boolean): ReactInstance[];
 
     export function scryRenderedDOMComponentsWithClass(
-        root: Component<any, any>,
+        root: Component<any>,
         className: string): Element[];
     export function findRenderedDOMComponentWithClass(
-        root: Component<any, any>,
+        root: Component<any>,
         className: string): Element;
 
     export function scryRenderedDOMComponentsWithTag(
-        root: Component<any, any>,
+        root: Component<any>,
         tagName: string): Element[];
     export function findRenderedDOMComponentWithTag(
-        root: Component<any, any>,
+        root: Component<any>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
-        root: Component<any, any>,
+    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+        root: Component<any>,
         type: ClassType<any, T, C>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
-        root: Component<any, any>,
+    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+        root: Component<any>,
         type: ClassType<any, T, C>): T;
 
     export function createRenderer(): ShallowRenderer;

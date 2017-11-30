@@ -1,20 +1,19 @@
-// Type definitions for react-loadable 3.3
+// Type definitions for react-loadable 5.3
 // Project: https://github.com/thejameskyle/react-loadable#readme
-// Definitions by: Diogo Franco <https://github.com/Kovensky>
+// Definitions by: Diogo Franco <https://github.com/Kovensky>, Oden S. <https://github.com/odensc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import * as React from 'react';
-
-export type LoadedComponent<Props> = React.ComponentClass<Props> | React.SFC<Props>;
 
 export interface LoadingComponentProps {
     isLoading: boolean;
     pastDelay: boolean;
+    timedOut: boolean;
     error: any;
 }
 
-export type Options<Props, T extends object> = OptionsWithoutResolve<Props> | OptionsWithResolve<Props, T>;
+export type Options<Props, Exports extends object> = OptionsWithoutRender<Props> | OptionsWithRender<Props, Exports>;
 
 export interface CommonOptions {
     /**
@@ -24,64 +23,106 @@ export interface CommonOptions {
      * (this is considered a valid React component).
      */
     // NOTE: () => null is only needed until React.SFC supports components returning null
-    LoadingComponent: React.ComponentClass<LoadingComponentProps> | React.SFC<LoadingComponentProps> | (() => null);
+    loading: React.ComponentType<LoadingComponentProps> | (() => null);
     /**
-     * Defaults to 200, in milliseconds
+     * Defaults to 200, in milliseconds.
      *
-     * Only show the LoadingComponent if the loader() has taken this long to succeed or error.
+     * Only show the loading component if the loader() has taken this long to succeed or error.
      */
-    delay?: number;
+    delay?: number | false | null;
     /**
-     * When rendering server-side, require() this path to load the component instead, this way it happens
-     * synchronously. If you are rendering server-side you should use this option.
+     * Disabled by default.
      *
-     * If you are using Babel, you might want to use the Babel plugin to add this option automatically.
+     * After the specified time in milliseconds passes, the component's `timedOut` prop will be set to true.
      */
-    serverSideRequirePath?: string;
+    timeout?: number | false | null;
+
     /**
-     * In order for Loadable to require() a component synchronously (when possible) instead of waiting for
-     * the promise returned by import() to resolve. If you are using Webpack you should use this option.
+     * Optional array of module paths that `Loadable.Capture`'s `report` function will be applied on during
+     * server-side rendering. This helps the server know which modules were imported/used during SSR.
+     * ```ts
+     * Loadable({
+     *   loader: () => import('./my-component'),
+     *   modules: ['./my-component'],
+     * });
+     * ```
+     */
+    modules?: string[];
+
+    /**
+     * An optional function which returns an array of Webpack module ids which you can get
+     * with require.resolveWeak. This is used by the client (inside `Loadable.preloadReady`) to
+     * guarantee each webpack module is preloaded before the first client render.
+     * ```ts
+     * Loadable({
+     *  loader: () => import('./Foo'),
+     *  webpack: () => [require.resolveWeak('./Foo')],
+     * });
+     * ```
+     */
+    webpack?: () => number[];
+}
+
+export interface OptionsWithoutRender<Props> extends CommonOptions {
+    /**
+     * Function returning a promise which returns a React component displayed on success.
+     *
+     * Resulting React component receives all the props passed to the generated component.
+     */
+    loader(): Promise<React.ComponentType<Props> | { default: React.ComponentType<Props> }>;
+}
+
+export interface OptionsWithRender<Props, Exports extends object> extends CommonOptions {
+    /**
+     * Function returning a promise which returns an object to be passed to `render` on success.
+     */
+    loader(): Promise<Exports>;
+    /**
+     * If you want to customize what gets rendered from your loader you can also pass `render`.
+     *
+     * Note: If you want to load multiple resources at once, you can also use `Loadable.Map`.
      *
      * ```ts
      * Loadable({
      *     // ...
-     *     webpackRequireWeakId: () => require.resolveWeak('./MyComponent')
+     *     render(loaded, props) {
+     *         const Component = loaded.default;
+     *         return <Component {...props} />
+     *     }
      * });
      * ```
-     *
-     * If you are using Babel, you might want to use the Babel plugin to add this option automatically.
      */
-    webpackRequireWeakId?(): number|string;
+    render(loaded: Exports, props: Props): React.ReactNode;
+
+    // NOTE: render is not optional if the loader return type is not compatible with the type
+    // expected in `OptionsWithoutRender`. If you do not want to provide a render function, ensure that your
+    // function is returning a promise for a React.ComponentType or is the result of import()ing a module
+    // that has a component as its `default` export.
 }
 
-export interface OptionsWithoutResolve<Props> extends CommonOptions {
+export interface OptionsWithMap<Props, Exports extends { [key: string]: any }> extends CommonOptions {
     /**
-     * Function returning promise returning a React component displayed on success.
-     *
-     * Resulting React component receives all the props passed to the generated component.
+     * An object containing functions which return promises, which resolve to an object to be passed to `render` on success.
      */
-    loader(): Promise<LoadedComponent<Props> | { default: LoadedComponent<Props> }>;
-}
-
-export interface OptionsWithResolve<Props, T extends object> extends CommonOptions {
+    loader: {
+        [P in keyof Exports]: () => Promise<Exports[P]>
+    };
     /**
-     * Function returning promise returning a React component displayed on success.
+     * If you want to customize what gets rendered from your loader you can also pass `render`.
      *
-     * Resulting React component receives all the props passed to the generated component.
-     */
-    loader(): Promise<T>;
-    /**
-     * If the component that you want to load is not the default exported from a module you can use this
-     * function to resolve it.
+     * Note: If you want to load multiple resources at once, you can also use `Loadable.Map`.
      *
      * ```ts
      * Loadable({
      *     // ...
-     *     resolveModule: module => module.MyComponent
+     *     render(loaded, props) {
+     *         const Component = loaded.default;
+     *         return <Component {...props} />
+     *     }
      * });
      * ```
      */
-    resolveModule(obj: T): LoadedComponent<Props>;
+    render(loaded: Exports, props: Props): React.ReactNode;
 }
 
 export interface LoadableComponent {
@@ -96,22 +137,48 @@ export interface LoadableComponent {
     preload(): void;
 }
 
-export default function Loadable<Props, T extends object>(options: Options<Props, T>): LoadedComponent<Props> & LoadableComponent;
+export interface LoadableCaptureProps {
+    /**
+     * Function called for every moduleName that is rendered via React Loadable.
+     */
+    report: (moduleName: string) => void;
+}
 
-/**
- * In case you are rendering server-side and want to find out after a render cycle which
- * serverSideRequirePath's and webpackRequireWeakId's were actually rendered, you can use
- * flushServerSideRequirePaths or flushWebpackRequireWeakIds to get an array of them.
- *
- * Note: These are flushed individually, one does not affect the other.
- */
-export function flushServerSideRequirePaths(): string[];
+export interface Loadable {
+    <Props, Exports extends object>(options: Options<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
+    Map<Props, Exports extends { [key: string]: any }>(options: OptionsWithMap<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
 
-/**
- * In case you are rendering server-side and want to find out after a render cycle which
- * serverSideRequirePath's and webpackRequireWeakId's were actually rendered, you can use
- * flushServerSideRequirePaths or flushWebpackRequireWeakIds to get an array of them.
- *
- * Note: These are flushed individually, one does not affect the other.
- */
-export function flushWebpackRequireWeakIds(): string[]|number[];
+    /**
+     * This will call all of the LoadableComponent.preload methods recursively until they are all
+     * resolved. Allowing you to preload all of your dynamic modules in environments like the server.
+     * ```ts
+     * Loadable.preloadAll().then(() => {
+     *   app.listen(3000, () => {
+     *     console.log('Running on http://localhost:3000/');
+     *   });
+     * });
+     * ```
+     */
+    preloadAll(): Promise<void>;
+
+    /**
+     * Check for modules that are already loaded in the browser and call the matching
+     * `LoadableComponent.preload` methods.
+     * ```ts
+     * window.main = () => {
+     *   Loadable.preloadReady().then(() => {
+     *     ReactDOM.hydrate(
+     *       <App/>,
+     *       document.getElementById('app'),
+     *     );
+     *   });
+     * };
+     * ```
+     */
+    preloadReady(): Promise<void>;
+
+    Capture: React.ComponentType<LoadableCaptureProps>;
+}
+
+declare const LoadableExport: Loadable;
+export default LoadableExport;

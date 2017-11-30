@@ -1,6 +1,6 @@
 // Type definitions for browser-sync
 // Project: http://www.browsersync.io/
-// Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Asana <https://asana.com>, Joe Skeen <https://github.com/joeskeen>
 //                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -48,6 +48,7 @@ declare namespace browserSync {
          * middleware - Default: undefined
          * reqHeaders - Default: undefined
          * proxyRes - Default: undefined
+         * proxyReq - Default: undefined
          */
         proxy?: string | boolean | ProxyOptions;
         /**
@@ -291,9 +292,10 @@ declare namespace browserSync {
     interface ProxyOptions {
         target?: string;
         middleware?: MiddlewareHandler;
-        ws: boolean;
-        reqHeaders: (config: any) => Hash<any>;
-        proxyRes: (res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any;
+        ws?: boolean;
+        reqHeaders?: (config: any) => Hash<any>;
+        proxyRes?: ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any)[] | ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any);
+        proxyReq?: ((res: http.ServerRequest) => any)[] | ((res: http.ServerRequest) => any);
     }
 
     interface MiddlewareHandler {

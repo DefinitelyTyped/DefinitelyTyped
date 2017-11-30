@@ -2,6 +2,7 @@
 // Project: https://github.com/VinceG/twitter-bootstrap-wizard
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

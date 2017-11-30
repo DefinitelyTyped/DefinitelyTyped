@@ -6,7 +6,6 @@ import {
     ObjectValueNode
 } from '../language/ast';
 
-
 export function valueFromAST(
     valueNode: ValueNode,
     type: GraphQLInputType,

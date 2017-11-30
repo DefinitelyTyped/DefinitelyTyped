@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/youtube/v3/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 /// <reference types="gapi" />
 
@@ -1621,7 +1621,7 @@ interface GoogleApiYouTubePlaylistResource {
         /**
          * A map of thumbnail images associated with the playlist. For each object in the map, the key is the name of the thumbnail image, and the value is an object that contains other information about the thumbnail.
          */
-        thumbnails: GoogleApiYouTubeThumbnailItemResource[];
+        thumbnails: GoogleApiYouTubeThumbnailResource;
         /**
          * The channel title of the channel that the video belongs to.
          */
@@ -1813,6 +1813,14 @@ interface GoogleApiYouTubeThumbnailResource {
      * A high resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
      */
     high: GoogleApiYouTubeThumbnailItemResource;
+    /**
+     * A standard resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
+     */
+    standard?: GoogleApiYouTubeThumbnailItemResource;
+    /**
+     * A very high resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
+     */
+    maxres?: GoogleApiYouTubeThumbnailItemResource;
 }
 
 interface GoogleApiYouTubeThumbnailItemResource {

@@ -458,8 +458,8 @@ function test_bloodhout() {
             whitespace: (str: string) => { return new Array<string>(); },
             nonword: (str: string) => { return new Array<string>(); },
             obj: {
-                whitespace: (str: string) => { return new Array<string>(); },
-                nonword: (str: string) => { return new Array<string>(); }
+                whitespace: (str: string) => (obj: any) => { return new Array<string>(); },
+                nonword: (str: string) => (obj: any) => { return new Array<string>(); }
             }
         };
     }

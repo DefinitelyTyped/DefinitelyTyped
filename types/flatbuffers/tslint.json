@@ -1,6 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-      "align": false
-    }
+	"extends": "dtslint/dt.json",
+	"rules": {
+		"dt-header": false
+	}
 }

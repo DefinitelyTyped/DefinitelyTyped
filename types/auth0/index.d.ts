@@ -1,27 +1,51 @@
-// Type definitions for auth0 2.4
+// Type definitions for auth0 2.5
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>
+// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Promise from 'bluebird';
 
 export interface ManagementClientOptions {
-  token: string;
-  domain?: string;
+  token?: string;
+  domain: string;
+  clientId?: string;
+  clientSecret?: string;
+  audience?: string;
+  scope?: string;
+  tokenProvider?: TokenProvider;
+}
+
+export interface TokenProvider {
+  enableCache: boolean;
+  cacheTTLInSeconds?: number;
 }
 
 export interface UserMetadata { }
 export interface AppMetadata { }
 
 export interface UserData {
-  connection: string;
   email?: string;
   username?: string;
+  email_verified?: boolean;
+  verify_email?: boolean;
   password?: string;
   phone_number?: string;
+  phone_verified?: boolean,
   user_metadata?: UserMetadata;
-  email_verified?: boolean;
   app_metadata?: AppMetadata;
+}
+
+export interface CreateUserData extends UserData {
+  connection: string;
+}
+
+export interface UpdateUserData extends UserData {
+  connection?: string;
+  blocked?: boolean;
+  verify_phone_number?: boolean,
+  verify_password?: boolean,
+  client_id?: string
 }
 
 export interface GetUsersData {
@@ -34,6 +58,111 @@ export interface GetUsersData {
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface Rule {
+  /**
+   * The name of the rule.
+   */
+  name?: string;
+  /**
+   * The rule's identifier.
+   */
+  id?: string;
+  /**
+   * The code to be executed when the rule runs.
+   */
+  script?: string;
+  /**
+   * The rule's execution stage.
+   */
+  stage?: string;
+  /**
+   * `true` if the connection is enabled, `false` otherwise.
+   */
+  enabled?: boolean;
+  /**
+   * The rule's order in relation to other rules. A rule with a lower order than another rule executes first.
+   */
+  order?: number;
+}
+
+
+export interface Client {
+  /**
+   * The name of the client.
+   */
+  name?: string;
+  /**
+   * Free text description of the purpose of the Client. (Max character length: `140`).
+   */
+  description?: string;
+  /**
+   * The id of the client.
+   */
+  client_id?: string;
+  /**
+   * The client secret, it must not be public.
+   */
+  client_secret?: string;
+  /**
+   * The type of application this client represents.
+   */
+  app_type?: string;
+  /**
+   * The URL of the client logo (recommended size: 150x150).
+   */
+  logo_uri?: string;
+  /**
+   * Whether this client a first party client or not.
+   */
+  is_first_party?: boolean;
+  /**
+   * Whether this client will conform to strict OIDC specifications.
+   */
+  oidc_conformant?: boolean;
+  /**
+   * The URLs that Auth0 can use to as a callback for the client.
+   */
+  callbacks?: string[];
+  allowed_origins?: string[];
+  web_origins?: string[];
+  client_aliases?: string[];
+  allowed_clients?: string[];
+  allowed_logout_urls?: string[];
+  jwt_configuration?: any;
+  /**
+   * Client signing keys.
+   */
+  signing_keys?: string[];
+  encryption_key?: any;
+  sso?: boolean;
+  /**
+   * `true` to disable Single Sign On, `false` otherwise (default: `false`)
+   */
+  sso_disabled?: boolean;
+  /**
+   * `true` if this client can be used to make cross-origin authentication requests, `false` otherwise (default: `false`)
+   */
+  cross_origin_auth?: boolean;
+  /**
+   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   */
+  cross_origin_loc?: string;
+  /**
+   * `true` if the custom login page is to be used, `false` otherwise. (default: `true`)
+   */
+  custom_login_page_on?: boolean;
+  custom_login_page?: string;
+  custom_login_page_preview?: string;
+  form_template?: string;
+  addons?: any;
+  /**
+   * Defines the requested authentication method for the token endpoint. Possible values are 'none' (public client without a client secret), 'client_secret_post' (client uses HTTP POST parameters) or 'client_secret_basic' (client uses HTTP Basic) ['none' or 'client_secret_post' or 'client_secret_basic']
+   */
+  token_endpoint_auth_method?: string;
+  client_metadata?: any;
+  mobile?: any;
 }
 
 export interface User {
@@ -67,12 +196,9 @@ export interface Identity {
   isSocial: boolean;
 }
 
-export interface UpdateUserParameters {
-  id: string;
-}
-
 export interface AuthenticationClientOptions {
   clientId?: string;
+  clientSecret?: string;
   domain: string;
 }
 
@@ -121,6 +247,16 @@ export interface ResetPasswordEmailOptions {
   connection: string;
 }
 
+export interface ClientCredentialsGrantOptions {
+  audience: string;
+}
+
+export interface PasswordGrantOptions {
+  username: string;
+  password: string;
+  realm?: string;
+}
+
 export interface ObjectWithId {
   id: string;
 }
@@ -134,20 +270,51 @@ export interface ClientParams {
   client_id: string;
 }
 
+export type DeleteDeleteMultifactorParamsProvider = 'duo' | 'google-authenticator';
+
 export interface DeleteMultifactorParams {
   id: string;
-  provider: string;
+  provider: DeleteDeleteMultifactorParamsProvider;
 }
 
-export interface LinkAccountsParams {
+export type UnlinkAccountsParamsProvider = 'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' |
+  'auth0-oidc' | 'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'dwolla' | 'email' | 'evernote-sandbox' | 'evernote' |
+  'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' | 'google-apps' | 'google-oauth2' | 'guardian' | 'instagram' |
+  'ip' | 'linkedin' | 'miicard' | 'oauth1' | 'oauth2' | 'office365' | 'paypal' | 'paypal-sandbox' | 'pingfederate' |
+  'planningcenter' | 'renren' | 'salesforce-community' | 'salesforce-sandbox' | 'salesforce' | 'samlp' | 'sharepoint' |
+  'shopify' | 'sms' | 'soundcloud' | 'thecity-sandbox' | 'thecity' | 'thirtysevensignals' | 'twitter' | 'untappd' |
+  'vkontakte' | 'waad' | 'weibo' | 'windowslive' | 'wordpress' | 'yahoo' | 'yammer' | 'yandex';
+
+export interface UnlinkAccountsParams {
   id: string;
-  provider: string;
+  provider: UnlinkAccountsParamsProvider;
   user_id: string;
+}
+
+export interface UnlinkAccountsResponseProfile {
+  email?: string;
+  email_verified?: boolean;
+  name?: string;
+  username?: string;
+  given_name?: string;
+  phone_number?: string;
+  phone_verified?: boolean;
+  family_name?: string;
+}
+
+export interface UnlinkAccountsResponse {
+  connection: string;
+  user_id: string;
+  provider: string;
+  isSocial?: boolean;
+  access_token?: string;
+  profileData?: UnlinkAccountsResponseProfile
 }
 
 export interface LinkAccountsData {
   user_id: string;
-  connection_id: string;
+  connection_id?: string;
+  provider?: string;
 }
 
 export interface Token {
@@ -214,8 +381,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  getCredentialsGrant(scope: string): Promise<any>;
-  getCredentialsGrant(scope: string, cb: (err: Error, message: string) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+
+  passwordGrant(options: PasswordGrantOptions): Promise<any>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
 
 }
 
@@ -246,21 +416,22 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<User>;
-  getClients(cb: (err: Error, data: any) => void): void;
+  getClients(): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void): void;
 
-  getClient(params: ClientParams): Promise<User>;
-  getClient(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getClient(params: ClientParams): Promise<Client>;
+  getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
 
-  createClient(data: Data): Promise<User>;
-  createClient(data: Data, cb: (err: Error, data: any) => void): void;
+  createClient(data: Data): Promise<Client>;
+  createClient(data: Data, cb: (err: Error, client: Client) => void): void;
 
-  updateClient(params: ClientParams, data: Data): Promise<User>;
-  updateClient(params: ClientParams, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClient(params: ClientParams, data: Data): Promise<Client>;
+  updateClient(params: ClientParams, data: Data, cb: (err: Error, client: Client) => void): void;
 
-  deleteClient(params: ClientParams): Promise<User>;
-  deleteClient(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  deleteClient(params: ClientParams): Promise<void>;
+  deleteClient(params: ClientParams, cb: (err: Error) => void): void;
 
+                                              
   // Client Grants
   getClientGrants(): Promise<User>;
   getClientGrants(cb: (err: Error, data: any) => void): void;
@@ -287,52 +458,54 @@ export class ManagementClient {
 
 
   // Rules
-  getRules(): Promise<User>;
-  getRules(cb: (err: Error, data: any) => void): void;
+  getRules(): Promise<Rule[]>;
+  getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
-  getRule(params: ClientParams): Promise<User>;
-  getRule(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getRule(params: ClientParams): Promise<Rule>;
+  getRule(params: ClientParams, cb: (err: Error, rule: Rule) => void): void;
 
-  createRules(data: Data): Promise<User>;
-  createRules(data: Data, cb: (err: Error, data: any) => void): void;
+  createRule(data: Data): Promise<Rule>;
+  createRule(data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  updateRule(params: ObjectWithId, data: Data): Promise<User>;
-  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateRule(params: ObjectWithId, data: Data): Promise<Rule>;
+  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  deleteRule(params: ObjectWithId): Promise<User>;
-  deleteRule(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteRule(params: ObjectWithId): Promise<void>;
+  deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Users
   getUsers(params?: GetUsersData): Promise<User[]>;
+  getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
 
-  getUser(params?: ObjectWithId): Promise<User[]>;
-  getUser(params?: ObjectWithId, cb?: (err: Error, users: User[]) => void): void;
+  getUser(params: ObjectWithId): Promise<User>;
+  getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
-  createUser(data: UserData): Promise<User>;
-  createUser(data: UserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: CreateUserData): Promise<User>;
+  createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
 
-  updateUser(params: UpdateUserParameters, data: User): Promise<User>;
-  updateUser(params: UpdateUserParameters, data: User, cb: (err: Error, data: User) => void): void;
+  updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
+  updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
 
-  updateUserMetadata(params: UpdateUserParameters, data: UserMetadata): Promise<User>;
-  updateUserMetadata(params: UpdateUserParameters, data: UserMetadata, cb: (err: Error, data: User) => void): void;
+  updateUserMetadata(params: ObjectWithId, data: UserMetadata): Promise<User>;
+  updateUserMetadata(params: ObjectWithId, data: UserMetadata, cb: (err: Error, data: User) => void): void;
 
+  // Should be removed from auth0 also. Doesn't exist in api.
   deleteAllUsers(): Promise<User>;
   deleteAllUsers(cb: (err: Error, data: any) => void): void;
 
-  deleteUser(params?: ObjectWithId): Promise<any>;
-  deleteUser(params?: ObjectWithId, cb?: (err: Error, users: User[]) => void): void;
+  deleteUser(params: ObjectWithId): Promise<void>;
+  deleteUser(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateAppMetadata(params: UpdateUserParameters, data: AppMetadata): Promise<User>;
-  updateAppMetadata(params: UpdateUserParameters, data: AppMetadata, cb: (err: Error, data: User) => void): void;
+  updateAppMetadata(params: ObjectWithId, data: AppMetadata): Promise<User>;
+  updateAppMetadata(params: ObjectWithId, data: AppMetadata, cb: (err: Error, data: User) => void): void;
 
-  deleteUserMultifactor(params: DeleteMultifactorParams): Promise<any>;
-  deleteUserMultifactor(params: DeleteMultifactorParams, cb: (err: Error, data: any) => void): void;
+  deleteUserMultifactor(params: DeleteMultifactorParams): Promise<void>;
+  deleteUserMultifactor(params: DeleteMultifactorParams, cb: (err: Error) => void): void;
 
-  unlinkUsers(params: LinkAccountsParams): Promise<any>;
-  unlinkUsers(params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
+  unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
+  unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
   linkUsers(params: ObjectWithId, data: LinkAccountsData): Promise<any>;
   linkUsers(params: ObjectWithId, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
@@ -356,8 +529,8 @@ export class ManagementClient {
   deleteEmailProvider(): Promise<any>;
   deleteEmailProvider(cb?: (err: Error, data: any) => void): void;
 
-  updateEmailProvider(data: Data): Promise<any>;
-  updateEmailProvider(data: Data, cb?: (err: Error, data: any) => void): void;
+  updateEmailProvider(params: {}, data: Data): Promise<any>;
+  updateEmailProvider(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Statistics

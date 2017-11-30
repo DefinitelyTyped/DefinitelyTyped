@@ -60,3 +60,4 @@ window.plugins.socialsharing.shareViaFacebook("Optional message, may be ignored 
 window.plugins.socialsharing.share("Optional message", "Optional title", ["www/manual.pdf", "https://www.google.nl/images/srpr/logo4w.png"], "http://www.myurl.com");
 
 window.plugins.socialsharing.saveToPhotoAlbum(["https://www.google.nl/images/srpr/logo4w.png", "www/image.gif"], function () { console.log("share ok") }, function (msg) { alert("error: " + msg) });
+window.plugins.socialsharing.shareWithOptions({"message":"sharethis","subject":"thesubject","files":["",""],"url":"https: //www.website.com/foo/#bar?a=b","chooserTitle":"Pickanapp"}, function () { console.log("share ok") }, function (msg) { alert("error: " + msg) });

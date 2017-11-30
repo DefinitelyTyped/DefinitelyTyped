@@ -51,12 +51,14 @@ var lineData: LinearChartData = {
     datasets: [
         {
             label: 'Accepted',
+            type: 'bar',
             fillColor: 'rgba(220,220,220,0.2)',
             strokeColor: 'rgba(220,220,220,1)',
             pointColor: 'rgba(220,220,220,1)',
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
+            borderColor: "#9b0391",
             data: [65, 59, 80, 81, 56, 55, 40]
         },
         {
@@ -67,7 +69,8 @@ var lineData: LinearChartData = {
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(151,187,205,1)',
-            data: [28, 48, 40, 19, 86, 27, 90]
+            data: [28, 48, 40, 19, 86, 27, 90],
+            yAxisID: 'quarantined'
         }
     ]
 };
@@ -85,6 +88,21 @@ var myLineChart = new Chart(ctx).Line(lineData, {
     datasetStroke: true,
     datasetStrokeWidth: 2,
     datasetFill: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
+      }],
+      yAxes: [{
+        position: "left",
+        "id": "users"
+      }, {
+        position: "right",
+        "id": "ratio",
+        ticks: {
+          min: -13
+        }
+      }]
+    },
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 });
 
@@ -129,6 +147,10 @@ var myBarChart = new Chart(ctx).Bar(barData, {
     barStrokeWidth: 2,
     barValueSpacing: 5,
     barDatasetSpacing: 1,
+    legend: {
+      display: true,
+      position: 'bottom'
+    },
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 });
 
@@ -369,4 +391,3 @@ var my2ndRadarChart = new Chart(ctx).Radar(radarData, partialOpts);
 var my2ndPolarAreaChart = new Chart(ctx).PolarArea(polarAreaData, partialOpts);
 var my2ndPieChart = new Chart(ctx).Pie(pieData, partialOpts);
 var my2ndDoughnutChart = new Chart(ctx).Doughnut(pieData, partialOpts);
-

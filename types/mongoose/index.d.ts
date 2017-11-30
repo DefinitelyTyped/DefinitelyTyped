@@ -1,8 +1,8 @@
-// Type definitions for Mongoose 4.7.0
+// Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -99,7 +99,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: Object
+  export var STATES: Object;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** The node-mongodb-native driver Mongoose uses. */
@@ -364,6 +364,49 @@ declare module "mongoose" {
     pass?: string;
     /** options for authentication (see http://mongodb.github.com/node-mongodb-native/api-generated/db.html#authenticate) */
     auth?: any;
+    /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
+    ssl?: boolean;
+    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
+    sslValidate?: object;
+    /** Reconnect on error (default: true) */
+    poolSize?: number;
+    /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
+    autoReconnect?: boolean;
+    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
+    keepAlive?: number;
+    /** TCP Connection timeout setting (default: 0) */
+    connectTimeoutMS?: number;
+    /** TCP Socket timeout setting (default: 0) */
+    socketTimeoutMS?: number;
+    /** If the database authentication is dependent on another databaseName. */
+    authSource?: string;
+    /** Attempt to reconnect #times (default: 30) */
+    retries?: number;
+    /** Will wait # milliseconds between retries (default: 1000) */
+    reconnectWait?: number;
+    /** The name of the replicaset to connect to. */
+    replicaSet?: string;
+    /** The current value of the parameter native_parser */
+    nativeParser?: boolean;
+    /** Auth mechanism */
+    authMechanism?: any;
+    /** Specify a journal write concern (default: false). */
+    journal?: boolean;
+    /** The write concern */
+    w?: number|string;
+    /** The write concern timeout. */
+    wTimeoutMS?: number;
+    /** The ReadPreference mode as listed here: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreference?: string;
+    /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreferencetags?: object;
+
+    // TODO
+    safe?: any;
+    fsync?: any;
+    rs_name?: any;
+    slaveOk?: any;
+    authdb?: any;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */
@@ -388,6 +431,9 @@ declare module "mongoose" {
 
     /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
     promiseLibrary?: any;
+
+    /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
+    useMongoClient?: boolean;
   }
 
   interface ConnectionOptions extends
@@ -466,6 +512,11 @@ declare module "mongoose" {
     static Messages: Object;
   }
 
+  interface EachAsyncOptions {
+    /** defaults to 1 */
+    parallel?: number;
+  }
+
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -497,9 +548,20 @@ declare module "mongoose" {
      * Execute fn for every document in the cursor. If fn returns a promise,
      * will wait for the promise to resolve before iterating on to the next one.
      * Returns a promise that resolves when done.
-     * @param callback executed when all docs have been processed
+     * @param fn Function to be executed for every document in the cursor
+     * @param callback Executed when all docs have been processed
      */
     eachAsync(fn: (doc: T) => any, callback?: (err: any) => void): Promise<T>;
+
+    /**
+     * Execute fn for every document in the cursor. If fn returns a promise,
+     * will wait for the promise to resolve before iterating on to the next one.
+     * Returns a promise that resolves when done.
+     * @param fn Function to be executed for every document in the cursor
+     * @param options Async options (e. g. parallel function execution)
+     * @param callback Executed when all docs have been processed
+     */
+    eachAsync(fn: (doc: T) => any, options: EachAsyncOptions, callback?: (err: any) => void): Promise<T>;
 
     /**
      * Registers a transform function which subsequently maps documents retrieved
@@ -625,7 +687,7 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: () => void) => void,
+    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
     pre(method: string, fn: (next: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
@@ -693,7 +755,7 @@ declare module "mongoose" {
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
-    capped?: boolean;
+    capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
     /** no default */
     collection?: string;
     /** defaults to "__t" */
@@ -708,7 +770,7 @@ declare module "mongoose" {
     minimize?: boolean;
     read?: string;
     /** defaults to true. */
-    safe?: boolean;
+    safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
@@ -745,7 +807,7 @@ declare module "mongoose" {
    * Intellisense for Schema definitions
    */
   interface SchemaDefinition {
-    [path: string]: SchemaTypeOpts<any>;
+    [path: string]: SchemaTypeOpts<any> | Schema | SchemaType;
   }
 
   /*
@@ -914,7 +976,8 @@ declare module "mongoose" {
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  class MongooseDocument implements MongooseDocumentOptionals {
+  interface MongooseDocument extends MongooseDocumentOptionals { }
+  class MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
@@ -1303,7 +1366,7 @@ declare module "mongoose" {
     // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
     type ObjectIdConstructor = typeof mongodb.ObjectID & {
       (s?: string | number): mongodb.ObjectID;
-    }
+    };
 
     // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
     //   the ObjectIdConstructor, so we add the interface below
@@ -1417,6 +1480,9 @@ declare module "mongoose" {
     circle(area: Object): this;
     circle(path: string, area: Object): this;
 
+    /** Adds a collation to this op (MongoDB 3.4 and up) */
+    collation(value: CollationOptions): this;
+
     /** Specifies the comment option. Cannot be used with distinct() */
     comment(val: string): this;
 
@@ -1472,33 +1538,33 @@ declare module "mongoose" {
      * @param criteria mongodb selector
      * @param projection optional fields to return
      */
-    findOne(callback?: (err: any, res: DocType) => void): DocumentQuery<DocType, DocType>;
+    findOne(callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOne(criteria: Object,
-      callback?: (err: any, res: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Issues a mongodb findAndModify remove command.
      * Finds a matching document, removes it, passing the found document (if any) to the
      * callback. Executes immediately if callback is passed.
      */
-    findOneAndRemove(callback?: (error: any, doc: DocType, result: any) => void): DocumentQuery<DocType, DocType>;
+    findOneAndRemove(callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndRemove(conditions: Object,
-      callback?: (error: any, doc: DocType, result: any) => void): DocumentQuery<DocType, DocType>;
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndRemove(conditions: Object, options: QueryFindOneAndRemoveOptions,
-      callback?: (error: any, doc: DocType, result: any) => void): DocumentQuery<DocType, DocType>;
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Issues a mongodb findAndModify update command.
      * Finds a matching document, updates it according to the update arg, passing any options, and returns
      * the found document (if any) to the callback. The query executes immediately if callback is passed.
      */
-    findOneAndUpdate(callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+    findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: Object,
-      callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object,
-      callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object, options: QueryFindOneAndUpdateOptions,
-      callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Specifies a $geometry condition. geometry() must come after either intersects() or within().
@@ -1556,7 +1622,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<Object>;
+    lean(bool?: boolean): Query<object>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -1815,6 +1881,17 @@ declare module "mongoose" {
      * if runValidators is false.
      */
     context?: string;
+  }
+
+  interface CollationOptions {
+    locale?: string;
+    caseLevel?: boolean;
+    caseFirst?: string;
+    strength?: number;
+    numericOrdering?: boolean;
+    alternate?: string;
+    maxVariable?: string;
+    backwards?: boolean;
   }
 
   namespace Schema {
@@ -2089,6 +2166,9 @@ declare module "mongoose" {
      */
     append(...ops: Object[]): this;
 
+    /** Adds a collation. */
+    collation(options: CollationOptions): this;
+
     /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).
      * Note the different syntax below: .exec() returns a cursor object, and no callback
@@ -2177,7 +2257,7 @@ declare module "mongoose" {
 
     /** Provides promise for aggregate. */
     then<TRes>(resolve?: (val: T) =>  void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>
+      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2316,11 +2396,11 @@ declare module "mongoose" {
      * @param projection optional fields to return
      */
     findById(id: Object | string | number,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findById(id: Object | string | number, projection: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findById(id: Object | string | number, projection: Object, options: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     model(name: string): Model<T>;
 
@@ -2377,9 +2457,9 @@ declare module "mongoose" {
      */
     find(callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
     find(conditions: Object, callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
-    find(conditions: Object, projection: Object,
+    find(conditions: Object, projection?: Object | null,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
-    find(conditions: Object, projection: Object, options: Object,
+    find(conditions: Object, projection?: Object | null, options?: Object | null,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
 
 
@@ -2391,27 +2471,27 @@ declare module "mongoose" {
      * Executes immediately if callback is passed, else a Query object is returned.
      * @param id value of _id to query by
      */
-    findByIdAndRemove(): DocumentQuery<T, T>;
+    findByIdAndRemove(): DocumentQuery<T | null, T>;
     findByIdAndRemove(id: Object | number | string,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findByIdAndRemove(id: Object | number | string, options: {
       /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
       sort?: Object;
       /** sets the document fields to return */
       select?: Object;
-    }, callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issues a mongodb findAndModify update command by a document's _id field. findByIdAndUpdate(id, ...)
      * is equivalent to findOneAndUpdate({ _id: id }, ...).
      * @param id value of _id to query by
      */
-    findByIdAndUpdate(): DocumentQuery<T, T>;
+    findByIdAndUpdate(): DocumentQuery<T | null, T>;
     findByIdAndUpdate(id: Object | number | string, update: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findByIdAndUpdate(id: Object | number | string, update: Object,
       options: ModelFindByIdAndUpdateOptions,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Finds one document.
@@ -2419,20 +2499,20 @@ declare module "mongoose" {
      * @param projection optional fields to return
      */
     findOne(conditions?: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findOne(conditions: Object, projection: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findOne(conditions: Object, projection: Object, options: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issue a mongodb findAndModify remove command.
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed else a Query object is returned.
      */
-    findOneAndRemove(): DocumentQuery<T, T>;
+    findOneAndRemove(): DocumentQuery<T | null, T>;
     findOneAndRemove(conditions: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findOneAndRemove(conditions: Object, options: {
       /**
        * if multiple docs are found by the conditions, sets the sort order to choose
@@ -2443,7 +2523,7 @@ declare module "mongoose" {
       maxTimeMS?: number;
       /** sets the document fields to return */
       select?: Object;
-    }, callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issues a mongodb findAndModify update command.
@@ -2451,12 +2531,12 @@ declare module "mongoose" {
      * and returns the found document (if any) to the callback. The query executes immediately
      * if callback is passed else a Query object is returned.
      */
-    findOneAndUpdate(): DocumentQuery<T, T>;
+    findOneAndUpdate(): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
       options: ModelFindOneAndUpdateOptions,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
     /**
      * geoNear support for Mongoose
@@ -2639,6 +2719,15 @@ declare module "mongoose" {
     sort?: Object;
     /** sets the document fields to return */
     select?: Object;
+    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
+    passRawResult?: boolean;
+    /** overwrites the schema's strict mode option for this update */
+    strict?: boolean;
+    /**
+     * if true, run all setters defined on the associated model's schema for all fields
+     * defined in the query and the update.
+     */
+    runSettersOnQuery?: boolean;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
@@ -2662,7 +2751,7 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: Object;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[]
+    populate?: ModelPopulateOptions | ModelPopulateOptions[];
   }
 
   interface ModelUpdateOptions {

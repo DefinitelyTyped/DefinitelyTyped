@@ -1,6 +1,6 @@
 // Type definitions for enhanced-resolve v3.0.0
-// Project: http://github.com/webpack/enhanced-resolve.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
+// Project: https://github.com/webpack/enhanced-resolve.git
+// Definitions by: e-cloud <https://github.com/e-cloud>, Onigoetz <https://github.com/onigoetz> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -8,7 +8,6 @@
 
 import fs = require('fs');
 import {
-    ResolveResult,
     LoggingCallbackWrapper,
     ResolverRequest,
     ResolveContext,
@@ -19,31 +18,35 @@ import Resolver = require('./lib/Resolver');
 import Tapable = require('tapable');
 
 declare namespace Resolve {
-    function sync(path: string, request: string): ResolveResult;
-    function sync(context: ResolveContext, path: string, request: string): ResolveResult;
+    function sync(path: string, request: string): string;
+    function sync(context: ResolveContext, path: string, request: string): string;
 
     function context(path: string, request: string, callback: LoggingCallbackWrapper): void;
     function context(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
     namespace context {
-        function sync(path: string, request: string): ResolveResult;
-        function sync(context: ResolveContext, path: string, request: string): ResolveResult;
+        function sync(path: string, request: string): string;
+        function sync(context: ResolveContext, path: string, request: string): string;
     }
 
     function loader(path: string, request: string, callback: LoggingCallbackWrapper): void;
     function loader(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
-    namespace context {
-        function sync(path: string, request: string): ResolveResult;
-        function sync(context: ResolveContext, path: string, request: string): ResolveResult;
+    namespace loader {
+        function sync(path: string, request: string): string;
+        function sync(context: ResolveContext, path: string, request: string): string;
     }
 
-    function create(path: string, request: string, callback: LoggingCallbackWrapper): void;
-    function create(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function create(options: ResolverFactory.ResolverOption): {
+        (path: string, request: string, callback: LoggingCallbackWrapper): void;
+        (context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
+    }
 
     export namespace create {
-        function sync(path: string, request: string): ResolveResult;
-        function sync(context: ResolveContext, path: string, request: string): ResolveResult;
+        function sync(options: ResolverFactory.ResolverOption): {
+            (path: string, request: string): string;
+            (context: ResolveContext, path: string, request: string): string;
+        }
     }
 
     export namespace ResolverFactory {
@@ -54,8 +57,8 @@ declare namespace Resolve {
             descriptionFiles?: string[];
             enforceExtension?: boolean;
             enforceModuleExtension?: boolean;
-            extensions: string[];
-            fileSystem: AbstractInputFileSystem;
+            extensions?: string[];
+            fileSystem?: AbstractInputFileSystem;
             mainFields?: string[];
             mainFiles?: string[];
             moduleExtensions?: string[];
@@ -70,7 +73,7 @@ declare namespace Resolve {
         interface AliasItem {
             alias: string;
             name: string;
-            onlyModule: boolean;
+            onlyModule?: boolean;
         }
         function createResolver(options: ResolverOption): Resolver;
     }

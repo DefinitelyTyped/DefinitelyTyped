@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props {
   disabled?: boolean;
   divider?: boolean;
@@ -5,6 +7,9 @@ interface Props {
   header?: boolean;
   onClick?: (event: React.MouseEvent<any>) => void;
   className?: string;
+  cssModule?: CSSModule;
+  href?: string;
+  toggle?: boolean;
 }
 
 declare var DropdownItem: React.StatelessComponent<Props>;

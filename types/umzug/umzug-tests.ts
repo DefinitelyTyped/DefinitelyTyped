@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as Umzug from "umzug";
 import * as Sequelize from "sequelize";
 
@@ -52,6 +50,8 @@ umzug.down({ migrations: ['20141101203500-task', '20141101203501-task-2'] });
 umzug.down('20141101203500-task'); // Runs just the passed migration
 umzug.down(['20141101203500-task', '20141101203501-task-2']);
 
+umzug.down({to: 0}); // Reverts every migration. 
+
 var AnotherUmzug = new Umzug({
   // The storage.
   // Possible values: 'json', 'sequelize', an object
@@ -84,7 +84,7 @@ var AnotherUmzug = new Umzug({
 
     // A function that receives and returns the to be executed function.
     // This can be used to modify the function.
-    wrap: function (fun : Function) { return fun; }
+    wrap: <T>(fun: T) => fun,
   }
 });
 
@@ -93,7 +93,7 @@ var AnotherUmzug = new Umzug({
   // Possible values: 'json', 'sequelize', an object
   storage: 'json',
   storageOptions: {
-      path: process.cwd() + '/db/sequelize-meta.json'
+      path: '/db/sequelize-meta.json'
   }
 });
 

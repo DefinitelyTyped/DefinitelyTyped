@@ -1,6 +1,6 @@
 // Type definitions for Breeze 1.6.3
 // Project: http://www.breezejs.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Updated Jan 14 2011 - Jay Traband ( www.ideablade.com).
@@ -16,7 +16,7 @@
 // Updated Jul 15 2016 - Added methods to JsonResultsAdapter - Steve Schmitt
 // Updated Sep 23 2016 - Added core methods
 // Updated March 5 2017 - Eliminate promises.IPromise<T> and replace with Promise<T>
-
+// Updated Apr 28 2017 - Fixed DataType
 declare namespace breeze.core {
 
     export interface ErrorCallback {
@@ -266,9 +266,33 @@ declare namespace breeze {
 
     export class DataTypeSymbol extends breeze.core.EnumSymbol {
         defaultValue: any;
-        isNumeric: boolean;
-        isDate: boolean;
+        isDate?: boolean;
+        isFloat?: boolean;
+        isInteger?: boolean;
+        isNumeric?: boolean;
+        quoteJsonOData?: boolean;
+
+        validatorCtor: (context: any) => Validator;
+
+        /** Function to convert a value from string to this DataType.  Note that this will be called each time a property is changed, so make it fast. */
+        parse?: (val: any, sourceTypeName?: string) => any;
+
+        /** Function to format this DataType for OData queries. */
+        fmtOData: (val: any) => any;
+
+        /** Optional function to get the next value for key generation, if this datatype is used as a key.  Uses an internal table of previous values. */
+        getNext?: () => any;
+
+        /** Optional function to normalize a data value for comparison, if its value cannot be used directly.  Note that this will be called each time a property is changed, so make it fast. */
+        normalize?: (val: any) => any;
+
+        /** Optional function to get the next value when the datatype is used as a concurrency property. */
+        getConcurrencyValue?: (val: any) => any;
+
+        /** Optional function to convert a raw (server) value from string to this DataType. */
+        parseRawValue?: (val: any) => any;
     }
+
     export interface DataType extends breeze.core.IEnum {
         Binary: DataTypeSymbol;
         Boolean: DataTypeSymbol;
@@ -285,30 +309,16 @@ declare namespace breeze {
         String: DataTypeSymbol;
         Time: DataTypeSymbol;
         Undefined: DataTypeSymbol;
-
-        toDataType(typeName: string): DataTypeSymbol;
+        
+        constants: { nextNumber: number, nextNumberIncrement: number, stringPrefix: string };
+        
+        fromEdmDataType(typeName: string): DataTypeSymbol;
+        fromValue(val: any): DataTypeSymbol;
+        getComparableFn(dataType: DataTypeSymbol): (value: any) => any;
+        parseDateAsUTC(source: any): Date;
         parseDateFromServer(date: any): Date;
-        defaultValue: any;
-        isNumeric: boolean;
-        isInteger: boolean;
-
-        /** Function to convert a value from string to this DataType.  Note that this will be called each time a property is changed, so make it fast. */
-        parse: (val: any, sourceTypeName: string) => any;
-
-        /** Function to format this DataType for OData queries. */
-        fmtOData: (val: any) => any;
-
-        /** Optional function to get the next value for key generation, if this datatype is used as a key.  Uses an internal table of previous values. */
-        getNext?: () => any;
-
-        /** Optional function to normalize a data value for comparison, if its value cannot be used directly.  Note that this will be called each time a property is changed, so make it fast. */
-        normalize?: (val: any) => any;
-
-        /** Optional function to get the next value when the datatype is used as a concurrency property. */
-        getConcurrencyValue?: (val: any) => any;
-
-        /** Optional function to convert a raw (server) value from string to this DataType. */
-        parseRawValue?: (val: any) => any;
+        parseRawValue(val: any, dataType?: DataTypeSymbol): any;
+        parseTimeFromServer(source: any): string;
     }
     export var DataType: DataType;
 

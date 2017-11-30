@@ -2,8 +2,7 @@ DevExpress ASP.NET/MVC TypeScript definitions
 =============================================
 
 You can use these TypeScript definitions for your web projects, which contain
-DevExpress ASP.NET or MVC controls. For this, simply add  at the top of your
-code `<reference path="TypeScript/devexpress-web.d.ts" />`.
+DevExpress ASP.NET or MVC controls.
 
 The API enclosed into the DevExpress ASP.NET/MVC TypeScript definition file
 fully corresponds to the API described in the DevExpress ASP.NET/MVC

@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Sites {
@@ -12,6 +12,12 @@ declare namespace GoogleAppsScript {
      * A Sites Attachment such as a file attached to a page.
      *
      *  Note that an Attachment is a Blob and can be used anywhere Blob input is expected.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      *
      *      var filesPage = SitesApp.getSite('example.com', 'mysite').getChildByName("files");
      *      var attachments = filesPage.getAttachments();
@@ -42,11 +48,23 @@ declare namespace GoogleAppsScript {
 
     /**
      * A typesafe enum for sites attachment type.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export enum AttachmentType { WEB, HOSTED }
 
     /**
      * A Sites Column - a column from a Sites List page.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export interface Column {
       deleteColumn(): void;
@@ -57,6 +75,12 @@ declare namespace GoogleAppsScript {
 
     /**
      * A Comment attached to any Sites page.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export interface Comment {
       deleteComment(): void;
@@ -72,6 +96,12 @@ declare namespace GoogleAppsScript {
 
     /**
      * A Sites ListItem - a list element from a Sites List page.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export interface ListItem {
       deleteListItem(): void;
@@ -87,18 +117,24 @@ declare namespace GoogleAppsScript {
 
     /**
      * A Page on a Google Site.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export interface Page {
       addColumn(name: string): Column;
       addHostedAttachment(blob: Base.BlobSource): Attachment;
       addHostedAttachment(blob: Base.BlobSource, description: string): Attachment;
-      addListItem(values: String[]): ListItem;
+      addListItem(values: string[]): ListItem;
       addWebAttachment(title: string, description: string, url: string): Attachment;
       createAnnouncement(title: string, html: string): Page;
       createAnnouncement(title: string, html: string, asDraft: boolean): Page;
       createAnnouncementsPage(title: string, name: string, html: string): Page;
       createFileCabinetPage(title: string, name: string, html: string): Page;
-      createListPage(title: string, name: string, html: string, columnNames: String[]): Page;
+      createListPage(title: string, name: string, html: string, columnNames: string[]): Page;
       createPageFromTemplate(title: string, name: string, template: Page): Page;
       createWebPage(title: string, name: string, html: string): Page;
       deletePage(): void;
@@ -108,13 +144,11 @@ declare namespace GoogleAppsScript {
       getAnnouncements(optOptions: Object): Page[];
       getAttachments(): Attachment[];
       getAttachments(optOptions: Object): Attachment[];
-      getAuthors(): String[];
+      getAuthors(): string[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
       getChildren(options: Object): Page[];
       getColumns(): Column[];
-      getComments(): Comment[];
-      getComments(optOptions: Object): Comment[];
       getDatePublished(): Date;
       getHtmlContent(): string;
       getIsDraft(): boolean;
@@ -139,30 +173,44 @@ declare namespace GoogleAppsScript {
       setParent(parent: Page): Page;
       setTitle(title: string): Page;
       addComment(content: string): Comment;
+      getComments(): Comment[];
+      getComments(optOptions: Object): Comment[];
       getPageName(): string;
       getSelfLink(): string;
     }
 
     /**
      * A typesafe enum for sites page type.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export enum PageType { WEB_PAGE, LIST_PAGE, ANNOUNCEMENT, ANNOUNCEMENTS_PAGE, FILE_CABINET_PAGE }
 
     /**
      * An object representing a Google Site.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export interface Site {
       addEditor(emailAddress: string): Site;
       addEditor(user: Base.User): Site;
-      addEditors(emailAddresses: String[]): Site;
+      addEditors(emailAddresses: string[]): Site;
       addOwner(email: string): Site;
       addOwner(user: Base.User): Site;
       addViewer(emailAddress: string): Site;
       addViewer(user: Base.User): Site;
-      addViewers(emailAddresses: String[]): Site;
+      addViewers(emailAddresses: string[]): Site;
       createAnnouncementsPage(title: string, name: string, html: string): Page;
       createFileCabinetPage(title: string, name: string, html: string): Page;
-      createListPage(title: string, name: string, html: string, columnNames: String[]): Page;
+      createListPage(title: string, name: string, html: string, columnNames: string[]): Page;
       createPageFromTemplate(title: string, name: string, template: Page): Page;
       createWebPage(title: string, name: string, html: string): Page;
       getAllDescendants(): Page[];
@@ -194,7 +242,7 @@ declare namespace GoogleAppsScript {
       addCollaborator(user: Base.User): Site;
       createAnnouncement(title: string, html: string, parent: Page): Page;
       createComment(inReplyTo: string, html: string, parent: Page): Comment;
-      createListItem(html: string, columnNames: String[], values: String[], parent: Page): ListItem;
+      createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
       createWebAttachment(title: string, url: string, parent: Page): Attachment;
       deleteSite(): void;
       getAnnouncements(): Page[];
@@ -215,10 +263,16 @@ declare namespace GoogleAppsScript {
 
     /**
      * Create and access Google Sites.
+     *  A
+     *  rebuilt
+     *  version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
+     *  modify Sites made with this version, but script can still access
+     *
+     *    classic Sites.
      */
     export interface SitesApp {
-      AttachmentType: AttachmentType
-      PageType: PageType
+      AttachmentType: typeof AttachmentType;
+      PageType: typeof PageType;
       copySite(domain: string, name: string, title: string, summary: string, site: Site): Site;
       createSite(domain: string, name: string, title: string, summary: string): Site;
       getActivePage(): Page;

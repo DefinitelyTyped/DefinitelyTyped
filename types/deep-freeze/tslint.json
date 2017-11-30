@@ -1,0 +1,7 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type to align with lib.d.ts
+    "ban-types": false
+  }
+}

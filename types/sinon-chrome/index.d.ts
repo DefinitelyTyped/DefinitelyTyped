@@ -2,6 +2,7 @@
 // Project: https://github.com/vitalets/sinon-chrome
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="chrome"/>
 /// <reference types="sinon"/>

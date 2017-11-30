@@ -1,7 +1,16 @@
-// NOTE: import statement can not use in TypeScript 1.0.1
-import program = require('commander');
+import * as program from 'commander';
+
+interface ExtendedOptions extends program.CommandOptions {
+    isNew: any;
+}
+
+const commandInstance = new program.Command('-f');
+const optionsInstance = new program.Option('-f');
+
+const name = program.name();
 
 program
+    .name('set name')
     .version('0.0.1')
     .option('-p, --peppers', 'Add peppers')
     .option('-P, --pineapple', 'Add pineapple')
@@ -53,7 +62,6 @@ console.log(' list: %j', program['list']);
 console.log(' collect: %j', program['collect']);
 console.log(' verbosity: %j', program['verbose']);
 console.log(' args: %j', program['args']);
-
 
 program
     .version('0.0.1')

@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import * as Hapi from 'hapi';
 import Vision from 'vision';
 const server = new Hapi.Server();

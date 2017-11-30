@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/nes
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -90,7 +91,7 @@ declare module nes {
         id: string;
         app: Object;
         auth: nes.SocketAuthObject;
-        disconect(callback?: () => void): void;
+        disconnect(callback?: () => void): void;
         send(message: any, callback?: (err?: any) => void): void;
         publish(path: string, message: any, callback?: (err?: any) => void): void;
         revoke(path: string, message: any, callback?: (err?: any) => void): void;

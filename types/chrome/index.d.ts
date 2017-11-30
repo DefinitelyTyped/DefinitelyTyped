@@ -2,6 +2,7 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="filesystem" />
 
@@ -435,7 +436,7 @@ declare namespace chrome.bookmarks {
 declare namespace chrome.browserAction {
     interface BadgeBackgroundColorDetails {
         /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
-        color: any;
+        color: string | ColorArray;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number;
     }
@@ -446,6 +447,8 @@ declare namespace chrome.browserAction {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number;
     }
+
+    type ColorArray = [number, number, number, number];
 
     interface TitleDetails {
         /** The string the browser action should display when moused over. */
@@ -517,7 +520,7 @@ declare namespace chrome.browserAction {
      * @param callback The callback parameter should be a function that looks like this:
      * function( ColorArray result) {...};
      */
-    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: number[]) => void): void;
+    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
     /**
      * Since Chrome 19.
      * Gets the html document set as the popup for this browser action.
@@ -1271,104 +1274,106 @@ declare namespace chrome.cookies {
  * Availability: Since Chrome 18.
  * Permissions:  "debugger"
  */
-// TODO: Uncomment when Microsoft/TypeScript#8312 is merged in
-// declare module chrome.debugger {
-//     /** Debuggee identifier. Either tabId or extensionId must be specified */
-//     interface Debuggee {
-//         /** Optional. The id of the tab which you intend to debug.  */
-//         tabId?: number;
-//         /**
-//          * Optional.
-//           * Since Chrome 27.
-//          * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser.
-//          */
-//         extensionId?: string;
-//         /**
-//          * Optional.
-//           * Since Chrome 28.
-//          * The opaque id of the debug target.
-//          */
-//         targetId?: string;
-//     }
-//
-//     /**
-//      * Since Chrome 28.
-//      * Debug target information
-//      */
-//     interface TargetInfo {
-//         /** Target type. */
-//         type: string;
-//         /** Target id. */
-//         id: string;
-//         /**
-//          * Optional.
-//           * Since Chrome 30.
-//          * The tab id, defined if type == 'page'.
-//          */
-//         tabId?: number;
-//         /**
-//          * Optional.
-//           * Since Chrome 30.
-//          * The extension id, defined if type = 'background_page'.
-//          */
-//         extensionId?: string;
-//         /** True if debugger is already attached. */
-//         attached: boolean;
-//         /** Target page title. */
-//         title: string;
-//         /** Target URL. */
-//         url: string;
-//         /** Optional. Target favicon URL.  */
-//         faviconUrl?: string;
-//     }
-//
-//     interface DebuggerDetachedEvent extends chrome.events.Event<(source: Debuggee, reason: string) => void> {}
-//
-//     interface DebuggerEventEvent extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void> {}
-//
-//     /**
-//      * Attaches debugger to the given target.
-//      * @param target Debugging target to which you want to attach.
-//      * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
-//      * @param callback Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, runtime.lastError will be set to the error message.
-//      * If you specify the callback parameter, it should be a function that looks like this:
-//      * function() {...};
-//      */
-//     export function attach(target: Debuggee, requiredVersion: string, callback?: () => void): void;
-//     /**
-//      * Detaches debugger from the given target.
-//      * @param target Debugging target from which you want to detach.
-//      * @param callback Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, runtime.lastError will be set to the error message.
-//      * If you specify the callback parameter, it should be a function that looks like this:
-//      * function() {...};
-//      */
-//     export function detach(target: Debuggee, callback?: () => void): void;
-//     /**
-//      * Sends given command to the debugging target.
-//      * @param target Debugging target to which you want to send the command.
-//      * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
-//      * @param commandParams Since Chrome 22.
-//      * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
-//      * @param callback Response body. If an error occurs while posting the message, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-//      * If you specify the callback parameter, it should be a function that looks like this:
-//      * function(object result) {...};
-//      */
-//     export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
-//     /**
-//      * Since Chrome 28.
-//      * Returns the list of available debug targets.
-//      * @param callback The callback parameter should be a function that looks like this:
-//      * function(array of TargetInfo result) {...};
-//      * Parameter result: Array of TargetInfo objects corresponding to the available debug targets.
-//      */
-//     export function getTargets(callback: (result: TargetInfo[]) => void): void;
-//
-//     /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
-//     var onDetach: DebuggerDetachedEvent;
-//     /** Fired whenever debugging target issues instrumentation event. */
-//     var onEvent: DebuggerEventEvent;
-// }
+declare module chrome {
+    namespace _debugger {
+        /** Debuggee identifier. Either tabId or extensionId must be specified */
+        interface Debuggee {
+            /** Optional. The id of the tab which you intend to debug.  */
+            tabId?: number;
+            /**
+             * Optional.
+             * Since Chrome 27.
+             * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser.
+             */
+            extensionId?: string;
+            /**
+             * Optional.
+             * Since Chrome 28.
+             * The opaque id of the debug target.
+             */
+            targetId?: string;
+        }
 
+        /**
+         * Since Chrome 28.
+         * Debug target information
+         */
+        interface TargetInfo {
+            /** Target type. */
+            type: string;
+            /** Target id. */
+            id: string;
+            /**
+             * Optional.
+             * Since Chrome 30.
+             * The tab id, defined if type == 'page'.
+             */
+            tabId?: number;
+            /**
+             * Optional.
+             * Since Chrome 30.
+             * The extension id, defined if type = 'background_page'.
+             */
+            extensionId?: string;
+            /** True if debugger is already attached. */
+            attached: boolean;
+            /** Target page title. */
+            title: string;
+            /** Target URL. */
+            url: string;
+            /** Optional. Target favicon URL.  */
+            faviconUrl?: string;
+        }
+
+        interface DebuggerDetachedEvent extends chrome.events.Event<(source: Debuggee, reason: string) => void> {}
+
+        interface DebuggerEventEvent extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void> {}
+
+        /**
+         * Attaches debugger to the given target.
+         * @param target Debugging target to which you want to attach.
+         * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
+         * @param callback Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, runtime.lastError will be set to the error message.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function() {...};
+         */
+        export function attach(target: Debuggee, requiredVersion: string, callback?: () => void): void;
+        /**
+         * Detaches debugger from the given target.
+         * @param target Debugging target from which you want to detach.
+         * @param callback Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, runtime.lastError will be set to the error message.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function() {...};
+         */
+        export function detach(target: Debuggee, callback?: () => void): void;
+        /**
+         * Sends given command to the debugging target.
+         * @param target Debugging target to which you want to send the command.
+         * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
+         * @param commandParams Since Chrome 22.
+         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
+         * @param callback Response body. If an error occurs while posting the message, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+         * If you specify the callback parameter, it should be a function that looks like this:
+         * function(object result) {...};
+         */
+        export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
+        /**
+         * Since Chrome 28.
+         * Returns the list of available debug targets.
+         * @param callback The callback parameter should be a function that looks like this:
+         * function(array of TargetInfo result) {...};
+         * Parameter result: Array of TargetInfo objects corresponding to the available debug targets.
+         */
+        export function getTargets(callback: (result: TargetInfo[]) => void): void;
+
+        /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
+        var onDetach: DebuggerDetachedEvent;
+        /** Fired whenever debugging target issues instrumentation event. */
+        var onEvent: DebuggerEventEvent;
+    }
+
+    export {_debugger as debugger}
+}
 ////////////////////
 // Declarative Content
 ////////////////////
@@ -1421,8 +1426,7 @@ declare namespace chrome.declarativeContent {
         ports?: (number | number[])[];
     }
 
-    /** Matches the state of a web page by various criteria. */
-    interface PageStateMatcher {
+    class PageStateMatcherProperties {
         /** Optional. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.  */
         pageUrl?: PageStateUrlDetails;
         /** Optional. Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites.  */
@@ -1434,6 +1438,19 @@ declare namespace chrome.declarativeContent {
          */
         isBookmarked?: boolean;
     }
+
+    /** Matches the state of a web page by various criteria. */
+    class PageStateMatcher {
+        constructor(options: PageStateMatcherProperties);
+    }
+
+    /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
+    class ShowPageAction {}
+
+    /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
+    interface PageChangedEvent extends chrome.events.Event<() => void> {}
+
+    var onPageChanged: PageChangedEvent;
 }
 
 ////////////////////
@@ -1659,7 +1676,7 @@ declare namespace chrome.devtools.inspectedWindow {
      * Parameter result: The result of evaluation.
      * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
      */
-    export function eval(expression: string, callback?: (result: Object, exceptionInfo: EvaluationExceptionInfo) => void): void;
+    export function eval<T>(expression: string, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
     /**
      * Retrieves the list of resources from the inspected page.
      * @param callback A function that receives the list of resources when the request completes.
@@ -3308,13 +3325,13 @@ declare namespace chrome.history {
 declare namespace chrome.i18n {
     /** Holds detected ISO language code and its percentage in the input string */
     interface DetectedLanguage {
-        /** An ISO language code such as 'en' or 'fr'. 
-         * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}. 
+        /** An ISO language code such as 'en' or 'fr'.
+         * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
          * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
         language: string;
 
         /** The percentage of the detected language */
-        percentage: number; 
+        percentage: number;
     }
 
     /** Holds detected language reliability and array of DetectedLanguage */
@@ -3325,7 +3342,7 @@ declare namespace chrome.i18n {
         /** Array of detectedLanguage */
         languages: DetectedLanguage[];
     }
-    
+
     /**
      * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
      * @param callback The callback parameter should be a function that looks like this:
@@ -3344,7 +3361,7 @@ declare namespace chrome.i18n {
      * @since Chrome 35.
      */
     export function getUILanguage(): string;
-    
+
     /** Detects the language of the provided text using CLD.
      * @param text User input string to be translated.
      * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
@@ -5121,7 +5138,7 @@ declare namespace chrome.runtime {
             actions?: {
                 type: string;
             }[];
-            conditions?: chrome.declarativeContent.PageStateMatcher[]
+            conditions?: chrome.declarativeContent.PageStateMatcherProperties[]
         }[];
         externally_connectable?: {
             ids?: string[];
@@ -5530,19 +5547,12 @@ declare namespace chrome.storage {
          */
         set(items: Object, callback?: () => void): void;
         /**
-         * Removes one item from storage.
-         * @param key A single key for items to remove.
+         * Removes one or more items from storage.
+         * @param A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(key: string, callback?: () => void): void;
-        /**
-         * Removes items from storage.
-         * @param keys A list of keys for items to remove.
-         * @param callback Optional.
-         * Callback on success, or on failure (in which case runtime.lastError will be set).
-         */
-        remove(keys: string[], callback?: () => void): void;
+        remove(keys: string | string[], callback?: () => void): void;
         /**
          * Gets one or more items from storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
@@ -6595,7 +6605,7 @@ declare namespace chrome.tabs {
      * @since Chrome 38.
      */
     var onZoomChange: TabZoomChangeEvent;
-    
+
     /**
      * An ID which represents the absence of a browser tab.
      * @since Chrome 46.
@@ -7013,8 +7023,9 @@ declare namespace chrome.webNavigation {
         /**
          * The ID of the process runs the renderer for this tab.
          * @since Chrome 22.
+         * @deprecated since Chrome 49. Frames are now uniquely identified by their tab ID and frame ID; the process ID is no longer needed and therefore ignored.
          */
-        processId: number;
+        processId?: number;
         /** The ID of the tab in which the frame is. */
         tabId: number;
         /** The ID of the frame in the given tab. */
@@ -7223,7 +7234,7 @@ declare namespace chrome.webRequest {
         types?: string[];
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
         urls: string[];
- 
+
         /** Optional. */
         windowId?: number;
     }
@@ -7365,7 +7376,7 @@ declare namespace chrome.webRequest {
     interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
 
     interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {
-        addListener(callback: (details: WebAuthenticationChallengeDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}

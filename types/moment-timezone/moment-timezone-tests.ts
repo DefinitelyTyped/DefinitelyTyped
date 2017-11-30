@@ -49,7 +49,7 @@ moment.tz(mo, "America/Los_Angeles");
 moment.tz(obj, "America/Los_Angeles");
 
 moment.tz.zone('America/Los_Angeles').abbr(1403465838805);
-moment.tz.zone('America/Los_Angeles').offset(1403465838805);
+moment.tz.zone('America/Los_Angeles').utcOffset(1403465838805);
 
 const zone = moment.tz.zone('America/New_York');
 zone.parse(Date.UTC(2012, 2, 19, 8, 30)); // 240

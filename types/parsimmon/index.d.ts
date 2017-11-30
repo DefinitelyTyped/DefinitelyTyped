@@ -1,10 +1,12 @@
-// Type definitions for Parsimmon 1.0
+// Type definitions for Parsimmon 1.3
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Benny van Reeven <https://github.com/bvanreeven>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
@@ -39,7 +41,7 @@
  * //=> {status: true, value: ['a', ['c', 'c', 'c', 'c', 'c']]}
  * ```
  */
-declare function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parsimmon.Parser<T>;
+declare function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parsimmon.Parser<T>;
 
 declare namespace Parsimmon {
 	type StreamType = string;
@@ -121,6 +123,18 @@ declare namespace Parsimmon {
 		 */
 		skip<U>(otherParser: Parser<U>): Parser<T>;
 		/**
+		 * Returns a parser that looks for anything but whatever anotherParser wants to
+		 * parse, and does not consume it. Yields the same result as parser. Equivalent to
+		 * parser.skip(Parsimmon.notFollowedBy(anotherParser)).
+		 */
+		notFollowedBy(anotherParser: Parser<any>): Parser<T>;
+		/**
+		 * Returns a parser that looks for whatever arg wants to parse, but does not
+		 * consume it. Yields the same result as parser. Equivalent to
+		 * parser.skip(Parsimmon.lookahead(anotherParser)).
+		 */
+		lookahead(arg: Parser<any> | string | RegExp): Parser<T>;
+		/**
 		 * expects parser zero or more times, and yields an array of the results.
 		 */
 		many(): Parser<T[]>;
@@ -155,26 +169,26 @@ declare namespace Parsimmon {
 	/**
 	 * Alias of `Parsimmon(fn)` for backwards compatibility.
 	 */
-	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parser<T>;
+	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parser<T>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the successful parse went (index), and what value it created doing
 	 * so. See documentation for Parsimmon(fn).
 	 */
-	function makeSuccess<T>(index: number, value: T): Success<T>;
+	function makeSuccess<T>(index: number, value: T): SuccessReply<T>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the unsuccessful parse went (index), and what kind of syntax it
 	 * expected to see (expectation). See documentation for Parsimmon(fn).
 	 */
-	function makeFailure(furthest: number, expectation: string): Failure;
+	function makeFailure(furthest: number, expectation: string): FailureReply;
 
 	/**
 	 * Returns true if obj is a Parsimmon parser, otherwise false.
 	 */
-	function isParser(obj: any): boolean;
+	function isParser(obj: any): obj is Parser<any>;
 
 	/**
 	 * is a parser that expects to find "my-string", and will yield the same.
@@ -203,6 +217,17 @@ declare namespace Parsimmon {
 	 * This was the original name for Parsimmon.regexp, but now it is just an alias.
 	 */
 	function regex(myregex: RegExp, group?: number): Parser<string>;
+
+	/**
+	 * Parses using parser, but does not consume what it parses. Yields null if the parser
+	 * does not match the input. Otherwise it fails.
+	 */
+	function notFollowedBy(parser: Parser<any>): Parser<null>;
+
+	/**
+	 * Parses using arg, but does not consume what it parses. Yields an empty string.
+	 */
+	function lookahead(arg: Parser<any> | string | RegExp): Parser<''>;
 
 	/**
 	 * Returns a parser that doesn't consume any of the string, and yields result.
@@ -251,9 +276,27 @@ declare namespace Parsimmon {
 		p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>,
 		cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A) => B): Parser<B>;
 
-	type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
-	type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
-	type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
+	interface SuccessReply<T> {
+		status: true;
+		index: number;
+		value: T;
+		furthest: -1;
+		expected: string[];
+	}
+
+	interface FailureReply {
+		status: false;
+		index: -1;
+		value: null;
+		furthest: number;
+		expected: string[];
+	}
+
+	type Reply<T> = SuccessReply<T> | FailureReply;
+
+	type SuccessFunctionType<U> = (index: number, result: U) => Reply<U>;
+	type FailureFunctionType<U> = (index: number, msg: string) => Reply<U>;
+	type ParseFunctionType<U> = (stream: StreamType, index: number) => Reply<U>;
 	/**
 	 * allows to add custom primitive parsers.
 	 */

@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "comment-format": false, // TODO
+        "no-reference-import": false, // TODO: fix "should"
+        "no-var-requires": false // TODO
+    }
+}
