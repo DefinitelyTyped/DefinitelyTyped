@@ -3,6 +3,7 @@
 // Definitions by: Jacob Bom <https://github.com/bomjacob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
+// Generated using script at github.com/bomjacob/definitelytyped-firefox-webext-browser
 
 interface EventListener<T extends (...args: any[]) => any> {
     addListener: (callback: T) => void;
@@ -44,13 +45,13 @@ declare namespace browser.alarms {
 
 declare namespace browser.manifest {
     /* manifest types */
-    type OptionalPermission = OptionalPermissionEnum;
+    type OptionalPermission = _OptionalPermission;
 
-    type Permission = string | OptionalPermission | PermissionEnum;
+    type Permission = string | OptionalPermission | _Permission;
 
     interface ProtocolHandler {
         name: string;
-        protocol: string | ProtocolHandlerProtocolEnum;
+        protocol: string | _ProtocolHandlerProtocol;
         uriTemplate: ExtensionURL | HttpURL;
     }
 
@@ -75,7 +76,7 @@ declare namespace browser.manifest {
         icons?: {
             [key: number]: string;
         };
-        incognito?: WebExtensionManifestIncognitoEnum;
+        incognito?: _WebExtensionManifestIncognito;
         background?: {
             page: ExtensionURL;
             persistent?: PersistentBackgroundProperty;
@@ -105,7 +106,7 @@ declare namespace browser.manifest {
             theme_icons?: ThemeIcons[];
             default_popup?: string;
             browser_style?: boolean;
-            default_area?: WebExtensionManifestBrowserActionDefaultAreaEnum;
+            default_area?: _WebExtensionManifestBrowserActionDefaultArea;
         };
         chrome_settings_overrides?: {
             homepage?: string;
@@ -219,9 +220,9 @@ declare namespace browser.manifest {
         strict_max_version?: string;
     }
 
-    type MatchPattern = string | string | MatchPatternEnum;
+    type MatchPattern = string | string | _MatchPattern;
 
-    type MatchPatternInternal = string | string | MatchPatternInternalEnum;
+    type MatchPatternInternal = string | string | _MatchPatternInternal;
 
     interface ContentScript {
         matches: MatchPattern[];
@@ -253,13 +254,13 @@ declare namespace browser.manifest {
         name: string;
         description: string;
         path: string;
-        type: NativeManifestTypeEnum;
+        type: _NativeManifestType;
         allowed_extensions: ExtensionID[];
     } | {
         name: ExtensionID;
         description: string;
         data: any;
-        type: NativeManifestTypeEnum;
+        type: _NativeManifestType;
     };
 
     interface ThemeType {
@@ -365,14 +366,14 @@ declare namespace browser.manifest {
             timezones?: ExtensionURL;
         };
         properties?: {
-            additional_backgrounds_alignment?: ThemeTypeAdditionalBackgroundsAlignmentEnum[];
-            additional_backgrounds_tiling?: ThemeTypeAdditionalBackgroundsTilingEnum[];
+            additional_backgrounds_alignment?: _ThemeTypeAdditionalBackgroundsAlignment[];
+            additional_backgrounds_tiling?: _ThemeTypeAdditionalBackgroundsTiling[];
         };
     }
 
     type KeyName = string | string | string;
 
-    enum OptionalPermissionEnum {
+    enum _OptionalPermission {
         browserSettings = "browserSettings",
         cookies = "cookies",
         clipboardRead = "clipboardRead",
@@ -391,7 +392,7 @@ declare namespace browser.manifest {
         tabs = "tabs"
     }
 
-    enum PermissionEnum {
+    enum _Permission {
         contextualIdentities = "contextualIdentities",
         downloads = "downloads",
         downloadsopen = "downloads.open",
@@ -414,7 +415,7 @@ declare namespace browser.manifest {
         sessions = "sessions"
     }
 
-    enum ProtocolHandlerProtocolEnum {
+    enum _ProtocolHandlerProtocol {
         bitcoin = "bitcoin",
         geo = "geo",
         gopher = "gopher",
@@ -437,35 +438,35 @@ declare namespace browser.manifest {
         xmpp = "xmpp"
     }
 
-    enum WebExtensionManifestIncognitoEnum {
+    enum _WebExtensionManifestIncognito {
         spanning = "spanning"
     }
 
-    enum WebExtensionManifestBrowserActionDefaultAreaEnum {
+    enum _WebExtensionManifestBrowserActionDefaultArea {
         navbar = "navbar",
         menupanel = "menupanel",
         tabstrip = "tabstrip",
         personaltoolbar = "personaltoolbar"
     }
 
-    enum MatchPatternEnum {
+    enum _MatchPattern {
         all_urls = "<all_urls>"
     }
 
-    enum MatchPatternInternalEnum {
+    enum _MatchPatternInternal {
         all_urls = "<all_urls>"
     }
 
-    enum NativeManifestTypeEnum {
+    enum _NativeManifestType {
         pkcs11 = "pkcs11",
         stdio = "stdio"
     }
 
-    enum NativeManifestTypeEnum {
+    enum _NativeManifestType {
         storage = "storage"
     }
 
-    enum ThemeTypeAdditionalBackgroundsAlignmentEnum {
+    enum _ThemeTypeAdditionalBackgroundsAlignment {
         bottom = "bottom",
         center = "center",
         left = "left",
@@ -482,7 +483,7 @@ declare namespace browser.manifest {
         righttop = "right top"
     }
 
-    enum ThemeTypeAdditionalBackgroundsTilingEnum {
+    enum _ThemeTypeAdditionalBackgroundsTiling {
         norepeat = "no-repeat",
         repeat = "repeat",
         repeatx = "repeat-x",
@@ -515,13 +516,13 @@ declare namespace browser.browserSettings {
 declare namespace browser.clipboard {
     type ArrayBuffer = any;
 
-    enum SetImageDataEnum {
+    enum _SetImageData {
         jpeg = "jpeg",
         png = "png"
     }
 
     /* clipboard functions */
-    function setImageData(imageData: ArrayBuffer, imageType: SetImageDataEnum): void;
+    function setImageData(imageData: ArrayBuffer, imageType: _SetImageData): void;
 }
 
 declare namespace browser.contextualIdentities {
@@ -768,7 +769,7 @@ declare namespace browser.downloads {
         exists?: boolean;
     }
 
-    enum DownloadMethodEnum {
+    enum _DownloadMethod {
         GET = "GET",
         POST = "POST"
     }
@@ -780,7 +781,7 @@ declare namespace browser.downloads {
         incognito?: boolean;
         conflictAction?: FilenameConflictAction;
         saveAs?: boolean;
-        method?: DownloadMethodEnum;
+        method?: _DownloadMethod;
         headers?: Array<{
             name: string;
             value: string;
@@ -1956,6 +1957,10 @@ declare namespace browser.bookmarks {
         type?: BookmarkTreeNodeType;
     }
 
+    export {_import as import};
+
+    export {_export as export};
+
     /* bookmarks functions */
     function get(idOrIdList: string | string[]): Promise<BookmarkTreeNode[]>;
 
@@ -1989,9 +1994,9 @@ declare namespace browser.bookmarks {
 
     function removeTree(id: string): Promise<void>;
 
-    function import_(): Promise<void>;
+    function _import(): Promise<void>;
 
-    function export_(): Promise<void>;
+    function _export(): Promise<void>;
 
     /* bookmarks events */
     const onCreated: EventListener<(id: string, bookmark: BookmarkTreeNode) => void>;
@@ -2470,10 +2475,10 @@ declare namespace browser.menus {
         editable: boolean;
         wasChecked?: boolean;
         checked?: boolean;
-        modifiers: OnClickDataModifiersEnum[];
+        modifiers: _OnClickDataModifiers[];
     }
 
-    enum OnClickDataModifiersEnum {
+    enum _OnClickDataModifiers {
         Shift = "Shift",
         Alt = "Alt",
         Command = "Command",
