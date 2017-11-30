@@ -5702,7 +5702,7 @@ namespace TestorderBy {
     let orders: boolean|string|(boolean|string)[] = true as any;
 
     {
-        let iteratees = (value: string) => 1;
+        let iteratees: (value: string) => any|((value: string) => any)[] = (value) => 1;
         let result: string[];
 
         result = _.orderBy<string>('acbd', iteratees);
@@ -5710,7 +5710,7 @@ namespace TestorderBy {
     }
 
     {
-        let iteratees = (value: SampleObject) => 1;
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => 1;
         let result: SampleObject[];
 
         result = _.orderBy<{a: number}, SampleObject>(array, iteratees);
@@ -5735,7 +5735,7 @@ namespace TestorderBy {
     }
 
     {
-        let iteratees = (value: SampleObject) => "";
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
         let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).orderBy<{a: number}>(iteratees);
@@ -5758,7 +5758,7 @@ namespace TestorderBy {
     }
 
     {
-        let iteratees = (value: SampleObject) => "";
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
         let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().orderBy<{a: number}>(iteratees);
