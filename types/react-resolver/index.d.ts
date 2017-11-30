@@ -22,11 +22,11 @@ export const Resolver: Resolver;
 export type ResolveFn<Props, V> = (props: Props) => Promise<V>;
 
 /** Use this for gaining access to a context as a prop without the boilerplate of setting `contextTypes`. */
-export function context<K extends string, V>(
+export function context<K extends string>(
   prop: K,
 ): <OwnProps>(
   component: ComponentType<OwnProps>,
-) => StatelessComponent<OwnProps & Record<K, V>>;
+) => StatelessComponent<OwnProps & Record<K, any>>;
 
 /**
  * Use `@client(LoaderComponent)` (or `client(LoaderComponent)(YourComponent)`)
