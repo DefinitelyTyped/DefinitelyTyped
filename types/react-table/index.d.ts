@@ -253,15 +253,15 @@ export interface ControlledStateCallbackProps {
     onPageSizeChange: PageSizeChangeFunction;
 
     /**
-     * Called when a sortable column header is clicked with the column itself and if 
+     * Called when a sortable column header is clicked with the column itself and if
      * the shiftkey was held. If the column is a pivoted column, `column` will be an array of columns
      */
     onSortedChange: SortedChangeFunction;
 
-    /** 
+    /**
      * Called when a user enters a value into a filter input field or the value passed
      * to the onFiltersChange handler by the Filter option. 
-    */
+     */
     onFilteredChange: FilteredChangeFunction;
 
     /** Called when an expander is clicked. Use this to manage `expanded` */
@@ -578,7 +578,7 @@ export interface Column extends
      * The `pivotDefaults` options will be applied on top of this column's options.
      * It will also let you specify rendering of the header (and header group if this special column is placed in the `columns` option of another column)
      */
-    pivot?: boolean,
+    pivot?: boolean;
 }
 
 export interface ColumnRenderProps {
