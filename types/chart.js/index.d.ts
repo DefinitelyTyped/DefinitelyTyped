@@ -159,6 +159,7 @@ declare namespace Chart {
     interface ChartOptions {
         responsive?: boolean;
         responsiveAnimationDuration?: number;
+        aspectRatio?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;

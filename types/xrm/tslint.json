@@ -18,6 +18,7 @@
             "double"
         ],
         "jsdoc-format": true,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "no-empty-interface": false
     }
 }

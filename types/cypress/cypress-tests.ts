@@ -12,6 +12,8 @@ cy
   .get('.query-button')
   .contains('Save Form').should('have.class', 'btn');
 
+cy.location('host');
+
 cy
   .get('form')
   .find('input')
