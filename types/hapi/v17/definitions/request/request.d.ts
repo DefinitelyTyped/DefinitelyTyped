@@ -198,7 +198,7 @@ export interface Request extends Podium {
      * @param source - the value to set as the source of the reply interface, optional.
      * @param options - options for the method, optional.
      * @return ResponseObject
-     * [See docs] (https://hapijs.com/api/17.0.1#request.generateResponse())
+     * [See docs](https://hapijs.com/api/17.0.1#request.generateResponse())
      */
     generateResponse(source?: ReplyValue, options?: {marshal?: any; prepare?: any; close?: any; variety?: any}): ResponseObject;
 
@@ -218,7 +218,7 @@ export interface Request extends Podium {
      * @return Return value: true if the request would have passed the route's access requirements.
      * Note that the route's authentication mode and strategies are ignored. The only match is made between the request.auth.credentials scope and entity information and the route access configuration.
      * If the route uses dynamic scopes, the scopes are constructed against the request.query, request.params, request.payload, and request.auth.credentials which may or may not match between the route and the request's route. If this method is called using a request that has not been authenticated (yet or not at all), it will return false if the route requires any authentication.
-     * [See docs] (https://hapijs.com/api/17.0.1#-requestrouteauthaccessrequest)
+     * [See docs](https://hapijs.com/api/17.0.1#-requestrouteauthaccessrequest)
      */
     // TODO how to implement it? It is a function inside route.auth! We have another "route" properti in this file. (The v16 doesn't have this option)
 
@@ -227,7 +227,7 @@ export interface Request extends Podium {
      * @param method - is the request HTTP method (e.g. 'GET').
      * @return void
      * Can only be called from an 'onRequest' extension method.
-     * [See docs] (https://hapijs.com/api/17.0.1#-requestsetmethodmethod)
+     * [See docs](https://hapijs.com/api/17.0.1#-requestsetmethodmethod)
      */
     setMethod(method: HTTP_METHODS_PARTIAL): void;
 
@@ -237,7 +237,7 @@ export interface Request extends Podium {
      * @param url - the new request URI. If url is a string, it is parsed with node's URL parse() method with parseQueryString set to true. url can also be set to an object compatible with node's URL parse() method output.
      * @param stripTrailingSlash - if true, strip the trailing slash from the path. Defaults to false.
      * @return void
-     * [See docs] (https://hapijs.com/api/17.0.1#-requestseturlurl-striptrailingslash)
+     * [See docs](https://hapijs.com/api/17.0.1#-requestseturlurl-striptrailingslash)
      */
     setUrl(url: string | url.URL, stripTrailingSlash?: boolean): void;
 
