@@ -433,7 +433,7 @@ declare namespace d3 {
     /**
      * Administrivia: JavaScript primitive types, or "things that toString() predictably".
      */
-    export type Primitive = number | string | boolean | Date | undefined;
+    export type Primitive = number | string | boolean ;
 
     /**
      * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
@@ -932,28 +932,28 @@ declare namespace d3 {
         export function flush(): void;
     }
 
-	 interface BaseEvent {
-		 type: string;
-		 sourceEvent?: Event;
-	 }
+    interface BaseEvent {
+        type: string;
+        sourceEvent?: Event;
+    }
 
-	 /**
-	  * Define a D3-specific ZoomEvent per https://github.com/mbostock/d3/wiki/Zoom-Behavior#event
-	  */
-	 interface ZoomEvent extends BaseEvent {
-		 scale: number;
-		 translate: [number, number];
-	 }
+    /**
+     * Define a D3-specific ZoomEvent per https://github.com/mbostock/d3/wiki/Zoom-Behavior#event
+     */
+    interface ZoomEvent extends BaseEvent {
+        scale: number;
+        translate: [number, number];
+    }
 
-	 /**
-	  * Define a D3-specific DragEvent per https://github.com/mbostock/d3/wiki/Drag-Behavior#on
-	  */
-	 interface DragEvent extends BaseEvent {
-		 x: number;
-		 y: number;
-		 dx: number;
-		 dy: number;
-	 }
+    /**
+     * Define a D3-specific DragEvent per https://github.com/mbostock/d3/wiki/Drag-Behavior#on
+     */
+    interface DragEvent extends BaseEvent {
+        x: number;
+        y: number;
+        dx: number;
+        dy: number;
+    }
 
     /**
      * The current event's value. Use this variable in a handler registered with `selection.on`.
@@ -1391,8 +1391,8 @@ declare namespace d3 {
     export function requote(string: string): string;
 
     export var rgb: {
-        new (r: number, g: number, b: number): Rgb;
-        new (color: string): Rgb;
+        new(r: number, g: number, b: number): Rgb;
+        new(color: string): Rgb;
 
         (r: number, g: number, b: number): Rgb;
         (color: string): Rgb;
@@ -1412,8 +1412,8 @@ declare namespace d3 {
     }
 
     export var hsl: {
-        new (h: number, s: number, l: number): Hsl;
-        new (color: string): Hsl;
+        new(h: number, s: number, l: number): Hsl;
+        new(color: string): Hsl;
 
         (h: number, s: number, l: number): Hsl;
         (color: string): Hsl;
@@ -1433,8 +1433,8 @@ declare namespace d3 {
     }
 
     export var hcl: {
-        new (h: number, c: number, l: number): Hcl;
-        new (color: string): Hcl;
+        new(h: number, c: number, l: number): Hcl;
+        new(color: string): Hcl;
 
         (h: number, c: number, l: number): Hcl;
         (color: string): Hcl;
@@ -1450,8 +1450,8 @@ declare namespace d3 {
     }
 
     export var lab: {
-        new (l: number, a: number, b: number): Lab;
-        new (color: string): Lab;
+        new(l: number, a: number, b: number): Lab;
+        new(color: string): Lab;
 
         (l: number, a: number, b: number): Lab;
         (color: string): Lab;
@@ -1471,7 +1471,7 @@ declare namespace d3 {
 
     export var color: {
         (): Color;
-        new (): Color;
+        new(): Color;
     };
 
     interface Color {
@@ -1685,7 +1685,7 @@ declare namespace d3 {
         export function category20<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
         export function category20b(): Ordinal<string, string>;
         export function category20b<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
-        export function category20c(): Ordinal<string,string>;
+        export function category20c(): Ordinal<string, string>;
         export function category20c<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
 
         interface Ordinal<Domain extends { toString(): string }, Range> {
@@ -1822,10 +1822,10 @@ declare namespace d3 {
         export function format(specifier: string): Format;
 
         export module format {
-            export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+            export function multi(formats: Array<[string, (d: Date) => boolean | number]>): Format;
             export function utc(specifier: string): Format;
             namespace utc {
-                export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+                export function multi(formats: Array<[string, (d: Date) => boolean | number]>): Format;
             }
 
             export var iso: Format;
@@ -2578,7 +2578,7 @@ declare namespace d3 {
 
             tickFormat(): (t: any) => string;
             tickFormat(format: (t: any) => string): Axis;
-            tickFormat(format:string): Axis;
+            tickFormat(format: string): Axis;
         }
 
         export function brush(): Brush<any>;
@@ -2586,13 +2586,13 @@ declare namespace d3 {
 
         namespace brush {
             interface Scale {
-                domain(): number[];
-                domain(domain: number[]): Scale;
+                domain(): number[] | Date[];
+                domain(domain: number[] | Date[]): Scale;
 
-                range(): number[];
-                range(range: number[]): Scale;
+                range(): number[] | Date[];
+                range(range: number[] | Date[]): Scale;
 
-                invert?(y: number): number;
+                invert?(y: number | Date): number | Date;
             }
         }
 
@@ -2610,8 +2610,8 @@ declare namespace d3 {
             y(y: brush.Scale): Brush<T>;
 
             // https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md#brush_extent
-            extent(): [number, number] | [[number, number], [number, number]] | [Date, Date];
-            extent(extent: [number, number] | [[number, number], [number, number]]): Brush<T>;
+            extent(): [number, number] | [[number, number], [number, number]] | [Date, Date] | [[Date, Date],[Date,Date]];
+            extent(extent: [number, number] | [[number, number], [number, number]] | [Date, Date] | [[Date, Date], [Date, Date]]): Brush<T>;
 
             clamp(): boolean | [boolean, boolean];
             clamp(clamp: boolean | [boolean, boolean]): Brush<T>;
@@ -2764,7 +2764,7 @@ declare namespace d3 {
         timeFormat: {
             (specifier: string): time.Format;
             utc(specifier: string): time.Format;
-            multi(formats: Array<[string, (d: Date) => boolean|number]>): time.Format;
+            multi(formats: Array<[string, (d: Date) => boolean | number]>): time.Format;
         }
     }
 
@@ -2883,8 +2883,8 @@ declare namespace d3 {
         // Read the note at the end of the section where it talks about initial numbering
         namespace force {
             interface Link<T extends Node> {
-                source: T|number;
-                target: T|number;
+                source: T | number;
+                target: T | number;
             }
 
             interface Node {
