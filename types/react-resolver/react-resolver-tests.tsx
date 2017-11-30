@@ -11,23 +11,23 @@ interface ResolvedProps {
 }
 
 class Page extends React.Component<OwnProps & ResolvedProps> {
-    render() {
-        return <div>Hello, {this.props.data}!</div>;
-    }
+  render() {
+    return <div>Hello, {this.props.data}!</div>;
+  }
 }
 
 const ResolvedPageWithSingleProp = resolve('data', async () => {
-    return new Promise<string>(resolve => {
-        setTimeout(() => resolve('World'), 500);
-    });
+  return new Promise<string>(resolve => {
+    setTimeout(() => resolve('World'), 500);
+  });
 })(Page);
 
 const ResolvedPageWithPropMap = resolve({
-    data: async () => {
-        return new Promise<string>(resolve => {
-            setTimeout(() => resolve('World'), 500);
-        });
-    },
+  data: async () => {
+    return new Promise<string>(resolve => {
+      setTimeout(() => resolve('World'), 500);
+    });
+  },
 })(Page);
 
 expect(<ResolvedPageWithSingleProp />).toExist();
@@ -36,9 +36,7 @@ expect(<ResolvedPageWithPropMap />).toExist();
 // Resolver.render(() => <ResolvedPageWithPropMap />, document.getElementById('app'));
 
 Resolver.resolve(() => {
-    return (
-        <ResolvedPageWithPropMap />
-    );
+  return <ResolvedPageWithPropMap />;
 }).then(({ data, Resolved }) => {
-    expect(data).toBe('World');
+  expect(data).toBe('World');
 });
