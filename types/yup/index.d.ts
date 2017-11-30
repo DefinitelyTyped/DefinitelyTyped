@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export as namespace yup;
-
 export function reach(schema: Schema, path: string, value?: any, context?: any): Schema;
 export function addMethod(schemaType: Schema, name: string, method: () => Schema): void;
 export function ref(path: string, options: { contextPrefix: string }): Ref;
@@ -42,9 +40,11 @@ export interface Schema {
     clone(): Schema;
     label(label: string): Schema;
     meta(metadata: any): Schema;
+    meta(): any;
     describe(): SchemaDescription;
     concat(schema: Schema): Schema;
     validate(value: any, options?: ValidateOptions, callback?: () => void): Promise<any>;
+    validateSync(value: any, options?: ValidateOptions): any;
     isValid(value: any, options?: any, callback?: () => void): Promise<boolean>;
     isValidSync(value: any, options?: any): boolean;
     cast(value: any): any;
@@ -59,7 +59,7 @@ export interface Schema {
     typeError(message?: string): Schema;
     oneOf(arrayOfValues: any[], message?: string): Schema;
     notOneOf(arrayOfValues: any[], message?: string): Schema;
-    when(keys: string | any[], builder: any | ((value: any, schema: Schema) => Schema)): Schema;
+    when(keys: string | any[], builder: ((value: any, schema: Schema) => Schema) | object): Schema;
     test(name: string, message: string, test: (value: any) => boolean, callbackStyleAsync?: boolean): Schema;
     test(options: TestOptions): Schema;
     transform(transformation: (currentValue: any, originalValue: any) => any): Schema;
@@ -140,6 +140,7 @@ export interface ObjectSchema extends Schema {
     shape(fields: any, noSortEdges?: Array<[string, string]>): ObjectSchema;
     from(fromKey: string, toKey: string, alias: boolean): ObjectSchema;
     noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema;
+    transformKeys(callback: (key: any) => any): void
     camelCase(): ObjectSchema;
     constantCase(): ObjectSchema;
 }
