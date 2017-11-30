@@ -2,7 +2,7 @@
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from "react";
 import { RouteComponentProps, match } from "react-router";
@@ -28,4 +28,4 @@ export interface MatchedRoute<T> {
 
 export function matchRoutes<T>(routes: RouteConfig[], pathname: string): Array<MatchedRoute<T>>;
 
-export function renderRoutes(routes: RouteConfig[] | undefined): JSX.Element;
+export function renderRoutes(routes: RouteConfig[] | undefined, extraProps?: any): JSX.Element;

@@ -15,7 +15,7 @@ declare namespace winston {
     }
 
     interface AbstractConfigSetColors {
-        [key: string]: string;
+        [key: string]: string | string[];
     }
 
     interface AbstractConfigSet {
@@ -37,16 +37,16 @@ declare namespace winston {
     }
 
     interface CliConfigSetColors extends AbstractConfigSetColors {
-        error: string;
-        warn: string;
-        help: string;
-        data: string;
-        info: string;
-        debug: string;
-        prompt: string;
-        verbose: string;
-        input: string;
-        silly: string;
+        error: string | string[];
+        warn: string | string[];
+        help: string | string[];
+        data: string | string[];
+        info: string | string[];
+        debug: string | string[];
+        prompt: string | string[];
+        verbose: string | string[];
+        input: string | string[];
+        silly: string | string[];
     }
     interface NpmConfigSetLevels extends AbstractConfigSetLevels {
         error: number;
@@ -57,12 +57,12 @@ declare namespace winston {
         silly: number;
     }
     interface NpmConfigSetColors extends AbstractConfigSetColors {
-        error: string;
-        warn: string;
-        info: string;
-        verbose: string;
-        debug: string;
-        silly: string;
+        error: string | string[];
+        warn: string | string[];
+        info: string | string[];
+        verbose: string | string[];
+        debug: string | string[];
+        silly: string | string[];
     }
     interface SyslogConfigSetLevels extends AbstractConfigSetLevels {
         emerg: number;
@@ -75,14 +75,14 @@ declare namespace winston {
         debug: number;
     }
     interface SyslogConfigSetColors extends AbstractConfigSetColors {
-        emerg: string;
-        alert: string;
-        crit: string;
-        error: string;
-        warning: string;
-        notice: string;
-        info: string;
-        debug: string;
+        emerg: string | string[];
+        alert: string | string[];
+        crit: string | string[];
+        error: string | string[];
+        warning: string | string[];
+        notice: string | string[];
+        info: string | string[];
+        debug: string | string[];
     }
 
     interface Winston {
@@ -242,10 +242,7 @@ declare namespace winston {
         level?: string;
         levels?: AbstractConfigSetLevels;
 
-        /**
-         * @type {(boolean|(err: Error) => void)}
-         */
-        exitOnError?: any;
+        exitOnError?: boolean | ((err: Error) => void);
 
         // TODO: Need to make instances specific,
         //       and need to get options for each instance.

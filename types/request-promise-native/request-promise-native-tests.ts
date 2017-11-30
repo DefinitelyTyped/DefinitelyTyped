@@ -1,4 +1,5 @@
 import * as rpn from 'request-promise-native';
+import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
 
 rpn('http://www.google.com')
@@ -281,7 +282,7 @@ rpn.post({ url, oauth }, (e, r, body) => {
     consumer_key: CONSUMER_KEY,
     consumer_secret: CONSUMER_SECRET,
     token: auth_data.oauth_token,
-    token_secret: req_data.oauth_token_secret,
+    token_secret: req_data.oauth_token_secret as string,
     verifier: auth_data.oauth_verifier,
   };
   url = 'https://api.twitter.com/oauth/access_token';

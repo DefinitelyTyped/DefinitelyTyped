@@ -1,4 +1,4 @@
-// Type definitions for Agenda v0.8.9
+// Type definitions for Agenda v1.0.0
 // Project: https://github.com/rschmukler/agenda
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -336,6 +336,11 @@ declare namespace Agenda {
          * The database record associated with the job.
          */
         attrs: JobAttributes;
+
+        /**
+         * The agenda that created the job.
+         */
+        agenda: Agenda;
 
         /**
          * Specifies an interval on which the job should repeat.

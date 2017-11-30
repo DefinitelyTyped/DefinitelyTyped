@@ -43,10 +43,9 @@ class Graph extends React.Component<any, any> {
       });
 
       const newDataSet = {
-        ...oldDataSet
+        ...oldDataSet,
+        data: newData
       };
-
-      newDataSet.data = newData;
 
       this.setState({ datasets: [newDataSet] });
     }, 5000);
@@ -59,9 +58,7 @@ class Graph extends React.Component<any, any> {
   }
 }
 
-export default React.createClass({
-  displayName: 'RandomizedDataLineExample',
-
+export default class RandomizedDataLineExample extends React.Component {
   render() {
     return (
       <div>
@@ -70,4 +67,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

@@ -1,5 +1,14 @@
 import * as React from "react";
-import { shallow, mount, render, ShallowWrapper, ReactWrapper } from "enzyme";
+import {
+    shallow,
+    mount,
+    render,
+    ShallowWrapper,
+    ReactWrapper,
+    configure,
+    EnzymeAdapter,
+    ShallowRendererProps,
+} from "enzyme";
 import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
 // Help classes/interfaces
@@ -23,6 +32,18 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
 }
 
 const MyStatelessComponent = (props: StatelessProps) => <span />;
+
+// Enzyme.configure
+function configureTest() {
+    const configureAdapter: { adapter: EnzymeAdapter } = { adapter: {} };
+    configure(configureAdapter);
+
+    const configureAdapterAndDisableLifecycle: typeof configureAdapter & Pick<ShallowRendererProps, "disableLifecycleMethods"> = {
+        adapter: {},
+        disableLifecycleMethods: true,
+    };
+    configure(configureAdapterAndDisableLifecycle);
+}
 
 // ShallowWrapper
 function ShallowWrapperTest() {
@@ -50,7 +71,8 @@ function ShallowWrapperTest() {
             context: {
                 test: "a",
             },
-            lifecycleExperimental: true
+            lifecycleExperimental: true,
+            disableLifecycleMethods: true
         });
     }
 
@@ -107,6 +129,10 @@ function ShallowWrapperTest() {
         }
 
         const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
+    }
+
+    function test_hostNodes() {
+	    shallowWrapper.hostNodes();
     }
 
     function test_equals() {
@@ -204,6 +230,14 @@ function ShallowWrapperTest() {
 
     function test_getNodes() {
         reactElements = shallowWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = shallowWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = shallowWrapper.getElements();
     }
 
     function test_getDOMNode() {
@@ -417,6 +451,10 @@ function ReactWrapperTest() {
         reactWrapper.detach();
     }
 
+    function test_hostNodes() {
+        reactWrapper.hostNodes();
+    }
+
     function test_find() {
         elementWrapper = reactWrapper.find('.selector');
         reactWrapper = reactWrapper.find(MyComponent);
@@ -543,6 +581,14 @@ function ReactWrapperTest() {
 
     function test_getNodes() {
         reactElements = reactWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = reactWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = reactWrapper.getElements();
     }
 
     function test_getDOMNode() {

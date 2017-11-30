@@ -376,6 +376,12 @@ namespace utilTests {
             const g: string = util.uuid.v4({ nsecs: 1 });
         }
 
+        namespace v3 {
+            const a: string = util.uuid.v3([], []);
+            const b: number[] = util.uuid.v3([], [], []);
+            const c: number[] = util.uuid.v3([], [], [], 1);
+        }
+
         namespace v5 {
             const a: string = util.uuid.v5([], []);
             const b: number[] = util.uuid.v5([], [], []);
@@ -509,7 +515,7 @@ namespace utilTests {
         }
 
         const a: string = util.Editor.DEFAULT;
-        new util.Editor().spawn().then((x: adone.std.child_process.ChildProcess) => { });
+        new util.Editor().spawn().then((x: nodestd.child_process.ChildProcess) => { });
         new util.Editor().run().then((x: string) => { });
         new util.Editor().cleanup().then((x: undefined) => { });
         util.Editor.edit().then((x: string) => { });
@@ -658,80 +664,106 @@ namespace utilTests {
             const e: [number, number] = clock.hrtime();
             const f: [number, number] = clock.hrtime(e);
         }
+    }
 
-        namespace ltgt {
-            namespace contains {
-                const a: boolean = util.ltgt.contains({ lt: 2 }, 2);
-                const b: boolean = util.ltgt.contains({ lt: 2 }, 2, (a, b) => b - a);
-                const c: boolean = util.ltgt.contains({ lt: "2" }, "2");
-                const d: boolean = util.ltgt.contains({ lt: "2" }, "2", (a, b) => b.charCodeAt(0) - a.charCodeAt(0));
-            }
-
-            namespace filter {
-                const a: (a: number) => boolean = util.ltgt.filter({ lt: 2 });
-                const b: (a: number) => boolean = util.ltgt.filter({ lt: 2 }, (a, b) => b - a);
-                const c: (a: string) => boolean = util.ltgt.filter({ lt: "2" });
-                const d: (a: string) => boolean = util.ltgt.filter({ lt: "2" }, (a, b) => b.charCodeAt(0) - a.charCodeAt(0));
-            }
-
-            namespace toLtgt {
-                const a: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {});
-                const b: adone.util.ltgt.I.Range<string> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => `${a}`);
-                const c: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => a, 2);
-                const d: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => a, 2, 5);
-            }
-
-            namespace endEnclusive {
-                const a: boolean = util.ltgt.endInclusive({ lt: 2 });
-            }
-
-            namespace startInclusive {
-                const a: boolean = util.ltgt.startInclusive({ lt: 2 });
-            }
-
-            namespace end {
-                const a: number | undefined = util.ltgt.end({ lt: 2 });
-                const b: number | string = util.ltgt.end({ lt: 2 }, "2");
-                const c: number = util.ltgt.end({ lt: 2 }, 2);
-            }
-
-            namespace start {
-                const a: number | undefined = util.ltgt.start({ lt: 2 });
-                const b: number | string = util.ltgt.start({ lt: 2 }, "2");
-                const c: number = util.ltgt.start({ lt: 2 }, 2);
-            }
-
-            namespace upperBound {
-                const a: number | undefined = util.ltgt.upperBound({ lt: 2 });
-                const b: number | string = util.ltgt.upperBound({ lt: 2 }, "2");
-                const c: number = util.ltgt.upperBound({ lt: 2 }, 2);
-            }
-
-            namespace upperBoundKey {
-                const a: number | undefined = util.ltgt.upperBoundKey({ lt: 2 });
-            }
-
-            namespace upperBoundExclusive {
-                const a: boolean = util.ltgt.upperBoundInclusive({ lt: 2 });
-            }
-
-            namespace lowerBoundExclusive {
-                const a: boolean = util.ltgt.lowerBoundInclusive({ lt: 2 });
-            }
-
-            namespace upperBoundInclusive {
-                const a: boolean = util.ltgt.upperBoundInclusive({ lt: 2 });
-            }
-
-            namespace lowerBoundInclusive {
-                const a: boolean = util.ltgt.lowerBoundInclusive({ lt: 2 });
-            }
-
-            namespace lowerBound {
-                const a: number | undefined = util.ltgt.lowerBound({ lt: 2 });
-                const b: number | string = util.ltgt.lowerBound({ lt: 2 }, "2");
-                const c: number = util.ltgt.lowerBound({ lt: 2 }, 2);
-            }
+    namespace ltgt {
+        namespace contains {
+            const a: boolean = util.ltgt.contains({ lt: 2 }, 2);
+            const b: boolean = util.ltgt.contains({ lt: 2 }, 2, (a, b) => b - a);
+            const c: boolean = util.ltgt.contains({ lt: "2" }, "2");
+            const d: boolean = util.ltgt.contains({ lt: "2" }, "2", (a, b) => b.charCodeAt(0) - a.charCodeAt(0));
         }
+
+        namespace filter {
+            const a: (a: number) => boolean = util.ltgt.filter({ lt: 2 });
+            const b: (a: number) => boolean = util.ltgt.filter({ lt: 2 }, (a, b) => b - a);
+            const c: (a: string) => boolean = util.ltgt.filter({ lt: "2" });
+            const d: (a: string) => boolean = util.ltgt.filter({ lt: "2" }, (a, b) => b.charCodeAt(0) - a.charCodeAt(0));
+        }
+
+        namespace toLtgt {
+            const a: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {});
+            const b: adone.util.ltgt.I.Range<string> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => `${a}`);
+            const c: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => a, 2);
+            const d: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => a, 2, 5);
+        }
+
+        namespace endEnclusive {
+            const a: boolean = util.ltgt.endInclusive({ lt: 2 });
+        }
+
+        namespace startInclusive {
+            const a: boolean = util.ltgt.startInclusive({ lt: 2 });
+        }
+
+        namespace end {
+            const a: number | undefined = util.ltgt.end({ lt: 2 });
+            const b: number | string = util.ltgt.end({ lt: 2 }, "2");
+            const c: number = util.ltgt.end({ lt: 2 }, 2);
+        }
+
+        namespace start {
+            const a: number | undefined = util.ltgt.start({ lt: 2 });
+            const b: number | string = util.ltgt.start({ lt: 2 }, "2");
+            const c: number = util.ltgt.start({ lt: 2 }, 2);
+        }
+
+        namespace upperBound {
+            const a: number | undefined = util.ltgt.upperBound({ lt: 2 });
+            const b: number | string = util.ltgt.upperBound({ lt: 2 }, "2");
+            const c: number = util.ltgt.upperBound({ lt: 2 }, 2);
+        }
+
+        namespace upperBoundKey {
+            const a: number | undefined = util.ltgt.upperBoundKey({ lt: 2 });
+        }
+
+        namespace upperBoundExclusive {
+            const a: boolean = util.ltgt.upperBoundInclusive({ lt: 2 });
+        }
+
+        namespace lowerBoundExclusive {
+            const a: boolean = util.ltgt.lowerBoundInclusive({ lt: 2 });
+        }
+
+        namespace upperBoundInclusive {
+            const a: boolean = util.ltgt.upperBoundInclusive({ lt: 2 });
+        }
+
+        namespace lowerBoundInclusive {
+            const a: boolean = util.ltgt.lowerBoundInclusive({ lt: 2 });
+        }
+
+        namespace lowerBound {
+            const a: number | undefined = util.ltgt.lowerBound({ lt: 2 });
+            const b: number | string = util.ltgt.lowerBound({ lt: 2 }, "2");
+            const c: number = util.ltgt.lowerBound({ lt: 2 }, 2);
+        }
+    }
+
+    namespace userid {
+        const { userid } = util;
+
+        { const a: number = userid.uid("someone").gid; }
+        { const a: number = userid.uid("someone").uid; }
+        { const a: number = userid.gid("someone"); }
+        { const a: string = userid.username(1000); }
+        { const a: string = userid.groupname(1000); }
+        { const gids: number[] = userid.gids("someone"); }
+    }
+
+    namespace LogRotator {
+        const { LogRotator } = util;
+        new LogRotator("file.log");
+        new LogRotator("file.log", {});
+        new LogRotator("file.log", { checkInterval: 1000 });
+        new LogRotator("file.log", { checkInterval: "10 minutes" });
+        new LogRotator("file.log", { maxSize: 1000 });
+        new LogRotator("file.log", { maxSize: "100kb" });
+        new LogRotator("file.log", { maxFiles: 10 });
+        new LogRotator("file.log", { compress: true });
+        new LogRotator("file.log").rotate().then(() => {});
+        new LogRotator("file.log").start();
+        new LogRotator("file.log").stop();
     }
 }

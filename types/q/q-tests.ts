@@ -144,13 +144,13 @@ const nodeStyle = (input: string, cb: (error: any, success: any) => void) => {
 	cb(null, input);
 };
 
-Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {
+Q.nfapply<string>(nodeStyle, ["foo"]).done((result: string) => {
 });
-Q.nfcall(nodeStyle, "foo").done((result: string) => {
+Q.nfcall<string>(nodeStyle, "foo").done((result: string) => {
 });
-Q.denodeify(nodeStyle)('foo').done((result: string) => {
+Q.denodeify<string>(nodeStyle)('foo').done((result: string) => {
 });
-Q.nfbind(nodeStyle)('foo').done((result: string) => {
+Q.nfbind<string>(nodeStyle)('foo').done((result: string) => {
 });
 
 class Repo {
@@ -171,7 +171,7 @@ class Repo {
 }
 
 const kitty = new Repo();
-Q.nbind(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
+Q.nbind<any[]>(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
 });
 
 /**

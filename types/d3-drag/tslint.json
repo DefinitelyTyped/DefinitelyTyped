@@ -3,6 +3,7 @@
     "rules": {
         // TODO
         "no-this-assignment": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "no-unnecessary-generics": false
     }
 }

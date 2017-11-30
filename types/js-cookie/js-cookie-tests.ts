@@ -32,12 +32,8 @@ Cookies.getJSON();
 
 document.cookie = 'escaped=%u5317';
 document.cookie = 'default=%E5%8C%97';
-const cookies = Cookies.withConverter((value, name) => {
-    if ( name === 'escaped' ) {
-        return decodeURIComponent(value);
-    }
-    return value;
-});
+const cookies = Cookies.withConverter((value, name) =>
+    name === 'escaped' ? decodeURIComponent(value) : value);
 
 cookies.get('escaped');
 

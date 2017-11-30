@@ -25,7 +25,7 @@ interface Window {
  * NOTE: The InAppBrowser window behaves like a standard web browser, and can't access Cordova APIs.
  */
 interface InAppBrowser extends Window {
-    onloadstart(type: InAppBrowserEvent): void;
+    onloadstart(type: Event): void;
     onloadstop(type: InAppBrowserEvent): void;
     onloaderror(type: InAppBrowserEvent): void;
     onexit(type: InAppBrowserEvent): void;

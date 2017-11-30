@@ -2,10 +2,11 @@
 // Project: https://github.com/Leaflet/Leaflet.fullscreen
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     interface MapOptions {
         fullscreenControl?: true | {pseudoFullscreen: boolean};
     }

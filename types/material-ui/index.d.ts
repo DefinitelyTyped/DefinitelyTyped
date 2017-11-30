@@ -111,7 +111,7 @@ declare module "material-ui" {
     export import StepContentProps = __MaterialUI.Stepper.StepContentProps;
     export import StepLabel = __MaterialUI.Stepper.StepLabel;
     export import StepLabelProps = __MaterialUI.Stepper.StepLabelProps;
-    export import Stepper = __MaterialUI.Stepper;
+    export import Stepper = __MaterialUI.Stepper.Stepper;
     export import StepperProps = __MaterialUI.Stepper.StepperProps;
     export import Snackbar = __MaterialUI.Snackbar;
     export import SnackbarProps = __MaterialUI.SnackbarProps;
@@ -673,6 +673,7 @@ declare namespace __MaterialUI {
         size?: number;
         src?: string;
         style?: React.CSSProperties;
+        onClick?: React.MouseEventHandler<{}>;
     }
     export class Avatar extends React.Component<AvatarProps> {
     }
@@ -946,12 +947,14 @@ declare namespace __MaterialUI {
     export interface ChipProps {
         backgroundColor?: string;
         className?: string;
+        containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
         onRequestDelete?: React.TouchEventHandler<Chip>;
         onTouchTap?: React.TouchEventHandler<Chip>;
         style?: React.CSSProperties;
-    }
+        onClick?: React.MouseEventHandler<{}>;
+}
     export class Chip extends React.Component<ChipProps> {
     }
 
@@ -1437,6 +1440,7 @@ declare namespace __MaterialUI {
         hintText?: React.ReactNode;
         iconStyle?: React.CSSProperties;
         id?: string;
+        name?: string;
         labelStyle?: React.CSSProperties;
         multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
@@ -1724,7 +1728,7 @@ declare namespace __MaterialUI {
             onCellHoverExit?(row: number, column: number): void;
             onRowHover?(row: number): void;
             onRowHoverExit?(row: number): void;
-            onRowSelection?(selectedRows: number[] | string): void;
+            onRowSelection?(selectedRows: number[] | 'all'): void;
             selectable?: boolean;
             style?: React.CSSProperties;
             wrapperStyle?: React.CSSProperties;

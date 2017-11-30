@@ -73,7 +73,6 @@ declare class Settings extends EventEmitter {
      *
      * @param keyPath The path to the key whose value we wish to set. This key need not already exist.
      * @param value The value to set the key at the chosen key path to. This must be a data type supported by JSON: object, array, string, number, boolean, or null.
-     * @param options
      * @throws if key path is not a string.
      * @throws if options is not an object.
      * @see setSync
@@ -91,7 +90,6 @@ declare class Settings extends EventEmitter {
      * Deletes the key and value at the chosen key path.
      *
      * @param keyPath The path to the key we wish to unset.
-     * @param options
      * @throws if keyPath is not a string.
      * @throws if options is not an object.
      * @see deleteSync

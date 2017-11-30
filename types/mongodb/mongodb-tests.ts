@@ -3,7 +3,7 @@ import mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 var format  = require('util').format;
-let options = {
+let options: mongodb.MongoClientOptions = {
     authSource           : ' ',
     w                    : 1,
     wtimeout             : 300,
@@ -13,12 +13,12 @@ let options = {
     promoteValues        : {},
     pkFactory            : {},
     poolSize             : 1,
-    
+
     socketOptions        : {},
-    
+
     reconnectTries       : 123456,
     reconnectInterval    : 123456,
-    
+
     ssl                  : true,
     sslValidate          : {},
     checkServerIdentity  : function (){ },
@@ -48,6 +48,11 @@ let options = {
         collection.stats(function(err: mongodb.MongoError, stats: any) {
             console.log(stats.count + " documents");
         });
+
+        //
+        collection.stats().then(function(stats){
+            console.log(stats.wiredTiger.cache['bytes currently in the cache']);
+        })
 
         collection.createIndex({}, {partialFilterExpression: {rating: {$exists: 1}}})
     });

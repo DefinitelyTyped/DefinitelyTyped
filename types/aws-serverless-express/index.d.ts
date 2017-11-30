@@ -2,6 +2,7 @@
 // Project: https://github.com/awslabs/aws-serverless-express
 // Definitions by: Ben Speakman <https://github.com/threesquared>, Josh Caffey <https://github.com/jcaffey>, Matthias Meyer <https://github.com/mattmeye>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 import * as http from 'http';
