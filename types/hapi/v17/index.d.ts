@@ -48,6 +48,7 @@ export * from './definitions/server/server-options'
 export * from './definitions/server/server-options-cache'
 export * from './definitions/server/server-realm'
 export * from './definitions/server/server-register'
+export * from './definitions/server/server-route'
 export * from './definitions/server/server-state'
 export * from './definitions/server/server-state-options'
 
