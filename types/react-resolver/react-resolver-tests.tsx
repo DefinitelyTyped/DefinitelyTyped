@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Resolver, resolve } from 'react-resolver';
+import { Resolver, resolve, context } from 'react-resolver';
 import * as expect from 'expect';
 
 interface OwnProps {
@@ -29,6 +29,8 @@ const ResolvedPageWithPropMap = resolve({
     });
   },
 })(Page);
+
+const PageWithContext = context('history')(Page);
 
 expect(<ResolvedPageWithSingleProp />).toExist();
 expect(<ResolvedPageWithPropMap />).toExist();

@@ -7,14 +7,14 @@
 import { ComponentType, StatelessComponent, Factory } from 'react';
 
 export interface Resolver {
-  resolve<P, D>(
+  resolve<P>(
     factory: Factory<P>,
   ): Promise<{
-    data: D;
+    data: any;
     Resolved: StatelessComponent<P>;
   }>;
 
-  render<P>(factory: Factory<P>, root: Node | null): void;
+  render(factory: Factory<any>, root: Node | null): void;
 }
 
 export const Resolver: Resolver;
@@ -22,11 +22,11 @@ export const Resolver: Resolver;
 export type ResolveFn<Props, V> = (props: Props) => Promise<V>;
 
 /** Use this for gaining access to a context as a prop without the boilerplate of setting `contextTypes`. */
-export function context<K extends string, V = any>(
+export function context<K extends string, V>(
   prop: K,
 ): <OwnProps>(
   component: ComponentType<OwnProps>,
-) => StatelessComponent<OwnProps & Record<typeof prop, V>>;
+) => StatelessComponent<OwnProps & Record<K, V>>;
 
 /**
  * Use `@client(LoaderComponent)` (or `client(LoaderComponent)(YourComponent)`)
