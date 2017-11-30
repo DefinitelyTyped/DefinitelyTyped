@@ -33,3 +33,14 @@ yup.object().shape({
 const valid = schema.isValidSync({
     startDate: '2017-11-29',
 });
+
+// test when
+yup.object().shape({
+    checkWednesday: yup.bool().required(),
+    name: yup.string().required(),
+    startDate: date()
+        .required()
+        .when(['checkWednesday', 'name'], (checkWednesday: boolean, name: string, schema: CustomDateSchema) => {
+            return checkWednesday ? schema.isWednesday() : schema;
+        })
+});

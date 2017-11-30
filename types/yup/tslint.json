@@ -1,7 +1,7 @@
-{ 
+{
     "extends": "dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "no-any-union": false
+        "no-any-union": true
     }
 }
