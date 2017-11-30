@@ -7,6 +7,7 @@
 //                 Matt Wistrand <https://github.com/mwistrand>,
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Shaun Luttin <https://github.com/shaunluttin>
+//                 Gintautas Miselis <https://github.com/Naktibalda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference types="assertion-error"/>
@@ -706,12 +707,144 @@ declare namespace Chai {
         /**
          * Asserts that haystack does not include needle.
          *
-         * @type T   Type of values in haystack.
          * @param haystack   Container array.
          * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
         notInclude(haystack: any[], needle: any, message?: string): void;
+
+
+        /**
+         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         *
+         * @param haystack   Container string.
+         * @param needle   Potential expected substring of haystack.
+         * @param message   Message to display on error.
+         */
+        deepInclude(haystack: string, needle: string, message?: string): void;
+
+        /**
+         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        deepInclude<T>(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
+         *
+         * @param haystack   Container string.
+         * @param needle   Potential expected substring of haystack.
+         * @param message   Message to display on error.
+         */
+        notDeepInclude(haystack: string, needle: any, message?: string): void;
+
+        /**
+         * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notDeepInclude(haystack: any[], needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        nestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ does not include ‘needle’. Can be used to assert the absence of a subset of properties in an object.
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notNestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object while checking for deep equality
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        deepNestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ does not include ‘needle’. Can be used to assert the absence of a subset of properties in an object while checking for deep equality.
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notDeepNestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object while ignoring inherited properties.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        ownInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the absence of a subset of properties in an object while ignoring inherited properties.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notOwnInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object while ignoring inherited properties and checking for deep
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        deepOwnInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the absence of a subset of properties in an object while ignoring inherited properties and checking for deep equality.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notDeepOwnInclude(haystack: any, needle: any, message?: string): void;
 
         /**
          * Asserts that value matches the regular expression regexp.
@@ -1360,6 +1493,136 @@ declare namespace Chai {
          * @param message    Message to display on error.
          */
         isNotEmpty<T>(object: T, message?: string): void;
+
+        /**
+         * Asserts that `object` has at least one of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAnyKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has all and only all of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has all of the `keys` provided but may have more keys not listed.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        containsAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has none of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAnyKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` does not have at least one of the `keys` provided.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has at least one of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAnyDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` has all and only all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        hasAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` contains all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        containsAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` contains all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAnyDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that `object` contains all of the `keys` provided.
+         * Since Sets and Maps can have objects as keys you can use this assertion to perform
+         * a deep comparison.
+         * You can also provide a single object instead of a `keys` array and its keys
+         * will be used as the expected set of keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param keys   Keys to check
+         * @param message    Message to display on error.
+         */
+        doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
     }
 
     export interface Config {
