@@ -7,7 +7,7 @@ import {PluginSpecificConfiguration, RouteOptions} from "hapi";
 
 
 /**
- * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-server-options)
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-server-options)
  * he server options control the behavior of the server object. Note that the options object is deeply cloned
  * (with the exception of listener which is shallowly copied) and should not contain any values that are unsafe to perform deep copy on.
  * All options are optionals.

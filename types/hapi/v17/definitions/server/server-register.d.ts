@@ -9,13 +9,11 @@ import {Plugin} from "hapi";
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
  */
 export interface ServerRegisterOptions {
-
     once?: boolean;
     routes?: {
         prefix: string;
         vhost: string | string[];
     };
-
 }
 
 /**
@@ -29,8 +27,6 @@ export interface ServerRegisterOptions {
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
  */
 export interface ServerRegisterPluginObject extends ServerRegisterOptions {
-
     plugin: Plugin;
     options?: any;
-
 }
