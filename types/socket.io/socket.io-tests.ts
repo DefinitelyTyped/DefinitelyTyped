@@ -170,3 +170,13 @@ function testClosingServerWithoutCallback() {
     var io = socketIO.listen(80);
     io.close();
 }
+
+function testLocalServerMessages() {
+    var io = socketIO.listen(80);
+    io.local.emit('local', 'Local data');
+}
+
+function testVolatileServerMessages() {
+    var io = socketIO.listen(80);
+    io.volatile.emit('volatile', 'Lost data');
+}

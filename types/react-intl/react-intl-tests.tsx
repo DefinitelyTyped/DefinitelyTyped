@@ -118,6 +118,20 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
             <FormattedMessage
                 id="test"
                 description="Test"
+                defaultMessage="Hi {bool}!"
+                values={{ bool: false }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {date}!"
+                values={{ date: new Date() }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
                 defaultMessage="Hi plurals: {valueOne, number} {valueOne, plural, one {plural} other {plurals}} {valueTen, number} {valueTen, plural, one {plural} other {plurals}} !"
                 values={{ valueOne: 1, valueTen: 10 }}
                 tagName="div" />
@@ -134,6 +148,27 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 description="Test"
                 defaultMessage="Hi, {name}!"
                 values={{ name: "bob" }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi numbers {count}!"
+                values={{ count: 123 }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {bool}!"
+                values={{ bool: false }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {date}!"
+                values={{ date: new Date() }}
                 tagName="div" />
 
             <FormattedNumber

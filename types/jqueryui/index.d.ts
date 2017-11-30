@@ -618,7 +618,7 @@ declare namespace JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
-        create?: ResizableEvents;
+        create?: ResizableEvent;
     }
 
     interface Resizable extends Widget, ResizableOptions {

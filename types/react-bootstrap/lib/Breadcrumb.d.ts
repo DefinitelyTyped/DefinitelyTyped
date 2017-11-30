@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as BreadcrumbItem from './BreadcrumbItem';
 
-declare class Breadcrumb extends React.Component<BreadcrumbProps> {
-  public static Item: typeof BreadcrumbItem;
+declare namespace Breadcrumb {
+    interface BreadcrumbProps extends React.HTMLProps<Breadcrumb> {
+        bsClass?: string;
+    }
 }
-declare namespace Breadcrumb { }
-export = Breadcrumb
-
-interface BreadcrumbProps extends React.HTMLProps<Breadcrumb> {
-  bsClass?: string;
+declare class Breadcrumb extends React.Component<Breadcrumb.BreadcrumbProps> {
+    public static Item: typeof BreadcrumbItem;
 }
+export = Breadcrumb;

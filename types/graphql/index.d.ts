@@ -1,4 +1,4 @@
-// Type definitions for graphql 0.10
+// Type definitions for graphql 0.11
 // Project: https://www.npmjs.com/package/graphql
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
@@ -6,6 +6,9 @@
 //                 Firede <https://github.com/firede>
 //                 Kepennar <https://github.com/kepennar>
 //                 Mikhail Novikov <https://github.com/freiksenet>
+//                 Ivan Goncharov <https://github.com/IvanGoncharov>
+//                 Hagai Cohen <https://github.com/DxCx>
+//                 Ricardo Portugal <https://github.com/rportugal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,6 +30,8 @@ export {
     execute,
     defaultFieldResolver,
     responsePathAsArray,
+    getDirectiveValues,
+    ExecutionArgs,
     ExecutionResult,
 } from './execution';
 
@@ -34,7 +39,37 @@ export {
 export {
     validate,
     ValidationContext,
+
+    // All validation rules in the GraphQL Specification.
     specifiedRules,
+
+    // Individual validation rules.
+    ArgumentsOfCorrectTypeRule,
+    DefaultValuesOfCorrectTypeRule,
+    FieldsOnCorrectTypeRule,
+    FragmentsOnCompositeTypesRule,
+    KnownArgumentNamesRule,
+    KnownDirectivesRule,
+    KnownFragmentNamesRule,
+    KnownTypeNamesRule,
+    LoneAnonymousOperationRule,
+    NoFragmentCyclesRule,
+    NoUndefinedVariablesRule,
+    NoUnusedFragmentsRule,
+    NoUnusedVariablesRule,
+    OverlappingFieldsCanBeMergedRule,
+    PossibleFragmentSpreadsRule,
+    ProvidedNonNullArgumentsRule,
+    ScalarLeafsRule,
+    SingleFieldSubscriptionsRule,
+    UniqueArgumentNamesRule,
+    UniqueDirectivesPerLocationRule,
+    UniqueFragmentNamesRule,
+    UniqueInputFieldNamesRule,
+    UniqueOperationNamesRule,
+    UniqueVariableNamesRule,
+    VariablesAreInputTypesRule,
+    VariablesInAllowedPositionRule,
 } from './validation';
 
 // Create and format GraphQL errors.

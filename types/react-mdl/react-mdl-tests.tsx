@@ -28,8 +28,8 @@ import { Chip, ChipContact,
 // all tests are from the examples provided here: https://tleunen.github.io/react-mdl/
 
 // Badge tests
-React.createClass({
-    render: function() {
+class BadgeTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Number badge on icon */}
@@ -41,7 +41,7 @@ React.createClass({
                 <Badge text="♥" overlap>
                     <Icon name="account_box" />
                 </Badge>
-                
+
                 {/* Number badge on text */}
                 <Badge text="4">Inbox</Badge>
 
@@ -50,11 +50,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Chip tests
-React.createClass({
-    render: function() {
+class ChipTests extends React.Component {
+    render() {
         return (
             <div>
                 <Chip>Basic chip</Chip>
@@ -77,12 +77,12 @@ React.createClass({
                 </Chip>
             </div>
         );
-    } 
-});
+    }
+}
 
 // Button tests
-React.createClass({
-    render: function() {
+class ButtonTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Colored FAB button */}
@@ -161,11 +161,11 @@ React.createClass({
             </div>
         );
     }
-})
+}
 
 // Card tests
-React.createClass({
-    render: function() {
+class CardTests extends React.Component {
+    render() {
         return (
             <div>
                 <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
@@ -181,7 +181,7 @@ React.createClass({
                         <IconButton name="share" />
                     </CardMenu>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '320px', height: '320px', margin: 'auto'}}>
                     <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>Update</CardTitle>
                     <CardText>
@@ -192,7 +192,7 @@ React.createClass({
                         <Button colored>View Updates</Button>
                     </CardActions>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '256px', height: '256px', background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover', margin: 'auto'}}>
                     <CardTitle expand />
                     <CardActions style={{height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)'}}>
@@ -201,7 +201,7 @@ React.createClass({
                         </span>
                     </CardActions>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '256px', height: '256px', background: '#3E4EB8'}}>
                     <CardTitle expand style={{alignItems: 'flex-start', color: '#fff'}}>
                         <h4 style={{marginTop: '0'}}>
@@ -219,11 +219,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Checkbox tests
-React.createClass({
-    render: function() {
+class CheckboxTests extends React.Component {
+    render() {
         return (
             <div>
                 <Checkbox label="With ripple" ripple defaultChecked />
@@ -232,11 +232,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // DataTable tests
-React.createClass({
-    render: function() {
+class DataTableTests extends React.Component {
+    render() {
         return (
             <div>
                 <DataTable
@@ -304,11 +304,14 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Dialog tests
-React.createClass({
-    render: function() {
+class DialogTests extends React.Component<{}, {openDialog: boolean}> {
+    handleOpenDialog() { }
+    handleCloseDialog() { }
+
+    render() {
         return (
             <div>
                 <div>
@@ -324,7 +327,7 @@ React.createClass({
                     </DialogActions>
                     </Dialog>
                 </div>
-                
+
                 <div>
                     <Button colored onClick={this.handleOpenDialog} raised ripple>Show Modal</Button>
                     <Dialog open={this.state.openDialog}>
@@ -338,7 +341,7 @@ React.createClass({
                     </DialogActions>
                     </Dialog>
                 </div>
-                
+
                 <div>
                     <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>Show Dialog</Button>
                     <Dialog open={this.state.openDialog} onAbort={this.handleCloseDialog}>
@@ -355,11 +358,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Grid tests
-React.createClass({
-    render: function() {
+class GridTests extends React.Component {
+    render() {
         return (
             <div>
                 <div style={{width: '80%', margin: 'auto'}}>
@@ -396,11 +399,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // IconToggle tests
-React.createClass({
-    render: function() {
+class IconToggleTests extends React.Component {
+    render() {
         return (
             <div>
                 <IconToggle ripple id="bold" name="format_bold" defaultChecked />
@@ -409,11 +412,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Layout tests
-React.createClass({
-    render: function() {
+class LayoutTests extends React.Component<{}, {activeTab: number}> {
+    render() {
         return (
             <div>
                 {/* Uses a transparent header that draws on top of the layout's background */}
@@ -602,7 +605,7 @@ React.createClass({
                     <Layout fixedHeader>
                         <Header>
                             <HeaderRow title="Title" />
-                            <HeaderTabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })}>
+                            <HeaderTabs activeTab={this.state.activeTab} onChange={(tabId) => {}}>
                                 <Tab>Tab1</Tab>
                                 <Tab>Tab2</Tab>
                                 <Tab>Tab3</Tab>
@@ -689,11 +692,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // List tests
-React.createClass({
-    render: function() {
+class ListTests extends React.Component {
+    render() {
         return (
             <div>
                 <List>
@@ -800,11 +803,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Menu tests
-React.createClass({
-    render: function() {
+class MenuTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Lower left */}
@@ -853,11 +856,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // ProgressBar tests
-React.createClass({
-    render: function() {
+class ProgressBarTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple Progress Bar */}
@@ -871,11 +874,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Radio tests
-React.createClass({
-    render: function() {
+class RadioTests extends React.Component {
+    render() {
         return (
             <div>
                 <RadioGroup name="demo" value="opt1">
@@ -890,11 +893,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Slider tests
-React.createClass({
-    render: function() {
+class SliderTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Default slider */}
@@ -905,11 +908,15 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Snackbar tests
-React.createClass({
-    render: function() {
+class SnackbarTests extends React.Component {
+    handleClickActionSnackbar() {}
+    handleShowSnackbar() {}
+    handleTimeoutSnackbar() {}
+
+    render() {
         return (
             <div>
                 <div>
@@ -920,7 +927,7 @@ React.createClass({
                         onTimeout={this.handleTimeoutSnackbar}
                         action="Undo">Button color changed.</Snackbar>
                 </div>
-                
+
                 <div>
                     <Button raised onClick={this.handleShowSnackbar}>Show a Toast</Button>
                     <Snackbar
@@ -932,11 +939,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Spinner tests
-React.createClass({
-    render: function() {
+class SpinnerTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple spinner */}
@@ -947,11 +954,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Switch tests
-React.createClass({
-    render: function() {
+class SwitchTest extends React.Component {
+    render() {
         return (
             <div>
                 <Switch ripple id="switch1" defaultChecked>Ripple switch</Switch>
@@ -960,11 +967,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Tab tests
-React.createClass({
-    render: function() {
+class TabTests extends React.Component<{}, {activeTab: number}> {
+    render() {
         return (
             <div>
                 <div className="demo-tabs">
@@ -976,15 +983,15 @@ React.createClass({
                     <section>
                         <div className="content">Content for the tab: {this.state.activeTab}</div>
                     </section>
-                </div> 
+                </div>
             </div>
         );
     }
-});
+}
 
 // Textfield tests
-React.createClass({
-    render: function() {
+class TextfieldTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple textfield */}
@@ -1022,11 +1029,11 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // Tooltip tests
-React.createClass({
-    render: function() {
+class TooltipTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple tooltip */}
@@ -1071,15 +1078,15 @@ React.createClass({
             </div>
         );
     }
-});
+}
 
 // MDLComponent tests
-React.createClass({
-    render: function() {
+class MDLComponentTests extends React.Component {
+    render() {
         return (
             <MDLComponent recursive={false}>
                 <div />
             </MDLComponent>
         )
     }
-});
+}

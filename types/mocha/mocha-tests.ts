@@ -105,7 +105,7 @@ function test_before() {
 }
 
 function test_setup() {
-    setup(function() {
+    setup(function () {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -113,9 +113,9 @@ function test_setup() {
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
         string = this.currentTest.state;
-     });
+    });
 
-    setup(function() {
+    setup(function () {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -124,7 +124,7 @@ function test_setup() {
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
         string = this.currentTest.state;
-     });
+    });
 
     setup(function (done) {
         done();
@@ -151,7 +151,7 @@ function test_after() {
 }
 
 function test_teardown() {
-    teardown(function() {
+    teardown(function () {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -161,7 +161,7 @@ function test_teardown() {
         string = this.currentTest.state;
     });
 
-    teardown(function() {
+    teardown(function () {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -172,7 +172,7 @@ function test_teardown() {
         string = this.currentTest.state;
     });
 
-    teardown(function(done) {
+    teardown(function (done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -217,7 +217,7 @@ function test_beforeEach() {
         string = this.currentTest.state;
     });
 
-    beforeEach("my description", function() {
+    beforeEach("my description", function () {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -227,7 +227,7 @@ function test_beforeEach() {
         string = this.currentTest.state;
     });
 
-    beforeEach("my description", function(done) {
+    beforeEach("my description", function (done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -280,7 +280,7 @@ function test_afterEach() {
         string = this.currentTest.state;
     });
 
-    afterEach("my description", function() {
+    afterEach("my description", function () {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -290,7 +290,7 @@ function test_afterEach() {
         string = this.currentTest.state;
     });
 
-    afterEach("my description", function(done) {
+    afterEach("my description", function (done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -316,7 +316,7 @@ function test_reporter_string() {
 }
 
 function test_reporter_function() {
-    mocha.reporter(function () { });
+    mocha.reporter(class { });
 }
 
 function test_setup_slow_option() {
@@ -339,8 +339,12 @@ function test_setup_reporter_string_option() {
     mocha.setup({ reporter: 'html' });
 }
 
+function test_setup_require_stringArray_option() {
+    mocha.setup({ require: ['ts-node/register'] });
+}
+
 function test_setup_reporter_function_option() {
-    mocha.setup({ reporter: function () { } });
+    mocha.setup({ reporter: class { } });
 }
 
 function test_setup_bail_option() {
@@ -372,7 +376,8 @@ function test_setup_all_options() {
         reporter: 'html',
         bail: true,
         ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
+        require: ['ts-node/register']
     });
 }
 
@@ -389,7 +394,7 @@ function test_chaining() {
         .setup({ slow: 25 })
         .growl()
         .reporter('html')
-        .reporter(function () { });
+        .reporter(class { });
 }
 
 import MochaDef = require('mocha');

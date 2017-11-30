@@ -5,9 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="react" />
+import * as React from 'react';
 
-declare namespace Tooltip {
+export as namespace RCTooltip;
+
+declare namespace RCTooltip {
 	export type Trigger = "hover" | "click" | "focus";
 	export type Placement =
 		"left" | "right" | "top" | "bottom" |
@@ -21,7 +23,7 @@ declare namespace Tooltip {
 		overlayStyle?: React.CSSProperties;
 		prefixCls?: string;
 		transitionName?: string;
-		onVisibleChange?: () => void;
+		onVisibleChange?: (visible?: boolean) => void;
 		visible?: boolean;
 		defaultVisible?: boolean;
 		placement?: Placement | Object;
@@ -34,8 +36,4 @@ declare namespace Tooltip {
 	}
 }
 
-declare class Tooltip extends React.Component<Tooltip.Props> {}
-
-declare module "rc-tooltip" {
-	export = Tooltip
-}
+export default class Tooltip extends React.Component<RCTooltip.Props> {}

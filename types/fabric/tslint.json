@@ -5,6 +5,7 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "interface-name": false,
+        "no-any-union": false,
         "no-empty-interface": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,

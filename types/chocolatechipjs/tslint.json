@@ -5,6 +5,8 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "dt-header": false,
-        "unified-signatures": false
+        "no-any-union": false,
+        "unified-signatures": false,
+        "no-unnecessary-generics": false
     }
 }

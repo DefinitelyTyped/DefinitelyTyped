@@ -1,8 +1,8 @@
 import { Action, Store } from "redux";
 import { Location, LocationDescriptorObject } from "history";
-import { AuthBaseConfig, AuthConfig, AuthWrapperDecorator, StateSelector } from "redux-auth-wrapper";
-import { InjectedAuthProps } from "redux-auth-wrapper/authWrapper";
-import { ConnectedAuthWrapperConfig } from "redux-auth-wrapper/connectedAuthWrapper";
+import { AuthBaseConfig, AuthConfig, AuthWrapperDecorator, StateSelector } from "..";
+import { InjectedAuthProps } from "../authWrapper";
+import { ConnectedAuthWrapperConfig } from "../connectedAuthWrapper";
 
 export interface InjectedAuthReduxProps extends InjectedAuthProps {
     redirectPath: string;

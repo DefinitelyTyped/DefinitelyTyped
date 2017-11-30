@@ -83,7 +83,7 @@ export interface OAuthClient {
     authorizationCode: {
         /**
          * Redirect the user to the autorization page
-         * @return {string} the absolute authorization url
+         * @return the absolute authorization url
          */
         authorizeURL(params?: {
             /** A string that represents the registered application URI where the user is redirected after authentication */

@@ -43,7 +43,8 @@ declare namespace BMap {
         displayOnMinLevel?: number
         displayOnMaxLevel?: number
     }
-    class Marker implements Overlay {
+    interface Marker extends Overlay {}
+    class Marker {
         constructor(point: Point, opts?: MarkerOptions)
         openInfoWindow(infoWnd: InfoWindow): void
         closeInfoWindow(): void
@@ -100,7 +101,8 @@ declare namespace BMap {
     class IconSequence {
         constructor(symbol: Symbol, offset?: string, repeat?: string, fixedRotation?: boolean)
     }
-    class PointCollection implements Overlay {
+    interface PointCollection extends Overlay {}
+    class PointCollection {
         constructor(points: Point[], opts?: PointCollectionOption)
         setPoints(points: Point[]): void
         setStyles(styles: PointCollectionOption): void
@@ -121,7 +123,8 @@ declare namespace BMap {
         shadow?: Icon
         title?: string
     }
-    class InfoWindow implements Overlay {
+    interface InfoWindow extends Overlay {}
+    class InfoWindow {
         constructor(content: string | HTMLElement, opts?: InfoWindowOptions)
         setWidth(width: number): void
         setHeight(height: number): void
@@ -149,7 +152,8 @@ declare namespace BMap {
         onrestore: (event: { type: string, target: any }) => void
         onclickclose: (event: { type: string, target: any }) => void
     }
-    class Polygon implements Overlay {
+    interface Polygon extends Overlay {}
+    class Polygon {
         constructor(points: Array<Point>, opts?: PolygonOptions)
         setPath(path: Point[]): void
         getPath(): Point[]
@@ -213,7 +217,8 @@ declare namespace BMap {
         enableClicking?: boolean
     }
     type ShapeType = number
-    class Icon implements Overlay {
+    interface Icon extends Overlay {}
+    class Icon {
         constructor(url: string, size: Size, opts?: IconOptions)
         anchor: Size
         size: Size
@@ -230,7 +235,8 @@ declare namespace BMap {
         setInfoWindowAnchor(anchor: Size): void
         setPrintImageUrl(url: string): void
     }
-    class Label implements Overlay {
+    interface Label extends Overlay {}
+    class Label {
         constructor(content: string, opts?: LabelOptions)
         setStyle(styles: Object): void
         setContent(content: string): void
@@ -256,7 +262,8 @@ declare namespace BMap {
         onremove: (event: { type: string, target: any }) => void
         onrightclick: (event: { type: string, target: any }) => void
     }
-    class Circle implements Overlay {
+    interface Circle extends Overlay {}
+    class Circle {
         constructor(center: Point, radius: number, opts?: CircleOptions)
         setCenter(center: Point): void
         getCenter(): Point
@@ -315,7 +322,8 @@ declare namespace BMap {
         enableEditing?: boolean
         enableClicking?: boolean
     }
-    class Hotspot implements Overlay {
+    interface Hotspot extends Overlay {}
+    class Hotspot {
         constructor(position: Point, opts?: HotspotOptions)
         setPosition(position: Point): void
         getPosition(): Point
@@ -324,7 +332,8 @@ declare namespace BMap {
         setUserData(data: any): void
         getUserData(): any
     }
-    class Symbol implements Overlay {
+    interface Symbol extends Overlay {}
+    class Symbol {
         constructor(path: string | SymbolShapeType, opts?: SymbolOptions)
         setPath(path: string | SymbolShapeType): void
         setAnchor(anchor: Size): void
@@ -336,7 +345,8 @@ declare namespace BMap {
         setFillOpacity(opacity: number): void
         setFillColor(color: string): void
     }
-    class Polyline implements Overlay {
+    interface Polyline extends Overlay {}
+    class Polyline {
         constructor(points: Point[], opts?: PolylineOptions)
         setPath(path: Point[]): void
         getPath(): Point[]
@@ -371,7 +381,8 @@ declare namespace BMap {
         onremove: (event: { type: string, target: any }) => void
         onlineupdate: (event: { type: string, target: any }) => void
     }
-    class GroundOverlay implements Overlay {
+    interface GroundOverlay extends Overlay {}
+    class GroundOverlay {
         constructor(bounds: Bounds, opts?: GroundOverlayOptions)
         setBounds(bounds: Bounds): void
         getBounds(): Bounds

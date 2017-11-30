@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "pkcs11js": "^1.0.8"
-  }
+    "private": true,
+    "dependencies": {
+        "pkcs11js": "^1.0.8"
+    }
 }

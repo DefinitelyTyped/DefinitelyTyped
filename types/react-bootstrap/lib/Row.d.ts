@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-declare class Row extends React.Component<RowProps> { }
-declare namespace Row { }
-export = Row
-
-interface RowProps extends React.HTMLProps<Row> {
-  componentClass?: React.ReactType;
+declare namespace Row {
+    export interface RowProps extends React.HTMLProps<Row> {
+        componentClass?: React.ReactType;
+    }
 }
+declare class Row extends React.Component<Row.RowProps> { }
+export = Row;

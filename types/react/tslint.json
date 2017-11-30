@@ -3,7 +3,9 @@
 	"rules": {
 		// TODOs
 		"dt-header": false,
+		"no-any-union": false,
 		"no-object-literal-type-assertion": false,
+		"no-unnecessary-generics": false,
 		"no-void-expression": false
 	}
 }

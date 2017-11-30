@@ -14,6 +14,7 @@ interface MarkdownItStatic {
 
 declare var MarkdownIt: MarkdownItStatic;
 export = MarkdownIt;
+export as namespace markdownit;
 
 declare module MarkdownIt {
     interface MarkdownIt {

@@ -96,7 +96,7 @@ function test_barChart() {
             role: "annotation" },
         2]);
 
-    var options = {
+    var options: google.visualization.BarChartOptions = {
         title: "Density of Precious Metals, in g/cm^3",
         width: 600,
         height: 400,
@@ -139,7 +139,7 @@ function test_histogram() {
         ['Ultrasaurus (ultra lizard)', 30.5],
         ['Velociraptor (swift robber)', 1.8]]);
 
-    var options = {
+    var options: google.visualization.HistogramOptions = {
         title: 'Lengths of dinosaurs, in meters',
         legend: { position: 'none' }
     };

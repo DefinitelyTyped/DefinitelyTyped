@@ -25,4 +25,4 @@ export interface JSONTreeProps extends Props<JSONTreeComponent> {
     collectionLimit?: number;
 }
 
-export default class JSONTreeComponent extends Component<JSONTreeProps> { }
+export default class JSONTreeComponent extends Component<JSONTreeProps, {}> { }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-declare class InputGroupAddon extends React.Component<InputGroupAddonProps> { }
-declare namespace InputGroupAddon { }
-export = InputGroupAddon
-
-interface InputGroupAddonProps extends React.HTMLProps<InputGroupAddon> { }
+declare namespace InputGroupAddon {
+    type InputGroupAddonProps = React.HTMLProps<InputGroupAddon>;
+}
+declare class InputGroupAddon extends React.Component<InputGroupAddon.InputGroupAddonProps> { }
+export = InputGroupAddon;
