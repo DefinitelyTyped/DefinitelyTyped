@@ -455,6 +455,7 @@ export class GraphQLEnumType {
     constructor(config: GraphQLEnumTypeConfig);
     getValues(): GraphQLEnumValue[];
     getValue(name: string): GraphQLEnumValue;
+    isValidValue(value: any): boolean;
     serialize(value: any): string;
     parseValue(value: any): any;
     parseLiteral(valueNode: ValueNode): any;
