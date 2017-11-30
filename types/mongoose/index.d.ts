@@ -1144,7 +1144,7 @@ declare module "mongoose" {
 
   interface MongooseDocumentOptionals {
     /** The string version of this documents _id. */
-    id?: string;
+    id?: any;
   }
 
   interface DocumentToObjectOptions {
