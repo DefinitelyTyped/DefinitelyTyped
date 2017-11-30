@@ -133,7 +133,7 @@ const Component = (props: {}) => {
           filterAll: false,
           filterMethod: undefined,
           sortMethod: undefined,
-          defaultSortDesc: undefined,          
+          defaultSortDesc: undefined,
         }}
         expanderDefaults={{
           sortable: false,
@@ -147,7 +147,7 @@ const Component = (props: {}) => {
         noDataText='No rows found'
         pageText='Page'
         ofText='of'
-        rowsText='rows'       
+        rowsText='rows'
       />
       <br />
     </div>

@@ -11,7 +11,7 @@ export type Accessor = string | string[] | object | AccessorFunction;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((data: any, column: any) => React.ReactNode) | React.ReactNode;
 export type FilterRender = (params: { column: Column, filter: any, onFilterChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
-export type PivotRenderer = (cellInfo: any) => React.ReactNode | string | Function | React.ReactNode;
+export type PivotRenderer = ((cellInfo: any) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
 export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
 export type ComponentPropsGetterR = (finalState: any, rowInfo?: RowInfo, column?: undefined, instance?: any) => object | undefined;
@@ -136,7 +136,7 @@ export interface TableProps extends
     defaultResized: any[];
 
     /** Default: {} */
-    defaultExpanded: Object;
+    defaultExpanded: {};
 
     /** On change. */
     onChange: ReactTableFunction;
@@ -190,7 +190,7 @@ export interface ControlledStateOverrideProps {
     resized: any[];
 
     /** Default: {} */
-    expanded: Object,
+    expanded: {};
 
     /** Sub component */
     SubComponent: SubComponentFunction;
@@ -258,8 +258,9 @@ export interface ControlledStateCallbackProps {
      */
     onSortedChange: SortedChangeFunction;
 
-    /** Called when a user enters a value into a filter input field or the value passed
-     *  to the onFiltersChange handler by the Filter option. 
+    /** 
+     * Called when a user enters a value into a filter input field or the value passed
+     * to the onFiltersChange handler by the Filter option. 
     */
     onFilteredChange: FilteredChangeFunction;
 
@@ -486,7 +487,8 @@ export namespace Column {
 
         /**
          * A function returning a boolean that specifies the filtering logic for the column
-         * 'filter' == an object specifying which filter is being applied. Format: {id: [the filter column's id], value: [the value the user typed in the filter field], pivotId: [if filtering on a pivot column, the pivotId will be set to the pivot column's id and the `id` field will be set to the top level pivoting column]}
+         * 'filter' == an object specifying which filter is being applied. Format: {id: [the filter column's id], value: [the value the user typed in the filter field], 
+         * pivotId: [if filtering on a pivot column, the pivotId will be set to the pivot column's id and the `id` field will be set to the top level pivoting column]}
          * 'row' || 'rows' == the row (or rows, if filterAll is set to true) of data supplied to the table
          * 'column' == the column that the filter is on
          */
