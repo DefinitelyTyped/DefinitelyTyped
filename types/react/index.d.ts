@@ -88,7 +88,7 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: string | ComponentClass<P> | SFC<P>;
+        type: string | symbol | number | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
@@ -222,7 +222,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: SFC<P> | ComponentClass<P> | string,
+        type: SFC<P> | ComponentClass<P> | string | symbol | number,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -265,6 +265,7 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
+    const Fragment: symbol | number;
     const version: string;
 
     //
