@@ -1,4 +1,5 @@
 import {Server} from "../server/server";
+import {ServerRegisterOptions} from "hapi";
 
 export interface PluginsStates {
     [pluginName: string]: any;
@@ -13,18 +14,16 @@ export interface PluginSpecificConfiguration {
  * plugin can manipulate the server through the standard server interface, but with the added ability to sandbox
  * certain properties. For example, setting a file path in one plugin doesn't affect the file path set
  * in another plugin.
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#plugins)
  */
 export interface Plugin {
 
     /**
      * (required) the registration function with the signature async function(server, options) where:
+     * * server - the server object with a plugin-specific server.realm.
+     * * options - any options passed to the plugin during registration via server.register().
      */
-    register: {
-        /** the server object with a plugin-specific server.realm. */
-        server: Server;
-        /** any options passed to the plugin during registration via server.register(). */
-        options: any; // TODO check what kind of object is expected here.
-    }
+    register: (server: Server, options: ServerRegisterOptions) => Function;
 
     /**
      * (required) the plugin name string. The name is used as a unique key. Published plugins (e.g. published in the npm
