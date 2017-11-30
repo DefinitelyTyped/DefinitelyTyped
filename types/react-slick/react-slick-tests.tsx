@@ -9,11 +9,13 @@ class LeftNavArrow extends React.Component<CustomArrowProps> {
 
 function RightNavArrow(props: CustomArrowProps): JSX.Element {
   const { className, style, onClick } = props;
-  return <div
-    className={className}
-    style={{ ...style, display: 'block', background: 'green' }}
-    onClick={onClick}
-  ></div>;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', background: 'green' }}
+      onClick={onClick}
+    />
+  );
 }
 
 const defaultSettings: Settings = {

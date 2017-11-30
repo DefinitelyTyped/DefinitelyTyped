@@ -94,7 +94,7 @@ declare namespace resourcejs {
     interface Resource {
         status: number;
         error: Error;
-        item: mongoose.Document | mongoose.Document[];
+        item: any;
     }
 
     interface Error {

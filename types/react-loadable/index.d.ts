@@ -1,4 +1,4 @@
-// Type definitions for react-loadable 4.0
+// Type definitions for react-loadable 5.3
 // Project: https://github.com/thejameskyle/react-loadable#readme
 // Definitions by: Diogo Franco <https://github.com/Kovensky>, Oden S. <https://github.com/odensc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,31 @@ export interface CommonOptions {
      * After the specified time in milliseconds passes, the component's `timedOut` prop will be set to true.
      */
     timeout?: number | false | null;
+
+    /**
+     * Optional array of module paths that `Loadable.Capture`'s `report` function will be applied on during
+     * server-side rendering. This helps the server know which modules were imported/used during SSR.
+     * ```ts
+     * Loadable({
+     *   loader: () => import('./my-component'),
+     *   modules: ['./my-component'],
+     * });
+     * ```
+     */
+    modules?: string[];
+
+    /**
+     * An optional function which returns an array of Webpack module ids which you can get
+     * with require.resolveWeak. This is used by the client (inside `Loadable.preloadReady`) to
+     * guarantee each webpack module is preloaded before the first client render.
+     * ```ts
+     * Loadable({
+     *  loader: () => import('./Foo'),
+     *  webpack: () => [require.resolveWeak('./Foo')],
+     * });
+     * ```
+     */
+    webpack?: () => number[];
 }
 
 export interface OptionsWithoutRender<Props> extends CommonOptions {
@@ -112,9 +137,47 @@ export interface LoadableComponent {
     preload(): void;
 }
 
+export interface LoadableCaptureProps {
+    /**
+     * Function called for every moduleName that is rendered via React Loadable.
+     */
+    report: (moduleName: string) => void;
+}
+
 export interface Loadable {
     <Props, Exports extends object>(options: Options<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
     Map<Props, Exports extends { [key: string]: any }>(options: OptionsWithMap<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
+
+    /**
+     * This will call all of the LoadableComponent.preload methods recursively until they are all
+     * resolved. Allowing you to preload all of your dynamic modules in environments like the server.
+     * ```ts
+     * Loadable.preloadAll().then(() => {
+     *   app.listen(3000, () => {
+     *     console.log('Running on http://localhost:3000/');
+     *   });
+     * });
+     * ```
+     */
+    preloadAll(): Promise<void>;
+
+    /**
+     * Check for modules that are already loaded in the browser and call the matching
+     * `LoadableComponent.preload` methods.
+     * ```ts
+     * window.main = () => {
+     *   Loadable.preloadReady().then(() => {
+     *     ReactDOM.hydrate(
+     *       <App/>,
+     *       document.getElementById('app'),
+     *     );
+     *   });
+     * };
+     * ```
+     */
+    preloadReady(): Promise<void>;
+
+    Capture: React.ComponentType<LoadableCaptureProps>;
 }
 
 declare const LoadableExport: Loadable;

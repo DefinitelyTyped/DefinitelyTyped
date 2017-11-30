@@ -33,7 +33,7 @@ describe("Included matchers:", () => {
         var b = a;
 
         expect(a).toBe(b);
-        expect(a).not.toBe(null);
+        expect(a).not.toBe(24);
     });
 
     describe("The 'toEqual' matcher", () => {
@@ -53,6 +53,11 @@ describe("Included matchers:", () => {
                 b: 34
             };
             expect(foo).toEqual(bar);
+        });
+
+        it("should work for optional values", () => {
+            var opt: string | undefined = "s";
+            expect(opt as (string | undefined)).toEqual(undefined);
         });
     });
 
@@ -83,7 +88,7 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeNull' matcher compares against null", () => {
-        var a: string = null;
+        var a: string | null = null;
         var foo = "foo";
 
         expect(null).toBeNull();
@@ -92,14 +97,14 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeTruthy' matcher is for boolean casting testing", () => {
-        var a: string, foo = "foo";
+        var a: string | undefined, foo = "foo";
 
         expect(foo).toBeTruthy();
         expect(a).not.toBeTruthy();
     });
 
     it("The 'toBeFalsy' matcher is for boolean casting testing", () => {
-        var a: string, foo = "foo";
+        var a: string | undefined, foo = "foo";
 
         expect(a).toBeFalsy();
         expect(foo).not.toBeFalsy();
@@ -1026,19 +1031,19 @@ var myReporter: jasmine.CustomReporter = {
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
             console.log("Expected: " + result.failedExpectations[i].expected);
             console.log(result.failedExpectations[i].stack);
         }
-        console.log(result.passedExpectations.length);
+        console.log(result.passedExpectations && result.passedExpectations.length);
     },
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }

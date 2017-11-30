@@ -23,6 +23,7 @@ declare module "react-jsonschema-form" {
         onError?: (e: any) => any;
         onSubmit?: (e: any) => any;
         liveValidate?: boolean;
+        ObjectFieldTemplate?:any;
         safeRenderCompletion?: boolean;
         FieldTemplate?: any;
         transformErrors?: (errors: any) => any;
