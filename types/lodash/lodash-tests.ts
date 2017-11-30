@@ -13774,16 +13774,16 @@ namespace TestOverEvery {
 // _.overSome
 namespace TestOverSome {
     {
-        let result: (...args: any[]) => boolean;
+        let result: (...args: number[]) => boolean;
 
-        result = _.overSome(() => true);
-        result = _.overSome(() => true, () => true);
-        result = _.overSome([() => true]);
-        result = _.overSome([() => true], [() => true]);
+        result = _.overSome<number>((n: number) => true);
+        result = _.overSome<number>((n: number) => true, (n: number) => true);
+        result = _.overSome<number>([(n: number) => true]);
+        result = _.overSome<number>([(n: number) => true], [(n: number) => true]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overSome();
         result = _(Math.max).overSome(() => true);
@@ -13792,7 +13792,7 @@ namespace TestOverSome {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overSome();
         result = _(Math.max).chain().overSome(() => true);
