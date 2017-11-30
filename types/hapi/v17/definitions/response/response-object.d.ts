@@ -2,132 +2,134 @@ import {PluginsStates} from "../plugin/plugin";
 import {Dictionary} from "../util/util";
 import {ResponseSettings} from "./response-settings";
 import {ServerStateCookieOptions} from "../server/server-state-options";
+import * as Podium from "podium";
+import {Json, Lifecycle} from "hapi";
 
 /**
+ * Object where:
+ *  * append - if true, the value is appended to any existing header value using separator. Defaults to false.
+ *  * separator - string used as separator when appending to an existing value. Defaults to ','.
+ *  * override - if false, the header value is not set if an existing value present. Defaults to true.
+ *  * duplicate - if false, the header value is not modified if the provided value is already included. Does not apply when append is false or if the name is 'set-cookie'. Defaults to true.
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheadername-value-options)
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-object)
  */
 export interface ResponseObjectHeaderOptions {
-    /** if true, the value is appended to any existing header value using separator. Defaults to false. */
     append?: boolean;
-    /** string used as separator when appending to an existing value. Defaults to ','. */
     separator?: string;
-    /** if false, the header value is not set if an existing value present. Defaults to true. */
     override?: boolean;
-    /** if false, the header value is not modified if the provided value is already included. Does not apply when append is false or if the name is 'set-cookie'. Defaults to true. */
     duplicate?: boolean;
 }
 
 /**
- * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#response-object)
- * The response object contains the request response value along with various HTTP headers and flags. When a lifecycle method returns a value, the value is wrapped in a response object along with some default flags (e.g. 200 status code). In order to customize a response before it is returned, the h.response() method is provided.
+ * The response object contains the request response value along with various HTTP headers and flags. When a lifecycle
+ * method returns a value, the value is wrapped in a response object along with some default flags (e.g. 200 status
+ * code). In order to customize a response before it is returned, the h.response() method is provided.
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-object)
+ * TODO, check extending from Podium is correct.  Extending because of "The response object supports the following events" [See docs](https://hapijs.com/api/17.0.1#-responseevents)
  */
-export interface ResponseObject {
+export interface ResponseObject extends Podium {
 
     /**
-     Default value: {}.
-     Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
+     * Default value: {}.
+     * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseapp)
      */
     app: any;
 
     /**
-     * [See docs] (https://hapijs.com/api/17.0.1#-responseevents)
      * Access: read only and the public podium interface.
      * The response.events object supports the following events:
      * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
      * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
+     * [See docs](https://hapijs.com/api/17.0.1#-responseevents)
      */
-    events: any; // TODO need to be implemented. I didn't understand yet.
+    readonly events: any; // TODO need to be implemented. I didn't understand yet.
 
     /**
-     Access: read only.
-     Default value: {}.
-     An object containing the response headers where each key is a header field name and the value is the string header value or array of string.
-     Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission.
+     * Default value: {}.
+     * An object containing the response headers where each key is a header field name and the value is the string header value or array of string.
+     * Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheaders)
      */
-    headers: Dictionary<string>;
+    readonly headers: Dictionary<string | string[]>;
 
     /**
-     Access: read / write.
-     Default value: {}.
-     Plugin-specific state. Provides a place to store and pass request-level plugin data. plugins is an object where each key is a plugin name and the value is the state.
+     * Default value: {}.
+     * Plugin-specific state. Provides a place to store and pass request-level plugin data. plugins is an object where each key is a plugin name and the value is the state.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseplugins)
      */
     plugins: PluginsStates;
 
     /**
-     Access: read only.
-     Object containing the response handling flags.
+     * Object containing the response handling flags.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsesettings)
      */
-    settings: ResponseSettings;
+    readonly settings: ResponseSettings;
 
     /**
-     Access: read only.
-     The raw value returned by the lifecycle method.
+     * The raw value returned by the lifecycle method.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsesource)
      */
-    source: any; // TODO need to be implemented.
+    readonly source: Lifecycle.ReturnValue;
 
     /**
-     Access: read only.
-     Default value: 200.
+     * Default value: 200.
+     * The HTTP response status code.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsestatuscode)
      */
-    statusCode: number;
+    readonly statusCode: number;
 
     /**
-     Access: read only.
-     A string indicating the type of source with available values:
-     'plain' - a plain response such as string, number, null, or simple object.
-     'buffer' - a Buffer.
-     'stream' - a Stream.
+     * A string indicating the type of source with available values:
+     * * 'plain' - a plain response such as string, number, null, or simple object.
+     * * 'buffer' - a Buffer.
+     * * 'stream' - a Stream.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsevariety)
      */
-    variety: 'plain' | 'buffer' | 'stream';
+    readonly variety: 'plain' | 'buffer' | 'stream';
 
     /**
-     * response.bytes(length)
-     * [See docs] (https://hapijs.com/api/17.0.1#-responsebyteslength)
      * Sets the HTTP 'Content-Length' header (to avoid chunked transfer encoding) where:
      * @param length - the header value. Must match the actual payload size.
      * @return Return value: the current response object.
+     * [See docs](https://hapijs.com/api/17.0.1#-responsebyteslength)
      */
     bytes(length: number): ResponseObject;
 
     /**
-     * response.charset(charset)
-     * [See docs] (https://hapijs.com/api/17.0.1#-responsecharsetcharset)
      * Sets the 'Content-Type' HTTP header 'charset' property where:
      * @param charset - the charset property value.
      * @return Return value: the current response object.
+     * [See docs](https://hapijs.com/api/17.0.1#-responsecharsetcharset)
      */
     charset(charset: string): ResponseObject;
 
     /**
-     * response.code(statusCode)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsecodestatuscode)
      * Sets the 'Content-Type' HTTP header 'charset' property where:
      * $param charset - the charset property value.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsecodestatuscode)
      */
     code(statusCode: number): ResponseObject;
 
     /**
-     * response.message(httpMessage)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsemessagehttpmessage)
      * Sets the HTTP status message where:
      * @param httpMessage - the HTTP status message (e.g. 'Ok' for status code 200).
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsemessagehttpmessage)
      */
     message(httpMessage: string): ResponseObject;
 
     /**
-     * response.created(uri)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsecreateduri)
      * Sets the HTTP status code to Created (201) and the HTTP 'Location' header where:
      * @param uri - an absolute or relative URI used as the 'Location' header value.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsecreateduri)
      */
     created(uri: string): ResponseObject;
 
     /**
-     * encoding(encoding)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responseencodingencoding)
      * Sets the string encoding scheme used to serial data into the HTTP payload where:
      * @param encoding  the encoding property value (see node Buffer encoding [See docs](https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings)).
      *  * 'ascii' - for 7-bit ASCII data only. This encoding is fast and will strip the high bit if set.
@@ -139,24 +141,23 @@ export interface ResponseObject {
      *  * 'binary' - Alias for 'latin1'.
      *  * 'hex' - Encode each byte as two hexadecimal characters.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseencodingencoding)
      */
     encoding(encoding: 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'base64' | 'latin1' | 'binary' | 'hex'): ResponseObject;
 
     /**
-     * response.etag(tag, options)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responseetagtag-options)
      * Sets the representation entity tag where:
      * @param tag - the entity tag string without the double-quote.
      * @param options - (optional) settings where:
      *  * weak - if true, the tag will be prefixed with the 'W/' weak signifier. Weak tags will fail to match identical tags for the purpose of determining 304 response status. Defaults to false.
      *  * vary - if true and content encoding is set or applied to the response (e.g 'gzip' or 'deflate'), the encoding name will be automatically added to the tag at transmission time (separated by a '-' character). Ignored when weak is true. Defaults to true.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseetagtag-options)
      */
-    etag(tag: string, options?: {weak: boolean, vary: boolean}): ResponseObject;
+    etag(tag: string): ResponseObject;
+    etag(tag: string, options: {weak: boolean, vary: boolean}): ResponseObject;
 
     /**
-     * response.header(name, value, options)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responseheadername-value-options)
      * Sets an HTTP header where:
      * @param name - the header name.
      * @param value - the header value.
@@ -166,139 +167,129 @@ export interface ResponseObject {
      *  * override - if false, the header value is not set if an existing value present. Defaults to true.
      *  * duplicate - if false, the header value is not modified if the provided value is already included. Does not apply when append is false or if the name is 'set-cookie'. Defaults to true.
      *  @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheadername-value-options)
      */
-    header(name: string, value: string, options?: ResponseObjectHeaderOptions): ResponseObject;
+    header(name: string, value: string): ResponseObject;
+    header(name: string, value: string, options: ResponseObjectHeaderOptions): ResponseObject;
 
     /**
-     * response.location(uri)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responselocationuri)
      * Sets the HTTP 'Location' header where:
      * @param uri - an absolute or relative URI used as the 'Location' header value.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responselocationuri)
      */
     location(uri: string): ResponseObject;
 
     /**
-     * response.redirect(uri)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responseredirecturi)
      * Sets an HTTP redirection response (302) and decorates the response with additional methods, where:
      * @param uri - an absolute or relative URI used to redirect the client to another resource.
      * @return Return value: the current response object.
      * Decorates the response object with the response.temporary(), response.permanent(), and response.rewritable() methods to easily change the default redirection code (302).
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseredirecturi)
      */
     redirect(uri: string): ResponseObject;
 
     /**
-     * response.replacer(method)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsereplacermethod)
      * Sets the JSON.stringify() replacer argument where:
      * @param method - the replacer function or array. Defaults to none.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsereplacermethod)
      */
-    replacer(method: any): ResponseObject; // TODO check the method object type. In v16 is a Json.StringifyReplacer
+    replacer(method: Json.StringifyReplacer): ResponseObject;
 
     /**
-     * response.spaces(count)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsespacescount)
      * Sets the JSON.stringify() space argument where:
      * @param count - the number of spaces to indent nested object keys. Defaults to no indentation.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsespacescount)
      */
     spaces(count: number): ResponseObject;
 
     /**
-     * response.state(name, value, [options])
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsestatename-value-options)
      * Sets an HTTP cookie where:
      * @param name - the cookie name.
      * @param value - the cookie value. If no options.encoding is defined, must be a string. See server.state() for supported encoding values.
      * @param options - (optional) configuration. If the state was previously registered with the server using server.state(), the specified keys in options are merged with the default server definition.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsestatename-value-options)
      */
-    state(name: string, value: string, options?: ServerStateCookieOptions): ResponseObject;
+    state(name: string, value: string): ResponseObject;
+    state(name: string, value: string, options: ServerStateCookieOptions): ResponseObject;
 
     /**
-     * response.suffix(suffix)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsesuffixsuffix)
      * Sets a string suffix when the response is process via JSON.stringify() where:
      * @param suffix - the string suffix.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsesuffixsuffix)
      */
     suffix(suffix: string): ResponseObject;
 
     /**
-     * response.ttl(msec)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsettlmsec)
      * Overrides the default route cache expiration rule for this response instance where:
      * @param msec - the time-to-live value in milliseconds.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsettlmsec)
      */
     ttl(msec: number): ResponseObject;
 
     /**
-     * response.type(mimeType)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsetypemimetype)
      * Sets the HTTP 'Content-Type' header where:
      * @param value - is the mime type.
      * @return Return value: the current response object.
      * Should only be used to override the built-in default for each response type.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsetypemimetype)
      */
     type(mimeType: string): ResponseObject;
 
     /**
-     * unstate(name, [options])
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responseunstatename-options)
      * Clears the HTTP cookie by setting an expired value where:
      * @param name - the cookie name.
      * @param options - (optional) configuration for expiring cookie. If the state was previously registered with the server using server.state(), the specified options are merged with the server definition.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseunstatename-options)
      */
-    unstate(name: string, options?: ServerStateCookieOptions): ResponseObject;
+    unstate(name: string): ResponseObject;
+    unstate(name: string, options: ServerStateCookieOptions): ResponseObject;
 
     /**
-     * response.vary(header)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsevaryheader)
      * Adds the provided header to the list of inputs affected the response generation via the HTTP 'Vary' header where:
      * @param header - the HTTP request header name.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsevaryheader)
      */
     vary(header: string): ResponseObject;
 
     /**
-     * response.takeover()
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsetakeover)
      * Marks the response object as a takeover response.
      * @return Return value: the current response object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsetakeover)
      */
     takeover(): ResponseObject;
 
     /**
-     * response.temporary(isTemporary)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsetemporaryistemporary)
      * Sets the status code to 302 or 307 (based on the response.rewritable() setting) where:
      * @param isTemporary - if false, sets status to permanent. Defaults to true.
      * @return Return value: the current response object.
      * Only available after calling the response.redirect() method.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsetemporaryistemporary)
      */
     temporary(isTemporary: boolean): ResponseObject;
 
     /**
-     * response.permanent(isPermanent)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responsepermanentispermanent)
      * Sets the status code to 301 or 308 (based on the response.rewritable() setting) where:
      * @param isPermanent - if false, sets status to temporary. Defaults to true.
      * @return Return value: the current response object.
      * Only available after calling the response.redirect() method.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsepermanentispermanent)
      */
     permanent(isPermanent: boolean): ResponseObject;
 
     /**
-     * response.rewritable(isRewritable)
-     * [See docs] (https://github.com/hapijs/hapi/blob/master/API.md#-responserewritableisrewritable)
      * Sets the status code to 301/302 for rewritable (allows changing the request method from 'POST' to 'GET') or 307/308 for non-rewritable (does not allow changing the request method from 'POST' to 'GET'). Exact code based on the response.temporary() or response.permanent() setting. Arguments:
      * @param isRewritable - if false, sets to non-rewritable. Defaults to true.
      * @return Return value: the current response object.
      * Only available after calling the response.redirect() method.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responserewritableisrewritable)
      */
     rewritable(isRewritable: boolean): ResponseObject;
 
