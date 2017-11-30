@@ -45,6 +45,7 @@
         "cloneWith.d.ts",
         "compact.d.ts",
         "concat.d.ts",
+        "conformsTo.d.ts",
         "constant.d.ts",
         "countBy.d.ts",
         "create.d.ts",
