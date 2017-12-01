@@ -131,6 +131,7 @@ declare module Elasticsearch {
         total: number;
         successful: number;
         failed: number;
+        skipped: number;
     }
 
     /**
@@ -632,6 +633,7 @@ declare module Elasticsearch {
                 fields?: any;
                 highlight?: any;
                 inner_hits?: any;
+                sort?: string[];
             }[];
         };
         aggregations?: any;
