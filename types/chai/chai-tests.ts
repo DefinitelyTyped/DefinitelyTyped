@@ -1357,6 +1357,56 @@ suite('assert', () => {
         assert.notInclude(undefined, 'bar');
     });
 
+    test('deepInclude', () => {
+        assert.deepInclude('foobar', 'bar');
+        assert.deepInclude([1, 2, 3], 3);
+        assert.deepInclude('foobar', 'baz');
+        assert.deepInclude(undefined, 'bar');
+    });
+
+    test('notDeepInclude', () => {
+        assert.notDeepInclude('foobar', 'baz');
+        assert.notDeepInclude([1, 2, 3], 4);
+        assert.notDeepInclude('foobar', 'bar');
+        assert.notDeepInclude(undefined, 'bar');
+    });
+
+    test('nestedInclude', () => {
+        assert.nestedInclude({'.a': {'b': 'x'}}, {'\\.a.[b]': 'x'});
+        assert.nestedInclude({'a': {'[b]': 'x'}}, {'a.\\[b\\]': 'x'});
+    });
+
+    test('notNestedInclude', () => {
+        assert.notNestedInclude({'.a': {'b': 'x'}}, {'\\.a.b': 'y'});
+        assert.notNestedInclude({'a': {'[b]': 'x'}}, {'a.\\[b\\]': 'y'});
+    });
+
+    test('deepNestedInclude', () => {
+        assert.deepNestedInclude({a: {b: [{x: 1}]}}, {'a.b[0]': {x: 1}});
+        assert.deepNestedInclude({'.a': {'[b]': {x: 1}}}, {'\\.a.\\[b\\]': {x: 1}});
+    });
+
+    test('notDeepNestedInclude', () => {
+        assert.notDeepNestedInclude({a: {b: [{x: 1}]}}, {'a.b[0]': {y: 1}})
+        assert.notDeepNestedInclude({'.a': {'[b]': {x: 1}}}, {'\\.a.\\[b\\]': {y: 2}});
+    });
+
+    test('ownInclude', () => {
+        assert.ownInclude({ a: 1 }, { a: 1 });
+    });
+
+    test('notOwnInclude', () => {
+        assert.notOwnInclude({ a: 1 }, { a: 1 });
+    });
+
+    test('deepOwnInclude', () => {
+        assert.deepOwnInclude({a: {b: 2}}, {a: {b: 2}});
+    });
+
+    test('notDeepOwnInclude', () => {
+        assert.notDeepOwnInclude({a: {b: 2}}, {a: {c: 3}});
+    });
+
     test('lengthOf', () => {
         assert.lengthOf([1, 2, 3], 3);
         assert.lengthOf('foobar', 6);
@@ -1676,5 +1726,81 @@ suite('assert', () => {
 
         assert.notFrozen(obj);
         assert.notFrozen(obj, 'message');
+    });
+
+    test('hasAnyKeys', () => {
+        assert.hasAnyKeys({foo: 1, bar: 2, baz: 3}, ['foo', 'iDontExist', 'baz']);
+        assert.hasAnyKeys({foo: 1, bar: 2, baz: 3}, {foo: 30, iDontExist: 99, baz: 1337});
+        assert.hasAnyKeys(new Map<any, any>([[{foo: 1}, 'bar'], ['key', 'value']]), [{foo: 1}, 'key']);
+        assert.hasAnyKeys(new Set([{foo: 'bar'}, 'anotherKey']), [{foo: 'bar'}, 'anotherKey']);
+    });
+
+    test('hasAllKeys', () => {
+        assert.hasAllKeys({foo: 1, bar: 2, baz: 3}, ['foo', 'bar', 'baz']);
+        assert.hasAllKeys({foo: 1, bar: 2, baz: 3}, {foo: 30, bar: 99, baz: 1337});
+        assert.hasAllKeys(new Map<any,any>([[{foo: 1}, 'bar'], ['key', 'value']]), [{foo: 1}, 'key']);
+        assert.hasAllKeys(new Set([{foo: 'bar'}, 'anotherKey']), [{foo: 'bar'}, 'anotherKey']);
+    });
+
+    test('containsAllKeys', () => {
+        assert.containsAllKeys({foo: 1, bar: 2, baz: 3}, ['foo', 'baz']);
+        assert.containsAllKeys({foo: 1, bar: 2, baz: 3}, ['foo', 'bar', 'baz']);
+        assert.containsAllKeys({foo: 1, bar: 2, baz: 3}, {foo: 30, baz: 1337});
+        assert.containsAllKeys({foo: 1, bar: 2, baz: 3}, {foo: 30, bar: 99, baz: 1337});
+        assert.containsAllKeys(new Map<any,any>([[{foo: 1}, 'bar'], ['key', 'value']]), [{foo: 1}]);
+        assert.containsAllKeys(new Map<any,any>([[{foo: 1}, 'bar'], ['key', 'value']]), [{foo: 1}, 'key']);
+        assert.containsAllKeys(new Set([{foo: 'bar'}, 'anotherKey']), [{foo: 'bar'}]);
+        assert.containsAllKeys(new Set([{foo: 'bar'}, 'anotherKey']), [{foo: 'bar'}, 'anotherKey']);
+    });
+
+    test('doesNotHaveAnyKeys', () => {
+        assert.doesNotHaveAnyKeys({foo: 1, bar: 2, baz: 3}, ['one', 'two', 'example']);
+        assert.doesNotHaveAnyKeys({foo: 1, bar: 2, baz: 3}, {one: 1, two: 2, example: 'foo'});
+        assert.doesNotHaveAnyKeys(new Map<any,any>([[{foo: 1}, 'bar'], ['key', 'value']]), [{one: 'two'}, 'example']);
+        assert.doesNotHaveAnyKeys(new Set([{foo: 'bar'}, 'anotherKey']), [{one: 'two'}, 'example']);
+    });
+
+    test('doesNotHaveAllKeys', () => {
+        assert.doesNotHaveAllKeys({foo: 1, bar: 2, baz: 3}, ['one', 'two', 'example']);
+        assert.doesNotHaveAllKeys({foo: 1, bar: 2, baz: 3}, {one: 1, two: 2, example: 'foo'});
+        assert.doesNotHaveAllKeys(new Map<any,any>([[{foo: 1}, 'bar'], ['key', 'value']]), [{one: 'two'}, 'example']);
+        assert.doesNotHaveAllKeys(new Set([{foo: 'bar'}, 'anotherKey']), [{one: 'two'}, 'example']);
+    });
+
+    test('hasAnyDeepKeys', () => {
+        assert.hasAnyDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [1, 2]]), {one: 'one'});
+        assert.hasAnyDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [1, 2]]), [{one: 'one'}, {two: 'two'}]);
+        assert.hasAnyDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [{two: 'two'}, 'valueTwo']]), [{one: 'one'}, {two: 'two'}]);
+        assert.hasAnyDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), {one: 'one'});
+        assert.hasAnyDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), [{one: 'one'}, {three: 'three'}]);
+        assert.hasAnyDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), [{one: 'one'}, {two: 'two'}]);
+    });
+
+    test('hasAllDeepKeys', () => {
+        assert.hasAllDeepKeys(new Map([[{one: 'one'}, 'valueOne']]), {one: 'one'});
+        assert.hasAllDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [{two: 'two'}, 'valueTwo']]), [{one: 'one'}, {two: 'two'}]);
+        assert.hasAllDeepKeys(new Set([{one: 'one'}]), {one: 'one'});
+        assert.hasAllDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), [{one: 'one'}, {two: 'two'}]);
+    });
+
+    test('containsAllDeepKeys', () => {
+        assert.containsAllDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [1, 2]]), {one: 'one'});
+        assert.containsAllDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [{two: 'two'}, 'valueTwo']]), [{one: 'one'}, {two: 'two'}]);
+        assert.containsAllDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), {one: 'one'});
+        assert.containsAllDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), [{one: 'one'}, {two: 'two'}]);
+    });
+
+    test('doesNotHaveAnyDeepKeys', () => {
+        assert.doesNotHaveAnyDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [1, 2]]), {thisDoesNot: 'exist'});
+        assert.doesNotHaveAnyDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [{two: 'two'}, 'valueTwo']]), [{twenty: 'twenty'}, {fifty: 'fifty'}]);
+        assert.doesNotHaveAnyDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), {twenty: 'twenty'});
+        assert.doesNotHaveAnyDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), [{twenty: 'twenty'}, {fifty: 'fifty'}]);
+    });
+
+    test('doesNotHaveAllDeepKeys', () => {
+        assert.doesNotHaveAllDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [1, 2]]), {thisDoesNot: 'exist'});
+        assert.doesNotHaveAllDeepKeys(new Map<any,any>([[{one: 'one'}, 'valueOne'], [{two: 'two'}, 'valueTwo']]), [{twenty: 'twenty'}, {one: 'one'}]);
+        assert.doesNotHaveAllDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), {twenty: 'twenty'});
+        assert.doesNotHaveAllDeepKeys(new Set([{one: 'one'}, {two: 'two'}]), [{one: 'one'}, {fifty: 'fifty'}]);
     });
 });

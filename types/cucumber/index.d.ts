@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js 2.0
+// Type definitions for cucumber-js 2.1
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
@@ -23,9 +23,7 @@ export interface TableDefinition {
     hashes(): Array<{ [colName: string]: string }>;
 }
 
-export type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
-
-export type StepDefinitionCode = (this: World, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
+export type StepDefinitionCode = (this: World, ...stepArgs: any[]) => any;
 
 export interface StepDefinitionOptions {
     timeout?: number;

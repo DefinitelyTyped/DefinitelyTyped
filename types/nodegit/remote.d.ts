@@ -31,21 +31,21 @@ export class Remote {
     static createWithFetchspec(repo: Repository, name: string, url: string, fetch: string): Promise<Remote>;
     static delete(repo: Repository, name: string): Promise<number>;
     static initCallbacks(opts: RemoteCallbacks, version: number): number;
-    static isValidName(remoteName: string): number;
+    static isValidName(remoteName: string): boolean;
     static list(repo: Repository): Promise<any[]>;
-    static lookup(repo: Repository, name: string | Remote, callback: Function): Promise<Remote>;
+    static lookup(repo: Repository, name: string | Remote, callback?: Function): Promise<Remote>;
     static setAutotag(repo: Repository, remote: string, value: number): number;
     static setPushurl(repo: Repository, remote: string, url: string): number;
     static setUrl(repo: Repository, remote: string, url: string): number;
 
     autotag(): number;
-    connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback: Function): Promise<number>;
+    connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback?: Function): Promise<number>;
     connected(): number;
     defaultBranch(): Promise<Buf>;
     disconnect(): Promise<void>;
-    download(refSpecs: any[], opts: FetchOptions, callback: Function): Promise<number>;
+    download(refSpecs: any[], opts?: FetchOptions, callback?: Function): Promise<number>;
     dup(): Promise<Remote>;
-    fetch(refSpecs: any[], opts: FetchOptions, message: string, callback: Function): Promise<number>;
+    fetch(refSpecs: any[], opts: FetchOptions, message: string, callback?: Function): Promise<number>;
 
     free(): void;
     getFetchRefspecs(): Promise<any[]>;
@@ -55,14 +55,14 @@ export class Remote {
     owner(): Repository;
     prune(callbacks: RemoteCallbacks): number;
     pruneRefs(): number;
-    push(refSpecs: any[], options: PushOptions, callback: Function): Promise<number>;
+    push(refSpecs: any[], options?: PushOptions, callback?: Function): Promise<number>;
     pushurl(): string;
     refspecCount(): number;
     stats(): TransferProgress;
 
     stop(): void;
     updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
-    upload(refspecs: Strarray, opts: PushOptions): number;
+    upload(refspecs: Strarray, opts?: PushOptions): number;
     url(): string;
     /**
      * Lists advertised references from a remote. You must connect to the remote before using referenceList.

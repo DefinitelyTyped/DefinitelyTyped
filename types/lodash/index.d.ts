@@ -7,7 +7,8 @@
 //                 AJ Richardson <https://github.com/aj-r>,
 //                 Junyoung Clare Jang <https://github.com/ailrun>,
 //                 e-cloud <https://github.com/e-cloud>,
-//                 Georgii Dolzhykov <https://github.com/thorn0>
+//                 Georgii Dolzhykov <https://github.com/thorn0>,
+//                 Jack Moore <https://github.com/jtmthf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -580,64 +581,77 @@ declare namespace _ {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        differenceBy<T1, T2>(
+            array: List<T1> | null | undefined,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6, T7>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>
+        ): T1[];
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            values5: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T> | ValueIteratee<T>>
+            ...values: Array<List<T>>
         ): T[];
     }
 
@@ -645,64 +659,77 @@ declare namespace _ {
         /**
          * @see _.differenceBy
          */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        differenceBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6, T7>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            values5: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>
+            ...values: Array<List<T>>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -710,64 +737,77 @@ declare namespace _ {
         /**
          * @see _.differenceBy
          */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        differenceBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6, T7>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            values5: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>
+            ...values: Array<List<T>>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -789,18 +829,38 @@ declare namespace _ {
          * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }]
          */
-        differenceWith<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): T[];
+        differenceWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): T1[];
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>
+        ): T1[];
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
+        ): T1[];
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T>(
             array: List<T> | null | undefined,
-            ...values: Array<List<T> | Comparator<T>>,
+            ...values: Array<List<T>>
         ): T[];
     }
 
@@ -808,18 +868,38 @@ declare namespace _ {
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        differenceWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T1, T2, T3>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T1, T2, T3, T4>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
+            ...values: Array<List<T>>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -827,18 +907,38 @@ declare namespace _ {
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        differenceWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T1, T2, T3>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T1, T2, T3, T4>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
+            ...values: Array<List<T>>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -1134,7 +1234,7 @@ declare namespace _ {
          */
         findIndex<T>(
             array: List<T> | null | undefined,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1145,7 +1245,7 @@ declare namespace _ {
          */
         findIndex<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1156,7 +1256,7 @@ declare namespace _ {
          */
         findIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
@@ -1182,7 +1282,7 @@ declare namespace _ {
          */
         findLastIndex<T>(
             array: List<T> | null | undefined,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1193,7 +1293,7 @@ declare namespace _ {
          */
         findLastIndex<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1204,7 +1304,7 @@ declare namespace _ {
          */
         findLastIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
@@ -1580,18 +1680,38 @@ declare namespace _ {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        intersectionBy<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        intersectionBy<T1, T2>(
+            array: List<T1> | null,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): T1[];
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T1, T2, T3>(
+            array: List<T1> | null,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>
+        ): T1[];
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>
+        ): T1[];
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T> | ValueIteratee<T>>,
+            array?: List<T> | null,
+            ...values: Array<List<T>>
         ): T[];
     }
 
@@ -1599,18 +1719,38 @@ declare namespace _ {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T1, T2, T3>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T1, T2, T3, T4>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>,
+            ...values: Array<List<T>>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -1618,18 +1758,38 @@ declare namespace _ {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T1, T2, T3>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T1, T2, T3, T4>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>,
+            ...values: Array<List<T>>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -1647,22 +1807,43 @@ declare namespace _ {
          * @example
          *
          * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
 
-         * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
-         * // => [{ 'x': 2, 'y': 1 }]
+         * _.intersectionWith(objects, others, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }]
          */
-        intersectionWith<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): T[];
+        intersectionWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): T1[];
 
         /**
-         * @see _.differenceWith
+         * @see _.intersectionWith
+         */
+        intersectionWith<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>
+        ): T1[];
+
+        /**
+         * @see _.intersectionWith
+         */
+        intersectionWith<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
+        ): T1[];
+
+        /**
+         * @see _.intersectionWith
          */
         intersectionWith<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T> | Comparator<T>>,
+            array?: List<T> | null,
+            ...values: Array<List<T>>
         ): T[];
     }
 
@@ -1670,18 +1851,38 @@ declare namespace _ {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        intersectionWith<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionWith
+         */
+        intersectionWith<T1, T2, T3>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionWith
+         */
+        intersectionWith<T1, T2, T3, T4>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>,
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
+            ...values: Array<List<T>>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -1689,18 +1890,38 @@ declare namespace _ {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        intersectionWith<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionWith
+         */
+        intersectionWith<T1, T2, T3>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.intersectionWith
+         */
+        intersectionWith<T1, T2, T3, T4>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>,
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | Comparator<T>>,
+            ...values: Array<List<T>>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2038,27 +2259,43 @@ declare namespace _ {
             values?: List<T>,
             iteratee?: ValueIteratee<T>
         ): List<T>;
+
+        /**
+         * @see _.pullAllBy
+         */
+        pullAllBy<T1, T2>(
+            array: T1[],
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): T1[];
+
+        /**
+         * @see _.pullAllBy
+         */
+        pullAllBy<T1, T2>(
+            array: List<T1>,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
+        ): List<T1>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface LoDashWrapper<TValue> {
         /**
          * @see _.pullAllBy
          */
         pullAllBy<T>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: LoDashWrapper<List<T>>,
             values?: List<T>,
             iteratee?: ValueIteratee<T>
         ): this;
-    }
 
-    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
+        pullAllBy<T1, T2>(
+            this: LoDashWrapper<List<T1>>,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>
         ): this;
     }
 
@@ -2078,11 +2315,11 @@ declare namespace _ {
          * @returns Returns `array`.
          * @example
          *
-         * var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
+         * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
          *
-         * _.pullAllBy(array, [{ 'x': 1 }, { 'x': 3 }], 'x');
+         * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
          * console.log(array);
-         * // => [{ 'x': 2 }]
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
         pullAllWith<T>(
             array: T[],
@@ -2098,27 +2335,43 @@ declare namespace _ {
             values?: List<T>,
             comparator?: Comparator<T>
         ): List<T>;
+
+        /**
+         * @see _.pullAllWith
+         */
+        pullAllWith<T1, T2>(
+            array: T1[],
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): T1[];
+
+        /**
+         * @see _.pullAllWith
+         */
+        pullAllWith<T1, T2>(
+            array: List<T1>,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
+        ): List<T1>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface LoDashWrapper<TValue> {
         /**
          * @see _.pullAllWith
          */
         pullAllWith<T>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: LoDashWrapper<List<T>>,
             values?: List<T>,
             comparator?: Comparator<T>
         ): this;
-    }
 
-    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            values?: List<T>,
-            comparator?: Comparator<T>
+        pullAllWith<T1, T2>(
+            this: LoDashWrapper<List<T1>>,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>
         ): this;
     }
 
@@ -2976,7 +3229,7 @@ declare namespace _ {
          */
         uniqBy(
             array: string | null | undefined,
-            iteratee: StringIterator<any>
+            iteratee: StringIterator<NotVoid>
         ): string[];
 
         /**
@@ -2994,7 +3247,7 @@ declare namespace _ {
          */
         uniqBy(
             this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<any>
+            iteratee: StringIterator<NotVoid>
         ): LoDashImplicitWrapper<string[]>;
 
         /**
@@ -3012,7 +3265,7 @@ declare namespace _ {
          */
         uniqBy(
             this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<any>
+            iteratee: StringIterator<NotVoid>
         ): LoDashExplicitWrapper<string[]>;
 
         /**
@@ -3118,7 +3371,7 @@ declare namespace _ {
          */
         sortedUniqBy(
             array: string | null | undefined,
-            iteratee: StringIterator<any>
+            iteratee: StringIterator<NotVoid>
         ): string[];
 
         /**
@@ -3136,7 +3389,7 @@ declare namespace _ {
          */
         sortedUniqBy(
             this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<any>
+            iteratee: StringIterator<NotVoid>
         ): LoDashImplicitWrapper<string[]>;
 
         /**
@@ -3154,7 +3407,7 @@ declare namespace _ {
          */
         sortedUniqBy(
             this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee: StringIterator<any>
+            iteratee: StringIterator<NotVoid>
         ): LoDashExplicitWrapper<string[]>;
 
         /**
@@ -4063,6 +4316,14 @@ declare namespace _ {
          * @return Returns the composed aggregate object.
          */
         countBy<T>(
+            collection: string | null | undefined,
+            iteratee?: StringIterator<T>
+        ): Dictionary<number>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
             collection: List<T> | null | undefined,
             iteratee?: ListIteratee<T>
         ): Dictionary<number>;
@@ -4089,6 +4350,14 @@ declare namespace _ {
          * @see _.countBy
          */
         countBy<T>(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<T>
+        ): LoDashImplicitWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee?: ListIteratee<T>
         ): LoDashImplicitWrapper<Dictionary<number>>;
@@ -4111,6 +4380,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<T>
+        ): LoDashExplicitWrapper<Dictionary<number>>;
+
         /**
          * @see _.countBy
          */
@@ -4226,7 +4503,7 @@ declare namespace _ {
          */
         every<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4234,7 +4511,7 @@ declare namespace _ {
          */
         every<T>(
             collection: NumericDictionary<T> | null | undefined,
-            predicate?: NumericDictionaryIteratee<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4242,7 +4519,7 @@ declare namespace _ {
          */
         every<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -4252,7 +4529,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4260,7 +4537,7 @@ declare namespace _ {
          */
         every<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4268,7 +4545,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIteratee<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -4278,7 +4555,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -4286,7 +4563,7 @@ declare namespace _ {
          */
         every<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -4294,7 +4571,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIteratee<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -4320,7 +4597,7 @@ declare namespace _ {
          */
         filter(
             collection: string | null | undefined,
-            predicate?: StringIterator<any>
+            predicate?: StringIterator<boolean>
         ): string[];
 
         /**
@@ -4336,7 +4613,7 @@ declare namespace _ {
          */
         filter<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): T[];
 
         /**
@@ -4352,7 +4629,7 @@ declare namespace _ {
          */
         filter<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): Array<T[keyof T]>;
     }
 
@@ -4362,7 +4639,7 @@ declare namespace _ {
          */
         filter(
             this: LoDashImplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<any>
+            predicate?: StringIterator<boolean>
         ): LoDashImplicitWrapper<string[]>;
 
         /**
@@ -4378,7 +4655,7 @@ declare namespace _ {
          */
         filter<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -4394,7 +4671,7 @@ declare namespace _ {
          */
         filter<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -4404,7 +4681,7 @@ declare namespace _ {
          */
         filter(
             this: LoDashExplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<any>
+            predicate?: StringIterator<boolean>
         ): LoDashExplicitWrapper<string[]>;
 
         /**
@@ -4420,7 +4697,7 @@ declare namespace _ {
          */
         filter<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -4436,7 +4713,7 @@ declare namespace _ {
          */
         filter<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -4471,7 +4748,7 @@ declare namespace _ {
          */
         find<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
@@ -4489,7 +4766,7 @@ declare namespace _ {
          */
         find<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIteratee<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4509,7 +4786,7 @@ declare namespace _ {
          */
         find<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
@@ -4527,7 +4804,7 @@ declare namespace _ {
          */
         find<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4547,7 +4824,7 @@ declare namespace _ {
          */
         find<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T|undefined>;
 
@@ -4565,7 +4842,7 @@ declare namespace _ {
          */
         find<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T[keyof T]|undefined>;
     }
@@ -4591,7 +4868,7 @@ declare namespace _ {
          */
         findLast<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
@@ -4609,7 +4886,7 @@ declare namespace _ {
          */
         findLast<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIteratee<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4629,7 +4906,7 @@ declare namespace _ {
          */
         findLast<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T | undefined;
 
@@ -4647,7 +4924,7 @@ declare namespace _ {
          */
         findLast<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4667,7 +4944,7 @@ declare namespace _ {
          */
         findLast<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T | undefined>;
 
@@ -4685,7 +4962,7 @@ declare namespace _ {
          */
         findLast<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T[keyof T]|undefined>;
     }
@@ -4704,6 +4981,13 @@ declare namespace _ {
         flatMap<T>(
             collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined
         ): T[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            collection: object | null | undefined
+        ): any[];
 
         /**
          * @see _.flatMap
@@ -4755,6 +5039,11 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
+        flatMap(): LoDashImplicitWrapper<any[]>;
+
+        /**
+         * @see _.flatMap
+         */
         flatMap<T, TResult>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee: ListIterator<T, Many<TResult>>
@@ -4796,6 +5085,11 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<T>(this: LoDashExplicitWrapper<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): LoDashExplicitWrapper<T[]>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): LoDashExplicitWrapper<any[]>;
 
         /**
          * @see _.flatMap
@@ -5421,7 +5715,7 @@ declare namespace _ {
          */
         groupBy(
             collection: string | null | undefined,
-            iteratee?: StringIterator<any>
+            iteratee?: StringIterator<NotVoid>
         ): Dictionary<string[]>;
 
         /**
@@ -5455,7 +5749,7 @@ declare namespace _ {
          */
         groupBy(
             this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<any>
+            iteratee?: StringIterator<NotVoid>
         ): LoDashImplicitWrapper<Dictionary<string[]>>;
 
         /**
@@ -5489,7 +5783,7 @@ declare namespace _ {
          */
         groupBy(
             this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<any>
+            iteratee?: StringIterator<NotVoid>
         ): LoDashExplicitWrapper<Dictionary<string[]>>;
 
         /**
@@ -5579,9 +5873,17 @@ declare namespace _ {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
+        keyBy(
+            collection: string | null | undefined,
+            iteratee?: StringIterator<PropertyName>
+        ): Dictionary<string>;
+
+        /**
+         * @see _.keyBy
+         */
         keyBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ListIterateeCustom<T, PropertyName>
         ): Dictionary<T>;
 
         /**
@@ -5589,7 +5891,7 @@ declare namespace _ {
          */
         keyBy<T extends object>(
             collection: T | null | undefined,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ObjectIterateeCustom<T, PropertyName>
         ): Dictionary<T[keyof T]>;
 
         /**
@@ -5597,7 +5899,7 @@ declare namespace _ {
          */
         keyBy<T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee?: NumericDictionaryIteratee<T>
+            iteratee?: NumericDictionaryIterateeCustom<T, PropertyName>
         ): Dictionary<T>;
     }
 
@@ -5605,9 +5907,17 @@ declare namespace _ {
         /**
          * @see _.keyBy
          */
+        keyBy(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<PropertyName>
+        ): LoDashImplicitWrapper<Dictionary<string>>;
+
+        /**
+         * @see _.keyBy
+         */
         keyBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ListIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
@@ -5615,7 +5925,7 @@ declare namespace _ {
          */
         keyBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ObjectIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
 
         /**
@@ -5623,7 +5933,7 @@ declare namespace _ {
          */
         keyBy<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            iteratee?: NumericDictionaryIteratee<T>
+            iteratee?: NumericDictionaryIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T>>;
     }
 
@@ -5631,9 +5941,17 @@ declare namespace _ {
         /**
          * @see _.keyBy
          */
+        keyBy(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<PropertyName>
+        ): LoDashExplicitWrapper<Dictionary<string>>;
+
+        /**
+         * @see _.keyBy
+         */
         keyBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ListIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
@@ -5641,7 +5959,7 @@ declare namespace _ {
          */
         keyBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ObjectIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
 
         /**
@@ -5649,7 +5967,7 @@ declare namespace _ {
          */
         keyBy<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            iteratee?: NumericDictionaryIteratee<T>
+            iteratee?: NumericDictionaryIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T>>;
     }
 
@@ -6440,7 +6758,7 @@ declare namespace _ {
          */
         reject(
             collection: string | null | undefined,
-            predicate?: StringIterator<any>
+            predicate?: StringIterator<boolean>
         ): string[];
 
         /**
@@ -6448,7 +6766,7 @@ declare namespace _ {
          */
         reject<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): T[];
 
         /**
@@ -6456,7 +6774,7 @@ declare namespace _ {
          */
         reject<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): Array<T[keyof T]>;
     }
 
@@ -6466,7 +6784,7 @@ declare namespace _ {
          */
         reject(
             this: LoDashImplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<any>
+            predicate?: StringIterator<boolean>
         ): LoDashImplicitWrapper<string[]>;
 
         /**
@@ -6474,7 +6792,7 @@ declare namespace _ {
          */
         reject<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -6482,7 +6800,7 @@ declare namespace _ {
          */
         reject<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -6492,7 +6810,7 @@ declare namespace _ {
          */
         reject(
             this: LoDashExplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<any>
+            predicate?: StringIterator<boolean>
         ): LoDashExplicitWrapper<string[]>;
 
         /**
@@ -6500,7 +6818,7 @@ declare namespace _ {
          */
         reject<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -6508,7 +6826,7 @@ declare namespace _ {
          */
         reject<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -6722,7 +7040,7 @@ declare namespace _ {
          */
         some<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -6730,7 +7048,7 @@ declare namespace _ {
          */
         some<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -6738,7 +7056,7 @@ declare namespace _ {
          */
         some<T>(
             collection: NumericDictionary<T> | null | undefined,
-            predicate?: NumericDictionaryIteratee<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -6748,7 +7066,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -6756,7 +7074,7 @@ declare namespace _ {
          */
         some<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -6764,7 +7082,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIteratee<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -6774,7 +7092,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -6782,7 +7100,7 @@ declare namespace _ {
          */
         some<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -6790,7 +7108,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIteratee<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6906,7 +7224,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: List<T> | null | undefined,
-            iteratees?: Many<ListIterator<T, any>>,
+            iteratees?: Many<ListIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -6924,7 +7242,7 @@ declare namespace _ {
          */
         orderBy<T extends object>(
             collection: T | null | undefined,
-            iteratees?: Many<ObjectIterator<T, any>>,
+            iteratees?: Many<ObjectIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): Array<T[keyof T]>;
 
@@ -6942,7 +7260,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees?: Many<NumericDictionaryIterator<T, any>>,
+            iteratees?: Many<NumericDictionaryIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -6962,7 +7280,7 @@ declare namespace _ {
          */
         orderBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratees?: Many<ListIterator<T, any>>,
+            iteratees?: Many<ListIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<T[]>;
 
@@ -6980,7 +7298,7 @@ declare namespace _ {
          */
         orderBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratees?: Many<ObjectIterator<T, any>>,
+            iteratees?: Many<ObjectIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
 
@@ -6998,7 +7316,7 @@ declare namespace _ {
          */
         orderBy<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            iteratees?: Many<NumericDictionaryIterator<T, any>>,
+            iteratees?: Many<NumericDictionaryIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<T[]>;
 
@@ -7018,7 +7336,7 @@ declare namespace _ {
          */
         orderBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratees?: Many<ListIterator<T, any>>,
+            iteratees?: Many<ListIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<T[]>;
 
@@ -7036,7 +7354,7 @@ declare namespace _ {
          */
         orderBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratees?: Many<ObjectIterator<T, any>>,
+            iteratees?: Many<ObjectIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
 
@@ -7054,7 +7372,7 @@ declare namespace _ {
          */
         orderBy<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            iteratees?: Many<NumericDictionaryIterator<T, any>>,
+            iteratees?: Many<NumericDictionaryIterator<T, NotVoid>>,
             orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<T[]>;
 
@@ -7823,6 +8141,7 @@ declare namespace _ {
         flow<R1, R2, R3, R4, R5>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): () => R5;
         flow<R1, R2, R3, R4, R5, R6>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): () => R6;
         flow<R1, R2, R3, R4, R5, R6, R7>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): () => R7;
+        flow<R1, R2, R3, R4, R5, R6, R7>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): () => any;
         // 1-argument first function
         flow<A1, R1, R2>(f1: (a1: A1) => R1, f2: (a: R1) => R2): (a1: A1) => R2;
         flow<A1, R1, R2, R3>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1) => R3;
@@ -7830,6 +8149,7 @@ declare namespace _ {
         flow<A1, R1, R2, R3, R4, R5>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1) => R5;
         flow<A1, R1, R2, R3, R4, R5, R6>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1) => R6;
         flow<A1, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1) => R7;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): (a1: A1) => any;
         // 2-argument first function
         flow<A1, A2, R1, R2>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2) => R2;
         flow<A1, A2, R1, R2, R3>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2) => R3;
@@ -7837,6 +8157,7 @@ declare namespace _ {
         flow<A1, A2, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2) => R5;
         flow<A1, A2, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2) => R6;
         flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2) => R7;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): (a1: A1, a2: A2) => any;
         // 3-argument first function
         flow<A1, A2, A3, R1, R2>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2, a3: A3) => R2;
         flow<A1, A2, A3, R1, R2, R3>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2, a3: A3) => R3;
@@ -7844,6 +8165,7 @@ declare namespace _ {
         flow<A1, A2, A3, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2, a3: A3) => R5;
         flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2, a3: A3) => R6;
         flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3) => R7;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): (a1: A1, a2: A2, a3: A3) => any;
         // 4-argument first function
         flow<A1, A2, A3, A4, R1, R2>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2, a3: A3, a4: A4) => R2;
         flow<A1, A2, A3, A4, R1, R2, R3>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2, a3: A3, a4: A4) => R3;
@@ -7851,8 +8173,16 @@ declare namespace _ {
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2, a3: A3, a4: A4) => R5;
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2, a3: A3, a4: A4) => R6;
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3, a4: A4) => R7;
-        // generic function
-        flow(...funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): (a1: A1, a2: A2, a3: A3, a4: A4) => any;
+        // any-argument first function
+        flow<A1, A2, A3, A4, R1, R2>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2;
+        flow<A1, A2, A3, A4, R1, R2, R3>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): (a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any;
+        flow(funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -7866,6 +8196,7 @@ declare namespace _ {
         flow<R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<() => R5>;
         flow<R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<() => R6>;
         flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<() => R7>;
+        flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<() => any>;
         // 1-argument first function
         flow<A1, R1, R2>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1) => R2>;
         flow<A1, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1) => R3>;
@@ -7873,6 +8204,7 @@ declare namespace _ {
         flow<A1, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1) => R5>;
         flow<A1, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1) => R6>;
         flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1) => R7>;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1) => any>;
         // 2-argument first function
         flow<A1, A2, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2) => R2>;
         flow<A1, A2, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2) => R3>;
@@ -7880,6 +8212,7 @@ declare namespace _ {
         flow<A1, A2, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2) => R5>;
         flow<A1, A2, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2) => R6>;
         flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2) => R7>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2) => any>;
         // 3-argument first function
         flow<A1, A2, A3, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
         flow<A1, A2, A3, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
@@ -7887,6 +8220,7 @@ declare namespace _ {
         flow<A1, A2, A3, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
         flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
         flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => any>;
         // 4-argument first function
         flow<A1, A2, A3, A4, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
         flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
@@ -7894,8 +8228,16 @@ declare namespace _ {
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
-        // generic function
-        flow(...funcs: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => any>;
+        // any-argument first function
+        flow<A1, A2, A3, A4, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2>;
+        flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any>;
+        flow(this: LoDashImplicitWrapper<(...args: any[]) => any>, funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -7909,6 +8251,7 @@ declare namespace _ {
         flow<R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<() => R5>;
         flow<R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<() => R6>;
         flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<() => R7>;
+        flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<() => any>;
         // 1-argument first function
         flow<A1, R1, R2>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1) => R2>;
         flow<A1, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1) => R3>;
@@ -7916,6 +8259,7 @@ declare namespace _ {
         flow<A1, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1) => R5>;
         flow<A1, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1) => R6>;
         flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1) => R7>;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1) => any>;
         // 2-argument first function
         flow<A1, A2, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2) => R2>;
         flow<A1, A2, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2) => R3>;
@@ -7923,6 +8267,7 @@ declare namespace _ {
         flow<A1, A2, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2) => R5>;
         flow<A1, A2, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2) => R6>;
         flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2) => R7>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2) => any>;
         // 3-argument first function
         flow<A1, A2, A3, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
         flow<A1, A2, A3, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
@@ -7930,6 +8275,7 @@ declare namespace _ {
         flow<A1, A2, A3, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
         flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
         flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => any>;
         // 4-argument first function
         flow<A1, A2, A3, A4, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
         flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
@@ -7937,8 +8283,16 @@ declare namespace _ {
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
-        // generic function
-        flow(...funcs: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => any>;
+        // any-argument first function
+        flow<A1, A2, A3, A4, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2>;
+        flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any>;
+        flow(this: LoDashExplicitWrapper<(...args: any[]) => any>, funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
     }
 
     //_.flowRight
@@ -7950,21 +8304,150 @@ declare namespace _ {
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
-        flowRight(...funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
+        // 0-argument first function
+        flowRight<R2, R1>(f2: (a: R1) => R2, f1: () => R1): () => R2;
+        flowRight<R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R3;
+        flowRight<R4, R3, R2, R1>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R4;
+        flowRight<R5, R4, R3, R2, R1>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R5;
+        flowRight<R6, R5, R4, R3, R2, R1>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R6;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R7;
+        // 1-argument first function
+        flowRight<A1, R2, R1>(f2: (a: R1) => R2, f1: (a1: A1) => R1): (a1: A1) => R2;
+        flowRight<A1, R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): (a1: A1) => R3;
+        flowRight<A1, R4, R3, R2, R1>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): (a1: A1) => R4;
+        flowRight<A1, R5, R4, R3, R2, R1>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): (a1: A1) => R5;
+        flowRight<A1, R6, R5, R4, R3, R2, R1>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): (a1: A1) => R6;
+        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): (a1: A1) => R7;
+        // 2-argument first function
+        flowRight<A1, A2, R2, R1>(f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): (a1: A1, a2: A2) => R2;
+        flowRight<A1, A2, R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): (a1: A1, a2: A2) => R3;
+        flowRight<A1, A2, R4, R3, R2, R1>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): (a1: A1, a2: A2) => R4;
+        flowRight<A1, A2, R5, R4, R3, R2, R1>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): (a1: A1, a2: A2) => R5;
+        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): (a1: A1, a2: A2) => R6;
+        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): (a1: A1, a2: A2) => R7;
+        // 3-argument first function
+        flowRight<A1, A2, A3, R2, R1>(f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): (a1: A1, a2: A2, a3: A3) => R2;
+        flowRight<A1, A2, A3, R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): (a1: A1, a2: A2, a3: A3) => R3;
+        flowRight<A1, A2, A3, R4, R3, R2, R1>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): (a1: A1, a2: A2, a3: A3) => R4;
+        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): (a1: A1, a2: A2, a3: A3) => R5;
+        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): (a1: A1, a2: A2, a3: A3) => R6;
+        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): (a1: A1, a2: A2, a3: A3) => R7;
+        // 4-argument first function
+        flowRight<A1, A2, A3, A4, R2, R1>(f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): (a1: A1, a2: A2, a3: A3, a4: A4) => R2;
+        flowRight<A1, A2, A3, A4, R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): (a1: A1, a2: A2, a3: A3, a4: A4) => R3;
+        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): (a1: A1, a2: A2, a3: A3, a4: A4) => R4;
+        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): (a1: A1, a2: A2, a3: A3, a4: A4) => R5;
+        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): (a1: A1, a2: A2, a3: A3, a4: A4) => R6;
+        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): (a1: A1, a2: A2, a3: A3, a4: A4) => R7;
+        // any-argument first function
+        flowRight<R2, R1>(f2: (a: R1) => R2, f1: (...args: any[]) => R1): (...args: any[]) => R2;
+        flowRight<R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): (...args: any[]) => R3;
+        flowRight<R4, R3, R2, R1>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): (...args: any[]) => R4;
+        flowRight<R5, R4, R3, R2, R1>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): (...args: any[]) => R5;
+        flowRight<R6, R5, R4, R3, R2, R1>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): (...args: any[]) => R6;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): (...args: any[]) => R7;
+        flowRight(f7: (a: any) => any, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
+        flowRight(funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.flowRight
          */
-        flowRight(...funcs: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        // 0-argument first function
+        flowRight<R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: () => R1): LoDashImplicitWrapper<() => R2>;
+        flowRight<R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R3>;
+        flowRight<R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R7>;
+        // 1-argument first function
+        flowRight<A1, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R2>;
+        flowRight<A1, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R3>;
+        flowRight<A1, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R4>;
+        flowRight<A1, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R5>;
+        flowRight<A1, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R6>;
+        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R7>;
+        // 2-argument first function
+        flowRight<A1, A2, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R2>;
+        flowRight<A1, A2, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R3>;
+        flowRight<A1, A2, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R4>;
+        flowRight<A1, A2, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R5>;
+        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R6>;
+        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R7>;
+        // 3-argument first function
+        flowRight<A1, A2, A3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
+        flowRight<A1, A2, A3, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
+        flowRight<A1, A2, A3, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R4>;
+        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
+        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
+        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
+        // 4-argument first function
+        flowRight<A1, A2, A3, A4, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
+        flowRight<A1, A2, A3, A4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
+        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
+        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
+        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
+        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
+        // any-argument first function
+        flowRight<R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R2>;
+        flowRight<R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R3>;
+        flowRight<R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R7>;
+        flowRight(this: LoDashImplicitWrapper<(a: any) => any>, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        flowRight(this: LoDashImplicitWrapper<(a: any) => any>, funcs: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.flowRight
          */
-        flowRight(...funcs: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        // 0-argument first function
+        flowRight<R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: () => R1): LoDashExplicitWrapper<() => R2>;
+        flowRight<R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R3>;
+        flowRight<R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R7>;
+        // 1-argument first function
+        flowRight<A1, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R2>;
+        flowRight<A1, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R3>;
+        flowRight<A1, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R4>;
+        flowRight<A1, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R5>;
+        flowRight<A1, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R6>;
+        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R7>;
+        // 2-argument first function
+        flowRight<A1, A2, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R2>;
+        flowRight<A1, A2, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R3>;
+        flowRight<A1, A2, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R4>;
+        flowRight<A1, A2, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R5>;
+        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R6>;
+        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R7>;
+        // 3-argument first function
+        flowRight<A1, A2, A3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
+        flowRight<A1, A2, A3, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
+        flowRight<A1, A2, A3, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R4>;
+        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
+        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
+        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
+        // 4-argument first function
+        flowRight<A1, A2, A3, A4, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
+        flowRight<A1, A2, A3, A4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
+        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
+        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
+        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
+        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
+        // any-argument first function
+        flowRight<R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R2>;
+        flowRight<R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R3>;
+        flowRight<R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R7>;
+        flowRight(this: LoDashExplicitWrapper<(a: any) => any>, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        flowRight(this: LoDashExplicitWrapper<(a: any) => any>, funcs: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
     }
 
     //_.memoize
@@ -8880,14 +9363,16 @@ declare namespace _ {
         /**
          * @see _.conformsTo
          */
-        conformsTo(source: ConformsPredicateObject<TValue>): boolean;
+        conformsTo<T>(this: LoDashImplicitWrapper<T>, source: ConformsPredicateObject<T>): boolean;
+        // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.conformsTo
          */
-        conformsTo(source: ConformsPredicateObject<TValue>): LoDashExplicitWrapper<boolean>;
+        conformsTo<T>(this: LoDashImplicitWrapper<T>, source: ConformsPredicateObject<T>): LoDashExplicitWrapper<boolean>;
+        // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
     }
 
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R]
@@ -9510,12 +9995,12 @@ declare namespace _ {
     //_.isFunction
     interface LoDashStatic {
         /**
-         * Checks if value is classified as a Function object.
+         * Checks if value is a callable function.
          *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isFunction(value?: any): value is ((...args: any[]) => any) | Function;
+        isFunction(value: any): value is (...args: any[]) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -10158,7 +10643,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakMap(value?: any): value is WeakMap<any, any>;
+        isWeakMap(value?: any): value is WeakMap<object, any>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -10183,7 +10668,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakSet<T>(value?: any): value is WeakSet<T>;
+        isWeakSet(value?: any): value is WeakSet<object>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -10288,7 +10773,7 @@ declare namespace _ {
         /**
          * @see _.toArray
          */
-        toArray(): LoDashImplicitWrapper<Array<TValue[keyof TValue]>>;
+        toArray<T extends object>(this: LoDashImplicitWrapper<T>): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -10300,7 +10785,7 @@ declare namespace _ {
         /**
          * @see _.toArray
          */
-        toArray(): LoDashExplicitWrapper<Array<TValue[keyof TValue]>>;
+        toArray<T extends object>(this: LoDashImplicitWrapper<T>): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
     //_.toPlainObject
@@ -13908,13 +14393,29 @@ declare namespace _ {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        pick<T extends object>(
+        pick<T extends object, U extends keyof T>(
+            object: T | null | undefined,
+             ...props: Array<Many<U>>
+        ): Pick<T, U>;
+
+        /**
+         * @see _.pick
+         */
+        pick<T>(
             object: T | null | undefined,
             ...props: PropertyPath[]
-        ): PartialObject<T>;
+        ): PartialDeep<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.pick
+         */
+        pick<T extends object, U extends keyof T>(
+            this: LoDashImplicitWrapper<T | null | undefined>,
+            ...props: Array<Many<U>>
+        ): LoDashImplicitWrapper<Pick<T, U>>;
+
         /**
          * @see _.pick
          */
@@ -13925,6 +14426,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.pick
+         */
+        pick<T extends object, U extends keyof T>(
+            this: LoDashExplicitWrapper<T | null | undefined>,
+            ...props: Array<Many<U>>
+        ): LoDashExplicitWrapper<Pick<T, U>>;
+
         /**
          * @see _.pick
          */
@@ -16571,14 +17080,17 @@ declare namespace _ {
         uniqueId(): LoDashExplicitWrapper<string>;
     }
 
+    type NotVoid = {} | null | undefined;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
-    type ListIteratee<T> = ListIterator<T, any> | string | [string, any] | PartialDeep<T>;
+    type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
+    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
     type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
-    type ObjectIteratee<TObject> = ObjectIterator<TObject, any> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
+    type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
+    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
 
     type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;
@@ -16586,7 +17098,8 @@ declare namespace _ {
     type DictionaryIteratorTypeGuard<T, S extends T> = ObjectIteratorTypeGuard<Dictionary<T>, S>;
 
     type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: NumericDictionary<T>) => TResult;
-    type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, any> | string | [string, any] | PartialDeep<T>;
+    type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
+    type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
@@ -16600,9 +17113,10 @@ declare namespace _ {
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
-    type ValueIteratee<T> = ((value: T) => any) | string | [string, any] | PartialDeep<T>;
-    type ValueKeyIteratee<T> = ((value: T, key: string) => any) | string | [string, any] | PartialDeep<T>;
+    type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
+    type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
     type Comparator<T> = (a: T, b: T) => boolean;
+    type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
 
     type PropertyName = string | number | symbol;
     type PropertyPath = Many<PropertyName>;

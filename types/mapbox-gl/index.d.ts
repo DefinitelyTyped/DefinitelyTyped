@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.40.1
+// Type definitions for Mapbox GL JS v0.41.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -901,7 +901,7 @@ declare namespace mapboxgl {
 
 	export interface Layer {
 		id: string;
-		type?: "fill" | "line" | "symbol" | "circle" | "fill-extrusion" | "raster" | "background";
+		type?: "fill" | "line" | "symbol" | "circle" | "fill-extrusion" | "raster" | "background" | "heatmap";
 
 		metadata?: any;
 		ref?: string;

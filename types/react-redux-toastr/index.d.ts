@@ -4,13 +4,13 @@
 //                 Artyom Stukans <https://github.com/artyomsv>
 //                 Mika Kuitunen <https://github.com/kulmajaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { Component } from 'react';
 import { Action, ActionCreator, Reducer } from 'redux';
 
 export type iconType = 'success' | 'info' | 'warning' | 'error';
-export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-ceter' | 'bottom-right';
+export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
 export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
 export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
