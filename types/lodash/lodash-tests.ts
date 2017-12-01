@@ -13786,18 +13786,18 @@ namespace TestOverSome {
         let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overSome();
-        result = _(Math.max).overSome(() => true);
+        result = _(Math.max).overSome((n: number) => true);
         result = _([Math.max]).overSome();
-        result = _([Math.max]).overSome([() => true]);
+        result = _([Math.max]).overSome([(n: number) => true]);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overSome();
-        result = _(Math.max).chain().overSome(() => true);
+        result = _(Math.max).chain().overSome((n: number) => true);
         result = _([Math.max]).chain().overSome();
-        result = _([Math.max]).chain().overSome([() => true]);
+        result = _([Math.max]).chain().overSome([(n: number) => true]);
     }
 }
 
