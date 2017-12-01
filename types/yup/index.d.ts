@@ -52,6 +52,7 @@ export interface MixedSchemaConstructor {
   new(options?: { type?: string, [key: string]: any }): MixedSchema;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface MixedSchema extends Schema {
 }
 
@@ -92,6 +93,7 @@ export interface BooleanSchemaConstructor {
     new(): BooleanSchema;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface BooleanSchema extends Schema {
 }
 
@@ -225,5 +227,6 @@ export interface Ref {
     [key: string]: any;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface Lazy extends Schema {
 }
