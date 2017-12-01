@@ -20,7 +20,7 @@ export interface SingletonRouter {
     readonly pathname: string;
     readonly route: string;
     readonly asPath?: string;
-    readonly query?: { [key: string]: any };
+    readonly query?: { [key: string]: string | string[] };
 
     // router methods
     reload(route: string): Promise<void>;
