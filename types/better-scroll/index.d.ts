@@ -1,12 +1,14 @@
-// Type definitions for better-scroll.js 1.3
+// Type definitions for better-scroll.js 1.4
 // Project: https://github.com/ustbhuangyi/better-scroll
 // Definitions by: linxiaowu66 <https://github.com/linxiaowu66>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 interface WheelOption {
-  selectedIndex?: number;
+  selectedIndex: number;
   rotate?: number;
   adjustTime?: number;
+  wheelWrapperClass?: string;
+  wheelItemClass?: string;
 }
 
 interface SlideOption {
@@ -16,6 +18,7 @@ interface SlideOption {
   stepX?: number;
   stepY?: number;
   listenFlick?: boolean;
+  speed?: number;
 }
 interface ScrollBarOption {
   fade?: boolean;
@@ -26,6 +29,12 @@ interface PullDownOption {
 }
 interface PullUpOption {
   threshold?: number;
+}
+interface PageOption {
+  x: number;
+  y: number;
+  pageX: number;
+  pageY: number;
 }
 interface BsOption {
   startX?: number;
@@ -62,10 +71,12 @@ interface BsOption {
    * wheel: {
    *   selectedIndex: 0;
    *   rotate: 25;
-   *   adjustTime: 400
+   *   adjustTime: 400;
+   *   wheelWrapperClass: 'wheel-scroll';
+   *   wheelItemClass: 'wheel-item';
    * }
    */
-  wheel?: WheelOption | boolean;
+  wheel?: Partial<WheelOption> | boolean;
   /**
    * for slide
    * snap: {
@@ -77,14 +88,14 @@ interface BsOption {
    *   listenFlick: true
    * }
    */
-  snap?: SlideOption | boolean;
+  snap?: Partial<SlideOption> | boolean;
   /**
    * for scrollbar
    * scrollbar: {
    *   fade: true
    * }
    */
-  scrollbar?: ScrollBarOption | boolean;
+  scrollbar?: Partial<ScrollBarOption> | boolean;
   /**
    * for pull down and refresh
    * pullDownRefresh: {
@@ -92,20 +103,30 @@ interface BsOption {
    *   stop: 20
    * }
    */
-  pullDownRefresh?: PullDownOption | boolean;
+  pullDownRefresh?: Partial<PullDownOption> | boolean;
   /**
    * for pull up and load
    * pullUpLoad: {
    *   threshold: 50
    * }
    */
-  pullUpLoad?: PullUpOption | boolean;
+  pullUpLoad?: Partial<PullUpOption> | boolean;
 }
 declare class BScroll {
   constructor(element: Element | string, options?: BsOption);
   // 重新计算 better-scroll，当 DOM 结构发生变化的时候务必要调用确保滚动的效果正常
   x: number;
   y: number;
+  maxScrollX: number;
+  maxScrollY: number;
+  movingDirectionX: number;
+  movingDirectionY: number;
+  directionX: number;
+  directionY: number;
+  enabled: boolean;
+  isInTransition: boolean;
+  isAnimating: boolean;
+  options: BsOption;
 
   refresh(): void;
   // 启用 better-scroll; 默认 开启
@@ -130,11 +151,11 @@ declare class BScroll {
   // 滚动到上一个页面
   prev(time: number, easing: object): void;
   // 获取当前页面的信息
-  getCurrentPage(): void;
+  getCurrentPage(): PageOption;
   // 当我们做 picker 组件的时候，调用该方法可以滚动到索引对应的位置
   wheelTo(index: number): void;
   // 获取当前选中的索引值
-  getSelectedIndex(): void;
+  getSelectedIndex(): number;
   // 当下拉刷新数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载
   finishPullDown(): void;
   // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载
