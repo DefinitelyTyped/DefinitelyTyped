@@ -3751,3 +3751,13 @@ namespace module_tests {
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
 }
+
+////////////////////////////////////////////////////
+/// Node.js ESNEXT Support
+////////////////////////////////////////////////////
+
+namespace esnext_string_tests {
+    const s: string = 'foo';
+    const s1: string = s.trimLeft();
+    const s2: string = s.trimRight();
+}
