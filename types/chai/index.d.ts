@@ -1,4 +1,4 @@
-// Type definitions for chai 4.0.0
+// Type definitions for chai 4.0
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -13,7 +13,6 @@
 // <reference types="assertion-error"/>
 
 declare namespace Chai {
-
     interface ChaiStatic {
         expect: ExpectStatic;
         should(): Should;
