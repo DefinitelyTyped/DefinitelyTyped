@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 interface FuzzySet {
-  get<T = undefined>(candidate: string, defaultValue?: T | undefined, minScore?: number): Array<[number, string]> | T | null;
+  get<T = undefined>(candidate: string, defaultValue?: T, minScore?: number): Array<[number, string]> | T | null;
   add(value: string): boolean;
   length(): number;
   isEmpty(): boolean;
