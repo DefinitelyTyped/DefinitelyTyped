@@ -2720,3 +2720,34 @@ function testEnterSizeEmpty() {
     selectionSize = newNodes.size();
 
 }
+
+// Example from Matthias Jobst http://github.com/MatthiasJobst
+// Checks the brush with different Axis types
+class BrushAxisTest {
+    brush: d3.svg.Brush<any,Date,Date>;
+    constructor() {
+        let scale = d3.time.scale<Date,Date>();
+        this.brush = d3.svg.brush<any,Date>()
+            .x(scale) // the x accessor accepts time scales
+            .y(scale); // as does y
+    }
+    brushes = () => {
+        let extent = this.brush.extent();
+        let brush = d3.svg.brush();
+        brush.x(d3.scale.linear()); // Linear scale
+        brush.y(d3.scale.log());    // Logarithmic scale
+        // Does not work:
+        // brush.extent(this.brush.extent());
+        // From https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#ordinal_rangePoints
+        let ordinalScale = d3.scale.ordinal<number,number>()
+            .domain([1, 2, 3, 4])
+            .rangePoints([0, 100]);
+        let ordinalBrush = d3.svg.brush()
+            .x(ordinalScale) // Ordinal scale
+            .y(d3.scale.linear());
+        let colorScale = d3.scale.category10();
+        let colorBrush = d3.svg.brush<any,string,number>()
+            .x(colorScale) // Color scale
+            .y(d3.scale.pow());
+    }
+}
