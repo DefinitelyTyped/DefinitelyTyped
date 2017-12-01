@@ -1,4 +1,4 @@
-// Type definitions for react-modal 2.2
+// Type definitions for react-modal 3.1
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -24,9 +24,9 @@ declare namespace ReactModal {
     }
 
     interface Classes {
-        base?: string;
-        afterOpen?: string;
-        beforeClose?: string;
+        base: string;
+        afterOpen: string;
+        beforeClose: string;
     }
 
     interface Aria {
@@ -68,8 +68,17 @@ declare namespace ReactModal {
         /* Boolean indicating if the appElement should be hidden. Defaults to true. */
         ariaHideApp?: boolean;
 
+        /* Boolean indicating if the modal should be focused after render */
+        shouldFocusAfterRender?: boolean;
+
         /* Boolean indicating if the overlay should close the modal. Defaults to true. */
         shouldCloseOnOverlayClick?: boolean;
+
+        /* Boolean indicating if pressing the esc key should close the modal */
+        shouldCloseOnEsc?: boolean;
+
+        /* Boolean indicating if the modal should restore focus to the element that had focus prior to its display. */
+        shouldReturnFocusAfterClose?: boolean;
 
         /* Function that will be called to get the parent element that the modal will be attached to. */
         parentSelector?(): HTMLElement;
@@ -81,7 +90,7 @@ declare namespace ReactModal {
         role?: string;
 
         /* String indicating how the content container should be announced to screenreaders. */
-        contentLabel: string;
+        contentLabel?: string;
     }
 }
 
