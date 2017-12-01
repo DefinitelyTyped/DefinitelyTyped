@@ -62,6 +62,7 @@ declare namespace flowjs {
         name: string;
         relativePath: string;
         size: number;
+        progressValue: number;
         uniqueIdentifier: string;
         averageSpeed: number;
         currentSpeed: number;
