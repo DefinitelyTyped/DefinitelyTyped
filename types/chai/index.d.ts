@@ -988,7 +988,7 @@ declare namespace Chai {
          * @param errType  Potential expected message match or error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, regExp: RegExp|Function, message?: string): void;
+        throws(fn: Function, errType: RegExp|Function, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
