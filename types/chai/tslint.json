@@ -4,7 +4,6 @@
         "ban-types": false,
         "callable-types": false,
         "new-parens": false,
-        "no-construct": false,
         "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-redundant-jsdoc-2": false,
