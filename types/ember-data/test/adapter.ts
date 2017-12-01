@@ -23,3 +23,34 @@ const AuthTokenHeader = DS.JSONAPIAdapter.extend({
         };
     })
 });
+
+const UseAjax = DS.JSONAPIAdapter.extend({
+    query(store: DS.Store, type: string, query: object) {
+        const url = 'https://api.example.com/my-api';
+        return this.ajax(url, 'POST', {
+            param: 'foo'
+        });
+    }
+});
+
+const UseAjaxOptions = DS.JSONAPIAdapter.extend({
+    query(store: DS.Store, type: string, query: object) {
+        const url = 'https://api.example.com/my-api';
+        const options = this.ajaxOptions(url, 'DELETE', {
+            foo: 'bar'
+        });
+        return Ember.$.ajax(url, {
+            ...options
+        });
+    }
+});
+
+const UseAjaxOptionsWithOptionalThirdParams = DS.JSONAPIAdapter.extend({
+    query(store: DS.Store, type: string, query: object) {
+        const url = 'https://api.example.com/my-api';
+        const options = this.ajaxOptions(url, 'DELETE');
+        return Ember.$.ajax(url, {
+            ...options
+        });
+    }
+});

@@ -8,6 +8,7 @@
 //                 Rytis Alekna <https://github.com/ralekna>
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Youngrok Kim <https://github.com/rokoroku>
+//                 Dan Kraus <https://github.com/dankraus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -125,6 +126,13 @@ export interface UriOptions {
      * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
      */
     scheme?: string | RegExp | Array<string | RegExp>;
+}
+
+export interface Base64Options {
+    /**
+     * optional parameter defaulting to true which will require = padding if true or make padding optional if false
+     */
+    paddingRequired?: boolean;
 }
 
 export interface WhenOptions {
@@ -519,6 +527,12 @@ export interface StringSchema extends AnySchema {
      * @param form - The unicode normalization form to use. Valid values: NFC [default], NFD, NFKC, NFKD
      */
     normalize(form?: 'NFC' | 'NFD' | 'NFKC' | 'NFKD'): this;
+
+    /**
+     * Requires the string value to be a valid base64 string; does not check the decoded value.
+     * @param options - optional settings: The unicode normalization options to use. Valid values: NFC [default], NFD, NFKC, NFKD
+     */
+    base64(options?: Base64Options): this;
 
     /**
      * Requires the number to be a credit card number (Using Lunh Algorithm).

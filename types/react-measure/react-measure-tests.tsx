@@ -1,5 +1,5 @@
 import * as React from "react";
-import Measure, { ContentRect, withContentRect } from "react-measure";
+import Measure, { ContentRect, withContentRect, MeasuredComponentProps, MeasurementType } from "react-measure";
 
 class Test extends React.Component {
     render() {
@@ -63,7 +63,26 @@ class Test2 extends React.Component {
     }
 }
 
-function testHocComponent<T>(): React.ComponentClass<T> {
+interface Props {
+    a: string;
+}
+
+const TestFunctionalComponentWithProps: React.SFC<Props & MeasuredComponentProps> = ({a, contentRect, measureRef}) => {
+    return (
+        <div ref={measureRef}>{a}</div>
+    );
+};
+
+class TestClassComponentWithProps extends React.Component<Props & MeasuredComponentProps> {
+    render() {
+        const {a, contentRect, measureRef} = this.props;
+        return (
+            <div ref={measureRef}>{a}</div>
+        );
+    }
+}
+
+function testHocComponent() {
     return withContentRect('bounds')(({measureRef, measure, contentRect}) => (
         <div ref={measureRef}>
             Some content here
@@ -74,11 +93,17 @@ function testHocComponent<T>(): React.ComponentClass<T> {
     ));
 }
 
-function testHocComponent2<T>(): React.ComponentClass<T> {
-    return withContentRect(['scroll', 'margin'])(({measureRef}) => (
+function testHocComponent2<T>() {
+    return withContentRect(['scroll', 'margin'] as ReadonlyArray<MeasurementType>)(({measureRef}) => (
         <div ref={measureRef}>Some content here</div>
     ));
 }
 
 const HocComponent = testHocComponent();
-const el = <HocComponent/>;
+const el = <HocComponent />;
+
+const MeasuredFunctionalComponent = withContentRect('bounds')<Props>(TestFunctionalComponentWithProps);
+const funcEl = <MeasuredFunctionalComponent a="test" />;
+
+const MeasuredClassComponent = withContentRect('bounds')<Props>(TestClassComponentWithProps);
+const classEl = <MeasuredClassComponent a="test" />;
