@@ -13744,30 +13744,30 @@ namespace TestOver {
 // _.overEvery
 namespace TestOverEvery {
     {
-        let result: (...args: any[]) => boolean;
+        let result: (...args: number[]) => boolean;
 
-        result = _.overEvery(() => true);
-        result = _.overEvery(() => true, () => true);
-        result = _.overEvery([() => true]);
-        result = _.overEvery([() => true], [() => true]);
+        result = _.overEvery((number) => true);
+        result = _.overEvery((number) => true, (number) => true);
+        result = _.overEvery([(number) => true]);
+        result = _.overEvery([(number) => true], [(number) => true]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overEvery();
-        result = _(Math.max).overEvery(() => true);
+        result = _(Math.max).overEvery((number) => true);
         result = _([Math.max]).overEvery();
-        result = _([Math.max]).overEvery([() => true]);
+        result = _([Math.max]).overEvery([(number) => true]);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overEvery();
-        result = _(Math.max).chain().overEvery(() => true);
+        result = _(Math.max).chain().overEvery((number) => true);
         result = _([Math.max]).chain().overEvery();
-        result = _([Math.max]).chain().overEvery([() => true]);
+        result = _([Math.max]).chain().overEvery([(number) => true]);
     }
 }
 
