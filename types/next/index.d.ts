@@ -59,7 +59,7 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: { [key: string]: any },
+            query?: { [key: string]: string | string[] },
             parsedUrl?: UrlLike,
         ): Promise<void>;
         renderError(
@@ -67,7 +67,7 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: { [key: string]: any },
+            query?: { [key: string]: string | string[] },
         ): Promise<void>;
         render404(
             req: http.IncomingMessage,
@@ -78,14 +78,14 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: { [key: string]: any },
+            query?: { [key: string]: string | string[] },
         ): Promise<string>;
         renderErrorToHTML(
             err: any,
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: { [key: string]: any },
+            query?: { [key: string]: string | string[] },
         ): Promise<string>;
 
         serveStatic(
