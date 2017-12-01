@@ -16566,21 +16566,21 @@ declare namespace _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): (...args: any[]) => boolean;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
     }
 
     //_.overSome
