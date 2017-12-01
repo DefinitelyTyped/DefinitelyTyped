@@ -26,20 +26,20 @@ declare namespace Chai {
         version: string;
     }
 
-    export interface ExpectStatic extends AssertionStatic {
+    interface ExpectStatic extends AssertionStatic {
         fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
     }
 
-    export interface AssertStatic extends Assert {
+    interface AssertStatic extends Assert {
     }
 
-    export interface AssertionStatic {
+    interface AssertionStatic {
         (target: any, message?: string): Assertion;
     }
 
-    export type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
+    type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
 
-    export type OperatorComparable = boolean | null | number | string | undefined | Date;
+    type OperatorComparable = boolean | null | number | string | undefined | Date;
 
     interface ShouldAssertion {
         equal(value1: any, value2: any, message?: string): void;
