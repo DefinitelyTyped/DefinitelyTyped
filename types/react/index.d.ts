@@ -1046,6 +1046,11 @@ declare namespace React {
         borderLeftWidth?: CSSWideKeyword | any;
 
         /**
+         * Shorthand property that sets the rounding of all four corners.
+         */
+        borderRadius?: CSSWideKeyword | any;
+
+        /**
          * Shorthand property that defines the border-width, border-style and border-color of an element's right border
          * in a single declaration. Note that you can use the corresponding longhand properties to set specific
          * individual properties of the right border — border-right-width, border-right-style and border-right-color.
