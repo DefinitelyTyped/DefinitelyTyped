@@ -39,6 +39,9 @@ export class Binary {
 
     constructor(buffer: Buffer, subType?: number);
 
+    /** The underlying Buffer which stores the binary data. */
+    readonly buffer: Buffer;
+
     /** The length of the binary. */
     length(): number;
     /** Updates this binary with byte_value */
