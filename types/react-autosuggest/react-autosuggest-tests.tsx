@@ -15,9 +15,133 @@ function escapeRegexCharacters(str: string): string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+export class ReactAutosuggestBasicTest extends React.Component<any, any> {
+    // region Fields
+    static languages: Language[] = [
+        {
+            name: 'C',
+            year: 1972
+        }, {
+            name: 'C#',
+            year: 2000
+        }, {
+            name: 'C++',
+            year: 1983
+        }, {
+            name: 'Clojure',
+            year: 2007
+        }, {
+            name: 'Elm',
+            year: 2012
+        }, {
+            name: 'Go',
+            year: 2009
+        }, {
+            name: 'Haskell',
+            year: 1990
+        }, {
+            name: 'Java',
+            year: 1995
+        }, {
+            name: 'Javascript',
+            year: 1995
+        }, {
+            name: 'Perl',
+            year: 1987
+        }, {
+            name: 'PHP',
+            year: 1995
+        }, {
+            name: 'Python',
+            year: 1991
+        }, {
+            name: 'Ruby',
+            year: 1995
+        }, {
+            name: 'Scala',
+            year: 2003
+        }
+    ];
+    // endregion region Constructor
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            value: '',
+            suggestions: this.getSuggestions('')
+        };
+    }
+    // endregion region Rendering methods
+    render(): JSX.Element {
+        const {value, suggestions} = this.state;
+        const inputProps = {
+            placeholder: `Type 'c'`,
+            value,
+            onChange: this
+                .onChange
+                .bind(this)
+        };
+
+        const theme = {
+            input: 'themed-input-class',
+            container: 'themed-container-class',
+            suggestionFocused: 'active',
+            sectionTitle: { color: 'blue' }
+        };
+
+        return <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this
+                .onSuggestionsFetchRequested
+                .bind(this)}
+            getSuggestionValue={this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            onSuggestionSelected={this.onSuggestionsSelected}
+            alwaysRenderSuggestions={true}
+            inputProps={inputProps}
+            theme={theme}/>;
+    }
+
+    protected onSuggestionsSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
+        alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
+    }
+
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+        const className = params.isHighlighted ? "highlighted" : undefined;
+        return <span className={className}>{suggestion.name}</span>;
+    }
+    // endregion region Event handlers
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+        this.setState({value: newValue});
+    }
+
+    protected onSuggestionsFetchRequested({value}: any): void {
+        this.setState({
+            suggestions: this.getSuggestions(value)
+        });
+    }
+    // endregion region Helper methods
+    protected getSuggestions(value: string): Language[] {
+        const escapedValue = escapeRegexCharacters(value.trim());
+
+        if (escapedValue === '') {
+            return [];
+        }
+
+        const regex = new RegExp('^' + escapedValue, 'i');
+
+        return ReactAutosuggestBasicTest
+            .languages
+            .filter(language => regex.test(language.name));
+    }
+
+    protected getSuggestionValue(suggestion: Language): string { return suggestion.name; }
+    // endregion
+}
+
 const LanguageAutosuggest = Autosuggest as { new (): Autosuggest<Language> };
 
-export class ReactAutosuggestBasicTest extends React.Component<any, any> {
+export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // region Fields
     static languages: Language[] = [
         {

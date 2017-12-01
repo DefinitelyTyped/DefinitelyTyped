@@ -11,7 +11,7 @@
 
 import * as React from 'react';
 
-declare class Autosuggest<T> extends React.Component<Autosuggest.AutosuggestProps<T>> {}
+declare class Autosuggest<T = any> extends React.Component<Autosuggest.AutosuggestProps<T>> {}
 
 export = Autosuggest;
 
