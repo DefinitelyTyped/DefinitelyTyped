@@ -5,7 +5,6 @@
 
 interface FuzzySet {
   get(candidate: string, defaultValue?: string, minScore?: number): Array<[number, string]> | undefined;
-  get(candidate: string, minScore?: number): Array<[number, string]> | undefined;
   add(value: string): boolean;
   length(): number;
   isEmpty(): boolean;
