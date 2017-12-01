@@ -2581,40 +2581,44 @@ declare namespace d3 {
             tickFormat(format: string): Axis;
         }
 
-        export function brush(): Brush<any>;
-        export function brush<T>(): Brush<T>;
+        export function brush(): Brush<any, number, number>;
+        export function brush<T>(): Brush<T, number, number>;
+        export function brush<T,X>(): Brush<T, X, X>;
+        export function brush<T, X, Y>(): Brush<T, X, Y>;
 
         namespace brush {
-            interface Scale {
-                domain(): number[] | Date[];
-                domain(domain: number[] | Date[]): Scale;
+            interface Scale<S> {
+                domain(): S[];
+                domain(domain: S[]): Scale<S>;
 
-                range(): number[] | Date[];
-                range(range: number[] | Date[]): Scale;
+                range(): S[];
+                range(range: number[]): Scale<S>;
 
-                invert?(y: number | Date): number | Date;
+                invert?(y: number): S;
             }
         }
 
-        interface Brush<T> {
+        interface Brush<T, X, Y> {
             (selection: Selection<T>): void;
             (selection: Transition<T>): void;
 
             event(selection: Selection<T>): void;
             event(selection: Transition<T>): void;
 
-            x(): brush.Scale;
-            x(x: brush.Scale): Brush<T>;
+            x(): brush.Scale<X>;
+            x(x: brush.Scale<X>): Brush<T, X, Y>;
+            x<A, B extends X>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
 
-            y(): brush.Scale;
-            y(y: brush.Scale): Brush<T>;
+            y(): brush.Scale<Y>;
+            y(y: brush.Scale<Y>): Brush<T, X, Y>;
+            y<A, B extends Y>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
 
             // https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md#brush_extent
-            extent(): [number, number] | [[number, number], [number, number]] | [Date, Date] | [[Date, Date],[Date,Date]];
-            extent(extent: [number, number] | [[number, number], [number, number]] | [Date, Date] | [[Date, Date], [Date, Date]]): Brush<T>;
+            extent(): [X, X] | [Y, Y] | [[X, Y], [X, Y]] | null;
+            extent(extent: [X, X] | [Y, Y] | [[X, Y], [X, Y]]): Brush<T, X, Y>;
 
             clamp(): boolean | [boolean, boolean];
-            clamp(clamp: boolean | [boolean, boolean]): Brush<T>;
+            clamp(clamp: boolean | [boolean, boolean]): Brush<T, X, Y>;
 
             clear(): void;
 
@@ -2625,10 +2629,10 @@ declare namespace d3 {
             on(type: 'brushend'): (datum: T, index: number) => void;
             on(type: string): (datum: T, index: number) => void;
 
-            on(type: 'brushstart', listener: (datum: T, index: number) => void): Brush<T>;
-            on(type: 'brush', listener: (datum: T, index: number) => void): Brush<T>;
-            on(type: 'brushend', listener: (datum: T, index: number) => void): Brush<T>;
-            on(type: string, listener: (datum: T, index: number) => void): Brush<T>;
+            on(type: 'brushstart', listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: 'brush', listener: (datum: T, index: number) => void): Brush<T, X ,Y>;
+            on(type: 'brushend', listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: string, listener: (datum: T, index: number) => void): Brush<T, X, Y>;
         }
     }
 
