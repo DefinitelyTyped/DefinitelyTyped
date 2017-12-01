@@ -1,4 +1,4 @@
-// Type definitions for reactstrap 4.6
+// Type definitions for reactstrap 5.0
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>, Danilo Barros <https://github.com/danilobjr>, Fábio Paiva <https://github.com/fabiopaiva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,8 +68,8 @@ export { default as Pagination } from './lib/Pagination';
 export { default as PaginationItem } from './lib/PaginationItem';
 export { default as PaginationLink } from './lib/PaginationLink';
 export { default as Popover } from './lib/Popover';
-export { default as PopoverContent } from './lib/PopoverContent';
-export { default as PopoverTitle } from './lib/PopoverTitle';
+export { default as PopoverBody } from './lib/PopoverBody';
+export { default as PopoverHeader } from './lib/PopoverHeader';
 export { default as Progress } from './lib/Progress';
 export { default as Row } from './lib/Row';
 export { default as TabContent } from './lib/TabContent';

@@ -947,6 +947,7 @@ declare namespace __MaterialUI {
     export interface ChipProps {
         backgroundColor?: string;
         className?: string;
+        containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
         onRequestDelete?: React.TouchEventHandler<Chip>;
@@ -1439,6 +1440,7 @@ declare namespace __MaterialUI {
         hintText?: React.ReactNode;
         iconStyle?: React.CSSProperties;
         id?: string;
+        name?: string;
         labelStyle?: React.CSSProperties;
         multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;

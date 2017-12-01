@@ -164,6 +164,7 @@ const statelessElement: React.SFCElement<SCProps> = React.createElement(Stateles
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
+const fragmentElement: React.ReactElement<undefined> = React.createElement(React.Fragment, undefined, [React.createElement("div"), React.createElement("div")]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
@@ -228,6 +229,7 @@ const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
 let domNode: Element = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode);
+const fragmentType: symbol | number = React.Fragment;
 
 //
 // React Elements
@@ -262,7 +264,7 @@ class RefComponent extends React.Component<RCProps> {
     }
 }
 
-let componentRef: RefComponent | null = new RefComponent();
+let componentRef: RefComponent | null = new RefComponent({});
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
 RefComponent.create({ ref: c => componentRef = c });
@@ -609,8 +611,8 @@ if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
 
 if (TestUtils.isDOMComponent(container)) {
     container.getAttribute("className");
-} else if (TestUtils.isCompositeComponent(new ModernComponent())) {
-    new ModernComponent().props;
+} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
+    new ModernComponent({ hello: 'hi', foo: 3 }).props;
 }
 
 //
@@ -698,3 +700,11 @@ declare var x: React.DOMElement<{
         transition: string;
     };
 }, Element>;
+
+// React 16 should be able to render its children directly
+class RenderChildren extends React.Component {
+    render() {
+        const { children } = this.props;
+        return children !== undefined ? children : null;
+    }
+}

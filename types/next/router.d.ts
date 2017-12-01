@@ -35,5 +35,7 @@ export interface SingletonRouter {
     onRouteChangeError?(error: any, url: string): void;
 }
 
+export function withRouter<T extends {}>(Component: React.ComponentType<T & {router: SingletonRouter}>): React.ComponentType<T>;
+
 export const Singleton: SingletonRouter;
 export default Singleton;

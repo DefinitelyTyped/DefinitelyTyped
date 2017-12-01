@@ -33,7 +33,7 @@ xml2js.parseString('<root>Hello xml2js!</root>', {
 }, (err: any, result: any) => { });
 
 xml2js.parseString('<root>Hello xml2js!</root>', {
-    attrNameProcessors: [processors.firstCharLowerCase],
+    attrNameProcessors: [processors.firstCharLowerCase, xml2js.processors.normalize],
     attrValueProcessors: [processors.normalize],
     tagNameProcessors: [processors.stripPrefix],
     valueProcessors: [processors.parseBooleans, processors.parseNumbers]

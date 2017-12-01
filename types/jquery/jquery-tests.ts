@@ -7193,7 +7193,8 @@ function JQuery_Promise3() {
     }
 
     async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
-        return await p;
+        const s: string = await p;
+        return s;
     }
 
     function compatibleWithPromise(): Promise<any> {
@@ -7336,7 +7337,8 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
     }
 
     async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
-        return await p;
+        const s: string = await p;
+        return s;
     }
 
     function compatibleWithPromise(): Promise<any> {
@@ -7456,7 +7458,8 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
     }
 
     async function testAsync(p: JQuery.Promise<string, Error, number>): Promise<string> {
-        return await p;
+        const s: string = await p;
+        return s;
     }
 
     function compatibleWithPromise(): Promise<any> {

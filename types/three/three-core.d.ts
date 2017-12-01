@@ -463,6 +463,8 @@ export class CubeCamera extends Object3D {
     renderTarget: WebGLRenderTargetCube;
 
     updateCubeMap(renderer: Renderer, scene: Scene): void;
+
+    update(renderer: Renderer, scene: Scene): void;
 }
 
 /**
@@ -672,6 +674,7 @@ export class BufferAttribute {
     needsUpdate: boolean;
     count: number;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
     copy(source: this): this;
@@ -682,7 +685,7 @@ export class BufferAttribute {
     copyVector2sArray(vectors: {x: number, y: number}[]): BufferAttribute;
     copyVector3sArray(vectors: {x: number, y: number, z: number}[]): BufferAttribute;
     copyVector4sArray(vectors: {x: number, y: number, z: number, w: number}[]): BufferAttribute;
-    set(value: ArrayLike<number>, offset?: number): BufferAttribute;
+    set(value: ArrayLike<number>|ArrayBufferView, offset?: number): BufferAttribute;
     getX(index: number): number;
     setX(index: number, x: number): BufferAttribute;
     getY(index: number): number;
@@ -861,7 +864,8 @@ export class BufferGeometry extends EventDispatcher {
 
     center(): Vector3;
 
-    setFromObject(object: Object3D): void;
+    setFromObject(object: Object3D): BufferGeometry;
+    setFromPoints(points: Vector3[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
@@ -2756,7 +2760,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: Color;
+    emissive?: number|string|Color;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
@@ -4486,6 +4490,7 @@ export class Vector3 implements Vector {
      * http://en.wikipedia.org/wiki/Taxicab_geometry
      */
     lengthManhattan(): number;
+    manhattanDistanceTo(v:Vector3):number;
 
     /**
      * Normalizes this vector.
@@ -5234,14 +5239,14 @@ export interface RenderTarget {} // not defined in the code, used in LightShadow
 
 export interface RenderItem
 {
-    id: number
-    object: THREE.Object3D,
-    geometry: THREE.Geometry | THREE.BufferGeometry,
-    material: THREE.Material,
-    program: THREE.WebGLProgram,
-    renderOrder: number,
-    z: number,
-    group: THREE.Group
+    id: number;
+    object: Object3D;
+    geometry: Geometry | BufferGeometry;
+    material: Material;
+    program: WebGLProgram;
+    renderOrder: number;
+    z: number;
+    group: Group;
 }
 
 export class WebGLRenderList

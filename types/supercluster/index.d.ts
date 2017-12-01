@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/supercluster
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as GeoJSON from 'geojson';
 
@@ -32,6 +33,27 @@ export interface Options {
      * Whether timing info should be logged.
      */
     log?: boolean;
+    /**
+     * a reduce function for calculating custom cluster properties
+     *
+     * @example
+     * function (accumulated, props) { accumulated.sum += props.sum; }
+     */
+    reduce?: (accumulated: any, props: any) => void;
+    /**
+     * initial properties of a cluster (before running the reducer)
+     *
+     * @example
+     * function () { return {sum: 0}; }
+     */
+    initial?: () => any;
+    /**
+     * properties to use for individual points when running the reducer
+     *
+     * @example
+     * function (props) { return {sum: props.my_value}; }
+     */
+    map?: (props: any) => any;
 }
 
 export class Supercluster {

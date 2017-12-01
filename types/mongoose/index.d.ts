@@ -364,6 +364,49 @@ declare module "mongoose" {
     pass?: string;
     /** options for authentication (see http://mongodb.github.com/node-mongodb-native/api-generated/db.html#authenticate) */
     auth?: any;
+    /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
+    ssl?: boolean;
+    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
+    sslValidate?: object;
+    /** Reconnect on error (default: true) */
+    poolSize?: number;
+    /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
+    autoReconnect?: boolean;
+    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
+    keepAlive?: number;
+    /** TCP Connection timeout setting (default: 0) */
+    connectTimeoutMS?: number;
+    /** TCP Socket timeout setting (default: 0) */
+    socketTimeoutMS?: number;
+    /** If the database authentication is dependent on another databaseName. */
+    authSource?: string;
+    /** Attempt to reconnect #times (default: 30) */
+    retries?: number;
+    /** Will wait # milliseconds between retries (default: 1000) */
+    reconnectWait?: number;
+    /** The name of the replicaset to connect to. */
+    replicaSet?: string;
+    /** The current value of the parameter native_parser */
+    nativeParser?: boolean;
+    /** Auth mechanism */
+    authMechanism?: any;
+    /** Specify a journal write concern (default: false). */
+    journal?: boolean;
+    /** The write concern */
+    w?: number|string;
+    /** The write concern timeout. */
+    wTimeoutMS?: number;
+    /** The ReadPreference mode as listed here: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreference?: string;
+    /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreferencetags?: object;
+
+    // TODO
+    safe?: any;
+    fsync?: any;
+    rs_name?: any;
+    slaveOk?: any;
+    authdb?: any;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */
@@ -473,7 +516,7 @@ declare module "mongoose" {
     /** defaults to 1 */
     parallel?: number;
   }
-  
+
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -727,7 +770,7 @@ declare module "mongoose" {
     minimize?: boolean;
     read?: string;
     /** defaults to true. */
-    safe?: boolean;
+    safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
@@ -764,7 +807,7 @@ declare module "mongoose" {
    * Intellisense for Schema definitions
    */
   interface SchemaDefinition {
-    [path: string]: SchemaTypeOpts<any>;
+    [path: string]: SchemaTypeOpts<any> | Schema | SchemaType;
   }
 
   /*
@@ -1579,7 +1622,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<Object>;
+    lean(bool?: boolean): Query<object>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -2680,7 +2723,7 @@ declare module "mongoose" {
     passRawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
-    /** 
+    /**
      * if true, run all setters defined on the associated model's schema for all fields
      * defined in the query and the update.
      */

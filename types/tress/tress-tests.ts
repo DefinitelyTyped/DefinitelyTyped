@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { tress } from "tress";
+import tress = require("tress");
 
 function someAsyncFunction(job: any, callback: (err: any, data?: any) => void): void {
 	const p = Promise.resolve(job)

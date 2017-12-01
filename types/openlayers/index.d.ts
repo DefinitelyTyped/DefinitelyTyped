@@ -14503,6 +14503,13 @@ declare module olx {
         maxLines?: number;
         strokeStyle?: ol.style.Stroke;
         targetSize?: number;
+        showLabels?: boolean;
+        lonLabelFormatter?: ((lon: number) => string);
+        latLabelFormatter?: ((lat: number) => string);
+        lonLabelPosition?: number;
+        latLabelPosition?: number;
+        lonLabelStyle?: ol.style.Text;
+        latLabelStyle?: ol.style.Text;
     }
 
 
