@@ -133,7 +133,9 @@ function _typeof() {
     expect(5).to.be.a('number');
     (5).should.be.a('number');
 
+    // tslint:disable-next-line:no-construct
     expect(new Number(1)).to.be.a('number');
+    // tslint:disable-next-line:no-construct
     (new Number(1)).should.be.a('number');
     expect(Number(1)).to.be.a('number');
     Number(1).should.be.a('number');
@@ -1304,6 +1306,7 @@ suite('assert', () => {
 
     test('isString', () => {
         assert.isString('Foo');
+        // tslint:disable-next-line:no-construct
         assert.isString(new String('foo'));
         assert.isString(1);
     });
