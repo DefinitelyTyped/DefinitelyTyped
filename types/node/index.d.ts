@@ -1665,16 +1665,8 @@ declare module "https" {
         servername?: string;
     }
 
-    export interface AgentOptions extends http.AgentOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        ciphers?: string;
+    export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
-        serverName?: string;
-        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
@@ -4868,25 +4860,19 @@ declare module "tls" {
         secureOptions?: number;
     }
 
-    export interface ConnectionOptions {
+    export interface ConnectionOptions extends SecureContextOptions {
         host?: string;
         port?: number;
-        socket?: net.Socket;
-        pfx?: string | Buffer;
-        key?: string | string[] | Buffer | Buffer[];
-        passphrase?: string;
-        cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | Buffer | Array<string | Buffer>;
-        rejectUnauthorized?: boolean;
+        path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+        socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
+        rejectUnauthorized?: boolean; // Defaults to true
         NPNProtocols?: Array<string | Buffer>;
-        servername?: string;
-        path?: string;
         ALPNProtocols?: Array<string | Buffer>;
         checkServerIdentity?: typeof checkServerIdentity;
-        secureProtocol?: string;
-        secureContext?: Object;
+        servername?: string; // SNI TLS Extension
         session?: Buffer;
         minDHSize?: number;
+        secureContext?: SecureContext; // If not provided, the entire ConnectionOptions object will be passed to tls.createSecureContext()
         lookup?: net.LookupFunction;
     }
 
@@ -4971,14 +4957,19 @@ declare module "tls" {
     }
 
     export interface SecureContextOptions {
-        pfx?: string | Buffer;
-        key?: string | Buffer;
+        pfx?: string | Buffer | Array<string | Buffer | Object>;
+        key?: string | Buffer | Array<Buffer | Object>;
         passphrase?: string;
-        cert?: string | Buffer;
-        ca?: string | Buffer;
-        crl?: string | string[];
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
         ciphers?: string;
         honorCipherOrder?: boolean;
+        ecdhCurve?: string;
+        crl?: string | Buffer | Array<string | Buffer>;
+        dhparam?: string | Buffer;
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string;
     }
 
     export interface SecureContext {
