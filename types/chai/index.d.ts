@@ -10,7 +10,6 @@
 //                 Gintautas Miselis <https://github.com/Naktibalda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 // <reference types="assertion-error"/>
 
 declare namespace Chai {
