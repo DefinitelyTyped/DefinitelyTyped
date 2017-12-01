@@ -42,7 +42,7 @@ declare module 'recompose' {
     // Will not pass through the injected props if they are passed in during
     // render. Also adds new prop requirements from TNeedsProps.
     export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-        <P extends TInjectedProps>(
+        <P extends TInjectedProps & TNeedsProps>(
             component: Component<P>
         ): React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>
     }
