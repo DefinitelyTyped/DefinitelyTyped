@@ -217,7 +217,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 *      return rowIndex % 2 == 0 ? "tr-odd" : "tr-even"; // return a class name.
 	 *    }
 	 */
-	trClassName?: string | ((rowData: ReadonlyArray<any>, rowIndex: number) => string);
+	trClassName?: string | ((rowData: any, rowIndex: number) => string);
 	/**
 	 * Enable row insertion by setting insertRow to true, default is false.
 	 * If you enable row insertion, there's a button on the upper left side of table.
