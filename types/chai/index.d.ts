@@ -256,7 +256,7 @@ declare namespace Chai {
         (object: Object, property: string, message?: string): Assertion;
     }
 
-    export interface Assert {
+    interface Assert {
         /**
          * @param expression    Expression to test for truthiness.
          * @param message    Message to display on error.
@@ -1587,7 +1587,7 @@ declare namespace Chai {
         doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
     }
 
-    export interface Config {
+    interface Config {
         /**
          * Default: false
          */
@@ -1604,7 +1604,7 @@ declare namespace Chai {
         truncateThreshold: number;
     }
 
-    export class AssertionError {
+    class AssertionError {
         constructor(message: string, _props?: any, ssf?: Function);
         name: string;
         message: string;
