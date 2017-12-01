@@ -349,10 +349,6 @@ function eql() {
     (4).should.eql(3, 'blah');
 }
 
-class Buffer {
-    constructor(arr: number[]) {
-    }
-}
 function buffer() {
     expect(new Buffer([1])).to.eql(new Buffer([1]));
     (new Buffer([1])).should.eql(new Buffer([1]));
