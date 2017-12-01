@@ -13776,10 +13776,10 @@ namespace TestOverSome {
     {
         let result: (...args: number[]) => boolean;
 
-        result = _.overSome<number>((n: number) => true);
-        result = _.overSome<number>((n: number) => true, (n: number) => true);
-        result = _.overSome<number>([(n: number) => true]);
-        result = _.overSome<number>([(n: number) => true], [(n: number) => true]);
+        result = _.overSome((n: number) => true);
+        result = _.overSome((n: number) => true, (n: number) => true);
+        result = _.overSome([(n: number) => true]);
+        result = _.overSome([(n: number) => true], [(n: number) => true]);
     }
 
     {
