@@ -713,7 +713,6 @@ declare namespace Chai {
          */
         notInclude(haystack: any[], needle: any, message?: string): void;
 
-
         /**
          * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
          *
@@ -1289,7 +1288,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be modified.
          * @param message   Message to display on error.
          */
-        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not change the value of a property.
@@ -1300,7 +1299,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be modified.
          * @param message   Message to display on error.
          */
-        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function increases an object property.
@@ -1311,7 +1310,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be increased.
          * @param message   Message to display on error.
          */
-        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not increase an object property.
@@ -1322,7 +1321,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be increased.
          * @param message   Message to display on error.
          */
-        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function decreases an object property.
@@ -1333,7 +1332,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be decreased.
          * @param message   Message to display on error.
          */
-        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not decrease an object property.
@@ -1344,7 +1343,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be decreased.
          * @param message   Message to display on error.
          */
-        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.
