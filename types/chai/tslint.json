@@ -9,7 +9,6 @@
         "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false
