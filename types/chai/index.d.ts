@@ -10,6 +10,7 @@
 //                 Gintautas Miselis <https://github.com/Naktibalda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 // <reference types="assertion-error"/>
 
 declare namespace Chai {
@@ -1651,10 +1652,10 @@ declare namespace Chai {
 
 declare const chai: Chai.ChaiStatic;
 
-declare module "chai" {
-    export = chai;
-}
+export = chai;
 
-interface Object {
-    should: Chai.Assertion;
+declare global {
+    interface Object {
+        should: Chai.Assertion;
+    }
 }
