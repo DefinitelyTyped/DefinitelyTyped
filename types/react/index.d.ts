@@ -281,10 +281,10 @@ declare namespace React {
         constructor(props: P, context?: any);
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
+        // tslint:disable-next-line:unified-signatures
         setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
+        // tslint:disable-next-line:unified-signatures
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
         render(): ReactNode;
@@ -3524,7 +3524,7 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
@@ -3532,9 +3532,10 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML
