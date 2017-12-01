@@ -887,7 +887,7 @@ function use() {
         _chai.can.use.any();
     });
 
-    let expect = chai
+    const expect = chai
         .use((_chai, util) => {})
         .use((_chai, util) => {})
         .expect;
