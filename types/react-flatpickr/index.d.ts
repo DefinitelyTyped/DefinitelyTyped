@@ -4,10 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Component } from 'react';
+import { Component, DetailedHTMLProps, InputHTMLAttributes, HTMLAttributes } from 'react';
 import { Hook, Options } from 'flatpickr';
 
-export interface DateTimePickerProps {
+type HTMLProps = {onChange?: Hook}       // needed because there is a conflit with div and input props
+    | DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+    | DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+;
+
+export type DateTimePickerProps = HTMLProps & {
     defaultValue?: string;
     options?: Options;
     onChange?: Hook;
