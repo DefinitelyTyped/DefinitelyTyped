@@ -1104,7 +1104,7 @@ class CrashyObject {
 
 suite('assert', () => {
     test('assert', () => {
-        const foo: string = 'bar';
+        const foo = 'bar' as string;
         assert(foo === 'bar', 'expected foo to equal `bar`');
 
         assert(foo === 'baz', 'expected foo to equal `bar`');
