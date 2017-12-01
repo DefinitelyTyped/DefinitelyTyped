@@ -2,6 +2,7 @@
 // Project: https://github.com/Glench/fuzzyset.js
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface FuzzySet {
   get<T = undefined>(candidate: string, defaultValue?: T | undefined, minScore?: number): Array<[number, string]> | T | null;
