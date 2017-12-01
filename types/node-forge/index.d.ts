@@ -304,7 +304,7 @@ declare module "node-forge" {
         function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
 
         interface StartOptions {
-            iv: string | undefined
+            iv?: string;
         }
 
         interface BlockCipher {
