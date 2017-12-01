@@ -68,6 +68,14 @@ interface SymbolConstructor {
 }
 declare var Symbol: SymbolConstructor;
 
+// Node.js ESNEXT support
+interface String {
+    /** Removes whitespace from the left end of a string. */
+    trimLeft(): string;
+    /** Removes whitespace from the right end of a string. */
+    trimRight(): string;
+}
+
 /************************************************
 *                                               *
 *                   GLOBAL                      *
