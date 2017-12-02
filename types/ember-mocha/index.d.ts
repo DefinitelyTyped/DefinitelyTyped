@@ -36,31 +36,13 @@ declare module 'ember-mocha' {
         (callbacks: ModuleCallbacks): void;
     }
 
-    /**
-     *
-     * @param {string} fullName The full name of the unit, ie controller:application, route:index.
-     * @param {string} description The description of the module
-     * @param {ModuleCallbacks} callbacks
-     * @deprecated Use setupTest instead
-     */
+    /** @deprecated Use setupTest instead */
     export const describeModule: ContextDefinition;
 
-    /**
-     *
-     * @param {string} fullName the short name of the component that you'd use in a template, ie x-foo, ic-tabs, etc.
-     * @param {string} description The description of the module
-     * @param {ModuleCallbacks} callbacks
-     * @deprecated Use setupComponentTest instead
-     */
+    /** @deprecated Use setupComponentTest instead */
     export const describeComponent: ContextDefinition;
 
-    /**
-     *
-     * @param {string} fullName the short name of the model you'd use in store operations ie user, assignmentGroup, etc.
-     * @param {string} description The description of the module
-     * @param {ModuleCallbacks} callbacks
-     * @deprecated Use setupModelTest instead
-     */
+    /** @deprecated Use setupModelTest instead */
     export const describeModel: ContextDefinition;
 
     export const setupTest: SetupTest;

@@ -18,28 +18,22 @@ declare module 'ember-qunit' {
     }
 
     /**
-     *
-     * @param {string} fullName The full name of the unit, ie controller:application, route:index.
-     * @param {string} description The description of the module
-     * @param {ModuleCallbacks} callbacks
+     * @param fullName The full name of the unit, ie controller:application, route:index.
+     * @param description The description of the module
      */
     export function moduleFor(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
     export function moduleFor(fullName: string, callbacks?: QUnitModuleCallbacks): void;
 
     /**
-     *
-     * @param {string} fullName the short name of the component that you'd use in a template, ie x-foo, ic-tabs, etc.
-     * @param {string} description The description of the module
-     * @param {ModuleCallbacks} callbacks
+     * @param fullName the short name of the component that you'd use in a template, ie x-foo, ic-tabs, etc.
+     * @param description The description of the module
      */
     export function moduleForComponent(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
     export function moduleForComponent(fullName: string, callbacks?: QUnitModuleCallbacks): void;
 
     /**
-     *
-     * @param {string} fullName the short name of the model you'd use in store operations ie user, assignmentGroup, etc.
-     * @param {string} description The description of the module
-     * @param {ModuleCallbacks} callbacks
+     * @param fullName the short name of the model you'd use in store operations ie user, assignmentGroup, etc.
+     * @param description The description of the module
      */
     export function moduleForModel(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
     export function moduleForModel(fullName: string, callbacks?: QUnitModuleCallbacks): void;
@@ -71,7 +65,7 @@ declare module 'qunit' {
      * Promise on your behalf if you return a thenable Promise as the result of
      * your callback function.
      *
-     * @param {string} name Title of unit being tested
+     * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
     export function test(name: string, callback: (this: TestContext, assert: Assert) => void): void;
@@ -89,7 +83,7 @@ declare module 'qunit' {
      * is especially useful when you use a console reporter or in a codebase
      * with a large set of long running tests.
      *
-     * @param {string} name Title of unit being tested
+     * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
     export function only(name: string, callback: (this: TestContext, assert: Assert) => void): void;
@@ -101,7 +95,7 @@ declare module 'qunit' {
      * If all assertions pass, then the test will fail signaling that `QUnit.todo` should
      * be replaced by `QUnit.test`.
      *
-     * @param {string} name Title of unit being tested
+     * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
     export function todo(name: string, callback: (this: TestContext, assert: Assert) => void): void;
@@ -116,7 +110,7 @@ declare module 'qunit' {
      * ignoring the callback argument and the respective global and module's
      * hooks.
      *
-     * @param {string} Title of unit being tested
+     * @param Title of unit being tested
      */
     export const skip: typeof QUnit.skip;
 
