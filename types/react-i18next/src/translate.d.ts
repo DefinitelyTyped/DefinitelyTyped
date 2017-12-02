@@ -12,4 +12,5 @@ export interface TranslateOptions {
 }
 
 // tslint:disable-next-line:ban-types
-export default function translate<TKey extends string = string>(namespaces?: TKey[] | TKey, options?: TranslateOptions): <C extends Function>(WrappedComponent: C) => C;
+type ComponentWrapper = <C extends Function>(WrappedComponent: C) => C;
+export default function translate<TNamespace extends string = string>(namespaces?: TNamespace | TNamespace[], options?: TranslateOptions): ComponentWrapper;

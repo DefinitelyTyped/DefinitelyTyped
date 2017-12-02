@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as i18n from 'i18next';
-import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction, loadNamespaces, Trans } from 'react-i18next';
+import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction, loadNamespaces, Trans, reactI18nextModule } from 'react-i18next';
 
 interface InnerAnotherComponentProps {
   _?: TranslationFunction;
@@ -90,3 +90,5 @@ class GenericsTest extends React.Component<InjectedTranslateProps> {
 class GenericsTest2 extends React.Component<InjectedTranslateProps> {
   render() { return null; }
 }
+
+i18n.use(reactI18nextModule);

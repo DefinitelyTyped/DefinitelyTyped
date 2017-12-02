@@ -1,4 +1,4 @@
-// Type definitions for react-i18next 4.6
+// Type definitions for react-i18next 7.0
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,6 +21,8 @@ export {
     // Exports for TypeScript only
     TranslationFunction
 };
+
+export { reactI18nextModule, setDefaults, getDefaults, setI18n, getI18n } from './src/context';
 
 /**
  * Extend your component's Prop interface with this one to get access to `this.props.t`
