@@ -6,7 +6,6 @@
 declare module "cqrs-domain" {
 	
 	import {CreateDomainOptions, IDomain} from "cqrs-domain";
-	import {TV4} from "tv4";
 	
 	module Domain {
 		//region AggregateModel and Command
@@ -270,7 +269,7 @@ declare module "cqrs-domain" {
 		
 		//region extendValidator
 		
-		export function extendValidator(cb: (validator: TV4) => void): void;
+		export function extendValidator(cb: (validator: any) => void): void;
 		
 		//endregion
 		
