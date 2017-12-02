@@ -9,13 +9,12 @@
 //                 Ivan Goncharov <https://github.com/IvanGoncharov>
 //                 Hagai Cohen <https://github.com/DxCx>
 //                 Ricardo Portugal <https://github.com/rportugal>
+//                 Cory Deppen <https://github.com/corydeppen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // The primary entry point into fulfilling a GraphQL request.
-export {
-    graphql
-} from './graphql';
+export { graphql } from './graphql';
 
 // Create and operate on GraphQL type definitions and schema.
 export * from './type';
@@ -32,17 +31,15 @@ export {
     responsePathAsArray,
     getDirectiveValues,
     ExecutionArgs,
-    ExecutionResult,
+    ExecutionResult
 } from './execution';
 
 // Validate GraphQL queries.
 export {
     validate,
     ValidationContext,
-
     // All validation rules in the GraphQL Specification.
     specifiedRules,
-
     // Individual validation rules.
     ArgumentsOfCorrectTypeRule,
     DefaultValuesOfCorrectTypeRule,
@@ -69,7 +66,7 @@ export {
     UniqueOperationNamesRule,
     UniqueVariableNamesRule,
     VariablesAreInputTypesRule,
-    VariablesInAllowedPositionRule,
+    VariablesInAllowedPositionRule
 } from './validation';
 
 // Create and format GraphQL errors.
@@ -77,77 +74,56 @@ export {
     GraphQLError,
     formatError,
     GraphQLFormattedError,
-    GraphQLErrorLocation,
+    GraphQLErrorLocation
 } from './error';
 
 // Utilities for operating on GraphQL type schema and parsed sources.
 export {
     // The GraphQL query recommended for a full schema introspection.
     introspectionQuery,
-
     // Gets the target Operation from a Document
     getOperationAST,
-
     // Build a GraphQLSchema from an introspection result.
     buildClientSchema,
-
     // Build a GraphQLSchema from a parsed GraphQL Schema language AST.
     buildASTSchema,
-
     // Build a GraphQLSchema from a GraphQL schema language document.
     buildSchema,
-
     // Extends an existing GraphQLSchema from a parsed GraphQL Schema
     // language AST.
     extendSchema,
-
     // Print a GraphQLSchema to GraphQL Schema language.
     printSchema,
-
     // Print a GraphQLType to GraphQL Schema language.
     printType,
-
     // Create a GraphQLType from a GraphQL language AST.
     typeFromAST,
-
     // Create a JavaScript value from a GraphQL language AST.
     valueFromAST,
-
     // Create a GraphQL language AST from a JavaScript value.
     astFromValue,
-
     // A helper to use within recursive-descent visitors which need to be aware of
     // the GraphQL type system.
     TypeInfo,
-
     // Determine if JavaScript values adhere to a GraphQL type.
     isValidJSValue,
-
     // Determine if AST values adhere to a GraphQL type.
     isValidLiteralValue,
-
     // Concatenates multiple AST together.
     concatAST,
-
     // Separates an AST into an AST per Operation.
     separateOperations,
-
     // Comparators for types
     isEqualType,
     isTypeSubTypeOf,
     doTypesOverlap,
-
     // Asserts a string is a valid GraphQL name.
     assertValidName,
-
     // Compares two GraphQLSchemas and detects breaking changes.
     findBreakingChanges,
-
     // Report all deprecated usage within a GraphQL document.
     findDeprecatedUsages,
-
     BreakingChange,
-
     IntrospectionDirective,
     IntrospectionEnumType,
     IntrospectionEnumValue,
@@ -164,5 +140,5 @@ export {
     IntrospectionSchema,
     IntrospectionType,
     IntrospectionTypeRef,
-    IntrospectionUnionType,
+    IntrospectionUnionType
 } from './utilities';
