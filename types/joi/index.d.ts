@@ -800,6 +800,19 @@ export interface ObjectSchema extends AnySchema {
      */
     optionalKeys(children: string[]): this;
     optionalKeys(...children: string[]): this;
+
+    /**
+     * Sets the specified children to forbidden.
+     *
+     * @param children - can be a single string value, an array of string values, or each child provided as an argument.
+     *
+     *   const schema = Joi.object().keys({ a: { b: Joi.number().required() }, c: { d: Joi.string().required() } });
+     *   const optionalSchema = schema.forbiddenKeys('a.b', 'c.d');
+     *
+     * The behavior is exactly the same as requiredKeys.
+     */
+    forbiddenKeys(children: string[]): this;
+    forbiddenKeys(...children: string[]): this;
 }
 
 export interface BinarySchema extends AnySchema {
