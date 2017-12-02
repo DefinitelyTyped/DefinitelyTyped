@@ -1,4 +1,4 @@
-// Type definitions for chai-webdriverio
+// Type definitions for chai-webdriverio 0.4
 // Project: https://github.com/marcodejongh/chai-webdriverio
 // Definitions by: Nickolai Orekhov <https://github.com/sherlock1982>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,4 @@ declare namespace Chai {
         visible: () => void;
         immediately: Assertion;
     }
-}
-
-declare module 'chai-webdriverio' {
 }
