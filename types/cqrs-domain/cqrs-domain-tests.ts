@@ -1,7 +1,7 @@
 import createDomain = require("cqrs-domain");
 
 const domain = createDomain({
-	domainPath: __dirname + "/domain",
+	domainPath: "/domain",
 	eventStore: {
 		type: "mongodb",
 		dbName: "db1"
