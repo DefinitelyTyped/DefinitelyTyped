@@ -3,6 +3,7 @@
 // Definitions by: Nickolai Orekhov <https://github.com/sherlock1982>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="webdriverio" />
 /// <reference types="chai" />
 
 declare global {
@@ -19,5 +20,5 @@ declare global {
     }
 }
 
-declare function chaiWebdriverIO(client: any, options?: any): (chai: any, utils: any) => void;
+declare function chaiWebdriverIO(client: WebdriverIO.Client<void>, options?: any): (chai: any, utils: any) => void;
 export = chaiWebdriverIO;

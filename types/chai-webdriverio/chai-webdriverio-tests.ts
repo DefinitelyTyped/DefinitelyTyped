@@ -1,7 +1,14 @@
 import chai = require('chai');
+import webdriverio = require('webdriverio');
 import chaiWebdriverio = require('chai-webdriverio');
 
-const browser = {};
+const options = {
+    desiredCapabilities: {
+        browserName: 'firefox'
+    }
+};
+
+const browser = webdriverio.remote(options);
 chai.use(chaiWebdriverio(browser));
 
 const selector = 'Hello, World!';
