@@ -27,7 +27,7 @@ class PostStore {
     }
 
     get posts() {
-        return this.postsQuery.data.posts;
+        return this.postsQuery.data && this.postsQuery.data.posts;
     }
 }
 

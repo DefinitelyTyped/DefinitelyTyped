@@ -1234,7 +1234,7 @@ declare namespace _ {
          */
         findIndex<T>(
             array: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1245,7 +1245,7 @@ declare namespace _ {
          */
         findIndex<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1256,7 +1256,7 @@ declare namespace _ {
          */
         findIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
@@ -1282,7 +1282,7 @@ declare namespace _ {
          */
         findLastIndex<T>(
             array: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1293,7 +1293,7 @@ declare namespace _ {
          */
         findLastIndex<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
@@ -1304,7 +1304,7 @@ declare namespace _ {
          */
         findLastIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
@@ -4316,6 +4316,14 @@ declare namespace _ {
          * @return Returns the composed aggregate object.
          */
         countBy<T>(
+            collection: string | null | undefined,
+            iteratee?: StringIterator<T>
+        ): Dictionary<number>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
             collection: List<T> | null | undefined,
             iteratee?: ListIteratee<T>
         ): Dictionary<number>;
@@ -4342,6 +4350,14 @@ declare namespace _ {
          * @see _.countBy
          */
         countBy<T>(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<T>
+        ): LoDashImplicitWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee?: ListIteratee<T>
         ): LoDashImplicitWrapper<Dictionary<number>>;
@@ -4364,6 +4380,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<T>
+        ): LoDashExplicitWrapper<Dictionary<number>>;
+
         /**
          * @see _.countBy
          */
@@ -4479,7 +4503,7 @@ declare namespace _ {
          */
         every<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4487,7 +4511,7 @@ declare namespace _ {
          */
         every<T>(
             collection: NumericDictionary<T> | null | undefined,
-            predicate?: NumericDictionaryIterateeBoolean<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4495,7 +4519,7 @@ declare namespace _ {
          */
         every<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -4505,7 +4529,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4513,7 +4537,7 @@ declare namespace _ {
          */
         every<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -4521,7 +4545,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIterateeBoolean<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -4531,7 +4555,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -4539,7 +4563,7 @@ declare namespace _ {
          */
         every<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -4547,7 +4571,7 @@ declare namespace _ {
          */
         every<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIterateeBoolean<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -4589,7 +4613,7 @@ declare namespace _ {
          */
         filter<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): T[];
 
         /**
@@ -4605,7 +4629,7 @@ declare namespace _ {
          */
         filter<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): Array<T[keyof T]>;
     }
 
@@ -4631,7 +4655,7 @@ declare namespace _ {
          */
         filter<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -4647,7 +4671,7 @@ declare namespace _ {
          */
         filter<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -4673,7 +4697,7 @@ declare namespace _ {
          */
         filter<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -4689,7 +4713,7 @@ declare namespace _ {
          */
         filter<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -4724,7 +4748,7 @@ declare namespace _ {
          */
         find<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
@@ -4742,7 +4766,7 @@ declare namespace _ {
          */
         find<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIterateeBoolean<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4762,7 +4786,7 @@ declare namespace _ {
          */
         find<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
@@ -4780,7 +4804,7 @@ declare namespace _ {
          */
         find<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4800,7 +4824,7 @@ declare namespace _ {
          */
         find<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T|undefined>;
 
@@ -4818,7 +4842,7 @@ declare namespace _ {
          */
         find<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T[keyof T]|undefined>;
     }
@@ -4844,7 +4868,7 @@ declare namespace _ {
          */
         findLast<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
@@ -4862,7 +4886,7 @@ declare namespace _ {
          */
         findLast<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIterateeBoolean<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4882,7 +4906,7 @@ declare namespace _ {
          */
         findLast<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T | undefined;
 
@@ -4900,7 +4924,7 @@ declare namespace _ {
          */
         findLast<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): T[keyof T]|undefined;
     }
@@ -4920,7 +4944,7 @@ declare namespace _ {
          */
         findLast<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>,
+            predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T | undefined>;
 
@@ -4938,7 +4962,7 @@ declare namespace _ {
          */
         findLast<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>,
+            predicate?: ObjectIterateeCustom<T, boolean>,
             fromIndex?: number
         ): LoDashExplicitWrapper<T[keyof T]|undefined>;
     }
@@ -5849,9 +5873,17 @@ declare namespace _ {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
+        keyBy(
+            collection: string | null | undefined,
+            iteratee?: StringIterator<PropertyName>
+        ): Dictionary<string>;
+
+        /**
+         * @see _.keyBy
+         */
         keyBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ListIterateeCustom<T, PropertyName>
         ): Dictionary<T>;
 
         /**
@@ -5859,7 +5891,7 @@ declare namespace _ {
          */
         keyBy<T extends object>(
             collection: T | null | undefined,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ObjectIterateeCustom<T, PropertyName>
         ): Dictionary<T[keyof T]>;
 
         /**
@@ -5867,7 +5899,7 @@ declare namespace _ {
          */
         keyBy<T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee?: NumericDictionaryIteratee<T>
+            iteratee?: NumericDictionaryIterateeCustom<T, PropertyName>
         ): Dictionary<T>;
     }
 
@@ -5875,9 +5907,17 @@ declare namespace _ {
         /**
          * @see _.keyBy
          */
+        keyBy(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<PropertyName>
+        ): LoDashImplicitWrapper<Dictionary<string>>;
+
+        /**
+         * @see _.keyBy
+         */
         keyBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ListIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
@@ -5885,7 +5925,7 @@ declare namespace _ {
          */
         keyBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ObjectIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
 
         /**
@@ -5893,7 +5933,7 @@ declare namespace _ {
          */
         keyBy<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            iteratee?: NumericDictionaryIteratee<T>
+            iteratee?: NumericDictionaryIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T>>;
     }
 
@@ -5901,9 +5941,17 @@ declare namespace _ {
         /**
          * @see _.keyBy
          */
+        keyBy(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<PropertyName>
+        ): LoDashExplicitWrapper<Dictionary<string>>;
+
+        /**
+         * @see _.keyBy
+         */
         keyBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ListIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
@@ -5911,7 +5959,7 @@ declare namespace _ {
          */
         keyBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ObjectIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
 
         /**
@@ -5919,7 +5967,7 @@ declare namespace _ {
          */
         keyBy<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            iteratee?: NumericDictionaryIteratee<T>
+            iteratee?: NumericDictionaryIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T>>;
     }
 
@@ -6718,7 +6766,7 @@ declare namespace _ {
          */
         reject<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): T[];
 
         /**
@@ -6726,7 +6774,7 @@ declare namespace _ {
          */
         reject<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): Array<T[keyof T]>;
     }
 
@@ -6744,7 +6792,7 @@ declare namespace _ {
          */
         reject<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -6752,7 +6800,7 @@ declare namespace _ {
          */
         reject<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -6770,7 +6818,7 @@ declare namespace _ {
          */
         reject<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -6778,7 +6826,7 @@ declare namespace _ {
          */
         reject<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
@@ -6992,7 +7040,7 @@ declare namespace _ {
          */
         some<T>(
             collection: List<T> | null | undefined,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -7000,7 +7048,7 @@ declare namespace _ {
          */
         some<T extends object>(
             collection: T | null | undefined,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -7008,7 +7056,7 @@ declare namespace _ {
          */
         some<T>(
             collection: NumericDictionary<T> | null | undefined,
-            predicate?: NumericDictionaryIterateeBoolean<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -7018,7 +7066,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -7026,7 +7074,7 @@ declare namespace _ {
          */
         some<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): boolean;
 
         /**
@@ -7034,7 +7082,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIterateeBoolean<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): boolean;
     }
 
@@ -7044,7 +7092,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeBoolean<T>
+            predicate?: ListIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -7052,7 +7100,7 @@ declare namespace _ {
          */
         some<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeBoolean<T>
+            predicate?: ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -7060,7 +7108,7 @@ declare namespace _ {
          */
         some<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: NumericDictionaryIterateeBoolean<T>
+            predicate?: NumericDictionaryIterateeCustom<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -9315,14 +9363,16 @@ declare namespace _ {
         /**
          * @see _.conformsTo
          */
-        conformsTo(source: ConformsPredicateObject<TValue>): boolean;
+        conformsTo<T>(this: LoDashImplicitWrapper<T>, source: ConformsPredicateObject<T>): boolean;
+        // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.conformsTo
          */
-        conformsTo(source: ConformsPredicateObject<TValue>): LoDashExplicitWrapper<boolean>;
+        conformsTo<T>(this: LoDashImplicitWrapper<T>, source: ConformsPredicateObject<T>): LoDashExplicitWrapper<boolean>;
+        // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
     }
 
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R]
@@ -10723,7 +10773,7 @@ declare namespace _ {
         /**
          * @see _.toArray
          */
-        toArray(): LoDashImplicitWrapper<Array<TValue[keyof TValue]>>;
+        toArray<T extends object>(this: LoDashImplicitWrapper<T>): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -10735,7 +10785,7 @@ declare namespace _ {
         /**
          * @see _.toArray
          */
-        toArray(): LoDashExplicitWrapper<Array<TValue[keyof TValue]>>;
+        toArray<T extends object>(this: LoDashImplicitWrapper<T>): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 
     //_.toPlainObject
@@ -14358,6 +14408,9 @@ declare namespace _ {
              ...props: Array<Many<U>>
         ): Pick<T, U>;
 
+        /**
+         * @see _.pick
+         */
         pick<T>(
             object: T | null | undefined,
             ...props: PropertyPath[]
@@ -14368,6 +14421,14 @@ declare namespace _ {
         /**
          * @see _.pick
          */
+        pick<T extends object, U extends keyof T>(
+            this: LoDashImplicitWrapper<T | null | undefined>,
+            ...props: Array<Many<U>>
+        ): LoDashImplicitWrapper<Pick<T, U>>;
+
+        /**
+         * @see _.pick
+         */
         pick<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             ...props: PropertyPath[]
@@ -14375,6 +14436,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.pick
+         */
+        pick<T extends object, U extends keyof T>(
+            this: LoDashExplicitWrapper<T | null | undefined>,
+            ...props: Array<Many<U>>
+        ): LoDashExplicitWrapper<Pick<T, U>>;
+
         /**
          * @see _.pick
          */
@@ -16576,21 +16645,21 @@ declare namespace _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): (...args: any[]) => boolean;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
     }
 
     //_.overSome
@@ -16602,21 +16671,21 @@ declare namespace _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overSome(...predicates: Array<Many<(...args: any[]) => any>>): (...args: any[]) => boolean;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
     }
 
     //_.property
@@ -17025,13 +17094,13 @@ declare namespace _ {
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type ListIterateeBoolean<T> = ListIterator<T, boolean> | string | [string, any] | PartialDeep<T>;
+    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
     type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
-    type ObjectIterateeBoolean<TObject> = ObjectIterator<TObject, boolean> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
+    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
 
     type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;
@@ -17040,7 +17109,7 @@ declare namespace _ {
 
     type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: NumericDictionary<T>) => TResult;
     type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type NumericDictionaryIterateeBoolean<T> = NumericDictionaryIterator<T, boolean> | string | [string, any] | PartialDeep<T>;
+    type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 

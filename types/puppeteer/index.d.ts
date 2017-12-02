@@ -58,7 +58,7 @@ export interface Mouse {
    * @param y The y position.
    * @param options The click options.
    */
-  click(x: number, y: number, options: ClickOptions): Promise<void>;
+  click(x: number, y: number, options?: ClickOptions): Promise<void>;
   /**
    * Dispatches a `mousedown` event.
    * @param options The mouse press options.
@@ -251,6 +251,12 @@ export interface EmulateOptions {
 
 export type EvaluateFn = string | ((...args: any[]) => any);
 
+export type LoadEvent =
+  | "load"
+  | "domcontentloaded"
+  | "networkidle0"
+  | "networkidle2";
+
 /** The navigation options. */
 export interface NavigationOptions {
   /**
@@ -262,7 +268,7 @@ export interface NavigationOptions {
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
    */
-  waitUntil?: "load" | "domcontentloaded" | "networkidle0" | "networkidle2";
+  waitUntil?: LoadEvent | LoadEvent[];
 }
 
 export type PDFFormat =
@@ -667,7 +673,8 @@ export interface FrameBase {
    */
   $eval(
     selector: string,
-    fn: (...args: any[]) => void
+    fn: (element: ElementHandle | null, ...args: any[]) => any,
+    ...args: any[]
   ): Promise<any>;
 
   /**
@@ -680,7 +687,7 @@ export interface FrameBase {
    */
   $$eval(
     selector: string,
-    fn: (...args: any[]) => void,
+    fn: (elements: ElementHandle[], ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 

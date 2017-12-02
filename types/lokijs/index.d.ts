@@ -1,196 +1,90 @@
-// Type definitions for lokijs v1.2.5
+// Type definitions for lokijs v1.5.1
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// NOTE: definition last updated (2016-3-13) based on latest code as of https://github.com/techfort/LokiJS/commit/3d2cf9546cd22556444deeabc4df314f227ecf5c
+// NOTE: definition last updated (2017-11-25) based on latest code as of https://github.com/techfort/LokiJS/commit/f6c8f1c362cfc9ed63d93cd165ef0ac3bad131bf
 
-/** LokiJS
+/**
+ * LokiJS
  * A lightweight document oriented javascript database
  * @author Joe Minichino <joe.minichino@gmail.com>
  */
 
-
-/** Loki: The main database class
- * @constructor
- * @param {string} filename - name of the file to be saved to
- * @param {object} options - config object
+/** comparison operators
+ * a is the value in the collection
+ * b is the query value
  */
-interface Loki extends LokiEventEmitter {
-    // autosave support (disabled by default)
-    autosave: boolean;
-    autosaveInterval: number; // milliseconds between auto-saves
-    autosaveHandle: number; // ID from setInterval(...)
-    collections: LokiCollection<any>[];
-    databaseVersion: number;
-    engineVersion: number;
-    ENV: string;/*NODEJS, CORDOVA, BROWSER*/
-    events: { [id: string]: ((...args: any[]) => void)[] }; /*{
-        'init': ((...args) => void)[];
-        'loaded': ((...args) => void)[];
-        'flushChanges': ((...args) => void)[];
-        'close': ((...args) => void)[];
-        'changes': ((...args) => void)[];
-        'warning': ((...args) => void)[];
-    };*/
-    filename: string;
-    options: LokiConfigureOptions;
-    persistenceAdapter: LokiPersistenceInterface;
-    // persistenceMethod could be 'fs', 'localStorage', or 'adapter'
-    // this is optional option param, otherwise environment detection will be used
-    // if user passes their own adapter we will force this method to 'adapter' later, so no need to pass method option.
-    persistenceMethod: string; /*'fs', 'localStorage', 'adapter'*/
-    verbose: boolean;
+declare var LokiOps: {
+    $eq(a: any, b: any): boolean;
+    // abstract/loose equality
+    $aeq(a: any, b: any): boolean;
+    $ne(a: any, b: any): boolean;
+    // date equality / loki abstract equality test
+    $dteq(a: any, b: any): boolean;
+    $gt(a: any, b: any): boolean;
+    $gte(a: any, b: any): boolean;
+    $lt(a: any, b: any): boolean;
+    $lte(a: any, b: any): boolean;
+    /** ex : coll.find({'orderCount': {$between: [10, 50]}}); */
+    $between(a: any, vals: any/*[any, any]*/): boolean;
+    $in(a: any, b: any): boolean;
+    $nin(a: any, b: any): boolean;
+    $keyin(a: any, b: any): boolean;
+    $nkeyin(a: any, b: any): boolean;
+    $definedin(a: any, b: any): boolean;
+    $undefinedin(a: any, b: any): boolean;
+    $regex(a: any, b: any): boolean;
+    $containsString(a: any, b: any): boolean;
+    $containsNone(a: any, b: any): boolean;
+    $containsAny(a: any, b: any): boolean;
+    $contains(a: any, b: any): boolean;
+    $type(a: any, b: any): boolean;
+    $finite(a: any, b: any): boolean;
+    $size(a: any, b: any): boolean;
+    $len(a: any, b: any): boolean;
+    $where(a: any, b: any): boolean;
+    // field-level logical operators
+    // a is the value in the collection
+    // b is the nested query operation (for '$not')
+    //   or an array of nested query operations (for '$and' and '$or')
+    $not(a: any, b: any): boolean;
+    $and(a: any, b: any): boolean;
+    $or(a: any, b: any): boolean;
+};
+declare type LokiOps = typeof LokiOps;
 
-    new (filename: string, options: LokiConfigureOptions): Loki;
+/** if an op is registered in this object, our 'calculateRange' can use it with our binary indices.
+ * if the op is registered to a function, we will run that function/op as a 2nd pass filter on results.
+ * those 2nd pass filter functions should be similar to LokiOps functions, accepting 2 vals to compare.
+ */
+declare var indexedOps: {
+    $eq: LokiOps["$eq"],
+    $aeq: true,
+    $dteq: true,
+    $gt: true,
+    $gte: true,
+    $lt: true,
+    $lte: true,
+    $in: true,
+    $between: true
+};
 
-    // experimental support for browserify's abstract syntax scan to pick up dependency of indexed adapter.
-    // Hopefully, once this hits npm a browserify require of lokijs should scan the main file and detect this indexed adapter reference.
-    getIndexedAdapter(): LokiPersistenceInterface; // require("./loki-indexed-adapter.js")
 
+type PartialModel<E, T> = { [P in keyof E]?: T | E[P] };
 
-    /** configureOptions - allows reconfiguring database options
-     *
-     * @param {object} options - configuration options to apply to loki db object
-     * @param {boolean} initialConfig - (optional) if this is a reconfig, don't pass this
-     */
-    configureOptions(options: LokiConfigureOptions, initialConfig?: boolean): void;
+type LokiQuery<E> = PartialModel<E & { $and: any; $or: any }, { [Y in keyof LokiOps]?: any }>;
 
-    /** anonym() - shorthand method for quickly creating and populating an anonymous collection.
-     *    This collection is not referenced internally so upon losing scope it will be garbage collected.
-     *
-     *    Example : var results = new loki().anonym(myDocArray).find({'age': {'$gt': 30} });
-     *
-     * @param {Array} docs - document array to initialize the anonymous collection with
-     * @param {Array} indexesArray - (Optional) array of property names to index
-     * @returns {Collection} New collection which you can query or chain
-     */
-    anonym<T>(docs: T | T[], indexesArray?: LokiCollectionOptions): LokiCollection<T>;
-
-    addCollection<T>(name: string, options?: LokiCollectionOptions): LokiCollection<T>;
-
-    loadCollection(collection: LokiCollection<any>): void;
-
-    getCollection<T>(collectionName: string): LokiCollection<T>;
-
-    listCollections(): { name: string; type: string; count: number }[];
-
-    removeCollection(collectionName: string): void;
-
-    getName(): string;
-
-    /** serializeReplacer - used to prevent certain properties from being serialized
-     */
-    serializeReplacer<T>(key: "autosaveHandle", value: T): T;
-    serializeReplacer<T>(key: "persistenceAdapter", value: T): T;
-    serializeReplacer<T>(key: "constraints", value: T): T;
-    serializeReplacer<T>(key: string, value: T): T;
-
-    // toJson
-    serialize(): string;
-
-    // alias of serialize
-    toJson(): string;
-
-    /** loadJSON - inflates a loki database from a serialized JSON string
-     *
-     * @param {string} serializedDb - a serialized loki database string
-     * @param {object} options - apply or override collection level settings
-     */
-    loadJSON(serializedDb: string, options?: { [collectionName: string]: { inflate?: (src: any, dst: any) => void; proto: any; } }): void;
-
-    /** loadJSONObject - inflates a loki database from a JS object
-     *
-     * @param {object} dbObject - a serialized loki database string
-     * @param {object} options - apply or override collection level settings
-     */
-    loadJSONObject(dbObject: Loki, options?: { [collectionName: string]: { inflate?: (src: any, dst: any) => void; proto: any; } }): void;
-
-    /** close(callback) - emits the close event with an optional callback. Does not actually destroy the db
-     * but useful from an API perspective
-     */
-    close(callback?: (...args: any[]) => void): void;
-
-    /**-------------------------+
-    | Changes API               |
-    +--------------------------*/
-
-    /** The Changes API enables the tracking the changes occurred in the collections since the beginning of the session,
-     * so it's possible to create a differential dataset for synchronization purposes (possibly to a remote db)
-     */
-
-    /** generateChangesNotification() - takes all the changes stored in each
-     * collection and creates a single array for the entire database. If an array of names
-     * of collections is passed then only the included collections will be tracked.
-     *
-     * @param {array} optional array of collection names. No arg means all collections are processed.
-     * @returns {array} array of changes
-     * @see private method createChange() in Collection
-     */
-    generateChangesNotification(arrayOfCollectionNames?: string[]): LokiCollectionChange[];
-
-    /** serializeChanges() - stringify changes for network transmission
-     * @returns {string} string representation of the changes
-     */
-    serializeChanges(collectionNamesArray?: string[]): string;
-
-    /** clearChanges() - clears all the changes in all collections.
-     */
-    clearChanges(): void;
-
-    /** loadDatabase - Handles loading from file system, local storage, or adapter (indexeddb)
-     *    This method utilizes loki configuration options (if provided) to determine which
-     *    persistence method to use, or environment detection (if configuration was not provided).
-     *
-     * @param {object} options - not currently used (remove or allow overrides?)
-     * @param {function} callback - (Optional) user supplied async callback / error handler
-     */
-    loadDatabase(options: { [collectionName: string]: { inflate?: (src: any, dst: any) => void; proto: any; } }, callback?: (err: any, data: any) => void): void;
-
-    /** saveDatabase - Handles saving to file system, local storage, or adapter (indexeddb)
-     *    This method utilizes loki configuration options (if provided) to determine which
-     *    persistence method to use, or environment detection (if configuration was not provided).
-     *
-     * @param {object} options - not currently used (remove or allow overrides?)
-     * @param {function} callback - (Optional) user supplied async callback / error handler
-     */
-    saveDatabase(callback?: (err: any) => void): void;
-
-    // alias for saveDatabase
-    save(callback ?: (err: any) => void): void;
-
-    /** deleteDatabase - Handles deleting a database from file system, local
-     *    storage, or adapter (indexeddb)
-     *    This method utilizes loki configuration options (if provided) to determine which
-     *    persistence method to use, or environment detection (if configuration was not provided).
-     *
-     * @param {object} options - not currently used (remove or allow overrides?)
-     * @param {function} callback - user supplied async callback / error handler
-     */
-    deleteDatabase(options: any, callback: (err: any, data: any) => void): void;
-
-    /** autosaveDirty - check whether any collections are 'dirty' meaning we need to save (entire) database
-     * @returns {boolean} - true if database has changed since last autosave, false if not.
-     */
-    autosaveDirty(): boolean;
-
-    /** autosaveClearFlags - resets dirty flags on all collections.
-     *    Called from saveDatabase() after db is saved.
-     */
-    autosaveClearFlags(): void;
-
-    /** autosaveEnable - begin a javascript interval to periodically save the database.
-     *
-     * @param {object} options - not currently used (remove or allow overrides?)
-     * @param {function} callback - (Optional) user supplied async callback
-     */
-    autosaveEnable(options?: LokiConfigureOptions, callback?: (err: any) => void): void;
-
-    /** autosaveDisable - stop the autosave interval timer.
-     */
-    autosaveDisable(): void;
+interface LokiObj {
+    $loki: number;
+    meta: {
+        created: number; // Date().getTime()
+        revision: number;
+        updated: number; // Date().getTime()
+        version: number;
+    };
 }
-
 
 
 
@@ -198,43 +92,462 @@ interface Loki extends LokiEventEmitter {
  * LokiEventEmitter is a minimalist version of EventEmitter. It enables any
  * constructor that inherits EventEmitter to emit events and trigger
  * listeners that have been added to the event through the on(event, callback) method
+ *
+ * @constructor LokiEventEmitter
  */
-interface LokiEventEmitter {
-    /**
-     * @prop Events property is a hashmap, with each property being an array of callbacks
-     */
-    events: { [eventName: string]: ((...args: any[]) => void)[] };
+declare class LokiEventEmitter {
 
-    new (): LokiEventEmitter;
+    /**
+     * @prop events - a hashmap, with each property being an array of callbacks
+     */
+    public events: { [eventName: string]: ((...args: any[]) => any)[] };
 
     /**
      * @prop asyncListeners - boolean determines whether or not the callbacks associated with each event
      * should happen in an async fashion or not
      * Default is false, which means events are synchronous
      */
-    asyncListeners: boolean;
+    public asyncListeners: boolean;
 
     /**
-     * @prop on(eventName, listener) - adds a listener to the queue of callbacks associated to an event
-     * @returns {int} the index of the callback in the array of listeners for a particular event
+     * on(eventName, listener) - adds a listener to the queue of callbacks associated to an event
+     * @param eventName - the name(s) of the event(s) to listen to
+     * @param listener - callback function of listener to attach
+     * @returns the index of the callback in the array of listeners for a particular event
      */
-    on<U extends (...args: any[]) => void>(eventName: string, listener: U): U;
+    on<F extends (...args: any[]) => any>(eventName: string | string[], listener: F): F;
 
     /**
-     * @propt emit(eventName, data) - emits a particular event
+     * emit(eventName, data) - emits a particular event
      * with the option of passing optional parameters which are going to be processed by the callback
      * provided signatures match (i.e. if passing emit(event, arg0, arg1) the listener should take two parameters)
-     * @param {string} eventName - the name of the event
-     * @param {object} data - optional object passed with the event
+     * @param eventName - the name of the event
+     * @param data - optional object passed with the event
      */
-    emit(eventName: string, data?: any): void;
+    emit(eventName: string, data?: any, arg?: any): void;
 
     /**
-     * @prop remove() - removes the listener at position 'index' from the event 'eventName'
+     * Alias of LokiEventEmitter.prototype.on
+     * addListener(eventName, listener) - adds a listener to the queue of callbacks associated to an event
+     * @param eventName - the name(s) of the event(s) to listen to
+     * @param listener - callback function of listener to attach
+     * @returns the event listener added
      */
-    removeListener(eventName: string, listener: (...args: any[]) => void): void;
+    public addListener: LokiEventEmitter["on"];
+
+    /**
+     * removeListener() - removes the listener at position 'index' from the event 'eventName'
+     * @param eventName - the name(s) of the event(s) which the listener is attached to
+     * @param listener - the listener callback function to remove from emitter
+     */
+    public removeListener(eventName: string | string[], listener: (...args: any[]) => any): void;
 }
 
+
+
+interface LokiConstructorOptions {
+    verbose: boolean;
+    env: "NATIVESCRIPT" | "NODEJS" | "CORDOVA" | "BROWSER" | "NA";
+}
+
+
+interface LokiConfigOptions {
+    adapter: LokiPersistenceAdapter | null;
+    autoload: boolean;
+    autoloadCallback: (err: any) => void;
+    autosave: boolean;
+    autosaveCallback: (err?: any) => void;
+    autosaveInterval: string | number;
+    persistenceMethod: "fs" | "localStorage" | "memory" | null;
+    destructureDelimiter: string;
+    serializationMethod: "normal" | "pretty" | "destructured" | null;
+    throttledSaves: boolean;
+}
+
+
+type DeserializeOptions = { partitioned?: boolean; delimited: false; delimiter?: string; partition?: number } | { partitioned?: boolean; delimited?: true; delimiter: string; partition?: number };
+
+
+interface ThrottledSaveDrainOptions {
+    recursiveWait: boolean;
+    recursiveWaitLimit: boolean;
+    recursiveWaitLimitDuration: number;
+    started: number;
+}
+
+
+interface Transform {
+    type: "find" | "where" | "simplesort" | "compoundsort" | "sort" | "limit" | "offset" | "map" | "eqJoin" | "mapReduce" | "update" | "remove";
+    value?: any;
+    property?: string;
+    desc?: boolean;
+    dataOptions?: any;
+    joinData?: any;
+    leftJoinKey?: any;
+    rightJoinKey?: any;
+    mapFun?: any;
+    mapFunction?: any;
+    reduceFunction?: any;
+}
+
+
+/**
+ * Loki: The main database class
+ * @implements LokiEventEmitter
+ */
+declare class Loki extends LokiEventEmitter {
+    collections: Collection<any>[];
+    options: Partial<LokiConstructorOptions> & LokiConfigOptions & Partial<ThrottledSaveDrainOptions>;
+    filename: string;
+    name?: string;
+    databaseVersion: number;
+    engineVersion: number;
+    autosave: boolean;
+    autosaveInterval: number;
+    autosaveHandle: number | null;
+    persistenceAdapter: LokiPersistenceAdapter | null | undefined;
+    persistenceMethod: "fs" | "localStorage" | "memory" | "adapter" | null | undefined;
+    throttledCallbacks: ((err?: any) => void)[];
+    throttledSavePending: boolean;
+    throttledSaves: boolean;
+    verbose: boolean;
+    ENV: "NATIVESCRIPT" | "NODEJS" | "CORDOVA" | "BROWSER" | "NA";
+
+    /**
+     * @param filename - name of the file to be saved to
+     * @param options - (Optional) config options object
+     * @param options.env - override environment detection as 'NODEJS', 'BROWSER', 'CORDOVA'
+     * @param [options.verbose=false] - enable console output
+     * @param [options.autosave=false] - enables autosave
+     * @param [options.autosaveInterval=5000] - time interval (in milliseconds) between saves (if dirty)
+     * @param [options.autoload=false] - enables autoload on loki instantiation
+     * @param options.autoloadCallback - user callback called after database load
+     * @param options.adapter - an instance of a loki persistence adapter
+     * @param [options.serializationMethod='normal'] - ['normal', 'pretty', 'destructured']
+     * @param options.destructureDelimiter - string delimiter used for destructured serialization
+     * @param [options.throttledSaves=true] - debounces multiple calls to to saveDatabase reducing number of disk I/O operations
+                                            and guaranteeing proper serialization of the calls.
+     */
+    constructor(filename: string, options?: Partial<LokiConstructorOptions> & Partial<LokiConfigOptions> & Partial<ThrottledSaveDrainOptions>);
+
+    // experimental support for browserify's abstract syntax scan to pick up dependency of indexed adapter.
+    // Hopefully, once this hits npm a browserify require of lokijs should scan the main file and detect this indexed adapter reference.
+    public getIndexedAdapter(): any;
+
+    /**
+     * Allows reconfiguring database options
+     *
+     * @param options - configuration options to apply to loki db object
+     * @param options.env - override environment detection as 'NODEJS', 'BROWSER', 'CORDOVA'
+     * @param options.verbose - enable console output (default is 'false')
+     * @param options.autosave - enables autosave
+     * @param options.autosaveInterval - time interval (in milliseconds) between saves (if dirty)
+     * @param options.autoload - enables autoload on loki instantiation
+     * @param options.autoloadCallback - user callback called after database load
+     * @param options.adapter - an instance of a loki persistence adapter
+     * @param options.serializationMethod - ['normal', 'pretty', 'destructured']
+     * @param options.destructureDelimiter - string delimiter used for destructured serialization
+     * @param initialConfig - (internal) true is passed when loki ctor is invoking
+     */
+    public configureOptions(options?: Partial<LokiConfigOptions> & Partial<ThrottledSaveDrainOptions>, initialConfig?: boolean): void;
+
+    /**
+     * Copies 'this' database into a new Loki instance. Object references are shared to make lightweight.
+     *
+     * @param options - apply or override collection level settings
+     * @param options.removeNonSerializable - nulls properties not safe for serialization.
+     */
+    public copy(options?: { removeNonSerializable?: boolean }): Loki;
+
+    /**
+     * Adds a collection to the database.
+     * @param name - name of collection to add
+     * @param options - (optional) options to configure collection with.
+     * @param [options.unique=[]] - array of property names to define unique constraints for
+     * @param [options.exact=[]] - array of property names to define exact constraints for
+     * @param [options.indices=[]] - array property names to define binary indexes for
+     * @param [options.asyncListeners=false] - whether listeners are called asynchronously
+     * @param [options.disableChangesApi=true] - set to false to enable Changes Api
+     * @param [options.autoupdate=false] - use Object.observe to update objects automatically
+     * @param [options.clone=false] - specify whether inserts and queries clone to/from user
+     * @param [options.cloneMethod='parse-stringify'] - 'parse-stringify', 'jquery-extend-deep', 'shallow, 'shallow-assign'
+     * @param options.ttlInterval - time interval for clearing out 'aged' documents; not set by default.
+     * @returns a reference to the collection which was just added
+     */
+    public addCollection<F extends object = any>(name: string, options?: Partial<CollectionOptions<F>>): Collection<F>;
+
+    public loadCollection(collection: Collection<any>): void;
+
+    /**
+     * Retrieves reference to a collection by name.
+     * @param collectionName - name of collection to look up
+     * @returns Reference to collection in database by that name, or null if not found
+     */
+    public getCollection<F extends object = any>(collectionName: string): Collection<F>;
+
+    /**
+     * Renames an existing loki collection
+     * @param oldName - name of collection to rename
+     * @param newName - new name of collection
+     * @returns reference to the newly renamed collection
+     */
+    public renameCollection(oldName: string, newName: string): Collection<any>;
+
+    public listCollections(): Collection<any>[];
+
+    /**
+     * Removes a collection from the database.
+     * @param collectionName - name of collection to remove
+     */
+    public removeCollection(collectionName: string): void;
+
+    public getName(): string;
+
+    /**
+     * serializeReplacer - used to prevent certain properties from being serialized
+     */
+    public serializeReplacer(key: "autosaveHandle" | "persistenceAdapter" | "constraints" | "ttl" | "throttledSavePending" | "throttledCallbacks" | string, value: any): any;
+
+    /**
+     * Serialize database to a string which can be loaded via {@link Loki#loadJSON}
+     *
+     * @returns Stringified representation of the loki database.
+     */
+    public serialize(): string;
+    public serialize(options: { serializationMethod?: "normal" | "pretty" }): string;
+    public serialize(options: { serializationMethod: "destructured" }): string[];
+    public serialize(options?: { serializationMethod?: string | null }): string | string[];
+    public serialize(options?: { serializationMethod?: string | null }): string | string[];
+
+    // alias of serialize
+    public toJson: Loki["serialize"];
+
+    /**
+     * Database level destructured JSON serialization routine to allow alternate serialization methods.
+     * Internally, Loki supports destructuring via loki "serializationMethod' option and
+     * the optional LokiPartitioningAdapter class. It is also available if you wish to do
+     * your own structured persistence or data exchange.
+     *
+     * @param options - output format options for use externally to loki
+     * @param options.partitioned - (default: false) whether db and each collection are separate
+     * @param options.partition - can be used to only output an individual collection or db (-1)
+     * @param options.delimited - (default: true) whether subitems are delimited or subarrays
+     * @param options.delimiter - override default delimiter
+     *
+     * @returns A custom, restructured aggregation of independent serializations.
+     */
+    public serializeDestructured(options?: { delimited?: boolean; delimiter?: string; partitioned?: boolean; partition?: number; }): string | string[];
+
+    /**
+     * Collection level utility method to serialize a collection in a 'destructured' format
+     *
+     * @param [options] - used to determine output of method
+     * @param [options.delimited] - whether to return single delimited string or an array
+     * @param [options.delimiter] - (optional) if delimited, this is delimiter to use
+     * @param [options.collectionIndex] - specify which collection to serialize data for
+     *
+     * @returns A custom, restructured aggregation of independent serializations for a single collection.
+     */
+    public serializeCollection(options?: { delimited?: boolean; collectionIndex?: number; delimiter?: string }): string | string[];
+
+    /**
+     * Database level destructured JSON deserialization routine to minimize memory overhead.
+     * Internally, Loki supports destructuring via loki "serializationMethod' option and
+     * the optional LokiPartitioningAdapter class. It is also available if you wish to do
+     * your own structured persistence or data exchange.
+     *
+     * @param destructuredSource - destructured json or array to deserialize from
+     * @param [options] - source format options
+     * @param [options.partitioned=false] - whether db and each collection are separate
+     * @param [options.partition] - can be used to deserialize only a single partition
+     * @param [options.delimited=true] - whether subitems are delimited or subarrays
+     * @param [options.delimiter] - override default delimiter
+     *
+     * @returns An object representation of the deserialized database, not yet applied to 'this' db or document array
+     */
+    public deserializeDestructured(destructuredSource: string | string[] | null, options?: DeserializeOptions): any;
+
+    /**
+     * Collection level utility function to deserializes a destructured collection.
+     *
+     * @param destructuredSource - destructured representation of collection to inflate
+     * @param [options] - used to describe format of destructuredSource input
+     * @param [options.delimited=false] - whether source is delimited string or an array
+     * @param [options.delimiter] - if delimited, this is delimiter to use (if other than default)
+     *
+     * @returns an array of documents to attach to collection.data.
+     */
+    public deserializeCollection(destructuredSource: string | string[], options?: { partitioned?: boolean; delimited?: boolean; delimiter?: string; }): any[];
+
+    /**
+     * Inflates a loki database from a serialized JSON string
+     *
+     * @param serializedDb - a serialized loki database string
+     * @param [options] - apply or override collection level settings
+     * @param [options.serializationMethod] - the serialization format to deserialize
+     */
+    public loadJSON(serializedDb: string, options?: { serializationMethod?: "normal" | "pretty" | "destructured" | null } & { retainDirtyFlags?: boolean; throttledSaves?: boolean;[collName: string]: any | { proto?: any; inflate?: (src: object, dest?: object) => void } }): void;
+
+    /**
+     * Inflates a loki database from a JS object
+     *
+     * @param dbObject - a serialized loki database string
+     * @param options - apply or override collection level settings
+     * @param options.retainDirtyFlags - whether collection dirty flags will be preserved
+     */
+    public loadJSONObject(dbObject: { name?: string; throttledSaves: boolean; collections: Collection<any>[]; databaseVersion: number },
+        options?: { retainDirtyFlags?: boolean; throttledSaves?: boolean;[collName: string]: any | { proto?: any; inflate?: (src: object, dest?: object) => void } }): void;
+
+    /**
+     * Emits the close event. In autosave scenarios, if the database is dirty, this will save and disable timer.
+     * Does not actually destroy the db.
+     *
+     * @param callback - (Optional) if supplied will be registered with close event before emitting.
+     */
+    public close(callback?: (err?: any) => void): void;
+
+    /**-------------------------+
+    | Changes API               |
+    +--------------------------*/
+
+    /**
+     * The Changes API enables the tracking the changes occurred in the collections since the beginning of the session,
+     * so it's possible to create a differential dataset for synchronization purposes (possibly to a remote db)
+     */
+
+    /**
+     * (Changes API) : takes all the changes stored in each
+     * collection and creates a single array for the entire database. If an array of names
+     * of collections is passed then only the included collections will be tracked.
+     *
+     * @param optional array of collection names. No arg means all collections are processed.
+     * @returns array of changes
+     * @see private method createChange() in Collection
+     */
+    public generateChangesNotification(arrayOfCollectionNames?: string[] | null): CollectionChange[];
+
+    /**
+     * (Changes API) - stringify changes for network transmission
+     * @returns string representation of the changes
+     */
+    public serializeChanges(collectionNamesArray?: string[]): string;
+
+    /**
+     * (Changes API) : clears all the changes in all collections.
+     */
+    public clearChanges(): void;
+
+    /**
+     * Wait for throttledSaves to complete and invoke your callback when drained or duration is met.
+     *
+     * @param callback - callback to fire when save queue is drained, it is passed a sucess parameter value
+     * @param [options] - configuration options
+     * @param [options.recursiveWait] - (default: true) if after queue is drained, another save was kicked off, wait for it
+     * @param [options.recursiveWaitLimit] - (default: false) limit our recursive waiting to a duration
+     * @param [options.recursiveWaitLimitDelay] - (default: 2000) cutoff in ms to stop recursively re-draining
+     */
+    public throttledSaveDrain(callback: (result?: boolean) => void, options?: Partial<ThrottledSaveDrainOptions>): void;
+
+    /**
+     * Internal load logic, decoupled from throttling/contention logic
+     *
+     * @param [options] - not currently used (remove or allow overrides?)
+     * @param [callback] - (Optional) user supplied async callback / error handler
+     */
+    public loadDatabaseInternal(options?: any, callback?: (err?: any, data?: any) => void): void;
+
+    /**
+     * Handles manually loading from file system, local storage, or adapter (such as indexeddb)
+     *    This method utilizes loki configuration options (if provided) to determine which
+     *    persistence method to use, or environment detection (if configuration was not provided).
+     *    To avoid contention with any throttledSaves, we will drain the save queue first.
+     *
+     * If you are configured with autosave, you do not need to call this method yourself.
+     *
+     * @param [options] - if throttling saves and loads, this controls how we drain save queue before loading
+     * @param [options.recursiveWait] - (default: true) wait recursively until no saves are queued
+     * @param [options.recursiveWaitLimit] - (default: false) limit our recursive waiting to a duration
+     * @param [options.recursiveWaitLimitDelay] - (default: 2000) cutoff in ms to stop recursively re-draining
+     * @param [callback] - (Optional) user supplied async callback / error handler
+     * @example
+     * db.loadDatabase({}, function(err) {
+     *   if (err) {
+     *     console.log("error : " + err);
+     *   }
+     *   else {
+     *     console.log("database loaded.");
+     *   }
+     * });
+     */
+    public loadDatabase(options?: Partial<ThrottledSaveDrainOptions>, callback?: (err: any) => void): void;
+
+    /**
+     * Internal save logic, decoupled from save throttling logic
+     */
+    public saveDatabaseInternal(callback?: (err: any) => void): void;
+
+    /**
+     * Handles manually saving to file system, local storage, or adapter (such as indexeddb)
+     *    This method utilizes loki configuration options (if provided) to determine which
+     *    persistence method to use, or environment detection (if configuration was not provided).
+     *
+     * If you are configured with autosave, you do not need to call this method yourself.
+     *
+     * @param [callback] - (Optional) user supplied async callback / error handler
+     * @example
+     * db.saveDatabase(function(err) {
+     *   if (err) {
+     *     console.log("error : " + err);
+     *   }
+     *   else {
+     *     console.log("database saved.");
+     *   }
+     * });
+     */
+    public saveDatabase(callback?: (err?: any) => void): void;
+
+    // alias
+    public save: Loki["saveDatabase"];
+
+    /**
+     * Handles deleting a database from file system, local
+     *    storage, or adapter (indexeddb)
+     *    This method utilizes loki configuration options (if provided) to determine which
+     *    persistence method to use, or environment detection (if configuration was not provided).
+     *
+     * @param callback - (Optional) user supplied async callback / error handler
+     */
+    public deleteDatabase(callback: (err?: any, data?: any) => void): void;
+    public deleteDatabase(options?: null, callback?: (err?: any, data?: any) => void): void;
+    public deleteDatabase(options?: ((err?: any, data?: any) => void) | null, callback?: (err?: any, data?: any) => void): void;
+
+    /**
+     * autosaveDirty - check whether any collections are 'dirty' meaning we need to save (entire) database
+     *
+     * @returns true if database has changed since last autosave, false if not.
+     */
+    public autosaveDirty(): boolean;
+
+    /**
+     * autosaveClearFlags - resets dirty flags on all collections.
+     *    Called from saveDatabase() after db is saved.
+     *
+     */
+    public autosaveClearFlags(): void;
+
+    /**
+     * autosaveEnable - begin a javascript interval to periodically save the database.
+     *
+     * @param [options] - not currently used (remove or allow overrides?)
+     * @param [callback] - (Optional) user supplied async callback
+     */
+    public autosaveEnable(options?: any, callback?: (err?: any) => void): void;
+
+    /**
+     * autosaveDisable - stop the autosave interval timer.
+     */
+    public autosaveDisable(): void;
+}
 
 
 
@@ -243,612 +556,876 @@ interface LokiEventEmitter {
 -------------------*/
 
 /** there are two build in persistence adapters for internal use
- * fs             for use in Nodejs type environments
- * localStorage   for use in browser environment
- * defined as helper classes here so its easy and clean to use
- */
+    * fs             for use in Nodejs type environments
+    * localStorage   for use in browser environment
+    * defined as helper classes here so its easy and clean to use
+    */
 
-interface LokiPersistenceInterface {
-    loadDatabase(dbname: string, callback: (dataOrErr: string | Error) => void): void;
-    saveDatabase(dbname: string, dbstring: string, callback: (resOrErr: void | Error) => void): void;
-    deleteDatabase(dbname: string, callback?: (resOrErr: void | Error) => void): void;
-    // optional
-    mode?: string; // 'reference'
-    // filename may seem redundant but loadDatabase will need to expect this same filename
-    exportDatabase?(filename: string, param: any, callback?: (err: any) => void): void;
+interface LokiPersistenceAdapter {
+    mode?: string;
+    loadDatabase(dbname: string, callback: (value: any) => void): void;
+    deleteDatabase?(dbnameOrOptions: any, callback: (err?: Error | null, data?: any) => void): void;
+    exportDatabase?(dbname: string, dbref: Loki, callback: (err: Error | null) => void): void;
+    saveDatabase?(dbname: string, dbstring: any, callback: (err?: Error | null) => void): void;
 }
 
 
-/** constructor for fs
+/**
+ * In in-memory persistence adapter for an in-memory database.
+ * This simple 'key/value' adapter is intended for unit testing and diagnostics.
+ *
+ * @param [options] - memory adapter options
+ * @param [options.asyncResponses=false] - whether callbacks are invoked asynchronously
+ * @param [options.asyncTimeout=50] - timeout in ms to queue callbacks
+ * @constructor LokiMemoryAdapter
  */
-interface LokiFsAdapter extends LokiPersistenceInterface {
-    fs: any; //require('fs');
+declare class LokiMemoryAdapter implements LokiPersistenceAdapter {
+    hashStore: { [name: string]: { savecount: number; lastsave: Date; value: string } };
+    options: { asyncResponses?: boolean; asyncTimeout?: number };
 
-    /** loadDatabase() - Load data from file, will throw an error if the file does not exist
-     * @param {string} dbname - the filename of the database to load
-     * @param {function} callback - the callback to handle the result
+    constructor(options?: { asyncResponses?: boolean; asyncTimeout?: number });
+
+    /**
+     * Loads a serialized database from its in-memory store.
+     * (Loki persistence adapter interface function)
+     *
+     * @param dbname - name of the database (filename/keyname)
+     * @param callback - adapter callback to return load result to caller
      */
-    loadDatabase(dbname: string, callback: (err: Error, data: string) => void): void;
+    public loadDatabase(dbname: string, callback: (value: any) => void): void;
 
-    /** saveDatabase() - save data to file, will throw an error if the file can't be saved
+    /**
+     * Saves a serialized database to its in-memory store.
+     * (Loki persistence adapter interface function)
+     *
+     * @param dbname - name of the database (filename/keyname)
+     * @param callback - adapter callback to return load result to caller
+     */
+    public saveDatabase(dbname: string, dbstring: any, callback: (err?: Error | null) => void): void;
+
+    /**
+     * Deletes a database from its in-memory store.
+     *
+     * @param dbname - name of the database (filename/keyname)
+     * @param callback - function to call when done
+     */
+    public deleteDatabase(dbname: string, callback: (err?: Error | null) => void): void;
+}
+
+
+
+interface PageIterator {
+    collection: number;
+    pageIndex: number;
+    docIndex: number;
+}
+
+
+/**
+ * An adapter for adapters.  Converts a non reference mode adapter into a reference mode adapter
+ * which can perform destructuring and partioning.  Each collection will be stored in its own key/save and
+ * only dirty collections will be saved.  If you  turn on paging with default page size of 25megs and save
+ * a 75 meg collection it should use up roughly 3 save slots (key/value pairs sent to inner adapter).
+ * A dirty collection that spans three pages will save all three pages again
+ * Paging mode was added mainly because Chrome has issues saving 'too large' of a string within a
+ * single indexeddb row.  If a single document update causes the collection to be flagged as dirty, all
+ * of that collection's pages will be written on next save.
+ *
+ * @param adapter - reference to a 'non-reference' mode loki adapter instance.
+ * @param options - configuration options for partitioning and paging
+ * @param [options.paging] - (default: false) set to true to enable paging collection data.
+ * @param [options.pageSize] - (default : 25MB) you can use this to limit size of strings passed to inner adapter.
+ * @param [options.delimiter] - allows you to override the default delimeter
+ * @constructor LokiPartitioningAdapter
+ */
+declare class LokiPartitioningAdapter implements LokiPersistenceAdapter {
+    mode: string;
+    dbref: Loki | null;
+    dbname: string
+    adapter: LokiPersistenceAdapter | null;
+    options: { paging?: boolean; pageSize?: number; delimiter?: string };
+    pageIterator: PageIterator | {};
+    dirtyPartitions: number[] | undefined;
+
+    constructor(adapter: LokiPersistenceAdapter, options?: { paging?: boolean; pageSize?: number; delimiter?: string });
+
+    /**
+     * Loads a database which was partitioned into several key/value saves.
+     * (Loki persistence adapter interface function)
+     *
+     * @param dbname - name of the database (filename/keyname)
+     * @param callback - adapter callback to return load result to caller
+     */
+    public loadDatabase(dbname: string, callback: (dbOrErr: Loki | null | Error) => void): void;
+
+    /**
+     * Used to sequentially load each collection partition, one at a time.
+     *
+     * @param partition - ordinal collection position to load next
+     * @param callback - adapter callback to return load result to caller
+     */
+    public loadNextPartition(partition: number, callback: () => void): void;
+
+    /**
+     * Used to sequentially load the next page of collection partition, one at a time.
+     *
+     * @param callback - adapter callback to return load result to caller
+     */
+    public loadNextPage(callback: () => void): void;
+
+    /**
+     * Saves a database by partioning into separate key/value saves.
+     * (Loki 'reference mode' persistence adapter interface function)
+     *
+     * @param dbname - name of the database (filename/keyname)
+     * @param dbref - reference to database which we will partition and save.
+     * @param callback - adapter callback to return load result to caller
+     */
+    public exportDatabase(dbname: string, dbref: Loki, callback: (err: Error | null) => void): void;
+
+    /**
+     * Helper method used internally to save each dirty collection, one at a time.
+     *
+     * @param callback - adapter callback to return load result to caller
+     */
+    public saveNextPartition(callback: (err: Error | null) => void): void;
+
+    /**
+     * Helper method used internally to generate and save the next page of the current (dirty) partition.
+     *
+     * @param callback - adapter callback to return load result to caller
+     */
+    public saveNextPage(callback: (err: Error | null) => void): void;
+}
+
+
+
+/**
+ * A loki persistence adapter which persists using node fs module
+ * @constructor LokiFsAdapter
+ */
+declare class LokiFsAdapter implements LokiPersistenceAdapter {
+
+    constructor();
+
+    /**
+     * loadDatabase() - Load data from file, will throw an error if the file does not exist
+     * @param dbname - the filename of the database to load
+     * @param callback - the callback to handle the result
+     */
+    public loadDatabase(dbname: string, callback: (data: any | Error) => void): void;
+
+    /**
+     * saveDatabase() - save data to file, will throw an error if the file can't be saved
      * might want to expand this to avoid dataloss on partial save
-     * @param {string} dbname - the filename of the database to load
-     * @param {function} callback - the callback to handle the result
+     * @param dbname - the filename of the database to load
+     * @param callback - the callback to handle the result
      */
-    saveDatabase(dbname: string, dbstring: string, callback: (err: any) => void): void;
+    public saveDatabase(dbname: string, dbstring: string | Uint8Array, callback: (err?: Error | null) => void): void;
 
-    /** deleteDatabase() - delete the database file, will throw an error if the
+    /**
+     * deleteDatabase() - delete the database file, will throw an error if the
      * file can't be deleted
-     * @param {string} dbname - the filename of the database to delete
-     * @param {function} callback - the callback to handle the result
+     * @param dbname - the filename of the database to delete
+     * @param callback - the callback to handle the result
      */
-    deleteDatabase(dbname: string, callback: (resOrErr: void | Error) => void): void;
+    public deleteDatabase(dbname: string, callback: (err?: Error | null) => void): void;
 }
 
 
-/** constructor for local storage
+
+/**
+ * A loki persistence adapter which persists to web browser's local storage object
+ * @constructor LokiLocalStorageAdapter
  */
-interface LokiLocalStorageAdapter extends LokiPersistenceInterface {
+declare class LokiLocalStorageAdapter {
 
-    /** loadDatabase() - Load data from localstorage
-     * @param {string} dbname - the name of the database to load
-     * @param {function} callback - the callback to handle the result
+    /**
+     * loadDatabase() - Load data from localstorage
+     * @param dbname - the name of the database to load
+     * @param callback - the callback to handle the result
      */
-    loadDatabase(dbname: string, callback: (dataOrErr: string | Error) => void): void;
+    public loadDatabase(dbname: string, callback: (dataOrError: any | Error) => void): void;
 
-    /** saveDatabase() - save data to localstorage, will throw an error if the file can't be saved
+    /**
+     * saveDatabase() - save data to localstorage, will throw an error if the file can't be saved
      * might want to expand this to avoid dataloss on partial save
-     * @param {string} dbname - the filename of the database to load
-     * @param {function} callback - the callback to handle the result
+     * @param dbname - the filename of the database to load
+     * @param callback - the callback to handle the result
      */
-    saveDatabase(dbname: string, dbstring: string, callback: (resOrErr: void | Error) => void): void;
+    public saveDatabase(dbname: string, dbstring: string, callback: (err?: Error | null) => void): void;
 
-    /** deleteDatabase() - delete the database from localstorage, will throw an error if it
+    /**
+     * deleteDatabase() - delete the database from localstorage, will throw an error if it
      * can't be deleted
-     * @param {string} dbname - the filename of the database to delete
-     * @param {function} callback - the callback to handle the result
+     * @param dbname - the filename of the database to delete
+     * @param callback - the callback to handle the result
      */
-    deleteDatabase(dbname: string, callback: (resOrErr: void | Error) => void): void;
+    public deleteDatabase(dbname: string, callback: (err?: Error | null) => void): void;
 }
 
 
 
+interface GetDataOptions {
+    forceClones: boolean;
+    forceCloneMethod: ("parse-stringify" | "jquery-extend-deep" | "shallow" | "shallow-assign" | "shallow-recurse-objects") | null;
+    removeMeta: boolean;
+}
 
-/** Resultset class allowing chainable queries.  Intended to be instanced internally.
+
+/**
+ * Resultset class allowing chainable queries.  Intended to be instanced internally.
  *    Collection.find(), Collection.where(), and Collection.chain() instantiate this.
  *
- *    Example:
+ * @example
  *    mycollection.chain()
  *      .find({ 'doors' : 4 })
  *      .where(function(obj) { return obj.name === 'Toyota' })
  *      .data();
  */
-interface LokiResultset<E> {
-    // retain reference to collection we are querying against
-    collection: LokiCollection<E>;
+declare class Resultset<E extends object> {
+    collection: Collection<E>;
+    filteredrows: number[];
     filterInitialized: boolean;
-    filteredrows: string[]; // technically number[] (e.g. = Object.keys(this.collection.data))
-    options: LokiResultsetOptions<E>;
-    searchIsChained: boolean;
-
 
     /**
-     * @constructor
-     * @param {Collection} collection - The collection which this Resultset will query against.
-     * @param {Object} options - Object containing one or more options.
-     * @param {string} options.queryObj - Optional mongo-style query object to initialize resultset with.
-     * @param {function} options.queryFunc - Optional javascript filter function to initialize resultset with.
-     * @param {bool} options.firstOnly - Optional boolean used by collection.findOne().
+     * @param collection - The collection which this Resultset will query against.
+     * @param options
      */
-    new <E>(collection: LokiCollection<E>, options: LokiResultsetOptions<E>): LokiResultset<E> | E[];
+    constructor(collection: Collection<E>, options?: any);
 
-    /** reset() - Reset the resultset to its initial state.
+    /**
+     * reset() - Reset the resultset to its initial state.
      *
-     * @returns {Resultset} Reference to this resultset, for future chain operations.
+     * @returns Reference to this resultset, for future chain operations.
      */
-    reset(): LokiResultset<E>;
+    public reset(): this;
 
-    /** toJSON() - Override of toJSON to avoid circular references
+    /**
+     * toJSON() - Override of toJSON to avoid circular references
      */
-    toJSON(): LokiResultset<E>;
+    public toJSON(): Resultset<E>;
 
-    /** limit() - Allows you to limit the number of documents passed to next chain operation.
+    /**
+     * Allows you to limit the number of documents passed to next chain operation.
      *    A resultset copy() is made to avoid altering original resultset.
      *
-     * @param {int} qty - The number of documents to return.
-     * @returns {Resultset} Returns a copy of the resultset, limited by qty, for subsequent chain ops.
+     * @param qty - The number of documents to return.
+     * @returns Returns a copy of the resultset, limited by qty, for subsequent chain ops.
      */
-    limit(qty: number): LokiResultset<E>;
+    public limit(qty: number): Resultset<E>;
 
-    /** offset() - Used for skipping 'pos' number of documents in the resultset.
+    /**
+     * Used for skipping 'pos' number of documents in the resultset.
      *
-     * @param {int} pos - Number of documents to skip; all preceding documents are filtered out.
-     * @returns {Resultset} Returns a copy of the resultset, containing docs starting at 'pos' for subsequent chain ops.
+     * @param pos - Number of documents to skip; all preceding documents are filtered out.
+     * @returns Returns a copy of the resultset, containing docs starting at 'pos' for subsequent chain ops.
      */
-    offset(pos: number): LokiResultset<E>;
+    public offset(pos: number): Resultset<E>;
 
-    /** copy() - To support reuse of resultset in branched query situations.
+    /**
+     * copy() - To support reuse of resultset in branched query situations.
      *
-     * @returns {Resultset} Returns a copy of the resultset (set) but the underlying document references will be the same.
+     * @returns Returns a copy of the resultset (set) but the underlying document references will be the same.
      */
-    copy(): LokiResultset<E>;
-    // alias of copy()
-    branch(): LokiResultset<E>;
+    public copy(): Resultset<E>;
+
+    /**
+     * Alias of copy()
+     */
+    public branch: Resultset<E>["copy"];
 
     /**
      * transform() - executes a named collection transform or raw array of transform steps against the resultset.
      *
-     * @param transform {string|array} : (Optional) name of collection transform or raw transform array
-     * @param parameters {object} : (Optional) object property hash of parameters, if the transform requires them.
-     * @returns {Resultset} : either (this) resultset or a clone of of this resultset (depending on steps)
+     * @param transform - name of collection transform or raw transform array
+     * @param parameters - (Optional) object property hash of parameters, if the transform requires them.
+     * @returns either (this) resultset or a clone of of this resultset (depending on steps)
      */
-    transform(transform?: string | any[], parameters?: any): LokiResultset<E>;
+    public transform(transform: string | string[] | Transform[], parameters?: object): Resultset<any>;
 
-    /** sort() - User supplied compare function is provided two documents to compare. (chainable)
-     *    Example:
+    /**
+     * User supplied compare function is provided two documents to compare. (chainable)
+     * @example
      *    rslt.sort(function(obj1, obj2) {
      *      if (obj1.name === obj2.name) return 0;
      *      if (obj1.name > obj2.name) return 1;
      *      if (obj1.name < obj2.name) return -1;
      *    });
      *
-     * @param {function} comparefun - A javascript compare function used for sorting.
-     * @returns {Resultset} Reference to this resultset, sorted, for future chain operations.
+     * @param comparefun - A javascript compare function used for sorting.
+     * @returns Reference to this resultset, sorted, for future chain operations.
      */
-    sort(comparefun: (a: E, b: E) => number): LokiResultset<E>;
+    public sort(comparefun: (a: E & LokiObj, b: E & LokiObj) => number): this;
 
-    /** simplesort() - Simpler, loose evaluation for user to sort based on a property name. (chainable)
+    /**
+     * Simpler, loose evaluation for user to sort based on a property name. (chainable).
+     *    Sorting based on the same lt/gt helper functions used for binary indices.
      *
-     * @param {string} propname - name of property to sort by.
-     * @param {bool} isdesc - (Optional) If true, the property will be sorted in descending order
-     * @returns {Resultset} Reference to this resultset, sorted, for future chain operations.
+     * @param propname - name of property to sort by.
+     * @param isdesc - (Optional) If true, the property will be sorted in descending order
+     * @returns Reference to this resultset, sorted, for future chain operations.
      */
-    simplesort(propname: string, isdesc?: boolean): LokiResultset<E>;
+    public simplesort(propname: keyof E, isdesc?: boolean): this;
 
-    /** compoundsort() - Allows sorting a resultset based on multiple columns.
-     *    Example : rs.compoundsort(['age', 'name']); to sort by age and then name (both ascending)
-     *    Example : rs.compoundsort(['age', ['name', true]); to sort by age (ascending) and then by name (descending)
+    /**
+     * Allows sorting a resultset based on multiple columns.
+     * @example
+     * // to sort by age and then name (both ascending)
+     * rs.compoundsort(['age', 'name']);
+     * // to sort by age (ascending) and then by name (descending)
+     * rs.compoundsort(['age', ['name', true]);
      *
-     * @param {array} properties - array of property names or subarray of [propertyname, isdesc] used evaluate sort order
-     * @returns {Resultset} Reference to this resultset, sorted, for future chain operations.
+     * @param properties - array of property names or subarray of [propertyname, isdesc] used evaluate sort order
+     * @returns Reference to this resultset, sorted, for future chain operations.
      */
-    compoundsort(properties: ([string, boolean] | [string])[]): LokiResultset<E>;
+    public compoundsort(properties: [keyof E, boolean][]): this;
 
-    /** calculateRange() - Binary Search utility method to find range/segment of values matching criteria.
-     *    this is used for collection.find() and first find filter of resultset/dynview
-     *    slightly different than get() binary search in that get() hones in on 1 value,
-     *    but we have to hone in on many (range)
-     * @param {string} op - operation, such as $eq
-     * @param {string} prop - name of property to calculate range for
-     * @param {object} val - value to use for range calculation.
-     * @returns {array} [start, end] index array positions
-     */
-    calculateRange(op: "$eq", prop: string, val: any): [number/*start*/, number/*end*/];
-    calculateRange(op: "$dteq", prop: string, val: any): [number/*start*/, number/*end*/];
-    calculateRange(op: "$gt", prop: string, val: any): [number/*start*/, number/*end*/];
-    calculateRange(op: "$gte", prop: string, val: any): [number/*start*/, number/*end*/];
-    calculateRange(op: "$lt", prop: string, val: any): [number/*start*/, number/*end*/];
-    calculateRange(op: "$lte", prop: string, val: any): [number/*start*/, number/*end*/];
-    calculateRange(op: string, prop: string, val: any): [number/*start*/, number/*end*/];
-
-    /** findOr() - oversee the operation of OR'ed query expressions.
+    /**
+     * findOr() - oversee the operation of OR'ed query expressions.
      *    OR'ed expression evaluation runs each expression individually against the full collection,
      *    and finally does a set OR on each expression's results.
      *    Each evaluation can utilize a binary index to prevent multiple linear array scans.
      *
-     * @param {array} expressionArray - array of expressions
-     * @returns {Resultset} this resultset for further chain ops.
+     * @param expressionArray - array of expressions
+     * @returns this resultset for further chain ops.
      */
-    findOr(expressionArray: LokiQuery[]): LokiResultset<E>;
-    $or(expressionArray: LokiQuery[]): LokiResultset<E>;
+    public findOr(expressionArray: LokiQuery<E>[]): this;
 
-    /** findAnd() - oversee the operation of AND'ed query expressions.
+    public $or: Resultset<E>["findOr"];
+
+    /**
+     * findAnd() - oversee the operation of AND'ed query expressions.
      *    AND'ed expression evaluation runs each expression progressively against the full collection,
      *    internally utilizing existing chained resultset functionality.
      *    Only the first filter can utilize a binary index.
      *
-     * @param {array} expressionArray - array of expressions
-     * @returns {Resultset} this resultset for further chain ops.
+     * @param expressionArray - array of expressions
+     * @returns this resultset for further chain ops.
      */
-    findAnd(expressionArray: LokiQuery[]): LokiResultset<E>;
-    $and(expressionArray: LokiQuery[]): LokiResultset<E>;
+    public findAnd(expressionArray: LokiQuery<E>[]): this;
 
-    /** find() - Used for querying via a mongo-style query object.
+    public $and: Resultset<E>["findAnd"];
+
+    /**
+     * Used for querying via a mongo-style query object.
      *
-     * @param {object} query - A mongo-style query object used for filtering current results.
-     * @param {boolean} firstOnly - (Optional) Used by collection.findOne()
-     * @returns {Resultset} this resultset for further chain ops.
+     * @param query - A mongo-style query object used for filtering current results.
+     * @param firstOnly - (Optional) Used by collection.findOne()
+     * @returns this resultset for further chain ops.
      */
-    //find(query: LokiQuery, firstOnly: boolean): E;
-    //find(query?: any, firstOnly?: boolean): E[];
-    find(query: LokiQuery, firstOnly?: boolean): LokiResultset<E>;
+    public find(query?: LokiQuery<E>, firstOnly?: boolean): this;
 
-    /** where() - Used for filtering via a javascript filter function.
+    /**
+     * where() - Used for filtering via a javascript filter function.
      *
-     * @param {function} fun - A javascript function used for filtering current results by.
-     * @returns {Resultset} this resultset for further chain ops.
+     * @param fun - A javascript function used for filtering current results by.
+     * @returns this resultset for further chain ops.
      */
-    where(fun: (obj: E) => boolean): LokiResultset<E>;
+    public where(fun: (data: E & LokiObj) => boolean): this;
 
-    /** count() - returns the number of documents in the resultset.
+    /**
+     * count() - returns the number of documents in the resultset.
      *
-     * @returns {number} The number of documents in the resultset.
+     * @returns The number of documents in the resultset.
      */
-    count(): number;
+    public count(): number;
 
-    /** data() - Terminates the chain and returns array of filtered documents
+    /**
+     * Terminates the chain and returns array of filtered documents
      *
-     * @param options {object} : allows specifying 'forceClones' and 'forceCloneMethod' options.
-     *    options :
-     *      forceClones {boolean} : Allows forcing the return of cloned objects even when
+     * @param [options] - allows specifying 'forceClones' and 'forceCloneMethod' options.
+     * @param [options.forceClones] - Allows forcing the return of cloned objects even when
      *        the collection is not configured for clone object.
-     *      forceCloneMethod {string} : Allows overriding the default or collection specified cloning method.
-     *        Possible values include 'parse-stringify', 'jquery-extend-deep', and 'shallow'
+     * @param [options.forceCloneMethod] - Allows overriding the default or collection specified cloning method.
+     *        Possible values include 'parse-stringify', 'jquery-extend-deep', 'shallow', 'shallow-assign'
+     * @param [options.removeMeta] - Will force clones and strip $loki and meta properties from documents
      *
-     * @returns {array} Array of documents in the resultset
+     * @returns Array of documents in the resultset
      */
-    data(options?: { forceClones?: string; forceCloneMethod?: string; }): E[];
+    public data(options?: Partial<GetDataOptions>): (E & LokiObj)[];
 
-    /** update() - used to run an update operation on all documents currently in the resultset.
+    /**
+     * Used to run an update operation on all documents currently in the resultset.
      *
-     * @param {function} updateFunction - User supplied updateFunction(obj) will be executed for each document object.
-     * @returns {Resultset} this resultset for further chain ops.
+     * @param updateFunction - User supplied updateFunction(obj) will be executed for each document object.
+     * @returns this resultset for further chain ops.
      */
-    update(updateFunction: (obj: E) => void): LokiResultset<E>;
+    public update(updateFunction: (obj: E) => void): this;
 
-    /** remove() - removes all document objects which are currently in resultset from collection (as well as resultset)
+    /**
+     * Removes all document objects which are currently in resultset from collection (as well as resultset)
      *
-     * @returns {Resultset} this (empty) resultset for further chain ops.
+     * @returns this (empty) resultset for further chain ops.
      */
-    remove(): LokiResultset<E>;
+    public remove(): this;
 
-    /** mapReduce() - data transformation via user supplied functions
+    /**
+     * data transformation via user supplied functions
      *
-     * @param {function} mapFunction - this function accepts a single document for you to transform and return
-     * @param {function} reduceFunction - this function accepts many (array of map outputs) and returns single value
+     * @param mapFunction - this function accepts a single document for you to transform and return
+     * @param reduceFunction - this function accepts many (array of map outputs) and returns single value
      * @returns The output of your reduceFunction
      */
-    mapReduce<T, U>(mapFunction: (value: E, index: number, array: E[]) => T, reduceFunction: (array: T[]) => U): U;
+    public mapReduce<U, R>(mapFunction: (value: E, index: number, array: E[]) => U, reduceFunction: (ary: U[]) => R): R;
 
-    /** eqJoin() - Left joining two sets of data. Join keys can be defined or calculated properties
+    /**
+     * eqJoin() - Left joining two sets of data. Join keys can be defined or calculated properties
      * eqJoin expects the right join key values to be unique.  Otherwise left data will be joined on the last joinData object with that key
-     * @param {Array} joinData - Data array to join to.
-     * @param {String,function} leftJoinKey - Property name in this result set to join on or a function to produce a value to join on
-     * @param {String,function} rightJoinKey - Property name in the joinData to join on or a function to produce a value to join on
-     * @param {function} (optional) mapFun - A function that receives each matching pair and maps them into output objects - function(left,right){return joinedObject}
-     * @returns {Resultset} A resultset with data in the format [{left: leftObj, right: rightObj}]
+     * @param joinData - Data array to join to.
+     * @param leftJoinKey - Property name in this result set to join on or a function to produce a value to join on
+     * @param rightJoinKey - Property name in the joinData to join on or a function to produce a value to join on
+     * @param [mapFun] - (Optional) A function that receives each matching pair and maps them into output objects - function(left,right){return joinedObject}
+     * @param [dataOptions] - options to data() before input to your map function
+     * @param [dataOptions.removeMeta] - allows removing meta before calling mapFun
+     * @param [dataOptions.forceClones] - forcing the return of cloned objects to your map object
+     * @param [dataOptions.forceCloneMethod] - Allows overriding the default or collection specified cloning method.
+     * @returns A resultset with data in the format [{left: leftObj, right: rightObj}]
      */
-    eqJoin<T>(joinData: T[] | LokiResultset<T>, leftJoinKey: string | ((obj: E) => string), rightJoinKey: string | ((obj: T) => string)): LokiResultset<{ left: E; right: T; }>;
-    eqJoin<T, U>(joinData: T[] | LokiResultset<T>, leftJoinKey: string | ((obj: E) => string), rightJoinKey: string | ((obj: T) => string), mapFun?: (a: E, b: T) => U): LokiResultset<U>;
+    public eqJoin(
+        joinData: Collection<any> | Resultset<any> | any[],
+        leftJoinKey: string | ((obj: any) => string),
+        rightJoinKey: string | ((obj: any) => string),
+        mapFun?: (left: any, right: any) => any,
+        dataOptions?: Partial<GetDataOptions>
+    ): Resultset<any>;
 
-    map<T>(mapFun: (currentValue: E, index: number, array: E[]) => T): LokiResultset<T>;
+    /**
+     * Applies a map function into a new collection for further chaining.
+     * @param mapFun - javascript map function
+     * @param [dataOptions] - options to data() before input to your map function
+     * @param [dataOptions.removeMeta] - allows removing meta before calling mapFun
+     * @param [dataOptions.forceClones] - forcing the return of cloned objects to your map object
+     * @param [dataOptions.forceCloneMethod] - Allows overriding the default or collection specified cloning method.
+     */
+    public map<U extends object>(mapFun: (value: E, index: number, array: E[]) => U, dataOptions?: Partial<GetDataOptions>): Resultset<U>;
 }
 
 
 
+interface DynamicViewOptions {
+    persistent: boolean;
+    sortPriority: "active" | "passive";
+    minRebuildInterval: number;
+}
 
-/** DynamicView class is a versatile 'live' view class which can have filters and sorts applied.
+
+/**
+ * DynamicView class is a versatile 'live' view class which can have filters and sorts applied.
  *    Collection.addDynamicView(name) instantiates this DynamicView object and notifies it
  *    whenever documents are add/updated/removed so it can remain up-to-date. (chainable)
  *
- *    Examples:
- *    var mydv = mycollection.addDynamicView('test');  // default is non-persistent
- *    mydv.applyWhere(function(obj) { return obj.name === 'Toyota'; });
- *    mydv.applyFind({ 'doors' : 4 });
- *    var results = mydv.data();
+ * @example
+ * var mydv = mycollection.addDynamicView('test');  // default is non-persistent
+ * mydv.applyFind({ 'doors' : 4 });
+ * mydv.applyWhere(function(obj) { return obj.name === 'Toyota'; });
+ * var results = mydv.data();
  *
+ * @implements LokiEventEmitter
  */
-interface LokiDynamicView<E> extends LokiEventEmitter {
-    cachedresultset: LokiResultset<E>;
-    collection: LokiCollection<E>;
-    events: { [id: string]: ((...args: any[]) => void)[] }; /*{
-        'rebuild': ((...args) => void)[];
-    };*/
-    // keep ordered filter pipeline
-    filterPipeline: LokiFilter<E>[];
-    minRebuildInterval: number;
+declare class DynamicView<E extends object> extends LokiEventEmitter {
     name: string;
-    options: LokiDynamicViewOptions;
-    persistent: boolean;
+    collection: Collection<E>;
     rebuildPending: boolean;
-    resultset: LokiResultset<E>;
-    resultdata: E[];
+    resultset: Resultset<E>;
+    resultdata: (E & LokiObj)[];
     resultsdirty: boolean;
-    // sorting member variables, we only support one active search, applied using applySort() or applySimpleSort()
-    sortFunction: (a: E, b: E) => number;
-    sortCriteria: ([string, boolean] | [string])[];
+    cachedresultset: Resultset<E> | null;
+    filterPipeline: { type: "find" | "where", val: any; uid?: string | number }[];
+    sortFunction: ((a: E & LokiObj, b: E & LokiObj) => number) | null;
+    sortCriteria: [keyof E, boolean][] | null;
     sortDirty: boolean;
-    sortPriority: string; // 'persistentSortPriority', 'passive' (will defer the sort phase until they call data(). most efficient overall), 'active' (will sort async whenever next idle. prioritizes read speeds)
+    options: Partial<DynamicViewOptions>;
 
     /**
-     * @constructor
-     * @param {Collection} collection - A reference to the collection to work against
-     * @param {string} name - The name of this dynamic view
-     * @param {object} options - (Optional) Pass in object with 'persistent' and/or 'sortPriority' options.
+     * @param collection - A reference to the collection to work against
+     * @param name - The name of this dynamic view
+     * @param [options] - (Optional) Pass in object with 'persistent' and/or 'sortPriority' options.
+     * @param [options.persistent=false] - indicates if view is to main internal results array in 'resultdata'
+     * @param [options.sortPriority='passive'] - 'passive' (sorts performed on call to data) or 'active' (after updates)
+     * @param [options.minRebuildInterval] - minimum rebuild interval (need clarification to docs here)
+     * @see {@link Collection#addDynamicView} to construct instances of DynamicView
      */
-    new <E>(collection: LokiCollection<E>, name: string, options?: LokiDynamicViewOptions): LokiDynamicView<E>;
+    constructor(collection: Collection<E>, name: string, options?: Partial<DynamicViewOptions>);
 
-    /** rematerialize() - intended for use immediately after deserialization (loading)
+    /**
+     * rematerialize() - internally used immediately after deserialization (loading)
      *    This will clear out and reapply filterPipeline ops, recreating the view.
      *    Since where filters do not persist correctly, this method allows
      *    restoring the view to state where user can re-apply those where filters.
      *
-     * @param {Object} options - (Optional) allows specification of 'removeWhereFilters' option
-     * @returns {DynamicView} This dynamic view for further chained ops.
+     * @param [options] - (Optional) allows specification of 'removeWhereFilters' option
+     * @returns This dynamic view for further chained ops.
+     * @fires DynamicView.rebuild
      */
-    rematerialize(options?: { removeWhereFilters?: boolean; }): LokiDynamicView<E>;
+    public rematerialize(options?: { removeWhereFilters?: boolean }): this;
 
-    /** branchResultset() - Makes a copy of the internal resultset for branched queries.
+    /**
+     * branchResultset() - Makes a copy of the internal resultset for branched queries.
      *    Unlike this dynamic view, the branched resultset will not be 'live' updated,
      *    so your branched query should be immediately resolved and not held for future evaluation.
      *
-     * @param {string|array} transform: Optional name of collection transform, or an array of transform steps
-     * @param {object} parameters: optional parameters (if optional transform requires them)
-     * @returns {Resultset} A copy of the internal resultset for branched queries.
+     * @param transform - Optional name of collection transform, or an array of transform steps
+     * @param [parameters] - optional parameters (if optional transform requires them)
+     * @returns A copy of the internal resultset for branched queries.
      */
-    branchResultset(transform?: string | any[], parameters?: any): LokiResultset<E>;
+    public branchResultset(transform: string | string[] | Transform[], parameters?: object): Resultset<any>;
 
-    /** toJSON() - Override of toJSON to avoid circular references
+    /**
+     * toJSON() - Override of toJSON to avoid circular references
      */
-    toJSON(): LokiDynamicView<E>;
+    public toJSON(): DynamicView<E>;
 
-    /** removeFilters() - Used to clear pipeline and reset dynamic view to initial state.
+    /**
+     * removeFilters() - Used to clear pipeline and reset dynamic view to initial state.
      *     Existing options should be retained.
+     * @param [options] - configure removeFilter behavior
+     * @param [options.queueSortPhase] - (default: false) if true we will async rebuild view (maybe set default to true in future?)
      */
-    removeFilters(): void;
+    public removeFilters(options?: { queueSortPhase?: boolean }): void;
 
-    /** applySort() - Used to apply a sort to the dynamic view
+    /**
+     * applySort() - Used to apply a sort to the dynamic view
+     * @example
+     * dv.applySort(function(obj1, obj2) {
+     *   if (obj1.name === obj2.name) return 0;
+     *   if (obj1.name > obj2.name) return 1;
+     *   if (obj1.name < obj2.name) return -1;
+     * });
      *
-     * @param {function} comparefun - a javascript compare function used for sorting
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @param comparefun - a javascript compare function used for sorting
+     * @returns this DynamicView object, for further chain ops.
      */
-    applySort(comparefun: (a: E, b: E) => number): LokiDynamicView<E>;
+    public applySort(comparefun: (a: E & LokiObj, b: E & LokiObj) => number): this;
 
-    /** applySimpleSort() - Used to specify a property used for view translation.
+    /**
+     * applySimpleSort() - Used to specify a property used for view translation.
+     * @example
+     * dv.applySimpleSort("name");
      *
-     * @param {string} propname - Name of property by which to sort.
-     * @param {boolean} isdesc - (Optional) If true, the sort will be in descending order.
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @param propname - Name of property by which to sort.
+     * @param [isdesc] - (Optional) If true, the sort will be in descending order.
+     * @returns this DynamicView object, for further chain ops.
      */
-    applySimpleSort(propname: string, isdesc?: boolean): LokiDynamicView<E>;
+    public applySimpleSort(propname: keyof E, isdesc?: boolean): this;
 
-    /** applySortCriteria() - Allows sorting a resultset based on multiple columns.
-     *    Example : dv.applySortCriteria(['age', 'name']); to sort by age and then name (both ascending)
-     *    Example : dv.applySortCriteria(['age', ['name', true]); to sort by age (ascending) and then by name (descending)
-     *    Example : dv.applySortCriteria(['age', true], ['name', true]); to sort by age (descending) and then by name (descending)
+    /**
+     * applySortCriteria() - Allows sorting a resultset based on multiple columns.
+     * @example
+     * // to sort by age and then name (both ascending)
+     * dv.applySortCriteria(['age', 'name']);
+     * // to sort by age (ascending) and then by name (descending)
+     * dv.applySortCriteria(['age', ['name', true]);
+     * // to sort by age (descending) and then by name (descending)
+     * dv.applySortCriteria(['age', true], ['name', true]);
      *
-     * @param {array} properties - array of property names or subarray of [propertyname, isdesc] used evaluate sort order
-     * @returns {DynamicView} Reference to this DynamicView, sorted, for future chain operations.
+     * @param criteria - array of property names or subarray of [propertyname, isdesc] used evaluate sort order
+     * @returns Reference to this DynamicView, sorted, for future chain operations.
      */
-    applySortCriteria(criteria: ([string, boolean] | [string])[]): LokiDynamicView<E>;
+    public applySortCriteria(criteria: [keyof E, boolean][]): this;
 
-    /** startTransaction() - marks the beginning of a transaction.
+    /**
+     * startTransaction() - marks the beginning of a transaction.
      *
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @returns this DynamicView object, for further chain ops.
      */
-    startTransaction(): LokiDynamicView<E>;
+    public startTransaction(): this;
 
-    /** commit() - commits a transaction.
+    /**
+     * commit() - commits a transaction.
      *
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @returns this DynamicView object, for further chain ops.
      */
-    commit(): LokiDynamicView<E>;
+    public commit(): this;
 
-    /** rollback() - rolls back a transaction.
+    /**
+     * rollback() - rolls back a transaction.
      *
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @returns this DynamicView object, for further chain ops.
      */
-    rollback(): LokiDynamicView<E>;
+    public rollback(): this;
 
-    /** Implementation detail.
+    /**
+     * Implementation detail.
      * _indexOfFilterWithId() - Find the index of a filter in the pipeline, by that filter's ID.
      *
-     * @param {string|number} uid - The unique ID of the filter.
-     * @returns {number}: index of the referenced filter in the pipeline; -1 if not found.
+     * @param [uid] - The unique ID of the filter.
+     * @returns index of the referenced filter in the pipeline; -1 if not found.
      */
-    _indexOfFilterWithId(uid: string | number): number;
+    public _indexOfFilterWithId(uid?: string | number): number;
 
-    /** Implementation detail.
+    /**
+     * Implementation detail.
      * _addFilter() - Add the filter object to the end of view's filter pipeline and apply the filter to the resultset.
      *
-     * @param {object} filter - The filter object. Refer to applyFilter() for extra details.
+     * @param filter - The filter object. Refer to applyFilter() for extra details.
      */
-    _addFilter(filter: LokiFilter<E>): void;
+    public _addFilter(filter: { type: "find" | "where", val: any; uid?: string | number }): void;
 
-    /** reapplyFilters() - Reapply all the filters in the current pipeline.
+    /**
+     * reapplyFilters() - Reapply all the filters in the current pipeline.
      *
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @returns this DynamicView object, for further chain ops.
      */
-    reapplyFilters(): LokiDynamicView<E>;
+    public reapplyFilters(): this;
 
-    /** applyFilter() - Adds or updates a filter in the DynamicView filter pipeline
+    /**
+     * applyFilter() - Adds or updates a filter in the DynamicView filter pipeline
      *
-     * @param {object} filter - A filter object to add to the pipeline.
+     * @param filter - A filter object to add to the pipeline.
      *    The object is in the format { 'type': filter_type, 'val', filter_param, 'uid', optional_filter_id }
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @returns this DynamicView object, for further chain ops.
      */
-    applyFilter(filter: LokiFilter<E>): LokiDynamicView<E>;
+    public applyFilter(filter: { type: "find" | "where", val: any; uid?: string | number }): this;
 
-    /** applyFind() - Adds or updates a mongo-style query option in the DynamicView filter pipeline
+    /**
+     * applyFind() - Adds or updates a mongo-style query option in the DynamicView filter pipeline
      *
-     * @param {object} query - A mongo-style query object to apply to pipeline
-     * @param {string|number} uid - Optional: The unique ID of this filter, to reference it in the future.
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @param query - A mongo-style query object to apply to pipeline
+     * @param [uid] - Optional: The unique ID of this filter, to reference it in the future.
+     * @returns this DynamicView object, for further chain ops.
      */
-    applyFind(query: LokiQuery, uid?: string | number): LokiDynamicView<E>;
+    public applyFind(query: any, uid?: string | number): this;
 
-    /** applyWhere() - Adds or updates a javascript filter function in the DynamicView filter pipeline
+    /**
+     * applyWhere() - Adds or updates a javascript filter function in the DynamicView filter pipeline
      *
-     * @param {function} fun - A javascript filter function to apply to pipeline
-     * @param {string|number} uid - Optional: The unique ID of this filter, to reference it in the future.
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @param fun - A javascript filter function to apply to pipeline
+     * @param [uid] - Optional: The unique ID of this filter, to reference it in the future.
+     * @returns this DynamicView object, for further chain ops.
      */
-    applyWhere(fun: (obj: E) => boolean, uid?: string | number): LokiDynamicView<E>;
+    public applyWhere(fun: (obj: any) => boolean, uid?: string | number): this;
 
-    /** removeFilter() - Remove the specified filter from the DynamicView filter pipeline
+    /**
+     * removeFilter() - Remove the specified filter from the DynamicView filter pipeline
      *
-     * @param {string|number} uid - The unique ID of the filter to be removed.
-     * @returns {DynamicView} this DynamicView object, for further chain ops.
+     * @param uid - The unique ID of the filter to be removed.
+     * @returns this DynamicView object, for further chain ops.
      */
-    removeFilter(uid: string | number): LokiDynamicView<E>;
+    public removeFilter(uid: string | number): this;
 
-    /** count() - returns the number of documents representing the current DynamicView contents.
+    /**
+     * count() - returns the number of documents representing the current DynamicView contents.
      *
-     * @returns {number} The number of documents representing the current DynamicView contents.
+     * @returns The number of documents representing the current DynamicView contents.
      */
-    count(): number;
+    public count(): number;
 
-    /** data() - resolves and pending filtering and sorting, then returns document array as result.
+    /**
+     * data() - resolves and pending filtering and sorting, then returns document array as result.
      *
-     * @returns {array} An array of documents representing the current DynamicView contents.
+     * @param [options] - optional parameters to pass to resultset.data() if non-persistent
+     * @param [options.forceClones] - Allows forcing the return of cloned objects even when
+     *        the collection is not configured for clone object.
+     * @param [options.forceCloneMethod] - Allows overriding the default or collection specified cloning method.
+     *        Possible values include 'parse-stringify', 'jquery-extend-deep', 'shallow', 'shallow-assign'
+     * @param [options.removeMeta] - Will force clones and strip $loki and meta properties from documents
+     * @returns An array of documents representing the current DynamicView contents.
      */
-    data(): E[];
+    public data(options?: Partial<GetDataOptions>): (E & LokiObj)[];
 
-    /** queueRebuildEvent() - When the view is not sorted we may still wish to be notified of rebuild events.
+    /**
+     * queueRebuildEvent() - When the view is not sorted we may still wish to be notified of rebuild events.
      *     This event will throttle and queue a single rebuild event when batches of updates affect the view.
      */
-    queueRebuildEvent(): void;
+    public queueRebuildEvent(): void;
 
-    /** queueSortPhase : If the view is sorted we will throttle sorting to either :
+    /**
+     * queueSortPhase : If the view is sorted we will throttle sorting to either :
      *    (1) passive - when the user calls data(), or
      *    (2) active - once they stop updating and yield js thread control
      */
-    queueSortPhase(): void;
+    public queueSortPhase(): void;
 
-    /** performSortPhase() - invoked synchronously or asynchronously to perform final sort phase (if needed)
+    /**
+     * performSortPhase() - invoked synchronously or asynchronously to perform final sort phase (if needed)
      */
-    performSortPhase(options?: { suppressRebuildEvent?: boolean; }): void;
+    public performSortPhase(options?: { persistent?: boolean; suppressRebuildEvent?: boolean }): void;
 
-    /** evaluateDocument() - internal method for (re)evaluating document inclusion.
+    /**
+     * evaluateDocument() - internal method for (re)evaluating document inclusion.
      *    Called by : collection.insert() and collection.update().
      *
-     * @param {int} objIndex - index of document to (re)run through filter pipeline.
-     * @param {bool} isNew - true if the document was just added to the collection.
+     * @param objIndex - index of document to (re)run through filter pipeline.
+     * @param [isNew] - true if the document was just added to the collection.
      */
-    evaluateDocument(objIndex: number, isNew?: boolean): void;
+    public evaluateDocument(objIndex: number | string, isNew?: boolean): void;
 
-    /** removeDocument() - internal function called on collection.delete()
+
+    /**
+     * removeDocument() - internal function called on collection.delete()
      */
-    removeDocument(objIndex: number): void;
+    public removeDocument(objIndex: number | string): void;
 
-    /** mapReduce() - data transformation via user supplied functions
+    /**
+     * mapReduce() - data transformation via user supplied functions
      *
-     * @param {function} mapFunction - this function accepts a single document for you to transform and return
-     * @param {function} reduceFunction - this function accepts many (array of map outputs) and returns single value
+     * @param mapFunction - this function accepts a single document for you to transform and return
+     * @param reduceFunction - this function accepts many (array of map outputs) and returns single value
      * @returns The output of your reduceFunction
      */
-    mapReduce<T, U>(mapFunction: (item: E, index: number, array: E[]) => T, reduceFunction: (array: T[]) => U): U;
+    public mapReduce<U, R>(mapFunction: (value: E, index: number, array: E[]) => U, reduceFunction: (ary: U[]) => R): R;
 }
 
 
 
-
-/** Collection class that handles documents of same type
- */
-interface LokiCollection<E> extends LokiEventEmitter {
-    // option to observe objects and update them automatically, ignored if Object.observe is not supported
-    autoupdate: boolean;
-    // option to make event listeners async, default is sync
-    asyncListeners: boolean;
-    binaryIndices: { [id: string]: { name: string; dirty: boolean; values: number[] } };
-
-    cachedIndex: number[];
-    cachedBinaryIndex: { [id: string]: { name: string; dirty: boolean; values: number[] } };
-    cachedData: E[];
-    // changes are tracked by collection and aggregated by the db
-    changes: LokiCollectionChange[];
-    // default clone method (if enabled) is parse-stringify
-    cloneMethod: string; // 'parse-stringify'
-    // options to clone objects when inserting them
-    cloneObjects: boolean;
-    console: {
-        log: () => void;
-        warn: () => void;
-        error: () => void;
-    };
-    constraints: {
-        unique: { [id: string]: LokiUniqueIndex<E> };
-        exact: { [id: string]: LokiExactIndex<E> };
-    };
-    data: E[];
-    // in autosave scenarios we will use collection level dirty flags to determine whether save is needed.
-    // currently, if any collection is dirty we will autosave the whole database if autosave is configured.
-    // defaulting to true since this is called from addCollection and adding a collection should trigger save
-    dirty: boolean;
-    // disable track changes
-    disableChangesApi: boolean;
-    DynamicViews: LokiDynamicView<E>[];
-    events: { [id: string]: ((...args: any[]) => void)[] }; /*{
-        'insert': ((...args) => void)[];
-        'update': ((...args) => void)[];
-        'pre-insert': ((...args) => void)[];
-        'pre-update': ((...args) => void)[];
-        'close': ((...args) => void)[];
-        'flushbuffer': ((...args) => void)[];
-        'error': ((...args) => void)[];
-        'delete': ((...args) => void)[];
-        'warning': ((...args) => void)[];
-    };*/
-    idIndex: number[];
-    maxId: number; // currentMaxId - change manually at your own peril!
+interface BinaryIndex {
     name: string;
-    // is collection transactional
+    dirty: boolean;
+    values: number[];
+}
+
+
+interface CollectionOptions<E> {
+    disableChangesApi: boolean;
+    disableDeltaChangesApi: boolean;
+    adaptiveBinaryIndices: boolean;
+    asyncListeners: boolean;
+    autoupdate: boolean;
+    clone: boolean;
+    cloneMethod: ("parse-stringify" | "jquery-extend-deep" | "shallow" | "shallow-assign" | "shallow-recurse-objects");
+    serializableIndices: boolean;
     transactional: boolean;
+    ttl: number;
+    ttlInterval: number;
+    exact: (keyof E)[];
+    unique: (keyof E)[];
+    indices: (keyof E) | (keyof E)[];
+}
+
+
+interface CollectionChange {
+    name: string;
+    operation: string;
+    obj: any;
+}
+
+
+/**
+ * Collection class that handles documents of same type
+ * @implements LokiEventEmitter
+ * @see {@link Loki#addCollection} for normal creation of collections
+ */
+declare class Collection<E extends object> extends LokiEventEmitter {
+    name: string;
     objType: string;
-    // transforms will be used to store frequently used query chains as a series of steps
-    // which itself can be stored along with the database.
-    transforms: { [id: string]: any };
-    // unique contraints contain duplicate object references, so they are not persisted.
-    // we will keep track of properties which have unique contraint applied here, and regenerate on load
-    uniqueNames: string[];
+    data: E[];
+    adaptiveBinaryIndices: boolean;
+    asyncListeners: boolean;
+    autoupdate: boolean;
+    dirty: boolean;
+    binaryIndices: { [P in keyof E]: BinaryIndex };
+    cachedIndex: number[] | null;
+    cachedBinaryIndex: { [P in keyof E]: BinaryIndex } | null;
+    cachedData: E[] | null;
+    changes: CollectionChange[];
+    cloneMethod: ("parse-stringify" | "jquery-extend-deep" | "shallow" | "shallow-assign" | "shallow-recurse-objects") | null;
+    cloneObjects: boolean;
+    constraints: {
+        unique: { [P in keyof E]: UniqueIndex<E> };
+        exact: { [P in keyof E]: ExactIndex<E> }
+    };
+    disableChangesApi: boolean;
+    disableDeltaChangesApi: boolean;
+    DynamicViews: DynamicView<object>[];
+    idIndex: number[];
+    ttl: { age: any; ttlInterval: any; daemon: any; };
+    maxId: number;
+    uniqueNames: (keyof E)[];
+    transforms: { [name: string]: Transform[] };
+    serializableIndices: boolean;
+    transactional: boolean;
+    observerCallback: (changes: { object: any }[]) => void;
+    getChanges: () => CollectionChange[];
+    flushChanges: () => void;
+    getChangeDelta: (obj: any, old?: any) => any;
+    getObjectDelta: (oldObject: any, newObject?: any) => any;
+    setChangesApi: (enabled?: boolean) => void;
 
-    options: LokiCollectionOptions;
 
-    // option to activate a cleaner daemon - clears "aged" documents at set intervals.
-    ttl: {
-        age: number;
-        ttlInterval: number;
-        daemon: number;
+    /**
+     * @param name - collection name
+     * @param [options] - (optional) configuration object
+     * @param [options.unique=[]] - array of property names to define unique constraints for
+     * @param [options.exact=[]] - array of property names to define exact constraints for
+     * @param [options.indices=[]] - array property names to define binary indexes for
+     * @param [options.adaptiveBinaryIndices=true] - collection indices will be actively rebuilt rather than lazily
+     * @param [options.asyncListeners=false] - whether listeners are invoked asynchronously
+     * @param [options.disableChangesApi=true] - set to false to enable Changes API
+     * @param [options.disableDeltaChangesApi=true] - set to false to enable Delta Changes API (requires Changes API, forces cloning)
+     * @param [options.autoupdate=false] - use Object.observe to update objects automatically
+     * @param [options.clone=false] - specify whether inserts and queries clone to/from user
+     * @param [options.serializableIndices=true[]] - converts date values on binary indexed properties to epoch time
+     * @param [options.cloneMethod='parse-stringify'] - 'parse-stringify', 'jquery-extend-deep', 'shallow', 'shallow-assign'
+     * @param options.ttlInterval - time interval for clearing out 'aged' documents; not set by default.
+     * @see {@link Loki#addCollection} for normal creation of collections
+     */
+    constructor(name: string, options?: Partial<CollectionOptions<E>>);
+
+    public console: {
+        log(...args: any[]): void;
+        warn(...args: any[]): void;
+        error(...args: any[]): void;
     };
 
-    /** Collection class that handles documents of same type
-     * @constructor
-     * @param {string} collection name
-     * @param {array} array of property names to be indicized
-     * @param {object} configuration object
+    public addAutoUpdateObserver(obj: any): void;
+
+    public removeAutoUpdateObserver(obj: any): void;
+
+    /**
+     * Adds a named collection transform to the collection
+     * @param name - name to associate with transform
+     * @param transform - an array of transformation 'step' objects to save into the collection
+     * @example
+     * users.addTransform('progeny', [
+     *   {
+     *     type: 'find',
+     *     value: {
+     *       'age': {'$lte': 40}
+     *     }
+     *   }
+     * ]);
+     *
+     * var results = users.chain('progeny').data();
      */
-    new <E>(name: string, options?: LokiCollectionOptions): LokiCollection<E>;
+    public addTransform(name: string, transform: Transform[]): void;
 
-    getChanges(): LokiCollectionChange[];
+    /**
+     * Retrieves a named transform from the collection.
+     * @param name - name of the transform to lookup.
+     */
+    public getTransform(name: string): Transform[];
 
-    setChangesApi(enabled: boolean): void;
+    /**
+     * Updates a named collection transform to the collection
+     * @param name - name to associate with transform
+     * @param transform - a transformation object to save into collection
+     */
+    public setTransform(name: string, transform: Transform[]): void;
 
-    flushChanges(): void;
+    /**
+     * Removes a named collection transform from the collection
+     * @param name - name of collection transform to remove
+     */
+    public removeTransform(name: string): void;
 
-    observerCallback: (changes: { object: any }[]) => void;
+    public byExample(template: object): { $and: any[] };
 
-    addAutoUpdateObserver(object: any): void;
+    public findObject(template: object): E | null;
 
-    removeAutoUpdateObserver(object: any): void;
-
-    addTransform(name: string, transform: any): void;
-
-    setTransform(name: string, transform: any): void;
-
-    removeTransform(name: string): void;
-
-    byExample(template: any): { '$and': any[] };
-
-    findObject(template: any): E;
-
-    findObjects(template: any): E[];
+    public findObjects(template: object): E[];
 
     /*----------------------------+
     | TTL daemon                  |
     +----------------------------*/
-    ttlDaemonFuncGen(): () => void;
+    public ttlDaemonFuncGen(): () => void;
 
-    setTTL(age: number, interval: number): void;
+    /**
+     * Updates or applies collection TTL settings.
+     * @param age - age (in ms) to expire document from collection
+     * @param interval - time (in ms) to clear collection of aged documents.
+     */
+    public setTTL(age: number, interval: number): void;
 
     /*----------------------------+
     | INDEXING                    |
@@ -857,711 +1434,575 @@ interface LokiCollection<E> extends LokiEventEmitter {
     /**
      * create a row filter that covers all documents in the collection
      */
-    prepareFullDocIndex(): number[];
+    public prepareFullDocIndex(): number[];
 
-    /** Ensure binary index on a certain field
+    /**
+     * Will allow reconfiguring certain collection options.
+     * @param [options.adaptiveBinaryIndices] - collection indices will be actively rebuilt rather than lazily
      */
-    ensureIndex(property: string, force?: boolean): void;
+    public configureOptions(options?: { adaptiveBinaryIndices?: boolean }): void;
 
-    ensureUniqueIndex(field: string): LokiUniqueIndex<E>;
-
-    /** Ensure all binary indices
+    /**
+     * Ensure binary index on a certain field
+     * @param property - name of property to create binary index on
+     * @param [force] - (Optional) flag indicating whether to construct index immediately
      */
-    ensureAllIndexes(force?: boolean): void;
+    public ensureIndex(property: keyof E, force?: boolean): void;
 
-    flagBinaryIndexesDirty(): void;
+    public getSequencedIndexValues(property: string): string;
 
-    flagBinaryIndexDirty(index: string): void;
+    public ensureUniqueIndex(field: keyof E): UniqueIndex<E>;
 
-    count(query?: LokiQuery): number;
-
-    /** Rebuild idIndex
+    /**
+     * Ensure all binary indices
      */
-    ensureId(): void;
+    public ensureAllIndexes(force?: boolean): void;
 
-    /** Rebuild idIndex async with callback - useful for background syncing with a remote server
+    public flagBinaryIndexesDirty(): void;
+
+    public flagBinaryIndexDirty(index: string): void;
+
+    /**
+     * Quickly determine number of documents in collection (or query)
+     * @param [query] - (optional) query object to count results of
+     * @returns number of documents in the collection
      */
-    ensureIdAsync(callback: () => void): void;
+    public count(query?: LokiQuery<E & LokiObj>): number;
 
-    /** Each collection maintains a list of DynamicViews associated with it
+    /**
+     * Rebuild idIndex
+     */
+    public ensureId(): void;
+
+    /**
+     * Rebuild idIndex async with callback - useful for background syncing with a remote server
+     */
+    public ensureIdAsync(callback: () => void): void;
+
+    /**
+     * Add a dynamic view to the collection
+     * @param name - name of dynamic view to add
+     * @param [options] - options to configure dynamic view with
+     * @param [options.persistent=false] - indicates if view is to main internal results array in 'resultdata'
+     * @param [options.sortPriority='passive'] - 'passive' (sorts performed on call to data) or 'active' (after updates)
+     * @param options.minRebuildInterval - minimum rebuild interval (need clarification to docs here)
+     * @returns reference to the dynamic view added
+     * @example
+     * var pview = users.addDynamicView('progeny');
+     * pview.applyFind({'age': {'$lte': 40}});
+     * pview.applySimpleSort('name');
+     *
+     * var results = pview.data();
+     */
+    public addDynamicView(name: string, options?: Partial<DynamicViewOptions>): DynamicView<E>;
+
+    /**
+     * Remove a dynamic view from the collection
+     * @param name - name of dynamic view to remove
      **/
-    addDynamicView(name: string, options?: LokiDynamicViewOptions): LokiDynamicView<E>;
+    public removeDynamicView(name: string): void;
 
-    removeDynamicView(name: string): void;
+    /**
+     * Look up dynamic view reference from within the collection
+     * @param name - name of dynamic view to retrieve reference of
+     * @returns A reference to the dynamic view with that name
+     **/
+    public getDynamicView(name: string): DynamicView<any> | null;
 
-    getDynamicView(name: string): LokiDynamicView<E>;
-
-    /** find and update: pass a filtering function to select elements to be updated
-     * and apply the updatefunctino to those elements iteratively
+    /**
+     * Applies a 'mongo-like' find query object and passes all results to an update function.
+     * For filter function querying you should migrate to [updateWhere()]{@link Collection#updateWhere}.
+     *
+     * @param filterObject - 'mongo-like' query object (or deprecated filterFunction mode)
+     * @param updateFunction - update function to run against filtered documents
      */
-    findAndUpdate(filterFunction: (obj: E) => boolean, updateFunction: (obj: E) => E): void;
+    public findAndUpdate(filterObject: ((data: E) => boolean) | LokiQuery<E & LokiObj>, updateFunction: (obj: E & LokiObj) => any): void;
 
-    /** generate document method - ensure object(s) have meta properties, clone it if necessary, etc.
-     * @param {object} doc: the document to be inserted (or an array of objects)
-     * @returns document or documents (if passed an array of objects)
+    /**
+     * Applies a 'mongo-like' find query object removes all documents which match that filter.
+     *
+     * @param filterObject - 'mongo-like' query object
      */
-    insert(doc: E): E;
-    insert(doc: E[]): E[];
+    public findAndRemove(filterObject?: LokiQuery<E & LokiObj>): void;
 
-    /** generate document method - ensure object has meta properties, clone it if necessary, etc.
-     * @param {object} the document to be inserted
+    /**
+     * Adds object(s) to collection, ensure object(s) have meta properties, clone it if necessary, etc.
+     * @param doc - the document (or array of documents) to be inserted
+     * @returns document or documents inserted
+     * @example
+     * users.insert({
+     *     name: 'Odin',
+     *     age: 50,
+     *     address: 'Asgard'
+     * });
+     *
+     * // alternatively, insert array of documents
+     * users.insert([{ name: 'Thor', age: 35}, { name: 'Loki', age: 30}]);
+     */
+    public insert(doc: E): E | undefined;
+    public insert(doc: E[]): E[] | undefined;
+    public insert(doc: E | E[]): E | E[] | undefined;
+    public insert(doc: E | E[]): E | E[] | undefined;
+
+    /**
+     * Adds a single object, ensures it has meta properties, clone it if necessary, etc.
+     * @param doc - the document to be inserted
+     * @param [bulkInsert] - quiet pre-insert and insert event emits
      * @returns document or 'undefined' if there was a problem inserting it
      */
-    insertOne(doc: E): E;
+    public insertOne(doc: E, bulkInsert?: boolean): (E & LokiObj) | undefined;
 
-    clear(): void;
-
-    /** Update method
+    /**
+     * Empties the collection.
+     * @param [options] - configure clear behavior
+     * @param [options.removeIndices] - (default: false)
      */
-    update(doc: E): E;
-    update(doc: E[]): void;
+    public clear(options?: { removeIndices?: boolean }): void;
 
-    /** Add object to collection
+    /**
+     * Updates an object and notifies collection that the document has changed.
+     * @param doc - document to update within the collection
      */
-    add(obj: E): E;
+    public update(doc: E): E;
+    public update(doc: E[]): void;
+    public update(doc: E | E[]): E | void;
+    public update(doc: E | E[]): E | void;
 
-    removeWhere(query: ((obj: E) => boolean) | LokiQuery): void;
-
-    removeDataOnly(): void;
-
-    /** delete wrapped
+    /**
+     * Add object to collection
      */
-    remove(doc: E): E;
-    remove(doc: number): E;
-    remove(doc: number[]): void;
-    remove(doc: E[]): void;
+    public add(obj: E): E & LokiObj;
+    public add(obj: E & LokiObj): E & LokiObj;
+
+    /**
+     * Applies a filter function and passes all results to an update function.
+     *
+     * @param filterFunction - filter function whose results will execute update
+     * @param updateFunction - update function to run against filtered documents
+     */
+    public updateWhere(filterFunction: (data: E) => boolean, updateFunction: (obj: E & LokiObj) => any): void;
+
+    /**
+     * Remove all documents matching supplied filter function.
+     * For 'mongo-like' querying you should migrate to [findAndRemove()]{@link Collection#findAndRemove}.
+     * @param query - query object to filter on
+     */
+    public removeWhere(query: ((value: E, index: number, array: E[]) => boolean) | LokiQuery<E & LokiObj>): void;
+
+    public removeDataOnly(): void;
+
+    /**
+     * Remove a document from the collection
+     * @param doc - document to remove from collection
+     */
+    public remove(doc: number | E): E | null;
+    public remove(doc: number[] | E[]): void;
+    public remove(doc: number | E | number[] | E[]): E | null | void;
+    public remove(doc: number | E | number[] | E[]): E | null | void;
 
     /*---------------------+
     | Finding methods     |
     +----------------------*/
 
-    /** Get by Id - faster than other methods because of the searching algorithm
+    /**
+     * Get by Id - faster than other methods because of the searching algorithm
+     * @param id - $loki id of document you want to retrieve
+     * @param returnPosition - if 'true' we will return [object, position]
+     * @returns Object reference if document was found, null if not,
+     *     or an array if 'returnPosition' was passed.
      */
-    get(id: number | string): E;
-    get(id: number | string, returnPosition?: boolean): E | [E, number];
+    public get(id: number): E & LokiObj;
+    public get(id: number, returnPosition: true): [E & LokiObj, number];
+    public get(id: number, returnPosition?: boolean): (E & LokiObj) | [E & LokiObj, number] | null;
 
-    by(field: string): (value: any) => E;
-    by(field: string, value: string): E;
-
-    /** Find one object by index property, by property equal to value
+    /**
+     * Perform binary range lookup for the data[dataPosition][binaryIndexName] property value
+     *    Since multiple documents may contain the same value (which the index is sorted on),
+     *    we hone in on range and then linear scan range to find exact index array position.
+     * @param dataPosition : coll.data array index/position
+     * @param binaryIndexName : index to search for dataPosition in
      */
-    findOne(query: LokiQuery): E;
+    public getBinaryIndexPosition(dataPosition: number, binaryIndexName: keyof E): number | null;
 
-    /** Chain method, used for beginning a series of chained find() and/or view() operations
+    /**
+     * Adaptively insert a selected item to the index.
+     * @param dataPosition : coll.data array index/position
+     * @param binaryIndexName : index to search for dataPosition in
+     */
+    public adaptiveBinaryIndexInsert(dataPosition: number, binaryIndexName: keyof E): void;
+
+    /**
+     * Adaptively update a selected item within an index.
+     * @param dataPosition : coll.data array index/position
+     * @param binaryIndexName : index to search for dataPosition in
+     */
+    public adaptiveBinaryIndexUpdate(dataPosition: number, binaryIndexName: keyof E): void;
+
+    /**
+     * Adaptively remove a selected item from the index.
+     * @param dataPosition : coll.data array index/position
+     * @param binaryIndexName : index to search for dataPosition in
+     */
+    public adaptiveBinaryIndexRemove(dataPosition: number, binaryIndexName: keyof E, removedFromIndexOnly?: boolean): void;
+
+    /**
+     * Internal method used for index maintenance and indexed searching.
+     * Calculates the beginning of an index range for a given value.
+     * For index maintainance (adaptive:true), we will return a valid index position to insert to.
+     * For querying (adaptive:false/undefined), we will :
+     *    return lower bound/index of range of that value (if found)
+     *    return next lower index position if not found (hole)
+     * If index is empty it is assumed to be handled at higher level, so
+     * this method assumes there is at least 1 document in index.
+     *
+     * @param prop - name of property which has binary index
+     * @param val - value to find within index
+     * @param [adaptive] - if true, we will return insert position
+     */
+    public calculateRangeStart(prop: keyof E, val: any, adaptive?: boolean): number;
+
+    /**
+     * Internal method used for indexed $between.  Given a prop (index name), and a value
+     * (which may or may not yet exist) this will find the final position of that upper range value.
+     */
+    public calculateRangeEnd(prop: keyof E, val: any): number;
+
+    /**
+     * calculateRange() - Binary Search utility method to find range/segment of values matching criteria.
+     *    this is used for collection.find() and first find filter of resultset/dynview
+     *    slightly different than get() binary search in that get() hones in on 1 value,
+     *    but we have to hone in on many (range)
+     * @param op - operation, such as $eq
+     * @param prop - name of property to calculate range for
+     * @param val - value to use for range calculation.
+     * @returns [start, end] index array positions
+     */
+    public calculateRange(op: ("$eq" | "$aeq" | "$dteq" | "$gt" | "$gte" | "$lt" | "$lte" | "$between" | "$in"), prop: keyof E, val: any): number[];
+
+    /**
+     * Retrieve doc by Unique index
+     * @param field - name of uniquely indexed property to use when doing lookup
+     * @param value - unique value to search for
+     * @returns document matching the value passed
+     */
+    public by(field: keyof E): (value: any) => E | undefined;
+    public by(field: keyof E, value: any): E | undefined;
+    public by(field: keyof E, value?: any): E | ((value: any) => E | undefined) | undefined;
+    public by(field: keyof E, value?: any): E | ((value: any) => E | undefined) | undefined;
+
+    /**
+     * Find one object by index property, by property equal to value
+     * @param query - query object used to perform search with
+     * @returns First matching document, or null if none
+     */
+    public findOne(query?: LokiQuery<E & LokiObj>): (E & LokiObj) | null;
+
+    /**
+     * Chain method, used for beginning a series of chained find() and/or view() operations
      * on a collection.
      *
-     * @param {array} transform : Ordered array of transform step objects similar to chain
-     * @param {object} parameters: Object containing properties representing parameters to substitute
-     * @returns {Resultset} : (or data array if any map or join functions where called)
+     * @param [transform] - Ordered array of transform step objects similar to chain
+     * @param [parameters] - Object containing properties representing parameters to substitute
+     * @returns (this) resultset, or data array if any map or join functions where called
      */
-    chain(transform?: string | any[], parameters?: any): LokiResultset<E>;
+    public chain(): Resultset<E & LokiObj>;
+    public chain(transform?: string | string[] | Transform[], parameters?: object): Resultset<any>;
 
     /**
-     * Find method, api is similar to mongodb except for now it only supports one search parameter.
-     * for more complex queries use view() and storeView()
+     * Find method, api is similar to mongodb.
+     * for more complex queries use [chain()]{@link Collection#chain} or [where()]{@link Collection#where}.
+     * @example {@tutorial Query Examples}
+     * @param query - 'mongo-like' query object
+     * @returns Array of matching documents
      */
-    find(): E[];
-    find(query: LokiQuery): LokiResultset<E>;
+    public find(query?: LokiQuery<E & LokiObj>): (E & LokiObj)[];
 
-    /** Find object by unindexed field by property equal to value,
+    /**
+     * Find object by unindexed field by property equal to value,
      * simply iterates and returns the first element matching the query
      */
-    findOneUnindexed(prop: string, value: any): E;
-
-    /** Transaction methods */
-
-    /** start the transation */
-    startTransaction(): void;
-
-    /** commit the transation */
-    commit(): void;
-
-    /** roll back the transation */
-    rollback(): void;
-
-    // async executor. This is only to enable callbacks at the end of the execution.
-    async(fun: () => void, callback: () => void): void;
-
-    /** Create view function - filter
-     */
-    where(fun: (obj: E) => boolean): LokiResultset<E>;
-
-    /** Map Reduce
-     */
-    mapReduce<U, V>(mapFunction: (item: E, index: number, array: E[]) => U, reduceFunction: (array: U[]) => V): V;
-
-    /** eqJoin - Join two collections on specified properties
-     */
-    eqJoin<T>(joinData: T[] | LokiResultset<T>, leftJoinProp: string | ((obj: E) => string), rightJoinProp: string | ((obj: T) => string)): LokiResultset<{ left: E; right: T; }>;
-    eqJoin<T, U>(joinData: T[] | LokiResultset<T>, leftJoinProp: string | ((obj: E) => string), rightJoinProp: string | ((obj: T) => string), mapFun?: (a: E, b: T) => U): LokiResultset<U>;
-
-    /* ------ STAGING API -------- */
-    /** stages: a map of uniquely identified 'stages', which hold copies of objects to be
-     * manipulated without affecting the data in the original collection
-     */
-    stages: { [id: string]: any };
-
-    /** create a stage and/or retrieve it
-     */
-    getStage(name: string): E[];
-
-    /** a collection of objects recording the changes applied through a commmitStage
-     */
-    commitLog: {
-        timestamp: number; // timestamp (i.e. new Date().getTime())
-        message: any;
-        data: E;
-    }[];
-
-    /** create a copy of an object and insert it into a stage
-     */
-    stage(stageName: string, obj: E): E;
-
-    /** re-attach all objects to the original collection, so indexes and views can be rebuilt
-     * then create a message to be inserted in the commitlog
-     */
-    commitStage(stageName: string, message: any): void;
-
-    no_op(): void;
-
-    extract(field: string): any[];
-
-    max(field: string): number;
-
-    min(field: string): number;
-
-    maxRecord(field: string): { index: number; value: any; };
-
-    minRecord(field: string): { index: number; value: any; };
-
-    extractNumerical(field: string): number[];
-
-    avg(field: string): number;
-
-    stdDev(field: string): number;
-
-    mode(field: string): string | number;
-
-    median(field: string): number;
-}
-
-
-
-
-/** comparison operators
- * a is the value in the collection
- * b is the query value
- */
-interface LokiOps {
-    $eq(a: any, b: any): boolean;
-    $ne(a: any, b: any): boolean;
-    $dteq(a: any, b: any): boolean;
-    $gt(a: any, b: any): boolean;
-    $gte(a: any, b: any): boolean;
-    $lt(a: any, b: any): boolean;
-    $lte(a: any, b: any): boolean;
-    $in(a: any, b: { indexOf: (value: any) => boolean }): boolean;
-    $nin(a: any, b: { indexOf: (value: any) => boolean }): boolean;
-    $keyin(a: string, b: any): boolean;
-    $nkeyin(a: string, b: any): boolean;
-    $definedin(a: any, b: any): boolean;
-    $undefinedin(a: any, b: any): boolean;
-    $regex(a: any, b: RegExp | { test: (str: string) => boolean }): boolean;
-    $containsString(a: string | any, b: string): boolean;
-    $containsNone(a: any, b: any): boolean;
-    $containsAny(a: any, b: any | any[]): boolean;
-    $contains(a: any, b: any | any[]): boolean;
-    $type(a: any, b: any): boolean;
-    $size(a: any, b: any): boolean;
-    $len(a: any, b: any): boolean;
-    // field-level logical operators
-    // a is the value in the collection
-    // b is the nested query operation (for '$not')
-    //   or an array of nested query operations (for '$and' and '$or')
-    $not(a: any, b: any): boolean;
-    $and(a: any, b: any[]): boolean;
-    $or(a: any, b: any[]): boolean;
-}
-
-
-interface LokiKeyValueStore<K, V> {
-    keys: K[];
-    values: V[];
-
-    sort(a: any, b: any): number;
-    setSort(fun: (a: K, b: K) => number): void;
-    bs(): LokiBSonSort<K>;
-    set(key: K, value: V): void;
-    get(key: K): V;
-}
-
-
-interface LokiUniqueIndex<E> {
-    field: string;
-    keyMap: { [id: string]: E };
-    lokiMap: { [id: number]: any };
-
-    new <E>(uniqueField: string): LokiUniqueIndex<E>;
-
-    set(obj: E): void;
-    get(key: string): E;
-    byId(id: number): E;
-    update(obj: E): void;
-    remove(key: string): void;
-    clear(): void;
-}
-
-
-interface LokiExactIndex<E> {
-    index: { [id: string]: E[] };
-    field: string;
-
-    new <E>(exactField: string): LokiExactIndex<E>
-
-    /** add the value you want returned to the key in the index */
-    set(key: string, val: E): void;
-    /** remove the value from the index, if the value was the last one, remove the key */
-    remove(key: string, val: E): void;
-    /** get the values related to the key, could be more than one */
-    get(key: string): E[];
-    /** clear will zap the index */
-    clear(key?: any): void;
-}
-
-
-interface LokiSortedIndex<K, V> {
-    field: string;
-    keys: K[];
-    values: V[][];
-
-    new <K, V>(sortedField: string): LokiSortedIndex<K, V>;
-
-    // set the default sort
-    sort(a: any, b: any): number;
-    bs(): LokiBSonSort<any>;
-    // and allow override of the default sort
-    setSort(fun: (a: any, b: any) => number): void;
-    // add the value you want returned  to the key in the index
-    set(key: K, value: V): void;
-    // get all values which have a key == the given key
-    get(key: K): V[];
-    // get all values which have a key < the given key
-    getLt(key: K): V[];
-    // get all values which have a key > the given key
-    getGt(key: K): V[];
-    // get all vals from start to end
-    getAll(key: K, start: number, end: number): V[];
-    // just in case someone wants to do something smart with ranges
-    getPos(key: K): { found: boolean; index: number; };
-    // remove the value from the index, if the value was the last one, remove the key
-    remove(key: K, value: V): void;
-    // clear will zap the index
-    clear(): void;
-}
-
-
-interface LokiConfigureOptions {
-    adapter?: LokiPersistenceInterface;
-    autoload?: boolean;
-    autoloadCallback?: (dataOrErr: any | Error) => void;
-    autosave?: boolean;
-    autosaveCallback?: (err: any) => void;
-    autosaveInterval?: number; // milliseconds between auto-saves
-    env?: string; /*'NODEJS', 'BROWSER', 'CORDOVA'*/
-    persistenceMethod?: string; /*'fs', 'localStorage', 'adapter'*/
-    verbose?: boolean;
-}
-
-
-interface LokiCollectionOptions {
-    asyncListeners?: boolean;
-    autoupdate?: boolean;
-    clone?: boolean;
-    cloneMethod?: string;
-    disableChangesApi?: boolean;
-    exact?: string[];
-    indices?: string | string[];
-    transactional?: boolean;
-    unique?: string | string[];
-}
-
-
-interface LokiDynamicViewOptions {
-    minRebuildInterval?: number;
-    persistent?: boolean;
-    sortPriority: string; /*'active', 'passive'*/
-}
-
-
-interface LokiResultsetOptions<E> {
-    firstOnly?: boolean;
-    queryObj?: LokiQuery;
-    queryFunc?: (item: E) => boolean;
-}
-
-
-interface LokiQuery {
-}
-
-
-interface LokiFilter<E> {
-    type: string; /*'find', 'where'*/
-    val: LokiQuery | ((obj: E, index: number, array: E[]) => boolean);
-    uid: number | string;
-}
-
-
-interface LokiElementMetaData {
-    created: number; // unix style timestamp (i.e. new Date().getTime())
-    revision: number;
-}
-
-
-interface LokiCollectionChange {
-    name: string;
-    operation: string;/*'I', 'R', 'U'*/
-    obj: any;
-}
-
-
-interface LokiBSonSort<T> {
-    (fun: (a: T, b: T) => number): (array: T[], item: T) => { found: boolean; index: number; };
-}
-
-
-/*
-interface LokiUtils {
-    copyProperties(src: any, dest: any): void;
-
-    // used to recursively scan hierarchical transform step object for param substitution
-    resolveTransformObject<U>(subObj: U, params: any, depth?: number): U;
-
-    // top level utility to resolve an entire (single) transform (array of steps) for parameter substitution
-    resolveTransformParams<U>(transform: U[], params: any): U[];
-}
-
-// Sort helper that support null and undefined
-declare function ltHelper(prop1: any, prop2: any, equal?: boolean): boolean;
-
-declare function gtHelper(prop1: any, prop2: any, equal?: boolean): boolean;
-
-declare function sortHelper(prop1: any, prop2: any, desc?: boolean): number;
-
-declare function doQueryOp(val: any, op: any): boolean;
-
-declare function containsCheckFn<T>(a: T[], b): (curr: T) => boolean;
-declare function containsCheckFn(a: string, b): (curr: string) => boolean;
-declare function containsCheckFn<T>(a: T, b): (curr: string) => boolean;
-*/
-
-/** General utils, including statistical functions
- */
-/*
-declare function isDeepProperty(field: string): boolean;
-
-declare function parseBase10(num: string | number): number;
-
-declare function isNotUndefined(obj: any): boolean;
-
-declare function add(a: string | number, b: string | number): number;
-
-declare function sub(a: string | number, b: string | number): number;
-
-declare function median(values: number[]): number;
-
-declare function average(array: (string | number)[]);
-
-declare function standardDeviation(values: (string | number)[]): number;
-
-declare function deepProperty(obj: any, property: string, isDeep?: boolean): any;
-
-declare function binarySearch<U>(array: U[], item: U, fun: (a: U, b: U) => number): { found: boolean; index: number; };
-
-// compoundeval() - helper function for compoundsort(), performing individual object comparisons
-//
-// @param {array} properties - array of property names, in order, by which to evaluate sort order
-// @param {object} obj1 - first object to compare
-// @param {object} obj2 - second object to compare
-// @returns {integer} 0, -1, or 1 to designate if identical (sortwise) or which should be first
-declare function compoundeval(properties: ([string, boolean] | [string])[], obj1: any, obj2: any): number;
-
-// dotSubScan - helper function used for dot notation queries.
-declare function dotSubScan<V>(root: any | any[], propPath: string[], fun: (root, value: V) => boolean, value: V): boolean;
-
-// making indexing opt-in... our range function knows how to deal with these ops :
-//var indexedOpsList = ['$eq', '$dteq', '$gt', '$gte', '$lt', '$lte'];
-
-declare function clone<U>(data: U, method?: string): U; // stage: 'parse-stringify', 'jquery-extend-deep', 'shallow'
-
-declare function cloneObjectArray<U>(objarray: U[], method?: string): U; // stage: 'parse-stringify', 'jquery-extend-deep', 'shallow'
-
-declare function localStorageAvailable(): boolean;
-*/
-
-
-
-
-/* ======== loki-indexed-adapter.js ======== */
-interface LokiIndexedAdapter {
-    app: string;
-    catalog: LokiCatalog;
-
-    /** IndexedAdapter - Loki persistence adapter class for indexedDb.
-     *     This class fulfills abstract adapter interface which can be applied to other storage methods
-     *     Utilizes the included LokiCatalog app/key/value database for actual database persistence.
-     * @param {string} appname - Application name context can be used to distinguish subdomains or just 'loki'
-     */
-    new (appname: string): LokiIndexedAdapter;
-
-    /** checkAvailability - used to check if adapter is available
-     * @returns {boolean} true if indexeddb is available, false if not.
-     */
-    checkAvailability(): boolean;
-
-    /** loadDatabase() - Retrieves a serialized db string from the catalog.
-     * @param {string} dbname - the name of the database to retrieve.
-     * @param {function} callback - callback should accept string param containing serialized db string.
-     */
-    loadDatabase(dbname: string, callback?: (data: any) => void): void;
-
-    // alias for loadDatabase
-    loadKey(dbname: string, callback?: (data: any) => void): void;
-
-    /** saveDatabase() - Saves a serialized db to the catalog.
-     * @param {string} dbname - the name to give the serialized database within the catalog.
-     * @param {string} dbstring - the serialized db string to save.
-     * @param {function} callback - (Optional) callback passed obj.success with true or false
-     */
-    saveDatabase(dbname: string, dbstring: string, callback?: (err: Error | void) => void): void;
-
-    // alias for saveDatabase
-    saveKey(dbname: string, dbstring: string, callback?: (err: Error | void) => void): void;
-
-    /** deleteDatabase() - Deletes a serialized db from the catalog.
-     * @param {string} dbname - the name of the database to delete from the catalog.
-     */
-    deleteDatabase(dbname: string): void;
-
-    // alias for deleteDatabase
-    deleteKey(dbname: string): void;
-
-    /** getDatabaseList() - Retrieves object array of catalog entries for current app.
-     * @param {function} callback - should accept array of database names in the catalog for current app.
-     */
-    getDatabaseList(callback: (names: string[]) => void): void;
-
-    // alias for getDatabaseList
-    getKeyList(callback: (names: string[]) => void): void;
-
-    /** getCatalogSummary - allows retrieval of list of all keys in catalog along with size
-     * @param {function} callback - (Optional) callback to accept result array.
-     */
-    getCatalogSummary(callback: (entries: { app: string; key: string; size: number; }) => void): void;
-}
-
-
-/** LokiCatalog - underlying App/Key/Value catalog persistence
- *   This non-interface class implements the actual persistence.
- *   Used by the IndexedAdapter class.
- */
-interface LokiCatalog {
-    db: IDBDatabase;
-
-    new (callback: (cat: LokiCatalog) => void): LokiCatalog;
-
-    initializeLokiCatalog(callback: (cat: LokiCatalog) => void): void;
-
-    getAppKey(app: string, key: string, callback: (resObj: any) => void): void;
-
-    getAppKeyById<T>(id: any, callback: (result: any, data: T) => void, data: T): void;
-
-    setAppKey(app: string, key: string, val: any, callback: (res: { success: boolean }) => void): void;
-
-    deleteAppKey(id: any, callback: (res: { success: boolean; }) => void): void;
-
-    getAppKeys(app: string, callback: (data: any[]) => void): void;
-
-    // Hide 'cursoring' and return array of { id: id, key: key }
-    getAllKeys(callback: (data: any[]) => void): void;
-}
-/* ======== END loki-indexed-adapter.js ======== */
-
-
-
-/* ======== loki-crypted-file-adapter.js ======== */
-/**
- * @file lokiCryptedFileAdapter.js
- * @author Hans Klunder <Hans.Klunder@bigfoot.com>
- */
-
-/** require libs */
-//var fs = require('fs');
-//var cryptoLib = require('crypto');
-//var isError = require('util').isError;
-
-/* The default Loki File adapter uses plain text JSON files. This adapter crypts the database string and wraps the result
-* in a JSON including enough info to be able to decrypt it (except for the 'secret' of course !)
-*
-* The idea is that the 'secret' does not reside in your source code but is supplied by some other source (e.g. the user in node-webkit)
-*
-* The idea + encrypt/decrypt routines are borrowed from  https://github.com/mmoulton/krypt/blob/develop/lib/krypt.js
-* not using the krypt module to avoid third party dependencies
-*/
-interface LokiCryptedFileAdapter {
-    secret: string;
-
-    /** The constructor is automatically called on `require` , see examples below
-     * @constructor
-     */
-    new (): LokiCryptedFileAdapter;
-
-    /** setSecret() - set the secret to be used during encryption and decryption
-     *
-     * @param {string} secret - the secret to be used
-     */
-    setSecret(secret: string): void;
-
-    /** loadDatabase() - Retrieves a serialized db string from the catalog.
-     *
-     *  @example
-      // LOAD
-        var cryptedFileAdapter = require('./lokiCryptedFileAdapter');
-        cryptedFileAdapter.setSecret('mySecret'); // you should change 'mySecret' to something supplied by the user
-        var db = new loki('test.crypted', { adapter: cryptedFileAdapter }); //you can use any name, not just '*.crypted'
-        db.loadDatabase(function(result) {
-            console.log('done');
-        });
-     *
-     * @param {string} dbname - the name of the database to retrieve.
-     * @param {function} callback - callback should accept string param containing serialized db string.
-     */
-    loadDatabase(dbname: string, callback: (decryptedDataOrErr: string | any) => void): void;
+    public findOneUnindexed(prop: keyof E, value: any): (E & LokiObj) | null;
 
     /**
-     *
-     @example
-      // SAVE : will save database in 'test.crypted'
-        var cryptedFileAdapter = require('./lokiCryptedFileAdapter');
-        cryptedFileAdapter.setSecret('mySecret'); // you should change 'mySecret' to something supplied by the user
-        var loki=require('lokijs');
-        var db = new loki('test.crypted',{ adapter: cryptedFileAdapter }); //you can use any name, not just '*.crypted'
-        var coll = db.addCollection('testColl');
-        coll.insert({test: 'val'});
-        db.saveDatabase();  // could pass callback if needed for async complete
-
-     @example
-      // if you have the krypt module installed you can use:
-        krypt --decrypt test.crypted --secret mySecret
-      to view the contents of the database
-
-     * saveDatabase() - Saves a serialized db to the catalog.
-     *
-     * @param {string} dbname - the name to give the serialized database within the catalog.
-     * @param {string} dbstring - the serialized db string to save.
-     * @param {function} callback - (Optional) callback passed obj.success with true or false
+     * Transaction methods
      */
-    saveDatabase(dbname: string, dbstring: string, callback: (err: any) => void): void;
+
+    /** start the transation */
+    public startTransaction(): void;
+
+    /** commit the transation */
+    public commit(): void;
+
+    /** roll back the transation */
+    public rollback(): void;
+
+    // async executor. This is only to enable callbacks at the end of the execution.
+    public async(fun: () => void, callback: () => void): void;
+
+    /**
+     * Query the collection by supplying a javascript filter function.
+     * @example
+     * var results = coll.where(function(obj) {
+     *   return obj.legs === 8;
+     * });
+     *
+     * @param fun - filter function to run against all collection docs
+     * @returns all documents which pass your filter function
+     */
+    public where(fun: (data: E) => boolean): (E & LokiObj)[];
+
+    /**
+     * Map Reduce operation
+     *
+     * @param mapFunction - function to use as map function
+     * @param reduceFunction - function to use as reduce function
+     * @returns The result of your mapReduce operation
+     */
+    public mapReduce<U, R>(mapFunction: (value: E, index: number, array: E[]) => U, reduceFunction: (ary: U[]) => R): R;
+
+    /**
+     * Join two collections on specified properties
+     *
+     * @param joinData - array of documents to 'join' to this collection
+     * @param leftJoinProp - property name in collection
+     * @param rightJoinProp - property name in joinData
+     * @param mapFun - (Optional) map function to use
+     * @param dataOptions - options to data() before input to your map function
+     * @param [dataOptions.removeMeta] - allows removing meta before calling mapFun
+     * @param [dataOptions.forceClones] - forcing the return of cloned objects to your map object
+     * @param [dataOptions.forceCloneMethod] - Allows overriding the default or collection specified cloning method.
+     * @returns Result of the mapping operation
+     */
+    public eqJoin(
+        joinData: Collection<any> | Resultset<any> | any[],
+        leftJoinProp: string | ((obj: any) => string),
+        rightJoinProp: string | ((obj: any) => string),
+        mapFun?: (left: any, right: any) => any,
+        dataOptions?: Partial<GetDataOptions>
+    ): Resultset<any>;
+
+    /* ------ STAGING API -------- */
+    /**
+     * stages: a map of uniquely identified 'stages', which hold copies of objects to be
+     * manipulated without affecting the data in the original collection
+     */
+    public stages: { [name: string]: any };
+
+    /**
+     * (Staging API) create a stage and/or retrieve it
+     */
+    public getStage(name: string): any;
+
+    /**
+     * a collection of objects recording the changes applied through a commmitStage
+     */
+    public commitLog: { timestamp: number; message: string; data: any }[];
+
+
+    /**
+     * (Staging API) create a copy of an object and insert it into a stage
+     */
+    public stage<F extends E>(stageName: string, obj: F): F;
+
+    /**
+     * (Staging API) re-attach all objects to the original collection, so indexes and views can be rebuilt
+     * then create a message to be inserted in the commitlog
+     * @param stageName - name of stage
+     * @param message
+     */
+    public commitStage(stageName: string, message: string): void;
+
+    public no_op: () => void;
+
+    public extract(field: string): any[];
+
+    public max(field: string): number;
+
+    public min(field: string): number;
+
+    public maxRecord(field: string): { index: number; value: any };
+
+    public minRecord(field: string): { index: number; value: any };
+
+    public extractNumerical(field: string): number[];
+
+    /**
+     * Calculates the average numerical value of a property
+     *
+     * @param field - name of property in docs to average
+     * @returns average of property in all docs in the collection
+     */
+    public avg(field: string): number;
+
+    /**
+     * Calculate standard deviation of a field
+     * @param field
+     */
+    public stdDev(field: string): number;
+
+    /**
+     * @param field
+     */
+    public mode(field: string): string | undefined;
+
+    /**
+     * @param field - property name
+     */
+    public median(field: string): number;
 }
 
 
-interface LokiCryptedFileAdapterEncryptResult {
-    cipher: string;
-    keyDerivation: string;
-    keyLength: number;
-    iterations: number;
-    iv: string;
-    salt: string;
-    value: string;
+
+declare class KeyValueStore {
+    keys: any[];
+    values: any[];
+
+    constructor();
+
+    public sort(a: any, b: any): -1 | 0 | 1;
+
+    public setSort(fun: (target: any, test: any) => any): void;
+
+    public bs(): (array: any[], item: any) => { found: boolean; index: number };
+
+    public set(key: any, value: any): void;
+
+    public get(key: any): any[];
 }
-/* ======== END loki-crypted-file-adapter.js ======== */
 
 
 
+declare class UniqueIndex<E extends object> {
+    field: keyof E;
+    keyMap: { [fieldValue: string]: E/*{ $loki: number }*/ | undefined };
+    lokiMap: { [$loki: number]: string | number | undefined };
 
-/* ======== loki-angular.js ======== */
-/* introduces a angular module named lokijs that returns the 'lokijs' module
-    var module = angular.module('lokijs', [])
-        .factory('Loki', function Loki() {
-            return lokijs;
-        });
-    return module;
-*/
-/* ======== END loki-angular.js ======== */
+    constructor(uniqueField: keyof E);
+
+    public set(obj: E/*{ $loki: number }*/): void;
+
+    public get(key: string | number): E | undefined;
+
+    public byId(id: number): E | undefined;
+
+    /**
+     * Updates a document's unique index given an updated object.
+     * @param  {Object} obj Original document object
+     * @param  {Object} doc New document object (likely the same as obj)
+     */
+    public update(obj: E/*{ $loki: number }*/, doc: any): void;
+
+    public remove(key: string): void;
+
+    public clear(): void;
+}
 
 
 
+declare class ExactIndex<E extends object> {
+    field: keyof E;
+    index: { [key: string]: E[] | undefined };
 
-/* ======== jquery-sync-adapter.js ======== */
+    constructor(exactField: keyof E);
 
-/** LokiJS JquerySyncAdapter
- * A remote sync adapter example for LokiJS
+    // add the value you want returned to the key in the index
+    public set(key: string | number, val: E): void;
+
+    // remove the value from the index, if the value was the last one, remove the key
+    public remove(key: string | number, val: E): void;
+
+    // get the values related to the key, could be more than one
+    public get(key: string | number): E[] | undefined;
+
+    // clear will zap the index
+    public clear(key?: null): void;
+}
+
+
+
+declare class SortedIndex {
+    field: string;
+    keys: any[];
+    values: any[];
+
+    constructor(sortedField: string);
+
+    // set the default sort
+    public sort(a: any, b: any): -1 | 0 | 1;
+
+    public bs(): (array: any[], item: any) => { found: boolean; index: number };
+
+    // and allow override of the default sort
+    public setSort(fun: (target: any, test: any) => number): void;
+
+    // add the value you want returned  to the key in the index
+    public set(key: any, value: any): void;
+
+    // get all values which have a key == the given key
+    public get(key: any): any[];
+
+    // get all values which have a key < the given key
+    public getLt(key: any): any[];
+
+    // get all values which have a key > the given key
+    public getGt(key: any): any[];
+
+    // get all vals from start to end
+    public getAll(key: any, start: number, end: number): any[];
+
+    // just in case someone wants to do something smart with ranges
+    public getPos(key: any): { found: boolean; index: number };
+
+    // remove the value from the index, if the value was the last one, remove the key
+    public remove(key: any, value: any): void;
+
+    // clear will zap the index
+    public clear(): void;
+}
+
+
+// type aliases to allow the nested classes inside LokiConstructor to extend classes sharing them same name(s) as themselves
+declare class _Collection<E extends object> extends Collection<E> { }
+declare class _KeyValueStore extends KeyValueStore { }
+declare class _LokiMemoryAdapter extends LokiMemoryAdapter { }
+declare class _LokiPartitioningAdapter extends LokiPartitioningAdapter { }
+declare class _LokiLocalStorageAdapter extends LokiLocalStorageAdapter { }
+declare class _LokiFsAdapter extends LokiFsAdapter { }
+
+
+/**
+ * LokiJS
+ * A lightweight document oriented javascript database
  * @author Joe Minichino <joe.minichino@gmail.com>
  */
-
-/** this adapter assumes an object options is passed,
- * containing the following properties:
- * ajaxLib: jquery or compatible ajax library
- * save: { url: the url to save to, dataType [optional]: json|xml|etc., type [optional]: POST|GET|PUT}
- * load: { url: the url to load from, dataType [optional]: json|xml| etc., type [optional]: POST|GET|PUT }
- */
-interface LokiJquerySyncAdapter {
-    options: LokiJquerySyncAdapterOptions
-
-    new (options: LokiJquerySyncAdapterOptions): LokiJquerySyncAdapter;
-
-    saveDatabase(name: string, data: any, callback?: (data: any, textStatus: string, xhr: XMLHttpRequest) => any): void;
-
-    loadDatabase(name: string, callback?: (data: any, textStatus: string, xhr: XMLHttpRequest) => any): void;
+declare class LokiConstructor extends Loki {
+    constructor(filename: string, options?: Partial<LokiConstructorOptions> & Partial<LokiConfigOptions> & Partial<ThrottledSaveDrainOptions>);
 }
-
-
-interface LokiJquerySyncAdapterOptions {
-    ajaxLib: { ajax(options: any): any; };
-    save: {
-        url: any;
-        type?: string; /*'GET', 'POST, 'DELETE', etc.*/
-        dataType?: string; /*'json', 'xml', etc.*/
+declare module LokiConstructor {
+    export var persistenceAdapters: {
+        fs: _LokiFsAdapter,
+        localStorage: _LokiLocalStorageAdapter
     };
-    load: {
-        url: any;
-        type?: string; /*'GET', 'POST, 'DELETE', etc.*/
-        dataType?: string; /*'json', 'xml', etc.*/
-    };
-}
 
+    export function aeq(prop1: any, prop2: any): boolean;
 
-interface LokiJquerySyncAdapterError extends Error {
-    name: string; // "JquerySyncAdapterError"
-    message: any;
+    function lt(prop1: any, prop2: any, equal?: boolean): boolean;
 
-    new (message: any): LokiJquerySyncAdapterError;
-}
-/* ======== END jquery-sync-adapter.js ======== */
+    function gt(prop1: any, prop2: any, equal?: boolean): boolean;
 
+    export var LokiOps: LokiOps;
 
-declare var LokiCryptedFileAdapterConstructor: {
-    new (): LokiCryptedFileAdapter;
-}
+    export class Collection<E extends object = any> extends _Collection<E> { }
 
-declare module "lokiCryptedFileAdapter" {
-    export = LokiCryptedFileAdapterConstructor;
-}
+    export class KeyValueStore extends _KeyValueStore { }
 
+    export class LokiMemoryAdapter extends _LokiMemoryAdapter { }
 
-declare var LokiIndexedAdapterConstructor: {
-    new (filename: string): LokiIndexedAdapter;
-}
+    export class LokiPartitioningAdapter extends _LokiPartitioningAdapter { }
 
-declare module "loki-indexed-adapter" {
-    export = LokiIndexedAdapterConstructor;
-}
+    export class LokiLocalStorageAdapter extends _LokiLocalStorageAdapter { }
 
-
-declare var LokiConstructor: {
-    new (filename: string, options?: LokiConfigureOptions): Loki;
-    LokiOps: LokiOps;
-    Collection: LokiCollection<any>;
-    KeyValueStore: LokiKeyValueStore<any, any>;
+    export class LokiFsAdapter extends _LokiFsAdapter { }
 }
 
 declare module "lokijs" {

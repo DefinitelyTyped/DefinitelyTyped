@@ -294,6 +294,9 @@ function callback(cb: AWSLambda.Callback) {
     cb(null);
     cb(error);
     cb(null, anyObj);
+    cb(null, b);
+    cb(null, str);
+    cb(null, num);
 }
 
 /* Proxy Callback */
