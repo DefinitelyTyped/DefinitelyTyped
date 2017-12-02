@@ -4,7 +4,7 @@ import wait from 'ember-test-helpers/wait';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 function moduleFor(name: string, description: string, callbacks: ModuleCallbacks) {
-    let module = new TestModule(name, description, callbacks);
+    const module = new TestModule(name, description, callbacks);
 
     QUnit.module(module.name, {
         beforeEach() {
