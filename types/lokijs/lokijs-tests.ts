@@ -37,10 +37,10 @@ class QueenAnt extends Ant {
 
 
 class AntColony {
-    ants: LokiCollection<Ant>;
-    queens: LokiCollection<QueenAnt>;
+    ants: Loki.Collection<Ant>;
+    queens: Loki.Collection<QueenAnt>;
 
-    constructor(ants?: LokiCollection<Ant>, queens?: LokiCollection<QueenAnt>) {
+    constructor(ants: Loki.Collection<Ant>, queens: Loki.Collection<QueenAnt>) {
         this.ants = ants;
         this.queens = queens;
     }

@@ -1,26 +1,24 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "experimentalDecorators": true,
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "autobind-decorator-tests.ts"
+        "react-tagsinput-tests.tsx"
     ]
 }
