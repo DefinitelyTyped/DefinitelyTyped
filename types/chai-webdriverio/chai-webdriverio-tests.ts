@@ -1,4 +1,8 @@
 import chai = require('chai');
+import chaiWebdriverio = require('chai-webdriverio');
+
+const browser = {};
+chai.use(chaiWebdriverio(browser));
 
 const selector = 'Hello, World!';
 
