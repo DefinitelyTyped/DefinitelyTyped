@@ -142,7 +142,7 @@
             "libraryName": "commander",
             "typingsPackageName": "commander",
             "sourceRepoURL": "https://github.com/tj/commander.js",
-            "asOfVersion": "2.12.0"
+            "asOfVersion": "2.12.2"
         },
         {
             "libraryName": "constant-case",
