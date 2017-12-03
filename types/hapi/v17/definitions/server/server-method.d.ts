@@ -18,9 +18,6 @@ export interface ServerMethod {
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
  */
 export interface ServerMethodCache extends catbox.PolicyOptions {
-    /**
-     * Required
-     */
     generateTimeout: number | false;
 }
 

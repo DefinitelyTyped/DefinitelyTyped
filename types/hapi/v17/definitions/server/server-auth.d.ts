@@ -38,8 +38,6 @@ export interface ServerAuth {
     }
 
     /**
-     * server.auth.default
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
      * Sets a default strategy which is applied to every route where:
      * @param options - one of:
      * * a string with the default strategy name
@@ -54,18 +52,19 @@ export interface ServerAuth {
      * before server.auth.default() is called if those routes lack any authentication config.
      * The default auth strategy configuration can be accessed via server.auth.settings.default. To obtain the active
      * authentication configuration of a route, use server.auth.lookup(request.route).
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
      */
-    default(options: string | ServerAuthConfig): void;
+    default(options: string): void;
+    default(options: ServerAuthConfig): void;
 
     /**
-     * server.auth.scheme
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme)
      * Registers an authentication scheme where:
      * @param name the scheme name.
      * @param scheme - the method implementing the scheme with signature function(server, options) where:
      * * server - a reference to the server object the scheme is added to.
      * * options - (optional) the scheme options argument passed to server.auth.strategy() when instantiation a strategy.
      * @return void.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme)
      */
     scheme(name: string, scheme: ServerAuthScheme): void;
 
@@ -77,7 +76,8 @@ export interface ServerAuth {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthstrategyname-scheme-options)
      */
-    strategy(name: string, scheme: string, options?: any): void;
+    strategy(name: string, scheme: string): void;
+    strategy(name: string, scheme: string, options: any): void;
 
     /**
      * Tests a request against an authentication strategy where:
