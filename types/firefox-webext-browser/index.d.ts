@@ -5,10 +5,14 @@
 // TypeScript Version: 2.4
 // Generated using script at github.com/bomjacob/definitelytyped-firefox-webext-browser
 
-interface EventListener<T extends (...args: any[]) => any> {
+interface WebExtEventListener<T extends (...args: any[]) => any> {
     addListener: (callback: T) => void;
     removeListener: (listener: T) => void;
     hasListener: (listener: T) => boolean;
+}
+
+interface Window {
+    browser: typeof browser;
 }
 
 declare namespace browser.alarms {
@@ -40,11 +44,11 @@ declare namespace browser.alarms {
     function clearAll(): Promise<boolean>;
 
     /* alarms events */
-    const onAlarm: EventListener<(name: Alarm) => void>;
+    const onAlarm: WebExtEventListener<(name: Alarm) => void>;
 }
 
-declare namespace browser.manifest {
-    /* manifest types */
+declare namespace browser._manifest {
+    /* _manifest types */
     type OptionalPermission = _OptionalPermission;
 
     type Permission = string | OptionalPermission | _Permission;
@@ -162,39 +166,6 @@ declare namespace browser.manifest {
         };
     }
 
-    interface WebExtensionLangpackManifest {
-        manifest_version: number;
-        applications?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        browser_specific_settings?: {
-            gecko?: FirefoxSpecificProperties;
-        };
-        name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
-        version: string;
-        homepage_url?: string;
-        langpack_id: string;
-        languages: {
-            [key: string]: {
-                chrome_resources: {
-                    [key: string]: ExtensionURL | {
-                        [key: string]: ExtensionURL;
-                    };
-                };
-                version: string;
-            };
-        };
-        sources?: {
-            [key: string]: {
-                base_path: ExtensionURL;
-                paths?: string[];
-            };
-        };
-    }
-
     interface ThemeIcons {
         light: ExtensionURL;
         dark: ExtensionURL;
@@ -211,7 +182,7 @@ declare namespace browser.manifest {
 
     type ImageDataOrExtensionURL = string;
 
-    type ExtensionID = string | string;
+    type ExtensionID = string;
 
     interface FirefoxSpecificProperties {
         id?: ExtensionID;
@@ -220,9 +191,9 @@ declare namespace browser.manifest {
         strict_max_version?: string;
     }
 
-    type MatchPattern = string | string | _MatchPattern;
+    type MatchPattern = string | _MatchPattern;
 
-    type MatchPatternInternal = string | string | _MatchPatternInternal;
+    type MatchPatternInternal = string | _MatchPatternInternal;
 
     interface ContentScript {
         matches: MatchPattern[];
@@ -249,19 +220,6 @@ declare namespace browser.manifest {
     type UnrecognizedProperty = any;
 
     type PersistentBackgroundProperty = boolean;
-
-    type NativeManifest = {
-        name: string;
-        description: string;
-        path: string;
-        type: _NativeManifestType;
-        allowed_extensions: ExtensionID[];
-    } | {
-        name: ExtensionID;
-        description: string;
-        data: any;
-        type: _NativeManifestType;
-    };
 
     interface ThemeType {
         images?: {
@@ -371,7 +329,7 @@ declare namespace browser.manifest {
         };
     }
 
-    type KeyName = string | string | string;
+    type KeyName = string;
 
     enum _OptionalPermission {
         browserSettings = "browserSettings",
@@ -455,15 +413,6 @@ declare namespace browser.manifest {
 
     enum _MatchPatternInternal {
         all_urls = "<all_urls>"
-    }
-
-    enum _NativeManifestType {
-        pkcs11 = "pkcs11",
-        stdio = "stdio"
-    }
-
-    enum _NativeManifestType {
-        storage = "storage"
     }
 
     enum _ThemeTypeAdditionalBackgroundsAlignment {
@@ -558,15 +507,15 @@ declare namespace browser.contextualIdentities {
     function remove(cookieStoreId: string): void;
 
     /* contextualIdentities events */
-    const onUpdated: EventListener<(changeInfo: {
+    const onUpdated: WebExtEventListener<(changeInfo: {
         contextualIdentity: ContextualIdentity;
     }) => void>;
 
-    const onCreated: EventListener<(changeInfo: {
+    const onCreated: WebExtEventListener<(changeInfo: {
         contextualIdentity: ContextualIdentity;
     }) => void>;
 
-    const onRemoved: EventListener<(changeInfo: {
+    const onRemoved: WebExtEventListener<(changeInfo: {
         contextualIdentity: ContextualIdentity;
     }) => void>;
 }
@@ -642,7 +591,7 @@ declare namespace browser.cookies {
     function getAllCookieStores(): Promise<CookieStore[]>;
 
     /* cookies events */
-    const onChanged: EventListener<(changeInfo: {
+    const onChanged: WebExtEventListener<(changeInfo: {
         removed: boolean;
         cookie: Cookie;
         cause: OnChangedCause;
@@ -811,18 +760,18 @@ declare namespace browser.downloads {
 
     function removeFile(downloadId: number): Promise<void>;
 
-    function acceptDanger(downloadId: number): void;
+    const acceptDanger: ((downloadId: number) => void) | undefined;
 
-    function drag(downloadId: number): void;
+    const drag: ((downloadId: number) => void) | undefined;
 
-    function setShelfEnabled(enabled: boolean): void;
+    const setShelfEnabled: ((enabled: boolean) => void) | undefined;
 
     /* downloads events */
-    const onCreated: EventListener<(downloadItem: DownloadItem) => void>;
+    const onCreated: WebExtEventListener<(downloadItem: DownloadItem) => void>;
 
-    const onErased: EventListener<(downloadId: number) => void>;
+    const onErased: WebExtEventListener<(downloadId: number) => void>;
 
-    const onChanged: EventListener<(downloadDelta: {
+    const onChanged: WebExtEventListener<(downloadDelta: {
         id: number;
         url?: StringDelta;
         filename?: StringDelta;
@@ -859,11 +808,11 @@ declare namespace browser.events {
 
         hasListeners(): boolean;
 
-        addRules(eventName: string, webViewInstanceId: number, rules: Rule[]): void;
+        addRules?(eventName: string, webViewInstanceId: number, rules: Rule[]): void;
 
-        getRules(eventName: string, webViewInstanceId: number, ruleIdentifiers?: string[]): void;
+        getRules?(eventName: string, webViewInstanceId: number, ruleIdentifiers?: string[]): void;
 
-        removeRules(eventName: string, webViewInstanceId: number, ruleIdentifiers?: string[]): void;
+        removeRules?(eventName: string, webViewInstanceId: number, ruleIdentifiers?: string[]): void;
     }
 
     interface UrlFilter {
@@ -912,22 +861,22 @@ declare namespace browser.extension {
         type?: ViewType;
         windowId?: number;
         tabId?: number;
-    }): object/*Window*/[];
+    }): Window[];
 
-    function getBackgroundPage(): object/*Window*/;
+    function getBackgroundPage(): Window;
 
     function isAllowedIncognitoAccess(): Promise<boolean>;
 
     function isAllowedFileSchemeAccess(): Promise<boolean>;
 
-    function setUpdateUrlData(data: string): void;
+    const setUpdateUrlData: ((data: string) => void) | undefined;
 
     /* extension events */
-    const onRequest: EventListener<(request: any, sender: runtime.MessageSender, sendResponse: () => void) => void>
-        | EventListener<(sender: runtime.MessageSender, sendResponse: () => void) => void>;
+    const onRequest: WebExtEventListener<(request: any, sender: runtime.MessageSender, sendResponse: () => void) => void>
+        | WebExtEventListener<(sender: runtime.MessageSender, sendResponse: () => void) => void> | undefined;
 
-    const onRequestExternal: EventListener<(request: any, sender: runtime.MessageSender, sendResponse: () => void) => void>
-        | EventListener<(sender: runtime.MessageSender, sendResponse: () => void) => void>;
+    const onRequestExternal: WebExtEventListener<(request: any, sender: runtime.MessageSender, sendResponse: () => void) => void>
+        | WebExtEventListener<(sender: runtime.MessageSender, sendResponse: () => void) => void> | undefined;
 }
 
 declare namespace browser.extensionTypes {
@@ -993,25 +942,25 @@ declare namespace browser.identity {
     }
 
     /* identity functions */
-    function getAccounts(): Promise<AccountInfo[]>;
+    const getAccounts: (() => Promise<AccountInfo[]>) | undefined;
 
-    function getAuthToken(details?: {
+    const getAuthToken: ((details?: {
         interactive?: boolean;
         account?: AccountInfo;
         scopes?: string[];
-    }): Promise<AccountInfo[]>;
+    }) => Promise<AccountInfo[]>) | undefined;
 
-    function getProfileUserInfo(): Promise<{
+    const getProfileUserInfo: (() => Promise<{
         email: string;
         id: string;
-    }>;
+    }>) | undefined;
 
-    function removeCachedAuthToken(details: {
+    const removeCachedAuthToken: ((details: {
         token: string;
-    }): Promise<{
+    }) => Promise<{
         email: string;
         id: string;
-    }>;
+    }>) | undefined;
 
     function launchWebAuthFlow(details: {
         url: string;
@@ -1021,7 +970,7 @@ declare namespace browser.identity {
     function getRedirectURL(path?: string): string;
 
     /* identity events */
-    const onSignInChanged: EventListener<(account: AccountInfo, signedIn: boolean) => void>;
+    const onSignInChanged: WebExtEventListener<(account: AccountInfo, signedIn: boolean) => void> | undefined;
 }
 
 declare namespace browser.idle {
@@ -1037,7 +986,7 @@ declare namespace browser.idle {
     function setDetectionInterval(intervalInSeconds: number): void;
 
     /* idle events */
-    const onStateChanged: EventListener<(newState: IdleState) => void>;
+    const onStateChanged: WebExtEventListener<(newState: IdleState) => void>;
 }
 
 declare namespace browser.management {
@@ -1087,7 +1036,7 @@ declare namespace browser.management {
     /* management functions */
     function getAll(): Promise<ExtensionInfo[]>;
 
-    function get(id: manifest.ExtensionID): Promise<ExtensionInfo>;
+    function get(id: _manifest.ExtensionID): Promise<ExtensionInfo>;
 
     function getSelf(): Promise<ExtensionInfo>;
 
@@ -1099,13 +1048,13 @@ declare namespace browser.management {
     function setEnabled(id: string, enabled: boolean): Promise<void>;
 
     /* management events */
-    const onDisabled: EventListener<(info: ExtensionInfo) => void>;
+    const onDisabled: WebExtEventListener<(info: ExtensionInfo) => void>;
 
-    const onEnabled: EventListener<(info: ExtensionInfo) => void>;
+    const onEnabled: WebExtEventListener<(info: ExtensionInfo) => void>;
 
-    const onInstalled: EventListener<(info: ExtensionInfo) => void>;
+    const onInstalled: WebExtEventListener<(info: ExtensionInfo) => void>;
 
-    const onUninstalled: EventListener<(info: ExtensionInfo) => void>;
+    const onUninstalled: WebExtEventListener<(info: ExtensionInfo) => void>;
 }
 
 declare namespace browser.notifications {
@@ -1169,38 +1118,38 @@ declare namespace browser.notifications {
     function create(options: CreateNotificationOptions): Promise<string>;
     function create(notificationId: string, options: CreateNotificationOptions): Promise<string>;
 
-    function update(notificationId: string, options: UpdateNotificationOptions): Promise<boolean>;
+    const update: ((notificationId: string, options: UpdateNotificationOptions) => Promise<boolean>) | undefined;
 
     function clear(notificationId: string): Promise<boolean>;
 
     function getAll(): Promise<CreateNotificationOptions>;
 
-    function getPermissionLevel(): Promise<PermissionLevel>;
+    const getPermissionLevel: (() => Promise<PermissionLevel>) | undefined;
 
     /* notifications events */
-    const onClosed: EventListener<(notificationId: string, byUser: boolean) => void>;
+    const onClosed: WebExtEventListener<(notificationId: string, byUser: boolean) => void>;
 
-    const onClicked: EventListener<(notificationId: string) => void>;
+    const onClicked: WebExtEventListener<(notificationId: string) => void>;
 
-    const onButtonClicked: EventListener<(notificationId: string, buttonIndex: number) => void>;
+    const onButtonClicked: WebExtEventListener<(notificationId: string, buttonIndex: number) => void>;
 
-    const onPermissionLevelChanged: EventListener<(level: PermissionLevel) => void>;
+    const onPermissionLevelChanged: WebExtEventListener<(level: PermissionLevel) => void> | undefined;
 
-    const onShowSettings: EventListener<() => void>;
+    const onShowSettings: WebExtEventListener<() => void> | undefined;
 
-    const onShown: EventListener<(notificationId: string) => void>;
+    const onShown: WebExtEventListener<(notificationId: string) => void>;
 }
 
 declare namespace browser.permissions {
     /* permissions types */
     interface Permissions {
-        permissions?: manifest.OptionalPermission[];
-        origins?: manifest.MatchPattern[];
+        permissions?: _manifest.OptionalPermission[];
+        origins?: _manifest.MatchPattern[];
     }
 
     interface AnyPermissions {
-        permissions?: manifest.Permission[];
-        origins?: manifest.MatchPatternInternal[];
+        permissions?: _manifest.Permission[];
+        origins?: _manifest.MatchPatternInternal[];
     }
 
     /* permissions functions */
@@ -1213,9 +1162,9 @@ declare namespace browser.permissions {
     function remove(permissions: Permissions): Promise<void>;
 
     /* permissions events */
-    const onAdded: EventListener<(permissions: Permissions) => void>;
+    const onAdded: WebExtEventListener<(permissions: Permissions) => void> | undefined;
 
-    const onRemoved: EventListener<(permissions: Permissions) => void>;
+    const onRemoved: WebExtEventListener<(permissions: Permissions) => void> | undefined;
 }
 
 declare namespace browser.privacy {
@@ -1252,7 +1201,7 @@ declare namespace browser.privacy.websites {
     }
 
     /* privacy.websites properties */
-    const thirdPartyCookiesAllowed: types.Setting;
+    const thirdPartyCookiesAllowed: types.Setting | undefined;
 
     const hyperlinkAuditingEnabled: types.Setting;
 
@@ -1262,7 +1211,7 @@ declare namespace browser.privacy.websites {
 
     const firstPartyIsolate: types.Setting;
 
-    const protectedContentEnabled: types.Setting;
+    const protectedContentEnabled: types.Setting | undefined;
 
     const trackingProtectionMode: types.Setting;
 }
@@ -1276,7 +1225,7 @@ declare namespace browser.proxy {
     function registerProxyScript(url: string): void;
 
     /* proxy events */
-    const onProxyError: EventListener<(error: object) => void>;
+    const onProxyError: WebExtEventListener<(error: object) => void>;
 }
 
 declare namespace browser.runtime {
@@ -1316,7 +1265,7 @@ declare namespace browser.runtime {
     interface PlatformInfo {
         os: PlatformOs;
         arch: PlatformArch;
-        nacl_arch: PlatformNaclArch;
+        nacl_arch?: PlatformNaclArch;
     }
 
     interface BrowserInfo {
@@ -1354,11 +1303,11 @@ declare namespace browser.runtime {
     const id: string;
 
     /* runtime functions */
-    function getBackgroundPage(): Promise<object/*Window*/>;
+    function getBackgroundPage(): Promise<Window>;
 
     function openOptionsPage(): Promise<void>;
 
-    function getManifest(): object;
+    function getManifest(): _manifest.WebExtensionManifest;
 
     function getURL(path: string): string;
 
@@ -1366,9 +1315,9 @@ declare namespace browser.runtime {
 
     function reload(): void;
 
-    function requestUpdateCheck(): Promise<object>;
+    const requestUpdateCheck: (() => Promise<object>) | undefined;
 
-    function restart(): void;
+    const restart: (() => void) | undefined;
 
     function connect(connectInfo?: {
         name?: string;
@@ -1396,39 +1345,39 @@ declare namespace browser.runtime {
 
     function getPlatformInfo(): Promise<PlatformInfo>;
 
-    function getPackageDirectoryEntry(): Promise<object/*DirectoryEntry*/>;
+    const getPackageDirectoryEntry: (() => Promise<object/*DirectoryEntry*/>) | undefined;
 
     /* runtime events */
-    const onStartup: EventListener<() => void>;
+    const onStartup: WebExtEventListener<() => void>;
 
-    const onInstalled: EventListener<(details: {
+    const onInstalled: WebExtEventListener<(details: {
         reason: OnInstalledReason;
         previousVersion?: string;
         temporary: boolean;
         id?: string;
     }) => void>;
 
-    const onSuspend: EventListener<() => void>;
+    const onSuspend: WebExtEventListener<() => void> | undefined;
 
-    const onSuspendCanceled: EventListener<() => void>;
+    const onSuspendCanceled: WebExtEventListener<() => void> | undefined;
 
-    const onUpdateAvailable: EventListener<(details: {
+    const onUpdateAvailable: WebExtEventListener<(details: {
         version: string;
     }) => void>;
 
-    const onBrowserUpdateAvailable: EventListener<() => void>;
+    const onBrowserUpdateAvailable: WebExtEventListener<() => void> | undefined;
 
-    const onConnect: EventListener<(port: Port) => void>;
+    const onConnect: WebExtEventListener<(port: Port) => void>;
 
-    const onConnectExternal: EventListener<(port: Port) => void>;
+    const onConnectExternal: WebExtEventListener<(port: Port) => void>;
 
-    const onMessage: EventListener<(message: any, sender: MessageSender, sendResponse: () => void) => boolean>
-        | EventListener<(sender: MessageSender, sendResponse: () => void) => boolean>;
+    const onMessage: WebExtEventListener<(message: any, sender: MessageSender, sendResponse: () => void) => boolean>
+        | WebExtEventListener<(sender: MessageSender, sendResponse: () => void) => boolean>;
 
-    const onMessageExternal: EventListener<(message: any, sender: MessageSender, sendResponse: () => void) => boolean>
-        | EventListener<(sender: MessageSender, sendResponse: () => void) => boolean>;
+    const onMessageExternal: WebExtEventListener<(message: any, sender: MessageSender, sendResponse: () => void) => boolean>
+        | WebExtEventListener<(sender: MessageSender, sendResponse: () => void) => boolean>;
 
-    const onRestartRequired: EventListener<(reason: OnRestartRequiredReason) => void>;
+    const onRestartRequired: WebExtEventListener<(reason: OnRestartRequiredReason) => void> | undefined;
 }
 
 declare namespace browser.storage {
@@ -1441,7 +1390,7 @@ declare namespace browser.storage {
     class StorageArea {
         get(keys?: string | string[] | object): Promise<any>;
 
-        getBytesInUse(keys?: string | string[]): Promise<number>;
+        getBytesInUse?(keys?: string | string[]): Promise<number>;
 
         set(items: any): Promise<void>;
 
@@ -1458,7 +1407,7 @@ declare namespace browser.storage {
     const managed: StorageArea;
 
     /* storage events */
-    const onChanged: EventListener<(changes: StorageChange, areaName: string) => void>;
+    const onChanged: WebExtEventListener<(changes: StorageChange, areaName: string) => void>;
 }
 
 declare namespace browser.theme {
@@ -1471,13 +1420,13 @@ declare namespace browser.theme {
     /* theme functions */
     function getCurrent(windowId?: number): void;
 
-    function update(details: manifest.ThemeType): void;
-    function update(windowId: number, details: manifest.ThemeType): void;
+    function update(details: _manifest.ThemeType): void;
+    function update(windowId: number, details: _manifest.ThemeType): void;
 
     function reset(windowId?: number): void;
 
     /* theme events */
-    const onUpdated: EventListener<(updateInfo: ThemeUpdateInfo) => void>;
+    const onUpdated: WebExtEventListener<(updateInfo: ThemeUpdateInfo) => void>;
 }
 
 declare namespace browser.topSites {
@@ -1527,7 +1476,7 @@ declare namespace browser.types {
             scope?: SettingScope;
         }): Promise<void>;
 
-        onChange: EventListener<(details: {
+        onChange: WebExtEventListener<(details: {
             value: any;
             levelOfControl: LevelOfControl;
             incognitoSpecific?: boolean;
@@ -1579,7 +1528,7 @@ declare namespace browser.webNavigation {
         tabId: number;
     }): Promise<Array<{
         errorOccurred?: boolean;
-        processId: number;
+        processId?: number;
         tabId: number;
         frameId: number;
         parentFrameId: number;
@@ -1587,51 +1536,51 @@ declare namespace browser.webNavigation {
     }>>;
 
     /* webNavigation events */
-    const onBeforeNavigate: EventListener<(details: {
+    const onBeforeNavigate: WebExtEventListener<(details: {
         tabId: number;
         url: string;
-        processId: number;
+        processId?: number;
         frameId: number;
         parentFrameId: number;
         timeStamp: number;
     }) => void>;
 
-    const onCommitted: EventListener<(details: {
+    const onCommitted: WebExtEventListener<(details: {
         tabId: number;
         url: string;
-        processId: number;
+        processId?: number;
         frameId: number;
-        transitionType: TransitionType;
-        transitionQualifiers: TransitionQualifier[];
+        transitionType?: TransitionType;
+        transitionQualifiers?: TransitionQualifier[];
         timeStamp: number;
     }) => void>;
 
-    const onDOMContentLoaded: EventListener<(details: {
+    const onDOMContentLoaded: WebExtEventListener<(details: {
         tabId: number;
         url: string;
-        processId: number;
-        frameId: number;
-        timeStamp: number;
-    }) => void>;
-
-    const onCompleted: EventListener<(details: {
-        tabId: number;
-        url: string;
-        processId: number;
+        processId?: number;
         frameId: number;
         timeStamp: number;
     }) => void>;
 
-    const onErrorOccurred: EventListener<(details: {
+    const onCompleted: WebExtEventListener<(details: {
         tabId: number;
         url: string;
-        processId: number;
+        processId?: number;
         frameId: number;
-        error: string;
         timeStamp: number;
     }) => void>;
 
-    const onCreatedNavigationTarget: EventListener<(details: {
+    const onErrorOccurred: WebExtEventListener<(details: {
+        tabId: number;
+        url: string;
+        processId?: number;
+        frameId: number;
+        error?: string;
+        timeStamp: number;
+    }) => void>;
+
+    const onCreatedNavigationTarget: WebExtEventListener<(details: {
         sourceTabId: number;
         sourceProcessId: number;
         sourceFrameId: number;
@@ -1640,29 +1589,29 @@ declare namespace browser.webNavigation {
         timeStamp: number;
     }) => void>;
 
-    const onReferenceFragmentUpdated: EventListener<(details: {
+    const onReferenceFragmentUpdated: WebExtEventListener<(details: {
         tabId: number;
         url: string;
-        processId: number;
+        processId?: number;
         frameId: number;
-        transitionType: TransitionType;
-        transitionQualifiers: TransitionQualifier[];
+        transitionType?: TransitionType;
+        transitionQualifiers?: TransitionQualifier[];
         timeStamp: number;
     }) => void>;
 
-    const onTabReplaced: EventListener<(details: {
+    const onTabReplaced: WebExtEventListener<(details: {
         replacedTabId: number;
         tabId: number;
         timeStamp: number;
     }) => void>;
 
-    const onHistoryStateUpdated: EventListener<(details: {
+    const onHistoryStateUpdated: WebExtEventListener<(details: {
         tabId: number;
         url: string;
-        processId: number;
+        processId?: number;
         frameId: number;
-        transitionType: TransitionType;
-        transitionQualifiers: TransitionQualifier[];
+        transitionType?: TransitionType;
+        transitionQualifiers?: TransitionQualifier[];
         timeStamp: number;
     }) => void>;
 }
@@ -1767,7 +1716,7 @@ declare namespace browser.webRequest {
     function filterResponseData(requestId: string): object/*StreamFilter*/;
 
     /* webRequest events */
-    const onBeforeRequest: EventListener<(details: {
+    const onBeforeRequest: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1785,7 +1734,7 @@ declare namespace browser.webRequest {
         timeStamp: number;
     }) => BlockingResponse>;
 
-    const onBeforeSendHeaders: EventListener<(details: {
+    const onBeforeSendHeaders: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1799,7 +1748,7 @@ declare namespace browser.webRequest {
         requestHeaders?: HttpHeaders;
     }) => BlockingResponse>;
 
-    const onSendHeaders: EventListener<(details: {
+    const onSendHeaders: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1813,7 +1762,7 @@ declare namespace browser.webRequest {
         requestHeaders?: HttpHeaders;
     }) => void>;
 
-    const onHeadersReceived: EventListener<(details: {
+    const onHeadersReceived: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1829,7 +1778,7 @@ declare namespace browser.webRequest {
         statusCode: number;
     }) => BlockingResponse>;
 
-    const onAuthRequired: EventListener<(details: {
+    const onAuthRequired: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1852,7 +1801,7 @@ declare namespace browser.webRequest {
         statusCode: number;
     }) => BlockingResponse>;
 
-    const onResponseStarted: EventListener<(details: {
+    const onResponseStarted: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1870,7 +1819,7 @@ declare namespace browser.webRequest {
         statusLine: string;
     }) => void>;
 
-    const onBeforeRedirect: EventListener<(details: {
+    const onBeforeRedirect: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1889,7 +1838,7 @@ declare namespace browser.webRequest {
         statusLine: string;
     }) => void>;
 
-    const onCompleted: EventListener<(details: {
+    const onCompleted: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1907,7 +1856,7 @@ declare namespace browser.webRequest {
         statusLine: string;
     }) => void>;
 
-    const onErrorOccurred: EventListener<(details: {
+    const onErrorOccurred: WebExtEventListener<(details: {
         requestId: string;
         url: string;
         method: string;
@@ -1994,38 +1943,38 @@ declare namespace browser.bookmarks {
 
     function removeTree(id: string): Promise<void>;
 
-    function _import(): Promise<void>;
+    const _import: (() => Promise<void>) | undefined;
 
-    function _export(): Promise<void>;
+    const _export: (() => Promise<void>) | undefined;
 
     /* bookmarks events */
-    const onCreated: EventListener<(id: string, bookmark: BookmarkTreeNode) => void>;
+    const onCreated: WebExtEventListener<(id: string, bookmark: BookmarkTreeNode) => void>;
 
-    const onRemoved: EventListener<(id: string, removeInfo: {
+    const onRemoved: WebExtEventListener<(id: string, removeInfo: {
         parentId: string;
         index: number;
         node: BookmarkTreeNode;
     }) => void>;
 
-    const onChanged: EventListener<(id: string, changeInfo: {
+    const onChanged: WebExtEventListener<(id: string, changeInfo: {
         title: string;
         url?: string;
     }) => void>;
 
-    const onMoved: EventListener<(id: string, moveInfo: {
+    const onMoved: WebExtEventListener<(id: string, moveInfo: {
         parentId: string;
         index: number;
         oldParentId: string;
         oldIndex: number;
     }) => void>;
 
-    const onChildrenReordered: EventListener<(id: string, reorderInfo: {
+    const onChildrenReordered: WebExtEventListener<(id: string, reorderInfo: {
         childIds: string[];
-    }) => void>;
+    }) => void> | undefined;
 
-    const onImportBegan: EventListener<() => void>;
+    const onImportBegan: WebExtEventListener<() => void> | undefined;
 
-    const onImportEnded: EventListener<() => void>;
+    const onImportEnded: WebExtEventListener<() => void> | undefined;
 }
 
 declare namespace browser.browserAction {
@@ -2088,7 +2037,7 @@ declare namespace browser.browserAction {
     function openPopup(): void;
 
     /* browserAction events */
-    const onClicked: EventListener<(tab: tabs.Tab) => void>;
+    const onClicked: WebExtEventListener<(tab: tabs.Tab) => void>;
 }
 
 declare namespace browser.browsingData {
@@ -2126,7 +2075,7 @@ declare namespace browser.browsingData {
 
     function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
 
-    function removeAppcache(options: RemovalOptions): Promise<void>;
+    const removeAppcache: ((options: RemovalOptions) => Promise<void>) | undefined;
 
     function removeCache(options: RemovalOptions): Promise<void>;
 
@@ -2134,13 +2083,13 @@ declare namespace browser.browsingData {
 
     function removeDownloads(options: RemovalOptions): Promise<void>;
 
-    function removeFileSystems(options: RemovalOptions): Promise<void>;
+    const removeFileSystems: ((options: RemovalOptions) => Promise<void>) | undefined;
 
     function removeFormData(options: RemovalOptions): Promise<void>;
 
     function removeHistory(options: RemovalOptions): Promise<void>;
 
-    function removeIndexedDB(options: RemovalOptions): Promise<void>;
+    const removeIndexedDB: ((options: RemovalOptions) => Promise<void>) | undefined;
 
     function removeLocalStorage(options: RemovalOptions): Promise<void>;
 
@@ -2148,7 +2097,7 @@ declare namespace browser.browsingData {
 
     function removePasswords(options: RemovalOptions): Promise<void>;
 
-    function removeWebSQL(options: RemovalOptions): Promise<void>;
+    const removeWebSQL: ((options: RemovalOptions) => Promise<void>) | undefined;
 }
 
 declare namespace browser.commands {
@@ -2163,7 +2112,7 @@ declare namespace browser.commands {
     function getAll(): Promise<Command[]>;
 
     /* commands events */
-    const onCommand: EventListener<(command: string) => void>;
+    const onCommand: WebExtEventListener<(command: string) => void>;
 }
 
 declare namespace browser.devtools {
@@ -2174,9 +2123,9 @@ declare namespace browser.devtools.inspectedWindow {
     class Resource {
         url: string;
 
-        getContent(): Promise<object>;
+        getContent?(): Promise<object>;
 
-        setContent(content: string, commit: boolean): Promise<any>;
+        setContent?(content: string, commit: boolean): Promise<any>;
     }
 
     /* devtools.inspectedWindow properties */
@@ -2196,12 +2145,12 @@ declare namespace browser.devtools.inspectedWindow {
         preprocessorScript?: string;
     }): void;
 
-    function getResources(): Promise<Resource[]>;
+    const getResources: (() => Promise<Resource[]>) | undefined;
 
     /* devtools.inspectedWindow events */
-    const onResourceAdded: EventListener<(resource: Resource) => void>;
+    const onResourceAdded: WebExtEventListener<(resource: Resource) => void> | undefined;
 
-    const onResourceContentCommitted: EventListener<(resource: Resource, content: string) => void>;
+    const onResourceContentCommitted: WebExtEventListener<(resource: Resource, content: string) => void> | undefined;
 }
 
 declare namespace browser.devtools.network {
@@ -2211,12 +2160,12 @@ declare namespace browser.devtools.network {
     }
 
     /* devtools.network functions */
-    function getHAR(): Promise<any>;
+    const getHAR: (() => Promise<any>) | undefined;
 
     /* devtools.network events */
-    const onRequestFinished: EventListener<(request: Request) => void>;
+    const onRequestFinished: WebExtEventListener<(request: Request) => void> | undefined;
 
-    const onNavigated: EventListener<(url: string) => void>;
+    const onNavigated: WebExtEventListener<(url: string) => void>;
 }
 
 declare namespace browser.devtools.panels {
@@ -2224,42 +2173,42 @@ declare namespace browser.devtools.panels {
     class ElementsPanel {
         createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
 
-        onSelectionChanged: EventListener<() => void>;
+        onSelectionChanged: WebExtEventListener<() => void>;
     }
 
     class SourcesPanel {
-        createSidebarPane(title: string): void;
+        createSidebarPane?(title: string): void;
 
-        onSelectionChanged: EventListener<() => void>;
+        onSelectionChanged: WebExtEventListener<() => void>;
     }
 
     class ExtensionPanel {
-        createStatusBarButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
+        createStatusBarButton?(iconPath: string, tooltipText: string, disabled: boolean): Button;
 
-        onSearch: EventListener<(action: string, queryString?: string) => void>;
-        onShown: EventListener<(window: object/*global*/) => void>;
-        onHidden: EventListener<() => void>;
+        onSearch: WebExtEventListener<(action: string, queryString?: string) => void>;
+        onShown: WebExtEventListener<(window: object/*global*/) => void>;
+        onHidden: WebExtEventListener<() => void>;
     }
 
     class ExtensionSidebarPane {
-        setHeight(height: string): void;
+        setHeight?(height: string): void;
 
         setExpression(expression: string, rootTitle?: string): Promise<void>;
 
         setObject(jsonObject: string, rootTitle?: string): Promise<void>;
 
-        setPage(path: string): void;
+        setPage?(path: string): void;
 
-        onShown: EventListener<(window: object/*global*/) => void>;
-        onHidden: EventListener<() => void>;
+        onShown: WebExtEventListener<(window: object/*global*/) => void>;
+        onHidden: WebExtEventListener<() => void>;
     }
 
     class Button {
-        update(tooltipText?: string, disabled?: boolean): void;
-        update(disabled?: boolean): void;
-        update(iconPath: string, tooltipText: string, disabled?: boolean): void;
+        update?(tooltipText?: string, disabled?: boolean): void;
+        update?(disabled?: boolean): void;
+        update?(iconPath: string, tooltipText: string, disabled?: boolean): void;
 
-        onClicked: EventListener<() => void>;
+        onClicked: WebExtEventListener<() => void>;
     }
 
     /* devtools.panels properties */
@@ -2272,12 +2221,12 @@ declare namespace browser.devtools.panels {
     /* devtools.panels functions */
     function create(title: string, iconPath: string, pagePath: string): Promise<ExtensionPanel>;
 
-    function setOpenResourceHandler(): Promise<devtools.inspectedWindow.Resource>;
+    const setOpenResourceHandler: (() => Promise<devtools.inspectedWindow.Resource>) | undefined;
 
-    function openResource(url: string, lineNumber: number): Promise<void>;
+    const openResource: ((url: string, lineNumber: number) => Promise<void>) | undefined;
 
     /* devtools.panels events */
-    const onThemeChanged: EventListener<(themeName: string) => void>;
+    const onThemeChanged: WebExtEventListener<(themeName: string) => void>;
 }
 
 declare namespace browser.find {
@@ -2335,7 +2284,7 @@ declare namespace browser.geckoProfiler {
     function getSymbols(debugName: string, breakpadId: string): void;
 
     /* geckoProfiler events */
-    const onRunning: EventListener<(isRunning: boolean) => void>;
+    const onRunning: WebExtEventListener<(isRunning: boolean) => void>;
 }
 
 declare namespace browser.history {
@@ -2402,14 +2351,14 @@ declare namespace browser.history {
     function deleteAll(): Promise<void>;
 
     /* history events */
-    const onVisited: EventListener<(result: HistoryItem) => void>;
+    const onVisited: WebExtEventListener<(result: HistoryItem) => void>;
 
-    const onVisitRemoved: EventListener<(removed: {
+    const onVisitRemoved: WebExtEventListener<(removed: {
         allHistory: boolean;
         urls: string[];
     }) => void>;
 
-    const onTitleChanged: EventListener<(changed: {
+    const onTitleChanged: WebExtEventListener<(changed: {
         url: string;
         title: string;
     }) => void>;
@@ -2433,6 +2382,77 @@ declare namespace browser.contextMenus {
         page_action = "page_action",
         tab = "tab"
     }
+
+    enum ItemType {
+        normal = "normal",
+        checkbox = "checkbox",
+        radio = "radio",
+        separator = "separator"
+    }
+
+    interface OnClickData {
+        menuItemId: number | string;
+        parentMenuItemId?: number | string;
+        mediaType?: string;
+        linkText?: string;
+        linkUrl?: string;
+        srcUrl?: string;
+        pageUrl?: string;
+        frameUrl?: string;
+        selectionText?: string;
+        editable: boolean;
+        wasChecked?: boolean;
+        checked?: boolean;
+        modifiers: _OnClickDataModifiers[];
+    }
+
+    enum _OnClickDataModifiers {
+        Shift = "Shift",
+        Alt = "Alt",
+        Command = "Command",
+        Ctrl = "Ctrl",
+        MacCtrl = "MacCtrl"
+    }
+
+    /* contextMenus properties */
+    const ACTION_MENU_TOP_LEVEL_LIMIT: number;
+
+    /* contextMenus functions */
+    function create(createProperties: {
+        type?: ItemType;
+        id?: string;
+        icons?: {
+            [key: number]: string;
+        };
+        title?: string;
+        checked?: boolean;
+        contexts?: ContextType[];
+        onclick?: (info: menusInternal.OnClickData, tab: tabs.Tab) => void;
+        parentId?: number | string;
+        documentUrlPatterns?: string[];
+        targetUrlPatterns?: string[];
+        enabled?: boolean;
+        command?: string;
+    }): number | string;
+
+    function update(id: number | string, updateProperties: {
+        type?: ItemType;
+        title?: string;
+        checked?: boolean;
+        contexts?: ContextType[];
+        onclick?: (info: menusInternal.OnClickData, tab: tabs.Tab) => void;
+        parentId?: number | string;
+        documentUrlPatterns?: string[];
+        targetUrlPatterns?: string[];
+        enabled?: boolean;
+    }): Promise<void>;
+
+    function remove(menuItemId: number | string): Promise<void>;
+
+    function removeAll(): Promise<void>;
+
+    /* contextMenus events */
+    const onClicked: WebExtEventListener<(info: OnClickData, tab?: tabs.Tab) => void>;
 }
 
 declare namespace browser.menus {
@@ -2524,7 +2544,7 @@ declare namespace browser.menus {
     function removeAll(): Promise<void>;
 
     /* menus events */
-    const onClicked: EventListener<(info: OnClickData, tab?: tabs.Tab) => void>;
+    const onClicked: WebExtEventListener<(info: OnClickData, tab?: tabs.Tab) => void>;
 }
 
 declare namespace browser.menusInternal {
@@ -2589,13 +2609,13 @@ declare namespace browser.omnibox {
     function setDefaultSuggestion(suggestion: DefaultSuggestResult): void;
 
     /* omnibox events */
-    const onInputStarted: EventListener<() => void>;
+    const onInputStarted: WebExtEventListener<() => void>;
 
-    const onInputChanged: EventListener<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void>;
+    const onInputChanged: WebExtEventListener<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void>;
 
-    const onInputEntered: EventListener<(text: string, disposition: OnInputEnteredDisposition) => void>;
+    const onInputEntered: WebExtEventListener<(text: string, disposition: OnInputEnteredDisposition) => void>;
 
-    const onInputCancelled: EventListener<() => void>;
+    const onInputCancelled: WebExtEventListener<() => void>;
 }
 
 declare namespace browser.pageAction {
@@ -2638,7 +2658,7 @@ declare namespace browser.pageAction {
     function openPopup(): void;
 
     /* pageAction events */
-    const onClicked: EventListener<(tab: tabs.Tab) => void>;
+    const onClicked: WebExtEventListener<(tab: tabs.Tab) => void>;
 }
 
 declare namespace browser.pkcs11 {
@@ -2680,7 +2700,7 @@ declare namespace browser.sessions {
 
     function getRecentlyClosed(filter?: Filter): Promise<Session[]>;
 
-    function getDevices(filter?: Filter): Promise<Device[]>;
+    const getDevices: ((filter?: Filter) => Promise<Device[]>) | undefined;
 
     function restore(sessionId?: string): Promise<Session>;
 
@@ -2697,7 +2717,7 @@ declare namespace browser.sessions {
     function removeWindowValue(windowId: number, key: string): void;
 
     /* sessions events */
-    const onChanged: EventListener<() => void>;
+    const onChanged: WebExtEventListener<() => void>;
 }
 
 declare namespace browser.sidebarAction {
@@ -2718,7 +2738,7 @@ declare namespace browser.sidebarAction {
         imageData?: ImageDataType | {
             [key: number]: ImageDataType;
         };
-        path?: string | string;
+        path?: string;
         tabId?: number;
     }): void;
 
@@ -2755,7 +2775,7 @@ declare namespace browser.tabs {
         index: number;
         windowId?: number;
         openerTabId?: number;
-        selected: boolean;
+        selected?: boolean;
         highlighted: boolean;
         active: boolean;
         pinned: boolean;
@@ -2840,15 +2860,15 @@ declare namespace browser.tabs {
         frameId?: number;
     }): runtime.Port;
 
-    function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
+    const sendRequest: ((tabId: number, request: any, responseCallback?: (response: any) => void) => void) | undefined;
 
     function sendMessage(tabId: number, message: any, options: {
         frameId?: number;
     }, responseCallback?: (response: any) => void): void;
 
-    function getSelected(windowId?: number): Promise<Tab>;
+    const getSelected: ((windowId?: number) => Promise<Tab>) | undefined;
 
-    function getAllInWindow(windowId?: number): Promise<Tab[]>;
+    const getAllInWindow: ((windowId?: number) => Promise<Tab[]>) | undefined;
 
     function create(createProperties: {
         windowId?: number;
@@ -2883,10 +2903,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
     }): Promise<Tab[]>;
 
-    function highlight(highlightInfo: {
+    const highlight: ((highlightInfo: {
         windowId?: number;
         tabs: number[] | number;
-    }): Promise<windows.Window>;
+    }) => Promise<windows.Window>) | undefined;
 
     function update(updateProperties: {
         url?: string;
@@ -2958,9 +2978,9 @@ declare namespace browser.tabs {
     function saveAsPDF(pageSettings: PageSettings): Promise<string>;
 
     /* tabs events */
-    const onCreated: EventListener<(tab: Tab) => void>;
+    const onCreated: WebExtEventListener<(tab: Tab) => void>;
 
-    const onUpdated: EventListener<(tabId: number, changeInfo: {
+    const onUpdated: WebExtEventListener<(tabId: number, changeInfo: {
         status: string;
         discarded?: boolean;
         url?: string;
@@ -2970,53 +2990,53 @@ declare namespace browser.tabs {
         favIconUrl?: string;
     }, tab: Tab) => void>;
 
-    const onMoved: EventListener<(tabId: number, moveInfo: {
+    const onMoved: WebExtEventListener<(tabId: number, moveInfo: {
         windowId: number;
         fromIndex: number;
         toIndex: number;
     }) => void>;
 
-    const onSelectionChanged: EventListener<(tabId: number, selectInfo: {
+    const onSelectionChanged: WebExtEventListener<(tabId: number, selectInfo: {
         windowId: number;
-    }) => void>;
+    }) => void> | undefined;
 
-    const onActiveChanged: EventListener<(tabId: number, selectInfo: {
+    const onActiveChanged: WebExtEventListener<(tabId: number, selectInfo: {
         windowId: number;
-    }) => void>;
+    }) => void> | undefined;
 
-    const onActivated: EventListener<(activeInfo: {
+    const onActivated: WebExtEventListener<(activeInfo: {
         tabId: number;
         windowId: number;
     }) => void>;
 
-    const onHighlightChanged: EventListener<(selectInfo: {
+    const onHighlightChanged: WebExtEventListener<(selectInfo: {
+        windowId: number;
+        tabIds: number[];
+    }) => void> | undefined;
+
+    const onHighlighted: WebExtEventListener<(highlightInfo: {
         windowId: number;
         tabIds: number[];
     }) => void>;
 
-    const onHighlighted: EventListener<(highlightInfo: {
-        windowId: number;
-        tabIds: number[];
-    }) => void>;
-
-    const onDetached: EventListener<(tabId: number, detachInfo: {
+    const onDetached: WebExtEventListener<(tabId: number, detachInfo: {
         oldWindowId: number;
         oldPosition: number;
     }) => void>;
 
-    const onAttached: EventListener<(tabId: number, attachInfo: {
+    const onAttached: WebExtEventListener<(tabId: number, attachInfo: {
         newWindowId: number;
         newPosition: number;
     }) => void>;
 
-    const onRemoved: EventListener<(tabId: number, removeInfo: {
+    const onRemoved: WebExtEventListener<(tabId: number, removeInfo: {
         windowId: number;
         isWindowClosing: boolean;
     }) => void>;
 
-    const onReplaced: EventListener<(addedTabId: number, removedTabId: number) => void>;
+    const onReplaced: WebExtEventListener<(addedTabId: number, removedTabId: number) => void>;
 
-    const onZoomChange: EventListener<(ZoomChangeInfo: {
+    const onZoomChange: WebExtEventListener<(ZoomChangeInfo: {
         tabId: number;
         oldZoomFactor: number;
         newZoomFactor: number;
@@ -3120,9 +3140,9 @@ declare namespace browser.windows {
     function remove(windowId: number): Promise<void>;
 
     /* windows events */
-    const onCreated: EventListener<(window: Window) => void>;
+    const onCreated: WebExtEventListener<(window: Window) => void>;
 
-    const onRemoved: EventListener<(windowId: number) => void>;
+    const onRemoved: WebExtEventListener<(windowId: number) => void>;
 
-    const onFocusChanged: EventListener<(windowId: number) => void>;
+    const onFocusChanged: WebExtEventListener<(windowId: number) => void>;
 }
