@@ -1,36 +1,26 @@
-import {ServerOptions} from "./server-options";
-import {ServerRealm} from "./server-realm";
-import {ServerInfo} from "./server-info";
-import {Request} from "../request/request";
 import * as http from "http";
-import * as events from 'events';
 import * as catbox from "catbox";
 import * as zlib from "zlib";
-import {PluginsListRegistered} from "../plugin/plugin-registered";
-import {ServerState} from "./server-state";
-import {MimosOptions} from "../../../../mimos/index";
+import * as Podium from "podium";
+import {MimosOptions} from "mimos";
 import {
+    ServerOptions, ServerRealm, ServerInfo, Request, PluginsListRegistered, ServerState,
     ServerOptionsCache, ServerEventCriteria, ServerEventsApplication, ServerEventsApplicationObject,
     PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, HTTP_METHODS, ServerMethodOptions, ServerMethod,
     ServerMethodConfigurationObject,
+    RequestExtPointFunction, ServerExtEventsObject, ServerExtEventsRequestObject, ServerExtOptions,
+    ServerExtPointFunction, ServerExtRequestType, ServerExtType,
+    ServerInjectOptions, ServerInjectResponse,
+    RequestRoute, ServerAuth, ServerRegisterPluginObject, ServerRegisterOptions, ServerRoute,
     Plugin, ResponseToolkit, Dictionary, ServerStateCookieOptions, HTTP_METHODS_PARTIAL_LOWERCASE,
 } from "hapi";
-import {
-    RequestExtPointFunction, ServerExtEventsObject, ServerExtEventsRequestObject, ServerExtOptions,
-    ServerExtPointFunction, ServerExtRequestType, ServerExtType
-} from "./server-ext";
-import {ServerInjectOptions, ServerInjectResponse} from "./server-inject";
-import {RequestRoute} from "../request/request-route";
-import {ServerAuth, ServerAuthConfig} from "./server-auth";
-import {ServerRegisterPluginObject, ServerRegisterOptions} from "./server-register";
-import {ServerRoute} from "./server-route";
 
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
  */
-export class Server extends events.EventEmitter {
+export class Server extends Podium {
 
     /**
      Creates a new server object

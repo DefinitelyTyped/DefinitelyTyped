@@ -1,9 +1,9 @@
 import * as Catbox from "catbox";
 
 /**
- * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-cache)
  * hapi uses catbox for its cache implementation which includes support for common storage solutions (e.g. Redis,
  * MongoDB, Memcached, Riak, among others). Caching is only utilized if methods and plugins explicitly store their state in the cache.
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-cache)
  */
 export interface ServerOptionsCache extends Catbox.PolicyOptions {
 
