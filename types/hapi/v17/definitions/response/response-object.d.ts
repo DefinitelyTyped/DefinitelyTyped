@@ -1,5 +1,5 @@
 import {PluginsStates} from "../plugin/plugin";
-import {Dictionary} from "../util/util";
+import {Util} from "../util/util";
 import {ResponseSettings} from "./response-settings";
 import {ServerStateCookieOptions} from "../server/server-state-options";
 import * as Podium from "podium";
@@ -52,7 +52,7 @@ export interface ResponseObject extends Podium {
      * Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheaders)
      */
-    readonly headers: Dictionary<string | string[]>;
+    readonly headers: Util.Dictionary<string | string[]>;
 
     /**
      * Default value: {}.
