@@ -231,7 +231,7 @@ export class Server extends Podium {
      * @param data  the value emitted to the subscribers. If data is a function, the function signature is function() and it called once to generate (return value) the actual data emitted to the listeners. If no listeners match the event, the data function is not invoked.
      * @param callback  an optional callback method invoked when all subscribers have been notified using the signature function(). The callback is called only after all the listeners have been notified, including any event updates emitted earlier (the order of event updates are guaranteed to be in the order they were emitted).
      */
-    emit(criteria: string | {name: string, channel?: string, tags?: string | string[]}, data: any, callback?: () => void): void;
+    emit(criteria: string | {name: string, channel?: string, tags?: string | string[]}, data: object, callback?: () => void): void;
     /**
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate'
      * [See docs](https://hapijs.com/api/16.1.1#serverencoderencoding-encoder)
@@ -489,7 +489,7 @@ export interface PluginSpecificConfiguration {}
  */
 export interface ServerOptions {
     /** app - application-specific configuration which can later be accessed via server.settings.app. Note the difference between server.settings.app which is used to store static configuration values and server.app which is meant for storing run-time state. Defaults to {}.  */
-    app?: any;
+    app?: object;
     /**
      * cache - sets up server-side caching. Every server includes a default cache for storing application state. By default, a simple memory-based cache is created which has limited capacity and capabilities. hapi uses catbox for its cache which includes support for common storage solutions (e.g. Redis, MongoDB, Memcached, Riak, among others). Caching is only utilized if methods and plugins explicitly store their state in the cache. The server cache configuration only defines the storage container itself. cache can be assigned:
      *  * a prototype function (usually obtained by calling require() on a catbox strategy such as require('catbox-redis')). A new catbox client will be created internally using this function.
@@ -533,7 +533,7 @@ export interface ServerEventObject {
     /** an array of tags (e.g. ['error', 'http']). */
     tags: string[];
     /** optional event-specific information. */
-    data: any;
+    data?: object;
     /** true if the event was generated internally by the framework. */
     internal: boolean;
 }
