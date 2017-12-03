@@ -5,7 +5,7 @@
 //                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
-//                 Mariano Cortesi <https://github.com/dante-101>
+//                 Mariano Cortesi <https://github.com/mcortesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
