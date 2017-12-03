@@ -1,5 +1,5 @@
 // Type definitions for less2sass 1.0
-// Project: http://erickryski.com
+// Project: https://github.com/ekryski/less2sass
 // Definitions by: William Lohan <https://github.com/gatimus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
