@@ -28,17 +28,19 @@ import {ServerRoute} from "./server-route";
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
  */
 export class Server extends events.EventEmitter {
 
     /**
-     Creates a new server object where:
+     Creates a new server object
     */
     constructor();
 
     /**
-     Creates a new server object where:
-     @param options server configuration object.
+     * Creates a new server object where:
+     * @param options server configuration object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptions)
      */
     constructor(options: ServerOptions);
 
@@ -46,6 +48,7 @@ export class Server extends events.EventEmitter {
      * Provides a safe place to store server-specific run-time application data without potential conflicts with
      * the framework internals. The data can be accessed whenever the server is accessible.
      * Initialized with an empty object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
     app?: any;
 
@@ -60,6 +63,7 @@ export class Server extends events.EventEmitter {
      * * request - decorations on the request object.
      * * toolkit - decorations on the response toolkit.
      * * server - decorations on the server object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecorations)
      */
     readonly decorations: {
         request: Request,
@@ -81,6 +85,7 @@ export class Server extends events.EventEmitter {
      * * a podium emitter object.
      * * an array containing any of the above.
      * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
      */
     event(events: ServerEventsApplication): void;
     event(events: ServerEventsApplication[]): void;
@@ -170,7 +175,6 @@ export class Server extends events.EventEmitter {
     };
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverinfo)
      * An object containing information about the server where:
      * * id - a unique server identifier (using the format '{hostname}:{pid}:{now base36}').
      * * created - server creation timestamp.
@@ -183,12 +187,14 @@ export class Server extends events.EventEmitter {
      * * 'https' - HTTPS.
      * * 'socket' - UNIX domain socket or Windows named pipe.
      * * uri - a string representing the connection (e.g. 'http://example.com:8080' or 'socket:/unix/domain/socket/path'). Contains the uri value if set, otherwise constructed from the available settings. If no port is configured or is set to 0, the uri will not include a port component until the server is started.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverinfo)
      */
     readonly info: ServerInfo;
 
     /**
      * Access: read only and listener public interface.
      * The node HTTP server object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverlistener)
      */
     listener: http.Server;
 
@@ -197,6 +203,7 @@ export class Server extends events.EventEmitter {
      * * eventLoopDelay - event loop delay milliseconds.
      * * heapUsed - V8 heap usage.
      * * rss - RSS memory usage.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverload)
      */
     readonly load: {
         eventLoopDelay: number;
@@ -205,18 +212,19 @@ export class Server extends events.EventEmitter {
     };
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      * Server methods are functions registered with the server and used throughout the application as a common utility.
      * Their advantage is in the ability to configure them to use the built-in cache and share across multiple request
      * handlers without having to create a common module.
      * sever.methods is an object which provides access to the methods registered via server.method() where each
      * server method name is an object property.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
     readonly methods: Dictionary<ServerMethod>;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be
      * modified directly but only through the [mime](https://github.com/hapijs/hapi/blob/master/API.md#server.options.mime) server setting.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermime)
      */
     mime: MimosOptions;
 
@@ -224,11 +232,11 @@ export class Server extends events.EventEmitter {
      * An object containing the values exposed by each registered plugin where each key is a plugin name and the values
      * are the exposed properties by each plugin using server.expose(). Plugins may set the value of
      * the server.plugins[name] object directly or via the server.expose() method.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins)
      */
     plugins: any;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrealm)
      * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When
      * registering a plugin or an authentication scheme, a server object reference is provided with a new server.realm
      * container specific to that registration. It allows each plugin to maintain its own settings without leaking
@@ -236,6 +244,7 @@ export class Server extends events.EventEmitter {
      * For example, a plugin can set a default file path for local resources without breaking other plugins' configured
      * paths. When calling server.bind(), the active realm's settings.bind property is set which is then used by
      * routes and extensions added at the same level (server root or plugin).
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrealm)
      */
     readonly realm: ServerRealm;
 
@@ -245,17 +254,20 @@ export class Server extends events.EventEmitter {
      * * version - the plugin version.
      * * name - the plugin name.
      * * options - (optional) options passed to the plugin during registration.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
      */
     readonly registrations: PluginsListRegistered;
 
     /**
      * The server configuration object after defaults applied.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serversettings)
      */
     readonly settings: ServerOptions;
 
     /**
      * The server cookies manager.
      * Access: read only and statehood public interface.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverstates)
      */
     readonly states: ServerState;
 
@@ -272,11 +284,11 @@ export class Server extends events.EventEmitter {
     readonly version: string;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext)
      * Sets a global context used as the default bind object when adding a route or an extension where:
      * @param context - the object used to bind this in lifecycle methods such as the route handler and extension methods. The context is also made available as h.context.
      * @return Return value: none.
      * When setting a context inside a plugin, the context is applied only to methods set up by the plugin. Note that the context applies only to routes and extensions added after it has been set. Ignored if the method being bound is an arrow function.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext)
      */
     bind(context: any): void;
 
@@ -286,7 +298,6 @@ export class Server extends events.EventEmitter {
     cache: {
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
          * Provisions a cache segment within the server cache facility where:
          * @param options - [catbox policy](https://github.com/hapijs/catbox#policy) configuration where:
          * * expiresIn - relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt.
@@ -294,7 +305,7 @@ export class Server extends events.EventEmitter {
          * * generateFunc - a function used to generate a new cache item if one is not found in the cache when calling get(). The method's signature is async function(id, flags) where:
          * - `id` - the `id` string or object provided to the `get()` method.
          * - `flags` - an object used to pass back additional flags to the cache where:
-         *- `ttl` - the cache ttl value in milliseconds. Set to `0` to skip storing in the cache. Defaults to the cache global policy.
+         * - `ttl` - the cache ttl value in milliseconds. Set to `0` to skip storing in the cache. Defaults to the cache global policy.
          * * staleIn - number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided. Must be less than expiresIn.
          * * staleTimeout - number of milliseconds to wait before checking if an item is stale.
          * * generateTimeout - number of milliseconds to wait before returning a timeout error when the generateFunc function takes too long to return a value. When the value is eventually returned, it is stored in the cache for future requests. Required if generateFunc is present. Set to false to disable timeouts which may cause all get() requests to get stuck forever.
@@ -306,31 +317,31 @@ export class Server extends events.EventEmitter {
          * * segment - string segment name, used to isolate cached items within the cache partition. When called within a plugin, defaults to '!name' where 'name' is the plugin name. When called within a server method, defaults to '#name' where 'name' is the server method name. Required when called outside of a plugin.
          * * shared - if true, allows multiple cache provisions to share the same segment. Default to false.
          * @return Catbox Policy.
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
          */
         (options: catbox.PolicyOptions): catbox.Policy;
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servercacheprovisionoptions)
          * Provisions a server cache as described in server.cache where:
          * @param options - same as the server cache configuration options.
          * @return Return value: none.
          * Note that if the server has been initialized or started, the cache will be automatically started to match the state of any other provisioned server cache.
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servercacheprovisionoptions)
          */
         provision(options: ServerOptionsCache): void;
 
     };
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoderencoding-decoder)
      * Registers a custom content decoding compressor to extend the built-in support for 'gzip' and 'deflate' where:
      * @param encoding - the decoder name string.
      * @param decoder - a function using the signature function(options) where options are the encoding specific options configured in the route payload.compression configuration option, and the return value is an object compatible with the output of node's zlib.createGunzip().
      * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoderencoding-decoder)
      */
     decoder(encoding: string, decoder: ((options: PayloadCompressionDecoderSettings) => zlib.Gunzip)): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
      * Extends various framework interfaces with custom methods where:
      * @param type - the interface being decorated. Supported types:
      * 'handler' - adds a new handler type to be used in routes handlers.
@@ -346,12 +357,12 @@ export class Server extends events.EventEmitter {
      * must return the new decoration function or value.
      * cannot be used to extend handler decorations.
      * @return void;
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
      */
     decorate(type: 'request', property: string, method: ((request: Request) => Function), options?: {apply: true;  extend: false} ): void;
     decorate(type: 'handler' | 'request' | 'reply' | 'server', property: string, method: Function, options?: {apply: boolean;  extend: boolean} ): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
      * Used within a plugin to declare a required dependency on other plugins where:
      * @param dependencies - a single string or an array of plugin name strings which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is initialized or started.
      * @param after - (optional) a function that is called after all the specified dependencies have been registered and before the server starts. The function is only called if the server is initialized or started. The function signature is async function(server) where:
@@ -360,40 +371,43 @@ export class Server extends events.EventEmitter {
      * The after method is identical to setting a server extension point on 'onPreStart'.
      * If a circular dependency is detected, an exception is thrown (e.g. two plugins each has an after function to be called after the other).
      * The method does not provide version dependency which should be implemented using npm peer dependencies.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
      */
-    dependency(dependencies: string | string[], after?: ((server: Server) => Function)): void;
+    dependency(dependencies: string): void;
+    dependency(dependencies: string, after: ((server: Server) => Function)): void;
+    dependency(dependencies: string[]): void;
+    dependency(dependencies: string[], after: ((server: Server) => Function)): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder)
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate' where:
      * @param encoding - the encoder name string.
      * @param encoder - a function using the signature function(options) where options are the encoding specific options configured in the route compression option, and the return value is an object compatible with the output of node's zlib.createGzip().
      * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder)
      */
     encoder(encoding: string, encoder: ((options: RouteCompressionEncoderSettings) => zlib.Gzip)): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposekey-value)
      * Used within a plugin to expose a property via server.plugins[name] where:
      * @param key - the key assigned (server.plugins[name][key]).
      * @param value - the value assigned.
      * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposekey-value)
      */
     expose(key: string, value: any): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposeobj)
      * Merges an object into to the existing content of server.plugins[name] where:
      * @param obj - the object merged into the exposed properties container.
      * @return Return value: none.
      * Note that all the properties of obj are deeply cloned into server.plugins[name], so avoid using this method
      * for exposing large objects that may be expensive to clone or singleton objects such as database client
      * objects. Instead favor server.expose(key, value), which only copies a reference to value.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposeobj)
      */
     expose(obj: Object): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
      * Registers an extension function in one of the request lifecycle extension points where:
      * @param events - an object or array of objects with the following:
      * * type - (required) the extension point event name. The available extension points include the request extension points as well as the following server extension points:
@@ -412,20 +426,24 @@ export class Server extends events.EventEmitter {
      * * * bind - a context object passed back to the provided method (via this) when called. Ignored if the method is an arrow function.
      * * * sandbox - if set to 'plugin' when adding a request extension points the extension is only added to routes defined by the current plugin. Not allowed when configuring route-level extensions, or when adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
      * @return void
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
      */
-    ext(events: ServerExtEventsObject | ServerExtEventsObject[]): void;
-    ext(events: ServerExtEventsRequestObject | ServerExtEventsRequestObject[]): void;
+    ext(events: ServerExtEventsObject): void;
+    ext(events: ServerExtEventsObject[]): void;
+    ext(events: ServerExtEventsRequestObject): void;
+    ext(events: ServerExtEventsRequestObject[]): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options)
      * Registers a single extension event using the same properties as used in server.ext(events), but passed as arguments.
      * @return Return value: none.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options)
      */
-    ext(event: ServerExtType, method: ServerExtPointFunction, options?: ServerExtOptions): void;
-    ext(event: ServerExtRequestType, method: RequestExtPointFunction, options?: ServerExtOptions): void;
+    ext(event: ServerExtType, method: ServerExtPointFunction): void;
+    ext(event: ServerExtType, method: ServerExtPointFunction, options: ServerExtOptions): void;
+    ext(event: ServerExtRequestType, method: RequestExtPointFunction): void;
+    ext(event: ServerExtRequestType, method: RequestExtPointFunction, options: ServerExtOptions): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinitialize)
      * Initializes the server (starts the caches, finalizes plugin registration) but does not start listening on the connection port.
      * @return Return value: none.
      * Note that if the method fails and throws an error, the server is considered to be in an undefined state and
@@ -433,11 +451,11 @@ export class Server extends events.EventEmitter {
      * other event listeners will get confused by repeated attempts to start the server or make assumptions about the
      * healthy state of the environment. It is recommended to abort the process when the server fails to start properly.
      * If you must try to resume after an error, call server.stop() first to reset the server state.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinitialize)
      */
     initialize(): void;
 
     /**
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      * Injects a request into the server simulating an incoming HTTP request without making an actual socket connection. Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead and limitations of the network stack.
      * The method utilizes the shot module for performing injections, with some additional options and response properties:
      * @param options - can be assigned a string with the requested URI, or an object with:
@@ -467,8 +485,10 @@ export class Server extends events.EventEmitter {
      * * res - the simulated node response object.
      * * result - the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string).
      * * request - the request object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      */
-    inject(options: string | ServerInjectOptions): ServerInjectResponse;
+    inject(options: string): ServerInjectResponse;
+    inject(options: ServerInjectOptions): ServerInjectResponse;
 
     /**
      * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or output to the console. The arguments are:
@@ -496,7 +516,8 @@ export class Server extends events.EventEmitter {
      * @return Return value: the route information if found, otherwise null.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermatchmethod-path-host)
      */
-    match(method: HTTP_METHODS, path: string, host?: string): RequestRoute | null;
+    match(method: HTTP_METHODS, path: string): RequestRoute | null;
+    match(method: HTTP_METHODS, path: string, host: string): RequestRoute | null;
 
     /**
      * Registers a server method where:
@@ -514,7 +535,8 @@ export class Server extends events.EventEmitter {
      * When configured with caching enabled, server.methods[name].cache is assigned an object with the following properties and methods: - await drop(...args) - a function that can be used to clear the cache for a given key. - stats - an object with cache statistics, see catbox for stats documentation.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
      */
-    method(name: string, method: ServerMethod, options?: ServerMethodOptions): void;
+    method(name: string, method: ServerMethod): void;
+    method(name: string, method: ServerMethod, options: ServerMethodOptions): void;
 
     /**
      * Registers a server method function as described in server.method() using a configuration object where:
@@ -571,7 +593,8 @@ export class Server extends events.EventEmitter {
      * Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrouteroute)
      */
-    route(route: ServerRoute | ServerRoute[]): void;
+    route(route: ServerRoute): void;
+    route(route: ServerRoute[]): void;
 
     /**
      * Defines a route rules processor for converting route rules object into route configuration where:
