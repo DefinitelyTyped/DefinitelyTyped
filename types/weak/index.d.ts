@@ -1,68 +1,70 @@
-// Type definitions for weak 1.0.1
+// Type definitions for weak 1.0
 // Project: https://github.com/TooTallNate/node-weak
 // Definitions by: William Kapp <https://github.com/int0h>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
 /// <reference types="node" />
 
-interface WeakRef<T> {}
+declare class WeakRef<T> {}
 
 /**
  * Makes weak references to JavaScript Objects
  * @param object can be a regular Object, an Array, a Function, a RegExp, or any of the primitive types or constructor function created with new
  * @param callback a callback function to be invoked before the object is garbage collected
  */
-declare function weak<T>(object: T, callback?: () => void): WeakRef<T>;
+declare function weak<T extends object>(object: T, callback?: () => void): WeakRef<T>;
 
 declare namespace weak {
-
     /**
      * Returns the actual reference to the Object that this weak reference was created with. If this is called with a dead reference, undefined is returned.
-     * @param ref
+     * @param ref weak reference object
      */
-    export function get<T>(ref: WeakRef<T>): T | undefined;
+    function get<T>(ref: WeakRef<T>): T | undefined;
 
     /**
      * Checks to see if ref is a dead reference. Returns true if the original Object has already been GC'd, false otherwise
-     * @param ref
+     * @param ref weak reference object
      */
-    export function isDead(ref: WeakRef<any>): boolean;
+    function isDead(ref: WeakRef<any>): boolean;
 
     /**
      * Checks to see if ref is "near death". This will be true exactly during the weak reference callback function, and false any other time.
-     * @param ref
+     * @param ref weak reference object
      */
-    export function isNearDeath(ref: WeakRef<any>): boolean;
+    function isNearDeath(ref: WeakRef<any>): boolean;
 
     /**
      * Checks to see if obj is "weak reference" instance. Returns true if the passed in object is a "weak reference", false otherwise.
-     * @param obj
+     * @param obj object to check
      */
-    export function isWeakRef(obj: Object | WeakRef<any>): boolean;
+    function isWeakRef(obj: object | WeakRef<any>): boolean;
 
     /**
      * Adds callback to the Array of callback functions that will be invoked before the Object gets garbage collected. The callbacks get executed in the order that they are added.
-     * @param ref
-     * @param callback
+     * @param ref weak reference object
+     * @param callback function to be called
      */
-    export function addCallback(ref: WeakRef<any>, callback: () => void): NodeJS.EventEmitter;
+    function addCallback(ref: WeakRef<any>, callback: () => void): NodeJS.EventEmitter;
 
     /**
      * Removes callback from the Array of callback functions that will be invoked before the Object gets garbage collected.
-     * @param ref
-     * @param callback
+     * @param ref weak reference object
+     * @param callback function to be called
      */
-    export function removeCallback(ref: WeakRef<any>, callback: () => void): NodeJS.EventEmitter;
+    function removeCallback(ref: WeakRef<any>, callback: () => void): NodeJS.EventEmitter;
 
     /**
      * Empties the Array of callback functions that will be invoked before the Object gets garbage collected.
-     * @param ref
+     * @param ref weak reference object
      */
-    export function removeCallbacks(ref: WeakRef<any>): NodeJS.EventEmitter;
+    function removeCallbacks(ref: WeakRef<any>): NodeJS.EventEmitter;
 
     /**
      * Returns an Array that ref iterates through to invoke the GC callbacks. This utilizes node's EventEmitter#listeners() function and therefore returns a copy in node 0.10 and newer.
-     * @param ref
+     * @param ref weak reference object
      */
-    export function callbacks(ref: WeakRef<any>): (() => void)[];
+    function callbacks(ref: WeakRef<any>): Array<(() => void)>;
 }
 
 export = weak;
