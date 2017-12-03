@@ -26,19 +26,19 @@ declare namespace weak {
      * Checks to see if ref is a dead reference. Returns true if the original Object has already been GC'd, false otherwise
      * @param ref weak reference object
      */
-    function isDead(ref: WeakRef<any>): boolean;
+    function isDead(ref: WeakRef<any>): ref is WeakRef<undefined>;
 
     /**
      * Checks to see if ref is "near death". This will be true exactly during the weak reference callback function, and false any other time.
      * @param ref weak reference object
      */
-    function isNearDeath(ref: WeakRef<any>): boolean;
+    function isNearDeath(ref: WeakRef<any>): ref is WeakRef<undefined>;
 
     /**
      * Checks to see if obj is "weak reference" instance. Returns true if the passed in object is a "weak reference", false otherwise.
      * @param obj object to check
      */
-    function isWeakRef(obj: object | WeakRef<any>): boolean;
+    function isWeakRef(obj: any): obj is WeakRef<any>;
 
     /**
      * Adds callback to the Array of callback functions that will be invoked before the Object gets garbage collected. The callbacks get executed in the order that they are added.

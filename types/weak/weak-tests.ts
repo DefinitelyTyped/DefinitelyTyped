@@ -7,3 +7,20 @@ const weakReference = weak(obj, () => {
 });
 
 const sameType = weak.get(weakReference);
+
+function foo(a: {a: number}) {}
+
+if (sameType) {
+    foo(sameType);
+}
+
+const anyVar = null as any;
+
+if (weak.isWeakRef(anyVar)) {
+    const a = anyVar; // WeakRef<any>
+}
+
+if (weak.isDead(weakReference)) {
+    const a = weakReference; // WeakRef<undefined>
+    const value = weak.get(weakReference); // undefined only possible
+}
