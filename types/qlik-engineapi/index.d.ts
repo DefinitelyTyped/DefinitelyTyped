@@ -9108,8 +9108,7 @@ declare namespace EngineAPI {
     /**
      * SelectionListObject width extend GenericObject
      */
-    interface ISelectionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericSelectionListLayout>;
+    interface ISelectionListObject extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {
     }
 
     interface IApp {
@@ -9171,8 +9170,7 @@ declare namespace EngineAPI {
     /**
      * BookmarkListObject width extend GenericObject
      */
-    interface IBookmarkListObject extends IGenericObject {
-        getLayout(): Promise<IGenericBookmarkListLayout>;
+    interface IBookmarkListObject extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {
     }
 
     interface IApp {
@@ -9234,8 +9232,7 @@ declare namespace EngineAPI {
     /**
      * IMeassureListObject
      */
-    interface IMeassureListObject extends IGenericObject {
-        getLayout(): Promise<IGenericMeasureListLayout>;
+    interface IMeassureListObject extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {
     }
 
     interface IApp {
@@ -9302,8 +9299,7 @@ declare namespace EngineAPI {
         qData: any;
     }
 
-    interface IDimensionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericDimensionListLayout>;
+    interface IDimensionListObject extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {
     }
 
     interface IApp {
@@ -9380,15 +9376,15 @@ declare namespace EngineAPI {
     /**
      * VariableListObject...
      */
-    interface IVariableListObject {
+    interface IVariableList {
         qItems: INxVariableListItem[];
     }
 
     /**
      * GenericVariableLayout width extend GenericObjectLayout
      */
-    interface IGenericVariableLayout extends IGenericObjectLayout {
-        qVariableListObject: IVariableListObject;
+    interface IGenericVariableListLayout extends IGenericBaseLayout {
+        qVariableListObject: IVariableList;
     }
 
     /**
@@ -9426,8 +9422,7 @@ declare namespace EngineAPI {
     /**
      * VariableListObject width extend GenericObject
      */
-    interface IVariableListObject extends IGenericObject {
-        getLayout(): Promise<IGenericVariableLayout>;
+    interface IVariableListObject extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {
     }
 
     interface IApp {
@@ -9442,21 +9437,11 @@ declare namespace EngineAPI {
     /**
      * FieldListObject...
      */
-    interface IFieldListObject {
+    interface IFieldList {
         /**
          * NxFieldDescription[]
          */
         qItems: INxFieldDescription[];
-    }
-
-    /**
-     * GenericFieldLayout width extend GenericObjectLayout
-     */
-    interface IGenericFieldLayout extends IGenericObjectLayout {
-        /**
-         * FieldListObject...
-         */
-        qFieldListObject: IFieldListObject;
     }
 
     /**
@@ -9671,6 +9656,22 @@ declare namespace EngineAPI {
          * Shows the Direct Discovery measure fields if set to true.
          */
         qShowImplicit?: boolean;
+    }
+
+    /**
+     * GenericFieldLayout width extend GenericObjectLayout
+     */
+    interface IGenericFieldLayout extends IGenericBaseLayout {
+        /**
+         * FieldListObject...
+         */
+        qFieldListObject: IFieldList;
+    }
+
+    /**
+     * FieldListObject width extend GenericObject
+     */
+    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {
     }
 
     interface IApp {
