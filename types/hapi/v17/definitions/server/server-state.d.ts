@@ -1,5 +1,5 @@
 import {ServerStateCookieOptions} from "hapi";
-import {Dictionary} from "hapi";
+import {Util} from "hapi";
 
 /**
  * A single object or an array of object where each contains:
@@ -39,7 +39,7 @@ export interface ServerState {
     /**
      * An array containing the names of all configued cookies.
      */
-    readonly names: Dictionary<string>;
+    readonly names: Util.Dictionary<string>;
 
     /**
      * Same as calling [server.state()](https://github.com/hapijs/hapi/blob/master/API.md#server.state()).
@@ -67,6 +67,6 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie parsing (e.g. when server parsing is disabled).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesparseheader)
      */
-    parse(header: string): Dictionary<string>;
+    parse(header: string): Util.Dictionary<string>;
 
 }

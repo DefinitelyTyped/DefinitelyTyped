@@ -6,13 +6,13 @@ import {MimosOptions} from "mimos";
 import {
     ServerOptions, ServerRealm, ServerInfo, Request, PluginsListRegistered, ServerState,
     ServerOptionsCache, ServerEventCriteria, ServerEventsApplication, ServerEventsApplicationObject,
-    PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, HTTP_METHODS, ServerMethodOptions, ServerMethod,
+    PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, ServerMethodOptions, ServerMethod,
     ServerMethodConfigurationObject,
     RequestExtPointFunction, ServerExtEventsObject, ServerExtEventsRequestObject, ServerExtOptions,
     ServerExtPointFunction, ServerExtRequestType, ServerExtType,
     ServerInjectOptions, ServerInjectResponse,
     RequestRoute, ServerAuth, ServerRegisterPluginObject, ServerRegisterOptions, ServerRoute,
-    Plugin, ResponseToolkit, Dictionary, ServerStateCookieOptions, HTTP_METHODS_PARTIAL_LOWERCASE,
+    Plugin, ResponseToolkit, Util, ServerStateCookieOptions,
 } from "hapi";
 
 /**
@@ -209,7 +209,7 @@ export class Server extends Podium {
      * server method name is an object property.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
-    readonly methods: Dictionary<ServerMethod>;
+    readonly methods: Util.Dictionary<ServerMethod>;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be
@@ -506,8 +506,8 @@ export class Server extends Podium {
      * @return Return value: the route information if found, otherwise null.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermatchmethod-path-host)
      */
-    match(method: HTTP_METHODS, path: string): RequestRoute | null;
-    match(method: HTTP_METHODS, path: string, host: string): RequestRoute | null;
+    match(method: Util.HTTP_METHODS, path: string): RequestRoute | null;
+    match(method: Util.HTTP_METHODS, path: string, host: string): RequestRoute | null;
 
     /**
      * Registers a server method where:
@@ -645,7 +645,7 @@ export class Server extends Podium {
      * * path - the route path.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
-    table(): {settings: ServerRoute; method: HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[]; // TODO I am not sure if the ServerRoute is the object expected here
-    table(host: string): {settings: ServerRoute; method: HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[];
+    table(): {settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[]; // TODO I am not sure if the ServerRoute is the object expected here
+    table(host: string): {settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[];
 
 }

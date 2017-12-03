@@ -1,7 +1,7 @@
 import {ServerAuthScheme} from "./server-auth-scheme";
 import {Request} from "../request/request";
 import {RouteOptionsAccess} from "hapi";
-import {Dictionary} from "../util/util";
+import {Util} from "../util/util";
 
 /**
  * The authentication credentials object
@@ -27,7 +27,7 @@ export interface ServerAuth {
      * returned from its implementation function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi)
      */
-    api: Dictionary<any>;
+    api: Util.Dictionary<any>;
 
     /**
      * Contains the default authentication configuration is a default strategy was set via

@@ -1,4 +1,4 @@
-import {RouteOptions, ServerRealm, HTTP_METHODS_PARTIAL} from "hapi";
+import {RouteOptions, ServerRealm, Util} from "hapi";
 
 /**
  * The request route information object, where:
@@ -12,7 +12,7 @@ import {RouteOptions, ServerRealm, HTTP_METHODS_PARTIAL} from "hapi";
  */
 export interface RequestRoute {
     /** the route HTTP method. */
-    method: HTTP_METHODS_PARTIAL;
+    method: Util.HTTP_METHODS_PARTIAL;
     /** the route path. */
     path: string;
     /** the route vhost option if configured. */

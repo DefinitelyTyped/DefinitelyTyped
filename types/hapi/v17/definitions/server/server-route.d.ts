@@ -1,4 +1,4 @@
-import {HTTP_METHODS_PARTIAL, Lifecycle, Server} from "hapi";
+import {Util, Lifecycle, Server} from "hapi";
 
 /**
  * A route configuration object or an array of configuration objects where each object contains:
@@ -22,7 +22,7 @@ export interface ServerRoute {
     /**
      * (required) the HTTP method. Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'. Any HTTP method is allowed, except for 'HEAD'. Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match). Can be assigned an array of methods which has the same result as adding the same route with different methods manually.
      */
-    method: HTTP_METHODS_PARTIAL | HTTP_METHODS_PARTIAL[] | string | string[];
+    method: Util.HTTP_METHODS_PARTIAL | Util.HTTP_METHODS_PARTIAL[] | string | string[];
 
     /**
      * (optional) a domain string or an array of domain strings for limiting the route to only requests with a matching host header field. Matching is done against the hostname part of the header only (excluding the port). Defaults to all hosts.

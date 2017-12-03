@@ -3,7 +3,7 @@ import * as url from "url";
 import * as http from "http";
 import {Server} from "../server/server";
 import {ResponseObject} from "../response/response-object";
-import {Dictionary, HTTP_METHODS_PARTIAL, HTTP_METHODS_PARTIAL_LOWERCASE} from "../util/util";
+import {Util} from "../util/util";
 import {PluginsStates} from "../plugin/plugin";
 import {RequestRoute} from "./request-route";
 import {RequestAuth} from "./request-auth";
@@ -67,7 +67,7 @@ export interface Request extends Podium {
      * The raw request headers (references request.raw.req.headers).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestheaders)
      */
-    readonly headers: Dictionary<string>;
+    readonly headers: Util.Dictionary<string>;
 
     /**
      * Request information:
@@ -96,7 +96,7 @@ export interface Request extends Podium {
     /**
      * The request method in lower case (e.g. 'get', 'post').
      */
-    readonly method: HTTP_METHODS_PARTIAL_LOWERCASE;
+    readonly method: Util.HTTP_METHODS_PARTIAL_LOWERCASE;
 
     /**
      * The parsed content-type header. Only available when payload parsing enabled and no payload error occurred.
@@ -111,7 +111,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Dictionary<string>;
+    readonly params: Util.Dictionary<string>;
 
     /**
      * An array containing all the path params values in the order they appeared in the path.
@@ -186,7 +186,7 @@ export interface Request extends Podium {
     /**
      * An object containing parsed HTTP state information (cookies) where each key is the cookie name and value is the matching cookie content after processing using any registered cookie definition.
      */
-    readonly state: Dictionary<any>;
+    readonly state: Util.Dictionary<any>;
 
     /**
      * The parsed request URI.
@@ -229,7 +229,7 @@ export interface Request extends Podium {
      * Can only be called from an 'onRequest' extension method.
      * [See docs](https://hapijs.com/api/17.0.1#-requestsetmethodmethod)
      */
-    setMethod(method: HTTP_METHODS_PARTIAL): void;
+    setMethod(method: Util.HTTP_METHODS_PARTIAL): void;
 
     /**
      * Changes the request URI before the router begins processing the request where:
