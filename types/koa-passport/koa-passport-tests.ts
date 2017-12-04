@@ -36,3 +36,4 @@ app.use(
     })
 );
 
+class KoaPasspordChild extends passport.KoaPassport { }
