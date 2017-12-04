@@ -571,6 +571,12 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "react-native-elements",
+            "typingsPackageName": "react-native-elements",
+            "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
+            "asOfVersion": "0.18"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
