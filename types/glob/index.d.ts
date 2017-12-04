@@ -1,4 +1,4 @@
-// Type definitions for Glob 5.0.10
+// Type definitions for Glob 5.0
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
