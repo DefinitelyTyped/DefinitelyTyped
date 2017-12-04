@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="minimatch" />
 
 import events = require("events");
 import fs = require('fs');
