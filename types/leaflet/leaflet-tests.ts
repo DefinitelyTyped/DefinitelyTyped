@@ -496,3 +496,17 @@ interface MyProperties {
 		iconUrl: 'my-icon.png'
 	})
 }) as L.Marker<MyProperties>).feature.properties.testProperty = "test";
+
+let lg = L.layerGroup();
+lg = L.layerGroup([new L.Layer(), new L.Layer()]);
+lg = L.layerGroup([new L.Layer(), new L.Layer()], {
+	pane: 'overlayPane',
+	attribution: 'test'
+});
+
+lg = new L.LayerGroup();
+lg = new L.LayerGroup([new L.Layer(), new L.Layer()]);
+lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
+	pane: 'overlayPane',
+	attribution: 'test'
+});
