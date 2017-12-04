@@ -331,8 +331,9 @@ const naturalEart1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
 // Use Raw Projection =====================================================
 
 const rawProjectionPoint: [number, number] = azimuthalEqualAreaRaw(54, 2);
-const rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
-
+if (azimuthalEqualAreaRaw.invert) {
+    const rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
+}
 // ----------------------------------------------------------------------
 // Pre-Defined Projections
 // ----------------------------------------------------------------------
@@ -365,8 +366,10 @@ let constructedProjection: d3Geo.GeoProjection = mutate();
 
 // Use Projection ==========================================================
 
-const projected: [number, number] = constructedProjection([54, 2]);
-const inverted2: [number, number] = constructedProjection.invert([54, 2]);
+const projected: [number, number] | null = constructedProjection([54, 2]);
+if (constructedProjection.invert) {
+    const inverted2: [number, number] | null = constructedProjection.invert([54, 2]);
+}
 
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
@@ -378,7 +381,7 @@ constructedProjection = constructedProjection.preclip(d3Geo.geoClipCircle(45));
 const postClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.postclip();
 constructedProjection = constructedProjection.postclip(d3Geo.geoClipRectangle(0, 0, 1, 1));
 
-const clipAngle: number = constructedProjection.clipAngle();
+const clipAngle: number | null = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
 
@@ -504,7 +507,7 @@ const geoPathContext: d3Geo.GeoContext = geoPathCanvas.context();
 geoPathCanvas = geoPathCanvas.context(null);
 
 // With canvas 2D rendering context
-let canvasContext: CanvasRenderingContext2D;
+let canvasContext: CanvasRenderingContext2D = {} as any;
 
 geoPathCanvas = geoPathCanvas.context(canvasContext);
 
@@ -700,7 +703,9 @@ stream.lineStart();
 stream.lineEnd();
 stream.polygonStart();
 stream.polygonEnd();
-stream.sphere();
+if (stream.sphere) {
+    stream.sphere();
+}
 
 // geoStream(...) ========================================================
 

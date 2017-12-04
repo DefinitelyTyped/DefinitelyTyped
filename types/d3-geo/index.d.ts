@@ -27,7 +27,7 @@ export interface GeoSphere {
  * Type Alias for GeoJSON Geometry Object and GeoSphere additional
  * geometry supported by d3-geo
  */
-export type GeoGeometryObjects = GeoJSON.GeometryObject | GeoSphere;
+export type GeoGeometryObjects = GeoJSON.GeometryObject | GeoSphere |null;
 
 /**
  * A GeoJSON-style GeometryCollection which supports GeoJSON geometry objects
