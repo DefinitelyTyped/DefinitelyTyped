@@ -61,6 +61,12 @@
             "asOfVersion": "0.4.0"
         },
         {
+            "libraryName": "autobind-decorator",
+            "typingsPackageName": "autobind-decorator",
+            "sourceRepoURL": "https://github.com/andreypopp/autobind-decorator",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -131,6 +137,12 @@
             "typingsPackageName": "cheap-ruler",
             "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
             "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "commander",
+            "typingsPackageName": "commander",
+            "sourceRepoURL": "https://github.com/tj/commander.js",
+            "asOfVersion": "2.12.2"
         },
         {
             "libraryName": "constant-case",

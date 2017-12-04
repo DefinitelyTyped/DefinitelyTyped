@@ -33,3 +33,6 @@ if (options !== null) {
 }
 
 prettier.clearConfigCache();
+
+const currentSupportInfo = prettier.getSupportInfo();
+const specificSupportInfo = prettier.getSupportInfo("1.8.0");

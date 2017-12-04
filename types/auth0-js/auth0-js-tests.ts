@@ -109,7 +109,9 @@ webAuth.renewAuth({}, (err, authResult) => {});
 webAuth.renewAuth({
 	nonce: '123',
     state: '456',
-    postMessageDataType: 'auth0:silent-authentication'
+    postMessageDataType: 'auth0:silent-authentication',
+    usePostMessage: true,
+    timeout: 30 * 1000
 }, (err, authResult) => {
       // Renewed tokens or error
 });

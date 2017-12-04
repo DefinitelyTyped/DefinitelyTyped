@@ -9,6 +9,7 @@
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
 //                 Daniel Cottone <https://github.com/daniel-cottone>
+//                 Kostya Misura <https://github.com/kostya-misura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -364,7 +365,7 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback = (error?: Error | null, result?: object) => void;
+export type Callback = (error?: Error | null, result?: object | boolean | number | string) => void;
 export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
 export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 

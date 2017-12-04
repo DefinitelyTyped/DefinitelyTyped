@@ -672,6 +672,9 @@ knex.transaction<{ length: number }>(function(trx) {
   console.error(error);
 });
 
+// transacting handles undefined
+knex.insert({ name: 'Old Books'}).transacting(undefined);
+
 knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
 
 knex.schema.createTable('users', function (table) {
