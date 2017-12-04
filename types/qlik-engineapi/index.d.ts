@@ -1,5 +1,5 @@
-// Type definitions for qlik-engineapi 12.34
-// Project: http://help.qlik.com/en-US/sense-developer/September2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
+// Type definitions for qlik-engineapi 12.67
+// Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -2983,6 +2983,13 @@ declare namespace EngineAPI {
          * @returns - return a Promise of FieldDescription.
          */
         getFieldDescription(qFieldName: string): Promise<IFieldDescription>;
+
+        /**
+         * Fetches the Expression behind a Field that is declared with DECLARE FIELD DEFINITIO
+         * @param qReadableName: name of a Field that is declared with DECLARE FIELD DEFINITION
+         * @returns qname wich contains the expression
+         */
+        getFieldOnTheFlyByName(qReadableName: string): Promise<{qName: string}>;
 
         /**
          * Retrieves the description of a field.
@@ -7149,6 +7156,21 @@ declare namespace EngineAPI {
          * @returns A Promise qBnfHash
          */
         getBaseBNFHash(qBnfType: BnfType): Promise<{ qBnfHash: string }>;
+
+        /**
+         * Gets the current Backus-Naur Form (BNF) grammar of the Qlik engine scripting language,
+         * as well as a string hash calculated from that grammar. The BNF rules define the syntax
+         * for the script statements and the script or chart functions. If the hash changes between
+         * subsequent calls to this method, this indicates that the BNF has changed.
+         *
+         * In the Qlik engine grammars, a token is a string of one or more characters that is significant as a group.
+         * For example, a token could be a function name, a number, a letter, a parenthesis, and so on.
+         * @param qBnfType The type of grammar to return:
+         *                   S: returns the script statements and the script functions.
+         *                   E: returns the chart functions.
+         * @returns qBnfDefs and qBnfHash
+         */
+        getBaseBNFString(qBnfType: BnfType): Promise<{qBnfDefs: IBNFDef, qBnfHash: string}>;
 
         /**
          * Get a Config Object
