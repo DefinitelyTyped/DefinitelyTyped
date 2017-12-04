@@ -265,7 +265,7 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
-    const Fragment: symbol | number;
+    const Fragment: ComponentType;
     const version: string;
 
     //
@@ -281,10 +281,8 @@ declare namespace React {
         constructor(props: P, context?: any);
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
+        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void; // tslint:disable-line:unified-signatures
+        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void; // tslint:disable-line:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
         render(): ReactNode;
@@ -3519,17 +3517,15 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        interface Element extends React.ReactElement<any> { } // tslint:disable-line:no-empty-interface
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        interface IntrinsicAttributes extends React.Attributes { }
-        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
+        interface IntrinsicAttributes extends React.Attributes { } // tslint:disable-line:no-empty-interface
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { } // tslint:disable-line:no-empty-interface
 
         interface IntrinsicElements {
             // HTML
