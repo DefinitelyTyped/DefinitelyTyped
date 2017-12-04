@@ -9,5 +9,5 @@ export interface PaginationLinkProps extends React.HTMLProps<HTMLAnchorElement> 
   tag?: React.ReactType;
 }
 
-export const PaginationLink: React.StatelessComponent<PaginationLinkProps>;
+declare const PaginationLink: React.StatelessComponent<PaginationLinkProps>;
 export default PaginationLink;

@@ -20,5 +20,5 @@ export interface ColProps extends React.HTMLProps<HTMLDivElement> {
   widths?: string[];
 }
 
-export const Col: React.StatelessComponent<ColProps>;
+declare const Col: React.StatelessComponent<ColProps>;
 export default Col;

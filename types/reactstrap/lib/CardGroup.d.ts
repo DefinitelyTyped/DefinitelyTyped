@@ -6,5 +6,5 @@ export interface CardGroupProps {
   cssModule?: CSSModule;
 }
 
-export const CardGroup: React.StatelessComponent<CardGroupProps>;
+declare const CardGroup: React.StatelessComponent<CardGroupProps>;
 export default CardGroup;

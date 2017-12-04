@@ -7,5 +7,5 @@ export interface JumbotronProps {
   cssModule?: CSSModule;
 }
 
-export const Jumbotron: React.StatelessComponent<JumbotronProps>;
+declare const Jumbotron: React.StatelessComponent<JumbotronProps>;
 export default Jumbotron;

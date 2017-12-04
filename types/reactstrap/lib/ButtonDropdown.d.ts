@@ -1,9 +1,15 @@
 import { UncontrolledDropdownProps, DropdownProps } from './Dropdown';
 
-// tslint:disable-next-line
-export interface UncontrolledButtonDropdownProps extends UncontrolledDropdownProps { }
-// tslint:disable-next-line
-export interface ButtonDropdownProps extends DropdownProps { }
+export interface UncontrolledProps extends UncontrolledDropdownProps {
+  /* intentionally blank */
+}
+export interface UncontrolledButtonDropdownProps extends UncontrolledProps {
+  /* intentionally blank */
+}
 
-export const ButtonDropdown: React.StatelessComponent<ButtonDropdownProps>;
+export interface ButtonDropdownProps extends DropdownProps {
+  /* intentionally blank */
+}
+
+declare const ButtonDropdown: React.StatelessComponent<ButtonDropdownProps>;
 export default ButtonDropdown;

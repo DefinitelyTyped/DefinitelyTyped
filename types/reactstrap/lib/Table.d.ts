@@ -14,5 +14,5 @@ export interface TableProps {
   responsiveTag?: React.ReactType;
 }
 
-export const Table: React.StatelessComponent<TableProps>;
+declare const Table: React.StatelessComponent<TableProps>;
 export default Table;

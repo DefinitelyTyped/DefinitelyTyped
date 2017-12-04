@@ -8,5 +8,5 @@ export interface FormTextProps {
   cssModule?: CSSModule;
 }
 
-export const FormText: React.StatelessComponent<FormTextProps>;
+declare const FormText: React.StatelessComponent<FormTextProps>;
 export default FormText;

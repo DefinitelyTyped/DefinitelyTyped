@@ -12,5 +12,5 @@ export interface DropdownItemProps {
   toggle?: boolean;
 }
 
-export const DropdownItem: React.StatelessComponent<DropdownItemProps>;
+declare const DropdownItem: React.StatelessComponent<DropdownItemProps>;
 export default DropdownItem;

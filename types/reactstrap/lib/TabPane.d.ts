@@ -7,5 +7,5 @@ export interface TabPaneProps {
   tabId?: number | string;
 }
 
-export const TabPane: React.StatelessComponent<TabPaneProps>;
+declare const TabPane: React.StatelessComponent<TabPaneProps>;
 export default TabPane;

@@ -6,5 +6,5 @@ export interface ListGroupItemTextProps {
   cssModule?: CSSModule;
 }
 
-export const ListGroupItemText: React.StatelessComponent<ListGroupItemTextProps>;
+declare const ListGroupItemText: React.StatelessComponent<ListGroupItemTextProps>;
 export default ListGroupItemText;

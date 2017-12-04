@@ -6,5 +6,5 @@ export interface CardHeaderProps {
   cssModule?: CSSModule;
 }
 
-export const CardHeader: React.StatelessComponent<CardHeaderProps>;
+declare const CardHeader: React.StatelessComponent<CardHeaderProps>;
 export default CardHeader;

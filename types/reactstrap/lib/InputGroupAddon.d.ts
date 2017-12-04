@@ -6,5 +6,5 @@ export interface InputGroupAddonProps {
   cssModule?: CSSModule;
 }
 
-export const InputGroupAddon: React.StatelessComponent<InputGroupAddonProps>;
+declare const InputGroupAddon: React.StatelessComponent<InputGroupAddonProps>;
 export default InputGroupAddon;

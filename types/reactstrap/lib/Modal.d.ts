@@ -19,5 +19,5 @@ export interface ModalProps {
   fade?: boolean;
 }
 
-export const Modal: React.StatelessComponent<ModalProps>;
+declare const Modal: React.StatelessComponent<ModalProps>;
 export default Modal;

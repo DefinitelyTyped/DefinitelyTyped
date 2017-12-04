@@ -6,5 +6,5 @@ export interface CardColumnsProps {
   cssModule?: CSSModule;
 }
 
-export const CardColumns: React.StatelessComponent<CardColumnsProps>;
+declare const CardColumns: React.StatelessComponent<CardColumnsProps>;
 export default CardColumns;

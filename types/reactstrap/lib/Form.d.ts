@@ -8,5 +8,5 @@ export interface FormProps extends React.HTMLProps<HTMLFormElement> {
   cssModule?: CSSModule;
 }
 
-export const Form: React.StatelessComponent<FormProps>;
+declare const Form: React.StatelessComponent<FormProps>;
 export default Form;

@@ -10,5 +10,5 @@ export interface ButtonGroupProps {
   vertical?: boolean;
 }
 
-export const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
+declare const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
 export default ButtonGroup;

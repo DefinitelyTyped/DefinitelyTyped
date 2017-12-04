@@ -7,5 +7,5 @@ export interface InputGroupProps {
   cssModule?: CSSModule;
 }
 
-export const InputGroup: React.StatelessComponent<InputGroupProps>;
+declare const InputGroup: React.StatelessComponent<InputGroupProps>;
 export default InputGroup;

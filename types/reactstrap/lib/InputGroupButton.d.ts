@@ -9,5 +9,5 @@ export interface InputGroupButtonProps {
   color?: string;
 }
 
-export const InputGroupButton: React.StatelessComponent<InputGroupButtonProps>;
+declare const InputGroupButton: React.StatelessComponent<InputGroupButtonProps>;
 export default InputGroupButton;

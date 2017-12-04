@@ -30,5 +30,5 @@ export interface PopoverProps {
   toggle?: () => void;
 }
 
-export const Popover: React.StatelessComponent<PopoverProps>;
+declare const Popover: React.StatelessComponent<PopoverProps>;
 export default Popover;

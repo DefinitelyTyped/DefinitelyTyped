@@ -14,5 +14,5 @@ export interface ProgressProps {
   barClassName?: string;
 }
 
-export const Progress: React.StatelessComponent<ProgressProps>;
+declare const Progress: React.StatelessComponent<ProgressProps>;
 export default Progress;

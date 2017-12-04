@@ -7,5 +7,5 @@ export interface ContainerProps {
   cssModule?: CSSModule;
 }
 
-export const Container: React.StatelessComponent<ContainerProps>;
+declare const Container: React.StatelessComponent<ContainerProps>;
 export default Container;

@@ -6,5 +6,5 @@ export interface CardTextProps {
   cssModule?: CSSModule;
 }
 
-export const CardText: React.StatelessComponent<CardTextProps>;
+declare const CardText: React.StatelessComponent<CardTextProps>;
 export default CardText;

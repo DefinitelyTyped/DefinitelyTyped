@@ -6,5 +6,5 @@ export interface NavItemProps {
   cssModule?: CSSModule;
 }
 
-export const NavItem: React.StatelessComponent<NavItemProps>;
+declare const NavItem: React.StatelessComponent<NavItemProps>;
 export default NavItem;

@@ -13,5 +13,5 @@ export interface NavProps extends React.HTMLProps<HTMLUListElement> {
   vertical?: boolean;
 }
 
-export const Nav: React.StatelessComponent<NavProps>;
+declare const Nav: React.StatelessComponent<NavProps>;
 export default Nav;

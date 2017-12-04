@@ -17,5 +17,5 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   cssModule?: CSSModule;
 }
 
-export const Button: React.StatelessComponent<ButtonProps>;
+declare const Button: React.StatelessComponent<ButtonProps>;
 export default Button;

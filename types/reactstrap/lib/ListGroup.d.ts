@@ -7,5 +7,5 @@ export interface ListGroupProps {
   cssModule?: CSSModule;
 }
 
-export const ListGroup: React.StatelessComponent<ListGroupProps>;
+declare const ListGroup: React.StatelessComponent<ListGroupProps>;
 export default ListGroup;

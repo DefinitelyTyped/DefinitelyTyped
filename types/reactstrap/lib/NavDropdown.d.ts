@@ -1,9 +1,15 @@
 import { UncontrolledDropdownProps, DropdownProps } from './Dropdown';
 
-// tslint:disable-next-line
-export interface UncontrolledNavDropdownProps extends UncontrolledDropdownProps { }
-// tslint:disable-next-line
-export interface NavDropdownProps extends DropdownProps { }
+export interface UncontrolledProps extends UncontrolledDropdownProps {
+  /* intentionally blank */
+}
+export interface UncontrolledNavDropdownProps extends UncontrolledProps {
+  /* intentionally blank */
+}
 
-export const NavDropdown: React.StatelessComponent<NavDropdownProps>;
+export interface NavDropdownProps extends DropdownProps {
+  /* intentionally blank */
+}
+
+declare const NavDropdown: React.StatelessComponent<NavDropdownProps>;
 export default NavDropdown;

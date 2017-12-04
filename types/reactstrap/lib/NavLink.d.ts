@@ -11,5 +11,5 @@ export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   href?: string;
 }
 
-export const NavLink: React.StatelessComponent<NavLinkProps>;
+declare const NavLink: React.StatelessComponent<NavLinkProps>;
 export default NavLink;

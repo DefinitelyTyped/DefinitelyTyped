@@ -17,5 +17,5 @@ export interface MediaProps {
   alt?: string;
 }
 
-export const Media: React.StatelessComponent<MediaProps>;
+declare const Media: React.StatelessComponent<MediaProps>;
 export default Media;

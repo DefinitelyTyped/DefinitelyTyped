@@ -6,5 +6,5 @@ export interface PopoverHeaderProps {
   cssModule?: CSSModule;
 }
 
-export const PopoverHeader: React.StatelessComponent<PopoverHeaderProps>;
+declare const PopoverHeader: React.StatelessComponent<PopoverHeaderProps>;
 export default PopoverHeader;

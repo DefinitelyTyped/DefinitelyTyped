@@ -7,5 +7,5 @@ export interface RowProps extends React.HTMLProps< HTMLElement> {
   noGutters?: boolean;
 }
 
-export const Row: React.StatelessComponent<RowProps>;
+declare const Row: React.StatelessComponent<RowProps>;
 export default Row;

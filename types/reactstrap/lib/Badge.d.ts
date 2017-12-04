@@ -8,5 +8,5 @@ export interface BadgeProps {
   cssModule?: CSSModule;
 }
 
-export const Badge: React.StatelessComponent<BadgeProps>;
+declare const Badge: React.StatelessComponent<BadgeProps>;
 export default Badge;

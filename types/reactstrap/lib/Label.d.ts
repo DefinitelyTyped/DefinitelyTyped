@@ -22,5 +22,5 @@ export interface LabelProps extends Intermediate {
   xl?: ColumnProps;
 }
 
-export const Label: React.StatelessComponent<LabelProps>;
+declare const Label: React.StatelessComponent<LabelProps>;
 export default Label;

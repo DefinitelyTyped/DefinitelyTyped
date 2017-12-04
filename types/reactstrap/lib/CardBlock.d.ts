@@ -6,5 +6,5 @@ export interface CardBlockProps {
   cssModule?: CSSModule;
 }
 
-export const CardBlock: React.StatelessComponent<CardBlockProps>;
+declare const CardBlock: React.StatelessComponent<CardBlockProps>;
 export default CardBlock;

@@ -8,5 +8,5 @@ export interface TagProps {
   cssModule?: CSSModule;
 }
 
-export const Tag: React.StatelessComponent<TagProps>;
+declare const Tag: React.StatelessComponent<TagProps>;
 export default Tag;

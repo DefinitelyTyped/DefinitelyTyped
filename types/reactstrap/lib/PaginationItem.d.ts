@@ -8,5 +8,5 @@ export interface PaginationItemProps {
   tag?: React.ReactType;
 }
 
-export const PaginationItem: React.StatelessComponent<PaginationItemProps>;
+declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;
 export default PaginationItem;
