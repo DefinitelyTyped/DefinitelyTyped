@@ -4,15 +4,39 @@ import * as zlib from "zlib";
 import * as Podium from "podium";
 import {MimosOptions} from "mimos";
 import {
-    ServerOptions, ServerRealm, ServerInfo, Request, PluginsListRegistered, ServerState,
-    ServerOptionsCache, ServerEventCriteria, ServerEventsApplication, ServerEventsApplicationObject,
-    PayloadCompressionDecoderSettings, RouteCompressionEncoderSettings, ServerMethodOptions, ServerMethod,
+    PayloadCompressionDecoderSettings,
+    Plugin,
+    PluginsListRegistered,
+    Request,
+    RequestExtPointFunction,
+    RequestRoute,
+    ResponseToolkit,
+    RouteCompressionEncoderSettings,
+    ServerAuth,
+    ServerEventCriteria,
+    ServerEventsApplication,
+    ServerEventsApplicationObject,
+    ServerExtEventsObject,
+    ServerExtEventsRequestObject,
+    ServerExtOptions,
+    ServerExtPointFunction,
+    ServerExtRequestType,
+    ServerExtType,
+    ServerInfo,
+    ServerInjectOptions,
+    ServerInjectResponse,
+    ServerMethod,
     ServerMethodConfigurationObject,
-    RequestExtPointFunction, ServerExtEventsObject, ServerExtEventsRequestObject, ServerExtOptions,
-    ServerExtPointFunction, ServerExtRequestType, ServerExtType,
-    ServerInjectOptions, ServerInjectResponse,
-    RequestRoute, ServerAuth, ServerRegisterPluginObject, ServerRegisterOptions, ServerRoute,
-    Plugin, ResponseToolkit, Util, ServerStateCookieOptions,
+    ServerMethodOptions,
+    ServerOptions,
+    ServerOptionsCache,
+    ServerRealm,
+    ServerRegisterOptions,
+    ServerRegisterPluginObject,
+    ServerRoute,
+    ServerState,
+    ServerStateCookieOptions,
+    Util,
 } from "hapi";
 
 /**
@@ -23,12 +47,14 @@ import {
 export class Server extends Podium {
 
     /**
-     Creates a new server object
-    */
+     * Creates a new server object
+     * @constructor
+     */
     constructor();
 
     /**
      * Creates a new server object where:
+     * @constructor
      * @param options server configuration object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptions)
      */
@@ -63,7 +89,7 @@ export class Server extends Podium {
 
     /**
      * Register custom application events where:
-     * @param events - must be one of:
+     * @param events must be one of:
      * * an event name string.
      * * an event options object with the following optional keys (unless noted otherwise):
      * * * name - the event name string (required).
@@ -83,7 +109,6 @@ export class Server extends Podium {
     events: {
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsemitcriteria-data)
          * Emits a custom application event to all the subscribed listeners where:
          * @param criteria - the event update criteria which must be one of:
          * * the event name string.
@@ -94,8 +119,10 @@ export class Server extends Podium {
          * @param data - the value emitted to the subscribers. If data is a function, the function signature is function() and it called once to generate (return value) the actual data emitted to the listeners. If no listeners match the event, the data function is not invoked.
          * @return Return value: none.
          * Note that events must be registered before they can be emitted or subscribed to by calling server.event(events). This is done to detect event name misspelling and invalid event activities.
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsemitcriteria-data)
          */
-        emit(criteria: string | {name: string, channel?: string, tags?: string | string[]}, data: any): void;
+        emit(criteria: string, data: any): void;
+        emit(criteria: {name: string, channel?: string, tags?: string | string[]}, data: any): void;
 
         /**
          * Subscribe to an event where:
@@ -118,7 +145,6 @@ export class Server extends Podium {
         on(criteria: ServerEventCriteria, listener: Function): void;
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
          * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
          * @param criteria - the subscription criteria which must be one of:
          * * event name string which can be any of the built-in server events
@@ -126,39 +152,40 @@ export class Server extends Podium {
          * * a criteria object
          * @param listener - the handler method set to receive event updates. The function signature depends on the event argument, and the spread and tags options.
          * @return Return value: none.
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
          */
         once(criteria: string, listener: Function): void;
         once(criteria: ServerEventsApplicationObject, listener: Function): void;
         once(criteria: ServerEventCriteria, listener: Function): void;
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsoncecriteria)
          * Same as calling server.events.on() with the count option set to 1.
          * @param criteria - the subscription criteria which must be one of:
          * * event name string which can be any of the built-in server events
          * * a custom application event registered with server.event().
          * * a criteria object
          * @return Return value: a promise that resolves when the event is emitted.
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsoncecriteria)
          */
         once(criteria: string): any;
         once(criteria: ServerEventsApplicationObject): any;
         once(criteria: ServerEventCriteria): any;
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
          * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovelistenername-listener)
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
          */
         removeListener(name: string, listener: Function): void;
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
          * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovealllistenersname)
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
          */
         removeAllListeners(name: string): void;
 
         /**
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
          * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumhaslistenersname)
+         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
          */
         hasListeners(name: string): boolean;
 
