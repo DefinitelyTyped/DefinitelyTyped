@@ -6,9 +6,6 @@
         "no-reference-import": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "whitespace": true
+        "prefer-const": false
     }
 }
