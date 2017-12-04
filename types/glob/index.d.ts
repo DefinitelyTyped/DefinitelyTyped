@@ -63,7 +63,7 @@ declare namespace G {
     }
 
     interface IGlobSyncStatic {
-        new (pattern: string, options?: IOptions): IGlobBase
+        new (pattern: string, options?: IOptions): IGlobBase;
         prototype: IGlobBase;
     }
 
