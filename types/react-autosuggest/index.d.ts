@@ -113,13 +113,13 @@ declare namespace Autosuggest {
         event: React.FormEvent<any>,
         data: SuggestionSelectedEventData<TSuggestion>,
     ) => void;
-    type RenderInputComponent<TSuggestion> = (inputProps: InputProps<TSuggestion>) => JSX.Element;
-    type RenderSuggestionsContainer = (params: RenderSuggestionsContainerParams) => JSX.Element;
-    type RenderSectionTitle = (section: any) => JSX.Element;
+    type RenderInputComponent<TSuggestion> = (inputProps: InputProps<TSuggestion>) => React.ReactNode;
+    type RenderSuggestionsContainer = (params: RenderSuggestionsContainerParams) => React.ReactNode;
+    type RenderSectionTitle = (section: any) => React.ReactNode;
     type RenderSuggestion<TSuggestion> = (
         suggestion: TSuggestion,
         params: RenderSuggestionParams,
-    ) => JSX.Element;
+    ) => React.ReactNode;
     type ShouldRenderSuggestions = (value: string) => boolean;
 
     interface AutosuggestProps<TSuggestion> {
