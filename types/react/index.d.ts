@@ -281,8 +281,10 @@ declare namespace React {
         constructor(props: P, context?: any);
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void; // tslint:disable-line:unified-signatures
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void; // tslint:disable-line:unified-signatures
+        // tslint:disable-next-line:unified-signatures
+        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
+        // tslint:disable-next-line:unified-signatures
+        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
 
         forceUpdate(callBack?: () => any): void;
         render(): ReactNode;
@@ -3517,15 +3519,18 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        interface Element extends React.ReactElement<any> { } // tslint:disable-line:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
+        interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        interface IntrinsicAttributes extends React.Attributes { } // tslint:disable-line:no-empty-interface
-        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { } // tslint:disable-line:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
+        interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
         interface IntrinsicElements {
             // HTML
