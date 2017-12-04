@@ -574,7 +574,7 @@
             "libraryName": "react-native-elements",
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
-            "asOfVersion": "0.18"
+            "asOfVersion": "0.18.0"
         },
         {
             "libraryName": "realm",
