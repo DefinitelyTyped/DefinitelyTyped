@@ -10,6 +10,7 @@
  * LokiJS
  * A lightweight document oriented javascript database
  * @author Joe Minichino <joe.minichino@gmail.com>
+ * @author Arkadiusz Pluta <https://github.com/arpluta>
  */
 
 /** comparison operators
@@ -274,7 +275,7 @@ declare class Loki extends LokiEventEmitter {
      * @param options.ttlInterval - time interval for clearing out 'aged' documents; not set by default.
      * @returns a reference to the collection which was just added
      */
-    public addCollection<F extends object = any>(name: string, options?: Partial<CollectionOptions<F>>): Collection<F>;
+    public addCollection<F extends object>(name: string, options?: Partial<CollectionOptions<F>>): Collection<F>;
 
     public loadCollection(collection: Collection<any>): void;
 
@@ -283,7 +284,7 @@ declare class Loki extends LokiEventEmitter {
      * @param collectionName - name of collection to look up
      * @returns Reference to collection in database by that name, or null if not found
      */
-    public getCollection<F extends object = any>(collectionName: string): Collection<F>;
+    public getCollection<F extends object>(collectionName: string): Collection<F>;
 
     /**
      * Renames an existing loki collection
@@ -1992,7 +1993,7 @@ declare module LokiConstructor {
 
     export var LokiOps: LokiOps;
 
-    export class Collection<E extends object = any> extends _Collection<E> { }
+    export class Collection<E extends object> extends _Collection<E> { }
 
     export class KeyValueStore extends _KeyValueStore { }
 
