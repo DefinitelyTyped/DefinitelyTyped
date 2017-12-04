@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "hapi-tests.ts"
+        "test/index.test.d.ts"
     ]
 }
