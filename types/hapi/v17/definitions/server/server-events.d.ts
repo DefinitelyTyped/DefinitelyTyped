@@ -4,12 +4,13 @@ import Podium = require("../../../../podium/index");
  * an event name string.
  * an event options object.
  * a podium emitter object.
+ * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents)
  */
 export type ServerEventsApplication = string | ServerEventsApplicationObject | Podium;
 
 /**
- * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents)
  * Object that it will be used in Event
+ * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents)
  */
 export interface ServerEventsApplicationObject {
     /** the event name string (required). */
@@ -27,8 +28,8 @@ export interface ServerEventsApplicationObject {
 }
 
 /**
+ * A criteria object with the following optional keys (unless noted otherwise):
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncriteria-listener)
- * a criteria object with the following optional keys (unless noted otherwise):
  */
 export interface ServerEventCriteria {
     /** (required) the event name string. */
