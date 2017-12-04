@@ -105,3 +105,5 @@ declare namespace jDataView {
 		static fromNumber(number: number): Int64
 	}
 }
+
+export = jDataView
