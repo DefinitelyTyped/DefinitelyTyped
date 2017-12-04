@@ -432,8 +432,8 @@ function empty() {
     [].should.be.empty;
     expect(['foo']).not.to.be.empty;
     ['foo'].should.not.be.empty;
-    expect(new FakeArgs).to.be.empty;
-    (new FakeArgs).should.be.empty;
+    expect(new FakeArgs()).to.be.empty;
+    (new FakeArgs()).should.be.empty;
     expect({ arguments: 0 }).not.to.be.empty;
     ({ arguments: 0 }).should.not.be.empty;
     expect({}).to.be.empty;
@@ -454,8 +454,8 @@ function empty() {
     expect(['foo']).to.be.empty;
     ['foo'].should.be.empty;
 
-    expect(new FakeArgs).not.to.be.empty;
-    (new FakeArgs).should.not.be.empty;
+    expect(new FakeArgs()).not.to.be.empty;
+    (new FakeArgs()).should.not.be.empty;
 
     expect({ arguments: 0 }).to.be.empty;
     ({ arguments: 0 }).should.be.empty;
