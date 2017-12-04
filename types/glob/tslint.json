@@ -3,8 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-reference-import": false,
-        "no-var-keyword": false,
-        "only-arrow-functions": false,
-        "prefer-const": false
+        "only-arrow-functions": false
     }
 }

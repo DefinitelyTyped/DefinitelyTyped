@@ -1,21 +1,21 @@
 import glob = require("glob");
-var Glob = glob.Glob;
+const Glob = glob.Glob;
 
 (() => {
-	var pattern = "test/a/**/[cg]/../[cg]";
+	const pattern = "test/a/**/[cg]/../[cg]";
 	console.log(pattern);
 
-	var mg = new Glob(pattern, {mark: true, sync: true}, function(er, matches) {
+	const mg = new Glob(pattern, {mark: true, sync: true}, function(er, matches) {
 		console.log("matches", matches);
 	});
 	console.log("after");
 })();
 
 (() => {
-	var pattern = "{./*/*,/*,/usr/local/*}";
+	const pattern = "{./*/*,/*,/usr/local/*}";
 	console.log(pattern);
 
-	var mg = new Glob(pattern, {mark: true}, function(er, matches) {
+	const mg = new Glob(pattern, {mark: true}, function(er, matches) {
 		console.log("matches", matches);
 	});
 	console.log("after");

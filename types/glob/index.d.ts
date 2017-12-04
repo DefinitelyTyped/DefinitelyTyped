@@ -19,8 +19,8 @@ declare namespace G {
 
     function hasMagic(pattern: string, options?: IOptions): boolean;
 
-    var Glob: IGlobStatic;
-    var GlobSync: IGlobSyncStatic;
+    let Glob: IGlobStatic;
+    let GlobSync: IGlobSyncStatic;
 
     interface IOptions extends minimatch.IOptions {
         cwd?: string;
