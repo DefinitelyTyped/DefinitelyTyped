@@ -202,6 +202,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     hide?: boolean;
     shape?: React.ReactElement<any> | ContentRenderer<RectangleProps>;
     data?: BarData[];
+    // see label section at http://recharts.org/#/en-US/api/Bar
     label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<Label>;
 }
 
@@ -877,6 +878,7 @@ export interface XAxisProps extends EventAttributes {
     tickSize?: number;
     interval?: AxisInterval;
     reversed?: boolean;
+    // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label;
 }
 
@@ -925,6 +927,7 @@ export interface YAxisProps extends EventAttributes {
     tickSize?: number;
     interval?: AxisInterval;
     reversed?: boolean;
+    // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label;
 }
 
