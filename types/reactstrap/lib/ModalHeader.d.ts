@@ -8,5 +8,5 @@ export interface ModalHeaderProps {
   toggle?: () => void;
 }
 
-export const ModalHeader: React.StatelessComponent<ModalHeaderProps>;
+declare const ModalHeader: React.StatelessComponent<ModalHeaderProps>;
 export default ModalHeader;

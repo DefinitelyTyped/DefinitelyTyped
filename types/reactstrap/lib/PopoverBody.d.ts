@@ -6,5 +6,5 @@ export interface PopoverBodyProps {
   cssModule?: CSSModule;
 }
 
-export const PopoverBody: React.StatelessComponent<PopoverBodyProps>;
+declare const PopoverBody: React.StatelessComponent<PopoverBodyProps>;
 export default PopoverBody;

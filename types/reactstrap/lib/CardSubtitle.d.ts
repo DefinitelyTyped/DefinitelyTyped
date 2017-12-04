@@ -6,5 +6,5 @@ export interface CardSubtitleProps {
   cssModule?: CSSModule;
 }
 
-export const CardSubtitle: React.StatelessComponent<CardSubtitleProps>;
+declare const CardSubtitle: React.StatelessComponent<CardSubtitleProps>;
 export default CardSubtitle;

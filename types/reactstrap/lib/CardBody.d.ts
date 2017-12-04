@@ -6,5 +6,5 @@ export interface CardBodyProps {
   cssModule?: CSSModule;
 }
 
-export const CardBody: React.StatelessComponent<CardBodyProps>;
+declare const CardBody: React.StatelessComponent<CardBodyProps>;
 export default CardBody;

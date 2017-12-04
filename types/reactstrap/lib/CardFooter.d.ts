@@ -6,5 +6,5 @@ export interface CardFooterProps {
   cssModule?: CSSModule;
 }
 
-export const CardFooter: React.StatelessComponent<CardFooterProps>;
+declare const CardFooter: React.StatelessComponent<CardFooterProps>;
 export default CardFooter;

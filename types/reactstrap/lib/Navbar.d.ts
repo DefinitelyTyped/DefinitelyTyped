@@ -16,5 +16,5 @@ export interface NavbarProps {
   expand?: boolean | string;
 }
 
-export const Navbar: React.StatelessComponent<NavbarProps>;
+declare const Navbar: React.StatelessComponent<NavbarProps>;
 export default Navbar;

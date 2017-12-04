@@ -16,5 +16,5 @@ export interface FadeProps {
   onEnter?: () => void;
 }
 
-export const Fade: React.StatelessComponent<FadeProps>;
+declare const Fade: React.StatelessComponent<FadeProps>;
 export default Fade;

@@ -6,5 +6,5 @@ export interface ListGroupItemHeadingProps {
   cssModule?: CSSModule;
 }
 
-export const ListGroupItemHeading: React.StatelessComponent<ListGroupItemHeadingProps>;
+declare const ListGroupItemHeading: React.StatelessComponent<ListGroupItemHeadingProps>;
 export default ListGroupItemHeading;

@@ -6,5 +6,5 @@ export interface PaginationProps {
   size?: string;
 }
 
-export const Pagination: React.StatelessComponent<PaginationProps>;
+declare const Pagination: React.StatelessComponent<PaginationProps>;
 export default Pagination;

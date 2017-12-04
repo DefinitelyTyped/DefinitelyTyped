@@ -14,5 +14,5 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
   onClosed?: () => void;
 }
 
-export const Collapse: React.StatelessComponent<CollapseProps>;
+declare const Collapse: React.StatelessComponent<CollapseProps>;
 export default Collapse;

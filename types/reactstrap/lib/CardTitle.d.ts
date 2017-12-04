@@ -6,5 +6,5 @@ export interface CardTitleProps {
   cssModule?: CSSModule;
 }
 
-export const CardTitle: React.StatelessComponent<CardTitleProps>;
+declare const CardTitle: React.StatelessComponent<CardTitleProps>;
 export default CardTitle;

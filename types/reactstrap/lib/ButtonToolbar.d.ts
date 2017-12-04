@@ -8,5 +8,5 @@ export interface ButtonToolbarProps {
   role?: string;
 }
 
-export const ButtonToolbar: React.StatelessComponent<ButtonToolbarProps>;
+declare const ButtonToolbar: React.StatelessComponent<ButtonToolbarProps>;
 export default ButtonToolbar;

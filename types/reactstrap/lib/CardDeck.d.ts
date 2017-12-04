@@ -6,5 +6,5 @@ export interface CardDeckProps {
   cssModule?: CSSModule;
 }
 
-export const CardDeck: React.StatelessComponent<CardDeckProps>;
+declare const CardDeck: React.StatelessComponent<CardDeckProps>;
 export default CardDeck;

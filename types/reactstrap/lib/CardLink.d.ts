@@ -8,5 +8,5 @@ export interface CardLinkProps {
   href?: string;
 }
 
-export const CardLink: React.StatelessComponent<CardLinkProps>;
+declare const CardLink: React.StatelessComponent<CardLinkProps>;
 export default CardLink;

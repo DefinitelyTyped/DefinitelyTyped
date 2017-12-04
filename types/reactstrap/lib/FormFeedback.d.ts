@@ -6,5 +6,5 @@ export interface FormFeedbackProps {
   cssModule?: CSSModule;
 }
 
-export const FormFeedback: React.StatelessComponent<FormFeedbackProps>;
+declare const FormFeedback: React.StatelessComponent<FormFeedbackProps>;
 export default FormFeedback;

@@ -6,5 +6,5 @@ export interface BreadcrumbProps {
   cssModule?: CSSModule;
 }
 
-export const Breadcrumb: React.StatelessComponent<BreadcrumbProps>;
+declare const Breadcrumb: React.StatelessComponent<BreadcrumbProps>;
 export default Breadcrumb;

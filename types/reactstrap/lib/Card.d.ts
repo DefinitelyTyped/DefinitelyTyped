@@ -11,5 +11,5 @@ export interface CardProps {
   style?: React.CSSProperties;
 }
 
-export const Card: React.StatelessComponent<CardProps>;
+declare const Card: React.StatelessComponent<CardProps>;
 export default Card;

@@ -12,5 +12,5 @@ export interface CardImgProps {
   alt?: string;
 }
 
-export const CardImg: React.StatelessComponent<CardImgProps>;
+declare const CardImg: React.StatelessComponent<CardImgProps>;
 export default CardImg;

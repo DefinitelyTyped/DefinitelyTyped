@@ -7,5 +7,5 @@ export interface DropdownMenuProps {
   cssModule?: CSSModule;
 }
 
-export const DropdownMenu: React.StatelessComponent<DropdownMenuProps>;
+declare const DropdownMenu: React.StatelessComponent<DropdownMenuProps>;
 export default DropdownMenu;

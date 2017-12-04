@@ -6,5 +6,5 @@ export interface ModalFooterProps {
   cssModule?: CSSModule;
 }
 
-export const ModalFooter: React.StatelessComponent<ModalFooterProps>;
+declare const ModalFooter: React.StatelessComponent<ModalFooterProps>;
 export default ModalFooter;

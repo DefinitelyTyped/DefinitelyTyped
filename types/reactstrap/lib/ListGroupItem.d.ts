@@ -13,5 +13,5 @@ export interface ListGroupItemProps {
   onClick?: React.MouseEventHandler<any>;
 }
 
-export const ListGroupItem: React.StatelessComponent<ListGroupItemProps>;
+declare const ListGroupItem: React.StatelessComponent<ListGroupItemProps>;
 export default ListGroupItem;

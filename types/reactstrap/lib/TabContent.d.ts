@@ -7,5 +7,5 @@ export interface TabContentProps {
   cssModule?: CSSModule;
 }
 
-export const TabContent: React.StatelessComponent<TabContentProps>;
+declare const TabContent: React.StatelessComponent<TabContentProps>;
 export default TabContent;

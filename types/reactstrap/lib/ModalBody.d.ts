@@ -6,5 +6,5 @@ export interface ModalBodyProps {
   cssModule?: CSSModule;
 }
 
-export const ModalBody: React.StatelessComponent<ModalBodyProps>;
+declare const ModalBody: React.StatelessComponent<ModalBodyProps>;
 export default ModalBody;
