@@ -88,7 +88,7 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: string | symbol | number | ComponentClass<P> | SFC<P>;
+        type: string | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
@@ -222,7 +222,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: SFC<P> | ComponentClass<P> | string | symbol | number,
+        type: SFC<P> | ComponentClass<P> | string,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
