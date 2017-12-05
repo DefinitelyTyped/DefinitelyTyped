@@ -74,7 +74,7 @@ declare namespace algoliasearch {
         indexName: string;
         query: string;
         params: AlgoliaQueryParameters;
-      },
+      }[],
       cb: (err: Error, res: AlgoliaMultiResponse) => void
     ): void;
     /**
@@ -87,7 +87,7 @@ declare namespace algoliasearch {
       indexName: string;
       query: string;
       params: AlgoliaQueryParameters;
-    }): Promise<AlgoliaMultiResponse>;
+    }[]): Promise<AlgoliaMultiResponse>;
     /**
      * clear browser cache
      * https://github.com/algolia/algoliasearch-client-js#cache
