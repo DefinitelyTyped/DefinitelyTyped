@@ -1850,7 +1850,7 @@ export class Font {
 export class Light extends Object3D {
     constructor(hex?: number|string, intensity?: number);
 
-    color: Color | string | number;
+    color: Color;
     intensity: number;
     receiveShadow: boolean;
     shadow: LightShadow;
@@ -1965,8 +1965,8 @@ export class DirectionalLightShadow extends LightShadow {
 export class HemisphereLight extends Light {
     constructor(skyColor?: Color | string | number, groundColor?: Color | string | number, intensity?: number);
 
-	skyColor: Color | string | number;
-    groundColor: Color | string | number;
+	skyColor: Color;
+    groundColor: Color;
     intensity: number;
 }
 
@@ -2610,7 +2610,7 @@ export interface LineBasicMaterialParameters extends MaterialParameters {
 export class LineBasicMaterial extends Material {
     constructor(parameters?: LineBasicMaterialParameters);
 
-    color: Color | string | number;
+    color: Color;
     linewidth: number;
     linecap: string;
     linejoin: string;
@@ -2629,7 +2629,7 @@ export interface LineDashedMaterialParameters extends MaterialParameters {
 export class LineDashedMaterial extends Material {
     constructor(parameters?: LineDashedMaterialParameters);
 
-    color: Color | string | number;
+    color: Color;
     linewidth: number;
     scale: number;
     dashSize: number;
@@ -2665,7 +2665,7 @@ export interface MeshBasicMaterialParameters extends MaterialParameters {
 export class MeshBasicMaterial extends Material {
     constructor(parameters?: MeshBasicMaterialParameters);
 
-    color: Color | string | number;
+    color: Color;
     map: Texture;
     aoMap: Texture;
     aoMapIntensity: number;
@@ -2728,8 +2728,8 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
 export class MeshLambertMaterial extends Material {
     constructor(parameters?: MeshLambertMaterialParameters);
 
-    color: Color | string | number;
-    emissive: Color | string | number;
+    color: Color;
+    emissive: Color;
     emissiveIntensity: number;
     emissiveMap: Texture;
     map: Texture;
@@ -2790,7 +2790,7 @@ export class MeshStandardMaterial extends Material {
     constructor(parameters?: MeshStandardMaterialParameters);
 
     defines: any;
-    color: Color | string | number;
+    color: Color;
     roughness: number;
     metalness: number;
     map: Texture;
@@ -2798,7 +2798,7 @@ export class MeshStandardMaterial extends Material {
     lightMapIntensity: number;
     aoMap: Texture;
     aoMapIntensity: number;
-    emissive: Color | string | number;
+    emissive: Color;
     emissiveIntensity: number;
     emissiveMap: Texture;
     bumpMap: Texture;
@@ -2880,15 +2880,15 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
 export class MeshPhongMaterial extends Material {
     constructor(parameters?: MeshPhongMaterialParameters);
 
-    color: Color | string | number;
-    specular: Color | string | number;
+    color: Color;
+    specular: Color;
     shininess: number;
     map: Texture;
     lightMap: Texture;
     lightMapIntensity: number;
     aoMap: Texture;
     aoMapIntensity: number;
-    emissive: Color | string | number;
+    emissive: Color;
     emissiveIntensity: number;
     emissiveMap: Texture;
     bumpMap: Texture;
@@ -2962,7 +2962,7 @@ export interface PointsMaterialParameters extends MaterialParameters {
 export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
 
-    color: Color | string | number;
+    color: Color;
     map: Texture;
     size: number;
     sizeAttenuation: boolean;
@@ -3038,7 +3038,7 @@ export interface SpriteMaterialParameters extends MaterialParameters {
 export class SpriteMaterial extends Material {
     constructor(parameters?: SpriteMaterialParameters);
 
-    color: Color | string | number;
+    color: Color;
     map: Texture;
     rotation: number;
 
