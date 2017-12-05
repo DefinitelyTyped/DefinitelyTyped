@@ -1770,7 +1770,7 @@ Interface describing options available for gettings the logs
      * You can specify aroundRadius=all if you want to compute the geo distance without filtering in a geo area
      * https://github.com/algolia/algoliasearch-client-js#aroundradius
      */
-    aroundRadius?: any;
+    aroundRadius?: number | 'all';
     /**
      * Control the precision of a geo search
      * default: null
@@ -1788,7 +1788,7 @@ Interface describing options available for gettings the logs
      * default: null
      * https://github.com/algolia/algoliasearch-client-js#insideboundingbox
      */
-    insideBoundingBox?: string;
+    insideBoundingBox?: number[][];
     /**
      * Selects how the query words are interpreted
      * default: 'prefixLast'
@@ -1803,7 +1803,7 @@ Interface describing options available for gettings the logs
      * defauly: ''
      * https://github.com/algolia/algoliasearch-client-js#insidepolygon
      */
-    insidePolygon?: string;
+    insidePolygon?: number[][];
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'
