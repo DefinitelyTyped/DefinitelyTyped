@@ -1,4 +1,5 @@
 import { Quill, Delta, DeltaStatic, RangeStatic, StringMap } from 'quill';
+import { Blot } from 'parchment/src/blot/abstract/blot';
 
 function test_quill() {
     const quillEditor = new Quill('#editor', {
@@ -8,6 +9,11 @@ function test_quill() {
         },
         theme: 'snow'
     });
+}
+
+function test_scroll() {
+    const quillEditor = new Quill('#editor');
+    const blot: Blot = quillEditor.scroll;
 }
 
 function test_deleteText() {
