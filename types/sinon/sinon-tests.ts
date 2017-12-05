@@ -129,6 +129,8 @@ function testSandbox() {
     sandbox.resetBehavior();
     sandbox.verify();
     sandbox.verifyAndRestore();
+    sandbox.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+    sandbox.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
 }
 
 function testPromises() {
