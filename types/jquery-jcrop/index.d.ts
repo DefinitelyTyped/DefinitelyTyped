@@ -1,4 +1,4 @@
-// Type definitions for jcrop
+// Type definitions for jcrop 2.0
 // Project: https://github.com/tapmodo/Jcrop/
 // Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 declare namespace JQuery.Jcrop {
-  export interface IJcropOptions {
+  export interface Options {
     /** Aspect ratio of w/h (e.g. 1 for square)  */
     aspectRatio?: number;
     /** Minimum width/height, use 0 for unbounded dimension; [width, height] */
@@ -17,7 +17,7 @@ declare namespace JQuery.Jcrop {
     minSelect?: [number, number];
     /** Set an initial selection area; [x, y, x2, y2] */
     setSelect?: [number, number, number, number];
-    
+
     /** Set color of background container @default 'black' */
     bgColor?: string;
     /** Opacity of outer image when cropping; between 0 and 1 @default .6 */
@@ -70,38 +70,38 @@ declare namespace JQuery.Jcrop {
 
   export type CardinalDirection = 'n' | 's' | 'e' | 'w';
   export type IntermediateDirection = 'nw' | 'ne' | 'se' | 'sw';
-  export type JCropEventHandler = (c: IJCropSelectionInfo) => void;
-  export interface IJCropSelectionInfo { 
-    x: number; 
-    y: number; 
-    x2: number; 
-    y2: number; 
-    w: number; 
-    h: number; 
+  export type JCropEventHandler = (c: SelectionInfo) => void;
+  export interface SelectionInfo {
+    x: number;
+    y: number;
+    x2: number;
+    y2: number;
+    w: number;
+    h: number;
   }
 
-  export interface IJcropApi {
+  export interface Api {
     /** Set selection, format: [ x,y,x2,y2 ] */
-    setSelect(selection: [number, number, number, number]): void;
+    setSelect: (selection: [number, number, number, number]) => void;
     /** Animate selection to new selection, format: [ x,y,x2,y2 ] */
-    animateTo(selection: [number, number, number, number]): void;
+    animateTo: (selection: [number, number, number, number]) => void;
     /** Release current selection */
-    release(): void;
+    release: () => void;
 
     /** Query current selection values (true size) */
-    tellSelect(): IJCropSelectionInfo;
+    tellSelect: () => SelectionInfo;
     /** Query current selection values (interface)  */
-    tellScaled(): IJCropSelectionInfo;
+    tellScaled: () => SelectionInfo;
 
     /** Disables Jcrop interactivity */
-    disable(): void;
+    disable: () => void;
     /** Enables Jcrop interactivity */
-    enable(): void;
+    enable: () => void;
     /** Remove Jcrop entirely */
-    remove(): void;
+    remove: () => void;
   }
 }
 
 declare interface JQuery {
-  Jcrop(options?: JQuery.Jcrop.IJcropOptions, callback?: (this: JQuery.Jcrop.IJcropApi) => void): JQuery;
+  Jcrop(options?: JQuery.Jcrop.Options, callback?: (this: JQuery.Jcrop.Api) => void): JQuery;
 }
