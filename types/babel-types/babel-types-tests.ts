@@ -71,14 +71,14 @@ t.tSDeclareMethod([t.decorator(exp)], exp, t.noop(), [id]);
 t.tSEnumDeclaration(id, [t.tSEnumMember(id)]);
 t.tSEnumMember(id);
 const expo = t.tSExportAssignment(exp);
-// t.tSExpressionWithTypeArgumentsc - TODO: How to test t.tSQualifiedName?
+t.tSExpressionWithTypeArguments(id);
 const ext = t.tSExternalModuleReference(t.stringLiteral());
 t.tSFunctionType();
 t.tSImportEqualsDeclaration(id, ext);
 const sig = t.tSIndexSignature([id]);
 t.tSIndexedAccessType(any, any);
 t.tSInterfaceBody([sig]);
-// t.tSInterfaceDeclaration - TODO: How to test t.tSQualifiedName?
+t.tSInterfaceDeclaration(id, null, null, t.tSInterfaceBody([sig]));
 t.tSIntersectionType([any]);
 t.tSLiteralType(t.stringLiteral("a"));
 t.tSMappedType(t.typeParameter());
@@ -94,7 +94,7 @@ t.tSObjectKeyword();
 t.tSParameterProperty(id);
 t.tSParenthesizedType(any);
 t.tSPropertySignature(id);
-// t.tSQualifiedName - TODO: How to test t.tSQualifiedName?
+t.tSQualifiedName(id, id);
 t.tSStringKeyword();
 t.tSSymbolKeyword();
 t.tSThisType();
@@ -108,8 +108,8 @@ const param = t.tSTypeParameter();
 t.tSTypeParameterDeclaration([param]);
 t.tSTypeParameterInstantiation([any]);
 t.tSTypePredicate(id, t.tSTypeAnnotation(any));
-// t.tSTypeQuery - TODO: How to test t.tSQualifiedName?
-// t.tSTypeReference - TODO: How to test t.tSQualifiedName?
+t.tSTypeQuery(id);
+t.tSTypeReference(id);
 t.tSUndefinedKeyword();
 t.tSUnionType([any]);
 t.tSVoidKeyword();

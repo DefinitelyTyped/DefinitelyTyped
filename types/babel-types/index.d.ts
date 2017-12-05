@@ -1301,7 +1301,7 @@ export type TSType = TSAnyKeyword | TSArrayType | TSBooleanKeyword | TSConstruct
     | TSThisType | TSTupleType | TSTypeLiteral | TSTypeOperator | TSTypePredicate | TSTypeQuery | TSTypeReference
     | TSUndefinedKeyword | TSUnionType | TSVoidKeyword;
 
-export type TSEntityName = TSQualifiedName;
+export type TSEntityName = Identifier | TSQualifiedName;
 
 export type TSTypeElement = TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSIndexSignature
     | TSMethodSignature | TSPropertySignature;
@@ -1453,10 +1453,17 @@ export function tSBooleanKeyword(): TSBooleanKeyword;
 export function tSCallSignatureDeclaration(typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSCallSignatureDeclaration;
 export function tSConstructSignatureDeclaration(typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSTypeElement;
 export function tSConstructorType(typeParameters?: TypeParameterDeclaration, typeAnnotation?: TSTypeAnnotation): TSConstructorType;
-export function tSDeclareFunction(id: Identifier | undefined | null, typeParameters: TypeParameterDeclaration | Noop | undefined | null,
-    params: LVal[], returnType: TypeAnnotation | TSTypeAnnotation | Noop | undefined | null): TSDeclareFunction;
-export function tSDeclareMethod(decorators: Decorator[] | undefined | null, key: Expression, typeParameters: TypeParameterDeclaration | Noop | undefined | null,
-    params: LVal[], returnType?: TypeAnnotation | TSTypeAnnotation | Noop): TSDeclareMethod;
+export function tSDeclareFunction(
+  id: Identifier | undefined | null,
+  typeParameters: TypeParameterDeclaration | Noop | undefined | null,
+  params: LVal[],
+  returnType: TypeAnnotation | TSTypeAnnotation | Noop | undefined | null): TSDeclareFunction;
+export function tSDeclareMethod(
+  decorators: Decorator[] | undefined | null,
+  key: Expression,
+  typeParameters: TypeParameterDeclaration | Noop | undefined | null,
+  params: LVal[],
+  returnType?: TypeAnnotation | TSTypeAnnotation | Noop): TSDeclareMethod;
 export function tSEnumDeclaration(id: Identifier, members: TSEnumMember[]): TSEnumDeclaration;
 export function tSEnumMember(id: Identifier | StringLiteral, initializer?: Expression): TSEnumMember;
 export function tSExportAssignment(expression: Expression): TSExportAssignment;
@@ -1467,8 +1474,11 @@ export function tSImportEqualsDeclaration(id: Identifier, moduleReference: TSEnt
 export function tSIndexSignature(parameters: Identifier[], typeAnnotation?: TSTypeAnnotation): TSIndexSignature;
 export function tSIndexedAccessType(objectType: TSType, indexType: TSType): TSIndexedAccessType;
 export function tSInterfaceBody(body: TSTypeElement[]): TSInterfaceBody;
-export function tSInterfaceDeclaration(id: Identifier, typeParameters: TypeParameterDeclaration | undefined | null, extends_: TSExpressionWithTypeArguments[] | undefined | null,
-    body: TSInterfaceBody): TSInterfaceDeclaration;
+export function tSInterfaceDeclaration(
+  id: Identifier,
+  typeParameters: TypeParameterDeclaration | undefined | null,
+  extends_: TSExpressionWithTypeArguments[] | undefined | null,
+  body: TSInterfaceBody): TSInterfaceDeclaration;
 export function tSIntersectionType(types: TSType[]): TSIntersectionType;
 export function tSLiteralType(literal: NumericLiteral | StringLiteral | BooleanLiteral): TSLiteralType;
 export function tSMappedType(typeParameter: TypeParameter, typeAnnotation?: TSType): TSMappedType;
