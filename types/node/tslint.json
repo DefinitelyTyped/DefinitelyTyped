@@ -21,7 +21,6 @@
     "prefer-const": false,
     "prefer-method-signature": false,
     "strict-export-declare-modifiers": false,
-    "unified-signatures": false,
-    "void-return": false
+    "unified-signatures": false
   }
 }
