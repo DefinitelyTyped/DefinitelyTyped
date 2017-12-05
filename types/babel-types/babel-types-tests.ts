@@ -60,7 +60,7 @@ const id = t.identifier("id");
 const tparam = t.typeParameterDeclaration([id]);
 
 const any = t.tSAnyKeyword();
-t.tSArrayType(any)
+t.tSArrayType(any);
 t.tSAsExpression(exp, any);
 t.tSBooleanKeyword();
 t.tSCallSignatureDeclaration(tparam);
@@ -80,7 +80,7 @@ t.tSIndexedAccessType(any, any);
 t.tSInterfaceBody([sig]);
 // t.tSInterfaceDeclaration - TODO: How to test t.tSQualifiedName?
 t.tSIntersectionType([any]);
-t.isTSLiteralType(t.stringLiteral("a"));
+t.tSLiteralType(t.stringLiteral("a"));
 t.tSMappedType(t.typeParameter());
 t.tSMethodSignature(id);
 const block = t.tSModuleBlock([expo]);
