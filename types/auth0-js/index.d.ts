@@ -275,7 +275,7 @@ export class WebAuth {
      * @param options options used in {@link authorize} call
      * @param callback: any(err, token_payload)
      */
-    checkSession(options: AuthorizeOptions, callback: Auth0Callback<any>): void;
+    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -760,4 +760,11 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+}
+
+export interface CheckSessionOptions extends AuthorizeOptions {
+	/**
+	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+	 */
+	usePostMessage?: boolean;
 }
