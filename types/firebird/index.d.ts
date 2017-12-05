@@ -29,10 +29,6 @@ declare module 'firebird' {
          * Connects you to database,
          *
          * @param database a database name in Firebird notation, i.e. <hostname>:<path to database file | alias>
-         * @param username user name
-         * @param pasword
-         * @param role
-         *
          * @throws raises exception on error (try to catch it).
          */
         connectSync(db: string, user: string, pass: string, role: string): void;
@@ -41,9 +37,6 @@ declare module 'firebird' {
          * Asynchronously connects you to Database.
          *
          * @param database a database name in Firebird notation, i.e. <hostname>:<path to database file | alias>
-         * @param username user name
-         * @param pasword
-         * @param role
          * @param callback function(err), where err is error object in case of error.
          */
         connect(db: string, user: string, pass: string, role: string, callback: (err: Error | null) => void): void;
@@ -148,7 +141,8 @@ declare module 'firebird' {
          */
         start(callback: (err: Error | null) => void): void;
 
-        /**Synchronously prepares SQL statement and returns FBStatement object.
+        /**
+         * Synchronously prepares SQL statement and returns FBStatement object.
          *
          * @param sql an SQL query to prepare.
          */
@@ -327,7 +321,7 @@ declare module 'firebird' {
          * Synchronously prepares SQL statement
          *
          * @param sql an SQL query to prepare.
-         * @returns @see FBStatement object in context of this transaction.
+         * @returns object in context of this transaction.
          */
         prepareSync(sql: string): FBStatement;
 
@@ -357,9 +351,6 @@ declare module 'firebird' {
 
         /**
          * Same as @see execSync but executes statement in context of given @see Transaction obejct.
-         *
-         * @param transaction
-         * @param params
          */
         execInTransSync(transaction: Transaction, ...params: DataType[]): void;
 
@@ -377,9 +368,6 @@ declare module 'firebird' {
 
          /**
           * Same as @see exec but executes statement in context of given @see Transaction obejct.
-          *
-          * @param transaction
-          * @param params
           */
          execInTrans(transaction: Transaction, ...params: DataType[]): void;
     }
@@ -457,7 +445,6 @@ declare module 'firebird' {
      */
     class Stream extends stream.Stream {
         constructor(blob: FBBlob);
-        /* tslint:disable */
 
         /* NodeJS.ReadStream */
         readable: boolean;
@@ -474,7 +461,6 @@ declare module 'firebird' {
         end(str: string, encoding?: string, cb?: Function): void;
         destroy(error?: Error): void;
 
-        /* tslint:enable */
         check_destroyed(): void;
     }
 }

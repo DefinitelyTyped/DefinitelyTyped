@@ -1,5 +1,5 @@
 import P = require('parsimmon');
-import { Parser, Mark, Result, Index } from "parsimmon";
+import { Parser, Mark, Result, Index, Reply } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -65,9 +65,10 @@ if (fooResult.status === true) {
 }
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
+let fooReply: Reply<Foo>;
 
-fooResult = P.makeSuccess(0, foo);
-fooResult = P.makeFailure(0, '');
+fooReply = P.makeSuccess(0, foo);
+fooReply = P.makeFailure(0, '');
 
 fooPar = P((input: string, i: number) => P.makeSuccess(0, foo));
 fooPar = P.Parser((input: string, i: number) => P.makeSuccess(0, foo));

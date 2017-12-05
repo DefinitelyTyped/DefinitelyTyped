@@ -5,6 +5,7 @@
 //                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
+//                 Mariano Cortesi <https://github.com/dante-101>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -146,6 +147,9 @@ export interface DbCreateOptions {
     promiseLibrary?: Object;
     // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
     readConcern?: { level?: Object };
+    // Sets a cap on how many operations the driver will buffer up before giving up on getting a
+    // working connection, default is -1 which is unlimited.
+    bufferMaxEntries?: number;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
@@ -265,7 +269,7 @@ export class Db extends EventEmitter {
     indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
     indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
-    listCollections(filter: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
     logout(callback: MongoCallback<any>): void;
     logout(options?: { dbName?: string }): Promise<any>;

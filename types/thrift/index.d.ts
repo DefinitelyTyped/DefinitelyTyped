@@ -10,6 +10,7 @@
 
 import * as net from 'net';
 import * as http from 'http';
+import * as https from 'https';
 import * as tls from 'tls';
 
 // Thrift re-exports node-int64 and Q
@@ -249,7 +250,7 @@ export interface ConnectOptions {
     retry_max_delay?: number;
     connect_timeout?: number;
     timeout?: number;
-    nodeOptions?: http.ClientRequestArgs;
+    nodeOptions?: http.RequestOptions | https.RequestOptions;
 }
 
 export interface WSConnectOptions {

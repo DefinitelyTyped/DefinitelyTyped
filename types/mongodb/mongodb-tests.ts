@@ -3,7 +3,7 @@ import mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 var format  = require('util').format;
-let options = {
+let options: mongodb.MongoClientOptions = {
     authSource           : ' ',
     w                    : 1,
     wtimeout             : 300,

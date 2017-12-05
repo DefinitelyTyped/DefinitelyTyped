@@ -31,17 +31,13 @@ declare class Nedb {
      * Ensure an index is kept for this field. Same parameters as lib/indexes
      * For now this function is synchronous, we need to test how much time it takes
      * We use an async API for consistency with the rest of the code
-     * @param {String} options.fieldName
-     * @param {Boolean} options.unique
-     * @param {Boolean} options.sparse
-     * @param {Function} cb Optional callback, signature: err
+     * @param cb Optional callback, signature: err
      */
     ensureIndex(options: Nedb.EnsureIndexOptions, cb?: (err: Error) => void): void;
 
     /**
      * Remove an index
-     * @param {String} fieldName
-     * @param {Function} cb Optional callback, signature: err
+     * @param cb Optional callback, signature: err
      */
     removeIndex(fieldName: string, cb?: (err: Error) => void): void;
 
@@ -76,13 +72,13 @@ declare class Nedb {
 
     /**
      * Insert a new document
-     * @param {Function} cb Optional callback, signature: err, insertedDoc
+     * @param cb Optional callback, signature: err, insertedDoc
      */
     insert<T>(newDoc: T, cb?: (err: Error, document: T) => void): void;
 
     /**
      * Count all documents matching the query
-     * @param {any} query MongoDB-style query
+     * @param query MongoDB-style query
      */
     count(query: any, callback: (err: Error, n: number) => void): void;
     count(query: any): Nedb.CursorCount;
@@ -90,8 +86,8 @@ declare class Nedb {
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
-     * @param {any} query MongoDB-style query
-     * @param {any} projection MongoDB-style projection
+     * @param query MongoDB-style query
+     * @param projection MongoDB-style projection
      */
     find<T>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
     find<T>(query: any, projection?: T): Nedb.Cursor<T>;
@@ -105,26 +101,24 @@ declare class Nedb {
 
     /**
      * Find one document matching the query
-     * @param {any} query MongoDB-style query
-     * @param {any} projection MongoDB-style projection
+     * @param query MongoDB-style query
+     * @param projection MongoDB-style projection
      */
     findOne<T>(query: any, projection: T, callback: (err: Error, document: T) => void): void;
 
     /**
      * Find one document matching the query
-     * @param {any} query MongoDB-style query
+     * @param query MongoDB-style query
      */
     findOne<T>(query: any, callback: (err: Error, document: T) => void): void;
 
     /**
      * Update all docs matching query v1.7.4 and prior signature.
      * For now, very naive implementation (recalculating the whole database)
-     * @param {any} query
-     * @param {any} updateQuery
-     * @param {Object} options Optional options
+     * @param options Optional options
      *                 options.multi If true, can update multiple documents (defaults to false)
      *                 options.upsert If true, document is inserted if the query doesn't match anything
-     * @param {Function} cb Optional callback, signature: err,
+     * @param cb Optional callback, signature: err,
      *                                                    numReplaced,
      *                                                    upsert (set to true if the update was in fact an upsert)
      *
@@ -135,12 +129,10 @@ declare class Nedb {
     /**
      * Update all docs matching query v1.8 signature.
      * For now, very naive implementation (recalculating the whole database)
-     * @param {any} query
-     * @param {any} updateQuery
-     * @param {Object} options Optional options
+     * @param options Optional options
      *                 options.multi If true, can update multiple documents (defaults to false)
      *                 options.upsert If true, document is inserted if the query doesn't match anything
-     * @param {Function} cb Optional callback, signature: err,
+     * @param cb Optional callback, signature: err,
      *                                                    numAffected,
      *                                                    affectedDocuments (when returnUpdatedDocs is set to true), obj or array
      *                                                    upsert (set to true if the update was in fact an upsert)
@@ -152,10 +144,9 @@ declare class Nedb {
     /**
      * Remove all docs matching the query
      * For now very naive implementation (similar to update)
-     * @param {Object} query
-     * @param {Object} options Optional options
+     * @param options Optional options
      *                 options.multi If true, can update multiple documents (defaults to false)
-     * @param {Function} cb Optional callback, signature: err, numRemoved
+     * @param cb Optional callback, signature: err, numRemoved
      *
      * @api private Use Datastore.remove which has the same signature
      */

@@ -684,7 +684,7 @@ interface JQuery {
 }
 
 interface JQueryStatic {
-    (element: string | Element | Document | JQuery | ArrayLike<Element>): JQLite;
+    (element: string | Element | Document | JQuery | ArrayLike<Element> | (() => void)): JQLite;
 }
 
 /**

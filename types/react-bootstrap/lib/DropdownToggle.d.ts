@@ -9,6 +9,7 @@ declare namespace DropdownToggle {
         useAnchor?: boolean;
         bsClass?:string; // Added since v0.30.0
         bsStyle?:string;
+        bsSize?:string;
     }
 }
 declare class DropdownToggle extends React.Component<DropdownToggle.DropdownToggleProps> { }

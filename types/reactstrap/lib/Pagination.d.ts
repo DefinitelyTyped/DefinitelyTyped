@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface PaginationProps {
   className?: string;
   cssModule?: CSSModule;
   size?: string;
 }
 
-declare var Pagination: React.StatelessComponent<Props>;
+declare const Pagination: React.StatelessComponent<PaginationProps>;
 export default Pagination;
