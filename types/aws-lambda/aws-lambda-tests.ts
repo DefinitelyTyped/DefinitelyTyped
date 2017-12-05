@@ -315,6 +315,131 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
     cb(null, authResponse);
 }
 
+/* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
+var CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+  "Records": [
+    {
+      "cf": {
+        "config": {
+          "distributionId": "EDFDVBD6EXAMPLE",
+          "requestId": "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        "request": {
+          "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          "method": "GET",
+          "uri": "/picture.jpg",
+          "querystring": "size=large",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                "key": "User-Agent",
+                "value": "curl/7.51.0"
+              }
+            ]
+          },
+          "origin": {
+            "custom": {
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "example.com",
+              "keepaliveTimeout": 5,
+              "path": "/custom_path",
+              "port": 443,
+              "protocol": "https",
+              "readTimeout": 5,
+              "sslProtocols": [
+                "TLSv1",
+                "TLSv1.1"
+              ]
+            },
+            "s3": {
+              "authMethod": "origin-access-identity",
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "my-bucket.s3.amazonaws.com",
+              "path": "/s3_path",
+              "region": "us-east-1"
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+var CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
+    "Records": [
+        {
+            "cf": {
+                "config": {
+                    "distributionId": "EDFDVBD6EXAMPLE",
+                    "requestId": "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
+                },
+                "request": {
+                    "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+                    "method": "GET",
+                    "uri": "/picture.jpg",
+                    "querystring": "size=large",
+                    "headers": {
+                        "host": [
+                            {
+                                "key": "Host",
+                                "value": "d111111abcdef8.cloudfront.net"
+                            }
+                        ],
+                        "user-agent": [
+                            {
+                                "key": "User-Agent",
+                                "value": "curl/7.18.1"
+                            }
+                        ]
+                    }
+                },
+                "response": {
+                    "status": "200",
+                    "statusDescription": "OK",
+                    "headers": {
+                        "server": [
+                            {
+                                "key": "Server",
+                                "value": "MyCustomOrigin"
+                            }
+                        ],
+                        "set-cookie": [
+                            {
+                                "key": "Set-Cookie",
+                                "value": "theme=light"
+                            },
+                            {
+                                "key": "Set-Cookie",
+                                "value": "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+};
+
 /* Compatibility functions */
 context.done();
 context.done(error);
