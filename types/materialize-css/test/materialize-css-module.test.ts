@@ -158,3 +158,15 @@ fab.options;
 fab.el;
 // $ExpectType boolean
 fab.isOpen;
+
+// Toasts
+// $ExpectType Toast
+const toast = materialize.toast({ html: 'I am a toast!' });
+// $ExpectType ToastOptions
+toast.options;
+// $ExpectType Element
+fab.el;
+// $ExpectType void
+toast.dismiss();
+// $ExpectType void
+materialize.Toast.dismissAll();

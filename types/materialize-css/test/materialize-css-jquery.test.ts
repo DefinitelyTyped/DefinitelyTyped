@@ -33,3 +33,5 @@ $(".whatever").floatingActionButton();
 $(".whatever").floatingActionButton({ direction: "left" });
 $(".whatever").floatingActionButton("open");
 $(".whatever").floatingActionButton("destroy");
+
+// Toast can not be invoked using jQuery.
