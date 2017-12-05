@@ -6,7 +6,7 @@
 /// <reference types="jquery" />
 
 declare namespace JQuery.Jcrop {
-  export interface Options {
+  interface Options {
     /** Aspect ratio of w/h (e.g. 1 for square)  */
     aspectRatio?: number;
     /** Minimum width/height, use 0 for unbounded dimension; [width, height] */
@@ -67,10 +67,10 @@ declare namespace JQuery.Jcrop {
     shade?: boolean | null;
   }
 
-  export type CardinalDirection = 'n' | 's' | 'e' | 'w';
-  export type IntermediateDirection = 'nw' | 'ne' | 'se' | 'sw';
-  export type JCropEventHandler = (c: SelectionInfo) => void;
-  export interface SelectionInfo {
+  type CardinalDirection = 'n' | 's' | 'e' | 'w';
+  type IntermediateDirection = 'nw' | 'ne' | 'se' | 'sw';
+  type JCropEventHandler = (c: SelectionInfo) => void;
+  interface SelectionInfo {
     x: number;
     y: number;
     x2: number;
@@ -79,7 +79,7 @@ declare namespace JQuery.Jcrop {
     h: number;
   }
 
-  export interface Api {
+  interface Api {
     /** Set selection, format: [ x,y,x2,y2 ] */
     setSelect: (selection: [number, number, number, number]) => void;
     /** Animate selection to new selection, format: [ x,y,x2,y2 ] */
