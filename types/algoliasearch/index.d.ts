@@ -49,6 +49,10 @@ declare namespace algoliasearch {
      */
     params: string;
   }
+  interface AlgoliaMultiResponse {
+    { 
+      results: AlgoliaResponse[] }
+  }
   /*
   Interface for the algolia client object
   */
@@ -72,7 +76,7 @@ declare namespace algoliasearch {
         query: string;
         params: AlgoliaQueryParameters;
       },
-      cb: (err: Error, res: any) => void
+      cb: (err: Error, res: AlgoliaMultiResponse) => void
     ): void;
     /**
      * Query on multiple index
@@ -84,7 +88,7 @@ declare namespace algoliasearch {
       indexName: string;
       query: string;
       params: AlgoliaQueryParameters;
-    }): Promise<AlgoliaResponse>;
+    }): Promise<AlgoliaMultiResponse>;
     /**
      * clear browser cache
      * https://github.com/algolia/algoliasearch-client-js#cache
@@ -783,7 +787,7 @@ declare namespace algoliasearch {
      * @param err() error callback
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(params: AlgoliaQueryParameters): Promise<any>;
+    search(params: AlgoliaQueryParameters): Promise<AlgoliaResponse>;
     /**
      * Search in an index
      * @param params query parameter
@@ -793,7 +797,7 @@ declare namespace algoliasearch {
      */
     search(
       params: AlgoliaQueryParameters,
-      cb: (err: Error, res: any) => void
+      cb: (err: Error, res: AlgoliaResponse) => void
     ): void;
     /**
      * Search in an index
