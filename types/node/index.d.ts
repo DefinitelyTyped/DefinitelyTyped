@@ -326,10 +326,10 @@ declare namespace NodeJS {
         getLineNumber: Function; // if this function was defined in a script returns the current line number
         getColumnNumber: Function; // if this function was defined in a script returns the current column number
         getEvalOrigin: Function; // if this function was created using a call to eval returns a CallSite object representing the location where eval was called
-        isToplevel: boolean; // is this a toplevel invocation, that is, is this the global object?
-        isEval: boolean; // does this call take place in code defined by a call to eval?
-        isNative: boolean; // is this call in native V8 code?
-        isConstructor: boolean; // is this a constructor call?
+        isToplevel: Function; // is this a toplevel invocation, that is, is this the global object?
+        isEval: Function; // does this call take place in code defined by a call to eval?
+        isNative: Function; // is this call in native V8 code?
+        isConstructor: Function; // is this a constructor call?
     }
 
     export interface ErrnoException extends Error {
