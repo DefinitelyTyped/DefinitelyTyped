@@ -495,6 +495,8 @@ declare namespace Sinon {
         usingPromise(promiseLibrary: any): SinonSandbox;
         verify(): void;
         verifyAndRestore(): void;
+        createStubInstance(constructor: any): any;
+        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
     }
 
     interface SinonSandboxStatic {
