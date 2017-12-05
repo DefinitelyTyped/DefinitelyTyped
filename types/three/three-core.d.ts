@@ -1369,6 +1369,8 @@ export class Geometry extends EventDispatcher {
      */
     mergeVertices(): number;
 
+    setFromPoints(points: Array<Vector2> | Array<Vector3>): this;
+
     sortFacesByMaterialIndex(): void;
 
     toJSON(): any;

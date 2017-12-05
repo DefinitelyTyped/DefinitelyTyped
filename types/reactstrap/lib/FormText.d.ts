@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface FormTextProps {
   inline?: boolean;
   tag?: React.ReactType;
   color?: string;
@@ -8,5 +8,5 @@ interface Props {
   cssModule?: CSSModule;
 }
 
-declare var FormText: React.StatelessComponent<Props>;
+declare const FormText: React.StatelessComponent<FormTextProps>;
 export default FormText;
