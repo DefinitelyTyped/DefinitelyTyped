@@ -50,8 +50,7 @@ declare namespace algoliasearch {
     params: string;
   }
   interface AlgoliaMultiResponse {
-    { 
-      results: AlgoliaResponse[] }
+    results: AlgoliaResponse[];
   }
   /*
   Interface for the algolia client object
@@ -323,8 +322,8 @@ declare namespace algoliasearch {
     getLogs(options: LogsOptions): Promise<any>;
   }
   /**
- * Interface for the index algolia object
- */
+   * Interface for the index algolia object
+   */
   interface AlgoliaIndex {
     /**
      * Gets a specific object
@@ -809,12 +808,11 @@ declare namespace algoliasearch {
     searchForFacetValues({
       facetName,
       facetQuery,
-      ...qp,
+      ...qp
     }: {
       facetName: string;
       facetQuery: string;
-    } & AlgoliaQueryParameters
-    ): Promise<any>;
+    } & AlgoliaQueryParameters): Promise<any>;
     /**
      * Search in an index
      * @param params query parameter
@@ -826,7 +824,7 @@ declare namespace algoliasearch {
       {
         facetName,
         facetQuery,
-        ...qp,
+        ...qp
       }: {
         facetName: string;
         facetQuery: string;
@@ -1075,21 +1073,21 @@ Interface describing options available for gettings the logs
     type?: string;
   }
   /**
- * Describe the action object used for batch operation
- */
+   * Describe the action object used for batch operation
+   */
   interface AlgoliaAction {
     /**
      * Type of the batch action
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
     action:
-      | 'addObject'
-      | 'updateObject'
-      | 'partialUpdateObject'
-      | 'partialUpdateObjectNoCreate'
-      | 'deleteObject'
-      | 'delete'
-      | 'clear';
+      | "addObject"
+      | "updateObject"
+      | "partialUpdateObject"
+      | "partialUpdateObjectNoCreate"
+      | "deleteObject"
+      | "delete"
+      | "clear";
     /**
      * Name of the index where the bact will be performed
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
@@ -1102,8 +1100,8 @@ Interface describing options available for gettings the logs
     body: {};
   }
   /**
- * Describes the option used when creating user key
- */
+   * Describes the option used when creating user key
+   */
   interface AlgoliaApiKeyOptions {
     /**
      * Add a validity period. The key will be valid for a specific period of time (in seconds).
@@ -1247,7 +1245,7 @@ Interface describing options available for gettings the logs
      * Type of synonym
      * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
      */
-    type: 'synonym' | 'oneWaySynonym';
+    type: "synonym" | "oneWaySynonym";
     /**
      * Values used for the synonym
      * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
@@ -1275,7 +1273,7 @@ Interface describing options available for gettings the logs
       /**
        * Whether the pattern must match the beginning or the end of the query string, or both, or none.
        */
-      anchoring: 'is' | 'startsWith' | 'endsWith' | 'contains';
+      anchoring: "is" | "startsWith" | "endsWith" | "contains";
       /**
        * Rule context (format: [A-Za-z0-9_-]+).
        * When specified, the rule is contextual and applies only when the same context is specified
@@ -1368,8 +1366,8 @@ Interface describing options available for gettings the logs
   }
 
   /**
- * Describes the settings available for configure your index
- */
+   * Describes the settings available for configure your index
+   */
   interface AlgoliaIndexSettings {
     /**
      * The list of attributes you want index
@@ -1774,7 +1772,7 @@ Interface describing options available for gettings the logs
      * You can specify aroundRadius=all if you want to compute the geo distance without filtering in a geo area
      * https://github.com/algolia/algoliasearch-client-js#aroundradius
      */
-    aroundRadius?: number | 'all';
+    aroundRadius?: number | "all";
     /**
      * Control the precision of a geo search
      * default: null
