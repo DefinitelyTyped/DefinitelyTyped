@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 jQuery(function($) {
   $('#target').Jcrop();
 });
