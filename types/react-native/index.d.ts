@@ -8220,7 +8220,7 @@ export interface ARTShapeProps {
 }
 
 export interface ARTSurfaceProps {
-    style: StyleProp<ViewStyle>;
+    style: StyleProp<ViewStyle> | StyleProp<ViewStyle>[];
     width: number;
     height: number;
 }
