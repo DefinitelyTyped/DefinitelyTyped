@@ -15,6 +15,7 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -105,7 +106,7 @@ declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
+/* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -4881,7 +4882,7 @@ declare module "tls" {
         servername?: string;
         path?: string;
         ALPNProtocols?: Array<string | Buffer>;
-        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
+        checkServerIdentity?: typeof checkServerIdentity;
         secureProtocol?: string;
         secureContext?: Object;
         session?: Buffer;
@@ -4984,6 +4985,14 @@ declare module "tls" {
         context: any;
     }
 
+    /*
+     * Verifies the certificate `cert` is issued to host `host`.
+     * @host The hostname to verify the certificate against
+     * @cert PeerCertificate representing the peer's certificate
+     *
+     * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
+     */
+    export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
