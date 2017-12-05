@@ -1549,7 +1549,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Hides cursor. */
         hideCursor(): void;
         /** You can force cursor to appear at specified cateogry or date. */
-        showCursorAt(category: string): void;
+        showCursorAt(category: string | Date): void;
         /** Adds event listener of the type "changed" to the object.
             @param type Always "changed".
             @param handler Dispatched when cursor position is changed. "index" is a series index over which chart cursors currently is. "zooming" specifies if user is currently zooming (is selecting) the chart. mostCloseGraph property is set only when oneBalloonOnly is set to true.*/
