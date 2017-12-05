@@ -140,3 +140,21 @@ tooltip.options;
 tooltip.el;
 // $ExpectType boolean
 tooltip.isOpen;
+
+// FloatingActionButton
+// $ExpectType FloatingActionButton
+new materialize.FloatingActionButton(elem);
+// $ExpectType FloatingActionButton
+const fab = new materialize.FloatingActionButton(elem, {
+    direction: 'left'
+});
+// $ExpectType void
+fab.open();
+// $ExpectType void
+fab.destroy();
+// $ExpectType FloatingActionButtonOptions
+fab.options;
+// $ExpectType Element
+fab.el;
+// $ExpectType boolean
+fab.isOpen;

@@ -28,3 +28,8 @@ $(".whatever").tooltip();
 $(".whatever").tooltip({ html: "<img/>" });
 $(".whatever").tooltip("open");
 $(".whatever").tooltip("destroy");
+
+$(".whatever").floatingActionButton();
+$(".whatever").floatingActionButton({ direction: "left" });
+$(".whatever").floatingActionButton("open");
+$(".whatever").floatingActionButton("destroy");
