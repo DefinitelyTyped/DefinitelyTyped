@@ -318,7 +318,7 @@ declare namespace NodeJS {
 
     export interface CallSite {
         getThis: Function; // returns the value of this
-        getTypeName: Function; // returns the type of this as a string. This is the name of the function stored in the constructor field of this, if available, otherwise the object's [[Class]] internal property.
+        getTypeName(): string; // returns the type of this as a string. This is the name of the function stored in the constructor field of this, if available, otherwise the object's [[Class]] internal property.
         getFunction: Function; // returns the current function
         getFunctionName: Function; // returns the name of the current function, typically its name property. If a name property is not available an attempt will be made to try to infer a name from the function's context.
         getMethodName: Function; // returns the name of the property of this or one of its prototypes that holds the current function
