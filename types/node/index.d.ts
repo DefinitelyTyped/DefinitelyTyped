@@ -50,7 +50,7 @@ interface ErrorConstructor {
     captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
 
     // See https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
-    prepareStackTrace?: (err: Error, stackTraces: NodeJS.StackFrame[]) => any;
+    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
 
     stackTraceLimit: number;
 }
@@ -316,7 +316,7 @@ declare namespace NodeJS {
         new(stdout: WritableStream, stderr?: WritableStream): Console;
     }
 
-    export interface StackFrame {
+    export interface CallSite {
         getThis: Function; // returns the value of this
         getTypeName: Function; // returns the type of this as a string. This is the name of the function stored in the constructor field of this, if available, otherwise the object's [[Class]] internal property.
         getFunction: Function; // returns the current function

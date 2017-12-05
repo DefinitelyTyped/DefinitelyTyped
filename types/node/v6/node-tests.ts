@@ -1830,7 +1830,7 @@ namespace errors_tests {
         Error.captureStackTrace(myObject);
     }
     {
-        let frames: NodeJS.StackFrame[] = [];
+        let frames: NodeJS.CallSite[] = [];
         Error.prepareStackTrace(new Error(), frames);
     }
 }
