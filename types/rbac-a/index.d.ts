@@ -40,7 +40,7 @@ export class Provider {
      * The method mey return a promise resolving with the
      * expected return value.
      */
-    getPermission(role: any): string[] | Promise<string[]>;
+    getPermission(role: string): string[] | Promise<string[]>;
     /**
      * Return all attributes for the specified role. The return value must
      * be an array. Return an empty array if role is missing or if no
@@ -49,7 +49,7 @@ export class Provider {
      * The method mey return a promise resolving with the
      * expected return value.
      */
-    getAttributes(role: any): string[] | Promise<string[]>;
+    getAttributes(role: string): string[] | Promise<string[]>;
 }
 
 export type AttributeFunction = (user: any, role: string, params: object) => any;
