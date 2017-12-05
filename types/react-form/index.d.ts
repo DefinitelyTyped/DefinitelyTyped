@@ -1,4 +1,4 @@
-// Type definitions for react-form 2.12.1
+// Type definitions for react-form 2.12
 // Project: https://github.com/tannerlinsley/react-form#readme
 // Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,9 +14,9 @@ export interface Nested<T> {
 }
 export type FormValues = Nested<FormValue>;
 export type Touched = Nested<boolean>;
-export type FormErrors = {
-    [key: string]: FormError
-};
+export interface FormErrors {
+    [key: string]: FormError;
+}
 export type NestedErrors = Nested<FormErrors>;
 export type RenderReturn = JSX.Element | false | null;
 
@@ -28,7 +28,7 @@ export interface FormState {
     dirty?: boolean;
 }
 
-export interface FormProps{
+export interface FormProps {
     dontValidateOnMount?: boolean;
     defaultValues?: FormValues;
     onSubmit?(values: FormValues, submissionEvent: React.SyntheticEvent<any>, formApi: FormApi): void;
@@ -45,7 +45,7 @@ export interface FormProps{
     dontPreventDefault?: boolean;
 }
 
-export interface FormApi{
+export interface FormApi {
     // State
     values: FormValues;
     touched: Touched;
@@ -55,9 +55,9 @@ export interface FormApi{
     submits: number;
     submitted: boolean;
     asyncValidations: number;
-    validating: {[field: string]: boolean}
+    validating: {[field: string]: boolean};
     validationFailures: number;
-    validationFailed: {[field: string]: boolean}
+    validationFailed: {[field: string]: boolean};
 
     // Methods
     submitForm(event: React.SyntheticEvent<any>): void;
@@ -76,20 +76,19 @@ export interface FormApi{
     setFormState(state: FormState): void;
 }
 
-export type ValidateValuesFunction = (values: FormValues) => FormErrors
+export type ValidateValuesFunction = (values: FormValues) => FormErrors;
 
 export interface FormFunctionProps extends FormProps, FormState, FormApi {}
 
-export type FormContext = {
-    formApi: FormApi
+export interface FormContext {
+    formApi: FormApi;
 }
 
-export class Form 
+export class Form
     extends React.Component<
-        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn },
-        {}
+        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn }
     >
-    implements React.ChildContextProvider<FormContext>{
+    implements React.ChildContextProvider<FormContext> {
         static defaultProps: FormProps;
         static childContextTypes: {
             formApi: React.Validator<any>
@@ -104,13 +103,13 @@ export class Form
         render(): RenderReturn;
     }
 
-export const NestedForm: React.StatelessComponent<FieldProps>
+export const NestedForm: React.StatelessComponent<FieldProps>;
 
 export function FormField(component: React.ComponentType<any>): React.ComponentClass<any>;
 
 // Fields
 
-export interface FieldApi{
+export interface FieldApi {
     getValue(): FormValue;
     getError(): FormError;
     getWarning(): FormError;
@@ -124,8 +123,8 @@ export interface FieldApi{
     setTouched(touched: boolean): void;
 }
 
-export interface FieldProps{
-    field?: string | string[] | React.ReactText[] | (string | React.ReactText[])[];
+export interface FieldProps {
+    field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])>;
     showErrors?: boolean;
     errorBefore?: boolean;
     isForm?: boolean;
@@ -134,56 +133,54 @@ export interface FieldProps{
 export type SelectOptions = Array<{
     value: FormValue
     label: string
-}>
+}>;
 
-export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTMLSelectElement>{
-    options: SelectOptions
+export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTMLSelectElement> {
+    options: SelectOptions;
 }
 
-export const Select: React.StatelessComponent<SelectProps>
+export const Select: React.StatelessComponent<SelectProps>;
 
-export const Text: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>
-export const TextArea: React.StatelessComponent<FieldProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>
+export const Text: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export const TextArea: React.StatelessComponent<FieldProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
-export type RadioGroupContext = {
-    group: FieldApi
+export interface RadioGroupContext {
+    group: FieldApi;
 }
 
-export interface RadioGroupProps extends FieldApi {}
-
-export class RadioGroup 
+export class RadioGroup
     extends React.Component<
-        FieldProps & { children?: ((props: RadioGroupProps) => RenderReturn) | RenderReturn }
-    > 
-    implements React.ChildContextProvider<RadioGroupContext>{
+        FieldProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
+    >
+    implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {
-        group: FieldApi
-    }
+        group: FieldApi;
+    };
 }
 
-export const Radio: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>
-export const Checkbox: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>
+export const Radio: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>;
+export const Checkbox: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
 
 // Styled Fields
 
-export interface StyledProps extends FieldProps{
+export interface StyledProps extends FieldProps {
     noMessage?: boolean;
     messageBefore?: boolean;
     touchValidation?: boolean;
 }
 
-export const StyledCheckbox: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>
-export const StyledTextArea: React.StatelessComponent<StyledProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>
-export const StyledSelect: React.StatelessComponent<StyledProps & SelectProps & React.InputHTMLAttributes<HTMLSelectElement>>
-export const StyledText: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement>>
-export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>
+export const StyledCheckbox: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
+export const StyledTextArea: React.StatelessComponent<StyledProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
+export const StyledSelect: React.StatelessComponent<StyledProps & SelectProps & React.InputHTMLAttributes<HTMLSelectElement>>;
+export const StyledText: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>;
 
-export class StyledRadioGroup 
+export class StyledRadioGroup
     extends React.Component<
-        StyledProps & { children?: ((props: RadioGroupProps) => RenderReturn) | RenderReturn }
-    > 
-    implements React.ChildContextProvider<RadioGroupContext>{
+        StyledProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
+    >
+    implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {
         group: FieldApi
-    }
+    };
 }
