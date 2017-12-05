@@ -52,3 +52,64 @@ traverse(ast, {
         }
     }
 });
+
+// TypeScript Types
+// TODO: Test all variants of these functions' signatures
+
+const id = t.identifier("id");
+const tparam = t.typeParameterDeclaration([id]);
+
+const any = t.tSAnyKeyword();
+t.tSArrayType(any)
+t.tSAsExpression(exp, any);
+t.tSBooleanKeyword();
+t.tSCallSignatureDeclaration(tparam);
+t.tSConstructSignatureDeclaration();
+t.tSConstructorType();
+t.tSDeclareFunction(id, t.noop(), [id], t.noop());
+t.tSDeclareMethod([t.decorator(exp)], exp, t.noop(), [id]);
+t.tSEnumDeclaration(id, [t.tSEnumMember(id)]);
+t.tSEnumMember(id);
+const expo = t.tSExportAssignment(exp);
+// t.tSExpressionWithTypeArgumentsc - TODO: How to test t.tSQualifiedName?
+const ext = t.tSExternalModuleReference(t.stringLiteral());
+t.tSFunctionType();
+t.tSImportEqualsDeclaration(id, ext);
+const sig = t.tSIndexSignature([id]);
+t.tSIndexedAccessType(any, any);
+t.tSInterfaceBody([sig]);
+// t.tSInterfaceDeclaration - TODO: How to test t.tSQualifiedName?
+t.tSIntersectionType([any]);
+t.isTSLiteralType(t.stringLiteral("a"));
+t.tSMappedType(t.typeParameter());
+t.tSMethodSignature(id);
+const block = t.tSModuleBlock([expo]);
+t.tSModuleDeclaration(id, block);
+t.tSNamespaceExportDeclaration(id);
+t.tSNeverKeyword();
+t.tSNonNullExpression(exp);
+t.tSNullKeyword();
+t.tSNumberKeyword();
+t.tSObjectKeyword();
+t.tSParameterProperty(id);
+t.tSParenthesizedType(any);
+t.tSPropertySignature(id);
+// t.tSQualifiedName - TODO: How to test t.tSQualifiedName?
+t.tSStringKeyword();
+t.tSSymbolKeyword();
+t.tSThisType();
+t.tSTupleType([any, any]);
+t.tSTypeAliasDeclaration(id, tparam, any);
+t.tSTypeAnnotation(any);
+t.tSTypeAssertion(any, exp);
+t.tSTypeLiteral([sig]);
+t.tSTypeOperator(any);
+const param = t.tSTypeParameter();
+t.tSTypeParameterDeclaration([param]);
+t.tSTypeParameterInstantiation([any]);
+t.tSTypePredicate(id, t.tSTypeAnnotation(any));
+// t.tSTypeQuery - TODO: How to test t.tSQualifiedName?
+// t.tSTypeReference - TODO: How to test t.tSQualifiedName?
+t.tSUndefinedKeyword();
+t.tSUnionType([any]);
+t.tSVoidKeyword();
