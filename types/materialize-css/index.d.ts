@@ -324,6 +324,79 @@ declare global {
             endingTop: string;
         }
 
+        class Toast extends ComponentBase<ToastOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Toast;
+
+            /**
+             * Describes the current pan state of the Toast.
+             */
+            panning: boolean;
+
+            /**
+             * The remaining amount of time in ms that the toast will stay before dismissal.
+             */
+            timeRemaining: number;
+
+            /**
+             * remove a specific toast
+             */
+            dismiss(): void;
+
+            /**
+             * dismiss all toasts
+             */
+            static dismissAll(): void;
+        }
+
+        interface ToastOptions {
+            /**
+             * The HTML content of the Toast.
+             */
+            html: string;
+
+            /**
+             * Length in ms the Toast stays before dismissal.
+             * @default 4000
+             */
+            displayLength: number;
+
+            /**
+             * Transition in duration in milliseconds.
+             * @default 300
+             */
+            inDuration: number;
+
+            /**
+             * Transition out duration in milliseconds.
+             * @default 375
+             */
+            outDuration: number;
+
+            /**
+             * Classes to be added to the toast element.
+             */
+            classes: string;
+
+            /**
+             * Callback function called when toast is dismissed.
+             */
+            completeCallback: () => void;
+
+            /**
+             * The percentage of the toast's width it takes for a drag to dismiss a Toast.
+             * @default 0.8
+             */
+            activationPercent: number;
+        }
+
+        /**
+         * Create a toast
+         */
+        function toast(options: Partial<ToastOptions>): Toast;
+
         class Tooltip extends Component<TooltipOptions> {
             /**
              * Get Instance
@@ -410,7 +483,7 @@ declare global {
             static getInstance(elem: Element): CharacterCounter;
         }
 
-        abstract class Component<TOptions> {
+        abstract class Component<TOptions> extends ComponentBase<TOptions> {
             /**
              * Construct component instance and set everything up
              */
@@ -420,6 +493,10 @@ declare global {
              * Destroy plugin instance and teardown
              */
             destroy(): void;
+        }
+
+        abstract class ComponentBase<TOptions> {
+            constructor(options?: Partial<TOptions>);
 
             /**
              * The DOM element the plugin was initialized with
@@ -449,6 +526,8 @@ declare global {
         tabs(method: keyof Pick<M.Tabs, "destroy">): JQuery;
         tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
         tabs(options?: Partial<M.TabsOptions>): JQuery;
+
+        // Toast can not be invoked using jQuery.
 
         tooltip(method: keyof Pick<M.Tooltip, "open" | "close" | "destroy">): JQuery;
         tooltip(options?: Partial<M.TooltipOptions>): JQuery;
