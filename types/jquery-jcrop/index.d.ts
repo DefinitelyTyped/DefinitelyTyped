@@ -101,6 +101,6 @@ declare namespace JQuery.Jcrop {
   }
 }
 
-declare interface JQuery {
+interface JQuery {
   Jcrop(options?: JQuery.Jcrop.Options, callback?: (this: JQuery.Jcrop.Api) => void): JQuery;
 }
