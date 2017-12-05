@@ -8,7 +8,36 @@
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
+//                 Daniel Cottone <https://github.com/daniel-cottone>
+//                 Kostya Misura <https://github.com/kostya-misura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
+// API Gateway "event" request context
+interface APIGatewayEventRequestContext {
+    accountId: string;
+    apiId: string;
+    authorizer?: AuthResponseContext | null | undefined;
+    httpMethod: string;
+    identity: {
+        accessKey: string | null;
+        accountId: string | null;
+        apiKey: string | null;
+        caller: string | null;
+        cognitoAuthenticationProvider: string | null;
+        cognitoAuthenticationType: string | null;
+        cognitoIdentityId: string | null;
+        cognitoIdentityPoolId: string | null;
+        sourceIp: string;
+        user: string | null;
+        userAgent: string | null;
+        userArn: string | null;
+    },
+    stage: string;
+    requestId: string;
+    resourceId: string;
+    resourcePath: string;
+}
 
 // API Gateway "event"
 interface APIGatewayEvent {
@@ -20,37 +49,19 @@ interface APIGatewayEvent {
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
     stageVariables: { [name: string]: string } | null;
-    requestContext: {
-        accountId: string;
-        apiId: string;
-        httpMethod: string;
-        identity: {
-            accessKey: string | null;
-            accountId: string | null;
-            apiKey: string | null;
-            caller: string | null;
-            cognitoAuthenticationProvider: string | null;
-            cognitoAuthenticationType: string | null;
-            cognitoIdentityId: string | null;
-            cognitoIdentityPoolId: string | null;
-            sourceIp: string;
-            user: string | null;
-            userAgent: string | null;
-            userArn: string | null;
-        },
-        stage: string;
-        requestId: string;
-        resourceId: string;
-        resourcePath: string;
-    };
+    requestContext: APIGatewayEventRequestContext;
     resource: string;
 }
 
 // API Gateway CustomAuthorizer "event"
 interface CustomAuthorizerEvent {
     type: string;
-    authorizationToken: string;
     methodArn: string;
+    authorizationToken?: string;
+    headers?: { [name: string]: string };
+    pathParameters?: { [name: string]: string } | null;
+    queryStringParameters?: { [name: string]: string } | null;
+    requestContext?: APIGatewayEventRequestContext;
 }
 
 // SNS "event"
@@ -322,9 +333,9 @@ interface PolicyDocument {
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
 interface Statement {
-    Action: string | [string];
+    Action: string | string[];
     Effect: string;
-    Resource: string | [string];
+    Resource: string | string[];
 }
 
 /**
@@ -354,7 +365,7 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback = (error?: Error | null, result?: object) => void;
+export type Callback = (error?: Error | null, result?: object | boolean | number | string) => void;
 export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
 export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 

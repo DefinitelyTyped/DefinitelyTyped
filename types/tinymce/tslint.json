@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "no-empty-interface": false,
+        "no-unnecessary-class": false,
         "no-unnecessary-generics": false
     }
 }

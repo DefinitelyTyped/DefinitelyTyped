@@ -70,13 +70,15 @@ declare namespace SMTPConnection {
         dsn?: DSNOptions;
     }
 
-    class SMTPError extends Error {
+    interface SMTPError extends NodeJS.ErrnoException {
         /** string code identifying the error, for example ‘EAUTH’ is returned when authentication */
-        code: string;
+        code?: string;
         /** the last response received from the server (if the error is caused by an error response from the server) */
-        response: string;
+        response?: string;
         /** the numeric response code of the response string (if available) */
-        responseCode: string;
+        responseCode?: number;
+        /** command which provoked an error */
+        command?: string;
     }
 
     interface SentMessageInfo {
@@ -88,6 +90,12 @@ declare namespace SMTPConnection {
         rejectedErrors?: SMTPError[];
         /** the last response received from the server */
         response: string;
+        /** how long was envelope prepared */
+        envelopeTime: number;
+        /** how long was send stream prepared */
+        messageTime: number;
+        /** how many bytes were streamed */
+        messageSize: number;
     }
 
     interface Options {

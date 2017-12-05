@@ -1,8 +1,8 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as utils from 'jest-matcher-utils';
 
-utils.EXPECTED_COLOR; // $ExpectType ChalkChain
-utils.RECEIVED_COLOR; // $ExpectType ChalkChain
+utils.EXPECTED_COLOR; // $ExpectType Chalk
+utils.RECEIVED_COLOR; // $ExpectType Chalk
 utils.SUGGEST_TO_EQUAL; // $ExpectType string
 
 utils.stringify({}); // $ExpectType string

@@ -2,6 +2,7 @@
 // Project: https://github.com/Foliotek/Croppie
 // Definitions by: Connor Peet <https://github.com/connor4312>
 //                 dklmuc <https://github.com/dklmuc>
+//                 Sarun Intaralawan <https://github.com/sarunint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Croppie {
@@ -15,10 +16,10 @@ export default class Croppie {
         useCanvas?: boolean,
     }): Promise<void>;
 
-    result(options: ResultOptions & { type: 'base64' }): Promise<string>;
+    result(options: ResultOptions & { type: 'base64' | 'canvas' }): Promise<string>;
     result(options: ResultOptions & { type: 'html' }): Promise<HTMLElement>;
     result(options: ResultOptions & { type: 'blob' }): Promise<Blob>;
-    result(options: ResultOptions & { type: 'canvas' }): Promise<HTMLCanvasElement>;
+    result(options: ResultOptions & { type: 'rawcanvas' }): Promise<HTMLCanvasElement>;
     result(options?: ResultOptions): Promise<HTMLCanvasElement>;
 
     rotate(degrees: 90 | 180 | 270 | -90 | -180 | -270): void;

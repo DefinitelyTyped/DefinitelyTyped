@@ -4,21 +4,20 @@ import Hapi = require('hapi');
 import Nes = require('nes');
 
 var server = new Hapi.Server();
-server.connection();
 
-server.register(Nes, function (err) {
+server.register(Nes).then(() => {
 
     server.route({
         method: 'GET',
         path: '/h',
         config: {
             id: 'hello',
-            handler: function (request, reply) {
+            handler: (request, h) => {
 
-                return reply('world!');
+                return 'world!';
             }
         }
     });
 
-    server.start(function (err) { /* ... */ });
+    return server.start();
 });

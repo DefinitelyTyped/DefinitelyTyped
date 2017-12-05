@@ -1,13 +1,13 @@
 export {
     QueryRenderer,
-    commitMutation,
-    createFragmentContainer,
-    createPaginationContainer,
-    createRefetchContainer,
     fetchQuery,
     graphql,
 } from "./index";
-
+import {
+    ConnectionConfig,
+    RelayPaginationProp as RelayModernPaginationProp,
+    RelayRefetchProp as RelayModernRefetchProp
+} from "./index";
 import * as RelayRuntimeTypes from "relay-runtime";
 import { RelayEnvironmentInterface } from "./classic";
 
@@ -39,26 +39,49 @@ export type RelayClassicEnvironment = RelayEnvironmentInterface;
 export type CompatEnvironment = RelayRuntimeTypes.Environment | RelayClassicEnvironment;
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// RelayProps
+// ~~~~~~~~~~~~~~~~~~~~~
+export interface RelayProp {
+    environment: CompatEnvironment;
+}
+
+export type RelayPaginationProp = RelayModernPaginationProp & RelayProp;
+export type RelayRefetchProp = RelayModernRefetchProp & RelayProp;
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // RelayCompatMutations
 // ~~~~~~~~~~~~~~~~~~~~~
-export function commitUpdate(
+export function commitMutation(
     environment: CompatEnvironment,
     config: RelayRuntimeTypes.MutationConfig<any>
 ): RelayRuntimeTypes.Disposable;
-export function applyUpdate(
+export function applyOptimisticMutation(
     environment: CompatEnvironment,
     config: RelayRuntimeTypes.OptimisticMutationConfig
 ): RelayRuntimeTypes.Disposable;
 
 // ~~~~~~~~~~~~~~~~~~~~~
-// RelayCompatContainer
+// RelayCompatContainers
 // ~~~~~~~~~~~~~~~~~~~~~
 export interface GeneratedNodeMap {
     [key: string]: RelayRuntimeTypes.GraphQLTaggedNode;
 }
-export function createContainer<T>(
+
+export function createFragmentContainer<T>(
     Component: ReactBaseComponent<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
+): ReactFragmentComponent<T>;
+
+export function createRefetchContainer<T>(
+    Component: ReactBaseComponent<T>,
+    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
+    taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
+): ReactFragmentComponent<T>;
+
+export function createPaginationContainer<T>(
+    Component: ReactBaseComponent<T>,
+    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
+    connectionConfig: ConnectionConfig<T>
 ): ReactFragmentComponent<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~

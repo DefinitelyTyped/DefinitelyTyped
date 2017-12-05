@@ -1,13 +1,13 @@
 import Promise = require('bluebird');
 import retry = require('bluebird-retry');
 
-function promiseSuccess(text:string) {
+function promiseSuccess(text: string) {
     return Promise.resolve(text);
-};
+}
 
-var count = 0;
+let count = 0;
 function myfunc() {
-    console.log('myfunc called ' + (++count) + ' times');
+    console.log(`myfunc called ${++count} times`);
     if (count < 3) {
         throw new Error('i fail the first two times');
     } else {
@@ -16,16 +16,15 @@ function myfunc() {
 }
 
 retry(myfunc)
-    .done(function(result) { console.log(result); } );
+    .done(result => { console.log(result); });
 
-
-//Options example
+// Options example
 function logFail() {
     console.log(new Date().toISOString());
     throw new Error('bail');
 }
 
-var options:retry.Options = {
+const options: retry.Options = {
     max_tries: 4,
     interval: 500
 };

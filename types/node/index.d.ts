@@ -13,8 +13,10 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
+//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
@@ -67,6 +69,14 @@ interface SymbolConstructor {
 }
 declare var Symbol: SymbolConstructor;
 
+// Node.js ESNEXT support
+interface String {
+    /** Removes whitespace from the left end of a string. */
+    trimLeft(): string;
+    /** Removes whitespace from the right end of a string. */
+    trimRight(): string;
+}
+
 /************************************************
 *                                               *
 *                   GLOBAL                      *
@@ -95,8 +105,8 @@ declare namespace setImmediate {
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
-/* tslint:disable:callable-types */
 interface NodeRequireFunction {
+/* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -193,8 +203,6 @@ declare var Buffer: {
     prototype: Buffer;
     /**
      * Allocates a new Buffer using an {array} of octets.
-     *
-     * @param array
      */
     from(array: any[]): Buffer;
     /**
@@ -204,22 +212,16 @@ declare var Buffer: {
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
-     * @param byteOffset
-     * @param length
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Copies the passed {buffer} data onto a new Buffer instance.
-     *
-     * @param buffer
      */
     from(buffer: Buffer): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
-     *
-     * @param str
      */
     from(str: string, encoding?: string): Buffer;
     /**
@@ -472,11 +474,15 @@ declare namespace NodeJS {
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
-        setgid(id: number): void;
-        setgid(id: string): void;
+        setgid(id: number | string): void;
         getuid(): number;
-        setuid(id: number): void;
-        setuid(id: string): void;
+        setuid(id: number | string): void;
+        geteuid(): number;
+        seteuid(id: number | string): void;
+        getegid(): number;
+        setegid(id: number | string): void;
+        getgroups(): number[];
+        setgroups(groups: Array<string | number>): void;
         version: string;
         versions: ProcessVersions;
         config: {
@@ -840,7 +846,47 @@ declare module "http" {
 
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
-        [header: string]: string | string[];
+        'accept'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-headers'?: string;
+        'accept-patch'?: string;
+        'accept-ranges'?: string;
+        'age'?: string;
+        'allow'?: string;
+        'alt-svc'?: string;
+        'cache-control'?: string;
+        'connection'?: string;
+        'content-disposition'?: string;
+        'content-encoding'?: string;
+        'content-language'?: string;
+        'content-length'?: string;
+        'content-location'?: string;
+        'content-range'?: string;
+        'content-type'?: string;
+        'date'?: string;
+        'expires'?: string;
+        'host'?: string;
+        'last-modified'?: string;
+        'location'?: string;
+        'pragma'?: string;
+        'proxy-authenticate'?: string;
+        'public-key-pins'?: string;
+        'retry-after'?: string;
+        'set-cookie'?: string[];
+        'strict-transport-security'?: string;
+        'trailer'?: string;
+        'transfer-encoding'?: string;
+        'tk'?: string;
+        'upgrade'?: string;
+        'vary'?: string;
+        'via'?: string;
+        'warning'?: string;
+        'www-authenticate'?: string;
+        [header: string]: string | string[] | undefined;
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
@@ -871,10 +917,10 @@ declare module "http" {
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        setTimeout(callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
-        listening: boolean;
         keepAliveTimeout: number;
     }
     /**
@@ -1606,7 +1652,7 @@ declare module "https" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: tls.SecureContext) => any) => any;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -1618,15 +1664,8 @@ declare module "https" {
         ciphers?: string;
         rejectUnauthorized?: boolean;
         secureProtocol?: string;
+        servername?: string;
     }
-
-    export interface ClientRequest extends http.ClientRequest { }
-
-    export interface IncomingMessage extends http.IncomingMessage { }
-
-    export interface ServerResponse extends http.ServerResponse { }
-
-    export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
         pfx?: any;
@@ -1636,17 +1675,25 @@ declare module "https" {
         ca?: any;
         ciphers?: string;
         rejectUnauthorized?: boolean;
+        serverName?: string;
         secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
-    export var Agent: {
-        new(options?: AgentOptions): Agent;
-    };
-    export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export class Agent extends http.Agent {
+        constructor(options?: AgentOptions);
+    }
+
+    export class Server extends tls.Server {
+        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        timeout: number;
+        keepAliveTimeout: number;
+    }
+
+    export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
+    export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1957,6 +2004,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
 
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
@@ -2016,6 +2064,7 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -2082,6 +2131,7 @@ declare module "child_process" {
         stdio?: any[];
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
 
@@ -2097,6 +2147,7 @@ declare module "child_process" {
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2419,6 +2470,8 @@ declare module "net" {
     import * as events from "events";
     import * as dns from "dns";
 
+    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+
     export interface SocketConstructorOpts {
         fd?: number;
         allowHalfOpen?: boolean;
@@ -2433,7 +2486,7 @@ declare module "net" {
         localPort?: number;
         hints?: number;
         family?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+        lookup?: LookupFunction;
     }
 
     export interface IpcSocketConnectOpts {
@@ -2443,7 +2496,7 @@ declare module "net" {
     export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
     export class Socket extends stream.Duplex {
-        constructor(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; });
+        constructor(options?: SocketConstructorOpts);
 
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -2457,6 +2510,7 @@ declare module "net" {
         connect(port: number, host: string, connectionListener?: Function): this;
         connect(port: number, connectionListener?: Function): this;
         connect(path: string, connectionListener?: Function): this;
+
         bufferSize: number;
         setEncoding(encoding?: string): this;
         destroy(err?: any): void;
@@ -2571,20 +2625,20 @@ declare module "net" {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, listeningListener?: Function): Server;
-        listen(path: string, backlog?: number, listeningListener?: Function): Server;
-        listen(path: string, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
-        listen(handle: any, backlog?: number, listeningListener?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-        close(callback?: Function): Server;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, hostname?: string, listeningListener?: Function): this;
+        listen(port?: number, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, listeningListener?: Function): this;
+        listen(path: string, backlog?: number, listeningListener?: Function): this;
+        listen(path: string, listeningListener?: Function): this;
+        listen(options: ListenOptions, listeningListener?: Function): this;
+        listen(handle: any, backlog?: number, listeningListener?: Function): this;
+        listen(handle: any, listeningListener?: Function): this;
+        close(callback?: Function): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error | null, count: number) => void): void;
-        ref(): Server;
-        unref(): Server;
+        ref(): this;
+        unref(): this;
         maxConnections: number;
         connections: number;
         listening: boolean;
@@ -4315,6 +4369,7 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
         end?: number;
+        highWaterMark?: number;
     }): ReadStream;
 
     /**
@@ -4428,6 +4483,29 @@ declare module "path" {
         name: string;
     }
 
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
+
     /**
      * Normalize a string path, reducing '..' and '.' parts.
      * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
@@ -4461,9 +4539,6 @@ declare module "path" {
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
-     *
-     * @param from
-     * @param to
      */
     export function relative(from: string, to: string): string;
     /**
@@ -4506,7 +4581,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
@@ -4667,7 +4742,7 @@ declare module "tls" {
              * SecureContext.) If SNICallback wasn't provided the default callback
              * with high-level API will be used (see below).
              */
-            SNICallback?: Function,
+            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
             /**
              * An optional Buffer instance containing a TLS session.
              */
@@ -4679,12 +4754,7 @@ declare module "tls" {
              */
             requestOCSP?: boolean
         });
-        /**
-         * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system.
-         * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
-         */
-        address(): { port: number; family: string; address: string };
+
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
          */
@@ -4701,7 +4771,7 @@ declare module "tls" {
         encrypted: boolean;
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
-         * @returns {CipherNameAndProtocol} - Returns an object representing the cipher name
+         * @returns Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
@@ -4711,55 +4781,34 @@ declare module "tls" {
          * If detailed argument is true the full chain with issuer property will be returned,
          * if false only the top certificate without issuer property.
          * If the peer does not provide a certificate, it returns null or an empty object.
-         * @param {boolean} detailed - If true; the full chain with issuer property will be returned.
-         * @returns {PeerCertificate | DetailedPeerCertificate} - An object representing the peer's certificate.
+         * @param detailed - If true; the full chain with issuer property will be returned.
+         * @returns An object representing the peer's certificate.
          */
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
-         * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
+         * @returns ASN.1 encoded TLS session or undefined if none was negotiated.
          */
         getSession(): any;
         /**
          * NOTE: Works only with client TLS sockets.
          * Useful only for debugging, for session reuse provide session option to tls.connect().
-         * @returns {any} - TLS session ticket or undefined if none was negotiated.
+         * @returns TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket(): any;
-        /**
-         * The string representation of the local IP address.
-         */
-        localAddress: string;
-        /**
-         * The numeric representation of the local port.
-         */
-        localPort: number;
-        /**
-         * The string representation of the remote IP address.
-         * For example, '74.125.127.100' or '2001:4860:a005::68'.
-         */
-        remoteAddress: string;
-        /**
-         * The string representation of the remote IP family. 'IPv4' or 'IPv6'.
-         */
-        remoteFamily: string;
-        /**
-         * The numeric representation of the remote port. For example, 443.
-         */
-        remotePort: number;
         /**
          * Initiate TLS renegotiation process.
          *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
-         * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
+         * @param options - The options may contain the following fields: rejectUnauthorized,
          * requestCert (See tls.createServer() for details).
-         * @param {Function} callback - callback(err) will be executed with null as err, once the renegotiation
+         * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: TlsOptions, callback: (err: Error) => any): any;
+        renegotiate(options: TlsOptions, callback: (err: Error | null) => void): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -4767,8 +4816,8 @@ declare module "tls" {
          * large fragments can span multiple roundtrips, and their processing can be delayed due to packet
          * loss or reordering. However, smaller fragments add extra TLS framing bytes and CPU overhead,
          * which may decrease overall server throughput.
-         * @param {number} size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
-         * @returns {boolean} - Returns true on success, false otherwise.
+         * @param size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
+         * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
 
@@ -4816,15 +4865,16 @@ declare module "tls" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: string[] | Buffer;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: SecureContext) => any) => any;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
         ecdhCurve?: string;
         dhparam?: string | Buffer;
         handshakeTimeout?: number;
         ALPNProtocols?: string[] | Buffer;
         sessionTimeout?: number;
-        ticketKeys?: any;
+        ticketKeys?: Buffer;
         sessionIdContext?: string;
         secureProtocol?: string;
+        secureOptions?: number;
     }
 
     export interface ConnectionOptions {
@@ -4841,24 +4891,20 @@ declare module "tls" {
         servername?: string;
         path?: string;
         ALPNProtocols?: Array<string | Buffer>;
-        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
+        checkServerIdentity?: typeof checkServerIdentity;
         secureProtocol?: string;
         secureContext?: Object;
         session?: Buffer;
         minDHSize?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+        lookup?: net.LookupFunction;
     }
 
-    export interface Server extends net.Server {
-        close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+    export class Server extends net.Server {
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
             ca: string;
         }): void;
-        maxConnections: number;
-        connections: number;
 
         /**
          * events.EventEmitter
@@ -4948,6 +4994,14 @@ declare module "tls" {
         context: any;
     }
 
+    /*
+     * Verifies the certificate `cert` is issued to host `host`.
+     * @host The hostname to verify the certificate against
+     * @cert PeerCertificate representing the peer's certificate
+     *
+     * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
+     */
+    export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
@@ -5409,16 +5463,18 @@ declare module "util" {
     export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
 
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<TResult>(fn: (callback: (err: Error, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify(fn: (callback: (err: Error) => void) => void): () => Promise<void>;
+    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
@@ -6112,7 +6168,7 @@ declare module "http2" {
 
     export interface ServerStreamResponseOptions {
         endStream?: boolean;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
     }
 
     export interface StatOptions {
@@ -6121,8 +6177,8 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: IncomingHttpHeaders, statOptions: StatOptions) => void;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void|boolean;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
         offset?: number;
         length?: number;
     }
@@ -6296,7 +6352,7 @@ declare module "http2" {
         exclusive?: boolean;
         parent?: number;
         weight?: number;
-        getTrailers?: (trailers: IncomingHttpHeaders, flags: number) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders, flags: number) => void;
     }
 
     export interface SessionShutdownOptions {

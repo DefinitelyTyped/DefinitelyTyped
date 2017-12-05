@@ -178,7 +178,7 @@ declare namespace cytoscape {
          */
         layout?: NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
         GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions;
+        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
 
         ///////////////////////////////////////
         // initial viewport state:
@@ -978,7 +978,7 @@ declare namespace cytoscape {
          * An analogue to run a layout on a subset of the graph exists as eles.layout().
          * http://js.cytoscape.org/#cy.layout
          */
-        layout(layout: LayoutOptions): void;
+        layout(layout: LayoutOptions): LayoutManipulation;
         /**
          * Get a new layout, which can be used to algorithmically
          * position the nodes in the graph.
@@ -991,7 +991,7 @@ declare namespace cytoscape {
          * Note that you must call layout.run() in order for it to affect the graph.
          * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
          */
-        makeLayout(options: LayoutOptions): void;
+        makeLayout(options: LayoutOptions): LayoutManipulation;
     }
 
     /**
@@ -2711,7 +2711,8 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#eles.degreeCentrality
      */
     interface SearchDegreeCentralityOptions {
-        /** The root node (selector or collection) for which the
+        /**
+         * The root node (selector or collection) for which the
          * centrality calculation is made.
          */
         root: NodeSingular | Selector;
@@ -2725,7 +2726,8 @@ declare namespace cytoscape {
          * in the centrality calculation.
          */
         alpha?: number;
-        /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
+        /**
+         * Whether the directed indegree and outdegree centrality is calculated (true) or
          * whether the undirected centrality is calculated (false, default).
          */
         directed?: boolean;
@@ -2757,7 +2759,8 @@ declare namespace cytoscape {
          * in the centrality calculation.
          */
         alpha?: number;
-        /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
+        /**
+         * A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
          * whether the undirected centrality is calculated (false, default).
          */
         directed?: boolean;
@@ -2780,14 +2783,16 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#eles.closenessCentrality
      */
     interface SearchClosenessCentralityOptions {
-        /** The root node (selector or collection) for which the
+        /**
+         * The root node (selector or collection) for which the
          * centrality calculation is made.
          */
         root: NodeSingular | Selector;
         /**  A function that returns the weight for the edge. */
         weight?(edge: EdgeSingular): number;
 
-        /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
+        /**
+         * A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
          * whether the undirected centrality is calculated (false, default).
          */
         directed?: boolean;
@@ -2829,7 +2834,8 @@ declare namespace cytoscape {
         /**  A function that returns the weight for the edge. */
         weight?(edge: EdgeSingular): number;
 
-        /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
+        /**
+         * A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
          * whether the undirected centrality is calculated (false, default).
          */
         directed?: boolean;
@@ -3976,7 +3982,8 @@ declare namespace cytoscape {
         originalEvent: EventObject;
     }
     interface LayoutEventObject extends AbstractEventObject {
-        /** layout : indicates the corresponding layout that triggered the event
+        /**
+         * layout : indicates the corresponding layout that triggered the event
          * (useful if running multiple layouts simultaneously)
          */
         layout: any;
@@ -4137,7 +4144,7 @@ declare namespace cytoscape {
     type LayoutOptions =
         NullLayoutOptions | PresetLayoutOptions | GridLayoutOptions |
         CircleLayoutOptions | ConcentricLayoutOptions | BreadthFirstLayoutOptions |
-        CoseLayoutOptions;
+        CoseLayoutOptions | BaseLayoutOptions;
 
     type LayoutHandler = () => void;
 
@@ -4357,12 +4364,14 @@ declare namespace cytoscape {
      * A new, developer accessible layout can be made via cy.makeLayout().
      */
     interface LayoutManipulation {
-        /** Start running the layout
+        /**
+         * Start running the layout
          * http://js.cytoscape.org/#layout.run
          */
         run(): void;
         start(): void;
-        /** Stop running the (asynchronous/discrete) layout
+        /**
+         * Stop running the (asynchronous/discrete) layout
          * http://js.cytoscape.org/#layout.stop
          */
         stop(): void;

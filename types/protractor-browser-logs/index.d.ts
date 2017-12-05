@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/protractor-browser-logs, https://github.com/wix/protractor-browser-logs
 // Definitions by: Saqib Rokadia <https://github.com/rokadias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as webdriver from 'selenium-webdriver';
 import Entry = webdriver.logging.Entry;

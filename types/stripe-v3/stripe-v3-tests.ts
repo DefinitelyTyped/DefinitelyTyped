@@ -42,6 +42,7 @@ describe("Stripe", () => {
             (error: stripe.Error) => {
                 console.error(error);
             });
+        card.destroy();
     });
 });
 

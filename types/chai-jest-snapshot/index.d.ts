@@ -9,12 +9,7 @@
 declare global {
     namespace Chai {
         interface Assertion {
-            /**
-             * Assert that the object matches the snapshot
-             * @param snapshotFilename
-             * @param snapshotName
-             * @param update
-             */
+            /** Assert that the object matches the snapshot */
             matchSnapshot(snapshotFilename?: string, snapshotName?: string, update?: boolean): Assertion;
             matchSnapshot(update: boolean): Assertion;
         }
@@ -22,40 +17,24 @@ declare global {
 }
 
 interface ChaiJestSnapshot {
-    /**
-     * Chai bootstrapper
-     * @param chai
-     * @param utils
-     */
+    /** Chai bootstrapper */
     (chai: any, utils: any): void;
 
-    /**
-     * Set snapshot file name
-     * @param filename
-     */
-    setFileName(filename: string): void;
+    /** Set snapshot file name */
+    setFilename(filename: string): void;
 
     /**
      * Set snapshot test name
-     * @param testname
      */
     setTestName(testname: string): void;
 
-    /**
-     * Configure snapshot name using mocha context
-     * @param context
-     */
+    /** Configure snapshot name using mocha context */
     configureUsingMochaContext(context: Mocha.IBeforeAndAfterContext): void;
 
-    /**
-     * Reset snapshot registry
-     */
+    /** Reset snapshot registry */
     resetSnapshotRegistry(): void;
 
-    /**
-     * Add a serializer plugin
-     * @param serializer
-     */
+    /** Add a serializer plugin */
     addSerializer(serializer: any): void;
 }
 
