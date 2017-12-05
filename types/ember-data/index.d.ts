@@ -993,6 +993,7 @@ declare namespace DS {
      * Push some raw data into the store.
      */
     pushPayload(modelName: string, inputPayload: {}): any;
+    pushPayload(inputPayload: {}): any;
     /**
      * `normalize` converts a json payload into the normalized form that
      * [push](#method_push) expects.
@@ -1032,6 +1033,14 @@ declare namespace DS {
    * should use the REST adapter.
    */
   class RESTAdapter extends Adapter implements BuildURLMixin {
+    /**
+     * Takes a URL, an HTTP method and a hash of data, and makes an HTTP request.
+     */
+    ajax(url: string, type: string, options?: object): Promise<any>;
+    /**
+     * Generate ajax options
+     */
+    ajaxOptions(url: string, type: string, options?: object): object;
     /**
      * By default, the RESTAdapter will send the query params sorted alphabetically to the
      * server.

@@ -249,7 +249,8 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/location
      */
-    location(options?: Loggable): Chainable;
+    location(options?: LoggableTimeoutable): Chainable;
+    location(key: string, options?: LoggableTimeoutable): Chainable;
 
     /**
      * @see https://on.cypress.io/api/log
@@ -317,9 +318,9 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/route
      */
-    route(url: string, response?: any): Chainable;
-    route(method: string, url: string, response?: any): Chainable;
-    route(fn: () => RouteOptions | RouteOptions): Chainable;
+    route(url: string | RegExp, response?: any): Chainable;
+    route(method: string, url: string | RegExp, response?: any): Chainable;
+    route(fn: (() => RouteOptions) | RouteOptions): Chainable;
 
     /**
      * @see https://on.cypress.io/api/screenshot
