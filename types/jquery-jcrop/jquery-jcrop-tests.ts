@@ -1,4 +1,4 @@
-jQuery(function($) {
+jQuery(($) => {
   $('#target').Jcrop();
 });
 
@@ -7,14 +7,14 @@ function showCoords(c: { x: number, y: number, x2: number; y2: number; w: number
   // c.x, c.y, c.x2, c.y2, c.w, c.h
 }
 
-jQuery(function($) {
+jQuery(($) => {
   $('#target').Jcrop({
     onSelect: showCoords,
     onChange: showCoords
   });
 });
 
-jQuery(function($) {
+jQuery(($) => {
   $('#target').Jcrop({
     onSelect: showCoords,
     bgColor: 'black',
@@ -29,7 +29,7 @@ $('#target').Jcrop({}, function() {
   jcrop_api = this;
 });
 
-jQuery(function($) {
+jQuery(($) => {
   let jcrop_api: JQuery.Jcrop.Api;
 
   $('#target').Jcrop({
@@ -38,17 +38,17 @@ jQuery(function($) {
     jcrop_api = this;
   });
 
-  $('#animbutton').click(function(e) {
+  $('#animbutton').click((e) => {
     jcrop_api.animateTo([120, 120, 80, 80]);
     return false;
   });
 
-  $('#delselect').click(function(e) {
+  $('#delselect').click((e) => {
     jcrop_api.release();
     return false;
   });
 });
 
-(function() {
+(() => {
   $('#cropbox').Jcrop({ boxWidth: 450, boxHeight: 400 });
 });
