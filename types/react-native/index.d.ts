@@ -5690,6 +5690,12 @@ export interface ScrollViewPropertiesIOS {
     contentOffset?: PointProperties; // zeros
 
     /**
+     * This property specifies how the safe area insets are used to modify the content area of the scroll view.
+     * The default value of this property must be 'automatic'. But the default value is 'never' until RN@0.51.
+     */
+    contentInsetAdjustmentBehavior?: "automatic" | "scrollableAxes" | "never" | "always";
+
+    /**
      * A floating-point number that determines how quickly the scroll view
      * decelerates after the user lifts their finger. Reasonable choices include
      *   - Normal: 0.998 (the default)
