@@ -1012,6 +1012,10 @@ namespace errors_tests {
         let frames: NodeJS.CallSite[] = [];
         Error.prepareStackTrace(new Error(), frames);
     }
+    {
+        let frame: NodeJS.CallSite = null;
+        let typeName: string = frame.getTypeName();
+    }
 }
 
 ///////////////////////////////////////////////////////////
