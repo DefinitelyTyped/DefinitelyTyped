@@ -784,7 +784,7 @@ declare namespace lunr {
          *
          * @see lunr.tokenizer
          */
-        const separator: RegExp;
+        let separator: RegExp;
     }
 
     /**
