@@ -32,7 +32,7 @@ $('#target').Jcrop({}, function() {
 });
 
 jQuery(function($) {
-  let jcrop_api: JQuery.Jcrop.IJcropApi;
+  let jcrop_api: JQuery.Jcrop.Api;
 
   $('#target').Jcrop({
     bgColor: 'red'
