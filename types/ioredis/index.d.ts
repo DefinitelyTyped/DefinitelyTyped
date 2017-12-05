@@ -195,8 +195,8 @@ declare namespace IORedis {
 
         zrem(key: string, member: string, ...members: any[]): any;
 
-        zremrangebyscore(key: string, min: number, max: number, callback: (err: Error, res: any) => void): void;
-        zremrangebyscore(key: string, min: number, max: number): Promise<any>;
+        zremrangebyscore(key: string, min: number | string, max: number | string, callback: (err: Error, res: any) => void): void;
+        zremrangebyscore(key: string, min: number | string, max: number | string): Promise<any>;
 
         zremrangebyrank(key: string, start: number, stop: number, callback: (err: Error, res: any) => void): void;
         zremrangebyrank(key: string, start: number, stop: number): Promise<any>;
@@ -213,12 +213,12 @@ declare namespace IORedis {
         zrevrange(key: string, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: any) => void): void;
         zrevrange(key: string, start: number, stop: number, withScores?: "WITHSCORES"): Promise<any>;
 
-        zrangebyscore(key: string, min: number, max: number, ...args: string[]): any;
+        zrangebyscore(key: string, min: number | string, max: number | string, ...args: string[]): any;
 
-        zrevrangebyscore(key: string, max: number, min: number, ...args: string[]): any;
+        zrevrangebyscore(key: string, max: number | string, min: number | string, ...args: string[]): any;
 
-        zcount(key: string, min: number, max: number, callback: (err: Error, res: number) => void): void;
-        zcount(key: string, min: number, max: number): Promise<number>;
+        zcount(key: string, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
+        zcount(key: string, min: number | string, max: number | string): Promise<number>;
 
         zcard(key: string, callback: (err: Error, res: number) => void): void;
         zcard(key: string): Promise<number>;
@@ -554,7 +554,7 @@ declare namespace IORedis {
 
         zrem(key: string, member: string, ...members: any[]): Pipeline;
 
-        zremrangebyscore(key: string, min: number, max: number, callback?: (err: Error, res: any) => void): Pipeline;
+        zremrangebyscore(key: string, min: number | string, max: number | string, callback?: (err: Error, res: any) => void): Pipeline;
 
         zremrangebyrank(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -568,11 +568,11 @@ declare namespace IORedis {
         zrevrange(key: string, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
         zrevrange(key: string, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: any) => void): Pipeline;
 
-        zrangebyscore(key: string, min: number, max: number, ...args: string[]): Pipeline;
+        zrangebyscore(key: string, min: number | string, max: number | string, ...args: string[]): Pipeline;
 
-        zrevrangebyscore(key: string, max: number, min: number, ...args: string[]): Pipeline;
+        zrevrangebyscore(key: string, max: number | string, min: number | string, ...args: string[]): Pipeline;
 
-        zcount(key: string, min: number, max: number, callback?: (err: Error, res: number) => void): Pipeline;
+        zcount(key: string, min: number | string, max: number | string, callback?: (err: Error, res: number) => void): Pipeline;
 
         zcard(key: string, callback?: (err: Error, res: number) => void): Pipeline;
 
