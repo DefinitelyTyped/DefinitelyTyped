@@ -37,8 +37,7 @@ const statusOptions = [
 	}
 ];
 
-class BasicForm extends React.Component{
-
+class BasicForm extends React.Component {
 	constructor(props: {}) {
 		super(props);
 		this.state = {};
@@ -47,7 +46,7 @@ class BasicForm extends React.Component{
 	render() {
 		return (
 			<div>
-				<Form onSubmit={submittedValues => this.setState( { submittedValues } )}>
+				<Form onSubmit={submittedValues => this.setState({ submittedValues })}>
 					{ formApi => (
 						<form onSubmit={formApi.submitForm} id="form2">
 							<label htmlFor="firstName">First name</label>
@@ -80,7 +79,7 @@ class BasicForm extends React.Component{
 }
 
 // Form with Arrays
-class FormWithArrays extends React.Component{
+class FormWithArrays extends React.Component {
 	constructor(props: {}) {
 		super(props);
 		this.state = {};
@@ -90,7 +89,7 @@ class FormWithArrays extends React.Component{
 		return (
 			<div>
 				<Form
-					onSubmit={submittedValues => this.setState( { submittedValues } )}>
+					onSubmit={submittedValues => this.setState({ submittedValues })}>
 					{ formApi => (
 						<form onSubmit={formApi.submitForm} id="form3">
 							<label htmlFor="firstName2">First name</label>
@@ -125,8 +124,7 @@ const Friend = ({ i }: {i: number}) => (
 	</div>
 );
 
-class FormWithSpecialFieldSyntax extends React.Component{
-
+class FormWithSpecialFieldSyntax extends React.Component {
 	constructor(props: {}) {
 		super(props);
 		this.state = {};
@@ -136,7 +134,7 @@ class FormWithSpecialFieldSyntax extends React.Component{
 		return (
 			<div>
 				<Form
-					onSubmit={submittedValues => this.setState( { submittedValues } )}>
+					onSubmit={submittedValues => this.setState({ submittedValues })}>
 					{ formApi => (
 						<form onSubmit={formApi.submitForm} id="syntax-form">
 							<label htmlFor="nickname1">Nickname</label>
@@ -172,9 +170,8 @@ const Questions = () => (
 	</NestedForm>
 );
 
-class NestedFormExample extends React.Component{
-
-	constructor(props: {}){
+class NestedFormExample extends React.Component {
+	constructor(props: {}) {
 		super(props);
 		this.state = {};
 	}
@@ -182,7 +179,7 @@ class NestedFormExample extends React.Component{
 	render() {
 		return (
 			<div>
-				<Form onSubmit={submittedValues => this.setState( { submittedValues } )}>
+				<Form onSubmit={submittedValues => this.setState({ submittedValues })}>
 					{ formApi => (
 						<form onSubmit={formApi.submitForm} id="form4">
 							<label htmlFor="firstName3">First name</label>
@@ -198,7 +195,7 @@ class NestedFormExample extends React.Component{
 }
 
 // Dynamic Forms
-class DynamicForm extends React.Component{
+class DynamicForm extends React.Component {
 	constructor(props: {}) {
 		super(props);
 		this.state = {};
@@ -208,7 +205,7 @@ class DynamicForm extends React.Component{
 		return (
 			<div>
 				<Form
-					onSubmit={submittedValues => this.setState( { submittedValues } )}>
+					onSubmit={submittedValues => this.setState({ submittedValues })}>
 					{ formApi => (
 						<div>
 							<button
@@ -255,8 +252,7 @@ const MyFriend = ({ i }: {i: number}) => (
 	</NestedForm>
 );
 
-class FormWithArrayOfNestedForms extends React.Component{
-
+class FormWithArrayOfNestedForms extends React.Component {
 	constructor(props: {}) {
 		super(props);
 		this.state = {};
@@ -266,7 +262,7 @@ class FormWithArrayOfNestedForms extends React.Component{
 		return (
 			<div>
 				<Form
-					onSubmit={submittedValues => this.setState( { submittedValues } )}>
+					onSubmit={submittedValues => this.setState({ submittedValues })}>
 					{ formApi => (
 						<div>
 							<form onSubmit={formApi.submitForm} id="form3">
@@ -284,8 +280,7 @@ class FormWithArrayOfNestedForms extends React.Component{
 }
 
 // Styled Form
-class StyledForm extends React.Component{
-
+class StyledForm extends React.Component {
 	constructor(props: {}) {
 		super(props);
 		this.state = {};
@@ -311,12 +306,12 @@ class StyledForm extends React.Component{
 			return !status ? 'Status is required.' : undefined;
 		};
 		return {
-			firstName: validateFirstName( values.firstName ),
-			lastName: validateLastName( values.lastName ),
-			gender: validateGender( values.gender ),
-			bio: validateBio( values.bio ),
-			authorize: validateAuthorize( values.authorize ),
-			status: validateStatus( values.status )
+			firstName: validateFirstName(values.firstName),
+			lastName: validateLastName(values.lastName),
+			gender: validateGender(values.gender),
+			bio: validateBio(values.bio),
+			authorize: validateAuthorize(values.authorize),
+			status: validateStatus(values.status)
 		};
 	}
 
@@ -331,32 +326,32 @@ class StyledForm extends React.Component{
 			return bio && bio.replace(/s+/g, ' ').trim().split(' ').length < 5 ? 'Bio should have more than 5 words.' : undefined;
 		};
 		return {
-			firstName: validateFirstName( values.firstName ),
-			lastName: validateLastName( values.lastName ),
+			firstName: validateFirstName(values.firstName),
+			lastName: validateLastName(values.lastName),
 			gender: undefined,
-			bio: validateBio( values.bio ),
+			bio: validateBio(values.bio),
 			authorize: undefined,
 			status: undefined
 		};
 	}
 
 	successValidator = (values: FormValues, errors: FormErrors) => {
-		const validateFirstName = ( ) => {
+		const validateFirstName = () => {
 			return !errors['firstName'] ? 'Nice name!' : undefined;
 		};
-		const validateLastName = ( ) => {
+		const validateLastName = () => {
 			return !errors['lastName'] ? 'Your last name is sick!' : undefined;
 		};
-		const validateGender = ( ) => {
+		const validateGender = () => {
 			return !errors['gender'] ? 'Thanks for entering your gender.' : undefined;
 		};
-		const validateBio = ( ) => {
+		const validateBio = () => {
 			return !errors['bio'] ? 'Cool Bio!' : undefined;
 		};
-		const validateAuthorize = ( ) => {
+		const validateAuthorize = () => {
 			return !errors['authorize'] ? 'You are now authorized.' : undefined;
 		};
-		const validateStatus = ( ) => {
+		const validateStatus = () => {
 			return !errors['status'] ? 'Thanks for entering your status.' : undefined;
 		};
 		return {
@@ -369,12 +364,12 @@ class StyledForm extends React.Component{
 		};
 	}
 
-	render(){
+	render() {
 		return <Form
 			validateError={this.errorValidator}
 			validateWarning={this.warningValidator}
 			validateSuccess={this.successValidator}
-			onSubmit={submittedValues => this.setState( { submittedValues } )}>
+			onSubmit={submittedValues => this.setState({ submittedValues })}>
 			{ formApi => (
 				<form onSubmit={formApi.submitForm} id="form2">
 					<label htmlFor="firstName">First name</label>
@@ -398,7 +393,7 @@ class StyledForm extends React.Component{
 					<button type="submit" className="mb-4 btn btn-primary">Submit</button>
 				</form>
 			)}
-		</Form>
+		</Form>;
 	}
 }
 
@@ -409,7 +404,7 @@ const Message = ({ color, message }: {color: string, message: string}) => {
 			<small>{message}</small>
 		</div>
 	);
-}
+};
 
 // Define your custom input
 // Note, the ...rest is important because it allows you to pass any
@@ -417,10 +412,8 @@ const Message = ({ color, message }: {color: string, message: string}) => {
 class CustomTextWrapper extends React.Component<{
 	fieldApi: FieldApi
 	onInput: any
-}>{
-
+}> {
 	render() {
-
 		const {
 			fieldApi,
 			onInput,
@@ -444,10 +437,10 @@ class CustomTextWrapper extends React.Component<{
 			<div>
 				<input
 					value={getValue()}
-					onInput={( e ) => {
+					onInput={(e) => {
 						setValue(e.currentTarget.value);
-						if ( onInput ) {
-							onInput( e );
+						if (onInput) {
+							onInput(e);
 						}
 					}}
 					onBlur={() => {
@@ -467,24 +460,24 @@ const CustomText = FormField(CustomTextWrapper);
 
 const errorValidator = (values: FormValues) => {
 	return {
-		hello: !values.hello || !values.hello.match( /Hello World/ ) ? "Input must contain 'Hello World'" : undefined
+		hello: !values.hello || !values.hello.match(/Hello World/) ? "Input must contain 'Hello World'" : undefined
 	};
 };
 
 const warningValidator = (values: FormValues) => {
 	return {
 		hello: !values.hello ||
-					 !values.hello.match( /^Hello World$/ ) ? "Input should equal 'Hello World'" : undefined
+					 !values.hello.match(/^Hello World$/) ? "Input should equal 'Hello World'" : undefined
 	};
 };
 
 const successValidator = (values: FormValues) => {
 	return {
-		hello: values.hello && values.hello.match( /Hello World/ ) ? "Thanks for entering 'Hello World'!" : undefined
+		hello: values.hello && values.hello.match(/Hello World/) ? "Thanks for entering 'Hello World'!" : undefined
 	};
 };
 
-class FormWithCustomInput extends React.Component{
+class FormWithCustomInput extends React.Component {
 	render() {
 		return (
 			<div>
@@ -520,13 +513,13 @@ const assuccessValidator = (values: FormValues, errors: FormErrors) => {
 	};
 };
 
-const doesUsernameExist = (username: string) => new Promise( ( resolve, reject ) => setTimeout(() => {
+const doesUsernameExist = (username: string) => new Promise((resolve, reject) => setTimeout(() => {
 	// Simulate username check
 	if (['joe', 'tanner', 'billy', 'bob'].indexOf(username)) {
-		resolve( { error: 'That username is taken', success: null } );
+		resolve({ error: 'That username is taken', success: null });
 	}
 	// Simulate request faulure
-	if ( username === 'reject' ) {
+	if (username === 'reject') {
 		reject('Failure while making call to validate username does not exist');
 	}
 	// Sumulate username success check
@@ -535,12 +528,12 @@ const doesUsernameExist = (username: string) => new Promise( ( resolve, reject )
 
 const asyncValidators = {
 	username: async (username: string) => {
-		const validations = await doesUsernameExist( username );
+		const validations = await doesUsernameExist(username);
 		return validations;
 	}
 };
 
-class AsynchronousFormValidation extends React.Component{
+class AsynchronousFormValidation extends React.Component {
 	render() {
 		return (
 			<div>
@@ -592,7 +585,6 @@ const NestedFormContent = ({ formApi }: {formApi: FormApi}) => {
 };
 
 const FormContent = ({ formApi }: {formApi: FormApi}) => {
-
 	return (
 		<div>
 			<form onSubmit={formApi.submitForm} id="form7">
@@ -627,13 +619,13 @@ const nassuccessValidator = (values: FormValues, errors: FormErrors) => {
 	};
 };
 
-const nasdoesUsernameExist = (username: string, ms: number) => new Promise( ( resolve, reject ) => setTimeout(() => {
+const nasdoesUsernameExist = (username: string, ms: number) => new Promise((resolve, reject) => setTimeout(() => {
 	// Simulate username check
 	if (['joe', 'tanner', 'billy', 'bob'].indexOf(username)) {
-		resolve( { error: 'That username is taken', success: null } );
+		resolve({ error: 'That username is taken', success: null });
 	}
 	// Simulate request faulure
-	if ( username === 'reject' ) {
+	if (username === 'reject') {
 		reject('Failure while making call to validate username does not exist');
 	}
 	// Sumulate username success check
@@ -641,27 +633,27 @@ const nasdoesUsernameExist = (username: string, ms: number) => new Promise( ( re
 }, ms));
 
 const nasasyncValidators = {
-	username: async (username: string ) => {
-		const validations = await nasdoesUsernameExist( username, 2000 );
+	username: async (username: string) => {
+		const validations = await nasdoesUsernameExist(username, 2000);
 		return validations;
 	}
 };
 
 const asyncValidators2 = {
-	username: async ( username: string ) => {
-		const validations = await nasdoesUsernameExist( username, 4000 );
+	username: async (username: string) => {
+		const validations = await nasdoesUsernameExist(username, 4000);
 		return validations;
 	}
 };
 
 const asyncValidators3 = {
-	username: async ( username: string ) => {
-		const validations = await nasdoesUsernameExist( username, 6000 );
+	username: async (username: string) => {
+		const validations = await nasdoesUsernameExist(username, 6000);
 		return validations;
 	}
 };
 
-class NestedAsynchronousFormValidation extends React.Component{
+class NestedAsynchronousFormValidation extends React.Component {
 	render() {
 		return (
 			<div>
