@@ -13,14 +13,15 @@ import {
     Stats,
 } from "fs";
 
-
-declare function send(ctx: Context, path: string, opts?: send.ISendOptions): Promise<string>;
+declare function send(ctx: Context, path: string, opts?: send.SendOptions): Promise<string>;
 
 declare namespace send {
-    interface ISendOptions {
+    type SetHeaders = (res: Context["res"], path: string, stats: Stats) => any;
+
+    interface SendOptions {
         /** Browser cache max-age in milliseconds. (defaults to 0) */
         maxage?: number;
-        maxAge?: ISendOptions["maxage"];
+        maxAge?: SendOptions["maxage"];
         /** Tell the browser the resource is immutable and can be cached indefinitely. (defaults to false) */
         immutable?: boolean;
         /** Allow transfer of hidden files. (defaults to false) */
@@ -36,7 +37,7 @@ declare namespace send {
         /** If not false (defaults to true), format the path to serve static file servers and not require a trailing slash for directories, so that you can do both /directory and /directory/. */
         format?: boolean;
         /** Function to set custom headers on response. */
-        setHeaders?: (res: Context["res"], path: string, stats: Stats) => any;
+        setHeaders?: SetHeaders;
         /** Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served. (defaults to false) */
         extensions?: string[] | false;
     }
