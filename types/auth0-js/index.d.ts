@@ -273,7 +273,7 @@ export class WebAuth {
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
      *
      * @param options options used in {@link authorize} call
-     * @param callback
+     * @param callback: any(err, token_payload)
      */
     checkSession(options: AuthorizeOptions, callback: Auth0Callback<any>): void;
 }
