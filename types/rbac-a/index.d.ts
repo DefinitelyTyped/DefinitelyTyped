@@ -31,7 +31,7 @@ export class Provider {
      * The method mey return a promise resolving with the
      * expected return value.
      */
-    getRoles(use: any): Roles | Promise<Roles>;
+    getRoles(user: any): Roles | Promise<Roles>;
     /**
      * Return all permissions for the specified role. The return value
      * must be an array. Return an empty array if role is missing or
