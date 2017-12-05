@@ -1008,6 +1008,10 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.StackFrame[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
 }
 
 ///////////////////////////////////////////////////////////
