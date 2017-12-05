@@ -717,7 +717,8 @@ export class Disposable implements DisposableLike {
  *  Utility class to be used when implementing event-based APIs that allows
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
-export class Emitter implements DisposableLike {
+// tslint:disable-next-line:no-any
+export class Emitter<Emissions = { [key: string]: any }> implements DisposableLike {
     /** Construct an emitter. */
     constructor();
 
@@ -1015,10 +1016,7 @@ export class Point {
      *  Create a Point from an array containing two numbers representing the
      *  row and column.
      */
-    static fromObject(object: [number, number]): Point;
-
-    /** Create a Point from an existing object which implements PointLike. */
-    static fromObject(object: PointLike, copy?: boolean): Point;
+    static fromObject(object: PointCompatible, copy?: boolean): Point;
 
     /** Construct a Point object */
     constructor(row?: number, column?: number);
@@ -1775,7 +1773,8 @@ export class TextEditor {
         void;
 
     /** Add a cursor at the given position in buffer coordinates. */
-    addCursorAtBufferPosition(bufferPosition: PointCompatible): Cursor;
+    addCursorAtBufferPosition(bufferPosition: PointCompatible, options?:
+        { autoscroll?: boolean }): Cursor;
 
     /** Add a cursor at the position in screen coordinates. */
     addCursorAtScreenPosition(screenPosition: PointCompatible): Cursor;
@@ -2403,27 +2402,25 @@ export interface TextEditorRegistry {
     observe(callback: (editor: TextEditor) => void): Disposable;
 }
 
+export type TooltipPlacement =
+    |"top"|"bottom"|"left"|"right"
+    |"auto"|"auto top"|"auto bottom"|"auto left"|"auto right";
+
 /** Associates tooltips with HTML elements or selectors. */
 export interface TooltipManager {
     /** Add a tooltip to the given element. */
     add(target: HTMLElement, options: {
-        title?: string,
-        html?: boolean,
-        item?: HTMLElement|{ element: HTMLElement },
-        class?: string,
-        placement?: "top"|"bottom"|"left"|"right"|"auto"|(() => string),
-        trigger?: "click"|"hover"|"focus"|"manual",
-        delay?: { show: number, hide: number },
-        keyBindingCommand?: string,
-        keyBindingTarget?: HTMLElement
+        item?: HTMLElement|{ element: HTMLElement }
     } | {
         title?: string|(() => string),
         html?: boolean,
-        item?: HTMLElement|{ element: HTMLElement },
-        class?: string,
-        placement?: "top"|"bottom"|"left"|"right"|"auto"|(() => string),
+        keyBindingCommand?: string,
+        keyBindingTarget?: HTMLElement
+    } & {
+        class?: string;
+        placement?: TooltipPlacement|(() => TooltipPlacement),
         trigger?: "click"|"hover"|"focus"|"manual",
-        delay?: { show: number, hide: number },
+        delay?: { show: number, hide: number }
     }): Disposable;
 
     /** Find the tooltips that have been applied to the given element. */
@@ -5795,16 +5792,6 @@ export interface ConfigValues {
     [key: string]: any;
 }
 
-/**
- *  Allows you to strongly type event emissions across your codebase. Additional
- *  key:value pairings merged into this interface will result in emissions under
- *  the value of each key being templated by the type of the associated value.
- */
-export interface Emissions {
-    // tslint:disable-next-line:no-any
-    [key: string]: any;
-}
-
 // Options ====================================================================
 // The option objects that the user is expected to fill out and provide to
 // specific API call.
@@ -6094,7 +6081,7 @@ export interface SharedDecorationOptions {
      *  An HTMLElement or a model Object with a corresponding view registered. Only
      *  applicable to the gutter, overlay and block types.
      */
-    item?: HTMLElement;
+    item?: object;
 
     /**
      *  If true, the decoration will only be applied to the head of the DisplayMarker.

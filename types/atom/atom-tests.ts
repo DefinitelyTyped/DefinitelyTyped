@@ -844,6 +844,10 @@ function testDock() {
 }
 
 // Emitter ====================================================================
+interface TestEmissions {
+    "test-event": string;
+}
+
 function testEmitter() {
     emitter = new Atom.Emitter();
 
@@ -858,6 +862,11 @@ function testEmitter() {
     // Event Emission
     emitter.emit("test-event");
     emitter.emit("test-event", 42);
+
+    const typedEmitter = new Atom.Emitter<TestEmissions>();
+    typedEmitter.on("test-event", value => {
+        if (value) str = value;
+    });
 }
 
 // File =======================================================================
@@ -2939,7 +2948,7 @@ function testTooltipManager() {
     subscription = atom.tooltips.add(element, { class: "test-class" });
     subscription = atom.tooltips.add(element, { placement: "top" });
 
-    subscription = atom.tooltips.add(element, { placement: () => "left" });
+    subscription = atom.tooltips.add(element, { placement: () => "auto left" });
 
     subscription = atom.tooltips.add(element, { trigger: "click" });
     subscription = atom.tooltips.add(element, { delay: { hide: 42, show: 42 }});
