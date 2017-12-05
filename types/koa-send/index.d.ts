@@ -14,13 +14,13 @@ import {
 } from "fs";
 
 
-declare function send(ctx: Context, path: string, opts?: send.IOpts): Promise<string>;
+declare function send(ctx: Context, path: string, opts?: send.ISendOptions): Promise<string>;
 
 declare namespace send {
-    interface IOpts {
+    interface ISendOptions {
         /** Browser cache max-age in milliseconds. (defaults to 0) */
         maxage?: number;
-        maxAge?: IOpts["maxage"];
+        maxAge?: ISendOptions["maxage"];
         /** Tell the browser the resource is immutable and can be cached indefinitely. (defaults to false) */
         immutable?: boolean;
         /** Allow transfer of hidden files. (defaults to false) */
