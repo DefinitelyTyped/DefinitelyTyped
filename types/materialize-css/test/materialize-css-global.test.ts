@@ -16,3 +16,6 @@ const characterCounter = new M.CharacterCounter(elem);
 
 // $ExpectType Tooltip
 const tooltips = new M.Tooltip(elem);
+
+// $ExpectType FloatingActionButton
+const fab = new M.FloatingActionButton(elem);

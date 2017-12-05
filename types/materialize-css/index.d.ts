@@ -77,6 +77,48 @@ declare global {
             sortFunction: (a: string, b: string, inputText: string) => number;
         }
 
+        class FloatingActionButton extends Component<FloatingActionButtonOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): FloatingActionButton;
+
+            /**
+             * Open FAB
+             */
+            open(): void;
+
+            /**
+             * Close FAB
+             */
+            close(): void;
+
+            /**
+             * Describes open/close state of FAB.
+             */
+            isOpen: boolean;
+        }
+
+        interface FloatingActionButtonOptions {
+            /**
+             * Direction FAB menu opens
+             * @default "top"
+             */
+            direction: "top" | "right" | "buttom" | "left";
+
+            /**
+             * true: FAB menu appears on hover, false: FAB menu appears on click
+             * @default true
+             */
+            hoverEnabled: boolean;
+
+            /**
+             * Enable transit the FAB into a toolbar on click
+             * @default false
+             */
+            toolbarEnabled: boolean;
+        }
+
         class Sidenav extends Component<SidenavOptions> {
             /**
              * Get Instance
@@ -397,6 +439,9 @@ declare global {
         autocomplete(method: keyof Pick<M.Autocomplete, "selectOption">, el: Element): JQuery;
         autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
         autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
+
+        floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
+        floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
 
         sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
         sidenav(options?: Partial<M.SidenavOptions>): JQuery;
