@@ -15,17 +15,12 @@ interface Spec {
         type: string;
         body?: Joi.AnySchema;
         params?: Joi.AnySchema;
-        [status: number]: Joi.AnySchema;
+        output?: {[status: number]: Joi.AnySchema};
     };
 }
 
-interface Router {
-    route(spec: Spec): Router;
-    middleware(): Koa.Middleware;
-}
-
 interface createRouter {
-    (): Router;
+    (): createRouter.Router;
     Joi: typeof Joi;
 }
 
@@ -37,6 +32,12 @@ declare namespace createRouter {
 
     interface Context extends Koa.Context {
         request: Request;
+    }
+
+    interface Router {
+        routes: Spec[];
+        route(spec: Spec|Spec[]): Router;
+        middleware(): Koa.Middleware;
     }
 }
 
