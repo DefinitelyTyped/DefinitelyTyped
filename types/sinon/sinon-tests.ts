@@ -230,6 +230,15 @@ function testSpy() {
     sinon.spy().calledImmediatelyBefore(otherSpy);
 }
 
+function testFakeServer() {
+    sinon.fakeServer.create({
+        autoRespond: true,
+        autoRespondAfter: 3,
+        fakeHTTPMethods: true,
+        respondImmediately: false
+    });
+}
+
 testOne();
 testTwo();
 testThree();
@@ -249,6 +258,7 @@ testGetterStub();
 testSetterStub();
 testValueStub();
 testThrowsStub();
+testFakeServer();
 
 const clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
