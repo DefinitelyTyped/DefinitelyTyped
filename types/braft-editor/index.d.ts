@@ -5,11 +5,11 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import {RawDraftContentState} from 'draft-js';
+import { RawDraftContentState } from 'draft-js';
 export as namespace BraftEditor;
 export = BraftEditor;
-declare namespace BraftEditor{
-	interface fontFamiliesRange{
+declare namespace BraftEditor {
+	interface fontFamiliesRange {
 		name: string;
 		family: string;
 	}
@@ -34,7 +34,7 @@ declare namespace BraftEditor{
 		setContent?: (content: RawDraftContentState, format?: string) => void;
 		toggleSelectionBlockType?: (blockquote: string) => any;
 		toggleSelectionInlineStyle?: (style: string, stylesToBeRemoved?: string[]) => any;
-		insertMedias?: (medias: { type: string, name: string, url: string }[]) => void;
+		insertMedias?: (medias: Array<{ type: string, name: string, url: string }>) => void;
 		insertText?: (text: string, replace?: boolean) => void;
 		toggleSelectionLink?: (href: string, target: string) => void;
 		toggleSelectionAlignment?: (alignment: string) => any;
