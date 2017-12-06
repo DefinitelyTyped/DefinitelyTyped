@@ -5,20 +5,14 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import {
-	RawDraftContentState,
-} from 'draft-js';
+import {RawDraftContentState} from 'draft-js';
 export as namespace BraftEditor;
-
 export = BraftEditor;
-
-declare namespace BraftEditor {
-
-	interface fontFamiliesRange {
+declare namespace BraftEditor{
+	interface fontFamiliesRange{
 		name: string;
 		family: string;
 	}
-
 	interface editorProps {
 		editorState?: any;
 		contentFormat?: RawDraftContentState;
@@ -34,9 +28,8 @@ declare namespace BraftEditor {
 		viewWrapper?: string;
 		colors?: string[];
 		fontSizes?: number[];
-		fontFamilies?: Array<fontFamiliesRange>;
+		fontFamilies?: fontFamiliesRange[];
 		media?: { [key: string]: any };
-		setState?: Function;
 		getContent?: (format?: string) => RawDraftContentState;
 		setContent?: (content: RawDraftContentState, format?: string) => void;
 		toggleSelectionBlockType?: (blockquote: string) => any;
@@ -63,6 +56,4 @@ declare namespace BraftEditor {
 		blur?: () => void;
 	}
 }
-
-
 declare class BraftEditor extends React.Component<BraftEditor.editorProps> { }
