@@ -35,3 +35,10 @@ $(".whatever").floatingActionButton("open");
 $(".whatever").floatingActionButton("destroy");
 
 // Toast can not be invoked using jQuery.
+
+$(".whatever").datePicker();
+$(".whatever").datePicker({ defaultDate: new Date() });
+$(".whatever").datePicker("open");
+$(".whatever").datePicker("destroy");
+$(".whatever").datePicker("setDate", new Date());
+$(".whatever").datePicker("gotoDate", new Date());
