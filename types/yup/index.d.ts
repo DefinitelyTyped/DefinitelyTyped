@@ -206,6 +206,7 @@ export interface SchemaDescription {
 
 export interface ValidationError {
     name: string;
+    message: string;
     value: any;
     /**
      * A string, indicating where there error was thrown. path is empty at the root level.
@@ -220,7 +221,8 @@ export interface ValidationError {
     /**
      * In the case of aggregate errors, inner is an array of ValidationErrors throw earlier in the validation chain.
      */
-    inner?: ValidationError[];
+    inner: ValidationError[];
+    params?: object;
 }
 
 export interface Ref {
