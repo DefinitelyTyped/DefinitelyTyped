@@ -150,7 +150,7 @@ declare namespace Sinon {
 
     interface SinonStubStatic {
         (): SinonStub;
-        (obj: any): SinonStub;
+        <T>(obj: T): SinonStubbedInstance<T>;
         <T>(obj: T, method: keyof T): SinonStub;
         <T>(obj: T, method: keyof T, func: Function): SinonStub;
     }
