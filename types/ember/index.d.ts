@@ -2097,7 +2097,15 @@ declare module 'ember' {
                 options?: { path?: string; resetNamespace?: boolean },
                 callback?: (this: RouterDSL) => void
             ): void;
-            mount(name: string): void;
+            mount(
+                name: string,
+                options?: {
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
+                }
+            ): void;
         }
         class Service extends Object {}
         /**
