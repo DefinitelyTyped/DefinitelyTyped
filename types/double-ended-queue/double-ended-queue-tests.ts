@@ -1,4 +1,4 @@
-import Deque = require('double-ended-queue');
+import * as Deque from 'double-ended-queue';
 
 const a = new Deque<number>();            // $ExpectType Deque<number>
 const b = new Deque<string>(6);           // $ExpectType Deque<string>
@@ -21,3 +21,4 @@ a.get(null);        // $ExpectError
 a.get(1);           // $ExpectType number | undefined
 b.get(-1);          // $ExpectType string | undefined
 b.clear();          // $ExpectType void
+b.isEmpty();        // $ExpectType boolean
