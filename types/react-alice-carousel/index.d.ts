@@ -4,19 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module 'react-big-calendar' {
+declare module 'react-alice-carousel' {
 	import * as React from "react";
 
 	export interface EventObject {
 		item: number;
-		index: number;
+		slide: number;
 	}
 
-	export interface ResponsiveSettings {
-		breakpoint: {
-			items: number;
-		};
-	}
+	export interface ResponsiveSettings {}
 
 	export interface Props {
 		/**
@@ -125,5 +121,7 @@ declare module 'react-big-calendar' {
 		autoPlayActionDisabled?: boolean;
 	}
 
-	export default class Carousel extends React.Component<Props> {}
+	class Carousel extends React.PureComponent<Props> {}
+
+	export default Carousel;
 }
