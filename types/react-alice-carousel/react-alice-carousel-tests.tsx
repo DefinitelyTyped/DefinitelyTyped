@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as AliceCarousel from 'react-alice-carousel';
+import AliceCarousel, { Props, EventObject, ResponsiveSettings } from 'react-alice-carousel';
 
-class SimpleAliceCarousel extends React.Component<AliceCarousel.Props> {
+class SimpleAliceCarousel extends React.Component<Props> {
 	render() {
 		return (
 			<div>
@@ -11,19 +11,19 @@ class SimpleAliceCarousel extends React.Component<AliceCarousel.Props> {
 	}
 }
 
-class Gallery extends React.Component<AliceCarousel> {
-	onSlideChange(e: AliceCarousel.EventObject) {
+class Gallery extends React.Component<Props> {
+	onSlideChange(e: EventObject) {
 		console.log('Item`s position during a change: ', e.item);
 		console.log('Slide`s position during a change: ', e.slide);
 	}
 
-	onSlideChanged(e: AliceCarousel.EventObject) {
+	onSlideChanged(e: EventObject) {
 		console.log('Item`s position after changes: ', e.item);
 		console.log('Slide`s position after changes: ', e.slide);
 	}
 
 	render() {
-		const responsive = {
+		const responsive: ResponsiveSettings = {
 			0: {
 				items: 1
 			},
