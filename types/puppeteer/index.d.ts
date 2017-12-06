@@ -200,6 +200,8 @@ export interface SetCookie {
   name: string;
   /** The cookie value. */
   value: string;
+  /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. */
+  url?: string;
   /** The cookie domain. */
   domain?: string;
   /** The cookie path. */
