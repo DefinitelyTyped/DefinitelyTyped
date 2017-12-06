@@ -2425,6 +2425,14 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let typeName: string = frame.getTypeName();
+    }
 }
 
 ///////////////////////////////////////////////////////////
