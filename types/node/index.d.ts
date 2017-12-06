@@ -802,8 +802,10 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
+    interface ParsedUrlQuery { [key: string]: string | string[]; }
+
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): { [key: string]: string | string[] };
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -2214,7 +2216,9 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface UrlObject {
+    import { ParsedUrlQuery } from 'querystring';
+
+    export interface UrlObjectCommon {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2222,16 +2226,21 @@ declare module "url" {
         href?: string;
         path?: string;
         pathname?: string;
-        port?: string | number;
         protocol?: string;
-        query?: string | null | { [key: string]: string | string[] };
         search?: string;
         slashes?: boolean;
     }
 
-    export interface Url extends UrlObject {
+    // Input to `url.format`
+    export interface UrlObject extends UrlObjectCommon {
+        port?: string | number;
+        query?: string | null | { [key: string]: any };
+    }
+
+    // Output of `url.parse`
+    export interface Url extends UrlObjectCommon {
         port?: string;
-        query?: any;
+        query?: string | null | ParsedUrlQuery;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
