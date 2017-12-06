@@ -83,14 +83,14 @@ export class Emitter<Emissions = { [key: string]: any }> implements DisposableLi
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof Emissions>(eventName: T, handler: (value: Emissions[T]) => void):
+    on<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
         Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof Emissions>(eventName: T, handler: (value: Emissions[T]) => void):
+    once<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
         Disposable;
 
     /**
@@ -98,7 +98,7 @@ export class Emitter<Emissions = { [key: string]: any }> implements DisposableLi
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    preempt<T extends keyof Emissions>(eventName: T, handler: (value: Emissions[T]) => void):
+    preempt<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
         Disposable;
 
     // Event Emission
