@@ -10,3 +10,10 @@
 
 /** Getting Started */
 export * from './getting-started/01-creating-a-server';
+export * from './getting-started/02-adding-routes';
+export * from './path/catch-all';
+export * from './server/app';
+export * from './server/info';
+export * from './server/table';
+
+
