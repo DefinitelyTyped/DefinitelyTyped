@@ -241,7 +241,9 @@ declare namespace IORedis {
         hget(key: string, field: string, callback: (err: Error, res: string) => void): void;
         hget(key: string, field: string): Promise<string>;
 
-        hmset(key: string, field: string, value: any, ...args: string[]): any;
+        hmset(key: string, field: string, value: any, ...args: string[]): Promise<0 | 1>;
+        hmset(key: string, data: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hmset(key: string, data: any): Promise<0 | 1>;
 
         hmget(key: string, ...fields: string[]): any;
 
