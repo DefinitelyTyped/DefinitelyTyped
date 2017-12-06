@@ -405,6 +405,20 @@ function bufferTests() {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
+    }
 
     // Class Method byteLenght
     {
