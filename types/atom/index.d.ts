@@ -2410,7 +2410,7 @@ export type TooltipPlacement =
 export interface TooltipManager {
     /** Add a tooltip to the given element. */
     add(target: HTMLElement, options: {
-        item?: HTMLElement|{ element: HTMLElement }
+        item?: object,
     } | {
         title?: string|(() => string),
         html?: boolean,
