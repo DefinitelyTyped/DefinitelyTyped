@@ -3,9 +3,7 @@
 // Definitions by: Dmitry <https://github.com/dsagal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Deque<T> {
-    constructor(items?: ReadonlyArray<T>);
-    constructor(capacity: number);
+interface Deque<T> {
     readonly length: number;
     push(...items: T[]): number;
     unshift(...items: T[]): number;
@@ -18,5 +16,11 @@ declare class Deque<T> {
     isEmpty(): boolean;
     clear(): void;
 }
+
+declare const Deque: {
+    prototype: Deque<any>;
+    new <T>(items?: ReadonlyArray<T>): Deque<T>;
+    new <T>(capacity: number): Deque<T>;  // tslint:disable-line:no-unnecessary-generics
+};
 
 export = Deque;
