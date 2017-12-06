@@ -239,6 +239,16 @@ function testFakeServer() {
     });
 }
 
+function testStubObject() {
+    const myObj = {
+        setStatus() {},
+        json() {}
+    };
+    const stub = sinon.stub(myObj);
+    stub.setStatus.returns(stub);
+    stub.json.callCount;
+}
+
 testOne();
 testTwo();
 testThree();
