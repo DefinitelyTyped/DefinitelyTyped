@@ -11585,6 +11585,10 @@ declare namespace _ {
             lower: number,
             upper: number
         ): number;
+        clamp(
+            number: number,
+            upper: number
+        ): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -11595,6 +11599,9 @@ declare namespace _ {
             lower: number,
             upper: number
         ): number;
+        clamp(
+            upper: number
+        ): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -11603,6 +11610,9 @@ declare namespace _ {
          */
         clamp(
             lower: number,
+            upper: number
+        ): LoDashExplicitWrapper<number>;
+        clamp(
             upper: number
         ): LoDashExplicitWrapper<number>;
     }
