@@ -83,6 +83,8 @@ export interface SignCallback {
     (err: Error, encoded: string): void;
 }
 
+export type SecretFunc = (header: object, callback: (err: Error, secretOrPrivateKey?: string | Buffer) => void) => void;
+
 export type Secret = string | Buffer | {key: string, passphrase: string}
 
 /**
@@ -117,12 +119,12 @@ declare function verify(token: string, secretOrPublicKey: string | Buffer, optio
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
  * @param {String} token - JWT string to verify
- * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * @param {String|Buffer|Function} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA. Or a callback function that will fetch the key.
  * @param {VerifyOptions} [options] - Options for the verification
  * @param {Function} callback - Callback to get the decoded token on
  */
-declare function verify(token: string, secretOrPublicKey: string | Buffer, callback?: VerifyCallback): void;
-declare function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions, callback?: VerifyCallback): void;
+declare function verify(token: string, secretOrPublicKey: string | Buffer | SecretFunc, callback?: VerifyCallback): void;
+declare function verify(token: string, secretOrPublicKey: string | Buffer | SecretFunc, options?: VerifyOptions, callback?: VerifyCallback): void;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.
