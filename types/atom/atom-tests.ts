@@ -850,7 +850,6 @@ interface TestEmissions {
 
 function testEmitter() {
     emitter = new Atom.Emitter();
-
     emitter.clear();
     emitter.dispose();
 
@@ -863,10 +862,26 @@ function testEmitter() {
     emitter.emit("test-event");
     emitter.emit("test-event", 42);
 
-    const typedEmitter = new Atom.Emitter<TestEmissions>();
-    typedEmitter.on("test-event", value => {
-        if (value) str = value;
+    // Optional Value Emitter
+    const optEmitter = new Atom.Emitter<{ "test-event": string }>();
+    optEmitter.emit("test-event");
+    optEmitter.emit("test-event", "test");
+    optEmitter.on("test-event", value => {
+        str = value ? value : "";
     });
+
+    // Required Value Emitter
+    const reqEmitter = new Atom.Emitter<{}, TestEmissions>();
+    reqEmitter.on("test-event", value => {
+        str = value;
+    });
+    reqEmitter.emit("test-event", "test");
+
+    // Mixed Value Emitter
+    const mixedEmitter = new Atom.Emitter<{ "t1": "test" }, { "t2": "test" }>();
+    mixedEmitter.emit("t1");
+    mixedEmitter.emit("t1", "test");
+    mixedEmitter.emit("t2", "test");
 }
 
 // File =======================================================================

@@ -718,7 +718,8 @@ export class Disposable implements DisposableLike {
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
 // tslint:disable-next-line:no-any
-export class Emitter<Emissions = { [key: string]: any }> implements DisposableLike {
+export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {}>
+        implements DisposableLike {
     /** Construct an emitter. */
     constructor();
 
@@ -730,27 +731,47 @@ export class Emitter<Emissions = { [key: string]: any }> implements DisposableLi
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof Emissions>(eventName: T, handler: (value: Emissions[T]) => void):
-        Disposable;
+    on<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /** Registers a handler to be invoked whenever the given event is emitted. */
+    on<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof Emissions>(eventName: T, handler: (value: Emissions[T]) => void):
-        Disposable;
+    once<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /**
+     *  Register the given handler function to be invoked the next time an event
+     *  with the given name is emitted via ::emit.
+     */
+    once<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked before all other
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    preempt<T extends keyof Emissions>(eventName: T, handler: (value: Emissions[T]) => void):
-        Disposable;
+    preempt<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /**
+     *  Register the given handler function to be invoked before all other
+     *  handlers existing at the time of subscription whenever events by the
+     *  given name are emitted via ::emit.
+     */
+    preempt<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     // Event Emission
     /** Invoke the handlers registered via ::on for the given event name. */
-    emit<T extends keyof Emissions>(eventName: T, value?: Emissions[T]): void;
+    emit<T extends keyof OptionalEmissions>(eventName: T, value?:
+        OptionalEmissions[T]): void;
+    /** Invoke the handlers registered via ::on for the given event name. */
+    emit<T extends keyof RequiredEmissions>(eventName: T, value:
+        RequiredEmissions[T]): void;
 }
 
 /**
