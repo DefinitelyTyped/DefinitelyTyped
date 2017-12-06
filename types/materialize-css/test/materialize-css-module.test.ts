@@ -170,3 +170,29 @@ fab.el;
 toast.dismiss();
 // $ExpectType void
 materialize.Toast.dismissAll();
+
+// DatePicker
+// $ExpectType DatePicker
+new materialize.DatePicker(elem);
+// $ExpectType DatePicker
+const datePicker = new materialize.DatePicker(elem, {
+    defaultDate: new Date(),
+    onSelect(date) {
+        // $ExpectType DatePicker
+        this;
+        // $ExpectType Date
+        date;
+    }
+});
+// $ExpectType void
+datePicker.open();
+// $ExpectType void
+datePicker.setDate(new Date());
+// $ExpectType void
+datePicker.destroy();
+// $ExpectType DatePickerOptions
+datePicker.options;
+// $ExpectType Element
+datePicker.el;
+// $ExpectType boolean
+datePicker.isOpen;
