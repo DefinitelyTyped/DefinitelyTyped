@@ -559,6 +559,8 @@ declare namespace Sinon {
      * @template TType Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
+        // TODO: this should really only replace functions on TType with SinonStubs, not all properties
+        // Likely infeasible without mapped conditional types, per https://github.com/Microsoft/TypeScript/issues/12424
         [P in keyof TType]: SinonStub;
     };
 }
