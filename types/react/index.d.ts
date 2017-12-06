@@ -962,12 +962,12 @@ declare namespace React {
         /**
          * Defines the shape of the border of the bottom-left corner.
          */
-        borderBottomLeftRadius?: CSSWideKeyword | any;
+        borderBottomLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Defines the shape of the border of the bottom-right corner.
          */
-        borderBottomRightRadius?: CSSWideKeyword | any;
+        borderBottomRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the line style of the bottom border of a box.
@@ -1046,6 +1046,11 @@ declare namespace React {
         borderLeftWidth?: CSSWideKeyword | any;
 
         /**
+         * Shorthand property that sets the rounding of all four corners.
+         */
+        borderRadius?: CSSWideKeyword | CSSLength;
+
+        /**
          * Shorthand property that defines the border-width, border-style and border-color of an element's right border
          * in a single declaration. Note that you can use the corresponding longhand properties to set specific
          * individual properties of the right border — border-right-width, border-right-style and border-right-color.
@@ -1105,12 +1110,12 @@ declare namespace React {
         /**
          * Sets the rounding of the top-left corner of the element.
          */
-        borderTopLeftRadius?: CSSWideKeyword | any;
+        borderTopLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the rounding of the top-right corner of the element.
          */
-        borderTopRightRadius?: CSSWideKeyword | any;
+        borderTopRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style.
