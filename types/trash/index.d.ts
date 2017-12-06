@@ -1,6 +1,6 @@
 // Type definitions for trash 4.2
 // Project: https://github.com/sindresorhus/trash#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Matthew James <https://github.com/matthew-matvei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "trash" {
