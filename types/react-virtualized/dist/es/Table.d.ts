@@ -43,6 +43,7 @@ export type TableRowProps = {
     onRowDoubleClick?: (params: RowMouseEventHandlerParams) => void,
     onRowMouseOver?: (params: RowMouseEventHandlerParams) => void,
     onRowMouseOut?: (params: RowMouseEventHandlerParams) => void,
+    onRowRightClick?: (params: RowMouseEventHandlerParams) => void,
     rowData: any,
     style: any
 };
