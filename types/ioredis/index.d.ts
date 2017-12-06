@@ -78,9 +78,9 @@ declare namespace IORedis {
         strlen(key: string, callback: (err: Error, res: number) => void): void;
         strlen(key: string): Promise<number>;
 
-        del(key: string, ...keys: string[]): any;
+        del(...keys: string[]): any;
 
-        exists(key: string, ...keys: string[]): any;
+        exists(...keys: string[]): any;
 
         setbit(key: string, offset: number, value: any, callback: (err: Error, res: number) => void): void;
         setbit(key: string, offset: number, value: any): Promise<number>;
@@ -103,11 +103,11 @@ declare namespace IORedis {
         decr(key: string, callback: (err: Error, res: number) => void): void;
         decr(key: string): Promise<number>;
 
-        mget(key: string, ...keys: string[]): any;
+        mget(...keys: string[]): any;
 
-        rpush(key: string, value: any, ...values: string[]): any;
+        rpush(key: string, ...values: any[]): any;
 
-        lpush(key: string, value: any, ...values: string[]): any;
+        lpush(key: string, ...values: any[]): any;
 
         rpushx(key: string, value: any, callback: (err: Error, res: number) => void): void;
         rpushx(key: string, value: any): Promise<number>;
@@ -124,9 +124,9 @@ declare namespace IORedis {
         lpop(key: string, callback: (err: Error, res: string) => void): void;
         lpop(key: string): Promise<string>;
 
-        brpop(key: string, ...keys: string[]): any;
+        brpop(...keys: string[]): any;
 
-        blpop(key: string, ...keys: string[]): any;
+        blpop(...keys: string[]): any;
 
         brpoplpush(source: string, destination: string, timeout: number, callback: (err: Error, res: any) => void): void;
         brpoplpush(source: string, destination: string, timeout: number): Promise<any>;
@@ -173,17 +173,17 @@ declare namespace IORedis {
         srandmember(key: string, count: number, callback: (err: Error, res: any) => void): void;
         srandmember(key: string, count?: number): Promise<any>;
 
-        sinter(key: string, ...keys: string[]): any;
+        sinter(...keys: string[]): any;
 
-        sinterstore(destination: string, key: string, ...keys: string[]): any;
+        sinterstore(destination: string, ...keys: string[]): any;
 
-        sunion(key: string, ...keys: string[]): any;
+        sunion(...keys: string[]): any;
 
-        sunionstore(destination: string, key: string, ...keys: string[]): any;
+        sunionstore(destination: string, ...keys: string[]): any;
 
-        sdiff(key: string, ...keys: string[]): any;
+        sdiff(...keys: string[]): any;
 
-        sdiffstore(destination: string, key: string, ...keys: string[]): any;
+        sdiffstore(destination: string, ...keys: string[]): any;
 
         smembers(key: string, callback: (err: Error, res: any) => void): void;
         smembers(key: string): Promise<any>;
@@ -193,7 +193,7 @@ declare namespace IORedis {
         zincrby(key: string, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: string, increment: number, member: string): Promise<any>;
 
-        zrem(key: string, member: string, ...members: any[]): any;
+        zrem(key: string, ...members: any[]): any;
 
         zremrangebyscore(key: string, min: number | string, max: number | string, callback: (err: Error, res: any) => void): void;
         zremrangebyscore(key: string, min: number | string, max: number | string): Promise<any>;
@@ -243,7 +243,7 @@ declare namespace IORedis {
 
         hmset(key: string, field: string, value: any, ...args: string[]): any;
 
-        hmget(key: string, field: string, ...fields: string[]): any;
+        hmget(key: string, ...fields: string[]): any;
 
         hincrby(key: string, field: string, increment: number, callback: (err: Error, res: number) => void): void;
         hincrby(key: string, field: string, increment: number): Promise<number>;
@@ -251,7 +251,7 @@ declare namespace IORedis {
         hincrbyfloat(key: string, field: string, increment: number, callback: (err: Error, res: number) => void): void;
         hincrbyfloat(key: string, field: string, increment: number): Promise<number>;
 
-        hdel(key: string, field: string, ...fields: string[]): any;
+        hdel(key: string, ...fields: string[]): any;
 
         hlen(key: string, callback: (err: Error, res: number) => void): void;
         hlen(key: string): Promise<number>;
@@ -388,18 +388,18 @@ declare namespace IORedis {
 
         config(...args: any[]): any;
 
-        subscribe(channel: string, ...channels: any[]): any;
+        subscribe(...channels: any[]): any;
 
         unsubscribe(...channels: string[]): any;
 
-        psubscribe(pattern: string, ...patterns: string[]): any;
+        psubscribe(...patterns: string[]): any;
 
         punsubscribe(...patterns: string[]): any;
 
         publish(channel: string, message: string, callback: (err: Error, res: number) => void): void;
         publish(channel: string, message: string): Promise<number>;
 
-        watch(key: string, ...keys: string[]): any;
+        watch(...keys: string[]): any;
 
         unwatch(callback: (err: Error, res: string) => void): void;
         unwatch(): Promise<string>;
@@ -432,11 +432,11 @@ declare namespace IORedis {
 
         zscan(key: string, cursor: number, ...args: any[]): any;
 
-        pfmerge(destkey: string, sourcekey: string, ...sourcekeys: string[]): any;
+        pfmerge(destkey: string, ...sourcekeys: string[]): any;
 
-        pfadd(key: string, element: string, ...elements: string[]): any;
+        pfadd(key: string, ...elements: string[]): any;
 
-        pfcount(key: string, ...keys: string[]): any;
+        pfcount(...keys: string[]): any;
 
         pipeline(commands?: string[][]): Pipeline;
 
@@ -464,9 +464,9 @@ declare namespace IORedis {
 
         strlen(key: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        del(key: string, ...keys: string[]): Pipeline;
+        del(...keys: string[]): Pipeline;
 
-        exists(key: string, ...keys: string[]): Pipeline;
+        exists(...keys: string[]): Pipeline;
 
         setbit(key: string, offset: number, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -482,11 +482,11 @@ declare namespace IORedis {
 
         decr(key: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        mget(key: string, ...keys: string[]): Pipeline;
+        mget(...keys: string[]): Pipeline;
 
-        rpush(key: string, value: any, ...values: string[]): Pipeline;
+        rpush(key: string, ...values: any[]): Pipeline;
 
-        lpush(key: string, value: any, ...values: string[]): Pipeline;
+        lpush(key: string, ...values: any[]): Pipeline;
 
         rpushx(key: string, value: any, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -498,9 +498,9 @@ declare namespace IORedis {
 
         lpop(key: string, callback?: (err: Error, res: string) => void): Pipeline;
 
-        brpop(key: string, ...keys: string[]): Pipeline;
+        brpop(...keys: string[]): Pipeline;
 
-        blpop(key: string, ...keys: string[]): Pipeline;
+        blpop(...keys: string[]): Pipeline;
 
         brpoplpush(source: string, destination: string, timeout: number, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -534,17 +534,17 @@ declare namespace IORedis {
         srandmember(key: string, callback?: (err: Error, res: any) => void): Pipeline;
         srandmember(key: string, count: number, callback?: (err: Error, res: any) => void): Pipeline;
 
-        sinter(key: string, ...keys: string[]): Pipeline;
+        sinter(...keys: string[]): Pipeline;
 
-        sinterstore(destination: string, key: string, ...keys: string[]): Pipeline;
+        sinterstore(destination: string, ...keys: string[]): Pipeline;
 
-        sunion(key: string, ...keys: string[]): Pipeline;
+        sunion(...keys: string[]): Pipeline;
 
-        sunionstore(destination: string, key: string, ...keys: string[]): Pipeline;
+        sunionstore(destination: string, ...keys: string[]): Pipeline;
 
-        sdiff(key: string, ...keys: string[]): Pipeline;
+        sdiff(...keys: string[]): Pipeline;
 
-        sdiffstore(destination: string, key: string, ...keys: string[]): Pipeline;
+        sdiffstore(destination: string, ...keys: string[]): Pipeline;
 
         smembers(key: string, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -552,7 +552,7 @@ declare namespace IORedis {
 
         zincrby(key: string, increment: number, member: string, callback?: (err: Error, res: any) => void): Pipeline;
 
-        zrem(key: string, member: string, ...members: any[]): Pipeline;
+        zrem(key: string, ...members: any[]): Pipeline;
 
         zremrangebyscore(key: string, min: number | string, max: number | string, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -590,13 +590,13 @@ declare namespace IORedis {
 
         hmset(key: string, field: string, value: any, ...args: string[]): Pipeline;
 
-        hmget(key: string, field: string, ...fields: string[]): Pipeline;
+        hmget(key: string, ...fields: string[]): Pipeline;
 
         hincrby(key: string, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
         hincrbyfloat(key: string, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hdel(key: string, field: string, ...fields: string[]): Pipeline;
+        hdel(key: string, ...fields: string[]): Pipeline;
 
         hlen(key: string, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -692,17 +692,17 @@ declare namespace IORedis {
 
         config(...args: any[]): Pipeline;
 
-        subscribe(channel: string, ...channels: any[]): Pipeline;
+        subscribe(...channels: any[]): Pipeline;
 
         unsubscribe(...channels: string[]): Pipeline;
 
-        psubscribe(pattern: string, ...patterns: string[]): Pipeline;
+        psubscribe(...patterns: string[]): Pipeline;
 
         punsubscribe(...patterns: string[]): Pipeline;
 
         publish(channel: string, message: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        watch(key: string, ...keys: string[]): Pipeline;
+        watch(...keys: string[]): Pipeline;
 
         unwatch(callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -732,11 +732,11 @@ declare namespace IORedis {
 
         zscan(key: string, cursor: number, ...args: any[]): Pipeline;
 
-        pfmerge(destkey: string, sourcekey: string, ...sourcekeys: string[]): Pipeline;
+        pfmerge(destkey: string, ...sourcekeys: string[]): Pipeline;
 
-        pfadd(key: string, element: string, ...elements: string[]): Pipeline;
+        pfadd(key: string, ...elements: string[]): Pipeline;
 
-        pfcount(key: string, ...keys: string[]): Pipeline;
+        pfcount(...keys: string[]): Pipeline;
     }
 
     interface Cluster extends NodeJS.EventEmitter, Commander {
