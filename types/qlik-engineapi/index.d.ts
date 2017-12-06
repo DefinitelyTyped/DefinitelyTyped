@@ -2402,7 +2402,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at app level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the app.
      */
-    interface IApp {
+    interface IApp extends enigmaJS.IGeneratedAPI {
         global: IGlobal;
 
         /**
