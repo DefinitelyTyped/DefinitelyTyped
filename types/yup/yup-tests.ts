@@ -63,13 +63,13 @@ error = {
     type: 'date',
     value: {start: '2017-11-10'}
 };
-validationError.value = 'value';
-validationError.value = true;
-validationError.value = 5;
-validationError.value = {name: 'value'};
-validationError.type = {};
-validationError.type = [];
-validationError.errors = ['error'];
+error.value = 'value';
+error.value = true;
+error.value = 5;
+error.value = {name: 'value'};
+error.type = {};
+error.type = [];
+error.errors = ['error'];
 
 // mixed
 let mixed: MixedSchema = yup.mixed();
