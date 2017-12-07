@@ -7,11 +7,11 @@
 export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 
 export interface ColumnConfig {
-    alignment?: string;
+    alignment?: 'left' | 'center' | 'right';
     width?: number;
     truncate?: number;
-    paddingLeft?: string;
-    paddingRight?: string;
+    paddingLeft?: number;
+    paddingRight?: number;
 }
 
 export interface JoinStruct {
