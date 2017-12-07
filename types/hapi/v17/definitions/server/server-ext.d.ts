@@ -1,4 +1,4 @@
-import {Server, Request, ResponseToolkit} from "hapi";
+import {Server, Lifecycle} from "hapi";
 
 /**
  * The extension point event name. The available extension points include the request extension points as well as the following server extension points:
@@ -76,8 +76,8 @@ export interface ServerExtPointFunction {
     (server: Server): void;
 }
 
-export interface RequestExtPointFunction {
-    (request: Request, h: ResponseToolkit): void;
+export interface RequestExtPointFunction extends Lifecycle.Method {
+
 }
 
 /**
