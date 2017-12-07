@@ -1628,7 +1628,7 @@ declare namespace __MaterialUI {
         className?: string;
         contentStyle?: React.CSSProperties;
         message: React.ReactNode;
-        onActionTouchTap?: React.TouchEventHandler<{}>;
+        onActionClick?: React.MouseEventHandler<{}>;
         onRequestClose?(reason: string): void;
         open: boolean;
         style?: React.CSSProperties;
@@ -1684,7 +1684,7 @@ declare namespace __MaterialUI {
             bodyStyle?: React.CSSProperties;
             className?: string;
             message: string | JSX.Element;
-            onActionTouchTap?: React.TouchEventHandler<{}>;
+            onActionClick?: React.MouseEventHandler<{}>;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED
             onRequestClose(reason: string): void;
