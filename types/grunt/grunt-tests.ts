@@ -171,4 +171,4 @@ grunt.registerTask('something', 'Do something interesting.', function(arg) {
       grunt.verbose.or.write(msg).error().error(e.message);
       grunt.fail.warn('Something went wrong.');
     }
-  });
+});
