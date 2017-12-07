@@ -4,7 +4,7 @@
 //                 mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type borderType = 'honeywell' | 'norc' | 'ramac' | 'void';
+export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 
 export interface ColumnConfig {
     alignment?: string;
@@ -48,4 +48,4 @@ export function table(data: any[], userConfig?: TableUserConfig): string;
 
 export function createStream(userConfig: TableUserConfig): { write: string[] };
 
-export function getBorderCharacters(templateName: borderType): JoinStruct;
+export function getBorderCharacters(templateName: BorderType): JoinStruct;
