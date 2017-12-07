@@ -1,40 +1,30 @@
-// from https://hapijs.com/tutorials/getting-started#adding-routes
+// From https://github.com/hapijs/hapi/blob/master/API.md#errors
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
+import * as Boom from "boom";
 
 const options: ServerOptions = {
     port: 8000,
 };
 
-const serverRoute: ServerRoute = {
-    path: '/test',
-    method: 'GET',
-    handler: function (request: Request, h: ResponseToolkit) {
-        console.log(request);
-        return 'ok: ' + request.path;
-    }
-};
-
 const serverRoutes: ServerRoute[] = [
     {
-        path: '/test1',
+        path: '/badRequest',
         method: 'GET',
         handler: function (request: Request, h: ResponseToolkit) {
-            console.log(request);
-            return 'ok: ' + request.path;
+            throw Boom.badRequest('Unsupported parameter');
         }
     },
     {
-        path: '/test2',
+        path: '/internal',
         method: 'GET',
         handler: function (request: Request, h: ResponseToolkit) {
-            console.log(request);
-            return 'ok: ' + request.path;
+            throw new Error('unexpect error');
         }
     },
 ];
 
+
 const server = new Server(options);
-server.route(serverRoute);
 server.route(serverRoutes);
 
 server.start();

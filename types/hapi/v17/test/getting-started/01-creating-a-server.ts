@@ -1,5 +1,5 @@
 // From https://hapijs.com/tutorials/getting-started#creating-a-server
-import { Server, ServerOptions } from 'hapi';
+import {Server, ServerOptions} from 'hapi';
 
 const options: ServerOptions = {
     port: 8000,
