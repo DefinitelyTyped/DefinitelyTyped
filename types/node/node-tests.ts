@@ -29,6 +29,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
 import * as inspector from "inspector";
+import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
@@ -3084,6 +3085,38 @@ namespace v8_tests {
     const zapsGarbage: number = heapStats.does_zap_garbage;
 
     v8.setFlagsFromString('--collect_maps');
+}
+
+////////////////////////////////////////////////////
+/// PerfHooks tests : https://nodejs.org/api/perf_hooks.html
+////////////////////////////////////////////////////
+namespace perf_hooks_tests {
+    perf_hooks.performance.mark('start');
+    (
+        () => {}
+    )();
+    perf_hooks.performance.mark('end');
+
+    const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
+    const timeOrigin = perf_hooks.performance.timeOrigin;
+    const {
+        bootstrapComplete,
+        clusterSetupEnd,
+        clusterSetupStart,
+        duration: dur,
+        entryType,
+        kind,
+        loopExit,
+        loopStart,
+        moduleLoadEnd,
+        moduleLoadStart,
+        preloadModuleLoadEnd,
+        preloadModuleLoadStart,
+        startTime,
+        thirdPartyMainEnd,
+        thirdPartyMainStart,
+        v8Start,
+    } = perf_hooks.performanceNodeTiming;
 }
 
 ////////////////////////////////////////////////////
