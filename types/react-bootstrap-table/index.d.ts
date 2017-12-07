@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-table 4.1
+// Type definitions for react-bootstrap-table 4.2
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
@@ -400,6 +400,10 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 * Table footer custom class
 	 */
 	tableFooterClass?: string;
+	/**
+	 * Render react-s-alert notifications
+	 */
+	renderAlert?: boolean;
 }
 
 /**
@@ -550,7 +554,7 @@ export interface CellEdit<TRow extends object = any> {
 	 * bool value to perfom if it is valid or not in addition, you should return 1 from the main function to tell
 	 * react-bootstrap-table that this is a async operation.
 	 */
-	 beforeSaveCell?<K extends keyof TRow>(
+	beforeSaveCell?<K extends keyof TRow>(
 		row: TRow,
 		cellName: K,
 		cellValue: TRow[K],
@@ -580,11 +584,13 @@ export interface Options<TRow extends object = any> {
 	/**
 	 * Provide the name of the column that should be sorted by.
 	 * If multi-column sort is active, this is an array of columns.
+	 * If there should be no active sort, both sortName and sortOrder should be undefined.
 	 */
 	sortName?: keyof TRow | Array<keyof TRow>;
 	/**
 	 * Specify whether the sort should be ascending or descending.
 	 * If multi-column sort is active, this is an array of sortOrder items.
+	 * If there should be no active sort, both sortName and sortOrder should be undefined.
 	 */
 	sortOrder?: SortOrder | SortOrder[];
 	/**
@@ -707,17 +713,20 @@ export interface Options<TRow extends object = any> {
 	onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
 	/**
 	 * Assign a callback function which will be called after a row click.
-	 * This function takes three arguments:
+	 * This function takes four arguments:
 	 *   `row`: which is the row data that was clicked on.
 	 *   `columnIndex`: index of the column that was clicked on.
 	 *   `rowIndex`: index of the row that was clicked on.
+	 *   `event`: the click event.
 	 */
-	onRowClick?(row: TRow, columnIndex: number, rowIndex: number): void;
+	onRowClick?(row: TRow, columnIndex: number, rowIndex: number, event: React.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called after a row double click.
-	 * This function takes one argument: row which is the row data that was double clicked on.
+	 * This function takes two arguments:
+	 *   `row`: which is the row data that was double clicked on.
+	 *   `event`: the double click event.
 	 */
-	onRowDoubleClick?(row: TRow): void;
+	onRowDoubleClick?(row: TRow, event: React.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called when mouse enters the table.
 	 */
@@ -1045,12 +1054,12 @@ export interface Options<TRow extends object = any> {
 	 */
 	exportCSVSeparator?: string;
 	/**
-	 * Set a function to be called when expanding or collapsing a row. This function takes two arguments: rowKey
-	 * and isExpand.
+	 * Set a function to be called when expanding or collapsing a row. This function takes three arguments:
 	 *   `rowKey`: dataField key for the row that is expanding or collapsing.
 	 *   `isExpand`: True if the row is expanding, false if it is collapsing.
+	 *   `event`: The click event.
 	 */
-	onExpand?(rowKey: number | string, isExpand: boolean): void;
+	onExpand?(rowKey: number | string, isExpand: boolean, event: React.MouseEvent<any>): void;
 	/**
 	 * Specify that only one row should be able to be expanded at the same time.
 	 */
