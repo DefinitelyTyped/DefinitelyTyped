@@ -213,8 +213,8 @@ export interface ResponseObject extends Podium {
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsestatename-value-options)
      */
-    state(name: string, value: string): ResponseObject;
-    state(name: string, value: string, options: ServerStateCookieOptions): ResponseObject;
+    state(name: string, value: object): ResponseObject;
+    state(name: string, value: object, options: ServerStateCookieOptions): ResponseObject;
 
     /**
      * Sets a string suffix when the response is process via JSON.stringify() where:
@@ -234,7 +234,7 @@ export interface ResponseObject extends Podium {
 
     /**
      * Sets the HTTP 'Content-Type' header where:
-     * @param value - is the mime type.
+     * @param mimeType - is the mime type.
      * @return Return value: the current response object.
      * Should only be used to override the built-in default for each response type.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsetypemimetype)
