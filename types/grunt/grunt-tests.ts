@@ -1,4 +1,4 @@
-
+import * as grunt from "grunt";
 
 // Official code sample from 
 // http://gruntjs.com/getting-started#an-example-gruntfile
@@ -127,3 +127,48 @@ exports.exports = function(grunt: IGrunt) {
     });
 
 };
+
+// Programatic Style
+grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.loadNpmTasks('grunt-contrib-uglify');
+grunt.loadNpmTasks('grunt-contrib-cssmin');
+grunt.loadNpmTasks('grunt-filerev');
+grunt.task.init([]);
+grunt.config.init({});
+
+var opts = grunt.cli.options;
+opts.redirect = !opts.silent;
+
+grunt.log.muted = true;
+grunt.config.init({});
+grunt.config('usemin', {
+  html: 'build/index.html',
+  options: {
+    assetsDirs: ['foo', 'bar']
+  }
+});
+grunt.task.run('usemin');
+grunt.task.start();
+
+// log a bit what was added to config
+grunt.verbose.subhead('Configuration is now:');
+
+grunt.log.wordlist([]);
+
+// only displayed if not in verbose mode
+grunt.verbose.or.writeln('Configuration changed for', grunt.log.wordlist([]));
+
+grunt.registerTask('something', 'Do something interesting.', function(arg) {
+    var msg = 'Doing something...';
+    grunt.verbose.write(msg);
+    try {
+      // Success!
+      grunt.verbose.ok();
+    } catch(e) {
+      // Something went wrong.
+      grunt.verbose.or.write(msg);
+      
+      grunt.verbose.or.write(msg).error().error(e.message);
+      grunt.fail.warn('Something went wrong.');
+    }
+  });

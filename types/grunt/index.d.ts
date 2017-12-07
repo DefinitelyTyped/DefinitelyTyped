@@ -1,6 +1,8 @@
 // Type definitions for Grunt 0.4.x
 // Project: http://gruntjs.com
-// Definitions by: Jeff May <https://github.com/jeffmay>, Basarat Ali Syed <https://github.com/basarat>
+// Definitions by: Jeff May <https://github.com/jeffmay>
+//                 Basarat Ali Syed <https://github.com/basarat>
+//                 Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 // Definitions: https://github.com/jeffmay/DefinitelyTyped
 
 /// <reference types="node" />
@@ -663,13 +665,13 @@ declare namespace grunt {
             /**
              * Log the specified msg string, with trailing newline.
              */
-            writeln(msg: string): T;
+            writeln(msg: string, text?: string): T;
 
             /**
              * If msg string is omitted, logs ERROR in red,
              * otherwise logs >> msg, with trailing newline.
              */
-            error(msg: string): T;
+            error(msg?: string): T;
 
             /**
              * Log an error with grunt.log.error, wrapping text to 80 columns using grunt.log.wraptext.
@@ -679,7 +681,7 @@ declare namespace grunt {
             /**
              * If msg string is omitted, logs OK in green, otherwise logs >> msg, with trailing newline.
              */
-            ok(msg: string): T;
+            ok(msg?: string): T;
 
             /**
              * Log an ok message with grunt.log.ok, wrapping text to 80 columns using grunt.log.wraptext.
@@ -700,6 +702,11 @@ declare namespace grunt {
              * Log an warning with grunt.log.warn
              */
             warn(msg: string): T;
+
+            /**
+             * Mute all logs
+             */
+            muted: boolean;
         }
 
         /**
@@ -722,8 +729,52 @@ declare namespace grunt {
          * {@link http://gruntjs.com/api/grunt.log}
          */
         interface LogModule extends CommonLogging<LogModule> {
+
+            /**
+             * Returns a comma-separated list of arr array items.
+             *
+             * @param arr List of strings
+             * @param options 
+             */
+            wordlist(arr: string[], options?: WordListOptions): string;
+
+            /**
+             * Removes all color information from a string, making it suitable for testing .length or perhaps logging to a file.
+             *
+             * @param string List of strings
+             */
+            uncolor(str: string): string;
+
+            /**
+             * Wrap text string to width characters with \n, ensuring that words are not split in the middle unless absolutely necessary.
+             *
+             * @param width 
+             * @param text Text
+             */
+            wraptext(width: number, text: string): string;
+
+            /**
+             * Wrap texts array of strings to columns widths characters wide. A wrapper for the grunt.log.wraptext method that can be used to generate output in columns.
+             *
+             * @param width 
+             * @param texts Text
+             */
+            table(width: number, texts: string[]): string;
+
             verbose: VerboseLogModule;
             notverbose: NotVerboseLogModule;
+        }
+
+        interface WordListOptions {
+            /**
+             * The separator string (can be colored).
+             */
+            separator: string;
+
+            /**
+             * The array item color (specify false to not colorize).
+             */
+            color: string;
         }
     }
 
@@ -844,6 +895,36 @@ declare namespace grunt {
              * @see http://gruntjs.com/api/inside-tasks
              */
             current: grunt.task.IMultiTask<any>;
+
+            /**
+             * Fail the task if some other task failed or never ran.
+             * @param Task name
+             */
+            requires: grunt.task.IMultiTask<any>;
+
+            /**
+             * Load task-related files from the specified directory, relative to the Gruntfile.
+             * This method can be used to load task-related files from a local Grunt plugin by
+             * specifying the path to that plugin's "tasks" subdirectory.
+             */
+            loadTasks(tasksPath: string): void;
+            
+            /**
+             * Load tasks from the specified Grunt plugin.
+             * This plugin must be installed locally via npm, and must be relative to the Gruntfile.
+             * Grunt plugins can be created by using the grunt-init gruntplugin template: grunt init:gruntplugin.
+             */
+            loadNpmTasks(pluginName: string): void;
+
+            /**
+             * Start Task
+             */
+            start(): void;
+
+            /**
+             * Initial Task
+             */
+            init(config: string[]): void;
         }
 
         interface AsyncResultCatcher {
@@ -1246,6 +1327,16 @@ declare namespace grunt {
         }
     }
 
+    namespace cli {
+        /*
+        * CLI
+        */
+        interface Cli {
+            tasks: string[];
+            options: any;
+        }
+    }
+
     /*
      * Common interfaces
      */
@@ -1303,6 +1394,8 @@ interface IGrunt extends grunt.IConfigComponents, grunt.fail.FailModule, grunt.I
 
     log: grunt.log.LogModule;
 
+    verbose: grunt.log.VerboseLogModule;
+
     option: grunt.option.OptionModule;
 
     task: grunt.task.TaskModule;
@@ -1310,6 +1403,8 @@ interface IGrunt extends grunt.IConfigComponents, grunt.fail.FailModule, grunt.I
     template: grunt.template.TemplateModule;
 
     util: grunt.util.UtilModule;
+
+    cli: grunt.cli.Cli;
 
     /**
      * The current Grunt package.json metadata, as an object.
