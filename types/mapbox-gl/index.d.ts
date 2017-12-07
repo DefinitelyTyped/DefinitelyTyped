@@ -93,7 +93,7 @@ declare namespace mapboxgl {
 
         setFilter(layer: string, filter?: any[]): this;
 
-        setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
+        setLayerZoomRange(layerId: string, minzoom?: number, maxzoom?: number): this;
 
         getFilter(layer: string): any[];
 
