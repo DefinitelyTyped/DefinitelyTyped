@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.x
+// Type definitions for Node.js 8.5.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -21,7 +21,7 @@
 
 /************************************************
 *                                               *
-*               Node.js v8.x API                *
+*               Node.js v8.5.x API              *
 *                                               *
 ************************************************/
 
