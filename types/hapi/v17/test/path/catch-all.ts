@@ -1,5 +1,5 @@
 // From https://github.com/hapijs/hapi/blob/master/API.md#catch-all-route
-import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
+import {Request, ResponseToolkit, Server, ServerOptions} from "hapi";
 
 const options: ServerOptions = {
     port: 8000,
@@ -12,4 +12,4 @@ const handler = function (request: Request, h: ResponseToolkit) {
 server.route({ method: '*', path: '/{p*}', handler });
 
 server.start();
-console.log(`Server running at: ${server.info!.uri}`);
+console.log('Server started at: ' + server.info.uri);
