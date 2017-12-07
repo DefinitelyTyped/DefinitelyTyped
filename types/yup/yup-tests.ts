@@ -52,6 +52,24 @@ const renderables = yup.array().of(renderable);
 let error: ValidationError = yup.ValidationError('error', 'value', 'path');
 error = yup.ValidationError(['error', 'error2'], true, 'path');
 error = yup.ValidationError(['error', 'error2'], 5, 'path');
+error = yup.ValidationError(['error', 'error2'], {name: 'value'}, 'path');
+error = yup.ValidationError(['error', 'error2'], {name: 'value'}, 'path', 'type');
+error = {
+    name: 'ValidationError',
+    message: 'error',
+    path: 'path',
+    errors: ['error'],
+    inner: [yup.ValidationError('error', true, 'path')],
+    type: 'date',
+    value: {start: '2017-11-10'}
+};
+validationError.value = 'value';
+validationError.value = true;
+validationError.value = 5;
+validationError.value = {name: 'value'};
+validationError.type = {};
+validationError.type = [];
+validationError.errors = ['error'];
 
 // mixed
 let mixed: MixedSchema = yup.mixed();
