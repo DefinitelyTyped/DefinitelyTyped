@@ -14,6 +14,7 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -167,7 +168,8 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
+    type ReactRenderResult = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null;
+    type ReactNode = ReactRenderResult | undefined;
 
     //
     // Top Level API
@@ -287,7 +289,7 @@ declare namespace React {
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
 
         forceUpdate(callBack?: () => any): void;
-        render(): ReactNode;
+        render(): ReactRenderResult;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -320,7 +322,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactRenderResult;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -3527,7 +3529,7 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): React.ReactNode;
+            render(): React.ReactRenderResult;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
