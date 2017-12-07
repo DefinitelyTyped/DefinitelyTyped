@@ -1050,7 +1050,7 @@ declare namespace jest {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
         onTestStart?(test: Test): void;
-        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): Maybe<Promise<void>>;
+        onRunComplete?(contexts: [Context], results: AggregatedResult): Maybe<Promise<void>>;
         getLastError?(): Maybe<Error>;
     }
 
