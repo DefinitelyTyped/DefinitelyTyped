@@ -39,7 +39,7 @@ export interface TableUserConfig {
     columns?: {
         [index: number]: ColumnConfig
     };
-    drawJoin?(index: number, size: number): boolean;
+    drawHorizontalLine?: (index: number, size: number) => boolean;
     border?: JoinStruct;
     columnDefault?: ColumnConfig;
     columnCount?: number;
