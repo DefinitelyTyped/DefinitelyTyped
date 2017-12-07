@@ -8,6 +8,10 @@ const data = [
     ['john', 'doe']
 ];
 
-const config: table.TableUserConfig = { border };
+const config: table.TableUserConfig = {
+    border,
+    columnCount: 1,
+    drawHorizontalLine: () => true
+};
 
 table.table(data, config);
