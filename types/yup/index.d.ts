@@ -216,7 +216,7 @@ export interface ValidationError {
     /**
      * array of error messages
      */
-    errors: string | string[];
+    errors: string[];
 
     /**
      * In the case of aggregate errors, inner is an array of ValidationErrors throw earlier in the validation chain.
