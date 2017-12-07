@@ -42,6 +42,7 @@ export interface TableUserConfig {
     drawJoin?(index: number, size: number): boolean;
     border?: JoinStruct;
     columnDefault?: ColumnConfig;
+    columnCount?: number;
 }
 
 export function table(data: any[], userConfig?: TableUserConfig): string;
