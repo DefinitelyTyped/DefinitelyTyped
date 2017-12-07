@@ -269,6 +269,10 @@ declare module 'angular' {
              */
             arrayKey?: string;
             /**
+             * Add which HTTP method to use: 'POST' or 'PUT'(html5)
+             */
+            method?: string;
+            /**
              * Uploaded file size so far on the server
              * @type {string}
              */
