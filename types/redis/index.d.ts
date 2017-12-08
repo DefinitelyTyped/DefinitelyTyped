@@ -250,8 +250,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
