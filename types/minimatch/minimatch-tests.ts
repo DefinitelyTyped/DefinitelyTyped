@@ -1,17 +1,17 @@
 import mm = require("minimatch");
-let b: boolean;
-let pattern = "**/*.ts";
-let options = {
+let bool: boolean;
+const pattern = "**/*.ts";
+const options = {
 	debug: true
 };
-let m = new mm.Minimatch(pattern, options);
-let r = m.makeRe();
+const m = new mm.Minimatch(pattern, options);
+const regxp = m.makeRe();
 
-let f = ["test.ts"];
-mm.match(f, pattern, options);
+const files = ["test.ts"];
+mm.match(files, pattern, options);
 
-f.filter(mm.filter(pattern, options));
+files.filter(mm.filter(pattern, options));
 
-let s = "hello";
-b = mm(s, pattern, options);
-b = mm(s, pattern);
+const str = "hello";
+bool = mm(str, pattern, options);
+bool = mm(str, pattern);
