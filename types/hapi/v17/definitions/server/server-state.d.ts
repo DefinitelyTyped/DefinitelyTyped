@@ -39,7 +39,7 @@ export interface ServerState {
     /**
      * An array containing the names of all configued cookies.
      */
-    readonly names: Util.Dictionary<string>;
+    readonly names: string[];
 
     /**
      * Same as calling [server.state()](https://github.com/hapijs/hapi/blob/master/API.md#server.state()).
@@ -67,6 +67,6 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie parsing (e.g. when server parsing is disabled).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesparseheader)
      */
-    parse(header: string): Util.Dictionary<string>;
+    parse(header: string): Map<string, string>;
 
 }

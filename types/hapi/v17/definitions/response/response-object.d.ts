@@ -52,7 +52,7 @@ export interface ResponseObject extends Podium {
      * Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheaders)
      */
-    readonly headers: Util.Dictionary<string | string[]>;
+    readonly headers: Map<string, string | string[]>;
 
     /**
      * Default value: {}.
