@@ -740,8 +740,8 @@ declare namespace R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T, U>(fn: (a: T) => string, list: T[]): U;
-        indexBy<T>(fn: (a: T) => string): <U>(list: T[]) => U;
+        indexBy<T>(fn: (a: T) => string, list: T[]): { [key: string]: T };
+        indexBy<T>(fn: (a: T) => string): (list: T[]) => { [key: string]: T };
 
         /**
          * Returns the position of the first occurrence of an item in an array
