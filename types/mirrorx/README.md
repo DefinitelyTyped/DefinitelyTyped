@@ -1,0 +1,1 @@
+This is typings for [mirrorjs](https://github.com/mirrorjs/mirror)
