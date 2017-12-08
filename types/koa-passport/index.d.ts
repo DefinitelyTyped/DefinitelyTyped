@@ -21,8 +21,7 @@ import * as passport from "passport";
 
 declare module "koa" {
     interface Context {
-        login(user: any): Promise<void>;
-        login(user: any, options: any): Promise<void>;
+        login(user: any, options?: any): Promise<void>;
         logIn: Context["login"];
 
         logout(): void;
@@ -33,9 +32,7 @@ declare module "koa" {
     }
 }
 
-
 declare namespace KoaPassport {
-
     class KoaPassport {
         use(strategy: passport.Strategy): this;
         use(name: string, strategy: passport.Strategy): this;
