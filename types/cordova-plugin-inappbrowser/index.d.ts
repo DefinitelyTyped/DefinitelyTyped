@@ -39,7 +39,7 @@ interface InAppBrowser extends Window {
      * @param callback  the function that executes when the event fires. The function is
      *                  passed an InAppBrowserEvent object as a parameter.
      */
-    addEventListener(type: channel, callback: (event: InAppBrowserEvent) => void): void;
+    addEventListener(type: channel, callback: InAppBrowserEventListenerOrEventListenerObject): void;
     // removeEventListener overloads
     /**
      * Removes a listener for an event from the InAppBrowser.
@@ -51,7 +51,7 @@ interface InAppBrowser extends Window {
      * @param callback  the function that executes when the event fires. The function is
      *                  passed an InAppBrowserEvent object as a parameter.
      */
-    removeEventListener(type: channel, callback: (event: InAppBrowserEvent) => void): void;
+    removeEventListener(type: channel, callback: InAppBrowserEventListenerOrEventListenerObject): void;
     /** Closes the InAppBrowser window. */
     close(): void;
     /** Hides the InAppBrowser window. Calling this has no effect if the InAppBrowser was already hidden. */
@@ -77,6 +77,14 @@ interface InAppBrowser extends Window {
      * @param callback  The function that executes after the CSS is injected.
      */
     insertCSS(css: { code: string } | { file: string }, callback: () => void): void;
+}
+
+type InAppBrowserEventListenerOrEventListenerObject = InAppBrowserEventListener | InAppBrowserEventListenerObject;
+
+type InAppBrowserEventListener = (evt: InAppBrowserEvent) => void;
+
+interface InAppBrowserEventListenerObject {
+    handleEvent(evt: InAppBrowserEvent): void;
 }
 
 interface InAppBrowserEvent extends Event {
