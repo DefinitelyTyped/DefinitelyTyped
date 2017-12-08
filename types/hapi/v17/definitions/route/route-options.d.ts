@@ -27,7 +27,7 @@ export interface RouteOptions {
      * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
      */
-    app?: object;
+    app?: any;
 
     /**
      * Route authentication configuration. Value can be:
@@ -65,7 +65,7 @@ export interface RouteOptions {
      * An object where each key is a content-encoding name and each value is an object with the desired encoder settings. Note that decoder settings are set in compression.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscompression)
      */
-    compression?: Util.Dictionary<RouteCompressionEncoderSettings>;
+    compression?: Map<string, RouteCompressionEncoderSettings>;
 
     /**
      * Default value: false (no CORS headers).
@@ -180,7 +180,7 @@ export interface RouteOptions {
      * Plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsplugins)
      */
-    plugins?: Util.Dictionary<PluginSpecificConfiguration>;
+    plugins?: Map<string, PluginSpecificConfiguration>;
 
     /**
      * Default value: none.

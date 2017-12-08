@@ -38,7 +38,7 @@ export interface RouteOptionsPayload {
      * An object where each key is a content-encoding name and each value is an object with the desired decoder settings. Note that encoder settings are set in compression.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadcompression)
      */
-    compression?: Util.Dictionary<PayloadCompressionDecoderSettings>;
+    compression?: Map<string, PayloadCompressionDecoderSettings>;
 
     /**
      * Default value: 'application/json'.

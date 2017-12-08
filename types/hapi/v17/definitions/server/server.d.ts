@@ -65,7 +65,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: object;
+    app?: any;
 
     /**
      * Server Auth: properties and methods
@@ -104,7 +104,7 @@ export class Server extends Podium {
      */
     event(events: ServerEventsApplication): void;
     event(events: ServerEventsApplication[]): void;
-    
+
     /**
      * Access: podium public interface.
      * The server events emitter. Utilizes the podium with support for event criteria validation, channels, and filters.
@@ -162,7 +162,7 @@ export class Server extends Podium {
      * server method name is an object property.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
-    readonly methods: Util.Dictionary<ServerMethod>;
+    readonly methods: Map<string, ServerMethod>;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be

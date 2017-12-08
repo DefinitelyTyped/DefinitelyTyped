@@ -25,7 +25,7 @@ import * as Shot from "shot";
 export interface ServerInjectOptions extends Shot.RequestOptions {
     credentials?: object;
     artifacts?: object;
-    app?: object;
+    app?: any;
     plugins?: PluginsStates;
     allowInternals?: boolean;
 }

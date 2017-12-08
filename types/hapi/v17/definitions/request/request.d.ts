@@ -61,7 +61,7 @@ export interface Request extends Podium {
      * The raw request headers (references request.raw.req.headers).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestheaders)
      */
-    readonly headers: Util.Dictionary<string>;
+    readonly headers: Map<string, string>;
 
     /**
      * Request information:
@@ -105,7 +105,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Util.Dictionary<string>;
+    readonly params: Map<string, string>;
 
     /**
      * An array containing all the path params values in the order they appeared in the path.
@@ -131,7 +131,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is the name assigned by a route pre-handler methods function. The values are the raw values provided to the continuation function as argument. For the wrapped response object, use responses.
      */
-    readonly pre: Util.Dictionary<object>;
+    readonly pre: Map<string, object>;
 
     /**
      * Access: read / write (see limitations below).
@@ -142,7 +142,7 @@ export interface Request extends Podium {
     /**
      * Same as pre but represented as the response object created by the pre method.
      */
-    readonly preResponses: Util.Dictionary<object>;
+    readonly preResponses: Map<string, object>;
 
     /**
      * By default the object outputted from node's URL parse() method. Might also be set indirectly via request.setUrl in which case it may be a string (if url is set to an object with the query attribute as an unparsed string).
