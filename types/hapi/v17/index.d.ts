@@ -20,6 +20,7 @@ export * from './definitions/request/request-info'
 export * from './definitions/request/request-route'
 
 /** RESPONSE */
+export * from './definitions/response/response-events'
 export * from './definitions/response/response-object'
 export * from './definitions/response/response-settings'
 export * from './definitions/response/response-toolkit'

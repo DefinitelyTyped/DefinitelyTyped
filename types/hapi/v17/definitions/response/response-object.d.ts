@@ -1,9 +1,9 @@
 import {PluginsStates} from "../plugin/plugin";
-import {Util} from "../util/util";
 import {ResponseSettings} from "./response-settings";
 import {ServerStateCookieOptions} from "../server/server-state-options";
 import * as Podium from "podium";
 import {Json, Lifecycle} from "hapi";
+import {ResponseEvents} from "./response-events";
 
 /**
  * Object where:
@@ -40,11 +40,11 @@ export interface ResponseObject extends Podium {
     /**
      * Access: read only and the public podium interface.
      * The response.events object supports the following events:
-     * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
-     * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
+     * * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
+     * * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
      * [See docs](https://hapijs.com/api/17.0.1#-responseevents)
      */
-    readonly events: object; // TODO need to be implemented. I didn't understand yet.
+    readonly events: ResponseEvents;
 
     /**
      * Default value: {}.

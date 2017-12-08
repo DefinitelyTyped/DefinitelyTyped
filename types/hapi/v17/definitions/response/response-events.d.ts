@@ -1,0 +1,24 @@
+import * as Podium from "podium";
+
+/**
+ * Access: read only and the public podium interface.
+ * The response.events object supports the following events:
+ * * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
+ * * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
+ * [See docs](https://hapijs.com/api/17.0.1#-responseevents)
+ */
+export interface ResponseEvents extends Podium {
+
+    /**
+     * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
+     */
+    on(criteria: 'peak', listener: Function): void;
+    once(criteria: 'peak', listener: Function): void;
+
+    /**
+     * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
+     */
+    on(criteria: 'finish', listener: Function): void;
+    once(criteria: 'finish', listener: Function): void;
+
+}
