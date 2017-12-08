@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/react":"^16.0.0",
+        "@types/react-dom":"^16.0.0",
+        "@types/react-router-dom":"^4.2.3",
+        "@types/redux":"^3.6.0",
+        "@types/react-redux":"^5.0.14",
+        "@types/react-router-redux":"^5.0.10"
+    }
+}
