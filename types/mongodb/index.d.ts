@@ -521,10 +521,10 @@ export interface Collection<TSchema = Default> {
     find<T = TSchema>(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
     findOne<T = TSchema>(filter: Object, callback: MongoCallback<T | null>): void;
-    findOne<T = TSchema>(filter: Object, options?: FindOneOptions): Promise<T | null>;
-    findOne<T = TSchema>(filter: Object, options: FindOneOptions, callback: MongoCallback<T | null>): void;
-    findOne<T = TSchema>(filter: Object, fields?: {readonly [key: string]: boolean}, options?: FindOneOptions): Promise<T | null>;
-    findOne<T = TSchema>(filter: Object, fields?: {readonly [key: string]: boolean}, options?: FindOneOptions, , callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: Object, fields?: FindOneFields): Promise<T | null>;
+    findOne<T = TSchema>(filter: Object, fields: FindOneFields, callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: Object, fields: FindOneFields, options?: FindOneOptions): Promise<T | null>;
+    findOne<T = TSchema>(filter: Object, fields: FindOneFields, options: FindOneOptions, callback: MongoCallback<T | null>): void;MongoCallback<T | null>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
@@ -1049,6 +1049,10 @@ export interface FindOperatorsUnordered {
     update(doc: Object): UnorderedBulkOperation;
     updateOne(doc: Object): UnorderedBulkOperation;
     upsert(): FindOperatorsUnordered;
+}
+
+export interface FindOneFields {
+    [key: string]: boolean
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
