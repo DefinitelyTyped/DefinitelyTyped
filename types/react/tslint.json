@@ -6,6 +6,8 @@
 		"no-any-union": false,
 		"no-object-literal-type-assertion": false,
 		"no-unnecessary-generics": false,
-		"no-void-expression": false
+		"no-void-expression": false,
+		"strict-export-declare-modifiers": false,
+		"void-return": false
 	}
 }
