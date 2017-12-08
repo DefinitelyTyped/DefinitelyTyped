@@ -9,6 +9,7 @@ import {RequestRoute} from "./request-route";
 import {RequestAuth} from "./request-auth";
 import {RequestInfo} from "./request-info";
 import * as Podium from "podium";
+import {RequestEvents} from "hapi";
 
 /**
  * TODO both objects ReplyValue and _ReplyValue I found in the v16 TS definition, but I don't found it in the documentation. Need review.
@@ -61,7 +62,7 @@ export interface Request extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    events: 'peek' | 'finish' | 'disconnect'; // TODO I think it's wrong. Maybe is events.on(' ', ' '). It needs revision.
+    events: RequestEvents;
 
     /**
      * The raw request headers (references request.raw.req.headers).
