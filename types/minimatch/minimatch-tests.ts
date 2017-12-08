@@ -12,6 +12,6 @@ mm.match(f, pattern, options);
 
 f.filter(mm.filter(pattern, options));
 
-let s: string = "hello";
+let s = "hello";
 b = mm(s, pattern, options);
 b = mm(s, pattern);
