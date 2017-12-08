@@ -254,7 +254,7 @@ declare module 'angular' {
              */
             url: string;
             /**
-             * Add which HTTP method to use: 'POST' or 'PUT'(html5)
+             * Add which HTTP method to use: 'POST' or 'PUT' (html5)
              */
             method: string;
             /**
