@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 
 import { Component } from "react";
-export = Recaptcha;
 
 interface RecaptchaProps {
     className?: string;
@@ -24,7 +23,8 @@ interface RecaptchaProps {
     sitekey?: string;
 }
 
-declare class Recaptcha extends Component<RecaptchaProps> {
+export default class Recaptcha extends Component<RecaptchaProps> {
     static propTypes: any;
     static defaultProps: RecaptchaProps;
+    reset(): void;
 }
