@@ -87,6 +87,7 @@ export interface ResponseToolkit {
      * @return Returns a response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hredirecturi)
      */
+    redirect(): ResponseObject;
     redirect(uri: string): ResponseObject;
 
     /**
