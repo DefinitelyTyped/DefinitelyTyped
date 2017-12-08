@@ -5,7 +5,7 @@
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Blot } from 'parchment/src/blot/abstract/blot';
+import { Blot } from 'parchment/dist/src/blot/abstract/blot';
 
 /**
  * A stricter type definition would be:
