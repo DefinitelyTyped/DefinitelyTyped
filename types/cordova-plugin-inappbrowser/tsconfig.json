@@ -5,10 +5,10 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
