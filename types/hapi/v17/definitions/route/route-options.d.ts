@@ -15,7 +15,7 @@ import {Lifecycle} from "hapi";
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscompression)
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder)
  */
-export type RouteCompressionEncoderSettings = any;
+export type RouteCompressionEncoderSettings = object;
 
 /**
  * Each route can be customized to change the default behavior of the request lifecycle.
@@ -27,7 +27,7 @@ export interface RouteOptions {
      * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
      */
-    app?: any;
+    app?: object;
 
     /**
      * Route authentication configuration. Value can be:
@@ -43,7 +43,7 @@ export interface RouteOptions {
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
      */
-    bind?: any;
+    bind?: object;
 
     /**
      * Default value: { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.
@@ -93,8 +93,9 @@ export interface RouteOptions {
      * Default value: none.
      * Route-level request extension points by setting the option to an object with a key for each of the desired extension points ('onRequest' is not allowed), and the value is the same as the server.ext(events) event argument.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsext)
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
      */
-    ext?: any; //TODO need to review and rewrite this definition // I saw again and I keep not understanding.
+    ext?: object;
 
     /**
      * Default value: { relativeTo: '.' }.
@@ -114,7 +115,7 @@ export interface RouteOptions {
      * Note: handlers using a fat arrow style function cannot be bound to any bind property. Instead, the bound context is available under h.context.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionshandler)
      */
-    handler?: Lifecycle.Method | Object; //TODO need to review
+    handler?: Lifecycle.Method | object;
 
     /**
      * Default value: none.

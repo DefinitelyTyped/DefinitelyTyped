@@ -91,7 +91,7 @@ export interface RequestExtPointFunction extends Lifecycle.Method {
 export interface ServerExtOptions {
     before: string | string[];
     after: string | string[];
-    bind: any;
+    bind: object;
     sandbox?: 'server' | 'plugin';
 }
 

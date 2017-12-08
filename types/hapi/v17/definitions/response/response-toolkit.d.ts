@@ -52,7 +52,7 @@ export interface ResponseToolkit {
      * The [request] object. This is a duplication of the request lifecycle method argument used by
      * [toolkit decorations](https://github.com/hapijs/hapi/blob/master/API.md#server.decorate()) to access the current request.
      */
-    request: any; // TODO needs review
+    request: object; // TODO needs review
 
     /**
      * Used by the [authentication] method to pass back valid credentials where:
@@ -61,7 +61,7 @@ export interface ResponseToolkit {
      * * artifacts - (optional) authentication artifacts object specific to the authentication scheme.
      * @return Return value: an internal authentication object.
      */
-    authenticated(data: {credentials: any, artifacts?: any}): any;
+    authenticated(data: {credentials: object, artifacts?: object}): object;
 
     /**
      * Sets the response 'ETag' and 'Last-Modified' headers and checks for any conditional request headers to decide if
@@ -125,7 +125,7 @@ export interface ResponseToolkit {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
     unauthenticated(error: Error): void;
-    unauthenticated(error: Error, data: {credentials: any, artifacts?: any}): void;
+    unauthenticated(error: Error, data: {credentials: object, artifacts?: object}): void;
 
     /**
      * Clears a response cookie using the same arguments as

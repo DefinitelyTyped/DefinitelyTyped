@@ -12,7 +12,7 @@ export type PayloadOutput = 'data' | 'stream' | 'file';
 /**
   * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadcompression)
  */
-export type PayloadCompressionDecoderSettings = any;
+export type PayloadCompressionDecoderSettings = object;
 
 /**
  * Determines how the request payload is processed.

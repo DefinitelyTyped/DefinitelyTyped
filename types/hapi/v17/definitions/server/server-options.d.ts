@@ -26,7 +26,7 @@ export interface ServerOptions {
      * Note the difference between server.settings.app which is used to store static configuration values and server.app which is meant for storing run-time state.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionsapp)
      */
-    app?: any;
+    app?: object;
 
     /**
      * Default value: true.

@@ -28,5 +28,5 @@ export interface ServerRegisterOptions {
  */
 export interface ServerRegisterPluginObject extends ServerRegisterOptions {
     plugin: Plugin;
-    options?: any;
+    options?: object;
 }
