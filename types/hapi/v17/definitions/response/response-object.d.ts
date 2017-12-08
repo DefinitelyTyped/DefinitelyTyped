@@ -35,7 +35,7 @@ export interface ResponseObject extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseapp)
      */
-    app: any;
+    app: object;
 
     /**
      * Access: read only and the public podium interface.
@@ -44,7 +44,7 @@ export interface ResponseObject extends Podium {
      * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
      * [See docs](https://hapijs.com/api/17.0.1#-responseevents)
      */
-    readonly events: any; // TODO need to be implemented. I didn't understand yet.
+    readonly events: object; // TODO need to be implemented. I didn't understand yet.
 
     /**
      * Default value: {}.

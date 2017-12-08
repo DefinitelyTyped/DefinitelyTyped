@@ -7,7 +7,7 @@ import {Lifecycle} from "hapi";
  * The scheme options argument passed to server.auth.strategy() when instantiation a strategy.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme)
  */
-export type ServerAuthSchemeOptions = any;
+export type ServerAuthSchemeOptions = object;
 
 /**
  * the method implementing the scheme with signature function(server, options) where:
@@ -28,7 +28,7 @@ export interface ServerAuthSchemeObject {
     /**
      * optional object which is exposed via the [server.auth.api](https://github.com/hapijs/hapi/blob/master/API.md#server.auth.api) object.
      */
-    api?: any;
+    api?: object;
 
     /**
      * A lifecycle method function called for each incoming request configured with the authentication scheme. The

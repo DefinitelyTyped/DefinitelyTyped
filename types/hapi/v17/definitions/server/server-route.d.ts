@@ -37,11 +37,11 @@ export interface ServerRoute {
     /**
      * additional route options. The options value can be an object or a function that returns an object using the signature function(server) where server is the server the route is being added to and this is bound to the current realm's bind option.
      */
-    options?: Object | ((server: Server) => Function);
+    options?: object | ((server: Server) => Function);
 
     /**
      * route custom rules object. The object is passed to each rules processor registered with server.rules(). Cannot be used if route.options.rules is defined.
      */
-    rules?: any;
+    rules?: object;
 
 }

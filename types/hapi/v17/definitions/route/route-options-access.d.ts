@@ -46,7 +46,7 @@ export interface RouteOptionsAccess {
      * An object or array of objects specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one of the rules matches. Each rule object must include at least one of scope or entity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccess)
      */
-    access?: any | any[];
+    access?: object | object[];
 
     /**
      * Default value: false (no scope requirements).

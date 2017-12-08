@@ -28,6 +28,6 @@ export interface PluginRegistered {
     /**
      * options used to register the plugin.
      */
-    options: any;  // OptionsPassedToPlugin;
+    options: object;
 
 }

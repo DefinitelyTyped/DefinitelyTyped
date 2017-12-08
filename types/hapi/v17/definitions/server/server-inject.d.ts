@@ -23,9 +23,9 @@ import * as Shot from "shot";
  * For context [Shot module](https://github.com/hapijs/shot)
  */
 export interface ServerInjectOptions extends Shot.RequestOptions {
-    credentials?: any;
-    artifacts?: any;
-    app?: any;
+    credentials?: object;
+    artifacts?: object;
+    app?: object;
     plugins?: PluginsStates;
     allowInternals?: boolean;
 }
@@ -45,6 +45,6 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
  * For context [Shot module](https://github.com/hapijs/shot)
  */
 export interface ServerInjectResponse extends Shot.ResponseObject {
-    result: any;
+    result: object | undefined;
     request: Request;
 }

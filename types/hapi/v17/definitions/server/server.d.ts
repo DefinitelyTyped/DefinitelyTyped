@@ -65,7 +65,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: any;
+    app?: object;
 
     /**
      * Server Auth: properties and methods
@@ -104,7 +104,7 @@ export class Server extends Podium {
      */
     event(events: ServerEventsApplication): void;
     event(events: ServerEventsApplication[]): void;
-
+    
     /**
      * Access: podium public interface.
      * The server events emitter. Utilizes the podium with support for event criteria validation, channels, and filters.
@@ -177,7 +177,7 @@ export class Server extends Podium {
      * the server.plugins[name] object directly or via the server.expose() method.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins)
      */
-    plugins: any;
+    plugins: object;
 
     /**
      * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When
@@ -233,7 +233,7 @@ export class Server extends Podium {
      * When setting a context inside a plugin, the context is applied only to methods set up by the plugin. Note that the context applies only to routes and extensions added after it has been set. Ignored if the method being bound is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext)
      */
-    bind(context: any): void;
+    bind(context: object): void;
 
     /**
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
@@ -348,7 +348,7 @@ export class Server extends Podium {
      * objects. Instead favor server.expose(key, value), which only copies a reference to value.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposeobj)
      */
-    expose(obj: Object): void;
+    expose(obj: object): void;
 
     /**
      * Registers an extension function in one of the request lifecycle extension points where:
@@ -441,7 +441,7 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverlogtags-data-timestamp)
      */
-    log(tags: string | string[], data?: string | Object | (() => Function), timestamp?: number): void;
+    log(tags: string | string[], data?: string | object | (() => Function), timestamp?: number): void;
 
     /**
      * Looks up a route configuration where:
@@ -556,8 +556,8 @@ export class Server extends Podium {
      * @return void
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrulesprocessor-options)
      */
-    rules(processor: (rules: any, info: {method: string, path: string, vhost?: string}) => Function): void;
-    rules(processor: (rules: any, info: {method: string, path: string, vhost?: string}) => Function, options: {validate: any}): void; // TODO needs implementation
+    rules(processor: (rules: object, info: {method: string, path: string, vhost?: string}) => Function): void;
+    rules(processor: (rules: object, info: {method: string, path: string, vhost?: string}) => Function, options: {validate: object}): void; // TODO needs implementation
 
     /**
      * Starts the server by listening for incoming requests on the configured port (unless the connection was configured with autoListen set to false).
