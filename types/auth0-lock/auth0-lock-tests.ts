@@ -10,6 +10,17 @@ lock.show();
 lock.hide();
 lock.logout(() => {});
 
+lock.checkSession({}, function (error, authResult) {
+  if (error || !authResult) {
+    lock.show();
+  } else {
+    // user has an active session, so we can use the accessToken directly.
+    lock.getUserInfo(authResult.accessToken, function (error, profile) {
+      console.log(error, profile);
+    });
+  }
+});
+
 // Show supports UI arguments
 
 const showOptions : Auth0LockShowOptions = {
