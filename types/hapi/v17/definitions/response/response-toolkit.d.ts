@@ -98,6 +98,7 @@ export interface ResponseToolkit {
      */
     response(): ResponseObject;
     response(value: string): ResponseObject;
+    response(value: object): ResponseObject;
 
     /**
      * Sets a response cookie using the same arguments as response.state().
