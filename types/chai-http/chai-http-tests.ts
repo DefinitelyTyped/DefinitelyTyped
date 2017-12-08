@@ -1,10 +1,11 @@
 import fs = require('fs');
 import http = require('http');
 import chai = require('chai');
-import ChaiHttp = require('chai-http');
+import ch = require('chai-http');
 import when = require('when');
+import * as chttp from 'chai-http';
 
-chai.use(ChaiHttp);
+chai.use(ch);
 
 // ReSharper disable WrongExpressionStatement
 

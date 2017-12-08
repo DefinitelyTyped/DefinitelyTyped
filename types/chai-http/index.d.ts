@@ -86,5 +86,7 @@ declare global {
 	}
 }
 
+/** Namespace added to allow `import * as ch from 'chai-http` */
+declare namespace chaiHttp { }
 declare function chaiHttp(chai: any, utils: any): void;
 export = chaiHttp;
