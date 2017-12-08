@@ -6,11 +6,14 @@ import { render,actions,withRouter,Link,NavLink,Router,Route,connect,Redirect} f
 
 mirror.model({
     name:'app',
+
     initialState: 0,
+    
     reducers:{
         increment(state:any) { return state + 1 },
         decrement(state:any) { return state - 1 }
     },
+
     effects:{
         async incrementAsync() {
             await new Promise((resolve, reject) => {
