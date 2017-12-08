@@ -13,9 +13,8 @@ import {
     ResponseToolkit,
     RouteCompressionEncoderSettings,
     ServerAuth,
-    ServerEventCriteria,
+    ServerEvents,
     ServerEventsApplication,
-    ServerEventsApplicationObject,
     ServerExtEventsObject,
     ServerExtEventsRequestObject,
     ServerExtOptions,
@@ -106,90 +105,17 @@ export class Server extends Podium {
     event(events: ServerEventsApplication): void;
     event(events: ServerEventsApplication[]): void;
 
-    events: {
-
-        /**
-         * Emits a custom application event to all the subscribed listeners where:
-         * @param criteria - the event update criteria which must be one of:
-         * * the event name string.
-         * * an object with the following optional keys (unless noted otherwise):
-         * * * name - the event name string (required).
-         * * * channel - the channel name string.
-         * * * tags - a tag string or array of tag strings.
-         * @param data - the value emitted to the subscribers. If data is a function, the function signature is function() and it called once to generate (return value) the actual data emitted to the listeners. If no listeners match the event, the data function is not invoked.
-         * @return Return value: none.
-         * Note that events must be registered before they can be emitted or subscribed to by calling server.event(events). This is done to detect event name misspelling and invalid event activities.
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsemitcriteria-data)
-         */
-        emit(criteria: string, data: any): void;
-        emit(criteria: {name: string, channel?: string, tags?: string | string[]}, data: any): void;
-
-        /**
-         * Subscribe to an event where:
-         * @param criteria - the subscription criteria which must be one of:
-         * * event name string which can be any of the built-in server events
-         * * a custom application event registered with server.event().
-         * * a criteria object
-         * @param listener - the handler method set to receive event updates. The function signature depends on the event argument, and the spread and tags options.
-         * @return Return value: none.
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncriteria-listener)
-         * See ['log' event](https://github.com/hapijs/hapi/blob/master/API.md#-log-event)
-         * See ['request' event](https://github.com/hapijs/hapi/blob/master/API.md#-request-event)
-         * See ['response' event](https://github.com/hapijs/hapi/blob/master/API.md#-response-event)
-         * See ['route' event](https://github.com/hapijs/hapi/blob/master/API.md#-route-event)
-         * See ['start' event](https://github.com/hapijs/hapi/blob/master/API.md#-start-event)
-         * See ['stop' event](https://github.com/hapijs/hapi/blob/master/API.md#-stop-event)
-         */
-        on(criteria: string, listener: Function): void;
-        on(criteria: ServerEventsApplicationObject, listener: Function): void;
-        on(criteria: ServerEventCriteria, listener: Function): void;
-
-        /**
-         * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
-         * @param criteria - the subscription criteria which must be one of:
-         * * event name string which can be any of the built-in server events
-         * * a custom application event registered with server.event().
-         * * a criteria object
-         * @param listener - the handler method set to receive event updates. The function signature depends on the event argument, and the spread and tags options.
-         * @return Return value: none.
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
-         */
-        once(criteria: string, listener: (...args: any[]) => void): void; // TODO I am not sure if the best way is use Function or (...args: any[]) => void) considering the JSDocs "The function signature depends on the event argument"
-        once(criteria: ServerEventsApplicationObject, listener: Function): void;
-        once(criteria: ServerEventCriteria, listener: Function): void;
-
-        /**
-         * Same as calling server.events.on() with the count option set to 1.
-         * @param criteria - the subscription criteria which must be one of:
-         * * event name string which can be any of the built-in server events
-         * * a custom application event registered with server.event().
-         * * a criteria object
-         * @return Return value: a promise that resolves when the event is emitted.
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsoncecriteria)
-         */
-        once(criteria: string): any;
-        once(criteria: ServerEventsApplicationObject): any;
-        once(criteria: ServerEventCriteria): any;
-
-        /**
-         * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovelistenername-listener)
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
-         */
-        removeListener(name: string, listener: Function): void;
-
-        /**
-         * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovealllistenersname)
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
-         */
-        removeAllListeners(name: string): void;
-
-        /**
-         * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumhaslistenersname)
-         * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
-         */
-        hasListeners(name: string): boolean;
-
-    };
+    /**
+     * Access: podium public interface.
+     * The server events emitter. Utilizes the podium with support for event criteria validation, channels, and filters.
+     * Use the following methods to interact with server.events:
+     * [server.events.emit(criteria, data)](https://github.com/hapijs/hapi/blob/master/API.md#server.events.emit()) - emit server events.
+     * [server.events.on(criteria, listener)](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) - subscribe to all events.
+     * [server.events.once(criteria, listener)](https://github.com/hapijs/hapi/blob/master/API.md#server.events.once()) - subscribe to
+     * Other methods include: server.events.removeListener(name, listener), server.events.removeAllListeners(name), and server.events.hasListeners(name).
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
+     */
+    events: ServerEvents;
 
     /**
      * An object containing information about the server where:
