@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-duplicate-variable": false,
-        "no-inferrable-types": false,
         "no-redundant-jsdoc-2": false,
         "prefer-const": false
     }
