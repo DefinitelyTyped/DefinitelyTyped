@@ -49,7 +49,7 @@ declare namespace passport {
         passReqToCallback?: boolean;
     }
 
-    interface Authenticator<InitializeRet=express.Handler, AuthenticateRet=any, AuthorizeRet=AuthenticateRet> {
+    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
         use(strategy: Strategy): this;
         use(name: string, strategy: Strategy): this;
         unuse(name: string): this;
@@ -76,7 +76,7 @@ declare namespace passport {
         authenticate(this: StrategyCreated<this>, req: express.Request, options?: any): any;
     }
 
-    type StrategyCreatedStatic = {
+    interface StrategyCreatedStatic {
         success(user: object, info?: object): void;
         fail(challenge: string, status?: number): void;
         redirect(url: string, status?: number): void;
@@ -86,7 +86,7 @@ declare namespace passport {
 
     type StrategyCreated<T, O = T & StrategyCreatedStatic> = {
         [P in keyof O]: O[P];
-    }
+    };
 
     interface Profile {
         provider: string;
@@ -107,7 +107,7 @@ declare namespace passport {
         }>;
     }
 
-    interface Framework<InitializeRet=any, AuthenticateRet=any, AuthorizeRet=AuthenticateRet> {
+    interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
         initialize(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, options?: any): (...args: any[]) => InitializeRet;
         authenticate(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthenticateRet;
         authorize?(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthorizeRet;
