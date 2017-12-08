@@ -154,7 +154,7 @@ export class Server extends Podium {
          * @return Return value: none.
          * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
          */
-        once(criteria: string, listener: Function): void;
+        once(criteria: string, listener: (...args: any[]) => void): void; // TODO I am not sure if the best way is use Function or (...args: any[]) => void) considering the JSDocs "The function signature depends on the event argument"
         once(criteria: ServerEventsApplicationObject, listener: Function): void;
         once(criteria: ServerEventCriteria, listener: Function): void;
 
