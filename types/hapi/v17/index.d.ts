@@ -15,6 +15,7 @@ export * from './definitions/plugin/plugin-registered'
 /** REQUEST */
 export * from './definitions/request/request'
 export * from './definitions/request/request-auth'
+export * from './definitions/request/request-events'
 export * from './definitions/request/request-info'
 export * from './definitions/request/request-route'
 
