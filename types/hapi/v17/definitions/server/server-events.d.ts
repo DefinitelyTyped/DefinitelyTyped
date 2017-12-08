@@ -81,7 +81,7 @@ export interface ServerEvents extends Podium {
      * Note that events must be registered before they can be emitted or subscribed to by calling server.event(events). This is done to detect event name misspelling and invalid event activities.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsemitcriteria-data)
      */
-    emit(criteria: string, data: any): void;
+    emit(criteria: string, data: any | Function): void;
     emit(criteria: {name: string, channel?: string, tags?: string | string[]}, data: any): void;
 
     /**
