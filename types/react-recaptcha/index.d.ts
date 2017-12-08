@@ -1,4 +1,4 @@
-// Type definitions for react-recaptcha 2.2
+// Type definitions for react-recaptcha 2.3.5
 // Project: https://github.com/appleboy/react-recaptcha
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
