@@ -1,5 +1,8 @@
-// Definitions by: Alice <https://github.com/aaronphy>
-
+// Type definitions for mirrorjs 
+// Project: http://facebook.github.io/react/
+// Definitions by: Aaronphy <https://github.com/aaronphy>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as H from 'history';
