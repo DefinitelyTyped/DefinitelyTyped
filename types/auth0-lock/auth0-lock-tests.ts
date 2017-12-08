@@ -10,12 +10,12 @@ lock.show();
 lock.hide();
 lock.logout(() => {});
 
-lock.checkSession({}, function (error, authResult) {
+lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult): void {
   if (error || !authResult) {
     lock.show();
   } else {
     // user has an active session, so we can use the accessToken directly.
-    lock.getUserInfo(authResult.accessToken, function (error, profile) {
+    lock.getUserInfo(authResult.accessToken, function(error, profile) {
       console.log(error, profile);
     });
   }
