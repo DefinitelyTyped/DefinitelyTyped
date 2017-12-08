@@ -524,7 +524,7 @@ export interface Collection<TSchema = Default> {
     findOne<T = TSchema>(filter: Object, fields?: FindOneFields): Promise<T | null>;
     findOne<T = TSchema>(filter: Object, fields: FindOneFields, callback: MongoCallback<T | null>): void;
     findOne<T = TSchema>(filter: Object, fields: FindOneFields, options?: FindOneOptions): Promise<T | null>;
-    findOne<T = TSchema>(filter: Object, fields: FindOneFields, options: FindOneOptions, callback: MongoCallback<T | null>): void;MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: Object, fields: FindOneFields, options: FindOneOptions, callback: MongoCallback<T | null>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
