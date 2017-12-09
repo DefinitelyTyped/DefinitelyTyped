@@ -4,6 +4,12 @@ var world = new p2.World({
     gravity:[0, -9.82]
 });
 
+// Set default contact material
+world.defaultContactMaterial = new p2.ContactMaterial(
+    new p2.Material(1), new p2.Material(2),
+    { friction: 1, restitution: 0 }
+)
+
 // Create an empty dynamic body
 var circleBody = new p2.Body({
     mass: 5,
