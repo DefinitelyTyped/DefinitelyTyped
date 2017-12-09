@@ -30,9 +30,9 @@ export interface ServerMethodCache extends catbox.PolicyOptions {
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  */
 export interface ServerMethodOptions {
-    bind: object;
-    cache: ServerMethodCache;
-    generateKey: Function;
+    bind?: object;
+    cache?: ServerMethodCache;
+    generateKey?: Function;
 }
 
 /**
