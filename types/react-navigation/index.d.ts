@@ -10,8 +10,9 @@
 //                 charlesfamu <https://github.com/charlesfamu>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Qibang Sun <https://github.com/bang88>
+//                 Sergei Butko: <https://github.com/svbutko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /**
  * BEGIN FLOW TYPEDEFINITION.JS PORT
@@ -572,6 +573,7 @@ export interface TabViewConfig {
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
+    allowFontScaling?: boolean,
     activeBackgroundColor?: string,
     inactiveTintColor?: string,
     inactiveBackgroundColor?: string,
