@@ -2,7 +2,6 @@ import * as http from "http";
 import * as catbox from "catbox";
 import * as zlib from "zlib";
 import * as Podium from "podium";
-import {MimosOptions} from "mimos";
 import {
     PayloadCompressionDecoderSettings,
     Plugin,
@@ -169,7 +168,7 @@ export class Server extends Podium {
      * modified directly but only through the [mime](https://github.com/hapijs/hapi/blob/master/API.md#server.options.mime) server setting.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermime)
      */
-    mime: MimosOptions;
+    mime: any;
 
     /**
      * An object containing the values exposed by each registered plugin where each key is a plugin name and the values
