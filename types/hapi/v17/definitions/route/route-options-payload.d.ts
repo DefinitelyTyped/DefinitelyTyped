@@ -1,4 +1,4 @@
-import {Util, Lifecycle} from "hapi";
+import {Lifecycle} from "hapi";
 
 /**
  * The value must be one of:

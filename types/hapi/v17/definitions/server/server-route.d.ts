@@ -1,4 +1,4 @@
-import {Util, Lifecycle, Server} from "hapi";
+import {Lifecycle, Server, Util} from "hapi";
 
 /**
  * A route configuration object or an array of configuration objects where each object contains:

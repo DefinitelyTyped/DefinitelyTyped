@@ -1,9 +1,5 @@
-import {PluginsStates} from "../plugin/plugin";
-import {ResponseSettings} from "./response-settings";
-import {ServerStateCookieOptions} from "../server/server-state-options";
 import * as Podium from "podium";
-import {Json, Lifecycle} from "hapi";
-import {ResponseEvents} from "./response-events";
+import {Json, Lifecycle, PluginsStates, ResponseEvents, ResponseSettings, ServerStateCookieOptions} from "hapi";
 
 /**
  * Object where:

@@ -1,15 +1,8 @@
 import * as stream from "stream";
 import * as url from "url";
 import * as http from "http";
-import {Server} from "../server/server";
-import {ResponseObject} from "../response/response-object";
-import {Util} from "../util/util";
-import {PluginsStates} from "../plugin/plugin";
-import {RequestRoute} from "./request-route";
-import {RequestAuth} from "./request-auth";
-import {RequestInfo} from "./request-info";
 import * as Podium from "podium";
-import {RequestEvents} from "hapi";
+import {PluginsStates, RequestAuth, RequestEvents, RequestInfo, RequestRoute, ResponseObject, Server, Util} from "hapi";
 
 /**
  * An object containing the values of params, query, and payload before any validation modifications made. Only set when input validation is performed.
