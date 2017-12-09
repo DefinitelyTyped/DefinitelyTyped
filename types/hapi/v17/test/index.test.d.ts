@@ -19,6 +19,8 @@ export * from './reply/reply';
 export * from './reply/state_cookie';
 
 export * from './request/event-types';
+export * from './request/get-log';
+export * from './request/query';
 
 export * from './response/error';
 
