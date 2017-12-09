@@ -1,5 +1,5 @@
 import P = require('parsimmon');
-import { Parser, Mark, Result, Index, Reply, Language } from "parsimmon";
+import { Parser, Mark, Result, Index, Reply, Language, TypedLanguage } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -201,6 +201,45 @@ language = P.createLanguage({
 	AnotherRule: () => P.string(""),
 });
 
-anyPar = language.SomeRule;
-anyPar = language.AnotherRule;
-anyPar = language.UndefinedRule;
+// $ExpectType Parser<any>
+language.SomeRule;
+// $ExpectType Parser<any>
+language.AnotherRule;
+// $ExpectType Parser<any>
+language.UndefinedRule;
+
+interface MyLanguageSpec {
+	FooRule: Foo;
+	BarRule: Bar;
+	StringRule: string;
+}
+
+let myLanguage: TypedLanguage<MyLanguageSpec>;
+
+myLanguage = P.createLanguage<MyLanguageSpec>({
+	FooRule: r => {
+		fooPar = r.FooRule;
+		barPar = r.BarRule;
+		strPar = r.StringRule;
+		return fooPar;
+	},
+	BarRule: r => barPar,
+	StringRule: () => strPar,
+});
+
+// $ExpectType Parser<Foo>
+myLanguage.FooRule;
+// $ExpectType Parser<Bar>
+myLanguage.BarRule;
+// $ExpectType Parser<string>
+myLanguage.StringRule;
+
+const noRules = P.createLanguage<{}>({});
+
+// $ExpectError
+P.createLanguage<{MissingRule: string}>({});
+
+P.createLanguage<{SomeRule: string}>({
+	SomeRule: r => strPar,
+	AnotherRule: (r: any) => strPar // $ExpectError
+});
