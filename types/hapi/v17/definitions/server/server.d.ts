@@ -303,7 +303,7 @@ export class Server extends Podium {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
      */
     decorate(type: 'request', property: string, method: ((request: Request) => Function), options?: {apply: true;  extend: false} ): void;
-    decorate(type: 'handler' | 'request' | 'reply' | 'server', property: string, method: Function, options?: {apply: boolean;  extend: boolean} ): void;
+    decorate(type: 'handler' | 'request' | 'server' | 'toolkit', property: string, method: Function, options?: {apply: boolean;  extend: boolean} ): void;
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:
