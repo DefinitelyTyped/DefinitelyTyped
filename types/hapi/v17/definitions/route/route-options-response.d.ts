@@ -9,7 +9,7 @@ export enum EmptyStatusCode {
     HTTP_204 = 204,
 }
 
-export type RouteOptionsResponseSchema = boolean | ValidationOptions | ((value: object, options: object) => Function);
+export type RouteOptionsResponseSchema = boolean | ValidationOptions | ((value: object, options: object) => any);
 
 /**
  * Processing rules for the outgoing response.

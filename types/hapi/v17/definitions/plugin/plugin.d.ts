@@ -22,7 +22,7 @@ export interface Plugin {
      * * server - the server object with a plugin-specific server.realm.
      * * options - any options passed to the plugin during registration via server.register().
      */
-    register: (server: Server, options: ServerRegisterOptions) => Function;
+    register: (server: Server, options: ServerRegisterOptions) => void;
 
     /**
      * (required) the plugin name string. The name is used as a unique key. Published plugins (e.g. published in the npm

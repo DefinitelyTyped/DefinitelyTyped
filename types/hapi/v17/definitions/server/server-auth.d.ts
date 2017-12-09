@@ -1,14 +1,6 @@
 import {Request, RouteOptionsAccess, ServerAuthScheme, Util} from "hapi";
 
 /**
- * The authentication credentials object
- * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request)
- */
-export interface ServerAuthenticatedCredentials {
-
-}
-
-/**
  * An authentication configuration object using the same format as the route auth handler options.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
  */
@@ -86,7 +78,7 @@ export interface ServerAuth {
      * include verifying scope, entity, or other route properties.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request)
      */
-    test(strategy: string, request: Request): ServerAuthenticatedCredentials;
+    test(strategy: string, request: Request): any;
 
 }
 
