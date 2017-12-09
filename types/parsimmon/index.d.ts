@@ -82,6 +82,14 @@ declare namespace Parsimmon {
 		[key: string]: Parser<any>;
 	}
 
+	type TypedRule<TLanguageSpec> = {
+		[P in keyof TLanguageSpec]: (r: TypedLanguage<TLanguageSpec>) => Parser<TLanguageSpec[P]>;
+	};
+
+	type TypedLanguage<TLanguageSpec> = {
+		[P in keyof TLanguageSpec]: Parser<TLanguageSpec[P]>;
+	};
+
 	interface Parser<T> {
 		/**
 		 * parse the string
@@ -192,6 +200,7 @@ declare namespace Parsimmon {
 	 * Starting point for building a language parser in Parsimmon
 	 */
 	function createLanguage(rules: Rule): Language;
+	function createLanguage<TLanguageSpec>(rules: TypedRule<TLanguageSpec>): TypedLanguage<TLanguageSpec>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
