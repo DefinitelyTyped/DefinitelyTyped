@@ -162,7 +162,7 @@ export class Server extends Podium {
      * server method name is an object property.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
-    readonly methods: Map<string, ServerMethod>;
+    readonly methods: Util.Dictionary<ServerMethod>;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be

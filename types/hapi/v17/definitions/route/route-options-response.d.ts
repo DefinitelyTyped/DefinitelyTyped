@@ -1,4 +1,4 @@
-import {Lifecycle} from "hapi";
+import {Lifecycle, Util} from "hapi";
 import {ValidationOptions} from "joi";
 
 /**
@@ -79,6 +79,6 @@ export interface RouteOptionsResponse {
      * status is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponsestatus)
      */
-    status?: Map<number, RouteOptionsResponseSchema>;
+    status?: Util.Dictionary<RouteOptionsResponseSchema>;
 
 }

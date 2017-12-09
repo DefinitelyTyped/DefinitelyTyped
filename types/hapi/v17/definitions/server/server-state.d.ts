@@ -1,4 +1,4 @@
-import {ServerStateCookieOptions} from "hapi";
+import {ServerStateCookieOptions, Util} from "hapi";
 
 /**
  * A single object or an array of object where each contains:
@@ -66,6 +66,6 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie parsing (e.g. when server parsing is disabled).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesparseheader)
      */
-    parse(header: string): Map<string, string>;
+    parse(header: string): Util.Dictionary<string>;
 
 }

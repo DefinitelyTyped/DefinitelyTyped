@@ -1,5 +1,5 @@
 import * as Podium from "podium";
-import {Json, Lifecycle, PluginsStates, ResponseEvents, ResponseSettings, ServerStateCookieOptions} from "hapi";
+import {Json, Lifecycle, PluginsStates, ResponseEvents, ResponseSettings, ServerStateCookieOptions, Util} from "hapi";
 
 /**
  * Object where:
@@ -48,7 +48,7 @@ export interface ResponseObject extends Podium {
      * Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheaders)
      */
-    readonly headers: Map<string, string | string[]>;
+    readonly headers: Util.Dictionary<string | string[]>;
 
     /**
      * Default value: {}.
