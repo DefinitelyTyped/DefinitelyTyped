@@ -1,15 +1,15 @@
 // From https://github.com/hapijs/hapi/blob/master/API.md#-serverinfo
-import {Server, ServerOptions} from "hapi";
-import assert = require('assert');
+import {Server} from "hapi";
+import * as assert from "assert";
 
-const options: ServerOptions = {
+const server = new Server({
     port: 8000,
-};
-const server = new Server(options);
+});
+server.start();
 
 // check the correct port
-if(server.info) assert(server.info.port === 8000);
-assert(server.info !== null);
+console.log(server.info);
+if (server.info) assert(server.info.port === 8000);
 
-server.start();
+assert(server.info !== null);
 console.log('Server started at: ' + server.info.uri);

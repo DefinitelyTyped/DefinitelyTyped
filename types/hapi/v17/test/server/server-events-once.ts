@@ -1,10 +1,6 @@
 // from https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
-const options: ServerOptions = {
-    port: 8000,
-};
-
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
@@ -13,7 +9,9 @@ const serverRoute: ServerRoute = {
     }
 };
 
-const server = new Server(options);
+const server = new Server({
+    port: 8000,
+});
 server.route(serverRoute);
 server.event('test1');
 server.event('test2');

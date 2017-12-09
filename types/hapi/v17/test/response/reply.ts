@@ -1,40 +1,36 @@
-// from https://hapijs.com/tutorials/getting-started#adding-routes
+// From https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {
     port: 8000,
 };
 
-const serverRoute: ServerRoute = {
-    path: '/test',
-    method: 'GET',
-    handler: function (request: Request, h: ResponseToolkit) {
-        console.log(request);
-        return 'ok: ' + request.path;
-    }
-};
-
 const serverRoutes: ServerRoute[] = [
+    // verbose notation
     {
         path: '/test1',
         method: 'GET',
         handler: function (request: Request, h: ResponseToolkit) {
-            console.log(request);
-            return 'ok: ' + request.path;
+            const response = h.response('success');
+            response.type('text/plain');
+            response.header('X-Custom', 'some-value');
+            return response;
         }
     },
+    // chained notation
     {
         path: '/test2',
         method: 'GET',
         handler: function (request: Request, h: ResponseToolkit) {
-            console.log(request);
-            return 'ok: ' + request.path;
+            return h.response('success')
+            .type('text/plain')
+            .header('X-Custom', 'some-value');
         }
     },
 ];
 
+
 const server = new Server(options);
-server.route(serverRoute);
 server.route(serverRoutes);
 
 server.start();
