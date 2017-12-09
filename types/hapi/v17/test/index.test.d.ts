@@ -8,26 +8,36 @@
 
 /// <reference types="node" />
 
-/** Getting Started */
-export * from './getting-started/01-creating-a-server';
-export * from './getting-started/02-adding-routes';
-export * from './path/catch-all';
-export * from './path/parameters';
-export * from './reply/continue';
-export * from './reply/redirect';
-export * from './reply/reply';
-export * from './reply/state_cookie';
-
+/** REQUEST */
+export * from './request/catch-all';
 export * from './request/event-types';
 export * from './request/get-log';
+export * from './request/parameters';
 export * from './request/query';
 
+/** RESPONSE */
+export * from './response/continue';
 export * from './response/error';
+export * from './response/redirect';
+export * from './response/reply';
+export * from './response/state_cookie';
 
+/** ROUTE */
+export * from './route/adding-routes';
+export * from './route/config';
+export * from './route/handler';
+
+/** SERVER */
+export * from './server/a-simple-server';
 export * from './server/app';
 export * from './server/info';
+export * from './server/select';
 export * from './server/server-events-once';
+export * from './server/settings';
+export * from './server/start';
+export * from './server/stop';
 export * from './server/table';
+export * from './server/version';
 
 
 

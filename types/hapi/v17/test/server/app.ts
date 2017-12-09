@@ -19,4 +19,4 @@ const serverRoute: ServerRoute = {
 server.route(serverRoute);
 
 server.start();
-console.log(`Server running at: ${server.info!.uri}`);
+console.log('Server started at: ' + server.info.uri);

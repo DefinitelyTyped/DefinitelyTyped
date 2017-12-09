@@ -22,7 +22,6 @@ server.start();
 console.log('Server started at: ' + server.info.uri);
 
 server.events.on('request', (request: Request, event: any, tags: any) => {
-    console.log(event);
     console.log(tags);
     if (tags.error) {
         console.log(event);
