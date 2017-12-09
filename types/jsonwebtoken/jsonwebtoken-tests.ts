@@ -111,6 +111,10 @@ var decoded = jwt.decode(token);
 
 decoded = jwt.decode(token, { complete: false });
 
+if (decoded !== null && typeof decoded === "object") {
+    console.log(decoded.foo);
+}
+
 decoded = jwt.decode(token, { json: false });
 
 decoded = jwt.decode(token, { complete: false, json: false });
