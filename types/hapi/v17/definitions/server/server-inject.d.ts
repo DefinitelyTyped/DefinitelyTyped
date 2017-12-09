@@ -23,7 +23,7 @@ import * as Shot from "shot";
  * For context [Shot module](https://github.com/hapijs/shot)
  */
 export interface ServerInjectOptions extends Shot.RequestOptions {
-    credentials?: object;
+    credentials?: any;
     artifacts?: object;
     app?: any;
     plugins?: PluginsStates;

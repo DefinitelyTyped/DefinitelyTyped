@@ -33,7 +33,7 @@ export interface ResponseToolkit {
      * A response symbol. Provides access to the route or server context set via the route [bind](https://github.com/hapijs/hapi/blob/master/API.md#route.options.bind)
      * option or [server.bind()](https://github.com/hapijs/hapi/blob/master/API.md#server.bind()).
      */
-    readonly context: Object;
+    readonly context: any;
 
     /**
      * A response symbol. When returned by a lifecycle method, the request lifecycle continues without changing the response.
