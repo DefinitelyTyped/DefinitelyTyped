@@ -1,7 +1,12 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
-// From https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
+//  https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
+//  https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
 import {
-    Request, RequestExtPointFunction, ResponseToolkit, RouteOptions, Server, ServerOptions,
+    Request,
+    RequestExtPointFunction,
+    ResponseToolkit,
+    RouteOptions,
+    Server,
+    ServerOptions,
     ServerRoute
 } from "hapi";
 import * as Crypto from 'crypto';

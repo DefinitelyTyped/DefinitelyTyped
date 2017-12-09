@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue
+//  https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {

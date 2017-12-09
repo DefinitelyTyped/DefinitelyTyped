@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstart
+//  https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstart
 import {Server} from "hapi";
 
 const server = new Server({

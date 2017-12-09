@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-serverversion
+//  https://github.com/hapijs/hapi/blob/master/API.md#-serverversion
 import {Server} from "hapi";
 
 const server = new Server({

@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#catch-all-route
+//  https://github.com/hapijs/hapi/blob/master/API.md#catch-all-route
 import {Request, ResponseToolkit, Server, ServerOptions} from "hapi";
 
 const options: ServerOptions = {

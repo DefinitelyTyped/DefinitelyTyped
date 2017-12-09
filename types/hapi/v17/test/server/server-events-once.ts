@@ -1,5 +1,5 @@
 // from https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener
-import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
+import {Request, ResponseToolkit, Server, ServerRoute} from "hapi";
 
 const serverRoute: ServerRoute = {
     path: '/',
