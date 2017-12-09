@@ -166,4 +166,4 @@ declare function verify(
 declare function decode(
     token: string,
     options?: DecodeOptions,
-): null | object | string;
+): null | { [key: string]: any } | string;
