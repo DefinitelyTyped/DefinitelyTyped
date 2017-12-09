@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data
+//  https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data
 import {Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {

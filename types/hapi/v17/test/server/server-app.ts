@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-serverapp
+//  https://github.com/hapijs/hapi/blob/master/API.md#-serverapp
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {

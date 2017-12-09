@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost
+//  https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost
 import {Request, ResponseToolkit, Server, ServerOptions} from "hapi";
 
 const options: ServerOptions = {

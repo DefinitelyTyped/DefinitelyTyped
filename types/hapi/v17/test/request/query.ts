@@ -1,5 +1,5 @@
 // Added test in addition to docs, for request.query
-import {Request, ResponseToolkit, Lifecycle, Server, ServerOptions, ServerRoute} from "hapi";
+import {Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {
     port: 8000,

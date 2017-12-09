@@ -1,4 +1,4 @@
-// From https://github.com/hapijs/hapi/blob/master/API.md#errors
+//  https://github.com/hapijs/hapi/blob/master/API.md#errors
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 import * as Boom from "boom";
 

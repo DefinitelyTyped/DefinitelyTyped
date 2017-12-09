@@ -1,4 +1,4 @@
-import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute, RouteOptions} from "hapi";
+import {Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {
     port: 8000,
