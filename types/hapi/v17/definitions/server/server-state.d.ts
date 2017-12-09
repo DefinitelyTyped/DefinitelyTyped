@@ -1,5 +1,4 @@
 import {ServerStateCookieOptions} from "hapi";
-import {Util} from "hapi";
 
 /**
  * A single object or an array of object where each contains:

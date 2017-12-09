@@ -1,4 +1,4 @@
-import {Request} from "../request/request";
+import {Request} from "hapi";
 
 /**
  * Optional cookie settings

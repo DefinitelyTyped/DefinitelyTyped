@@ -1,4 +1,4 @@
-import {Lifecycle, Util} from "hapi";
+import {Lifecycle} from "hapi";
 import {ValidationOptions} from "joi";
 
 /**

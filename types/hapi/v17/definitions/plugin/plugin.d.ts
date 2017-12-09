@@ -1,5 +1,4 @@
-import {Server} from "../server/server";
-import {ServerRegisterOptions} from "hapi";
+import {Server, ServerRegisterOptions} from "hapi";
 
 export interface PluginsStates {
     [pluginName: string]: any;

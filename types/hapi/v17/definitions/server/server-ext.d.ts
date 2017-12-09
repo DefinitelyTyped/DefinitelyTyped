@@ -1,4 +1,4 @@
-import {Server, Lifecycle} from "hapi";
+import {Lifecycle, Server} from "hapi";
 
 /**
  * The extension point event name. The available extension points include the request extension points as well as the following server extension points:

@@ -1,15 +1,16 @@
-import {RouteOptionsAccess} from "./route-options-access";
-import {RouteOptionsCache} from "./route-options-cache";
-import {Util} from "../util/util";
-import {RouteOptionsCors} from "./route-options-cors";
-import {RouteOptionsResponse} from "./route-options-response";
-import {RouteOptionsPayload} from "./route-options-payload";
-import {RouteOptionsSecure} from "./route-options-secure";
-import {RouteOptionsValidate} from "./route-options-validate";
-import {PluginSpecificConfiguration} from "../plugin/plugin";
-import {Json} from "../util/json";
-import {RouteOptionsPreArray} from "./route-options-pre";
-import {Lifecycle} from "hapi";
+import {
+    Json,
+    Lifecycle,
+    PluginSpecificConfiguration,
+    RouteOptionsAccess,
+    RouteOptionsCache,
+    RouteOptionsCors,
+    RouteOptionsPayload,
+    RouteOptionsPreArray,
+    RouteOptionsResponse,
+    RouteOptionsSecure,
+    RouteOptionsValidate
+} from "hapi";
 
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscompression)

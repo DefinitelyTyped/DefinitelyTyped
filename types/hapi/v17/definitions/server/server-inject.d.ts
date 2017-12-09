@@ -1,4 +1,4 @@
-import {Request, PluginsStates} from "hapi";
+import {PluginsStates, Request} from "hapi";
 import * as Shot from "shot";
 
 /**

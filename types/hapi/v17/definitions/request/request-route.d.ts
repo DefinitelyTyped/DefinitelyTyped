@@ -1,4 +1,4 @@
-import {RouteOptions, ServerRealm, Util, Request} from "hapi";
+import {Request, RouteOptions, ServerRealm, Util} from "hapi";
 
 /**
  * The request route information object, where:

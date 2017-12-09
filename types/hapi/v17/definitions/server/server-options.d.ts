@@ -1,9 +1,8 @@
-import {ServerOptionsCache} from "./server-options-cache";
 import * as http from "http";
 import * as https from "https";
 import * as catbox from "catbox";
 import {MimosOptions} from "mimos";
-import {PluginSpecificConfiguration, RouteOptions} from "hapi";
+import {PluginSpecificConfiguration, RouteOptions, ServerOptionsCache} from "hapi";
 
 /**
  * he server options control the behavior of the server object. Note that the options object is deeply cloned

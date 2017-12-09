@@ -1,4 +1,4 @@
-import {PluginsStates} from "../plugin/plugin";
+import {PluginsStates} from "hapi";
 
 /**
  * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When registering a plugin or an authentication scheme, a server object reference is provided with a new server.realm container specific to that registration. It allows each plugin to maintain its own settings without leaking and affecting other plugins.

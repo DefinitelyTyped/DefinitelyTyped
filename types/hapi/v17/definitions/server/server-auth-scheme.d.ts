@@ -1,7 +1,4 @@
-import {Server} from "./server";
-import {ResponseToolkit} from "../response/response-toolkit";
-import {Request} from "../request/request";
-import {Lifecycle} from "hapi";
+import {Lifecycle, Request, ResponseToolkit, Server} from "hapi";
 
 /**
  * The scheme options argument passed to server.auth.strategy() when instantiation a strategy.

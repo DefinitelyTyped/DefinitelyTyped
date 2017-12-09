@@ -1,5 +1,4 @@
-import {ServerRealm, ServerStateCookieOptions} from "hapi";
-import {ResponseObject} from "./response-object";
+import {ResponseObject, ServerRealm, ServerStateCookieOptions} from "hapi";
 
 /**
  * See more about Lifecycle

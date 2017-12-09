@@ -1,6 +1,6 @@
-import * as Boom from "../../../../boom/index";
+import * as Boom from "boom";
 import * as stream from "stream";
-import {ResponseToolkit, Request} from "hapi";
+import {Request, ResponseToolkit} from "hapi";
 
 export namespace Lifecycle {
 

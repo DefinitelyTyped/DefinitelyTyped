@@ -1,7 +1,4 @@
-import {ServerAuthScheme} from "./server-auth-scheme";
-import {Request} from "../request/request";
-import {RouteOptionsAccess} from "hapi";
-import {Util} from "../util/util";
+import {Request, RouteOptionsAccess, ServerAuthScheme} from "hapi";
 
 /**
  * The authentication credentials object
