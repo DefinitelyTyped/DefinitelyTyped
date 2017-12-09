@@ -32,6 +32,20 @@ var groundShape = new p2.Plane();
 groundBody.addShape(groundShape);
 world.addBody(groundBody);
 
+// Create a convex shape. Can use various array types.
+const convex = new p2.Convex({
+    vertices: [
+        new Float32Array([-1, 1]),
+        new Uint32Array([0, -1]),
+        [1, 1]
+    ],
+    axes: [
+        new Float32Array([-1, 1]),
+        new Int32Array([0, -1]),
+        [1, 1]
+    ]
+})
+
 // To get the trajectories of the bodies,
 // we must step the world forward in time.
 // This is done using a fixed time step size.

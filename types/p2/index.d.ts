@@ -624,8 +624,8 @@ declare namespace p2 {
 
     export interface ConvexOptions extends SharedShapeOptions {
 
-      length?: number;
-      radius?: number;
+        vertices?: ArrayLike<number>[];
+        axes?: ArrayLike<number>[];
 
     }
 
@@ -636,7 +636,7 @@ declare namespace p2 {
         constructor(options?: ConvexOptions);
 
         vertices: number[][];
-        axes: number[];
+        axes: number[][];
         centerOfMass: number[];
         triangles: number[];
         boundingRadius: number;
