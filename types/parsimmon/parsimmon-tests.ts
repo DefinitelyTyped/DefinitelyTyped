@@ -1,5 +1,5 @@
 import P = require('parsimmon');
-import { Parser, Mark, Result, Index, Reply } from "parsimmon";
+import { Parser, Mark, Result, Index, Reply, Language } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -191,3 +191,16 @@ strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
 strPar = P.test((a: string) => false);
 
 strPar = P.takeWhile((a: string) => true);
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+let language: Language;
+
+language = P.createLanguage({
+	SomeRule: r => P.alt(P.string(""), r.AnotherRule),
+	AnotherRule: () => P.string(""),
+});
+
+anyPar = language.SomeRule;
+anyPar = language.AnotherRule;
+anyPar = language.UndefinedRule;

@@ -6,7 +6,7 @@
 //                 Benny van Reeven <https://github.com/bvanreeven>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
@@ -75,7 +75,7 @@ declare namespace Parsimmon {
 	}
 
 	interface Rule {
-		[key: string]: (r?: Language) => Parser<any>;
+		[key: string]: (r: Language) => Parser<any>;
 	}
 
 	interface Language {
