@@ -13,27 +13,27 @@ class Bar {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let str: string;
+let str: string = null!;
 let strArr: string[];
 let bool: boolean;
-let num: number;
+let num: number = null!;
 let index: Index;
 
-let foo: Foo;
+let foo: Foo = null!;
 declare const bar: Bar;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 let strPar: Parser<string>;
-let numPar: Parser<number>;
+let numPar: Parser<number> = null!;
 let voidPar: Parser<void>;
 let anyPar: Parser<any>;
 let nullPar: Parser<null>;
 let emptyStrPar: Parser<''>;
 let indexPar: Parser<Index>;
 
-let fooPar: Parser<Foo>;
-let barPar: Parser<Bar>;
+let fooPar: Parser<Foo> = null!;
+let barPar: Parser<Bar> = null!;
 let fooOrBarPar: Parser<Foo | Bar>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -43,7 +43,7 @@ let fooArrPar: Parser<Foo[]>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let fooMarkPar: Parser<Mark<Foo>>;
+let fooMarkPar: Parser<Mark<Foo>> = null!;
 
 const result = fooMarkPar.parse(str);
 if (result.status) {
@@ -54,7 +54,7 @@ if (result.status) {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let fooResult: Result<Foo>;
+let fooResult: Result<Foo> = fooPar.parse("");
 
 // https://github.com/Microsoft/TypeScript/issues/12882
 if (fooResult.status === true) {
