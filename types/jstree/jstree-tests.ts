@@ -1,5 +1,3 @@
-
-
 // gets version of lib
 var version: string = $.jstree.version;
 
