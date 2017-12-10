@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-server-options
-import {Server, ServerOptions, Plugin, Request, ServerRegisterOptions, ServerRoute, ResponseToolkit} from "hapi";
+import {Server, ServerOptions, Plugin, ServerRegisterOptions, RouteOptions} from "hapi";
 import {MimosOptions, MimosOptionsValue} from "mimos";
 
 const CatboxMemory = require('catbox-memory');
@@ -43,12 +43,18 @@ const plugin: Plugin = {
     }
 };
 
-const serverRoute: ServerRoute = {
-    path: '/',
-    method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
-        return 'ok: ' + request.path;
-    }
+const routeOptions: RouteOptions = {
+    compression: {
+        test: {
+            some: 'option'
+        }
+    },
+    files: {
+        relativeTo: __dirname
+    },
+    cors: {
+        origin: ['http://test.example.com', 'http://www.example.com', 'http://*.a.com']
+    },
 };
 
 const options: ServerOptions = {
@@ -83,7 +89,7 @@ const options: ServerOptions = {
         isCaseSensitive: true,
         stripTrailingSlash: false
     },
-    routes: serverRoute,
+    routes: routeOptions,
     state: {
         strictHeader: true,
         ignoreErrors: false,
