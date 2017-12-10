@@ -27,7 +27,7 @@ declare namespace TagsInput {
     interface RenderInputProps extends InputProps {
         readonly addTag: (tag: Tag) => void;
         readonly onChange: (e: React.ChangeEvent<{ readonly value: string }>) => void;
-        readonly ref: string;
+        readonly ref: (r: any) => void; // parameter is either a DOM element or a mounted React component
         readonly value: Tag;
     }
 
@@ -40,7 +40,7 @@ declare namespace TagsInput {
         readonly getTagDisplayValue: (tag: Tag) => string;
         readonly onRemove: (tagIndex: number) => void;
         readonly tag: Tag;
-	}
+    }
 
     interface ReactTagsInputProps extends React.Props<TagsInput> {
         value: Tag[];
