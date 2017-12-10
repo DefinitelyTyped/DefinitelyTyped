@@ -7014,10 +7014,10 @@ declare module "perf_hooks" {
 		 * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
 		 * @param fn
 		 */
-		timerify?(fn: (...optionalParams: any[]) => any): (...optionalParams: any[]) => any;
+		timerify<T extends (...optionalParams: any[]) => any>(fn: T) => T;
 	}
 
-	var performance: Performance;
-	var performanceEntry: PerformanceEntry;
-	var performanceNodeTiming: PerformanceNodeTiming;
+	const performance: Performance;
+	const performanceEntry: PerformanceEntry;
+	const performanceNodeTiming: PerformanceNodeTiming;
 }
