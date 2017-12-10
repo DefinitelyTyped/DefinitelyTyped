@@ -51,6 +51,7 @@ export * from './server/server-match';
 export * from './server/server-method';
 export * from './server/server-methods';
 export * from './server/server-mime';
+export * from './server/server-options';
 export * from './server/server-path';
 export * from './server/server-plugins';
 export * from './server/server-settings';
