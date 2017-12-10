@@ -1,15 +1,15 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins
 import {Plugin, Server, ServerRegisterOptions} from "hapi";
 
 const plugin1:Plugin = {
     name: 'example1',
-    register: function (server:Server, options:ServerRegisterOptions) {
+    register: (server:Server, options:ServerRegisterOptions) => {
         server.expose('util', () => console.log('something'));
     }
 };
 const plugin2:Plugin = {
     name: 'example2',
-    register: function (server:Server, options:ServerRegisterOptions) {
+    register: (server:Server, options:ServerRegisterOptions) => {
         server.expose('util', () => console.log('something'));
     }
 };

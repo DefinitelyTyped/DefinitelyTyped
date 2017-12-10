@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-await-servercacheprovisionoptions
+// https://github.com/hapijs/hapi/blob/master/API.md#-await-servercacheprovisionoptions
 import {Server} from "hapi";
 import * as catbox from "catbox";
 

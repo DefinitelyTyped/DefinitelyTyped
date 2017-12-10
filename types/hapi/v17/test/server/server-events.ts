@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
+// https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
 import {Server} from "hapi";
 
 const server = new Server({

@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverload
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverload
 import {Server} from "hapi";
 
 const server = new Server({
@@ -7,7 +7,7 @@ const server = new Server({
 });
 server.start();
 
-setTimeout(function() {
+setTimeout(() => {
     console.log(server.load.rss);
     console.log(server.load.eventLoopDelay);
     console.log(server.load.heapUsed);

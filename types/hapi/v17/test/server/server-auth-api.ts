@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi
 import {
     Request,
     ResponseToolkit,
@@ -9,7 +9,7 @@ import {
 } from "hapi";
 import * as Boom from "boom";
 
-const scheme:ServerAuthScheme = function (server:Server, options:ServerAuthSchemeOptions): ServerAuthSchemeObject {
+const scheme:ServerAuthScheme = (server:Server, options:ServerAuthSchemeOptions): ServerAuthSchemeObject => {
 
     return {
         api: {
@@ -17,7 +17,7 @@ const scheme:ServerAuthScheme = function (server:Server, options:ServerAuthSchem
                 x: 5
             }
         },
-        authenticate: function (request: Request, h: ResponseToolkit) {
+        authenticate: (request: Request, h: ResponseToolkit) => {
 
             const authorization = request.headers.authorization;
             if (!authorization) {

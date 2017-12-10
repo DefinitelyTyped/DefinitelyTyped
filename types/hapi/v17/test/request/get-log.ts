@@ -1,11 +1,11 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data
+// https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data
 import {Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {
     port: 8000,
 };
 
-const handler: Lifecycle.Method = function(request: Request, h: ResponseToolkit) {
+const handler: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
     request.log(['test', 'error'], 'Test event');
     return 'path: ' + request.path;
 };

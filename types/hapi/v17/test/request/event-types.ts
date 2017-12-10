@@ -1,5 +1,5 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
-//  https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
+// https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
+// https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
 import {
     Lifecycle,
     Request,
@@ -18,12 +18,12 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: function (request: Request, h: ResponseToolkit) {
+    handler: (request: Request, h: ResponseToolkit) => {
         return 'ok: ' + request.path;
     }
 };
 
-const onRequest: Lifecycle.Method = function (request: Request, h: ResponseToolkit) {
+const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
 
     /*
      * Server events

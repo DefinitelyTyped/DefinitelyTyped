@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servermime
+// https://github.com/hapijs/hapi/blob/master/API.md#-servermime
 import {Server, ServerOptions} from "hapi";
 
 const options:ServerOptions = {

@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servermatchmethod-path-host
+// https://github.com/hapijs/hapi/blob/master/API.md#-servermatchmethod-path-host
 import {RequestRoute, Server} from "hapi";
 
 const server = new Server({

@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#catch-all-route
+// https://github.com/hapijs/hapi/blob/master/API.md#catch-all-route
 import {Request, ResponseToolkit, Server, ServerOptions} from "hapi";
 
 const options: ServerOptions = {
@@ -6,7 +6,7 @@ const options: ServerOptions = {
 };
 const server = new Server(options);
 
-const handler = function (request: Request, h: ResponseToolkit) {
+const handler = (request: Request, h: ResponseToolkit) => {
     return h.response('The page was not found').code(404);
 };
 server.route({ method: '*', path: '/{p*}', handler });

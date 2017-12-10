@@ -4,7 +4,6 @@ const options: ServerOptions = {
     port: 8000,
 };
 
-
 // different methods
 var routeConfig: ServerRoute = {
   path: '/signin',
@@ -24,14 +23,14 @@ var routeConfig: ServerRoute = {
 var routeConfig: ServerRoute = {
   path: '/signin',
   method: 'PUT',
-  handler: function (request: Request, h: ResponseToolkit) {
+  handler: (request: Request, h: ResponseToolkit) => {
     return 'ok';
   }
 };
 var routeConfig: ServerRoute = {
   path: '/signin',
   method: 'PUT',
-  handler: function (request: Request, h: ResponseToolkit) {
+  handler: (request: Request, h: ResponseToolkit) => {
     return 'ok';
   }
 };
@@ -42,7 +41,7 @@ server.route(routeConfig);
 // Handler in config
 const user: RouteOptions = {
     cache: { expiresIn: 5000 },
-    handler: function (request: Request, h: ResponseToolkit) {
+    handler: (request: Request, h: ResponseToolkit) => {
         return { name: 'John' };
     }
 };

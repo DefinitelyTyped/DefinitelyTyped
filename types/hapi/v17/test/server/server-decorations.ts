@@ -1,11 +1,11 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options
 import {ResponseToolkit, Server} from "hapi";
 
 const server = new Server({
     port: 8000,
 });
 
-const success = function (h: ResponseToolkit) {
+const success = (h: ResponseToolkit) => {
     return h.response({ status: 'ok' });
 };
 

@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost
+// https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost
 import {Request, ResponseToolkit, Server, ServerOptions} from "hapi";
 
 const options: ServerOptions = {
@@ -11,7 +11,7 @@ server.app.key = 'value2';
 server.route({
     path: '/',
     method: 'GET',
-    handler: function (request: Request, h: ResponseToolkit) {
+    handler: (request: Request, h: ResponseToolkit) => {
         return h.response("Hello World");
     }
 });

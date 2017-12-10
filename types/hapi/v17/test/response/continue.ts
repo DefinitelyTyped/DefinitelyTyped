@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {
@@ -8,7 +8,7 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/test',
     method: 'GET',
-    handler: function (request: Request, h: ResponseToolkit) {
+    handler: (request: Request, h: ResponseToolkit) => {
         return 'ok: ' + request.path;
     }
 };

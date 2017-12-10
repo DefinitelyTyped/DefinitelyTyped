@@ -1,8 +1,8 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-responseevents
+// https://github.com/hapijs/hapi/blob/master/API.md#-responseevents
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute, ResponseObject} from "hapi";
 import * as Crypto from "crypto";
 
-const preResponse = function (request: Request, h: ResponseToolkit) {
+const preResponse = (request: Request, h: ResponseToolkit) => {
 
     const response:ResponseObject = request.response;
 

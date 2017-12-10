@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverlookupid
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverlookupid
 import {RequestRoute, Server} from "hapi";
 
 const server = new Server({

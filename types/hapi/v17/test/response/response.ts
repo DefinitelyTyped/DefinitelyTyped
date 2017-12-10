@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue
+// https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
 const options: ServerOptions = {
@@ -10,7 +10,7 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/test1',
         method: 'GET',
-        handler: function (request: Request, h: ResponseToolkit) {
+        handler: (request: Request, h: ResponseToolkit) => {
             const response = h.response('success');
             response.type('text/plain');
             response.header('X-Custom', 'some-value');
@@ -21,7 +21,7 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/test2',
         method: 'GET',
-        handler: function (request: Request, h: ResponseToolkit) {
+        handler: (request: Request, h: ResponseToolkit) => {
             return h.response('success')
             .type('text/plain')
             .header('X-Custom', 'some-value');
