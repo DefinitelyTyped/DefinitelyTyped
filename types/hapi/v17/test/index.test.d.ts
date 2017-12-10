@@ -19,12 +19,14 @@ export * from './request/query';
 export * from './response/continue';
 export * from './response/error';
 export * from './response/redirect';
-export * from './response/reply';
+export * from './response/response';
+export * from './response/response-events';
 
 /** ROUTE */
 export * from './route/adding-routes';
 export * from './route/config';
 export * from './route/handler';
+export * from './route/route-options-pre';
 
 /** SERVER */
 export * from './server/server-app';

@@ -6,7 +6,7 @@ const options: ServerOptions = {
 };
 
 const serverRoutes: ServerRoute[] = [
-    // verbose notation
+    // Detailed notation
     {
         path: '/test1',
         method: 'GET',
@@ -17,7 +17,7 @@ const serverRoutes: ServerRoute[] = [
             return response;
         }
     },
-    // chained notation
+    // Chained notation
     {
         path: '/test2',
         method: 'GET',
