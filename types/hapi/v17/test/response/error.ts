@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#errors
+// https://github.com/hapijs/hapi/blob/master/API.md#errors
 import {Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 import * as Boom from "boom";
 
@@ -10,14 +10,14 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/badRequest',
         method: 'GET',
-        handler: function (request: Request, h: ResponseToolkit) {
+        handler: (request: Request, h: ResponseToolkit) => {
             throw Boom.badRequest('Unsupported parameter');
         }
     },
     {
         path: '/internal',
         method: 'GET',
-        handler: function (request: Request, h: ResponseToolkit) {
+        handler: (request: Request, h: ResponseToolkit) => {
             throw new Error('unexpect error');
         }
     },

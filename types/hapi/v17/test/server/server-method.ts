@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servermethodmethods
+// https://github.com/hapijs/hapi/blob/master/API.md#-servermethodmethods
 import {Server, ServerMethodConfigurationObject} from "hapi";
 
 const server = new Server({
@@ -6,7 +6,7 @@ const server = new Server({
 });
 server.start();
 
-const add = function (a:any, b:any) {
+const add = (a:any, b:any) => {
     return a + b;
 };
 

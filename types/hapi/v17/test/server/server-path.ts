@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverpathrelativeto
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverpathrelativeto
 import {Plugin, Server, ServerRegisterOptions, ServerRoute} from "hapi";
 
 const server = new Server({
@@ -15,7 +15,7 @@ const serverRouteOption:ServerRoute = {
 
 const plugin:Plugin = {
     name: 'example',
-    register: function (server:Server, options:ServerRegisterOptions) {
+    register: (server:Server, options:ServerRegisterOptions) => {
         // Assuming the Inert plugin was registered previously
         server.path(__dirname + '../static');
         server.route(serverRouteOption);

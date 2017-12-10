@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverlistener
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverlistener
 import {Server} from "hapi";
 import * as SocketIO from "socket.io"
 

@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
+// https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
 import {Server} from "hapi";
 
 const server = new Server({

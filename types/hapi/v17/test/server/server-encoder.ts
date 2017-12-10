@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverencoderencoding-encoder
 import {Server} from "hapi";
 import * as Zlib from "zlib";
 

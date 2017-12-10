@@ -1,27 +1,23 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext
+// https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext
 import {Plugin, Request, ResponseToolkit, Server, ServerRegisterOptions} from "hapi";
 
 const server = new Server({
     port: 8000,
 });
-const handler = function (request:Request, h:ResponseToolkit) {
+const handler = (request:Request, h:ResponseToolkit) => {
     return h.context.message;    // Or h.context.message
 };
 
 const plugin:Plugin = {
     name: 'example',
-    register: function (server:Server, options:ServerRegisterOptions) {
-
+    register: (server:Server, options:ServerRegisterOptions) => {
         const bind = {
             message: 'hello'
         };
-
         server.bind(bind);
         server.route({ method: 'GET', path: '/', handler });
     }
 };
-
-
 
 server.start();
 server.register(plugin);

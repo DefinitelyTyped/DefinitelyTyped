@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstopoptions
+// https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstopoptions
 import {Server} from "hapi";
 
 const server = new Server({
@@ -12,6 +12,6 @@ server.events.on('start', () => {
 server.events.on('stop', () => {
     console.log('Server stoped.');
 });
-setTimeout(function() {
+setTimeout(() => {
     server.stop({ timeout: 10 * 1000 });
 }, 5 * 1000);

@@ -1,19 +1,19 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre
+// https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre
 import {Server, Request, ResponseToolkit} from "hapi";
 
 const server = new Server({
     port: 8000,
 });
 
-const pre1 = function(request: Request, h: ResponseToolkit) {
+const pre1 = (request: Request, h: ResponseToolkit) => {
     return 'Hello';
 };
 
-const pre2 = function(request: Request, h: ResponseToolkit) {
+const pre2 = (request: Request, h: ResponseToolkit) => {
     return 'World';
 };
 
-const pre3 = function(request: Request, h: ResponseToolkit) {
+const pre3 = (request: Request, h: ResponseToolkit) => {
     return request.pre.m1 + ' ' + request.pre.m2;
 };
 
@@ -29,7 +29,7 @@ server.route({
             ],
             { method: pre3, assign: 'm3' },
         ],
-        handler: function (request: Request, h: ResponseToolkit) {
+        handler: (request: Request, h: ResponseToolkit) => {
             return request.pre.m3 + '!\n';
         }
     }

@@ -1,4 +1,4 @@
-//  https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions
+// https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions
 import {Request, ResponseToolkit, Server, ServerRoute} from "hapi";
 
 const server = new Server({
@@ -7,7 +7,7 @@ const server = new Server({
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: function (request: Request, h: ResponseToolkit) {
+    handler: (request: Request, h: ResponseToolkit) => {
         return 'Success!';
     }
 };
