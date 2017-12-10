@@ -289,7 +289,7 @@ export interface WriteFileOptions {
 export interface WriteOptions extends WriteFileOptions {
     fs?: object;
     replacer?: any;
-    spaces?: number;
+    spaces?: number | '\t';
 }
 
 export interface ReadResult {
