@@ -3,8 +3,7 @@
 // Definitions by: Sinziana Nicolae <https://github.com/sinziananicolae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-export interface IClampOptions {
+export interface ClampOptions {
     clamp?: number|string;
     useNativeClamp?: boolean;
     splitOnChars?: string[];
@@ -13,10 +12,9 @@ export interface IClampOptions {
     truncationHTML?: string | null;
 }
 
-export interface IClampResponse {
+export interface ClampResponse {
     original: string;
     clamped: string;
 }
 
-
-export default function clamp(element: HTMLElement, options?: IClampOptions): IClampResponse;
+export default function clamp(element: HTMLElement, options?: ClampOptions): ClampResponse;
