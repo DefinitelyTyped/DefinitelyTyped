@@ -140,7 +140,7 @@ export interface Request extends Podium {
     /**
      * By default the object outputted from node's URL parse() method. Might also be set indirectly via request.setUrl in which case it may be a string (if url is set to an object with the query attribute as an unparsed string).
      */
-    readonly query: object;
+    readonly query: any;
 
     /**
      * An object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.

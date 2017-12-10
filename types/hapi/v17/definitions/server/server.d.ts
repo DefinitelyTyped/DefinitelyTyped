@@ -2,22 +2,22 @@ import * as http from "http";
 import * as zlib from "zlib";
 import * as Podium from "podium";
 import {
+    Lifecycle,
     PayloadCompressionDecoderSettings,
     Plugin,
     PluginsListRegistered,
     Request,
-    RequestExtPointFunction,
     RequestRoute,
     ResponseToolkit,
     RouteCompressionEncoderSettings,
-    ServerAuth, ServerCache,
+    ServerAuth,
+    ServerCache,
     ServerEvents,
     ServerEventsApplication,
     ServerExtEventsObject,
     ServerExtEventsRequestObject,
     ServerExtOptions,
     ServerExtPointFunction,
-    ServerExtRequestType,
     ServerExtType,
     ServerInfo,
     ServerInjectOptions,
@@ -343,10 +343,8 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options)
      */
-    ext(event: ServerExtType, method: ServerExtPointFunction): void;
-    ext(event: ServerExtType, method: ServerExtPointFunction, options: ServerExtOptions): void;
-    ext(event: ServerExtRequestType, method: RequestExtPointFunction): void;
-    ext(event: ServerExtRequestType, method: RequestExtPointFunction, options: ServerExtOptions): void;
+    ext(event: ServerExtType, method: ServerExtPointFunction | Lifecycle.Method | Function): void;
+    ext(event: ServerExtType, method: ServerExtPointFunction | Lifecycle.Method | Function, options: ServerExtOptions): void;
 
     /**
      * Initializes the server (starts the caches, finalizes plugin registration) but does not start listening on the connection port.
