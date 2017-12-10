@@ -9,7 +9,7 @@ import {Lifecycle, Server} from "hapi";
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
  */
-export type ServerExtType = 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
+export type ServerExtType = 'onRequest' | 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop'| 'onPreResponse';
 
 /**
  * The extension point event name for Request
@@ -41,7 +41,7 @@ export type ServerExtRequestType = 'onRequest';
  */
 export interface ServerExtEventsObject {
     type: ServerExtType;
-    method: ServerExtPointFunction | ServerExtPointFunction[];
+    method: ServerExtPointFunction | ServerExtPointFunction[] | Function;
     options?: ServerExtOptions;
 }
 
@@ -68,16 +68,12 @@ export interface ServerExtEventsObject {
  */
 export interface ServerExtEventsRequestObject {
     type: ServerExtRequestType;
-    method: RequestExtPointFunction | RequestExtPointFunction[];
+    method: Lifecycle.Method | Lifecycle.Method[];
     options?: ServerExtOptions;
 }
 
 export interface ServerExtPointFunction {
     (server: Server): void;
-}
-
-export interface RequestExtPointFunction extends Lifecycle.Method {
-
 }
 
 /**
