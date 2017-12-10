@@ -1,6 +1,5 @@
 import * as React from "react";
-import * from 'react-cartographer';
-import Map from "react-cartographer/lib/components/Map";
+import { Map } from "react-cartographer";
 
 class Test extends React.Component {
     render() {
