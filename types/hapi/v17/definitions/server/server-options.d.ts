@@ -55,7 +55,7 @@ export interface ServerOptions {
      * Default value: { minBytes: 1024 }.
      * Defines server handling of content encoding requests. If false, response content encoding is disabled and no compression is performed by the server.
      */
-    compression?: boolean;
+    compression?: boolean | object;
 
     /**
      * Default value: '1024'.
