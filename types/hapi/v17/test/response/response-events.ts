@@ -5,9 +5,6 @@ import * as Crypto from "crypto";
 const preResponse = function (request: Request, h: ResponseToolkit) {
 
     const response:ResponseObject = request.response;
-    // if (response.isBoom) {
-    //     return null;
-    // }
 
     const hash = Crypto.createHash('sha1');
     response.events.on('peek', (chunk:any) => {
