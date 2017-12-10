@@ -1,8 +1,8 @@
 //  https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
 //  https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
 import {
+    Lifecycle,
     Request,
-    RequestExtPointFunction,
     ResponseToolkit,
     RouteOptions,
     Server,
@@ -23,7 +23,7 @@ const serverRoute: ServerRoute = {
     }
 };
 
-const onRequest: RequestExtPointFunction = function (request: Request, h: ResponseToolkit) {
+const onRequest: Lifecycle.Method = function (request: Request, h: ResponseToolkit) {
 
     /*
      * Server events
