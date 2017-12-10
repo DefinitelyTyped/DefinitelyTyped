@@ -48,7 +48,6 @@ const user: RouteOptions = {
 };
 
 server.route({method: 'GET', path: '/user', options: user });
-//server.route({ method: 'GET', path: '/public/{path*}', options: { cache: { privacy: 'public', expiresIn: 24 * 60 * 60 * 1000 } }, handler: { directory: { path: __dirname, listing: false, index: false } } });
 
 server.start();
 console.log('Server started at: ' + server.info.uri);
