@@ -4,6 +4,10 @@ import * as ReactDOM from 'react-dom';
 import * as mirror from 'mirrorx';
 import { render,actions,withRouter,Link,NavLink,Router,Route,connect,Redirect} from 'mirrorx'
 
+
+/**
+ * add mirror.model.tests
+ */
 mirror.model({
     name:'app',
 
@@ -25,5 +29,6 @@ mirror.model({
         }
     }
 });
+
 
 
