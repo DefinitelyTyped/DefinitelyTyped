@@ -1,0 +1,7 @@
+{
+    "extends": ["tslint:latest", "tslint-react"],
+    "rules": {
+        "no-unnecessary-generics": false,
+        "jsx-wrap-multiline": false
+    }
+}
