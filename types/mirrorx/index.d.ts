@@ -2,12 +2,7 @@
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-/// <reference types="react" />
-/// <reference types="react-redux" />
-/// <reference types="react-router" />
-/// <reference types="history" />
+// TypeScript Version:  2.4
 
 import * as React from 'react';
 import * as H from 'history';
