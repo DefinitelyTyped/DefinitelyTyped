@@ -100,9 +100,7 @@ export interface ServerEvents extends Podium {
      * See ['start' event](https://github.com/hapijs/hapi/blob/master/API.md#-start-event)
      * See ['stop' event](https://github.com/hapijs/hapi/blob/master/API.md#-stop-event)
      */
-    on(criteria: string, listener: Function): void;
-    on(criteria: ServerEventsApplicationObject, listener: Function): void;
-    on(criteria: ServerEventCriteria, listener: Function): void;
+    on(criteria: string | ServerEventsApplicationObject | ServerEventCriteria, listener: Function): void;
 
     /**
      * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
@@ -114,9 +112,7 @@ export interface ServerEvents extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
      */
-    once(criteria: string, listener: (...args: any[]) => void): void; // TODO I am not sure if the best way (here and the functions above/below) is use Function or (...args: any[]) => void) considering the JSDocs "The function signature depends on the event argument"
-    once(criteria: ServerEventsApplicationObject, listener: Function): void;
-    once(criteria: ServerEventCriteria, listener: Function): void;
+    once(criteria: string | ServerEventsApplicationObject | ServerEventCriteria, listener: Function): void;
 
     /**
      * Same as calling server.events.on() with the count option set to 1.
@@ -127,9 +123,7 @@ export interface ServerEvents extends Podium {
      * @return Return value: a promise that resolves when the event is emitted.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsoncecriteria)
      */
-    once(criteria: string): any;
-    once(criteria: ServerEventsApplicationObject): any;
-    once(criteria: ServerEventCriteria): any;
+    once(criteria: string | ServerEventsApplicationObject | ServerEventCriteria): any;
 
     /**
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovelistenername-listener)

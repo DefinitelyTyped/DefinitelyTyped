@@ -99,8 +99,7 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
      */
-    event(events: ServerEventsApplication): void;
-    event(events: ServerEventsApplication[]): void;
+    event(events: ServerEventsApplication | ServerEventsApplication[]): void;
 
     /**
      * Access: podium public interface.
@@ -278,10 +277,7 @@ export class Server extends Podium {
      * The method does not provide version dependency which should be implemented using npm peer dependencies.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
      */
-    dependency(dependencies: string): void;
-    dependency(dependencies: string, after: ((server: Server) => void)): void;
-    dependency(dependencies: string[]): void;
-    dependency(dependencies: string[], after: ((server: Server) => void)): void;
+    dependency(dependencies: string | string[], after?: ((server: Server) => void)): void;
 
     /**
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate' where:
@@ -333,18 +329,15 @@ export class Server extends Podium {
      * @return void
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
      */
-    ext(events: ServerExtEventsObject): void;
-    ext(events: ServerExtEventsObject[]): void;
-    ext(events: ServerExtEventsRequestObject): void;
-    ext(events: ServerExtEventsRequestObject[]): void;
+    ext(events: ServerExtEventsObject | ServerExtEventsObject[]): void;
+    ext(events: ServerExtEventsRequestObject | ServerExtEventsRequestObject[]): void;
 
     /**
      * Registers a single extension event using the same properties as used in server.ext(events), but passed as arguments.
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options)
      */
-    ext(event: ServerExtType, method: ServerExtPointFunction | Lifecycle.Method | Function): void;
-    ext(event: ServerExtType, method: ServerExtPointFunction | Lifecycle.Method | Function, options: ServerExtOptions): void;
+    ext(event: ServerExtType, method: ServerExtPointFunction | Lifecycle.Method | Function, options?: ServerExtOptions): void;
 
     /**
      * Initializes the server (starts the caches, finalizes plugin registration) but does not start listening on the connection port.
@@ -390,8 +383,7 @@ export class Server extends Podium {
      * * request - the request object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      */
-    inject(options: string): ServerInjectResponse;
-    inject(options: ServerInjectOptions): ServerInjectResponse;
+    inject(options: string | ServerInjectOptions): ServerInjectResponse;
 
     /**
      * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or output to the console. The arguments are:
@@ -419,8 +411,7 @@ export class Server extends Podium {
      * @return Return value: the route information if found, otherwise null.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermatchmethod-path-host)
      */
-    match(method: Util.HTTP_METHODS, path: string): RequestRoute | null;
-    match(method: Util.HTTP_METHODS, path: string, host: string): RequestRoute | null;
+    match(method: Util.HTTP_METHODS, path: string, host?: string): RequestRoute | null;
 
     /**
      * Registers a server method where:
@@ -438,8 +429,7 @@ export class Server extends Podium {
      * When configured with caching enabled, server.methods[name].cache is assigned an object with the following properties and methods: - await drop(...args) - a function that can be used to clear the cache for a given key. - stats - an object with cache statistics, see catbox for stats documentation.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
      */
-    method(name: string, method: ServerMethod): void;
-    method(name: string, method: ServerMethod, options: ServerMethodOptions): void;
+    method(name: string, method: ServerMethod, options?: ServerMethodOptions): void;
 
     /**
      * Registers a server method function as described in server.method() using a configuration object where:
@@ -450,8 +440,7 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodmethods)
      */
-    method(methods: ServerMethodConfigurationObject): void;
-    method(methods: ServerMethodConfigurationObject[]): void;
+    method(methods: ServerMethodConfigurationObject | ServerMethodConfigurationObject[]): void;
 
     /**
      * Sets the path prefix used to locate static resources (files and view templates) when relative paths are used where:
@@ -470,7 +459,7 @@ export class Server extends Podium {
      * * * plugin - a plugin object.
      * * * options - (optional) options passed to the plugin during registration.
      * * * once, routes - (optional) plugin-specific registration options as defined below.
-     * @paramoptions - (optional) registration options (different from the options passed to the registration function):
+     * @param options - (optional) registration options (different from the options passed to the registration function):
      * * once - if true, subsequent registrations of the same plugin are skipped without error. Cannot be used with plugin options. Defaults to false. If not set to true, an error will be thrown the second time a plugin is registered on the server.
      * * routes - modifiers applied to each route added by the plugin:
      * * * prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
@@ -478,10 +467,8 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
      */
-    register(plugins: Plugin | ServerRegisterPluginObject): void;
-    register(plugins: Plugin | ServerRegisterPluginObject, options: ServerRegisterOptions): void;
-    register(plugins: Plugin[] | ServerRegisterPluginObject[]): void;
-    register(plugins: Plugin[] | ServerRegisterPluginObject[], options: ServerRegisterOptions): void;
+    register(plugins: Plugin | Plugin[], options?: ServerRegisterOptions): void;
+    register(plugins: ServerRegisterPluginObject | ServerRegisterPluginObject[], options?: ServerRegisterOptions): void;
 
     /**
      * Adds a route where:
@@ -496,8 +483,7 @@ export class Server extends Podium {
      * Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrouteroute)
      */
-    route(route: ServerRoute): void;
-    route(route: ServerRoute[]): void;
+    route(route: ServerRoute | ServerRoute[]): void;
 
     /**
      * Defines a route rules processor for converting route rules object into route configuration where:
@@ -506,7 +492,7 @@ export class Server extends Podium {
      * * info - an object with the following properties:
      * * * method - the route method.
      * * * path - the route path.
-     * * *vhost - the route virtual host (if any defined).
+     * * * vhost - the route virtual host (if any defined).
      * * returns a route config object.
      * @param options - optional settings:
      * * validate - rules object validation:
@@ -516,8 +502,7 @@ export class Server extends Podium {
      * @return void
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrulesprocessor-options)
      */
-    rules(processor: (rules: object, info: {method: string, path: string, vhost?: string}) => object): void;
-    rules(processor: (rules: object, info: {method: string, path: string, vhost?: string}) => object, options: {validate: object}): void; // TODO needs implementation
+    rules(processor: (rules: object, info: {method: string, path: string, vhost?: string}) => object, options?: {validate: object}): void; // TODO needs implementation
 
     /**
      * Starts the server by listening for incoming requests on the configured port (unless the connection was configured with autoListen set to false).
@@ -536,8 +521,7 @@ export class Server extends Podium {
      * State defaults can be modified via the server default state configuration option.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverstatename-options)
      */
-    state(name: string): void;
-    state(name: string, options: ServerStateCookieOptions): void;
+    state(name: string, options?: ServerStateCookieOptions): void;
 
     /**
      * Stops the server's listener by refusing to accept any new connections or requests (existing connections will continue until closed or timeout), where:
@@ -546,8 +530,7 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstopoptions)
      */
-    stop(): void;
-    stop(options: {timeout: number}): void;
+    stop(options?: {timeout: number}): void;
 
     /**
      * Returns a copy of the routing table where:
@@ -558,7 +541,6 @@ export class Server extends Podium {
      * * path - the route path.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
-    table(): {settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[]; // TODO I am not sure if the ServerRoute is the object expected here
-    table(host: string): {settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[];
+    table(host?: string): {settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}[]; // TODO I am not sure if the ServerRoute is the object expected here
 
 }

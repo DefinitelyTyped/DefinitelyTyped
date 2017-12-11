@@ -182,9 +182,7 @@ export interface Request extends Podium {
      * @return ResponseObject
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestgenerateresponsesource-options)
      */
-    generateResponse(source: object, options?: {variety?: string; prepare?: Function; marshal?: Function; close?: Function; }): ResponseObject;
-    generateResponse(source: string, options?: {variety?: string; prepare?: Function; marshal?: Function; close?: Function; }): ResponseObject;
-    generateResponse(source: null, options?: {variety?: string; prepare?: Function; marshal?: Function; close?: Function; }): ResponseObject;
+    generateResponse(source: string | object | null, options?: {variety?: string; prepare?: Function; marshal?: Function; close?: Function; }): ResponseObject;
 
     /**
      * Logs request-specific events. When called, the server emits a 'request' event which can be used by other listeners or plugins. The arguments are:
@@ -194,8 +192,7 @@ export interface Request extends Podium {
      * @return void
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data)
      */
-    log(tags: string, data?: string | object | (() => string | object)): void;
-    log(tags: string[], data?: string | object | (() => string | object)): void;
+    log(tags: string | string[], data?: string | object | (() => string | object)): void;
 
     /**
      * Changes the request method before the router begins processing the request where:

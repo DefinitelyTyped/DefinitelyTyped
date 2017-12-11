@@ -43,8 +43,7 @@ export interface ServerAuth {
      * authentication configuration of a route, use server.auth.lookup(request.route).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
      */
-    default(options: string): void;
-    default(options: ServerAuthConfig): void;
+    default(options: string | ServerAuthConfig): void;
 
     /**
      * Registers an authentication scheme where:
@@ -65,8 +64,7 @@ export interface ServerAuth {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthstrategyname-scheme-options)
      */
-    strategy(name: string, scheme: string): void;
-    strategy(name: string, scheme: string, options: object): void;
+    strategy(name: string, scheme: string, options?: object): void;
 
     /**
      * Tests a request against an authentication strategy where:
