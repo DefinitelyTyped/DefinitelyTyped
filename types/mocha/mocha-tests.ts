@@ -455,3 +455,15 @@ function test_run_withOnComplete() {
 function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
 }
+
+
+
+
+
+
+// dtslint
+
+import * as Mocha from "mocha";
+
+new Mocha().run(); // $ExpectType IRunner
+new Mocha().run().on("", function() {}); // $ExpectType IRunner
