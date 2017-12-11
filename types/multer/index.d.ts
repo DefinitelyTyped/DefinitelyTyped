@@ -6,7 +6,7 @@
 //                 Michael Ledin <https://github.com/mxl>
 //                 HyunSeob Lee <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
 import * as express from 'express';
 

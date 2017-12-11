@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface DropdownToggleProps {
   caret?: boolean;
   className?: string;
   cssModule?: CSSModule;
@@ -15,5 +15,5 @@ interface Props {
   size?: string;
 }
 
-declare var DropdownToggle: React.StatelessComponent<Props>;
+declare const DropdownToggle: React.StatelessComponent<DropdownToggleProps>;
 export default DropdownToggle;

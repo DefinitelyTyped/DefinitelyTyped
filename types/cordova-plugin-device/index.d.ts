@@ -2,9 +2,9 @@
 // Project: https://github.com/apache/cordova-plugin-device
 // Definitions by: Microsoft Open Technologies Inc <http://msopentech.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 
+//
 // Copyright (c) Microsoft Open Technologies Inc
-// Licensed under the MIT license 
+// Licensed under the MIT license
 
 /**
  * This plugin defines a global device object, which describes the device's hardware and software.
@@ -26,11 +26,16 @@ interface Device {
     uuid: string;
     /** Get the operating system version. */
     version: string;
-	/** Get the device's manufacturer. */
-	manufacturer: string;
-	/** Whether the device is running on a simulator. */
-	isVirtual: boolean;
-	/** Get the device hardware serial number. */
-	serial: string;}
+    /** Get the device's manufacturer. */
+    manufacturer: string;
+    /** Whether the device is running on a simulator. */
+    isVirtual: boolean;
+    /** Get the device hardware serial number. */
+    serial: string;
+}
+
+interface Window {
+    device: Device;
+}
 
 declare var device: Device;

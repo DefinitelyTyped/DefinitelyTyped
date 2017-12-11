@@ -407,6 +407,12 @@ declare namespace PDF {
      * in browsers which support the fullscreen API.
      */
     disableFullscreen: boolean;
+      
+    /**
+     * Disable the text layer of PDF when used PDF.js renders a canvas instead of div elements
+     *
+     */
+    disableTextLayer: boolean;
 
     /**
      * Enables CSS only zooming.
@@ -475,5 +481,11 @@ declare namespace PDF {
         : PDFPromise<PDFDocumentProxy>;
 
     PDFViewer(params: PDFViewerParams): void;
+    /**
+    * yet another viewer, this will render only one page at the time, reducing rendering time
+    * very important for mobile development
+    * @params {PDFViewerParams}
+    */
+    PDFSinglePageViewer(params: PDFViewerParams): void;
   }
 }

@@ -16,6 +16,13 @@ declare namespace Backbone {
     interface AddOptions extends Silenceable {
         at?: number;
         merge?: boolean;
+        sort?: boolean;
+    }
+
+    interface CollectionSetOptions extends Silenceable {
+        add?: boolean;
+        remove?: boolean;
+        merge?: boolean;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -235,6 +242,7 @@ declare namespace Backbone {
          **/
         get(id: number|string|Model): TModel;
         has(key: number|string|Model): boolean;
+        clone(): this;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -242,7 +250,19 @@ declare namespace Backbone {
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
-        set(models?: TModel[], options?: Silenceable): TModel[];
+
+        /**
+         *
+         * The set method performs a "smart" update of the collection with the passed list of models.
+         * If a model in the list isn't yet in the collection it will be added; if the model is already in the
+         * collection its attributes will be merged; and if the collection contains any models that aren't present
+         * in the list, they'll be removed. All of the appropriate "add", "remove", and "change" events are fired as
+         * this happens. Returns the touched models in the collection. If you'd like to customize the behavior, you can
+         * disable it with options: {add: false}, {remove: false}, or {merge: false}.
+         * @param models
+         * @param options
+         */
+        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
@@ -258,7 +278,7 @@ declare namespace Backbone {
         /**
          * Return a shallow copy of this collection's models, using the same options as native Array#slice.
          */
-        slice(min: number, max?: number): TModel[];
+        slice(min?: number, max?: number): TModel[];
 
         // mixins from underscore
 
@@ -372,7 +392,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string, callback: Function): number;
+        route(route: string|RegExp, callback: Function): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;
@@ -440,7 +460,7 @@ declare namespace Backbone {
     }
 
     // SYNC
-    function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
+    function sync(method: string, model: Model | Collection<Model>, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;

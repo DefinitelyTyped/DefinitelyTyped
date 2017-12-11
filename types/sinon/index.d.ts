@@ -1,4 +1,4 @@
-// Type definitions for Sinon 2.3
+// Type definitions for Sinon 4.1
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -11,10 +11,8 @@
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-// tslint:disable no-empty-interface
-interface Event { }
-interface Document { }
-// tslint:enable no-empty-interface
+interface Event { } // tslint:disable-line no-empty-interface
+interface Document { } // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
     interface SinonSpyCallApi {
@@ -204,6 +202,9 @@ declare namespace Sinon {
         setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): number;
         clearInterval(id: number): void;
         tick(ms: number): number;
+        next(): void;
+        runAll(): void;
+        runToLast(): void;
         reset(): void;
         Date(): Date;
         Date(year: number): Date;
@@ -290,14 +291,10 @@ declare namespace Sinon {
         FakeXMLHttpRequest: SinonFakeXMLHttpRequest;
     }
 
-    interface SinonFakeServer {
+    interface SinonFakeServer extends SinonFakeServerOptions {
         // Properties
-        autoRespond: boolean;
-        autoRespondAfter: number;
-        fakeHTTPMethods: boolean;
         getHTTPMethod(request: SinonFakeXMLHttpRequest): string;
         requests: SinonFakeXMLHttpRequest[];
-        respondImmediately: boolean;
 
         // Methods
         respondWith(body: string): void;
@@ -319,8 +316,15 @@ declare namespace Sinon {
         restore(): void;
     }
 
+    interface SinonFakeServerOptions {
+        autoRespond?: boolean;
+        autoRespondAfter?: number;
+        fakeHTTPMethods?: boolean;
+        respondImmediately?: boolean;
+    }
+
     interface SinonFakeServerStatic {
-        create(): SinonFakeServer;
+        create(options?: SinonFakeServerOptions): SinonFakeServer;
     }
 
     interface SinonStatic {

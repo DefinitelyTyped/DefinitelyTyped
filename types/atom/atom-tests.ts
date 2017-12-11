@@ -12,59 +12,59 @@ declare let regExp: RegExp;
 declare let element: HTMLElement;
 declare let elements: HTMLElement[];
 declare const div: HTMLDivElement;
-declare const keyboardEvent: KeyboardEvent;
+declare const event: KeyboardEvent;
 
-declare let buffer: TextBuffer.TextBuffer;
-declare const color: AtomCore.Color;
-declare let cursor: AtomCore.Cursor;
-declare let cursors: AtomCore.Cursor[];
-declare let decoration: AtomCore.Decoration;
-declare let decorations: AtomCore.Decoration[];
-declare let decorationLayerProps: AtomCore.Options.DecorationLayerProps;
-declare let dir: PathWatcher.Directory;
-declare let dirs: PathWatcher.Directory[];
-declare let displayMarker: TextBuffer.DisplayMarker;
-declare let displayMarkers: TextBuffer.DisplayMarker[];
-declare let displayMarkerLayer: TextBuffer.DisplayMarkerLayer;
-declare let dock: AtomCore.Dock;
-declare let editor: AtomCore.TextEditor;
-declare let editors: AtomCore.TextEditor[];
-declare let emitter: EventKit.Emitter;
-declare let file: PathWatcher.File;
-declare let grammar: FirstMate.Grammar;
-declare let grammars: FirstMate.Grammar[];
-declare let gutter: AtomCore.Gutter;
-declare let gutters: AtomCore.Gutter[];
-declare let historyPaths: AtomCore.Structures.HistoryProject[];
-declare let layerDecoration: AtomCore.LayerDecoration;
-declare let marker: TextBuffer.Marker;
-declare let markers: TextBuffer.Marker[];
-declare let markerLayer: TextBuffer.MarkerLayer;
-declare let notification: AtomCore.Notification;
-declare let notifications: AtomCore.Notification[];
-declare let pack: AtomCore.Package;
-declare let packs: AtomCore.Package[];
-declare let pane: AtomCore.Pane;
-declare let panes: AtomCore.Pane[];
-declare let paneContainer: AtomCore.Dock|AtomCore.WorkspaceCenter;
-declare let panel: AtomCore.Panel;
-declare let panels: AtomCore.Panel[];
-declare let pos: TextBuffer.Point;
-declare let posArr: TextBuffer.Point[];
-declare let project: AtomCore.Project;
-declare let range: TextBuffer.Range;
-declare let ranges: TextBuffer.Range[];
-declare let registry: FirstMate.GrammarRegistry;
-declare let repository: AtomCore.GitRepository;
-declare let repositories: AtomCore.GitRepository[];
-declare let scopeDescriptor: AtomCore.ScopeDescriptor;
-declare let selection: AtomCore.Selection;
-declare let selections: AtomCore.Selection[];
-declare let styleManager: AtomCore.StyleManager;
-declare let subscription: EventKit.Disposable;
-declare let subscriptions: EventKit.CompositeDisposable;
-declare let tooltips: AtomCore.Structures.Tooltip[];
-declare let workspaceCenter: AtomCore.WorkspaceCenter;
+declare let buffer: Atom.TextBuffer;
+declare const color: Atom.Color;
+declare let cursor: Atom.Cursor;
+declare let cursors: Atom.Cursor[];
+declare let decoration: Atom.Decoration;
+declare let decorations: Atom.Decoration[];
+declare let decorationLayerProps: Atom.DecorationLayerOptions;
+declare let dir: Atom.Directory;
+declare let dirs: Atom.Directory[];
+declare let displayMarker: Atom.DisplayMarker;
+declare let displayMarkers: Atom.DisplayMarker[];
+declare let displayMarkerLayer: Atom.DisplayMarkerLayer;
+declare let dock: Atom.Dock;
+declare let editor: Atom.TextEditor;
+declare let editors: Atom.TextEditor[];
+declare let emitter: Atom.Emitter;
+declare let file: Atom.File;
+declare let grammar: Atom.Grammar;
+declare let grammars: Atom.Grammar[];
+declare let gutter: Atom.Gutter;
+declare let gutters: Atom.Gutter[];
+declare let historyPaths: Atom.ProjectHistory[];
+declare let layerDecoration: Atom.LayerDecoration;
+declare let marker: Atom.Marker;
+declare let markers: Atom.Marker[];
+declare let markerLayer: Atom.MarkerLayer;
+declare let notification: Atom.Notification;
+declare let notifications: Atom.Notification[];
+declare let pack: Atom.Package;
+declare let packs: Atom.Package[];
+declare let pane: Atom.Pane;
+declare let panes: Atom.Pane[];
+declare let paneContainer: Atom.Dock|Atom.WorkspaceCenter;
+declare let panel: Atom.Panel;
+declare let panels: Atom.Panel[];
+declare let pos: Atom.Point;
+declare let posArr: Atom.Point[];
+declare let project: Atom.Project;
+declare let range: Atom.Range;
+declare let ranges: Atom.Range[];
+declare let registry: Atom.GrammarRegistry;
+declare let repository: Atom.GitRepository;
+declare let repositories: Atom.GitRepository[];
+declare let scopeDescriptor: Atom.ScopeDescriptor;
+declare let selection: Atom.Selection;
+declare let selections: Atom.Selection[];
+declare let styleManager: Atom.StyleManager;
+declare let subscription: Atom.Disposable;
+declare let subscriptions: Atom.CompositeDisposable;
+declare let tooltips: Atom.Tooltip[];
+declare let workspaceCenter: Atom.WorkspaceCenter;
 
 // AtomEnvironment ============================================================
 function testAtomEnvironment() {
@@ -125,8 +125,8 @@ function testAtomEnvironment() {
     });
 
     subscription = atom.workspace.observeTextEditors((editor) => {
-        subscription = editor.onDidStopChanging((keyboardEvent) => {
-            for (const change of keyboardEvent.changes) {
+        subscription = editor.onDidStopChanging((event) => {
+            for (const change of event.changes) {
                 change.newExtent;
             }
         });
@@ -276,9 +276,6 @@ function testCommandRegistry() {
 
 // CompositeDisposable ========================================================
 function testCompositeDisposable() {
-    // Properties
-    bool = subscriptions.disposed;
-
     // Construction and Lifecycle
     subscriptions = new Atom.CompositeDisposable();
     new Atom.CompositeDisposable(subscription);
@@ -482,7 +479,7 @@ function testCursor() {
 
 // TestRunner =================================================================
 function testTestRunner() {
-    const testRunner: AtomCore.TestRunner = (params) => {
+    const testRunner: Atom.TestRunner = (params) => {
         const delegate = params.buildDefaultApplicationDelegate();
         const environment = params.buildAtomEnvironment({
             applicationDelegate: delegate,
@@ -803,7 +800,6 @@ function testDisplayMarkerLayer() {
 
 // Disposable =================================================================
 function testDisposable() {
-    bool = subscription.disposed;
     if (subscription.disposalAction) subscription.disposalAction();
     subscription.dispose();
 }
@@ -829,8 +825,12 @@ function testDock() {
     subscription = dock.onDidChangeActivePane(pane => pane.activate());
     subscription = dock.observeActivePane(pane => pane.activate());
     subscription = dock.onDidAddPaneItem(event => event.index && event.item && event.pane);
-    subscription = dock.onWillDestroyPaneItem(event => event.index && event.item && event.pane);
-    subscription = dock.onDidDestroyPaneItem(event => event.index && event.item && event.pane);
+    subscription = dock.onWillDestroyPaneItem(event => {
+        event.index && event.item && event.pane;
+    });
+    subscription = dock.onDidDestroyPaneItem(event => {
+        event.index && event.item && event.pane;
+    });
 
     // Pane Items
     objs = dock.getPaneItems();
@@ -844,11 +844,12 @@ function testDock() {
 }
 
 // Emitter ====================================================================
+interface TestEmissions {
+    "test-event": string;
+}
+
 function testEmitter() {
     emitter = new Atom.Emitter();
-
-    bool = emitter.disposed;
-
     emitter.clear();
     emitter.dispose();
 
@@ -860,6 +861,27 @@ function testEmitter() {
     // Event Emission
     emitter.emit("test-event");
     emitter.emit("test-event", 42);
+
+    // Optional Value Emitter
+    const optEmitter = new Atom.Emitter<{ "test-event": string }>();
+    optEmitter.emit("test-event");
+    optEmitter.emit("test-event", "test");
+    optEmitter.on("test-event", value => {
+        str = value ? value : "";
+    });
+
+    // Required Value Emitter
+    const reqEmitter = new Atom.Emitter<{}, TestEmissions>();
+    reqEmitter.on("test-event", value => {
+        str = value;
+    });
+    reqEmitter.emit("test-event", "test");
+
+    // Mixed Value Emitter
+    const mixedEmitter = new Atom.Emitter<{ "t1": "test" }, { "t2": "test" }>();
+    mixedEmitter.emit("t1");
+    mixedEmitter.emit("t1", "test");
+    mixedEmitter.emit("t2", "test");
 }
 
 // File =======================================================================
@@ -1113,7 +1135,7 @@ function testKeymapManager() {
     subscription = manager.add("a", {}, 0);
 
     // Accessing Bindings
-    let bindings: AtomKeymap.KeyBinding[] = manager.getKeyBindings();
+    let bindings: Atom.KeyBinding[] = manager.getKeyBindings();
     bindings = manager.findKeyBindings();
     bindings = manager.findKeyBindings({ command: "a" });
     bindings = manager.findKeyBindings({ keystrokes: "a" });
@@ -1127,8 +1149,8 @@ function testKeymapManager() {
     manager.loadKeymap("Test.file", { watch: true, priority: 0});
 
     // Managing Keyboard Events
-    manager.handleKeyboardEvent(keyboardEvent);
-    manager.keystrokeForKeyboardEvent(keyboardEvent);
+    manager.handleKeyboardEvent(event);
+    manager.keystrokeForKeyboardEvent(event);
 
     subscription = manager.addKeystrokeResolver((event): string => {
         event.layoutName;
@@ -1151,10 +1173,6 @@ function testLayerDecoration() {
 function testMarker() {
     // Properties
     num = marker.id;
-    bool = marker.tailed;
-    bool = marker.reversed;
-    bool = marker.valid;
-    str = marker.invalidate;
 
     // Lifecycle
     marker = marker.copy({
@@ -1301,8 +1319,8 @@ function testNotification() {
     });
 
     // Event Subscription
-    subscription = notification.onDidDismiss(notification => notification.dismissed);
-    subscription = notification.onDidDisplay(notification => notification.timestamp);
+    subscription = notification.onDidDismiss(notification => notification.getType());
+    subscription = notification.onDidDisplay(notification => notification.getMessage());
 
     // Methods
     str = notification.getType();
@@ -1377,7 +1395,7 @@ function testPackageManager() {
     subscription = atom.packages.onDidActivatePackage(pack => pack.name);
     subscription = atom.packages.onDidDeactivatePackage(pack => pack.path);
     subscription = atom.packages.onDidLoadPackage(pack => pack.isCompatible());
-    subscription = atom.packages.onDidUnloadPackage(pack => pack.bundledPackage);
+    subscription = atom.packages.onDidUnloadPackage(pack => pack.name);
 
     // Package system data
     str = atom.packages.getApmPath();
@@ -1618,7 +1636,7 @@ function testPoint() {
     point.isGreaterThanOrEqual([0, 0]);
 
     // Operations
-    const frozenPoint: Readonly<TextBuffer.Point> = point.freeze();
+    const frozenPoint: Readonly<Atom.Point> = point.freeze();
 
     point = point.translate(point);
     point.translate([0, 0]);
@@ -1644,7 +1662,7 @@ function testProject() {
     });
 
     subscription = project.onDidAddBuffer(buffer => buffer.id);
-    subscription = project.observeBuffers(buffer => buffer.file);
+    subscription = project.observeBuffers(buffer => buffer.getUri());
 
     // Accessing the git repository
     repositories = project.getRepositories();
@@ -1707,7 +1725,7 @@ function testRange() {
     nums = range.getRows();
 
     // Operations
-    const frozenRange: Readonly<TextBuffer.Range> = range.freeze();
+    const frozenRange: Readonly<Atom.Range> = range.freeze();
     range = range.union(range);
 
     range = range.translate(pos);
@@ -1923,7 +1941,7 @@ function testStyleManager() {
 
 // Task =======================================================================
 function testTask() {
-    let task: AtomCore.Task = Atom.Task.once("File.path", {}, () => {});
+    let task: Atom.Task = Atom.Task.once("File.path", {}, () => {});
     task = new Atom.Task("File.path");
 
     task.start({}, () => {});
@@ -2282,7 +2300,7 @@ function testTextEditor() {
     subscription = editor.onDidChangeSoftWrapped(softWrapped => {});
     subscription = editor.onDidChangeEncoding(encoding => {});
     subscription = editor.observeGrammar(grammar => grammar.name);
-    subscription = editor.onDidChangeGrammar(grammar => grammar.scopeName);
+    subscription = editor.onDidChangeGrammar(grammar => grammar.name);
     subscription = editor.onDidChangeModified(modified => {});
     subscription = editor.onDidConflict(() => {});
     subscription = editor.onWillInsertText(event => event.cancel && event.text);
@@ -2945,7 +2963,7 @@ function testTooltipManager() {
     subscription = atom.tooltips.add(element, { class: "test-class" });
     subscription = atom.tooltips.add(element, { placement: "top" });
 
-    subscription = atom.tooltips.add(element, { placement: () => "left" });
+    subscription = atom.tooltips.add(element, { placement: () => "auto left" });
 
     subscription = atom.tooltips.add(element, { trigger: "click" });
     subscription = atom.tooltips.add(element, { delay: { hide: 42, show: 42 }});
@@ -2997,8 +3015,9 @@ function testWorkspace() {
     subscription = atom.workspace.observeActivePane(pane => pane.activate());
     subscription = atom.workspace.onDidAddPaneItem(event => event.index && event.item &&
         event.pane);
-    subscription = atom.workspace.onWillDestroyPaneItem(event => event.index &&
-        event.item && event.pane);
+    subscription = atom.workspace.onWillDestroyPaneItem(event => {
+        event.index && event.item && event.pane;
+    });
     subscription = atom.workspace.onDidDestroyPaneItem(event => event.index &&
         event.item && event.pane);
     subscription = atom.workspace.onDidAddTextEditor(event => event.index && event.pane &&
@@ -3045,7 +3064,13 @@ function testWorkspace() {
         if (result) obj = result;
     }
 
-    atom.workspace.addOpener(() => element);
+    atom.workspace.addOpener((uri) => {
+        if (uri === "test://") {
+            return {
+                getTitle: () => "Test Title",
+            };
+        }
+    });
 
     atom.workspace.buildTextEditor(obj);
 

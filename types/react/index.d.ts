@@ -71,7 +71,7 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ReactType<P = any> = string | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
@@ -265,6 +265,7 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
+    const Fragment: ComponentType;
     const version: string;
 
     //
@@ -277,16 +278,16 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
-        constructor(props?: P, context?: any);
+        constructor(props: P, context?: any);
 
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
+        // tslint:disable-next-line:unified-signatures
+        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
+        // tslint:disable-next-line:unified-signatures
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | JSX.Element[] | ReactPortal | string | number | null | false;
+        render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -327,7 +328,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+        new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -336,7 +337,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -347,8 +348,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T) &
+        (new (props: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -421,7 +422,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | Array<ReactElement<any>> | string | number | null;
+        render(): ReactNode;
 
         [propertyName: string]: any;
     }
@@ -927,6 +928,11 @@ declare namespace React {
         backgroundRepeat?: CSSWideKeyword | any;
 
         /**
+         * Defines the size of the background images
+         */
+        backgroundSize?: CSSWideKeyword | any;
+
+        /**
          * Obsolete - spec retired, not implemented.
          */
         baselineShift?: CSSWideKeyword | any;
@@ -956,12 +962,12 @@ declare namespace React {
         /**
          * Defines the shape of the border of the bottom-left corner.
          */
-        borderBottomLeftRadius?: CSSWideKeyword | any;
+        borderBottomLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Defines the shape of the border of the bottom-right corner.
          */
-        borderBottomRightRadius?: CSSWideKeyword | any;
+        borderBottomRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the line style of the bottom border of a box.
@@ -1040,6 +1046,11 @@ declare namespace React {
         borderLeftWidth?: CSSWideKeyword | any;
 
         /**
+         * Shorthand property that sets the rounding of all four corners.
+         */
+        borderRadius?: CSSWideKeyword | CSSLength;
+
+        /**
          * Shorthand property that defines the border-width, border-style and border-color of an element's right border
          * in a single declaration. Note that you can use the corresponding longhand properties to set specific
          * individual properties of the right border — border-right-width, border-right-style and border-right-color.
@@ -1099,12 +1110,12 @@ declare namespace React {
         /**
          * Sets the rounding of the top-left corner of the element.
          */
-        borderTopLeftRadius?: CSSWideKeyword | any;
+        borderTopLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the rounding of the top-right corner of the element.
          */
-        borderTopRightRadius?: CSSWideKeyword | any;
+        borderTopRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style.
@@ -2651,6 +2662,7 @@ declare namespace React {
 
     interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+        width?: number | string;
     }
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2782,6 +2794,8 @@ declare namespace React {
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
         href?: string;
         hrefLang?: string;
         integrity?: string;
@@ -2789,7 +2803,6 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
-        as?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3185,7 +3198,7 @@ declare namespace React {
         strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-        strokeMiterlimit?: string;
+        strokeMiterlimit?: number | string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         surfaceScale?: number | string;
@@ -3511,17 +3524,18 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | Element[] | React.ReactPortal | string | number | null | false;
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML

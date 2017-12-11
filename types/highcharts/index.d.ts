@@ -507,7 +507,7 @@ declare namespace Highcharts {
          * The actual text of the axis title. It can contain basic HTML text markup like <b>, <i> and spans with style.
          * @default xAxis: null, yAxis: 'Values'
          */
-        text?: string;
+        text?: string | null;
         /**
          * Horizontal pixel offset of the title position.
          * @default 0
@@ -1021,9 +1021,9 @@ declare namespace Highcharts {
          */
         tickmarkPlacement?: string;
         /**
-         * The axis title, showing next to the axis line.
+         * The axis title, showing next to the axis line. To disable the title, set the text to null.
          */
-        title?: AxisTitle;
+        title?: AxisTitle | null;
         /**
          * The type of axis. Can be one of 'linear', 'logarithmic', 'datetime' or 'category'. In a datetime axis, the
          * numbers are given in milliseconds, and tick marks are placed on appropriate values like full hours or days. In a
@@ -1036,7 +1036,7 @@ declare namespace Highcharts {
          * Datetime axis only. An array determining what time intervals the ticks are allowed to fall on. Each array item is
          * an array where the first value is the time unit and the second value another array of allowed multiples.
          */
-        units?: [[string, [number]]];
+        units?: Array<[string, number[]]>;
         /**
          * Whether axis, including axis title, line, ticks and labels, should be visible.
          * @default true
@@ -1753,9 +1753,6 @@ declare namespace Highcharts {
          * @deprecated
          */
         defaultSeriesType?: string;
-        /**
-         *
-         */
         description?: string;
         /**
          * Event listeners for the chart.
@@ -2043,7 +2040,7 @@ declare namespace Highcharts {
          * switchRowsAndColumns is set, the columns are interpreted as series.
          * @since 4.0
          */
-        columns?: Array<[string | number]>;
+        columns?: Array<Array<string | number>>;
         /**
          * The callback that is evaluated when the data is finished loading, optionally from an external source, and parsed.
          * The first argument passed is a finished chart options object, containing the series. These options can be
@@ -3666,9 +3663,6 @@ declare namespace Highcharts {
          * @default 0.1
          */
         brightness?: number;
-        /**
-         *
-         */
         color?: string | Gradient;
         /**
          * Enable separate styles for the hovered series to visualize that the user hovers either the series itself or the
@@ -5272,6 +5266,9 @@ declare namespace Highcharts {
         * interfaces (AreaChartSeriesOptions, LineChartSeriesOptions, etc.)
         */
     interface IndividualSeriesOptions {
+        size?: number | string;
+        innerSize?: number | string;
+
         type?: string;
         /**
          * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
@@ -5614,7 +5611,7 @@ declare namespace Highcharts {
          * The title of the chart. To disable the title, set the text to null.
          * @default 'Chart title'
          */
-        text?: string;
+        text?: string | null;
         /**
          * Whether to {@link http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html|use HTML} to render the text.
          * @default false
@@ -6581,7 +6578,7 @@ declare namespace Highcharts {
          * a subset is supported: absolute moveTo (M), absolute lineTo (L), absolute curveTo (C) and close (Z).
          * @param  path An SVG path split up in array form.
          */
-        path(path: [string | number]): ElementObject;
+        path(path: Array<string | number>): ElementObject;
         /**
          * Add a rectangle.
          * @param  x The x position of the rectangle's upper left corner.

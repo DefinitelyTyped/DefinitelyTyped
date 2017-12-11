@@ -1,6 +1,6 @@
 import * as forge from "node-forge";
 
-let keypair = forge.pki.rsa.generateKeyPair({bits: 512});
+let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
@@ -107,4 +107,29 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     hex = md.digest().toHex();
 
     if (hex.length !== 32) throw Error('forge.md.MessageDigest.update / digest fail');
+}
+
+{
+    let payload = { "asd": "asd" }
+    let cipher = forge.cipher.createCipher(
+        "3DES-ECB",
+        forge.util.createBuffer(key, "raw")
+    );
+    cipher.start();
+    cipher.update(forge.util.createBuffer(JSON.stringify(payload), "raw"));
+    cipher.finish();
+    let encrypted = cipher.output;
+    let token = forge.util.encode64(encrypted.getBytes());
+
+    let decipher = forge.cipher.createDecipher(
+        "3DES-ECB",
+        forge.util.createBuffer(key, "raw")
+    );
+    decipher.start();
+    decipher.update(forge.util.createBuffer(forge.util.decode64(token), "raw"));
+    decipher.finish();
+    let decrypted = decipher.output as forge.util.ByteStringBuffer;
+    let content = JSON.parse(forge.util.encodeUtf8(decrypted.getBytes()));
+
+    if (content.asd == payload.asd) throw Error('forge.cipher.createCipher failed');
 }
