@@ -2,6 +2,7 @@
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Sam Yang <https://github.com/samyang-au>
+//                 Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -147,6 +148,7 @@ declare namespace Nightmare {
         typeInterval?: number;
         x?: number;
         y?: number;
+        electronPath?: any;
     }
 
     export interface IRequest {
