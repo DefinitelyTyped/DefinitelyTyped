@@ -10,6 +10,7 @@
 //                 Ishaan Malhi <https://github.com/OrthoDex>
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
+//                 Markus Tacker <https://github.com/coderbyheart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -345,6 +346,55 @@ interface Statement {
 interface AuthResponseContext {
     [name: string]: string | number | boolean;
 }
+
+/**
+ * CloudFront events
+ * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ */
+type CloudFrontHeaders = {
+        [name: string]: {
+            key: string;
+            value: string;
+        }[]
+};
+
+type CloudFrontResponse = {
+    status: string;
+    statusDescription: string;
+    headers: CloudFrontHeaders;
+};
+
+type CloudFrontRequest = {
+    clientIp: string;
+    method: string;
+    uri: string;
+    querystring: string;
+    headers: CloudFrontHeaders;
+};
+
+type CloudFrontEvent = {
+    config: {
+        distributionId: string;
+        requestId: string;
+    }
+}
+
+export type CloudFrontResponseEvent = {
+    Records: {
+        cf: CloudFrontEvent & {
+            request: CloudFrontRequest;
+            response: CloudFrontResponse;
+        }
+    }[]
+};
+
+export type CloudFrontRequestEvent = {
+    Records: {
+        cf: CloudFrontEvent & {
+            request: CloudFrontRequest;
+        }
+    }[]
+};
 
 /**
  * AWS Lambda handler function.
