@@ -17,6 +17,7 @@ declare namespace Parse {
     let javaScriptKey: string | undefined;
     let masterKey: string | undefined;
     let serverURL: string;
+    let liveQueryServerURL: string;
     let VERSION: string;
 
     interface SuccessOption {
