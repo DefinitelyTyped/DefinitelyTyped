@@ -6,6 +6,8 @@
 import { RawSourceMap } from 'source-map'
 import * as acorn from 'acorn'
 
+export const VERSION: string;
+
 export type Format = 'amd' | 'cjs' | 'es' | 'iife' | 'umd'
 
 export interface SourceMap extends RawSourceMap {
