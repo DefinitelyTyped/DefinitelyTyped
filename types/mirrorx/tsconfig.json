@@ -1,7 +1,7 @@
 {
 	"files": [
         "index.d.ts",
-        "mirrorx_test.ts"
+        "mirrorx-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
