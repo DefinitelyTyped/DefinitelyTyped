@@ -31,7 +31,7 @@ export interface BundleOptions {
 	/** The name to use for the module for UMD/IIFE bundles (required for bundles with exports). */
 	name?: string
 	/** Mapping of IDs → global variable names. Used for UMD/IIFE bundles. */
-	globals?: { [id: string]: string }
+	globals?: ((id: string) => string) | { [id: string]: string }
 	/**
 	 * Function that takes an ID and returns a path, or Object of id: path pairs.
 	 * Where supplied, these paths will be used in the generated bundle instead of the module ID, allowing you to (for example) load dependencies from a CDN.
