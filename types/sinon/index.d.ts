@@ -150,7 +150,7 @@ declare namespace Sinon {
 
     interface SinonStubStatic {
         (): SinonStub;
-        (obj: any): SinonStub;
+        <T>(obj: T): SinonStubbedInstance<T>;
         <T>(obj: T, method: keyof T): SinonStub;
         <T>(obj: T, method: keyof T, func: Function): SinonStub;
     }
@@ -561,6 +561,8 @@ declare namespace Sinon {
      * @template TType Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
+        // TODO: this should really only replace functions on TType with SinonStubs, not all properties
+        // Likely infeasible without mapped conditional types, per https://github.com/Microsoft/TypeScript/issues/12424
         [P in keyof TType]: SinonStub;
     };
 }
