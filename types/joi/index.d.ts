@@ -1071,8 +1071,7 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
-export function extend(extention: Extension|Extension[]): any;
-export function extend(...extentions: (Extension|Extension[])[]): any;
+export function extend(extension: Extension|Extension[], ...extensions: (Extension|Extension[])[]): any;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
