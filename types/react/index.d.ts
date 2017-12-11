@@ -2816,6 +2816,7 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean;
         controls?: boolean;
+        controlsList?: string;
         crossOrigin?: string;
         loop?: boolean;
         mediaGroup?: string;
@@ -2984,7 +2985,6 @@ declare namespace React {
     interface VideoHTMLAttributes<T> extends MediaHTMLAttributes<T> {
         height?: number | string;
         playsInline?: boolean;
-        controlsList?: string;
         poster?: string;
         width?: number | string;
     }
