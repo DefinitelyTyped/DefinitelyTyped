@@ -9,6 +9,7 @@ const seed = 'My Secret String Value';
 const rand2 = create(seed);
 
 // API
+rand1(50);
 rand1.addEntropy();
 rand1.random();
 rand1.range(100);
