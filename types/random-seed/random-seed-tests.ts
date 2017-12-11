@@ -16,3 +16,11 @@ rand1.range(100);
 rand1.intBetween(0, 10);
 rand1.floatBetween(0, 1);
 rand1.seed("new seed");
+
+rand2(50);
+rand2.addEntropy();
+rand2.random();
+rand2.range(100);
+rand2.intBetween(0, 10);
+rand2.floatBetween(0, 1);
+rand2.seed("new seed");
