@@ -1,6 +1,7 @@
-// Type definitions for node-emoji 1.4
+// Type definitions for node-emoji 1.8.1
 // Project: https://github.com/omnidan/node-emoji#readme
 // Definitions by: Tristan Jones <https://github.com/jonestristand>
+//                 styu <https://github.com/styu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export const emoji: {
@@ -1347,7 +1348,18 @@ export const emoji: {
     zzz: string;
 };
 
-export function emojify(str: string, on_missing?: (emoji_name: string) => string): string;
+export interface IEmoji {
+    emoji: string;
+    key: string;
+}
+
+export function emojify(str: string, on_missing?: (emoji_name: string) => string, format?: (code: string, name: string) => string): string;
 export function get(emoji: string): string;
-export function random(): string;
+export function random(): IEmoji;
+export function search(searchTerm: string): IEmoji[];
 export function which(emoji_code: string): string;
+export function unemojify(str: string): string;
+export function find(emoji: string): IEmoji;
+export function hasEmoji(str: string): boolean;
+export function strip(str: string): string;
+export function replace(str: string, callback: (emoji: IEmoji) => string): string;
