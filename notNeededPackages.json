@@ -373,6 +373,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "left-pad",
+            "typingsPackageName": "left-pad",
+            "sourceRepoURL": "https://github.com/stevemao/left-pad",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "Linq.JS",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
