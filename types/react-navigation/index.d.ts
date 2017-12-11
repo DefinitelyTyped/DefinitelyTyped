@@ -12,7 +12,7 @@
 //                 Qibang Sun <https://github.com/bang88>
 //                 Sergei Butko: <https://github.com/svbutko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.3
 
 /**
  * BEGIN FLOW TYPEDEFINITION.JS PORT
