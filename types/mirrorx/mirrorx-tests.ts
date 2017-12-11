@@ -7,6 +7,7 @@ import { render,actions,withRouter,Link,NavLink,Router,Route,connect,Redirect} f
 
 /**
  * add mirror.model.tests
+ * 
  */
 mirror.model({
     name:'app',
