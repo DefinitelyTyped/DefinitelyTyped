@@ -26,6 +26,7 @@ export * from './response/response-events';
 export * from './route/adding-routes';
 export * from './route/config';
 export * from './route/handler';
+export * from './route/route-options';
 export * from './route/route-options-pre';
 
 /** SERVER */
