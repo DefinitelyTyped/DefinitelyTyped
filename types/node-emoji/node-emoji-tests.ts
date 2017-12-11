@@ -1,8 +1,8 @@
-import { IEmoji } from "./index";
 import emoji = require('node-emoji');
 
 const coffee: string = emoji.get('coffee');
-const result: IEmoji = emoji.random();
+const result = emoji.random();
+const result_emoji: string = result.emoji;
 
 const cofee_name: string = emoji.which('☕️');
 
@@ -12,11 +12,13 @@ const emoji_string2: string = emoji.emojify('I :unknown_emoji: :star: :another_o
 
 const emoji_direct: string = emoji.emoji.coffee;
 
-const emoji_search: IEmoji[] = emoji.search('cof');
+const emoji_search = emoji.search('cof');
+const emojis_from_search: string[] = emoji_search.map(emoji => emoji.emoji);
 
 const unemojified_string: string = emoji.unemojify('I ❤️ 🍕');
 
-const found_emoji: IEmoji = emoji.find('🍕');
+const found_emoji = emoji.find('🍕');
+const found_emoji_string: string = found_emoji.emoji;
 
 const hasEmoji: boolean = emoji.hasEmoji('🍕');
 
