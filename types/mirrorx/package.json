@@ -1,6 +1,6 @@
 {
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "@types/react":"^16.0.0",
         "@types/react-dom":"^16.0.0",
         "@types/react-router-dom":"^4.2.3",
