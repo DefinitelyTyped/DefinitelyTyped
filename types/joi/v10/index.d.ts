@@ -15,7 +15,7 @@
 
 export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
 
-export type LanguageOptions = string | false | null | {
+export type LanguageOptions = string | boolean | null | {
     [key: string]: LanguageOptions;
 };
 

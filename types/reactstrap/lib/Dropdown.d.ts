@@ -8,6 +8,9 @@ export interface UncontrolledProps {
   className?: string;
   cssModule?: CSSModule;
 }
+export interface UncontrolledDropdownProps extends UncontrolledProps {
+  /* intentionally blank */
+}
 
 export interface Props extends UncontrolledProps {
   disabled?: boolean;
@@ -17,6 +20,9 @@ export interface Props extends UncontrolledProps {
   tag?: React.ReactType;
   tether?: boolean | Tether.ITetherOptions;
 }
+export interface DropdownProps extends Props {
+  /* intentionally blank */
+}
 
-declare var Dropdown: React.StatelessComponent<Props>;
+declare const Dropdown: React.StatelessComponent<DropdownProps>;
 export default Dropdown;

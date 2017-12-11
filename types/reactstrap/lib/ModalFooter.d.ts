@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ModalFooterProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var ModalFooter: React.StatelessComponent<Props>;
+declare const ModalFooter: React.StatelessComponent<ModalFooterProps>;
 export default ModalFooter;

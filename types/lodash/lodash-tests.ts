@@ -9802,8 +9802,10 @@ namespace TestInClamp {
         let result: number;
 
         result = _.clamp(3, 2, 4);
+        result = _.clamp(3, 4);
 
         result = _(3).clamp(2, 4);
+        result = _(3).clamp(4);
     }
 
     {

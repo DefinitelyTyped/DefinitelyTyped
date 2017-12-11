@@ -128,6 +128,13 @@ var knex = Knex({
   useNullAsDefault: true,
 });
 
+// Using custom client
+class TestClient extends Knex.Client {}
+
+var knex = Knex({
+  client: TestClient,
+});
+
 knex('books').insert({title: 'Test'}).returning('*').toString();
 
 // Migrations

@@ -405,6 +405,20 @@ function bufferTests() {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
+    }
 
     // Class Method byteLenght
     {
@@ -558,7 +572,7 @@ namespace url_tests {
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
         if (typeof helloUrl.query !== 'string') {
-            assert.equal(helloUrl.query.hello, 'world');
+            assert.equal(helloUrl.query['hello'], 'world');
         }
     }
 
@@ -2425,6 +2439,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -3071,17 +3105,6 @@ namespace v8_tests {
 
     v8.setFlagsFromString('--collect_maps');
 }
-
-///////////////////////////////////////////////////////////
-/// Debugger Tests                                      ///
-///////////////////////////////////////////////////////////
-
-import { Client } from "_debugger";
-
-var client = new Client();
-
-client.connect(8888, 'localhost');
-client.listbreakpoints((err, body, packet) => { });
 
 ////////////////////////////////////////////////////
 /// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
