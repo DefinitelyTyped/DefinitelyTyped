@@ -174,6 +174,23 @@ webAuth.login({username: 'bar', password: 'foo'}, (err, data) => {});
 
 webAuth.crossOriginAuthenticationCallback();
 
+webAuth.checkSession({
+  audience: 'https://mystore.com/api/v2',
+  scope: 'read:order write:order',
+  redirectUri: 'https://example.com/auth/silent-callback'
+  }, (err, authResult) => {
+    // Authentication tokens or error
+});
+
+webAuth.checkSession({
+  audience: 'https://mystore.com/api/v2',
+  scope: 'read:order write:order',
+  redirectUri: 'https://example.com/auth/silent-callback',
+  usePostMessage: true
+  }, (err, authResult) => {
+    // Renewed tokens or error
+});
+
 const authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
     clientID: '...',
