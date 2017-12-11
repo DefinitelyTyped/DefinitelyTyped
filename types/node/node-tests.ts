@@ -405,6 +405,20 @@ function bufferTests() {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
+    }
 
     // Class Method byteLenght
     {
@@ -558,7 +572,7 @@ namespace url_tests {
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
         if (typeof helloUrl.query !== 'string') {
-            assert.equal(helloUrl.query.hello, 'world');
+            assert.equal(helloUrl.query['hello'], 'world');
         }
     }
 
@@ -684,6 +698,7 @@ namespace util_tests {
         assert(typeof util.inspect.custom === 'symbol');
 
         // util.callbackify
+        // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
             static fn(): Promise<void> {
                 assert(arguments.length === 0);
@@ -758,6 +773,10 @@ namespace util_tests {
         // util.promisify
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
+        var arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
+        var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
+        var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
+        var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -1317,9 +1336,24 @@ namespace http_tests {
         request.abort();
     }
 
-    const options: http.RequestOptions = {
-        timeout: 30000
-    };
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
+    }
 }
 
 //////////////////////////////////////////////////////
@@ -1616,19 +1650,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH);
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH);
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt');
     // returns
@@ -1654,6 +1676,15 @@ namespace path_tests {
         root: "/",
         dir: "/home/user/dir",
         base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.format({
+        root: "/",
+        dir: "/home/user/dir",
         ext: ".txt",
         name: "file"
     });
@@ -2408,6 +2439,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -3055,27 +3106,16 @@ namespace v8_tests {
     v8.setFlagsFromString('--collect_maps');
 }
 
-///////////////////////////////////////////////////////////
-/// Debugger Tests                                      ///
-///////////////////////////////////////////////////////////
-
-import { Client } from "_debugger";
-
-var client = new Client();
-
-client.connect(8888, 'localhost');
-client.listbreakpoints((err, body, packet) => { });
-
 ////////////////////////////////////////////////////
 /// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
 ////////////////////////////////////////////////////
 namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
-        init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
-        before: (asyncId: number) => void {},
-        after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {},
-        promiseResolve: (asyncId: number) => void {}
+        init() {},
+        before() {},
+        after() {},
+        destroy() {},
+        promiseResolve() {},
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -3342,7 +3382,8 @@ namespace http2_tests {
             settings,
             allowHTTP1: true
         };
-        let secureServerOptions: http2.SecureServerOptions = { ...serverOptions };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
         secureServerOptions.ca = '';
         let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
             // Http2ServerRequest
@@ -3439,7 +3480,8 @@ namespace http2_tests {
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
             settings
         };
-        let secureClientSessionOptions: http2.SecureClientSessionOptions = { ...clientSessionOptions };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
         secureClientSessionOptions.ca = '';
         let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
@@ -3692,8 +3734,9 @@ namespace inspector_tests {
         session.disconnect();
 
         // Unknown post method
-        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
-        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b', { key: 'value' }, (err, params) => {});
+        // TODO: parameters are implicitly 'any' and need type annotation
+        session.post('A.b', (err: Error | null, params?: {}) => {});
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
@@ -3706,7 +3749,9 @@ namespace inspector_tests {
         session.post('Runtime.evaluate');
 
         // General event
-        session.on('inspectorNotification', (message: inspector.InspectorNotification<object>) => {});
+        session.on('inspectorNotification', message => {
+            message; // $ExpectType InspectorNotification<{}>
+        });
         // Known events
         session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
             const method: string = message.method;
@@ -3728,4 +3773,14 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+}
+
+////////////////////////////////////////////////////
+/// Node.js ESNEXT Support
+////////////////////////////////////////////////////
+
+namespace esnext_string_tests {
+    const s: string = 'foo';
+    const s1: string = s.trimLeft();
+    const s2: string = s.trimRight();
 }

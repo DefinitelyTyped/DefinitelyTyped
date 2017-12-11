@@ -262,22 +262,22 @@ R.times(i, 5);
 })();
 
 (() => {
-    function multiply(a: number, b: number) {
+    function multiply(a: number, b: number): number {
         return a * b;
     }
 
-    const double = R.partial(multiply, 2);
+    const double = R.partial<number>(multiply, [2]);
     double(2); // => 4
 
     function greet(salutation: string, title: string, firstName: string, lastName: string) {
         return `${salutation}, ${title} ${firstName} ${lastName}!`;
     }
 
-    const sayHello     = R.partial(greet, "Hello");
-    const sayHelloToMs = R.partial(sayHello, "Ms.");
+    const sayHello     = R.partial(greet, ["Hello"]);
+    const sayHelloToMs = R.partial(sayHello, ["Ms."]);
     sayHelloToMs("Jane", "Jones"); // => 'Hello, Ms. Jane Jones!'
 
-    const greetMsJaneJones = R.partialRight(greet, "Ms.", "Jane", "Jones");
+    const greetMsJaneJones = R.partialRight(greet, ["Ms.", "Jane", "Jones"]);
     greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
 })();
 
@@ -301,12 +301,20 @@ R.times(i, 5);
     // Note that argument order matters
     memoTrackedAdd(2, 1); // => 3
     numberOfCalls; // => 3
+
+    function stringLength(str: string): number {
+      return str.length;
+    }
+    const memoStringLength = R.memoize<number>(stringLength);
+    const isLong = memoStringLength('short') > 10; // false
 })();
 
 (() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
+
+    const str = R.once<string>(() => 'test')();
 })();
 
 (() => {
@@ -443,10 +451,6 @@ R.times(i, 5);
     R.append("tests", ["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests")(["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests", []); // => ['tests']
-    R.append<string, string[]>(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append<string[]>(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
 };
 
 () => {
@@ -674,10 +678,19 @@ interface Obj {
 };
 
 (() => {
-    const list = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
-    const a1 = R.indexBy(R.prop<string>("id"), list);
-    const a2 = R.indexBy(R.prop<string>("id"))(list);
+    interface Book {
+        id: string;
+        title: string;
+    }
+    const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
+    const a1 = R.indexBy(R.prop("id"), list);
+    const a2 = R.indexBy(R.prop("id"))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+
+    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
+        R.map((x: Book) => x.title),
+        R.indexBy(x => x),
+    )(list);
 });
 
 () => {
@@ -1531,7 +1544,16 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
+    const obj = {
+        str: 'string',
+        num: 5,
+    };
+
+    const strVal: string = R.prop('str', obj); // => 'string'
+    const numVal: number = R.prop('num', obj); // => 5
+
+    const strValCur: string = R.prop('str')(obj); // => 'string'
+    const numValCur: number = R.prop('num')(obj); // => 5
 };
 
 () => {
@@ -1542,7 +1564,6 @@ class Rectangle {
     const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
-    const s1 = favorite(alice);  // => undefined
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
@@ -1554,7 +1575,6 @@ class Rectangle {
 
 () => {
     R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
@@ -1855,7 +1875,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose<string, string, string>(R.toLower, R.prop("name")));
+    const sortByNameCaseInsensitive = R.sortBy(R.compose<Record<'name', string>, string, string>(R.toLower, R.prop("name")));
     const alice                     = {
         name: "ALICE",
         age : 101
@@ -1982,8 +2002,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.max(7, 3); // => 7
-    const y: R.Ord = R.max("a", "z"); // => 'z'
+    const x: number = R.max(7, 3); // => 7
+    const y: string = R.max("a", "z"); // => 'z'
 };
 
 () => {
@@ -2013,8 +2033,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.min(9, 3); // => 3
-    const y: R.Ord = R.min("a", "z"); // => 'a'
+    const x: number = R.min(9, 3); // => 3
+    const y: string = R.min("a", "z"); // => 'a'
 };
 
 () => {
@@ -2239,6 +2259,15 @@ class Rectangle {
     R.isEmpty(null); // => false
     R.isEmpty({}); // =>true
     R.isEmpty({a: 1}); // => false
+};
+
+() => {
+    R.endsWith("c", "abc");   // => true
+    R.endsWith("c")("abc");   // => true
+    R.endsWith(3, [1, 2, 3]);   // => true
+    R.endsWith(3)([1, 2, 3]);   // => true
+    R.endsWith([3], [1, 2, 3]);   // => true
+    R.endsWith([3])([1, 2, 3]);   // => true
 };
 
 () => {

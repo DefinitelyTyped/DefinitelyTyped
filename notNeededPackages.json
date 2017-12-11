@@ -61,6 +61,12 @@
             "asOfVersion": "0.4.0"
         },
         {
+            "libraryName": "autobind-decorator",
+            "typingsPackageName": "autobind-decorator",
+            "sourceRepoURL": "https://github.com/andreypopp/autobind-decorator",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -133,6 +139,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "commander",
+            "typingsPackageName": "commander",
+            "sourceRepoURL": "https://github.com/tj/commander.js",
+            "asOfVersion": "2.12.2"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
@@ -185,6 +197,12 @@
             "typingsPackageName": "electron-builder",
             "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
             "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "error-stack-parser",
+            "typingsPackageName": "error-stack-parser",
+            "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "eventemitter2",
@@ -331,6 +349,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "jsplumb",
+            "typingsPackageName": "jsplumb",
+            "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
+            "asOfVersion": "2.5.7"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
@@ -347,6 +371,12 @@
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
             "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "left-pad",
+            "typingsPackageName": "left-pad",
+            "sourceRepoURL": "https://github.com/stevemao/left-pad",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "Linq.JS",
@@ -545,6 +575,12 @@
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
             "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "react-native-elements",
+            "typingsPackageName": "react-native-elements",
+            "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
+            "asOfVersion": "0.18.0"
         },
         {
             "libraryName": "realm",

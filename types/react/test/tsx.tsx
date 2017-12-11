@@ -63,3 +63,17 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
     return <div />;
 };
 <StatelessComponentWithoutProps />;
+
+// Fragments
+<div>
+    <React.Fragment>
+        <React.Fragment key="foo">
+            <span>Child 1</span>
+            <span>Child 2</span>
+        </React.Fragment>
+        <React.Fragment key="bar">
+            <span>Child 3</span>
+            <span>Child 4</span>
+        </React.Fragment>
+    </React.Fragment>
+</div>;

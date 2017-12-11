@@ -2,7 +2,7 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
 
@@ -1426,8 +1426,7 @@ declare namespace chrome.declarativeContent {
         ports?: (number | number[])[];
     }
 
-    /** Matches the state of a web page by various criteria. */
-    interface PageStateMatcher {
+    class PageStateMatcherProperties {
         /** Optional. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.  */
         pageUrl?: PageStateUrlDetails;
         /** Optional. Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites.  */
@@ -1439,6 +1438,19 @@ declare namespace chrome.declarativeContent {
          */
         isBookmarked?: boolean;
     }
+
+    /** Matches the state of a web page by various criteria. */
+    class PageStateMatcher {
+        constructor(options: PageStateMatcherProperties);
+    }
+
+    /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
+    class ShowPageAction {}
+
+    /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
+    interface PageChangedEvent extends chrome.events.Event<() => void> {}
+
+    var onPageChanged: PageChangedEvent;
 }
 
 ////////////////////
@@ -1664,7 +1676,7 @@ declare namespace chrome.devtools.inspectedWindow {
      * Parameter result: The result of evaluation.
      * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
      */
-    export function eval(expression: string, callback?: (result: Object, exceptionInfo: EvaluationExceptionInfo) => void): void;
+    export function eval<T>(expression: string, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
     /**
      * Retrieves the list of resources from the inspected page.
      * @param callback A function that receives the list of resources when the request completes.
@@ -5126,7 +5138,7 @@ declare namespace chrome.runtime {
             actions?: {
                 type: string;
             }[];
-            conditions?: chrome.declarativeContent.PageStateMatcher[]
+            conditions?: chrome.declarativeContent.PageStateMatcherProperties[]
         }[];
         externally_connectable?: {
             ids?: string[];
@@ -5535,19 +5547,12 @@ declare namespace chrome.storage {
          */
         set(items: Object, callback?: () => void): void;
         /**
-         * Removes one item from storage.
-         * @param key A single key for items to remove.
+         * Removes one or more items from storage.
+         * @param A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(key: string, callback?: () => void): void;
-        /**
-         * Removes items from storage.
-         * @param keys A list of keys for items to remove.
-         * @param callback Optional.
-         * Callback on success, or on failure (in which case runtime.lastError will be set).
-         */
-        remove(keys: string[], callback?: () => void): void;
+        remove(keys: string | string[], callback?: () => void): void;
         /**
          * Gets one or more items from storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
@@ -7018,8 +7023,9 @@ declare namespace chrome.webNavigation {
         /**
          * The ID of the process runs the renderer for this tab.
          * @since Chrome 22.
+         * @deprecated since Chrome 49. Frames are now uniquely identified by their tab ID and frame ID; the process ID is no longer needed and therefore ignored.
          */
-        processId: number;
+        processId?: number;
         /** The ID of the tab in which the frame is. */
         tabId: number;
         /** The ID of the frame in the given tab. */

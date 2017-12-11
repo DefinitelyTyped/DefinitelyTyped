@@ -2,6 +2,7 @@
 // Project: https://github.com/pinojs/koa-pino-logger
 // Definitions by: Cameron Yan <https://github.com/khell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 

@@ -3036,4 +3036,12 @@ declare namespace ymaps {
 
 		shift(offset: number[]): IShape;
 	}
+	class Monitor {
+    	constructor(dataManager: IDataManager | IOptionManager);
+   		add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
+    	forceChange(): Monitor;
+    	get(name: string): any;
+    	remove(name: string): Monitor;
+    	removeAll(): Monitor;
+	}
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/strongloop/loopback-boot
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /************************************************
 *                                               *

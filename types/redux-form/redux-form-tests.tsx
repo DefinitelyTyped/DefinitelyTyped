@@ -11,9 +11,11 @@ import {
     formValueSelector,
     Field,
     GenericField,
+    BaseFieldProps,
     WrappedFieldProps,
     Fields,
     GenericFields,
+    BaseFieldProps,
     WrappedFieldsProps,
     FieldArray,
     GenericFieldArray,
@@ -124,6 +126,11 @@ const MyField: StatelessComponent<MyFieldProps> = ({
     return null;
 };
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
+
+type FieldProps = BaseFieldProps<MyFieldCustomProps> & MyFieldCustomProps;
+const FieldCustomComp: StatelessComponent<FieldProps> = props => (
+    <FieldCustom {...props} component={MyField} />
+)
 
 const MyFieldImm: StatelessComponent<MyFieldProps> = ({
     children,
@@ -259,6 +266,11 @@ const Test = reduxForm({
                             <FieldCustom
                                 name="field4"
                                 component={ MyField }
+                                foo="bar"
+                            />
+
+                            <FieldCustomComp
+                                name="field_4_comp"
                                 foo="bar"
                             />
 

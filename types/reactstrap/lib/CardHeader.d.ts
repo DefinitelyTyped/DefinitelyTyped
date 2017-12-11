@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardHeaderProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var CardHeader: React.StatelessComponent<Props>;
+declare const CardHeader: React.StatelessComponent<CardHeaderProps>;
 export default CardHeader;
