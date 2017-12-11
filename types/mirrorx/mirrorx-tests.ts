@@ -1,7 +1,8 @@
+import { Component, ReactElement } from 'react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as mirror from 'mirrorx';
-import { render,actions,withRouter,Link,NavLink,Router,Route,connect,Redirect} from 'mirrorx'
-
-
+import { render,actions,withRouter,Link,NavLink,Router,Route,connect,Redirect} from 'mirrorx';
 /**
  * add mirror.model.tests
  * 
