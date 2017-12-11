@@ -1,4 +1,4 @@
-import * as CanCan from 'cancan';
+import CanCan = require('cancan');
 
 const cancan = new CanCan();
 
