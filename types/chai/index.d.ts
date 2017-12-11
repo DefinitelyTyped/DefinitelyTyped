@@ -26,20 +26,20 @@ declare namespace Chai {
         version: string;
     }
 
-    interface ExpectStatic extends AssertionStatic {
+    export interface ExpectStatic extends AssertionStatic {
         fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
     }
 
-    interface AssertStatic extends Assert {
+    export interface AssertStatic extends Assert {
     }
 
-    interface AssertionStatic {
+    export interface AssertionStatic {
         (target: any, message?: string): Assertion;
     }
 
-    type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
+    export type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
 
-    type OperatorComparable = boolean | null | number | string | undefined | Date;
+    export type OperatorComparable = boolean | null | number | string | undefined | Date;
 
     interface ShouldAssertion {
         equal(value1: any, value2: any, message?: string): void;
@@ -256,7 +256,7 @@ declare namespace Chai {
         (object: Object, property: string, message?: string): Assertion;
     }
 
-    interface Assert {
+    export interface Assert {
         /**
          * @param expression    Expression to test for truthiness.
          * @param message    Message to display on error.
@@ -1587,7 +1587,7 @@ declare namespace Chai {
         doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
     }
 
-    interface Config {
+    export interface Config {
         /**
          * Default: false
          */
@@ -1604,7 +1604,7 @@ declare namespace Chai {
         truncateThreshold: number;
     }
 
-    class AssertionError {
+    export class AssertionError {
         constructor(message: string, _props?: any, ssf?: Function);
         name: string;
         message: string;
@@ -1614,11 +1614,11 @@ declare namespace Chai {
 }
 
 declare const chai: Chai.ChaiStatic;
-export = chai;
-export as namespace chai;
 
-declare global {
-    interface Object {
-        should: Chai.Assertion;
-    }
+declare module "chai" {
+    export = chai;
+}
+
+interface Object {
+    should: Chai.Assertion;
 }
