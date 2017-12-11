@@ -161,8 +161,6 @@ req.destroy();
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
-value = request.initParams;
-
 req = request(uri);
 req = request(uri, options);
 req = request(uri, options, callback);
@@ -218,6 +216,13 @@ req = request.delete(uri, options, callback);
 req = request.delete(uri, callback);
 req = request.delete(options);
 req = request.delete(options, callback);
+
+value = request.initParams(uri);
+value = request.initParams(uri, options);
+value = request.initParams(uri, options, callback);
+value = request.initParams(uri, callback);
+value = request.initParams(options);
+value = request.initParams(options, callback);
 
 req = request.forever(value, value);
 jar = request.jar();

@@ -33,7 +33,7 @@ interface Intermediate extends React.InputHTMLAttributes<HTMLInputElement> {
   size?: any;
 }
 
-interface InputProps extends Intermediate {
+export interface InputProps extends Intermediate {
   type?: InputType;
   size?: string;
   state?: string;
@@ -46,5 +46,5 @@ interface InputProps extends Intermediate {
   cssModule?: CSSModule;
 }
 
-declare var Input: React.StatelessComponent<InputProps>;
+declare const Input: React.StatelessComponent<InputProps>;
 export default Input;

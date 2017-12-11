@@ -49,6 +49,9 @@ declare namespace algoliasearch {
      */
     params: string;
   }
+  interface AlgoliaMultiResponse {
+    results: AlgoliaResponse[];
+  }
   /*
   Interface for the algolia client object
   */
@@ -71,8 +74,8 @@ declare namespace algoliasearch {
         indexName: string;
         query: string;
         params: AlgoliaQueryParameters;
-      },
-      cb: (err: Error, res: any) => void
+      }[],
+      cb: (err: Error, res: AlgoliaMultiResponse) => void
     ): void;
     /**
      * Query on multiple index
@@ -84,7 +87,7 @@ declare namespace algoliasearch {
       indexName: string;
       query: string;
       params: AlgoliaQueryParameters;
-    }): Promise<AlgoliaResponse>;
+    }[]): Promise<AlgoliaMultiResponse>;
     /**
      * clear browser cache
      * https://github.com/algolia/algoliasearch-client-js#cache
@@ -319,8 +322,8 @@ declare namespace algoliasearch {
     getLogs(options: LogsOptions): Promise<any>;
   }
   /**
- * Interface for the index algolia object
- */
+   * Interface for the index algolia object
+   */
   interface AlgoliaIndex {
     /**
      * Gets a specific object
@@ -783,7 +786,7 @@ declare namespace algoliasearch {
      * @param err() error callback
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(params: AlgoliaQueryParameters): Promise<any>;
+    search(params: AlgoliaQueryParameters): Promise<AlgoliaResponse>;
     /**
      * Search in an index
      * @param params query parameter
@@ -793,7 +796,7 @@ declare namespace algoliasearch {
      */
     search(
       params: AlgoliaQueryParameters,
-      cb: (err: Error, res: any) => void
+      cb: (err: Error, res: AlgoliaResponse) => void
     ): void;
     /**
      * Search in an index
@@ -809,8 +812,7 @@ declare namespace algoliasearch {
     }: {
       facetName: string;
       facetQuery: string;
-    } & AlgoliaQueryParameters
-    ): Promise<any>;
+    } & AlgoliaQueryParameters): Promise<any>;
     /**
      * Search in an index
      * @param params query parameter
@@ -1071,8 +1073,8 @@ Interface describing options available for gettings the logs
     type?: string;
   }
   /**
- * Describe the action object used for batch operation
- */
+   * Describe the action object used for batch operation
+   */
   interface AlgoliaAction {
     /**
      * Type of the batch action
@@ -1098,8 +1100,8 @@ Interface describing options available for gettings the logs
     body: {};
   }
   /**
- * Describes the option used when creating user key
- */
+   * Describes the option used when creating user key
+   */
   interface AlgoliaApiKeyOptions {
     /**
      * Add a validity period. The key will be valid for a specific period of time (in seconds).
@@ -1364,8 +1366,8 @@ Interface describing options available for gettings the logs
   }
 
   /**
- * Describes the settings available for configure your index
- */
+   * Describes the settings available for configure your index
+   */
   interface AlgoliaIndexSettings {
     /**
      * The list of attributes you want index
@@ -1770,7 +1772,7 @@ Interface describing options available for gettings the logs
      * You can specify aroundRadius=all if you want to compute the geo distance without filtering in a geo area
      * https://github.com/algolia/algoliasearch-client-js#aroundradius
      */
-    aroundRadius?: any;
+    aroundRadius?: number | 'all';
     /**
      * Control the precision of a geo search
      * default: null
@@ -1788,7 +1790,7 @@ Interface describing options available for gettings the logs
      * default: null
      * https://github.com/algolia/algoliasearch-client-js#insideboundingbox
      */
-    insideBoundingBox?: string;
+    insideBoundingBox?: number[][];
     /**
      * Selects how the query words are interpreted
      * default: 'prefixLast'
@@ -1803,7 +1805,7 @@ Interface describing options available for gettings the logs
      * defauly: ''
      * https://github.com/algolia/algoliasearch-client-js#insidepolygon
      */
-    insidePolygon?: string;
+    insidePolygon?: number[][];
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'

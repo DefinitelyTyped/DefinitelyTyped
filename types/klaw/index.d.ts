@@ -1,4 +1,4 @@
-// Type definitions for klaw v2.1.0
+// Type definitions for klaw v2.1.1
 // Project: https://github.com/jprichardson/node-klaw
 // Definitions by: Matthew McEachen <https://github.com/mceachen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,7 +30,7 @@ declare module "klaw" {
 
         type Event = "close" | "data" | "end" | "readable" | "error"
 
-        interface Walker {
+        interface Walker extends Readable {
             on(event: Event, listener: Function): this
             on(event: "close", listener: () => void): this
             on(event: "data", listener: (item: Item) => void): this

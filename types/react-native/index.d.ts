@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.50
+// Type definitions for react-native 0.51
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -5209,7 +5209,7 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>(specifics: { [platform in PlatformOSType]?: T }): T;
+    select<T>(specifics: { [platform in PlatformOSType | 'default']?: T }): T;
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
@@ -5688,6 +5688,12 @@ export interface ScrollViewPropertiesIOS {
      * The default value is {x: 0, y: 0}
      */
     contentOffset?: PointProperties; // zeros
+
+    /**
+     * This property specifies how the safe area insets are used to modify the content area of the scroll view.
+     * The default value of this property must be 'automatic'. But the default value is 'never' until RN@0.51.
+     */
+    contentInsetAdjustmentBehavior?: "automatic" | "scrollableAxes" | "never" | "always";
 
     /**
      * A floating-point number that determines how quickly the scroll view

@@ -5,7 +5,8 @@
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Joe Skeen <https://github.com/joeskeen>,
 //                 Christopher Currens <https://github.com/ccurrens>,
-//                 Jon Stevens <https://github.com/lookfirst>
+//                 Jon Stevens <https://github.com/lookfirst>,
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -58,11 +59,14 @@ declare namespace request {
         delete(uri: string, callback?: RequestCallback): TRequest;
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
+        initParams(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        initParams(uri: string, callback?: RequestCallback): TRequest;
+        initParams(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
         cookie(str: string): Cookie;
 
-        initParams: any;
         debug: boolean;
     }
 
