@@ -2,7 +2,7 @@
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version:  1.9
+// TypeScript Version: 1.0
 
 import * as React from 'react';
 import * as H from 'history';
