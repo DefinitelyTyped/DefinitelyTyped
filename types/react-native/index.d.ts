@@ -7160,7 +7160,7 @@ export interface PushNotification {
      * Gets the data object on the notif
      */
     getData(): Object;
-                                                                                     
+
     /**
      * iOS Only
      * Signifies remote notification handling is complete
@@ -7188,7 +7188,7 @@ type ScheduleLocalNotificationDetails = {
 };
 
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";
-                                                                                     
+
 type FetchResult = {
     NewData: "UIBackgroundFetchResultNewData",
     NoData: "UIBackgroundFetchResultNoData",
@@ -7308,7 +7308,7 @@ export interface PushNotificationIOSStatic {
      * object if the app was launched by a push notification, or `null` otherwise.
      */
     getInitialNotification(): Promise<PushNotification>;
-                                                                                     
+
     /**
      * iOS fetch results that best describe the result of a finished remote notification handler.
      * For a list of possible values, see `PushNotificationIOS.FetchResult`.
