@@ -22,7 +22,7 @@ interface perPageInterface {
 }
 
 interface SiemaOptions {
-    selector?: string;
+    selector?: string | HTMLElement;
     duration?: number;
     easing?: string;
     perPage?: number | perPageInterface;
