@@ -11,7 +11,7 @@ export declare var stores: any;
 export declare var sources: any[];
 
 export declare function clear(key: string, callback?: ICallbackFunction): any;
-export function get(key: string, callback?: ICallbackFunction): any;
+export function get(key?: string, callback?: ICallbackFunction): any;
 export declare function merge(key: string, value: any, callback?: ICallbackFunction): any;
 export declare function set(key: string, value: any, callback?: ICallbackFunction): any;
 export declare function reset(callback?: ICallbackFunction): any;
@@ -75,7 +75,7 @@ export declare class Provider {
     sources: any[];
 
     clear(key: string, callback?: ICallbackFunction): any;
-    get(key: string, callback?: ICallbackFunction): any;
+    get(key?: string, callback?: ICallbackFunction): any;
     merge(key: string, value: any, callback?: ICallbackFunction): any;
     set(key: string, value: any, callback?: ICallbackFunction): any;
     reset(callback?: ICallbackFunction): any;
