@@ -255,7 +255,7 @@ declare namespace Cypress {
     /**
      * @see https://on.cypress.io/api/log
      */
-    log(message: string, args: any): Chainable;
+    log(message: string, args?: any): Chainable;
 
     /**
      * @see https://on.cypress.io/api/next
@@ -382,6 +382,7 @@ declare namespace Cypress {
      * @see https://docs.cypress.io/api/commands/trigger.html
      */
     trigger(eventName: string, position?: PositionType, x?: number, y?: number, options?: TriggerOptions): Chainable;
+    trigger(eventName: string, eventObject: object): Chainable;
 
     /**
      * @see https://on.cypress.io/api/type
