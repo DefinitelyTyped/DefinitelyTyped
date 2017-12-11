@@ -1,12 +1,3 @@
-// Type definitions for hapi 17.0
-// Project: https://github.com/hapijs/hapi
-// Definitions by: Marc Bornträger<https://github.com/BorntraegerMarc>
-//                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Note/Disclaimer: None.
-
-/// <reference types="node" />
 
 /** REQUEST */
 export * from './request/catch-all';
