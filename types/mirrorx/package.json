@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "mirrorx":"^0.2.10"
+        "redux":"^3.7.2"
     }
 }
