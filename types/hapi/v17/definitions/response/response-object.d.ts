@@ -150,8 +150,7 @@ export interface ResponseObject extends Podium {
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseetagtag-options)
      */
-    etag(tag: string): ResponseObject;
-    etag(tag: string, options: {weak: boolean, vary: boolean}): ResponseObject;
+    etag(tag: string, options?: {weak: boolean, vary: boolean}): ResponseObject;
 
     /**
      * Sets an HTTP header where:
@@ -165,8 +164,7 @@ export interface ResponseObject extends Podium {
      *  @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseheadername-value-options)
      */
-    header(name: string, value: string): ResponseObject;
-    header(name: string, value: string, options: ResponseObjectHeaderOptions): ResponseObject;
+    header(name: string, value: string, options?: ResponseObjectHeaderOptions): ResponseObject;
 
     /**
      * Sets the HTTP 'Location' header where:
@@ -209,8 +207,7 @@ export interface ResponseObject extends Podium {
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsestatename-value-options)
      */
-    state(name: string, value: object): ResponseObject;
-    state(name: string, value: object, options: ServerStateCookieOptions): ResponseObject;
+    state(name: string, value: object, options?: ServerStateCookieOptions): ResponseObject;
 
     /**
      * Sets a string suffix when the response is process via JSON.stringify() where:
@@ -244,8 +241,7 @@ export interface ResponseObject extends Podium {
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseunstatename-options)
      */
-    unstate(name: string): ResponseObject;
-    unstate(name: string, options: ServerStateCookieOptions): ResponseObject;
+    unstate(name: string, options?: ServerStateCookieOptions): ResponseObject;
 
     /**
      * Adds the provided header to the list of inputs affected the response generation via the HTTP 'Vary' header where:

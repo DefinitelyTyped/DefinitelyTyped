@@ -77,8 +77,7 @@ export interface ResponseToolkit {
      * it should be used as the return value (but may be customize using the response methods).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hentityoptions)
      */
-    entity(): ResponseObject | undefined;
-    entity(options: {etag?: string, modified?: string, vary?: boolean}): ResponseObject | undefined;
+    entity(options?: {etag?: string, modified?: string, vary?: boolean}): ResponseObject | undefined;
 
     /**
      * Redirects the client to the specified uri. Same as calling h.response().redirect(uri).
@@ -86,8 +85,7 @@ export interface ResponseToolkit {
      * @return Returns a response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hredirecturi)
      */
-    redirect(): ResponseObject;
-    redirect(uri: string): ResponseObject;
+    redirect(uri?: string): ResponseObject;
 
     /**
      * Wraps the provided value and returns a response object which allows customizing the response
@@ -96,9 +94,7 @@ export interface ResponseToolkit {
      * @return Returns a response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue)
      */
-    response(): ResponseObject;
-    response(value: string): ResponseObject;
-    response(value: object): ResponseObject;
+    response(value?: string | object): ResponseObject;
 
     /**
      * Sets a response cookie using the same arguments as response.state().
@@ -108,8 +104,7 @@ export interface ResponseToolkit {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hstatename-value-options)
      */
-    state(name: string, value: string): void;
-    state(name: string, value: string, options: ServerStateCookieOptions): void;
+    state(name: string, value: string, options?: ServerStateCookieOptions): void;
 
     /**
      * Used by the [authentication] method to indicate authentication failed and pass back the credentials received where:
@@ -124,8 +119,7 @@ export interface ResponseToolkit {
      * There is no difference between throwing the error or passing it with the h.unauthenticated() method is no credentials are passed, but it might still be helpful for code clarity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
-    unauthenticated(error: Error): void;
-    unauthenticated(error: Error, data: {credentials: object, artifacts?: object}): void;
+    unauthenticated(error: Error, data?: {credentials: object, artifacts?: object}): void;
 
     /**
      * Clears a response cookie using the same arguments as
@@ -134,7 +128,6 @@ export interface ResponseToolkit {
      * @return void.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunstatename-options)
      */
-    unstate(name: string): void;
-    unstate(name: string, options: ServerStateCookieOptions): void;
+    unstate(name: string, options?: ServerStateCookieOptions): void;
 
 }
