@@ -4,6 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="react" />
+/// <reference types="react-redux" />
+/// <reference types="react-router" />
+/// <reference types="history" />
+
 import * as React from 'react';
 import * as H from 'history';
 import {
