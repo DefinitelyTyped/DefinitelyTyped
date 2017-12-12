@@ -970,6 +970,12 @@ const Joi3 = Joi.extend({
     ],
 });
 
+const Joi4 = Joi.extend([{ name: '', base: schema }, { name: '', base: schema }]);
+
+const Joi5 = Joi.extend({ name: '', base: schema }, { name: '', base: schema });
+
+const Joi6 = Joi.extend({ name: '', base: schema }, [{ name: '', base: schema }, { name: '', base: schema }]);
+
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 const defaultsJoi = Joi.defaults((schema) => {
