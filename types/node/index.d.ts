@@ -69,9 +69,12 @@ interface SetConstructor { }
 interface WeakSetConstructor { }
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
-interface Iterable<T> { }
+interface Iterable<T> {
+    [Symbol.iterator](): Iterator<T>;
+}
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
+    [Symbol.iterator](): Iterator<T>;
 }
 interface IteratorResult<T> { }
 interface SymbolConstructor {
@@ -803,8 +806,6 @@ declare namespace NodeJS {
     }
 }
 
-interface IterableIterator<T> { }
-
 /**
  * @deprecated
  */
@@ -858,10 +859,10 @@ interface NodeBuffer extends Uint8Array {
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    entries(): IterableIterator<[number, number]>;
+    entries(): Iterator<[number, number]>;
     includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
-    keys(): IterableIterator<number>;
-    values(): IterableIterator<number>;
+    keys(): Iterator<number>;
+    values(): Iterator<number>;
 }
 
 /************************************************
@@ -2343,17 +2344,17 @@ declare module "url" {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
-        entries(): IterableIterator<[string, string]>;
+        entries(): Iterator<[string, string]>;
         forEach(callback: (value: string, name: string) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
-        keys(): IterableIterator<string>;
+        keys(): Iterator<string>;
         set(name: string, value: string): void;
         sort(): void;
         toString(): string;
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
+        values(): Iterator<string>;
+        [Symbol.iterator](): Iterator<[string, string]>;
     }
 
     export class URL {
