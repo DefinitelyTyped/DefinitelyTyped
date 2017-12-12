@@ -1,6 +1,6 @@
 // Type definitions for immutability-helper v2.0.0
 // Project: https://github.com/kolodny/immutability-helper
-// Definitions by: Sean Kelley <https://github.com/seansfkelley>
+// Definitions by: Sean Kelley <https://github.com/seansfkelley>, Adam Gordon <https://github.com/xmrwhite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -27,8 +27,8 @@ interface UpdateArraySpec extends UpdateSpecCommand {
 type CommandHandler = (specValue: any, originalValue: any) => any;
 
 interface UpdateFunction {
-    (value: any[], spec: UpdateArraySpec): any[];
-    (value: {}, spec: UpdateSpec): any;
+    <K extends Array<T>, T>(value: T[], spec: UpdateArraySpec): T[];
+    <T>(value: T, spec: UpdateSpec): T;
     extend: (commandName: string, handler: CommandHandler) => any;
 }
 
