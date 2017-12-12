@@ -75,6 +75,7 @@ waterline.initialize(config, (err, ontology) => {
     });
 });
 
+// TODO: https://github.com/Microsoft/TypeScript/issues/20653
 const Person = Waterline.Collection.extend({
     identity: "person",
     connection: "local-postgresql",
@@ -83,38 +84,38 @@ const Person = Waterline.Collection.extend({
 
         // Don"t allow two objects with the same value
         lastName: {
-            type: "string",
+            type: "string" as "string",
             unique: true
         },
 
         // Ensure a value is set
         age: {
-            type: "integer",
+            type: "integer" as "integer",
             required: true
         },
 
         // Set a default value if no value is set
         phoneNumber: {
-            type: "string",
+            type: "string" as "string",
             defaultsTo: "111-222-3333"
         },
 
         // Create an auto-incrementing value (not supported by all datastores)
         incrementMe: {
-            type: "integer",
+            type: "integer" as "integer",
             autoIncrement: true
         },
 
         // Index a value for faster queries
         emailAddress: {
-            type: "email", // Email type will get validated by the ORM
+            type: "email" as "email", // Email type will get validated by the ORM
             index: true
         }
     }
 });
 // https://github.com/balderdashy/waterline-docs/blob/master/models/validations.md
 const validations: Waterline.Attribute = {
-    type: "string",
+    type: "string" as "string",
     empty: true,
     required: true,
     notEmpty: true,
@@ -183,7 +184,7 @@ const valid2 = {
 const model: Waterline.CollectionDefinition = {
     attributes: {
         email: {
-            type: "email",
+            type: "email" as "email",
             special: true // ignored by validation
         },
         cousins: {
