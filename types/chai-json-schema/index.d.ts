@@ -4,24 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference types="node"/>
-// <reference types="chai" />
-import tv4 = require('tv4');
+import { TV4 } from "tv4";
 
-declare global {
-	namespace Chai {
-		interface Assert {
-			jsonSchema(value: any, schema: any, msg?: string): void;
-			notJsonSchema(value: any, schema: any, msg?: string): void;
-		}
-
-		interface LanguageChains {
-			jsonSchema(schema: any, msg?: string): void;
-		}
-
-		interface ChaiStatic {
-			tv4: tv4.TV4;
-		}
+declare module "chai" {
+	interface Assert {
+		jsonSchema(value: any, schema: any, msg?: string): void;
+		notJsonSchema(value: any, schema: any, msg?: string): void;
 	}
+
+	interface LanguageChains {
+		jsonSchema(schema: any, msg?: string): void;
+	}
+
+	const tv4: TV4;
 }
 
 declare function chaiJsonSchema(chai: any, utils: any): void;

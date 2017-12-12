@@ -3,18 +3,7 @@
 // Definitions by: Matt Perry <https://github.com/mattvperry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="chai" />
-/// <reference types="mocha" />
-
-declare global {
-    namespace Chai {
-        interface Assertion {
-            /** Assert that the object matches the snapshot */
-            matchSnapshot(snapshotFilename?: string, snapshotName?: string, update?: boolean): Assertion;
-            matchSnapshot(update: boolean): Assertion;
-        }
-    }
-}
+import { IBeforeAndAfterContext } from "mocha";
 
 interface ChaiJestSnapshot {
     /** Chai bootstrapper */
@@ -40,3 +29,11 @@ interface ChaiJestSnapshot {
 
 declare var ChaiJestSnapshot: ChaiJestSnapshot;
 export default ChaiJestSnapshot;
+
+declare module "chai" {
+    interface Assertion {
+        /** Assert that the object matches the snapshot */
+        matchSnapshot(snapshotFilename?: string, snapshotName?: string, update?: boolean): Assertion;
+        matchSnapshot(update: boolean): Assertion;
+    }
+}

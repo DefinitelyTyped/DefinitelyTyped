@@ -1,12 +1,11 @@
 
 /// <reference types="mocha" />
-
-var should = chai.should();
-var assert = chai.assert;
-var expect = chai.expect;
-
+import { assert, expect, should as makeShould, use } from "chai";
 import chai_string = require("chai-string");
-chai.use(chai_string);
+
+var should =  makeShould();
+
+use(chai_string);
 
 describe('chai-string', function() {
 

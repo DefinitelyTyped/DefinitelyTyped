@@ -4,13 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { ShallowWrapper, ReactWrapper } from "enzyme";
 
-/// <reference types="enzyme" />
-/// <reference types="chai" />
-/// <reference types="react" />
-/// <reference types="cheerio" />
+type DebugWrapper = ShallowWrapper<any,any> | Cheerio | ReactWrapper<any, any>;
+declare function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): (chai: any) => void;
+declare namespace chaiEnzyMe {}
+export = chaiEnzyMe;
 
-declare namespace Chai {
+declare module "chai" {
     type EnzymeSelector = string | React.StatelessComponent<any> | React.ComponentClass<any> | { [key: string]: any };
 
     interface Match {
@@ -171,15 +172,4 @@ declare namespace Chai {
          */
         props(props: EnzymeSelector): Assertion;
     }
-}
-
-declare module "chai-enzyme" {
-    import { ShallowWrapper, ReactWrapper } from "enzyme";
-
-    type DebugWrapper = ShallowWrapper<any,any> | Cheerio | ReactWrapper<any, any>;
-    function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): (chai: any) => void;
-
-    module chaiEnzyMe {
-    }
-    export = chaiEnzyMe;
 }

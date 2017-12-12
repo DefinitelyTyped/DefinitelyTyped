@@ -3,9 +3,11 @@
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="chai" />
+declare function chaiOequal(chai: any, utils: any): void;
+declare namespace chaiOequal {}
+export = chaiOequal;
 
-declare namespace Chai {
+declare module "chai" {
     // For BDD APIs
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         oequal(result: any, method?: string): Equal;
@@ -19,10 +21,4 @@ declare namespace Chai {
         oeql(act: any, exp: any, method?: string): Equal;
         oeq(act: any, exp: any, method?: string): Equal;
     }
-}
-
-declare module 'chai-oequal' {
-    function chaiOequal(chai: any, utils: any): void;
-    namespace chaiOequal {}
-    export = chaiOequal;
 }

@@ -4,12 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="chai" />
+import { AssertStatic, ExpectStatic, Should } from "chai";
 import Sinon = require("sinon");
 
 declare global {
-    var should: Chai.Should;
-    var expect: Chai.ExpectStatic;
-    var assert: Chai.AssertStatic;
+    var should: Should;
+    var expect: ExpectStatic;
+    var assert: AssertStatic;
     var sinon: Sinon.SinonStatic;
 }

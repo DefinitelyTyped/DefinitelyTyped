@@ -1,8 +1,5 @@
-/// <reference types="chai" />
-
-
-var assert = require('chai').assert;
-var readFileSync = require('fs').readFileSync;
+import { assert } from "chai";
+import { readFileSync } from "fs";
 import ProtoBuf = require("protobufjs");
 
 function testProtoBufJs() {

@@ -4,9 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="angular" />
-/// <reference types="chai" />
 /// <reference types="mocha" />
+/// <reference types="chai" />
 
 /**
  * Module for bardjs functions
@@ -53,7 +52,7 @@ declare namespace bard {
     /**
      * Assert a failure in mocha, without condition
      */
-    function assertFail(message: string): Chai.AssertionError;
+    function assertFail(message: string): chai.AssertionError;
 
     /**
      * Prepare ngMocked module definition that makes real $http and $q calls
