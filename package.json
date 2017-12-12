@@ -24,7 +24,5 @@
     "dtslint": "github:Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
   },
-  "dependencies": {
-    "@types/electron": "^1.6.10"
-  }
+  "dependencies": {}
 }
