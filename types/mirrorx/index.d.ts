@@ -124,7 +124,7 @@ declare namespace mirror {
   interface defaultOptions {
     initialState?:{},
     historyMode?:string,
-    middlewares:[any],
+    middlewares:any[],
     reducers:{},
     addEffect(name:string,handler:()=>any):any
   }
