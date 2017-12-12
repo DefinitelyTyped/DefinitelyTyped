@@ -18,7 +18,7 @@
       "forceConsistentCasingInFileNames": true,
       "paths": {
         "react-form": [
-            "react-form/v3"
+            "react-form/v1"
         ]
       }
   },
