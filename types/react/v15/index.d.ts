@@ -2434,6 +2434,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
