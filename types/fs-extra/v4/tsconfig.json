@@ -6,11 +6,11 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "fs-extra": [
@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "fs-extra-promise-tests.ts"
+        "fs-extra-tests.ts"
     ]
 }
