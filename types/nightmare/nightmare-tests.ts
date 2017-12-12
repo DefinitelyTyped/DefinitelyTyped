@@ -218,7 +218,7 @@ new Nightmare()
   .run(done);
 
 new Nightmare({
-    timeout: 1000
+    waitTimeout: 1000
   })
   .on('timeout', function (msg) {
   })
