@@ -25,9 +25,10 @@ declare module "node-forge" {
 			procType?: any;
 			contentDomain?: any;
 			dekInfo?: any;
+			headers?: any[];
 		}
 
-		function encode(msg: ObjectPEM, options: EncodeOptions): string;
+		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
 		function decode(str: string): ObjectPEM;
 	}
     
