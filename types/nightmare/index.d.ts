@@ -2,10 +2,12 @@
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Sam Yang <https://github.com/samyang-au>
+//                 Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
+/// <reference types="electron" />
 
 declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
@@ -124,36 +126,26 @@ declare class Nightmare {
 }
 
 declare namespace Nightmare {
-    export interface IConstructorOptions {
-        timeout?: any;  // number | string;
-        interval?: any; // number | string;
-        port?: number;
-        weak?: boolean;
-        loadImages?: boolean;
-        ignoreSslErrors?: boolean;
-        sslProtocol?: string;
-        webSecurity?: boolean;
-        proxy?: string;
-        proxyType?: string;
-        proxyAuth?: string;
-        cookiesFile?: string;
-        phantomPath?: string;
-        show?: boolean;
-        paths?: {
-            downloads?:string;
-        };
-        maxDownloadRequestWait?:number;
-        ignoreDownloads?:boolean;
-        typeInterval?: number;
-        x?: number;
-        y?: number;
+    export interface Dictionary<T> {
+        [index: string]: T;
+    }
+
+    export interface IConstructorOptions extends Electron.BrowserWindowConstructorOptions {
+        waitTimeout?: number;
+        gotoTimeout?: number;
+        loadTimeout?: number;
+        executionTimeout?: number;
+        paths?: Dictionary<string>;
+        switches?: Dictionary<any>;
+        electronPath?: any;
+        dock?: boolean;
         openDevTools?: {
-            /**
-             * Opens the devtools with specified dock state, can be right, bottom, undocked, detach.
-             * https://github.com/electron/electron/blob/master/docs/api/web-contents.md#contentsopendevtoolsoptions
-             */
-            mode?: string;
-        };
+            mode: "right" | "bottom" | "undocked" | "detach"
+        },
+        typeInterval?: number;
+        pollInterval?: number;
+        maxAuthRetries?: number;
+
     }
 
     export interface IRequest {
