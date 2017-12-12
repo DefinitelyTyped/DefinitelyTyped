@@ -281,7 +281,7 @@ declare namespace R {
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
+        bind<T>( fn: (...args: any[]) => any,thisObj: T): (...args: any[]) => any;
 
         /**
          * A function wrapping calls to the two functions in an && operation, returning the result of the first function
@@ -819,8 +819,7 @@ declare namespace R {
          * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
          * when `len` is not specified), and the final parameter is the target object.
          */
-        invoker(name: string, obj: any, len?: number): (...a: any[]) => any;
-        invoker(name: string): (obj: any, len?: number) => (...a: any[]) => any;
+        invoker(len: number, name: string): (...a: any[]) => any;
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
