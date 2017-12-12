@@ -43,6 +43,7 @@ export type TableRowProps = {
     onRowDoubleClick?: (params: RowMouseEventHandlerParams) => void,
     onRowMouseOver?: (params: RowMouseEventHandlerParams) => void,
     onRowMouseOut?: (params: RowMouseEventHandlerParams) => void,
+    onRowRightClick?: (params: RowMouseEventHandlerParams) => void,
     rowData: any,
     style: any
 };
@@ -96,6 +97,8 @@ export type ColumnProps = {
     style?: React.CSSProperties;
     /** Flex basis (width) for this column; This value can grow or shrink based on :flexGrow and :flexShrink properties. */
     width: number;
+    /** Optional id to set on the column header; used for aria-describedby */
+    id?: string;
 }
 export class Column extends Component<ColumnProps> {
     static propTypes: {
@@ -114,7 +117,8 @@ export class Column extends Component<ColumnProps> {
         maxWidth: Requireable<number>,
         minWidth: Requireable<number>,
         style: Requireable<React.CSSProperties>,
-        width: Validator<number>
+        width: Validator<number>,
+        id: Requireable<string>
     };
 
     static defaultProps: {
@@ -288,11 +292,11 @@ export type TableProps = GridCoreProps & {
     width?: number;
 }
 
-export const defaultTableCellDataGetter: TableCellDataGetter;
-export const defaultTableCellRenderer: TableCellRenderer;
-export const defaultTableHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
-export const defaultTableHeaderRowRenderer: TableHeaderRowRenderer;
-export const defaultTableRowRenderer: TableRowRenderer;
+export const defaultCellDataGetter: TableCellDataGetter;
+export const defaultCellRenderer: TableCellRenderer;
+export const defaultHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
+export const defaultHeaderRowRenderer: TableHeaderRowRenderer;
+export const defaultRowRenderer: TableRowRenderer;
 
 export type SortDirectionStatic = {
     /**

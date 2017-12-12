@@ -8,10 +8,10 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-	type Hash = (message: string | LibWordArray, key?: string, ...options: any[]) => WordArray;
+	type Hash = (message: string | LibWordArray, key?: string | WordArray, ...options: any[]) => WordArray;
 	interface Cipher {
-		encrypt(message: string, secretPassphrase: string, option?: CipherOption): WordArray;
-		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string, option?: CipherOption): DecryptedMessage;
+		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
 	}
 	interface CipherAlgorythm {
 		createEncryptor(secretPassphrase: string, option?: CipherOption): Encriptor;

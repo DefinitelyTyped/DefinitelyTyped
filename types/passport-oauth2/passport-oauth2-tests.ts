@@ -1,5 +1,4 @@
-// tslint:disable-next-line:no-duplicate-imports
-import * as OAuth2Strategy from 'passport-oauth2';
+import OAuth2Strategy = require('passport-oauth2');
 import { Strategy, StrategyOptions, StrategyOptionsWithRequest, VerifyCallback, AuthorizationError, TokenError, InternalOAuthError } from 'passport-oauth2';
 import { Strategy as PassportStrategy } from 'passport';
 import { Request } from 'express';

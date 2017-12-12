@@ -13,11 +13,12 @@
 
 declare namespace Parse {
 
-    var applicationId: string;
-    var javaScriptKey: string | undefined;
-    var masterKey: string | undefined;
-    var serverURL: string;
-    var VERSION: string;
+    let applicationId: string;
+    let javaScriptKey: string | undefined;
+    let masterKey: string | undefined;
+    let serverURL: string;
+    let liveQueryServerURL: string;
+    let VERSION: string;
 
     interface SuccessOption {
         success?: Function;
@@ -97,11 +98,17 @@ declare namespace Parse {
         reject(error: any): void;
         resolve(result: any): void;
         then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
-            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-            rejectedCallback?: (reason: any) => U): IPromise<U>;
+                rejectedCallback?: (reason: any) => U): IPromise<U>;
+    }
+
+    interface Pointer {
+        __type: string;
+        className: string;
+        objectId: string;
     }
 
     interface IBaseObject {
@@ -357,6 +364,7 @@ declare namespace Parse {
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        isNew(): boolean;
         isValid(): boolean;
         op(attr: string): any;
         previous(attr: string): any;
@@ -367,6 +375,7 @@ declare namespace Parse {
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        toPointer(): Pointer;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -925,7 +934,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        var HTTPOptions: new () => HTTPOptions;
+        let HTTPOptions: new () => HTTPOptions;
         interface HTTPOptions {
             /**
              * The body of the request.

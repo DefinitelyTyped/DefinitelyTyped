@@ -2,6 +2,7 @@
 // Project: https://github.com/topheman/twitter-stream-channels
 // Definitions by: Adrian Bardan <https://github.com/adrianbardan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="twit" />

@@ -73,7 +73,7 @@ class App extends React.Component<{}, AppState> {
               style={getListStyle(snapshot.isDraggingOver)}
             >
               {this.state.items.map(item => (
-                <Draggable key={item.id} draggableId={item.id}>
+                <Draggable key={item.id} draggableId={item.id} disableInteractiveElementBlocking={true}>
                   {(provided, snapshot) => (
                     <div>
                       <div
