@@ -63,7 +63,7 @@ moo.compile({
 });
 
 for (const here of lexer) {
-    const t: string = here.type;
+    const t: string | undefined = here.type;
     const v: string = here.value;
 }
 
