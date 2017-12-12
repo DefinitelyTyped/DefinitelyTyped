@@ -47,3 +47,20 @@ producer.send([
 ], err => {
   if (err) console.log(err);
 });
+
+// send a message to a FIFO queue
+//
+// note that AWS FIFO queues require two additional params:
+// - groupId (string)
+// - deduplicationId (string)
+//
+// deduplicationId can be excluded if content-based deduplication is enabled
+//
+// http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queue-recommendations.html
+producer.send({
+  body: 'Hello world from our FIFO queue!',
+  groupId: 'group1234',
+  deduplicationId: 'abcdef123456' // typically a hash of the message body
+}, function(err) {
+  if (err) console.log(err);
+});
