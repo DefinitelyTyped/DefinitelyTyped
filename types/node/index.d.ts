@@ -15,6 +15,7 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -44,8 +45,18 @@ interface Error {
     stack?: string;
 }
 
+// Declare "static" methods in Error
 interface ErrorConstructor {
+    /** Create .stack property on a target object */
     captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+
+    /**
+     * Optional override for formatting stack traces
+     *
+     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     */
+    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+
     stackTraceLimit: number;
 }
 
@@ -67,6 +78,14 @@ interface SymbolConstructor {
     readonly iterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
+
+// Node.js ESNEXT support
+interface String {
+    /** Removes whitespace from the left end of a string. */
+    trimLeft(): string;
+    /** Removes whitespace from the right end of a string. */
+    trimRight(): string;
+}
 
 /************************************************
 *                                               *
@@ -96,8 +115,8 @@ declare namespace setImmediate {
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
-/* tslint:disable:callable-types */
 interface NodeRequireFunction {
+/* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -300,6 +319,80 @@ declare namespace NodeJS {
     export interface ConsoleConstructor {
         prototype: Console;
         new(stdout: WritableStream, stderr?: WritableStream): Console;
+    }
+
+    export interface CallSite {
+        /**
+         * Value of "this"
+         */
+        getThis(): any;
+
+        /**
+         * Type of "this" as a string.
+         * This is the name of the function stored in the constructor field of
+         * "this", if available.  Otherwise the object's [[Class]] internal
+         * property.
+         */
+        getTypeName(): string | null;
+
+        /**
+         * Current function
+         */
+        getFunction(): Function | undefined;
+
+        /**
+         * Name of the current function, typically its name property.
+         * If a name property is not available an attempt will be made to try
+         * to infer a name from the function's context.
+         */
+        getFunctionName(): string | null;
+
+        /**
+         * Name of the property [of "this" or one of its prototypes] that holds
+         * the current function
+         */
+        getMethodName(): string | null;
+
+        /**
+         * Name of the script [if this function was defined in a script]
+         */
+        getFileName(): string | null;
+
+        /**
+         * Current line number [if this function was defined in a script]
+         */
+        getLineNumber(): number | null;
+
+        /**
+         * Current column number [if this function was defined in a script]
+         */
+        getColumnNumber(): number | null;
+
+        /**
+         * A call site object representing the location where eval was called
+         * [if this function was created using a call to eval]
+         */
+        getEvalOrigin(): string | undefined;
+
+        /**
+         * Is this a toplevel invocation, that is, is "this" the global object?
+         */
+        isToplevel(): boolean;
+
+        /**
+         * Does this call take place in code defined by a call to eval?
+         */
+        isEval(): boolean;
+
+        /**
+         * Is this call in native V8 code?
+         */
+        isNative(): boolean;
+
+        /**
+         * Is this a constructor call?
+         */
+        isConstructor(): boolean;
     }
 
     export interface ErrnoException extends Error {
@@ -793,8 +886,10 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
+    interface ParsedUrlQuery { [key: string]: string | string[]; }
+
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): { [key: string]: string | string[] };
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -1656,16 +1751,8 @@ declare module "https" {
         servername?: string;
     }
 
-    export interface AgentOptions extends http.AgentOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        ciphers?: string;
+    export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
-        serverName?: string;
-        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
@@ -2213,7 +2300,9 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface UrlObject {
+    import { ParsedUrlQuery } from 'querystring';
+
+    export interface UrlObjectCommon {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2221,16 +2310,21 @@ declare module "url" {
         href?: string;
         path?: string;
         pathname?: string;
-        port?: string | number;
         protocol?: string;
-        query?: string | null | { [key: string]: string | string[] };
         search?: string;
         slashes?: boolean;
     }
 
-    export interface Url extends UrlObject {
+    // Input to `url.format`
+    export interface UrlObject extends UrlObjectCommon {
+        port?: string | number;
+        query?: string | null | { [key: string]: any };
+    }
+
+    // Output of `url.parse`
+    export interface Url extends UrlObjectCommon {
         port?: string;
-        query?: any;
+        query?: string | null | ParsedUrlQuery;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
@@ -4859,25 +4953,19 @@ declare module "tls" {
         secureOptions?: number;
     }
 
-    export interface ConnectionOptions {
+    export interface ConnectionOptions extends SecureContextOptions {
         host?: string;
         port?: number;
-        socket?: net.Socket;
-        pfx?: string | Buffer;
-        key?: string | string[] | Buffer | Buffer[];
-        passphrase?: string;
-        cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | Buffer | Array<string | Buffer>;
-        rejectUnauthorized?: boolean;
+        path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+        socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
+        rejectUnauthorized?: boolean; // Defaults to true
         NPNProtocols?: Array<string | Buffer>;
-        servername?: string;
-        path?: string;
         ALPNProtocols?: Array<string | Buffer>;
-        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
-        secureProtocol?: string;
-        secureContext?: Object;
+        checkServerIdentity?: typeof checkServerIdentity;
+        servername?: string; // SNI TLS Extension
         session?: Buffer;
         minDHSize?: number;
+        secureContext?: SecureContext; // If not provided, the entire ConnectionOptions object will be passed to tls.createSecureContext()
         lookup?: net.LookupFunction;
     }
 
@@ -4962,20 +5050,33 @@ declare module "tls" {
     }
 
     export interface SecureContextOptions {
-        pfx?: string | Buffer;
-        key?: string | Buffer;
+        pfx?: string | Buffer | Array<string | Buffer | Object>;
+        key?: string | Buffer | Array<Buffer | Object>;
         passphrase?: string;
-        cert?: string | Buffer;
-        ca?: string | Buffer;
-        crl?: string | string[];
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
         ciphers?: string;
         honorCipherOrder?: boolean;
+        ecdhCurve?: string;
+        crl?: string | Buffer | Array<string | Buffer>;
+        dhparam?: string | Buffer;
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string;
     }
 
     export interface SecureContext {
         context: any;
     }
 
+    /*
+     * Verifies the certificate `cert` is issued to host `host`.
+     * @host The hostname to verify the certificate against
+     * @cert PeerCertificate representing the peer's certificate
+     *
+     * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
+     */
+    export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
@@ -5870,133 +5971,6 @@ declare module "console" {
 }
 
 /**
- * _debugger module is not documented.
- * Source code is at https://github.com/nodejs/node/blob/master/lib/_debugger.js
- */
-declare module "_debugger" {
-    export interface Packet {
-        raw: string;
-        headers: string[];
-        body: Message;
-    }
-
-    export interface Message {
-        seq: number;
-        type: string;
-    }
-
-    export interface RequestInfo {
-        command: string;
-        arguments: any;
-    }
-
-    export interface Request extends Message, RequestInfo {
-    }
-
-    export interface Event extends Message {
-        event: string;
-        body?: any;
-    }
-
-    export interface Response extends Message {
-        request_seq: number;
-        success: boolean;
-        /** Contains error message if success === false. */
-        message?: string;
-        /** Contains message body if success === true. */
-        body?: any;
-    }
-
-    export interface BreakpointMessageBody {
-        type: string;
-        target: number;
-        line: number;
-    }
-
-    export class Protocol {
-        res: Packet;
-        state: string;
-        execute(data: string): void;
-        serialize(rq: Request): string;
-        onResponse: (pkt: Packet) => void;
-    }
-
-    export var NO_FRAME: number;
-    export var port: number;
-
-    export interface ScriptDesc {
-        name: string;
-        id: number;
-        isNative?: boolean;
-        handle?: number;
-        type: string;
-        lineOffset?: number;
-        columnOffset?: number;
-        lineCount?: number;
-    }
-
-    export interface Breakpoint {
-        id: number;
-        scriptId: number;
-        script: ScriptDesc;
-        line: number;
-        condition?: string;
-        scriptReq?: string;
-    }
-
-    export interface RequestHandler {
-        (err: boolean, body: Message, res: Packet): void;
-        request_seq?: number;
-    }
-
-    export interface ResponseBodyHandler {
-        (err: boolean, body?: any): void;
-        request_seq?: number;
-    }
-
-    export interface ExceptionInfo {
-        text: string;
-    }
-
-    export interface BreakResponse {
-        script?: ScriptDesc;
-        exception?: ExceptionInfo;
-        sourceLine: number;
-        sourceLineText: string;
-        sourceColumn: number;
-    }
-
-    export function SourceInfo(body: BreakResponse): string;
-
-    export interface ClientInstance extends NodeJS.EventEmitter {
-        protocol: Protocol;
-        scripts: ScriptDesc[];
-        handles: ScriptDesc[];
-        breakpoints: Breakpoint[];
-        currentSourceLine: number;
-        currentSourceColumn: number;
-        currentSourceLineText: string;
-        currentFrame: number;
-        currentScript: string;
-
-        connect(port: number, host: string): void;
-        req(req: any, cb: RequestHandler): void;
-        reqFrameEval(code: string, frame: number, cb: RequestHandler): void;
-        mirrorObject(obj: any, depth: number, cb: ResponseBodyHandler): void;
-        setBreakpoint(rq: BreakpointMessageBody, cb: RequestHandler): void;
-        clearBreakpoint(rq: Request, cb: RequestHandler): void;
-        listbreakpoints(cb: RequestHandler): void;
-        reqSource(from: number, to: number, cb: RequestHandler): void;
-        reqScripts(cb: any): void;
-        reqContinue(cb: RequestHandler): void;
-    }
-
-    export var Client: {
-        new(): ClientInstance
-    };
-}
-
-/**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
 declare module "async_hooks" {
@@ -6704,216 +6678,216 @@ declare module "http2" {
 
     // Public API
 
-    export const constants: {
-        NGHTTP2_SESSION_SERVER: number;
-        NGHTTP2_SESSION_CLIENT: number;
-        NGHTTP2_STREAM_STATE_IDLE: number;
-        NGHTTP2_STREAM_STATE_OPEN: number;
-        NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
-        NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
-        NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
-        NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
-        NGHTTP2_STREAM_STATE_CLOSED: number;
-        NGHTTP2_NO_ERROR: number;
-        NGHTTP2_PROTOCOL_ERROR: number;
-        NGHTTP2_INTERNAL_ERROR: number;
-        NGHTTP2_FLOW_CONTROL_ERROR: number;
-        NGHTTP2_SETTINGS_TIMEOUT: number;
-        NGHTTP2_STREAM_CLOSED: number;
-        NGHTTP2_FRAME_SIZE_ERROR: number;
-        NGHTTP2_REFUSED_STREAM: number;
-        NGHTTP2_CANCEL: number;
-        NGHTTP2_COMPRESSION_ERROR: number;
-        NGHTTP2_CONNECT_ERROR: number;
-        NGHTTP2_ENHANCE_YOUR_CALM: number;
-        NGHTTP2_INADEQUATE_SECURITY: number;
-        NGHTTP2_HTTP_1_1_REQUIRED: number;
-        NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
-        NGHTTP2_FLAG_NONE: number;
-        NGHTTP2_FLAG_END_STREAM: number;
-        NGHTTP2_FLAG_END_HEADERS: number;
-        NGHTTP2_FLAG_ACK: number;
-        NGHTTP2_FLAG_PADDED: number;
-        NGHTTP2_FLAG_PRIORITY: number;
-        DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
-        DEFAULT_SETTINGS_ENABLE_PUSH: number;
-        DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
-        MAX_MAX_FRAME_SIZE: number;
-        MIN_MAX_FRAME_SIZE: number;
-        MAX_INITIAL_WINDOW_SIZE: number;
-        NGHTTP2_DEFAULT_WEIGHT: number;
-        NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
-        NGHTTP2_SETTINGS_ENABLE_PUSH: number;
-        NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
-        NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
-        NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
-        PADDING_STRATEGY_NONE: number;
-        PADDING_STRATEGY_MAX: number;
-        PADDING_STRATEGY_CALLBACK: number;
-        HTTP2_HEADER_STATUS: string;
-        HTTP2_HEADER_METHOD: string;
-        HTTP2_HEADER_AUTHORITY: string;
-        HTTP2_HEADER_SCHEME: string;
-        HTTP2_HEADER_PATH: string;
-        HTTP2_HEADER_ACCEPT_CHARSET: string;
-        HTTP2_HEADER_ACCEPT_ENCODING: string;
-        HTTP2_HEADER_ACCEPT_LANGUAGE: string;
-        HTTP2_HEADER_ACCEPT_RANGES: string;
-        HTTP2_HEADER_ACCEPT: string;
-        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
-        HTTP2_HEADER_AGE: string;
-        HTTP2_HEADER_ALLOW: string;
-        HTTP2_HEADER_AUTHORIZATION: string;
-        HTTP2_HEADER_CACHE_CONTROL: string;
-        HTTP2_HEADER_CONNECTION: string;
-        HTTP2_HEADER_CONTENT_DISPOSITION: string;
-        HTTP2_HEADER_CONTENT_ENCODING: string;
-        HTTP2_HEADER_CONTENT_LANGUAGE: string;
-        HTTP2_HEADER_CONTENT_LENGTH: string;
-        HTTP2_HEADER_CONTENT_LOCATION: string;
-        HTTP2_HEADER_CONTENT_MD5: string;
-        HTTP2_HEADER_CONTENT_RANGE: string;
-        HTTP2_HEADER_CONTENT_TYPE: string;
-        HTTP2_HEADER_COOKIE: string;
-        HTTP2_HEADER_DATE: string;
-        HTTP2_HEADER_ETAG: string;
-        HTTP2_HEADER_EXPECT: string;
-        HTTP2_HEADER_EXPIRES: string;
-        HTTP2_HEADER_FROM: string;
-        HTTP2_HEADER_HOST: string;
-        HTTP2_HEADER_IF_MATCH: string;
-        HTTP2_HEADER_IF_MODIFIED_SINCE: string;
-        HTTP2_HEADER_IF_NONE_MATCH: string;
-        HTTP2_HEADER_IF_RANGE: string;
-        HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
-        HTTP2_HEADER_LAST_MODIFIED: string;
-        HTTP2_HEADER_LINK: string;
-        HTTP2_HEADER_LOCATION: string;
-        HTTP2_HEADER_MAX_FORWARDS: string;
-        HTTP2_HEADER_PREFER: string;
-        HTTP2_HEADER_PROXY_AUTHENTICATE: string;
-        HTTP2_HEADER_PROXY_AUTHORIZATION: string;
-        HTTP2_HEADER_RANGE: string;
-        HTTP2_HEADER_REFERER: string;
-        HTTP2_HEADER_REFRESH: string;
-        HTTP2_HEADER_RETRY_AFTER: string;
-        HTTP2_HEADER_SERVER: string;
-        HTTP2_HEADER_SET_COOKIE: string;
-        HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
-        HTTP2_HEADER_TRANSFER_ENCODING: string;
-        HTTP2_HEADER_TE: string;
-        HTTP2_HEADER_UPGRADE: string;
-        HTTP2_HEADER_USER_AGENT: string;
-        HTTP2_HEADER_VARY: string;
-        HTTP2_HEADER_VIA: string;
-        HTTP2_HEADER_WWW_AUTHENTICATE: string;
-        HTTP2_HEADER_HTTP2_SETTINGS: string;
-        HTTP2_HEADER_KEEP_ALIVE: string;
-        HTTP2_HEADER_PROXY_CONNECTION: string;
-        HTTP2_METHOD_ACL: string;
-        HTTP2_METHOD_BASELINE_CONTROL: string;
-        HTTP2_METHOD_BIND: string;
-        HTTP2_METHOD_CHECKIN: string;
-        HTTP2_METHOD_CHECKOUT: string;
-        HTTP2_METHOD_CONNECT: string;
-        HTTP2_METHOD_COPY: string;
-        HTTP2_METHOD_DELETE: string;
-        HTTP2_METHOD_GET: string;
-        HTTP2_METHOD_HEAD: string;
-        HTTP2_METHOD_LABEL: string;
-        HTTP2_METHOD_LINK: string;
-        HTTP2_METHOD_LOCK: string;
-        HTTP2_METHOD_MERGE: string;
-        HTTP2_METHOD_MKACTIVITY: string;
-        HTTP2_METHOD_MKCALENDAR: string;
-        HTTP2_METHOD_MKCOL: string;
-        HTTP2_METHOD_MKREDIRECTREF: string;
-        HTTP2_METHOD_MKWORKSPACE: string;
-        HTTP2_METHOD_MOVE: string;
-        HTTP2_METHOD_OPTIONS: string;
-        HTTP2_METHOD_ORDERPATCH: string;
-        HTTP2_METHOD_PATCH: string;
-        HTTP2_METHOD_POST: string;
-        HTTP2_METHOD_PRI: string;
-        HTTP2_METHOD_PROPFIND: string;
-        HTTP2_METHOD_PROPPATCH: string;
-        HTTP2_METHOD_PUT: string;
-        HTTP2_METHOD_REBIND: string;
-        HTTP2_METHOD_REPORT: string;
-        HTTP2_METHOD_SEARCH: string;
-        HTTP2_METHOD_TRACE: string;
-        HTTP2_METHOD_UNBIND: string;
-        HTTP2_METHOD_UNCHECKOUT: string;
-        HTTP2_METHOD_UNLINK: string;
-        HTTP2_METHOD_UNLOCK: string;
-        HTTP2_METHOD_UPDATE: string;
-        HTTP2_METHOD_UPDATEREDIRECTREF: string;
-        HTTP2_METHOD_VERSION_CONTROL: string;
-        HTTP_STATUS_CONTINUE: number;
-        HTTP_STATUS_SWITCHING_PROTOCOLS: number;
-        HTTP_STATUS_PROCESSING: number;
-        HTTP_STATUS_OK: number;
-        HTTP_STATUS_CREATED: number;
-        HTTP_STATUS_ACCEPTED: number;
-        HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
-        HTTP_STATUS_NO_CONTENT: number;
-        HTTP_STATUS_RESET_CONTENT: number;
-        HTTP_STATUS_PARTIAL_CONTENT: number;
-        HTTP_STATUS_MULTI_STATUS: number;
-        HTTP_STATUS_ALREADY_REPORTED: number;
-        HTTP_STATUS_IM_USED: number;
-        HTTP_STATUS_MULTIPLE_CHOICES: number;
-        HTTP_STATUS_MOVED_PERMANENTLY: number;
-        HTTP_STATUS_FOUND: number;
-        HTTP_STATUS_SEE_OTHER: number;
-        HTTP_STATUS_NOT_MODIFIED: number;
-        HTTP_STATUS_USE_PROXY: number;
-        HTTP_STATUS_TEMPORARY_REDIRECT: number;
-        HTTP_STATUS_PERMANENT_REDIRECT: number;
-        HTTP_STATUS_BAD_REQUEST: number;
-        HTTP_STATUS_UNAUTHORIZED: number;
-        HTTP_STATUS_PAYMENT_REQUIRED: number;
-        HTTP_STATUS_FORBIDDEN: number;
-        HTTP_STATUS_NOT_FOUND: number;
-        HTTP_STATUS_METHOD_NOT_ALLOWED: number;
-        HTTP_STATUS_NOT_ACCEPTABLE: number;
-        HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
-        HTTP_STATUS_REQUEST_TIMEOUT: number;
-        HTTP_STATUS_CONFLICT: number;
-        HTTP_STATUS_GONE: number;
-        HTTP_STATUS_LENGTH_REQUIRED: number;
-        HTTP_STATUS_PRECONDITION_FAILED: number;
-        HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
-        HTTP_STATUS_URI_TOO_LONG: number;
-        HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
-        HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
-        HTTP_STATUS_EXPECTATION_FAILED: number;
-        HTTP_STATUS_TEAPOT: number;
-        HTTP_STATUS_MISDIRECTED_REQUEST: number;
-        HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
-        HTTP_STATUS_LOCKED: number;
-        HTTP_STATUS_FAILED_DEPENDENCY: number;
-        HTTP_STATUS_UNORDERED_COLLECTION: number;
-        HTTP_STATUS_UPGRADE_REQUIRED: number;
-        HTTP_STATUS_PRECONDITION_REQUIRED: number;
-        HTTP_STATUS_TOO_MANY_REQUESTS: number;
-        HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
-        HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
-        HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
-        HTTP_STATUS_NOT_IMPLEMENTED: number;
-        HTTP_STATUS_BAD_GATEWAY: number;
-        HTTP_STATUS_SERVICE_UNAVAILABLE: number;
-        HTTP_STATUS_GATEWAY_TIMEOUT: number;
-        HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
-        HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
-        HTTP_STATUS_INSUFFICIENT_STORAGE: number;
-        HTTP_STATUS_LOOP_DETECTED: number;
-        HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
-        HTTP_STATUS_NOT_EXTENDED: number;
-        HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
-    };
+    export namespace constants {
+        export const NGHTTP2_SESSION_SERVER: number;
+        export const NGHTTP2_SESSION_CLIENT: number;
+        export const NGHTTP2_STREAM_STATE_IDLE: number;
+        export const NGHTTP2_STREAM_STATE_OPEN: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_CLOSED: number;
+        export const NGHTTP2_NO_ERROR: number;
+        export const NGHTTP2_PROTOCOL_ERROR: number;
+        export const NGHTTP2_INTERNAL_ERROR: number;
+        export const NGHTTP2_FLOW_CONTROL_ERROR: number;
+        export const NGHTTP2_SETTINGS_TIMEOUT: number;
+        export const NGHTTP2_STREAM_CLOSED: number;
+        export const NGHTTP2_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_REFUSED_STREAM: number;
+        export const NGHTTP2_CANCEL: number;
+        export const NGHTTP2_COMPRESSION_ERROR: number;
+        export const NGHTTP2_CONNECT_ERROR: number;
+        export const NGHTTP2_ENHANCE_YOUR_CALM: number;
+        export const NGHTTP2_INADEQUATE_SECURITY: number;
+        export const NGHTTP2_HTTP_1_1_REQUIRED: number;
+        export const NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_FLAG_NONE: number;
+        export const NGHTTP2_FLAG_END_STREAM: number;
+        export const NGHTTP2_FLAG_END_HEADERS: number;
+        export const NGHTTP2_FLAG_ACK: number;
+        export const NGHTTP2_FLAG_PADDED: number;
+        export const NGHTTP2_FLAG_PRIORITY: number;
+        export const DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const DEFAULT_SETTINGS_ENABLE_PUSH: number;
+        export const DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
+        export const MAX_MAX_FRAME_SIZE: number;
+        export const MIN_MAX_FRAME_SIZE: number;
+        export const MAX_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_DEFAULT_WEIGHT: number;
+        export const NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const NGHTTP2_SETTINGS_ENABLE_PUSH: number;
+        export const NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
+        export const NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
+        export const PADDING_STRATEGY_NONE: number;
+        export const PADDING_STRATEGY_MAX: number;
+        export const PADDING_STRATEGY_CALLBACK: number;
+        export const HTTP2_HEADER_STATUS: string;
+        export const HTTP2_HEADER_METHOD: string;
+        export const HTTP2_HEADER_AUTHORITY: string;
+        export const HTTP2_HEADER_SCHEME: string;
+        export const HTTP2_HEADER_PATH: string;
+        export const HTTP2_HEADER_ACCEPT_CHARSET: string;
+        export const HTTP2_HEADER_ACCEPT_ENCODING: string;
+        export const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
+        export const HTTP2_HEADER_ACCEPT_RANGES: string;
+        export const HTTP2_HEADER_ACCEPT: string;
+        export const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        export const HTTP2_HEADER_AGE: string;
+        export const HTTP2_HEADER_ALLOW: string;
+        export const HTTP2_HEADER_AUTHORIZATION: string;
+        export const HTTP2_HEADER_CACHE_CONTROL: string;
+        export const HTTP2_HEADER_CONNECTION: string;
+        export const HTTP2_HEADER_CONTENT_DISPOSITION: string;
+        export const HTTP2_HEADER_CONTENT_ENCODING: string;
+        export const HTTP2_HEADER_CONTENT_LANGUAGE: string;
+        export const HTTP2_HEADER_CONTENT_LENGTH: string;
+        export const HTTP2_HEADER_CONTENT_LOCATION: string;
+        export const HTTP2_HEADER_CONTENT_MD5: string;
+        export const HTTP2_HEADER_CONTENT_RANGE: string;
+        export const HTTP2_HEADER_CONTENT_TYPE: string;
+        export const HTTP2_HEADER_COOKIE: string;
+        export const HTTP2_HEADER_DATE: string;
+        export const HTTP2_HEADER_ETAG: string;
+        export const HTTP2_HEADER_EXPECT: string;
+        export const HTTP2_HEADER_EXPIRES: string;
+        export const HTTP2_HEADER_FROM: string;
+        export const HTTP2_HEADER_HOST: string;
+        export const HTTP2_HEADER_IF_MATCH: string;
+        export const HTTP2_HEADER_IF_MODIFIED_SINCE: string;
+        export const HTTP2_HEADER_IF_NONE_MATCH: string;
+        export const HTTP2_HEADER_IF_RANGE: string;
+        export const HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
+        export const HTTP2_HEADER_LAST_MODIFIED: string;
+        export const HTTP2_HEADER_LINK: string;
+        export const HTTP2_HEADER_LOCATION: string;
+        export const HTTP2_HEADER_MAX_FORWARDS: string;
+        export const HTTP2_HEADER_PREFER: string;
+        export const HTTP2_HEADER_PROXY_AUTHENTICATE: string;
+        export const HTTP2_HEADER_PROXY_AUTHORIZATION: string;
+        export const HTTP2_HEADER_RANGE: string;
+        export const HTTP2_HEADER_REFERER: string;
+        export const HTTP2_HEADER_REFRESH: string;
+        export const HTTP2_HEADER_RETRY_AFTER: string;
+        export const HTTP2_HEADER_SERVER: string;
+        export const HTTP2_HEADER_SET_COOKIE: string;
+        export const HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
+        export const HTTP2_HEADER_TRANSFER_ENCODING: string;
+        export const HTTP2_HEADER_TE: string;
+        export const HTTP2_HEADER_UPGRADE: string;
+        export const HTTP2_HEADER_USER_AGENT: string;
+        export const HTTP2_HEADER_VARY: string;
+        export const HTTP2_HEADER_VIA: string;
+        export const HTTP2_HEADER_WWW_AUTHENTICATE: string;
+        export const HTTP2_HEADER_HTTP2_SETTINGS: string;
+        export const HTTP2_HEADER_KEEP_ALIVE: string;
+        export const HTTP2_HEADER_PROXY_CONNECTION: string;
+        export const HTTP2_METHOD_ACL: string;
+        export const HTTP2_METHOD_BASELINE_CONTROL: string;
+        export const HTTP2_METHOD_BIND: string;
+        export const HTTP2_METHOD_CHECKIN: string;
+        export const HTTP2_METHOD_CHECKOUT: string;
+        export const HTTP2_METHOD_CONNECT: string;
+        export const HTTP2_METHOD_COPY: string;
+        export const HTTP2_METHOD_DELETE: string;
+        export const HTTP2_METHOD_GET: string;
+        export const HTTP2_METHOD_HEAD: string;
+        export const HTTP2_METHOD_LABEL: string;
+        export const HTTP2_METHOD_LINK: string;
+        export const HTTP2_METHOD_LOCK: string;
+        export const HTTP2_METHOD_MERGE: string;
+        export const HTTP2_METHOD_MKACTIVITY: string;
+        export const HTTP2_METHOD_MKCALENDAR: string;
+        export const HTTP2_METHOD_MKCOL: string;
+        export const HTTP2_METHOD_MKREDIRECTREF: string;
+        export const HTTP2_METHOD_MKWORKSPACE: string;
+        export const HTTP2_METHOD_MOVE: string;
+        export const HTTP2_METHOD_OPTIONS: string;
+        export const HTTP2_METHOD_ORDERPATCH: string;
+        export const HTTP2_METHOD_PATCH: string;
+        export const HTTP2_METHOD_POST: string;
+        export const HTTP2_METHOD_PRI: string;
+        export const HTTP2_METHOD_PROPFIND: string;
+        export const HTTP2_METHOD_PROPPATCH: string;
+        export const HTTP2_METHOD_PUT: string;
+        export const HTTP2_METHOD_REBIND: string;
+        export const HTTP2_METHOD_REPORT: string;
+        export const HTTP2_METHOD_SEARCH: string;
+        export const HTTP2_METHOD_TRACE: string;
+        export const HTTP2_METHOD_UNBIND: string;
+        export const HTTP2_METHOD_UNCHECKOUT: string;
+        export const HTTP2_METHOD_UNLINK: string;
+        export const HTTP2_METHOD_UNLOCK: string;
+        export const HTTP2_METHOD_UPDATE: string;
+        export const HTTP2_METHOD_UPDATEREDIRECTREF: string;
+        export const HTTP2_METHOD_VERSION_CONTROL: string;
+        export const HTTP_STATUS_CONTINUE: number;
+        export const HTTP_STATUS_SWITCHING_PROTOCOLS: number;
+        export const HTTP_STATUS_PROCESSING: number;
+        export const HTTP_STATUS_OK: number;
+        export const HTTP_STATUS_CREATED: number;
+        export const HTTP_STATUS_ACCEPTED: number;
+        export const HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
+        export const HTTP_STATUS_NO_CONTENT: number;
+        export const HTTP_STATUS_RESET_CONTENT: number;
+        export const HTTP_STATUS_PARTIAL_CONTENT: number;
+        export const HTTP_STATUS_MULTI_STATUS: number;
+        export const HTTP_STATUS_ALREADY_REPORTED: number;
+        export const HTTP_STATUS_IM_USED: number;
+        export const HTTP_STATUS_MULTIPLE_CHOICES: number;
+        export const HTTP_STATUS_MOVED_PERMANENTLY: number;
+        export const HTTP_STATUS_FOUND: number;
+        export const HTTP_STATUS_SEE_OTHER: number;
+        export const HTTP_STATUS_NOT_MODIFIED: number;
+        export const HTTP_STATUS_USE_PROXY: number;
+        export const HTTP_STATUS_TEMPORARY_REDIRECT: number;
+        export const HTTP_STATUS_PERMANENT_REDIRECT: number;
+        export const HTTP_STATUS_BAD_REQUEST: number;
+        export const HTTP_STATUS_UNAUTHORIZED: number;
+        export const HTTP_STATUS_PAYMENT_REQUIRED: number;
+        export const HTTP_STATUS_FORBIDDEN: number;
+        export const HTTP_STATUS_NOT_FOUND: number;
+        export const HTTP_STATUS_METHOD_NOT_ALLOWED: number;
+        export const HTTP_STATUS_NOT_ACCEPTABLE: number;
+        export const HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
+        export const HTTP_STATUS_REQUEST_TIMEOUT: number;
+        export const HTTP_STATUS_CONFLICT: number;
+        export const HTTP_STATUS_GONE: number;
+        export const HTTP_STATUS_LENGTH_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_FAILED: number;
+        export const HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
+        export const HTTP_STATUS_URI_TOO_LONG: number;
+        export const HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
+        export const HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
+        export const HTTP_STATUS_EXPECTATION_FAILED: number;
+        export const HTTP_STATUS_TEAPOT: number;
+        export const HTTP_STATUS_MISDIRECTED_REQUEST: number;
+        export const HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
+        export const HTTP_STATUS_LOCKED: number;
+        export const HTTP_STATUS_FAILED_DEPENDENCY: number;
+        export const HTTP_STATUS_UNORDERED_COLLECTION: number;
+        export const HTTP_STATUS_UPGRADE_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_REQUIRED: number;
+        export const HTTP_STATUS_TOO_MANY_REQUESTS: number;
+        export const HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
+        export const HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
+        export const HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
+        export const HTTP_STATUS_NOT_IMPLEMENTED: number;
+        export const HTTP_STATUS_BAD_GATEWAY: number;
+        export const HTTP_STATUS_SERVICE_UNAVAILABLE: number;
+        export const HTTP_STATUS_GATEWAY_TIMEOUT: number;
+        export const HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
+        export const HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
+        export const HTTP_STATUS_INSUFFICIENT_STORAGE: number;
+        export const HTTP_STATUS_LOOP_DETECTED: number;
+        export const HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
+        export const HTTP_STATUS_NOT_EXTENDED: number;
+        export const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
+    }
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Settings;

@@ -38,7 +38,9 @@ const spec4 = {
   path: '/user',
   validate: {
     type: 'json',
-    201: Joi.object(),
+    output: {
+      201: Joi.object(),
+    }
   },
   handler: (ctx: router.Context) => {
     ctx.status = 201;
@@ -69,3 +71,7 @@ const spec6 = {
 };
 
 router().route(spec6);
+
+router().route([spec1, spec2, spec3]);
+
+router().routes.map(({ path }) => path);
