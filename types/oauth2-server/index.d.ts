@@ -219,7 +219,7 @@ declare namespace OAuth2Server {
          * Invoked to retrieve an existing access token previously saved through Model#saveToken().
          *
          */
-        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token>;
+        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token | Falsey>;
 
         /**
          * Invoked during request authentication to check if the provided access token was authorized the requested scopes.
