@@ -77,6 +77,10 @@ interface IteratorResult<T> { }
 interface SymbolConstructor {
     readonly iterator: symbol;
 }
+
+// Forward-declare SharedArrayBuffer (available starting es2017)
+interface SharedArrayBuffer {}
+
 declare var Symbol: SymbolConstructor;
 
 // Node.js ESNEXT support
@@ -197,7 +201,7 @@ declare var Buffer: {
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      */
-    new(arrayBuffer: ArrayBuffer): Buffer;
+    new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
@@ -223,7 +227,7 @@ declare var Buffer: {
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
      */
-    from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Copies the passed {buffer} data onto a new Buffer instance.
      */
