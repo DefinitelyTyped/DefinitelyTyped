@@ -128,6 +128,13 @@ var knex = Knex({
   useNullAsDefault: true,
 });
 
+// Using custom client
+class TestClient extends Knex.Client {}
+
+var knex = Knex({
+  client: TestClient,
+});
+
 knex('books').insert({title: 'Test'}).returning('*').toString();
 
 // Migrations
@@ -671,6 +678,9 @@ knex.transaction<{ length: number }>(function(trx) {
   // nor any of the books inserts will have taken place.
   console.error(error);
 });
+
+// transacting handles undefined
+knex.insert({ name: 'Old Books'}).transacting(undefined);
 
 knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
 

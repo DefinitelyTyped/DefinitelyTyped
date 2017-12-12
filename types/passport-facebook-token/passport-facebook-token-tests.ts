@@ -1,8 +1,6 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import * as FacebookStrategy from 'passport-facebook-token';
-// tslint:disable-next-line:no-duplicate-imports
-import { StrategyOptions, StrategyOptionsWithRequest, VerifyFunction, VerifyFunctionWithRequest, Profile } from 'passport-facebook-token';
+import * as PassportFacebookToken from 'passport-facebook-token';
 
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
@@ -10,18 +8,19 @@ const User = {
     }
 };
 
-const options: StrategyOptions = {
+const options: PassportFacebookToken.StrategyOptions = {
     clientID: 'TEST_CLIENT_ID',
     clientSecret: 'TEST_CLIENT_SECRET'
 };
 
-const optionsWithRequest: StrategyOptionsWithRequest = {
+const optionsWithRequest: PassportFacebookToken.StrategyOptionsWithRequest = {
     clientID: 'TEST_CLIENT_ID',
     clientSecret: 'TEST_CLIENT_SECRET',
     passReqToCallback: true
 };
 
-const verify: VerifyFunction = (accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user?: any, info?: any) => void) => {
+const verify: PassportFacebookToken.VerifyFunction =
+    (accessToken: string, refreshToken: string, profile: PassportFacebookToken.Profile, done: (err: any, user?: any, info?: any) => void) => {
     User.findOrCreate(profile.id, profile.provider, (err, user) => {
         if (err) {
             done(err);
@@ -30,7 +29,8 @@ const verify: VerifyFunction = (accessToken: string, refreshToken: string, profi
     });
 };
 
-const verifyWithRequest: VerifyFunctionWithRequest = (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user?: any, info?: any) => void) => {
+const verifyWithRequest: PassportFacebookToken.VerifyFunctionWithRequest =
+    (req: express.Request, accessToken: string, refreshToken: string, profile: PassportFacebookToken.Profile, done: (err: any, user?: any, info?: any) => void) => {
     User.findOrCreate(profile.id, profile.provider, (err, user) => {
         if (err) {
             done(err);
@@ -39,5 +39,5 @@ const verifyWithRequest: VerifyFunctionWithRequest = (req: express.Request, acce
     });
 };
 
-passport.use(new FacebookStrategy(options, verify));
-passport.use(new FacebookStrategy(optionsWithRequest, verifyWithRequest));
+passport.use(new PassportFacebookToken(options, verify));
+passport.use(new PassportFacebookToken(optionsWithRequest, verifyWithRequest));

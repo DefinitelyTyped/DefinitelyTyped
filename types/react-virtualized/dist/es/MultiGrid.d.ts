@@ -2,13 +2,19 @@ import { PureComponent, Validator, Requireable } from 'react'
 import { GridProps } from './Grid'
 
 export type MultiGridProps = {
-    fixedColumnCount: number;
-    fixedRowCount: number;
-    style: React.CSSProperties;
-    styleBottomLeftGrid: React.CSSProperties;
-    styleBottomRightGrid: React.CSSProperties;
-    styleTopLeftGrid: React.CSSProperties;
-    styleTopRightGrid: React.CSSProperties;
+    classNameBottomLeftGrid?: string;
+    classNameBottomRightGrid?: string;
+    classNameTopLeftGrid?: string;
+    classNameTopRightGrid?: string;
+    enableFixedColumnScroll?: boolean;
+    enableFixedRowScroll?: boolean;
+    fixedColumnCount?: number;
+    fixedRowCount?: number;
+    style?: React.CSSProperties;
+    styleBottomLeftGrid?: React.CSSProperties;
+    styleBottomRightGrid?: React.CSSProperties;
+    styleTopLeftGrid?: React.CSSProperties;
+    styleTopRightGrid?: React.CSSProperties;
 } & GridProps;
 
 export type MultiGridState = {
@@ -25,6 +31,12 @@ export type MultiGridState = {
  */
 export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     static propTypes: {
+        classNameBottomLeftGrid: Validator<string>,
+        classNameBottomRightGrid: Validator<string>,
+        classNameTopLeftGrid: Validator<string>,
+        classNameTopRightGrid: Validator<string>,
+        enableFixedColumnScroll: Validator<boolean>,
+        enableFixedRowScroll: Validator<boolean>,
         fixedColumnCount: Validator<number>,
         fixedRowCount: Validator<number>,
         style: Validator<React.CSSProperties>,
@@ -35,6 +47,12 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     };
 
     static defaultProps: {
+        classNameBottomLeftGrid: '',
+        classNameBottomRightGrid: '',
+        classNameTopLeftGrid: '',
+        classNameTopRightGrid: '',
+        enableFixedColumnScroll: false,
+        enableFixedRowScroll: false,
         fixedColumnCount: 0,
         fixedRowCount: 0,
         style: {},

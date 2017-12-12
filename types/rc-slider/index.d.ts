@@ -41,7 +41,7 @@ export interface CommonApiProps {
      * Value to be added or subtracted on each step the slider makes. Must be greater than zero, and max - min should be evenly divisible by the step value.
      *  @default 1
      */
-    step?: number;
+    step?: number | null;
     /**
      * If vertical is true, the slider will be vertical.
      * @default false

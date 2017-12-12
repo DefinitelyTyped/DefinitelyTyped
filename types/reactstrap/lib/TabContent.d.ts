@@ -1,11 +1,11 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface TabContentProps {
   tag?: React.ReactType;
   activeTab?: number | string;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var TabContent: React.StatelessComponent<Props>;
+declare const TabContent: React.StatelessComponent<TabContentProps>;
 export default TabContent;

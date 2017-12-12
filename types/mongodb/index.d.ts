@@ -5,6 +5,7 @@
 //                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
+//                 Mariano Cortesi <https://github.com/mcortesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -21,7 +22,7 @@ export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
 export function connect(uri: string, callback: MongoCallback<Db>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
 
-export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
+export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp, DBRef } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
@@ -146,6 +147,9 @@ export interface DbCreateOptions {
     promiseLibrary?: Object;
     // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
     readConcern?: { level?: Object };
+    // Sets a cap on how many operations the driver will buffer up before giving up on getting a
+    // working connection, default is -1 which is unlimited.
+    bufferMaxEntries?: number;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
