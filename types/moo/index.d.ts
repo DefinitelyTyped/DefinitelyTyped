@@ -40,7 +40,7 @@ export interface Rule {
      */
     error?: true;
     /**
-     * Moo doesn't allow capturing groups, but you can supply a transform function, value(), 
+     * Moo doesn't allow capturing groups, but you can supply a transform function, value(),
      * which will be called on the value before storing it in the Token object.
      */
     value?: (x: string) => string;
