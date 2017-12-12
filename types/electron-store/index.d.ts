@@ -77,5 +77,5 @@ declare class ElectronStore implements Iterable<[string, string | number | boole
 }
 
 declare namespace ElectronStore {} // https://github.com/Microsoft/TypeScript/issues/5073
-                                                
+
 export = ElectronStore;
