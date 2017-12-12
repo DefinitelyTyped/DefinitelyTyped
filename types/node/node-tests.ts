@@ -2932,6 +2932,7 @@ namespace dns_tests {
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
+import { PerformanceObserver, PerformanceObserverCallback } from "perf_hooks";
 namespace constants_tests {
     var str: string;
     var num: number;
@@ -3099,24 +3100,22 @@ namespace perf_hooks_tests {
 
     const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
     const timeOrigin = perf_hooks.performance.timeOrigin;
-    const {
-        bootstrapComplete,
-        clusterSetupEnd,
-        clusterSetupStart,
-        duration: dur,
-        entryType,
-        kind,
-        loopExit,
-        loopStart,
-        moduleLoadEnd,
-        moduleLoadStart,
-        preloadModuleLoadEnd,
-        preloadModuleLoadStart,
-        startTime,
-        thirdPartyMainEnd,
-        thirdPartyMainStart,
-        v8Start,
-    } = perf_hooks.performanceNodeTiming;
+
+    const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
+        const {
+            duration,
+            entryType,
+            name,
+            startTime,
+        } = list.getEntries()[0];
+        obs.disconnect();
+        perf_hooks.performance.clearFunctions();
+    };
+    const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
+    obs.observe({
+        entryTypes: ['function'],
+        buffered: true,
+    });
 }
 
 ////////////////////////////////////////////////////
