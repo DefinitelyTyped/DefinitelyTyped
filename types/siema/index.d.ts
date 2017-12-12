@@ -1,6 +1,7 @@
 // Type definitions for siema 1.4
 // Project: https://github.com/pawelgrzybek/siema
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
+//                 Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare class Siema {
     currentSlide: number;
