@@ -13,6 +13,8 @@
 
 /// <reference types="node" />
 
+import Promise = require('bluebird');
+
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     new(host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
