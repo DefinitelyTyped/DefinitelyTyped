@@ -3954,6 +3954,10 @@ declare namespace _ {
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
             arrays5: List<T> | null | undefined,
+            iteratee: (value1: T, value2: T, value3: T, value4: T, value5: T) => TResult
+        ): TResult[];
+
+        zipWith<T, TResult>(
             ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>
         ): TResult[];
     }
