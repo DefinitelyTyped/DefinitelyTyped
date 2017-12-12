@@ -1,9 +1,11 @@
-// Type definitions for Umzug v2.0.1
+// Type definitions for Umzug v2.1.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev>
+//                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { EventEmitter } from 'events';
 import Sequelize = require("sequelize");
 
 declare namespace umzug {
@@ -28,6 +30,16 @@ declare namespace umzug {
          */
         wrap?: <T>(fn: T) => T;
 
+        /**
+         * A function that maps a file path to a migration object in the form
+         * { up: Function, down: Function }. The default for this is to require(...)
+         * the file as javascript, but you can use this to transpile TypeScript,
+         * read raw sql etc.
+         * See https://github.com/sequelize/umzug/tree/master/test/fixtures
+         * for examples.
+         */
+        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+        
     }
 
     interface JSONStorageOptions {
@@ -159,7 +171,7 @@ declare namespace umzug {
         file: string;
     }
 
-    interface Umzug {
+    interface Umzug extends EventEmitter {
         /**
          * The execute method is a general purpose function that runs for
          * every specified migrations the respective function.
@@ -190,6 +202,10 @@ declare namespace umzug {
         down(migrations?: string[]): Promise<Migration[]>;
         down(options?: DownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
 
+        on(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+        addListener(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+        removeListener(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+
     }
 
     interface UmzugStatic {
@@ -197,5 +213,5 @@ declare namespace umzug {
     }
 }
 
-declare var umzug: umzug.UmzugStatic;
+declare const umzug: umzug.UmzugStatic;
 export = umzug;

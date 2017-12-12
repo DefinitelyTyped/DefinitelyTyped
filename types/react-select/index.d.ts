@@ -9,6 +9,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Onat Yigit Mercan <https://github.com/onatm>
 //                 Ian Johnson <https://github.com/ninjaferret>
+//                 Anton Novik <https://github.com/tehbi4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -185,6 +186,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     clearValueText?: string;
     /**
+     * whether to close the menu when a value is selected
+     * @default true
+     */
+    closeOnSelect?: boolean;
+    /**
      * whether it is possible to reset value. if enabled, an X button will appear at the right side.
      * @default true
      */
@@ -352,7 +358,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType;
+    optionComponent?: React.ComponentType<TValue>;
     /**
      * function which returns a custom way to render the options in the menu
      */
@@ -417,7 +423,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentType;
+    valueComponent?: React.ComponentType<TValue>;
 
     /**
      *  optional style to apply to the component wrapper

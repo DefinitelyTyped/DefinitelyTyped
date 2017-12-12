@@ -1,6 +1,6 @@
 import * as auth0 from 'auth0-js';
 
-let webAuth = new auth0.WebAuth({
+const webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
     clientID: 'dsa7d77dsa7d7'
 });
@@ -14,7 +14,7 @@ webAuth.authorize({
 
 webAuth.parseHash((err, authResult) => {
     if (err) {
-        return console.log(err);
+        console.log(err);
     }
 
   // The contents of authResult depend on which authentication parameters were used.
@@ -30,7 +30,7 @@ webAuth.parseHash((err, authResult) => {
 
 webAuth.parseHash((err, authResult) => {
     if (err) {
-        return console.log(err);
+        console.log(err);
     }
 
   // The contents of authResult depend on which authentication parameters were used.
@@ -47,11 +47,18 @@ webAuth.parseHash((err, authResult) => {
 webAuth.parseHash(
 	{
         nonce: 'asfd',
-        hash: '#access_token=VjubIMBmpgQ2W2&id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9.eyJpc3MiOiJodHRwczovL3dwdGVzdC5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTVkNDhjNTdkNWIwYWQwMjIzYzQwOGQ3IiwiYXVkIjoiZ1lTTmxVNFlDNFYxWVBkcXE4elBRY3VwNnJKdzFNYnQiLCJleHAiOjE0ODI5NjkwMzEsImlhdCI6MTQ4MjkzMzAzMSwibm9uY2UiOiJhc2ZkIn0.PPoh-pITcZ8qbF5l5rMZwXiwk5efbESuqZ0IfMUcamB6jdgLwTxq-HpOT_x5q6-sO1PBHchpSo1WHeDYMlRrOFd9bh741sUuBuXdPQZ3Zb0i2sNOAC2RFB1E11mZn7uNvVPGdPTg-Y5xppz30GSXoOJLbeBszfrVDCmPhpHKGGMPL1N6HV-3EEF77L34YNAi2JQ-b70nFK_dnYmmv0cYTGUxtGTHkl64UEDLi3u7bV-kbGky3iOOCzXKzDDY6BBKpCRTc2KlbrkO2A2PuDn27WVv1QCNEFHvJN7HxiDDzXOsaUmjrQ3sfrHhzD7S9BcCRkekRfD9g95SKD5J0Fj8NA&token_type=Bearer&state=theState&refresh_token=kajshdgfkasdjhgfas&scope=foo'
+        hash: "#access_token=VjubIMBmpgQ2W2& \
+            id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9. \
+            eyJpc3MiOiJodHRwczovL3dwdGVzdC5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTVkNDhjNTdkNWIwYWQwMjIzYzQwOGQ3IiwiYXVkIjoiZ1lTTmxVNFlDNFYxWVBkcXE \
+            4elBRY3VwNnJKdzFNYnQiLCJleHAiOjE0ODI5NjkwMzEsImlhdCI6MTQ4MjkzMzAzMSwibm9uY2UiOiJhc2ZkIn0. \
+            PPoh-pITcZ8qbF5l5rMZwXiwk5efbESuqZ0IfMUcamB6jdgLwTxq-HpOT_x5q6-sO1PBHchpSo1WHeDYMlRrOFd9bh741sUuBuXdPQZ3Zb0i2sNOAC2RFB \
+            1E11mZn7uNvVPGdPTg-Y5xppz30GSXoOJLbeBszfrVDCmPhpHKGGMPL1N6HV-3EEF77L34YNAi2JQ-b70nFK_dnYmmv0cYTGUxtGTHkl64UEDLi3u7bV- \
+            kbGky3iOOCzXKzDDY6BBKpCRTc2KlbrkO2A2PuDn27WVv1QCNEFHvJN7HxiDDzXOsaUmjrQ3sfrHhzD7S9BcCRkekRfD9g95SKD5J0Fj8NA& \
+            token_type=Bearer&state=theState&refresh_token=kajshdgfkasdjhgfas&scope=foo"
     },
     (err, authResult) => {
     if (err) {
-        return console.log(err);
+        console.log(err);
     }
 
   // The contents of authResult depend on which authentication parameters were used.
@@ -71,7 +78,7 @@ webAuth.parseHash(
     },
     (err, authResult) => {
     if (err) {
-        return console.log(err);
+        console.log(err);
     }
 
   // The contents of authResult depend on which authentication parameters were used.
@@ -86,14 +93,14 @@ webAuth.parseHash(
 });
 
 webAuth.renewAuth({
-}, function (err, authResult) {
+}, (err, authResult) => {
       // Renewed tokens or error
 });
 
 webAuth.renewAuth({
 	nonce: '123',
     state: '456'
-}, function (err, authResult) {
+}, (err, authResult)  => {
       // Renewed tokens or error
 });
 
@@ -102,8 +109,10 @@ webAuth.renewAuth({}, (err, authResult) => {});
 webAuth.renewAuth({
 	nonce: '123',
     state: '456',
-    postMessageDataType: 'auth0:silent-authentication'
-}, function (err, authResult) {
+    postMessageDataType: 'auth0:silent-authentication',
+    usePostMessage: true,
+    timeout: 30 * 1000
+}, (err, authResult) => {
       // Renewed tokens or error
 });
 
@@ -111,9 +120,7 @@ webAuth.renewAuth({
   audience: 'urn:site:demo:blog',
   redirectUri: 'http://page.com/callback',
   usePostMessage: true
-}, (err, authResult) => {
-
-});
+}, (err, authResult) => {});
 
 webAuth.changePassword({connection: 'the_connection',
     email: 'me@example.com',
@@ -134,23 +141,19 @@ webAuth.signupAndAuthorize({
     user_metadata: {
         foo: 'bar'
     }
-}, function (err, data) {
-
-});
+}, (err, data) => {});
 
 webAuth.client.login({
-    realm: 'Username-Password-Authentication', //connection name or HRD domain
+    realm: 'Username-Password-Authentication', // connection name or HRD domain
     username: 'info@auth0.com',
     password: 'areallystrongpassword',
     audience: 'https://mystore.com/api/v2',
     scope: 'read:order write:order',
-}, function(err, authResult) {
-    // Auth tokens in the result or an error
-});
+}, (err, authResult) => {/*Auth tokens in the result or an error*/});
 
 webAuth.popup.buildPopupHandler();
 webAuth.popup.preload({});
-webAuth.popup.authorize({}, (err, data) => {
+webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
@@ -158,11 +161,11 @@ webAuth.popup.loginWithCredentials({}, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
-webAuth.popup.passwordlessVerify({}, (err, data) => {
+webAuth.popup.passwordlessVerify({ type: "sms", phoneNumber: "", connection: "", verificationCode: "" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
-webAuth.popup.signupAndLogin({}, (err, data) => {
+webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
@@ -171,7 +174,24 @@ webAuth.login({username: 'bar', password: 'foo'}, (err, data) => {});
 
 webAuth.crossOriginAuthenticationCallback();
 
-let authentication = new auth0.Authentication({
+webAuth.checkSession({
+  audience: 'https://mystore.com/api/v2',
+  scope: 'read:order write:order',
+  redirectUri: 'https://example.com/auth/silent-callback'
+  }, (err, authResult) => {
+    // Authentication tokens or error
+});
+
+webAuth.checkSession({
+  audience: 'https://mystore.com/api/v2',
+  scope: 'read:order write:order',
+  redirectUri: 'https://example.com/auth/silent-callback',
+  usePostMessage: true
+  }, (err, authResult) => {
+    // Renewed tokens or error
+});
+
+const authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
     clientID: '...',
     redirectUri: 'http://page.com/callback',
@@ -179,7 +199,7 @@ let authentication = new auth0.Authentication({
     _sendTelemetry: false
 });
 
-authentication.buildAuthorizeUrl({state:'1234'});
+authentication.buildAuthorizeUrl({state: '1234'});
 authentication.buildAuthorizeUrl({
     responseType: 'token',
     redirectUri: 'http://anotherpage.com/callback2',
@@ -191,7 +211,7 @@ authentication.buildAuthorizeUrl({
 authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });
 authentication.buildLogoutUrl();
 authentication.userInfo('abcd1234', (err, data) => {
-  //user info retrieved
+  // user info retrieved
 });
 
 authentication.delegation({
@@ -200,28 +220,22 @@ authentication.delegation({
     api_type: 'app'
 }, (err, data) => {
     if (!err) {
-        localStorage.setItem('token', data.idToken)
+        localStorage.setItem('token', data.idToken);
     }
 });
 
 authentication.loginWithDefaultDirectory({
     username: 'someUsername',
     password: '123456'
-}, (err, data) => {
-
-});
+}, (err, data) => {});
 
 authentication.oauthToken({
     username: 'someUsername',
     password: '123456',
     grantType: 'password'
-}, (err, data) => {
+}, (err, data) => {});
 
-});
-
-authentication.getUserCountry((err, data) => {
-
-});
+authentication.getUserCountry((err, data) => {});
 
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
@@ -239,7 +253,7 @@ authentication.loginWithResourceOwner({
     scope: 'openid'
 }, (err, data) => {});
 
-let management = new auth0.Management({
+const management = new auth0.Management({
     domain: 'me.auth0.com',
     token: 'token'
 });

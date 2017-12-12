@@ -239,6 +239,17 @@ describe('Assymetric matchers', () => {
     });
 });
 
+describe('setTimeout', () => {
+    it('works as expected', done => {
+        jest.setTimeout(1000);
+
+        setTimeout(() => {
+            expect(true).toBeTruthy();
+            done();
+        }, 900);
+    });
+});
+
 describe('Extending extend', () => {
     it('works', () => {
         expect.extend({
@@ -246,6 +257,12 @@ describe('Extending extend', () => {
                 const pass = received === actual;
                 const message =
                     () => `expected ${received} ${pass ? 'not ' : ''} to be ${actual}`;
+                return { message, pass };
+            },
+            toBeVariadicMatcher(received: any, floor: number, ceiling: number) {
+                const pass = received >= floor && received <= ceiling;
+                const message =
+                    () => `expected ${received} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
                 return { message, pass };
             },
             toBeTest(received: any, actual: any) {

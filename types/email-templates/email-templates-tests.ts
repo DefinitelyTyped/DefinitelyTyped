@@ -1,29 +1,14 @@
 import EmailTemplates = require('email-templates');
 
-const EmailTemplate = EmailTemplates.EmailTemplate;
-const template = new EmailTemplate("./");
-const templateWithOptions = new EmailTemplate('./', {disableJuice: true, sassOptions: {}, juiceOptions: {}});
-const users = [
-    {
-        email: 'pappa.pizza@spaghetti.com',
-        name: {
-            first: 'Pappa',
-            last: 'Pizza'
-        }
+const email = new EmailTemplates({
+    message: {
+    from: 'Test@tesitng.com'
     },
-    {
-        email: 'mister.geppetto@spaghetti.com',
-        name: {
-            first: 'Mister',
-            last: 'Geppetto'
-        }
-    }
-];
+    transport: {
+        jsonTransport: true
+    }}
+);
 
-const templates = users.map((user) => {
-    return template.render(user)
-        .then((results) => {
-            const {html, subject, text} = results;
-            return html;
-        });
-});
+email.juiceResources('<p>bob</p><style>div{color:red;}</style><div/>');
+email.render('mars/html.pug', {name: 'elon'});
+email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});

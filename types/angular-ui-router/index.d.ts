@@ -281,7 +281,7 @@ declare module 'angular' {
             current: IState;
             /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
             params: IStateParamsService;
-            reload(): angular.IPromise<any>;
+            reload(reloadState?: string | IState): angular.IPromise<any>;
 
             /** Currently pending transition. A promise that'll resolve or reject. */
             transition: angular.IPromise<{}>;

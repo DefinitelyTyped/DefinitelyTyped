@@ -1,12 +1,12 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardLinkProps {
   tag?: React.ReactType;
-  getRef?: string | ((instance: HTMLButtonElement) => any);
+  innerRef?: string | ((instance: HTMLButtonElement) => any);
   className?: string;
   cssModule?: CSSModule;
   href?: string;
 }
 
-declare var CardLink: React.StatelessComponent<Props>;
+declare const CardLink: React.StatelessComponent<CardLinkProps>;
 export default CardLink;

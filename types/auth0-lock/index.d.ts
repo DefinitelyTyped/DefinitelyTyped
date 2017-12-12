@@ -154,6 +154,7 @@ interface Auth0LockStatic {
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
+    checkSession(options: any, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
     resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;

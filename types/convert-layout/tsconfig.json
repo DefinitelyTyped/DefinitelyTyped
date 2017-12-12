@@ -18,13 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "by.d.ts",
-        "de.d.ts",
-        "es.d.ts",
-        "he.d.ts",
-        "kk.d.ts",
-        "ru.d.ts",
-        "uk.d.ts",
         "convert-layout-tests.ts"
     ]
 }

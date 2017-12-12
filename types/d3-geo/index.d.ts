@@ -1,9 +1,10 @@
-// Type definitions for D3JS d3-geo module 1.8
+// Type definitions for D3JS d3-geo module 1.9
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.8.1
+// Last module patch version validated against: 1.9.0
 
 import * as GeoJSON from 'geojson';
 
@@ -35,7 +36,10 @@ export type GeoGeometryObjects = GeoJSON.GeometryObject | GeoSphere;
 export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObjects> {
     type: string;
     bbox?: number[];
-    crs?: GeoJSON.CoordinateReferenceSystem;
+    crs?: {
+        type: string;
+        properties: any;
+    };
     geometries: GeometryType[];
 }
 
@@ -46,7 +50,7 @@ export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObje
 export interface ExtendedFeature<GeometryType extends GeoGeometryObjects, Properties> extends GeoJSON.GeoJsonObject {
     geometry: GeometryType;
     properties: Properties;
-    id?: string;
+    id?: string | number;
 }
 
 /**
@@ -540,7 +544,7 @@ export interface GeoStream {
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
- * @param object
+ * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
  * @param stream A projection stream.
  */
 export function geoStream(object: ExtendedFeature<GeoGeometryObjects, any>, stream: GeoStream): void;
@@ -549,7 +553,7 @@ export function geoStream(object: ExtendedFeature<GeoGeometryObjects, any>, stre
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
- * @param object
+ * @param object A geographic feature collection supported by d3-geo (An extension of GeoJSON feature).
  * @param stream A projection stream.
  */
 export function geoStream(object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>, stream: GeoStream): void;
@@ -558,7 +562,7 @@ export function geoStream(object: ExtendedFeatureCollection<ExtendedFeature<GeoG
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
- * @param object
+ * @param object A GeoJson Geometry Object or GeoSphere object supported by d3-geo (An extension of GeoJSON).
  * @param stream A projection stream.
  */
 export function geoStream(object: GeoGeometryObjects, stream: GeoStream): void;
@@ -567,7 +571,7 @@ export function geoStream(object: GeoGeometryObjects, stream: GeoStream): void;
  * Streams the specified GeoJSON object to the specified projection stream. While both features and geometry objects are supported as input,
  * the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  *
- * @param object
+ * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
  * @param stream A projection stream.
  */
 export function geoStream(object: ExtendedGeometryCollection<GeoGeometryObjects>, stream: GeoStream): void;
@@ -804,6 +808,64 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
     fitSize(size: [number, number], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+
+    /**
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     *
+     * @param width The width of the extent.
+     * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
+     */
+    fitWidth(width: number, object: ExtendedFeature<GeoGeometryObjects, any>): this;
+    /**
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     *
+     * @param width The width of the extent.
+     * @param object A GeoJson Geometry Object or GeoSphere object supported by d3-geo (An extension of GeoJSON).
+     */
+    fitWidth(width: number, object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>): this;
+    /**
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     *
+     * @param width The width of the extent.
+     * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
+     */
+    fitWidth(width: number, object: GeoGeometryObjects): this;
+    /**
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     *
+     * @param width The width of the extent.
+     * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
+     */
+    fitWidth(width: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+
+    /**
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     *
+     * @param height The height of the extent.
+     * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
+     */
+    fitHeight(height: number, object: ExtendedFeature<GeoGeometryObjects, any>): this;
+    /**
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     *
+     * @param height The height of the extent.
+     * @param object A GeoJson Geometry Object or GeoSphere object supported by d3-geo (An extension of GeoJSON).
+     */
+    fitHeight(height: number, object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>): this;
+    /**
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     *
+     * @param height The height of the extent.
+     * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
+     */
+    fitHeight(height: number, object: GeoGeometryObjects): this;
+    /**
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     *
+     * @param height The height of the extent.
+     * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
+     */
+    fitHeight(height: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
 
     /**
      * Returns a new array [longitude, latitude] in degrees representing the unprojected point of the given projected point.
@@ -1601,7 +1663,7 @@ export const geoClipAntimeridian: ((stream: GeoStream) => GeoStream);
  * Generates a clipping function transforming a stream such that geometries are bounded by a small circle of radius angle around the projection’s center.
  * Typically used for pre-clipping.
  *
- * @param angle
+ * @param angle A clipping angle.
  */
 export function geoClipCircle(angle: number): (stream: GeoStream) => GeoStream;
 

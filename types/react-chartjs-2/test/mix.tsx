@@ -69,9 +69,7 @@ const options: ChartOptions = {
   }
 };
 
-export default React.createClass({
-  displayName: 'MixExample',
-
+export default class MixExample extends React.Component {
   render() {
     return (
       <div>
@@ -83,4 +81,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

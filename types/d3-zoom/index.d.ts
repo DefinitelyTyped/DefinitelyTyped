@@ -1,9 +1,9 @@
-// Type definitions for d3JS d3-zoom module 1.5
+// Type definitions for d3JS d3-zoom module 1.7
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.5.0
+// Last module patch version validated against: 1.7.0
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
@@ -500,6 +500,19 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: ValueFn<ZoomRefElement, Datum, number>): void;
 
     /**
+     * Returns the current constraint function.
+     * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
+     */
+    constrain(): (transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform;
+    /**
+     * Sets the transform constraint function to the specified function and returns the zoom behavior.
+     *
+     * @param constraint A constraint function which returns a transform given the current transform, viewport extent and translate extent.
+     * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
+     */
+    constrain(constraint: ((transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform)): this;
+
+    /**
      * Returns the current filter function.
      */
     filter(): ValueFn<ZoomRefElement, Datum, boolean>;
@@ -516,6 +529,34 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * with this as the current DOM element. The function returns a boolean value.
      */
     filter(filterFn: ValueFn<ZoomRefElement, Datum, boolean>): this;
+
+    /**
+     * Returns the current touch support detector, which defaults to a function returning true,
+     * if the "ontouchstart" event is supported on the current element.
+     */
+    touchable(): ValueFn<ZoomRefElement, Datum, boolean>;
+    /**
+     * Sets the touch support detector to the specified boolean value and returns the zoom behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the zoom behavior is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A boolean value. true when touch event listeners should be applied to the corresponding element, otherwise false.
+     */
+    touchable(touchable: boolean): this;
+    /**
+     * Sets the touch support detector to the specified function and returns the zoom behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the zoom behavior is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A touch support detector function, which returns true when touch event listeners should be applied to the corresponding element.
+     * The function is evaluated for each selected element to which the zoom behavior was applied, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. The function returns a boolean value.
+     */
+    touchable(touchable: ValueFn<ZoomRefElement, Datum, boolean>): this;
 
     /**
      * Returns the current wheelDelta function.
@@ -619,7 +660,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
      * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
-     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     * distance from its position on mousedown, the click event following mouseup will be suppressed.
      *
      * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
      * The default is zero.

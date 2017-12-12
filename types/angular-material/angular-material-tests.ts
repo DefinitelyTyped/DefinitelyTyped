@@ -5,6 +5,7 @@ interface TestScope extends ng.IScope {
 }
 
 myApp.config((
+    $mdAriaProvider: ng.material.IAriaProvider,
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
     $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
@@ -52,6 +53,9 @@ myApp.config((
             return c * Math.pow(2, (t / d - 1) * 10) + b;
         }
     });
+
+    // Globally disables all ARIA warnings.
+    $mdAriaProvider.disableWarnings();
 });
 
 myApp.controller('BottomSheetController', ($scope: TestScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
@@ -135,6 +139,9 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
     };
     $scope['promptDialog'] = () => {
         $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
+    };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().required(true));
     };
     $scope['prerenderedDialog'] = () => {
         $mdDialog.show({
@@ -261,6 +268,48 @@ myApp.controller('ToastController', ($scope: TestScope, $mdToast: ng.material.IT
         options.controller = ['fakeService', class { }];
 
         $mdToast.show(options);
+    };
+});
+
+myApp.controller('ThemeController', ($element: JQuery, $scope: TestScope, $mdTheming: ng.material.IThemingService) => {
+    $mdTheming($element);
+
+    const PALETTES: ng.material.IConfiguredColorPalette = $mdTheming.PALETTES;
+    const redPalette: ng.material.IPalette = PALETTES.red;
+    const myPalette: ng.material.IPalette = PALETTES.myPalette;
+    const THEMES: ng.material.IConfiguredThemes = $mdTheming.THEMES;
+    const defaultTheme: ng.material.ITheme = THEMES.default;
+    const myTheme: ng.material.ITheme = THEMES.myTheme;
+
+    $scope['registered'] = () => {
+        let registered: boolean = $mdTheming.registered('default');
+        registered = $mdTheming.registered('myTheme');
+    };
+
+    $scope['defaultTheme'] = () => {
+        const themeName: string = $mdTheming.defaultTheme();
+    };
+
+    $scope['generateTheme'] = () => {
+        $mdTheming.generateTheme('myTheme');
+    };
+
+    $scope['setBrowserColors'] = () => {
+        const browserColors: ng.material.IBrowserColors = {
+            theme: 'default',
+            palette: 'neonRed',
+            hue: '500'
+        };
+        const remove: () => void = $mdTheming.setBrowserColor(browserColors);
+    };
+
+    $scope['defineTheme'] = () => {
+        const newTheme: ng.material.IDefineThemeOptions = {
+            primary: 'blue',
+            accent: 'orange',
+            dark: true
+        };
+        $mdTheming.defineTheme('newTheme', newTheme);
     };
 });
 
