@@ -2,6 +2,7 @@
 // Project: https://github.com/shellscape/koa-webpack#readme
 // Definitions by: Luka Maljic <https://github.com/malj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Koa from 'koa';
 import * as webpack from 'webpack';
