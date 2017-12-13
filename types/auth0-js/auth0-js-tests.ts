@@ -109,7 +109,9 @@ webAuth.renewAuth({}, (err, authResult) => {});
 webAuth.renewAuth({
 	nonce: '123',
     state: '456',
-    postMessageDataType: 'auth0:silent-authentication'
+    postMessageDataType: 'auth0:silent-authentication',
+    usePostMessage: true,
+    timeout: 30 * 1000
 }, (err, authResult) => {
       // Renewed tokens or error
 });
@@ -151,7 +153,7 @@ webAuth.client.login({
 
 webAuth.popup.buildPopupHandler();
 webAuth.popup.preload({});
-webAuth.popup.authorize({}, (err, data) => {
+webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
@@ -159,11 +161,11 @@ webAuth.popup.loginWithCredentials({}, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
-webAuth.popup.passwordlessVerify({}, (err, data) => {
+webAuth.popup.passwordlessVerify({ type: "sms", phoneNumber: "", connection: "", verificationCode: "" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
-webAuth.popup.signupAndLogin({}, (err, data) => {
+webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
@@ -171,6 +173,23 @@ webAuth.popup.signupAndLogin({}, (err, data) => {
 webAuth.login({username: 'bar', password: 'foo'}, (err, data) => {});
 
 webAuth.crossOriginAuthenticationCallback();
+
+webAuth.checkSession({
+  audience: 'https://mystore.com/api/v2',
+  scope: 'read:order write:order',
+  redirectUri: 'https://example.com/auth/silent-callback'
+  }, (err, authResult) => {
+    // Authentication tokens or error
+});
+
+webAuth.checkSession({
+  audience: 'https://mystore.com/api/v2',
+  scope: 'read:order write:order',
+  redirectUri: 'https://example.com/auth/silent-callback',
+  usePostMessage: true
+  }, (err, authResult) => {
+    // Renewed tokens or error
+});
 
 const authentication = new auth0.Authentication({
     domain: 'me.auth0.com',

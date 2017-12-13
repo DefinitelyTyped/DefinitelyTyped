@@ -55,6 +55,18 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "askmethat-rating",
+            "typingsPackageName": "askmethat-rating",
+            "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
+            "asOfVersion": "0.4.0"
+        },
+        {
+            "libraryName": "autobind-decorator",
+            "typingsPackageName": "autobind-decorator",
+            "sourceRepoURL": "https://github.com/andreypopp/autobind-decorator",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -109,6 +121,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "change-case",
             "typingsPackageName": "change-case",
             "sourceRepoURL": "https://github.com/blakeembrey/change-case",
@@ -119,6 +137,12 @@
             "typingsPackageName": "cheap-ruler",
             "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
             "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "commander",
+            "typingsPackageName": "commander",
+            "sourceRepoURL": "https://github.com/tj/commander.js",
+            "asOfVersion": "2.12.2"
         },
         {
             "libraryName": "constant-case",
@@ -175,6 +199,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "error-stack-parser",
+            "typingsPackageName": "error-stack-parser",
+            "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
@@ -209,6 +239,12 @@
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "gaea-model",
@@ -313,6 +349,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "jsplumb",
+            "typingsPackageName": "jsplumb",
+            "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
+            "asOfVersion": "2.5.7"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
@@ -329,6 +371,12 @@
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
             "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "left-pad",
+            "typingsPackageName": "left-pad",
+            "sourceRepoURL": "https://github.com/stevemao/left-pad",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "Linq.JS",
@@ -487,6 +535,12 @@
             "asOfVersion": "1.4.0"
         },
         {
+            "libraryName": "popper.js",
+            "typingsPackageName": "popper.js",
+            "sourceRepoURL": "https://github.com/FezVrasta/popper.js/",
+            "asOfVersion": "1.11.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
@@ -521,6 +575,18 @@
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
             "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "react-native-elements",
+            "typingsPackageName": "react-native-elements",
+            "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
+            "asOfVersion": "0.18.0"
+        },
+        {
+            "libraryName": "realm",
+            "typingsPackageName": "realm",
+            "sourceRepoURL": "https://github.com/realm/realm-js",
+            "asOfVersion": "1.13.0"
         },
         {
             "libraryName": "Redux",

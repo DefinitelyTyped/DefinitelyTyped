@@ -15,6 +15,22 @@ sagaMiddleware.run(routinePromiseWatcherSaga);
 const submitFormRoutine = createRoutine("SUBMIT_MY_FORM");
 const submitFormHandler = bindRoutineToReduxForm(submitFormRoutine);
 
+submitFormRoutine.TRIGGER;
+submitFormRoutine.REQUEST;
+submitFormRoutine.SUCCESS;
+submitFormRoutine.FAILURE;
+submitFormRoutine.FULFILL;
+submitFormRoutine.trigger();
+submitFormRoutine.trigger("test");
+submitFormRoutine.request();
+submitFormRoutine.request("test");
+submitFormRoutine.success();
+submitFormRoutine.success("test");
+submitFormRoutine.failure();
+submitFormRoutine.failure("test");
+submitFormRoutine.fulfill();
+submitFormRoutine.fulfill("test");
+
 const Test = reduxForm({
     form : "test"
 })(

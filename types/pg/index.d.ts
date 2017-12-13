@@ -1,4 +1,4 @@
-// Type definitions for pg 7.1
+// Type definitions for pg 7.4
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,6 +47,7 @@ export interface QueryConfig {
     name?: string;
     text: string;
     values?: any[];
+    rowMode?: string;
 }
 
 export interface QueryResult {
@@ -93,7 +94,7 @@ export class Pool extends events.EventEmitter {
 }
 
 export class Client extends events.EventEmitter {
-    constructor(config: ClientConfig);
+    constructor(config: string | ClientConfig);
 
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;

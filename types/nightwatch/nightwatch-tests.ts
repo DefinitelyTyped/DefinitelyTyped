@@ -1,3 +1,5 @@
+import { NightwatchAPI, NightwatchTests } from 'nightwatch';
+
 const test: NightwatchTests = {
   'Demo test Google': (browser) => {
     browser
@@ -5,6 +7,9 @@ const test: NightwatchTests = {
       .waitForElementVisible('body', 1000)
       .setValue('input[type=text]', 'nightwatch')
       .waitForElementVisible('button[name=btnG]', 1000)
+      .getTitle(function(result) {
+        this.assert.equal(typeof result, 'string');
+      })
       .click('button[name=btnG]')
       .pause(1000)
       .assert.containsText('#main', 'Night Watch')

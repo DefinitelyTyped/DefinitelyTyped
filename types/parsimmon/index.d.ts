@@ -1,4 +1,4 @@
-// Type definitions for Parsimmon 1.3
+// Type definitions for Parsimmon 1.6
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -6,7 +6,7 @@
 //                 Benny van Reeven <https://github.com/bvanreeven>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
@@ -41,7 +41,7 @@
  * //=> {status: true, value: ['a', ['c', 'c', 'c', 'c', 'c']]}
  * ```
  */
-declare function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parsimmon.Parser<T>;
+declare function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parsimmon.Parser<T>;
 
 declare namespace Parsimmon {
 	type StreamType = string;
@@ -73,6 +73,22 @@ declare namespace Parsimmon {
 		expected: string[];
 		index: Index;
 	}
+
+	interface Rule {
+		[key: string]: (r: Language) => Parser<any>;
+	}
+
+	interface Language {
+		[key: string]: Parser<any>;
+	}
+
+	type TypedRule<TLanguageSpec> = {
+		[P in keyof TLanguageSpec]: (r: TypedLanguage<TLanguageSpec>) => Parser<TLanguageSpec[P]>;
+	};
+
+	type TypedLanguage<TLanguageSpec> = {
+		[P in keyof TLanguageSpec]: Parser<TLanguageSpec[P]>;
+	};
 
 	interface Parser<T> {
 		/**
@@ -106,6 +122,15 @@ declare namespace Parsimmon {
 		 */
 		// tslint:disable-next-line:unified-signatures
 		then<U>(anotherParser: Parser<U>): Parser<U>;
+		/**
+		 * returns wrapper(this) from the parser. Useful for custom functions used
+		 * to wrap your parsers, while keeping with Parsimmon chaining style.
+		 */
+		thru<U>(call: (wrapper: Parser<U>) => Parser<T>): Parser<T>;
+		/**
+		 * expects anotherParser before and after parser, yielding the result of parser
+		 */
+		trim<U>(anotherParser: Parser<U>): Parser<T>;
 		/**
 		 * transforms the output of parser with the given function.
 		 */
@@ -169,21 +194,68 @@ declare namespace Parsimmon {
 	/**
 	 * Alias of `Parsimmon(fn)` for backwards compatibility.
 	 */
-	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parser<T>;
+	function Parser<T>(fn: (input: string, i: number) => Parsimmon.Reply<T>): Parser<T>;
+
+	/**
+	 * Starting point for building a language parser in Parsimmon.
+	 *
+	 * For having the resulting language rules return typed parsers, e.g. `Parser<Foo>` instead of
+	 * `Parser<any>`, pass a language specification as type parameter to this function. The language
+	 * specification should be of the following form:
+	 *
+	 * ```javascript
+	 * {
+	 *   rule1: type;
+	 *   rule2: type;
+	 * }
+	 * ```
+	 *
+	 * For example:
+	 *
+	 * ```javascript
+	 * const language = Parsimmon.createLanguage<{
+	 *   expr: Expr;
+	 *   numberLiteral: number;
+	 *   stringLiteral: string;
+	 * }>({
+	 *   expr: r => (some expression that yields Parser<Expr>),
+	 *   numberLiteral: r => (some expression that yields Parser<number>),
+	 *   stringLiteral: r => (some expression that yields Parser<string>)
+	 * });
+	 * ```
+	 *
+	 * Now both `language` and the parameter `r` that is passed into every parser rule will be of the
+	 * following type:
+	 *
+	 * ```javascript
+	 * {
+	 *   expr: Parser<Expr>;
+	 *   numberLiteral: Parser<number>;
+	 *   stringLiteral: Parser<string>;
+	 * }
+	 * ```
+	 *
+	 * Another benefit is that both the `rules` parameter and the resulting `language` should match the
+	 * properties defined in the language specification type, which means that the compiler checks that
+	 * there are no missing or superfluous rules in the language definition, and that the rules you access
+	 * on the resulting language do actually exist.
+	 */
+	function createLanguage(rules: Rule): Language;
+	function createLanguage<TLanguageSpec>(rules: TypedRule<TLanguageSpec>): TypedLanguage<TLanguageSpec>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the successful parse went (index), and what value it created doing
 	 * so. See documentation for Parsimmon(fn).
 	 */
-	function makeSuccess<T>(index: number, value: T): Success<T>;
+	function makeSuccess<T>(index: number, value: T): SuccessReply<T>;
 
 	/**
 	 * To be used inside of Parsimmon(fn). Generates an object describing how
 	 * far the unsuccessful parse went (index), and what kind of syntax it
 	 * expected to see (expectation). See documentation for Parsimmon(fn).
 	 */
-	function makeFailure(furthest: number, expectation: string): Failure;
+	function makeFailure(furthest: number, expectation: string): FailureReply;
 
 	/**
 	 * Returns true if obj is a Parsimmon parser, otherwise false.
@@ -276,9 +348,27 @@ declare namespace Parsimmon {
 		p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>,
 		cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A) => B): Parser<B>;
 
-	type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
-	type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
-	type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
+	interface SuccessReply<T> {
+		status: true;
+		index: number;
+		value: T;
+		furthest: -1;
+		expected: string[];
+	}
+
+	interface FailureReply {
+		status: false;
+		index: -1;
+		value: null;
+		furthest: number;
+		expected: string[];
+	}
+
+	type Reply<T> = SuccessReply<T> | FailureReply;
+
+	type SuccessFunctionType<U> = (index: number, result: U) => Reply<U>;
+	type FailureFunctionType<U> = (index: number, msg: string) => Reply<U>;
+	type ParseFunctionType<U> = (stream: StreamType, index: number) => Reply<U>;
 	/**
 	 * allows to add custom primitive parsers.
 	 */

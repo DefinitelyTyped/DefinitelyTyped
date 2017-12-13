@@ -12,7 +12,17 @@ import {
   SelectionState,
   getDefaultKeyBinding,
   ContentState,
-  convertFromHTML
+  RawDraftInlineStyleRange,
+  RawDraftEntityRange,
+  RawDraftEntity,
+  RawDraftContentBlock,
+  RawDraftContentState,
+  DraftBlockType,
+  DraftInlineStyleType,
+  DraftEntityMutability,
+  DraftEntityType,
+  convertFromHTML,
+  convertToRaw
 } from 'draft-js';
 
 const SPLIT_HEADER_BLOCK = 'split-header-block';
@@ -30,7 +40,7 @@ type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
 class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
   constructor() {
-    super();
+    super({});
 
     const sampleMarkup =
       '<b>Bold text</b>, <i>Italic text</i><br/ ><br />' +
@@ -182,9 +192,17 @@ function getBlockStyle(block: ContentBlock) {
   }
 }
 
-class StyleButton extends React.Component<{key: string, active: boolean, label: string, onToggle: (blockType: string) => void, style: string}> {
-  constructor() {
-    super();
+interface Props {
+  key: string
+  active: boolean
+  label: string
+  onToggle: (blockType: string) => void
+  style: string
+}
+
+class StyleButton extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
   }
 
   onToggle: (event: Event) => void = (event: Event) => {
@@ -266,7 +284,7 @@ var INLINE_STYLES = [
 
 const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
   var currentStyle = props.editorState.getCurrentInlineStyle();
-        return (
+  return (
     <div className="RichEditor-controls">
       {INLINE_STYLES.map(type =>
         <StyleButton
@@ -285,3 +303,23 @@ ReactDOM.render(
   <RichEditorExample />,
   document.getElementById('target')
 );
+
+const editorState = EditorState.createEmpty();
+const contentState = editorState.getCurrentContent();
+const rawContentState: RawDraftContentState = convertToRaw(contentState);
+
+rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
+  block.entityRanges.forEach((entityRange: RawDraftEntityRange) => {
+    const { key, offset, length } = entityRange;
+    const entity: RawDraftEntity = rawContentState.entityMap[key];
+    const entityType: DraftEntityType = entity.type;
+    const entityMutability: DraftEntityMutability = entity.mutability;
+    console.log(entityType, entityMutability, offset, length);
+  });
+
+  block.inlineStyleRanges.forEach((inlineStyleRange: RawDraftInlineStyleRange) => {
+    const { offset, length } = inlineStyleRange
+    const inlineStyle: DraftInlineStyleType = inlineStyleRange.style;
+    console.log(inlineStyle, offset, length);
+  });
+});

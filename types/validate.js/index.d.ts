@@ -84,7 +84,7 @@ declare namespace ValidateJS {
     export interface Presence extends Validator {}
 
     export interface Url extends Validator {
-      schemes?: [string | RegExp];
+      schemes?: (string | RegExp)[];
       allowLocal?: boolean;
     }
   }

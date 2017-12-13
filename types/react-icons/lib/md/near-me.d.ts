@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdNearMe extends React.Component<IconBaseProps> { }
+declare class MdNearMe extends React.Component<IconBaseProps> { }
+export = MdNearMe;

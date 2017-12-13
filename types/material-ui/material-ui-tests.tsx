@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {
-  Component, ComponentClass, CSSProperties, PropTypes,
+  Component, ComponentClass, CSSProperties,
   StatelessComponent, ReactElement, ReactInstance, ValidationMap
 } from 'react';
 import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -3029,6 +3030,8 @@ const ChipExampleSimple = () => (
     <Chip labelColor={blue500}>Blue Label Color</Chip>
     <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
     <Chip style={styles.chip}>Styled</Chip>
+    <Chip containerElement="span">String Container</Chip>
+    <Chip containerElement={() => {}}>ReactNode Container</Chip>
   </div>
 );
 
@@ -7001,7 +7004,7 @@ class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
   constructor() {
-    super();
+    super({});
     this.state = {
       index: 0
     };

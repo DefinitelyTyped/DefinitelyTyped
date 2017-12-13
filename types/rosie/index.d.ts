@@ -14,7 +14,7 @@ declare namespace rosie {
      * @param {function(object): *=} constructor
      * @return {Factory}
      */
-    define<T = any>(name: string, constructor?: (opts?: any) => any): IFactory<T>;
+    define<T = any>(name: string, constructor?: ((...opts: any[]) => any) | (new<T>(...opts: any[]) => any)): IFactory<T>;
 
     /**
      * Locates a factory by name and calls #build on it.

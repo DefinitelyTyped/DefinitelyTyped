@@ -2,50 +2,50 @@ import Joi = require('joi');
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var x: any = null;
-var value: any = null;
-var num: number = 0;
-var str: string = '';
-var bool: boolean = false;
-var exp: RegExp = null;
-var obj: object = null;
-var date: Date = null;
-var err: Error = null;
-var func: Function = null;
+let x: any = null;
+let value: any = null;
+let num: number = 0;
+let str: string = '';
+let bool: boolean = false;
+let exp: RegExp = null;
+let obj: object = null;
+let date: Date = null;
+let err: Error = null;
+let func: Function = null;
 
-var anyArr: any[] = [];
-var numArr: number[] = [];
-var strArr: string[] = [];
-var boolArr: boolean[] = [];
-var expArr: RegExp[] = [];
-var objArr: object[] = [];
-var errArr: Error[] = [];
-var funcArr: Function[] = [];
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-var schema: Joi.Schema = null;
-var schemaLike: Joi.SchemaLike = null;
-
-var anySchema: Joi.AnySchema = null;
-var numSchema: Joi.NumberSchema = null;
-var strSchema: Joi.StringSchema = null;
-var arrSchema: Joi.ArraySchema = null;
-var boolSchema: Joi.BooleanSchema = null;
-var binSchema: Joi.BinarySchema = null;
-var dateSchema: Joi.DateSchema = null;
-var funcSchema: Joi.FunctionSchema = null;
-var objSchema: Joi.ObjectSchema = null;
-var altSchema: Joi.AlternativesSchema = null;
-
-var schemaArr: Joi.Schema[] = [];
-
-var ref: Joi.Reference = null;
-var description: Joi.Description = null;
+let anyArr: any[] = [];
+let numArr: number[] = [];
+let strArr: string[] = [];
+let boolArr: boolean[] = [];
+let expArr: RegExp[] = [];
+let objArr: object[] = [];
+let errArr: Error[] = [];
+let funcArr: Function[] = [];
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var validOpts: Joi.ValidationOptions = null;
+let schema: Joi.Schema = null;
+let schemaLike: Joi.SchemaLike = null;
+
+let anySchema: Joi.AnySchema = null;
+let numSchema: Joi.NumberSchema = null;
+let strSchema: Joi.StringSchema = null;
+let arrSchema: Joi.ArraySchema = null;
+let boolSchema: Joi.BooleanSchema = null;
+let binSchema: Joi.BinarySchema = null;
+let dateSchema: Joi.DateSchema = null;
+let funcSchema: Joi.FunctionSchema = null;
+let objSchema: Joi.ObjectSchema = null;
+let altSchema: Joi.AlternativesSchema = null;
+
+let schemaArr: Joi.Schema[] = [];
+
+let ref: Joi.Reference = null;
+let description: Joi.Description = null;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let validOpts: Joi.ValidationOptions = null;
 
 validOpts = { abortEarly: bool };
 validOpts = { convert: bool };
@@ -77,7 +77,7 @@ validOpts = {
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var renOpts: Joi.RenameOptions = null;
+let renOpts: Joi.RenameOptions = null;
 
 renOpts = { alias: bool };
 renOpts = { multiple: bool };
@@ -86,7 +86,7 @@ renOpts = { ignoreUndefined: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var emailOpts: Joi.EmailOptions = null;
+let emailOpts: Joi.EmailOptions = null;
 
 emailOpts = { errorLevel: num };
 emailOpts = { errorLevel: bool };
@@ -96,7 +96,7 @@ emailOpts = { minDomainAtoms: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var ipOpts: Joi.IpOptions = null;
+let ipOpts: Joi.IpOptions = null;
 
 ipOpts = { version: str };
 ipOpts = { version: strArr };
@@ -104,7 +104,7 @@ ipOpts = { cidr: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var uriOpts: Joi.UriOptions = null;
+let uriOpts: Joi.UriOptions = null;
 
 uriOpts = { scheme: str };
 uriOpts = { scheme: exp };
@@ -113,7 +113,13 @@ uriOpts = { scheme: expArr };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var whenOpts: Joi.WhenOptions = null;
+let base64Opts: Joi.Base64Options = null;
+
+base64Opts = { paddingRequired: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let whenOpts: Joi.WhenOptions = null;
 
 whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
@@ -122,27 +128,27 @@ whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var refOpts: Joi.ReferenceOptions = null;
+let refOpts: Joi.ReferenceOptions = null;
 
 refOpts = { separator: str };
 refOpts = { contextPrefix: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var validErr: Joi.ValidationError = null;
-var validErrItem: Joi.ValidationErrorItem;
-var validErrFunc: Joi.ValidationErrorFunction;
+let validErr: Joi.ValidationError = null;
+let validErrItem: Joi.ValidationErrorItem;
+let validErrFunc: Joi.ValidationErrorFunction;
 
 validErrItem = {
     message: str,
     type: str,
-    path: str
+    path: [str]
 };
 
 validErrItem = {
     message: str,
     type: str,
-    path: str,
+    path: [str],
     options: validOpts,
     context: obj
 };
@@ -176,7 +182,7 @@ anySchema = objSchema;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var schemaMap: Joi.SchemaMap = null;
+let schemaMap: Joi.SchemaMap = null;
 
 schemaMap = {
     a: numSchema,
@@ -765,7 +771,7 @@ strSchema = strSchema.ip(ipOpts);
 strSchema = strSchema.uri();
 strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
-strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] });
+strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] } as Joi.GuidOptions);
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
 strSchema = strSchema.hostname();
@@ -773,6 +779,12 @@ strSchema = strSchema.isoDate();
 strSchema = strSchema.lowercase();
 strSchema = strSchema.uppercase();
 strSchema = strSchema.trim();
+strSchema = strSchema.truncate();
+strSchema = strSchema.truncate(false);
+strSchema = strSchema.normalize();
+strSchema = strSchema.normalize('NFKC');
+strSchema = strSchema.base64();
+strSchema = strSchema.base64(base64Opts);
 
 namespace common {
     strSchema = strSchema.allow(x);
@@ -830,6 +842,13 @@ schema = Joi.alternatives().try(schema, schema);
 schema = Joi.alternatives(schemaArr);
 schema = Joi.alternatives(schema, anySchema, boolSchema);
 
+schema = Joi.alt();
+schema = Joi.alt().try(schemaArr);
+schema = Joi.alt().try(schema, schema);
+
+schema = Joi.alt(schemaArr);
+schema = Joi.alt(schema, anySchema, boolSchema);
+
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.lazy(() => schema)
@@ -844,14 +863,14 @@ namespace validate_tests {
         Joi.validate(value, schema, validOpts, (err, value) => {
             x = value;
             str = err.message;
-            str = err.details[0].path;
+            str = err.details[0].path[0];
             str = err.details[0].message;
             str = err.details[0].type;
         });
         Joi.validate(value, schema, (err, value) => {
             x = value;
             str = err.message;
-            str = err.details[0].path;
+            str = err.details[0].path.join('.');
             str = err.details[0].message;
             str = err.details[0].type;
         });
@@ -950,3 +969,126 @@ const Joi3 = Joi.extend({
         },
     ],
 });
+
+const Joi4 = Joi.extend([{ name: '', base: schema }, { name: '', base: schema }]);
+
+const Joi5 = Joi.extend({ name: '', base: schema }, { name: '', base: schema });
+
+const Joi6 = Joi.extend({ name: '', base: schema }, [{ name: '', base: schema }, { name: '', base: schema }]);
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+const defaultsJoi = Joi.defaults((schema) => {
+    switch (schema.schemaType) {
+        case 'string':
+            return schema.allow('');
+        case 'object':
+            return (schema as Joi.ObjectSchema).min(1);
+        default:
+            return schema;
+    }
+});
+
+schema = Joi.allow(x, x);
+schema = Joi.allow([x, x, x]);
+schema = Joi.valid(x);
+schema = Joi.valid(x, x);
+schema = Joi.valid([x, x, x]);
+schema = Joi.only(x);
+schema = Joi.only(x, x);
+schema = Joi.only([x, x, x]);
+schema = Joi.equal(x);
+schema = Joi.equal(x, x);
+schema = Joi.equal([x, x, x]);
+schema = Joi.invalid(x);
+schema = Joi.invalid(x, x);
+schema = Joi.invalid([x, x, x]);
+schema = Joi.disallow(x);
+schema = Joi.disallow(x, x);
+schema = Joi.disallow([x, x, x]);
+schema = Joi.not(x);
+schema = Joi.not(x, x);
+schema = Joi.not([x, x, x]);
+
+schema = Joi.required();
+schema = Joi.optional();
+schema = Joi.forbidden();
+schema = Joi.strip();
+
+schema = Joi.description(str);
+schema = Joi.notes(str);
+schema = Joi.notes(strArr);
+schema = Joi.tags(str);
+schema = Joi.tags(strArr);
+
+schema = Joi.meta(obj);
+schema = Joi.example(obj);
+schema = Joi.unit(str);
+
+schema = Joi.options(validOpts);
+schema = Joi.strict();
+schema = Joi.strict(bool);
+schema = Joi.concat(x);
+
+schema = Joi.when(str, whenOpts);
+schema = Joi.when(ref, whenOpts);
+
+schema = Joi.label(str);
+schema = Joi.raw();
+schema = Joi.raw(bool);
+schema = Joi.empty();
+schema = Joi.empty(str);
+schema = Joi.empty(anySchema);
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+schema = Joi.allow(x, x);
+schema = Joi.allow([x, x, x]);
+schema = Joi.valid(x);
+schema = Joi.valid(x, x);
+schema = Joi.valid([x, x, x]);
+schema = Joi.only(x);
+schema = Joi.only(x, x);
+schema = Joi.only([x, x, x]);
+schema = Joi.equal(x);
+schema = Joi.equal(x, x);
+schema = Joi.equal([x, x, x]);
+schema = Joi.invalid(x);
+schema = Joi.invalid(x, x);
+schema = Joi.invalid([x, x, x]);
+schema = Joi.disallow(x);
+schema = Joi.disallow(x, x);
+schema = Joi.disallow([x, x, x]);
+schema = Joi.not(x);
+schema = Joi.not(x, x);
+schema = Joi.not([x, x, x]);
+
+schema = Joi.required();
+schema = Joi.optional();
+schema = Joi.forbidden();
+schema = Joi.strip();
+
+schema = Joi.description(str);
+schema = Joi.notes(str);
+schema = Joi.notes(strArr);
+schema = Joi.tags(str);
+schema = Joi.tags(strArr);
+
+schema = Joi.meta(obj);
+schema = Joi.example(obj);
+schema = Joi.unit(str);
+
+schema = Joi.options(validOpts);
+schema = Joi.strict();
+schema = Joi.strict(bool);
+schema = Joi.concat(x);
+
+schema = Joi.when(str, whenOpts);
+schema = Joi.when(ref, whenOpts);
+
+schema = Joi.label(str);
+schema = Joi.raw();
+schema = Joi.raw(bool);
+schema = Joi.empty();
+schema = Joi.empty(str);
+schema = Joi.empty(anySchema);

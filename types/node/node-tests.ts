@@ -339,6 +339,16 @@ namespace fs_tests {
         const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
         typeof v2 === "string" ? s = v2 : b = v2;
     }
+
+    {
+        fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+
+        const cf = util.promisify(fs.copyFile);
+        cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -394,6 +404,46 @@ function bufferTests() {
     {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
+    }
+
+    // Class Method byteLenght
+    {
+        let len: number;
+        len = Buffer.byteLength("foo");
+        len = Buffer.byteLength("foo", "utf8");
+
+        const b = Buffer.from("bar");
+        len = Buffer.byteLength(b);
+        len = Buffer.byteLength(b, "utf16le");
+
+        const ab = new ArrayBuffer(15);
+        len = Buffer.byteLength(ab);
+        len = Buffer.byteLength(ab, "ascii");
+
+        const dv = new DataView(ab);
+        len = Buffer.byteLength(dv);
+        len = Buffer.byteLength(dv, "utf16le");
+    }
+
+    // Class Method poolSize
+    {
+        let s: number;
+        s = Buffer.poolSize;
+        Buffer.poolSize = 4096;
     }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
@@ -505,6 +555,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -519,7 +571,9 @@ namespace url_tests {
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
-        assert.equal(helloUrl.query.hello, 'world');
+        if (typeof helloUrl.query !== 'string') {
+            assert.equal(helloUrl.query['hello'], 'world');
+        }
     }
 
     {
@@ -644,6 +698,7 @@ namespace util_tests {
         assert(typeof util.inspect.custom === 'symbol');
 
         // util.callbackify
+        // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
             static fn(): Promise<void> {
                 assert(arguments.length === 0);
@@ -718,6 +773,10 @@ namespace util_tests {
         // util.promisify
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
+        var arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
+        var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
+        var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
+        var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -799,6 +858,9 @@ function simplified_stream_ctor_test() {
         },
         destroy(error) {
             error.stack;
+        },
+        final(cb) {
+            cb(null);
         }
     });
 
@@ -1002,6 +1064,9 @@ namespace tls_tests {
             port: 55
         };
         var tlsSocket = tls.connect(connOpts);
+
+        const ciphers: string[] = tls.getCiphers();
+        const curve: string = tls.DEFAULT_ECDH_CURVE;
     }
 
     {
@@ -1204,6 +1269,7 @@ namespace http_tests {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
 
     // http IncomingMessage
@@ -1306,6 +1372,10 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() return a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
@@ -1318,9 +1388,24 @@ namespace http_tests {
         request.abort();
     }
 
-    const options: http.RequestOptions = {
-        timeout: 30000
-    };
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
+    }
 }
 
 //////////////////////////////////////////////////////
@@ -1347,6 +1432,17 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
+
+    {
+        const server = new https.Server();
+
+        const timeout: number = server.timeout;
+        const listening: boolean = server.listening;
+        const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -1384,6 +1480,8 @@ namespace dgram_tests {
         ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+        ds.setMulticastInterface("127.0.0.1");
+        ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
     }
 
     {
@@ -1454,6 +1552,20 @@ namespace dgram_tests {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         });
+    }
+
+    {
+        let ds: dgram.Socket = dgram.createSocket({
+            type: 'udp4',
+            recvBufferSize: 10000,
+            sendBufferSize: 15000
+        });
+
+        let size: number;
+        size = ds.getRecvBufferSize();
+        ds.setRecvBufferSize(size);
+        size = ds.getSendBufferSize();
+        ds.setSendBufferSize(size);
     }
 }
 
@@ -1590,19 +1702,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH);
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH);
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt');
     // returns
@@ -1628,6 +1728,15 @@ namespace path_tests {
         root: "/",
         dir: "/home/user/dir",
         base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.format({
+        root: "/",
+        dir: "/home/user/dir",
         ext: ".txt",
         name: "file"
     });
@@ -1721,6 +1830,14 @@ namespace readline_tests {
 
         readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
+    }
+
+    {
+        let stream: NodeJS.ReadableStream;
+        let readLineInterface: readline.ReadLine;
+
+        readline.emitKeypressEvents(stream);
+        readline.emitKeypressEvents(stream, readLineInterface);
     }
 
     {
@@ -1833,23 +1950,23 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
     }
 
-	{
-		childProcess.execFile("npm", () => {});
-		childProcess.execFile("npm", ["-v"], () => {});
-		childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-		childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-		childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-		childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-	}
+    {
+        childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", ["-v"], () => {});
+        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
 
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
-		let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
-		r = await execFile("npm", ["-v"]);
-		r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
-		r = await execFile("npm", ["-v"], { encoding: 'buffer' });
-		r = await execFile("npm", { encoding: 'utf-8' });
-		r = await execFile("npm", { encoding: 'buffer' });
+        let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+        r = await execFile("npm", ["-v"]);
+        r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+        r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+        r = await execFile("npm", { encoding: 'utf-8' });
+        r = await execFile("npm", { encoding: 'buffer' });
     }
 
     {
@@ -2062,6 +2179,36 @@ namespace child_process_tests {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
         });
+    }
+    {
+        process.stdin.setEncoding('utf8');
+
+        process.stdin.on('readable', () => {
+            const chunk = process.stdin.read();
+            if (chunk !== null) {
+              process.stdout.write(`data: ${chunk}`);
+            }
+        });
+
+        process.stdin.on('end', () => {
+            process.stdout.write('end');
+        });
+
+        process.stdin.pipe(process.stdout);
+
+        console.log(process.stdin.isTTY);
+        console.log(process.stdout.isTTY);
+
+        console.log(process.stdin instanceof net.Socket);
+        console.log(process.stdout instanceof fs.ReadStream);
+
+        var stdin: stream.Readable = process.stdin;
+        console.log(stdin instanceof net.Socket);
+        console.log(stdin instanceof fs.ReadStream);
+
+        var stdout: stream.Writable = process.stdout;
+        console.log(stdout instanceof net.Socket);
+        console.log(stdout instanceof fs.WriteStream);
     }
 }
 
@@ -2344,6 +2491,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -2408,6 +2575,19 @@ namespace console_tests {
 
 namespace net_tests {
     {
+        const connectOpts: net.NetConnectOpts = {
+            allowHalfOpen: true,
+            family: 4,
+            host: "localhost",
+            port: 443,
+            timeout: 10E3
+        };
+        const socket: net.Socket = net.createConnection(connectOpts, (): void => {
+            // nothing
+        });
+    }
+
+    {
         let server = net.createServer();
         // Check methods which return server instances by chaining calls
         server = server.listen(0)
@@ -2427,6 +2607,13 @@ namespace net_tests {
     }
 
     {
+        const constructorOpts: net.SocketConstructorOpts = {
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        };
+
         /**
          * net.Socket - events.EventEmitter
          *   1. close
@@ -2438,18 +2625,36 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket = new net.Socket({
-            fd: 1,
-            allowHalfOpen: false,
-            readable: false,
-            writable: false
-        });
+        let _socket: net.Socket = new net.Socket(constructorOpts);
 
         let bool: boolean;
         let buffer: Buffer;
         let error: Error;
         let str: string;
         let num: number;
+
+        let ipcConnectOpts: net.IpcSocketConnectOpts = {
+            path: "/"
+        };
+        let tcpConnectOpts: net.TcpSocketConnectOpts = {
+            family: 4,
+            hints: 0,
+            host: "localhost",
+            localAddress: "10.0.0.1",
+            localPort: 1234,
+            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
+                // nothing
+            },
+            port: 80
+        };
+        _socket = _socket.connect(ipcConnectOpts);
+        _socket = _socket.connect(ipcConnectOpts, (): void => {});
+        _socket = _socket.connect(tcpConnectOpts);
+        _socket = _socket.connect(tcpConnectOpts, (): void => {});
+        _socket = _socket.connect(80, "localhost");
+        _socket = _socket.connect(80, "localhost", (): void => {});
+        _socket = _socket.connect(80);
+        _socket = _socket.connect(80, (): void => {});
 
         /// addListener
 
@@ -2855,6 +3060,7 @@ namespace constants_tests {
     num = constants.O_NOATIME;
     num = constants.O_NOFOLLOW;
     num = constants.O_SYNC;
+    num = constants.O_DSYNC;
     num = constants.O_DIRECT;
     num = constants.O_NONBLOCK;
     num = constants.S_IRWXU;
@@ -2952,26 +3158,16 @@ namespace v8_tests {
     v8.setFlagsFromString('--collect_maps');
 }
 
-///////////////////////////////////////////////////////////
-/// Debugger Tests                                      ///
-///////////////////////////////////////////////////////////
-
-import { Client } from "_debugger";
-
-var client = new Client();
-
-client.connect(8888, 'localhost');
-client.listbreakpoints((err, body, packet) => { });
-
 ////////////////////////////////////////////////////
 /// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
 ////////////////////////////////////////////////////
 namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
-        init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
-        before: (asyncId: number) => void {},
-        after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {}
+        init() {},
+        before() {},
+        after() {},
+        destroy() {},
+        promiseResolve() {},
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -2980,6 +3176,27 @@ namespace async_hooks_tests {
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+
+    class TestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE');
+        }
+    }
+
+    class AnotherTestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE', 42);
+            const aId: number = this.asyncId();
+            const tId: number = this.triggerAsyncId();
+        }
+        run() {
+            this.emitBefore();
+            this.emitAfter();
+        }
+        destroy() {
+            this.emitDestroy();
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -3051,7 +3268,7 @@ namespace http2_tests {
             exclusive: true,
             parent: 0,
             weight: 0,
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
         (http2Session as http2.ClientHttp2Session).request();
         (http2Session as http2.ClientHttp2Session).request(headers);
@@ -3158,24 +3375,33 @@ namespace http2_tests {
 
         let options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {}
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);
         serverHttp2Stream.respond(headers, options);
 
         let options2: http2.ServerStreamFileResponseOptions = {
-            statCheck: (stats: fs.Stats, headers: http2.IncomingHttpHeaders, statOptions: http2.StatOptions) => {},
-            getTrailers: (trailers: http2.IncomingHttpHeaders) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
             offset: 0,
             length: 0
         };
         serverHttp2Stream.respondWithFD(0);
         serverHttp2Stream.respondWithFD(0, headers);
         serverHttp2Stream.respondWithFD(0, headers, options2);
+        serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
+        let options3: http2.ServerStreamFileResponseOptionsWithError = {
+            onError: (err: NodeJS.ErrnoException) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
+            offset: 0,
+            length: 0
+        };
         serverHttp2Stream.respondWithFile('');
         serverHttp2Stream.respondWithFile('', headers);
-        serverHttp2Stream.respondWithFile('', headers, options2);
+        serverHttp2Stream.respondWithFile('', headers, options3);
+        serverHttp2Stream.respondWithFile('', headers, {statCheck: () => false});
     }
 
     // Http2Server / Http2SecureServer
@@ -3208,7 +3434,8 @@ namespace http2_tests {
             settings,
             allowHTTP1: true
         };
-        let secureServerOptions: http2.SecureServerOptions = { ...serverOptions };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
         secureServerOptions.ca = '';
         let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
             // Http2ServerRequest
@@ -3250,8 +3477,7 @@ namespace http2_tests {
             let headersSent: boolean = response.headersSent;
 
             response.setTimeout(0, () => {});
-            response.createPushResponse(outgoingHeaders);
-            response.createPushResponse(outgoingHeaders, (err: Error) => {});
+            response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => {});
 
             response.writeContinue();
             response.writeHead(200);
@@ -3306,7 +3532,8 @@ namespace http2_tests {
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
             settings
         };
-        let secureClientSessionOptions: http2.SecureClientSessionOptions = { ...clientSessionOptions };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
         secureClientSessionOptions.ca = '';
         let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
@@ -3559,8 +3786,9 @@ namespace inspector_tests {
         session.disconnect();
 
         // Unknown post method
-        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
-        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b', { key: 'value' }, (err, params) => {});
+        // TODO: parameters are implicitly 'any' and need type annotation
+        session.post('A.b', (err: Error | null, params?: {}) => {});
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
@@ -3573,7 +3801,9 @@ namespace inspector_tests {
         session.post('Runtime.evaluate');
 
         // General event
-        session.on('inspectorNotification', (message: inspector.InspectorNotification<object>) => {});
+        session.on('inspectorNotification', message => {
+            message; // $ExpectType InspectorNotification<{}>
+        });
         // Known events
         session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
             const method: string = message.method;
@@ -3595,4 +3825,14 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+}
+
+////////////////////////////////////////////////////
+/// Node.js ESNEXT Support
+////////////////////////////////////////////////////
+
+namespace esnext_string_tests {
+    const s: string = 'foo';
+    const s1: string = s.trimLeft();
+    const s2: string = s.trimRight();
 }
