@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Koa from 'koa';
-import * as webpack from 'webpack';
-import * as webpackDevMiddleware from 'webpack-dev-middleware';
-import * as webpackHotMiddleware from 'webpack-hot-middleware';
-import { NextHandleFunction } from 'connect';
+import Koa = require('koa');
+import webpack = require('webpack');
+import webpackDevMiddleware = require('webpack-dev-middleware');
+import webpackHotMiddleware = require('webpack-hot-middleware');
+import connect = require('connect');
 
 declare function koaWebpack(
     options?: koaWebpack.Options
@@ -23,8 +23,8 @@ declare namespace koaWebpack {
     }
 
     interface CombinedWebpackMiddleware {
-        dev: NextHandleFunction & webpackDevMiddleware.WebpackDevMiddleware;
-        hot: NextHandleFunction & webpackHotMiddleware.EventStream;
+        dev: connect.NextHandleFunction & webpackDevMiddleware.WebpackDevMiddleware;
+        hot: connect.NextHandleFunction & webpackHotMiddleware.EventStream;
     }
 }
 

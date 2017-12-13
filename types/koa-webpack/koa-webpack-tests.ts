@@ -1,6 +1,6 @@
-import * as Koa from 'koa';
-import * as webpack from 'webpack';
-import * as koaWebpack from 'koa-webpack';
+import Koa = require('koa');
+import webpack = require('webpack');
+import koaWebpack = require('koa-webpack');
 
 const app = new Koa();
 const config: webpack.Configuration = {};
