@@ -2342,7 +2342,19 @@ declare module "url" {
         query?: string | null | ParsedUrlQuery;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    export interface UrlParsedQuery extends Url {
+        query: ParsedUrlQuery;
+    }
+
+    export interface UrlStringQuery extends Url {
+        query: string | null;
+    }
+
+    export function parse(urlStr: string): UrlStringQuery;
+    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlStringQuery;
+    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlParsedQuery;
+    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+
     export function format(URL: URL, options?: URLFormatOptions): string;
     export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
