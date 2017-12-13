@@ -1442,7 +1442,7 @@ declare module "zlib" {
     export interface Zlib {
         readonly bytesRead: number;
         close(callback?: Function): void;
-        flush(callback?: Function): void;
+        flush(kind?: number | Function, callback?: Function): void;
     }
 
     export interface ZlibParams {
