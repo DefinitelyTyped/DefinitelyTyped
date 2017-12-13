@@ -134,13 +134,42 @@ declare module 'recompose' {
 
     // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
     type StateHandler<TState> = (...payload: any[]) => TState | undefined;
-    type StateUpdaters<TOutter, TState, TUpdaters> = {
-      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
+    type StateUpdaters<
+        TOutter,
+        TState,
+        TUpdater1 extends string,
+        TUpdater2 extends string = TUpdater1,
+        TUpdater3 extends string = TUpdater2,
+        TUpdater4 extends string = TUpdater3,
+        TUpdater5 extends string = TUpdater4
+    > = { [updaterName in
+            | TUpdater1
+            | TUpdater2
+            | TUpdater3
+            | TUpdater4
+            | TUpdater5
+          ]: (state: TState, props: TOutter) => StateHandler<TState>;
     };
-    export function withStateHandlers<TState, TUpdaters, TOutter>(
+    export function withStateHandlers<
+        TState,
+        TOutter extends {} = {},
+        TUpdater1 extends string = "update",
+        TUpdater2 extends string = TUpdater1,
+        TUpdater3 extends string = TUpdater2,
+        TUpdater4 extends string = TUpdater3,
+        TUpdater5 extends string = TUpdater4
+      >(
       createProps: TState | mapper<TOutter, TState>,
-      stateUpdaters: StateUpdaters<TOutter, TState, TUpdaters>,
-    ): InferableComponentEnhancerWithProps<TUpdaters & TState, TOutter>;
+      stateUpdaters: StateUpdaters<TOutter, TState, TUpdater1, TUpdater2, TUpdater3, TUpdater4, TUpdater5>,
+    ): InferableComponentEnhancerWithProps<
+        { [updaterName in
+            | TUpdater1
+            | TUpdater2
+            | TUpdater3
+            | TUpdater4
+            | TUpdater5
+          ]: StateHandler<TState>
+        } & TState & TOutter, TOutter>;
 
     // withReducer: https://github.com/acdlite/recompose/blob/master/docs/API.md#withReducer
     type reducer<TState, TAction> = (s: TState, a: TAction) => TState;
