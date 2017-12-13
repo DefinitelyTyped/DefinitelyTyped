@@ -1,6 +1,9 @@
 import { NightwatchAPI, NightwatchTests } from 'nightwatch';
 
 const test: NightwatchTests = {
+  before: (browser, done) => {
+    done();
+  },
   'Demo test Google': (browser) => {
     browser
       .url('http://www.google.com')
