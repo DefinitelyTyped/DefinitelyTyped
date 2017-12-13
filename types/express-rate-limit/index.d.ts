@@ -11,7 +11,6 @@ declare namespace RateLimit {
 
     interface Store {
         incr(key: string, cb: StoreIncrementCallback): void;
-        resetAll(): void;
         resetKey(key: string): void;
     }
 
