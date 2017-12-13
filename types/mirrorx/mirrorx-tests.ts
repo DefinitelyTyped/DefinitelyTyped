@@ -1,8 +1,7 @@
-import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as mirror from 'mirrorx';
-import { render,actions,withRouter,Link,NavLink,Router,Route,connect,Redirect} from 'mirrorx';
+import { actions } from 'mirrorx';
 /**
  * add mirror.model.tests
  * 
@@ -18,10 +17,10 @@ mirror.model({
         async incrementAsync() {
             await new Promise((resolve, reject) => {
               setTimeout(() => {
-                resolve()
+                resolve();
               }, 1000)
             })
-            actions.app.increment()
+            actions.app.increment();
         }
     }
 });
