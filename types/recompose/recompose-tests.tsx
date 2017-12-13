@@ -119,6 +119,11 @@ function testWithHandlers() {
             out={42}
         />
     )
+
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>((props) => ({ // $ExpectError
+      onChange: () => () => {},  // $ExpectError
+      notAKeyOnHandlerProps: () => () => {},  // $ExpectError
+    })); // $ExpectError
 }
 
 function testDefaultProps() {
@@ -211,7 +216,7 @@ function testWithStateHandlers() {
         <Enhanced initialCounter={4} power={2} />
     );
 
-    const broken = withStateHandlers<State, Updaters, OutterProps>(
+    const updateNameTypecheckProof = withStateHandlers<State, Updaters, OutterProps>(
         (props: OutterProps) => ({ counter: props.initialCounter }),
         { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
     );
