@@ -1446,7 +1446,7 @@ declare module "zlib" {
     }
 
     export interface ZlibParams {
-        params(level: number, strategy: number, callback?: () => void): void;
+        params(level: number, strategy: number, callback: () => void): void;
     }
 
     export interface ZlibReset {
