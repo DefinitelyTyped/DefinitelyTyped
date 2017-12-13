@@ -798,13 +798,16 @@ function stream_readable_pipe_test() {
     var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
 
+    assert(typeof z.bytesRead === 'number');
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
     assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
+    z.flush();
     r.close();
+    z.close();
     rs.close();
 }
 

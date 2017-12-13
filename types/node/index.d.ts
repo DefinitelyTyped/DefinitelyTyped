@@ -1439,13 +1439,27 @@ declare module "zlib" {
         dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
-    export interface Gzip extends stream.Transform { }
-    export interface Gunzip extends stream.Transform { }
-    export interface Deflate extends stream.Transform { }
-    export interface Inflate extends stream.Transform { }
-    export interface DeflateRaw extends stream.Transform { }
-    export interface InflateRaw extends stream.Transform { }
-    export interface Unzip extends stream.Transform { }
+    export interface Zlib {
+        readonly bytesRead: number;
+        close(callback?: Function): void;
+        flush(callback?: Function): void;
+    }
+
+    export interface ZlibParams {
+        params(level: number, strategy: number, callback?: Function): void;
+    }
+
+    export interface ZlibReset {
+        reset(): void;
+    }
+
+    export interface Gzip extends stream.Transform, Zlib { }
+    export interface Gunzip extends stream.Transform, Zlib { }
+    export interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface Inflate extends stream.Transform, Zlib, ZlibReset { }
+    export interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
+    export interface Unzip extends stream.Transform, Zlib { }
 
     export function createGzip(options?: ZlibOptions): Gzip;
     export function createGunzip(options?: ZlibOptions): Gunzip;
