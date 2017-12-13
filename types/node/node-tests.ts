@@ -29,6 +29,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
 import * as inspector from "inspector";
+import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
@@ -3006,6 +3007,7 @@ namespace dns_tests {
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
+import { PerformanceObserver, PerformanceObserverCallback } from "perf_hooks";
 namespace constants_tests {
     var str: string;
     var num: number;
@@ -3159,6 +3161,36 @@ namespace v8_tests {
     const zapsGarbage: number = heapStats.does_zap_garbage;
 
     v8.setFlagsFromString('--collect_maps');
+}
+
+////////////////////////////////////////////////////
+/// PerfHooks tests : https://nodejs.org/api/perf_hooks.html
+////////////////////////////////////////////////////
+namespace perf_hooks_tests {
+    perf_hooks.performance.mark('start');
+    (
+        () => {}
+    )();
+    perf_hooks.performance.mark('end');
+
+    const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
+    const timeOrigin = perf_hooks.performance.timeOrigin;
+
+    const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
+        const {
+            duration,
+            entryType,
+            name,
+            startTime,
+        } = list.getEntries()[0];
+        obs.disconnect();
+        perf_hooks.performance.clearFunctions();
+    };
+    const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
+    obs.observe({
+        entryTypes: ['function'],
+        buffered: true,
+    });
 }
 
 ////////////////////////////////////////////////////
