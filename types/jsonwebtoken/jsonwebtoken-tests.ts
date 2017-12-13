@@ -57,6 +57,13 @@ jwt.verify(token, 'shhhhh', function(err, decoded) {
   console.log(result.foo) // bar
 });
 
+// use external time for verifying
+jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, function(err, decoded) {
+  const result = decoded as ITestObject
+
+  console.log(result.foo) // bar
+});
+
 // invalid token
 jwt.verify(token, 'wrong-secret', function(err, decoded) {
   // err
