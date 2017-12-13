@@ -210,7 +210,12 @@ function testWithStateHandlers() {
     const rendered = (
         <Enhanced initialCounter={4} power={2} />
     );
-}
+
+    const broken = withStateHandlers<State, Updaters, OutterProps>(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
+    );
+  }
 
 function testWithReducer() {
     interface State { count: number }
