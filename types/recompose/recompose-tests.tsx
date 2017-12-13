@@ -18,6 +18,8 @@ import {
     createEventHandlerWithConfig,
     componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
+    StateHandler,
+    StateHandlerMap,
 } from "recompose";
 import rxjsconfig from "recompose/rxjsObservableConfig";
 import rxjs4config from "recompose/rxjs4ObservableConfig";
@@ -186,11 +188,14 @@ function testWithState() {
 
 function testWithStateHandlers() {
     interface State { counter: number; }
-    interface Updaters { add: (n: number) => State; }
-    type InnerProps = State & Updaters;
+    interface Updaters extends StateHandlerMap<State> {
+      add: StateHandler<State>;
+    }
     interface OutterProps { initialCounter: number, power: number }
+    type InnerProps = State & Updaters & OutterProps;
     const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
         <div>
+            <div>{`Initial counter: ${props.initialCounter}`}</div>
             <div>{`Counter: ${props.counter}`}</div>
             <div onClick={() => props.add(2)}></div>
         </div>;
