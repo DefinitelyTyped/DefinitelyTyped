@@ -1,7 +1,8 @@
 // Type definitions for amCharts
 // Project: http://www.amcharts.com/
-// Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
+//                 ldrick <https://github.com/ldrick>
 
 /// AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page.
 declare namespace AmCharts {
@@ -232,13 +233,13 @@ declare namespace AmCharts {
         {country:"Austria",litres:108.30},
         {country:"UK",litres:99.00}
     ];
-
+ 
     window.onload = function() {
       chart = new AmCharts.AmRadarChart();
       chart.dataProvider = chartData;
       chart.categoryField = "country";
       chart.startDuration = 2;
-
+ 
       var valueAxis = new AmCharts.ValueAxis();
       valueAxis.axisAlpha = 0.15;
       valueAxis.minimum = 0;
@@ -246,13 +247,13 @@ declare namespace AmCharts {
       valueAxis.axisTitleOffset = 20;
       valueAxis.gridCount = 5;
       chart.addValueAxis(valueAxis);
-
+ 
       var graph = new AmCharts.AmGraph();
       graph.valueField = "litres";
       graph.bullet = "round";
       graph.balloonText = "[[value]] litres of beer per year"
       chart.addGraph(graph);
-
+ 
       chart.write("chartdiv");
     }
     */
@@ -280,23 +281,23 @@ declare namespace AmCharts {
                 {x:13, y:1, value:8},
                 {x:1, y:6, value:35}
             ];
-
+ 
             var chart = new AmCharts.AmXYChart();
             chart.pathToImages = "../../amcharts/javascript/images/";
             chart.dataProvider = chartData;
             chart.marginLeft = 35;
             chart.startDuration = 1.5;
-
+ 
             var xAxis = new AmCharts.ValueAxis();
             xAxis.position = "left";
             xAxis.autoGridCount = true;
             chart.addValueAxis(xAxis);
-
+ 
             var yAxis = new AmCharts.ValueAxis();
             yAxis.position = "bottom";
             yAxis.autoGridCount = true;
             chart.addValueAxis(yAxis);
-
+ 
             var graph = new AmCharts.AmGraph();
             graph.valueField = "value";
             graph.xField = "x";
@@ -304,14 +305,14 @@ declare namespace AmCharts {
             graph.lineAlpha = 0;
             graph.bullet = "round";
             chart.addGraph(graph);
-
+ 
             var chartCursor = new AmCharts.ChartCursor();
             chart.addChartCursor(chartCursor);
-
+ 
             var chartScrollbar = new AmCharts.ChartScrollbar();
             chartScrollbar.hideResizeGrips = false;
             chart.addChartScrollbar(chartScrollbar);
-
+ 
             chart.write("chartdiv);
     */
     class AmXYChart extends AmRectangularChart {
@@ -327,7 +328,7 @@ declare namespace AmCharts {
         zoomOut(): void;
     }
     /** Guides are straight vertical or horizontal lines or areas supported by AmSerialChart, AmXYChart and AmRadarChart. You can have guides both on value and category axes. To add/remove a guide to an axis, use axis.addGuide(guide)/axis.removeGuide(guide) methods.
-
+ 
 If you do not set properties such as dashLength, lineAlpha, lineColor, etc - values of the axis are used.*/
     class Guide {
         /** If you set it to true, the guide will be displayed above the graphs. */
@@ -1035,7 +1036,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string): any;
+        addLabel(x: number | string, y: number | string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string): any;
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
@@ -1579,21 +1580,21 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     /** AmSerialChart is the class you have to use for majority of chart types. The supported chart types are: line, area, column, bar, step line, smoothed line, candlestick and OHLC. The chart can be rotated by 90 degrees so the column chart becomes bar chart. The chart supports simple and logarithmic scales, it can have multiple value axes. The chart can place data points at equal intervals or can parse dates and place data points at irregular intervals.
         @example
             var chartData = [{title:"sample 1",value:130},{title:"sample 2",value:26}];
-
+ 
             var chart = new AmCharts.AmSerialChart();
             chart.categoryField = "title";
             chart.dataProvider = chartData;
-
+ 
             var graph = new AmCharts.AmGraph();
             graph.valueField = "value";
             graph.type = "column";
             graph.fillAlphas = 1;
             chart.addGraph(graph);
-
+ 
             chart.write("chartdiv");
     */
     class AmSerialChart extends AmRectangularChart {
-    	/** Date format of the graph balloon (if chart parses dates and you don't use chartCursor).
+        /** Date format of the graph balloon (if chart parses dates and you don't use chartCursor).
             @default 'MMM DD, YYYY'
         */
         balloonDateFormat: string;
@@ -2318,19 +2319,19 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         valueInterval: number;
 
         /** Adds event listener to the object. */
-        addListener(type: string, handler: any);
+        addListener(type: string, handler: any): void;
 
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): void;
 
         /** Sets bottom text. */
-        setBottomText(text: string);
+        setBottomText(text: string): void;
 
         /** Sets top text. */
-        setTopText(textstring);
+        setTopText(textstring: string): void;
 
         /** Returns angle of the value. */
-        value2angle(value: number);
+        value2angle(value: number): void;
     }
 
     class GaugeBand {
@@ -2367,10 +2368,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         url: string;
 
         /** Sets end value for the band. */
-        setEndValue(value);
+        setEndValue(value: number): void;
 
         /** Sets start value for the band. */
-        setStartValue(value);
+        setStartValue(value: number): void;
     }
 
     class PeriodSelector {
@@ -2977,7 +2978,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Name of the close field (used by candlesticks and ohlc) in your dataProvider. */
         closeField: string;
         /** In case you want to place this graph's columns in front of other columns, set this to false. In case "true", the columns will be clustered next to each other.
-
+ 
          NOTE: clustering works only for graphs of type "column".
             @default true
         */
@@ -3366,10 +3367,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         integersOnly: boolean;
         /** You can use this function to format Value axis labels. This function is called and these parameters are passed: labelFunction(value, valueText, valueAxis);
 Where value is numeric value, valueText is formatted string and valueAxis is a reference to valueAxis object.
-
+ 
 If axis type is "date", labelFunction will pass different arguments:
 labelFunction(valueText, date, valueAxis)
-
+ 
 Your function should return string.*/
         labelFunction(value: number, valueText: string, valueAxis: ValueAxis): string;
         labelFunction(valueText: string, data: Date, valueAxis: ValueAxis): string;
@@ -3490,6 +3491,6 @@ Your function should return string.*/
         menu: Object;
         config: any;
         capture(config: any, callback: () => void): any;
-        toJPG(config: any, callback: (config:any) => void): any;
+        toJPG(config: any, callback: (config: any) => void): any;
     }
 }
