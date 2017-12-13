@@ -189,8 +189,9 @@ function testWithStateHandlers() {
     interface Updaters { add: (n: number) => State; }
     type InnerProps = State & Updaters;
     interface OutterProps { initialCounter: number, power: number }
-    const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
+    const InnerComponent: React.StatelessComponent<InnerProps & OutterProps> = (props) =>
         <div>
+            <div>{`Counts from: ${props.initialCounter}`}</div>
             <div>{`Counter: ${props.counter}`}</div>
             <div onClick={() => props.add(2)}></div>
         </div>;
@@ -202,6 +203,28 @@ function testWithStateHandlers() {
         },
     );
     const Enhanced = enhancer(InnerComponent);
+    const rendered = (
+        <Enhanced initialCounter={4} power={2} />
+    );
+}
+
+function testWithStateHandlersInferred() {
+    interface State { counter: number; }
+    interface Updaters { add: (n: number) => State; }
+    type InnerProps = State & Updaters;
+    interface OutterProps { initialCounter: number, power: number }
+    const enhancer = withStateHandlers<State, Updaters, OutterProps>(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        {
+            add: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }),
+        },
+    );
+    const Enhanced = enhancer((props) =>
+        <div>
+            <div>{`Counts from: ${props.initialCounter}`}</div>
+            <div>{`Counter: ${props.counter}`}</div>
+            <div onClick={() => props.add(2)}></div>
+        </div>);
     const rendered = (
         <Enhanced initialCounter={4} power={2} />
     );
