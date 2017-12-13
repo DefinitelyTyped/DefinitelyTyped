@@ -120,10 +120,10 @@ function testWithHandlers() {
         />
     )
 
-    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>((props) => ({ // $ExpectError
-      onChange: () => () => {},  // $ExpectError
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({
+      onChange: () => () => {},
       notAKeyOnHandlerProps: () => () => {},  // $ExpectError
-    })); // $ExpectError
+    });
 }
 
 function testDefaultProps() {
