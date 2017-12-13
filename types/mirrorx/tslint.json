@@ -14,6 +14,12 @@
         "typedef-whitespace":false,
         "no-consecutive-blank-lines":false,
         "trim-file":false,
-        "prefer-declare-function":"prefer-declare-function"
+        "prefer-declare-function":false,
+        "dt-header":false,
+        "no-padding":false,
+        "no-redundant-jsdoc-2":false,
+        "comment-format":false,
+        "eofline":false,
+        "strict-export-declare-modifiers":false
     }
 }
