@@ -28,7 +28,7 @@ interface InputByType {
     text: string;
     binarystring: string;
     array: number[];
-    unit8array: Uint8Array;
+    uint8array: Uint8Array;
     arraybuffer: ArrayBuffer;
     blob: Blob;
 }
@@ -38,7 +38,7 @@ interface OutputByType {
     text: string;
     binarystring: string;
     array: number[];
-    unit8array: Uint8Array;
+    uint8array: Uint8Array;
     arraybuffer: ArrayBuffer;
     blob: Blob;
     nodebuffer: Buffer;
@@ -64,8 +64,8 @@ declare namespace JSZip {
 
         /**
          * Prepare the content in the asked type.
-         * @param {String} type the type of the result.
-         * @param {OnUpdateCallback} onUpdate a function to call on each internal update.
+         * @param type the type of the result.
+         * @param onUpdate a function to call on each internal update.
          * @return Promise the promise of the result.
          */
         async<T extends OutputType>(type: T, onUpdate?: OnUpdateCallback): Promise<OutputByType[T]>;
@@ -75,7 +75,8 @@ declare namespace JSZip {
     interface JSZipFileOptions {
         /** Set to `true` if the data is `base64` encoded. For example image data from a `<canvas>` element. Plain text and HTML do not need this option. */
         base64?: boolean;
-        /** Set to `true` if the data should be treated as raw content, `false` if this is a text. If `base64` is used,
+        /**
+         * Set to `true` if the data should be treated as raw content, `false` if this is a text. If `base64` is used,
          * this defaults to `true`, if the data is not a `string`, this will be set to `true`.
          */
         binary?: boolean;

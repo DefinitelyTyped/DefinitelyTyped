@@ -1,6 +1,7 @@
 // Type definitions for react-beautiful-dnd 2.3
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
+//                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -73,9 +74,9 @@ export class Droppable extends React.Component<DroppableProps> {}
 export type DraggableStyle = any;
 
 export interface DragHandleProps {
-    onMouseDown(event: MouseEvent): void;
-    onKeyDown(event: KeyboardEvent): void;
-    onClick(event: MouseEvent): void;
+    onMouseDown: React.MouseEventHandler<any>;
+    onKeyDown: React.KeyboardEventHandler<any>;
+    onClick: React.MouseEventHandler<any>;
     tabIndex: number;
     'aria-grabbed': boolean;
     draggable: boolean;
@@ -98,6 +99,7 @@ export interface DraggableProps {
     draggableId: DroppableId;
     type?: TypeId;
     isDragDisabled?: boolean;
+    disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
 }
 

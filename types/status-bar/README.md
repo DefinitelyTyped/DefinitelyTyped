@@ -1,1 +1,0 @@
-***NOTE:*** *This package is deprecated and new versions have been merged into [`@types/atom`](https://www.npmjs.com/package/@types/atom). The most recent version can be accessed as part of the `Atom.Services` namespace.*

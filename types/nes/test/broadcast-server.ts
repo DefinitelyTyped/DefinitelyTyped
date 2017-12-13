@@ -4,11 +4,10 @@ import Hapi = require('hapi');
 import Nes = require('nes');
 
 var server = new Hapi.Server();
-server.connection();
 
-server.register(Nes, function (err) {
+server.register(Nes).then(() => {
 
-    server.start(function (err) {
+    return server.start().then(() => {
 
         server.broadcast('welcome!');
     });

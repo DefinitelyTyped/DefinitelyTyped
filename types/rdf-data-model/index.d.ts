@@ -5,62 +5,11 @@
 
 import * as RDF from "rdf-js";
 
-export class NamedNode implements RDF.NamedNode {
-    termType: "NamedNode";
-    value: string;
-    constructor(iri: string);
-    equals(other: RDF.Term): boolean;
-}
-
-export class BlankNode implements RDF.BlankNode {
-    static nextId: number;
-    termType: "BlankNode";
-    value: string;
-    constructor(id?: string);
-    equals(other: RDF.Term): boolean;
-}
-
-export class Literal implements RDF.Literal {
-    static readonly langStringDatatype: NamedNode;
-    termType: "Literal";
-    value: string;
-    language: string;
-    datatype: RDF.NamedNode;
-    constructor(value: string, language?: string, datatype?: RDF.NamedNode);
-    equals(other: RDF.Term): boolean;
-}
-
-export class Variable implements RDF.Variable {
-    termType: "Variable";
-    value: string;
-    constructor(name: string);
-    equals(other: RDF.Term): boolean;
-}
-
-export class DefaultGraph implements RDF.DefaultGraph {
-    termType: "DefaultGraph";
-    value: "";
-    constructor();
-    equals(other: RDF.Term): boolean;
-}
-
-export class Quad implements RDF.Quad {
-    subject: RDF.Term;
-    predicate: RDF.Term;
-    object: RDF.Term;
-    graph: RDF.Term;
-    constructor(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term, graph?: RDF.Term);
-    equals(other: RDF.Quad): boolean;
-}
-
-export class DataFactory implements RDF.DataFactory {
-    static defaultGraphInstance: RDF.DefaultGraph;
-    constructor();
-    namedNode(value: string): NamedNode;
-    blankNode(value?: string): BlankNode;
-    literal(value: string, languageOrDatatype?: string | RDF.NamedNode): Literal;
-    variable(value: string): Variable;
-    defaultGraph(): DefaultGraph;
-    triple(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term): Quad;
-    quad(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term, graph?: RDF.Term): Quad;
-}
+export const defaultGraphInstance: RDF.DefaultGraph;
+export function namedNode(value: string): RDF.NamedNode;
+export function blankNode(value?: string): RDF.BlankNode;
+export function literal(value: string, languageOrDatatype?: string | RDF.NamedNode): RDF.Literal;
+export function variable(value: string): RDF.Variable;
+export function defaultGraph(): RDF.DefaultGraph;
+export function triple(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term): RDF.Quad;
+export function quad(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term, graph?: RDF.Term): RDF.Quad;

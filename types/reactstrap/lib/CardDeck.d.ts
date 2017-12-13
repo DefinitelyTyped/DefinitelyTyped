@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardDeckProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var CardDeck: React.StatelessComponent<Props>;
+declare const CardDeck: React.StatelessComponent<CardDeckProps>;
 export default CardDeck;

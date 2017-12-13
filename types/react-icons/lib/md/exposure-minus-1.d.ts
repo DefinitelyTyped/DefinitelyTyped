@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdExposureMinus1 extends React.Component<IconBaseProps> { }
+declare class MdExposureMinus1 extends React.Component<IconBaseProps> { }
+export = MdExposureMinus1;

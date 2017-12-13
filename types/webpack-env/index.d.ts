@@ -11,6 +11,7 @@
 declare namespace __WebpackModuleApi {
     interface RequireContext {
         keys(): string[];
+        (id: string): any;
         <T>(id: string): T;
         resolve(id: string): string;
     }
@@ -19,6 +20,7 @@ declare namespace __WebpackModuleApi {
         /**
          * Returns the exports from a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          */
+        (path: string): any;
         <T>(path: string): T;
         /**
          * Behaves similar to require.ensure, but the callback is called with the exports of each dependency in the paths array. There is no option to provide a chunk name.
@@ -29,8 +31,9 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
-        ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void, chunkName?: string) => void;
-        context: (path: string, deep?: boolean, filter?: RegExp) => RequireContext;
+        ensure(paths: string[], callback: (require: (id: string) => any) => void, chunkName?: string): void;
+        ensure(paths: string[], callback: (require: <T>(id: string) => T) => void, chunkName?: string): void;
+        context(path: string, deep?: boolean, filter?: RegExp): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          *
@@ -56,6 +59,7 @@ declare namespace __WebpackModuleApi {
     interface Module {
         exports: any;
         require(id: string): any;
+        require<T>(id: string): T;
         id: string;
         filename: string;
         loaded: boolean;
@@ -104,7 +108,8 @@ declare namespace __WebpackModuleApi {
          * The data will be available at module.hot.data on the new module.
          * @param callback
          */
-        dispose<T>(callback: (data: T) => void): void;
+        dispose(callback: (data: any) => void): void;
+        dispose(callback: <T>(data: T) => void): void;
         /**
          * Add a one time handler, which is executed when the current module code is replaced.
          * Here you should destroy/remove any persistent resource you have claimed/created.
@@ -112,12 +117,14 @@ declare namespace __WebpackModuleApi {
          * The data will be available at module.hot.data on the new module.
          * @param callback
          */
+        addDisposeHandler(callback: (data: any) => void): void;
         addDisposeHandler<T>(callback: (data: T) => void): void;
         /**
          * Remove a handler.
          * This can useful to add a temporary dispose handler. You could i. e. replace code while in the middle of a multi-step async function.
          * @param callback
          */
+        removeDisposeHandler(callback: (data: any) => void): void;
         removeDisposeHandler<T>(callback: (data: T) => void): void;
         /**
          * Throws an exceptions if status() is not idle.
@@ -166,7 +173,7 @@ declare namespace __WebpackModuleApi {
         removeStatusHandler(callback: (status: string) => void): void;
 
         active: boolean;
-        data: {};
+        data: any;
     }
 
     interface AcceptOptions {
@@ -178,7 +185,17 @@ declare namespace __WebpackModuleApi {
          * Indicates that apply() is automatically called by check function
          */
         autoApply?: boolean;
-  }
+    }
+    /**
+    * Inside env you can pass any variable
+    */
+    interface NodeProcess {
+        env?: any;
+    }
+
+    type __Require1 = (id: string) => any;
+    type __Require2 = <T>(id: string) => T;
+    type RequireLambda = __Require1 & __Require2;
 }
 
 interface NodeRequire extends __WebpackModuleApi.RequireFunction {
@@ -209,7 +226,7 @@ declare var __webpack_require__: any;
  * @param chunkId The id for the chunk to load.
  * @param callback A callback function called once the chunk is loaded.
  */
-declare var __webpack_chunk_load__: (chunkId: any, callback: (require: (id: string) => any) => void) => void;
+declare var __webpack_chunk_load__: (chunkId: any, callback: (require: __WebpackModuleApi.RequireLambda) => void) => void;
 
 /**
  * Access to the internal object of all modules.
@@ -236,3 +253,11 @@ declare var DEBUG: boolean;
 interface NodeModule extends __WebpackModuleApi.Module {}
 
 declare var module: NodeModule;
+
+/**
+* Declare process variable
+*/
+declare namespace NodeJS {
+    interface Process extends __WebpackModuleApi.NodeProcess {}
+}
+declare var process: NodeJS.Process;

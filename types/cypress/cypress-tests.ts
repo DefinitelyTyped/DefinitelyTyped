@@ -10,12 +10,16 @@ cy
   .get('#querying')
   .contains('ul', 'oranges').should('have.class', 'query-list')
   .get('.query-button')
-  .contains('Save Form').should('have.class', 'btn');
+  .contains('Save Form').should('have.class', 'btn')
+  .trigger('mousemove', {clientX: 100, clientY: 200});
+
+cy.location('host');
 
 cy
   .get('form')
   .find('input')
-  .then($input => $input.click());
+  .then($input => $input.click())
+  .then($input => $input.click(), {timeout: 12});
 
 cy
   .wrap({ sum: (a: number, b: number, c: number) => a + b + c })
@@ -36,3 +40,5 @@ cy
     .spread((x , y, z) => {
         x + y + z;
     });
+
+cy.log('end');

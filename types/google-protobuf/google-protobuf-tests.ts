@@ -93,15 +93,15 @@ class MySimple extends jspb.Message {
       const field = reader.getFieldNumber();
       switch (field) {
         case 1:
-          const value1 = /** @type {string} */ (reader.readString());
+          const value1 = reader.readString();
           msg.setMyString(value1);
           break;
         case 2:
-          const value2 = /** @type {boolean} */ (reader.readBool());
+          const value2 = reader.readBool();
           msg.setMyBool(value2);
           break;
         case 3:
-          const value3 = /** @type {string} */ (reader.readString());
+          const value3 = reader.readString();
           msg.addSomeLabels(value3);
           break;
         case 4:

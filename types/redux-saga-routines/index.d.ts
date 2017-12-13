@@ -10,10 +10,10 @@ import { FormSubmitHandler } from "redux-form";
 export const ROUTINE_PROMISE_ACTION: string;
 
 export interface RoutineAction<T> extends Action {
-    payload: T;
+    payload?: T;
 }
 
-export type RoutineActionCreator<T> = (payload: T) => RoutineAction<T>;
+export type RoutineActionCreator<T> = (payload?: T) => RoutineAction<T>;
 
 export interface ReduxRoutine {
     TRIGGER: string;

@@ -1,4 +1,4 @@
-// Type definitions for chokidar 1.7.1
+// Type definitions for chokidar 1.7
 // Project: https://github.com/paulmillr/chokidar
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 //                 Felix Becker <https://github.com/felixfbecker>
@@ -19,7 +19,6 @@ export interface WatchedPaths {
 }
 
 export class FSWatcher extends EventEmitter implements fs.FSWatcher {
-
     /**
      * Constructs a new FSWatcher instance with optional WatchOptions parameter.
      */
@@ -52,7 +51,6 @@ export class FSWatcher extends EventEmitter implements fs.FSWatcher {
 }
 
 export interface WatchOptions {
-
     /**
      * Indicates whether the process should continue to run as long as files are being watched. If
      * set to `false` when using `fsevents` to watch, no more events will be emitted after `ready`,
@@ -86,7 +84,7 @@ export interface WatchOptions {
      * be relative to this.
      */
     cwd?: string;
-    
+
     /**
      *  If set to true then the strings passed to .watch() and .add() are treated as literal path
      *  names, even if they look like globs. Default: false.
@@ -155,7 +153,6 @@ export interface WatchOptions {
 }
 
 export interface AwaitWriteFinishOptions {
-
     /**
      * Amount of time in milliseconds for a file size to remain constant before emitting its event.
      */

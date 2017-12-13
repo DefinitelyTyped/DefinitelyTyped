@@ -1,4 +1,4 @@
-// Type definitions for Keypress 2.0
+// Type definitions for Keypress 2.1
 // Project: https://github.com/dmauro/Keypress/
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,18 +19,18 @@ export interface ListenerDefaults {
 }
 
 export interface Combo {
-    keys: string;
-    on_keydown(event?: KeyboardEvent, count?: number): any;
-    on_keyup(event?: KeyboardEvent): any;
-    on_release(event?: KeyboardEvent): any;
-    this: Element;
-    prevent_default: boolean;
-    prevent_repeat: boolean;
-    is_unordered: boolean;
-    is_counting: boolean;
-    is_exclusive: boolean;
-    is_sequence: boolean;
-    is_solitary: boolean;
+    keys?: string;
+    on_keydown?(event?: KeyboardEvent, count?: number): any;
+    on_keyup?(event?: KeyboardEvent): any;
+    on_release?(event?: KeyboardEvent): any;
+    this?: Element;
+    prevent_default?: boolean;
+    prevent_repeat?: boolean;
+    is_unordered?: boolean;
+    is_counting?: boolean;
+    is_exclusive?: boolean;
+    is_sequence?: boolean;
+    is_solitary?: boolean;
 }
 
 export class Listener {
@@ -39,9 +39,9 @@ export class Listener {
     simple_combo(keys: string, on_keydown_callback: (event?: KeyboardEvent, count?: number) => any): void;
     counting_combo(keys: string, on_count_callback: (event?: KeyboardEvent, count?: number) => any): void;
     sequence_combo(keys: string, callback: (event?: KeyboardEvent, count?: number) => any): void;
-    register_combo(combo: Combo): void;
+    register_combo(combo: Combo): Combo;
     unregister_combo(combo: Combo | string): void;
-    register_many(combos: Combo[]): void;
+    register_many(combos: Combo[]): Combo[];
     unregister_many(combos: Combo[] | string[]): void;
     get_registered_combos(): Combo[];
     destroy(): void;

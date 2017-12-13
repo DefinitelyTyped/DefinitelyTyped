@@ -1,4 +1,4 @@
-// Type definitions for Paper.js v0.9.23
+// Type definitions for Paper.js v0.9.24
 // Project: http://paperjs.org/
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -927,20 +927,34 @@ declare module 'paper' {
         abs(): Size;
 
         /*
-         * Returns the new multiplied size
-         * @param point - The size you want to multiply with
+         * Returns a new size
+         * @param size - The size you want to add with
          */
-        multiply(point: Size): Size;
-        multiply(point: number[]): Size;
-        multiply(point: number): Size;
+        add(size: Size): Size;
+        add(size: number[]): Size;
+
+        /*
+         * Returns a new size
+         * @param size - The size you want to subtract with
+         */
+        subtract(size: Size): Size;
+        subtract(size: number[]): Size;
+
+        /*
+         * Returns the new multiplied size
+         * @param size - The size you want to multiply with
+         */
+        multiply(size: Size): Size;
+        multiply(size: number[]): Size;
+        multiply(size: number): Size;
 
         /*
          * Returns the new divided size
-         * @param point - The size you want to divide with
+         * @param size - The size you want to divide with
          */
-        divide(point: Size): Size;
-        divide(point: number[]): Size;
-        divide(point: number): Size;
+        divide(size: Size): Size;
+        divide(size: number[]): Size;
+        divide(size: number): Size;
 
     }
     export interface IFrameEvent {
@@ -1291,7 +1305,12 @@ declare module 'paper' {
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDown: (event: MouseEvent) => void;
-
+        
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+        
         /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.

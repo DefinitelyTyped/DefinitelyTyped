@@ -51,3 +51,5 @@ Router.replace('/route', '/asRoute', {shallow: false}).then((success: boolean) =
 Router.prefetch('/route').then(Component => {
   const element = (<Component />);
 });
+
+r.withRouter(props => <div />);

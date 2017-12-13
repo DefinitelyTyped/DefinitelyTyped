@@ -1,6 +1,7 @@
 // Type definitions for validatorjs v3.7.0
 // Project: https://github.com/skaterdav85/validatorjs
 // Definitions by: Karol Janyst <https://github.com/LKay>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Validator {
@@ -14,7 +15,7 @@ declare namespace Validator {
     }
 
     interface ErrorMessages {
-        [key: string]: string
+        [key: string]: string | ErrorMessages
     }
 
     interface AttributeNames {
