@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export function defaultHead(): JSX.Element[];
 export default class extends React.Component {
