@@ -715,6 +715,12 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "striptags",
+            "typingsPackageName": "striptags",
+            "sourceRepoURL": "https://github.com/ericnorris/striptags",
+            "asOfVersion": "3.1.1"
+        },
+        {
             "libraryName": "Sugar",
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
