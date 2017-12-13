@@ -37,6 +37,6 @@ class Test extends React.Component {
                     </MediaQuery>
                 </MediaQuery>
             </div>
-        )
+        );
     }
 }
