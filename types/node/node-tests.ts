@@ -922,7 +922,37 @@ function simplified_stream_ctor_test() {
 
 namespace crypto_tests {
     {
+        // crypto_hash_string_test
+        var hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hash_buffer_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hash_dataview_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    }
+
+    {
+        // crypto_hmac_string_test
         var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hmac_buffer_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hmac_dataview_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
     }
 
     {
@@ -957,6 +987,28 @@ namespace crypto_tests {
         cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
+
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_dataview_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: DataView = new DataView(
+            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
