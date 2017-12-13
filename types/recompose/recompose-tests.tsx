@@ -83,20 +83,20 @@ function testWithPropsOnChange() {
 }
 
 function testWithHandlers() {
+    interface OutterProps {
+        out: number;
+    }
     interface InnerProps {
-        onSubmit: React.MouseEventHandler<HTMLDivElement>;
-        onChange: Function;
         foo: string;
     }
     interface HandlerProps {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
-    interface OutterProps { out: number; }
-    const InnerComponent: React.StatelessComponent<InnerProps> = ({onChange, onSubmit}) =>
-      <div onClick={onSubmit}></div>;
+    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps> = ({onChange, onSubmit, foo}) =>
+      <div onClick={onSubmit}>{foo}</div>;
 
-    const enhancer = withHandlers<OutterProps, HandlerProps>({
+    const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     });
@@ -108,7 +108,7 @@ function testWithHandlers() {
         />
     )
 
-    const enhancer2 = withHandlers<OutterProps, HandlerProps>((props) => ({
+    const enhancer2 = withHandlers<OutterProps & InnerProps, HandlerProps>((props) => ({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     }));
