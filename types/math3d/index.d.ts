@@ -148,7 +148,7 @@ export class Transform {
     position: Vector3;
     right: Vector3;
     root: Transform;
-    rotation: Vector3;
+    rotation: Quaternion;
     up: Vector3;
     worldToLocalMatrix: Matrix4x4;
 
