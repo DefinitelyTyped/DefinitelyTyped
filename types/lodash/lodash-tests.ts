@@ -6078,9 +6078,13 @@ namespace TestMap {
     let list: _.List<number> | null | undefined = [] as any;
     let obj: any = {};
     let dictionary: _.Dictionary<number> | null | undefined = obj;
+    type RecordKey = 'foo' | 'bar';
+    type MyRecord = Record<RecordKey, number>;
+    let record: MyRecord = { foo: 1, bar: 2 };
 
     let listIterator: (value: number, index: number, collection: _.List<number>) => TResult = (value: number, index: number, collection: _.List<number>) => ({ a: 1, b: "", c: true });
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult = (value: number, key: string, collection: _.Dictionary<number>) => ({ a: 1, b: "", c: true });
+    let recordIterator: (value: number, key: RecordKey, collection: MyRecord) => RecordKey = (value: number, key: RecordKey, collection: MyRecord) => key;
 
     {
         _.map(array);  // $ExpectType number[]
@@ -6091,6 +6095,8 @@ namespace TestMap {
 
         _.map(dictionary);  // $ExpectType number[]
         _.map(dictionary, dictionaryIterator);  // $ExpectType TResult[]
+
+        _.map(record, recordIterator);  // $ExpectType RecordKey[]
     }
 
     {
