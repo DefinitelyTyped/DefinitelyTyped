@@ -1,8 +1,5 @@
-// Type definitions for jQuery jqgrid Plugin 1.3
-// Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 var mydata: any[] = [];
+var myFun = function () { };
 
 $('#jqGrid')
 	.jqGrid({
@@ -14,10 +11,30 @@ $('#jqGrid')
 		shrinkToFit: true,
 		width: null,
 		colModel: [
-			{ label: 'Name', name: 'id', width: 75, key: true, align: 'left' },
-			{ label: 'Description', name: 'description', width: 100 }
+			{ label: 'Name', name: 'id', width: 75, key: true, align: 'left', sorttype: '', formatoptions: '' },
+			{ label: 'Description', name: 'description', width: 100, unformat: myFun, editoptions: '', edittype: ''  }
 		],
 		viewrecords: true, // show the current page, data rang and total records on the toolbar
 		caption: 'Matches',
-		onSelectRow(id: any, status: any, e: Event) { }
+		onSelectRow(id: any, status: any, e: Event) { },
+		subGrid: true,
+		altRows: true,
+		subGridOptions: {
+			plusicon: "blue",
+			minusicon: "bigger-110 blue",
+			openicon: "fa fa-chevron-right"
+		},
+		subGridModel: mydata,
+		subGridUrl: '',
+		subGridRowExpanded: function () {
+
+		},
+		loadComplete: function () {
+
+		},
+		editurl: '',
+		loadloadComplete: function () {
+
+		},
+		
 	});
