@@ -6102,8 +6102,8 @@ declare namespace _ {
          * @see _.map
          */
         map<T, TResult>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee: DictionaryIterator<T, TResult>
+            collection: T | null | undefined,
+            iteratee: ObjectIterator<T, TResult>
         ): TResult[];
 
         /** @see _.map */
