@@ -1441,12 +1441,12 @@ declare module "zlib" {
 
     export interface Zlib {
         readonly bytesRead: number;
-        close(callback?: Function): void;
-        flush(kind?: number | Function, callback?: Function): void;
+        close(callback?: () => void): void;
+        flush(kind?: number | (() => void), callback?: () => void): void;
     }
 
     export interface ZlibParams {
-        params(level: number, strategy: number, callback?: Function): void;
+        params(level: number, strategy: number, callback?: () => void): void;
     }
 
     export interface ZlibReset {
