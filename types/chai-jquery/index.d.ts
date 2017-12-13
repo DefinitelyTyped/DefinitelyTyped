@@ -10,10 +10,10 @@
 declare namespace Chai {
 
     interface Assertion {
-        attr: (name: string, value?: string) => Assertion;
-        prop: (name: string, value?: any) => Assertion;
-        css: (name: string, value?: string) => Assertion;
-        data: (name: string, value?: string) => Assertion;
+        attr(name: string, value?: string): Assertion;
+        prop(name: string, value?: any): Assertion;
+        css(name: string, value?: string): Assertion;
+        data(name: string, value?: string): Assertion;
         class(className: string): Assertion;
         id(id: string): Assertion;
         html(html: string): Assertion;
