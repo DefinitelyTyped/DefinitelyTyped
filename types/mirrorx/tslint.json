@@ -4,6 +4,16 @@
         "import-spacing": true,
         "interface-over-type-literal": true,
         "max-line-length": true,
-        "member-access": true
+        "member-access": true,
+        "no-trailing-whitespace":false,
+        "whitespace":false,
+        "semicolon":false,
+        "no-duplicate-imports":false,
+        "export-just-namespace":false,
+        "no-unnecessary-generics":false,
+        "typedef-whitespace":false,
+        "no-consecutive-blank-lines":false,
+        "trim-file":false,
+        "prefer-declare-function":"prefer-declare-function"
     }
 }
