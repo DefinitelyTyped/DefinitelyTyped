@@ -456,14 +456,8 @@ function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
 }
 
-
-
-
-
-
-// dtslint
-
-import * as Mocha from "mocha";
-
-new Mocha().run(); // $ExpectType IRunner
-new Mocha().run().on("", function() {}); // $ExpectType IRunner
+function test_runner_fluentParams() {
+    new MochaDef().run(); // $ExpectType IRunner
+    new MochaDef().run().on("event-string", function() {}); // $ExpectType IRunner
+    new MochaDef().run().on(Symbol("event-symbol"), function() {}); // $ExpectType IRunner
+}
