@@ -84,7 +84,7 @@ declare module 'recompose' {
     type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) => HandleCreators<TOutter, THandlers>;
     export function withHandlers<TOutter, THandlers>(
         handlerCreators: HandleCreators<TOutter, THandlers> | HandleCreatorsFactory<TOutter, THandlers>
-    ): InferableComponentEnhancerWithProps<THandlers, TOutter>;
+    ): InferableComponentEnhancerWithProps<TOutter & THandlers, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
     export function defaultProps<T = {}>(
