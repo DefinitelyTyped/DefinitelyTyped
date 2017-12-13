@@ -3419,7 +3419,6 @@ declare global {
         interface IntrinsicAttributes extends React.Attributes { }
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        
 
         interface IntrinsicElements {
             // HTML
