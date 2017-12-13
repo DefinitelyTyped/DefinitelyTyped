@@ -7047,7 +7047,7 @@ declare module "perf_hooks" {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: string[], buffered: boolean }): void;
+        observe(options: { entryTypes: string[], buffered?: boolean }): void;
     }
 
     export namespace constants {
