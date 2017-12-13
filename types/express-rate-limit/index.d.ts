@@ -24,6 +24,7 @@ declare namespace RateLimit {
         max?: number;
         message?: string;
         skip?(req: express.Request, res: express.Response): boolean;
+        skipFailedRequests?: boolean;
         statusCode?: number;
         store?: Store;
         onLimitReached?(req: express.Request, res: express.Response, optionsUsed: Options): void;
