@@ -66,7 +66,6 @@ declare module 'mocha' {
     // re-export mocha globals as named exports
     export const describe: Mocha.IContextDefinition;
     export const context: Mocha.IContextDefinition;
-    export const suite: Mocha.IContextDefinition;
     export const it: Mocha.ITestDefinition;
     export const setup: mochaSetup;
     export const teardown: mochaTeardown;

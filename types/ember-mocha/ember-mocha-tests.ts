@@ -3,7 +3,7 @@ import {
     setResolver, setupAcceptanceTest, setupComponentTest,
     setupModelTest, setupTest
 } from 'ember-mocha';
-import { context, suite, describe, it, beforeEach, afterEach, before, after } from 'mocha';
+import { context, describe, it, beforeEach, afterEach, before, after } from 'mocha';
 import chai = require('chai');
 import Ember from "ember";
 import hbs from 'htmlbars-inline-precompile';
@@ -127,8 +127,8 @@ describe('setupTest', function() {
     });
 });
 
-// testing suite and context
-suite('for test suite A', function() {
+// testing context
+describe('for test suite A', function() {
     context('when trying method foo', function() {
         it('should test correctly', function() {
         });
