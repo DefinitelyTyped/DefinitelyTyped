@@ -36,8 +36,8 @@ declare class Pubnub {
   unsubscribe(params: Pubnub.UnsubscribeParameters): void;
 
   unsubscribeAll(): void;
-    
-  stop():void;
+
+  stop(): void;
 
   addListener(params: Pubnub.ListenerParameters): void;
 
