@@ -77,5 +77,6 @@ class Comp extends React.Component<{}, { foo: boolean, bar: boolean }> {
       this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
       this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
       this.setState(() => ({ })); // ok!
+      this.setState({ foo: true, bar: undefined}); // $ExpectError
     }
 }
