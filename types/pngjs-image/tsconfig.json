@@ -1,0 +1,22 @@
+{
+    "files": [
+        "index.d.ts",
+        "pngjs-image-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es5", "dom"],
+        "target": "es5",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
