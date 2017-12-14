@@ -11658,8 +11658,6 @@ declare namespace _ {
          * @return Returns the random number.
          */
         random(
-            min?: number,
-            max?: number,
             floating?: boolean
         ): number;
 
@@ -11668,13 +11666,17 @@ declare namespace _ {
          */
         random(
             max: number,
-            floating: boolean
+            floating?: boolean
         ): number;
 
         /**
          * @see _.random
          */
-        random(floating: boolean): number;
+        random(
+            min: number,
+            max: number,
+            floating?: boolean
+        ): number;
 
         /**
          * Produces a random number between min and max (inclusive). If only one argument is provided a number between
@@ -11697,30 +11699,30 @@ declare namespace _ {
         /**
          * @see _.random
          */
-        random(
-            max?: number,
-            floating?: boolean
-        ): number;
+        random(floating?: boolean): number;
 
         /**
          * @see _.random
          */
-        random(floating?: boolean): number;
+        random(
+            max: number,
+            floating?: boolean
+        ): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.random
          */
-        random(
-            max?: number,
-            floating?: boolean
-        ): LoDashExplicitWrapper<number>;
+        random(floating?: boolean): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.random
          */
-        random(floating?: boolean): LoDashExplicitWrapper<number>;
+        random(
+            max: number,
+            floating?: boolean
+        ): LoDashExplicitWrapper<number>;
     }
 
     /**********
