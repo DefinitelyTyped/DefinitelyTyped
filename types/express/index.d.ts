@@ -2,7 +2,7 @@
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.2
 
 /* =================== USAGE ===================
 
