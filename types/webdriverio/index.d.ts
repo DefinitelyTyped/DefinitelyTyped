@@ -1882,6 +1882,10 @@ declare namespace WebdriverIO {
 
         switchTab(windowHandle?: string): Client<RawResult<null>> & RawResult<null>;
         switchTab<P>(windowHandle?: string): Client<P>;
+
+        isIOS: boolean;
+        isAndroid: boolean;
+        isMobile: boolean;
     }
 
     const VERSION: string;
