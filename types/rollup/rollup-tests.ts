@@ -87,6 +87,22 @@ async function main() {
         strict: true,
     })
 
+    await bundle.write({
+        format: 'cjs',
+        file: 'bundle.js',
+        name: 'myLib',
+        interop: false,
+        globals: (x: string) => x.replace("", "/"),
+        banner: '/* Banner */',
+        footer: '/* Footer */',
+        intro: 'var ENV = "production";',
+        outro: 'var VERSION = "1.0.0";',
+        indent: '  ',
+        sourcemap: 'inline',
+        sourcemapFile: 'bundle.js.map',
+        strict: true,
+    })
+
     const watcher = watch({
         input: 'main.js',
         output: {

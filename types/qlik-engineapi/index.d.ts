@@ -1,5 +1,5 @@
-// Type definitions for qlik-engineapi 12.34
-// Project: http://help.qlik.com/en-US/sense-developer/September2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
+// Type definitions for qlik-engineapi 12.67
+// Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -2402,7 +2402,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at app level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the app.
      */
-    interface IApp {
+    interface IApp extends enigmaJS.IGeneratedAPI {
         global: IGlobal;
 
         /**
@@ -2983,6 +2983,13 @@ declare namespace EngineAPI {
          * @returns - return a Promise of FieldDescription.
          */
         getFieldDescription(qFieldName: string): Promise<IFieldDescription>;
+
+        /**
+         * Fetches the Expression behind a Field that is declared with DECLARE FIELD DEFINITIO
+         * @param qReadableName: name of a Field that is declared with DECLARE FIELD DEFINITION
+         * @returns qname wich contains the expression
+         */
+        getFieldOnTheFlyByName(qReadableName: string): Promise<{qName: string}>;
 
         /**
          * Retrieves the description of a field.
@@ -7151,6 +7158,21 @@ declare namespace EngineAPI {
         getBaseBNFHash(qBnfType: BnfType): Promise<{ qBnfHash: string }>;
 
         /**
+         * Gets the current Backus-Naur Form (BNF) grammar of the Qlik engine scripting language,
+         * as well as a string hash calculated from that grammar. The BNF rules define the syntax
+         * for the script statements and the script or chart functions. If the hash changes between
+         * subsequent calls to this method, this indicates that the BNF has changed.
+         *
+         * In the Qlik engine grammars, a token is a string of one or more characters that is significant as a group.
+         * For example, a token could be a function name, a number, a letter, a parenthesis, and so on.
+         * @param qBnfType The type of grammar to return:
+         *                   S: returns the script statements and the script functions.
+         *                   E: returns the chart functions.
+         * @returns qBnfDefs and qBnfHash
+         */
+        getBaseBNFString(qBnfType: BnfType): Promise<{qBnfDefs: IBNFDef, qBnfHash: string}>;
+
+        /**
          * Get a Config Object
          * @returns A Promise qConfig
          */
@@ -9108,8 +9130,7 @@ declare namespace EngineAPI {
     /**
      * SelectionListObject width extend GenericObject
      */
-    interface ISelectionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericSelectionListLayout>;
+    interface ISelectionListObject extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {
     }
 
     interface IApp {
@@ -9171,8 +9192,7 @@ declare namespace EngineAPI {
     /**
      * BookmarkListObject width extend GenericObject
      */
-    interface IBookmarkListObject extends IGenericObject {
-        getLayout(): Promise<IGenericBookmarkListLayout>;
+    interface IBookmarkListObject extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {
     }
 
     interface IApp {
@@ -9234,8 +9254,7 @@ declare namespace EngineAPI {
     /**
      * IMeassureListObject
      */
-    interface IMeassureListObject extends IGenericObject {
-        getLayout(): Promise<IGenericMeasureListLayout>;
+    interface IMeassureListObject extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {
     }
 
     interface IApp {
@@ -9302,8 +9321,7 @@ declare namespace EngineAPI {
         qData: any;
     }
 
-    interface IDimensionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericDimensionListLayout>;
+    interface IDimensionListObject extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {
     }
 
     interface IApp {
@@ -9380,15 +9398,15 @@ declare namespace EngineAPI {
     /**
      * VariableListObject...
      */
-    interface IVariableListObject {
+    interface IVariableList {
         qItems: INxVariableListItem[];
     }
 
     /**
      * GenericVariableLayout width extend GenericObjectLayout
      */
-    interface IGenericVariableLayout extends IGenericObjectLayout {
-        qVariableListObject: IVariableListObject;
+    interface IGenericVariableListLayout extends IGenericBaseLayout {
+        qVariableListObject: IVariableList;
     }
 
     /**
@@ -9426,8 +9444,7 @@ declare namespace EngineAPI {
     /**
      * VariableListObject width extend GenericObject
      */
-    interface IVariableListObject extends IGenericObject {
-        getLayout(): Promise<IGenericVariableLayout>;
+    interface IVariableListObject extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {
     }
 
     interface IApp {
@@ -9442,21 +9459,11 @@ declare namespace EngineAPI {
     /**
      * FieldListObject...
      */
-    interface IFieldListObject {
+    interface IFieldList {
         /**
          * NxFieldDescription[]
          */
         qItems: INxFieldDescription[];
-    }
-
-    /**
-     * GenericFieldLayout width extend GenericObjectLayout
-     */
-    interface IGenericFieldLayout extends IGenericObjectLayout {
-        /**
-         * FieldListObject...
-         */
-        qFieldListObject: IFieldListObject;
     }
 
     /**
@@ -9671,6 +9678,22 @@ declare namespace EngineAPI {
          * Shows the Direct Discovery measure fields if set to true.
          */
         qShowImplicit?: boolean;
+    }
+
+    /**
+     * GenericFieldLayout width extend GenericObjectLayout
+     */
+    interface IGenericFieldLayout extends IGenericBaseLayout {
+        /**
+         * FieldListObject...
+         */
+        qFieldListObject: IFieldList;
+    }
+
+    /**
+     * FieldListObject width extend GenericObject
+     */
+    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {
     }
 
     interface IApp {

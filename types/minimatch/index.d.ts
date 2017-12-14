@@ -27,7 +27,7 @@ declare namespace M {
      */
     function makeRe(pattern: string, options?: IOptions): RegExp;
 
-    var Minimatch: IMinimatchStatic;
+    let Minimatch: IMinimatchStatic;
 
     interface IOptions {
         /**

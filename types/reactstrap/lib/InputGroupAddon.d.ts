@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface InputGroupAddonProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var InputGroupAddon: React.StatelessComponent<Props>;
+declare const InputGroupAddon: React.StatelessComponent<InputGroupAddonProps>;
 export default InputGroupAddon;

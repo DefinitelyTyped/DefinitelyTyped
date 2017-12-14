@@ -179,6 +179,11 @@ declare namespace ReactGridLayout {
         isRearrangeable?: boolean;
 
         /**
+         * If true, grid items won't change position when being dragged over.
+         */
+        preventCollision?: boolean;
+
+        /**
          * Uses CSS3 `translate()` instead of position top/left.
          * This makes about 6x faster paint performance.
          */

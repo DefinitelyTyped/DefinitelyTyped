@@ -11585,6 +11585,10 @@ declare namespace _ {
             lower: number,
             upper: number
         ): number;
+        clamp(
+            number: number,
+            upper: number
+        ): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -11595,6 +11599,9 @@ declare namespace _ {
             lower: number,
             upper: number
         ): number;
+        clamp(
+            upper: number
+        ): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -11603,6 +11610,9 @@ declare namespace _ {
          */
         clamp(
             lower: number,
+            upper: number
+        ): LoDashExplicitWrapper<number>;
+        clamp(
             upper: number
         ): LoDashExplicitWrapper<number>;
     }
@@ -16635,21 +16645,21 @@ declare namespace _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): (...args: any[]) => boolean;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
     }
 
     //_.overSome
@@ -16661,21 +16671,21 @@ declare namespace _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overSome(...predicates: Array<Many<(...args: any[]) => any>>): (...args: any[]) => boolean;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
     }
 
     //_.property
@@ -17084,13 +17094,13 @@ declare namespace _ {
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
+    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | object | [string, any] | PartialDeep<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
     type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
-    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
+    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | object | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
 
     type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;

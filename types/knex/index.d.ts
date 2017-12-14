@@ -1,6 +1,9 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>, Pablo Rodríguez <https://github.com/MeLlamoPablo>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Baronfel <https://github.com/baronfel>
+//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -156,7 +159,7 @@ declare namespace Knex {
         delete(returning?: string | string[]): QueryBuilder;
         truncate(): QueryBuilder;
 
-        transacting(trx: Transaction): QueryBuilder;
+        transacting(trx?: Transaction): QueryBuilder;
         connection(connection: any): QueryBuilder;
 
         clone(): QueryBuilder;
@@ -510,7 +513,7 @@ declare namespace Knex {
 
     interface Config {
         debug?: boolean;
-        client?: string;
+        client?: string | typeof Client;
         dialect?: string;
         version?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
@@ -675,6 +678,22 @@ declare namespace Knex {
 
     interface FunctionHelper {
         now(): Raw;
+    }
+
+    //
+    // Clients
+    //
+
+    class Client extends events.EventEmitter {
+      constructor(config: Config);
+      config: Config;
+      dialect: string;
+      driverName: string;
+      connectionSettings: object;
+
+      acquireRawConnection(): Promise<any>;
+      destroyRawConnection(connection: any): Promise<void>;
+      validateConnection(connection: any): Promise<boolean>;
     }
 }
 

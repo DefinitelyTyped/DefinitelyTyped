@@ -31,13 +31,14 @@ export interface UncontrolledProps {
   autohide?: boolean;
   delay?: number | { show: number, hide: number };
 }
+export interface UncontrolledTooltipProps extends UncontrolledProps {
+  /* intentionally blank */
+}
 
-interface Props extends UncontrolledProps {
+export interface TooltipProps extends UncontrolledTooltipProps {
   toggle?: () => void;
   isOpen?: boolean;
 }
 
-
-
-declare var Tooltip: React.StatelessComponent<Props>;
+declare const Tooltip: React.StatelessComponent<TooltipProps>;
 export default Tooltip;
