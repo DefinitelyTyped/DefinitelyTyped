@@ -863,6 +863,9 @@ declare namespace WebdriverIO {
         touchMultiPerform(actions: any): Client<T>;
         touchPerform(actions: any): Client<T>;
         unlock(): Client<T>;
+        isIOS: boolean;
+        isAndroid: boolean;
+        isMobile: boolean;
     }
 
     // Property
@@ -1882,10 +1885,6 @@ declare namespace WebdriverIO {
 
         switchTab(windowHandle?: string): Client<RawResult<null>> & RawResult<null>;
         switchTab<P>(windowHandle?: string): Client<P>;
-
-        isIOS: boolean;
-        isAndroid: boolean;
-        isMobile: boolean;
     }
 
     const VERSION: string;
