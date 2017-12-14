@@ -3,18 +3,18 @@
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Nikolai Ommundsen <https://github.com/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./index.d.ts"/>
+/// <reference types="chrome"/>
 /// <reference types="filesystem"/>
 
 ////////////////////
 // App
 ////////////////////
 declare namespace chrome.app {
-	export interface AppDetails extends chrome.runtime.Manifest {
-		id: string;
-	}
+    export interface AppDetails extends chrome.runtime.Manifest {
+        id: string;
+    }
 
-	export function getDetails(): AppDetails;
+    export function getDetails(): AppDetails;
 }
 
 ////////////////////
@@ -61,9 +61,9 @@ declare namespace chrome.app.runtime {
         type: string;
     }
 
-    export interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> {}
+    export interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> { }
 
-    export interface RestartedEvent extends chrome.events.Event<() => void> {}
+    export interface RestartedEvent extends chrome.events.Event<() => void> { }
 
     export var onLaunched: LaunchedEvent;
     export var onRestarted: RestartedEvent;
@@ -181,7 +181,7 @@ declare namespace chrome.app.window {
     export function getAll(): AppWindow[];
     export function canSetVisibleOnAllWorkspaces(): boolean;
 
-    export interface WindowEvent extends chrome.events.Event<() => void> {}
+    export interface WindowEvent extends chrome.events.Event<() => void> { }
 
     export var onBoundsChanged: WindowEvent;
     export var onClosed: WindowEvent;
@@ -1123,7 +1123,7 @@ declare namespace chrome.system.display {
      * @export
      * @param {(layouts: DisplayLayout[]) => void} callback The callback to invoke with the results.
      */
-    export function getDisplayLayout(callback:(layouts: DisplayLayout[]) => void): void;
+    export function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
     /**
      * @description Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
@@ -1236,161 +1236,161 @@ declare namespace chrome.system.network {
 }
 
 declare namespace chrome.runtime {
-	export interface Manifest {
-		app?: {
-			background?: {
-				scripts?: string[];
-			}
-		},
-		bluetooth?: {
-			uuids?: string[];
-			socket?: boolean;
-			low_energy?: boolean;
-			peripheral?: boolean;
-		},
-		file_handlers?: {
-			[name: string]: {
-				types?: string[];
-				extensions?: string[];
-				title?: string;
-			}
-		},
-		kiosk_enabled?: boolean,
-		kiosk_only?: boolean,
-		url_handlers?: {
-			[name: string]: {
-				matches: string[];
-				title?: string;
-			}
-		},
-		usb_printers?: {
-			filters: {
-				vendorId?: number;
-				productId?: number;
-				interfaceClass?: number;
-				interfaceSubclass?: number;
-				interfaceProtocol?: number;
-			}[]
-		},
-		webview?: {
-			partitions?: {
-				name: string;
-				accessible_resources: string[];
-			}[]
-		}
-	}
+    export interface Manifest {
+        app?: {
+            background?: {
+                scripts?: string[];
+            }
+        },
+        bluetooth?: {
+            uuids?: string[];
+            socket?: boolean;
+            low_energy?: boolean;
+            peripheral?: boolean;
+        },
+        file_handlers?: {
+            [name: string]: {
+                types?: string[];
+                extensions?: string[];
+                title?: string;
+            }
+        },
+        kiosk_enabled?: boolean,
+        kiosk_only?: boolean,
+        url_handlers?: {
+            [name: string]: {
+                matches: string[];
+                title?: string;
+            }
+        },
+        usb_printers?: {
+            filters: {
+                vendorId?: number;
+                productId?: number;
+                interfaceClass?: number;
+                interfaceSubclass?: number;
+                interfaceProtocol?: number;
+            }[]
+        },
+        webview?: {
+            partitions?: {
+                name: string;
+                accessible_resources: string[];
+            }[]
+        }
+    }
 }
 
 ////////////////////
 // USB
 ////////////////////
 declare namespace chrome.usb {
-	type Direction = 'in' | 'out';
+    type Direction = 'in' | 'out';
 
-	export interface Device {
-		device: number,
-		vendorId: number,
-		productId: number,
-		productName: string,
-		manufacturerName: string,
-		serialNumber: string
-	}
+    export interface Device {
+        device: number,
+        vendorId: number,
+        productId: number,
+        productName: string,
+        manufacturerName: string,
+        serialNumber: string
+    }
 
-	export interface ConnectionHandle {
-		handle: number,
-		vendorId: number,
-		productId: number
-	}
+    export interface ConnectionHandle {
+        handle: number,
+        vendorId: number,
+        productId: number
+    }
 
-	export interface EndpointDescriptor {
-		address: number,
-		type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
-		direction: Direction,
-		maximumPacketSize: number,
-		synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
-		usage?: 'data' | 'feedback' | 'explicitFeedback',
-		pollingInterval?: number,
-		extra_data: ArrayBuffer
-	}
+    export interface EndpointDescriptor {
+        address: number,
+        type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
+        direction: Direction,
+        maximumPacketSize: number,
+        synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
+        usage?: 'data' | 'feedback' | 'explicitFeedback',
+        pollingInterval?: number,
+        extra_data: ArrayBuffer
+    }
 
-	export interface InterfaceDescriptor {
-		interfaceNumber: number,
-		alternateSetting: number,
-		interfaceClass: number,
-		interfaceSubclass: number,
-		interfaceProtocol: number,
-		description?: string,
-		endpoints: EndpointDescriptor[],
-		extra_data: ArrayBuffer
-	}
+    export interface InterfaceDescriptor {
+        interfaceNumber: number,
+        alternateSetting: number,
+        interfaceClass: number,
+        interfaceSubclass: number,
+        interfaceProtocol: number,
+        description?: string,
+        endpoints: EndpointDescriptor[],
+        extra_data: ArrayBuffer
+    }
 
-	export interface ConfigDescriptor {
-		active: boolean,
-		configurationValue: number,
-		description?: string,
-		selfPowered: boolean,
-		remoteWakeup: boolean,
-		maxPower: number,
-		interfaces: InterfaceDescriptor[],
-		extra_data: ArrayBuffer
-	}
+    export interface ConfigDescriptor {
+        active: boolean,
+        configurationValue: number,
+        description?: string,
+        selfPowered: boolean,
+        remoteWakeup: boolean,
+        maxPower: number,
+        interfaces: InterfaceDescriptor[],
+        extra_data: ArrayBuffer
+    }
 
-	export interface GenericTransferInfo {
-		direction: Direction,
-		endpoint: number,
-		length?: number,
-		data?: ArrayBuffer,
-		timeout?: number
-	}
+    export interface GenericTransferInfo {
+        direction: Direction,
+        endpoint: number,
+        length?: number,
+        data?: ArrayBuffer,
+        timeout?: number
+    }
 
-	export interface TransferResultInfo {
-		resultCode: number,
-		data?: ArrayBuffer
-	}
+    export interface TransferResultInfo {
+        resultCode: number,
+        data?: ArrayBuffer
+    }
 
-	export interface DeviceFilter {
-		vendorId?: number,
-		productId?: number,
-		interfaceClass?: number,
-		interfaceSubclass?: number,
-		interfaceProtocol?: number
-	}
+    export interface DeviceFilter {
+        vendorId?: number,
+        productId?: number,
+        interfaceClass?: number,
+        interfaceSubclass?: number,
+        interfaceProtocol?: number
+    }
 
-	export interface TransferInfo {
-		direction: Direction;
-		recipient: 'device' | 'interface' | 'endpoint' | 'other';
-		requestType: 'standard' | 'class' | 'vendor' | 'reserved';
-		request: number;
-		value: number;
-		index: number;
-		length?: number;
-		data?: ArrayBuffer;
-		timeout?: number;
-	}
+    export interface TransferInfo {
+        direction: Direction;
+        recipient: 'device' | 'interface' | 'endpoint' | 'other';
+        requestType: 'standard' | 'class' | 'vendor' | 'reserved';
+        request: number;
+        value: number;
+        index: number;
+        length?: number;
+        data?: ArrayBuffer;
+        timeout?: number;
+    }
 
-	export interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
+    export interface DeviceEvent extends chrome.events.Event<(device: Device) => void> { }
 
-	export var onDeviceAdded: DeviceEvent;
-	export var onDeviceRemoved: DeviceEvent;
+    export var onDeviceAdded: DeviceEvent;
+    export var onDeviceRemoved: DeviceEvent;
 
-	export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
-	export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
-	export function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
-	export function requestAccess(device: Device, interfaceId: number, callback: (success: boolean) => void): void;
-	export function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
-	export function findDevices(options: { vendorId: number, productId: number, interfaceId?: number }, callback: (handles: ConnectionHandle[]) => void): void;
-	export function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
-	export function setConfiguration(handle: ConnectionHandle, configurationValue: number, callback: () => void): void;
-	export function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
-	export function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
-	export function claimInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
-	export function releaseInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
-	export function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: number, alternateSetting: number, callback: () => void): void;
-	export function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
-	export function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
-	export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
-	export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
-	export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
+    export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+    export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+    export function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
+    export function requestAccess(device: Device, interfaceId: number, callback: (success: boolean) => void): void;
+    export function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
+    export function findDevices(options: { vendorId: number, productId: number, interfaceId?: number }, callback: (handles: ConnectionHandle[]) => void): void;
+    export function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
+    export function setConfiguration(handle: ConnectionHandle, configurationValue: number, callback: () => void): void;
+    export function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
+    export function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
+    export function claimInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
+    export function releaseInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
+    export function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: number, alternateSetting: number, callback: () => void): void;
+    export function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
+    export function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+    export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+    export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
+    export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
 }
 
 declare namespace chrome.networking.onc {
