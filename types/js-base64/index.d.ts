@@ -30,9 +30,7 @@ export namespace Base64 {
 }
 
 // Helper to allow referencing Base64 from inside the global declaration without creating a self reference
-/* tslint:disable:strict-export-declare-modifiers */
-type Base64_ = typeof Base64;
-/* tslint:enable:strict-export-declare-modifiers */
+export type Base64_ = typeof Base64;
 
 declare global {
     interface String {

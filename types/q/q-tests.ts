@@ -1,4 +1,3 @@
-/* tslint:disable:no-namespace */
 /// <reference types="jquery" />
 
 import Q = require('q');
@@ -177,7 +176,7 @@ Q.nbind<any[]>(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
 /**
  * Test: Can "rethrow" rejected promises
  */
-namespace TestCanRethrowRejectedPromises {
+function TestCanRethrowRejectedPromises() {
 	interface Foo {
 		a: number;
 	}
