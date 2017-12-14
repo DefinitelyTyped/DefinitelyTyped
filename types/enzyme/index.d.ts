@@ -356,7 +356,7 @@ export interface CommonWrapper<P = {}, S = {}> {
 // tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ShallowWrapper<P = {}, S = {}> {
-    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
     unmount(): this;
 
@@ -441,7 +441,7 @@ export class ShallowWrapper<P = {}, S = {}> {
 // tslint:disable-next-line no-empty-interface
 export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ReactWrapper<P = {}, S = {}> {
-    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper, options?: MountRendererProps);
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
 
     unmount(): this;
     mount(): this;
