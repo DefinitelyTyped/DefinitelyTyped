@@ -5,6 +5,7 @@
 //                 Junyoung Clare Jang <https://github.com/ailrun>
 //                 Alexandre Melard <https://github.com/mylen>
 //                 Chad Johnston <https://github.com/iamthechad>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -14042,7 +14043,7 @@ declare module olx {
             hidpi?: boolean;
             logo?: (string | olx.LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             serverType?: (ol.source.wms.ServerType | string);
             tileLoadFunction?: ol.TileLoadFunctionType;
