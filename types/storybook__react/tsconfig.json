@@ -17,6 +17,9 @@
         "paths": {
             "@storybook/react": [
                 "storybook__react"
+            ],
+            "@storybook/react/demo": [
+                "storybook__react/demo"
             ]
         },
         "types": [],
@@ -25,6 +28,7 @@
     },
     "files": [
         "index.d.ts",
+        "demo/index.d.ts",
         "storybook__react-tests.tsx"
     ]
 }
