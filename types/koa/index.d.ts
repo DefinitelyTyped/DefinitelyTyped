@@ -459,7 +459,6 @@ declare class Application extends EventEmitter {
         hostname?: string,
         listeningListener?: () => void,
     ): Server;
-    /* tslint:disable:unified-signatures */
     listen(
         port: number,
         backlog?: number,
@@ -479,7 +478,6 @@ declare class Application extends EventEmitter {
         listeningListener?: () => void,
     ): Server;
     listen(handle: any, listeningListener?: () => void): Server;
-    /* tslint:enable:unified-signatures*/
 
     /**
      * Return JSON representation.
