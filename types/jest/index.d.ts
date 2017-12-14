@@ -1046,11 +1046,12 @@ declare namespace jest {
         path: Path;
     }
 
+    interface Set<T> {} // To allow non-ES6 users the Set below
     interface Reporter {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
         onTestStart?(test: Test): void;
-        onRunComplete?(contexts: [Context], results: AggregatedResult): Maybe<Promise<void>>;
+        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): Maybe<Promise<void>>;
         getLastError?(): Maybe<Error>;
     }
 
