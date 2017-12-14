@@ -642,7 +642,7 @@ declare namespace decimal {
          *
          * If a maximum denominator is not specified, or is null or undefined, the denominator will be the lowest value necessary to represent the number exactly.
          */
-        toFraction(max_denominator?: number | string | Decimal): string[];
+        toFraction(max_denominator?: number | string | Decimal): Decimal[];
 
         toJSON(): string;
 

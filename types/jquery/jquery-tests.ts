@@ -1,5 +1,3 @@
-// tslint:disable:interface-name
-
 function JQueryStatic() {
     function type_assertion() {
         const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
@@ -6195,7 +6193,7 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
         },
         cache: false,
@@ -6305,7 +6303,7 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
 
             return false;

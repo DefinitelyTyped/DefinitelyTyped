@@ -58,7 +58,7 @@ export interface Mouse {
    * @param y The y position.
    * @param options The click options.
    */
-  click(x: number, y: number, options: ClickOptions): Promise<void>;
+  click(x: number, y: number, options?: ClickOptions): Promise<void>;
   /**
    * Dispatches a `mousedown` event.
    * @param options The mouse press options.
@@ -200,6 +200,8 @@ export interface SetCookie {
   name: string;
   /** The cookie value. */
   value: string;
+  /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. */
+  url?: string;
   /** The cookie domain. */
   domain?: string;
   /** The cookie path. */
@@ -551,19 +553,19 @@ export type HttpMethod =
   | "OPTIONS";
 
 export type ResourceType =
-  | "Document"
-  | "Stylesheet"
-  | "Image"
-  | "Media"
-  | "Font"
-  | "Script"
-  | "TextTrack"
-  | "XHR"
-  | "Fetch"
-  | "EventSource"
-  | "WebSocket"
-  | "Manifest"
-  | "Other";
+  | "document"
+  | "stylesheet"
+  | "image"
+  | "media"
+  | "font"
+  | "script"
+  | "texttrack"
+  | "xhr"
+  | "fetch"
+  | "eventsource"
+  | "websocket"
+  | "manifest"
+  | "other";
 
 export interface Overrides {
   url?: string;

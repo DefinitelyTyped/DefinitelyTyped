@@ -844,9 +844,12 @@ function testDock() {
 }
 
 // Emitter ====================================================================
+interface TestEmissions {
+    "test-event": string;
+}
+
 function testEmitter() {
     emitter = new Atom.Emitter();
-
     emitter.clear();
     emitter.dispose();
 
@@ -858,6 +861,27 @@ function testEmitter() {
     // Event Emission
     emitter.emit("test-event");
     emitter.emit("test-event", 42);
+
+    // Optional Value Emitter
+    const optEmitter = new Atom.Emitter<{ "test-event": string }>();
+    optEmitter.emit("test-event");
+    optEmitter.emit("test-event", "test");
+    optEmitter.on("test-event", value => {
+        str = value ? value : "";
+    });
+
+    // Required Value Emitter
+    const reqEmitter = new Atom.Emitter<{}, TestEmissions>();
+    reqEmitter.on("test-event", value => {
+        str = value;
+    });
+    reqEmitter.emit("test-event", "test");
+
+    // Mixed Value Emitter
+    const mixedEmitter = new Atom.Emitter<{ "t1": "test" }, { "t2": "test" }>();
+    mixedEmitter.emit("t1");
+    mixedEmitter.emit("t1", "test");
+    mixedEmitter.emit("t2", "test");
 }
 
 // File =======================================================================
@@ -2939,7 +2963,7 @@ function testTooltipManager() {
     subscription = atom.tooltips.add(element, { class: "test-class" });
     subscription = atom.tooltips.add(element, { placement: "top" });
 
-    subscription = atom.tooltips.add(element, { placement: () => "left" });
+    subscription = atom.tooltips.add(element, { placement: () => "auto left" });
 
     subscription = atom.tooltips.add(element, { trigger: "click" });
     subscription = atom.tooltips.add(element, { delay: { hide: 42, show: 42 }});

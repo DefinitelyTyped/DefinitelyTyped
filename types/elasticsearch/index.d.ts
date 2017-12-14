@@ -137,6 +137,7 @@ export interface ShardsResponse {
     total: number;
     successful: number;
     failed: number;
+    skipped: number;
 }
 
 /**
@@ -638,6 +639,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
+            sort?: string[];
         }>;
     };
     aggregations?: any;

@@ -10,6 +10,7 @@
 //                 charlesfamu <https://github.com/charlesfamu>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Qibang Sun <https://github.com/bang88>
+//                 Sergei Butko: <https://github.com/svbutko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -572,6 +573,7 @@ export interface TabViewConfig {
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
+    allowFontScaling?: boolean,
     activeBackgroundColor?: string,
     inactiveTintColor?: string,
     inactiveBackgroundColor?: string,
@@ -594,7 +596,9 @@ export interface TabViewConfig {
 }
 
 // From navigators/TabNavigator.js
-export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig { }
+export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig {
+  initialLayout?: { height: number, width: number };
+}
 
 // From navigators/TabNavigator.js
 export function TabNavigator(

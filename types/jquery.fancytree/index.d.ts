@@ -2,6 +2,7 @@
 // Project: https://github.com/mar10/fancytree
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
 //                 Mahdi Abedi <https://github.com/abedi-ir>
+//                 Nitecube <https://github.com/Nitecube>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -92,6 +93,12 @@ declare namespace Fancytree {
          * @returns matching node or null
          */
         findNextNode(match: (node: FancytreeNode) => boolean, startNode?: FancytreeNode): FancytreeNode;
+
+        /** Find all nodes that matches condition.
+         * 
+         * @returns array of nodes (may be empty)
+         */
+        findAll(match: string|((node: FancytreeNode) => boolean|undefined)): FancytreeNode[];
 
         /** Generate INPUT elements that can be submitted with html forms. In selectMode 3 only the topmost selected nodes are considered. */
         generateFormElements(selected?: boolean, active?: boolean): void;
@@ -282,6 +289,11 @@ declare namespace Fancytree {
          */
         addChildren(child: Fancytree.NodeData, insertBefore?: number): FancytreeNode;
 
+
+        /** Add class to node's span tag and to .extraClasses.
+         * @param className class name
+         */
+        addClass(className: string): void;
 
         /** Append or prepend a node, or append a child node. This a convenience function that calls addChildren()
          *
@@ -508,6 +520,11 @@ declare namespace Fancytree {
          */
         removeChildren(): void;
 
+        /** Remove class from node's span tag and .extraClasses.
+         * @param className class name
+         */
+        removeClass(className: string): void;
+
         /** This method renders and updates all HTML markup that is required to display this node in its current state.
          *
          * @param force re-render, even if html markup was already created
@@ -593,6 +610,13 @@ declare namespace Fancytree {
          * @param callback callback(dict) is called for every node, in order to allow modifications
          */
         toDict(recursive?: boolean, callback?: (dict: NodeData) => void): NodeData;
+
+        /** Set, clear, or toggle class of node's span tag and .extraClasses.
+         * @param {string} className class name (separate multiple classes by space)
+         * @param {boolean} [flag] true/false to add/remove class. If omitted, class is toggled.
+         * @return true if a class was added
+         */
+        toggleClass(className: string, flag?: boolean): boolean;
 
         /** Flip expanded status. */
         toggleExpanded(): void;
@@ -747,7 +771,7 @@ declare namespace Fancytree {
         /** Scroll node into visible area, when focused by keyboard (default: false). */
         autoScroll?: boolean;
         /** Display checkboxes to allow selection (default: false) */
-        checkbox?: boolean;
+        checkbox?: boolean|string|((event: JQueryEventObject, data: EventData) => boolean);
         /** Defines what happens, when the user click a folder node. (default: activate_dblclick_expands) */
         clickFolderMode?: FancytreeClickFolderMode;
         /** 0..2 (null: use global setting $.ui.fancytree.debugInfo) */
@@ -792,13 +816,20 @@ declare namespace Fancytree {
         titlesTabbable?: boolean;
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
         toggleEffect?: JQueryUI.EffectOptions;
+
+        /** (dynamic Option)Prevent (de-)selection using mouse or keyboard. */
+        unselectable?: boolean|((event: JQueryEventObject, data: Fancytree.EventData) => boolean|undefined);
+        /** (dynamic Option)Ignore this node when calculating the partsel status of parent nodes in selectMode 3 propagation. */
+        unselectableIgnore?: boolean|((event: JQueryEventObject, data: Fancytree.EventData) => boolean|undefined);
+        /** (dynamic Option)Use this as constant selected value (overriding selectMode 3 propagation). */
+        unselectableStatus?: boolean|((event: JQueryEventObject, data: Fancytree.EventData) => boolean|undefined);
     }
 
     /** Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by meber methods, e.g. `node.isExpanded()` and `node.setSelected(false)`.  */
     interface NodeData {
         /** node text (may contain HTML tags) */
         title: string;
-        icon?: string;
+        icon?: boolean|string;
         /** unique key for this node (auto-generated if omitted) */
         key?: string;
         /** (reserved) */
@@ -820,6 +851,21 @@ declare namespace Fancytree {
         extraClasses?: string;
         /** all properties from will be copied to `node.data` */
         data?: Object;
+
+        /** Will be added as title attribute of the node's icon span,thus enabling a tooltip. */
+        iconTooltip?: string;
+
+        /** If set, make this node a status node. Values: 'error', 'loading', 'nodata', 'paging'. */
+        statusNodeType?: string;
+
+        /** Made available as node.type. */
+        type?: string;
+
+        /** Ignore this node when calculating the partsel status of parent nodes in selectMode 3 propagation. */
+        unselectableIgnore?: boolean;
+
+        /** Use this as constant selected value(overriding selectMode 3 propagation). */
+        unselectableStatus?: boolean;
     }
 
     /** Data object similar to NodeData, but with additional options.

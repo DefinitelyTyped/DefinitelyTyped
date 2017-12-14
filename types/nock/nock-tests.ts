@@ -108,6 +108,7 @@ scope = scope.filteringRequestBody((path: string) => {
 
 scope = scope.log(() => { });
 scope = scope.persist();
+scope = scope.persist(false);
 bool = scope.shouldPersist();
 scope = scope.replyContentLength();
 scope = scope.replyDate();

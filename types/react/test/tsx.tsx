@@ -63,3 +63,34 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
     return <div />;
 };
 <StatelessComponentWithoutProps />;
+
+// Fragments
+<div>
+    <React.Fragment>
+        <React.Fragment key="foo">
+            <span>Child 1</span>
+            <span>Child 2</span>
+        </React.Fragment>
+        <React.Fragment key="bar">
+            <span>Child 3</span>
+            <span>Child 4</span>
+        </React.Fragment>
+    </React.Fragment>
+</div>;
+
+class Comp extends React.Component<{}, { foo: boolean, bar: boolean }> {
+    handleSomething = () => {
+      this.setState({ foo: '' }); // $ExpectError
+      this.setState({ foo: true });
+      this.setState({ foo: true, bar: true });
+      this.setState({});
+      this.setState({ foo: true, foo2: true }); // $ExpectError
+      this.setState(() => ({ foo: '' })); // $ExpectError
+      this.setState(() => ({ foo: true }));
+      this.setState(() => ({ foo: true, bar: true }));
+      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
+      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+      this.setState(() => ({ })); // ok!
+      this.setState({ foo: true, bar: undefined}); // $ExpectError
+    }
+}

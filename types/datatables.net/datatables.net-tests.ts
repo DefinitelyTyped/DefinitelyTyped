@@ -21,7 +21,13 @@ const lang: DataTables.LanguageSettings = {
     },
     aria: {
         sortAscending: ": activate to sort column ascending",
-        sortDescending: ": activate to sort column descending"
+        sortDescending: ": activate to sort column descending",
+        paginate: {
+            first: "First",
+            last: "Last",
+            next: "Next",
+            previous: "Previous"
+        }
     }
 };
 
@@ -98,6 +104,7 @@ let col: DataTables.ColumnSettings = {
     orderable: true,
     orderData: 10,
     orderDataType: "dom-checkbox",
+    orderFixed: [[0, 'asc'], [1, 'desc']],
     orderSequence: ['asc', 'desc'],
     render: 1,
     searchable: true,
@@ -118,6 +125,20 @@ col = {
     data: colDataFunc,
     render: colRenderFunc,
 };
+col = {
+    data: "salary",
+    render: $.fn.dataTable.render.number('\'', '.', 0, '$'),
+};
+col = {
+    data: "url",
+    render: $.fn.dataTable.render.text(),
+};
+col = {
+    orderFixed: {
+        pre: [[0, 'asc'], [1, 'desc']],
+        post: [[0, 'asc'], [1, 'desc']]
+    }
+};
 
 //#endregion "Column"
 
@@ -135,6 +156,7 @@ let colDef: DataTables.ColumnDefsSettings = {
         orderable: true,
         orderData: 10,
         orderDataType: "dom-checkbox",
+        orderFixed: [[0, 'asc'], [1, 'desc']],
         orderSequence: ['asc', 'desc'],
         render: 1,
         searchable: true,
@@ -352,6 +374,9 @@ const order_get = dt.order();
 let order_set = dt.order([0, "asc"]);
 order_set = dt.order([0, "asc"], [1, "desc"]);  // TODO: Fíx that
 order_set = dt.order([[0, "asc"], [1, "desc"]]);
+
+const fixed_get: DataTables.ObjectOrderFixed = dt.order.fixed();
+const fixed_set: DataTables.Api = dt.order.fixed({pre: [0, "asc"], post: [1, "desc"]});
 
 const orderListerner = order_set.order.listener("node", 1, () => { });
 
@@ -790,6 +815,11 @@ dt.columns.adjust().draw(false); // adjust column sizing and redraw
 
 dt.columns().every(() => { });
 dt.columns().every((colIdx, tableLoop, colLoop) => { });
+
+$('#example').on('column-visibility.dt', (e: object, settings: DataTables.Settings, column: number, state: boolean, recalc: boolean | undefined) => {
+    const widthRecalced = (recalc || recalc === undefined);
+    console.log(`Column ${column} has changed to ${(state ? 'visible' : 'hidden')} and width ${(widthRecalced) ? 'was' : 'was not'} recalculated.`);
+});
 
 //#endregion "Methods-Column"
 
