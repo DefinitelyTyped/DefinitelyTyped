@@ -313,7 +313,7 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
-#### Should I add a fake namespace to a package that doesn't export a module to use ES6 style imports?
+#### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 
 Some packages, like [Chai-http](https://github.com/chaijs/chai-http), export a function.
 
