@@ -4,12 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ You can declare types that are available via importing the module */
+
 interface Lengths {
     [key: string]: number;
 }
-export const words: string[];
-export const lengths: Lengths;
 
-export default interface Words {
-    words: typeof words & typeof lengths;
+type words = string[];
+
+export default interface Words extends words {
+    lengths: Lengths;
 }
