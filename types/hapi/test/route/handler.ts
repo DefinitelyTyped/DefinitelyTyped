@@ -1,10 +1,9 @@
-'use strict';
+import {Lifecycle, Request, ResponseToolkit} from "hapi";
 
-import * as Hapi from 'hapi';
-
-var handler: Hapi.RouteHandler = function(request, reply) {
-    reply('success');
+const handler: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+    return 'success';
 }
-var strictHandler: Hapi.RouteHandler = function(request, reply) {
-    reply(123);
+
+const strictHandler: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+    return 123;
 }
