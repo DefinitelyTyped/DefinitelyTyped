@@ -18,6 +18,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true,
         "jsx": "react",
         "experimentalDecorators": true
     },
