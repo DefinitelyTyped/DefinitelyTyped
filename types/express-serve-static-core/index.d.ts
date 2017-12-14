@@ -76,8 +76,12 @@ export interface IRouter extends RequestHandler {
      *      });
      */
     param(name: string, handler: RequestParamHandler): this;
-    // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-    // deprecated since express 4.11.0
+
+    /**
+     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
+     *
+     * @deprecated since version 4.11
+     */
     param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
@@ -300,7 +304,7 @@ export interface Request extends http.IncomingMessage, Express.Request {
     accepted: MediaType[];
 
     /**
-     * @deprecated Use either req.params, req.body or req.query, as applicable.
+     * @deprecated since 4.11 Use either req.params, req.body or req.query, as applicable.
      *
      * Return the value of param `name` when present or `defaultValue`.
      *
@@ -896,7 +900,12 @@ export interface Application extends IRouter, Express.Application {
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
-    // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+
+    /**
+     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
+     *
+     * @deprecated since version 4.11
+     */
     param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
