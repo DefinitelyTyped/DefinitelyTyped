@@ -740,8 +740,8 @@ declare namespace R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T, U>(fn: (a: T) => string, list: T[]): U;
-        indexBy<T>(fn: (a: T) => string): <U>(list: T[]) => U;
+        indexBy<T>(fn: (a: T) => string, list: T[]): { [key: string]: T };
+        indexBy<T>(fn: (a: T) => string): (list: T[]) => { [key: string]: T };
 
         /**
          * Returns the position of the first occurrence of an item in an array
@@ -1454,9 +1454,8 @@ declare namespace R {
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
-         * Note: TS1.9 # replace any by dictionary
          */
-        prop<P extends string, T>(p: P, obj: Record<P, T>): T;
+        prop<P extends keyof T, T>(p: P, obj: T): T[P];
         prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
 
         /**

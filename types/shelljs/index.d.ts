@@ -417,6 +417,12 @@ export function touch(files: string[]): void;
 export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): void;
 export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): void;
 
+/**
+ * Sets global configuration variables
+ * @param options Available options: `+/-e`: exit upon error (`config.fatal`), `+/-v`: verbose: show all commands (`config.verbose`), `+/-f`: disable filename expansion (globbing)
+ */
+export function set(options: string): void;
+
 // Configuration
 
 export interface ShellConfig {

@@ -145,10 +145,16 @@ declare namespace jest {
      */
     function runOnlyPendingTimers(): typeof jest;
     /**
-     * Executes only the macro task queue (i.e. all tasks queued by setTimeout()
-     * or setInterval() and setImmediate()).
+     * (renamed to `advanceTimersByTime` in Jest 21.3.0+) Executes only the macro
+     * task queue (i.e. all tasks queued by setTimeout() or setInterval() and setImmediate()).
      */
     function runTimersToTime(msToRun: number): typeof jest;
+    /**
+     * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
+     * queued via setTimeout() or setInterval(), and would be executed within this timeframe
+     * will be executed.
+     */
+    function advanceTimersByTime(msToRun: number): typeof jest;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -555,7 +561,7 @@ declare namespace jasmine {
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
-    function createSpy(name: string, originalFn?: (...args: any[]) => any): Spy;
+    function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
@@ -867,6 +873,7 @@ declare namespace jest {
         runAllTicks(): void;
         runAllTimers(): void;
         runTimersToTime(msToRun: number): void;
+        advanceTimersByTime(msToRun: number): void;
         runOnlyPendingTimers(): void;
         runWithRealTimers(callback: any): void;
         useFakeTimers(): void;

@@ -39,6 +39,9 @@ export class Binary {
 
     constructor(buffer: Buffer, subType?: number);
 
+    /** The underlying Buffer which stores the binary data. */
+    readonly buffer: Buffer;
+
     /** The length of the binary. */
     length(): number;
     /** Updates this binary with byte_value */
@@ -55,6 +58,9 @@ export class Code {
 }
 export class DBRef {
     constructor(namespace: string, oid: ObjectID, db?: string);
+    namespace: string;
+    oid: ObjectID;
+    db?: string;
 }
 export class Double {
     constructor(value: number);

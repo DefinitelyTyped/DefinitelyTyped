@@ -1158,17 +1158,17 @@ declare namespace google.maps {
     export interface GeocoderRequest {
         address?: string;
         bounds?: LatLngBounds|LatLngBoundsLiteral;
-        componentRestrictions?: GeocoderComponentRestrictions;
+        components?: GeocoderComponents;
         location?: LatLng|LatLngLiteral;
         placeId?: string;
         region?: string;
     }
 
-    export interface GeocoderComponentRestrictions {
-        administrativeArea?: string;
+    export interface GeocoderComponents {
+        administrative_area?: string;
         country?: string | string[];
         locality?: string;
-        postalCode?: string;
+        postal_code?: string;
         route?: string;
     }
 
