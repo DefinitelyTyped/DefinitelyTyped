@@ -1,7 +1,1 @@
-{
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"no-declare-current-package": false
-	}
-}
+{ "extends": "dtslint/dt.json" }
