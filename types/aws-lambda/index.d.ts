@@ -9,6 +9,8 @@
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
 //                 Daniel Cottone <https://github.com/daniel-cottone>
+//                 Kostya Misura <https://github.com/kostya-misura>
+//                 Markus Tacker <https://github.com/coderbyheart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -346,6 +348,55 @@ interface AuthResponseContext {
 }
 
 /**
+ * CloudFront events
+ * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ */
+type CloudFrontHeaders = {
+        [name: string]: {
+            key: string;
+            value: string;
+        }[]
+};
+
+type CloudFrontResponse = {
+    status: string;
+    statusDescription: string;
+    headers: CloudFrontHeaders;
+};
+
+type CloudFrontRequest = {
+    clientIp: string;
+    method: string;
+    uri: string;
+    querystring: string;
+    headers: CloudFrontHeaders;
+};
+
+type CloudFrontEvent = {
+    config: {
+        distributionId: string;
+        requestId: string;
+    }
+}
+
+export type CloudFrontResponseEvent = {
+    Records: {
+        cf: CloudFrontEvent & {
+            request: CloudFrontRequest;
+            response: CloudFrontResponse;
+        }
+    }[]
+};
+
+export type CloudFrontRequestEvent = {
+    Records: {
+        cf: CloudFrontEvent & {
+            request: CloudFrontRequest;
+        }
+    }[]
+};
+
+/**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
@@ -364,7 +415,7 @@ export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Co
  * @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
  * @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
  */
-export type Callback = (error?: Error | null, result?: object) => void;
+export type Callback = (error?: Error | null, result?: object | boolean | number | string) => void;
 export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
 export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 

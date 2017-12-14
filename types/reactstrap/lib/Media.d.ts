@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface MediaProps {
   body?: boolean;
   bottom?: boolean;
   className?: string;
@@ -17,5 +17,5 @@ interface Props {
   alt?: string;
 }
 
-declare var Media: React.StatelessComponent<Props>;
+declare const Media: React.StatelessComponent<MediaProps>;
 export default Media;

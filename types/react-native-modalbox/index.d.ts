@@ -136,6 +136,13 @@ export interface ModalProps extends ViewProperties {
   startOpen?: boolean;
 
   /**
+   * This property prevent the modal to cover the ios status bar when the modal is scrolling up because the keyboard is opening
+   *
+   * Default is ios:22, android:0
+   */
+  keyboardTopOffset?: number;
+
+  /**
    * Event fired when the modal is closed and the animation is complete
    *
    */

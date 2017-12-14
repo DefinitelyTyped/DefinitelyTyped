@@ -1,11 +1,11 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ListGroupProps {
   tag?: React.ReactType;
   flush?: boolean;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var ListGroup: React.StatelessComponent<Props>;
+declare const ListGroup: React.StatelessComponent<ListGroupProps>;
 export default ListGroup;

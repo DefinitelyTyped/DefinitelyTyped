@@ -678,10 +678,19 @@ interface Obj {
 };
 
 (() => {
-    const list = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
-    const a1 = R.indexBy(R.prop<string>("id"), list);
-    const a2 = R.indexBy(R.prop<string>("id"))(list);
+    interface Book {
+        id: string;
+        title: string;
+    }
+    const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
+    const a1 = R.indexBy(R.prop("id"), list);
+    const a2 = R.indexBy(R.prop("id"))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+
+    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
+        R.map((x: Book) => x.title),
+        R.indexBy(x => x),
+    )(list);
 });
 
 () => {
@@ -1535,6 +1544,16 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
+    const obj = {
+        str: 'string',
+        num: 5,
+    };
+
+    const strVal: string = R.prop('str', obj); // => 'string'
+    const numVal: number = R.prop('num', obj); // => 5
+
+    const strValCur: string = R.prop('str')(obj); // => 'string'
+    const numValCur: number = R.prop('num')(obj); // => 5
 };
 
 () => {

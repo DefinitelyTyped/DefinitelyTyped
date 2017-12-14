@@ -1,4 +1,4 @@
-// Type definitions for Mixpanel 2.13
+// Type definitions for Mixpanel 2.14
 // Project: https://mixpanel.com/
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
@@ -347,6 +347,21 @@ declare namespace Mixpanel {
          */
         set_once(prop: string, value: any, callback?: () => void): void;
         set_once(keys: { [index: string]: any }, callback?: () => void): void;
+
+        /**
+         * Unset properties on a user record (permanently removes the properties and their values from a profile).
+         *
+         * ### Usage:
+         *
+         *     mixpanel.people.unset('gender');
+         *
+         *     // or unset multiple properties at once
+         *     mixpanel.people.unset(['gender', 'Company']);
+         *
+         * @param prop If a string, this is the name of the property. If an array, this is a list of property names.
+         * @param callback If provided, the callback will be called after the tracking event
+         */
+        unset(prop: string | string[], callback?: () => void): void;
 
         /**
          * Increment/decrement numeric people analytics properties.

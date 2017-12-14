@@ -150,7 +150,7 @@ declare class Router {
      * "down" the middleware stack.
      */
     use(...middleware: Array<Router.IMiddleware>): Router;
-    use(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    use(path: string | string[] | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP get method
@@ -219,7 +219,7 @@ declare class Router {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middlewares(): Router.IMiddleware;
+    middleware(): Router.IMiddleware;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with

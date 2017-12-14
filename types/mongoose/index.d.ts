@@ -366,11 +366,11 @@ declare module "mongoose" {
     auth?: any;
     /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
     ssl?: boolean;
-    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
-    sslValidate?: object;
-    /** Reconnect on error (default: true) */
-    poolSize?: number;
     /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslValidate?: object;
+    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
+    poolSize?: number;
+    /** Reconnect on error (default: true) */
     autoReconnect?: boolean;
     /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
     keepAlive?: number;
@@ -380,10 +380,13 @@ declare module "mongoose" {
     socketTimeoutMS?: number;
     /** If the database authentication is dependent on another databaseName. */
     authSource?: string;
-    /** Attempt to reconnect #times (default: 30) */
-    retries?: number;
+    /** If you're connected to a single server or mongos proxy (as opposed to a replica set),
+     * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
+     * times, and give up afterward. When the driver gives up, the mongoose connection emits a
+     * reconnectFailed event. (default: 30) */
+    reconnectTries?: number;
     /** Will wait # milliseconds between retries (default: 1000) */
-    reconnectWait?: number;
+    reconnectInterval?: number;
     /** The name of the replicaset to connect to. */
     replicaSet?: string;
     /** The current value of the parameter native_parser */
@@ -400,6 +403,14 @@ declare module "mongoose" {
     readPreference?: string;
     /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
     readPreferencetags?: object;
+    /** Triggers the server instance to call ismaster (default: true). */
+    monitoring?: boolean;
+    /** The interval of calling ismaster when monitoring is enabled (default: 10000). */
+    haInterval?: number;
+    /** Enable the wrapping of the callback in the current domain, disabled by default to avoid perf hit (default: false). */
+    domainsEnabled?: boolean;
+    /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
+    bufferMaxEntries?: number;
 
     // TODO
     safe?: any;
@@ -1622,7 +1633,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<Object>;
+    lean(bool?: boolean): Query<object>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
