@@ -3446,6 +3446,9 @@ namespace TestZipWith {
             return 1;
         });
 
+        let mat = [[1, 2], [1, 2], [1, 2]];
+        result = _.zipWith(...mat, (...group: number[]) => 1);
+
         result = _([1, 2]).zipWith((value1) => {
             value1; // $ExpectType number
             return 1;
