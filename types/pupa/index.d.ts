@@ -3,6 +3,6 @@
 // Definitions by: nju33 <https://github.com/nju33>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function pupa(tpl: string, data: any[] | {[key: string]: any}): string | never;
+declare function pupa(tpl: string, data: any[] | {[key: string]: any}): string;
 
 export = pupa;
