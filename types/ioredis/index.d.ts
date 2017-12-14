@@ -5,6 +5,7 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
@@ -12,6 +13,8 @@
  =============================================== */
 
 /// <reference types="node" />
+
+import Promise = require('bluebird');
 
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;

@@ -2160,15 +2160,22 @@ export interface NightwatchCustomAssertions {}
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
 
-/**
- * Performs an assertion
- *
- */
 export type NightwatchTest = (browser: NightwatchBrowser) => void;
 
-export interface NightwatchTests {
+export interface NightwatchTestFunctions {
     [key: string]: NightwatchTest;
 }
+
+export type NightwatchTestHook = (browser: NightwatchBrowser, done: () => void) => void;
+
+export interface NightwatchTestHooks {
+    before?: NightwatchTestHook;
+    after?: NightwatchTestHook;
+    beforeEach?: NightwatchTestHook;
+    afterEach?: NightwatchTestHook;
+}
+
+export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
 
 /**
  * Performs an assertion

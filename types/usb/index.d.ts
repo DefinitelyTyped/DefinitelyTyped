@@ -1,9 +1,11 @@
 // Type definitions for node-usb 1.1
-// Project: https://github.com/nonolith/node-usb
+// Project: https://github.com/tessel/node-usb
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { EventEmitter } from "events";
 
 export class Device {
   timeout: number;
@@ -81,25 +83,25 @@ export class InterfaceDescriptor {
   extra: Buffer;
 }
 
-export interface Endpoint {
+export interface Endpoint extends EventEmitter {
   direction: string;
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
 }
 
-export class InEndpoint implements Endpoint {
+export class InEndpoint extends EventEmitter implements Endpoint {
   direction: string;
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
   constructor(device: Device, descriptor: EndpointDescriptor);
   transfer(length: number, callback: (error: string, data: Buffer) => void): InEndpoint;
-  startPoll(nTransfers: number, transferSize: number): void;
-  stopPoll(cb: () => void): void;
+  startPoll(nTransfers?: number, transferSize?: number): void;
+  stopPoll(cb?: () => void): void;
 }
 
-export class OutEndpoint implements Endpoint {
+export class OutEndpoint extends EventEmitter implements Endpoint {
   direction: string;
   transferType: number;
   timeout: number;
