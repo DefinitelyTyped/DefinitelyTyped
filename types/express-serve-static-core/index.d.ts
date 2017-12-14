@@ -1,8 +1,11 @@
-// Type definitions for Express 4.x
+// Type definitions for Express 4.11
 // Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Michał Lytek <https://github.com/19majkel94>
+//                 Kacper Polak <https://github.com/kacepe>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -807,6 +810,17 @@ export interface Response extends http.ServerResponse, Express.Response {
     vary(field: string): Response;
 
     app: Application;
+
+    /**
+     * Appends the specified value to the HTTP response header field.
+     * If the header is not already set, it creates the header with the specified value.
+     * The value parameter can be a string or an array.
+     *
+     * Note: calling res.set() after res.append() will reset the previously-set header value.
+     *
+     * @since 4.11.0
+     */
+    append(field: string, value?: string[]|string): Response;
 }
 
 export interface Handler extends RequestHandler { }

@@ -119,6 +119,13 @@ namespace express_tests {
         router(req, res, next);
     });
 
+    // Test append function
+    app.use((req, res, next) => {
+        res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+        res.append('Warning', '199 Miscellaneous warning');
+    });
+
     app.use(router);
 
     app.listen(3000);
