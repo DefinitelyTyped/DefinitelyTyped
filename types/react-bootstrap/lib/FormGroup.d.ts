@@ -6,7 +6,7 @@ declare namespace FormGroup {
         bsClass?: string;
         bsSize?: Sizes;
         controlId?: string;
-        validationState?: "success" | "warning" | "error";
+        validationState?: "success" | "warning" | "error" | null;
     }
 }
 declare class FormGroup extends React.Component<FormGroup.FormGroupProps> { }
