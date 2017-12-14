@@ -58,6 +58,7 @@ export interface SignOptions {
 export interface VerifyOptions {
     algorithms?: string[];
     audience?: string | string[];
+    clockTimestamp?: number;
     clockTolerance?: number;
     issuer?: string | string[];
     ignoreExpiration?: boolean;

@@ -1,6 +1,4 @@
-import * as React from 'react';
-import ErrorComponent from 'next/error';
+import * as React from "react";
+import ErrorComponent from "next/error";
 
-const result = (
-  <ErrorComponent statusCode={404} />
-);
+const result = <ErrorComponent statusCode={404} />;

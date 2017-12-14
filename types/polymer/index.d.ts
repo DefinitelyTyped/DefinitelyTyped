@@ -53,7 +53,7 @@ declare global {
 
       // Debouncer
 
-      debounce?(jobName: string, callback: Function, wait: number): void;
+      debounce?(jobName: string, callback: Function, wait?: number): void;
 
       isDebouncerActive?(jobName: string): boolean;
 

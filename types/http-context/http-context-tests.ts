@@ -9,7 +9,7 @@ let header: http.IncomingHttpHeaders = context.header;
 header = context.headers;
 header = request.header;
 header = request.headers;
-const headerString: string | string[] = header['Content-Type'];
+const headerString: string | string[] | undefined = header['Content-Type'];
 
 let url: string = context.url;
 url = request.url;
