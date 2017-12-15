@@ -25,6 +25,7 @@ interface SpeechRecognition extends EventTarget {
     onspeechstart: (ev: Event) => any;
     onspeechend: (ev: Event) => any;
     onsoundend: (ev: Event) => any;
+    onaudioend: (ev: Event) => any;
     onresult: (ev: SpeechRecognitionEvent) => any;
     onnomatch: (ev: SpeechRecognitionEvent) => any;
     onerror: (ev: SpeechRecognitionError) => any;
