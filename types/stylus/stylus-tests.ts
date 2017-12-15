@@ -6,7 +6,7 @@
 
 import stylus = require("stylus");
 
-let str = "This is a stylus test";
+const str = "This is a stylus test";
 
 /**
  * Basic Usage
@@ -85,7 +85,7 @@ stylus(str)
  * .use(fn)
  * https://github.com/LearnBoost/stylus/blob/master/docs/js.md#usefn
  */
-let mylib = (style: any) => {
+const mylib = (style: any) => {
     style.define('number', 15.5);
     style.define('get-list', () => {
         return ['foo', 'bar', 'baz'];
