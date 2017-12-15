@@ -4,9 +4,7 @@
         "dt-header": false,
         "no-conditional-assignment": false,
         "no-construct": false,
-        "no-var-keyword": false,
         "no-var-requires": false,
-        "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false
     }
