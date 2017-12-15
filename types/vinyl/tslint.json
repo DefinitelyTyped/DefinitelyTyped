@@ -1,17 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "dt-header": false,
-        "jsdoc-format": false,
         "no-conditional-assignment": false,
         "no-construct": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "space-before-function-paren": false
+        "prefer-const": false
     }
 }
