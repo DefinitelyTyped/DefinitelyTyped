@@ -4,10 +4,10 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
 declare module '@feathersjs/primus' {
-  import {
-    IPrimusOptions,
-    Primus
-  } from 'primus';
+    import {
+        IPrimusOptions,
+        Primus
+    } from 'primus';
 
-  export default function (options: IPrimusOptions, callback?: (primus: Primus) => void): () => void
+    export default function (options: IPrimusOptions, callback?: (primus: Primus) => void): () => void
 }

@@ -7,16 +7,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@feathersjs/socketio": ["feathersjs__socketio"]
+        }
     },
     "files": [
-        "index.d.ts",
-        "feathersjs__socketio-tests.ts"
+        "index.d.ts", "feathersjs__socketio-tests.ts"
     ]
 }

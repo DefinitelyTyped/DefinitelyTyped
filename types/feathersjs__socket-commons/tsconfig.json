@@ -7,16 +7,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@feathersjs/socket-commons": ["feathersjs__socket-commons"]
+        }
     },
     "files": [
-        "index.d.ts",
-        "feathersjs__socket-commons-tests.ts"
+        "index.d.ts", "feathersjs__socket-commons-tests.ts"
     ]
 }

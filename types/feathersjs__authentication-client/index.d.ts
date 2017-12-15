@@ -4,78 +4,78 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
 declare module '@feathersjs/authentication-client' {
-  function feathersAuthClient(config?: FeathersAuthClientConfig): () => void;
+    function feathersAuthClient(config?: FeathersAuthClientConfig): () => void;
 
-  export default feathersAuthClient;
+    export default feathersAuthClient;
 
-  export interface FeathersAuthClientConfig {
-    storage?: Storage;
-    header?: string;
-    cookie?: string;
-    storageKey?: string;
-    jwtStrategy?: string;
-    path?: string;
-    entity?: string;
-    service?: string;
-  }
+    export interface FeathersAuthClientConfig {
+        storage?: Storage;
+        header?: string;
+        cookie?: string;
+        storageKey?: string;
+        jwtStrategy?: string;
+        path?: string;
+        entity?: string;
+        service?: string;
+    }
 
-  export interface FeathersAuthCredentials {
-    strategy: string;
+    export interface FeathersAuthCredentials {
+        strategy: string;
 
-    [index: string]: any;
-  }
+        [index: string]: any;
+    }
 
-  export const defaults: {
-    header: string;
-    cookie: string;
-    storageKey: string;
-    jwtStrategy: string;
-    path: string;
-    entity: string;
-    service: string;
-    timeout: number;
-  };
+    export const defaults: {
+        header: string;
+        cookie: string;
+        storageKey: string;
+        jwtStrategy: string;
+        path: string;
+        entity: string;
+        service: string;
+        timeout: number;
+    };
 
-  export interface Passport {
-    setupSocketListeners(): void;
+    export interface Passport {
+        setupSocketListeners(): void;
 
-    connected(): Promise<any>;
+        connected(): Promise<any>;
 
-    authenticate(credentials?: FeathersAuthCredentials): any;
+        authenticate(credentials?: FeathersAuthCredentials): any;
 
-    authenticateSocket(credentials: FeathersAuthCredentials, socket: any, emit: any): any;
+        authenticateSocket(credentials: FeathersAuthCredentials, socket: any, emit: any): any;
 
-    logoutSocket(socket: any, emit: any): Promise<any>;
+        logoutSocket(socket: any, emit: any): Promise<any>;
 
-    logout(): Promise<any>;
+        logout(): Promise<any>;
 
-    setJWT(data: any): Promise<any>;
+        setJWT(data: any): Promise<any>;
 
-    getJWT(): Promise<any>;
+        getJWT(): Promise<any>;
 
-    verifyJWT(token: string): Promise<string>;
+        verifyJWT(token: string): Promise<string>;
 
-    payloadIsValid(payload: string): boolean;
+        payloadIsValid(payload: string): boolean;
 
-    getCookie(name: string): string;
+        getCookie(name: string): string;
 
-    clearCookie(name: string): null;
+        clearCookie(name: string): null;
 
-    getStorage(storage: any): any;
-  }
+        getStorage(storage: any): any;
+    }
 }
 
 declare module '@feathersjs/feathers' {
-  import {
-    FeathersAuthCredentials,
-    Passport
-  } from '@feathersjs/authentication-client';
+    import {
+        FeathersAuthCredentials,
+        Passport
+    } from '@feathersjs/authentication-client';
 
-  export interface Application<ServiceTypes> {
-    authenticate(options?: FeathersAuthCredentials): Promise<any>;
+    export interface Application<ServiceTypes> {
+        authenticate(options?: FeathersAuthCredentials): Promise<any>;
 
-    logout(): Promise<void>;
+        logout(): Promise<void>;
 
-    passport: Passport;
-  }
+        passport: Passport;
+    }
 }

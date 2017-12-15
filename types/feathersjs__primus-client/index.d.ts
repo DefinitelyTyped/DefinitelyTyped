@@ -5,12 +5,12 @@
 
 
 declare module '@feathersjs/primus-client' {
-  import { Primus } from 'primus';
+    import { Primus } from 'primus';
 
-  export default function (socket: Primus, options?: FeathersPrimusClientOptions): () => void
+    export default function (socket: Primus, options?: FeathersPrimusClientOptions): () => void
 
-  export interface FeathersPrimusClientOptions {
-    timeout?: number;
-  }
+    export interface FeathersPrimusClientOptions {
+        timeout?: number;
+    }
 }
 

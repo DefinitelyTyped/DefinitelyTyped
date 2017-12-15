@@ -7,16 +7,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@feathersjs/authentication-oauth1": ["feathersjs__authentication-oauth1"]
+        }
     },
     "files": [
-        "index.d.ts",
-        "feathersjs__authentication-oauth1-tests.ts"
+        "index.d.ts", "feathersjs__authentication-oauth1-tests.ts"
     ]
 }
