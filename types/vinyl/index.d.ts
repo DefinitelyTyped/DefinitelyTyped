@@ -9,8 +9,8 @@ import * as fs from 'fs';
 
 interface ConstructorOptions {
     /**
-    * The current working directory of the file. Default: process.cwd()
-    */
+     * The current working directory of the file. Default: process.cwd()
+     */
     cwd?: string;
 
     /**
