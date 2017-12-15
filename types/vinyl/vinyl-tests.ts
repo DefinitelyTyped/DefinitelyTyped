@@ -59,6 +59,7 @@ describe('File', () => {
 		});
 
 		it('returns false for a String object', done => {
+			// tslint:disable-next-line:no-construct
 			const result = File.isVinyl(new String('foobar'));
 			expect(result).toEqual(false);
 			done();
@@ -71,6 +72,7 @@ describe('File', () => {
 		});
 
 		it('returns false for a Number object', done => {
+			// tslint:disable-next-line:no-construct
 			const result = File.isVinyl(new Number(1));
 			expect(result).toEqual(false);
 			done();
