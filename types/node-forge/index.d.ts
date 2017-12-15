@@ -95,10 +95,40 @@ declare module "node-forge" {
     }
 
     namespace ssh {
+        interface FingerprintOptions {
+            /**
+             * @description the delimiter to use between bytes for `hex` encoded output
+             */
+            delimiter?: string;
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding?: 'hex'|'binary';
+            /**
+             * @description if not specified defaults to `md.md5`
+             */
+            md?: md.MessageDigest;
+        }
+
         /**
-         * Encodes a private RSA key as an OpenSSH file.
+         * @description Encodes a private RSA key as an OpenSSH file
          */
-        function privateKeyToOpenSSH(privateKey?: string, passphrase?: string): string;
+        function privateKeyToOpenSSH(privateKey: pki.Key, passphrase?: string): string;
+
+        /**
+         * @description Encodes (and optionally encrypts) a private RSA key as a Putty PPK file
+         */
+        function privateKeyToPutty(privateKey: pki.Key, passphrase?: string, comment?: string): string;
+
+        /**
+         * @description Encodes a public RSA key as an OpenSSH file
+         */
+        function publicKeyToOpenSSH(publicKey: pki.Key, comment?: string): string|pki.PEM;
+
+        /**
+         * @description Gets the SSH fingerprint for the given public key
+         */
+        function getPublicKeyFingerprint(publicKey: pki.Key, options?: FingerprintOptions): util.ByteStringBuffer|Hex|string;
     }
 
     namespace asn1 {
