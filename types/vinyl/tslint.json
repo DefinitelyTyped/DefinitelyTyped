@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-conditional-assignment": false,
         "no-construct": false,
         "no-var-requires": false
     }
