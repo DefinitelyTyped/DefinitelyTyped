@@ -78,7 +78,8 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
     </React.Fragment>
 </div>;
 
-class Comp extends React.Component<{}, { foo: boolean, bar: boolean }> {
+// Below tests that setState() works properly for both regular and callback modes
+class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
     handleSomething = () => {
       this.setState({ foo: '' }); // $ExpectError
       this.setState({ foo: true });
@@ -93,4 +94,14 @@ class Comp extends React.Component<{}, { foo: boolean, bar: boolean }> {
       this.setState(() => ({ })); // ok!
       this.setState({ foo: true, bar: undefined}); // $ExpectError
     }
+}
+
+// Below tests that extended types for state work
+interface BaseStateForSetStateTest2 {
+	baseProp: string
+}
+export abstract class SetStateTest2<P, S extends BaseStateForSetStateTest2> extends React.Component<P, S> {
+	foo() {
+		this.setState({ baseProp: 'foobar' });
+	}
 }
