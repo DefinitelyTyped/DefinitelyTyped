@@ -78,8 +78,7 @@ function test_camera() {
 function test_capture() {
     var capture = navigator.device.capture;
     function captureSuccess(mediaFiles) {
-        var i, len;
-        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        for (let i = 0; i < mediaFiles.length; i += 1) {
             uploadFile(mediaFiles[i]);
         }
     }
@@ -108,9 +107,8 @@ function test_capture() {
     var options = { limit: 3, duration: 10 };
     navigator.device.capture.captureAudio(captureSuccess, captureError, options);
     function captureSuccess2(mediaFiles) {
-        var i, path, len;
-        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-            path = mediaFiles[i].fullPath;
+        for (let i = 0; i < mediaFiles.length; i += 1) {
+            const path = mediaFiles[i].fullPath;
         }
     };
     function captureError2(error) {
@@ -231,7 +229,7 @@ function test_contacts() {
     contact.remove(onSuccess, onError);
 }
 function test_contacts2() {
-    
+
     function onSuccess(contacts) {
         for (var i = 0; i < contacts.length; i++) {
             console.log("Display Name = " + contacts[i].displayName);

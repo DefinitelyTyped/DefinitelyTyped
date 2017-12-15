@@ -280,11 +280,9 @@ export interface Big {
 export const Big: BigConstructor;
 
 // Helpers to allow referencing Big and BigConstructor from inside the global declaration without creating a self reference
-/* tslint:disable:strict-export-declare-modifiers */
-type Big_ = Big;
-type BigConstructor_ = BigConstructor;
-type BigSource_ = BigSource;
-/* tslint:enable:strict-export-declare-modifiers */
+export type Big_ = Big;
+export type BigConstructor_ = BigConstructor;
+export type BigSource_ = BigSource;
 
 declare global {
     namespace BigJs {

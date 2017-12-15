@@ -373,6 +373,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "left-pad",
+            "typingsPackageName": "left-pad",
+            "sourceRepoURL": "https://github.com/stevemao/left-pad",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "Linq.JS",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
@@ -707,6 +713,12 @@
             "typingsPackageName": "spotify-web-api-js",
             "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
             "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "striptags",
+            "typingsPackageName": "striptags",
+            "sourceRepoURL": "https://github.com/ericnorris/striptags",
+            "asOfVersion": "3.1.1"
         },
         {
             "libraryName": "Sugar",

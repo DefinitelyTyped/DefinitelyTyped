@@ -1,6 +1,7 @@
 import { CSSModule } from '../index';
 
 export interface FadeProps {
+  in?: boolean;
   baseClass?: string;
   baseClassIn?: string;
   tag?: React.ReactType;

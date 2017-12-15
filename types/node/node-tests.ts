@@ -29,6 +29,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
 import * as inspector from "inspector";
+import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
@@ -798,13 +799,16 @@ function stream_readable_pipe_test() {
     var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
 
+    assert(typeof z.bytesRead === 'number');
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
     assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
+    z.flush();
     r.close();
+    z.close();
     rs.close();
 }
 
@@ -919,7 +923,37 @@ function simplified_stream_ctor_test() {
 
 namespace crypto_tests {
     {
+        // crypto_hash_string_test
+        var hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hash_buffer_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hash_dataview_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    }
+
+    {
+        // crypto_hmac_string_test
         var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hmac_buffer_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hmac_dataview_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
     }
 
     {
@@ -954,6 +988,28 @@ namespace crypto_tests {
         cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
+
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_dataview_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: DataView = new DataView(
+            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
@@ -2439,6 +2495,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -2931,6 +3007,7 @@ namespace dns_tests {
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
+import { PerformanceObserver, PerformanceObserverCallback } from "perf_hooks";
 namespace constants_tests {
     var str: string;
     var num: number;
@@ -3084,6 +3161,36 @@ namespace v8_tests {
     const zapsGarbage: number = heapStats.does_zap_garbage;
 
     v8.setFlagsFromString('--collect_maps');
+}
+
+////////////////////////////////////////////////////
+/// PerfHooks tests : https://nodejs.org/api/perf_hooks.html
+////////////////////////////////////////////////////
+namespace perf_hooks_tests {
+    perf_hooks.performance.mark('start');
+    (
+        () => {}
+    )();
+    perf_hooks.performance.mark('end');
+
+    const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
+    const timeOrigin = perf_hooks.performance.timeOrigin;
+
+    const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
+        const {
+            duration,
+            entryType,
+            name,
+            startTime,
+        } = list.getEntries()[0];
+        obs.disconnect();
+        perf_hooks.performance.clearFunctions();
+    };
+    const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
+    obs.observe({
+        entryTypes: ['function'],
+        buffered: true,
+    });
 }
 
 ////////////////////////////////////////////////////

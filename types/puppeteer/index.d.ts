@@ -553,19 +553,19 @@ export type HttpMethod =
   | "OPTIONS";
 
 export type ResourceType =
-  | "Document"
-  | "Stylesheet"
-  | "Image"
-  | "Media"
-  | "Font"
-  | "Script"
-  | "TextTrack"
-  | "XHR"
-  | "Fetch"
-  | "EventSource"
-  | "WebSocket"
-  | "Manifest"
-  | "Other";
+  | "document"
+  | "stylesheet"
+  | "image"
+  | "media"
+  | "font"
+  | "script"
+  | "texttrack"
+  | "xhr"
+  | "fetch"
+  | "eventsource"
+  | "websocket"
+  | "manifest"
+  | "other";
 
 export interface Overrides {
   url?: string;
