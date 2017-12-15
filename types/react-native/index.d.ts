@@ -816,6 +816,11 @@ export interface TextPropertiesAndroid {
 // https://facebook.github.io/react-native/docs/text.html#props
 export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid {
     /**
+     * The text that's read by the screen reader when the user interacts with the text.
+     */
+    accessibilityLabel?: string;
+
+    /**
      * When set to `true`, indicates that the view is an accessibility element. The default value
      * for a `Text` element is `true`.
      *
@@ -6540,6 +6545,11 @@ export interface ButtonProperties {
     color?: string;
     accessibilityLabel?: string;
     disabled?: boolean;
+
+    /**
+     * Used to locate this button in end-to-end tests.
+     */
+    testID?: string;
 }
 
 export interface ButtonStatic extends React.ComponentClass<ButtonProperties> {}
