@@ -7,6 +7,10 @@
 
 import * as express from "express";
 
+interface Tags {
+    [key: string]: string | number;
+}
+
 interface CommonOptions {
     /**
      * Prefix all stats with this value (default "").
@@ -23,7 +27,7 @@ interface CommonOptions {
      * to all StatsD payloads (excluding raw payloads)
      * (default {})
      */
-    tags?: { [key: string]: string };
+    tags?: Tags;
 
     /**
      * User specifically wants to use tcp (default false)
@@ -111,18 +115,18 @@ interface ExpressMiddlewareOptions {
 declare class StatsdClient {
     constructor(options: TcpOptions | UdpOptions | HttpOptions);
 
-    counter(metric: string, delta: number, tags?: {}): this;
-    increment(metric: string, delta?: number, tags?: {}): this;
-    decrement(metric: string, delta?: number, tags?: {}): this;
+    counter(metric: string, delta: number, tags?: Tags): this;
+    increment(metric: string, delta?: number, tags?: Tags): this;
+    decrement(metric: string, delta?: number, tags?: Tags): this;
 
-    gauge(name: string, value: number, tags?: {}): this;
-    gaugeDelta(name: string, delta: number, tags?: {}): this;
+    gauge(name: string, value: number, tags?: Tags): this;
+    gaugeDelta(name: string, delta: number, tags?: Tags): this;
 
-    set(name: string, value: number, tags?: {}): this;
+    set(name: string, value: number, tags?: Tags): this;
 
-    timing(name: string, startOrDuration: Date | number, tags?: {}): this;    
+    timing(name: string, startOrDuration: Date | number, tags?: Tags): this;    
 
-    histogram(name: string, value: number, tags?: {}): this;
+    histogram(name: string, value: number, tags?: Tags): this;
 
     raw(rawData: string): this;
 
@@ -130,7 +134,7 @@ declare class StatsdClient {
 
     getChildClient(name: string): StatsdClient;
 
-    formatTags(tags?: {}): string;
+    formatTags(tags?: Tags): string;
 
     helpers: {
         getExpressMiddleware(prefix?: string, options?: ExpressMiddlewareOptions): express.RequestHandler;
