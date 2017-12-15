@@ -1149,8 +1149,8 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: ReadonlyArray<T>): T;
-        nth(n: number): <T>(list: ReadonlyArray<T>) => T;
+        nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
+        nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
         /**
          * Returns a function which returns its nth argument.
