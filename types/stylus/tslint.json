@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "callable-types": false,
         "no-internal-module": false,
         "no-var-requires": false,
         "strict-export-declare-modifiers": false,
