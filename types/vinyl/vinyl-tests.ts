@@ -571,8 +571,7 @@ describe('File', () => {
 
 			// Start flowing file2
 			file2.contents.on('readable', function(this: NodeJS.ReadableStream) {
-				let chunk: string | Buffer;
-				while ((chunk = this.read()) !== null) {
+				for (let chunk: string | Buffer = this.read(); chunk !== null; chunk = this.read()) {
 					data2 += chunk.toString();
 				}
 			});
