@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as flash from "express-flash-notification";
+import express = require("express");
+import flash = require("express-flash-notification");
 
 const app = express();
 

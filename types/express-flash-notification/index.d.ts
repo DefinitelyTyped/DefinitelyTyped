@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as express from "express";
+import express = require("express");
 
 interface efnOptions {
 	sessionName?: string;
