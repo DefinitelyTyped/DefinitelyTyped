@@ -19,7 +19,7 @@ declare global {
 declare const daterangepicker: daterangepicker.DateRangePicker;
 
 declare namespace daterangepicker {
-    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string) => any;
+    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string | null) => any;
 
     interface DateRangePicker {
         new (element: HTMLElement, settings?: daterangepicker.Settings, callback?: DataRangePickerCallback): DateRangePicker;
