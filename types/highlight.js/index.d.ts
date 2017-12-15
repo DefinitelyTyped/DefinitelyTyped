@@ -5,6 +5,8 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Node { }
+
 declare namespace hljs
 {
 	interface Node { }
