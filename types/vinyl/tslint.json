@@ -4,7 +4,6 @@
         "no-conditional-assignment": false,
         "no-construct": false,
         "no-var-requires": false,
-        "only-arrow-functions": false,
         "prefer-const": false
     }
 }
