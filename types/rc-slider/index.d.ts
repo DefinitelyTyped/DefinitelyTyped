@@ -3,6 +3,7 @@
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
 //                 Alexander Mattoni <https://github.com/mattoni>
 //                 Austin Turner <https://github.com/paustint>
+//                 Jacob Froman <https://github.com/j-fro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -90,6 +91,11 @@ export interface CommonApiProps {
      * Tooltip formatter
      */
     tipFormatter?: ((value: any) => any | undefined) | null;
+
+    /**
+     * The style used for the background and container. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
+     */
+    style?: React.CSSProperties[] | React.CSSProperties;
 
     /**
      * The style used for handle. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
