@@ -1,6 +1,9 @@
 // Type definitions for Passport 0.4
 // Project: http://passportjs.org
-// Definitions by: Horiuchi_H <https://github.com/horiuchi>, Eric Naeseth <https://github.com/enaeseth>, Igor Belagorudsky <https://github.com/theigor>
+// Definitions by: Horiuchi_H <https://github.com/horiuchi>
+//                 Eric Naeseth <https://github.com/enaeseth>
+//                 Igor Belagorudsky <https://github.com/theigor>
+//                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,14 +34,14 @@ declare namespace passport {
     interface AuthenticateOptions {
         authInfo?: boolean;
         assignProperty?: string;
-        failureFlash?: string|boolean;
-        failureMessage?: boolean|string;
+        failureFlash?: string | boolean;
+        failureMessage?: boolean | string;
         failureRedirect?: string;
         failWithError?: boolean;
         session?: boolean;
-        scope?: string|string[];
-        successFlash?: string|boolean;
-        successMessage?: boolean|string;
+        scope?: string | string[];
+        successFlash?: string | boolean;
+        successMessage?: boolean | string;
         successRedirect?: string;
         successReturnToOrRedirect?: string;
         pauseStream?: boolean;
@@ -46,32 +49,80 @@ declare namespace passport {
         passReqToCallback?: boolean;
     }
 
-    interface Passport {
+    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
         use(strategy: Strategy): this;
         use(name: string, strategy: Strategy): this;
         unuse(name: string): this;
-        framework(fw: Framework): this;
-        initialize(options?: { userProperty: string; }): express.Handler;
-        session(options?: { pauseStream: boolean; }): express.Handler;
+        framework<X, Y, Z>(fw: Framework<X, Y, Z>): Authenticator<X, Y, Z>;
+        initialize(options?: { userProperty: string; }): InitializeRet;
+        session(options?: { pauseStream: boolean; }): AuthenticateRet;
 
-        authenticate(strategy: string|string[], callback?: (...args: any[]) => any): express.Handler;
-        authenticate(strategy: string|string[], options: AuthenticateOptions, callback?: (...args: any[]) => any): express.Handler;
-        authorize(strategy: string|string[], callback?: (...args: any[]) => any): express.Handler;
-        authorize(strategy: string|string[], options: any, callback?: (...args: any[]) => any): express.Handler;
+        authenticate(strategy: string | string[], callback?: (...args: any[]) => any): AuthenticateRet;
+        authenticate(strategy: string | string[], options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
+        authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
+        authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): AuthorizeRet;
         serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
         deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
-    interface PassportStatic extends Passport {
-        Passport: {new(): Passport};
-        Authenticator: {new(): Passport};
+    interface PassportStatic extends Authenticator {
+        Authenticator: { new(): Authenticator };
+        Passport: PassportStatic["Authenticator"];
     }
 
     interface Strategy {
         name?: string;
-        authenticate(req: express.Request, options?: any): void;
+        authenticate(this: StrategyCreated<this>, req: express.Request, options?: any): any;
     }
+
+    interface StrategyCreatedStatic {
+        /**
+         * Authenticate `user`, with optional `info`.
+         *
+         * Strategies should call this function to successfully authenticate a
+         * user.  `user` should be an object supplied by the application after it
+         * has been given an opportunity to verify credentials.  `info` is an
+         * optional argument containing additional user information.  This is
+         * useful for third-party authentication strategies to pass profile
+         * details.
+         */
+        success(user: object, info?: object): void;
+        /**
+         * Fail authentication, with optional `challenge` and `status`, defaulting
+         * to 401.
+         *
+         * Strategies should call this function to fail an authentication attempt.
+         */
+        fail(challenge?: string | number, status?: number): void;
+        /**
+         * Redirect to `url` with optional `status`, defaulting to 302.
+         *
+         * Strategies should call this function to redirect the user (via their
+         * user agent) to a third-party website for authentication.
+         */
+        redirect(url: string, status?: number): void;
+        /**
+         * Pass without making a success or fail decision.
+         *
+         * Under most circumstances, Strategies should not need to call this
+         * function.  It exists primarily to allow previous authentication state
+         * to be restored, for example from an HTTP session.
+         */
+        pass(): void;
+        /**
+         * Internal error while performing authentication.
+         *
+         * Strategies should call this function when an internal error occurs
+         * during the process of performing authentication; for example, if the
+         * user directory is not available.
+         */
+        error(err: any): void;
+    }
+
+    type StrategyCreated<T, O = T & StrategyCreatedStatic> = {
+        [P in keyof O]: O[P];
+    };
 
     interface Profile {
         provider: string;
@@ -92,10 +143,10 @@ declare namespace passport {
         }>;
     }
 
-    interface Framework {
-        initialize(passport: Passport, options?: any): (...args: any[]) => any;
-        authenticate(passport: Passport, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => any;
-        authorize?(passport: Passport, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => any;
+    interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
+        initialize(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, options?: any): (...args: any[]) => InitializeRet;
+        authenticate(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthenticateRet;
+        authorize?(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthorizeRet;
     }
 }
 
