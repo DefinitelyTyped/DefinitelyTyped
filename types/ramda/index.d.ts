@@ -1644,10 +1644,12 @@ declare namespace R {
         /**
          * Splits a given list or string at a given index.
          */
-        splitAt<T>(index: number, list: T): T[];
-        splitAt(index: number): <T>(list: T) => T[];
-        splitAt<T>(index: number, list: ReadonlyArray<T>): T[][];
-        splitAt(index: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitAt<T>(index: number, list: ReadonlyArray<T>): [T[], T[]];
+        splitAt(index: number, list: string): [string, string];
+        splitAt(index: number): {
+            <T>(list: ReadonlyArray<T>): [T[], T[]];
+            (list: string): [string, string];
+        };
 
         /**
          * Splits a collection into slices of the specified length.
