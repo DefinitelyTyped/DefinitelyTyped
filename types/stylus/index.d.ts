@@ -10,7 +10,6 @@ declare var stylus: Stylus.Static;
 export = stylus;
 
 declare namespace Stylus {
-
     export interface Static {
         /**
          * Return a new `Renderer` for the given `str` and `options`.
@@ -720,7 +719,6 @@ declare namespace Stylus {
     //#region Nodes Classes
 
     export module Nodes {
-
         export class Node {
             lineno: number;
             column: number;
@@ -807,9 +805,7 @@ declare namespace Stylus {
             toJSON(): { val: string; quote: string; lineno: number; column: number; filename: string };
         }
 
-        export class Number extends Node {
-
-        }
+        export class Number extends Node { }
 
         export class Boolean extends Node {
             val: boolean;
