@@ -5,13 +5,9 @@
         "callable-types": false,
         "dt-header": false,
         "no-internal-module": false,
-        "no-padding": false,
-        "no-var-keyword": false,
         "no-var-requires": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
