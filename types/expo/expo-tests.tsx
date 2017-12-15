@@ -210,7 +210,7 @@ async () => {
 		mediaTypes: ImagePicker.MediaTypeOptions.Videos
 	});
 
-	if (result.cancelled === false) {
+	if (!result.cancelled) {
 		result.uri;
 		result.width;
 		result.height;
