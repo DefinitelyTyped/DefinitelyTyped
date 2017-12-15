@@ -2479,7 +2479,7 @@ class Example85 extends React.Component<any, any> {
         <Button id="Popover1" onClick={this.toggle}>
           Launch Popover
         </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => {}}>
           <PopoverHeader>Popover Title</PopoverHeader>
           <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
@@ -3500,3 +3500,24 @@ const Example113 = (props: any) => {
       </div>
     );
   };
+
+class Example114 extends React.Component<any, any> {
+private element: HTMLElement;
+
+refFn(r: HTMLElement | null) {
+    if (r) {
+        this.element = r;
+    }
+}
+
+render() {
+    return (
+    <div>
+        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+        Hello world!
+        </Tooltip>
+    </div>
+    );
+}
+}

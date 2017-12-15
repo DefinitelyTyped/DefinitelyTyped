@@ -280,11 +280,12 @@ declare namespace React {
     class Component<P, S> {
         constructor(props: P, context?: any);
 
-        // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable-next-line:unified-signatures
-        setState<K extends keyof S>(f: (prevState: Readonly<S>, props: P) => Pick<S, K>, callback?: () => any): void;
-        // tslint:disable-next-line:unified-signatures
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
+        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        setState<K extends keyof S>(
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> & Partial<S>)) | (Pick<S, K> & Partial<S>),
+            callback?: () => any
+        ): void;
 
         forceUpdate(callBack?: () => any): void;
         render(): ReactNode;
@@ -2816,6 +2817,7 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean;
         controls?: boolean;
+        controlsList?: string;
         crossOrigin?: string;
         loop?: boolean;
         mediaGroup?: string;

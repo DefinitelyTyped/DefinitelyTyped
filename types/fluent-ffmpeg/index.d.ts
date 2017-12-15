@@ -281,12 +281,10 @@ declare namespace Ffmpeg {
         getAvailableFormats(callback: FormatsCallback): void;
 
         // ffprobe
-        /* tslint:disable:unified-signatures */
         ffprobe(callback: (err: any, data: FfprobeData) => void): void;
         ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): void;
-        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
         ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
-        /* tslint:enable:unified-signatures */
 
         // recipes
         saveToFile(output: string): FfmpegCommand;
@@ -306,12 +304,10 @@ declare namespace Ffmpeg {
         run(): void;
     }
 
-    /* tslint:disable:unified-signatures */
     function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
-    function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
     function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
-    /* tslint:enable:unified-signatures */
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

@@ -5209,7 +5209,7 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>(specifics: { [platform in PlatformOSType]?: T }): T;
+    select<T>(specifics: { [platform in PlatformOSType | 'default']?: T }): T;
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
@@ -7160,6 +7160,12 @@ export interface PushNotification {
      * Gets the data object on the notif
      */
     getData(): Object;
+
+    /**
+     * iOS Only
+     * Signifies remote notification handling is complete
+     */
+    finish(result: string): void;
 }
 
 type PresentLocalNotificationDetails = {
@@ -7182,6 +7188,12 @@ type ScheduleLocalNotificationDetails = {
 };
 
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";
+
+type FetchResult = {
+    NewData: "UIBackgroundFetchResultNewData",
+    NoData: "UIBackgroundFetchResultNoData",
+    ResultFailed: "UIBackgroundFetchResultFailed"
+};
 
 /**
  * Handle push notifications for your app, including permission handling and icon badge number.
@@ -7296,6 +7308,12 @@ export interface PushNotificationIOSStatic {
      * object if the app was launched by a push notification, or `null` otherwise.
      */
     getInitialNotification(): Promise<PushNotification>;
+
+    /**
+     * iOS fetch results that best describe the result of a finished remote notification handler.
+     * For a list of possible values, see `PushNotificationIOS.FetchResult`.
+     */
+    FetchResult: FetchResult;
 }
 
 export interface SettingsStatic {
