@@ -793,8 +793,8 @@ declare namespace WebdriverIO {
     interface Client<T> {
         background(seconds: number): Client<T>;
         closeApp(): Client<T>;
-        context(id?: string): Client<T>;
-        contexts(): Client<T>;
+        context(id?: string): Client<T> & RawResult<string>;
+        contexts(): Client<T> & RawResult<string[]>;
         currentActivity(): any;
         deviceKeyEvent(keyValue: number): Client<T>;
         getAppStrings(language: string): Client<T>;
