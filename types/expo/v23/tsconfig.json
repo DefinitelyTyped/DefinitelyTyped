@@ -15,10 +15,10 @@
         ],
         "paths": {
             "expo": [
-                "expo/v2"
+                "expo/v23"
             ],
             "expo/*": [
-                "expo/v2/*"
+                "expo/v23/*"
             ]
         },
         "types": [],
