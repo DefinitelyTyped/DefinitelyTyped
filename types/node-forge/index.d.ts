@@ -1,8 +1,9 @@
-// Type definitions for node-forge 0.6.43
+// Type definitions for node-forge 0.7.2
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
 //                 Aakash Goenka <https://github.com/a-k-g>
+//                 Rafal2228 <https://github.com/rafal2228>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-forge" {
