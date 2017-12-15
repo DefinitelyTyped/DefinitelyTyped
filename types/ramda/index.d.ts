@@ -1655,7 +1655,11 @@ declare namespace R {
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
-        splitEvery(a: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitEvery(a: number, list: string): string[];
+        splitEvery(a: number): {
+            (list: string): string[];
+            <T>(list: ReadonlyArray<T>): T[][];
+        };
 
         /**
          * Takes a list and a predicate and returns a pair of lists with the following properties:
