@@ -1536,7 +1536,7 @@ export namespace FaceDetector {
                 height: number;
             },
             origin: Point;
-        },
+        };
         smilingProbability?: number;
         leftEarPosition?: Point;
         rightEarPosition?: Point;
@@ -1561,7 +1561,7 @@ export namespace FaceDetector {
             width: number;
             height: number;
             orientation: number;
-        }
+        };
     }
     interface Mode {
         fast: 'fast';
