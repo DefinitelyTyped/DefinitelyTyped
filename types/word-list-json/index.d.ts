@@ -2,15 +2,19 @@
 // Project: https://github.com/sindresorhus/word-list
 // Definitions by: Dovid Meiseles <https://github.com/dovidm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/*~ You can declare types that are available via importing the module */
+// TypeScript Version: 2.4
 
 interface Lengths {
     [key: string]: number;
 }
 
-type words = string[];
+export const lengths: Lengths;
 
-export default interface Words extends words {
+type wordsArray = string[];
+interface Words extends wordsArray {
     lengths: Lengths;
 }
+
+declare const words: Words;
+
+export default words;
