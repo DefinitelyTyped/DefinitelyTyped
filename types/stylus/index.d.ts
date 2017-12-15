@@ -746,6 +746,7 @@ declare namespace Stylus {
             /**
              * Return true.
              */
+            // tslint:disable-next-line no-unnecessary-qualifier
             toBoolean(): Nodes.Boolean;
 
             /**
@@ -816,6 +817,7 @@ declare namespace Stylus {
             /**
              * Negate the value.
              */
+            // tslint:disable-next-line no-unnecessary-qualifier
             negate(): Nodes.Boolean;
 
             /**
