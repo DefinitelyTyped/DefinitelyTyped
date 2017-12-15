@@ -3,7 +3,6 @@
     "rules": {
         "no-conditional-assignment": false,
         "no-construct": false,
-        "no-var-requires": false,
-        "prefer-const": false
+        "no-var-requires": false
     }
 }
