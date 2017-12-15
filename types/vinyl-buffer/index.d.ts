@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 declare namespace buffer {
     interface Buffer {
         (): NodeJS.ReadWriteStream;
