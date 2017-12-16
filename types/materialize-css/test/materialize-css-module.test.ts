@@ -196,3 +196,23 @@ datePicker.options;
 datePicker.el;
 // $ExpectType boolean
 datePicker.isOpen;
+
+// TimePicker
+// $ExpectType TimePicker
+new materialize.TimePicker(elem);
+// $ExpectType TimePicker
+const timePicker = new materialize.TimePicker(elem, {
+    defaultTime: "13:14"
+});
+// $ExpectType void
+timePicker.open();
+// $ExpectType void
+timePicker.showView("hours");
+// $ExpectType void
+timePicker.destroy();
+// $ExpectType TimePickerOptions
+timePicker.options;
+// $ExpectType Element
+timePicker.el;
+// $ExpectType boolean
+timePicker.isOpen;
