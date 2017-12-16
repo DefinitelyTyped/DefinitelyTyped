@@ -2352,14 +2352,14 @@ function testTextEditor() {
     // Mutating Text
     editor.setText("Test");
 
-    editor.setTextInBufferRange(range, "Test");
-    editor.setTextInBufferRange([pos, pos], "Test");
-    editor.setTextInBufferRange([pos, [0, 0]], "Test");
-    editor.setTextInBufferRange([[0, 0], pos], "Test");
-    editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
-    editor.setTextInBufferRange(range, "Test", {});
-    editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
-    editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
+    range = editor.setTextInBufferRange(range, "Test");
+    range = editor.setTextInBufferRange([pos, pos], "Test");
+    range = editor.setTextInBufferRange([pos, [0, 0]], "Test");
+    range = editor.setTextInBufferRange([[0, 0], pos], "Test");
+    range = editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
+    range = editor.setTextInBufferRange(range, "Test", {});
+    range = editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
+    range = editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
         undo: "skip" });
 
     editor.insertText("Test");

@@ -1456,7 +1456,7 @@ export class TextEditor {
 
     /** Set the text in the given Range in buffer coordinates. */
     setTextInBufferRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): void;
+        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
 
     /* For each selection, replace the selected text with the given text. */
     insertText(text: string, options?: {
