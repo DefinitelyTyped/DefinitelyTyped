@@ -8,7 +8,7 @@ app.use(serve('.', {
   defer: false,
   extensions: ['html'],
   setHeaders: (res, path, stats) => {
-    if(path.endsWith('.html')){
+    if (path.endsWith('.html')) {
       res.setHeader('Cache-Control', 'public, max-age=0');
     }
   }
