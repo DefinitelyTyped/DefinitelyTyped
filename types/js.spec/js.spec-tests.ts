@@ -46,6 +46,8 @@ const mapSpec: S.Spec = S.spec.map("map test", { email: S.spec.string, [S.symbol
 
 const oneOfSpec: S.Spec = S.spec.oneOf("oneOf test", "a", "b", "c");
 
+const predicateSpec: S.Spec = S.spec.predicate("predicate test", (value) => true);
+
 // Predicates
 
 const intPred: S.Predicate = S.spec.int;

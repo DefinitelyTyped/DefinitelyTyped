@@ -210,6 +210,14 @@ export namespace spec {
      */
     function oneOf(name: string, ...values: any[]): Spec;
 
+    /**
+     * Used to define a predicate function as a Spec.
+     * @param name the name of the spec
+     * @param predicate the predicate function
+     * @returns the constructed spec
+     */
+    function predicate(name: string, predicate: PredFn): Spec;
+
     // Predicates
     /**
      * Returns true if data is an integer.
