@@ -42,3 +42,9 @@ $(".whatever").datepicker("open");
 $(".whatever").datepicker("destroy");
 $(".whatever").datepicker("setDate", new Date());
 $(".whatever").datepicker("gotoDate", new Date());
+
+$(".whatever").timepicker();
+$(".whatever").timepicker({ defaultTime: "13:14" });
+$(".whatever").timepicker("open");
+$(".whatever").timepicker("destroy");
+$(".whatever").timepicker("showView", "hours");
