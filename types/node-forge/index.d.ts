@@ -104,7 +104,7 @@ declare module "node-forge" {
             /**
              * @description if not specified, the function will return `ByteStringBuffer`
              */
-            encoding?: 'hex'|'binary';
+            encoding?: 'hex' | 'binary';
             /**
              * @description if not specified defaults to `md.md5`
              */
@@ -124,12 +124,12 @@ declare module "node-forge" {
         /**
          * @description Encodes a public RSA key as an OpenSSH file
          */
-        function publicKeyToOpenSSH(publicKey: pki.Key, comment?: string): string|pki.PEM;
+        function publicKeyToOpenSSH(publicKey: pki.Key, comment?: string): string | pki.PEM;
 
         /**
          * @description Gets the SSH fingerprint for the given public key
          */
-        function getPublicKeyFingerprint(publicKey: pki.Key, options?: FingerprintOptions): util.ByteStringBuffer|Hex|string;
+        function getPublicKeyFingerprint(publicKey: pki.Key, options?: FingerprintOptions): util.ByteStringBuffer | Hex | string;
     }
 
     namespace asn1 {
