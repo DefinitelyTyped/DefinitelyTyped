@@ -193,7 +193,7 @@ declare global {
              * Render days of the calendar grid that fall in the next or previous month.
              * @default false
              */
-            showDaysInNextAndPreviousMonths: false;
+            showDaysInNextAndPreviousMonths: boolean;
 
             /**
              * Specify a selector for a DOM element to render the calendar in, by default it will be placed before the input.
@@ -673,10 +673,10 @@ declare global {
         autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
         autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
 
-        datePicker(method: keyof Pick<M.DatePicker, "open" | "close" | "destroy">): JQuery;
-        datePicker(method: keyof Pick<M.DatePicker, "setDate">, date?: Date): JQuery;
-        datePicker(method: keyof Pick<M.DatePicker, "gotoDate">, date: Date): JQuery;
-        datePicker(options?: Partial<M.DatePickerOptions>): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "open" | "close" | "destroy">): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "setDate">, date?: Date): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "gotoDate">, date: Date): JQuery;
+        datepicker(options?: Partial<M.DatePickerOptions>): JQuery;
 
         floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
         floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
