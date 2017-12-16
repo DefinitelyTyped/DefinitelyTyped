@@ -196,6 +196,8 @@ function testAtomEnvironment() {
     }
 
     atom.executeJavaScriptInDevTools("Test");
+
+    const path: string = atom.getConfigDirPath();
 }
 
 // BufferedNodeProcess ========================================================
@@ -1056,6 +1058,10 @@ function testGrammar() {
     tokenizeLineResult.tokens;
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack);
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack, false);
+
+    let str: string;
+    str = grammar.name;
+    str = grammar.scopeName;
 }
 
 // GrammarRegistry ============================================================
@@ -1396,6 +1402,9 @@ function testPackageManager() {
     subscription = atom.packages.onDidDeactivatePackage(pack => pack.path);
     subscription = atom.packages.onDidLoadPackage(pack => pack.isCompatible());
     subscription = atom.packages.onDidUnloadPackage(pack => pack.name);
+    subscription = atom.packages.onDidTriggerActivationHook(
+      'language-javascript:grammar-used', () => {}
+    );
 
     // Package system data
     str = atom.packages.getApmPath();
@@ -2922,6 +2931,15 @@ function testTextEditor() {
     // TextEditor Rendering
     str = editor.getPlaceholderText();
     editor.setPlaceholderText("Test");
+
+    range = editor.bufferRangeForScopeAtPosition('source.js', [0, 0]);
+    range = editor.bufferRangeForScopeAtPosition('source.js', {row: 10, column: 11});
+    range = editor.bufferRangeForScopeAtPosition('source.js', pos);
+
+    let token: {value: string, scopes: string[]};
+    token = editor.tokenForBufferPosition([5, 6]);
+    token = editor.tokenForBufferPosition({row: 0, column: 1});
+    token = editor.tokenForBufferPosition(pos);
 }
 
 // ThemeManager ===============================================================
