@@ -1,6 +1,7 @@
 // Type definitions for karma 1.7
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -414,6 +415,19 @@ declare namespace karma {
          * @description Capture all console output and pipe it to the terminal.
          */
         captureConsole?: boolean;
+        /**
+         * @default false
+         * @description Run the tests on the same window as the client, without using iframe or a new window
+         */
+        runInParent?: boolean;
+        /**
+         * @default true
+         * @description Clear the context window
+         * If true, Karma clears the context window upon the completion of running the tests.
+         * If false, Karma does not clear the context window upon the completion of running the tests.
+         * Setting this to false is useful when embedding a Jasmine Spec Runner Template.
+         */
+        clearContext?: boolean;
     }
 
     interface FilePattern {
