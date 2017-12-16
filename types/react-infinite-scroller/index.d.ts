@@ -19,7 +19,7 @@ declare namespace InfiniteScroll {
         element?: string;
         /**
          * Whether there are more items to be loaded. Event listeners are removed if false.
-             * Defaults to false.
+         * Defaults to false.
          */
         hasMore?: boolean;
         /**
