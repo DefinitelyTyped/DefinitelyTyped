@@ -12,8 +12,6 @@ const cache:catbox.Policy = server.cache({segment: 'countries', cache: 'countrie
 cache.set('norway', 'oslo', 10 * 1000, null);
 const value = cache.get('norway', null);
 
-// TODO Not working. It needs review.
-
 server.start();
 
 server.events.on('start', () => {
