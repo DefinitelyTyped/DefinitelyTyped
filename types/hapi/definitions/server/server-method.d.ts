@@ -7,10 +7,7 @@ import * as catbox from "catbox";
  * * * ttl - 0 if result is valid but cannot be cached. Defaults to cache policy.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  */
-export interface ServerMethod {
-//    (args: any[], flags: {ttl?: number}): any;
-    (...args: any[]): any; // TODO it needs review. Look the doc: the first param is a ...args and the second is "flags". Typescript supports ...args only in the last param
-}
+export type ServerMethod = (...args: any[]) => any;
 
 /**
  * The same cache configuration used in server.cache().
