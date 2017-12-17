@@ -2401,16 +2401,21 @@ export class TextEditor {
     setPlaceholderText(placeholderText: string): void;
 }
 
+export interface PixelPosition {
+    left: number;
+    top: number;
+}
+
 /**
  *  Undocumented: Rendering component for TextEditor
  */
 export interface TextEditorComponent {
   /** Does not clip screenPosition, unlike similar method on TextEditorElement */
-  pixelPositionForScreenPosition(screenPosition: PointLike): {left: number, top: number};
-  screenPositionForPixelPosition(pos: {top: number, left: number}): Point;
+  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
+  screenPositionForPixelPosition(pos: PixelPosition): Point;
   pixelPositionForMouseEvent(event: {
     clientX: number, clientY: number
-  }): {top: number, left: number};
+  }): PixelPosition;
   screenPositionForMouseEvent(event: {clientX: number, clientY: number}): Point;
 }
 
@@ -2444,10 +2449,10 @@ export interface TextEditorElement extends HTMLElement {
   getScrollHeight(): number;
 
   /** Extended: Converts a buffer position to a pixel position. */
-  pixelPositionForBufferPosition(bufferPosition: PointLike): {left: number, top: number};
+  pixelPositionForBufferPosition(bufferPosition: PointLike): PixelPosition;
 
   /** Extended: Converts a screen position to a pixel position. */
-  pixelPositionForScreenPosition(screenPosition: PointLike): {left: number, top: number};
+  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
 
   // Event subscription
   onDidChangeScrollTop(callback: (scrollTop: number) => void): Disposable;
