@@ -1,6 +1,12 @@
 import * as React from "react";
 import ReactModal = require('react-modal');
 
+// tests for static method
+// string
+ReactModal.setAppElement("#main");
+// HTMLElement
+ReactModal.setAppElement(document.getElementById("#main"));
+
 class ExampleOfUsingReactModal extends React.Component {
   render() {
     const onAfterOpenFn = () => { };
