@@ -1,4 +1,4 @@
-import {Request} from "hapi";
+import {Iron, Request} from "hapi";
 
 /**
  * Optional cookie settings
@@ -43,13 +43,13 @@ export interface ServerStateCookieOptions {
      *  * password - password used for HMAC key generation (must be at least 32 characters long).
      */
     sign?: {
-        integrity?: object;  // TODO make iron definitions and getting typing from iron. Needs review!
+        integrity?: Iron.ISomething;
         password: string;
     };
     /** password used for 'iron' encoding (must be at least 32 characters long). */
     password?: string;
     /** options for 'iron' encoding. Defaults to require('iron').defaults. */
-    iron?: object;  // TODO make iron definitions and getting typing from iron. Needs review!
+    iron?: Iron.ISealOptions;
     /** if true, errors are ignored and treated as missing cookies. */
     ignoreErrors?: boolean;
     /** if true, automatically instruct the client to remove invalid cookies. Defaults to false. */
