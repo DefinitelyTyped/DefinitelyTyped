@@ -1,7 +1,8 @@
 // Type definitions for Atom 1.22
 // Project: https://github.com/atom/atom
-// Definitions by: GlenCFL <https://github.com/GlenCFL>,
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
+//                 lierdakil <https://github.com/lierdakil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
