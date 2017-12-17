@@ -16,5 +16,5 @@ server.route(serverRoute);
 server.start();
 
 const res = server.inject('/');
-console.log(res.result);                // 'Success!' // TODO It's not working
+console.log(res.result);
 
