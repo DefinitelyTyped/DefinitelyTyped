@@ -65,6 +65,7 @@ export * from './definitions/server/server-state'
 export * from './definitions/server/server-state-options'
 
 /** UTIL */
+export * from './definitions/util/iron'
 export * from './definitions/util/json'
 export * from './definitions/util/lifecycle'
 export * from './definitions/util/util'
