@@ -14,7 +14,6 @@ declare let elements: HTMLElement[];
 declare const div: HTMLDivElement;
 declare const event: KeyboardEvent;
 declare const mouseEvent: MouseEvent;
-declare let pixelPos: {left: number, top: number};
 
 declare let buffer: Atom.TextBuffer;
 declare const color: Atom.Color;
@@ -67,6 +66,7 @@ declare let subscription: Atom.Disposable;
 declare let subscriptions: Atom.CompositeDisposable;
 declare let tooltips: Atom.Tooltip[];
 declare let workspaceCenter: Atom.WorkspaceCenter;
+declare let pixelPos: Atom.PixelPosition;
 declare let textEditorElement: Atom.TextEditorElement;
 declare let textEditorComponent: Atom.TextEditorComponent;
 
