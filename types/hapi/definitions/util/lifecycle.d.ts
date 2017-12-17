@@ -21,18 +21,26 @@ export namespace Lifecycle {
     /**
      * Each lifecycle method must return a value or a promise that resolves into a value. If a lifecycle method returns
      * without a value or resolves to an undefined value, an Internal Server Error (500) error response is sent.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
+     * The return value must be one of:
+     * * Plain value: null, string, number, boolean
+     * * Buffer object
+     * * Error object: plain Error OR a Boom object.
+     * * Stream object
+     * * any object or array
+     * * a toolkit signal:
+     * * a toolkit method response:
+     * * a promise object that resolve to any of the above values
+     * For more info please [See docs](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
      */
     export type ReturnValue = ReturnValueTypes | (Promise<ReturnValueTypes>);
     export type ReturnValueTypes =
-        (null | undefined | string | number | boolean) |
+        (null | string | number | boolean) |
         (Buffer) |
         (Error | Boom.BoomError) |
         (stream.Stream) |
-        (Object | Object[]) |
-        // a toolkit signal:
-        // a toolkit method response:
-        any; // TODO need review
+        (object | object[]) |
+        Object |
+        ResponseToolkit;
 
     /**
      * Various configuration options allows defining how errors are handled. For example, when invalid payload is received or malformed cookie, instead of returning an error, the framework can be configured to perform another action. When supported the failAction option supports the following values:
