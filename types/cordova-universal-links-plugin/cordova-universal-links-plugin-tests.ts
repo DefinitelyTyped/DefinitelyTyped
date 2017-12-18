@@ -1,16 +1,16 @@
 const newsEventname = 'openNewsListPage';
 universalLinks.subscribe(newsEventname, onNewsListPageRequested);
 
-function onNewsListPageRequested(eventData: EventData) {
+function onNewsListPageRequested(eventData: universalLinks.EventData) {
   alert('Did launch application with news link: ' + eventData.url);
 }
 
 universalLinks.unsubscribe('openNewsListPage');
 
-window.universalLinks.subscribe(null, onOtherLinkRequested);
+universalLinks.subscribe(null, onOtherLinkRequested);
 
-function onOtherLinkRequested(eventData: EventData) {
+function onOtherLinkRequested(eventData: universalLinks.EventData) {
   alert('Did launch application with other link: ' + eventData.url);
 }
 
-window.universalLinks.unsubscribe(null);
+universalLinks.unsubscribe(null);
