@@ -3,6 +3,10 @@
 // Definitions by: Curt Mullin <https://github.com/curtstate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
+export as namespace fingerprintjs2;
+export = fingerprintjs2;
+
 declare class Fingerprint2 {
     static VERSION: string;
     constructor(options?: Fingerprint2Options);
