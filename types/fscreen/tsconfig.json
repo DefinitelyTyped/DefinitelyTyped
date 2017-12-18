@@ -10,6 +10,7 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "target": "es6",
+        "strictFunctionTypes": true,
         "typeRoots": [
             "../"
         ],
