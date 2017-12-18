@@ -18,6 +18,7 @@ import {
     FieldArray,
     GenericFieldArray,
     WrappedFieldArrayProps,
+    BaseFieldProps,
     reducer,
     FormAction,
     actionTypes,
