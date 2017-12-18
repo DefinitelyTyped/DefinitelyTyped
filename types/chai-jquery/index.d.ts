@@ -20,11 +20,11 @@ declare namespace Chai {
         text(text: string): Assertion;
         value(text: string): Assertion;
         descendants(selector: string): Assertion;
-        visible: Assertion;
-        hidden: Assertion;
-        selected: Assertion;
-        checked: Assertion;
-        disabled: Assertion;
+        visible(): Assertion;
+        hidden(): Assertion;
+        selected(): Assertion;
+        checked(): Assertion;
+        disabled(): Assertion;
         (selector: string): Assertion;
     }
 }
