@@ -12,6 +12,7 @@
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
 //                 Miika Hänninen <https://github.com/googol>
+//                 Nikita Moshensky <https://github.com/moshensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -581,7 +582,7 @@ declare namespace R {
          * Reports whether two functions have the same value for the specified property.
          */
         eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
-        eqProps(prop: string): <T, U>(obj1: T, obj2: U) => boolean;
+        eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
         eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
         /**
@@ -681,6 +682,7 @@ declare namespace R {
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
          */
+        groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
 
