@@ -1,7 +1,8 @@
 // Type definitions for html2canvas.js 0.5
 // Project: https://github.com/niklasvh/html2canvas
-// Definitions by: Richard Hepburn <https://github.com/rwhepburn/>, Pei-Tang Huang <https://github.com/tan9/>
+// Definitions by: Richard Hepburn <https://github.com/rwhepburn>, Pei-Tang Huang <https://github.com/tan9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

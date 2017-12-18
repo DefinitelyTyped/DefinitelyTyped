@@ -1,12 +1,14 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface BreadcrumbItemProps {
   tag?: React.ReactType;
   active?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   // if a is passed as a string
   // this could be href
   [others: string]: any;
 }
 
-declare var BreadcrumbItem: React.StatelessComponent<Props>;
+declare const BreadcrumbItem: React.StatelessComponent<BreadcrumbItemProps>;
 export default BreadcrumbItem;
-

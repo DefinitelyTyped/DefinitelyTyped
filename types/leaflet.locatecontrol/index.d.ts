@@ -2,14 +2,15 @@
 // Project: https://github.com/domoritz/leaflet-locatecontrol
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace Control {
         interface LocateOptions {
             position?: string;
-            layer?: L.Layer;
+            layer?: Layer;
             setView?: boolean | string;
             flyTo?: boolean;
             keepCurrentZoomLevel?: boolean;
@@ -19,10 +20,10 @@ declare namespace L {
             drawCircle?: boolean;
             drawMarker?: boolean;
             markerClass?: any;
-            circleStyle?: L.PathOptions;
-            markerStyle?: L.PathOptions;
-            followCircleStyle?: L.PathOptions;
-            followMarkerStyle?: L.PathOptions;
+            circleStyle?: PathOptions;
+            markerStyle?: PathOptions;
+            followCircleStyle?: PathOptions;
+            followMarkerStyle?: PathOptions;
             icon?: string;
             iconLoading?: string;
             iconElementTag?: string;
@@ -34,10 +35,11 @@ declare namespace L {
             locateOptions?: L.LocateOptions;
         }
     }
+
     namespace control {
         /**
          * Creates a Leaflet.Locate control
          */
-        function locate(options?: Control.LocateOptions): L.Control;
+        function locate(options?: Control.LocateOptions): Control;
     }
 }

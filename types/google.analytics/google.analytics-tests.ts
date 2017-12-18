@@ -3,7 +3,7 @@ declare function it(desc: string, fn: () => void): void;
 
 describe("tester Google Analytics Tracker _gat object", () => {
     it("can set ga script element", () => {
-        gaClassic = <HTMLScriptElement> document.createElement("script");
+        gaClassic = document.createElement("script");
     });
     it("can set aync to true", () => {
         gaClassic.async = true;
@@ -41,14 +41,39 @@ describe('UniversalAnalytics', () => {
     });
     it('should excercise Tracker APIs', () => {
         const tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
-        const aString: string = tracker.get<string>('aString');
-        const aNumber: number = tracker.get<number>('aNumber');
-        const anObject: {} = tracker.get<{}>('anObject');
+
+        tracker.get('fieldName');
+
+        tracker.set('aString', 'aString');
+        tracker.set('aNumber', 1);
+        tracker.set('anObject', {});
+        tracker.set({
+            several: 'values',
+            at: 'once'
+        });
+
         tracker.send('pageview');
+        tracker.send('pageview', '/some-path');
         tracker.send('pageview', {some: 'details'});
-        tracker.set('aString', aString);
-        tracker.set('aNumber', aNumber);
-        tracker.set('anObject', anObject);
+    });
+
+    it('should exercise Model APIs', () => {
+        const tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
+
+        tracker.set('sendHitTask', (gaHitModel: UniversalAnalytics.Model) => {
+            gaHitModel.get('hitPayload');
+
+            gaHitModel.set('hitCallback', () => console.log('hit sent'), true);
+            gaHitModel.set('hitCallback', () => console.log('hit sent'));
+            gaHitModel.set({
+                hitPayload: 'a=1&b=2',
+                otherField: 3
+            });
+            gaHitModel.set({
+                hitPayload: 'a=1&b=2',
+                otherField: 3
+            }, null, false);
+        });
     });
 });
 

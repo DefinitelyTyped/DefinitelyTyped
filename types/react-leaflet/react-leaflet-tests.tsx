@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Leaflet from 'leaflet';
-import { Component, PropTypes } from 'react';
+import * as PropTypes from 'prop-types';
+import * as L from 'leaflet';
+import { Component } from 'react';
 import {
+    Children,
     Circle,
     CircleMarker,
     FeatureGroup,
@@ -11,13 +13,14 @@ import {
     Map,
     MapControl,
     MapControlProps,
-    MapInstance,
+    MapProps,
     Marker,
-    MarkerInstance,
+    MarkerProps,
     Pane,
     Polygon,
     Polyline,
     Popup,
+    PopupProps,
     Rectangle,
     TileLayer,
     Tooltip,
@@ -27,7 +30,13 @@ import {
 const { BaseLayer, Overlay } = LayersControl;
 
 /// animate.js
-export class AnimateExample extends Component<any, any> {
+interface AnimateExampleState {
+    animate: boolean;
+    hasLocation: boolean;
+    latlng: L.LatLngExpression;
+}
+
+export class AnimateExample extends Component<undefined, AnimateExampleState> {
     state = {
         animate: false,
         hasLocation: false,
@@ -37,7 +46,7 @@ export class AnimateExample extends Component<any, any> {
         },
     };
 
-    handleClick = (e: Leaflet.MouseEvent) => {
+    handleClick = (e: L.LeafletMouseEvent) => {
         this.setState({
             latlng: e.latlng,
         });
@@ -61,20 +70,25 @@ export class AnimateExample extends Component<any, any> {
         return (
             <div style={{ textAlign: 'center' }}>
                 <label>
-                    <input checked={this.state.animate} onChange={this.toggleAnimate} type='checkbox' />
+                    <input
+                        checked={this.state.animate}
+                        onChange={this.toggleAnimate}
+                        type='checkbox'
+                    />
                     Animate panning
-        </label>
+                </label>
                 <Map
                     animate={this.state.animate}
                     center={this.state.latlng}
-                    // TODO length={4}
+                    // length={4} -- unimplemented; What component in the inheritance chain defines this property?
                     onclick={this.handleClick}
-                    ref='map'
-                    zoom={13}>
+                    ref="map"
+                    zoom={13}
+                >
                     <TileLayer
                         attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                        />
+                    />
                     {marker}
                 </Map>
             </div>
@@ -83,16 +97,20 @@ export class AnimateExample extends Component<any, any> {
 }
 
 // bounds.js
-const outer: Array<[number, number]> = [
+const outer: L.LatLngBoundsLiteral = [
     [50.505, -29.09],
     [52.505, 29.09],
 ];
-const inner: Array<[number, number]> = [
+const inner: L.LatLngBoundsLiteral = [
     [49.505, -2.09],
     [53.505, 2.09],
 ];
 
-export class BoundsExample extends Component<any, any> {
+interface BoundsExampleState {
+    bounds: L.LatLngBoundsLiteral;
+}
+
+export class BoundsExample extends Component<undefined, BoundsExampleState> {
     state = {
         bounds: outer,
     };
@@ -111,28 +129,33 @@ export class BoundsExample extends Component<any, any> {
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <Rectangle
                     bounds={outer}
                     color={this.state.bounds === outer ? 'red' : 'white'}
                     onclick={this.onClickOuter}
-                    />
+                />
                 <Rectangle
                     bounds={inner}
                     color={this.state.bounds === inner ? 'red' : 'white'}
                     onclick={this.onClickInner}
-                    />
+                />
             </Map>
         );
     }
 }
 
 // custom-component.js
-const SomeFn = (asd: string) => (
-    asd + asd
-);
+interface MyPopupMarkerProps {
+    children: Children;
+    position: L.LatLngExpression;
+}
 
-const MyPopupMarker = ({ children, position }: any) => (
+interface MyMarker extends MyPopupMarkerProps {
+    key: string;
+}
+
+const MyPopupMarker = ({ children, position }: MyPopupMarkerProps) => (
     <Marker position={position}>
         <Popup>
             <span>{children}</span>
@@ -140,22 +163,24 @@ const MyPopupMarker = ({ children, position }: any) => (
     </Marker>
 );
 
-/*(MyPopupMarker as any).propTypes = {
-  children: MapPropTypes.children,
-  position: MapPropTypes.latlng,
-}*/
+interface MyMarkersListProps {
+    markers: MyMarker[];
+}
 
-const MyMarkersList = ({ markers }: any) => {
-    const items = markers.map(({ key, ...props }: any) => (
+const MyMarkersList = ({ markers }: MyMarkersListProps) => {
+    const items = markers.map(({ key, ...props }) => (
         <MyPopupMarker key={key} {...props} />
     ));
     return <div style={{ display: 'none' }}>{items}</div>;
 };
-(MyMarkersList as any).propTypes = {
-    markers: PropTypes.array.isRequired,
-};
 
-export class CustomComponent extends Component<any, any> {
+interface CustomComponentState {
+    lat: number;
+    lng: number;
+    zoom: number;
+}
+
+export class CustomComponent extends Component<undefined, CustomComponentState> {
     state = {
         lat: 51.505,
         lng: -0.09,
@@ -163,9 +188,9 @@ export class CustomComponent extends Component<any, any> {
     };
 
     render() {
-        const center: [number, number] = [this.state.lat, this.state.lng];
+        const center: L.LatLngExpression = [this.state.lat, this.state.lng];
 
-        const markers = [
+        const markers: MyMarker[] = [
             { key: 'marker1', position: [51.5, -0.1], children: 'My first popup' },
             { key: 'marker2', position: [51.51, -0.1], children: 'My second popup' },
             { key: 'marker3', position: [51.49, -0.05], children: 'My third popup' },
@@ -175,27 +200,35 @@ export class CustomComponent extends Component<any, any> {
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <MyMarkersList markers={markers} />
             </Map>
         );
     }
 }
 
-export class MarkerWithDivIconExample extends Component<any, any> {
+// SOURCE ???
+export class MarkerWithDivIconExample extends Component<undefined, undefined> {
     render() {
         return (
             <Map>
                 <Marker position={[0, 0]} icon={
-                        new Leaflet.DivIcon({})
-                    }/>
+                    new L.DivIcon({})
+                } />
             </Map>
         );
     }
 }
 
 // draggable-marker.js
-export class DraggableExample extends Component<any, any> {
+interface DraggableExampleState {
+    center: L.LatLngLiteral;
+    marker: L.LatLngLiteral;
+    zoom: number;
+    draggable: boolean;
+}
+
+export class DraggableExample extends Component<undefined, DraggableExampleState> {
     state = {
         center: {
             lat: 51.505,
@@ -214,27 +247,31 @@ export class DraggableExample extends Component<any, any> {
     }
 
     updatePosition = () => {
-        const { lat, lng } = (this.refs['marker'] as MarkerInstance).leafletElement.getLatLng();
+        const {
+            lat,
+            lng,
+        } = (this.refs.marker as Marker).leafletElement.getLatLng();
         this.setState({
             marker: { lat, lng },
         });
     }
 
     render() {
-        const position: [number, number] = [this.state.center.lat, this.state.center.lng];
-        const markerPosition: [number, number] = [this.state.marker.lat, this.state.marker.lng];
+        const position: L.LatLngExpression = [this.state.center.lat, this.state.center.lng];
+        const markerPosition: L.LatLngExpression = [this.state.marker.lat, this.state.marker.lng];
 
         return (
             <Map center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <Marker
                     draggable={this.state.draggable}
                     ondragend={this.updatePosition}
                     position={markerPosition}
-                    ref='marker'>
+                    ref='marker'
+                >
                     <Popup minWidth={90}>
                         <span onClick={this.toggleDraggable}>
                             {this.state.draggable ? 'DRAG MARKER' : 'MARKER FIXED'}
@@ -247,7 +284,12 @@ export class DraggableExample extends Component<any, any> {
 }
 
 // events.js
-export class EventsExample extends Component<any, any> {
+interface EventsExampleState {
+    hasLocation: boolean;
+    latlng: L.LatLngLiteral;
+}
+
+export class EventsExample extends Component<undefined, EventsExampleState> {
     state = {
         hasLocation: false,
         latlng: {
@@ -257,10 +299,10 @@ export class EventsExample extends Component<any, any> {
     };
 
     handleClick = () => {
-        (this.refs['map'] as MapInstance).leafletElement.locate();
+        (this.refs.map as Map).leafletElement.locate();
     }
 
-    handleLocationFound = (e: Leaflet.LocationEvent) => {
+    handleLocationFound = (e: L.LocationEvent) => {
         this.setState({
             hasLocation: true,
             latlng: e.latlng,
@@ -279,15 +321,16 @@ export class EventsExample extends Component<any, any> {
         return (
             <Map
                 center={this.state.latlng}
-                // TODO length={4}
-                onClick={this.handleClick}
+                // length={4} -- unimplemented; What component in the inheritance chain defines this property?
+                onclick={this.handleClick}
+                // NB: lowercase prop for Leaflet event handler
                 onlocationfound={this.handleLocationFound}
-                ref='map'
+                ref="map"
                 zoom={13}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 {marker}
             </Map>
         );
@@ -295,10 +338,10 @@ export class EventsExample extends Component<any, any> {
 }
 
 // layers-control.js
-export class LayersControlExample extends Component<any, any> {
+export class LayersControlExample extends Component<undefined, undefined> {
     render() {
-        const center: [number, number] = [51.505, -0.09];
-        const rectangle: Array<[number, number]> = [
+        const center: L.LatLngExpression = [51.505, -0.09];
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -310,13 +353,13 @@ export class LayersControlExample extends Component<any, any> {
                         <TileLayer
                             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                            />
+                        />
                     </BaseLayer>
                     <BaseLayer name='OpenStreetMap.BlackAndWhite'>
                         <TileLayer
                             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
-                            />
+                        />
                     </BaseLayer>
                     <Overlay name='Marker with popup'>
                         <Marker position={center}>
@@ -350,10 +393,10 @@ export class LayersControlExample extends Component<any, any> {
 }
 
 // other-layers.js
-export class OtherLayersExample extends Component<any, any> {
+export class OtherLayersExample extends Component<undefined, undefined> {
     render() {
-        const center: [number, number] = [51.505, -0.09];
-        const rectangle: Array<[number, number]> = [
+        const center: L.LatLngExpression = [51.505, -0.09];
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -363,7 +406,7 @@ export class OtherLayersExample extends Component<any, any> {
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <LayerGroup>
                     <Circle center={center} fillColor='blue' radius={200} />
                     <Circle center={center} fillColor='red' radius={100} stroke={false} />
@@ -384,7 +427,11 @@ export class OtherLayersExample extends Component<any, any> {
 }
 
 // pane.js
-export class PaneExample extends Component<any, any> {
+interface PaneExampleState {
+    render: boolean;
+}
+
+export class PaneExample extends Component<undefined, PaneExampleState> {
     state = {
         render: true,
     };
@@ -403,7 +450,7 @@ export class PaneExample extends Component<any, any> {
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 {this.state.render ? (
                     <Pane name='cyan-rectangle' style={{ zIndex: 500 }}>
                         <Rectangle bounds={outer} color='cyan' />
@@ -421,7 +468,13 @@ export class PaneExample extends Component<any, any> {
 }
 
 // simple.js
-export class SimpleExample extends Component<any, any> {
+interface SimpleExampleState {
+    lat: number;
+    lng: number;
+    zoom: number;
+}
+
+export class SimpleExample extends Component<undefined, SimpleExampleState> {
     state = {
         lat: 51.505,
         lng: -0.09,
@@ -429,13 +482,13 @@ export class SimpleExample extends Component<any, any> {
     };
 
     render() {
-        const position: [number, number] = [this.state.lat, this.state.lng];
+        const position: L.LatLngExpression = [this.state.lat, this.state.lng];
         return (
             <Map center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <Marker position={position}>
                     <Popup>
                         <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
@@ -447,7 +500,11 @@ export class SimpleExample extends Component<any, any> {
 }
 
 // tooltip.js
-export class TooltipExample extends Component<any, any> {
+interface TooltipExampleState {
+    clicked: number;
+}
+
+export class TooltipExample extends Component<undefined, TooltipExampleState> {
     state = {
         clicked: 0,
     };
@@ -457,14 +514,14 @@ export class TooltipExample extends Component<any, any> {
     }
 
     render() {
-        const center: [number, number] = [51.505, -0.09];
+        const center: L.LatLngExpression = [51.505, -0.09];
 
-        const multiPolygon: Array<Array<[number, number]>> = [
+        const multiPolygon: L.LatLngExpression[][] = [
             [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
             [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
         ];
 
-        const rectangle: Array<[number, number]> = [
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -478,8 +535,13 @@ export class TooltipExample extends Component<any, any> {
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
-                <Circle center={center} fillColor='blue' onclick={this.onClickCircle} radius={200}>
+                />
+                <Circle
+                    center={center}
+                    fillColor='blue'
+                    onclick={this.onClickCircle}
+                    radius={200}
+                >
                     <Tooltip>
                         <span>{clickedText}</span>
                     </Tooltip>
@@ -489,6 +551,14 @@ export class TooltipExample extends Component<any, any> {
                         <span>Tooltip for CircleMarker</span>
                     </Tooltip>
                 </CircleMarker>
+                <Marker position={[51.510, -0.09]}>
+                    <Popup>
+                        <span>Popup for Marker</span>
+                    </Popup>
+                    <Tooltip>
+                        <span>Tooltip for Marker</span>
+                    </Tooltip>
+                </Marker>
                 <Polygon color='purple' positions={multiPolygon}>
                     <Tooltip sticky>
                         <span>sticky Tooltip for Polygon</span>
@@ -505,33 +575,33 @@ export class TooltipExample extends Component<any, any> {
 }
 
 // vector-layers.js
-export class VectorLayersExample extends Component<any, any> {
+export class VectorLayersExample extends Component<undefined, undefined> {
     render() {
-        const center: [number, number] = [51.505, -0.09];
+        const center: L.LatLngExpression = [51.505, -0.09];
 
-        const polyline: Array<[number, number]> = [
+        const polyline: L.LatLngExpression[] = [
             [51.505, -0.09],
             [51.51, -0.1],
             [51.51, -0.12],
         ];
 
-        const multiPolyline: Array<Array<[number, number]>> = [
+        const multiPolyline: L.LatLngExpression[][] = [
             [[51.5, -0.1], [51.5, -0.12], [51.52, -0.12]],
             [[51.5, -0.05], [51.5, -0.06], [51.52, -0.06]],
         ];
 
-        const polygon: Array<[number, number]> = [
+        const polygon: L.LatLngExpression[] = [
             [51.515, -0.09],
             [51.52, -0.1],
             [51.52, -0.12],
         ];
 
-        const multiPolygon: Array<Array<[number, number]>> = [
+        const multiPolygon: L.LatLngExpression[][] = [
             [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
             [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
         ];
 
-        const rectangle: Array<[number, number]> = [
+        const rectangle: L.LatLngBoundsExpression = [
             [51.49, -0.08],
             [51.5, -0.06],
         ];
@@ -541,7 +611,7 @@ export class VectorLayersExample extends Component<any, any> {
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <Circle center={center} fillColor='blue' radius={200} />
                 <CircleMarker center={[51.51, -0.12]} color='red' radius={20}>
                     <Popup>
@@ -559,7 +629,14 @@ export class VectorLayersExample extends Component<any, any> {
 }
 
 // wms-tile-layer.js
-export class WMSTileLayerExample extends Component<any, any> {
+interface WMSTileLayerExampleState {
+    lat: number;
+    lng: number;
+    zoom: number;
+    bluemarble: boolean;
+}
+
+export class WMSTileLayerExample extends Component<undefined, WMSTileLayerExampleState> {
     state = {
         lat: 51.505,
         lng: -0.09,
@@ -578,15 +655,16 @@ export class WMSTileLayerExample extends Component<any, any> {
             <Map
                 center={[this.state.lat, this.state.lng]}
                 zoom={this.state.zoom}
-                onClick={this.onClick}>
+                onclick={this.onClick}
+            >
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
+                />
                 <WMSTileLayer
                     layers={this.state.bluemarble ? 'nasa:bluemarble' : 'ne:ne'}
                     url='http://demo.opengeo.org/geoserver/ows?'
-                    />
+                />
             </Map>
         );
     }
@@ -598,70 +676,72 @@ const ZoomControlExample = () => (
         <TileLayer
             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-            />
+        />
         <ZoomControl position='topright' />
     </Map>
 );
 
 // MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
-const mapControlCenter: [number, number] = [51.505, -0.09];
-class CenterControl extends MapControl<MapControlProps> {  // note we're extending MapControl from react-leaflet, not Component from react
-  componentWillMount() {
-    const centerControl = new L.Control({position: this.props.position});  // see http://leafletjs.com/reference.html#control-positions for other positions
-    const jsx = (
-      // PUT YOUR JSX FOR THE COMPONENT HERE:
-      <div {...this.props}>
-        // add your JSX
-      </div>
-    );
+class CenterControl extends MapControl {  // note we're extending MapControl from react-leaflet, not Component from react
+    componentWillMount() {
+        const centerControl = new L.Control({ position: 'bottomright' });  // see http://leafletjs.com/reference.html#control-positions for other positions
+        const jsx = (
+            // PUT YOUR JSX FOR THE COMPONENT HERE:
+            <div>
+                {/* add your JSX */}
+            </div>
+        );
 
-    centerControl.onAdd = (map) => {
-      let div = L.DomUtil.create('div', '');
-      ReactDOM.render(jsx, div);
-      return div;
-    };
+        centerControl.onAdd = (map) => {
+            const div = L.DomUtil.create('div', '');
+            ReactDOM.render(jsx, div);
+            return div;
+        };
 
-    this.leafletElement = centerControl;
-  }
+        this.leafletElement = centerControl;
+    }
 }
+
+const mapControlCenter: L.LatLngExpression = [51.505, -0.09];
+
 const CenterControlExample = () => (
     <Map center={mapControlCenter} zoom={13}>
-        <CenterControl/>
+        <CenterControl />
     </Map>
 );
 
 class LegendControl extends MapControl<MapControlProps & { className?: string }> {
-  componentWillMount() {
-    const legend = new L.Control({position: this.props.position});
-    const jsx = (
-      <div {...this.props}>
-        {this.props.children}
-      </div>
-    );
+    componentWillMount() {
+        const legend = new L.Control({ position: 'bottomright' });
+        const jsx = (
+            <div>
+                {this.props.children}
+            </div>
+        );
 
-    legend.onAdd = (map) => {
-      let div = L.DomUtil.create('div', '');
-      ReactDOM.render(jsx, div);
-      return div;
-    };
+        legend.onAdd = (map) => {
+            const div = L.DomUtil.create('div', '');
+            ReactDOM.render(jsx, div);
+            return div;
+        };
 
-    this.leafletElement = legend;
-  }
+        this.leafletElement = legend;
+    }
 }
 
 const LegendControlExample = () => (
-    <Map className="map" center={mapControlCenter} zoom={13} style={{height: "300px"}}>
-    <TileLayer
-        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    />
-    <LegendControl className="supportLegend">
-        <ul className="legend">
-        <li className="legendItem1">Strong Support</li>
-        <li className="legendItem2">Weak Support</li>
-        <li className="legendItem3">Weak Oppose</li>
-        <li className="legendItem4">Strong Oppose</li>
-        </ul>
-    </LegendControl>
+    <Map className="map" center={mapControlCenter} zoom={13} style={{ height: "300px" }}>
+        <TileLayer
+            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <LegendControl className="supportLegend">
+            <ul className="legend">
+                <li className="legendItem1">Strong Support</li>
+                <li className="legendItem2">Weak Support</li>
+                <li className="legendItem3">Weak Oppose</li>
+                <li className="legendItem4">Strong Oppose</li>
+            </ul>
+        </LegendControl>
     </Map>
 );

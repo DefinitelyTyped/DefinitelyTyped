@@ -124,15 +124,5 @@ server.route([{
 	}
 }]);
 
-// Implict handler
-server.route({
-	method: 'GET',
-	path: '/hello6',
-	handler: function (request, reply) {
-		request.log('info', { route: '/hello' }, Date.now());
-		reply('hello world');
-	}
-});
-
 // Start the server
 server.start();

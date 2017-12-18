@@ -165,7 +165,12 @@ function CommonMethodsInEventStreamsAndProperties() {
 
     {
         // Calculator for grouped consecutive values until group is cancelled:
-        var events = [
+        interface Event {
+            id:number;
+            type:string;
+            val?:number;
+        }
+        var events: Event[] = [
                 {id: 1, type: "add", val: 3},
                 {id: 2, type: "add", val: -1},
                 {id: 1, type: "add", val: 2},
@@ -177,18 +182,23 @@ function CommonMethodsInEventStreamsAndProperties() {
                 {id: 1, type: "cancel"}
             ],
             keyF = (event:{id:number}) => event.id,
-            limitF = (groupedStream:Bacon.EventStream<string, {id:number; type:string; val?:number}>) => {
+            limitF = (groupedStream:Bacon.EventStream<string, Event>) => {
                 var cancel = groupedStream.filter(x => x.type === "cancel").take(1),
                     adds = groupedStream.filter(x => x.type === "add");
                 return adds.takeUntil(cancel).map(x => x.val);
             };
 
-        Bacon.sequentially(2, events)
+        Bacon.sequentially<string, {id:number; type:string; val?:number}>(2, events)
             .groupBy(keyF, limitF)
             .flatMap(groupedStream => groupedStream.fold(0, (acc, x) => acc + x))
-            .onValue(sum => {
+            .onValue((sum: number) => {
                 console.log(sum); // returns [-1, 2, 8] in an order
             });
+    }
+
+    {
+        var src = Bacon.fromArray([1, 2, 3]);
+        src.doLog('element value');
     }
 }
 

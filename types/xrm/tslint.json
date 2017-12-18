@@ -1,5 +1,5 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
         "unified-signatures": false,
@@ -8,10 +8,17 @@
             true,
             "spaces"
         ],
+        "max-line-length": [
+            true,
+            250
+        ],
+        "no-unnecessary-type-assertion": false,
         "quotemark": [
             true,
             "double"
         ],
-        "jsdoc-format": true
+        "jsdoc-format": true,
+        "no-unnecessary-generics": false,
+        "no-empty-interface": false
     }
 }

@@ -1,15 +1,18 @@
-// Type definitions for webpack-dev-middleware 1.9
-// Project: http://github.com/webpack/webpack-dev-middleware
+// Type definitions for webpack-dev-middleware 1.12
+// Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
+//                 reduckted <https://github.com/reduckted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { NextHandleFunction } from 'connect';
-import { compiler } from 'webpack';
+import * as webpack from 'webpack';
+import MemoryFileSystem = require('memory-fs');
 
 export = WebpackDevMiddleware;
 
 declare function WebpackDevMiddleware(
-	compiler: compiler.Compiler,
+	compiler: webpack.ICompiler,
 	options?: WebpackDevMiddleware.Options
 ): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
@@ -18,13 +21,13 @@ declare namespace WebpackDevMiddleware {
 		noInfo?: boolean;
 		quiet?: boolean;
 		lazy?: boolean;
-		watchOptions?: compiler.WatchOptions;
+		watchOptions?: webpack.Options.WatchOptions;
 		publicPath: string;
 		index?: string;
 		headers?: {
 			[name: string]: string;
 		};
-		stats?: compiler.StatsToStringOptions;
+		stats?: webpack.Options.Stats;
 		reporter?: Reporter | null;
 		serverSideRender?: boolean;
 
@@ -36,7 +39,7 @@ declare namespace WebpackDevMiddleware {
 
 	interface ReporterOptions {
 		state: boolean;
-		stats: compiler.Stats;
+		stats: webpack.Stats;
 		options: Options;
 	}
 
@@ -46,7 +49,9 @@ declare namespace WebpackDevMiddleware {
 
 	interface WebpackDevMiddleware {
 		close(callback?: () => void): void;
-		invalidate(callback?: (stats: compiler.Stats) => void): void;
-		waitUntilValid(callback?: (stats: compiler.Stats) => void): void;
+		invalidate(callback?: (stats: webpack.Stats) => void): void;
+		waitUntilValid(callback?: (stats: webpack.Stats) => void): void;
+		getFilenameFromUrl: (url: string) => string | false;
+		fileSystem: MemoryFileSystem;
 	}
 }

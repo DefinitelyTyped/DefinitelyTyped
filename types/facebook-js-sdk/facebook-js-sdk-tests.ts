@@ -107,4 +107,5 @@ FB.ui({
     method: 'share',
     mobile_iframe: true,
     href: 'https://developers.facebook.com/docs/',
+    picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2000px-Google_2015_logo.svg.png',
 }, response => {});

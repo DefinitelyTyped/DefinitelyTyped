@@ -1,9 +1,14 @@
-// Type definitions for multer
+// Type definitions for multer 1.3
 // Project: https://github.com/expressjs/multer
-// Definitions by: jt000 <https://github.com/jt000>, vilicvane <https://vilic.github.io/>, David Broder-Rodgers <https://github.com/DavidBR-SW>
+// Definitions by: jt000 <https://github.com/jt000>
+//                 vilicvane <https://vilic.github.io/>
+//                 David Broder-Rodgers <https://github.com/DavidBR-SW>
+//                 Michael Ledin <https://github.com/mxl>
+//                 HyunSeob Lee <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import express = require('express');
+import * as express from 'express';
 
 declare namespace multer {
     interface Field {
@@ -18,7 +23,10 @@ declare namespace multer {
         dest?: string;
         /** The storage engine to use for uploaded files. */
         storage?: StorageEngine;
-        /** An object specifying the size limits of the following optional properties. This object is passed to busboy directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods */
+        /**
+         * An object specifying the size limits of the following optional properties. This object is passed to busboy
+         * directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods
+         */
         limits?: {
             /** Max field name size (Default: 100 bytes) */
             fieldNameSize?: number;
@@ -34,41 +42,39 @@ declare namespace multer {
             parts?: number;
             /** For multipart forms, the max number of header key=> value pairs to parse Default: 2000(same as node's http). */
             headerPairs?: number;
+            /** Keep the full path of files instead of just the base name (Default: false) */
+            preservePath?: boolean;
         };
         /** A function to control which files to upload and which to skip. */
-        fileFilter?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error, acceptFile: boolean) => void) => void;
+        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void): void;
     }
 
     interface StorageEngine {
-        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Partial<Express.Multer.File>) => void): void;
         _removeFile(req: express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
     }
 
     interface DiskStorageOptions {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
-        destination?: string | ((req: Express.Request, file: Express.Multer.File, callback: (error: Error, destination: string) => void) => void);
+        destination?: string | ((req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, destination: string) => void) => void);
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
-        filename?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) => void;
+        filename?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void): void;
     }
 
     interface Instance {
         /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
-        single(): express.RequestHandler;
-        /** Accept a single file with the name fieldname. The single file will be stored in req.file. */
-        single(fieldame: string): express.RequestHandler;
-        /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
-        array(): express.RequestHandler;
-        /** Accept an array of files, all with the name fieldname. Optionally error out if more than maxCount files are uploaded. The array of files will be stored in req.files. */
-        array(fieldame: string, maxCount?: number): express.RequestHandler;
+        /** Accept a single file with the name fieldName. The single file will be stored in req.file. */
+        single(fieldName?: string): express.RequestHandler;
+        /** Accept an array of files, all with the name fieldName. Optionally error out if more than maxCount files are uploaded. The array of files will be stored in req.files. */
+        array(fieldName: string, maxCount?: number): express.RequestHandler;
         /** Accept a mix of files, specified by fields. An object with arrays of files will be stored in req.files. */
         fields(fields: Field[]): express.RequestHandler;
-        /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
+        /** Accepts all files that comes over the wire. An array of files will be stored in req.files. */
         any(): express.RequestHandler;
     }
 }
 
 interface Multer {
-
     (options?: multer.Options): multer.Instance;
 
     /* The disk storage engine gives you full control on storing files to disk. */
@@ -77,21 +83,21 @@ interface Multer {
     memoryStorage(): multer.StorageEngine;
 }
 
-declare var multer: Multer;
+declare const multer: Multer;
 
 export = multer;
 
 declare global {
     namespace Express {
-        export interface Request {
+        interface Request {
             file: Multer.File;
             files: {
                 [fieldname: string]: Multer.File[];
-            };
+            } | Multer.File[];
         }
 
         namespace Multer {
-            export interface File {
+            interface File {
                 /** Field name specified in the form */
                 fieldname: string;
                 /** Name of the file on the user's computer */

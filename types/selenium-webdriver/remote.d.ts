@@ -6,7 +6,7 @@ import * as webdriver from './index';
  *
  * @record
  */
-interface ServiceOptions { }
+export interface ServiceOptions { }
 
 /**
  * Manages the life and death of a native executable WebDriver server.
@@ -154,6 +154,52 @@ export namespace DriverService {
          * @return {!DriverService} A new driver service.
          */
         build(): DriverService;
+    }
+}
+
+/**
+ * Manages the life and death of the
+ * <a href="http://selenium-release.storage.googleapis.com/index.html">
+ * standalone Selenium server</a>.
+ */
+export class SeleniumServer extends DriverService {
+    /**
+     * @param {string} jar Path to the Selenium server jar.
+     * @param {SeleniumServer.Options=} opt_options Configuration options for the
+     *     server.
+     * @throws {Error} If the path to the Selenium jar is not specified or if an
+     *     invalid port is specified.
+     **/
+    constructor(jar: string, opt_options?: SeleniumServer.Options);
+}
+
+export namespace SeleniumServer {
+    /**
+     * Options for the Selenium server
+     */
+    interface Options {
+        /** Whether the server should only be accessed on this host's loopback address.*/
+        loopback?: boolean;
+
+        /** The port to start the server on (must be > 0). If the port is provided
+        as a promise, the service will wait for the promise to resolve before starting. */
+        port?: number|webdriver.promise.IThenable<number>;
+
+        /** The arguments to pass to the service. If a promise is provided, the
+        service will wait for it to resolve before starting. */
+        args?: string[]|webdriver.promise.IThenable<string[]>;
+
+        /** The arguments to pass to the JVM. If a promise is provided, the service
+        will wait for it to resolve before starting. */
+        jvmArgs?: string[]|webdriver.promise.IThenable<string[]>;
+
+        /** The environment variables that should be visible to the server process.
+        Defaults to inheriting the current process's environment.*/
+        env?: {[key: string]: string};
+
+        /** IO configuration for the spawned server process. For more information,
+        refer to the documentation of `child_process.spawn`*/
+        stdio?: string|Array<string|number>;
     }
 }
 

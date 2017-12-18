@@ -1,26 +1,42 @@
-import * as Consumer from "sqs-consumer";
+import Consumer = require("sqs-consumer");
+import { SQS } from "aws-sdk";
 
-var app = Consumer.create({
-  queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-  handleMessage: function (message, done) {
+const app = Consumer.create({
+    queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+    handleMessage(message, done) {
     // do some work with `message`
-    done();
-  }
+        done();
+    }
 });
 
-var app2 = Consumer.create({
-  queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-  handleMessage: function(message, done){
-    done();
-  },
-  region: "us-west-1",
-  batchSize: 15,
-  visibilityTimeout: 50,
-  waitTimeSeconds: 50
+const app2 = Consumer.create({
+    queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+    handleMessage(message, done) {
+        done();
+    },
+    region: "us-west-1",
+    batchSize: 15,
+    visibilityTimeout: 50,
+    waitTimeSeconds: 50
 });
 
-app.on('error', function (err: any) {
-  console.log(err.message);
+// Test message handler.
+const handleMessage = (message: SQS.Message, done: Consumer.ConsumerDone) => {
+	done();
+};
+
+const app3 = Consumer.create({
+	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+	handleMessage
+});
+
+const app4 = new Consumer({
+	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+	handleMessage
+});
+
+app.on('error', (err: any) => {
+    console.log(err.message);
 });
 
 app.start();

@@ -1,13 +1,14 @@
 // Type definitions for angular-feature-flags 1.4.0
 // Project: https://github.com/mjt01/angular-feature-flags
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
+// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
-import * as angular from "angular";
+import * as ng from 'angular';
 
-declare module "angular" {
+declare module 'angular' {
     namespace featureflags {
         export interface FlagData {
             /**
@@ -26,17 +27,22 @@ declare module "angular" {
             name: string;
 
             /**
-             * A long description of the flag to further explain the feature being toggled (only visible in the list of flags)
+             * A long description of the flag to further explain the feature being toggled
+             * (only visible in the list of flags)
              */
             description: string;
         }
 
         export interface FeatureFlagsProvider {
-            setInitialFlags(flags: Array<FlagData>): void;
+            setInitialFlags(flags: ReadonlyArray<FlagData>): void;
         }
 
         export interface FeatureFlagsService {
-            set(flagsPromise: angular.IPromise<FlagData> | angular.IHttpPromise<FlagData>): void;
+            set(
+                flagsPromise:
+                    | ng.IPromise<ReadonlyArray<FlagData>>
+                    | ng.IHttpPromise<ReadonlyArray<FlagData>>
+            ): void;
         }
     }
 }

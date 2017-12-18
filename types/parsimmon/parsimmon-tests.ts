@@ -1,5 +1,5 @@
 import P = require('parsimmon');
-import { Parser, Mark, Result, Index } from "parsimmon";
+import { Parser, Mark, Result, Index, Reply, Language, TypedLanguage } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -13,25 +13,27 @@ class Bar {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let str: string;
+let str: string = null!;
 let strArr: string[];
 let bool: boolean;
-let num: number;
+let num: number = null!;
 let index: Index;
 
-let foo: Foo;
+let foo: Foo = null!;
 declare const bar: Bar;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 let strPar: Parser<string>;
-let numPar: Parser<number>;
+let numPar: Parser<number> = null!;
 let voidPar: Parser<void>;
 let anyPar: Parser<any>;
+let nullPar: Parser<null>;
+let emptyStrPar: Parser<''>;
 let indexPar: Parser<Index>;
 
-let fooPar: Parser<Foo>;
-let barPar: Parser<Bar>;
+let fooPar: Parser<Foo> = null!;
+let barPar: Parser<Bar> = null!;
 let fooOrBarPar: Parser<Foo | Bar>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -41,7 +43,7 @@ let fooArrPar: Parser<Foo[]>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let fooMarkPar: Parser<Mark<Foo>>;
+let fooMarkPar: Parser<Mark<Foo>> = null!;
 
 const result = fooMarkPar.parse(str);
 if (result.status) {
@@ -52,7 +54,7 @@ if (result.status) {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let fooResult: Result<Foo>;
+let fooResult: Result<Foo> = fooPar.parse("");
 
 // https://github.com/Microsoft/TypeScript/issues/12882
 if (fooResult.status === true) {
@@ -63,9 +65,10 @@ if (fooResult.status === true) {
 }
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
+let fooReply: Reply<Foo>;
 
-fooResult = P.makeSuccess(0, foo);
-fooResult = P.makeFailure(0, '');
+fooReply = P.makeSuccess(0, foo);
+fooReply = P.makeFailure(0, '');
 
 fooPar = P((input: string, i: number) => P.makeSuccess(0, foo));
 fooPar = P.Parser((input: string, i: number) => P.makeSuccess(0, foo));
@@ -168,6 +171,11 @@ strPar = P.regex(/foo/, 3);
 strPar = P.regexp(/bar/);
 strPar = P.regexp(/bar/, 3);
 
+nullPar = P.notFollowedBy(fooPar);
+emptyStrPar = P.lookahead(str);
+emptyStrPar = P.lookahead(/foo/);
+emptyStrPar = P.lookahead(fooPar);
+
 fooPar = P.of(foo);
 
 str = P.formatError('foo', strPar.parse('bar'));
@@ -183,3 +191,55 @@ strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
 strPar = P.test((a: string) => false);
 
 strPar = P.takeWhile((a: string) => true);
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+let language: Language;
+
+language = P.createLanguage({
+	SomeRule: r => P.alt(P.string(""), r.AnotherRule),
+	AnotherRule: () => P.string(""),
+});
+
+// $ExpectType Parser<any>
+language.SomeRule;
+// $ExpectType Parser<any>
+language.AnotherRule;
+// $ExpectType Parser<any>
+language.UndefinedRule;
+
+interface MyLanguageSpec {
+	FooRule: Foo;
+	BarRule: Bar;
+	StringRule: string;
+}
+
+let myLanguage: TypedLanguage<MyLanguageSpec>;
+
+myLanguage = P.createLanguage<MyLanguageSpec>({
+	FooRule: r => {
+		fooPar = r.FooRule;
+		barPar = r.BarRule;
+		strPar = r.StringRule;
+		return fooPar;
+	},
+	BarRule: r => barPar,
+	StringRule: () => strPar,
+});
+
+// $ExpectType Parser<Foo>
+myLanguage.FooRule;
+// $ExpectType Parser<Bar>
+myLanguage.BarRule;
+// $ExpectType Parser<string>
+myLanguage.StringRule;
+
+const noRules = P.createLanguage<{}>({});
+
+// $ExpectError
+P.createLanguage<{MissingRule: string}>({});
+
+P.createLanguage<{SomeRule: string}>({
+	SomeRule: r => strPar,
+	AnotherRule: (r: any) => strPar // $ExpectError
+});

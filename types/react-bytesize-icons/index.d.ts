@@ -2,7 +2,7 @@
 // Project: https://github.com/abdelhai/react-bytesize-icons
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -16,7 +16,7 @@ interface BytesizeIconsProps extends React.Props<any> {
     strokeLinecap?: StrokeLinecap;
     color?: string;
 }
-export class BytesizeIconComponent extends React.Component<BytesizeIconsProps, {}> {}
+export class BytesizeIconComponent extends React.Component<BytesizeIconsProps> {}
 
 export class Activity extends BytesizeIconComponent {}
 export class Alert extends BytesizeIconComponent {}

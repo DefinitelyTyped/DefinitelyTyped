@@ -1,38 +1,45 @@
-// Type definitions for angular-websocket v2.0
+// Type definitions for angular-websocket 2.0
 // Project: https://github.com/AngularClass/angular-websocket
 // Definitions by: Nick Veys <https://github.com/nickveys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as ng from "angular";
+import * as angular from "angular";
+
+export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
+export type IWebSocketProvider = angular.websocket.IWebSocketProvider;
+export type IWebSocketMessageOptions = angular.websocket.IWebSocketMessageOptions;
+export type IWebSocketMessageHandler = angular.websocket.IWebSocketMessageHandler;
+export type IWebSocketQueueItem = angular.websocket.IWebSocketQueueItem;
+export type IWebSocket = angular.websocket.IWebSocket;
 
 declare module "angular" {
     namespace websocket {
-
         /**
          * Options available to be specified for IWebSocketProvider.
          */
-        type IWebSocketConfigOptions = {
-        scope?: ng.IScope;
-        rootScopeFailOver?: boolean;
-        useApplyAsync?: boolean;
-        initialTimeout?: number;
-        maxTimeout?: number;
-        binaryType?: "blob" | "arraybuffer";
-        reconnectIfNotNormalClose?: boolean;
+        interface IWebSocketConfigOptions {
+            scope?: IScope;
+            rootScopeFailOver?: boolean;
+            useApplyAsync?: boolean;
+            initialTimeout?: number;
+            maxTimeout?: number;
+            binaryType?: "blob" | "arraybuffer";
+            reconnectIfNotNormalClose?: boolean;
         }
-        interface IWebSocketProvider {
-            /**
-             * Creates and opens an IWebSocket instance.
-             *
-             * @param url url to connect to
-             * @return websocket instance
-             */
-            (url: string, protocols?: string | string[] | IWebSocketConfigOptions, options?: IWebSocketConfigOptions): IWebSocket;
-        }
+
+        /**
+         * Creates and opens an IWebSocket instance.
+         *
+         * @param url url to connect to
+         * @return websocket instance
+         */
+        type IWebSocketProvider =
+            (url: string, protocols?: string | string[] | IWebSocketConfigOptions,
+                options?: IWebSocketConfigOptions) => IWebSocket;
 
         /** Options available to be specified for IWebSocket.onMessage */
-        type IWebSocketMessageOptions = {
-
+        interface IWebSocketMessageOptions {
             /**
              * If specified, only messages that match the filter will cause the message event
              * to be fired.
@@ -43,21 +50,20 @@ declare module "angular" {
             autoApply?: boolean;
         }
 
-        /** Type corresponding to onMessage callbaks stored in $Websocket#onMessageCallbacks instance. */
-        type IWebSocketMessageHandler = {
-        fn: (evt: MessageEvent) => void;
-        pattern: string | RegExp;
-        autoApply: boolean;
+        /** Type corresponding to onMessage callbacks stored in $Websocket#onMessageCallbacks instance. */
+        interface IWebSocketMessageHandler {
+            fn: (evt: MessageEvent) => void;
+            pattern?: string | RegExp;
+            autoApply: boolean;
         }
 
         /** Type corresponding to items stored in $WebSocket#sendQueue instance. */
-        type IWebSocketQueueItem = {
-        message: any;
-        defered: ng.IPromise<void>;
+        interface IWebSocketQueueItem {
+            message: any;
+            defered: IPromise<void>;
         }
 
         interface IWebSocket {
-
             /**
              * Adds a callback to be executed each time a socket connection is opened for
              * this instance.
@@ -107,7 +113,7 @@ declare module "angular" {
              *
              * @param data data to send, if this is an object, it will be stringified before sending
              */
-            send(data: string | {}): ng.IPromise<any>;
+            send(data: string | {}): IPromise<any>;
 
             /**
              * WebSocket instance.
@@ -122,7 +128,7 @@ declare module "angular" {
             /**
              * List of callbacks to be executed when the socket is opened.
              */
-            onOpenCallbacks: ((evt: Event) => void)[];
+            onOpenCallbacks: Array<((evt: Event) => void)>;
 
             /**
              * List of callbacks to be executed when a message is received from the socket.
@@ -132,12 +138,12 @@ declare module "angular" {
             /**
              * List of callbacks to be executed when an error is received from the socket.
              */
-            onErrorCallbacks: ((evt: Event) => void)[];
+            onErrorCallbacks: Array<((evt: Event) => void)>;
 
             /**
              * List of callbacks to be executed when the socket is closed.
              */
-            onCloseCallbacks: ((evt: CloseEvent) => void)[];
+            onCloseCallbacks: Array<((evt: CloseEvent) => void)>;
 
             /**
              * Returns either the readyState value from the underlying WebSocket instance

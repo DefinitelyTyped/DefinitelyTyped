@@ -1,8 +1,11 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface ContainerProps {
   tag?: React.ReactType;
   fluid?: boolean;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var Container: React.StatelessComponent<Props>;
+declare const Container: React.StatelessComponent<ContainerProps>;
 export default Container;

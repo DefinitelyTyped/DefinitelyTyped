@@ -1,150 +1,10 @@
-// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.1
+// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.3
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-// Spec: http://www.w3.org/TR/2016/WD-credential-management-1-20160425/
-
-/* ************************ FETCH API DEFINITIONS ******************************
- * TS 2.2 introduced definitions for the fetch API in the dom library, but
- * prior to that it was necessary to use the types defined in
- * @types/whatwg-fetch. In order to support all versions of TS 2.x, the
- * definitions for fetch from TS 2.2 dom are duplicated here. As long as these
- * remain identical to the definitions in dom 2.2+, they cause no issues.
- *
- * One caveat to "identical" here is that type definitions cannot be duplicated,
- * and so the "RequestInfo" type has been substituted for its expansion in
- * the below definitions:
- *
- * type RequestInfo = Request|string;
- * ************************************************************************** */
-
-interface Request extends Object, Body {
-    readonly cache: string;
-    readonly credentials: string;
-    readonly destination: string;
-    readonly headers: Headers;
-    readonly integrity: string;
-    readonly keepalive: boolean;
-    readonly method: string;
-    readonly mode: string;
-    readonly redirect: string;
-    readonly referrer: string;
-    readonly referrerPolicy: string;
-    readonly type: string;
-    readonly url: string;
-    clone(): Request;
-}
-
-declare var Request: {
-    prototype: Request;
-    new(input: Request | string, init?: RequestInit): Request;
-};
-
-interface Headers {
-    append(name: string, value: string): void;
-    delete(name: string): void;
-    forEach(callback: ForEachCallback): void;
-    get(name: string): string | null;
-    has(name: string): boolean;
-    set(name: string, value: string): void;
-}
-
-declare var Headers: {
-    prototype: Headers;
-    new(init?: any): Headers;
-};
-
-interface Response extends Object, Body {
-    readonly body: ReadableStream | null;
-    readonly headers: Headers;
-    readonly ok: boolean;
-    readonly status: number;
-    readonly statusText: string;
-    readonly type: string;
-    readonly url: string;
-    clone(): Response;
-}
-
-declare var Response: {
-    prototype: Response;
-    new(body?: any, init?: ResponseInit): Response;
-};
-
-interface ResponseInit {
-    status?: number;
-    statusText?: string;
-    headers?: any;
-}
-
-interface ReadableStream {
-    readonly locked: boolean;
-    cancel(): Promise<void>;
-    getReader(): ReadableStreamReader;
-}
-
-declare var ReadableStream: {
-    prototype: ReadableStream;
-    new(): ReadableStream;
-};
-
-interface ReadableStreamReader {
-    cancel(): Promise<void>;
-    read(): Promise<any>;
-    releaseLock(): void;
-}
-
-declare var ReadableStreamReader: {
-    prototype: ReadableStreamReader;
-    new(): ReadableStreamReader;
-};
-
-interface Body {
-    readonly bodyUsed: boolean;
-    arrayBuffer(): Promise<ArrayBuffer>;
-    blob(): Promise<Blob>;
-    json(): Promise<any>;
-    text(): Promise<string>;
-}
-
-interface URLSearchParams {
-    /**
-     * Appends a specified key/value pair as a new search parameter.
-     */
-    append(name: string, value: string): void;
-    /**
-     * Deletes the given search parameter, and its associated value, from the list of all search parameters.
-     */
-    delete(name: string): void;
-    /**
-     * Returns the first value associated to the given search parameter.
-     */
-    get(name: string): string | null;
-    /**
-     * Returns all the values association with a given search parameter.
-     */
-    getAll(name: string): string[];
-    /**
-     * Returns a Boolean indicating if such a search parameter exists.
-     */
-    has(name: string): boolean;
-    /**
-     * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
-     */
-    set(name: string, value: string): void;
-}
-
-declare var URLSearchParams: {
-    prototype: URLSearchParams;
-    /**
-     * Constructor returning a URLSearchParams object.
-     */
-    new (init?: string | URLSearchParams): URLSearchParams;
-};
-
-interface GlobalFetch {
-    fetch(input: Request|string, init?: RequestInit): Promise<Response>;
-}
+// Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
 /* ************************* FETCH MODIFICATIONS *******************************
  * The credential management spec modifies fetch(), by adding a new
@@ -167,27 +27,9 @@ interface GlobalFetch {
 }
 
 /**
- * Original definition from TS 2.2 dom.
- */
-interface RequestInit {
-    method?: string;
-    headers?: any;
-    body?: any;
-    referrer?: string;
-    referrerPolicy?: string;
-    mode?: string;
-    credentials?: string;
-    cache?: string;
-    redirect?: string;
-    integrity?: string;
-    keepalive?: boolean;
-    window?: any;
-}
-
-/**
- * Variant of {@link RequestInit} that permits a {@link PasswordCredential} to
- * be used in the {@code credentials} property. All other properties are
- * identical to {@link RequestInit}.
+ * Variant of TS 2.2 {@link RequestInit} that permits a
+ * {@link PasswordCredential} to be used in the {@code credentials} property.
+ * All other properties are identical to {@link RequestInit}.
  */
 interface CMRequestInit {
     method?: string;
@@ -239,13 +81,34 @@ interface CredentialsContainer {
     store(credential: Credential): Promise<Credential>;
 
     /**
+     * Create a {@link Credential} asynchronously.
+     *
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-create}
+     */
+    create(options: CredentialCreationOptions): Promise<Credential|null>;
+
+    /**
      * Ask the credential manager to require user mediation before returning
      * credentials for the origin in which the method is called. This might be
      * called after a user signs out of a website, for instance, in order to
      * ensure that they are not automatically signed back in next time they
      * visits.
+     *
+     * @deprecated Use {@link preventSilentAccess} instead.
+     * @see {@link https://www.w3.org/TR/2016/WD-credential-management-1-20160425/#dom-credentialscontainer-requireusermediation}
      */
     requireUserMediation(): Promise<void>;
+
+    /**
+     * Ask the credential manager to require user mediation before returning
+     * credentials for the origin in which the method is called. This might be
+     * called after a user signs out of a website, for instance, in order to
+     * ensure that they are not automatically signed back in next time they
+     * visits.
+     *
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-preventsilentaccess}
+     */
+    preventSilentAccess(): Promise<void>;
 }
 
 /**
@@ -373,6 +236,14 @@ declare class PasswordCredential extends SiteBoundCredential {
      * unless otherwise specified.
      */
     additionalData: CredentialBodyType|null;
+
+    /**
+     * The plain-text password. Returned for implementation of the 08/04/2017
+     * Working Draft of Credential Management, not returned before this.
+     *
+     * @see {@link https://www.w3.org/TR/credential-management-1/#passwordcredential}
+     */
+    readonly password?: string;
 }
 
 /**
@@ -405,6 +276,11 @@ declare class FederatedCredential extends SiteBoundCredential {
 }
 
 /**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#enumdef-credentialmediationrequirement}
+ */
+type CredentialMediationRequirement = 'silent'|'optional'|'required';
+
+/**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
  */
 interface CredentialRequestOptions {
@@ -423,8 +299,40 @@ interface CredentialRequestOptions {
     /**
      * If {@code true}, the user agent will only attempt to provide a Credential
      * without user interaction. Defaults to {@code false}.
+     *
+     * @deprecated Use {@link mediation} instead.
      */
     unmediated?: boolean;
+
+    /**
+     * This property specifies the mediation requirements for a given credential
+     * request.
+     */
+    mediation?: CredentialMediationRequirement;
+}
+
+/**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#typedefdef-passwordcredentialinit}
+ */
+type PasswordCredentialInit = PasswordCredentialData|HTMLFormElement;
+
+/**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-federatedcredentialinit}
+ */
+type FederatedCredentialInit = FederatedCredentialData;
+
+/**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-credentialcreationoptions}
+ */
+interface CredentialCreationOptions {
+    /**
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-federatedcredentialinit}
+     */
+    password?: PasswordCredentialInit;
+    /**
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialcreationoptions-federated}
+     */
+    federated?: FederatedCredentialInit;
 }
 
 /**

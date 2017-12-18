@@ -1,6 +1,6 @@
-// Type definitions for iScroll 5.0
+// Type definitions for iScroll 5.2
 // Project: http://cubiq.org/iscroll-5-ready-for-beta-test
-// Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
+// Definitions by: Christiaan Rakowski <https://github.com/csrakowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IScrollOptions {
@@ -68,6 +68,11 @@ interface IScrollOptions {
 
 	// iScroll probe edition
 	probeType?: number;
+
+	// Pointer events
+	disableMouse?: boolean;
+	disablePointer?: boolean;
+	disableTouch?: boolean;
 }
 
 declare class IScroll {

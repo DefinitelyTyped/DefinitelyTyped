@@ -8,6 +8,7 @@
         "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [

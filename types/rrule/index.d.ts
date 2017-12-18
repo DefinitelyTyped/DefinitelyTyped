@@ -55,9 +55,8 @@ declare namespace RRule {
 
 declare class RRule {
     /**
-     * @param {Object?} options - see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
+     * @param options - see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
      *        The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
-     * @constructor
      */
     constructor(options: RRule.Options, noCache?: boolean);
 
@@ -74,7 +73,7 @@ declare class RRule {
     after(dt: Date, inc?: boolean): Date;
 
     /**
-     * @param {Function} iterator - optional function that will be called
+     * @param iterator - optional function that will be called
      *                   on each date that is added. It can return false
      *                   to stop the iteration.
      * @return Array containing all recurrences.
@@ -165,9 +164,7 @@ declare namespace RRule {
 
     class RRuleSet extends RRule {
       /**
-       * @param {Boolean?} noCache
-       *  The same stratagy as RRule on cache, default to false
-       * @constructor
+       * @param noCache  The same stratagy as RRule on cache, default to false
        */
       constructor(noCache?: boolean);
       rrule(rrule: RRule): void;

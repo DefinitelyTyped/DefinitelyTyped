@@ -88,6 +88,12 @@ circleDrag = circleDrag
 
 containerAccessor = circleDrag.container();
 
+// clickDistance(...) ---------------------------------------------------------
+
+circleDrag = circleDrag.clickDistance(5);
+
+const distance: number  = circleDrag.clickDistance();
+
 // set and get filter ---------------------------------------------------------
 
 let filterFn: (this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => boolean;
@@ -103,6 +109,24 @@ circleDrag = circleDrag.filter(function(d, i, group) {
 
 // getter
 filterFn = circleDrag.filter();
+
+// set and get touchable ---------------------------------------------------------
+
+let touchableFn: (this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => boolean;
+
+// chainable
+
+circleDrag = circleDrag.touchable(true);
+
+circleDrag = circleDrag.touchable(function(d, i, group) {
+    const that: SVGCircleElement = this;
+    const datum: CircleDatum = d;
+    const g: SVGCircleElement[] | NodeListOf<SVGCircleElement> = group;
+    return "ontouchstart" in this && datum.color === 'green';
+});
+
+// getter
+touchableFn = circleDrag.touchable();
 
 // set and get subject ---------------------------------------------------------
 

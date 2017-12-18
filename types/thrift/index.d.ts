@@ -1,280 +1,596 @@
-// Type definitions for thrift 0.9.2
+// Type definitions for thrift 0.10
 // Project: https://www.npmjs.com/package/thrift
-// Definitions by: Zachary Collins <https://github.com/corps>
+// Definitions by: Kamek <https://github.com/kamek-pf>
+//                 Kevin Greene <https://github.com/kevin-greene-ck>
+//                 Jesse Zhang <https://github.com/jessezhang91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements. See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership. The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+/// <reference types="node" />
 
-export declare module Thrift {
-    /**
-     * Thrift IDL type string to Id mapping.
-     * @property {number}    STOP     - End of a set of fields.
-     * @property {number}    VOID     - No value (only legal for return types).
-     * @property {number}    BOOL     - True/False integer.
-     * @property {number}    BYTE     - Signed 8 bit integer.
-     * @property {number}    I08        - Signed 8 bit integer.
-     * @property {number}    DOUBLE - 64 bit IEEE 854 floating point.
-     * @property {number}    I16        - Signed 16 bit integer.
-     * @property {number}    I32        - Signed 32 bit integer.
-     * @property {number}    I64        - Signed 64 bit integer.
-     * @property {number}    STRING - Array of bytes representing a string of characters.
-     * @property {number}    UTF7     - Array of bytes representing a string of UTF7 encoded characters.
-     * @property {number}    STRUCT - A multifield type.
-     * @property {number}    MAP        - A collection type (map/associative-array/dictionary).
-     * @property {number}    SET        - A collection type (unordered and without repeated values).
-     * @property {number}    LIST     - A collection type (unordered).
-     * @property {number}    UTF8     - Array of bytes representing a string of UTF8 encoded characters.
-     * @property {number}    UTF16    - Array of bytes representing a string of UTF16 encoded characters.
-     */
-    interface Type {
-        'STOP': number;
-        'VOID': number;
-        'BOOL': number;
-        'BYTE': number;
-        'I08': number;
-        'DOUBLE': number;
-        'I16': number;
-        'I32': number;
-        'I64': number;
-        'STRING': number;
-        'UTF7': number;
-        'STRUCT': number;
-        'MAP': number;
-        'SET': number;
-        'LIST': number;
-        'UTF8': number;
-        'UTF16': number;
+import * as net from 'net';
+import * as http from 'http';
+import * as https from 'https';
+import * as tls from 'tls';
+
+// Thrift re-exports node-int64 and Q
+import Int64 = require('node-int64');
+export { Int64 as Int64 };
+import Q = require('q');
+export { Q as Q };
+
+export interface TMap {
+    ktype: Thrift.Type;
+    vtype: Thrift.Type;
+    size: number;
+}
+
+export interface TMessage {
+    fname: string;
+    mtype: Thrift.MessageType;
+    rseqid: number;
+}
+
+export interface TField {
+    fname: string;
+    ftype: Thrift.Type;
+    fid: number;
+}
+
+export interface TList {
+    etype: Thrift.Type;
+    size: number;
+}
+
+export interface TSet {
+    etype: Thrift.Type;
+    size: number;
+}
+
+export interface TStruct {
+    fname: string;
+}
+
+export interface TStructLike {
+    read(input: TProtocol): void;
+    write(output: TProtocol): void;
+}
+
+export interface TTransport {
+    commitPosition(): void;
+    rollbackPosition(): void;
+    isOpen(): boolean;
+    open(): boolean;
+    close(): boolean;
+    setCurrSeqId(seqId: number): void;
+    ensureAvailable(len: number): void;
+    read(len: number): Buffer;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readDouble(): number;
+    readString(): string;
+    write(buf: Buffer | string): void;
+    flush(): void;
+}
+
+export interface TProtocol {
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
+}
+
+export interface HttpHeaders {
+    [name: string]: number | string | string[] | undefined;
+}
+
+export interface SeqId2Service {
+    [seqid: number]: string;
+}
+
+export class Connection extends NodeJS.EventEmitter {
+    seqId2Service: SeqId2Service;
+    connection: net.Socket;
+    ssl: boolean;
+    options: ConnectOptions;
+    transport: TTransport;
+    protocol: TProtocol;
+    offline_queue: Buffer[];
+    connected: boolean;
+    constructor(stream: net.Socket, options?: ConnectOptions);
+    end(): void;
+    destroy(): void;
+    initialize_retry_vars(): void;
+    write(data: Buffer): void;
+    connection_gone(): void;
+}
+
+export class HttpConnection extends NodeJS.EventEmitter {
+    options: ConnectOptions;
+    host: string;
+    port: number;
+    https: boolean;
+    transport: TTransport;
+    protocol: TProtocol;
+    constructor(host: string, port: number, options?: ConnectOptions);
+    responseCallback(response: http.IncomingMessage): void;
+    write(data: Buffer): void;
+}
+
+export class XHRConnection extends NodeJS.EventEmitter {
+    seqId2Service: SeqId2Service;
+    options: ConnectOptions;
+    wpos: number;
+    rpos: number;
+    useCORS: boolean;
+    send_buf: string;
+    recv_buf: string;
+    transport: TTransport;
+    protocol: TProtocol;
+    headers: HttpHeaders;
+    constructor(host: string, port: number, options?: ConnectOptions);
+    getXmlHttpRequestObject(): XMLHttpRequest;
+    flush(): void;
+    setRecvBuffer(buf: string): void;
+    isOpen(): boolean;
+    open(): void;
+    close(): void;
+    read(len: number): string;
+    readAll(): string;
+    write(buf: string): void;
+    getSendBuffer(): string;
+}
+
+export interface WSOptions {
+    host: string;
+    port: number;
+    path: string;
+    headers: HttpHeaders;
+}
+
+export class WSConnection extends NodeJS.EventEmitter {
+    seqId2Service: SeqId2Service;
+    options: ConnectOptions;
+    host: string;
+    port: number;
+    secure: boolean;
+    transport: TTransport;
+    protocol: TProtocol;
+    path: string;
+    send_pending: Buffer[];
+    wsOptions: WSOptions;
+    constructor(host: string, port: number, options?: ConnectOptions);
+    isOpen(): boolean;
+    open(): void;
+    close(): void;
+    uri(): string;
+    write(data: Buffer): void;
+}
+
+export class Multiplexer {
+    createClient<TClient>(serviceName: string, client: TClientConstructor<TClient>, connection: Connection): TClient;
+}
+
+export class MultiplexedProcessor {
+    constructor(stream?: any, options?: any);
+    process(input: TProtocol, output: TProtocol): void;
+}
+
+export type TTransportCallback =
+    (msg?: Buffer, seqid?: number) => void;
+
+export interface ServiceMap<TProcessor, THandler> {
+    [uri: string]: ServerOptions<TProcessor, THandler>;
+}
+
+export interface ServiceOptions<TProcessor, THandler> {
+    transport?: TTransportConstructor;
+    protocol?: TProtocolConstructor;
+    processor?: { new (handler: THandler): TProcessor };
+    handler?: THandler;
+}
+
+export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TProcessor, THandler> {
+    cors?: string[];
+    files?: string;
+    headers?: HttpHeaders;
+    services?: ServiceMap<TProcessor, THandler>;
+    tls?: tls.TlsOptions;
+}
+
+export interface ConnectOptions {
+    transport?: TTransportConstructor;
+    protocol?: TProtocolConstructor;
+    path?: string;
+    headers?: HttpHeaders;
+    https?: boolean;
+    debug?: boolean;
+    max_attempts?: number;
+    retry_max_delay?: number;
+    connect_timeout?: number;
+    timeout?: number;
+    nodeOptions?: http.RequestOptions | https.RequestOptions;
+}
+
+export interface WSConnectOptions {
+    transport?: TTransportConstructor;
+    protocol?: TProtocolConstructor;
+    path?: string;
+    headers?: HttpHeaders;
+    secure?: boolean;
+    wsOptions?: WSOptions;
+}
+
+export type TClientConstructor<TClient> =
+    { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } |
+    { Client: { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } };
+
+export type TProcessorConstructor<TProcessor, THandler> =
+    { new (handler: THandler): TProcessor } |
+    { Processor: { new (handler: THandler): TProcessor }};
+
+export interface WebServerOptions<TProcessor, THandler> {
+    services: {
+        [path: string]: {
+            processor: TProcessorConstructor<TProcessor, THandler>;
+            handler: THandler;
+        }
+    };
+}
+
+export function createConnection(host: string | undefined, port: number, options?: ConnectOptions): Connection;
+export function createSSLConnection(host: string | undefined, port: number, options?: ConnectOptions): Connection;
+export function createHttpConnection(host: string | undefined, port: number, options?: ConnectOptions): HttpConnection;
+export function createXHRConnection(host: string | undefined, port: number, options?: ConnectOptions): XHRConnection;
+export function createWSConnectin(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
+
+export function createXHRClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: XHRConnection
+): TClient;
+
+export function createHttpClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: HttpConnection
+): TClient;
+
+export function createWSClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: WSConnection
+): TClient;
+
+export function createStdIOClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: Connection
+): TClient;
+
+export function createClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: Connection
+): TClient;
+
+// THandler is going to be a hash of user-defined functions for prcessing RPC calls
+export function createServer<TProcessor, THandler>(
+    processor: TProcessorConstructor<TProcessor, THandler>,
+    handler: THandler,
+    options?: ServerOptions<TProcessor, THandler>
+): http.Server | tls.Server;
+
+// tslint:disable-next-line no-unnecessary-generics
+export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
+
+export class TBufferedTransport implements TTransport {
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
+    static receiver(callback: (trans: TBufferedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
+    commitPosition(): void;
+    rollbackPosition(): void;
+    isOpen(): boolean;
+    open(): boolean;
+    close(): boolean;
+    setCurrSeqId(seqId: number): void;
+    ensureAvailable(len: number): void;
+    read(len: number): Buffer;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readDouble(): number;
+    readString(): string;
+    write(buf: Buffer | string): void;
+    flush(): void;
+}
+
+export class TFramedTransport implements TTransport {
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
+    static receiver(callback: (trans: TFramedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
+    commitPosition(): void;
+    rollbackPosition(): void;
+    isOpen(): boolean;
+    open(): boolean;
+    close(): boolean;
+    setCurrSeqId(seqId: number): void;
+    ensureAvailable(len: number): void;
+    read(len: number): Buffer;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readDouble(): number;
+    readString(): string;
+    write(buf: Buffer | string): void;
+    flush(): void;
+}
+
+export interface TTransportConstructor {
+  new (buffer?: Buffer, callback?: TTransportCallback): TTransport;
+}
+
+export class TBinaryProtocol implements TProtocol {
+    constructor(trans: TTransport, strictRead?: boolean, strictWrite?: boolean);
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
+}
+
+export class TJSONProtocol implements TProtocol {
+    constructor(trans: TTransport);
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
+}
+
+export class TCompactProtocol implements TProtocol {
+    constructor(trans: TTransport);
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
+}
+
+export interface TProtocolConstructor {
+    new (trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
+}
+
+// thrift.js
+export namespace Thrift {
+    enum Type {
+        STOP = 0,
+        VOID = 1,
+        BOOL = 2,
+        BYTE = 3,
+        I08 = 3,
+        DOUBLE = 4,
+        I16 = 6,
+        I32 = 8,
+        I64 = 10,
+        STRING = 11,
+        UTF7 = 11,
+        STRUCT = 12,
+        MAP = 13,
+        SET = 14,
+        LIST = 15,
+        UTF8 = 16,
+        UTF16 = 17
     }
-    var Type: Type;
 
-    /**
-     * Thrift RPC message type string to Id mapping.
-     * @property {number}    CALL            - RPC call sent from client to server.
-     * @property {number}    REPLY         - RPC call normal response from server to client.
-     * @property {number}    EXCEPTION - RPC call exception response from server to client.
-     * @property {number}    ONEWAY        - Oneway RPC call from client to server with no response.
-     */
-    interface MessageType {
-        'CALL': number;
-        'REPLY': number;
-        'EXCEPTION': number;
-        'ONEWAY': number;
+    enum MessageType {
+        CALL = 1,
+        REPLY = 2,
+        EXCEPTION = 3,
+        ONEWAY = 4
     }
-    var MessageType: MessageType;
 
-    /**
-     * Utility function returning the count of an object's own properties.
-     * @param {object} obj - Object to test.
-     * @returns {number} number of object's own properties
-     */
-    function objectLength(obj: Object): number;
-
-    /**
-     * Utility function to establish prototype inheritance.
-     * @param {function} constructor - Contstructor function to set as derived.
-     * @param {function} superConstructor - Contstructor function to set as base.
-     * @param {string} [name] - Type name to set as name property in derived prototype.
-     */
-    function inherits(constructor: Function, superConstructor: Function, name?: string): void;
-
-    /**
-     * TException is the base class for all Thrift exceptions types.
-     */
-    class TException implements Error {
+    class TException extends Error {
         name: string;
         message: string;
 
-        /**
-         * Initializes a Thrift TException instance.
-         * @param {string} message - The TException message (distinct from the Error message).
-         */
         constructor(message: string);
 
-        /**
-         * Returns the message set on the exception.
-         * @returns {string} exception message
-         */
         getMessage(): string;
     }
 
-    /**
-     * Thrift Application Exception type string to Id mapping.
-     * @property {number}    UNKNOWN                                 - Unknown/undefined.
-     * @property {number}    UNKNOWN_METHOD                    - Client attempted to call a method unknown to the server.
-     * @property {number}    INVALID_MESSAGE_TYPE        - Client passed an unknown/unsupported MessageType.
-     * @property {number}    WRONG_METHOD_NAME             - Unused.
-     * @property {number}    BAD_SEQUENCE_ID                 - Unused in Thrift RPC, used to flag proprietary sequence number errors.
-     * @property {number}    MISSING_RESULT                    - Raised by a server processor if a handler fails to supply the required return result.
-     * @property {number}    INTERNAL_ERROR                    - Something bad happened.
-     * @property {number}    PROTOCOL_ERROR                    - The protocol layer failed to serialize or deserialize data.
-     * @property {number}    INVALID_TRANSFORM             - Unused.
-     * @property {number}    INVALID_PROTOCOL                - The protocol (or version) is not supported.
-     * @property {number}    UNSUPPORTED_CLIENT_TYPE - Unused.
-     */
-    interface TApplicationExceptionType {
-        'UNKNOWN': number;
-        'UNKNOWN_METHOD': number;
-        'INVALID_MESSAGE_TYPE': number;
-        'WRONG_METHOD_NAME': number;
-        'BAD_SEQUENCE_ID': number;
-        'MISSING_RESULT': number;
-        'INTERNAL_ERROR': number;
-        'PROTOCOL_ERROR': number;
-        'INVALID_TRANSFORM': number;
-        'INVALID_PROTOCOL': number;
-        'UNSUPPORTED_CLIENT_TYPE': number;
+    enum TApplicationExceptionType {
+        UNKNOWN = 0,
+        UNKNOWN_METHOD = 1,
+        INVALID_MESSAGE_TYPE = 2,
+        WRONG_METHOD_NAME = 3,
+        BAD_SEQUENCE_ID = 4,
+        MISSING_RESULT = 5,
+        INTERNAL_ERROR = 6,
+        PROTOCOL_ERROR = 7,
+        INVALID_TRANSFORM = 8,
+        INVALID_PROTOCOL = 9,
+        UNSUPPORTED_CLIENT_TYPE = 10
     }
-    var TApplicationExceptionType: TApplicationExceptionType;
 
-    /**
-     * TApplicationException is the exception class used to propagate exceptions from an RPC server back to a calling client.
-     */
     class TApplicationException extends TException {
         message: string;
         code: number;
 
-        /**
-         * Initializes a Thrift TApplicationException instance.
-         * @param {string} message - The TApplicationException message (distinct from the Error message).
-         * @param {Thrift.TApplicationExceptionType} [code] - The TApplicationExceptionType code.
-         */
-        constructor(message: string, code?: number);
-
-        /**
-         * Read a TApplicationException from the supplied protocol.
-         * @param {object} input - The input protocol to read from.
-         */
-        read(input: Object): void;
-
-        /**
-         * Write a TApplicationException to the supplied protocol.
-         * @param {object} output - The output protocol to write to.
-         */
-        write(output: Object): void;
-
-        /**
-         * Returns the application exception code set on the exception.
-         * @returns {Thrift.TApplicationExceptionType} exception code
-         */
+        constructor(type?: TApplicationExceptionType, message?: string);
+        read(input: TProtocol): void;
+        write(output: TProtocol): void;
         getCode(): number;
     }
 
-    /**
-     * The Apache Thrift Transport layer performs byte level I/O between RPC
-     * clients and servers. The JavaScript Transport object type uses Http[s]/XHR and is
-     * the sole browser based Thrift transport. Target servers must implement the http[s]
-     * transport (see: node.js example server).
-     */
-    class TXHRTransport {
-        url: string;
-        wpos: number;
-        rpos: number;
-        useCORS: any;
-        send_buf: string;
-        recv_buf: string;
-
-        /**
-         * If you do not specify a url then you must handle XHR operations on
-         * your own. This type can also be constructed using the Transport alias
-         * for backward compatibility.
-         * @param {string} [url] - The URL to connect to.
-         * @param {object} [options] - Options.
-         */
-        constructor(url?: string, options?: Object);
-
-        /**
-         * Gets the browser specific XmlHttpRequest Object.
-         * @returns {object} the browser XHR interface object
-         */
-        getXmlHttpRequestObject(): Object;
-
-        /**
-         * Sends the current XRH request if the transport was created with a URL and
-         * the async parameter if false. If the transport was not created with a URL
-         * or the async parameter is True or the URL is an empty string, the current
-         * send buffer is returned.
-         * @param {object} async - If true the current send buffer is returned.
-         * @param {function} callback - Optional async completion callback.
-         * @returns {undefined|string} Nothing or the current send buffer.
-         */
-        flush(async: any, callback?: Function): string;
-
-        /**
-         * Creates a jQuery XHR object to be used for a Thrift server call.
-         * @param {object} client - The Thrift Service client object generated by the IDL compiler.
-         * @param {object} postData - The message to send to the server.
-         * @param {function} args - The function to call if the request succeeds.
-         * @param {function} recv_method - The Thrift Service Client receive method for the call.
-         * @returns {object} A new jQuery XHR object.
-         */
-        jqRequest(client: Object, postData: any, args: Function, recv_method: Function): Object;
-
-        /**
-         * Sets the buffer to use when receiving server responses.
-         * @param {string} buf - The buffer to receive server responses.
-         */
-        setRecvBuffer(buf: string): void;
-
-        /**
-         * Returns true if the transport is open, in browser based JavaScript
-         * this function always returns true.
-         * @returns {boolean} Always True.
-         */
-        isOpen(): boolean;
-
-        /**
-         * Opens the transport connection, in browser based JavaScript
-         * this function is a nop.
-         */
-        open(): void;
-
-        /**
-         * Closes the transport connection, in browser based JavaScript
-         * this function is a nop.
-         */
-        close(): void;
-
-        /**
-         * Returns the specified number of characters from the response
-         * buffer.
-         * @param {number} len - The number of characters to return.
-         * @returns {string} Characters sent by the server.
-         */
-        read(len: number): string;
-
-        /**
-         * Returns the entire response buffer.
-         * @returns {string} Characters sent by the server.
-         */
-        readAll(): string;
-
-        /**
-         * Sets the send buffer to buf.
-         * @param {string} buf - The buffer to send.
-         */
-        write(buf: string): void;
-
-        /**
-         * Returns the send buffer.
-         * @returns {string} The send buffer.
-         */
-        getSendBuffer(): string;
+    enum TProtocolExceptionType {
+        UNKNOWN = 0,
+        INVALID_DATA = 1,
+        NEGATIVE_SIZE = 2,
+        SIZE_LIMIT = 3,
+        BAD_VERSION = 4,
+        NOT_IMPLEMENTED = 5,
+        DEPTH_LIMIT = 6
     }
+
+    class TProtocolException implements Error {
+        name: string;
+        message: string;
+        type: TProtocolExceptionType;
+
+        constructor(type: TProtocolExceptionType, message: string);
+    }
+
+    function objectLength(obj: any): number;
 }

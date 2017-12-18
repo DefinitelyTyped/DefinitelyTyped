@@ -1,6 +1,7 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
+        "no-declare-current-package": false,
         "no-single-declare-module": false
     }
 }

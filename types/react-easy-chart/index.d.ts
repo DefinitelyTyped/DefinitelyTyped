@@ -2,7 +2,7 @@
 // Project: https://github.com/rma-consulting/react-easy-chart
 // Definitions by: Dave Leaver <https://github.com/danzel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
@@ -80,7 +80,7 @@ declare module "react-easy-chart" {
 		/** The amount of ticks to be shown on the y axis */
 		yTickNumber?: number;
 	}
-	class BarChart extends React.Component<BarChartProps, {}> {
+	class BarChart extends React.Component<BarChartProps> {
 	}
 
 	interface PieData {
@@ -113,7 +113,7 @@ declare module "react-easy-chart" {
 
 		styles?: { [cssSelector: string]: React.CSSProperties };
 	}
-	class PieChart extends React.Component<PieChartProps, {}> {
+	class PieChart extends React.Component<PieChartProps> {
 	}
 
 	interface LineData {
@@ -184,14 +184,14 @@ declare module "react-easy-chart" {
 		/** What data type the x axis is */
 		yType?: 'time' | 'text' | 'linear';
 	}
-	class LineChart extends React.Component<LineChartProps, {}> {
+	class LineChart extends React.Component<LineChartProps> {
 	}
 
 	interface AreaChartProps extends LineChartProps {
 		/** Make the gradient area a solid fill rather than a gradient */
 		noAreaGradient?: boolean;
 	}
-	class AreaChart extends React.Component<AreaChartProps, {}> {
+	class AreaChart extends React.Component<AreaChartProps> {
 	}
 
 	interface ScatterplotData {
@@ -253,7 +253,7 @@ declare module "react-easy-chart" {
 		/** What data type the x axis is */
 		yType?: 'time' | 'text' | 'linear';
 	}
-	class ScatterplotChart extends React.Component<ScatterplotChartProps, {}> {
+	class ScatterplotChart extends React.Component<ScatterplotChartProps> {
 	}
 
 	interface LegendProps {
@@ -270,7 +270,7 @@ declare module "react-easy-chart" {
 		/** Override the css styles of individual components, see http://rma-consulting.github.io/react-easy-chart/legend/index.html */
 		styles?: { [cssSelector: string]: React.CSSProperties };
 	}
-	class Legend extends React.Component<LegendProps, {}> {
+	class Legend extends React.Component<LegendProps> {
 
 	}
 

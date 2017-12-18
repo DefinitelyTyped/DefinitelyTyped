@@ -1,7 +1,8 @@
-// Type definitions for Angular Material (angular.material module) 1.1
+// Type definitions for angular-material 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>, Edward Knowles <https://github.com/eknowles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from 'angular';
 
@@ -9,26 +10,34 @@ declare var _: string;
 export = _;
 
 declare module 'angular' {
-    export namespace material {
+    namespace material {
+        interface IAriaProvider {
+            disableWarnings(): void;
+        }
+
+        interface ResolveObject {
+            [name: string]: Injectable<(...args: any[]) => PromiseLike<any>>;
+        }
+
         interface IBottomSheetOptions {
             templateUrl?: string;
             template?: string;
-            scope?: angular.IScope; // default: new child scope
+            scope?: IScope; // default: new child scope
             preserveScope?: boolean; // default: false
-            controller?: string | Function;
+            controller?: string | Injectable<IControllerConstructor>;
             locals?: { [index: string]: any };
             clickOutsideToClose?: boolean;
             bindToController?: boolean; // default: false
             disableBackdrop?: boolean;
             escapeToClose?: boolean;
-            resolve?: { [index: string]: () => angular.IPromise<any> };
+            resolve?: ResolveObject;
             controllerAs?: string;
-            parent?: Function | string | Object; // default: root node
+            parent?: ((scope: IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
             disableParentScroll?: boolean; // default: true
         }
 
         interface IBottomSheetService {
-            show(options: IBottomSheetOptions): angular.IPromise<any>;
+            show(options: IBottomSheetOptions): IPromise<any>;
             hide(response?: any): void;
             cancel(response?: any): void;
         }
@@ -42,23 +51,26 @@ declare module 'angular' {
             templateUrl(templateUrl?: string): T;
             template(template?: string): T;
             targetEvent(targetEvent?: MouseEvent): T;
-            scope(scope?: angular.IScope): T; // default: new child scope
+            scope(scope?: IScope): T; // default: new child scope
             preserveScope(preserveScope?: boolean): T; // default: false
             disableParentScroll(disableParentScroll?: boolean): T; // default: true
             hasBackdrop(hasBackdrop?: boolean): T; // default: true
             clickOutsideToClose(clickOutsideToClose?: boolean): T; // default: false
             escapeToClose(escapeToClose?: boolean): T; // default: true
             focusOnOpen(focusOnOpen?: boolean): T; // default: true
-            controller(controller?: string | Function): T;
+            controller(controller?: string | Injectable<IControllerConstructor>): T;
             locals(locals?: { [index: string]: any }): T;
             bindToController(bindToController?: boolean): T; // default: false
-            resolve(resolve?: { [index: string]: () => angular.IPromise<any> }): T;
+            resolve(resolve?: ResolveObject): T;
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
-            onComplete(onComplete?: Function): T;
             ariaLabel(ariaLabel: string): T;
+            openFrom(from: string | Element | Event | { top: number, left: number }): T;
+            closeTo(to: string | Element | { top: number, left: number }): T;
+            multiple(multiple: boolean): T;
         }
 
+        // tslint:disable-next-line no-empty-interface
         interface IAlertDialog extends IPresetDialog<IAlertDialog> {
         }
 
@@ -68,6 +80,7 @@ declare module 'angular' {
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
+            required(required: boolean): IPromptDialog; // default: false
             placeholder(placeholder: string): IPromptDialog;
             initialValue(initialValue: string): IPromptDialog;
         }
@@ -90,39 +103,37 @@ declare module 'angular' {
             targetEvent?: MouseEvent;
             openFrom?: any;
             closeTo?: any;
-            scope?: angular.IScope; // default: new child scope
+            scope?: IScope; // default: new child scope
             preserveScope?: boolean; // default: false
             disableParentScroll?: boolean; // default: true
             hasBackdrop?: boolean; // default: true
             clickOutsideToClose?: boolean; // default: false
             escapeToClose?: boolean; // default: true
             focusOnOpen?: boolean; // default: true
-            controller?: string | Function;
+            controller?: string | Injectable<IControllerConstructor>;
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
-            onShowing?: Function;
-            onComplete?: Function;
-            onRemoving?: Function;
+            onShowing?(scope: IScope, element: JQuery): void;
+            onComplete?(scope: IScope, element: JQuery): void;
+            onRemoving?(element: JQuery, removePromise: IPromise<any>): void;
             skipHide?: boolean;
             multiple?: boolean;
             fullscreen?: boolean; // default: false
         }
 
         interface IDialogService {
-            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): angular.IPromise<any>;
+            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): IPromise<any>;
             confirm(): IConfirmDialog;
             alert(): IAlertDialog;
             prompt(): IPromptDialog;
-            hide(response?: any): angular.IPromise<any>;
+            hide(response?: any): IPromise<any>;
             cancel(response?: any): void;
         }
 
-        interface IIcon {
-            (id: string): angular.IPromise<Element>; // id is a unique ID or URL
-        }
+        type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
 
         interface IIconProvider {
             icon(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
@@ -132,21 +143,19 @@ declare module 'angular' {
             defaultFontSet(name: string): IIconProvider;
         }
 
-        interface IMedia {
-            (media: string): boolean;
-        }
+        type IMedia = (media: string) => boolean;
 
         interface ISidenavObject {
-            toggle(): angular.IPromise<void>;
-            open(): angular.IPromise<void>;
-            close(): angular.IPromise<void>;
+            toggle(): IPromise<void>;
+            open(): IPromise<void>;
+            close(): IPromise<void>;
             isOpen(): boolean;
             isLockedOpen(): boolean;
-            onClose(onClose: Function): void;
+            onClose(onClose: () => void): void;
         }
 
         interface ISidenavService {
-            (component: string, enableWait: boolean): angular.IPromise<ISidenavObject>;
+            (component: string, enableWait: boolean): IPromise<ISidenavObject>;
             (component: string): ISidenavObject;
         }
 
@@ -163,6 +172,7 @@ declare module 'angular' {
             toastClass(toastClass: string): T;
         }
 
+        // tslint:disable-next-line no-empty-interface
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
         }
 
@@ -170,22 +180,22 @@ declare module 'angular' {
             templateUrl?: string;
             template?: string;
             autoWrap?: boolean;
-            scope?: angular.IScope; // default: new child scope
+            scope?: IScope; // default: new child scope
             preserveScope?: boolean; // default: false
             hideDelay?: number | false; // default (ms): 3000
             position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
             toastClass?: string;
-            controller?: string | Function;
+            controller?: string | Injectable<IControllerConstructor>;
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
         }
 
         interface IToastService {
-            show(optionsOrPreset: IToastOptions | IToastPreset<any>): angular.IPromise<any>;
-            showSimple(content: string): angular.IPromise<any>;
+            show(optionsOrPreset: IToastOptions | IToastPreset<any>): IPromise<any>;
+            showSimple(content: string): IPromise<any>;
             simple(): ISimpleToastPreset;
             build(): IToastPreset<any>;
             updateContent(newContent: string): void;
@@ -213,6 +223,7 @@ declare module 'angular' {
             contrastDefaultColor?: string;
             contrastDarkColors?: string | string[];
             contrastLightColors?: string | string[];
+            contrastStrongLightColors?: string|string[];
         }
 
         interface IThemeHues {
@@ -263,25 +274,44 @@ declare module 'angular' {
 
         interface IThemeConfig {
             disableTheming: boolean;
-            generateOnDemand: boolean;        
+            generateOnDemand: boolean;
             nonce: string;
             defaultTheme: string;
             alwaysWatchTheme: boolean;
-            registeredStyles: Array<string>;
+            registeredStyles: string[];
         }
 
         interface IThemingProvider {
             alwaysWatchTheme(alwaysWatch: boolean): void;
             definePalette(name: string, palette: IPalette): IThemingProvider;
-            enableBrowserColor(browserColors: IBrowserColors): Function;
+            enableBrowserColor(browserColors: IBrowserColors): () => void;
             extendPalette(name: string, palette: IPalette): IPalette;
-            registerStyles(styles: String): void;
+            registerStyles(styles: string): void;
             setDefaultTheme(theme: string): void;
             setNonce(nonce: string): void;
             theme(name: string, inheritFrom?: string): ITheme;
             generateThemesOnDemand(onDemand: boolean): void;
             disableTheming(isDisabled?: boolean): void;
             configuration(): IThemeConfig;
+        }
+
+        interface IDefineThemeOptions {
+            primary?: string;
+            accent?: string;
+            warn?: string;
+            background?: string;
+            dark?: boolean;
+        }
+
+        interface IThemingService {
+            PALETTES: IConfiguredColorPalette; // get only
+            THEMES: IConfiguredThemes; // get only
+            (element: JQuery): void;
+            registered(themeName: string): boolean;
+            defaultTheme(): string;
+            generateTheme(name: string): void;
+            setBrowserColor(options: IBrowserColors): () => void;
+            defineTheme(name: string, options: IDefineThemeOptions): IPromise<string>;
         }
 
         interface IDateLocaleProvider {
@@ -300,7 +330,7 @@ declare module 'angular' {
         }
 
         interface IMenuService {
-            hide(response?: any, options?: any): angular.IPromise<any>;
+            hide(response?: any, options?: any): IPromise<any>;
         }
 
         interface IColorPalette {
@@ -324,15 +354,27 @@ declare module 'angular' {
             'blue-grey': IPalette;
         }
 
+        interface IConfiguredColorPalette extends IColorPalette {
+            [name: string]: IPalette;
+        }
+
+        interface IThemes {
+            default: ITheme;
+        }
+
+        interface IConfiguredThemes extends IThemes {
+            [name: string]: ITheme;
+        }
+
         interface IPanelConfig {
             id?: string;
             template?: string;
             templateUrl?: string;
-            controller?: string | Function;
+            controller?: string | Injectable<IControllerConstructor>;
             controllerAs?: string;
             bindToController?: boolean; // default: true
             locals?: { [index: string]: any };
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             attachTo?: string | JQuery | Element;
             propagateContainerEvents?: boolean;
             panelClass?: string;
@@ -346,10 +388,10 @@ declare module 'angular' {
             animation?: IPanelAnimation;
             hasBackdrop?: boolean; // default: false
             disableParentScroll?: boolean; // default: false
-            onDomAdded?: Function;
-            onOpenComplete?: Function;
-            onRemoving?: Function;
-            onDomRemoved?: Function;
+            onDomAdded?(...args: any[]): PromiseLike<void> | void;
+            onOpenComplete?(...args: any[]): PromiseLike<void> | void;
+            onRemoving?(...args: any[]): PromiseLike<void> | void;
+            onDomRemoved?(...args: any[]): PromiseLike<void> | void;
             origin?: string | JQuery | Element;
             onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
         }
@@ -360,19 +402,19 @@ declare module 'angular' {
             isAttached: boolean;
             panelContainer: JQuery;
             panelEl: JQuery;
-            open(): angular.IPromise<any>;
-            close(): angular.IPromise<any>;
-            attach(): angular.IPromise<any>;
-            detach(): angular.IPromise<any>;
-            show(): angular.IPromise<any>;
-            hide(): angular.IPromise<any>;
+            open(): IPromise<any>;
+            close(): IPromise<any>;
+            attach(): IPromise<any>;
+            detach(): IPromise<any>;
+            show(): IPromise<any>;
+            hide(): IPromise<any>;
             destroy(): void;
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
             updatePosition(position: IPanelPosition): void;
-            registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
-            removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            registerInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
+            removeInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
             removeAllInterceptors(type?: string): IPanelRef;
         }
 
@@ -401,7 +443,7 @@ declare module 'angular' {
 
         interface IPanelService {
             create(opt_config: IPanelConfig): IPanelRef;
-            open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
+            open(opt_config: IPanelConfig): IPromise<IPanelRef>;
             newPanelPosition(): IPanelPosition;
             newPanelAnimation(): IPanelAnimation;
             xPosition: {
@@ -442,11 +484,11 @@ declare module 'angular' {
             progressSize?: number;
             strokeWidth?: number;
             duration?: number;
-            easeFn?: Function;
+            easeFn?(t: number, b: number, c: number, d: number): number;
             durationIndeterminate?: number;
             startIndeterminate?: number;
             endIndeterminate?: number;
-            easeFnIndeterminate?: Function;        
+            easeFnIndeterminate?(t: number, b: number, c: number, d: number): number;
         }
 
         interface IProgressCircularProvider {

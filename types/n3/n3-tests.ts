@@ -61,9 +61,7 @@ function test_doc_rdf_stream_to_triples_1() {
     var streamParser = N3.StreamParser();
     var rdfStream = fs.createReadStream('cartoons.ttl');
     rdfStream.pipe(streamParser);
-    streamParser.pipe(new SlowConsumer());
-
-    class SlowConsumer extends stream.Writable {
+    streamParser.pipe(new class SlowConsumer extends stream.Writable {
         constructor() {
             super({ objectMode: true });
             this._write = function (triple, encoding, done) {
@@ -71,7 +69,7 @@ function test_doc_rdf_stream_to_triples_1() {
                 setTimeout(done, 1000);
             };
         }
-    }
+    });
 }
 
 function test_doc_from_triples_to_string() {

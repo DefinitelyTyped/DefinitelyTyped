@@ -1,15 +1,13 @@
+declare var console: { log(x: any): void };
+declare var inspect: (x: any) => string;
+
 // These are the examples from the node-mariasql README transposed to TypeScript
 // https://github.com/mscdex/node-mariasql
 
-
-/// <reference types="node" />
-
 // Example 1 - SHOW DATABASES
-import util = require('util');
 import Client = require('mariasql');
 
-var c = new Client(),
-    inspect = util.inspect;
+var c = new Client();
 
 c.connect({
     host: '127.0.0.1',

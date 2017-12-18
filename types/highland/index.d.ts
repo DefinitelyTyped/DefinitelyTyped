@@ -1,7 +1,11 @@
-// Type definitions for Highland 1.14.0
+// Type definitions for Highland 2.10.5
 // Project: http://highlandjs.org/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Hugo Wood <https://github.com/hgwood>
+//                 William Yu <https://github.com/iwllyu>
+//                 Alvis HT Tang <https://github.com/alvis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -16,7 +20,7 @@
  * Highland: the high-level streams library
  *
  * Highland may be freely distributed under the Apache 2.0 license.
- * http://github.com/caolan/highland
+ * https://github.com/caolan/highland
  * Copyright (c) Caolan McMahon
  *
  */
@@ -48,6 +52,17 @@ interface HighlandStatic {
 	 * event emitter as the two arguments to the constructor and the first
 	 * argument emitted to the event handler will be written to the new Stream.
 	 *
+	 * You can pass a mapping hint as the third argument, which specifies how
+	 * event arguments are pushed into the stream. If no mapping hint is
+	 * provided, only the first value emitted with the event to the will be
+	 * pushed onto the Stream.
+	 *
+	 * If mappingHint is a number, an array of that length will be pushed onto
+	 * the stream, containing exactly that many parameters from the event. If
+	 * it's an array, it's used as keys to map the arguments into an object which
+	 * is pushed to the tream. If it is a function, it's called with the event
+	 * arguments, and the returned value is pushed.
+	 *
 	 * **Promise -** Accepts an ES6 / jQuery style promise and returns a
 	 * Highland Stream which will emit a single value (or an error).
 	 *
@@ -58,16 +73,48 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
+  <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
-	<R>(xs: (push: (err: Error, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
+	<R>(xs: (push: (err: Error | null, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
 	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
-	<R>(xs: NodeJS.EventEmitter): Highland.Stream<R>;
+	<R>(eventName: string, xs: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
 	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
 	<R>(xs: Highland.Thenable<R>): Highland.Stream<R>;
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// UTILS
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	/**
+	 * Returns true if `x` is a Highland Stream.
+	 *
+	 * @id isStream
+	 * @section Streams
+	 * @name _.isStream(x)
+	 * @param x - the object to test
+	 * @api public
+	 */
+	isStream(x: any): boolean;
+
+	isStreamError(x: any): boolean;
+
+	isStreamRedirect(x: any): boolean;
+
+	/**
+	 * Logs values to the console, a simple wrapper around `console.log` that
+	 * it suitable for passing to other functions by reference without having to
+	 * call `bind`.
+	 *
+	 * @id log
+	 * @section Utils
+	 * @name _.log(args..)
+	 * @api public
+	 */
+	log(x: any, ...args: any[]): void;
 
 	/**
 	 * The end of stream marker. This is sent along the data channel of a Stream
@@ -81,7 +128,139 @@ interface HighlandStatic {
 	 */
 	nil: Highland.Nil;
 
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	/**
+	 * Wraps a node-style async function which accepts a callback, transforming
+	 * it to a function which accepts the same arguments minus the callback and
+	 * returns a Highland Stream instead. The wrapped function keeps its context,
+	 * so you can safely use it as a method without binding (see the second
+	 * example below).
+	 *
+	 * wrapCallback also accepts an optional mappingHint, which specifies how
+	 * callback arguments are pushed to the stream. This can be used to handle
+	 * non-standard callback protocols that pass back more than one value.
+	 *
+	 * mappingHint can be a function, number, or array. See the documentation on
+	 * EventEmitter Stream Objects for details on the mapping hint. If
+	 * mappingHint is a function, it will be called with all but the first
+	 * argument that is passed to the callback. The first is still assumed to be
+	 * the error argument.
+	 *
+	 * @id wrapCallback
+	 * @section Utils
+	 * @name _.wrapCallback(f)
+	 * @param {Function} f - the node-style function to wrap
+	 * @param {Array | Function | Number} [mappingHint] - how to pass the arguments to the callback
+	 * @api public
+	 */
+	wrapCallback(f: Function, mappingHint?: Highland.MappingHint): (...args: any[]) => Highland.Stream<any>;
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// OBJECTS
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	/**
+	 * Extends one object with the properties of another. **Note:** The
+	 * arguments are in the reverse order of other libraries such as
+	 * underscore. This is so it follows the convention of other functions in
+	 * this library and so you can more meaningfully partially apply it.
+	 *
+	 * @id extend
+	 * @section Objects
+	 * @name _.extend(a, b)
+	 * @param {Object} a - the properties to extend b with
+	 * @param {Object} b - the original object to extend
+	 * @api public
+	 */
+	extend(extensions: Object, target: Object): Object;
+
+	extend(target: Object): (extensions: Object) => Object;
+
+	/**
+	 * Returns a property from an object.
+	 *
+	 * @id get
+	 * @section Objects
+	 * @name _.get(prop, obj)
+	 * @param {String} prop - the property to return
+	 * @param {Object} obj - the object to read properties from
+	 * @api public
+	 */
+	get(prop: string, obj: Object): string;
+
+	get(prop: string): (obj: Object) => Object;
+
+	/**
+	 * Returns keys from an Object as a Stream.
+	 *
+	 * @id keys
+	 * @section Objects
+	 * @name _.keys(obj)
+	 * @param {Object} obj - the object to return keys from
+	 * @api public
+	 */
+	keys(obj: Object): Highland.Stream<string>;
+
+	/**
+	 * Returns key/value pairs for an Object as a Stream. Reads properties
+	 * lazily, so if you don't read from all keys on an object, not
+	 * all properties will be read from (may have an effect where getters
+	 * are used).
+	 *
+	 * @id pairs
+	 * @section Objects
+	 * @name _.pairs(obj)
+	 * @param {Object} obj - the object to return key/value pairs from
+	 * @api public
+	 */
+	pairs(obj: Object): Highland.Stream<any[]>;
+
+	pairs(obj: any[]): Highland.Stream<any[]>;
+
+	/**
+	 * Updates a property on an object, returning the updated object.
+	 *
+	 * @id set
+	 * @section Objects
+	 * @name _.set(prop, value, obj)
+	 * @param {String} prop - the property to return
+	 * @param value - the value to set the property to
+	 * @param {Object} obj - the object to set properties on
+	 * @api public
+	 */
+	set(prop: string, val: any, obj: Object): Object;
+
+	set(prop: string, val: any): (obj: Object) => Object;
+
+	/**
+	 * Returns values from an Object as a Stream. Reads properties
+	 * lazily, so if you don't read from all keys on an object, not
+	 * all properties will be read from (may have an effect where getters
+	 * are used).
+	 *
+	 * @id values
+	 * @section Objects
+	 * @name _.values(obj)
+	 * @param {Object} obj - the object to return values from
+	 * @api public
+	 */
+	values(obj: Object): Highland.Stream<any>;
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// FUNCTIONS
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	/**
+	 * Creates a composite function, which is the application of function1 to
+	 * the results of function2. You can pass an arbitrary number of arguments
+	 * and have them composed. This means you can't partially apply the compose
+	 * function itself.
+	 *
+	 * @id compose
+	 * @name compose(fn1, fn2, ...)
+	 * @section Functions
+	 * @api public
+	 */
+	compose(...functions: Function[]): Function;
 
 	/**
 	 * Transforms a function with specific arity (all arguments must be
@@ -99,6 +278,20 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	curry(fn: Function, ...args: any[]): Function;
+
+	/**
+	 * Evaluates the function `fn` with the argument positions swapped. Only
+	 * works with functions that accept two arguments.
+	 *
+	 * @id flip
+	 * @name flip(fn, [x, y])
+	 * @section Functions
+	 * @param {Function} f - function to flip argument application for
+	 * @param x - parameter to apply to the right hand side of f
+	 * @param y - parameter to apply to the left hand side of f
+	 * @api public
+	 */
+	flip(fn: Function, ...args: any[]): Function;
 
 	/**
 	 * Same as `curry` but with a specific number of arguments. This can be
@@ -132,33 +325,6 @@ interface HighlandStatic {
 	partial(f: Function, ...args: any[]): Function;
 
 	/**
-	 * Evaluates the function `fn` with the argument positions swapped. Only
-	 * works with functions that accept two arguments.
-	 *
-	 * @id flip
-	 * @name flip(fn, [x, y])
-	 * @section Functions
-	 * @param {Function} f - function to flip argument application for
-	 * @param x - parameter to apply to the right hand side of f
-	 * @param y - parameter to apply to the left hand side of f
-	 * @api public
-	 */
-	flip(fn: Function, ...args: any[]): Function;
-
-	/**
-	 * Creates a composite function, which is the application of function1 to
-	 * the results of function2. You can pass an arbitrary number of arguments
-	 * and have them composed. This means you can't partially apply the compose
-	 * function itself.
-	 *
-	 * @id compose
-	 * @name compose(fn1, fn2, ...)
-	 * @section Functions
-	 * @api public
-	 */
-	compose(...functions: Function[]): Function;
-
-	/**
 	 * The reversed version of compose. Where arguments are in the order of
 	 * application.
 	 *
@@ -169,147 +335,9 @@ interface HighlandStatic {
 	 */
 	seq(...functions: Function[]): Function;
 
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-	/**
-	 * Returns true if `x` is a Highland Stream.
-	 *
-	 * @id isStream
-	 * @section Streams
-	 * @name _.isStream(x)
-	 * @param x - the object to test
-	 * @api public
-	 */
-	isStream(x: any): boolean;
-
-	isStreamError(x: any): boolean;
-
-	isStreamRedirect(x: any): boolean;
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-	/**
-	 * Returns values from an Object as a Stream. Reads properties
-	 * lazily, so if you don't read from all keys on an object, not
-	 * all properties will be read from (may have an effect where getters
-	 * are used).
-	 *
-	 * @id values
-	 * @section Objects
-	 * @name _.values(obj)
-	 * @param {Object} obj - the object to return values from
-	 * @api public
-	 */
-	values(obj: Object): Highland.Stream<any>;
-
-	/**
-	 * Returns keys from an Object as a Stream.
-	 *
-	 * @id keys
-	 * @section Objects
-	 * @name _.keys(obj)
-	 * @param {Object} obj - the object to return keys from
-	 * @api public
-	 */
-	keys(obj: Object): Highland.Stream<string>;
-
-	/**
-	 * Returns key/value pairs for an Object as a Stream. Reads properties
-	 * lazily, so if you don't read from all keys on an object, not
-	 * all properties will be read from (may have an effect where getters
-	 * are used).
-	 *
-	 * @id pairs
-	 * @section Objects
-	 * @name _.pairs(obj)
-	 * @param {Object} obj - the object to return key/value pairs from
-	 * @api public
-	 */
-	pairs(obj: Object): Highland.Stream<any[]>;
-
-	pairs(obj: any[]): Highland.Stream<any[]>;
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-	/**
-	 * Extends one object with the properties of another. **Note:** The
-	 * arguments are in the reverse order of other libraries such as
-	 * underscore. This is so it follows the convention of other functions in
-	 * this library and so you can more meaningfully partially apply it.
-	 *
-	 * @id extend
-	 * @section Objects
-	 * @name _.extend(a, b)
-	 * @param {Object} a - the properties to extend b with
-	 * @param {Object} b - the original object to extend
-	 * @api public
-	 */
-	extend(extensions: Object, target: Object): Object;
-
-	extend(target: Object): (extensions: Object) => Object;
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-	/**
-	 * Returns a property from an object.
-	 *
-	 * @id get
-	 * @section Objects
-	 * @name _.get(prop, obj)
-	 * @param {String} prop - the property to return
-	 * @param {Object} obj - the object to read properties from
-	 * @api public
-	 */
-	get(prop: string, obj: Object): string;
-
-	get(prop: string): (obj: Object) => Object;
-
-	/**
-	 * Updates a property on an object, returning the updated object.
-	 *
-	 * @id set
-	 * @section Objects
-	 * @name _.set(prop, value, obj)
-	 * @param {String} prop - the property to return
-	 * @param value - the value to set the property to
-	 * @param {Object} obj - the object to set properties on
-	 * @api public
-	 */
-	set(prop: string, val: any, obj: Object): Object;
-
-	set(prop: string, val: any): (obj: Object) => Object;
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-	/**
-	 * Logs values to the console, a simple wrapper around `console.log` that
-	 * it suitable for passing to other functions by reference without having to
-	 * call `bind`.
-	 *
-	 * @id log
-	 * @section Utils
-	 * @name _.log(args..)
-	 * @api public
-	 */
-	log(x: any, ...args: any[]): void;
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-	/**
-	 * Wraps a node-style async function which accepts a callback, transforming
-	 * it to a function which accepts the same arguments minus the callback and
-	 * returns a Highland Stream instead. Only the first argument to the
-	 * callback (or an error) will be pushed onto the Stream.
-	 *
-	 * @id wrapCallback
-	 * @section Utils
-	 * @name _.wrapCallback(f)
-	 * @param {Function} f - the node-style function to wrap
-	 * @api public
-	 */
-	wrapCallback(f: Function): Function;
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// OPERATORS
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 	/**
 	 * Add two values. Can be partially applied.
@@ -322,6 +350,19 @@ interface HighlandStatic {
 	add(a: number, b: number): number;
 	add(a: number): (b: number) => number;
 
+	/**
+	 * Perform logical negation on a value. If `x` is truthy then returns false,
+	 * otherwise returns true.
+	 *
+	 * @id not
+	 * @section Operators
+	 * @name _.not(x)
+	 * @param x - the value to negate
+	 * @api public
+	 *
+	 * _.not(true)   // => false
+	 * _.not(false)  // => true
+	 */
 	not<R>(a: any): boolean;
 }
 
@@ -367,6 +408,37 @@ declare namespace Highland {
 	 */
 	interface Stream<R> extends NodeJS.EventEmitter {
 
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// STREAM OBJECTS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		/**
+		 * Destroys a stream by unlinking it from any consumers and sources. This will
+		 * stop all consumers from receiving events from this stream and removes this
+		 * stream as a consumer of any source stream.
+		 *
+		 * This function calls end() on the stream and unlinks it from any piped-to streams.
+		 *
+		 * @id pipe
+		 * @section Streams
+		 * @name Stream.destroy()
+		 * @api public
+		 */
+		destroy(): void;
+
+		/**
+		 * Ends a Stream. This is the same as sending a [nil](#nil) value as data.
+		 * You shouldn't need to call this directly, rather it will be called by
+		 * any [Node Readable Streams](http://nodejs.org/api/stream.html#stream_class_stream_readable)
+		 * you pipe in.
+		 *
+		 * @id end
+		 * @section Streams
+		 * @name Stream.end()
+		 * @api public
+		 */
+		end(): void;
+
 		/**
 		 * Pauses the stream. All Highland Streams start in the paused state.
 		 *
@@ -388,90 +460,6 @@ declare namespace Highland {
 		 */
 		resume(): void;
 
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-		/**
-		 * Ends a Stream. This is the same as sending a [nil](#nil) value as data.
-		 * You shouldn't need to call this directly, rather it will be called by
-		 * any [Node Readable Streams](http://nodejs.org/api/stream.html#stream_class_stream_readable)
-		 * you pipe in.
-		 *
-		 * @id end
-		 * @section Streams
-		 * @name Stream.end()
-		 * @api public
-		 */
-		end(): void;
-
-		/**
-		 * Pipes a Highland Stream to a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable)
-		 * (Highland Streams are also Node Writable Streams). This will pull all the
-		 * data from the source Highland Stream and write it to the destination,
-		 * automatically managing flow so that the destination is not overwhelmed
-		 * by a fast source.
-		 *
-		 * This function returns the destination so you can chain together pipe calls.
-		 *
-		 * @id pipe
-		 * @section Streams
-		 * @name Stream.pipe(dest)
-		 * @param {Writable Stream} dest - the destination to write all data to
-		 * @api public
-		 */
-		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: NodeJS.ReadWriteStream): Stream<U>;
-		pipe(dest: NodeJS.WritableStream): void;
-
-		/**
-		 * Destroys a stream by unlinking it from any consumers and sources. This will
-		 * stop all consumers from receiving events from this stream and removes this
-		 * stream as a consumer of any source stream.
-		 *
-		 * This function calls end() on the stream and unlinks it from any piped-to streams.
-		 *
-		 * @id pipe
-		 * @section Streams
-		 * @name Stream.destroy()
-		 * @api public
-		 */
-		destroy(): void;
-
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-		/**
-		 * Consumes values from a Stream (once resumed) and returns a new Stream for
-		 * you to optionally push values onto using the provided push / next functions.
-		 *
-		 * This function forms the basis of many higher-level Stream operations.
-		 * It will not cause a paused stream to immediately resume, but behaves more
-		 * like a 'through' stream, handling values as they are read.
-		 *
-		 * @id consume
-		 * @section Streams
-		 * @name Stream.consume(f)
-		 * @param {Function} f - the function to handle errors and values
-		 * @api public
-		 */
-		consume<U>(f: (err: Error, x: R, push: (err: Error, value?: U) => void, next: () => void) => void): Stream<U>;
-
-		/**
-		 * Consumes a single item from the Stream. Unlike consume, this function will
-		 * not provide a new stream for you to push values onto, and it will unsubscribe
-		 * as soon as it has a single error, value or nil from the source.
-		 *
-		 * You probably won't need to use this directly, but it is used internally by
-		 * some functions in the Highland library.
-		 *
-		 * @id pull
-		 * @section Streams
-		 * @name Stream.pull(f)
-		 * @param {Function} f - the function to handle data
-		 * @api public
-		 */
-		pull(f: (err: Error, x: R) => void): void;
-
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 		/**
 		 * Writes a value to the Stream. If the Stream is paused it will go into the
 		 * Stream's incoming buffer, otherwise it will be immediately processed and
@@ -490,36 +478,145 @@ declare namespace Highland {
 		write(x: R): boolean;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-		/**
-		 * Forks a stream, allowing you to add additional consumers with shared
-		 * back-pressure. A stream forked to multiple consumers will only pull values
-		 * from it's source as fast as the slowest consumer can handle them.
-		 *
-		 * @id fork
-		 * @section Streams
-		 * @name Stream.fork()
-		 * @api public
-		 */
-		fork(): Stream<R>;
-
-		/**
-		 * Observes a stream, allowing you to handle values as they are emitted, without
-		 * adding back-pressure or causing data to be pulled from the source. This can
-		 * be useful when you are performing two related queries on a stream where one
-		 * would block the other. Just be aware that a slow observer could fill up it's
-		 * buffer and cause memory issues. Where possible, you should use [fork](#fork).
-		 *
-		 * @id observe
-		 * @section Streams
-		 * @name Stream.observe()
-		 * @api public
-		 */
-		observe(): Stream<R>;
-
+		// TRANSFORMS
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 		/**
+		 * Adds a value to the end of a Stream.
+		 *
+		 * @id append
+		 * @section Streams
+		 * @name Stream.append(y)
+		 * @param y - the value to append to the Stream
+		 * @api public
+		 */
+		append(y: R): Stream<R>;
+
+		/**
+		 * Takes one Stream and batches incoming data into arrays of given length
+		 *
+		 * @id batch
+		 * @section Transforms
+		 * @name Stream.batch(n)
+		 * @param {Number} n - length of the array to batch
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4, 5]).batch(2)  // => [1, 2], [3, 4], [5]
+		 */
+		batch(n: number): Stream<R[]>;
+
+		/**
+		 * Takes one Stream and batches incoming data within a maximum time frame
+		 * into arrays of a maximum length.
+		 *
+		 * @id batchWithTimeOrCount
+		 * @section Transforms
+		 * @name Stream.batchWithTimeOrCount(ms, n)
+		 * @param {Number} ms - the maximum milliseconds to buffer a batch
+		 * @param {Number} n - the maximum length of the array to batch
+		 * @api public
+		 *
+		 * _(function (push) {
+		 *     push(1);
+		 *     push(2);
+		 *     push(3);
+		 *     setTimeout(push, 20, 4);
+		 * }).batchWithTimeOrCount(10, 2)
+		 *
+		 * // => [1, 2], [3], [4]
+		 */
+		batchWithTimeOrCount(ms: number, n: number): Stream<R[]>;
+
+		/**
+		 * Groups all values into an Array and passes down the stream as a single
+		 * data event. This is a bit like doing [toArray](#toArray), but instead
+		 * of accepting a callback and causing a *thunk*, it passes the value on.
+		 *
+		 * @id collect
+		 * @section Streams
+		 * @name Stream.collect()
+		 * @api public
+		 */
+		collect(): Stream<R[]>;
+
+		/**
+		 * Filters a Stream to drop all non-truthy values.
+		 *
+		 * @id compact
+		 * @section Streams
+		 * @name Stream.compact()
+		 * @api public
+		 */
+		compact(): Stream<R>;
+
+		/**
+		 * Consumes values from a Stream (once resumed) and returns a new Stream for
+		 * you to optionally push values onto using the provided push / next functions.
+		 *
+		 * This function forms the basis of many higher-level Stream operations.
+		 * It will not cause a paused stream to immediately resume, but behaves more
+		 * like a 'through' stream, handling values as they are read.
+		 *
+		 * @id consume
+		 * @section Streams
+		 * @name Stream.consume(f)
+		 * @param {Function} f - the function to handle errors and values
+		 * @api public
+		 */
+		consume<U>(f: (err: Error, x: R, push: (err: Error | null, value?: U) => void, next: () => void) => void): Stream<U>;
+
+		/**
+		 * Holds off pushing data events downstream until there has been no more
+		 * data for `ms` milliseconds. Sends the last value that occurred before
+		 * the delay, discarding all other values.
+		 *
+		 * @id debounce
+		 * @section Streams
+		 * @name Stream.debounce(ms)
+		 * @param {Number} ms - the milliseconds to wait before sending data
+		 * @api public
+		 */
+		debounce(ms: number): Stream<R>;
+
+		/**
+		 * Creates a new Stream which applies a function to each value from the source
+		 * and re-emits the source value. Useful when you want to mutate the value or
+		 * perform side effects
+		 *
+		 * @id doto
+		 * @section Transforms
+		 * @name Stream.doto(f)
+		 * @param {Function} f - the function to apply
+		 * @api public
+		 *
+		 * var appended = _([[1], [2], [3], [4]]).doto(function (x) {
+		 *     x.push(1);
+		 * });
+		 *
+		 * _([1, 2, 3]).doto(console.log)
+		 * // 1
+		 * // 2
+		 * // 3
+		 * // => 1, 2, 3
+		 */
+		doto(f: (x: R) => void): Stream<R>;
+
+		/**
+		 * Acts as the inverse of [`take(n)`](#take) - instead of returning the first `n` values, it ignores the
+		 * first `n` values and then emits the rest. `n` must be of type `Number`, if not the whole stream will
+		 * be returned. All errors (even ones emitted before the nth value) will be emitted.
+		 *
+		 * @id drop
+		 * @section Transforms
+		 * @name Stream.drop(n)
+		 * @param {Number} n - integer representing number of values to read from source
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).drop(2) // => 3, 4
+		 */
+		 drop(n: number): Stream<R>;
+
+		 /**
 		 * Extracts errors from a Stream and applies them to an error handler
 		 * function. Returns a new Stream with the errors removed (unless the error
 		 * handler chooses to rethrow them using `push`). Errors can also be
@@ -531,65 +628,119 @@ declare namespace Highland {
 		 * @param {Function} f - the function to pass all errors to
 		 * @api public
 		 */
-		errors(f: (err: Error, push: (err: Error, x?: R) => void) => void): Stream<R>;
+		errors(f: (err: Error, push: (err: Error | null, x?: R) => void) => void): Stream<R>;
 
 		/**
-		 * Like the [errors](#errors) method, but emits a Stream end marker after
-		 * an Error is encountered.
+		 * Creates a new Stream including only the values which pass a truth test.
 		 *
-		 * @id stopOnError
+		 * @id filter
 		 * @section Streams
-		 * @name Stream.stopOnError(f)
-		 * @param {Function} f - the function to handle an error
+		 * @name Stream.filter(f)
+		 * @param f - the truth test function
 		 * @api public
 		 */
-		stopOnError(f: (err: Error) => void): Stream<R>;
-
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		filter(f: (x: R) => boolean): Stream<R>;
 
 		/**
-		 * Iterates over every value from the Stream, calling the iterator function
-		 * on each of them. This function causes a **thunk**.
+		 * A convenient form of filter, which returns the first object from a
+		 * Stream that passes the provided truth test
 		 *
-		 * If an error from the Stream reaches the `each` call, it will emit an
-		 * error event (which will cause it to throw if unhandled).
-		 *
-		 * @id each
+		 * @id find
 		 * @section Streams
-		 * @name Stream.each(f)
-		 * @param {Function} f - the iterator function
+		 * @name Stream.find(f)
+		 * @param {Function} f - the truth test function which returns a Stream
 		 * @api public
 		 */
-		each(f: (x: R) => void): void;
+		find(f: (x: R) => boolean): Stream<R>;
+
+		 /**
+		 * A convenient form of [where](#where), which returns the first object from a
+		 * Stream that matches a set of property values. findWhere is to [where](#where) as [find](#find) is to [filter](#filter).
+		 *
+		 * @id findWhere
+		 * @section Transforms
+		 * @name Stream.findWhere(props)
+		 * @param {Object} props - the properties to match against
+		 * @api public
+		 *
+		 * var docs = [
+		 *     {type: 'blogpost', title: 'foo'},
+		 *     {type: 'blogpost', title: 'bar'},
+		 *     {type: 'comment', title: 'foo'}
+		 * ];
+		 *
+		 * _(docs).findWhere({type: 'blogpost'})
+		 * // => {type: 'blogpost', title: 'foo'}
+		 *
+		 * // example with partial application
+		 * var firstBlogpost = _.findWhere({type: 'blogpost'});
+		 *
+		 * firstBlogpost(docs)
+		 * // => {type: 'blogpost', title: 'foo'}
+		 */
+		findWhere(props: Object): Stream<R>;
 
 		/**
-		 * Applies results from a Stream as arguments to a function
+		 * A convenient form of reduce, which groups items based on a function or property name
 		 *
-		 * @id apply
+		 * @id group
 		 * @section Streams
-		 * @name Stream.apply(f)
-		 * @param {Function} f - the function to apply arguments to
+		 * @name Stream.group(f)
+		 * @param {Function|String} f - the function or property name on which to group,
+		 *                              toString() is called on the result of a function.
 		 * @api public
 		 */
-		// TODO what to do here?
-		apply(f: Function): void;
+		// TODO verify this
+		group(f: (x: R) => string): Stream<{[prop:string]:R[]}>;
+		group(prop: string): Stream<{[prop:string]:R[]}>;
 
 		/**
-		 * Collects all values from a Stream into an Array and calls a function with
-		 * once with the result. This function causes a **thunk**.
+		 * Creates a new Stream with only the first value from the source.
 		 *
-		 * If an error from the Stream reaches the `toArray` call, it will emit an
-		 * error event (which will cause it to throw if unhandled).
-		 *
-		 * @id toArray
+		 * @id head
 		 * @section Streams
-		 * @name Stream.toArray(f)
-		 * @param {Function} f - the callback to provide the completed Array to
+		 * @name Stream.head()
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).head() // => 1
+		 */
+		head(): Stream<R>;
+
+		/**
+		 * Calls a named method on each object from the Stream - returning
+		 * a new stream with the result of those calls.
+		 *
+		 * @id invoke
+		 * @section Streams
+		 * @name Stream.invoke(method, args)
+		 * @param {String} method - the method name to call
+		 * @param {Array} args - the arguments to call the method with
 		 * @api public
 		 */
-		toArray(f: (arr: R[]) => void): void;
+		invoke<U>(method: string, args: any[]): Stream<U>;
 
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		/**
+		 * Drops all values from the Stream apart from the last one (if any).
+		 *
+		 * @id last
+		 * @section Streams
+		 * @name Stream.last()
+		 * @api public
+		 */
+		last(): Stream<R>;
+
+		/**
+		 * Creates a new Stream, which when read from, only returns the last
+		 * seen value from the source. The source stream does not experience
+		 * back-pressure. Useful if you're using a Stream to model a changing
+		 * property which you need to query periodically.
+		 *
+		 * @id latest
+		 * @section Streams
+		 * @name Stream.latest()
+		 * @api public
+		 */
+		latest(): Stream<R>;
 
 		/**
 		 * Creates a new Stream of transformed values by applying a function to each
@@ -606,22 +757,6 @@ declare namespace Highland {
 		map<U>(f: (x: R) => U): Stream<U>;
 
 		/**
-		 * Creates a new Stream of values by applying each item in a Stream to an
-		 * iterator function which may return a Stream. Each item on these result
-		 * Streams are then emitted on a single output Stream.
-		 *
-		 * The same as calling `stream.map(f).flatten()`.
-		 *
-		 * @id flatMap
-		 * @section Streams
-		 * @name Stream.flatMap(f)
-		 * @param {Function} f - the iterator function
-		 * @api public
-		 */
-		flatMap<U>(f: (x: R) => Stream<U>): Stream<U>;
-		flatMap<U>(f: (x: R) => U): Stream<U>;
-
-		/**
 		 * Retrieves values associated with a given property from all elements in
 		 * the collection.
 		 *
@@ -633,218 +768,25 @@ declare namespace Highland {
 		 */
 		pluck<U>(prop: string): Stream<U>;
 
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 		/**
-		 * Creates a new Stream including only the values which pass a truth test.
+		 * Limits number of values through the stream to a maximum of number of values
+		 * per window. Errors are not limited but allowed to pass through as soon as
+		 * they are read from the source.
 		 *
-		 * @id filter
-		 * @section Streams
-		 * @name Stream.filter(f)
-		 * @param f - the truth test function
-		 * @api public
-		 */
-		filter(f: (x: R) => boolean): Stream<R>;
-
-		/**
-		 * Filters using a predicate which returns a Stream. If you need to check
-		 * against an asynchronous data source when filtering a Stream, this can
-		 * be convenient. The Stream returned from the filter function should have
-		 * a Boolean as it's first value (all other values on the Stream will be
-		 * disregarded).
-		 *
-		 * @id flatFilter
-		 * @section Streams
-		 * @name Stream.flatFilter(f)
-		 * @param {Function} f - the truth test function which returns a Stream
-		 * @api public
-		 */
-		flatFilter(f: (x: R) => Stream<boolean>): Stream<R>;
-
-		/**
-		 * The inverse of [filter](#filter).
-		 *
-		 * @id reject
-		 * @section Streams
-		 * @name Stream.reject(f)
-		 * @param {Function} f - the truth test function
+		 * @id ratelimit
+		 * @section Transforms
+		 * @name Stream.ratelimit(num, ms)
+		 * @param {Number} num - the number of operations to perform per window
+		 * @param {Number} ms - the window of time to limit the operations in (in ms)
 		 * @api public
 		 *
-		 * var odds = _([1, 2, 3, 4]).reject(function (x) {
-		 *     return x % 2 === 0;
-		 * });
-		 */
-		reject(f: (x: R) => boolean): Stream<R>;
-
-		/**
-		 * A convenient form of filter, which returns the first object from a
-		 * Stream that passes the provided truth test
+		 * _([1, 2, 3, 4, 5]).ratelimit(2, 100);
 		 *
-		 * @id find
-		 * @section Streams
-		 * @name Stream.find(f)
-		 * @param {Function} f - the truth test function which returns a Stream
-		 * @api public
+		 * // after 0ms => 1, 2
+		 * // after 100ms => 1, 2, 3, 4
+		 * // after 200ms => 1, 2, 3, 4, 5
 		 */
-		find(f: (x: R) => boolean): Stream<R>;
-
-		/**
-		 * A convenient form of reduce, which groups items based on a function or property name
-		 *
-		 * @id group
-		 * @section Streams
-		 * @name Stream.group(f)
-		 * @param {Function|String} f - the function or property name on which to group,
-		 *                              toString() is called on the result of a function.
-		 * @api public
-		 */
-		// TODO verify this
-		group(f: (x: R) => string): Stream<{[prop:string]:R[]}>;
-		group(prop: string): Stream<{[prop:string]:R[]}>;
-
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-		/**
-		 * Filters a Stream to drop all non-truthy values.
-		 *
-		 * @id compact
-		 * @section Streams
-		 * @name Stream.compact()
-		 * @api public
-		 */
-		compact(): Stream<R>;
-
-		/**
-		 * A convenient form of filter, which returns all objects from a Stream
-		 * match a set of property values.
-		 *
-		 * @id where
-		 * @section Streams
-		 * @name Stream.where(props)
-		 * @param {Object} props - the properties to match against
-		 * @api public
-		 */
-		where(props: Object): Stream<R>;
-
-		/**
-		 * Takes two Streams and returns a Stream of corresponding pairs.
-		 *
-		 * @id zip
-		 * @section Streams
-		 * @name Stream.zip(ys)
-		 * @param {Array | Stream} ys - the other stream to combine values with
-		 * @api public
-		 */
-		zip(ys: R[]): Stream<R>;
-		zip(ys: Stream<R>): Stream<R>;
-
-		/**
-		 * Creates a new Stream with the first `n` values from the source.
-		 *
-		 * @id take
-		 * @section Streams
-		 * @name Stream.take(n)
-		 * @param {Number} n - integer representing number of values to read from source
-		 * @api public
-		 */
-		take(n: number): Stream<R>;
-
-		/**
-		 * Creates a new Stream with only the first value from the source.
-		 *
-		 * @id head
-		 * @section Streams
-		 * @name Stream.head()
-		 * @api public
-		 *
-		 * _([1, 2, 3, 4]).head() // => 1
-		 */
-		head(): Stream<R>;
-
-		/**
-		 * Drops all values from the Stream apart from the last one (if any).
-		 *
-		 * @id last
-		 * @section Streams
-		 * @name Stream.last()
-		 * @api public
-		 */
-		last(): Stream<R>;
-
-		/**
-		 * Reads values from a Stream of Streams, emitting them on a Single output
-		 * Stream. This can be thought of as a flatten, just one level deep. Often
-		 * used for resolving asynchronous actions such as a HTTP request or reading
-		 * a file.
-		 *
-		 * @id sequence
-		 * @section Streams
-		 * @name Stream.sequence()
-		 * @api public
-		 */
-		//TODO figure out typing
-		sequence<U>(): Stream<U>;
-
-		/**
-		 * An alias for the [sequence](#sequence) method.
-		 *
-		 * @id series
-		 * @section Streams
-		 * @name Stream.series()
-		 * @api public
-		 */
-		// TODO figure out typing
-		series<U>(): Stream<U>;
-
-		/**
-		 * Recursively reads values from a Stream which may contain nested Streams
-		 * or Arrays. As values or errors are encountered, they are emitted on a
-		 * single output Stream.
-		 *
-		 * @id flatten
-		 * @section Streams
-		 * @name Stream.flatten()
-		 * @api public
-		 */
-		flatten<U>(): Stream<U>;
-		flatten(): Stream<R>;
-
-		/**
-		 * Takes a Stream of Streams and reads from them in parallel, buffering
-		 * the results until they can be returned to the consumer in their original
-		 * order.
-		 *
-		 * @id parallel
-		 * @section Streams
-		 * @name Stream.parallel(n)
-		 * @param {Number} n - the maximum number of concurrent reads/buffers
-		 * @api public
-		 */
-		parallel(n: number): Stream<R>;
-
-		/**
-		 * Switches source to an alternate Stream if the current Stream is empty.
-		 *
-		 * @id otherwise
-		 * @section Streams
-		 * @name Stream.otherwise(ys)
-		 * @param {Stream} ys - alternate stream to use if this stream is empty
-		 * @api public
-		 */
-		otherwise(ys: Stream<R>): Stream<R>;
-
-		/**
-		 * Adds a value to the end of a Stream.
-		 *
-		 * @id append
-		 * @section Streams
-		 * @name Stream.append(y)
-		 * @param y - the value to append to the Stream
-		 * @api public
-		 */
-		append(y: R): Stream<R>;
-
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		ratelimit(num: number, ms: number): Stream<R>;
 
 		/**
 		 * Boils down a Stream to a single value. The memo is the initial state
@@ -875,16 +817,19 @@ declare namespace Highland {
 		reduce1<U>(memo: U, f: (memo: U, x: R) => U): Stream<U>;
 
 		/**
-		 * Groups all values into an Array and passes down the stream as a single
-		 * data event. This is a bit like doing [toArray](#toArray), but instead
-		 * of accepting a callback and causing a *thunk*, it passes the value on.
+		 * The inverse of [filter](#filter).
 		 *
-		 * @id collect
+		 * @id reject
 		 * @section Streams
-		 * @name Stream.collect()
+		 * @name Stream.reject(f)
+		 * @param {Function} f - the truth test function
 		 * @api public
+		 *
+		 * var odds = _([1, 2, 3, 4]).reject(function (x) {
+		 *     return x % 2 === 0;
+		 * });
 		 */
-		collect(): Stream<R[]>;
+		reject(f: (x: R) => boolean): Stream<R>;
 
 		/**
 		 * Like [reduce](#reduce), but emits each intermediate value of the
@@ -913,6 +858,90 @@ declare namespace Highland {
 		 */
 		scan1<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
 
+		/**
+		 * Like the [errors](#errors) method, but emits a Stream end marker after
+		 * an Error is encountered.
+		 *
+		 * @id stopOnError
+		 * @section Streams
+		 * @name Stream.stopOnError(f)
+		 * @param {Function} f - the function to handle an error
+		 * @api public
+		 */
+		stopOnError(f: (err: Error) => void): Stream<R>;
+
+		/**
+		 * Creates a new Stream with the first `n` values from the source.
+		 *
+		 * @id take
+		 * @section Streams
+		 * @name Stream.take(n)
+		 * @param {Number} n - integer representing number of values to read from source
+		 * @api public
+		 */
+		take(n: number): Stream<R>;
+
+		/**
+		 * An alias for the [doto](#doto) method.
+		 *
+		 * @id tap
+		 * @section Transforms
+		 * @name Stream.tap(f)
+		 * @param {Function} f - the function to apply
+		 * @api public
+		 *
+		 * _([1, 2, 3]).tap(console.log)
+		 */
+		tap(f: (x: R) => void): Stream<R>;
+
+		/**
+		 * Ensures that only one data event is push downstream (or into the buffer)
+		 * every `ms` milliseconds, any other values are dropped.
+		 *
+		 * @id throttle
+		 * @section Streams
+		 * @name Stream.throttle(ms)
+		 * @param {Number} ms - the minimum milliseconds between each value
+		 * @api public
+		 */
+		throttle(ms: number): Stream<R>;
+
+    /**
+     * Filters out all duplicate values from the stream and keeps only the first
+     * occurence of each value, using === to define equality.
+     *
+     * @id uniq
+     * @section Streams
+     * @name Stream.uniq()
+     * @api public
+     */
+    uniq(): Stream<R>;
+
+    /**
+     * Filters out all duplicate values from the stream and keeps only the first
+     * occurence of each value, using the provided function to define equality.
+     *
+     * @id uniqBy
+     * @section Streams
+     * @name Stream.uniqBy()
+     * @api public
+     */
+    uniqBy(f: (a: R, b: R) => boolean): Stream<R>;
+
+		/**
+		 * A convenient form of filter, which returns all objects from a Stream
+		 * match a set of property values.
+		 *
+		 * @id where
+		 * @section Streams
+		 * @name Stream.where(props)
+		 * @param {Object} props - the properties to match against
+		 * @api public
+		 */
+		where(props: Object): Stream<R>;
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// HIGHER-ORDER STREAMS
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 		/**
@@ -930,6 +959,62 @@ declare namespace Highland {
 		 */
 		concat(ys: Stream<R>): Stream<R>;
 		concat(ys: R[]): Stream<R>;
+
+		/**
+		 * Filters using a predicate which returns a Stream. If you need to check
+		 * against an asynchronous data source when filtering a Stream, this can
+		 * be convenient. The Stream returned from the filter function should have
+		 * a Boolean as it's first value (all other values on the Stream will be
+		 * disregarded).
+		 *
+		 * @id flatFilter
+		 * @section Streams
+		 * @name Stream.flatFilter(f)
+		 * @param {Function} f - the truth test function which returns a Stream
+		 * @api public
+		 */
+		flatFilter(f: (x: R) => Stream<boolean>): Stream<R>;
+
+		/**
+		 * Creates a new Stream of values by applying each item in a Stream to an
+		 * iterator function which may return a Stream. Each item on these result
+		 * Streams are then emitted on a single output Stream.
+		 *
+		 * The same as calling `stream.map(f).flatten()`.
+		 *
+		 * @id flatMap
+		 * @section Streams
+		 * @name Stream.flatMap(f)
+		 * @param {Function} f - the iterator function
+		 * @api public
+		 */
+		flatMap<U>(f: (x: R) => Stream<U>): Stream<U>;
+		flatMap<U>(f: (x: R) => U): Stream<U>;
+
+		/**
+		 * Recursively reads values from a Stream which may contain nested Streams
+		 * or Arrays. As values or errors are encountered, they are emitted on a
+		 * single output Stream.
+		 *
+		 * @id flatten
+		 * @section Streams
+		 * @name Stream.flatten()
+		 * @api public
+		 */
+		flatten<U>(): Stream<U>;
+		flatten(): Stream<R>;
+
+		/**
+		 * Forks a stream, allowing you to add additional consumers with shared
+		 * back-pressure. A stream forked to multiple consumers will only pull values
+		 * from it's source as fast as the slowest consumer can handle them.
+		 *
+		 * @id fork
+		 * @section Streams
+		 * @name Stream.fork()
+		 * @api public
+		 */
+		fork(): Stream<R>;
 
 		/**
 		 * Takes a Stream of Streams and merges their values and errors into a
@@ -952,63 +1037,308 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-		merge (ys: Stream<Stream<R>>): Stream<R>;
+	  merge(): Stream<R>;
 
+		/**
+		 * Observes a stream, allowing you to handle values as they are emitted, without
+		 * adding back-pressure or causing data to be pulled from the source. This can
+		 * be useful when you are performing two related queries on a stream where one
+		 * would block the other. Just be aware that a slow observer could fill up it's
+		 * buffer and cause memory issues. Where possible, you should use [fork](#fork).
+		 *
+		 * @id observe
+		 * @section Streams
+		 * @name Stream.observe()
+		 * @api public
+		 */
+		observe(): Stream<R>;
+
+		/**
+		 * Switches source to an alternate Stream if the current Stream is empty.
+		 *
+		 * @id otherwise
+		 * @section Streams
+		 * @name Stream.otherwise(ys)
+		 * @param {Stream} ys - alternate stream to use if this stream is empty
+		 * @api public
+		 */
+		otherwise(ys: Stream<R>): Stream<R>;
+
+		/**
+		 * Takes a Stream of Streams and reads from them in parallel, buffering
+		 * the results until they can be returned to the consumer in their original
+		 * order.
+		 *
+		 * @id parallel
+		 * @section Streams
+		 * @name Stream.parallel(n)
+		 * @param {Number} n - the maximum number of concurrent reads/buffers
+		 * @api public
+		 */
+		parallel(n: number): Stream<R>;
+
+		/**
+		 * Reads values from a Stream of Streams, emitting them on a Single output
+		 * Stream. This can be thought of as a flatten, just one level deep. Often
+		 * used for resolving asynchronous actions such as a HTTP request or reading
+		 * a file.
+		 *
+		 * @id sequence
+		 * @section Streams
+		 * @name Stream.sequence()
+		 * @api public
+		 */
+		//TODO figure out typing
+		sequence<U>(): Stream<U>;
+
+		/**
+		 * An alias for the [sequence](#sequence) method.
+		 *
+		 * @id series
+		 * @section Streams
+		 * @name Stream.series()
+		 * @api public
+		 */
+		// TODO figure out typing
+		series<U>(): Stream<U>;
+
+		/**
+		 * Transforms a stream using an arbitrary target transform.
+		 *
+		 * If `target` is a function, this transform passes the current Stream to it,
+		 * returning the result.
+		 *
+		 * If `target` is a [Duplex
+		 * Stream](https://nodejs.org/api/stream.html#stream_class_stream_duplex_1),
+		 * this transform pipes the current Stream through it. It will always return a
+		 * Highland Stream (instead of the piped to target directly as in
+		 * [pipe](#pipe)). Any errors emitted will be propagated as Highland errors.
+		 *
+		 * **TIP**: Passing a function to `through` is a good way to implement complex
+		 * reusable stream transforms. You can even construct the function dynamically
+		 * based on certain inputs. See examples below.
+		 *
+		 * @id through
+		 * @section Higher-order Streams
+		 * @name Stream.through(target)
+		 * @param {Function | Duplex Stream} target - the stream to pipe through or a
+		 * function to call.
+		 * @api public
+		 *
+		 * // This is a static complex transform.
+		 * function oddDoubler(s) {
+		 *     return s.filter(function (x) {
+		 *         return x % 2; // odd numbers only
+		 *     })
+		 *     .map(function (x) {
+		 *         return x * 2;
+		 *     });
+		 * }
+		 *
+		 * // This is a dynamically-created complex transform.
+		 * function multiplyEvens(factor) {
+		 *     return function (s) {
+		 *         return s.filter(function (x) {
+		 *             return x % 2 === 0;
+		 *         })
+		 *         .map(function (x) {
+		 *             return x * factor;
+		 *         });
+		 *     };
+		 * }
+		 *
+		 * _([1, 2, 3, 4]).through(oddDoubler); // => 2, 6
+		 *
+		 * _([1, 2, 3, 4]).through(multiplyEvens(5)); // => 10, 20
+		 *
+		 * // Can also be used with Node Through Streams
+		 * _(filenames).through(jsonParser).map(function (obj) {
+		 *     // ...
+		 * });
+		 *
+		 * // All errors will be propagated as Highland errors
+		 * _(['zz{"a": 1}']).through(jsonParser).errors(function (err) {
+		 *   console.log(err); // => SyntaxError: Unexpected token z
+		 * });
+		 */
+		through<R, U>(f: (x: R) => U): Stream<U>;
+		through(thru: NodeJS.ReadWriteStream): Stream<any>;
+
+
+		/**
+		 * Takes two Streams and returns a Stream of corresponding pairs.
+		 *
+		 * @id zip
+		 * @section Streams
+		 * @name Stream.zip(ys)
+		 * @param {Array | Stream} ys - the other stream to combine values with
+		 * @api public
+		 */
+		zip(ys: R[]): Stream<R>;
+		zip(ys: Stream<R>): Stream<R>;
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// CONSUMPTION
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 		/**
-		 * Calls a named method on each object from the Stream - returning
-		 * a new stream with the result of those calls.
+		 * Applies results from a Stream as arguments to a function
 		 *
-		 * @id invoke
+		 * @id apply
 		 * @section Streams
-		 * @name Stream.invoke(method, args)
-		 * @param {String} method - the method name to call
-		 * @param {Array} args - the arguments to call the method with
+		 * @name Stream.apply(f)
+		 * @param {Function} f - the function to apply arguments to
 		 * @api public
 		 */
-		invoke<U>(method: string, args: any[]): Stream<U>;
+		// TODO what to do here?
+		apply(f: Function): void;
 
 		/**
-		 * Ensures that only one data event is push downstream (or into the buffer)
-		 * every `ms` milliseconds, any other values are dropped.
+		 * Calls a function once the Stream has ended. This method consumes the stream.
+		 * If the Stream has already ended, the function is called immediately.
 		 *
-		 * @id throttle
-		 * @section Streams
-		 * @name Stream.throttle(ms)
-		 * @param {Number} ms - the minimum milliseconds between each value
+		 * If an error from the Stream reaches this call, it will emit an `error` event
+		 * (i.e., it will call `emit('error')` on the stream being consumed).  This
+		 * event will cause an error to be thrown if unhandled.
+		 *
+		 * As a special case, it is possible to chain `done` after a call to
+		 * [each](#each) even though both methods consume the stream.
+		 *
+		 * @id done
+		 * @section Consumption
+		 * @name Stream.done(f)
+		 * @param {Function} f - the callback
 		 * @api public
+		 *
+		 * var total = 0;
+		 * _([1, 2, 3, 4]).each(function (x) {
+		 *     total += x;
+		 * }).done(function () {
+		 *     // total will be 10
+		 * });
 		 */
-		throttle(ms: number): Stream<R>;
+		done(f: () => void): void;
 
 		/**
-		 * Holds off pushing data events downstream until there has been no more
-		 * data for `ms` milliseconds. Sends the last value that occurred before
-		 * the delay, discarding all other values.
+		 * Iterates over every value from the Stream, calling the iterator function
+		 * on each of them. This function causes a **thunk**.
 		 *
-		 * @id debounce
+		 * If an error from the Stream reaches the `each` call, it will emit an
+		 * error event (which will cause it to throw if unhandled).
+		 *
+		 * @id each
 		 * @section Streams
-		 * @name Stream.debounce(ms)
-		 * @param {Number} ms - the milliseconds to wait before sending data
+		 * @name Stream.each(f)
+		 * @param {Function} f - the iterator function
 		 * @api public
 		 */
-		debounce(ms: number): Stream<R>;
-
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		each(f: (x: R) => void): Pick<Stream<R>, 'done'>;
 
 		/**
-		 * Creates a new Stream, which when read from, only returns the last
-		 * seen value from the source. The source stream does not experience
-		 * back-pressure. Useful if you're using a Stream to model a changing
-		 * property which you need to query periodically.
+		 * Pipes a Highland Stream to a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable)
+		 * (Highland Streams are also Node Writable Streams). This will pull all the
+		 * data from the source Highland Stream and write it to the destination,
+		 * automatically managing flow so that the destination is not overwhelmed
+		 * by a fast source.
 		 *
-		 * @id latest
+		 * This function returns the destination so you can chain together pipe calls.
+		 *
+		 * @id pipe
 		 * @section Streams
-		 * @name Stream.latest()
+		 * @name Stream.pipe(dest)
+		 * @param {Writable Stream} dest - the destination to write all data to
 		 * @api public
 		 */
-		latest(): Stream<R>;
+		pipe<U>(dest: Stream<U>): Stream<U>;
+		pipe<U>(dest: NodeJS.ReadWriteStream): Stream<U>;
+		pipe(dest: NodeJS.WritableStream): void;
+
+		/**
+		 * Consumes a single item from the Stream. Unlike consume, this function will
+		 * not provide a new stream for you to push values onto, and it will unsubscribe
+		 * as soon as it has a single error, value or nil from the source.
+		 *
+		 * You probably won't need to use this directly, but it is used internally by
+		 * some functions in the Highland library.
+		 *
+		 * @id pull
+		 * @section Streams
+		 * @name Stream.pull(f)
+		 * @param {Function} f - the function to handle data
+		 * @api public
+		 */
+		pull(f: (err: Error, x: R) => void): void;
+
+		/**
+		 * Collects all values from a Stream into an Array and calls a function with
+		 * once with the result. This function causes a **thunk**.
+		 *
+		 * If an error from the Stream reaches the `toArray` call, it will emit an
+		 * error event (which will cause it to throw if unhandled).
+		 *
+		 * @id toArray
+		 * @section Streams
+		 * @name Stream.toArray(f)
+		 * @param {Function} f - the callback to provide the completed Array to
+		 * @api public
+		 */
+		toArray(f: (arr: R[]) => void): void;
+
+		/**
+		 * Returns the result of a stream to a nodejs-style callback function.
+		 *
+		 * If the stream contains a single value, it will call `cb`
+		 * with the single item emitted by the stream (if present).
+		 * If the stream is empty, `cb` will be called without any arguments.
+		 * If an error is encountered in the stream, this function will stop
+		 * consumption and call `cb` with the error.
+		 * If the stream contains more than one item, it will stop consumption
+		 * and call `cb` with an error.
+		 *
+		 * @id toCallback
+		 * @section Consumption
+		 * @name Stream.toCallback(cb)
+		 * @param {Function} cb - the callback to provide the error/result to
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).collect().toCallback(function (err, result) {
+		 *     // parameter result will be [1,2,3,4]
+		 *     // parameter err will be null
+		 * });
+		 */
+		toCallback(cb: (err?: Error, x?: R) => void): void;
+
+    /**
+     * Converts the result of a stream to Promise.
+     *
+     * If the stream contains a single value, it will return
+     * with the single item emitted by the stream (if present).
+     * If the stream is empty, `undefined` will be returned.
+     * If an error is encountered in the stream, this function will stop
+     * consumption and call `cb` with the error.
+     * If the stream contains more than one item, it will stop consumption
+     * and reject with an error.
+     *
+     * @id toPromise
+     * @section Consumption
+     * @name Stream.toPromise(PromiseCtor)
+     * @param {Function} PromiseCtor - Promises/A+ compliant constructor
+     * @api public
+     *
+     * _([1, 2, 3, 4]).collect().toPromise(Promise).then(function (result) {
+     *     // parameter result will be [1,2,3,4]
+     * });
+     */
+    toPromise(promiseConstructor: PromiseConstructor): PromiseLike<R>;
 	}
+
+	interface PipeableStream<T, R> extends Stream<R> {}
+
+	interface PipeOptions {
+		end: boolean
+	}
+
+	type MappingHint = number | string[] | Function;
 }
 
 declare var highland:HighlandStatic;

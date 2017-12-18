@@ -1,42 +1,33 @@
-// Type definitions for three.js (Octree.js)
-// Project: https://github.com/mrdoob/three.js/blob/master/examples/js/Octree.js
-// Definitions by: Hou Chunlei <https://github.com/omni360>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Vector3 } from "./three-core";
 
-/// <reference types="three" />
+export class Octree {
+    constructor(parameters?: any);
 
-declare  namespace THREE {
-    export class Octree {
-        constructor(parameters?: any);
+    update(): void;
 
-        update(): void;
+    add(object: any, options?: any): any;
 
-        add(object: any, options?: any): any;
+    addDeferred(object: any, options?: any): any;
 
-        addDeferred(object: any, options?: any): any;
+    addObjectData(object: any, part: any): any;
 
-        addObjectData(object: any, part: any): any;
+    remove(object: any): any;
 
-        remove(object: any): any;
+    extend(octree: Octree): any;
 
-        extend(octree: Octree): any;
+    rebuild(): any;
 
-        rebuild(): any;
+    updateObject(object: any): any;
 
-        updateObject(object: any): any;
+    search(position: Vector3, radius: number, organizeByObject: boolean, direction: Vector3): any;
 
-        search(position: THREE.Vector3, radius: number, organizeByObject: boolean, direction: THREE.Vector3): any;
+    setRoot(root: any): any;
 
-        setRoot(root: any): any;
+    getDepthEnd(): number;
 
-        getDepthEnd(): number;
+    getNodeCountEnd(): number;
 
-        getNodeCountEnd(): number;
+    getObjectCountEnd(): number;
 
-        getObjectCountEnd(): number;
-
-        toConsole(): any;
-
-
-    }
+    toConsole(): any;
 }

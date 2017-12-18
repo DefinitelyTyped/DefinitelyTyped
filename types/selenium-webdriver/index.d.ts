@@ -3,9 +3,10 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
 //   Craig Nishina <https://github.com/cnishina>,
-//   Simon Gellis <https://github.com/SupernaviX>
+//   Simon Gellis <https://github.com/SupernaviX>,
+//   Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as chrome from './chrome';
 import * as edge from './edge';
@@ -557,6 +558,13 @@ export namespace promise {
   // region Functions
 
   /**
+   * Set `USE_PROMISE_MANAGER` to `false` to disable the promise manager.
+   * This is useful, if you use async/await (see https://github.com/SeleniumHQ/selenium/issues/2969
+   * and https://github.com/SeleniumHQ/selenium/issues/3037).
+   */
+  let USE_PROMISE_MANAGER: boolean;
+
+  /**
    * Given an array of promises, will return a promise that will be fulfilled
    * with the fulfillment values of the input array's values. If any of the
    * input array's promises are rejected, the returned promise will be rejected
@@ -803,21 +811,23 @@ export namespace promise {
     constructor(opt_msg?: string);
   }
 
-  interface IThenable<T> {
+  interface IThenable<T> extends PromiseLike<T> {
     /**
      * Registers listeners for when this instance is resolved.
      *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
      *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     * @param onrejected
      *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
+     * @return A new promise which will be resolved with the result
+     *     of the invoked callback.
      * @template R
      */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -842,7 +852,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    catch<R>(errback: Function): Promise<R>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
   }
 
   /**
@@ -852,47 +862,8 @@ export namespace promise {
    * @interface
    * @template T
    */
-  class Thenable<T> implements IThenable<T> {
-    /**
-     * Registers listeners for when this instance is resolved.
-     *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
-     *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
-     *     The function to call if this promise is rejected. The function should
-     *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => R | IThenable<R>): Promise<R>;
-
-    /**
-     * Registers a listener for when this promise is rejected. This is synonymous
-     * with the {@code catch} clause in a synchronous API:
-     *
-     *     // Synchronous API:
-     *     try {
-     *       doSynchronousWork();
-     *     } catch (ex) {
-     *       console.error(ex);
-     *     }
-     *
-     *     // Asynchronous promise API:
-     *     doAsynchronousWork().catch(function(ex) {
-     *       console.error(ex);
-     *     });
-     *
-     * @param {function(*): (R|IThenable<R>)} errback The
-     *     function to call if this promise is rejected. The function should
-     *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    catch<R>(errback: Function): Promise<R>;
-
+  interface Thenable<T> extends IThenable<T> {}
+  class Thenable<T> {
     /**
      * Registers a listener to invoke when this promise is resolved, regardless
      * of whether the promise's value was successfully computed. This function
@@ -970,7 +941,7 @@ export namespace promise {
    * @template T
    * @see http://promises-aplus.github.io/promises-spec/
    */
-  class Promise<T> implements IThenable<T> {
+  class Promise<T> implements IThenable<T>, PromiseLike<T> {
     /**
      * @param {function(
      *           function((T|IThenable<T>|Thenable)=),
@@ -1003,17 +974,18 @@ export namespace promise {
     /**
      * Registers listeners for when this instance is resolved.
      *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
      *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     * @param onrejected
      *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!Thenable<R>} A new promise which will be resolved with the result
+     * @return A new promise which will be resolved with the result
      *     of the invoked callback.
-     * @template R
      */
-    then<R>(opt_callback?: (value: T) => IThenable<R> | R, opt_errback?: (error: any) => any): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -1031,14 +1003,12 @@ export namespace promise {
      *       console.error(ex);
      *     });
      *
-     * @param {function(*): (R|IThenable<R>)} errback The
-     *     function to call if this promise is rejected. The function should
+     * @param onrejected
+     *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
+     * @return A new promise which will be resolved with the result of the invoked callback.
      */
-    catch<R>(errback: (err: any) => R | IThenable<R>): Promise<R>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
   }
 
   /**
@@ -1511,17 +1481,17 @@ export namespace until {
   function urlMatches(regex: RegExp): Condition<boolean>;
 }
 
-interface ILocation {
+export interface ILocation {
   x: number;
   y: number;
 }
 
-interface ISize {
+export interface ISize {
   width: number;
   height: number;
 }
 
-interface IButton {
+export interface IButton {
   LEFT: string;
   MIDDLE: string;
   RIGHT: string;
@@ -1536,7 +1506,7 @@ interface IButton {
  */
 export const Button: IButton;
 
-interface IKey {
+export interface IKey {
   NULL: string;
   CANCEL: string;  // ^break
   HELP: string;
@@ -1927,12 +1897,12 @@ export class TouchSequence {
   flickElement(elem: WebElement, offset: IOffset, speed: number): TouchSequence;
 }
 
-interface IOffset {
+export interface IOffset {
   x: number;
   y: number;
 }
 
-interface ISpeed {
+export interface ISpeed {
   xspeed: number;
   yspeed: number;
 }
@@ -2014,7 +1984,8 @@ export class Alert {
  * @implements {promise.Thenable.<!Alert>}
  * @final
  */
-export class AlertPromise extends Alert implements promise.IThenable<Alert> {
+export interface AlertPromise extends promise.IThenable<Alert> {}
+export class AlertPromise extends Alert {
   /**
    * @param {!WebDriver} driver The driver controlling the browser this
    *     alert is attached to.
@@ -2022,55 +1993,13 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
    *     that will be fulfilled with the promised alert.
    */
   constructor(driver: WebDriver, alert: promise.Promise<Alert>);
-
-  // region Methods
-
-  /**
-   * Registers listeners for when this instance is resolved. This function most
-   * overridden by subtypes.
-   *
-   * @param opt_callback The function to call if this promise is
-   *     successfully resolved. The function should expect a single argument: the
-   *     promise's resolved value.
-   * @param opt_errback The function to call if this promise is
-   *     rejected. The function should expect a single argument: the rejection
-   *     reason.
-   * @return A new promise which will be resolved
-   *     with the result of the invoked callback.
-   */
-  then(opt_callback?: Function, opt_errback?: Function): promise.Promise<any>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   *
-   *     // Synchronous API:
-   *     try {
-   *       doSynchronousWork();
-   *     } catch (ex) {
-   *       console.error(ex);
-   *     }
-   *
-   *     // Asynchronous promise API:
-   *     doAsynchronousWork().catch(function(ex) {
-   *       console.error(ex);
-   *     });
-   *
-   * @param {function(*): (R|IThenable<R>)} errback The
-   *     function to call if this promise is rejected. The function should
-   *     expect a single argument: the rejection reason.
-   * @return {!ManagedPromise<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  catch<R>(errback: Function): promise.Promise<R>;
 }
 
 /**
  * Recognized browser names.
  * @enum {string}
  */
-interface IBrowser {
+export interface IBrowser {
   ANDROID: string;
   CHROME: string;
   EDGE: string;
@@ -2087,7 +2016,7 @@ interface IBrowser {
 
 export const Browser: IBrowser;
 
-interface ProxyConfig {
+export interface ProxyConfig {
   proxyType: string;
   proxyAutoconfigUrl?: string;
   ftpProxy?: string;
@@ -2498,7 +2427,7 @@ export class By {
  *     {tagName: string}|
  *     {xpath: string})}
  */
-type ByHash = { className: string } |
+export type ByHash = { className: string } |
   { css: string } |
   { id: string } |
   { js: string } |
@@ -2508,13 +2437,13 @@ type ByHash = { className: string } |
   { tagName: string } |
   { xpath: string };
 
-  export type Locator = By | Function | ByHash;
+export type Locator = By | Function | ByHash;
 
 /**
  * Common webdriver capability keys.
  * @enum {string}
  */
-interface ICapability {
+export interface ICapability {
   /**
    * Indicates whether a driver should accept all SSL certs by default. This
    * capability only applies when requesting a new session. To query whether
@@ -2765,7 +2694,7 @@ export class Capabilities {
 /**
  * An enumeration of valid command string.
  */
-interface ICommandName {
+export interface ICommandName {
   GET_SERVER_STATUS: string;
 
   NEW_SESSION: string;
@@ -3110,7 +3039,7 @@ export class Navigation {
   // endregion
 }
 
-interface IWebDriverOptionsCookie {
+export interface IWebDriverOptionsCookie {
   /**
    * The name of the cookie.
    */
@@ -3157,9 +3086,9 @@ interface IWebDriverOptionsCookie {
    * @type {(!Date|number|undefined)}
    */
   expiry?: number | Date;
-  }
+}
 
-  interface IWebDriverCookie extends IWebDriverOptionsCookie {
+export interface IWebDriverCookie extends IWebDriverOptionsCookie {
     /**
      * When the cookie expires.
      *
@@ -3539,10 +3468,10 @@ export class FileDetector {
   handleFile(driver: WebDriver, path: string): promise.Promise<string>;
 }
 
-  type CreateSessionCapabilities = Capabilities | {
-    desired?: Capabilities,
-    required?: Capabilities
-  };
+export type CreateSessionCapabilities = Capabilities | {
+  desired?: Capabilities,
+  required?: Capabilities
+};
 
 /**
  * Creates a new WebDriver client, which provides control over a browser.
@@ -4105,25 +4034,25 @@ export class WebDriver {
   // endregion
 }
 
-  /**
-   * A thenable wrapper around a {@linkplain webdriver.IWebDriver IWebDriver}
-   * instance that allows commands to be issued directly instead of having to
-   * repeatedly call `then`:
-   *
-   *     let driver = new Builder().build();
-   *     driver.then(d => d.get(url));  // You can do this...
-   *     driver.get(url);               // ...or this
-   *
-   * If the driver instance fails to resolve (e.g. the session cannot be created),
-   * every issued command will fail.
-   *
-   * @extends {webdriver.IWebDriver}
-   * @extends {promise.IThenable<!webdriver.IWebDriver>}
-   * @interface
-   */
-  interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> { }
+/**
+ * A thenable wrapper around a {@linkplain webdriver.IWebDriver IWebDriver}
+ * instance that allows commands to be issued directly instead of having to
+ * repeatedly call `then`:
+ *
+ *     let driver = new Builder().build();
+ *     driver.then(d => d.get(url));  // You can do this...
+ *     driver.get(url);               // ...or this
+ *
+ * If the driver instance fails to resolve (e.g. the session cannot be created),
+ * every issued command will fail.
+ *
+ * @extends {webdriver.IWebDriver}
+ * @extends {promise.IThenable<!webdriver.IWebDriver>}
+ * @interface
+ */
+export interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> { }
 
-interface IWebElementId {
+export interface IWebElementId {
   [ELEMENT: string]: string;
 }
 
@@ -4150,7 +4079,7 @@ interface IWebElementId {
  *   });
  * </code></pre>
  */
-interface IWebElement {
+export interface IWebElement {
   // region Methods
 
   /**
@@ -4345,7 +4274,7 @@ interface IWebElement {
   // endregion
 }
 
-interface IWebElementFinders {
+export interface IWebElementFinders {
   /**
    * Schedule a command to find a descendant of this element. If the element
    * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
@@ -4407,7 +4336,7 @@ interface IWebElementFinders {
  * @constructor
  * @template T
  */
-interface Serializable<T> {
+export interface Serializable<T> {
   /**
    * Returns either this instance's serialized represention, if immediately
    * available, or a promise for its serialized representation. This function is
@@ -4765,7 +4694,8 @@ export class WebElement implements Serializable<IWebElementId> {
  * @implements {promise.Thenable.<!WebElement>}
  * @final
  */
-export class WebElementPromise extends WebElement implements promise.IThenable<WebElement> {
+export interface WebElementPromise extends promise.IThenable<WebElement> {}
+export class WebElementPromise extends WebElement {
   /**
    * @param {!WebDriver} driver The parent WebDriver instance for this
    *     element.
@@ -4773,59 +4703,6 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
    *     that will resolve to the promised element.
    */
   constructor(driver: WebDriver, el: promise.Promise<WebElement>);
-
-  /**
-   * Registers listeners for when this instance is resolved.
-   *
-   * @param opt_callback The
-   *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise's resolved value.
-   * @param opt_errback The
-   *     function to call if this promise is rejected. The function should expect
-   *     a single argument: the rejection reason.
-   * @return A new promise which will be
-   *     resolved with the result of the invoked callback.
-   */
-  then<R>(opt_callback?: (value: WebElement) => promise.Promise<R>, opt_errback?: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers listeners for when this instance is resolved.
-   *
-   * @param opt_callback The
-   *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise's resolved value.
-   * @param opt_errback The
-   *     function to call if this promise is rejected. The function should expect
-   *     a single argument: the rejection reason.
-   * @return A new promise which will be
-   *     resolved with the result of the invoked callback.
-   */
-  then<R>(opt_callback?: (value: WebElement) => R, opt_errback?: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   *
-   *     // Synchronous API:
-   *     try {
-   *       doSynchronousWork();
-   *     } catch (ex) {
-   *       console.error(ex);
-   *     }
-   *
-   *     // Asynchronous promise API:
-   *     doAsynchronousWork().catch(function(ex) {
-   *       console.error(ex);
-   *     });
-   *
-   * @param {function(*): (R|IThenable<R>)} errback The
-   *     function to call if this promise is rejected. The function should
-   *     expect a single argument: the rejection reason.
-   * @return {!ManagedPromise<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  catch<R>(errback: Function): promise.Promise<R>;
 }
 
 /**

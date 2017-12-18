@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/react-file-input
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///<reference types="react" />
 
@@ -16,7 +16,7 @@ declare module "react-file-input" {
         onChange: (event: React.SyntheticEvent<any>) => void;
     }
 
-    class FileInput extends React.Component<FileInputProps, {}> {
+    class FileInput extends React.Component<FileInputProps> {
     }
 
     export = FileInput;

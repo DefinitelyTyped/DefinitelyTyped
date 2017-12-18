@@ -14,7 +14,7 @@ const items = [
   {id: 3, group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour')}
 ]
 
-class ExampleOfUsingReactCalendarTimeline extends React.Component<{}, {}> {
+class ExampleOfUsingReactCalendarTimeline extends React.Component {
      render(){
          return(
              <div>

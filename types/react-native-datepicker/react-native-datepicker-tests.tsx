@@ -17,6 +17,7 @@ export default class MyDatePicker extends React.Component<{}, MyDatePickerState>
                 style={{width: 200}}
                 date={this.state.date}
                 mode="date"
+                androidMode="calendar"
                 placeholder="select date"
                 format="YYYY-MM-DD"
                 minDate="2016-05-01"

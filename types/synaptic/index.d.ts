@@ -1,6 +1,7 @@
-// Type definitions for synaptic 1.0.8
+// Type definitions for synaptic 1.0.9
 // Project: https://github.com/cazala/synaptic
-// Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
+// Definitions by: Markus Peloso <https://github.com/ToastHawaii>
+//                 Austin Cummings <https://github.com/austincummings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Synaptic from "synaptic"; // Need this to refer to Synaptic from within the `declare global`
@@ -291,7 +292,7 @@ export namespace Network {
  * Networks are basically an array of layers. They have an input layer, a number of hidden layers, and an output layer.
  */
 export class Network {
-    layer: Network.Options;
+    layers: Network.Options;
 
     optimized: Network.Optimized;
 
@@ -328,7 +329,7 @@ export class Network {
     /**
      * Networks can be stored as JSON's.
      */
-    toJSON(): string;
+    toJSON(): any;
 
     /**
      * Creates a static String to store the source code of the functions that are identical for all the workers (train, _trainSet, test).
@@ -339,7 +340,7 @@ export class Network {
     /**
      * Rebuild a network that has been stored in a json using the method toJSON().
      */
-    static fromJSON(exported: string): Network;
+    static fromJSON(exported: any): Network;
 
     /**
      * The network can be converted into a WebWorker. This feature doesn't work in node.js, and it's not supported on every browser (it must support Blob).

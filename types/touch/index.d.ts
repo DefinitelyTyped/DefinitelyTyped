@@ -1,13 +1,17 @@
-// Type definitions for touch
+// Type definitions for touch 3.1
 // Project: https://github.com/isaacs/node-touch
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-declare function touch(filename: string, cb: (err: any) => any): void;
-declare function touch(filename: string, opts: touch.Options, cb: (err: any) => any): void;
+/// <reference types="node" />
+
+declare function touch<T = void>(filename: string, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;
+declare function touch<T = void>(filename: string, options?: touch.Options, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;
 
 declare namespace touch {
-    export interface Options {
+    interface Options {
         force?: boolean;
         time?: Date | string | number;
         atime?: boolean | Date;
@@ -16,16 +20,12 @@ declare namespace touch {
         nocreate?: boolean;
     }
 
-    export function sync(filename: string, opts?: touch.Options): void;
+    function sync(filename: string, options?: Options): void;
 
-    export function ftouch(fd: number, cb: (err: any) => any): void;
-    export function ftouch(fd: number, opts: touch.Options, cb: (err: any) => any): void;
+    function ftouch<T = void>(fd: number, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;
+    function ftouch<T = void>(fd: number, options?: Options, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;
 
-    export namespace ftouch {
-        export function sync(fd: number, opts?: touch.Options): void;
-    }
-
-    export const ftouchSync: typeof ftouch.sync;
+    function ftouchSync(fd: number, options?: Options): void;
 }
 
 export = touch;

@@ -1,11 +1,21 @@
 // Type definitions for Angular Toastr v1.6.0
 // Project: https://github.com/Foxandxss/angular-toastr
-// Definitions by: Niko Kovačič <https://github.com/nkovacic>
+// Definitions by: Niko Kovačič <https://github.com/nkovacic>, Troy McKinnon <https://github.com/trodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 import * as angular from 'angular';
+
+export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
+export type IToastContainerConfig = angular.toastr.IToastContainerConfig;
+export type IToastConfig = angular.toastr.IToastConfig;
+export type IToastrConfig = angular.toastr.IToastrConfig;
+export type IToastScope = angular.toastr.IToastScope;
+export type IToast = angular.toastr.IToast;
+export type IToastOptions = angular.toastr.IToastOptions;
+export type IToastrService = angular.toastr.IToastrService;
 
 declare module 'angular' {
     export namespace toastr {
@@ -15,9 +25,9 @@ declare module 'angular' {
             closeHtml?: string;
             extendedTimeOut?: number;
             messageClass?: string;
-            onHidden?: Function;
-            onShown?: Function;
-            onTap?: Function;
+            onHidden?: (wasClicked: boolean, toast: angular.toastr.IToast) => void;
+            onShown?: (toast: angular.toastr.IToast) => void;
+            onTap?: (toast: angular.toastr.IToast) => void;
             progressBar?: boolean;
             tapToDismiss?: boolean;
             templates?: {

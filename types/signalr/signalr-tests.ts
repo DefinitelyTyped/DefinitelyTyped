@@ -95,7 +95,7 @@ function test_connection() {
     });
     connection.start();
     $("#broadcast").click(function () {
-        connection.send($('#msg').val());
+        connection.send($('#msg').val() as string);
     });
 }
 
@@ -191,7 +191,7 @@ $(function () {
     $.connection.hub.start().done(function () {
         $("#broadcast").click(function () {
             // Call the chat method on the server
-            chat.server.send($('#msg').val());
+            chat.server.send($('#msg').val() as string);
         });
     });
 });

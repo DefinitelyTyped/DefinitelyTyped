@@ -1,8 +1,11 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface TabPaneProps {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
   tabId?: number | string;
 }
 
-declare var TabPane: React.StatelessComponent<Props>;
+declare const TabPane: React.StatelessComponent<TabPaneProps>;
 export default TabPane;

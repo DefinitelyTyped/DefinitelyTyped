@@ -1,9 +1,6 @@
-/// <reference types="node"/>
 import dts = require("dts-bundle");
-import os = require("os");
 
 var opts = {
-
     // Required
 
     // name of module likein package.json
@@ -34,7 +31,7 @@ var opts = {
     // - default: false
     removeSource: false,
     // newline to use in output file
-    newline: os.EOL,
+    newline: "\n",
     // indentation to use in output file
     // - default 4 spaces
     indent: '   ',

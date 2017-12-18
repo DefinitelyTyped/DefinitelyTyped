@@ -2,6 +2,7 @@
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
+//                 Aakash Goenka <https://github.com/a-k-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-forge" {
@@ -25,6 +26,7 @@ declare module "node-forge" {
         function privateKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): Key;
+        function privateKeyFromPem(pem: PEM): Key;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
         interface oids {
@@ -262,7 +264,7 @@ declare module "node-forge" {
                 safeBags: Bag[];
             }];
             getBags: (filter: BagsFilter) => {
-                [key: string]: Bag[]|undefined;
+                [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[];
                 friendlyName?: Bag[];
             };
@@ -270,7 +272,46 @@ declare module "node-forge" {
             getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
         }
 
-        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string) : Pkcs12Pfx;
-        function pkcs12FromAsn1(obj: any, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string): Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
+    }
+
+    namespace md {
+
+        interface MessageDigest {
+            update(msg: string, encoding?: string): MessageDigest;
+            digest(): util.ByteStringBuffer;
+        }
+
+        namespace sha1 {
+            function create(): MessageDigest;
+        }
+
+        namespace sha256 {
+            function create(): MessageDigest;
+        }
+
+        namespace md5 {
+            function create(): MessageDigest;
+        }
+    }
+
+    namespace cipher {
+
+        type Algorithm = "AES-ECB" | "AES-CBC" | "AES-CFB" | "AES-OFB" | "AES-CTR" | "AES-GCM" | "3DES-ECB" | "3DES-CBC" | "DES-ECB" | "DES-CBC";
+
+        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+
+        interface StartOptions {
+            iv?: string;
+        }
+
+        interface BlockCipher {
+            start: (options?: StartOptions) => void;
+            update: (payload: util.ByteBuffer) => void;
+            finish: () => boolean;
+            output: util.ByteStringBuffer;
+        }
     }
 }

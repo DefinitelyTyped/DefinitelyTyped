@@ -1,10 +1,34 @@
 {
     "packages": [
         {
+            "libraryName": "3d-bin-packing",
+            "typingsPackageName": "3d-bin-packing",
+            "sourceRepoURL": "https://github.com/betterwaysystems/packer",
+            "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "ag-grid",
+            "typingsPackageName": "ag-grid",
+            "sourceRepoURL": "https://github.com/ceolter/ag-grid",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "ajv",
             "typingsPackageName": "ajv",
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "angular-ui-router-default",
+            "typingsPackageName": "angular-ui-router-default",
+            "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-default",
+            "asOfVersion": "0.0.5"
+        },
+        {
+            "libraryName": "angular-ui-router-uib-modal",
+            "typingsPackageName": "angular-ui-router-uib-modal",
+            "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-uib-modal",
+            "asOfVersion": "0.0.11"
         },
         {
             "libraryName": "antd",
@@ -13,16 +37,76 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "anydb-sql",
+            "typingsPackageName": "anydb-sql",
+            "sourceRepoURL": "https://github.com/doxout/anydb-sql",
+            "asOfVersion": "0.6.46"
+        },
+        {
+            "libraryName": "apn",
+            "typingsPackageName": "apn",
+            "sourceRepoURL": "https://github.com/node-apn/node-apn",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "Argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "askmethat-rating",
+            "typingsPackageName": "askmethat-rating",
+            "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
+            "asOfVersion": "0.4.0"
+        },
+        {
+            "libraryName": "autobind-decorator",
+            "typingsPackageName": "autobind-decorator",
+            "sourceRepoURL": "https://github.com/andreypopp/autobind-decorator",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "aws-sdk",
+            "typingsPackageName": "aws-sdk",
+            "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "axe-core",
+            "typingsPackageName": "axe-core",
+            "sourceRepoURL": "https://github.com/dequelabs/axe-core",
+            "asOfVersion": "2.0.7"
+        },
+        {
             "libraryName": "axios",
             "typingsPackageName": "axios",
             "sourceRepoURL": "https://github.com/mzabriskie/axios",
             "asOfVersion": "0.14.0"
+        },
+        {
+            "libraryName": "azure-mobile-apps",
+            "typingsPackageName": "azure-mobile-apps",
+            "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "BabylonJS",
+            "typingsPackageName": "babylonjs",
+            "sourceRepoURL": "http://www.babylonjs.com/",
+            "asOfVersion": "2.4.1"
+        },
+        {
+            "libraryName": "base64url",
+            "typingsPackageName": "base64url",
+            "sourceRepoURL": "https://github.com/brianloveswords/base64url",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "BigInteger.js",
+            "typingsPackageName": "big-integer",
+            "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
+            "asOfVersion": "0.0.31"
         },
         {
             "libraryName": "Bugsnag Browser",
@@ -37,6 +121,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "chalk",
+            "typingsPackageName": "chalk",
+            "sourceRepoURL": "https://github.com/chalk/chalk",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "change-case",
             "typingsPackageName": "change-case",
             "sourceRepoURL": "https://github.com/blakeembrey/change-case",
@@ -49,6 +139,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "commander",
+            "typingsPackageName": "commander",
+            "sourceRepoURL": "https://github.com/tj/commander.js",
+            "asOfVersion": "2.12.2"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
@@ -59,6 +155,12 @@
             "typingsPackageName": "date-fns",
             "sourceRepoURL": "https://github.com/date-fns/date-fns",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "DevExtreme",
+            "typingsPackageName": "devextreme",
+            "sourceRepoURL": "http://js.devexpress.com/",
+            "asOfVersion": "16.2.1"
         },
         {
             "libraryName": "Dexie.js",
@@ -85,6 +187,48 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "electron",
+            "typingsPackageName": "electron",
+            "sourceRepoURL": "https://github.com/electron/electron",
+            "asOfVersion": "1.6.10"
+        },
+        {
+            "libraryName": "electron-builder",
+            "typingsPackageName": "electron-builder",
+            "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
+            "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "error-stack-parser",
+            "typingsPackageName": "error-stack-parser",
+            "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "eventemitter2",
+            "typingsPackageName": "eventemitter2",
+            "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
+            "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "EventEmitter3",
+            "typingsPackageName": "eventemitter3",
+            "sourceRepoURL": "https://github.com/primus/eventemitter3",
+            "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "JSON-Patch",
+            "typingsPackageName": "fast-json-patch",
+            "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
+            "asOfVersion": "1.1.5"
+        },
+        {
             "libraryName": "FastSimplexNoise",
             "typingsPackageName": "fast-simplex-noise",
             "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
@@ -97,6 +241,12 @@
             "asOfVersion": "5.14.0"
         },
         {
+            "libraryName": "flatpickr",
+            "typingsPackageName": "flatpickr",
+            "sourceRepoURL": "https://github.com/chmln/flatpickr",
+            "asOfVersion": "3.1.2"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
@@ -107,6 +257,12 @@
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
             "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "gulp-typescript",
+            "typingsPackageName": "gulp-typescript",
+            "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
+            "asOfVersion": "2.13.0"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -163,10 +319,64 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jpush-react-native",
+            "typingsPackageName": "jpush-react-native",
+            "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
+        },
+        {
+            "libraryName": "js-data",
+            "typingsPackageName": "js-data",
+            "sourceRepoURL": "https://github.com/js-data/js-data",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "JSNLog",
+            "typingsPackageName": "jsnlog",
+            "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
+            "asOfVersion": "2.17.2"
+        },
+        {
             "libraryName": "jsonschema",
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
             "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "jsplumb",
+            "typingsPackageName": "jsplumb",
+            "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
+            "asOfVersion": "2.5.7"
+        },
+        {
+            "libraryName": "knockout-paging",
+            "typingsPackageName": "knockout-paging",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
+            "asOfVersion": "0.3.1"
+        },
+        {
+            "libraryName": "knockout-pre-rendered",
+            "typingsPackageName": "knockout-pre-rendered",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-pre-rendered",
+            "asOfVersion": "0.7.1"
+        },
+        {
+            "libraryName": "lambda-phi",
+            "typingsPackageName": "lambda-phi",
+            "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
+            "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "left-pad",
+            "typingsPackageName": "left-pad",
+            "sourceRepoURL": "https://github.com/stevemao/left-pad",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "Linq.JS",
@@ -187,6 +397,18 @@
             "asOfVersion": "0.0.34"
         },
         {
+            "libraryName": "lodash-decorators",
+            "typingsPackageName": "lodash-decorators",
+            "sourceRepoURL": "https://github.com/steelsojka/lodash-decorators",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "log4js",
+            "typingsPackageName": "log4js",
+            "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
+            "asOfVersion": "2.3.5"
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
@@ -205,16 +427,34 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "mendixmodelsdk",
+            "typingsPackageName": "mendixmodelsdk",
+            "sourceRepoURL": "http://www.mendix.com",
+            "asOfVersion": "0.8.1"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
             "asOfVersion": "1.2.5"
         },
         {
+            "libraryName": "mobservable-react",
+            "typingsPackageName": "mobservable-react",
+            "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "MQTT",
+            "typingsPackageName": "mqtt",
+            "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "ng-table",
@@ -235,10 +475,22 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "Onsen UI",
+            "typingsPackageName": "onsenui",
+            "sourceRepoURL": "http://onsen.io",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "parse5",
+            "typingsPackageName": "parse5",
+            "sourceRepoURL": "https://github.com/inikulin/parse5",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "pascal-case",
@@ -253,16 +505,40 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "path-to-regexp",
+            "typingsPackageName": "path-to-regexp",
+            "sourceRepoURL": "https://github.com/pillarjs/path-to-regexp",
+            "asOfVersion": "1.7.0"
+        },
+        {
+            "libraryName": "pg-promise",
+            "typingsPackageName": "pg-promise",
+            "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
+            "asOfVersion": "5.4.3"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
             "asOfVersion": "1.4.2"
         },
         {
+            "libraryName": "pkcs11js",
+            "typingsPackageName": "pkcs11js",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
+            "asOfVersion": "1.0.4"
+        },
+        {
             "libraryName": "poly2tri.js",
             "typingsPackageName": "poly2tri",
             "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
             "asOfVersion": "1.4.0"
+        },
+        {
+            "libraryName": "popper.js",
+            "typingsPackageName": "popper.js",
+            "sourceRepoURL": "https://github.com/FezVrasta/popper.js/",
+            "asOfVersion": "1.11.0"
         },
         {
             "libraryName": "Prando",
@@ -277,16 +553,58 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "qiniu",
+            "typingsPackageName": "qiniu",
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
+            "asOfVersion": "7.0.1"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
             "asOfVersion": "3.10.0"
         },
         {
+            "libraryName": "raw-body",
+            "typingsPackageName": "raw-body",
+            "sourceRepoURL": "https://github.com/stream-utils/raw-body",
+            "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "react-day-picker",
+            "typingsPackageName": "react-day-picker",
+            "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
+            "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "react-native-elements",
+            "typingsPackageName": "react-native-elements",
+            "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
+            "asOfVersion": "0.18.0"
+        },
+        {
+            "libraryName": "realm",
+            "typingsPackageName": "realm",
+            "sourceRepoURL": "https://github.com/realm/realm-js",
+            "asOfVersion": "1.13.0"
+        },
+        {
             "libraryName": "Redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
             "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "redux-batched-actions",
+            "typingsPackageName": "redux-batched-actions",
+            "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
+            "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "redux-devtools-extension",
+            "typingsPackageName": "redux-devtools-extension",
+            "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
+            "asOfVersion": "2.13.2"
         },
         {
             "libraryName": "redux-persist",
@@ -313,10 +631,58 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "reselect",
+            "typingsPackageName": "reselect",
+            "sourceRepoURL": "https://github.com/rackt/reselect",
+            "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "rest-io",
+            "typingsPackageName": "rest-io",
+            "sourceRepoURL": "https://github.com/EnoF/rest-io",
+            "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "route-recognizer",
+            "typingsPackageName": "route-recognizer",
+            "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
+            "asOfVersion": "0.3.0"
+        },
+        {
+            "libraryName": "router5",
+            "typingsPackageName": "router5",
+            "sourceRepoURL": "https://github.com/router5/router5",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "samchon",
+            "typingsPackageName": "samchon",
+            "sourceRepoURL": "https://github.com/samchon/framework",
+            "asOfVersion": "2.0.22"
+        },
+        {
+            "libraryName": "samchon-framework",
+            "typingsPackageName": "samchon-framework",
+            "sourceRepoURL": "https://github.com/samchon/framework",
+            "asOfVersion": "2.0.21"
+        },
+        {
+            "libraryName": "samchon-library",
+            "typingsPackageName": "samchon-library",
+            "sourceRepoURL": "https://github.com/samchon/framework",
+            "asOfVersion": "0.1.0"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
             "asOfVersion": "0.7.3"
+        },
+        {
+            "libraryName": "sendgrid",
+            "typingsPackageName": "sendgrid",
+            "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
+            "asOfVersion": "4.3.0"
         },
         {
             "libraryName": "sentence-case",
@@ -349,16 +715,40 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "striptags",
+            "typingsPackageName": "striptags",
+            "sourceRepoURL": "https://github.com/ericnorris/striptags",
+            "asOfVersion": "3.1.1"
+        },
+        {
             "libraryName": "Sugar",
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "svg.js",
+            "typingsPackageName": "svg.js",
+            "sourceRepoURL": "http://www.svgjs.com/",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
             "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "Tabris.js",
+            "typingsPackageName": "tabris",
+            "sourceRepoURL": "http://tabrisjs.com",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "tcomb",
+            "typingsPackageName": "tcomb",
+            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "asOfVersion": "2.6.0"
         },
         {
             "libraryName": "title-case",
@@ -373,6 +763,12 @@
             "asOfVersion": "0.5.0"
         },
         {
+            "libraryName": "tstl",
+            "typingsPackageName": "tstl",
+            "sourceRepoURL": "https://github.com/samchon/tstl",
+            "asOfVersion": "1.5.7"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
@@ -383,6 +779,12 @@
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
+            "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "upper-case",
@@ -397,6 +799,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "vso-node-api",
+            "typingsPackageName": "vso-node-api",
+            "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "vuejs",
             "typingsPackageName": "vue",
             "sourceRepoURL": "https://github.com/vuejs/vue",
@@ -409,10 +817,22 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "webcola",
+            "typingsPackageName": "webcola",
+            "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "x2js",
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xlsx",
+            "typingsPackageName": "xlsx",
+            "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
+            "asOfVersion": "0.0.36"
         },
         {
             "libraryName": "xml-js",
@@ -425,6 +845,12 @@
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "Zone.js",
+            "typingsPackageName": "zone.js",
+            "sourceRepoURL": "https://github.com/angular/zone.js",
+            "asOfVersion": "0.5.12"
         }
     ]
 }

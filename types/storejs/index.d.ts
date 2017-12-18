@@ -1,26 +1,35 @@
-// Type definitions for store.js 1.3
+// Type definitions for store.js 2.0
 // Project: https://github.com/marcuswestin/store.js/
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 harry0000 <https://github.com/harry0000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// store.js exposes a simple API for cross browser local storage
+// Cross-browser storage for all use cases, used across the web.
 
-interface StoreJSStatic {
-	set(key: string, value: any): any;
-	get(key: string): any;
-	remove(key: string): void;
-	clear(): void;
-	enabled: boolean;
-	disabled: boolean;
-	transact(key: string, defaultValue: any, transactionFn?: (val: any) => void): void;
-	getAll(): any;
-	serialize(value: any): string;
-	deserialize(value: string): any;
-	forEach(command: (key: string, value: any) => void): void;
+interface StoreJsAPI {
+    readonly version: string;
+    readonly enabled: string;
+    get(key: string, optionalDefaultValue?: any): any;
+    set(key: string, value: any): any;
+    remove(key: string): void;
+    each(callback: (val: any, namespacedKey: string) => void): void;
+    clearAll(): void;
+    hasNamespace(namespace: string): boolean;
+    createStore(plugins?: any[], namespace?: string): StoreJsAPI;
+    addPlugin(plugin: any): void;
+    namespace(namespace: string): StoreJsAPI;
 }
 
-declare var store: StoreJSStatic;
+interface StoreJsEngine {
+    createStore(storages: any[], plugins?: any[], namespace?: string): StoreJsAPI;
+}
+
+declare const store: StoreJsAPI;
 declare module 'store' {
-	export = store;
+    export = store;
 }
 
+declare const engine: StoreJsEngine;
+declare module 'store/src/store-engine' {
+    export = engine;
+}

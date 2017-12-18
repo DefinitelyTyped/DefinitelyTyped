@@ -611,12 +611,14 @@ declare namespace braintree {
    * @property {object} details Additional account details.
    * @property {string} details.cardType Type of card, ex: Visa, MasterCard.
    * @property {string} details.lastTwo Last two digits of card number.
+   * @property {string} details.lastFour Last four digits of card number.
    * @property {string} description A human-readable description.
    * @property {string} type The payment method type, always `CreditCard`.
    */
   interface HostedFieldsAccountDetails {
     cardType: string;
     lastTwo: string;
+    lastFour: string;
   }
 
   interface HostedFieldsTokenizePayload {
@@ -1087,7 +1089,7 @@ declare namespace braintree {
      * });
      * @returns {PayPal~tokenizeReturn} A handle to close the PayPal checkout frame.
      */
-    tokenize(options: { flow: string, intent: string, offerCredit: boolean, useraction: string, amount: (string | number), currency: string, displayName: string, locale: string, enableShippingAddress: boolean, shippingAddressOverride: PayPalShippingAddress, shippingAddressEditable: boolean, billingAgreementDescription: string }, callback: callback): PayPalTokenizeReturn;
+    tokenize(options: { flow: string, intent?: string, offerCredit?: boolean, useraction?: string, amount?: (string | number), currency?: string, displayName?: string, locale?: string, enableShippingAddress?: boolean, shippingAddressOverride?: PayPalShippingAddress, shippingAddressEditable?: boolean, billingAgreementDescription?: string }, callback: callback): PayPalTokenizeReturn;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/paypal.create|create}.

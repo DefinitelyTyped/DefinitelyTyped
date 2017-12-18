@@ -1,13 +1,23 @@
-// Type definitions for chai-as-promised
+// Type definitions for chai-as-promised 7.1.0
 // Project: https://github.com/domenic/chai-as-promised/
-// Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>
+// Definitions by: jt000 <https://github.com/jt000>,
+//                 Yuki Kokubun <https://github.com/Kuniwak>,
+//                 Leonard Thieu <https://github.com/leonard-thieu>,
+//                 Mike Lazer-Walker <https://github.com/lazerwalker>,
+//                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="chai" />
 
 declare module 'chai-as-promised' {
     function chaiAsPromised(chai: any, utils: any): void;
-    namespace chaiAsPromised {}
+
+    namespace chaiAsPromised {
+        function transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
+
+        function transformAsserterArgs(values: any[]): any;
+    }
+
     export = chaiAsPromised;
 }
 
@@ -19,22 +29,25 @@ declare namespace Chai {
         become(expected: any): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
+        rejectedWith: PromisedThrow;
         notify(fn: Function): PromisedAssertion;
     }
 
     // Eventually does not have .then(), but PromisedAssertion have.
     interface Eventually extends PromisedLanguageChains, PromisedNumericComparison, PromisedTypeComparison {
         // From chai-as-promised
-        become(expected: PromiseLike<any>): PromisedAssertion;
+        become(expected: any): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
+        rejectedWith: PromisedThrow;
         notify(fn: Function): PromisedAssertion;
 
         // From chai
         not: PromisedAssertion;
         deep: PromisedDeep;
+        ordered: PromisedOrdered;
+        nested: PromisedNested;
+        any: PromisedKeyFilter;
         all: PromisedKeyFilter;
         a: PromisedTypeComparison;
         an: PromisedTypeComparison;
@@ -45,6 +58,7 @@ declare namespace Chai {
         false: PromisedAssertion;
         null: PromisedAssertion;
         undefined: PromisedAssertion;
+        NaN: PromisedAssertion;
         exist: PromisedAssertion;
         empty: PromisedAssertion;
         arguments: PromisedAssertion;
@@ -57,20 +71,36 @@ declare namespace Chai {
         property: PromisedProperty;
         ownProperty: PromisedOwnProperty;
         haveOwnProperty: PromisedOwnProperty;
+        ownPropertyDescriptor: PromisedOwnPropertyDescriptor;
+        haveOwnPropertyDescriptor: PromisedOwnPropertyDescriptor;
         length: PromisedLength;
         lengthOf: PromisedLength;
-        match(regexp: RegExp|string, message?: string): PromisedAssertion;
+        match: PromisedMatch;
+        matches: PromisedMatch;
         string(string: string, message?: string): PromisedAssertion;
         keys: PromisedKeys;
         key(string: string): PromisedAssertion;
         throw: PromisedThrow;
         throws: PromisedThrow;
         Throw: PromisedThrow;
-        respondTo(method: string, message?: string): PromisedAssertion;
+        respondTo: PromisedRespondTo;
+        respondsTo: PromisedRespondTo;
         itself: PromisedAssertion;
-        satisfy(matcher: Function, message?: string): PromisedAssertion;
-        closeTo(expected: number, delta: number, message?: string): PromisedAssertion;
+        satisfy: PromisedSatisfy;
+        satisfies: PromisedSatisfy;
+        closeTo: PromisedCloseTo;
+        approximately: PromisedCloseTo;
         members: PromisedMembers;
+        increase: PromisedPropertyChange;
+        increases: PromisedPropertyChange;
+        decrease: PromisedPropertyChange;
+        decreases: PromisedPropertyChange;
+        change: PromisedPropertyChange;
+        changes: PromisedPropertyChange;
+        extensible: PromisedAssertion;
+        sealed: PromisedAssertion;
+        frozen: PromisedAssertion;
+        oneOf(list: any[], message?: string): PromisedAssertion;
     }
 
     interface PromisedAssertion extends Eventually, PromiseLike<any> {
@@ -93,6 +123,8 @@ declare namespace Chai {
         at: PromisedAssertion;
         of: PromisedAssertion;
         same: PromisedAssertion;
+        but: PromisedAssertion;
+        does: PromisedAssertion;
     }
 
     interface PromisedNumericComparison {
@@ -123,10 +155,28 @@ declare namespace Chai {
         (constructor: Object, message?: string): PromisedAssertion;
     }
 
-    interface PromisedDeep {
-        equal: PromisedEqual;
+    interface PromisedCloseTo {
+        (expected: number, delta: number, message?: string): PromisedAssertion;
+    }
+
+    interface PromisedNested {
         include: PromisedInclude;
         property: PromisedProperty;
+        members: PromisedMembers;
+    }
+
+    interface PromisedDeep {
+        equal: PromisedEqual;
+        equals: PromisedEqual;
+        eq: PromisedEqual;
+        include: PromisedInclude;
+        property: PromisedProperty;
+        members: PromisedMembers;
+        ordered: PromisedOrdered
+    }
+
+    interface PromisedOrdered {
+        members: PromisedMembers;
     }
 
     interface PromisedKeyFilter {
@@ -145,6 +195,11 @@ declare namespace Chai {
         (name: string, message?: string): PromisedAssertion;
     }
 
+    interface PromisedOwnPropertyDescriptor {
+        (name: string, descriptor: PropertyDescriptor, message?: string): PromisedAssertion;
+        (name: string, message?: string): PromisedAssertion;
+    }
+
     interface PromisedLength extends PromisedLanguageChains, PromisedNumericComparison {
         (length: number, message?: string): PromisedAssertion;
     }
@@ -154,13 +209,21 @@ declare namespace Chai {
         (value: string, message?: string): PromisedAssertion;
         (value: number, message?: string): PromisedAssertion;
         keys: PromisedKeys;
+        deep: PromisedDeep;
+        ordered: PromisedOrdered;
         members: PromisedMembers;
+        any: PromisedKeyFilter;
         all: PromisedKeyFilter;
+    }
+
+    interface PromisedMatch {
+        (regexp: RegExp | string, message?: string): PromisedAssertion;
     }
 
     interface PromisedKeys {
         (...keys: string[]): PromisedAssertion;
         (keys: any[]): PromisedAssertion;
+        (keys: Object): PromisedAssertion;
     }
 
     interface PromisedThrow {
@@ -173,8 +236,20 @@ declare namespace Chai {
         (constructor: Function, expected?: RegExp, message?: string): PromisedAssertion;
     }
 
+    interface PromisedRespondTo {
+        (method: string, message?: string): PromisedAssertion;
+    }
+
+    interface PromisedSatisfy {
+        (matcher: Function, message?: string): PromisedAssertion;
+    }
+
     interface PromisedMembers {
         (set: any[], message?: string): PromisedAssertion;
+    }
+
+    interface PromisedPropertyChange {
+        (object: Object, property: string, message?: string): PromisedAssertion;
     }
 
     // For Assert API
@@ -192,7 +267,9 @@ declare namespace Chai {
     export interface PromisedAssert {
         fail(actual?: any, expected?: any, msg?: string, operator?: string): PromiseLike<void>;
 
+        isOk(val: any, msg?: string): PromiseLike<void>;
         ok(val: any, msg?: string): PromiseLike<void>;
+        isNotOk(val: any, msg?: string): PromiseLike<void>;
         notOk(val: any, msg?: string): PromiseLike<void>;
 
         equal(act: any, exp: any, msg?: string): PromiseLike<void>;
@@ -204,11 +281,25 @@ declare namespace Chai {
         deepEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
         notDeepEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
 
+        isAbove(val: number, above: number, msg?: string): PromiseLike<void>;
+        isAtLeast(val: number, atLeast: number, msg?: string): PromiseLike<void>;
+        isAtBelow(val: number, below: number, msg?: string): PromiseLike<void>;
+        isAtMost(val: number, atMost: number, msg?: string): PromiseLike<void>;
+
         isTrue(val: any, msg?: string): PromiseLike<void>;
         isFalse(val: any, msg?: string): PromiseLike<void>;
 
+        isNotTrue(val: any, msg?: string): PromiseLike<void>;
+        isNotFalse(val: any, msg?: string): PromiseLike<void>;
+
         isNull(val: any, msg?: string): PromiseLike<void>;
         isNotNull(val: any, msg?: string): PromiseLike<void>;
+
+        isNaN(val: any, msg?: string): PromiseLike<void>;
+        isNotNaN(val: any, msg?: string): PromiseLike<void>;
+
+        exists(val: any, msg?: string): PromiseLike<void>;
+        notExists(val: any, msg?: string): PromiseLike<void>;
 
         isUndefined(val: any, msg?: string): PromiseLike<void>;
         isDefined(val: any, msg?: string): PromiseLike<void>;
@@ -281,10 +372,46 @@ declare namespace Chai {
 
         operator(val: any, operator: string, val2: any, msg?: string): PromiseLike<void>;
         closeTo(act: number, exp: number, delta: number, msg?: string): PromiseLike<void>;
+        approximately(act: number, exp: number, delta: number, msg?: string): PromiseLike<void>;
 
         sameMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        sameDeepMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        sameOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        notSameOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        sameDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        notSameDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        includeOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        notIncludeOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        includeDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        notIncludeDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
         includeMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        includeDeepMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+
+        oneOf(val: any, list: any[], msg?: string): PromiseLike<void>;
+
+        changes(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        doesNotChange(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        increases(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        doesNotIncrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        decreases(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
+        doesNotDecrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
 
         ifError(val: any, msg?: string): PromiseLike<void>;
+
+        isExtensible(obj: Object, msg?: string): PromiseLike<void>;
+        isNotExtensible(obj: Object, msg?: string): PromiseLike<void>;
+
+        isSealed(obj: Object, msg?: string): PromiseLike<void>;
+        sealed(obj: Object, msg?: string): PromiseLike<void>;
+        isNotSealed(obj: Object, msg?: string): PromiseLike<void>;
+        notSealed(obj: Object, msg?: string): PromiseLike<void>;
+
+        isFrozen(obj: Object, msg?: string): PromiseLike<void>;
+        frozen(obj: Object, msg?: string): PromiseLike<void>;
+        isNotFrozen(obj: Object, msg?: string): PromiseLike<void>;
+        notFrozen(obj: Object, msg?: string): PromiseLike<void>;
+
+        isEmpty(val: any, msg?: string): PromiseLike<void>;
+        isNotEmpty(val: any, msg?: string): PromiseLike<void>;
     }
 }

@@ -1,5 +1,5 @@
 
-import {ServerRequest, ServerResponse} from "http";
+import { ServerRequest, ServerResponse } from "http";
 import * as finalHandler from "finalhandler";
 
 let req: ServerRequest;

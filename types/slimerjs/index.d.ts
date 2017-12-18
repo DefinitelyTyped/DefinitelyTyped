@@ -7,14 +7,14 @@ declare var phantom: Phantom;
 declare var slimer: Slimer;
 
 interface Slimer {
-  version: number;
-  geckoVersion: number;
+    version: number;
+    geckoVersion: number;
 
-  clearHttpAuth(): void;
-  isExiting(): boolean;
-  hasFeature(featureName: string): boolean;
-  exit(returnValue?: number): void;
-  wait(milliseconds: number): void;
+    clearHttpAuth(): void;
+    isExiting(): boolean;
+    hasFeature(featureName: string): boolean;
+    exit(returnValue?: number): void;
+    wait(milliseconds: number): void;
 }
 
 interface Phantom {
@@ -119,8 +119,8 @@ interface WebPage {
     // evaluate<T1, T2, R>(callback: (arg1: T1, arg2: T2) => R, arg1: T1, arg2: T2): Promise<R>;
     // evaluate<T1, T2, T3, R>(callback: (arg1: T1, arg2: T2, arg3: T3) => R, arg1: T1, arg2: T2, arg3: T3): Promise<R>;
     // evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): Promise<R>;
-    evaluate<R>(callback: () => R, ...args: any[]): R;
-    evaluateAsync(fn: () => void): void;
+    evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): R;
+    evaluateAsync(fn: (...args: any[]) => void, delayMilli: number, ...args: any[]): void;
     evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
     getPage(windowName: string): WebPage;
     go(index: number): void;
@@ -200,8 +200,8 @@ interface ResourceError {
 }
 
 interface HttpVersion {
-  major: number;
-  minor: number;
+    major: number;
+    minor: number;
 }
 
 interface ResourceResponse {
@@ -309,7 +309,7 @@ interface Stream {
     writeLine(data: string): void;
 }
 
-interface WebServerModule {
+interface WebServer {
     registerDirectory(urlpath: string, directoryPath: string): void;
     registerFile(urlpath: string, filePath: string): void;
     registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void;
@@ -317,6 +317,10 @@ interface WebServerModule {
     listen(port: number | string, cb?: (request: WebServerRequest, response: WebServerResponse) => void): boolean;
     // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     close(): void;
+}
+
+interface WebServerModule {
+    create(): WebServer;
 }
 
 interface WebServerRequest {
@@ -365,10 +369,68 @@ interface Cookie {
 }
 
 interface WebPageModule {
-  create(): WebPage;
-  exit(returnValue?: number): void;
+    create(): WebPage;
+    exit(returnValue?: number): void;
+}
+
+interface Opts {
+    mode: string;
+    charset: string;
+    nobuffer: boolean;
+}
+
+interface FsModule {
+    changeWorkingDirectory(path: string): void;
+    workingDirectory: string;
+    exists(path: string): boolean;
+    isFile(path: string): boolean;
+    isDirectory(path: string): boolean;
+    isReadable(path: string): boolean;
+    isWritable(path: string): boolean;
+    isLink(path: string): boolean;
+    size(path: string): number;
+    lastModified(path: string): Date;
+    read(path: string, mode: string): string;
+    /*
+      Mode is a string that can contain character which describes a characteristic of the returned stream.
+      If the string contains "r", the file is opened in read-only mode.
+      "w" opens the file in write-only mode.
+      "b" opens the file in binary mode. If "b" is not present, the file is
+          opened in text mode, and its contents are assumed to be UTF-8.
+      "a" means to open as "append" mode: the file is open in write-only mode and all written character are append to the file
+    */
+    write(path: string, content: any, mode: string): void;
+    separator: string;
+    // last argument should be the filename
+    join(basepath: string, dirname: string, ...args: string[]): string;
+    split(path: string): string[];
+    directory(path: string): string;
+    dirname(path: string): string;
+    base(path: string): string;
+    basename(path: string): string;
+    absolute(path: string): string;
+    extension(path: string, withoutdot: boolean): string;
+    list(path: string): string[];
+    open(filename: string, opts: Opts): void;
+    remove(path: string): void;
+    makeDirectory(path: string): void;
+    makeTree(path: string): void;
+    mkpath(path: string): void;
+    removeDirectory(path: string): void;
+    removeTree(path: string): void;
+    rmdir(path: string): void;
+    copy(source: string, target: string): void;
+    copyTree(source: string, target: string): void;
+    rename(path: string, newname: string): void;
+    move(source: string, target: string): void;
+    touch(path: string, date: Date): void;
+    readLink(path: string): string;
+    isAbsolute(path: string): boolean;
+    isExecutable(path: string): boolean;
 }
 
 declare function require(module: "webpage"): WebPageModule;
 declare function require(module: "webserver"): WebServerModule;
 declare function require(module: "system"): SystemModule;
+declare function require(module: "fs"): FsModule;
+declare function require(module: any): any;

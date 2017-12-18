@@ -2,7 +2,7 @@
 // Project: https://github.com/astronaughts/simple-cw-node
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.2
 
 import superagent = require("superagent");
 // TODO 1. update superagent with generics
