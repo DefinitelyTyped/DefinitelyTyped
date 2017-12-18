@@ -46,9 +46,9 @@ declare namespace KoaPassport {
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): Middleware;
 
-        serializeUser: passport.Passport["serializeUser"];
-        deserializeUser: passport.Passport["deserializeUser"];
-        transformAuthInfo: passport.Passport["transformAuthInfo"];
+        serializeUser: passport.PassportStatic["serializeUser"];
+        deserializeUser: passport.PassportStatic["deserializeUser"];
+        transformAuthInfo: passport.PassportStatic["transformAuthInfo"];
     }
 
     interface Static extends KoaPassport {
