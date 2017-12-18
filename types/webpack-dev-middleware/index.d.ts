@@ -6,6 +6,7 @@
 // TypeScript Version: 2.2
 
 import { NextHandleFunction } from 'connect';
+import { Logger } from 'loglevel';
 import * as webpack from 'webpack';
 import MemoryFileSystem = require('memory-fs');
 
@@ -18,8 +19,7 @@ declare function WebpackDevMiddleware(
 
 declare namespace WebpackDevMiddleware {
 	interface Options {
-		noInfo?: boolean;
-		quiet?: boolean;
+		logLevel?: string;
 		lazy?: boolean;
 		watchOptions?: webpack.Options.WatchOptions;
 		publicPath: string;
@@ -30,22 +30,17 @@ declare namespace WebpackDevMiddleware {
 		stats?: webpack.Options.Stats;
 		reporter?: Reporter | null;
 		serverSideRender?: boolean;
-
-		log?: Logger;
-		warn?: Logger;
-		error?: Logger;
+		logger?: Logger;
 		filename?: string;
 	}
 
 	interface ReporterOptions {
 		state: boolean;
-		stats: webpack.Stats;
-		options: Options;
+		stats?: webpack.Stats;
+		log: Logger;
 	}
 
-	type Reporter = (reporterOptions: ReporterOptions) => void;
-
-	type Logger = (message?: any, ...optionalParams: any[]) => void;
+	type Reporter = (middlewareOptions: Options, reporterOptions: ReporterOptions) => void;
 
 	interface WebpackDevMiddleware {
 		close(callback?: () => void): void;
