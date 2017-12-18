@@ -667,7 +667,7 @@ export interface FrameBase {
    */
   $eval(
     selector: string,
-    fn: (element: Element | null, ...args: any[]) => any,
+    pageFunction: (element: Element, ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 
@@ -681,7 +681,7 @@ export interface FrameBase {
    */
   $$eval(
     selector: string,
-    fn: (elements: NodeListOf<Element>, ...args: any[]) => any,
+    pageFunction: (elements: NodeListOf<Element>, ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 

@@ -270,9 +270,6 @@ puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
   await page.goto("https://example.com");
   let elementText = await page.$eval('#someElement', (element) => {
-    if (element == null) {
-      return '';
-    }
     return element.innerHTML;
   });
 
