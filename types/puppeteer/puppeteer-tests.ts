@@ -263,3 +263,21 @@ puppeteer.launch().then(async browser => {
 
   browser.close();
 })();
+
+// test $eval and $$eval
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  let elementText = await page.$eval('#someElement', (element) => {
+    return element.innerHTML;
+  });
+
+  elementText = await page.$$eval('.someClassName', (elements) => {
+    console.log(elements.length);
+    console.log(elements.item(0).outerHTML);
+    return elements[3].innerHTML;
+  });
+
+  browser.close();
+})();
