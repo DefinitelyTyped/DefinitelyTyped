@@ -2337,23 +2337,20 @@ declare module "url" {
     }
 
     // Output of `url.parse`
-    export interface Url extends UrlObjectCommon {
+    export interface UrlWithParsedQuery extends UrlObjectCommon {
         port?: string;
-        query?: string | null | ParsedUrlQuery;
-    }
-
-    export interface UrlParsedQuery extends Url {
         query: ParsedUrlQuery;
     }
 
-    export interface UrlStringQuery extends Url {
+    export interface UrlWithStringQuery extends UrlObjectCommon {
+        port?: string;
         query: string | null;
     }
 
-    export function parse(urlStr: string): UrlStringQuery;
-    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlStringQuery;
-    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlParsedQuery;
-    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+    export function parse(urlStr: string): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): UrlWithParsedQuery | UrlWithParsedQuery;
 
     export function format(URL: URL, options?: URLFormatOptions): string;
     export function format(urlObject: UrlObject | string): string;
