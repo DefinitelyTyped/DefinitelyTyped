@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-export interface ISomething {
+export interface ISealOptionsSub {
 
     /**
      * the size of the salt (random buffer used to ensure that two identical objects will generate a different encrypted result.
@@ -41,12 +41,12 @@ export interface ISealOptions {
     /**
      * defines the options used by the encryption process.
      */
-    encryption: ISomething;
+    encryption: ISealOptionsSub;
 
     /**
      * defines the options used by the HMAC integrity verification process.
      */
-    integrity: ISomething;
+    integrity: ISealOptionsSub;
 
     /**
      * sealed object lifetime in milliseconds where 0 means forever. Defaults to 0.
@@ -84,7 +84,7 @@ export const algorithms: IAlgorithms;
 export const macFormatVersion: string;
 export const macPrefix: string;
 
-export interface IGenerateKeyOptions extends Pick<ISomething, 'algorithm' | 'iterations' | 'minPasswordlength'> {
+export interface IGenerateKeyOptions extends Pick<ISealOptionsSub, 'algorithm' | 'iterations' | 'minPasswordlength'> {
     saltBits?: number;
     salt?: string;
     iv?: string;
