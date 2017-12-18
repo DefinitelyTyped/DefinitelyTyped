@@ -194,6 +194,8 @@ declare namespace mgcrea.ngStrap {
             onHide?(tooltip: ITooltip): void;
             onBeforeHide?(tooltip: ITooltip): void;
             viewport?: string | { selector: string; padding: string | number };
+            show?: boolean; // Not documented
+            scope?: ng.IScope; // Not documented
         }
 
         interface ITooltipScope extends ng.IScope {
