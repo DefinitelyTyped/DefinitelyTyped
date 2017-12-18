@@ -25,7 +25,9 @@ declare namespace micromatch {
          */
         basename?: boolean;
         /**
-         * Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression. Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression **does not repeat the bracketed characters**. Instead, the star is treated the same as an other star.
+         * Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression.
+         * Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression **does not repeat the bracketed characters**.
+         * Instead, the star is treated the same as an other star.
          *
          * @default true
          *
@@ -128,7 +130,8 @@ declare namespace micromatch {
          */
         nonull?: boolean;
         /**
-         * If `true`, when no matches are found the actual (arrayified) glob pattern is returned instead of an empty array. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nonull`.
+         * If `true`, when no matches are found the actual (arrayified) glob pattern is returned instead of an empty array.
+         * Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nonull`.
          *
          * @default undefined
          */
@@ -408,7 +411,8 @@ interface Micromatch {
     contains(str: string, patterns: string | string[], options?: micromatch.Options): boolean;
 
     /**
-     * Filter the keys of the given object with the given `glob` pattern and `options`. Does not attempt to match nested keys. If you need this feature, use [glob-object](https://github.com/jonschlinkert/glob-object) instead.
+     * Filter the keys of the given object with the given `glob` pattern and `options`. Does not attempt to match nested keys.
+     * If you need this feature, use [glob-object](https://github.com/jonschlinkert/glob-object) instead.
      *
      * @param object The object with keys to filter.
      * @param patterns One or more glob patterns to use for matching.
