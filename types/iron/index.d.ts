@@ -16,6 +16,12 @@
  */
 declare module 'iron' {
 
+    /**
+     * saltBits - the size of the salt (random buffer used to ensure that two identical objects will generate a different encrypted result.
+     * algorithm - the algorithm used ('aes-256-cbc' for encryption and 'sha256' for integrity are the only two supported at this time).
+     * iterations - the number of iterations used to derive a key from the password. Set to 1 by default. The number of ideal iterations to use is dependent on your application's performance requirements. More iterations means it takes longer to generate the key.
+     * minPasswordlength - minimum password size
+     */
     export interface ISomething {
         saltBits: number;
         algorithm: string;
@@ -33,6 +39,7 @@ declare module 'iron' {
      * * saltBits - the size of the salt (random buffer used to ensure that two identical objects will generate a different encrypted result.
      * * algorithm - the algorithm used ('aes-256-cbc' for encryption and 'sha256' for integrity are the only two supported at this time).
      * * iterations - the number of iterations used to derive a key from the password. Set to 1 by default. The number of ideal iterations to use is dependent on your application's performance requirements. More iterations means it takes longer to generate the key.
+     * * minPasswordlength - minimum password size
      * The 'seal()' and 'unseal()' methods also take the following optional options keys:
      * * ttl - sealed object lifetime in milliseconds where 0 means forever. Defaults to 0.
      * * timestampSkewSec - number of seconds of permitted clock skew for incoming expirations. Defaults to 60 seconds.
