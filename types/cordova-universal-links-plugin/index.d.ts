@@ -3,22 +3,16 @@
 // Definitions by: David Broder-Rodgers <https://github.com/broder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface EventData {
-    url: string;
-    scheme: string;
-    host: string;
-    path: string;
-    params: { [key: string]: string };
-    hash: string;
-}
+declare namespace universalLinks {
+    function subscribe(eventName: string | null, callback: (data: EventData) => void): void;
+    function unsubscribe(eventName: string | null): void;
 
-interface UniversalLinks {
-    subscribe(eventName: string | null, callback: (data: EventData) => void): void;
-    unsubscribe(eventName: string | null): void;
+    interface EventData {
+        url: string;
+        scheme: string;
+        host: string;
+        path: string;
+        params: { [key: string]: string };
+        hash: string;
+    }
 }
-
-interface Window {
-	universalLinks: UniversalLinks;
-}
-
-declare var universalLinks: UniversalLinks;
