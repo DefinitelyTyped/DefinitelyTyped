@@ -34,7 +34,9 @@ declare namespace braces {
          */
         nodupes?: boolean;
         /**
-         * When `braces.expand()` is used, or `options.expand` is true, brace patterns will automatically be [optimized](#optionsoptimize) when the difference between the range minimum and range maximum exceeds the `rangeLimit`. This is to prevent huge ranges from freezing your application.
+         * When `braces.expand()` is used, or `options.expand` is true, brace patterns will automatically be [optimized](#optionsoptimize)
+         * when the difference between the range minimum and range maximum exceeds the `rangeLimit`.
+         * This is to prevent huge ranges from freezing your application.
          *
          * You can set this to any number, or change `options.rangeLimit` to `Inifinity` to disable this altogether.
          *
@@ -48,7 +50,7 @@ declare namespace braces {
          *
          * // pattern does not exceed "rangeLimit", so it's NOT optimized
          * console.log(braces.expand('{1..100}'));
-         * //=> ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
+         * //=> ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' ... '89', 90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
          * ```
          */
         rangeLimit?: number;
@@ -74,7 +76,8 @@ declare namespace braces {
          *
          * Unfortunately, regex quantifiers happen to share the same syntax as [Bash lists](#lists)
          *
-         * The `quantifiers` option tells braces to detect when [regex quantifiers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#quantifiers) are defined in the given pattern, and not to try to expand them as lists.
+         * The `quantifiers` option tells braces to detect when [regex quantifiers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#quantifiers)
+         * are defined in the given pattern, and not to try to expand them as lists.
          *
          * @default undefined
          *
