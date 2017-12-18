@@ -2,12 +2,14 @@
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="geojson" />
 
 declare module 'twit' {
   import { IncomingMessage } from 'http';
+  import { EventEmitter } from 'events';
 
   namespace Twit {
     export type StreamEndpoint = 'statuses/filter' | 'statuses/sample' | 'statuses/firehose' | 'user' | 'site';
@@ -230,6 +232,7 @@ declare module 'twit' {
       include_entities?: boolean,
 
       // Other params from various endpoints
+      track?: string | string[],
       media_id?: string,
       media_ids?: string[],
       alt_text?: {
@@ -240,6 +243,10 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
+      user_id?: number,
+      lat?: number,
+      long?: number,
+      follow?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
@@ -258,6 +265,10 @@ declare module 'twit' {
       app_only_auth?: boolean,
       timeout_ms?: number,
       trusted_cert_fingerprints?: string[],
+    }
+    export interface Stream extends EventEmitter {
+      start(): void;
+      stop(): void;
     }
   }
 
@@ -299,7 +310,7 @@ declare module 'twit' {
     /**
      * @see https://github.com/ttezel/twit#tstreampath-params
      */
-    stream(path: Twit.StreamEndpoint, params?: Twit.Params): NodeJS.ReadableStream;
+    stream(path: Twit.StreamEndpoint, params?: Twit.Params): Twit.Stream;
   }
 
   export = Twit;

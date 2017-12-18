@@ -2,12 +2,13 @@
 // Project: https://github.com/shutterstock/node-errors
 // Definitions by: Ian Copp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 
-type GenerateMessageMethod = () => string;
+export type GenerateMessageMethod = () => string;
 
-interface ErrorConstructor {
+export interface ErrorConstructor {
     new (...params: any[]): Error;
 }
 

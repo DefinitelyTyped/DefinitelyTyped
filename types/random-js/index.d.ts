@@ -1,69 +1,70 @@
-// Type definitions for random-js 1.0.8
+// Type definitions for random-js 1.0
 // Project: https://github.com/ckknight/random-js
 // Definitions by: Gustavo Di Pietro <https://github.com/pistacchio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare namespace Random {
+    interface Engine {
+        (): number; // tslint:disable-line callable-types
+    }
 
-declare module TemporaryName {
-	
-	export interface Engine {
-
-	}
-
-	export interface MT19937 extends Engine{
-		seed (value: number): Engine;
-		seedWithArray(array: Array<number>): Engine
-		autoSeed(): Engine;
-		discard(count: number): Engine;
-		getUseCount(): Engine;
-	}
-
+    interface MT19937 extends Engine {
+        seed(value: number): MT19937;
+        seedWithArray(array: number[]): MT19937;
+        autoSeed(): MT19937;
+        discard(count: number): MT19937;
+        getUseCount(): number;
+    }
 }
 
-declare class TemporaryName {
-	constructor (engine?: TemporaryName.Engine);
-
-	static engines: {
-		nativeMath: TemporaryName.Engine,
-		browserCrypto: TemporaryName.Engine,
-		mt19937: () => TemporaryName.MT19937
-	}
-
-    static Engine(): number;
-    static MT19937 (): number;
-
-	static integer(min: number, max: number): (engine: TemporaryName.Engine) => number;
-	static real(min: number, max: number, inclusive: boolean): (engine: TemporaryName.Engine) => number;
-	static bool(percentage?: number): (engine: TemporaryName.Engine) => boolean;
-	static bool(numerator: number, denominator: number): (engine: TemporaryName.Engine) => boolean;
-	static pick<T>(engine: TemporaryName.Engine, array: Array<T>, begin?: number, end?: number): T;
-	static picker<T>(array: Array<T>, begin?: number, end?: number): (engine: TemporaryName.Engine) => T;
-	static shuffle<T>(engine: TemporaryName.Engine, array: Array<T>): Array<T>;
-	static sample<T>(engine: TemporaryName.Engine, population: Array<T>, sampleSize: number): Array<T>;
-	static die(sideCount: number): (engine: TemporaryName.Engine) => number;
-	static dice(sideCount: number, dieCount: number): (engine: TemporaryName.Engine) => number;
-	static uuid4(engine: TemporaryName.Engine): string;
-	static string(engine: TemporaryName.Engine, length: number): string;
-	static string(pool: string, length: number): (engine: TemporaryName.Engine, length: number) => string;
-	static hex(upperCase?: boolean): (engine: TemporaryName.Engine, length: number) => string;
-	static date(start: Date, end: Date): (engine: TemporaryName.Engine) => Date;
-
-	integer(min: number, max: number): number;
-	real(min: number, max: number, inclusive: boolean): number;
-	bool(percentage?: number): (engine: TemporaryName.Engine) => boolean;
-	bool(numerator: number, denominator: number): boolean;
-	pick<T>(engine: TemporaryName.Engine, array: Array<T>, begin?: number, end?: number): T;
-	picker<T>(array: Array<T>, begin?: number, end?: number): (engine: TemporaryName.Engine) => T;
-	shuffle<T>(engine: TemporaryName.Engine, array: Array<T>): Array<T>;
-	sample<T>(engine: TemporaryName.Engine, population: Array<T>, sampleSize: number): Array<T>;
-	die(sideCount: number): (engine: TemporaryName.Engine) => number;
-	dice(sideCount: number, dieCount: number): number;
-	uuid4(engine: TemporaryName.Engine): string;
-	string(engine: TemporaryName.Engine, length: number): string;
-	string(pool: string, length: number): string;
-	hex(upperCase?: boolean): string;
-	date(start: Date, end: Date): Date;
+interface Random {
+    integer(min: number, max: number): number;
+    real(min: number, max: number, inclusive?: boolean): number;
+    bool(percentage?: number): boolean; // tslint:disable-line unified-signatures
+    bool(numerator: number, denominator: number): boolean; // tslint:disable-line unified-signatures
+    pick<T>(array: T[], begin?: number, end?: number): T;
+    shuffle<T>(array: T[]): T[];
+    sample<T>(population: T[], sampleSize: number): T[];
+    die(sideCount: number): number;
+    dice(sideCount: number, dieCount: number): number[];
+    uuid4(engine: Random.Engine): string;
+    string(engine: Random.Engine, length: number): string;
+    string(length?: number, pool?: string): string;
+    hex(length?: number, upperCase?: boolean): string;
+    date(start: Date, end: Date): Date;
 }
 
-export = TemporaryName;
+interface RandomConstructor {
+    (engine?: Random.Engine): Random;
+    new (engine?: Random.Engine): Random;
+
+    engines: {
+        nativeMath: Random.Engine,
+        browserCrypto: Random.Engine,
+        mt19937(): Random.MT19937
+    };
+
+    Engine(): number;
+    MT19937(): number;
+
+    integer(min: number, max: number): (engine: Random.Engine) => number;
+    real(min: number, max: number, inclusive?: boolean): (engine: Random.Engine) => number;
+    bool(percentage?: number): (engine: Random.Engine) => boolean; // tslint:disable-line unified-signatures
+    bool(numerator: number, denominator: number): (engine: Random.Engine) => boolean; // tslint:disable-line unified-signatures
+    pick<T>(engine: Random.Engine, array: T[], begin?: number, end?: number): T;
+    picker<T>(array: T[], begin?: number, end?: number): (engine: Random.Engine) => T;
+    shuffle<T>(engine: Random.Engine, array: T[]): T[];
+    sample<T>(engine: Random.Engine, population: T[], sampleSize: number): T[];
+    die(sideCount: number): (engine: Random.Engine) => number;
+    dice(sideCount: number, dieCount: number): (engine: Random.Engine) => number[];
+    uuid4(engine: Random.Engine): string;
+    string(engine: Random.Engine, length: number): string;
+    string(pool?: string): (engine: Random.Engine, length?: number) => string;
+    hex(upperCase?: boolean): (engine: Random.Engine, length?: number) => string;
+    date(start: Date, end: Date): (engine: Random.Engine) => Date;
+}
+
+declare const Random: RandomConstructor;
+
+export = Random;
 export as namespace Random;

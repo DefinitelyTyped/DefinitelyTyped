@@ -1,9 +1,9 @@
-
-/// <reference types="node" />
 /// <reference types="mocha" />
 
+declare function equal<T>(a: T, b: T): void;
+declare function deepEqual<T>(a: T, b: T): void;
+
 import * as createError from 'create-error';
-import * as assert from 'assert';
 
 // Example taken from https://github.com/tgriesser/create-error/blob/0.3.1/README.md#use
 
@@ -23,14 +23,12 @@ sub instanceof SubCustomError // true
 sub instanceof MyCustomError  // true
 sub instanceof Error          // true
 
-assert.deepEqual(sub.messages, []) // true
-assert.equal(sub.someVal, 'value') // true
+deepEqual(sub.messages, []) // true
+equal(sub.someVal, 'value') // true
 
 
 // Taken and adapted from https://github.com/tgriesser/create-error/blob/0.3.1/test/index.js
 
-var equal     = assert.equal;
-var deepEqual = assert.deepEqual;
 
 describe('create-error', function() {
 

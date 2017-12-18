@@ -38,7 +38,7 @@ export const QueryDocumentKeys: {
     EnumValueDefinition: string[];
     InputObjectTypeDefinition: string[];
     TypeExtensionDefinition: string[];
-}
+};
 
 export const BREAK: any;
 
@@ -47,3 +47,9 @@ export function visit(root: any, visitor: any, keyMap?: any): any;
 export function visitInParallel(visitors: any): any;
 
 export function visitWithTypeInfo(typeInfo: any, visitor: any): any;
+
+/**
+ * Given a visitor instance, if it is leaving or not, and a node kind, return
+ * the function the visitor runtime should call.
+ */
+export function getVisitFn(visitor: any, kind: any, isLeaving: any): any;

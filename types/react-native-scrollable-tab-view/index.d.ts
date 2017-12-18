@@ -2,7 +2,7 @@
 // Project: https://github.com/brentvatne/react-native-scrollable-tab-view#readme
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import {
@@ -34,7 +34,7 @@ export interface renderTabBarProperties {
   containerWidth: number;
 }
 
-interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
+export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   /**
    * tabBarPosition (String) Defaults to "top".
    * "bottom" to position the tab bar below content.
@@ -103,5 +103,5 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   prerenderingSiblingsNumber?: number;
 }
 
-export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties, {}> {
+export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties> {
 }

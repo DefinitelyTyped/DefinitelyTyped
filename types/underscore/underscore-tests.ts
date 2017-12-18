@@ -1,6 +1,8 @@
 
 
-declare var $: any;
+declare var $: any, window: any;
+declare var alert: (msg: string) => any;
+declare var console: {log: any};
 
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
@@ -156,7 +158,7 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.every([true, 1, null, 'yes'], _.identity);
+_.every([true, 1, null, 'yes'], x => !!_.identity(x));
 
 _.any([null, 0, 'yes', false]);
 
@@ -520,6 +522,11 @@ function chain_tests() {
         .groupBy('property')
         .mapObject((objects: any) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
+
+  var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
+  	.keys()    // return ['foo', 'bar'] : string[]
+  	.pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
+  	.value();
 }
 
 var obj: { [k: string] : number } = {

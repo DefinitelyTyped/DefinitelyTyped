@@ -1,6 +1,9 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false
+        // TODO
+        "no-this-assignment": false,
+        "unified-signatures": false,
+        "no-unnecessary-generics": false
     }
 }

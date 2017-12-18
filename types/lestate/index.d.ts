@@ -1,25 +1,21 @@
-// Type definitions for LeState v0.1.3
+// Type definitions for LeState 0.1
 // Project: https://github.com/LeTools/LeState
-// Definitions by: Hadrian Oliveira <https://github.com/thelambdaparty/>
+// Definitions by: Hadrian Oliveira <https://github.com/thelambdaparty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare let LeState : {
-    createState: (props?: {
-        initialState: {};
-    }) => {
-        set(newValue: {}): [{
-            id: number;
-            state: {};
-        }];
-        get(): any;
-        insert(newValue: {}): void;
-        getDescription(): {};
-        createListener({ id, selector, force }: {
-            id: number;
-            selector: (state :any) => {};
-            force?: boolean;
-        }): void;
-    };
-};
+export interface LeState {
+    set(newValue: {}): [{
+        id: number;
+        state: {};
+    }];
+    get(): any;
+    insert(newValue: {}): void;
+    getDescription(): {};
+    createListener(options: {
+        id: number;
+        selector(state: any): {};
+        force?: boolean;
+    }): void;
+}
 
-export = LeState;
+export function createState(props?: { initialState: {} }): LeState;

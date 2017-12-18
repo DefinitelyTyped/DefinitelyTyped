@@ -1,7 +1,8 @@
-// Type definitions for dat.GUI v0.6.1
+// Type definitions for dat.GUI 0.6
 // Project: https://github.com/dataarts/dat.gui
-// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export as namespace dat;
 
 export class GUI {
@@ -57,6 +58,7 @@ export class GUI {
 export interface GUIParams{
     autoPlace?: boolean;
     closed?: boolean;
+    closeOnTop?: boolean;
     load?: any;
     name?: string;
     preset?: string;

@@ -46,7 +46,15 @@ export type MasonryProps = {
     scrollTop?: number,
     style?: React.CSSProperties,
     tabIndex?: number,
-    width: number
+    width: number,
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 
 export type MasonryState = {
@@ -115,11 +123,11 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
     render(): JSX.Element;
 }
 
-type emptyObject = {}
+export type emptyObject = {}
 
-type identity = <T>(value: T) => T;
+export type identity = <T>(value: T) => T;
 
-type noop = () => void;
+export type noop = () => void;
 
 export type Position = {
     left: number,

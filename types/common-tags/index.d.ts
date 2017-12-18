@@ -1,6 +1,7 @@
-// Type definitions for common-tags v1.2.1
+// Type definitions for common-tags v1.4.0
 // Project: https://github.com/declandewet/common-tags
 // Definitions by: Viktor Zozuliak <https://github.com/zuzusik>
+//                 Paul Wang <https://github.com/tzupengwang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'common-tags' {
@@ -23,6 +24,8 @@ declare module 'common-tags' {
     export var codeBlock: TemplateTag;
 
     export var source: TemplateTag;
+
+    export var safeHtml: TemplateTag;
 
     export var oneLine: TemplateTag;
 
@@ -54,7 +57,9 @@ declare module 'common-tags' {
 
     export var stripIndentTransformer: (type?: 'initial'|'all') => TemplateTransformer;
 
-    export var replaceResultTransformer: (replaceWhat: string, replaceWith: string) => TemplateTransformer;
+    export var replaceResultTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
+
+    export var replaceSubstitutionTransformer: (replaceWhat: string|RegExp, replaceWith: string) => TemplateTransformer;
 
     export var inlineArrayTransformer: (opts?: {separator?: string, conjunction?: string}) => TemplateTransformer;
 

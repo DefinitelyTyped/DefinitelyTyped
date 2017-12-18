@@ -1,876 +1,844 @@
-// Type definitions for lunr.js 0.5.4
+// Type definitions for lunr.js 2.1
 // Project: https://github.com/olivernn/lunr.js
-// Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
+// Definitions by: Sean Tan <https://github.com/seantanly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+export as namespace lunr;
+export = lunr;
 
 /**
- * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 0.5.4
+ * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright
  * Copyright (C) 2014 Oliver Nightingale
  * MIT Licensed
  * @license
  */
-declare namespace lunr
-{
-    var version:string;
-
-
-    /**
-     * A function for splitting a string into tokens ready to be inserted into
-     * the search index. Uses `lunr.tokenizer.seperator` to split strings, change
-     * the value of this property to change how strings are split into tokens.
-     *
-     * @module
-     * @param {String} obj The string to convert into tokens
-     * @see lunr.tokenizer.seperator
-     * @returns {Array}
-     */
-    function tokenizer(obj: any): string[];
-
-    interface TokenizerFunction {
-        // obj is usually a string, but the default lunr tokenizer handles null,
-        // undefined and arrays of objects with a .toString() method.
-        (obj: any): string[];
+declare namespace lunr {
+    namespace Builder {
+        /**
+         * A plugin is a function that is called with the index builder as its context.
+         * Plugins can be used to customise or extend the behaviour of the index
+         * in some way. A plugin is just a function, that encapsulated the custom
+         * behaviour that should be applied when building the index.
+         *
+         * The plugin function will be called with the index builder as its argument, additional
+         * arguments can also be passed when calling use. The function will be called
+         * with the index builder as its context.
+         */
+        type Plugin = (this: Builder, ...args: any[]) => void;
     }
 
-    module tokenizer {
+    /**
+     * lunr.Builder performs indexing on a set of documents and
+     * returns instances of lunr.Index ready for querying.
+     *
+     * All configuration of the index is done via the builder, the
+     * fields to index, the document reference, the text processing
+     * pipeline and document scoring parameters are all set on the
+     * builder before indexing.
+     */
+    class Builder {
         /**
-         * The sperator used to split a string into tokens. Override this property to change the behaviour of
-         * `lunr.tokenizer` behaviour when tokenizing strings. By default this splits on whitespace and hyphens.
-         *
-         * @static
-         * @see lunr.tokenizer
-         *
-         * (Note: this is misspelled in the original API, kept for compatibility sake)
+         * Internal reference to the document reference field.
          */
-        var seperator: RegExp | string;
-
-        var label: string;
-
-        var registeredFunctions: {[label: string]: TokenizerFunction};
-
-        /**
-         * Register a tokenizer function.
-         *
-         * Functions that are used as tokenizers should be registered if they are to be used with a serialised index.
-         *
-         * Registering a function does not add it to an index, functions must still be associated with a specific index for them to be used when indexing and searching documents.
-         *
-         * @param {Function} fn The function to register.
-         * @param {String} label The label to register this function with
-         * @memberOf tokenizer
-         */
-        function registerFunction(fn: TokenizerFunction, label: string): void;
+        _ref: string;
 
         /**
-         * Loads a previously serialised tokenizer.
-         *
-         * A tokenizer function to be loaded must already be registered with lunr.tokenizer.
-         * If the serialised tokenizer has not been registered then an error will be thrown.
-         *
-         * @param {String} label The label of the serialised tokenizer.
-         * @returns {Function}
-         * @memberOf tokenizer
+         * Internal reference to the document fields to index.
          */
-        function load(label: string): TokenizerFunction;
+        _fields: string[];
+
+        /**
+         * The inverted index maps terms to document fields.
+         */
+        invertedIndex: object;
+
+        /**
+         *  Keeps track of document term frequencies.
+         */
+        documentTermFrequencies: object;
+
+        /**
+         * Keeps track of the length of documents added to the index.
+         */
+        documentLengths: object;
+
+        /**
+         * Function for splitting strings into tokens for indexing.
+         */
+        tokenizer: typeof tokenizer;
+
+        /**
+         * The pipeline performs text processing on tokens before indexing.
+         */
+        pipeline: Pipeline;
+
+        /**
+         * A pipeline for processing search terms before querying the index.
+         */
+        searchPipeline: Pipeline;
+
+        /**
+         * Keeps track of the total number of documents indexed.
+         */
+        documentCount: number;
+
+        /**
+         * A parameter to control field length normalization, setting this to 0 disabled normalization, 1 fully normalizes field lengths, the default value is 0.75.
+         */
+        _b: number;
+
+        /**
+         * A parameter to control how quickly an increase in term frequency results in term frequency saturation, the default value is 1.2.
+         */
+        _k1: number;
+
+        /**
+         * A counter incremented for each unique term, used to identify a terms position in the vector space.
+         */
+        termIndex: number;
+
+        /**
+         * A list of metadata keys that have been whitelisted for entry in the index.
+         */
+        metadataWhitelist: string[];
+
+        constructor()
+
+        /**
+         * Sets the document field used as the document reference. Every document must have this field.
+         * The type of this field in the document should be a string, if it is not a string it will be
+         * coerced into a string by calling toString.
+         *
+         * The default ref is 'id'.
+         *
+         * The ref should _not_ be changed during indexing, it should be set before any documents are
+         * added to the index. Changing it during indexing can lead to inconsistent results.
+         *
+         * @param ref - The name of the reference field in the document.
+         */
+        ref(ref: string): void;
+
+        /**
+         * Adds a field to the list of document fields that will be indexed. Every document being
+         * indexed should have this field. Null values for this field in indexed documents will
+         * not cause errors but will limit the chance of that document being retrieved by searches.
+         *
+         * All fields should be added before adding documents to the index. Adding fields after
+         * a document has been indexed will have no effect on already indexed documents.
+         *
+         * @param field - The name of a field to index in all documents.
+         */
+        field(field: string): void;
+
+        /**
+         * A parameter to tune the amount of field length normalisation that is applied when
+         * calculating relevance scores. A value of 0 will completely disable any normalisation
+         * and a value of 1 will fully normalise field lengths. The default is 0.75. Values of b
+         * will be clamped to the range 0 - 1.
+         *
+         * @param number - The value to set for this tuning parameter.
+         */
+        b(number: number): void;
+
+        /**
+         * A parameter that controls the speed at which a rise in term frequency results in term
+         * frequency saturation. The default value is 1.2. Setting this to a higher value will give
+         * slower saturation levels, a lower value will result in quicker saturation.
+         *
+         * @param number - The value to set for this tuning parameter.
+         */
+        k1(number: number): void;
+
+        /**
+         * Adds a document to the index.
+         *
+         * Before adding fields to the index the index should have been fully setup, with the document
+         * ref and all fields to index already having been specified.
+         *
+         * The document must have a field name as specified by the ref (by default this is 'id') and
+         * it should have all fields defined for indexing, though null or undefined values will not
+         * cause errors.
+         *
+         * @param doc - The document to add to the index.
+         */
+        add(doc: object): void;
+
+        /**
+         * Builds the index, creating an instance of lunr.Index.
+         *
+         * This completes the indexing process and should only be called
+         * once all documents have been added to the index.
+         *
+         */
+        build(): Index;
+
+        /**
+         * Applies a plugin to the index builder.
+         *
+         * A plugin is a function that is called with the index builder as its context.
+         * Plugins can be used to customise or extend the behaviour of the index
+         * in some way. A plugin is just a function, that encapsulated the custom
+         * behaviour that should be applied when building the index.
+         *
+         * The plugin function will be called with the index builder as its argument, additional
+         * arguments can also be passed when calling use. The function will be called
+         * with the index builder as its context.
+         *
+         * @param plugin The plugin to apply.
+         */
+        use(plugin: Builder.Plugin, ...args: any[]): void;
     }
 
+    namespace Index {
+        interface Attributes {
+            /**
+             * An index of term/field to document reference.
+             */
+            invertedIndex: object;
+            /**
+             * Document vectors keyed by document reference.
+             */
+            documentVectors: { [docRef: string]: Vector };
+            /**
+             * An set of all corpus tokens.
+             */
+            tokenSet: TokenSet;
+            /**
+             * The names of indexed document fields.
+             */
+            fields: string[];
+            /**
+             * The pipeline to use for search terms.
+             */
+            pipeline: Pipeline;
+        }
 
-    /**
-     * lunr.stemmer is an english language stemmer, this is a JavaScript implementation of
-     * the PorterStemmer taken from http://tartaurs.org/~martin
-     *
-     * @param token  The string to stem
-     */
-    function stemmer(token:string):string;
+        /**
+         * A result contains details of a document matching a search query.
+         */
+        interface Result {
+            /**
+             * The reference of the document this result represents.
+             */
+            ref: string;
 
+            /**
+             * A number between 0 and 1 representing how similar this document is to the query.
+             */
+            score: number;
 
-    /**
-     * lunr.stopWordFilter is an English language stop word list filter, any words contained
-     * in the list will not be passed through the filter.
-     *
-     * This is intended to be used in the Pipeline. If the token does not pass the filter then
-     * undefined will be returned.
-     *
-     * @param token  The token to pass through the filter
-     */
-    function stopWordFilter(token:string):string;
+            /**
+             * Contains metadata about this match including which term(s) caused the match.
+             */
+            matchData: MatchData;
+        }
 
-    namespace stopWordFilter {
-        var stopWords:SortedSet<string>;
+        /**
+         * A query builder callback provides a query object to be used to express
+         * the query to perform on the index.
+         *
+         * @callback lunr.Index~queryBuilder
+         * @param query - The query object to build up.
+         */
+        type QueryBuilder = (this: Query, query: Query) => void;
+
+        /**
+         * Although lunr provides the ability to create queries using lunr.Query, it also provides a simple
+         * query language which itself is parsed into an instance of lunr.Query.
+         *
+         * For programmatically building queries it is advised to directly use lunr.Query, the query language
+         * is best used for human entered text rather than program generated text.
+         *
+         * At its simplest queries can just be a single term, e.g. `hello`, multiple terms are also supported
+         * and will be combined with OR, e.g `hello world` will match documents that contain either 'hello'
+         * or 'world', though those that contain both will rank higher in the results.
+         *
+         * Wildcards can be included in terms to match one or more unspecified characters, these wildcards can
+         * be inserted anywhere within the term, and more than one wildcard can exist in a single term. Adding
+         * wildcards will increase the number of documents that will be found but can also have a negative
+         * impact on query performance, especially with wildcards at the beginning of a term.
+         *
+         * Terms can be restricted to specific fields, e.g. `title:hello`, only documents with the term
+         * hello in the title field will match this query. Using a field not present in the index will lead
+         * to an error being thrown.
+         *
+         * Modifiers can also be added to terms, lunr supports edit distance and boost modifiers on terms. A term
+         * boost will make documents matching that term score higher, e.g. `foo^5`. Edit distance is also supported
+         * to provide fuzzy matching, e.g. 'hello~2' will match documents with hello with an edit distance of 2.
+         * Avoid large values for edit distance to improve query performance.
+         *
+         * To escape special characters the backslash character '\' can be used, this allows searches to include
+         * characters that would normally be considered modifiers, e.g. `foo\~2` will search for a term "foo~2" instead
+         * of attempting to apply a boost of 2 to the search term "foo".
+         *
+         * @example <caption>Simple single term query</caption>
+         * hello
+         * @example <caption>Multiple term query</caption>
+         * hello world
+         * @example <caption>term scoped to a field</caption>
+         * title:hello
+         * @example <caption>term with a boost of 10</caption>
+         * hello^10
+         * @example <caption>term with an edit distance of 2</caption>
+         * hello~2
+         */
+        type QueryString = string;
     }
 
-
     /**
-     * lunr.trimmer is a pipeline function for trimming non word characters from the beginning
-     * and end of tokens before they enter the index.
+     * An index contains the built index of all documents and provides a query interface
+     * to the index.
      *
-     * This implementation may not work correctly for non latin characters and should either
-     * be removed or adapted for use with languages with non-latin characters.
-     * @param token  The token to pass through the filter
+     * Usually instances of lunr.Index will not be created using this constructor, instead
+     * lunr.Builder should be used to construct new indexes, or lunr.Index.load should be
+     * used to load previously built and serialized indexes.
      */
-    function trimmer(token:string):string;
-
-
-    /**
-     * lunr.EventEmitter is an event emitter for lunr. It manages adding and removing event handlers
-     * and triggering events and their handlers.
-     */
-    class EventEmitter
-    {
+    class Index {
         /**
-         * Can bind a single function to many different events in one call.
-         *
-         * @param eventName  The name(s) of events to bind this function to.
-         * @param handler    The function to call when an event is fired. Binds a handler
-         *                   function to a specific event(s).
+         * @param attrs The attributes of the built search index.
          */
-        addListener(eventName:string, handler:Function):void;
-        addListener(eventName:string, eventName2:string, handler:Function):void;
-        addListener(eventName:string, eventName2:string, eventName3:string, handler:Function):void;
-        addListener(eventName:string, eventName2:string, eventName3:string, eventName4:string, handler:Function):void;
-        addListener(eventName:string, eventName2:string, eventName3:string, eventName4:string, eventName5:string, handler:Function):void;
-
+        constructor(attrs: Index.Attributes)
 
         /**
-         * Removes a handler function from a specific event.
+         * Performs a search against the index using lunr query syntax.
          *
-         * @param eventName  The name of the event to remove this function from.
-         * @param handler    The function to remove from an event.
+         * Results will be returned sorted by their score, the most relevant results
+         * will be returned first.
+         *
+         * For more programmatic querying use lunr.Index#query.
+         *
+         * @param queryString - A string containing a lunr query.
+         * @throws {lunr.QueryParseError} If the passed query string cannot be parsed.
          */
-        removeListener(eventName:string, handler:Function):void;
-
+        search(queryString: Index.QueryString): Index.Result[];
 
         /**
-         * Calls all functions bound to the given event.
+         * Performs a query against the index using the yielded lunr.Query object.
          *
-         * Additional data can be passed to the event handler as arguments to emit after the event name.
+         * If performing programmatic queries against the index, this method is preferred
+         * over lunr.Index#search so as to avoid the additional query parsing overhead.
          *
-         * @param eventName The name of the event to emit.
-         * @param args
+         * A query object is yielded to the supplied function which should be used to
+         * express the query to be run against the index.
+         *
+         * Note that although this function takes a callback parameter it is _not_ an
+         * asynchronous operation, the callback is just yielded a query object to be
+         * customized.
+         *
+         * @param fn - A function that is used to build the query.
          */
-        emit(eventName:string, ...args:any[]):void;
-
+        query(fn: Index.QueryBuilder): Index.Result[];
 
         /**
-         * Checks whether a handler has ever been stored against an event.
+         * Prepares the index for JSON serialization.
          *
-         * @param eventName  The name of the event to check.
+         * The schema for this JSON blob will be described in a
+         * separate JSON schema file.
+         *
          */
-        hasHandler(eventName:string):boolean;
+        toJSON(): object;
+
+        /**
+         * Loads a previously serialized lunr.Index
+         *
+         * @param serializedIndex - A previously serialized lunr.Index
+         */
+        static load(serializedIndex: object): Index;
     }
 
+    /**
+     * Contains and collects metadata about a matching document.
+     * A single instance of lunr.MatchData is returned as part of every
+     * lunr.IndexResult.
+     */
+    class MatchData {
+        /**
+         * A cloned collection of metadata associated with this document.
+         */
+        metadata: object;
 
-    interface IPipelineFunction {
-        (token:string):string;
-        (token:string, tokenIndex:number):string;
-        (token:string, tokenIndex:number, tokens:string[]):string;
+        /**
+         * @param term - The term this match data is associated with
+         * @param field - The field in which the term was found
+         * @param metadata - The metadata recorded about this term in this field
+         */
+        constructor(term: string, field: string, metadata: object)
+
+        /**
+         * An instance of lunr.MatchData will be created for every term that matches a
+         * document. However only one instance is required in a lunr.Index~Result. This
+         * method combines metadata from another instance of lunr.MatchData with this
+         * objects metadata.
+         *
+         * @param otherMatchData - Another instance of match data to merge with this one.
+         * @see {@link lunr.Index~Result}
+         */
+        combine(otherMatchData: MatchData): void;
     }
 
+    /**
+     * A pipeline function maps lunr.Token to lunr.Token. A lunr.Token contains the token
+     * string as well as all known metadata. A pipeline function can mutate the token string
+     * or mutate (or add) metadata for a given token.
+     *
+     * A pipeline function can indicate that the passed token should be discarded by returning
+     * null. This token will not be passed to any downstream pipeline functions and will not be
+     * added to the index.
+     *
+     * Multiple tokens can be returned by returning an array of tokens. Each token will be passed
+     * to any downstream pipeline functions and all will returned tokens will be added to the index.
+     *
+     * Any number of pipeline functions may be chained together using a lunr.Pipeline.
+     *
+     * @param token - A token from the document being processed.
+     * @param i - The index of this token in the complete list of tokens for this document/field.
+     * @param tokens - All tokens for this document/field.
+     */
+    type PipelineFunction = (
+        token: Token,
+        i: number,
+        tokens: Token[]
+    ) => null | Token | Token[];
 
     /**
-     * lunr.Pipelines maintain an ordered list of functions to be applied to all tokens in documents
-     * entering the search index and queries being ran against the index.
+     * lunr.Pipelines maintain an ordered list of functions to be applied to all
+     * tokens in documents entering the search index and queries being ran against
+     * the index.
      *
-     * An instance of lunr.Index created with the lunr shortcut will contain a pipeline with a stop
-     * word filter and an English language stemmer. Extra functions can be added before or after either
-     * of these functions or these default functions can be removed.
+     * An instance of lunr.Index created with the lunr shortcut will contain a
+     * pipeline with a stop word filter and an English language stemmer. Extra
+     * functions can be added before or after either of these functions or these
+     * default functions can be removed.
      *
-     * When run the pipeline will call each function in turn, passing a token, the index of that token
-     * in the original list of all tokens and finally a list of all the original tokens.
+     * When run the pipeline will call each function in turn, passing a token, the
+     * index of that token in the original list of all tokens and finally a list of
+     * all the original tokens.
      *
-     * The output of functions in the pipeline will be passed to the next function in the pipeline.
-     * To exclude a token from entering the index the function should return undefined, the rest of
-     * the pipeline will not be called with this token.
+     * The output of functions in the pipeline will be passed to the next function
+     * in the pipeline. To exclude a token from entering the index the function
+     * should return undefined, the rest of the pipeline will not be called with
+     * this token.
      *
-     * For serialisation of pipelines to work, all functions used in an instance of a pipeline should
-     * be registered with lunr.Pipeline. Registered functions can then be loaded. If trying to load a
-     * serialised pipeline that uses functions that are not registered an error will be thrown.
+     * For serialisation of pipelines to work, all functions used in an instance of
+     * a pipeline should be registered with lunr.Pipeline. Registered functions can
+     * then be loaded. If trying to load a serialised pipeline that uses functions
+     * that are not registered an error will be thrown.
      *
-     * If not planning on serialising the pipeline then registering pipeline functions is not necessary.
+     * If not planning on serialising the pipeline then registering pipeline functions
+     * is not necessary.
      */
-    class Pipeline
-    {
-        registeredFunctions:{[label:string]:Function};
-
+    class Pipeline {
+        constructor()
 
         /**
          * Register a function with the pipeline.
          *
-         * Functions that are used in the pipeline should be registered if the pipeline needs to be
-         * serialised, or a serialised pipeline needs to be loaded.
+         * Functions that are used in the pipeline should be registered if the pipeline
+         * needs to be serialised, or a serialised pipeline needs to be loaded.
          *
-         * Registering a function does not add it to a pipeline, functions must still be added to instances
-         * of the pipeline for them to be used when running a pipeline.
+         * Registering a function does not add it to a pipeline, functions must still be
+         * added to instances of the pipeline for them to be used when running a pipeline.
          *
-         * @param fn     The function to check for.
-         * @param label  The label to register this function with
+         * @param fn - The function to check for.
+         * @param label - The label to register this function with
          */
-        registerFunction(fn:IPipelineFunction, label:string):void;
-
+        static registerFunction(fn: PipelineFunction, label: string): void;
 
         /**
-         * Warns if the function is not registered as a Pipeline function.
+         * Loads a previously serialised pipeline.
          *
-         * @param fn  The function to check for.
+         * All functions to be loaded must already be registered with lunr.Pipeline.
+         * If any function from the serialised data has not been registered then an
+         * error will be thrown.
+         *
+         * @param serialised - The serialised pipeline to load.
          */
-        warnIfFunctionNotRegistered(fn:IPipelineFunction):void;
-
+        static load(serialised: object): Pipeline;
 
         /**
          * Adds new functions to the end of the pipeline.
          *
          * Logs a warning if the function has not been registered.
          *
-         * @param functions  Any number of functions to add to the pipeline.
+         * @param functions - Any number of functions to add to the pipeline.
          */
-        add(...functions:IPipelineFunction[]):void;
-
+        add(...functions: PipelineFunction[]): void;
 
         /**
-         * Adds a single function after a function that already exists in the pipeline.
+         * Adds a single function after a function that already exists in the
+         * pipeline.
          *
          * Logs a warning if the function has not been registered.
          *
-         * @param existingFn  A function that already exists in the pipeline.
-         * @param newFn       The new function to add to the pipeline.
+         * @param existingFn - A function that already exists in the pipeline.
+         * @param newFn - The new function to add to the pipeline.
          */
-        after(existingFn:IPipelineFunction, newFn:IPipelineFunction):void;
-
+        after(existingFn: PipelineFunction, newFn: PipelineFunction): void;
 
         /**
-         * Adds a single function before a function that already exists in the pipeline.
+         * Adds a single function before a function that already exists in the
+         * pipeline.
          *
          * Logs a warning if the function has not been registered.
          *
-         * @param existingFn  A function that already exists in the pipeline.
-         * @param newFn       The new function to add to the pipeline.
+         * @param existingFn - A function that already exists in the pipeline.
+         * @param newFn - The new function to add to the pipeline.
          */
-        before(existingFn:IPipelineFunction, newFn:IPipelineFunction):void;
-
+        before(existingFn: PipelineFunction, newFn: PipelineFunction): void;
 
         /**
          * Removes a function from the pipeline.
          *
-         * @param fn  The function to remove from the pipeline.
+         * @param fn The function to remove from the pipeline.
          */
-        remove(fn:IPipelineFunction):void;
-
+        remove(fn: PipelineFunction): void;
 
         /**
-         * Runs the current list of functions that make up the pipeline against
-         * the passed tokens.
+         * Runs the current list of functions that make up the pipeline against the
+         * passed tokens.
          *
-         * @param tokens  The tokens to run through the pipeline.
+         * @param tokens The tokens to run through the pipeline.
          */
-        run(tokens:string[]):string[];
+        run(tokens: Token[]): Token[];
 
+        /**
+         * Convenience method for passing a string through a pipeline and getting
+         * strings out. This method takes care of wrapping the passed string in a
+         * token and mapping the resulting tokens back to strings.
+         *
+         * @param str - The string to pass through the pipeline.
+         */
+        runString(str: string): string[];
 
         /**
          * Resets the pipeline by removing any existing processors.
+         *
          */
-        reset():void;
-
+        reset(): void;
 
         /**
          * Returns a representation of the pipeline ready for serialisation.
-         */
-        toJSON():any;
-
-
-        /**
-         * Loads a previously serialised pipeline.
          *
-         * All functions to be loaded must already be registered with lunr.Pipeline. If any function from
-         * the serialised data has not been registered then an error will be thrown.
+         * Logs a warning if the function has not been registered.
          *
-         * @param serialised  The serialised pipeline to load.
          */
-        static load(serialised:any):Pipeline;
+        toJSON(): PipelineFunction[];
     }
 
+    namespace Query {
+        enum wildcard {
+            NONE = 0,
+            LEADING = 1 << 0,
+            TRAILING = 1 << 1
+        }
+
+        /**
+         * A single clause in a {@link lunr.Query} contains a term and details on how to
+         * match that term against a {@link lunr.Index}.
+         */
+        interface Clause {
+            term: string;
+            /** The fields in an index this clause should be matched against. */
+            fields: string[];
+            /** Any boost that should be applied when matching this clause. */
+            boost: number;
+            /** Whether the term should have fuzzy matching applied, and how fuzzy the match should be. */
+            editDistance: number;
+            /** Whether the term should be passed through the search pipeline. */
+            usePipeline: boolean;
+            /** Whether the term should have wildcards appended or prepended. */
+            wildcard: number;
+        }
+    }
 
     /**
-     * lunr.Vectors implement vector related operations for a series of elements.
+     * A lunr.Query provides a programmatic way of defining queries to be performed
+     * against a {@link lunr.Index}.
+     *
+     * Prefer constructing a lunr.Query using the {@link lunr.Index#query} method
+     * so the query object is pre-initialized with the right index fields.
      */
-    class Vector
-    {
-        list:Node;
-
-
+    class Query {
         /**
-         * Calculates the magnitude of this vector.
+         * An array of query clauses.
          */
-        magnitude():number;
-
+        clauses: Query.Clause[];
 
         /**
-         * Calculates the dot product of this vector and another vector.
-         * @param otherVector  The vector to compute the dot product with.
+         * An array of all available fields in a lunr.Index.
          */
-        dot(otherVector:Vector):number;
-
+        allFields: string[];
 
         /**
-         * Calculates the cosine similarity between this vector and another vector.
+         * @param allFields An array of all available fields in a lunr.Index.
+         */
+        constructor(allFields: string[])
+
+        /**
+         * Adds a {@link lunr.Query~Clause} to this query.
          *
-         * @param otherVector  The other vector to calculate the
+         * Unless the clause contains the fields to be matched all fields will be matched. In addition
+         * a default boost of 1 is applied to the clause.
+         *
+         * @param clause - The clause to add to this query.
+         * @see lunr.Query~Clause
          */
-        similarity(otherVector:Vector):number;
+        clause(clause: Query.Clause): Query;
+
+        /**
+         * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
+         * to the list of clauses that make up this query.
+         *
+         * @param term - The term to add to the query.
+         * @param [options] - Any additional properties to add to the query clause.
+         * @see lunr.Query#clause
+         * @see lunr.Query~Clause
+         * @example <caption>adding a single term to a query</caption>
+         * query.term("foo")
+         * @example <caption>adding a single term to a query and specifying search fields, term boost and automatic trailing wildcard</caption>
+         * query.term("foo", {
+         *   fields: ["title"],
+         *   boost: 10,
+         *   wildcard: lunr.Query.wildcard.TRAILING
+         * })
+         */
+        term(term: string, options: object): Query;
     }
 
+    class QueryParseError extends Error {
+        name: "QueryParseError";
+        message: string;
+        start: number;
+        end: number;
+
+        constructor(message: string, start: string, end: string)
+    }
 
     /**
-     * lunr.Vector.Node is a simple struct for each node in a lunr.Vector.
+     * lunr.stemmer is an english language stemmer, this is a JavaScript
+     * implementation of the PorterStemmer taken from http://tartarus.org/~martin
+     *
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token - The string to stem
+     * @see {@link lunr.Pipeline}
      */
-    class Node
-    {
-        /**
-         * The index of the node in the vector.
-         */
-        idx:number;
-
-        /**
-         * The data at this node in the vector.
-         */
-        val:number;
-
-        /**
-         * The node directly after this node in the vector.
-         */
-        next:Node;
-
-
-        /**
-         * @param idx   The index of the node in the vector.
-         * @param val   The data at this node in the vector.
-         * @param next  The node directly after this node in the vector.
-         */
-        constructor(idx:number, val:number, next:Node);
-    }
-
+    function stemmer(token: Token): Token;
 
     /**
-     * lunr.SortedSets are used to maintain an array of unique values in a sorted order.
+     * lunr.generateStopWordFilter builds a stopWordFilter function from the provided
+     * list of stop words.
+     *
+     * The built in lunr.stopWordFilter is built using this generator and can be used
+     * to generate custom stopWordFilters for applications or non English languages.
+     *
+     * @param stopWords - The list of stop words
+     * @see lunr.Pipeline
+     * @see lunr.stopWordFilter
      */
-    class SortedSet<T>
-    {
-        elements:T[];
-
-        length:number;
-
-
-        /**
-         * Inserts new items into the set in the correct position to maintain the order.
-         *
-         * @param values  The objects to add to this set.
-         */
-        add(...values:T[]):void;
-
-
-        /**
-         * Converts this sorted set into an array.
-         */
-        toArray():T[];
-
-
-        /**
-         * Creates a new array with the results of calling a provided function on
-         * every element in this sorted set.
-         *
-         * Delegates to Array.prototype.map and has the same signature.
-         *
-         * @param fn   The function that is called on each element of the
-         * @param ctx  An optional object that can be used as the context
-         */
-        map(fn:Function, ctx:any):T[];
-
-
-        /**
-         * Executes a provided function once per sorted set element.
-         *
-         * Delegates to Array.prototype.forEach and has the same signature.
-         *
-         * @param fn   The function that is called on each element of the
-         * @param ctx  An optional object that can be used as the context
-         */
-        forEach(fn:Function, ctx:any):any;
-
-
-        /**
-         * Returns the index at which a given element can be found in the sorted
-         * set, or -1 if it is not present.
-         *
-         * @param elem   The object to locate in the sorted set.
-         * @param start  An optional index at which to start searching from
-         * @param end    An optional index at which to stop search from within
-         */
-        indexOf(elem:T, start?:number, end?:number):number;
-
-
-        /**
-         * Returns the position within the sorted set that an element should be
-         * inserted at to maintain the current order of the set.
-         *
-         * This function assumes that the element to search for does not already exist
-         * in the sorted set.
-         *
-         * @param elem - The elem to find the position for in the set
-         * @param start - An optional index at which to start searching from
-         * @param end - An optional index at which to stop search from within
-         */
-        locationFor(elem:T, start?:number, end?:number):number;
-
-
-        /**
-         * Creates a new lunr.SortedSet that contains the elements in the
-         * intersection of this set and the passed set.
-         *
-         * @param otherSet  The set to intersect with this set.
-         */
-        intersect(otherSet:SortedSet<T>):SortedSet<T>;
-
-
-        /**
-         * Creates a new lunr.SortedSet that contains the elements in the union of this
-         * set and the passed set.
-         *
-         * @param otherSet  The set to union with this set.
-         */
-        union(otherSet:SortedSet<T>):SortedSet<T>;
-
-
-        /**
-         * Makes a copy of this set
-         */
-        clone():SortedSet<T>;
-
-
-        /**
-         * Returns a representation of the sorted set ready for serialisation.
-         */
-        toJSON():any;
-
-
-        /**
-         * Loads a previously serialised sorted set.
-         *
-         * @param serialisedData  The serialised set to load.
-         */
-        static load<T>(serialisedData:T[]):SortedSet<T>;
-    }
-
-
-    interface IIndexField
-    {
-        /**
-         * The name of the field within the document that
-         */
-        name:string;
-
-        /**
-         * An optional boost that can be applied to terms in this field.
-         */
-        boost:number;
-    }
-
-
-    interface IIndexSearchResult
-    {
-        ref:any;
-
-        score:number;
-    }
-
+    function generateStopWordFilter(stopWords: string[]): PipelineFunction;
 
     /**
-     * lunr.Index is object that manages a search index. It contains the indexes and stores
-     * all the tokens and document lookups. It also provides the main user facing API for
-     * the library.
+     * lunr.stopWordFilter is an English language stop word list filter, any words
+     * contained in the list will not be passed through the filter.
+     *
+     * This is intended to be used in the Pipeline. If the token does not pass the
+     * filter then undefined will be returned.
+     *
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token - A token to check for being a stop word.
+     * @see {@link lunr.Pipeline}
      */
-    class Index
-    {
-        eventEmitter:EventEmitter;
+    function stopWordFilter(token: Token): Token;
 
-        documentStore:Store<string>;
-
-        tokenStore:TokenStore;
-
-        corpusTokens:SortedSet<string>;
-
-        pipeline:Pipeline;
-
-        _fields:IIndexField[];
-
-        _ref:string;
-
-        _idfCache:{[key:string]:string};
-
-
+    namespace Token {
         /**
-         * Bind a handler to events being emitted by the index.
+         * A token update function is used when updating or optionally
+         * when cloning a token.
          *
-         * The handler can be bound to many events at the same time.
-         *
-         * @param eventName  The name(s) of events to bind the function to.
-         * @param handler    The function to call when an event is fired. Binds a handler
-         *                   function to a specific event(s).
+         * @callback lunr.Token~updateFunction
+         * @param str - The string representation of the token.
+         * @param metadata - All metadata associated with this token.
          */
-        on(eventName:string, handler:Function):void;
-        on(eventName:string, eventName2:string, handler:Function):void;
-        on(eventName:string, eventName2:string, eventName3:string, handler:Function):void;
-        on(eventName:string, eventName2:string, eventName3:string, eventName4:string, handler:Function):void;
-        on(eventName:string, eventName2:string, eventName3:string, eventName4:string, eventName5:string, handler:Function):void;
-
-
-        /**
-         * Removes a handler from an event being emitted by the index.
-         *
-         * @param eventName  The name of events to remove the function from.
-         * @param handler    The serialised set to load.
-         */
-        off(eventName:string, handler:Function):void;
-
-
-        /**
-         * Adds a field to the list of fields that will be searchable within documents in the index.
-         *
-         * An optional boost param can be passed to affect how much tokens in this field rank in
-         * search results, by default the boost value is 1.
-         *
-         * Fields should be added before any documents are added to the index, fields that are added
-         * after documents are added to the index will only apply to new documents added to the index.
-         *
-         * @param fieldName  The name of the field within the document that
-         * @param options    An optional boost that can be applied to terms in this field.
-         */
-        field(fieldName:string, options?:{boost?:number}):Index;
-
-
-        /**
-         * Sets the property used to uniquely identify documents added to the index, by default this
-         * property is 'id'.
-         *
-         * This should only be changed before adding documents to the index, changing the ref property
-         * without resetting the index can lead to unexpected results.
-         *
-         * @refName  The property to use to uniquely identify the
-         */
-        ref(refName:string):Index;
-
-
-        /**
-         * Add a document to the index.
-         *
-         * This is the way new documents enter the index, this function will run the fields from the
-         * document through the index's pipeline and then add it to the index, it will then show up
-         * in search results.
-         *
-         * An 'add' event is emitted with the document that has been added and the index the document
-         * has been added to. This event can be silenced by passing false as the second argument to add.
-         *
-         * @param doc        The document to add to the index.
-         * @param emitEvent  Whether or not to emit events, default true.
-         */
-        add(doc:any, emitEvent?:boolean):void;
-
-
-        /**
-         * Removes a document from the index.
-         *
-         * To make sure documents no longer show up in search results they can be removed from the
-         * index using this method.
-         *
-         * The document passed only needs to have the same ref property value as the document that was
-         * added to the index, they could be completely different objects.
-         *
-         * A 'remove' event is emitted with the document that has been removed and the index the
-         * document has been removed from. This event can be silenced by passing false as the second
-         * argument to remove.
-         *
-         * @param doc        The document to remove from the index.
-         * @param emitEvent  Whether to emit remove events, defaults to true
-         */
-        remove(doc:any, emitEvent?:boolean):void;
-
-
-        /**
-         * Updates a document in the index.
-         *
-         * When a document contained within the index gets updated, fields changed, added or removed,
-         * to make sure it correctly matched against search queries, it should be updated in the index.
-         *
-         * This method is just a wrapper around [[remove]] and [[add]].
-         *
-         * An 'update' event is emitted with the document that has been updated and the index.
-         * This event can be silenced by passing false as the second argument to update. Only an
-         * update event will be fired, the 'add' and 'remove' events of the underlying calls are
-         * silenced.
-         *
-         * @param doc        The document to update in the index.
-         * @param emitEvent  Whether to emit update events, defaults to true
-         */
-        update(doc:any, emitEvent?:boolean):void;
-
-
-        /**
-         * Calculates the inverse document frequency for a token within the index.
-         *
-         * @param token  The token to calculate the idf of.
-         */
-        idf(token:string):string;
-
-
-        /**
-         * Searches the index using the passed query.
-         *
-         * Queries should be a string, multiple words are allowed and will lead to an AND based
-         * query, e.g. idx.search('foo bar') will run a search for documents containing both
-         * 'foo' and 'bar'.
-         *
-         * All query tokens are passed through the same pipeline that document tokens are passed
-         * through, so any language processing involved will be run on every query term.
-         *
-         * Each query term is expanded, so that the term 'he' might be expanded to 'hello'
-         * and 'help' if those terms were already included in the index.
-         *
-         * Matching documents are returned as an array of objects, each object contains the
-         * matching document ref, as set for this index, and the similarity score for this
-         * document against the query.
-         *
-         * @param query  The query to search the index with.
-         */
-        search(query:string):IIndexSearchResult[];
-
-
-        /**
-         * Generates a vector containing all the tokens in the document matching the
-         * passed documentRef.
-         *
-         * The vector contains the tf-idf score for each token contained in the document with
-         * the passed documentRef. The vector will contain an element for every token in the
-         * indexes corpus, if the document does not contain that token the element will be 0.
-         *
-         * @param documentRef  The ref to find the document with.
-         */
-        documentVector(documentRef:string):Vector;
-
-
-        /**
-         * Returns a representation of the index ready for serialisation.
-         */
-        toJSON():any;
-
-
-        /**
-         * Applies a plugin to the current index.
-         *
-         * A plugin is a function that is called with the index as its context. Plugins can be
-         * used to customise or extend the behaviour the index in some way. A plugin is just a
-         * function, that encapsulated the custom behaviour that should be applied to the index.
-         *
-         * The plugin function will be called with the index as its argument, additional arguments
-         * can also be passed when calling use. The function will be called with the index as
-         * its context.
-         *
-         * Example:
-         *
-         * ```javascript
-         * var myPlugin = function(idx, arg1, arg2) {
-         *     // `this` is the index to be extended
-         *     // apply any extensions etc here.
-         * };
-         *
-         * var idx = lunr(function() {
-         *     this.use(myPlugin, 'arg1', 'arg2');
-         * });
-         * ```
-         *
-         * @param plugin  The plugin to apply.
-         * @param args
-         */
-        use(plugin:Function, ...args:any[]):void;
-
-
-        /**
-         * Loads a previously serialised index.
-         *
-         * Issues a warning if the index being imported was serialised by a different version
-         * of lunr.
-         *
-         * @param serialisedData  The serialised set to load.
-         */
-        static load(serialisedData:any):Index;
+        type UpdateFunction = (str: string, metadata: object) => void;
     }
-
 
     /**
-     * lunr.Store is a simple key-value store used for storing sets of tokens for documents
-     * stored in index.
+     * A token wraps a string representation of a token
+     * as it is passed through the text processing pipeline.
      */
-    class Store<T>
-    {
-        store:{[id:string]:SortedSet<T>};
-
-        length:number;
-
+    class Token {
+        /**
+         * @param [str=''] - The string token being wrapped.
+         * @param [metadata={}] - Metadata associated with this token.
+         */
+        constructor(str: string, metadata: object)
 
         /**
-         * Stores the given tokens in the store against the given id.
+         * Returns the token string that is being wrapped by this object.
          *
-         * @param id      The key used to store the tokens against.
-         * @param tokens  The tokens to store against the key.
          */
-        set(id:string, tokens:SortedSet<T>):void;
-
+        toString(): string;
 
         /**
-         * Retrieves the tokens from the store for a given key.
+         * Applies the given function to the wrapped string token.
          *
-         * @param id  The key to lookup and retrieve from the store.
-         */
-        get(id:string):SortedSet<T>;
-
-
-        /**
-         * Checks whether the store contains a key.
+         * @example
+         * token.update(function (str, metadata) {
+         *   return str.toUpperCase()
+         * })
          *
-         * @param id  The id to look up in the store.
+         * @param fn - A function to apply to the token string.
          */
-        has(id:string):boolean;
-
+        update(fn: Token.UpdateFunction): Token;
 
         /**
-         * Removes the value for a key in the store.
+         * Creates a clone of this token. Optionally a function can be
+         * applied to the cloned token.
          *
-         * @param id  The id to remove from the store.
+         * @param fn - An optional function to apply to the cloned token.
          */
-        remove(id:string):void;
-
-
-        /**
-         * Returns a representation of the store ready for serialisation.
-         */
-        toJSON():any;
-
-
-        /**
-         * Loads a previously serialised store.
-         *
-         * @param serialisedData  The serialised store to load.
-         */
-        static load<T>(serialisedData:any):Store<T>;
+        clone(fn?: Token.UpdateFunction): Token;
     }
-
-
-    interface ITokenDocument
-    {
-        ref:number;
-
-        tf:number;
-    }
-
 
     /**
-     * lunr.TokenStore is used for efficient storing and lookup of the reverse index of token
-     * to document ref.
+     * A token set is used to store the unique list of all tokens
+     * within an index. Token sets are also used to represent an
+     * incoming query to the index, this query token set and index
+     * token set are then intersected to find which tokens to look
+     * up in the inverted index.
+     *
+     * A token set can hold multiple tokens, as in the case of the
+     * index token set, or it can hold a single token as in the
+     * case of a simple query token set.
+     *
+     * Additionally token sets are used to perform wildcard matching.
+     * Leading, contained and trailing wildcards are supported, and
+     * from this edit distance matching can also be provided.
+     *
+     * Token sets are implemented as a minimal finite state automata,
+     * where both common prefixes and suffixes are shared between tokens.
+     * This helps to reduce the space used for storing the token set.
      */
-    class TokenStore
-    {
-        root:{[token:string]:TokenStore};
-
-        docs:{[ref:string]:ITokenDocument};
-
-        length:number;
-
+    class TokenSet {
+        constructor()
 
         /**
-         * Adds a new token doc pair to the store.
+         * Creates a TokenSet instance from the given sorted array of words.
          *
-         * By default this function starts at the root of the current store, however it can
-         * start at any node of any token store if required.
-         *
-         * @param token  The token to store the doc under
-         * @param doc    The doc to store against the token
-         * @param root   An optional node at which to start looking for the
+         * @param arr - A sorted array of strings to create the set from.
+         * @throws Will throw an error if the input array is not sorted.
          */
-        add(token:string, doc:ITokenDocument, root?:TokenStore):void;
-
+        fromArray(arr: string[]): TokenSet;
 
         /**
-         * Checks whether this key is contained within this lunr.TokenStore.
+         * Creates a token set representing a single string with a specified
+         * edit distance.
          *
-         * @param token  The token to check for
+         * Insertions, deletions, substitutions and transpositions are each
+         * treated as an edit distance of 1.
+         *
+         * Increasing the allowed edit distance will have a dramatic impact
+         * on the performance of both creating and intersecting these TokenSets.
+         * It is advised to keep the edit distance less than 3.
+         *
+         * @param str - The string to create the token set from.
+         * @param editDistance - The allowed edit distance to match.
          */
-        has(token:string):boolean;
-
+        fromFuzzyString(str: string, editDistance: number): Vector;
 
         /**
-         * Retrieve a node from the token store for a given token.
+         * Creates a TokenSet from a string.
          *
-         * @param token  The token to get the node for.
+         * The string may contain one or more wildcard characters (*)
+         * that will allow wildcard matching when intersecting with
+         * another TokenSet.
+         *
+         * @param str - The string to create a TokenSet from.
          */
-        getNode(token:string):TokenStore;
-
+        fromString(str: string): TokenSet;
 
         /**
-         * Retrieve the documents for a node for the given token.
+         * Converts this TokenSet into an array of strings
+         * contained within the TokenSet.
          *
-         * By default this function starts at the root of the current store, however it can
-         * start at any node of any token store if required.
-         *
-         * @param token  The token to get the documents for.
-         * @param root   An optional node at which to start.
          */
-        get(token:string, root:TokenStore):{[ref:string]:ITokenDocument};
-
-
-        count(token:string, root:TokenStore):number;
-
+        toArray(): string[];
 
         /**
-         * Remove the document identified by ref from the token in the store.
+         * Generates a string representation of a TokenSet.
          *
-         * @param token  The token to get the documents for.
-         * @param ref    The ref of the document to remove from this token.
+         * This is intended to allow TokenSets to be used as keys
+         * in objects, largely to aid the construction and minimisation
+         * of a TokenSet. As such it is not designed to be a human
+         * friendly representation of the TokenSet.
+         *
          */
-        remove(token:string, ref:string):void;
-
+        toString(): string;
 
         /**
-         * Find all the possible suffixes of the passed token using tokens currently in
-         * the store.
+         * Returns a new TokenSet that is the intersection of
+         * this TokenSet and the passed TokenSet.
          *
-         * @param token  The token to expand.
-         * @param memo
-         */
-        expand(token:string, memo?:string[]):string[];
-
-
-        /**
-         * Returns a representation of the token store ready for serialisation.
-         */
-        toJSON():any;
-
-
-        /**
-         * Loads a previously serialised token store.
+         * This intersection will take into account any wildcards
+         * contained within the TokenSet.
          *
-         * @param serialisedData  The serialised token store to load.
+         * @param b - An other TokenSet to intersect with.
          */
-        static load(serialisedData:any):TokenStore;
+        intersect(b: TokenSet): TokenSet;
     }
+
+    namespace tokenizer {
+        /**
+         * The separator used to split a string into tokens. Override this property to change the behaviour of
+         * `lunr.tokenizer` behaviour when tokenizing strings. By default this splits on whitespace and hyphens.
+         *
+         * @see lunr.tokenizer
+         */
+        let separator: RegExp;
+    }
+
+    /**
+     * A function for splitting a string into tokens ready to be inserted into
+     * the search index. Uses `lunr.tokenizer.separator` to split strings, change
+     * the value of this property to change how strings are split into tokens.
+     *
+     * This tokenizer will convert its parameter to a string by calling `toString` and
+     * then will split this string on the character in `lunr.tokenizer.separator`.
+     * Arrays will have their elements converted to strings and wrapped in a lunr.Token.
+     *
+     * @param obj - The object to convert into tokens
+     */
+    function tokenizer(obj?: null | string | object | object[]): Token[];
+
+    /**
+     * lunr.trimmer is a pipeline function for trimming non word
+     * characters from the beginning and end of tokens before they
+     * enter the index.
+     *
+     * This implementation may not work correctly for non latin
+     * characters and should either be removed or adapted for use
+     * with languages with non-latin characters.
+     *
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token The token to pass through the filter
+     * @see lunr.Pipeline
+     */
+    function trimmer(token: Token): Token;
 
     /**
      * A namespace containing utils for the rest of the lunr library
      */
-    module utils {
+    namespace utils {
         /**
          * Print a warning message to the console.
          *
-         * @param {String} message The message to be printed.
-         * @memberOf Utils
+         * @param message The message to be printed.
          */
-        function warn(message: any): void;
+        function warn(message: string): void;
 
         /**
          * Convert an object to a string.
@@ -879,14 +847,105 @@ declare namespace lunr
          * the empty string, in all other cases the result of calling
          * `toString` on the passed object is returned.
          *
-         * @param {Any} obj The object to convert to a string.
-         * @return {String} string representation of the passed object.
-         * @memberOf Utils
+         * @param obj The object to convert to a string.
+         * @return string representation of the passed object.
          */
         function asString(obj: any): string;
     }
-}
 
+    /**
+     * A vector is used to construct the vector space of documents and queries. These
+     * vectors support operations to determine the similarity between two documents or
+     * a document and a query.
+     *
+     * Normally no parameters are required for initializing a vector, but in the case of
+     * loading a previously dumped vector the raw elements can be provided to the constructor.
+     *
+     * For performance reasons vectors are implemented with a flat array, where an elements
+     * index is immediately followed by its value. E.g. [index, value, index, value]. This
+     * allows the underlying array to be as sparse as possible and still offer decent
+     * performance when being used for vector calculations.
+     */
+    class Vector {
+        /**
+         * @param [elements] - The flat list of element index and element value pairs.
+         */
+        constructor(elements: number[])
+
+        /**
+         * Calculates the position within the vector to insert a given index.
+         *
+         * This is used internally by insert and upsert. If there are duplicate indexes then
+         * the position is returned as if the value for that index were to be updated, but it
+         * is the callers responsibility to check whether there is a duplicate at that index
+         *
+         * @param insertIdx - The index at which the element should be inserted.
+         */
+        positionForIndex(index: number): number;
+
+        /**
+         * Inserts an element at an index within the vector.
+         *
+         * Does not allow duplicates, will throw an error if there is already an entry
+         * for this index.
+         *
+         * @param insertIdx - The index at which the element should be inserted.
+         * @param val - The value to be inserted into the vector.
+         */
+        insert(insertIdx: number, val: number): void;
+
+        /**
+         * Inserts or updates an existing index within the vector.
+         *
+         * @param insertIdx - The index at which the element should be inserted.
+         * @param val - The value to be inserted into the vector.
+         * @param fn - A function that is called for updates, the existing value and the
+         * requested value are passed as arguments
+         */
+        upsert(
+            insertIdx: number,
+            val: number,
+            fn: (existingVal: number, val: number) => number
+        ): void;
+
+        /**
+         * Calculates the magnitude of this vector.
+         *
+         */
+        magnitude(): number;
+
+        /**
+         * Calculates the dot product of this vector and another vector.
+         *
+         * @param otherVector - The vector to compute the dot product with.
+         */
+        dot(otherVector: Vector): number;
+
+        /**
+         * Calculates the cosine similarity between this vector and another
+         * vector.
+         *
+         * @param otherVector - The other vector to calculate the
+         * similarity with.
+         */
+        similarity(otherVector: Vector): number;
+
+        /**
+         * Converts the vector to an array of the elements within the vector.
+         *
+         */
+        toArray(): number[];
+
+        /**
+         * A JSON serializable representation of the vector.
+         *
+         */
+        toJSON(): number[];
+    }
+
+    const version: string;
+    type ConfigFunction = (this: Builder, builder: Builder) => void;
+}
 
 /**
  * Convenience function for instantiating a new lunr index and configuring it with the default
@@ -902,7 +961,7 @@ declare namespace lunr
  * Example:
  *
  * ```javascript
- * var idx = lunr(function () {
+ *   var idx = lunr(function () {
  *     this.field('title', 10);
  *     this.field('tags', 100);
  *     this.field('body');
@@ -912,10 +971,7 @@ declare namespace lunr
  *     this.pipeline.add(function () {
  *         // some custom pipeline function
  *     });
- * });
+ *   });
  * ```
  */
-declare function lunr(config:Function):lunr.Index;
-
-export = lunr;
-export as namespace lunr;
+declare function lunr(config: lunr.ConfigFunction): lunr.Index;

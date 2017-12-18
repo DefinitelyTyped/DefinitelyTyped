@@ -6,7 +6,7 @@ import Entry = webdriver.logging.Entry;
 function colored(entries: Entry[]) {
     const colors: any = { INFO: 35 /* magenta */, WARNING: 33 /* yellow */, SEVERE: 31 /* red */};
     entries.forEach((entry: Entry) => {
-        console.log('\u001b[' + (colors[entry.level.name] || 37) + 'm' + [entry.level.name, entry.message].join(': ') + '\u001b[39m');
+        console.log(`\u001b[${colors[entry.level.name] || 37}m${[entry.level.name, entry.message].join(': ')}\u001b[39m`);
     });
 }
 

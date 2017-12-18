@@ -2,6 +2,7 @@
 // Project: https://igorescobar.github.io/jQuery-Mask-Plugin/
 // Definitions by: Anže Videnič <https://github.com/avidenic>, Igor Escobar <http://www.igorescobar.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/mbostock/shapefile
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="geojson"/>
 

@@ -1,6 +1,6 @@
 // Type definitions for Microsoft ASP.NET Ajax client side library
 // Project: http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx
-// Definitions by: Patrick Magee <https://github.com/pjmagee/>
+// Definitions by: Patrick Magee <https://github.com/pjmagee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //#region Global Namespace
@@ -1405,6 +1405,31 @@ declare namespace Sys {
         * @return "Cannot call executeRequest with a null webRequest."
         */
         static nullWebRequest: string;
+
+        /**
+         * @return "'{0}' is not an event."
+         */
+        static undefinedEvent: string;
+
+        /**
+         * @return "Handler must be a function."
+         */
+        static eventHandlerNotFunction: string;
+
+        /**
+         * @return "'{0}' is not a property or an existing field."
+         */
+        static propertyUndefined: string;
+
+        /**
+         * @return "'{0}' is not an Array property."
+         */
+        static propertyNotAnArray: string;
+
+        /**
+         * @return "'{0}' is not a writable property."
+         */
+        static propertyNotWritable: string;
 
         //#endregion
     }

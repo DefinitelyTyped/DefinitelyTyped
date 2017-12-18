@@ -1,6 +1,6 @@
 // Type definitions for dhtmlxScheduler 4.3.0
 // Project: http://dhtmlx.com/docs/products/dhtmlxScheduler
-// Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
+// Definitions by: Maksim Kozhukh <https://github.com/mkozhukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SchedulerCallback { (...args: any[]): any }
@@ -1044,6 +1044,7 @@ interface SchedulerLocaleLabels {
 	confirm_deleting: string;
 	section_description: string;
 	section_time: string;
+	unit_tab: string;
 }
 
 interface SchedulerLocale {
@@ -1211,6 +1212,14 @@ interface SchedulerStatic {
 	 * @param config the configuration object of the timespan to mark/block
 	*/
 	addMarkedTimespan(config: any): number;
+	
+	/**
+	 * adds a new keyboard shortcut
+	 * @param shortcut the key name or the name of keys combination for a shortcut (shortcut syntax)
+	 * @param handler the handler of the shortcut call
+	 * @param scope the name of the context element to attach the handler function to (list of scopes)
+	 */
+	addShortcut(shortcut: string, handler: () => void, scope?: any): void;
 
 	/**
 	 * adds a section to the currently active view (if the opened view isn't Timeline in the 'Tree' mode - the method will be ignored)
@@ -1557,6 +1566,13 @@ interface SchedulerStatic {
 	 * @param type (<i>'json', 'xml', 'ical'</i>) the data type. The default value - <i>'xml'</i>
 	*/
 	parse(data: any, type?: string): void;
+	
+	/**
+	 * removes a keyboard shortcut
+	 * @param shortcut the key name or the name of keys combination for a shortcut (shortcut syntax)
+	 * @param scope the element to which the shortcut is attached (list of scopes)
+	 */
+	removeShortcut(shortcut: string, scope: any): void;
 
 	/**
 	 * creates a mini calendar
@@ -1769,10 +1785,11 @@ interface SchedulerStatic {
 
 	/**
 	 * displays the specified view and date (doesn't invoke any events)
+	 * the function will just refresh the current view if invoked without parameters.
 	 * @param date the date to set
 	 * @param view the view name
 	*/
-	updateView(date: Date, view: string): void;
+	updateView(date?: Date, view?: string): void;
 
 }
 

@@ -20,7 +20,8 @@ import {
 	RouterContext,
 	LinkProps,
 	RedirectFunction,
-	RouteComponentProps
+	RouteComponentProps,
+	WithRouterProps
 } from "react-router";
 import { createHistory, History } from "history";
 
@@ -33,10 +34,7 @@ interface CustomHistory {
 type CombinedHistory = History & CustomHistory;
 
 function createCustomHistory(history: History): CombinedHistory {
-	return {
-		...history,
-		test() {}
-	} as CombinedHistory;
+	return Object.assign(history, { test() { } }); // tslint:disable-line prefer-object-spread
 }
 const customHistory = createCustomHistory(browserHistory);
 
@@ -48,7 +46,7 @@ interface MasterContext {
 	router: InjectedRouter;
 }
 
-class Master extends Component<any, any> {
+class Master extends Component {
 	static contextTypes: ValidationMap<any> = {
 		router: routerShape
 	};
@@ -74,12 +72,8 @@ class Master extends Component<any, any> {
 	}
 }
 
-interface DashboardProps {
-	router: InjectedRouter;
-}
-
-class Dashboard extends React.Component<DashboardProps, {}> {
-    static staticMethodToBeHoisted(): void {}
+class Dashboard extends React.Component<WithRouterProps> {
+	static staticMethodToBeHoisted(): void { }
 
 	navigate() {
 		const router = this.props.router;
@@ -102,7 +96,7 @@ const DashboardWithRouter = withRouter(Dashboard);
 
 DashboardWithRouter.staticMethodToBeHoisted();
 
-class NotFound extends React.Component<{}, {}> {
+class NotFound extends React.Component {
 	render() {
 		return <div>
 			This path does not exists
@@ -110,13 +104,31 @@ class NotFound extends React.Component<{}, {}> {
 	}
 }
 
+interface UserListProps {
+	users: string;
+}
+
+class UserList extends React.Component<UserListProps & WithRouterProps> {
+	render() {
+		const { location, params, router, routes } = this.props;
+		return <div>
+			<ul>
+				<li>{this.props.users}</li>
+			</ul>
+		</div>;
+	}
+}
+
+const UserListWithRouter = withRouter(UserList);
+
 type UsersProps = RouteComponentProps<{}, {}>;
 
-class Users extends React.Component<UsersProps, {}> {
+class Users extends React.Component<UsersProps> {
 	render() {
 		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
+			<UserListWithRouter users="Suzanne, Fred" />
 		</div>;
 	}
 }
@@ -125,29 +137,29 @@ ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
-			<Route path="users" component={Users}/>
-			<Route path="*" component={NotFound}/>
+			<Route path="users" component={Users} />
+			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
 ), document.body);
 
 ReactDOM.render((
-	<Router history={ routerHistory }>
+	<Router history={routerHistory}>
 		<Route path="/" component={Master} />
 	</Router>
 ), document.body);
 
 ReactDOM.render((
-	<Router history={ customHistory }>
+	<Router history={customHistory}>
 		<Route path="/" component={Master} />
 	</Router>
 ), document.body);
 
-const history = createMemoryHistory("baseurl");
+const history = createMemoryHistory({ current: "baseurl" });
 const routes = (
 	<Route path="/" component={Master}>
 		<IndexRoute component={DashboardWithRouter} />
-		<Route path="users" component={Users}/>
+		<Route path="users" component={Users} />
 	</Route>
 );
 

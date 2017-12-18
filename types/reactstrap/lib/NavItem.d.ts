@@ -1,7 +1,10 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface NavItemProps {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var NavItem: React.StatelessComponent<Props>;
+declare const NavItem: React.StatelessComponent<NavItemProps>;
 export default NavItem;

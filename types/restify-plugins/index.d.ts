@@ -2,8 +2,9 @@
 // Project: https://github.com/restify/plugins
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import {RequestHandler, Server, Request, Response, Route} from 'restify';
+import { RequestHandler, Server, Request, Response, Route } from 'restify';
 import Logger = require('bunyan');
 
 // *************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
@@ -14,9 +15,6 @@ export namespace pre {
    */
   function context(): RequestHandler;
 
-  /**
-   *
-   */
   function dedupeSlashes(): RequestHandler;
 
   /**
@@ -32,17 +30,17 @@ export namespace pre {
   /**
    * Automatically reuse incoming request header as the request id.
    */
-  function reqIdHeaders( options: {headers: string[]} ): RequestHandler;
+  function reqIdHeaders(options: {headers: string[]}): RequestHandler;
 
   /**
    * Checks req.urls query params with strict key/val format and rejects non-strict requests with status code 400.
    */
-  function strictQueryParams( options?: {message: string} ): RequestHandler;
+  function strictQueryParams(options?: {message: string}): RequestHandler;
 
   /**
    * Regexp to capture curl user-agents
    */
-  function userAgentConnection( options?: {userAgentRegExp: any} ): RequestHandler;
+  function userAgentConnection(options?: {userAgentRegExp: any}): RequestHandler;
 }
 
 // *************** This module includes the following header parser plugins:
@@ -52,7 +50,7 @@ export namespace pre {
  */
 export function acceptParser(accepts: string[]): RequestHandler;
 
-interface AuditLoggerOptions {
+export interface AuditLoggerOptions {
   /**
    * Bunyan logger
    */
@@ -73,23 +71,13 @@ interface AuditLoggerOptions {
    */
   printLog?: boolean;
 
-  /**
-   *
-   */
   body?: boolean;
-}
-
-interface AuditLoggerReturns {
-  req: Request;
-  res: Response;
-  route: Route;
-  err: Error;
 }
 
 /**
  * An audit logger for recording all handled requests
  */
-export function auditLogger(options: AuditLoggerOptions): AuditLoggerReturns;
+export function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
 
 /**
  * Authorization header
@@ -108,7 +96,7 @@ export function fullResponse(): RequestHandler;
 
 // ************ This module includes the following data parsing plugins:
 
-interface BodyParserOptions {
+export interface BodyParserOptions {
   /**
    * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
    */
@@ -172,14 +160,8 @@ interface BodyParserOptions {
    */
   rejectUnknown?: boolean;
 
-  /**
-   *
-   */
   reviver?: any;
 
-  /**
-   *
-   */
   maxFieldsSize?: number;
 }
 
@@ -191,9 +173,9 @@ export function bodyParser(options?: BodyParserOptions): RequestHandler[];
 /**
  * Reads the body of the request.
  */
-export function bodyReader( options?: {maxBodySize?: number} ): RequestHandler;
+export function bodyReader(options?: {maxBodySize?: number}): RequestHandler;
 
-interface UrlEncodedBodyParser {
+export interface UrlEncodedBodyParser {
   mapParams?: boolean;
   overrideParams?: boolean;
 }
@@ -216,7 +198,7 @@ export function jsonBodyParser(options?: {mapParams?: boolean, reviver?: any, ov
  */
 export function jsonp(): RequestHandler;
 
-interface MultipartBodyParser {
+export interface MultipartBodyParser {
   overrideParams?: boolean;
   multiples?: boolean;
   keepExtensions?: boolean;
@@ -234,7 +216,7 @@ interface MultipartBodyParser {
  */
 export function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
 
-interface QueryParserOptions {
+export interface QueryParserOptions {
   /**
    * Default `false`. Copies parsed query parameters into `req.params`.
    */
@@ -287,7 +269,7 @@ interface QueryParserOptions {
  */
 export function queryParser(options?: QueryParserOptions): RequestHandler;
 
-interface RequestLogger {
+export interface RequestLogger {
   properties?: any;
   serializers?: any;
   headers?: any;
@@ -315,8 +297,8 @@ export function dateParser(delta?: number): RequestHandler;
  */
 export function gzipResponse(options?: any): RequestHandler;
 
-interface ServeStatic {
-  appendRequestPath?: boolean | undefined;
+export interface ServeStatic {
+  appendRequestPath?: boolean;
   directory?: string;
   maxAge?: number;
   match?: any;
@@ -332,7 +314,7 @@ interface ServeStatic {
  */
 export function serveStatic(options?: ServeStatic): RequestHandler;
 
-interface ThrottleOptions {
+export interface ThrottleOptions {
   burst?: number;
   rate?: number;
   ip?: boolean;
@@ -343,15 +325,12 @@ interface ThrottleOptions {
   overrides?: any; // any
 }
 
-interface MetricsCallback {
+export interface MetricsCallback {
   /**
    *  An error if the request had an error
    */
   err: Error;
 
-  /**
-   *
-   */
   metrics: MetricsCallbackOptions;
 
   req: Request;
@@ -363,9 +342,9 @@ interface MetricsCallback {
   route: Route;
 }
 
-type TMetricsCallback = 'close' | 'aborted' | undefined;
+export type TMetricsCallback = 'close' | 'aborted' | undefined;
 
-interface MetricsCallbackOptions {
+export interface MetricsCallbackOptions {
   /**
    * Status code of the response. Can be undefined in the case of an `uncaughtException`.
    * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
@@ -395,24 +374,17 @@ interface MetricsCallbackOptions {
   connectionState: TMetricsCallback;
 }
 
-interface MetricsReturns {
-  req: Request;
-  res: Response;
-  route: Route;
-  err: Error;
-}
-
 /**
  * Listens to the server's after event and emits information about that request (5.x compatible only).
  *
  * ```
- * server.on('after', plugins.metrics( (err, metrics) =>
+ * server.on('after', plugins.metrics((err, metrics) =>
  * {
  *    // metrics is an object containing information about the request
  * }));
  * ```
  */
-export function metrics(opts: {server: Server}, callback: (options: MetricsCallback) => any ): MetricsReturns;
+export function metrics(opts: {server: Server}, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
 
 /**
  * Parse the client's request for an OAUTH2 access tokensTable
@@ -431,7 +403,7 @@ export function oauth2TokenParser(): RequestHandler;
  */
 export function throttle(options?: ThrottleOptions): RequestHandler;
 
-interface RequestExpiryOptions {
+export interface RequestExpiryOptions {
   /**
    * Header name of the absolute time for request expiration
    */

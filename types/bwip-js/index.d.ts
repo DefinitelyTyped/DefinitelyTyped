@@ -1,11 +1,11 @@
 // Type definitions for bwip-js 1.1.1
 // Project: https://github.com/metafloor/bwip-js
-// Definitions by: TANAKA Koichi <https://github.com/MugeSo/>
+// Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import {IncomingMessage as Request, ServerResponse as Response} from 'http';
+import { IncomingMessage as Request, ServerResponse as Response } from 'http';
 
 declare namespace BwipJs {
     export function loadFont(fontName:string, sizeMulti: number, fontFile: string): void;

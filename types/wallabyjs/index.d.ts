@@ -15,7 +15,7 @@ declare module 'wallabyjs' {
    * @property {string[] | IWallabyFilePattern[]}   files - Specifies an array of source files or file name patterns to copy
    *                                                        to the local cache.
    * @property {Function=}             postprocessor - Function that runs for every batch of file changes after all compilers and preprocessors.
-   * @property {Function=}             preprocessor - Function that runs for every batch of file changes after all compilers.
+   * @property {Function=}             preprocessors - Function that runs for every batch of file changes after all compilers.
    * @property {string=}               testFramework - Specifies the name and version of the testing framework you are using for your tests.
    * @property {string[] | IWallabyFilePattern[]}   tests - Specifies an array of test files or test file name patterns to copy
    *                                                        to the local cache.
@@ -24,12 +24,12 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
    */
   export interface IWallabyConfig {
-    comilers?: IWallabyCompilers;
+    compilers?: IWallabyCompilers;
     debug?: boolean;
     env?: IWallabyEnvironment;
     files: string[] | IWallabyFilePattern[];
     postprocessor?: IWallabyProcessor;
-    preprocessor?: IWallabyProcessor;
+    preprocessors?: IWallabyProcessor;
     testFramework?: string;
     tests: string[] | IWallabyFilePattern[];
     workers?: IWallabyWorkers;

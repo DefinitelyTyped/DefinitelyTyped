@@ -1,14 +1,13 @@
-// Type definitions for pouchdb-find v0.10.0
+// Type definitions for pouchdb-find 6.3
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
-
     namespace Find {
-
         interface ConditionOperators {
             /** Match fields "less than" this one. */
             $lt?: any;
@@ -43,11 +42,12 @@ declare namespace PouchDB {
             /** Special condition to match the length of an array field in a document. Non-array fields cannot match this condition. */
             $size?: number;
 
-            /** Divisor and Remainder are both positive or negative integers.
+            /**
+             * Divisor and Remainder are both positive or negative integers.
              * Non-integer values result in a 404 status.
              * Matches documents where (field % Divisor == Remainder) is true, and only when the document field is an integer.
              * [divisor, remainder]
-             * */
+             */
             $mod?: [number, number];
 
             /** A regular expression pattern to match against the document field. Only matches when the field is a string value and matches the supplied regular expression. */
@@ -79,7 +79,7 @@ declare namespace PouchDB {
             _id?: ConditionOperators;
         }
 
-        interface FindRequest<Content extends Core.Encodable> {
+        interface FindRequest<Content extends {}> {
             /** Defines a selector to filter the results. Required */
             selector: Selector;
 
@@ -94,10 +94,13 @@ declare namespace PouchDB {
 
             /** Number of docs to skip before returning. */
             skip?: number;
+
+            /** Set which index to use for the query. It can be “design-doc-name” or “[‘design-doc-name’, ‘name’]”. */
+            use_index?: string | [string, string];
         }
 
-        interface FindResponse<Content extends Core.Encodable> {
-            docs: Core.Document<Content>[];
+        interface FindResponse<Content extends {}> {
+            docs: Array<Core.Document<Content>>;
         }
 
         interface CreateIndexOptions {
@@ -113,10 +116,10 @@ declare namespace PouchDB {
 
                 /** Only supports 'json', and it's also the default */
                 type?: string;
-            }
+            };
         }
 
-        interface CreateIndexResponse<Content extends Core.Encodable> {
+        interface CreateIndexResponse<Content extends {}> {
             result: string;
         }
 
@@ -131,14 +134,14 @@ declare namespace PouchDB {
             type: string;
 
             def: {
-                fields: {
+                fields: Array<{
                     [fieldName: string]: string
-                }[]
-            }
+                }>;
+            };
         }
 
-        interface GetIndexesResponse<Content extends Core.Encodable> {
-            indexes: Index[]
+        interface GetIndexesResponse<Content extends {}> {
+            indexes: Index[];
         }
 
         interface DeleteIndexOptions {
@@ -152,33 +155,30 @@ declare namespace PouchDB {
             type?: string;
         }
 
-        interface DeleteIndexResponse<Content extends Core.Encodable> {
+        interface DeleteIndexResponse<Content extends {}> {
             [propertyName: string]: any;
         }
-
     }
 
-    interface Database<Content extends Core.Encodable> {
-
+    interface Database<Content extends {} = {}> {
         /** Query the API to find some documents. */
         find(request: Find.FindRequest<Content>,
-            callback: Core.Callback<any, Find.FindResponse<Content>>): void;
+             callback: Core.Callback<Find.FindResponse<Content>>): void;
         find(request?: Find.FindRequest<Content>): Promise<Find.FindResponse<Content>>;
 
         /** Create an index if it doesn't exist, or do nothing if it already exists. */
         createIndex(index: Find.CreateIndexOptions,
-            callback: Core.Callback<any, Find.CreateIndexResponse<Content>>): void;
+                    callback: Core.Callback<Find.CreateIndexResponse<Content>>): void;
         createIndex(index?: Find.CreateIndexOptions): Promise<Find.CreateIndexResponse<Content>>;
 
         /** Get a list of all the indexes you've created. Also tells you about the special _all_docs index, i.e. the default index on the _id field. */
-        getIndexes(callback: Core.Callback<any, Find.GetIndexesResponse<Content>>): void;
+        getIndexes(callback: Core.Callback<Find.GetIndexesResponse<Content>>): void;
         getIndexes(): Promise<Find.GetIndexesResponse<Content>>;
 
         /** Delete an index and clean up any leftover data on the disk. */
         deleteIndex(index: Find.DeleteIndexOptions,
-            callback: Core.Callback<any, Find.DeleteIndexResponse<Content>>): void;
+                    callback: Core.Callback<Find.DeleteIndexResponse<Content>>): void;
         deleteIndex(index?: Find.DeleteIndexOptions): Promise<Find.DeleteIndexResponse<Content>>;
-
     }
 }
 

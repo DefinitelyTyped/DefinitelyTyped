@@ -1,4 +1,4 @@
-// Type definitions for klaw v1.3.0
+// Type definitions for klaw v2.1.1
 // Project: https://github.com/jprichardson/node-klaw
 // Definitions by: Matthew McEachen <https://github.com/mceachen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,14 +22,15 @@ declare module "klaw" {
 
         interface Options extends ReadableOptions {
             queueMethod?: QueueMethod
-            pathSorter?: (a: Array<Item>) => Array<Item>
+            pathSorter?: (pathA: string, pathB: string) => number
             fs?: any // fs or mock-fs
-            filter?: (a: Item) => boolean
+            filter?: (path: string) => boolean
+            depthLimit?: number
         }
 
         type Event = "close" | "data" | "end" | "readable" | "error"
 
-        interface Walker {
+        interface Walker extends Readable {
             on(event: Event, listener: Function): this
             on(event: "close", listener: () => void): this
             on(event: "data", listener: (item: Item) => void): this

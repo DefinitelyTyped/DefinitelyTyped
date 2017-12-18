@@ -102,6 +102,10 @@ var my = <myUI>webix.ui({
 });
 var tn:number = my.customApi();
 
+//datastore
+var t = my.data.getItem(1)
+var mSize = webix.html.getTextSize( [].concat(my.data.order).map((a) => a.value ))
+
 //filters
 namespace webix.ui.datafilter{
     var avgColumn = webix.extend({

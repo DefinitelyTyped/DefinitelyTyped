@@ -1,5 +1,4 @@
-
-import ndarray = require('ndarray');
+import * as ndarray from 'ndarray';
 
 const data = new Int32Array(2 * 2 * 2 + 10);
 const a = ndarray(data, [2, 2, 2], [1, 2, 4], 5);

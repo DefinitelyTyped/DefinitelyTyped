@@ -1,7 +1,10 @@
 /// <reference types='tether' />
 
-interface Props {
+import { CSSModule } from '../index';
+
+export interface TetherContentProps {
   className?: string;
+  cssModule?: CSSModule;
   arrow?: string;
   disabled?: boolean;
   isOpen: boolean;
@@ -11,5 +14,5 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-declare var TetherContent: React.StatelessComponent<Props>;
+declare const TetherContent: React.StatelessComponent<TetherContentProps>;
 export default TetherContent;

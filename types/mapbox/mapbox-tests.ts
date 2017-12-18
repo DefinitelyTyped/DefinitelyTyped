@@ -16,7 +16,7 @@ const marker = L.marker(new L.LatLng([0, 0]), {
 // every time the marker is dragged, update the coordinates container
 marker.on('dragend', () => {
 	const m = marker.getLatLng();
-	coordinates.innerHTML = 'Latitude: ' + m.lat + '<br />Longitude: ' + m.lng;
+	coordinates.innerHTML = `Latitude: ${m.lat}<br />Longitude: ${m.lng}`;
 });
 
 // Build a marker from a simple GeoJSON object:
@@ -37,3 +37,6 @@ const marker2 = L.mapbox.featureLayer({
 marker2.eachLayer((marker: L.Marker) => {
   marker.openPopup();
 });
+
+// Can set the API key via left hand assignment
+L.mapbox.accessToken = "keyGoesHere";

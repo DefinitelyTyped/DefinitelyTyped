@@ -1,32 +1,29 @@
 // Type definitions for winston 2.3
 // Project: https://github.com/flatiron/winston
-// Definitions by: bonnici <https://github.com/bonnici>, Peter Harris <https://github.com/codeanimal>
+// Definitions by: bonnici <https://github.com/bonnici>, Peter Harris <https://github.com/codeanimal>, DABH <https://github.com/DABH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/winston.d.ts
 
 /// <reference types="node" />
 
-import {Agent} from 'http';
-
-declare var winston: winston.Winston;
-export = winston;
+import { Agent } from 'http';
 
 declare namespace winston {
-    export interface AbstractConfigLevels {
+    interface AbstractConfigSetLevels {
         [key: string]: number;
     }
 
-    export interface AbstractConfigColors {
-        [key: string]: string;
+    interface AbstractConfigSetColors {
+        [key: string]: string | string[];
     }
 
-    export interface AbstractConfig {
-        levels: AbstractConfigLevels;
-        colors: AbstractConfigColors;
+    interface AbstractConfigSet {
+        levels: AbstractConfigSetLevels;
+        colors: AbstractConfigSetColors;
     }
 
-    export interface CliConfigLevels extends AbstractConfigLevels {
+    interface CliConfigSetLevels extends AbstractConfigSetLevels {
         error: number;
         warn: number;
         help: number;
@@ -39,19 +36,19 @@ declare namespace winston {
         silly: number;
     }
 
-    export interface CliConfigColors extends AbstractConfigColors {
-        error: string;
-        warn: string;
-        help: string;
-        data: string;
-        info: string;
-        debug: string;
-        prompt: string;
-        verbose: string;
-        input: string;
-        silly: string;
+    interface CliConfigSetColors extends AbstractConfigSetColors {
+        error: string | string[];
+        warn: string | string[];
+        help: string | string[];
+        data: string | string[];
+        info: string | string[];
+        debug: string | string[];
+        prompt: string | string[];
+        verbose: string | string[];
+        input: string | string[];
+        silly: string | string[];
     }
-    export interface NpmConfigLevels extends AbstractConfigLevels {
+    interface NpmConfigSetLevels extends AbstractConfigSetLevels {
         error: number;
         warn: number;
         info: number;
@@ -59,15 +56,15 @@ declare namespace winston {
         debug: number;
         silly: number;
     }
-    export interface NpmConfigColors extends AbstractConfigColors {
-        error: string;
-        warn: string;
-        info: string;
-        verbose: string;
-        debug: string;
-        silly: string;
+    interface NpmConfigSetColors extends AbstractConfigSetColors {
+        error: string | string[];
+        warn: string | string[];
+        info: string | string[];
+        verbose: string | string[];
+        debug: string | string[];
+        silly: string | string[];
     }
-    export interface SyslogConfigLevels extends AbstractConfigLevels {
+    interface SyslogConfigSetLevels extends AbstractConfigSetLevels {
         emerg: number;
         alert: number;
         crit: number;
@@ -77,67 +74,72 @@ declare namespace winston {
         info: number;
         debug: number;
     }
-    export interface SyslogConfigColors extends AbstractConfigColors {
-        emerg: string;
-        alert: string;
-        crit: string;
-        error: string;
-        warning: string;
-        notice: string;
-        info: string;
-        debug: string;
+    interface SyslogConfigSetColors extends AbstractConfigSetColors {
+        emerg: string | string[];
+        alert: string | string[];
+        crit: string | string[];
+        error: string | string[];
+        warning: string | string[];
+        notice: string | string[];
+        info: string | string[];
+        debug: string | string[];
     }
 
-    export interface Winston {
-        config: {
-            cli: {levels: CliConfigLevels, colors: CliConfigColors},
-            npm: {levels: NpmConfigLevels, colors: NpmConfigColors},
-            syslog: {levels: SyslogConfigLevels, colors: SyslogConfigColors}
-        };
+    interface Winston {
+        config: Config;
+        transports: Transports;
+        Transport: TransportStatic;
+        Logger: LoggerStatic;
+        Container: ContainerStatic;
+        loggers: ContainerInstance;
+        default: LoggerInstance;
 
-        transports: winston.Transports;
-        Transport: winston.TransportStatic;
-        Logger: winston.LoggerStatic;
-        Container: winston.ContainerStatic;
-        loggers: winston.ContainerInstance;
-        default: winston.LoggerInstance;
-
-        exception: winston.Exception;
+        exception: Exception;
 
         exitOnError: boolean;
         level: string;
 
-        log: winston.LogMethod;
+        log: LogMethod;
 
-        silly: winston.LeveledLogMethod;
-        debug: winston.LeveledLogMethod;
-        verbose: winston.LeveledLogMethod;
-        info: winston.LeveledLogMethod;
-        warn: winston.LeveledLogMethod;
-        error: winston.LeveledLogMethod;
+        silly: LeveledLogMethod;
+        debug: LeveledLogMethod;
+        verbose: LeveledLogMethod;
+        info: LeveledLogMethod;
+        warn: LeveledLogMethod;
+        error: LeveledLogMethod;
 
-        query(options: winston.QueryOptions, callback?: (err: Error, results: any) => void): any;
+        query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
         query(callback: (err: Error, results: any) => void): any;
         stream(options?: any): NodeJS.ReadableStream;
-        handleExceptions(...transports: winston.TransportInstance[]): void;
-        unhandleExceptions(...transports: winston.TransportInstance[]): void;
-        add(transport: winston.TransportInstance, options?: winston.TransportOptions, created?: boolean): winston.LoggerInstance;
+        handleExceptions(...transports: TransportInstance[]): void;
+        unhandleExceptions(...transports: TransportInstance[]): void;
+        add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
         clear(): void;
-        remove(transport: string | winston.TransportInstance): winston.LoggerInstance;
-        startTimer(): winston.ProfileHandler;
-        profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): winston.LoggerInstance;
-        addColors(target: AbstractConfigColors): any;
-        setLevels(target: AbstractConfigLevels): any;
-        cli(): winston.LoggerInstance;
+        remove(transport: string | TransportInstance): LoggerInstance;
+        startTimer(): ProfileHandler;
+        profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+        addColors(target: AbstractConfigSetColors): any;
+        setLevels(target: AbstractConfigSetLevels): any;
+        cli(): LoggerInstance;
         close(): void;
-        configure(options: winston.LoggerOptions): void;
+        configure(options: LoggerOptions): void;
     }
 
-    export type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';
-    export type NPMLoggingLevel = 'error' | 'warn' | 'info' | 'verbose' | 'debug' | 'silly';
-    export type SyslogLoggingLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
+    type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';
+    type NPMLoggingLevel = 'error' | 'warn' | 'info' | 'verbose' | 'debug' | 'silly';
+    type SyslogLoggingLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
 
-    export interface ExceptionProcessInfo {
+    interface Config {
+        allColors: AbstractConfigSetColors;
+        cli: {levels: CliConfigSetLevels, colors: CliConfigSetColors};
+        npm: {levels: NpmConfigSetLevels, colors: NpmConfigSetColors};
+        syslog: {levels: SyslogConfigSetLevels, colors: SyslogConfigSetColors};
+
+        addColors(colors: AbstractConfigSetColors): void;
+        colorize(level: number, message?: string): string;
+    }
+
+    interface ExceptionProcessInfo {
         pid: number;
         uid?: number;
         gid?: number;
@@ -148,12 +150,12 @@ declare namespace winston {
         memoryUsage: NodeJS.MemoryUsage;
     }
 
-    export interface ExceptionOsInfo {
+    interface ExceptionOsInfo {
         loadavg: [number, number, number];
         uptime: number;
     }
 
-    export interface ExceptionTrace {
+    interface ExceptionTrace {
         column: number;
         file: string;
         "function": string;
@@ -162,36 +164,32 @@ declare namespace winston {
         native: boolean;
     }
 
-    export interface ExceptionAllInfo {
+    interface ExceptionAllInfo {
         date: Date;
         process: ExceptionProcessInfo;
         os: ExceptionOsInfo;
-        trace: Array<ExceptionTrace>;
-        stack: Array<string>;
+        trace: ExceptionTrace[];
+        stack: string[];
     }
 
-    export interface Exception {
+    interface Exception {
         getAllInfo(err: Error): ExceptionAllInfo;
         getProcessInfo(): ExceptionProcessInfo;
         getOsInfo(): ExceptionOsInfo;
-        getTrace(err: Error): Array<ExceptionTrace>;
+        getTrace(err: Error): ExceptionTrace[];
     }
 
-    export interface MetadataRewriter {
-        (level: string, msg: string, meta: any): any;
-    }
+    type MetadataRewriter = (level: string, msg: string, meta: any) => any;
 
-    export interface MetadataFilter {
-        (level: string, msg: string, meta: any): string | { msg: any; meta: any; };
-    }
+    type MetadataFilter = (level: string, msg: string, meta: any) => string | { msg: any; meta: any; };
 
-    export interface LoggerStatic {
+    interface LoggerStatic {
         new (options?: LoggerOptions): LoggerInstance;
     }
 
-    export interface LoggerInstance extends NodeJS.EventEmitter {
-        rewriters: Array<MetadataRewriter>;
-        filters: Array<MetadataFilter>;
+    interface LoggerInstance extends NodeJS.EventEmitter {
+        rewriters: MetadataRewriter[];
+        filters: MetadataFilter[];
         transports: {[key: string]: TransportInstance};
 
         extend(target: any): LoggerInstance;
@@ -229,25 +227,22 @@ declare namespace winston {
         startTimer(): ProfileHandler;
         profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
         configure(options: LoggerOptions): void;
-        setLevels(target: AbstractConfigLevels): any;
+        setLevels(target: AbstractConfigSetLevels): any;
         cli(): LoggerInstance;
 
         level: string;
     }
 
-    export interface LoggerOptions {
+    interface LoggerOptions {
         transports?: TransportInstance[];
         rewriters?: MetadataRewriter[];
         filters?: MetadataFilter[];
         exceptionHandlers?: TransportInstance[];
         handleExceptions?: boolean;
         level?: string;
-        levels?: AbstractConfigLevels;
+        levels?: AbstractConfigSetLevels;
 
-        /**
-         * @type {(boolean|(err: Error) => void)}
-         */
-        exitOnError?: any;
+        exitOnError?: boolean | ((err: Error) => void);
 
         // TODO: Need to make instances specific,
         //       and need to get options for each instance.
@@ -255,48 +250,48 @@ declare namespace winston {
         [optionName: string]: any;
     }
 
-    export interface TransportStatic {
-        new (options?: TransportOptions): TransportInstance;
+    interface TransportStatic {
+        new(options?: TransportOptions): TransportInstance;
     }
 
-    export interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
+    interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
         silent: boolean;
         raw: boolean;
         name: string;
-        formatter?: Function;
         level?: string;
         handleExceptions: boolean;
         exceptionsLevel: string;
         humanReadableUnhandledException: boolean;
 
         formatQuery(query: (string | Object)): (string | Object);
+        formatter?(options?: any): string;
         normalizeQuery(options: QueryOptions): QueryOptions;
-        formatResults(results: (Object | Array<any>), options?: Object): (Object | Array<any>);
+        formatResults(results: (Object | any[]), options?: Object): (Object | any[]);
         logException(msg: string, meta: Object, callback: () => void): void;
     }
 
-    export interface ConsoleTransportInstance extends TransportInstance {
+    interface ConsoleTransportInstance extends TransportInstance {
         json: boolean;
         colorize: boolean;
         prettyPrint: boolean;
-        timestamp: boolean;
+        timestamp: boolean | (() => string | boolean);
         showLevel: boolean;
         label: string|null;
         logstash: boolean;
         depth: string|null;
         align: boolean;
-        stderrLevels: { [key: string]: LeveledLogMethod; }
+        stderrLevels: { [key: string]: LeveledLogMethod; };
         eol: string;
-        stringify?: (obj: Object) => string;
 
-        new (options?: ConsoleTransportOptions): ConsoleTransportInstance;
+        new(options?: ConsoleTransportOptions): ConsoleTransportInstance;
+        stringify?(obj: Object): string;
     }
 
-    export interface DailyRotateFileTransportInstance extends TransportInstance {
-        new (options?: DailyRotateFileTransportOptions): DailyRotateFileTransportInstance;
+    interface DailyRotateFileTransportInstance extends TransportInstance {
+        new(options?: DailyRotateFileTransportOptions): DailyRotateFileTransportInstance;
     }
 
-    export interface FileTransportInstance extends TransportInstance {
+    interface FileTransportInstance extends TransportInstance {
         json: boolean;
         logstash: boolean;
         colorize: boolean;
@@ -306,19 +301,19 @@ declare namespace winston {
         maxFiles: number|null;
         prettyPrint: boolean;
         label: string|null;
-        timestamp: boolean;
+        timestamp: boolean | (() => string | boolean);
         eol: string;
         tailable: boolean;
         depth: string|null;
         showLevel: boolean;
         maxRetries: number;
-        stringify?: (obj: Object) => string;
 
-        new (options?: FileTransportOptions): FileTransportInstance;
         close(): void;
+        new(options?: FileTransportOptions): FileTransportInstance;
+        stringify?(obj: Object): string;
     }
 
-    export interface HttpTransportInstance extends TransportInstance {
+    interface HttpTransportInstance extends TransportInstance {
         name: string;
         ssl: boolean;
         host: string;
@@ -327,38 +322,38 @@ declare namespace winston {
         path: string;
         agent?: Agent|null;
 
-        new (options?: HttpTransportOptions): HttpTransportInstance;
+        new(options?: HttpTransportOptions): HttpTransportInstance;
     }
 
-    export interface MemoryTransportInstance extends TransportInstance {
+    interface MemoryTransportInstance extends TransportInstance {
         errorOutput: GenericTextTransportOptions[];
         writeOutput: GenericTextTransportOptions[];
 
         json: boolean;
         colorize: boolean;
         prettyPrint: boolean;
-        timestamp: boolean;
+        timestamp: boolean | (() => string | boolean);
         showLevel: boolean;
         label: string|null;
         depth: string|null;
-        stringify?: (obj: Object) => string;
 
-        new (options?: MemoryTransportOptions): MemoryTransportInstance;
+        new(options?: MemoryTransportOptions): MemoryTransportInstance;
+        stringify?(obj: Object): string;
     }
 
-    export interface WebhookTransportInstance extends TransportInstance {
-        new (options?: WebhookTransportOptions): WebhookTransportInstance;
+    interface WebhookTransportInstance extends TransportInstance {
+        new(options?: WebhookTransportOptions): WebhookTransportInstance;
     }
 
-    export interface WinstonModuleTrasportInstance extends TransportInstance {
-        new (options?: WinstonModuleTransportOptions): WinstonModuleTrasportInstance;
+    interface WinstonModuleTrasportInstance extends TransportInstance {
+        new(options?: WinstonModuleTransportOptions): WinstonModuleTrasportInstance;
     }
 
-    export interface ContainerStatic {
-        new (options: LoggerOptions): ContainerInstance;
+    interface ContainerStatic {
+        new(options: LoggerOptions): ContainerInstance;
     }
 
-    export interface ContainerInstance extends ContainerStatic {
+    interface ContainerInstance extends ContainerStatic {
         get(id: string, options?: LoggerOptions): LoggerInstance;
         add(id: string, options: LoggerOptions): LoggerInstance;
         has(id: string): boolean;
@@ -368,7 +363,7 @@ declare namespace winston {
         default: LoggerOptions;
     }
 
-    export interface Transports {
+    interface Transports {
         File: FileTransportInstance;
         Console: ConsoleTransportInstance;
         Loggly: WinstonModuleTrasportInstance;
@@ -378,32 +373,35 @@ declare namespace winston {
         Webhook: WebhookTransportInstance;
     }
 
-    export type TransportOptions = ConsoleTransportOptions | DailyRotateFileTransportOptions | FileTransportOptions | HttpTransportOptions | MemoryTransportOptions | WebhookTransportOptions | WinstonModuleTransportOptions;
+    type TransportOptions = ConsoleTransportOptions | DailyRotateFileTransportOptions | FileTransportOptions
+        | HttpTransportOptions | MemoryTransportOptions | WebhookTransportOptions | WinstonModuleTransportOptions;
 
-    export interface GenericTransportOptions {
+    interface GenericTransportOptions {
         level?: string;
         silent?: boolean;
         raw?: boolean;
         name?: string;
-        formatter?: Function;
         handleExceptions?: boolean;
         exceptionsLevel?: string;
         humanReadableUnhandledException?: boolean;
+
+        formatter?(options?: any): string;
     }
 
-    export interface GenericTextTransportOptions {
+    interface GenericTextTransportOptions {
         json?: boolean;
         colorize?: boolean;
         colors?: any;
         prettyPrint?: boolean;
-        timestamp?: (Function | boolean);
         showLevel?: boolean;
         label?: string;
         depth?: number;
-        stringify?: Function;
+
+        timestamp?: boolean | (() => string | boolean);
+        stringify?(obj: any): string;
     }
 
-    export interface GenericNetworkTransportOptions {
+    interface GenericNetworkTransportOptions {
         host?: string;
         port?: number;
         auth?: {
@@ -413,12 +411,12 @@ declare namespace winston {
         path?: string;
     }
 
-    export interface ConsoleTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+    interface ConsoleTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
         logstash?: boolean;
         debugStdout?: boolean;
     }
 
-    export interface DailyRotateFileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+    interface DailyRotateFileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
         logstash?: boolean;
         maxsize?: number;
         maxFiles?: number;
@@ -434,7 +432,7 @@ declare namespace winston {
         stream?: NodeJS.WritableStream;
     }
 
-    export interface FileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+    interface FileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
         logstash?: boolean;
         maxsize?: number;
         rotationFormat?: boolean;
@@ -452,14 +450,14 @@ declare namespace winston {
         stream?: NodeJS.WritableStream;
     }
 
-    export interface HttpTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
+    interface HttpTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
         ssl?: boolean;
     }
 
-    export interface MemoryTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+    interface MemoryTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     }
 
-    export interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
+    interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
         method?: string;
         ssl?: {
             key?: any;
@@ -468,11 +466,11 @@ declare namespace winston {
         };
     }
 
-    export interface WinstonModuleTransportOptions extends GenericTransportOptions {
+    interface WinstonModuleTransportOptions extends GenericTransportOptions {
         [optionName: string]: any;
     }
 
-    export interface QueryOptions {
+    interface QueryOptions {
         rows?: number;
         limit?: number;
         start?: number;
@@ -482,10 +480,11 @@ declare namespace winston {
         fields: any;
     }
 
-    export interface ProfileHandler {
+    interface ProfileHandler {
         logger: LoggerInstance;
         start: Date;
-        done: (msg: string) => LoggerInstance;
+
+        done(msg: string): LoggerInstance;
     }
 
     interface LogMethod {
@@ -500,7 +499,8 @@ declare namespace winston {
         (msg: string, ...meta: any[]): LoggerInstance;
     }
 
-    interface LogCallback {
-        (error?: any, level?: string, msg?: string, meta?: any): void;
-    }
+    type LogCallback = (error?: any, level?: string, msg?: string, meta?: any) => void;
 }
+
+declare const winston: winston.Winston;
+export = winston;

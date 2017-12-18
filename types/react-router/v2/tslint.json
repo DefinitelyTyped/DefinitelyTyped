@@ -1,7 +1,8 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "no-unnecessary-generics": false
     }
 }

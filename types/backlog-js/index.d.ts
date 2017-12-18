@@ -2,9 +2,9 @@
 // Project: https://github.com/nulab/backlog-js
 // Definitions by: Yuichi Watanabe <https://github.com/vvatanabe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="isomorphic-fetch" />
 
 declare class Request {
     private configure;

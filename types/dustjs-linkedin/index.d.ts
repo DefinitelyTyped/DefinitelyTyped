@@ -1,6 +1,6 @@
 // Type definitions for linkedin dustjs 1.2.1
 // Project: https://github.com/linkedin/dustjs
-// Definitions by: Marcelo Dezem <http://github.com/mdezem>
+// Definitions by: Marcelo Dezem <https://github.com/mdezem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //

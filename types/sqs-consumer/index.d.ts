@@ -1,43 +1,35 @@
-// Type definitions for sqs-consumer
+// Type definitions for sqs-consumer 3.7
 // Project: https://github.com/BBC/sqs-consumer
 // Definitions by: Daniel Chao <http://dchao.co/>
+//                 Eric Byers <http://github.com/EricByers>
+//                 Ezinwa Okpoechi <http://github.com/BrainMaestro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="aws-sdk"/>
+/// <reference types="node" />
+import { SQS } from "aws-sdk";
 
-declare module "sqs-consumer" {
+declare namespace Consumer {
+    export type ConsumerDone = (error?: Error) => void;
 
-  import { SQS } from "aws-sdk";
-
-  module SQSConsumer {
-
-    interface MessageHandler {
-      (message: SQS.Message, done: Function): any;
+    export interface Options {
+        queueUrl: string;
+        handleMessage(message: SQS.Message, done: ConsumerDone): any;
+        region?: string;
+        attributeNames?: string[];
+        messageAttributeNames?: string[];
+        batchSize?: number;
+        visibilityTimeout?: number;
+        waitTimeSeconds?: number;
+        authenticationErrorTimeout?: number;
+        sqs?: SQS;
     }
-
-    interface ConsumerOpts {
-      queueUrl: string;
-      handleMessage: MessageHandler;
-      region?: string;
-      attributeNames?: string[];
-      messageAttributeNames?: string[];
-      batchSize?: number;
-      visibilityTimeout?: number;
-      waitTimeSeconds?: number;
-      authenticationErrorTimeout?: number;
-      sqs?: SQS;
-    }
-
-    interface Consumer extends NodeJS.EventEmitter {
-      start (): void;
-      stop (): void;
-    }
-
-    interface ConsumerFactory {
-      create(opts: ConsumerOpts): Consumer;
-    }
-  }
-  const Consumer: SQSConsumer.ConsumerFactory;
-  export = Consumer;
-
 }
+
+declare class Consumer extends NodeJS.EventEmitter {
+    constructor(options: Consumer.Options);
+    start(): void;
+    stop(): void;
+    static create(options: Consumer.Options): Consumer;
+}
+
+export = Consumer;

@@ -9,6 +9,10 @@ $(() => {
             type: "arearange"
         },
 
+        xAxis: {
+            scrollbar: { enabled: true }
+        },
+
         navigator: {
             height: 80,
             maskFill: 'rgba(255, 198, 220, 0.75)',

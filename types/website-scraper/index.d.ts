@@ -2,6 +2,7 @@
 // Project: https://github.com/s0ph1e/node-website-scraper
 // Definitions by: Christian Rackerseder <https://www.echooff.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as request from 'request';
 
@@ -43,8 +44,12 @@ declare namespace websiteScraper {
     interface Callback {
         (error: any | null, result: Resource[] | null): void;
     }
-    function scrape(options: Options, callback: Callback): void;
-    function scrape(options: Options): Promise<Resource[]>;
+    interface scrape {
+        (options: Options, callback: Callback): void;
+        (options: Options): Promise<Resource[]>;
+    }
 }
+
+declare var websiteScraper: websiteScraper.scrape;
 
 export = websiteScraper;

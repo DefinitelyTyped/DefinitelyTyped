@@ -15,11 +15,17 @@ interface WriteMapper {
     (file: string): string;
 }
 
+interface CloneOptions {
+    contents?: boolean;
+    deep?: boolean;
+}
+
 interface WriteOptions {
     addComment?: boolean;
     includeContent?: boolean;
     sourceRoot?: string | WriteMapper;
     sourceMappingURLPrefix?: string | WriteMapper;
+    clone?: boolean | CloneOptions;
 }
 
 export declare function init(opts?: InitOptions): NodeJS.ReadWriteStream;

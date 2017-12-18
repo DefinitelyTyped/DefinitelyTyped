@@ -1,6 +1,6 @@
 $(document).foundation();
 $(document).foundation('method5');
-$(document).foundation(['method', 'method2']);
+$(document).foundation('method', 'method2');
 
 Foundation.Abide($('.selector'));
 Foundation.Abide($('.selector'), {});

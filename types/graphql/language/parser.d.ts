@@ -5,14 +5,14 @@ import { Lexer } from "./lexer";
 /**
  * Configuration options to control parser behavior
  */
-export type ParseOptions = {
+export interface ParseOptions {
     /**
      * By default, the parser creates AST nodes that know the location
      * in the source that they correspond to. This configuration flag
      * disables that behavior for performance or testing.
      */
-    noLocation?: boolean
-};
+    noLocation?: boolean;
+}
 
 /**
  * Given a GraphQL source, parses it into a Document.

@@ -7,7 +7,7 @@ var Editors = ReactDataGridPlugins.Editors;
 var Toolbar = ReactDataGridPlugins.Toolbar;
 var AutoCompleteEditor = Editors.AutoComplete;
 var DropDownEditor = Editors.DropDownEditor;
-
+var { Selectors } = ReactDataGridPlugins.Data;
 
 class CustomFilterHeaderCell extends React.Component<any, any> {
    constructor(props: any, context: any) {
@@ -249,8 +249,21 @@ class Example extends React.Component<any, any> {
         this.setState({rows: rows});
     }
 
+    onRowExpandToggle = ({ columnGroupName, name, shouldExpand }:ReactDataGrid.OnRowExpandToggle ) => {
+        let expandedRows = Object.assign({}, this.state.expandedRows);
+        expandedRows[columnGroupName] = Object.assign({}, expandedRows[columnGroupName]);
+        expandedRows[columnGroupName][name] = {isExpanded: shouldExpand};
+        this.setState({expandedRows: expandedRows});
+    }
+
     onRowClick(rowIdx:number, row: Object) {
         // Do nothing, just test that it accepts an event
+    }
+
+    getRows() {
+        const rows = Selectors.getRows(this.state);
+        console.log(rows);
+        return rows;
     }
 
     handleAddRow(e:any) {
@@ -266,6 +279,7 @@ class Example extends React.Component<any, any> {
     }
 
     getRowAt(index:number) {
+        this.getRows();
         if (index < 0 || index > this.getSize()) {
             return undefined;
         }
@@ -293,10 +307,12 @@ class Example extends React.Component<any, any> {
             <ReactDataGrid
                 ref='grid'
                 enableCellSelect={true}
+                enableDragAndDrop={true}
                 columns={this.getColumns()}
                 rowGetter={this.getRowAt}
                 rowsCount={this.getSize()}
                 onGridRowsUpdated={this.handleGridRowsUpdated}
+                onRowExpandToggle={this.onRowExpandToggle}
                 toolbar={<Toolbar onAddRow={this.handleAddRow}/>}
                 enableRowSelect={true}
                 rowHeight={50}

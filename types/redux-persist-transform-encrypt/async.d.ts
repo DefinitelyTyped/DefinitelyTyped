@@ -1,3 +1,3 @@
-import createAsyncEncryptor from "redux-persist-transform-encrypt";
+import createAsyncEncryptor from ".";
 
 export default createAsyncEncryptor;

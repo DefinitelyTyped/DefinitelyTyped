@@ -1,63 +1,100 @@
-// Type definitions for React (react-dom) 0.14
+// Type definitions for React (react-dom) 16.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
+// Definitions by: Asana <https://asana.com>
+//                 AssureSign <http://www.assuresign.com>
+//                 Microsoft <https://microsoft.com>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 export as namespace ReactDOM;
-export = ReactDOM;
 
-import { ReactInstance, Component, ComponentState,
-         ReactElement, SFCElement, CElement,
-         DOMAttributes, DOMElement } from 'react';
+import {
+    ReactInstance, Component, ComponentState,
+    ReactElement, SFCElement, CElement,
+    DOMAttributes, DOMElement, ReactNode, ReactPortal
+} from 'react';
 
-declare namespace ReactDOM {
-    function findDOMNode<E extends Element>(instance: ReactInstance): E;
-    function findDOMNode(instance: ReactInstance): Element;
+export function findDOMNode(instance: ReactInstance): Element;
+export function unmountComponentAtNode(container: Element): boolean;
 
-    function render<P extends DOMAttributes<T>, T extends Element>(
-        element: DOMElement<P, T>,
+export function createPortal(children: ReactNode, container: Element): ReactPortal;
+
+export const version: string;
+export const render: Renderer;
+export const hydrate: Renderer;
+
+export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
+export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+export function unstable_batchedUpdates(callback: () => any): void;
+
+export function unstable_renderSubtreeIntoContainer<T extends Element>(
+    parentComponent: Component<any>,
+    element: DOMElement<DOMAttributes<T>, T>,
+    container: Element,
+    callback?: (element: T) => any): T;
+export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
+    parentComponent: Component<any>,
+    element: CElement<P, T>,
+    container: Element,
+    callback?: (component: T) => any): T;
+export function unstable_renderSubtreeIntoContainer<P>(
+    parentComponent: Component<any>,
+    element: ReactElement<P>,
+    container: Element,
+    callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+
+export interface Renderer {
+    // Deprecated(render): The return value is deprecated.
+    // In future releases the render function's return type will be void.
+
+    <T extends Element>(
+        element: DOMElement<DOMAttributes<T>, T>,
         container: Element | null,
-        callback?: (element: T) => any): T;
-    function render<P>(
-        element: SFCElement<P>,
+        callback?: () => void
+    ): T;
+
+    (
+        element: Array<DOMElement<DOMAttributes<any>, any>>,
         container: Element | null,
-        callback?: () => any): void;
-    function render<P, T extends Component<P, ComponentState>>(
+        callback?: () => void
+    ): Element;
+
+    (
+        element: SFCElement<any> | Array<SFCElement<any>>,
+        container: Element | null,
+        callback?: () => void
+    ): void;
+
+    <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         container: Element | null,
-        callback?: (component: T) => any): T;
-    function render<P>(
+        callback?: () => void
+    ): T;
+
+    (
+        element: Array<CElement<any, Component<any, ComponentState>>>,
+        container: Element | null,
+        callback?: () => void
+    ): Component<any, ComponentState>;
+
+    <P>(
         element: ReactElement<P>,
         container: Element | null,
-        callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+        callback?: () => void
+    ): Component<P, ComponentState> | Element | void;
 
-    function unmountComponentAtNode(container: Element): boolean;
+    (
+        element: Array<ReactElement<any>>,
+        container: Element | null,
+        callback?: () => void
+    ): Component<any, ComponentState> | Element | void;
 
-    var version: string;
-
-    function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-    function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-    function unstable_batchedUpdates(callback: () => any): void;
-
-    function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, T extends Element>(
-        parentComponent: Component<any, any>,
-        element: DOMElement<P, T>,
+    (
+        parentComponent: Component<any> | Array<Component<any>>,
+        element: SFCElement<any>,
         container: Element,
-        callback?: (element: T) => any): T;
-    function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
-        parentComponent: Component<any, any>,
-        element: CElement<P, T>,
-        container: Element,
-        callback?: (component: T) => any): T;
-    function render<P>(
-        parentComponent: Component<any, any>,
-        element: SFCElement<P>,
-        container: Element,
-        callback?: () => any): void;
-    function unstable_renderSubtreeIntoContainer<P>(
-        parentComponent: Component<any, any>,
-        element: ReactElement<P>,
-        container: Element,
-        callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+        callback?: () => void
+    ): void;
 }

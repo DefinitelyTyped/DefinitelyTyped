@@ -1,6 +1,9 @@
-interface Props extends React.HTMLProps<HTMLElement> {
+import { CSSModule } from '../index';
+
+export interface CollapseProps extends React.HTMLProps<HTMLElement> {
   isOpen?: boolean;
   classNames?: string;
+  cssModule?: CSSModule;
   tag?: React.ReactType;
   navbar?: boolean;
   delay?: {
@@ -11,5 +14,5 @@ interface Props extends React.HTMLProps<HTMLElement> {
   onClosed?: () => void;
 }
 
-declare var Collapse: React.StatelessComponent<Props>;
+declare const Collapse: React.StatelessComponent<CollapseProps>;
 export default Collapse;

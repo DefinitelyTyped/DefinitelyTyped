@@ -8,14 +8,25 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "jsx": "react",
         "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "typeRoots": [
+            "../../"
+        ],
         "paths": {
-            "history": ["history/v3"],
-            "history/*": ["history/v3/*"],
-            "react-router": ["react-router/v3"],
-            "react-router/*": ["react-router/v3/*"]
+            "history": [
+                "history/v3"
+            ],
+            "history/*": [
+                "history/v3/*"
+            ],
+            "react-router": [
+                "react-router/v3"
+            ],
+            "react-router/*": [
+                "react-router/v3/*"
+            ]
         },
         "types": [],
         "noEmit": true,

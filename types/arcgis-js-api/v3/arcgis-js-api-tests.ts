@@ -2,8 +2,6 @@ import esri = require("esri");
 import Map = require("esri/map");
 import Point = require("esri/geometry/Point");
 
-export = MapController;
-
 class MapController {
   map: Map;
 

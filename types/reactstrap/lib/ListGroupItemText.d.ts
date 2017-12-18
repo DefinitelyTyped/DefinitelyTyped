@@ -1,7 +1,10 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface ListGroupItemTextProps {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var ListGroupItemText: React.StatelessComponent<Props>;
+declare const ListGroupItemText: React.StatelessComponent<ListGroupItemTextProps>;
 export default ListGroupItemText;

@@ -4,7 +4,7 @@ import { controller, get, post, put, cache, config, route, validate, Controller 
 @controller('/test')
 class TestController implements Controller {
     baseUrl: string;
-    routes: () => hapi.IRouteConfiguration[];
+    routes: () => hapi.RouteConfiguration[];
 
     @get('/')
     @config({
@@ -16,22 +16,22 @@ class TestController implements Controller {
     @validate({
         payload: false
     })
-    getHandler(request: hapi.Request, reply: hapi.IReply) {
+    getHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 
     @post('/')
-    postHandler(request: hapi.Request, reply: hapi.IReply) {
+    postHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 
     @put('/{id}')
-    putHandler(request: hapi.Request, reply: hapi.IReply) {
+    putHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 
     @route('delete', '/{id}')
-    deleteHandler(request: hapi.Request, reply: hapi.IReply) {
+    deleteHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 }
@@ -50,7 +50,7 @@ class SimpleTestController implements Controller {
     }
 
     baseUrl: string;
-    routes: () => hapi.IRouteConfiguration[];
+    routes: () => hapi.RouteConfiguration[];
 }
 
 server.route(new SimpleTestController('bar').routes());

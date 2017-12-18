@@ -1,6 +1,6 @@
 
 import libphonenumber = require('google-libphonenumber');
-import {PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter} from 'google-libphonenumber';
+import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-libphonenumber';
 
 () => {
     // Require `PhoneNumberFormat`.

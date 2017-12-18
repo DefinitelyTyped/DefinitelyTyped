@@ -1,3 +1,7 @@
+import * as factory from "malihu-custom-scrollbar-plugin";
+
+factory($);
+
 class SimpleTest {
     element: JQuery;
 

@@ -2,10 +2,11 @@
 // Project: https://github.com/jaredhanson/connect-ensure-login
 // Definitions by: Pavel Puchkov <https://github.com/0x6368656174>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { RequestHandler } from "express";
 
-interface LoggedInOptions {
+export interface LoggedInOptions {
     /**
      * URL to redirect to for login, defaults to _/login_
      */
@@ -15,7 +16,7 @@ interface LoggedInOptions {
      */
     setRedirectTo?: boolean;
 }
-interface LoggedOutOptions {
+export interface LoggedOutOptions {
     /**
      * URL to redirect to in logged in, defaults to _/_
      */

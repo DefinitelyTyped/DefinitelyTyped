@@ -3,6 +3,9 @@
 // Default usage:
 accounting.formatMoney(12345678); // $12,345,678.00
 
+// Stringified usage:
+accounting.formatMoney('$4394958309392.9401'); // $4,394,958,309,392.94
+
 // European formatting (custom symbol and separators), could also use options object as second param:
 accounting.formatMoney(4999.99, "€", 2, ".", ","); // €4.999,99
 

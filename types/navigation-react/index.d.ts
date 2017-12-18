@@ -2,7 +2,7 @@
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { StateNavigator } from 'navigation';
 import { Component, HTMLProps } from 'react';
@@ -10,7 +10,7 @@ import { Component, HTMLProps } from 'react';
 /**
  * Defines the Link Props contract
  */
-interface LinkProps extends HTMLProps<HTMLAnchorElement> {
+export interface LinkProps extends HTMLProps<HTMLAnchorElement> {
     /**
      * Indicates whether Links listen for navigate events
      */
@@ -32,7 +32,7 @@ interface LinkProps extends HTMLProps<HTMLAnchorElement> {
 /**
  * Defines the Refresh Link Props contract
  */
-interface RefreshLinkProps extends LinkProps {
+export interface RefreshLinkProps extends LinkProps {
     /**
      * The NavigationData to pass
      */
@@ -58,12 +58,12 @@ interface RefreshLinkProps extends LinkProps {
 /**
  * Hyperlink Component the navigates to the current State
  */
-export class RefreshLink extends Component<RefreshLinkProps, any> { }
+export class RefreshLink extends Component<RefreshLinkProps> { }
 
 /**
  * Defines the Navigation Link Props contract
  */
-interface NavigationLinkProps extends RefreshLinkProps {
+export interface NavigationLinkProps extends RefreshLinkProps {
     /**
      * The key of the State to navigate to
      */
@@ -73,12 +73,12 @@ interface NavigationLinkProps extends RefreshLinkProps {
 /**
  * Hyperlink Component the navigates to a State
  */
-export class NavigationLink extends Component<NavigationLinkProps, any> { }
+export class NavigationLink extends Component<NavigationLinkProps> { }
 
 /**
  * Defines the Navigation Back Link Props contract
  */
-interface NavigationBackLinkProps extends RefreshLinkProps {
+export interface NavigationBackLinkProps extends RefreshLinkProps {
     /**
      * Starting at 1, The number of Crumb steps to go back
      */
@@ -88,4 +88,4 @@ interface NavigationBackLinkProps extends RefreshLinkProps {
 /**
  * Hyperlink Component the navigates back along the crumb trail
  */
-export class NavigationBackLink extends Component<NavigationBackLinkProps, any> { }
+export class NavigationBackLink extends Component<NavigationBackLinkProps> { }

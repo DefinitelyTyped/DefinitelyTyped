@@ -1,7 +1,6 @@
-/// <reference types="node" />
-
 import * as asana from 'asana';
-import * as util from 'util';
+declare var console: { log(x: any): void };
+declare var process: { env: { ASANA_API_KEY: string } };
 
 let version: string = asana.VERSION;
 
@@ -95,9 +94,6 @@ client.users.me()
       task.assignee_status === 'new';
   })
   .then((list: any) => {
-    console.log(util.inspect(list, {
-      colors: true,
-      depth: null
-    }));
+    console.log(list);
   });
 
