@@ -104,4 +104,5 @@ declare namespace Wu {
 		tee(n?: number): Array<WuIterable<T>>;
 	}
 }
-declare var wu: Wu.WuStatic;
+declare const wu: Wu.WuStatic;
+export = wu;
