@@ -1,6 +1,6 @@
 import * as Iron from "iron";
 
-const options:Iron.ISealOptions = {
+const options: Iron.SealOptions = {
     encryption: {
         saltBits: 256,
         algorithm: 'aes-256-cbc',
@@ -18,13 +18,13 @@ const options:Iron.ISealOptions = {
     localtimeOffsetMsec: 0
 };
 
-const algorithms:Iron.IAlgorithms = {
+const algorithms: Iron.Algorithms = {
     'aes-128-ctr': { keyBits: 128, ivBits: 128 },
     'aes-256-cbc': { keyBits: 256, ivBits: 128 },
-    'sha256': { keyBits: 256 }
+    sha256: { keyBits: 256 }
 };
 
-const optionsGenerateKey:Iron.IGenerateKeyOptions = {
+const optionsGenerateKey: Iron.GenerateKeyOptions = {
     saltBits: 256,
     salt: '4d8nr9q384nr9q384nr93q8nruq9348run',
     algorithm: 'aes-128-ctr',
@@ -33,7 +33,7 @@ const optionsGenerateKey:Iron.IGenerateKeyOptions = {
     minPasswordlength: 32
 };
 
-const obj:object = {
+const obj: object = {
     a: 1,
     b: 2,
     c: [3, 4, 5],
@@ -53,17 +53,17 @@ Iron.unseal('data', 'password', Iron.defaults)
     });
 
 Iron.generateKey('password', options.encryption)
-    .then((value: Iron.IKey) => {
+    .then((value: Iron.Key) => {
         console.log(value);
     });
 
 Iron.generateKey('password', optionsGenerateKey)
-    .then((value: Iron.IKey) => {
+    .then((value: Iron.Key) => {
         console.log(value);
     });
 
 Iron.encrypt('password', Iron.defaults.encryption, 'data')
-    .then((obj: { data: Buffer, key: Iron.IKey }) => {
+    .then((obj: { data: Buffer, key: Iron.Key }) => {
         console.log(obj);
     });
 
@@ -73,6 +73,6 @@ Iron.decrypt('password', Iron.defaults.encryption, 'data')
     });
 
 Iron.hmacWithPassword('password', Iron.defaults.integrity, 'data')
-    .then((value: Iron.IHMacResult) => {
+    .then((value: Iron.HMacResult) => {
         console.log(value);
     });
