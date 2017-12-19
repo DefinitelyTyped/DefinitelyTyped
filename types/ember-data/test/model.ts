@@ -8,7 +8,7 @@ const Person = DS.Model.extend({
     title: DS.attr({ defaultValue: "The default" }),
     title2: DS.attr({ defaultValue: () => "The default" }),
 
-    fullName: Ember.computed('firstName', 'lastName', function () {
+    fullName: Ember.computed('firstName', 'lastName', function() {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     })
 });
