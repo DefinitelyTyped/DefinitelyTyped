@@ -10,7 +10,6 @@ const options = [
     { name: 'Colorado', population: 5029324, capital: 'Denver', region: 'West' },
 ];
 
-
 class BasicExample extends React.Component {
     state = {
         multiple: false,
