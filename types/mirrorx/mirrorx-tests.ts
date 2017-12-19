@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import mirror, { actions } from 'mirrorx';
-/**
- * add mirror.model.tests
- */
+import mirror = require('mirrorx');
+ /**
+  * add mirror.model.tests
+  */
 mirror.model({
     name: 'app',
     initialState: 0,
@@ -18,7 +18,7 @@ mirror.model({
                 resolve();
               }, 1000);
             });
-            actions.app.increment();
+            mirror.actions.app.increment();
         }
     }
 });
