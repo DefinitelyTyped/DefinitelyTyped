@@ -186,5 +186,7 @@ export namespace mirror {
   function withRouter<TFunction extends React.ComponentClass<any>>(target: TFunction): TFunction;
 }
 declare module "mirror" {
+  
   export = mirror;
+  
 }
