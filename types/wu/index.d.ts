@@ -106,3 +106,4 @@ declare namespace Wu {
 }
 declare const wu: Wu.WuStatic;
 export = wu;
+export as namespace wu;
