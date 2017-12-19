@@ -863,6 +863,9 @@ declare namespace WebdriverIO {
         touchMultiPerform(actions: any): Client<T>;
         touchPerform(actions: any): Client<T>;
         unlock(): Client<T>;
+        isIOS: boolean;
+        isAndroid: boolean;
+        isMobile: boolean;
     }
 
     // Property
