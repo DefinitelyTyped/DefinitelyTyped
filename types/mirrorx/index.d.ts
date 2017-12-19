@@ -11,25 +11,25 @@ import * as React from 'react';
 import { Connect } from 'react-redux';
 import { match } from "react-router";
 
-type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
-type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+export type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
+export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
-interface model {
+export interface model {
   name: string;
   initialState?: any;
   reducers?: any;
   effects?: any;
 }
 
-interface _model {
+export interface _model {
   name: string;
   reducers: any;
 }
-interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   to: H.LocationDescriptor;
   replace?: boolean;
 }
-interface NavLinkProps extends LinkProps {
+export interface NavLinkProps extends LinkProps {
   activeClassName?: string;
   activeStyle?: React.CSSProperties;
   exact?: boolean;
@@ -38,12 +38,12 @@ interface NavLinkProps extends LinkProps {
   location?: H.Location;
 }
 
-interface SwitchProps {
+export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
 
-interface RedirectProps {
+export interface RedirectProps {
   to: H.LocationDescriptor;
   push?: boolean;
   from?: string;
@@ -52,14 +52,14 @@ interface RedirectProps {
   strict?: boolean;
 }
 
-interface RouteComponentProps<P> {
+export interface RouteComponentProps<P> {
   match: match<P>;
   location: H.Location;
   history: H.History;
   staticContext?: any;
 }
 
-interface RouteProps {
+export interface RouteProps {
   location?: H.Location;
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
@@ -69,22 +69,22 @@ interface RouteProps {
   strict?: boolean;
 }
 
-interface PromptProps {
+export interface PromptProps {
   message: string | ((location: H.Location) => string | boolean);
   when?: boolean;
 }
 
-interface LocationActionPayload {
+export interface LocationActionPayload {
   method: string;
   args?: any[];
 }
 
-interface RouterAction {
+export interface RouterAction {
   type: '@@router/CALL_HISTORY_METHOD';
   payload: LocationActionPayload;
 }
 
-interface routeActions {
+export interface routeActions {
   push(location: any, state?: any): RouterAction;
   replace(location: any, state?: any): RouterAction;
   go(n: number): RouterAction;
@@ -92,17 +92,17 @@ interface routeActions {
   goForward(): RouterAction;
 }
 
-interface ConnectedRouterProps<State> {
+export interface ConnectedRouterProps<State> {
   store?: any;
   history?: H.History;
 }
 
-interface Actions {
+export interface Actions {
   routing: routeActions;
   [propName: string]: any;
 }
 
-interface defaultOptions {
+export interface defaultOptions {
   initialState?: {};
   historyMode?: string;
   middlewares: any[];
@@ -110,7 +110,7 @@ interface defaultOptions {
   addEffect(name: string, handler: () => any): any;
 }
 
-interface Renderer {
+export interface Renderer {
   // Deprecated(render): The return value is deprecated.
   // In future releases the render function's return type will be void.
   <T extends Element>(
