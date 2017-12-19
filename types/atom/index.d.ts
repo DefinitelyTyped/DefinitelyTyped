@@ -238,6 +238,9 @@ export interface AtomEnvironment {
 
     /** Execute code in dev tools. */
     executeJavaScriptInDevTools(code: string): void;
+
+    /** Undocumented: get Atom config directory path */
+    getConfigDirPath(): string;
 }
 
 /**
@@ -1456,7 +1459,7 @@ export class TextEditor {
 
     /** Set the text in the given Range in buffer coordinates. */
     setTextInBufferRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): void;
+        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
 
     /* For each selection, replace the selected text with the given text. */
     insertText(text: string, options?: {
@@ -2379,6 +2382,12 @@ export class TextEditor {
      *  displayed when the editor has no content.
      */
     setPlaceholderText(placeholderText: string): void;
+
+    /** Undocumented: Buffer range for syntax scope at position */
+    bufferRangeForScopeAtPosition(scope: string, point: PointCompatible): Range;
+
+    /** Undocumented: Get syntax token at buffer position */
+    tokenForBufferPosition(pos: PointCompatible): {value: string, scopes: string[]};
 }
 
 /** Experimental: This global registry tracks registered TextEditors. */
@@ -3610,7 +3619,10 @@ export class GitRepository {
 /** Grammar that tokenizes lines of text. */
 export interface Grammar {
     /** The name of the Grammar. */
-    name: string;
+    readonly name: string;
+
+    /** Undocumented: scope name of the Grammar. */
+    readonly scopeName: string;
 
     // Event Subscription
     onDidUpdate(callback: () => void): Disposable;
@@ -3937,6 +3949,9 @@ export interface PackageManager {
 
     /** Invoke the given callback when a package is unloaded. */
     onDidUnloadPackage(callback: (package: Package) => void): Disposable;
+
+    /** Undocumented: invoke the given callback when an activation hook is triggered */
+    onDidTriggerActivationHook(hook: string, callback: () => void): Disposable;
 
     // Package System Data
     /** Get the path to the apm command. */

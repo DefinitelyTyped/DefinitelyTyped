@@ -196,6 +196,8 @@ function testAtomEnvironment() {
     }
 
     atom.executeJavaScriptInDevTools("Test");
+
+    const path: string = atom.getConfigDirPath();
 }
 
 // BufferedNodeProcess ========================================================
@@ -1056,6 +1058,10 @@ function testGrammar() {
     tokenizeLineResult.tokens;
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack);
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack, false);
+
+    let str: string;
+    str = grammar.name;
+    str = grammar.scopeName;
 }
 
 // GrammarRegistry ============================================================
@@ -1396,6 +1402,9 @@ function testPackageManager() {
     subscription = atom.packages.onDidDeactivatePackage(pack => pack.path);
     subscription = atom.packages.onDidLoadPackage(pack => pack.isCompatible());
     subscription = atom.packages.onDidUnloadPackage(pack => pack.name);
+    subscription = atom.packages.onDidTriggerActivationHook(
+      'language-javascript:grammar-used', () => {}
+    );
 
     // Package system data
     str = atom.packages.getApmPath();
@@ -2353,14 +2362,14 @@ function testTextEditor() {
     // Mutating Text
     editor.setText("Test");
 
-    editor.setTextInBufferRange(range, "Test");
-    editor.setTextInBufferRange([pos, pos], "Test");
-    editor.setTextInBufferRange([pos, [0, 0]], "Test");
-    editor.setTextInBufferRange([[0, 0], pos], "Test");
-    editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
-    editor.setTextInBufferRange(range, "Test", {});
-    editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
-    editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
+    range = editor.setTextInBufferRange(range, "Test");
+    range = editor.setTextInBufferRange([pos, pos], "Test");
+    range = editor.setTextInBufferRange([pos, [0, 0]], "Test");
+    range = editor.setTextInBufferRange([[0, 0], pos], "Test");
+    range = editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
+    range = editor.setTextInBufferRange(range, "Test", {});
+    range = editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
+    range = editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
         undo: "skip" });
 
     editor.insertText("Test");
@@ -2923,6 +2932,15 @@ function testTextEditor() {
     // TextEditor Rendering
     str = editor.getPlaceholderText();
     editor.setPlaceholderText("Test");
+
+    range = editor.bufferRangeForScopeAtPosition('source.js', [0, 0]);
+    range = editor.bufferRangeForScopeAtPosition('source.js', {row: 10, column: 11});
+    range = editor.bufferRangeForScopeAtPosition('source.js', pos);
+
+    let token: {value: string, scopes: string[]};
+    token = editor.tokenForBufferPosition([5, 6]);
+    token = editor.tokenForBufferPosition({row: 0, column: 1});
+    token = editor.tokenForBufferPosition(pos);
 }
 
 // ThemeManager ===============================================================
