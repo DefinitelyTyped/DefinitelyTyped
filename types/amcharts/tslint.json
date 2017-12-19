@@ -1,9 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "jsdoc-format": false,
-        "max-line-length": false,
-        "unified-signatures": false
+        "max-line-length": [true, 120]
     }
 }
