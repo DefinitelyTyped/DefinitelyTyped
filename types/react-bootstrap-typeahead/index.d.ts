@@ -52,8 +52,6 @@ export interface TypeaheadProps<T> {
 
 export const Typeahead: React.ClassicComponentClass<TypeaheadProps<any>>;
 
-export default Typeahead;
-
 export interface AsyncTypeaheadProps<T> extends TypeaheadProps<T> {
     delay?: number;
     isLoading: boolean;
