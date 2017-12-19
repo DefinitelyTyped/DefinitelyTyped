@@ -424,7 +424,7 @@ declare module "ember-data" {
              * Create a JSON representation of the record, using the serialization
              * strategy of the store's adapter.
              */
-            serialize(options?: {}): {};
+            serialize(options?: { includeId?: boolean }): {};
             /**
              * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
              * get the JSON representation of a record.
