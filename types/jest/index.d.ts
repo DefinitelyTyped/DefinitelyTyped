@@ -1046,6 +1046,8 @@ declare namespace jest {
         path: Path;
     }
 
+    // tslint:disable-next-line:no-empty-interface
+    interface Set<T> {} // To allow non-ES6 users the Set below
     interface Reporter {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
