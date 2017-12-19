@@ -10,4 +10,4 @@ export interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
     size?: string | number;
 }
 
-export default class IconBaseClass extends React.Component<IconBaseClass.IconBaseProps> {}
+export default class IconBaseClass extends React.Component<IconBaseProps> {}
