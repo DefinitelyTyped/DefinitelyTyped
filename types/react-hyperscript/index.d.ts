@@ -8,7 +8,7 @@ import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
 declare namespace h {}
 
-type Element = ReactElement<any> | string | null;
+type Element = ReactElement<any> | string | number | null;
 
 declare function h(
     componentOrTag: ComponentClass | StatelessComponent | string,
