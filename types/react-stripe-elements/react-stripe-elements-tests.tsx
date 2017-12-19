@@ -14,6 +14,7 @@ import InjectedStripeProps = ReactStripeElements.InjectedStripeProps;
 
 import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
+import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
 
 const cardElementProps: ElementsOptions = {
@@ -44,6 +45,22 @@ const cardElementProps: ElementsOptions = {
         webkitAutofill: 'webkit-autofill',
     },
     hideIcon: true,
+};
+
+const fontElementsProps: ElementsCreateOptions = {
+  fonts: [
+    {
+      cssSrc: "https://fonts.googleapis.com/css?family=Dosis"
+    },
+    {
+      family: "Dosis, sanz",
+      src: "url(https://somewebsite.com/path/to/font.woff)",
+      style: "normal",
+      weight: "bold",
+      unicodeRange: "U+26"
+    }
+  ],
+  locale: "es"
 };
 
 const ElementsWithPropsTest: React.SFC = () => (
@@ -92,7 +109,7 @@ interface ComponentProps {
 
 class WrappedComponent extends React.Component<ComponentProps & InjectedStripeProps> {
     onSubmit = () => {
-        this.props.stripe.createToken({
+        this.props.stripe!.createToken({
             name: '',
             address_line1: '',
             address_line2: '',
@@ -133,7 +150,7 @@ class TestHOCs extends React.Component {
     render() {
         return (
             <StripeProvider apiKey="">
-                <Elements>
+                <Elements {...fontElementsProps}>
                     <MainComponent />
                 </Elements>
             </StripeProvider>
