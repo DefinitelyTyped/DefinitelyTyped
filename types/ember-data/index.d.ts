@@ -7,6 +7,7 @@
 
 declare module "ember-data" {
     import Ember from "ember";
+    import RSVP from 'rsvp';
     namespace DS {
         /**
          * Convert an hash of errors into an array with errors in JSON-API format.
@@ -207,7 +208,7 @@ declare module "ember-data" {
          * subclasses are used to indicate specific error states. The following
          * subclasses are provided:
          */
-        class AdapterError {}
+        class AdapterError { }
         /**
          * A `DS.InvalidError` is used by an adapter to signal the external API
          * was unable to process a request because the content was not
@@ -217,27 +218,27 @@ declare module "ember-data" {
          * transition to the `invalid` state and the errors will be set to the
          * `errors` property on the record.
          */
-        class InvalidError {}
+        class InvalidError { }
         /**
          * A `DS.TimeoutError` is used by an adapter to signal that a request
          * to the external API has timed out. I.e. no response was received from
          * the external API within an allowed time period.
          */
-        class TimeoutError {}
+        class TimeoutError { }
         /**
          * A `DS.AbortError` is used by an adapter to signal that a request to
          * the external API was aborted. For example, this can occur if the user
          * navigates away from the current page after a request to the external API
          * has been initiated but before a response has been received.
          */
-        class AbortError {}
+        class AbortError { }
         /**
          * A `DS.UnauthorizedError` equates to a HTTP `401 Unauthorized` response
          * status. It is used by an adapter to signal that a request to the external
          * API was rejected because authorization is required and has failed or has not
          * yet been provided.
          */
-        class UnauthorizedError {}
+        class UnauthorizedError { }
         /**
          * A `DS.ForbiddenError` equates to a HTTP `403 Forbidden` response status.
          * It is used by an adapter to signal that a request to the external API was
@@ -245,13 +246,13 @@ declare module "ember-data" {
          * provided and is valid, then the authenticated user does not have the
          * necessary permissions for the request.
          */
-        class ForbiddenError {}
+        class ForbiddenError { }
         /**
          * A `DS.NotFoundError` equates to a HTTP `404 Not Found` response status.
          * It is used by an adapter to signal that a request to the external API
          * was rejected because the resource could not be found on the API.
          */
-        class NotFoundError {}
+        class NotFoundError { }
         /**
          * A `DS.ConflictError` equates to a HTTP `409 Conflict` response status.
          * It is used by an adapter to indicate that the request could not be processed
@@ -259,17 +260,17 @@ declare module "ember-data" {
          * creating a record with a client generated id but that id is already known
          * to the external API.
          */
-        class ConflictError {}
+        class ConflictError { }
         /**
          * A `DS.ServerError` equates to a HTTP `500 Internal Server Error` response
          * status. It is used by the adapter to indicate that a request has failed
          * because of an error in the external API.
          */
-        class ServerError {}
+        class ServerError { }
         /**
          * Holds validation errors for a given record, organized by attribute names.
          */
-        interface Errors extends Ember.Enumerable<any>, Ember.Evented {}
+        interface Errors extends Ember.Enumerable<any>, Ember.Evented { }
         class Errors extends Ember.Object {
             /**
              * DEPRECATED:
@@ -423,7 +424,7 @@ declare module "ember-data" {
              * Create a JSON representation of the record, using the serialization
              * strategy of the store's adapter.
              */
-            serialize(options: {}): {};
+            serialize(options?: {}): {};
             /**
              * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
              * get the JSON representation of a record.
@@ -472,7 +473,7 @@ declare module "ember-data" {
             /**
              * Same as `deleteRecord`, but saves the record immediately.
              */
-            destroyRecord(options: {}): Promise<any>;
+            destroyRecord(options: {}): RSVP.Promise<any>;
             /**
              * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
              */
@@ -491,11 +492,11 @@ declare module "ember-data" {
              * Save the record and persist any changes to the record to an
              * external source via the adapter.
              */
-            save(options?: {}): Promise<this>;
+            save(options?: {}): RSVP.Promise<this>;
             /**
              * Reload the record from the adapter.
              */
-            reload(): Promise<any>;
+            reload(): RSVP.Promise<any>;
             /**
              * Get the reference for the specified belongsTo relationship.
              */
@@ -543,7 +544,7 @@ declare module "ember-data" {
              */
             static relatedTypes: Ember.ComputedProperty<
                 Ember.NativeArray<string>
-            >;
+                >;
             /**
              * A map whose keys are the relationships of a model and whose values are
              * relationship descriptors.
@@ -612,14 +613,14 @@ declare module "ember-data" {
         /**
          * ### State
          */
-        class RootState {}
+        class RootState { }
         /**
          * Represents an ordered list of records whose order and membership is
          * determined by the adapter. For example, a query sent to the adapter
          * may trigger a search on the server, whose results would be loaded
          * into an instance of the `AdapterPopulatedRecordArray`.
          */
-        class AdapterPopulatedRecordArray<T> extends RecordArray<T> {}
+        class AdapterPopulatedRecordArray<T> extends RecordArray<T> { }
         /**
          * Represents a list of records whose membership is determined by the
          * store. As records are created, loaded, or modified, the store
@@ -640,7 +641,7 @@ declare module "ember-data" {
          * `DS.RecordArray` or its subclasses will be returned by your application's store
          * in response to queries.
          */
-        interface RecordArray<T> extends Ember.ArrayProxy<T>, Ember.Evented {}
+        interface RecordArray<T> extends Ember.ArrayProxy<T>, Ember.Evented { }
         class RecordArray<T> {
             /**
              * The flag to signal a `RecordArray` is finished loading data.
@@ -698,7 +699,7 @@ declare module "ember-data" {
              * Data will treat the new data as the conanical value of this
              * relationship on the backend.
              */
-            push(objectOrPromise: {} | Promise<any>): Promise<any>;
+            push(objectOrPromise: {} | RSVP.Promise<any>): RSVP.Promise<any>;
             /**
              * `value()` synchronously returns the current value of the belongs-to
              * relationship. Unlike `record.get('relationshipName')`, calling
@@ -706,20 +707,20 @@ declare module "ember-data" {
              * relationship is not yet loaded. If the relationship is not loaded
              * it will always return `null`.
              */
-            value(objectOrPromise: {} | Promise<any>): Model;
+            value(objectOrPromise: {} | RSVP.Promise<any>): Model;
             /**
              * Loads a record in a belongs to relationship if it is not already
              * loaded. If the relationship is already loaded this method does not
              * trigger a new load.
              */
-            load(): Promise<any>;
+            load(): RSVP.Promise<any>;
             /**
              * Triggers a reload of the value in this relationship. If the
              * remoteType is `"link"` Ember Data will use the relationship link to
              * reload the relationship. Otherwise it will reload the record by its
              * id.
              */
-            reload(): Promise<any>;
+            reload(): RSVP.Promise<any>;
         }
         /**
          * A HasManyReference is a low level API that allows users and addon
@@ -750,7 +751,7 @@ declare module "ember-data" {
              * Data will treat the new data as the canonical value of this
              * relationship on the backend.
              */
-            push(objectOrPromise: T[] | Promise<T[]>): ManyArray<T>;
+            push(objectOrPromise: T[] | RSVP.Promise<T[]>): ManyArray<T>;
             /**
              * `value()` synchronously returns the current value of the has-many
              * relationship. Unlike `record.get('relationshipName')`, calling
@@ -764,11 +765,11 @@ declare module "ember-data" {
              * relationship is already loaded this method does not trigger a new
              * load.
              */
-            load(): Promise<any>;
+            load(): RSVP.Promise<any>;
             /**
              * Reloads this has-many relationship.
              */
-            reload(): Promise<any>;
+            reload(): RSVP.Promise<any>;
         }
         /**
          * An RecordReference is a low level API that allows users and
@@ -791,7 +792,7 @@ declare module "ember-data" {
              * normalized hash of data and the object represented by the reference
              * will update.
              */
-            push(payload: Promise<any> | {}): PromiseObject<T> & T;
+            push(payload: RSVP.Promise<any> | {}): PromiseObject<T> & T;
             /**
              * If the entity referred to by the reference is already loaded, it is
              * present as `reference.value`. Otherwise the value returned by this function
@@ -813,7 +814,7 @@ declare module "ember-data" {
          * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
          * relationship.
          */
-        interface ManyArray<T> extends Ember.MutableArray<T> {}
+        interface ManyArray<T> extends Ember.MutableArray<T> { }
         class ManyArray<T> extends Ember.Object.extend(
             Ember.MutableArray as {},
             Ember.Evented
@@ -851,8 +852,8 @@ declare module "ember-data" {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-                Ember.PromiseProxyMixin<PromiseArray<T>> {}
-        class PromiseArray<T> {}
+            Ember.PromiseProxyMixin<PromiseArray<T>> { }
+        class PromiseArray<T> { }
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
          * and a promise. When the promise is resolved, then the resulting value
@@ -862,8 +863,8 @@ declare module "ember-data" {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-                Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
-        class PromiseObject<T> {}
+            Ember.PromiseProxyMixin<T & PromiseObject<T>> { }
+        class PromiseObject<T> { }
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
          * to the underlying manyArray.
@@ -1042,7 +1043,7 @@ declare module "ember-data" {
             queryRecord<T extends Model>(
                 modelName: string,
                 query: any
-            ): Promise<T>;
+            ): RSVP.Promise<T>;
             /**
              * `findAll` asks the adapter's `findAll` method to find the records for the
              * given type, and returns a promise which will resolve with all records of
@@ -1077,7 +1078,7 @@ declare module "ember-data" {
             /**
              * Returns the model class for the particular `modelName`.
              */
-            modelFor(modelName: string): Model;
+            modelFor<M extends Model>(modelName: string): M;
             /**
              * Push some data for a given type into the store.
              */
@@ -1097,13 +1098,13 @@ declare module "ember-data" {
              * example, `adapterFor('person')` will return an instance of
              * `App.PersonAdapter`.
              */
-            adapterFor(modelName: string): Adapter;
+            adapterFor<A extends Adapter>(modelName: string): A;
             /**
              * Returns an instance of the serializer for a given type. For
              * example, `serializerFor('person')` will return an instance of
              * `App.PersonSerializer`.
              */
-            serializerFor(modelName: string): Serializer;
+            serializerFor<S extends Serializer>(modelName: string): S;
         }
         /**
          * The `JSONAPIAdapter` is the default adapter used by Ember Data. It
@@ -1129,7 +1130,7 @@ declare module "ember-data" {
             /**
              * Takes a URL, an HTTP method and a hash of data, and makes an HTTP request.
              */
-            ajax(url: string, type: string, options?: object): Promise<any>;
+            ajax(url: string, type: string, options?: object): RSVP.Promise<any>;
             /**
              * Generate ajax options
              */
@@ -1172,7 +1173,7 @@ declare module "ember-data" {
                 type: Model,
                 id: string,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for all
              * of the records for a given type.
@@ -1182,17 +1183,17 @@ declare module "ember-data" {
                 type: Model,
                 sinceToken: string,
                 snapshotRecordArray: SnapshotRecordArray
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for
              * the records that match a particular query.
              */
-            query(store: Store, type: Model, query: {}): Promise<any>;
+            query(store: Store, type: Model, query: {}): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON object for
              * the record that matches a particular query.
              */
-            queryRecord(store: Store, type: Model, query: {}): Promise<any>;
+            queryRecord(store: Store, type: Model, query: {}): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch several records together if `coalesceFindRequests` is true
              */
@@ -1201,7 +1202,7 @@ declare module "ember-data" {
                 type: Model,
                 ids: any[],
                 snapshots: any[]
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for
              * the unloaded records in a has-many relationship that were originally
@@ -1212,7 +1213,7 @@ declare module "ember-data" {
                 snapshot: Snapshot,
                 url: string,
                 relationship: {}
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch the JSON for the unloaded record in a
              * belongs-to relationship that was originally specified as a URL (inside of
@@ -1222,7 +1223,7 @@ declare module "ember-data" {
                 store: Store,
                 snapshot: Snapshot,
                 url: string
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store when a newly created record is
              * saved via the `save` method on a model record instance.
@@ -1231,7 +1232,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store when an existing record is saved
              * via the `save` method on a model record instance.
@@ -1240,7 +1241,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store when a record is deleted.
              */
@@ -1248,7 +1249,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Organize records into groups, each of which is to be passed to separate
              * calls to `findMany`.
@@ -1816,7 +1817,7 @@ declare module "ember-data" {
          * used when `boolean` is passed as the type parameter to the
          * [DS.attr](../../data#method_attr) function.
          */
-        class BooleanTransform extends Transform {}
+        class BooleanTransform extends Transform { }
         /**
          * The `DS.DateTransform` class is used to serialize and deserialize
          * date attributes on Ember Data record objects. This transform is used
@@ -1824,21 +1825,21 @@ declare module "ember-data" {
          * [DS.attr](../../data#method_attr) function. It uses the [`ISO 8601`](https://en.wikipedia.org/wiki/ISO_8601)
          * standard.
          */
-        class DateTransform extends Transform {}
+        class DateTransform extends Transform { }
         /**
          * The `DS.NumberTransform` class is used to serialize and deserialize
          * numeric attributes on Ember Data record objects. This transform is
          * used when `number` is passed as the type parameter to the
          * [DS.attr](../../data#method_attr) function.
          */
-        class NumberTransform extends Transform {}
+        class NumberTransform extends Transform { }
         /**
          * The `DS.StringTransform` class is used to serialize and deserialize
          * string attributes on Ember Data record objects. This transform is
          * used when `string` is passed as the type parameter to the
          * [DS.attr](../../data#method_attr) function.
          */
-        class StringTransform extends Transform {}
+        class StringTransform extends Transform { }
         /**
          * The `DS.Transform` class is used to serialize and deserialize model
          * attributes when they are saved or loaded from an
@@ -1885,7 +1886,7 @@ declare module "ember-data" {
                 type: Model,
                 id: string,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * The `findAll()` method is used to retrieve all records for a given type.
              */
@@ -1894,7 +1895,7 @@ declare module "ember-data" {
                 type: Model,
                 sinceToken: string,
                 snapshotRecordArray: SnapshotRecordArray
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * This method is called when you call `query` on the store.
              */
@@ -1903,12 +1904,12 @@ declare module "ember-data" {
                 type: Model,
                 query: {},
                 recordArray: AdapterPopulatedRecordArray<any>
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * The `queryRecord()` method is invoked when the store is asked for a single
              * record through a query object.
              */
-            queryRecord(store: Store, type: Model, query: {}): Promise<any>;
+            queryRecord(store: Store, type: Model, query: {}): RSVP.Promise<any>;
             /**
              * If the globally unique IDs for your records should be generated on the client,
              * implement the `generateIdForRecord()` method. This method will be invoked
@@ -1932,7 +1933,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Implement this method in a subclass to handle the updating of
              * a record.
@@ -1941,7 +1942,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Implement this method in a subclass to handle the deletion of
              * a record.
@@ -1950,7 +1951,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
              * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
@@ -1968,7 +1969,7 @@ declare module "ember-data" {
                 type: Model,
                 ids: any[],
                 snapshots: any[]
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Organize records into groups, each of which is to be passed to separate
              * calls to `findMany`.
@@ -2068,63 +2069,63 @@ declare module "ember" {
     }
 }
 declare module 'ember-data/adapter' {
-	import DS from 'ember-data';
-	export default DS.Adapter;
+    import DS from 'ember-data';
+    export default DS.Adapter;
 }
 declare module 'ember-data/adapters/errors' {
-	import DS from 'ember-data';
-	const AdapterError: typeof DS.AdapterError;
-	const InvalidError: typeof DS.InvalidError;
-	const UnauthorizedError: typeof DS.UnauthorizedError;
-	const ForbiddenError: typeof DS.ForbiddenError;
-	const NotFoundError: typeof DS.NotFoundError;
-	const ConflictError: typeof DS.ConflictError;
-	const ServerError: typeof DS.ServerError;
-	const TimeoutError: typeof DS.TimeoutError;
-	const AbortError: typeof DS.AbortError;
-	const errorsHashToArray: typeof DS.errorsHashToArray;
-	const errorsArrayToHash: typeof DS.errorsArrayToHash;
+    import DS from 'ember-data';
+    const AdapterError: typeof DS.AdapterError;
+    const InvalidError: typeof DS.InvalidError;
+    const UnauthorizedError: typeof DS.UnauthorizedError;
+    const ForbiddenError: typeof DS.ForbiddenError;
+    const NotFoundError: typeof DS.NotFoundError;
+    const ConflictError: typeof DS.ConflictError;
+    const ServerError: typeof DS.ServerError;
+    const TimeoutError: typeof DS.TimeoutError;
+    const AbortError: typeof DS.AbortError;
+    const errorsHashToArray: typeof DS.errorsHashToArray;
+    const errorsArrayToHash: typeof DS.errorsArrayToHash;
 }
 declare module 'ember-data/adapters/json-api' {
-	import DS from 'ember-data';
-	export default DS.JSONAPIAdapter;
+    import DS from 'ember-data';
+    export default DS.JSONAPIAdapter;
 }
 declare module 'ember-data/adapters/rest' {
-	import DS from 'ember-data';
-	export default DS.RESTAdapter;
+    import DS from 'ember-data';
+    export default DS.RESTAdapter;
 }
 declare module 'ember-data/attr' {
-	import DS from 'ember-data';
-	export default DS.attr;
+    import DS from 'ember-data';
+    export default DS.attr;
 }
 declare module 'ember-data/model' {
-	import DS from 'ember-data';
-	export default DS.Model;
+    import DS from 'ember-data';
+    export default DS.Model;
 }
 declare module 'ember-data/relationships' {
-	import DS from 'ember-data';
-	const hasMany: typeof DS.hasMany;
-	const belongsTo: typeof DS.belongsTo;
+    import DS from 'ember-data';
+    const hasMany: typeof DS.hasMany;
+    const belongsTo: typeof DS.belongsTo;
 }
 declare module 'ember-data/serializer' {
-	import DS from 'ember-data';
-	export default DS.Serializer;
+    import DS from 'ember-data';
+    export default DS.Serializer;
 }
 declare module 'ember-data/serializers/embedded-records-mixin' {
-	import DS from 'ember-data';
-	export default DS.EmbeddedRecordsMixin;
+    import DS from 'ember-data';
+    export default DS.EmbeddedRecordsMixin;
 }
 declare module 'ember-data/serializers/json-api' {
-	import DS from 'ember-data';
-	export default DS.JSONAPISerializer;
+    import DS from 'ember-data';
+    export default DS.JSONAPISerializer;
 }
 declare module 'ember-data/serializers/json' {
-	import DS from 'ember-data';
-	export default DS.JSONSerializer;
+    import DS from 'ember-data';
+    export default DS.JSONSerializer;
 }
 declare module 'ember-data/serializers/rest' {
-	import DS from 'ember-data';
-	export default DS.RESTSerializer;
+    import DS from 'ember-data';
+    export default DS.RESTSerializer;
 }
 declare module "ember-data/store" {
     import DS from "ember-data";

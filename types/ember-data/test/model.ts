@@ -8,7 +8,7 @@ const Person = DS.Model.extend({
     title: DS.attr({ defaultValue: "The default" }),
     title2: DS.attr({ defaultValue: () => "The default" }),
 
-    fullName: Ember.computed('firstName', 'lastName', function() {
+    fullName: Ember.computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     })
 });
@@ -27,3 +27,6 @@ assertType<string>(user.get('id'));
 assertType<string>(user.get('username'));
 assertType<boolean>(user.get('verified'));
 assertType<Date>(user.get('createdAt'));
+
+user.serialize();
+user.serialize({ someOption: 'neat' });

@@ -15,6 +15,7 @@ declare module 'ember-qunit' {
         setup?(assert: Assert): void;
         teardown?(assert: Assert): void;
         afterTeardown?(assert: Assert): void;
+        needs?: string[];
     }
 
     /**
@@ -43,7 +44,7 @@ declare module 'ember-qunit' {
      */
     export function setResolver(resolver: Ember.Resolver): void;
 
-    export class QUnitAdapter extends Ember.Test.Adapter {}
+    export class QUnitAdapter extends Ember.Test.Adapter { }
 
     export { module, test, skip, only, todo } from 'qunit';
 }
