@@ -307,6 +307,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "Ionic",
+            "typingsPackageName": "ionic",
+            "sourceRepoURL": "http://ionicframework.com",
+            "asOfVersion": "3.19.0"
+        },
+        {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
