@@ -223,6 +223,114 @@
             "asOfVersion": "0.20.0"
         },
         {
+            "libraryName": "cordova-plugin-battery-status",
+            "typingsPackageName": "cordova-plugin-battery-status",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-battery-status",
+            "asOfVersion": "1.2.3"
+        },
+        {
+            "libraryName": "cordova-plugin-camera",
+            "typingsPackageName": "cordova-plugin-camera",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-camera",
+            "asOfVersion": "2.4.0"
+        },
+        {
+            "libraryName": "cordova-plugin-contacts",
+            "typingsPackageName": "cordova-plugin-contacts",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-contacts",
+            "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "cordova-plugin-device",
+            "typingsPackageName": "cordova-plugin-device",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-device",
+            "asOfVersion": "1.1.5"
+        },
+        {
+            "libraryName": "cordova-plugin-device-motion",
+            "typingsPackageName": "cordova-plugin-device-motion",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-device-motion",
+            "asOfVersion": "1.2.4"
+        },
+        {
+            "libraryName": "Apache Cordova Device Orientation plugin",
+            "typingsPackageName": "cordova-plugin-device-orientation",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-device-orientation",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "cordova-plugin-dialogs",
+            "typingsPackageName": "cordova-plugin-dialogs",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-dialogs",
+            "asOfVersion": "1.3.2"
+        },
+        {
+            "libraryName": "Apache Cordova File System plugin",
+            "typingsPackageName": "cordova-plugin-file",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-file",
+            "asOfVersion": "4.3.2"
+        },
+        {
+            "libraryName": "cordova-plugin-file-transfer",
+            "typingsPackageName": "cordova-plugin-file-transfer",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-file-transfer",
+            "asOfVersion": "1.6.2"
+        },
+        {
+            "libraryName": "cordova-plugin-globalization",
+            "typingsPackageName": "cordova-plugin-globalization",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-globalization",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "cordova-plugin-inappbrowser",
+            "typingsPackageName": "cordova-plugin-inappbrowser",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-inappbrowser",
+            "asOfVersion": "1.7.0"
+        },
+        {
+            "libraryName": "cordova-plugin-media",
+            "typingsPackageName": "cordova-plugin-media",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-media",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "cordova-plugin-media-capture",
+            "typingsPackageName": "cordova-plugin-media-capture",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-media-capture",
+            "asOfVersion": "1.4.2"
+        },
+        {
+            "libraryName": "cordova-plugin-network-information",
+            "typingsPackageName": "cordova-plugin-network-information",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-network-information",
+            "asOfVersion": "1.3.2"
+        },
+        {
+            "libraryName": "cordova-plugin-splashscreen",
+            "typingsPackageName": "cordova-plugin-splashscreen",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-splashscreen",
+            "asOfVersion": "4.0.2"
+        },
+        {
+            "libraryName": "Apache Cordova StatusBar plugin",
+            "typingsPackageName": "cordova-plugin-statusbar",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-statusbar",
+            "asOfVersion": "2.2.2"
+        },
+        {
+            "libraryName": "Apache Cordova Vibration plugin",
+            "typingsPackageName": "cordova-plugin-vibration",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-vibration",
+            "asOfVersion": "2.1.4"
+        },
+        {
+            "libraryName": "cordova.plugins.diagnostic",
+            "typingsPackageName": "cordova.plugins.diagnostic",
+            "sourceRepoURL": "https://github.com/dpa99c/cordova-diagnostic-plugin",
+            "asOfVersion": "3.7.0"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
