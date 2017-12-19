@@ -10,9 +10,14 @@ declare namespace h {}
 
 type Element = ReactElement<any> | string | null;
 
-declare function h<P>(
+declare function h(
+    componentOrTag: ComponentClass | StatelessComponent | string,
+    children?: ReadonlyArray<Element> | Element
+): ReactElement<any>;
+
+declare function h<P extends {[attr: string]: any}>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,
-    properties?: P,
+    properties: P,
     children?: ReadonlyArray<Element> | Element
 ): ReactElement<P>;
 
