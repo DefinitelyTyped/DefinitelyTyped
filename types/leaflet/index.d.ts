@@ -22,6 +22,7 @@ export class Transformation {
     transform(point: Point, scale?: number): Point;
 
     untransform(point: Point, scale?: number): Point;
+    
 }
 
 export namespace LineUtil {
@@ -30,6 +31,8 @@ export namespace LineUtil {
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
 
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    
+    function isFlat(latlngs: LatLngExpression[]): boolean;
 }
 
 export namespace PolyUtil {
