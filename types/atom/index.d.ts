@@ -24,7 +24,7 @@ declare global {
  *  Project::onDidChangeFiles instead.
  */
 export function watchPath(rootPath: string, options: {}, eventCallback: (events:
-    FilesystemChangeEvent) => void): PathWatcher;
+    FilesystemChangeEvent) => void): Promise<PathWatcher>;
 
 // Essential Classes ==========================================================
 
