@@ -29,4 +29,5 @@ assertType<boolean>(user.get('verified'));
 assertType<Date>(user.get('createdAt'));
 
 user.serialize();
-user.serialize({ someOption: 'neat' });
+user.serialize({ includeId: true });
+
