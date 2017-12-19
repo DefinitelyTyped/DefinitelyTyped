@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-typeahead 2.0.2
+// Type definitions for react-bootstrap-typeahead 2.0
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: My Self <https://github.com/Guymestef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,8 +7,8 @@
 import * as React from 'react';
 
 export interface TypeaheadProps<T> {
-    a11yNumResults?: Function;
-    a11yNumSelected?: Function;
+    a11yNumResults?: () => void;
+    a11yNumSelected?: () => void;
     align?: 'justify' | 'left' | 'right';
     allowNew?: boolean;
     autoFocus?: boolean;
@@ -20,18 +20,18 @@ export interface TypeaheadProps<T> {
     disabled?: boolean;
     dropup?: boolean;
     emptyLabel?: string;
-    filterBy?: (string[] | ((option: T | String, text: String) => boolean));
+    filterBy?: (string[] | ((option: T | string, text: string) => boolean));
     highlightOnlyResult?: boolean;
     ignoreDiacritics?: boolean;
     inputProps?: object;
-    labelKey?: string | ((option: T | String) => string);
+    labelKey?: string | ((option: T | string) => string);
     maxHeight?: number;
     maxResults?: number;
     minLength?: number;
     multiple?: boolean;
     newSelectionPrefix?: string;
     onBlur?: (e: Event) => any;
-    onChange?: (selected: Array<T>) => any;
+    onChange?: (selected: T[]) => any;
     onFocus?: (e: Event) => any;
     onInputChange?: (input: string) => any;
     onKeyDown?: (e: Event) => any;
@@ -40,12 +40,12 @@ export interface TypeaheadProps<T> {
     onPaginate?: (e: Event) => any;
     options: Array<T>;
     paginate?: boolean;
-    paginationText?: string;    
+    paginationText?: string;
     placeholder?: string;
     renderMenu?: (results: Array<T | string>, menuProps: any) => any;
     renderMenuItemChildren?: (option: T, props: TypeaheadProps<T>, index: number) => any;
-    renderToken?: (selectedItem: T | String, onRemove: Function) => any;
-    selected?: Array<T>;
+    renderToken?: (selectedItem: T | string, onRemove: () => void) => any;
+    selected?: T[];
     selectHintOnEnter?: boolean;
     submitFormOnEnter?: boolean;
 }
