@@ -1,4 +1,4 @@
-// Type definitions for fullpage.js v2.8.0
+// Type definitions for fullpage.js v2.9.5
 // Project: http://alvarotrigo.com/fullPage/
 // Definitions by: Andrew Roberts <http://www.atroberts.org>, Jodi Warren <https://github.com/jodiwarren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -117,6 +117,47 @@ interface FullPageJsOptions {
     continuousVertical?: boolean;
 
     /**
+     * (default false) Extension of fullpage.js. Defines whether sliding right in the last slide should slide right to the first one or not, and if scrolling left in the first slide should slide left to the last one or not. Not compatible with loopHorizontal. Requires fullpage.js >= 2.8.3.
+     */
+    continuousHorizontal?: boolean;
+
+    /**
+     * (default false) Extension of fullpage.js. Defines whether to slide horizontally within sliders by using the mouse wheel or trackpad. Ideal for story telling. Requires fullpage.js >= 2.8.3.
+     */
+    scrollHorizontally?: boolean;
+
+    /** 
+     * (default false) Extension of fullpage.js. Determines whether moving one horizontal slider will force the sliding of sliders in other section in the same direction. Possible values are true, false or an array with the interlocked sections. For example [1,3,5] starting by 1. Requires fullpage.js >= 2.8.3. 
+     */
+    interlockedSlides?: boolean | number[];
+
+    /**
+     * Enables or disables the dragging and flicking of sections and slides by using mouse or fingers. Requires fullpage.js >= 2.8.9. Possible values are: 
+     * true: enables the feature.
+     * false: disables the feature.
+     * vertical: enables the feature only vertically.
+     * horizontal: enables the feature only horizontally.
+     * fingersonly: enables the feature for touch devices only.
+     * mouseonly: enables the feature for desktop devices only (mouse and trackpad).
+     */
+    dragAndMove?: boolean | 'vertical' | 'horizontal' | 'fingersonly' | 'mouseonly';
+
+    /**
+     * (default false)Extension of fullpage.js. Provides a way to use non full screen sections based on percentage. Ideal to show visitors there's more content in the site by showing part of the next or previous section. Requires fullPage.js >= 2.8.8 To define the percentage of each section the attribute data-percentage must be used. The centering of the section in the viewport can be determined by using a boolean value in the attribute data-centered (default to true if not specified). For example:
+     */
+    offsetSections?: boolean;
+
+    /** 
+     * (default false). Extension of fullpage.js. Defines whether or not to reset every slider after leaving its section. Requires fullpage.js >= 2.8.3.
+     */
+    resetSliders?: boolean;
+
+    /**
+     * Defines whether to use a fading effect or not instead of the default scrolling one. Possible values are true, false, sections, slides. It can therefore be applied just vertically or horizontally, or to both at the time. Requires fullpage.js >= 2.8.6.
+     */
+    fadingEffect?: boolean | 'sections' | 'slides';
+
+    /**
      *  (default null) If you want to avoid the auto scroll when scrolling over some elements, this is the option you need to use. (useful for maps, scrolling divs etc.) It requires a string with the jQuery selectors for those elements. (For example: normalScrollElements: '#element1, .element2')
      */
     normalScrollElements?: string;
@@ -132,6 +173,11 @@ interface FullPageJsOptions {
     scrollOverflowOptions?: any;
 
     /**
+     * When set to true it scrolls up the content of the section/slide with scroll bar when leaving to another vertical section. This way the section/slide will always show the start of its content even when scrolling from a section under it
+     */
+    scrollOverflowReset?: boolean;
+
+    /**
      * (default 5) Defines a percentage of the browsers window width/height, and how far a swipe must measure for navigating to the next section / slide
      */
     touchSensitivity?: number;
@@ -140,6 +186,11 @@ interface FullPageJsOptions {
      * (default 5) Defines the threshold for the number of hops up the html node tree Fullpage will test to see if normalScrollElements is a match to allow scrolling functionality on divs on a touch device. (For example: normalScrollElementTouchThreshold: 3)
      */
     normalScrollElementTouchThreshold?: number;
+
+    /**
+     * Defines how to scroll to a section which size is bigger than the viewport. By default fullPage.js scrolls to the top if you come from a section above the destination one and to the bottom if you come from a section below the destination one.
+     */
+    bigSectionsDestination?: 'top' | 'bottom' | null;
 
     // Accessibility
 
@@ -202,6 +253,30 @@ interface FullPageJsOptions {
      */
     responsiveHeight?: number;
 
+    /** 
+     * When set to true slides will be turned into vertical sections when responsive mode is fired. (by using the responsiveWidth or responsiveHeight options detailed above). Requires fullpage.js >= 2.8.5.
+     */ 
+    responsiveSlides?: boolean;
+
+    /**
+     * When set to true slides will be turned into vertical sections when responsive mode is fired. (by using the responsiveWidth or responsiveHeight options detailed above). Requires fullpage.js >= 2.8.5.
+     */
+    parallax?: boolean;
+
+    /**
+     * Allows to configure the parameters for the parallax backgrounds effect when using the option parallax:true.
+     */ 
+    parallaxOptions?: {
+        type?: 'cover' | 'reveal',
+        percentage?: number,
+        property?: string,
+    };
+
+    /**
+     * Lazy loading is active by default which means it will lazy load any media element containing the attribute data-src as detailed in the Lazy Loading docs . If you want to use any other lazy loading library you can disable this fullpage.js feature.
+     */ 
+    lazyLoading?: boolean;
+
     // Custom selectors
 
     /**
@@ -239,6 +314,12 @@ interface FullPageJsOptions {
      * This callback is fired after resizing the browser's window. Just after the sections are resized.
      */
     afterResize?: () => void;
+
+    /**
+     * This callback is fired after fullpage.js changes from normal to responsive mode or from responsive mode to normal mode.
+     * @param {boolean} isResponsive boolean that determines if it enters into responsive mode (true) or goes back to normal mode (false)
+     */
+    afterResponsive?: (isResponsive: boolean) => void;
 
     /**
      * Callback fired once the slide of a section have been loaded, after the scrolling has ended.
