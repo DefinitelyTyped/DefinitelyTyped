@@ -60,6 +60,9 @@ export interface ConstructorOptions {
     tags?: { [key: string]: string };
     extra?: { [key: string]: any };
     dataCallback?: DataCallback;
+    maxReqQueueCount?: number;
+    sampleRate?: number;
+    sendTimeout?: number;
     shouldSendCallback?: ShouldSendCallback;
     transport?(): void;
     captureUnhandledRejections?: boolean;
