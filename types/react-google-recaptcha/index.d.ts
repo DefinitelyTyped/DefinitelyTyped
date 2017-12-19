@@ -6,8 +6,6 @@
 
 import * as React from 'react';
 
-export as namespace RGR;
-
 export default ReCAPTCHA;
 
 declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
