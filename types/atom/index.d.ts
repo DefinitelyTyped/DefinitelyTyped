@@ -1,7 +1,8 @@
 // Type definitions for Atom 1.22
 // Project: https://github.com/atom/atom
-// Definitions by: GlenCFL <https://github.com/GlenCFL>,
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
+//                 lierdakil <https://github.com/lierdakil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,6 +17,10 @@ import { ChildProcess } from "child_process";
 
 declare global {
     const atom: AtomEnvironment;
+
+    interface HTMLElementTagNameMap {
+      "atom-text-editor": TextEditorElement;
+    }
 }
 
 /**
@@ -255,21 +260,37 @@ export interface Color {
     toRGBAString(): string;
 }
 
+export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
+  [key: string]: EventTarget;
+}
+
+export type CommandRegistryListener<TargetType extends EventTarget> = {
+  didDispatch(event: CommandEvent<TargetType>): void,
+  displayName?: string,
+  description?: string,
+} | ((event: CommandEvent<TargetType>) => void);
+
 /**
  *  Associates listener functions with commands in a context-sensitive way
  *  using CSS selectors.
  */
 export interface CommandRegistry {
     /** Register a single command. */
-    add(target: string|Node, commandName: string, listener: {
-        didDispatch(event: CommandEvent): void,
-        displayName?: string,
-        description?: string,
-    } | ((event: CommandEvent) => void)): Disposable;
+    add<T extends keyof CommandRegistryTargetMap>(
+        target: T, commandName: string,
+        listener: CommandRegistryListener<CommandRegistryTargetMap[T]>
+      ): Disposable;
+    add<T extends Node>(
+        target: T, commandName: string,
+        listener: CommandRegistryListener<T>
+      ): Disposable;
 
     /** Register multiple commands. */
-    add(target: string|Node, commands: {
-        [key: string]: (event: CommandEvent) => void
+    add<T extends keyof CommandRegistryTargetMap>(target: T, commands: {
+        [key: string]: (event: CommandEvent<CommandRegistryTargetMap[T]>) => void
+    }): CompositeDisposable;
+    add<T extends Node>(target: T, commands: {
+        [key: string]: (event: CommandEvent<T>) => void
     }): CompositeDisposable;
 
     /** Find all registered commands matching a query. */
@@ -2390,6 +2411,68 @@ export class TextEditor {
     tokenForBufferPosition(pos: PointCompatible): {value: string, scopes: string[]};
 }
 
+export interface PixelPosition {
+    left: number;
+    top: number;
+}
+
+/**
+ *  Undocumented: Rendering component for TextEditor
+ */
+export interface TextEditorComponent {
+  /** Does not clip screenPosition, unlike similar method on TextEditorElement */
+  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
+  screenPositionForPixelPosition(pos: PixelPosition): Point;
+  pixelPositionForMouseEvent(event: {
+    clientX: number, clientY: number
+  }): PixelPosition;
+  screenPositionForMouseEvent(event: {clientX: number, clientY: number}): Point;
+}
+
+/**
+ *  Undocumented: Custom HTML elemnent for TextEditor, atom-text-editor
+ */
+export interface TextEditorElement extends HTMLElement {
+  getModel(): TextEditor;
+  getComponent(): TextEditorComponent;
+  /**
+   * Extended: Get a promise that resolves the next time the element's
+   * DOM is updated in any way.
+   */
+  getNextUpdatePromise(): Promise<void>;
+
+  /** Extended: get the width of an `x` character displayed in this element. */
+  getBaseCharacterWidth(): number;
+
+  /** Essential: Scrolls the editor to the top. */
+  scrollToTop(): void;
+
+  /** Essential: Scrolls the editor to the bottom. */
+  scrollToBottom(): void;
+
+  setScrollTop(scrollTop: number): void;
+  getScrollTop(): number;
+
+  setScrollLeft(scrollLeft: number): void;
+  getScrollLeft(): number;
+
+  getScrollHeight(): number;
+
+  /** Extended: Converts a buffer position to a pixel position. */
+  pixelPositionForBufferPosition(bufferPosition: PointLike): PixelPosition;
+
+  /** Extended: Converts a screen position to a pixel position. */
+  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
+
+  // Event subscription
+  onDidChangeScrollTop(callback: (scrollTop: number) => void): Disposable;
+  onDidChangeScrollLeft(callback: (scrollLeft: number) => void): Disposable;
+  /** Called when the editor is attached to the DOM. */
+  onDidAttach(callback: () => void): Disposable;
+  /** Called when the editor is detached from the DOM. */
+  onDidDetach(callback: () => void): Disposable;
+}
+
 /** Experimental: This global registry tracks registered TextEditors. */
 export interface TextEditorRegistry {
     // Managing Text Editors
@@ -2478,6 +2561,7 @@ export interface ViewRegistry {
         (instance: T) => HTMLElement|undefined): Disposable;
 
     /** Get the view associated with an object in the workspace. */
+    getView(obj: TextEditor): TextEditorElement;
     getView(obj: object): HTMLElement;
 }
 
@@ -5283,13 +5367,14 @@ export interface BufferStoppedChangingEvent {
  *  intent to stop propagation so event bubbling can be properly simulated for
  *  detached elements.
  */
-export interface CommandEvent extends CustomEvent {
+export interface CommandEvent<CurrentTarget extends EventTarget = EventTarget> extends CustomEvent {
     keyBindingAborted: boolean;
     propagationStopped: boolean;
 
     abortKeyBinding(): void;
     stopPropagation(): CustomEvent;
     stopImmediatePropagation(): CustomEvent;
+    currentTarget: CurrentTarget;
 }
 
 export interface CursorPositionChangedEvent {

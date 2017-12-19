@@ -13,6 +13,7 @@ declare let element: HTMLElement;
 declare let elements: HTMLElement[];
 declare const div: HTMLDivElement;
 declare const event: KeyboardEvent;
+declare const mouseEvent: MouseEvent;
 
 declare let buffer: Atom.TextBuffer;
 declare const color: Atom.Color;
@@ -65,6 +66,9 @@ declare let subscription: Atom.Disposable;
 declare let subscriptions: Atom.CompositeDisposable;
 declare let tooltips: Atom.Tooltip[];
 declare let workspaceCenter: Atom.WorkspaceCenter;
+declare let pixelPos: Atom.PixelPosition;
+declare let textEditorElement: Atom.TextEditorElement;
+declare let textEditorComponent: Atom.TextEditorComponent;
 
 // AtomEnvironment ============================================================
 function testAtomEnvironment() {
@@ -268,6 +272,10 @@ function testCommandRegistry() {
         didDispatch: (event) => event.stopImmediatePropagation(),
         description: "A Command Test",
         displayName: "Command: Test",
+    });
+    atom.commands.add("atom-text-editor", {
+        "test-function": (event) => event.currentTarget.getModel(),
+        "test-function2": (event) => event.currentTarget.getComponent(),
     });
 
     const commands = atom.commands.findCommands({ target: element });
@@ -3000,6 +3008,7 @@ function testViewRegistry() {
     });
 
     element = atom.views.getView(element);
+    textEditorElement = atom.views.getView(editor);
 }
 
 // Workspace ==================================================================
@@ -3239,3 +3248,39 @@ const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
         if (event.oldPath) str = event.oldPath;
     }
 });
+
+// TextEditorElement ==========================================================
+function testTextEditorElement() {
+  textEditorComponent = textEditorElement.getComponent();
+  editor = textEditorElement.getModel();
+
+  textEditorElement.getNextUpdatePromise().then(() => {});
+  let num: number = textEditorElement.getBaseCharacterWidth();
+
+  textEditorElement.scrollToTop();
+  textEditorElement.scrollToBottom();
+  textEditorElement.setScrollTop(num);
+  num = textEditorElement.getScrollTop();
+  textEditorElement.setScrollLeft(num);
+  num = textEditorElement.getScrollLeft();
+  num = textEditorElement.getScrollHeight();
+
+  pixelPos = textEditorElement.pixelPositionForBufferPosition(pos);
+  pixelPos = textEditorElement.pixelPositionForScreenPosition({row: 1, column: 2});
+  pixelPos = textEditorElement.pixelPositionForScreenPosition(pos);
+
+  subscription = textEditorElement.onDidChangeScrollTop((scrollTop: number) => {});
+  subscription = textEditorElement.onDidChangeScrollLeft((scrollLeft: number) => {});
+  subscription = textEditorElement.onDidAttach(() => {});
+  subscription = textEditorElement.onDidDetach(() => {});
+
+  textEditorElement = document.createElement('atom-text-editor');
+}
+
+// TextEditorComponent ========================================================
+function testTextEditorComponent() {
+  pixelPos = textEditorComponent.pixelPositionForMouseEvent(mouseEvent);
+  pixelPos = textEditorComponent.pixelPositionForScreenPosition(pos);
+  pos = textEditorComponent.screenPositionForMouseEvent(mouseEvent);
+  pos = textEditorComponent.screenPositionForPixelPosition(pixelPos);
+}
