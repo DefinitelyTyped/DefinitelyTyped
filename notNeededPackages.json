@@ -691,6 +691,12 @@
             "asOfVersion": "1.0.13"
         },
         {
+            "libraryName": "JointJS",
+            "typingsPackageName": "jointjs",
+            "sourceRepoURL": "http://www.jointjs.com/",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "jpush-react-native",
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
