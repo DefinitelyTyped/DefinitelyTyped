@@ -775,6 +775,12 @@
             "asOfVersion": "1.7.0"
         },
         {
+            "libraryName": "perfect-scrollbar",
+            "typingsPackageName": "perfect-scrollbar",
+            "sourceRepoURL": "https://github.com/noraesae/perfect-scrollbar",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "pg-connection-string",
             "typingsPackageName": "pg-connection-string",
             "sourceRepoURL": "https://github.com/iceddev/pg-connection-string",
