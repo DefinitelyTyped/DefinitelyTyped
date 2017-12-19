@@ -173,8 +173,8 @@ declare namespace mirror {
    */
   const connect: Connect;
   const actions: Actions;
-  function hook():(subscriber: () => any) => any;
-  function defaults():(options: defaultOptions) => void;
+  function hook(): (subscriber: () => any) => any;
+  function defaults(): (options: defaultOptions) => void;
   const render: Renderer;
   class Router<State> extends React.Component<ConnectedRouterProps<State>> { }
   class Link extends React.Component<LinkProps, any> { }
@@ -183,7 +183,9 @@ declare namespace mirror {
   class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
   class Prompt extends React.Component<PromptProps, any> { }
   function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
-  function withRouter<P, TFunction extends React.ComponentClass<any>>(target: TFunction): TFunction;
+  function withRouter<TFunction extends React.ComponentClass<any>>(target: TFunction): TFunction;
+}
+declare module "mirror" {
+  export = mirror;
 }
 
-export = mirror;
