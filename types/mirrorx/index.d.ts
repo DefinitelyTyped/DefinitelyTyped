@@ -1,4 +1,4 @@
-// Type definitions for mirrorjs 0.2.10
+// Type definitions for mirrorx 0.2.10
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,9 +10,6 @@ import * as React from 'react';
 
 import { Connect } from 'react-redux';
 import { match } from "react-router";
-
-export = mirror;
-export as namespace mirror;
 
 declare namespace mirror {
 
@@ -191,3 +188,5 @@ declare namespace mirror {
   function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
   function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction;
 }
+
+export = mirror;

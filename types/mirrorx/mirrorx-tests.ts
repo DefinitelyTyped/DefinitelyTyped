@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import mirror = require('mirrorx');
- /**
-  * add mirror.model.tests
-  */
+/**
+ * add mirror.model.tests
+ */
 mirror.model({
     name: 'app',
     initialState: 0,
@@ -14,9 +14,9 @@ mirror.model({
     effects: {
         async incrementAsync() {
             await new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve();
-              }, 1000);
+                setTimeout(() => {
+                    resolve();
+                }, 1000);
             });
             mirror.actions.app.increment();
         }
