@@ -1,4 +1,4 @@
-// Type definitions for mirrorx 0.2.10
+// Type definitions for mirrorx 0.2
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,6 @@ import { Connect } from 'react-redux';
 import { match } from "react-router";
 
 declare namespace mirror {
-
   type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
   type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
@@ -36,7 +35,7 @@ declare namespace mirror {
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?<P>(match: match<P>, location: H.Location): boolean;
+    isActive?(match: match<any>, location: H.Location): boolean;
     location?: H.Location;
   }
 
@@ -94,7 +93,7 @@ declare namespace mirror {
     goForward(): RouterAction;
   }
 
-  export interface ConnectedRouterProps<State> {
+  interface ConnectedRouterProps<State> {
     store?: any;
     history?: H.History;
   }
@@ -167,7 +166,6 @@ declare namespace mirror {
 
   /**
    * This method is used to create and inject a model.
-   * @param options
    */
   function model(options: model): _model;
   /**
@@ -175,10 +173,9 @@ declare namespace mirror {
    */
   const connect: Connect;
   const actions: Actions;
-  const hook: (subscriber: () => any) => any;
-  const defaults: (options: defaultOptions) => void;
+  function hook():(subscriber: () => any) => any;
+  function defaults():(options: defaultOptions) => void;
   const render: Renderer;
-
   class Router<State> extends React.Component<ConnectedRouterProps<State>> { }
   class Link extends React.Component<LinkProps, any> { }
   class NavLink extends React.Component<NavLinkProps, any> { }
@@ -186,7 +183,7 @@ declare namespace mirror {
   class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
   class Prompt extends React.Component<PromptProps, any> { }
   function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
-  function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction;
+  function withRouter<P, TFunction extends React.ComponentClass<any>>(target: TFunction): TFunction;
 }
 
 export = mirror;
