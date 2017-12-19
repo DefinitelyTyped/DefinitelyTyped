@@ -4,10 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="angular" />
-/// <reference types="angular-ui-router" />
-
 import * as angular from 'angular';
+import { StateDeclaration, StateService, TransitionOptions } from "@uirouter/angularjs";
+
+export var permission: string;
+export var ngPermission: string;
+export var uiPermission: string;
 
 declare module 'angular' {
   export namespace permission {
@@ -15,11 +17,11 @@ declare module 'angular' {
      * Used as optional parameter provided on definitions of permissions and roles
      */
     export interface TransitionProperties {
-      fromState?: angular.ui.IState;
-      fromParams?: angular.ui.IStateParamsService;
-      toState?: angular.ui.IState;
-      toParams?: angular.ui.IStateParamsService;
-      options?: angular.ui.IStateOptions;
+      fromState?: StateDeclaration;
+      fromParams?: StateService;
+      toState?: StateDeclaration;
+      toParams?: StateService;
+      options?: TransitionOptions;
     }
 
     export interface PermissionStore {
@@ -178,7 +180,7 @@ declare module 'angular' {
       transitionProperties?: TransitionProperties
     ) => boolean | angular.IPromise<any>;
 
-    export interface IPermissionState extends angular.ui.IState {
+    export interface IPermissionState extends StateDeclaration {
       data?: any | DataWithPermissions;
     }
 
@@ -193,13 +195,7 @@ declare module 'angular' {
     export interface PermissionRedirectConfigation {
       state: string;
       params?: {};
-      options?: angular.ui.IStateOptions;
+      options?: TransitionOptions;
     }
   }
-}
-
-declare module "angular-permission" {
-  export var permission: string;
-  export var ngPermission: string;
-  export var uiPermission: string;
 }
