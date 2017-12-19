@@ -1,6 +1,7 @@
 // Type definitions for loader-utils 1.1
 // Project: https://github.com/webpack/loader-utils#readme
 // Definitions by: Gyusun Yeom <https://github.com/Perlmint>
+//                 Totooria Hyperion <https://github.com/TotooriaHyperion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
@@ -20,6 +21,10 @@ export type DigestType = "hex" | "base26" | "base32" | "base36" | "base49" | "ba
 export function getOptions(loaderContext: loader.LoaderContext): OptionObject;
 export function parseQuery(optionString: string): OptionObject;
 export function stringifyRequest(loaderContext: loader.LoaderContext, resource: string): string;
+export function getRemainingRequest(loaderContext: loader.LoaderContext): string;
+export function getCurrentRequest(loaderContext: loader.LoaderContext): string;
+export function isUrlRequest(url: string, root?: string): boolean;
+export function parseString(str: string): string;
 export function urlToRequest(url: string, root?: string): string;
 export function interpolateName(loaderContext: loader.LoaderContext, name: string, options?: any): string;
 export function getHashDigest(buffer: Buffer, hashType: HashType, digestType: DigestType, maxLength: number): string;
