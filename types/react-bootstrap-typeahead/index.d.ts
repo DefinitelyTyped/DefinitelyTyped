@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap-typeahead 2.0
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
-// Definitions by: My Self <https://github.com/Guymestef>
+// Definitions by: Guymestef <https://github.com/Guymestef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
