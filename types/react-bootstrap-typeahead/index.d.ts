@@ -16,7 +16,7 @@ export interface TypeaheadProps<T> {
     bsSize?: 'large' | 'lg' | 'small' | 'sm';
     caseSensitive?: boolean;
     clearButton?: boolean;
-    defaultSelected?: Array<T>;
+    defaultSelected?: T[];
     disabled?: boolean;
     dropup?: boolean;
     emptyLabel?: string;
@@ -38,7 +38,7 @@ export interface TypeaheadProps<T> {
     onMenuHide?: (e: Event) => any;
     onMenuShow?: (e: Event) => any;
     onPaginate?: (e: Event) => any;
-    options: Array<T>;
+    options: T[];
     paginate?: boolean;
     paginationText?: string;
     placeholder?: string;
