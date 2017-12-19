@@ -1587,7 +1587,8 @@ function testPanel() {
 }
 
 // PathWatcher ================================================================
-function testPathWatcher() {
+async function testPathWatcher() {
+    const pathWatcher = await pathWatcherPromise;
     pathWatcher.dispose();
     subscription = pathWatcher.onDidError((error) => str = error.name);
 
@@ -3213,7 +3214,7 @@ function testWorkspaceCenter() {
 }
 
 // watchPath ==================================================================
-const pathWatcher = Atom.watchPath("/var/test", {}, (events) => {
+const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
