@@ -30,7 +30,8 @@ class MainComponent extends React.Component {
                 ]),
                 h('li', 'Another list item')
             ]),
-            h('img', {src: 'https://example.com/some-image'})
+            h('img', {src: 'https://example.com/some-image'}),
+            h('span', 1234)
         ]);
     }
 }
