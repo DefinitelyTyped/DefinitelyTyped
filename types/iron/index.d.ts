@@ -15,7 +15,7 @@ export interface SealOptionsSub {
     /**
      * the algorithm used ('aes-256-cbc' for encryption and 'sha256' for integrity are the only two supported at this time).
      */
-    algorithm: string;
+    algorithm: keyof Algorithms;
     /**
      * the number of iterations used to derive a key from the password. Set to 1 by default. The number of ideal iterations
      * to use is dependent on your application's performance requirements. More iterations means it takes longer to generate the key.
