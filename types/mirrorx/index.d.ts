@@ -11,7 +11,7 @@ import * as React from 'react';
 import { Connect } from 'react-redux';
 import { match } from "react-router";
 
-declare namespace mirror {
+export namespace mirror {
   type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
   type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
@@ -188,4 +188,3 @@ declare namespace mirror {
 declare module "mirror" {
   export = mirror;
 }
-
