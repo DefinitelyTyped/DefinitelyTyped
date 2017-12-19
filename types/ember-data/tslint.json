@@ -11,6 +11,8 @@
         "only-arrow-functions": false,
         "no-empty-interface": false,
         "prefer-const": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "no-declare-current-package": false,
+        "no-self-import": false
     }
 }
