@@ -30,4 +30,3 @@ assertType<Date>(user.get('createdAt'));
 
 user.serialize();
 user.serialize({ includeId: true });
-
