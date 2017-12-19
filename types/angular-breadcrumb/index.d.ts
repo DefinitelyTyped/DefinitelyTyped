@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="angular-ui-router" />
-
 import * as angular from 'angular';
 
 declare var _: string;

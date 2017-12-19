@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@uirouter/angularjs": "^1.0.11"
+    }
+}
