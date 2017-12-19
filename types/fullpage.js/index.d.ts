@@ -1,10 +1,12 @@
 // Type definitions for fullpage.js v2.8.0
 // Project: http://alvarotrigo.com/fullPage/
-// Definitions by: Andrew Roberts <http://www.atroberts.org>
+// Definitions by: Andrew Roberts <http://www.atroberts.org>, Jodi Warren <https://github.com/jodiwarren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
+
+import htmlString = JQuery.htmlString;
 
 interface FullPageJsOptions {
     /**
@@ -263,6 +265,168 @@ interface FullPageJsOptions {
     onSlideLeave?: (anchorLink: string, index: number, slideIndex: number, direction: string, nextSlideIndex: number) => void;
 }
 
+interface FullPageJSGlobalOptions {
+    options: FullPageJsOptions;
+}
+
+interface FullPageJsMethods {
+    (options?: FullPageJsOptions): any;
+
+    /**
+     * Sets the scrolling configuration in real time.
+     * Defines the way the page scrolling behaves.
+     * If it is set to true, it will use the "automatic" scrolling,
+     * otherwise, it will use the "manual" or "normal" scrolling of the site.
+     */
+    setAutoScrolling(active: boolean): void;
+
+    /**
+     * Defines whether to record the history for each hash change in the URL.
+     */
+    setRecordHistory(active: boolean): void;
+
+    /**
+     * Defines the scrolling speed in milliseconds.
+     */
+    setScrollingSpeed(speed: number): void;
+
+    /**
+     *  Sets the value for the option fitToSection
+     *  determining whether to fit the section in the screen or not.
+     */
+    setFitToSection(active: boolean): void;
+
+    /**
+     * Adds or remove the possibility of scrolling through sections
+     * by using the mouse wheel or the trackpad.
+     */
+    setLockAnchors(active: boolean): void;
+
+    /**
+     * Adds or remove the possibility of scrolling through sections
+     * by using the mouse wheel or the trackpad.
+     */
+    setMouseWheelScrolling(active: boolean): void;
+
+    /**
+     * Adds or remove the possibility of scrolling through sections
+     * by using the mouse wheel/trackpad or touch gestures.
+     * Optionally a second parameter can be used to specify the direction
+     * for which the action will be applied.
+     */
+    setAllowScrolling(active: boolean, directions?: string): void;
+
+    /**
+     * Adds or remove the possibility of scrolling through sections
+     * by using the keyboard arrow keys
+     */
+    setKeyboardScrolling(active: boolean, directions?: string): void;
+
+    /**
+     * Scrolls one section up
+     */
+    moveSectionUp(): void;
+
+    /**
+     * Scrolls one section down
+     */
+    moveSectionDown(): void;
+
+    /**
+     * Moves the page to the given section and slide with no animation.
+     * Anchors or index positions can be used as params.
+     */
+    silentMoveTo(sectionAnchor: number | string, slideAnchor?: number | string): void;
+
+    /**
+     * Scrolls the page to the given section and slide.
+     * The first slide, the visible one by default, will have index 0.
+     */
+    moveTo(sectionAnchor: number | string, slideAnchor?: number | string): void;
+
+    /**
+     * Slides right the slider of the active section.
+     * Optional `section` param.
+     */
+    moveSlideRight(section?: number | string): void;
+
+    /**
+     * Slides left the slider of the active section.
+     * Optional `section` param.
+     */
+    moveSlideLeft(section?: number | string): void;
+
+    /**
+     * When resizing is finished, we adjust the slides sizes and positions
+     */
+    reBuild(): void;
+
+    /**
+     * Sets the responsive mode of the page.
+     * When set to true the autoScrolling will be turned off
+     * and the result will be exactly the same one as when
+     * the responsiveWidth or responsiveHeight options
+     * get fired.
+     */
+    setResponsive(active: boolean): void;
+
+    /**
+     * Sets the value for the option fitToSection
+     * determining whether to fit the section
+     * in the screen or not.
+     */
+    setFitToSection(active?: boolean): void;
+
+    /**
+     * Scrolls to the nearest active section fitting it in the viewport.
+     */
+    fitToSection(): void;
+
+    /**
+     * Adds or remove the possibility of scrolling through sections/slides
+     * by using the mouse wheel/trackpad or touch gestures
+     * (which is active by default).
+     *
+     * Note this won't disable the keyboard scrolling. You would need to
+     * use setKeyboardScrolling for it.
+     */
+    setAllowScrolling(allow: boolean, direction?: string): void;
+
+    /**
+     * Destroys the plugin events and optionally its HTML markup and styles.
+     * Ideal to use when using AJAX to load content.
+     *
+     * If 'all' is passed, the HTML markup
+     * and styles used by fullpage.js will be removed. This way the
+     * original HTML markup, the one used before any plugin
+     * modification is made, will be maintained.
+     *
+     * @param {"all" | undefined} type
+     */
+    destroy(type?: 'all'): void;
+
+    responsiveSlides: {
+        /**
+         * Extension of fullpage.js. Requires fullpage.js >= 2.8.5.
+         * Turns horizontal slides into vertical sections.
+         */
+        toSections(): void;
+
+        /**
+         * Extension of fullpage.js. Requires fullpage.js >= 2.8.5.
+         * Turns back the original slides (now converted into
+         * vertical sections) into horizontal slides again.
+         */
+        toSlides(): void;
+    }
+}
+
+interface FullPageJs extends FullPageJSGlobalOptions, FullPageJsMethods {}
+
+interface JQueryStatic {
+    fullpage: FullPageJsMethods;
+}
+
 interface JQuery {
-    fullpage(options?: FullPageJsOptions): JQuery;
+    fullpage: FullPageJs;
 }
