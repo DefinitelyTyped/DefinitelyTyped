@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 0.55
+// Type definitions for react-datepicker 0.62
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -19,6 +19,7 @@ export interface ReactDatePickerProps {
 	children?: any;
 	className?: string;
 	customInput?: React.ReactNode;
+	customInputRef?: string;
 	dateFormat?: string | string[];
 	dateFormatCalendar?: string;
 	dayClassName?(date: moment.Moment): string | null;
