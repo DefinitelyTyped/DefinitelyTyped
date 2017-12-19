@@ -29,3 +29,13 @@ class MainComponent extends React.Component {
         ]);
     }
 }
+
+class MixedComponent extends React.Component {
+    render() {
+        return h('div', {className: 'some class'}, [
+            null,
+            h('span', 'some tag'),
+            'some text node'
+        ]);
+    }
+}
