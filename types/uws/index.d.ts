@@ -56,7 +56,7 @@ declare class WebSocket extends events.EventEmitter {
     }) => void): void;
     addEventListener(method: 'error', cb?: (err: Error) => void): void;
     addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
-    addEventListener(method: string, listener?: () => void): void;
+    addEventListener(method: string, listener?: (...args: any[]) => void): void;
 
     // Events
     on(event: 'error', cb: (err: Error) => void): this;
@@ -65,7 +65,7 @@ declare class WebSocket extends events.EventEmitter {
     on(event: 'ping', cb: (data: any, flags: { binary: boolean }) => void): this;
     on(event: 'pong', cb: (data: any, flags: { binary: boolean }) => void): this;
     on(event: 'open', cb: () => void): this;
-    on(event: string, listener: () => void): this;
+    on(event: string, listener: (...args: any[]) => void): this;
 
     addListener(event: 'error', cb: (err: Error) => void): this;
     addListener(event: 'close', cb: (code: number, message: string) => void): this;
@@ -73,7 +73,7 @@ declare class WebSocket extends events.EventEmitter {
     addListener(event: 'ping', cb: (data: any, flags: { binary: boolean }) => void): this;
     addListener(event: 'pong', cb: (data: any, flags: { binary: boolean }) => void): this;
     addListener(event: 'open', cb: () => void): this;
-    addListener(event: string, listener: () => void): this;
+    addListener(event: string, listener: (...args: any[]) => void): this;
 }
 
 declare namespace WebSocket {
@@ -142,12 +142,12 @@ declare namespace WebSocket {
         on(event: 'error', cb: (err: Error) => void): this;
         on(event: 'headers', cb: (headers: string[]) => void): this;
         on(event: 'connection', cb: (client: WebSocket) => void): this;
-        on(event: string, listener: () => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
 
         addListener(event: 'error', cb: (err: Error) => void): this;
         addListener(event: 'headers', cb: (headers: string[]) => void): this;
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
-        addListener(event: string, listener: () => void): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
     }
 
     export interface UwsHttp {
