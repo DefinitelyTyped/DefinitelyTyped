@@ -157,6 +157,12 @@
             "asOfVersion": "4.0.3"
         },
         {
+            "libraryName": "botvs",
+            "typingsPackageName": "botvs",
+            "sourceRepoURL": "https://www.botvs.com/",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "Bowser",
             "typingsPackageName": "bowser",
             "sourceRepoURL": "https://github.com/ded/bowser",
