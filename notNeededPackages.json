@@ -265,6 +265,12 @@
             "asOfVersion": "3.1.2"
         },
         {
+            "libraryName": "flux-standard-action",
+            "typingsPackageName": "flux-standard-action",
+            "sourceRepoURL": "https://github.com/acdlite/flux-standard-action",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
