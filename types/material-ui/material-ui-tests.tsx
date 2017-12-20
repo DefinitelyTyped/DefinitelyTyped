@@ -5736,7 +5736,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
     });
   }
 
-  handleActionTouchTap = () => {
+  handleActionClick = () => {
     this.setState({
       open: false,
     });
@@ -5774,7 +5774,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
           message={this.state.message}
           action="undo"
           autoHideDuration={this.state.autoHideDuration}
-          onActionTouchTap={this.handleActionTouchTap}
+          onActionClick={this.handleActionClick}
           onRequestClose={this.handleRequestClose}
         />
       </div>
