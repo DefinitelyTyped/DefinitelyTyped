@@ -202,8 +202,8 @@ class F2 {
 };
 
 () => {
-    R.invoker("charAt", String.prototype);
-    R.invoker("charAt", String.prototype, 1);
+    R.invoker(1, "slice")(6, "abcdefghijklm");
+    R.invoker(2, "slice")(6)(8, "abcdefghijklm");
 };
 
 (() => {
