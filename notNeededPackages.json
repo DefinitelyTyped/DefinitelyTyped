@@ -409,6 +409,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "ldclient-js",
+            "typingsPackageName": "ldclient-js",
+            "sourceRepoURL": "https://github.com/launchdarkly/js-client",
+            "asOfVersion": "1.1.11"
+        },
+        {
             "libraryName": "left-pad",
             "typingsPackageName": "left-pad",
             "sourceRepoURL": "https://github.com/stevemao/left-pad",
