@@ -85,6 +85,12 @@
             "asOfVersion": "0.14.0"
         },
         {
+            "libraryName": "axios-mock-adapter",
+            "typingsPackageName": "axios-mock-adapter",
+            "sourceRepoURL": "https://github.com/ctimmerm/axios-mock-adapter",
+            "asOfVersion": "1.10.0"
+        },
+        {
             "libraryName": "azure-mobile-apps",
             "typingsPackageName": "azure-mobile-apps",
             "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
