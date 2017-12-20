@@ -685,6 +685,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "reflect-metadata",
+            "typingsPackageName": "reflect-metadata",
+            "sourceRepoURL": "https://github.com/rbuckton/ReflectDecorators",
+            "asOfVersion": "0.1.0"
+        },
+        {
             "libraryName": "reselect",
             "typingsPackageName": "reselect",
             "sourceRepoURL": "https://github.com/rackt/reselect",
