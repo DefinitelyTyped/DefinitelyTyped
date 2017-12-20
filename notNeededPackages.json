@@ -589,6 +589,12 @@
             "asOfVersion": "7.0.1"
         },
         {
+            "libraryName": "raspi-board",
+            "typingsPackageName": "raspi-board",
+            "sourceRepoURL": "https://github.com/nebrius/raspi-board",
+            "asOfVersion": "5.0.2"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
