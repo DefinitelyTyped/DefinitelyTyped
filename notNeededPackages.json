@@ -217,6 +217,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "core-decorators.js",
+            "typingsPackageName": "core-decorators",
+            "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
+            "asOfVersion": "0.20.0"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
