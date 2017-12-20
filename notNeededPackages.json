@@ -121,6 +121,12 @@
             "asOfVersion": "0.0.31"
         },
         {
+            "libraryName": "Bowser",
+            "typingsPackageName": "bowser",
+            "sourceRepoURL": "https://github.com/ded/bowser",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
