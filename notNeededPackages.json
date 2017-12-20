@@ -631,6 +631,12 @@
             "asOfVersion": "5.3.3"
         },
         {
+            "libraryName": "react-split-pane",
+            "typingsPackageName": "react-split-pane",
+            "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
+            "asOfVersion": "0.1.67"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
