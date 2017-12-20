@@ -3,13 +3,10 @@
 // Definitions by: Matthew James <https://github.com/matthew-matvei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "trash" {
-
-    interface TrashOptions {
-        glob: boolean;
-    }
-
-    function trash(iterable: Iterable<string>, opts?: TrashOptions): Promise<void>;
-
-    export default trash;
+interface TrashOptions {
+    glob: boolean;
 }
+
+declare function trash(iterable: Iterable<string>, opts?: TrashOptions): Promise<void>;
+
+export default trash;
