@@ -613,6 +613,12 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-google-analytics-bridge",
+            "typingsPackageName": "react-native-google-analytics-bridge",
+            "sourceRepoURL": "https://github.com/idehub/react-native-google-analytics-bridge",
+            "asOfVersion": "5.3.3"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
