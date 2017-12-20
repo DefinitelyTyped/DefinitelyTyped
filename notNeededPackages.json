@@ -877,6 +877,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "vue-i18n",
+            "typingsPackageName": "vue-i18n",
+            "sourceRepoURL": "https://github.com/kazupon/vue-i18n",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "vue-router",
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
