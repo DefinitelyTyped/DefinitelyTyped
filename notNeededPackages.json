@@ -547,6 +547,12 @@
             "asOfVersion": "1.7.0"
         },
         {
+            "libraryName": "pg-connection-string",
+            "typingsPackageName": "pg-connection-string",
+            "sourceRepoURL": "https://github.com/iceddev/pg-connection-string",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
