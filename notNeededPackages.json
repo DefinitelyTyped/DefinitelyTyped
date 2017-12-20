@@ -589,6 +589,12 @@
             "asOfVersion": "7.0.1"
         },
         {
+            "libraryName": "raspi-peripheral",
+            "typingsPackageName": "raspi-peripheral",
+            "sourceRepoURL": "https://github.com/nebrius/raspi-peripheral",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
