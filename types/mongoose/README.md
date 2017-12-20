@@ -145,7 +145,7 @@ interface IUserModel extends Model<IUserDocument> {
   static1: () => string;
 }
 
-var UserModel: IUserModel = model<IUser, IUserModel>('User', UserSchema);
+var UserModel: IUserModel = model<IUserDocument, IUserModel>('User', UserSchema);
 UserModel.static1();    // static methods are available
 ```
 [top](#mongoosejs-typescript-docs)
