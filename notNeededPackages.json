@@ -235,6 +235,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "extended-listbox",
+            "typingsPackageName": "extended-listbox",
+            "sourceRepoURL": "https://github.com/code-chris/extended-listbox",
+            "asOfVersion": "4.0.1"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
