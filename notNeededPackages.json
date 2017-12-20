@@ -337,6 +337,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "is-plain-object",
+            "typingsPackageName": "is-plain-object",
+            "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
+            "asOfVersion": "2.0.4"
+        },
+        {
             "libraryName": "is-upper-case",
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
