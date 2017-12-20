@@ -289,6 +289,12 @@
             "asOfVersion": "7.1.0"
         },
         {
+            "libraryName": "graphene-pk11",
+            "typingsPackageName": "graphene-pk11",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
+            "asOfVersion": "2.0.31"
+        },
+        {
             "libraryName": "gulp-typescript",
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
