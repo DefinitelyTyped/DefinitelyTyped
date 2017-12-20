@@ -541,6 +541,12 @@
             "asOfVersion": "5.4.3"
         },
         {
+            "libraryName": "phonegap-plugin-push",
+            "typingsPackageName": "phonegap-plugin-push",
+            "sourceRepoURL": "https://github.com/phonegap/phonegap-plugin-push",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
