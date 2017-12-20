@@ -16,9 +16,7 @@ import {
     Facebook,
     FacebookAds,
     FileSystem,
-	ImagePicker,
-	ImageManipulator,
-	FaceDetector
+	ImagePicker
 } from 'expo';
 
 Accelerometer.addListener((obj) => {
@@ -203,44 +201,4 @@ async () => {
     result.status;
     result.uri;
     result.md5;
-};
-
-async () => {
-	const result = await ImagePicker.launchImageLibraryAsync({
-		mediaTypes: ImagePicker.MediaTypeOptions.Videos
-	});
-
-	if (!result.cancelled) {
-		result.uri;
-		result.width;
-		result.height;
-	}
-};
-
-async () => {
-	const result = await ImageManipulator.manipulate('url', {
-		rotate: 90
-	}, {
-		compress: 0.5
-	});
-
-	result.height;
-	result.uri;
-	result.width;
-};
-
-FaceDetector.Constants.Mode.fast;
-FaceDetector.Constants.Mode.accurate;
-FaceDetector.Constants.Landmarks.all;
-FaceDetector.Constants.Landmarks.none;
-FaceDetector.Constants.Classifications.all;
-FaceDetector.Constants.Classifications.none;
-async () => {
-	const result = await FaceDetector.detectFaces('url', {
-		mode: FaceDetector.Constants.Mode.fast,
-		detectLandmarks: FaceDetector.Constants.Landmarks.all,
-		runClassifications: FaceDetector.Constants.Classifications.none
-	});
-
-	result.faces[0];
 };
