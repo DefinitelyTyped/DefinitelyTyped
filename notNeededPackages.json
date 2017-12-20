@@ -829,6 +829,12 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "react-flip-move",
+            "typingsPackageName": "react-flip-move",
+            "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
+            "asOfVersion": "2.9.12"
+        },
+        {
             "libraryName": "react-ga",
             "typingsPackageName": "react-ga",
             "sourceRepoURL": "https://github.com/react-ga/react-ga",
