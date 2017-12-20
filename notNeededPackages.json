@@ -163,6 +163,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "cypress",
+            "typingsPackageName": "cypress",
+            "sourceRepoURL": "https://cypress.io",
+            "asOfVersion": "1.1.3"
+        },
+        {
             "libraryName": "date-fns",
             "typingsPackageName": "date-fns",
             "sourceRepoURL": "https://github.com/date-fns/date-fns",
