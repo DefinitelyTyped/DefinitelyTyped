@@ -1,8 +1,10 @@
 // Type definitions for siema 1.4
 // Project: https://github.com/pawelgrzybek/siema
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
+//                 Pavel Puchkov <https://github.com/0x6368656174>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare class Siema {
+
+export default class Siema {
     currentSlide: number;
 
     constructor(options?: SiemaOptions);
@@ -11,13 +13,13 @@ declare class Siema {
     prev(index?: number, callback?: () => void): void;
     goTo(index: number, callback?: () => void): void;
     remove(index: number, callback?: () => void): void;
-    insert(item: any, index: number, callback?: () => void): void;
-    prepend(item: any, callback?: () => void): void;
-    append(item: any, callback?: () => void): void;
-    destroy(restoreMarkup: boolean, callback?: () => void): void;
+    insert(item: HTMLElement, index: number, callback?: () => void): void;
+    prepend(item: HTMLElement, callback?: () => void): void;
+    append(item: HTMLElement, callback?: () => void): void;
+    destroy(restoreMarkup?: boolean, callback?: () => void): void;
 }
 
-interface SiemaOptions {
+export interface SiemaOptions {
     selector?: string;
     duration?: number;
     easing?: string;
@@ -30,5 +32,3 @@ interface SiemaOptions {
     onInit(): void;
     onChange?(): void;
 }
-
-export = Siema;
