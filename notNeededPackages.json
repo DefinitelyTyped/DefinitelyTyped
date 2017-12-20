@@ -217,6 +217,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "email-validator",
+            "typingsPackageName": "email-validator",
+            "sourceRepoURL": "https://github.com/Sembiance/email-validator",
+            "asOfVersion": "1.0.6"
+        },
+        {
             "libraryName": "error-stack-parser",
             "typingsPackageName": "error-stack-parser",
             "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
