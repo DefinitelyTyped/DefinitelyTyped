@@ -595,6 +595,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "ProtoBuf.js",
+            "typingsPackageName": "protobufjs",
+            "sourceRepoURL": "https://github.com/dcodeIO/ProtoBuf.js",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "Protractor",
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
