@@ -188,7 +188,7 @@ export interface TickProperties extends ViewProperties {
 ///////////////////////////////
 
 export class MKComponent<P, S> extends React.Component<P, S> {
-    static Builder(): MKComponent<P, S>;
+    static Builder: any;
 }
 
 export interface MKColorStatic {
