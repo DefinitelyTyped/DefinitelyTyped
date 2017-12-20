@@ -739,6 +739,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "Spin.js",
+            "typingsPackageName": "spin.js",
+            "sourceRepoURL": "http://fgnass.github.com/spin.js/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "spotify-web-api-js",
             "typingsPackageName": "spotify-web-api-js",
             "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
