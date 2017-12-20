@@ -127,6 +127,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "CacheFactory",
+            "typingsPackageName": "cachefactory",
+            "sourceRepoURL": "https://github.com/jmdobry/CacheFactory",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
