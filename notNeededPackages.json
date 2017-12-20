@@ -853,6 +853,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "Validate.js",
+            "typingsPackageName": "validate.js",
+            "sourceRepoURL": "https://github.com/ansman/validate.js",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "vso-node-api",
             "typingsPackageName": "vso-node-api",
             "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
