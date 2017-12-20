@@ -391,6 +391,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "keycloak-js",
+            "typingsPackageName": "keycloak-js",
+            "sourceRepoURL": "https://github.com/keycloak/keycloak",
+            "asOfVersion": "3.4.1"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
