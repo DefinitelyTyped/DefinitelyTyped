@@ -29,6 +29,6 @@ export interface SiemaOptions {
     multipleDrag?: boolean;
     threshold?: number;
     loop?: boolean;
-    onInit(): void;
+    onInit?(): void;
     onChange?(): void;
 }
