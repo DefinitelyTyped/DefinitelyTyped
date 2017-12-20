@@ -41,3 +41,6 @@ interface Fingerprint2Options {
     excludePixelRatio?: boolean;
     excludeHardwareConcurrency?: boolean;
 }
+
+export default Fingerprint2;
+
