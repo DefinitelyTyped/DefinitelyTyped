@@ -415,6 +415,12 @@
             "asOfVersion": "6.4.3"
         },
         {
+            "libraryName": "FullCalendar",
+            "typingsPackageName": "fullcalendar",
+            "sourceRepoURL": "http://arshaw.com/fullcalendar/",
+            "asOfVersion": "3.8.0"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
