@@ -115,6 +115,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "better-scroll",
+            "typingsPackageName": "better-scroll",
+            "sourceRepoURL": "https://github.com/ustbhuangyi/better-scroll",
+            "asOfVersion": "1.5.0"
+        },
+        {
             "libraryName": "BigInteger.js",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
