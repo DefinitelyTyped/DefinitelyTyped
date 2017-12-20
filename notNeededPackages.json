@@ -655,6 +655,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "react-bootstrap",
+            "typingsPackageName": "redux-bootstrap",
+            "sourceRepoURL": "https://github.com/remojansen/redux-bootstrap",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "redux-devtools-extension",
             "typingsPackageName": "redux-devtools-extension",
             "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
