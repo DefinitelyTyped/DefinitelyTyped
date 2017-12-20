@@ -487,6 +487,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "Monk",
+            "typingsPackageName": "monk",
+            "sourceRepoURL": "https://github.com/LearnBoost/monk.git",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "MQTT",
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
