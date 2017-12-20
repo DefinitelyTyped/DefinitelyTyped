@@ -187,7 +187,7 @@ export interface TickProperties extends ViewProperties {
 // COMPONENTS
 ///////////////////////////////
 
-export interface MKComponent<P, S> extends React.Component<P, S> {
+export class MKComponent<P, S> extends React.Component<P, S> {
     Builder: () => any;
 }
 
