@@ -21,10 +21,14 @@ declare module CANNON {
 
         constructor(options?: IAABBOptions);
 
-        setFromPoints(points: Vec3[], position?: Vec3, quaternion?: Quaternion, skinSize?: number): void;
+        clone(): AABB;
         copy(aabb: AABB): void;
         extend(aabb: AABB): void;
+        getCorners(a: Vec3, b: Vec3, c: Vec3, d: Vec3, e: Vec3, f: Vec3, g: Vec3, h: Vec3): void;
         overlaps(aabb: AABB): boolean;
+        setFromPoints(points: Vec3[], position?: Vec3, quaternion?: Quaternion, skinSize?: number): AABB;
+        toLocalFrame(frame: Transform, target: AABB): AABB;
+        toWorldFrame(frame: Transform, target: AABB): AABB;
 
     }
 
@@ -33,7 +37,7 @@ declare module CANNON {
         matrix: Mat3[];
 
         get(i: number, j: number): number;
-        set(i: number, j: number, value?: number): void;
+        set(i: number, j: number, value: number): void;
         reset(): void;
         setNumObjects(n: number): void;
 
@@ -191,9 +195,12 @@ declare module CANNON {
 
     }
 
+    export interface ILockConstraintOptions {
+        maxForce?: number;
+    }
 
     export class LockConstraint extends Constraint {
-        constructor(bodyA: Body, bodyB: Body, options?:any);
+        constructor(bodyA: Body, bodyB: Body, options?: ILockConstraintOptions);
     }
 
     export interface IConeTwistConstraintOptions {
@@ -206,7 +213,6 @@ declare module CANNON {
 
     export class ConeTwistConstraint extends Constraint {
         constructor(bodyA: Body, bodyB: Body, options?: IConeTwistConstraintOptions);
-
     }
 
 
