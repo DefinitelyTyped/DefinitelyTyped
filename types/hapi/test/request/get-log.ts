@@ -1,29 +1,12 @@
-// https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data
-import {Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute} from "hapi";
 
-const options: ServerOptions = {
-    port: 8000,
-};
+// From https://hapijs.com/api/16.1.1#requestgetlogtags-internal
 
-const handler: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
-    request.log(['test', 'error'], 'Test event');
-    return 'path: ' + request.path;
-};
+import * as Hapi from 'hapi';
 
-const serverRoute: ServerRoute = {
-    path: '/',
-    method: 'GET',
-    handler: handler
-};
+var request: Hapi.Request = <any> {};
 
-const server = new Server(options);
-server.route(serverRoute);
-server.start();
-console.log('Server started at: ' + server.info.uri);
-
-server.events.on('request', (request: Request, event: any, tags: any) => {
-    console.log(tags);
-    if (tags.error) {
-        console.log(event);
-    }
-});
+request.getLog();
+request.getLog('error');
+request.getLog(['error', 'auth']);
+request.getLog(['error'], true);
+request.getLog(false);
