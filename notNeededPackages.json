@@ -469,6 +469,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "homeworks",
+            "typingsPackageName": "homeworks",
+            "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
+            "asOfVersion": "1.0.19"
+        },
+        {
             "libraryName": "iconv-lite",
             "typingsPackageName": "iconv-lite",
             "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
