@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.5
+// Type definitions for auth0 2.6
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -163,6 +163,46 @@ export interface Client {
   token_endpoint_auth_method?: string;
   client_metadata?: any;
   mobile?: any;
+}
+
+export interface ResourceServer {
+  /**
+   * The identifier of the resource server.
+   */
+  identifier?: string;
+  scopes?: { description: string, value: string }[];
+  /**
+   * The algorithm used to sign tokens.
+   */
+  signing_alg?: 'HS256' | 'RS256';
+  /**
+   * The secret used to sign tokens when using symmetric algorithms.
+   */
+  signing_secret?: string;
+  /**
+   * Allows issuance of refresh tokens for this entity.
+   */
+  allow_offline_access?: boolean;
+  /**
+   * Flag this entity as capable of skipping consent.
+   */
+  skip_consent_for_verifiable_first_party_clients?: boolean;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued.
+   */
+  token_lifetime?: number;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued from browser based flows. Value cannot be larger than token_lifetime..
+   */
+  token_lifetime_for_web?: number;
+  /**
+   * The ID of the resource server.
+   */
+  id?: string;
+  /**
+   * A friendly name for the resource server.
+   */
+  name?: string;
 }
 
 export interface User {
@@ -578,22 +618,18 @@ export class ManagementClient {
 
 
   // Resource Server
-  createResourceServer(data: Data): Promise<any>;
-  createResourceServer(data: Data, cb?: (err: Error, data: any) => void): void;
+  createResourceServer(data: ResourceServer): Promise<ResourceServer>;
+  createResourceServer(data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  getResourceServers(): Promise<any>;
-  getResourceServers(cb?: (err: Error, data: any) => void): void;
+  getResourceServers(): Promise<ResourceServer[]>;
+  getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
-  getResourceServer(data: ObjectWithId): Promise<any>;
-  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  getResourceServer(data: ObjectWithId): Promise<ResourceServer>;
+  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  deleteResourceServer(params: ObjectWithId): Promise<any>;
-  deleteResourceServer(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  deleteResourceServer(params: ObjectWithId): Promise<void>;
+  deleteResourceServer(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateResourceServer(params: ObjectWithId, data: Data): Promise<any>;
-  updateResourceServer(params: ObjectWithId, data: Data, cb?: (err: Error, data: any) => void): void;
-
-
-
-
+  updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
+  updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 }
