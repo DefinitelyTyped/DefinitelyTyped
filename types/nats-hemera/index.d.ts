@@ -197,6 +197,7 @@ declare class Hemera {
     config: any;
     topics: any;
     transport: any;
+    joi: any;
 
     context$: any;
     meta$: any;
