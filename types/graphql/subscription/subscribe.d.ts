@@ -14,7 +14,7 @@ export function subscribe(
     operationName?: string,
     fieldResolver?: GraphQLFieldResolver<any, any>,
     subscribeFieldResolver?: GraphQLFieldResolver<any, any>
-): AsyncIterator<ExecutionResult>;
+): Promise<AsyncIterator<ExecutionResult> | ExecutionResult>;
 
 export function createSourceEventStream(
     schema: GraphQLSchema,
@@ -26,4 +26,4 @@ export function createSourceEventStream(
     },
     operationName?: string,
     fieldResolver?: GraphQLFieldResolver<any, any>
-): AsyncIterable<any>;
+): Promise<AsyncIterable<any>>;

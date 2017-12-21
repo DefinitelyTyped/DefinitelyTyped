@@ -53,7 +53,7 @@ describe('bitcoinjs-lib (basic)', () => {
     const tx = new bitcoin.TransactionBuilder();
 
     tx.addInput('aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31', 0);
-    tx.addOutput('1Gokm82v6DmtwKEB8AiVhm82hyFSsEvBDK', 15000);
+    tx.addOutput(Buffer.from('1Gokm82v6DmtwKEB8AiVhm82hyFSsEvBDK', 'utf8'), 15000);
     tx.sign(0, keyPair);
 
     // tslint:disable-next-line:max-line-length

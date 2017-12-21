@@ -18,13 +18,13 @@ interface MyCustomResult {
 
 class LinkComponent extends React.Component<CustomColumnComponentProps<MyCustomResult>> {
   render() {
-    const url = "speakers/" + this.props.rowData.test + "/" + this.props.data;
+    const url = `speakers/${this.props.rowData.test}/${this.props.data}`;
     return <a href={url}>{this.props.data}</a>;
   }
 }
 
 const StatelessFunctionComponent = (props: CustomColumnComponentProps<MyCustomResult>) => {
-  const url = "speakers/" + props.rowData.test + "/" + props.data;
+  const url = `speakers/${props.rowData.test}/${props.data}`;
   return <a href={url}>{props.data}</a>;
 };
 

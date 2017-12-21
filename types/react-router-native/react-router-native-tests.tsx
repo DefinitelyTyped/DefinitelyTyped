@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NativeRouter as Router, Route, Link } from 'react-router-native';
 
-const Home: React.SFC<{}> = () => {
+const Home: React.SFC = () => {
   return (
     <View>
       <Text style={styles.welcome}>
@@ -16,7 +16,7 @@ const Home: React.SFC<{}> = () => {
  );
 };
 
-const About: React.SFC<{}> = () => {
+const About: React.SFC = () => {
   return (
     <Text style={styles.header}>
       About
@@ -24,7 +24,7 @@ const About: React.SFC<{}> = () => {
  );
 };
 
-export default class App extends React.Component<{}, {}> {
+export default class App extends React.Component {
   render() {
     return (
       <Router>

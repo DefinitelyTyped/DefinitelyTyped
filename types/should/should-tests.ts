@@ -244,6 +244,18 @@ spy.should.have.threw("ReferenceError");
 }).should.throw(/^fail/);
 
 (function () {
+  throw new Error('failed to foo');
+}).should.throw(Error);
+
+(function () {
+  throw new Error('failed to foo');
+}).should.throw(Error, { message: 'failed to baz' });
+
+(function () {
+  throw new Error('failed to foo');
+}).should.throwError(Error, { message: 'failed to baz' });
+
+(function () {
   throw new Error('failed to baz');
 }).should.throwError(/^fail.*/);
 
@@ -251,6 +263,11 @@ var obj = { foo: 'bar', baz: 'raz' };
 obj.should.have.keys('foo', 'bar');
 obj.should.have.keys(['foo', 'bar']);
 obj.should.have.key('foo');
+
+({ a: 10 }).should.have.size(1);
+
+({ a: 10 }).should.have.value('a', 10);
+({ a: 10 }).should.have.value(1, 2);
 
 ({ a: 10 }).should.have.enumerable('a');
 ({ a: 10 }).should.have.enumerable('a', 10);

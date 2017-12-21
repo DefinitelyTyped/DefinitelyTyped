@@ -1,25 +1,25 @@
 {
-  "compilerOptions": {
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "module": "commonjs",
-    "target": "es5",
-    "jsx": "react",
-    "experimentalDecorators": true,
-    "baseUrl": "../",
-    "typeRoots": [ "../" ],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "types": []
-  },
-  "files": [
-    "index.d.ts",
-    "react-onsenui-tests.tsx"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "react-onsenui-tests.tsx"
+    ]
 }

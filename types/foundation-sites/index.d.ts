@@ -1,6 +1,6 @@
 // Type definitions for Foundation Sites v6.1.1
 // Project: http://foundation.zurb.com/
-// Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
+// Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

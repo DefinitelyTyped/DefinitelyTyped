@@ -128,7 +128,7 @@ let petstoreExpandedApiDefinition: SwaggerExpressMiddleware.SwaggerObject = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "host": "petstore.swagger.io",
@@ -400,7 +400,7 @@ let petStoreWithExternalDocs: SwaggerExpressMiddleware.SwaggerObject =
       },
       "license": {
         "name": "MIT",
-        "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+        "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
       }
     },
     "externalDocs": {

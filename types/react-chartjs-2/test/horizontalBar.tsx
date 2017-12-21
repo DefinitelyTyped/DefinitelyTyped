@@ -16,9 +16,7 @@ const data = {
   ]
 };
 
-export default React.createClass({
-  displayName: 'BarExample',
-
+export default class HorizontalBarExample extends React.Component {
   render() {
     return (
       <div>
@@ -27,4 +25,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

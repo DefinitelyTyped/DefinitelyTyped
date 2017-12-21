@@ -4,10 +4,10 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
-        "suppressImplicitAnyIndexErrors": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

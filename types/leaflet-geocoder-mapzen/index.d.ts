@@ -1,23 +1,24 @@
-// Type definitions for leaflet-geocoder-mapzen v1.6.3
+// Type definitions for leaflet-geocoder-mapzen 1.6
 // Project: https://github.com/mapzen/leaflet-geocoder
-// Definitions by: Leonard Lausen <http://leonard.lausen.nl/>
+// Definitions by: Leonard Lausen <https://github.com/leezu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as Leaflet from "leaflet";
+import * as L from 'leaflet';
 
-declare global { namespace L {
+declare module 'leaflet' {
     namespace Control {
-        export interface GeocoderStatic extends Leaflet.ClassStatic {
+        interface GeocoderStatic extends ClassStatic {
             /**
              * Creates a geocoder control.
              */
             new (options?: GeocoderOptions): Geocoder;
         }
 
-        export interface Geocoder extends Leaflet.Control {
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface Geocoder extends Control {}
 
-        export interface GeocoderOptions {
+        interface GeocoderOptions {
             /**
              * Host endpoint for a Pelias-compatible search API.
              *
@@ -32,7 +33,7 @@ declare global { namespace L {
              *
              * Default value: false.
              */
-            bounds?: Leaflet.LatLngBounds | boolean;
+            bounds?: LatLngBounds | boolean;
 
             /**
              * If true, search and autocomplete prioritizes results near the center
@@ -42,7 +43,7 @@ declare global { namespace L {
              *
              * Default value: 'true'.
              */
-            focus?: Leaflet.LatLng | boolean;
+            focus?: LatLng | boolean;
 
             /**
              * Filters results by layers (documentation).
@@ -69,7 +70,7 @@ declare global { namespace L {
              *
              * Default value: null.
              */
-            params?: Object;
+            params?: object;
 
             /**
              * The position of the control (one of the map corners).
@@ -77,7 +78,7 @@ declare global { namespace L {
              *
              * Default value: 'topleft'.
              */
-            position?: Leaflet.PositionString;
+            position?: PositionString;
 
             /**
              * Attribution text to include.
@@ -126,7 +127,7 @@ declare global { namespace L {
              *
              * Default value: true
              */
-            markers?: Leaflet.MarkerOptions | boolean;
+            markers?: MarkerOptions | boolean;
 
             /**
              * If true, the input box will expand to take up the full width of the map container.
@@ -166,11 +167,10 @@ declare global { namespace L {
         }
     }
 
-    export namespace control {
-
+    namespace control {
         /**
          * Creates a geocoder control.
          */
-        export function geocoder(api_key: string, options?: Control.GeocoderOptions): L.Control.Geocoder;
+        function geocoder(api_key: string, options?: Control.GeocoderOptions): Control.Geocoder;
     }
-} }
+}

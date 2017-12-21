@@ -13,11 +13,11 @@ hello.init({
         refresh: true,
         scope_delim: ' ',
         logout: () => {
-            let id_token = hello('networkName').getAuthResponse().id_token;
+            const id_token = hello('networkName').getAuthResponse().id_token;
             hello.utils.store('networkName', null);
         },
         xhr: (p) => {
-            let token = p.query.access_token;
+            const token = p.query.access_token;
             delete p.query.access_token;
             if (token) {
                 p.headers = {
@@ -25,16 +25,20 @@ hello.init({
                 };
             }
 
-            if (p.method === 'post' || p.method === 'put') {
-                if (typeof (p.data) === 'object') {
-                    try {
-                        p.data = JSON.stringify(p.data);
-                        p.headers['content-type'] = 'application/json';
-                    } catch (e) { }
-                }
-            } else if (p.method === 'patch') {
-                hello.utils.extend(p.query, p.data);
-                p.data = null;
+            switch (p.method) {
+                case 'post':
+                case 'put':
+                    if (typeof (p.data) === 'object') {
+                        try {
+                            p.data = JSON.stringify(p.data);
+                            p.headers['content-type'] = 'application/json';
+                        } catch (e) { }
+                    }
+                    break;
+                case 'patch':
+                    hello.utils.extend(p.query, p.data);
+                    p.data = null;
+                    break;
             }
             return true;
         },
@@ -110,7 +114,7 @@ hello.init({
             }
         },
         xhr: (p, qs) => {
-            let token = qs.access_token;
+            const token = qs.access_token;
             delete qs.access_token;
             p.headers.Authorization = 'Bearer ' + token;
         }
@@ -142,7 +146,7 @@ hello.on('auth.login', auth => {
 hello.getAuthResponse('facebook');
 
 hello.login('facebook', null, () => {
-    let req = hello.getAuthResponse('facebook');
+    const req = hello.getAuthResponse('facebook');
 });
 
 hello.logout('facebook');
@@ -153,7 +157,7 @@ hello("facebook").api("me").then((json) => {
     alert("Whoops!");
 });
 
-let sessionstart = () => {
+const sessionstart = () => {
     alert("Session has started");
 };
 hello.on("auth.login", sessionstart);

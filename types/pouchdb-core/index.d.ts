@@ -64,9 +64,6 @@ interface Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
-// TODO: tslint doesn't like the listener: Function signatures but they are from the
-// original node declarations so I didn't want to touch them
-/* tslint:disable:ban-types */
 interface EventEmitter {
     addListener(event: string | symbol, listener: Function): this;
     on(event: string | symbol, listener: Function): this;
@@ -82,10 +79,6 @@ interface EventEmitter {
     prependOnceListener(event: string | symbol, listener: Function): this;
     eventNames(): Array<string | symbol>;
 }
-/* tslint:eisable:ban-types */
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace Core {
@@ -107,7 +100,7 @@ declare namespace PouchDB {
         type AttachmentId = string;
         type RevisionId = string;
         type Availability = 'available' | 'compacted' | 'not compacted' | 'missing';
-        type Attachment = string | Blob | Buffer;
+        type AttachmentData = string | Blob | Buffer;
 
         interface Options {
           ajax?: Configuration.RemoteRequesterConfiguration;
@@ -160,12 +153,13 @@ declare namespace PouchDB {
             _rev: RevisionId;
         }
         interface GetMeta {
-            /** Conflicting leaf revisions.
+            /**
+             * Conflicting leaf revisions.
              *
              * Only present if `GetOptions.conflicts` is `true`
              */
             _conflicts?: RevisionId[];
-            _rev?: RevisionId;
+            _rev: RevisionId;
             /** Only present if `GetOptions.revs` is `true` */
             _revs_info?: RevisionInfo[];
             /** Only present if `GetOptions.revs_info` is `true` */
@@ -178,28 +172,55 @@ declare namespace PouchDB {
             _attachments?: Attachments;
         }
 
-        interface AttachmentResponse {
+        /**
+         * Stub attachments are returned by PouchDB by default (attachments option set to false)
+         */
+        interface StubAttachment {
+            /**
+             * Mime type of the attachment
+             */
             content_type: string;
 
-            /** MD5 hash, starts with "md5-" prefix */
+            /**
+             * Database digest of the attachment
+             */
             digest: string;
 
-            /** Only present if `attachments` was `false`. */
-            stub?: boolean;
-
-            /** Only present if `attachments` was `false`. */
-            length?: number;
+            /**
+             * Attachment is a stub
+             */
+            stub: true;
 
             /**
-             * Only present if `attachments` was `true`.
+             * Length of the attachment
+             */
+            length: number;
+        }
+
+        /**
+         * Full attachments are used to create new attachments or returned when the attachments option
+         * is true.
+         */
+        interface FullAttachment {
+            /**
+             * Mime type of the attachment
+             */
+            content_type: string;
+
+            /** MD5 hash, starts with "md5-" prefix; populated by PouchDB for new attachments */
+            digest?: string;
+
+            /**
              * {string} if `binary` was `false`
              * {Blob|Buffer} if `binary` was `true`
              */
-            data?: Attachment;
+            data: AttachmentData;
         }
 
+        type Attachment = StubAttachment | FullAttachment;
+
         interface Attachments {
-            [attachmentId: string]: AttachmentResponse;
+            [attachmentId: string]: Attachment;
         }
 
         type NewDocument<Content extends {}> = Content;
@@ -217,20 +238,16 @@ declare namespace PouchDB {
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
 
-            _attachments?: {[attachmentId: string]: PutAttachment};
+            _attachments?: Attachments;
         };
 
         type PutDocument<Content extends {}> = PostDocument<Content> & ChangesMeta & {
             _id?: DocumentId;
         };
 
-        interface PutAttachment {
-            content_type: string;
-            data: Attachment;
-        }
-
         interface AllDocsOptions extends Options {
-            /** Include attachment data for each document.
+            /**
+             * Include attachment data for each document.
              *
              * Requires `include_docs` to be `true`.
              *
@@ -238,13 +255,15 @@ declare namespace PouchDB {
              * @see binary
              */
             attachments?: boolean;
-            /** Return attachments as Buffers.
+            /**
+             * Return attachments as Buffers.
              *
              * Requires `include_docs` to be `true`.
              * Requires `attachments` to be `true`.
              */
             binary?: boolean;
-            /** Include conflict information for each document.
+            /**
+             * Include conflict information for each document.
              *
              * Requires `include_docs` to be `true`.
              */
@@ -255,7 +274,8 @@ declare namespace PouchDB {
             include_docs?: boolean;
             /** Maximum number of documents to return. */
             limit?: number;
-            /** Number of documents to skip before returning.
+            /**
+             * Number of documents to skip before returning.
              *
              * Causes poor performance on IndexedDB and LevelDB.
              */
@@ -274,7 +294,8 @@ declare namespace PouchDB {
             startkey: DocumentKey;
             /** High end of range, or low end if `descending` is `true`. */
             endkey: DocumentKey;
-            /** Include any documents identified by `endkey`.
+            /**
+             * Include any documents identified by `endkey`.
              *
              * Defaults to `true`.
              */
@@ -421,7 +442,8 @@ declare namespace PouchDB {
             rev?: RevisionId;
             /** Include revision history of the document. */
             revs?: boolean;
-            /** Include a list of revisions of the document, and their
+            /**
+             * Include a list of revisions of the document, and their
              * availability.
              */
             revs_info?: boolean;
@@ -437,23 +459,24 @@ declare namespace PouchDB {
         }
 
         interface GetOpenRevisions extends Options {
-            /** Fetch all leaf revisions if open_revs="all" or fetch all leaf
+            /**
+             * Fetch all leaf revisions if open_revs="all" or fetch all leaf
              * revisions specified in open_revs array. Leaves will be returned
              * in the same order as specified in input array.
              */
-            open_revs: 'all' | Core.RevisionId[];
+            open_revs: 'all' | RevisionId[];
 
             /** Include revision history of the document. */
             revs?: boolean;
         }
 
-        interface CompactOptions extends Core.Options {
+        interface CompactOptions extends Options {
           interval?: number;
         }
 
         interface RemoveAttachmentResponse extends BasicResponse {
-            id: Core.DocumentId;
-            rev: Core.RevisionId;
+            id: DocumentId;
+            rev: RevisionId;
         }
     }
 
@@ -618,7 +641,8 @@ declare namespace PouchDB {
                    options: Core.GetOpenRevisions
                   ): Promise<Array<Core.Revision<Content & Model>>>;
 
-        /** Create a new document without providing an id.
+        /**
+         * Create a new document without providing an id.
          *
          * You should prefer put() to post(), because when you post(), you are
          * missing an opportunity to use allDocs() to sort documents by _id
@@ -630,7 +654,8 @@ declare namespace PouchDB {
                     options: Core.Options | null,
                     callback: Core.Callback<Core.Response>): void;
 
-        /** Create a new document without providing an id.
+        /**
+         * Create a new document without providing an id.
          *
          * You should prefer put() to post(), because when you post(), you are
          * missing an opportunity to use allDocs() to sort documents by _id
@@ -641,7 +666,8 @@ declare namespace PouchDB {
         post<Model>(doc: Core.PostDocument<Content & Model>,
                     options?: Core.Options): Promise<Core.Response>;
 
-        /** Create a new document or update an existing document.
+        /**
+         * Create a new document or update an existing document.
          *
          * If the document already exists, you must specify its revision _rev,
          * otherwise a conflict will occur.
@@ -653,7 +679,8 @@ declare namespace PouchDB {
                    options: Core.Options | null,
                    callback: Core.Callback<Core.Response>): void;
 
-        /** Create a new document or update an existing document.
+        /**
+         * Create a new document or update an existing document.
          *
          * If the document already exists, you must specify its revision _rev,
          * otherwise a conflict will occur.
@@ -725,7 +752,7 @@ declare namespace PouchDB {
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
                       rev: Core.RevisionId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string,
                       callback: Core.Callback<Core.Response>): void;
 
@@ -737,7 +764,7 @@ declare namespace PouchDB {
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
                       rev: Core.RevisionId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string): Promise<Core.Response>;
 
          /**
@@ -747,7 +774,7 @@ declare namespace PouchDB {
           */
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string,
                       callback: Core.Callback<Core.Response>): void;
 
@@ -758,7 +785,7 @@ declare namespace PouchDB {
           */
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string): Promise<Core.Response>;
 
         /** Get attachment data */

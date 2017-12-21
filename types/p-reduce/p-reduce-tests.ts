@@ -21,7 +21,7 @@ const names2 = [
 ];
 
 pReduce<string | number, string>(names2, (allNames, name) => {
-    return Promise.resolve(allNames + ',' + name);
+    return Promise.resolve(`${allNames},${name}`);
 }, '').then(allNames => {
     const str: string = allNames;
 });

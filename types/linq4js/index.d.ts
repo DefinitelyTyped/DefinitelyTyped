@@ -3,35 +3,6 @@
 // Definitions by: Morris Janatzek <https://github.com/morrisjdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Linq4JS {
-    class GeneratedEntity {
-        _GeneratedId_: number;
-        Id: number;
-    }
-}
-declare namespace Linq4JS {
-    class EvaluateCommand {
-        Command: string;
-        SplitRegex: RegExp[];
-        Finder: RegExp[];
-        constructor(command: string, ...identifier: string[]);
-    }
-    class EvaluateCommandResult {
-        Command: string;
-        DynamicFunction: string;
-        constructor(cmd: string, fn: string);
-    }
-}
-declare namespace Linq4JS {
-    class Helper {
-        private static ConvertStringFunction(functionString, noAutoReturn?, noBracketReplace?);
-        static ConvertFunction<T>(testFunction: string | T, noAutoReturn?: boolean, noBracketReplace?: boolean): T;
-        static OrderCompareFunction<T>(valueSelector: (item: T) => any, a: T, b: T, invert: boolean): number;
-        static SplitCommand(command: string): string[];
-        static MatchCommand(cmd: string): EvaluateCommandResult;
-        static Commands: EvaluateCommand[];
-    }
-}
 interface Array<T> {
     Order: Linq4JS.OrderEntry[];
     GroupValue: any;
@@ -291,7 +262,34 @@ interface Array<T> {
      */
     ToDictionary(keySelector: ((item: T) => any) | string, valueSelector?: ((item: T) => any) | string): any;
 }
+
 declare namespace Linq4JS {
+    class GeneratedEntity {
+        _GeneratedId_: number;
+        Id: number;
+    }
+
+    class EvaluateCommand {
+        Command: string;
+        SplitRegex: RegExp[];
+        Finder: RegExp[];
+        constructor(command: string, ...identifier: string[]);
+    }
+    class EvaluateCommandResult {
+        Command: string;
+        DynamicFunction: string;
+        constructor(cmd: string, fn: string);
+    }
+
+    class Helper {
+        private static ConvertStringFunction(functionString, noAutoReturn?, noBracketReplace?);
+        static ConvertFunction<T>(testFunction: string | T, noAutoReturn?: boolean, noBracketReplace?: boolean): T;
+        static OrderCompareFunction<T>(valueSelector: (item: T) => any, a: T, b: T, invert: boolean): number;
+        static SplitCommand(command: string): string[];
+        static MatchCommand(cmd: string): EvaluateCommandResult;
+        static Commands: EvaluateCommand[];
+    }
+
     class OrderEntry {
         Direction: OrderDirection;
         ValueSelector: (item: any) => any;
@@ -301,8 +299,7 @@ declare namespace Linq4JS {
         Ascending = 0,
         Descending = 1,
     }
-}
-declare namespace Linq4JS {
+
     class SelectEntry {
         property: string;
         name: string;

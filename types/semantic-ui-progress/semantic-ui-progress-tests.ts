@@ -13,7 +13,9 @@ function test_progress() {
     $(selector).progress('set percent', 10); // $ExpectType JQuery<HTMLElement>
     $(selector).progress('set progress', 25); // $ExpectType JQuery<HTMLElement>
     $(selector).progress('increment', 5); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('increment'); // $ExpectType JQuery<HTMLElement>
     $(selector).progress('decrement', 2); // $ExpectType JQuery<HTMLElement>
+    $(selector).progress('decrement'); // $ExpectType JQuery<HTMLElement>
     $(selector).progress('update progress', 45); // $ExpectType JQuery<HTMLElement>
     $(selector).progress('complete'); // $ExpectType JQuery<HTMLElement>
     $(selector).progress('reset'); // $ExpectType JQuery<HTMLElement>

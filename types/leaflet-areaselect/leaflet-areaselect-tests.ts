@@ -1,6 +1,9 @@
+import * as L from 'leaflet';
+import 'leaflet-areaselect';
+
 const map = L.map('map', {center: L.latLng(-37.7772, 175.2756), zoom: 15 });
 let area: L.AreaSelect;
-let dim: L.Dimension = { width: 1, height: 2 };
+const dim: L.Dimension = { width: 1, height: 2 };
 
 area = L.areaSelect({});
 

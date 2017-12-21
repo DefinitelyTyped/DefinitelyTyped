@@ -1,33 +1,82 @@
 // Type definitions for got 7.1
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 
+import { Url } from 'url';
 import * as http from 'http';
 import * as nodeStream from 'stream';
 
 export = got;
 
+declare class RequestError extends StdError {
+    name: 'RequestError';
+}
+
+declare class ReadError extends StdError {
+    name: 'ReadError';
+}
+
+declare class ParseError extends StdError {
+    name: 'ParseError';
+    statusCode: number;
+    statusMessage: string;
+}
+
+declare class HTTPError extends StdError {
+    name: 'HTTPError';
+    statusCode: number;
+    statusMessage: string;
+    headers: http.IncomingHttpHeaders;
+}
+
+declare class MaxRedirectsError extends StdError {
+    name: 'MaxRedirectsError';
+    statusCode: number;
+    statusMessage: string;
+    redirectUrls: string[];
+}
+
+declare class UnsupportedProtocolError extends StdError {
+    name: 'UnsupportedProtocolError';
+}
+
+declare class StdError extends Error {
+    code?: string;
+    host?: string;
+    hostname?: string;
+    method?: string;
+    path?: string;
+    protocol?: string;
+    url?: string;
+    response?: any;
+}
+
 declare const got: got.GotFn &
     Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
     {
         stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>
+        RequestError: typeof RequestError
+        ReadError: typeof ReadError
+        ParseError: typeof ParseError
+        HTTPError: typeof HTTPError
+        MaxRedirectsError: typeof MaxRedirectsError
+        UnsupportedProtocolError: typeof UnsupportedProtocolError
     };
 
 declare namespace got {
-    // tslint:disable unified-signatures
     interface GotFn {
         (url: GotUrl): GotPromise<string>;
-        (url: GotUrl, options: GotJSONOptions): GotPromise<object>;
+        (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
         (url: GotUrl, options: GotFormOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
     }
-    // tslint:enable unified-signatures
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
@@ -79,77 +128,34 @@ declare namespace got {
     interface GotEmitter {
         addListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         addListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        addListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        addListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         addListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         on(event: 'request', listener: (req: http.ClientRequest) => void): this;
         on(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        on(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        on(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         on(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         once(event: 'request', listener: (req: http.ClientRequest) => void): this;
         once(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        once(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        once(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         once(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         prependListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         prependListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        prependListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        prependListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         prependListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         prependOnceListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         prependOnceListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        prependOnceListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        prependOnceListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         prependOnceListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         removeListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         removeListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        removeListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        removeListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         removeListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
     }
 
     type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError;
-
-    interface RequestError extends StdError {
-        name: 'RequestError';
-    }
-
-    interface ReadError extends StdError {
-        name: 'ReadError';
-    }
-
-    interface ParseError extends StdError {
-        name: 'ParseError';
-        statusCode: number;
-        statusMessage: string;
-    }
-
-    interface HTTPError extends StdError {
-        name: 'HTTPError';
-        statusCode: number;
-        statusMessage: string;
-        headers: http.IncomingHttpHeaders;
-    }
-
-    interface MaxRedirectsError extends StdError {
-        name: 'MaxRedirectsError';
-        statusCode: number;
-        statusMessage: string;
-        redirectUrls: string[];
-    }
-
-    interface UnsupportedProtocolError extends StdError {
-        name: 'UnsupportedProtocolError';
-    }
-
-    interface StdError extends Error {
-        code?: string;
-        host?: string;
-        hostname?: string;
-        method?: string;
-        path?: string;
-        protocol?: string;
-        url?: string;
-        response?: any;
-    }
 }

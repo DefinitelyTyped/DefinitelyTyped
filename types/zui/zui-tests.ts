@@ -192,15 +192,15 @@ let count = 0;
 $('#draggableBtn').draggable({
     container: '#draggableBox',
     before: () => {
-        console.log(count++ + ': ' + '[开始] 拖动...\n');
+        console.log(`${count++}: [开始] 拖动...\n`);
         return true;
     },
     drag: (e: DraggableEvent) => {
-        console.log(count++ + ': ' + '拖动: pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
+        console.log(`${count++}: 拖动: pos = ${JSON.stringify(e.pos)}, offset = ${JSON.stringify(e.offset)}\n`);
         //        console.log('(' + e.pos.left + ', ' + e.pos.top + ')');
     },
     finish: (e: DraggableEvent) => {
-        console.log(count++ + ': ' + '[完毕]：pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
+        console.log(`${count++}: [完毕]：pos = ${JSON.stringify(e.pos)}, offset = ${JSON.stringify(e.offset)}\n`);
     }
 });
 
@@ -218,8 +218,8 @@ $('#multiDroppableContainer').droppable({
         if (event.target && event.element) {
             const elementId = event.element.find('.btn-droppable-id').text();
             let msg = '真棒！';
-            event.target.addClass('panel-success').find('.panel-heading').text('成功将【按钮#' + elementId + '】拖到目的地。');
-            msg += '成功拖动【按钮#' + elementId + '】到区域 ' + event.target.find('.area-name').text();
+            event.target.addClass('panel-success').find('.panel-heading').text(`成功将【按钮#${elementId}】拖到目的地。`);
+            msg += `成功拖动【按钮#${elementId}】到区域${event.target.find('.area-name').text()}`;
 
             $.zui.messager.show(msg);
         }

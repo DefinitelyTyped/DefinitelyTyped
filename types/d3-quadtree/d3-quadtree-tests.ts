@@ -39,7 +39,7 @@ let testData: TestDatum[] = [
 let node: d3Quadtree.QuadtreeInternalNode<TestDatum> | d3Quadtree.QuadtreeLeaf<TestDatum>;
 let numberAccessor: (d: TestDatum) => number;
 
-let simpleTestData: Array<[number, number]> = [
+const simpleTestData: Array<[number, number]> = [
     [10, 20],
     [30, 10],
     [15, 80],
@@ -216,7 +216,7 @@ quadtree = quadtree.visitAfter((node, x0, y0, x1, y1) => {
 
 // Test  QuadtreeLeaf =========================================================
 
-let leaf: d3Quadtree.QuadtreeLeaf<TestDatum>;
+declare const leaf: d3Quadtree.QuadtreeLeaf<TestDatum>;
 let nextLeaf: d3Quadtree.QuadtreeLeaf<TestDatum> | undefined;
 
 testDatum = leaf.data;
@@ -225,7 +225,7 @@ nextLeaf = leaf.next ? leaf.next : undefined;
 
 // Test  QuadtreeInternalNode =================================================
 
-let internalNode: d3Quadtree.QuadtreeInternalNode<TestDatum>;
+declare const internalNode: d3Quadtree.QuadtreeInternalNode<TestDatum>;
 let quadNode: d3Quadtree.QuadtreeInternalNode<TestDatum> | d3Quadtree.QuadtreeLeaf<TestDatum> | undefined;
 
 quadNode = internalNode[0];

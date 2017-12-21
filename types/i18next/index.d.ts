@@ -396,8 +396,7 @@ declare namespace i18next {
     type Callback = (error: any, t: TranslationFunction) => void;
 
     type TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> =
-        <TMethodResult = TResult, TMethodValues extends object = TValues, TMethodKeys extends string = TKeys>
-        (key: TMethodKeys | TMethodKeys[], options?: TranslationOptions<TMethodValues>) => TMethodResult;
+        (key: TKeys | TKeys[], options?: TranslationOptions<TValues>) => TResult;
 
     interface Resource {
         [language: string]: ResourceLanguage;

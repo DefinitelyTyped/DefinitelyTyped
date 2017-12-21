@@ -10,9 +10,6 @@
 /// <reference types="pouchdb-mapreduce" />
 /// <reference types="pouchdb-replication" />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
 declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {

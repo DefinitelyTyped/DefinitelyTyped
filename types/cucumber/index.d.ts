@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js 2.0
+// Type definitions for cucumber-js 3.1
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
@@ -6,6 +6,10 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+export interface World {
+    [key: string]: any;
+}
 
 export interface CallbackStepDefinition {
     pending(): PromiseLike<any>;
@@ -19,9 +23,7 @@ export interface TableDefinition {
     hashes(): Array<{ [colName: string]: string }>;
 }
 
-export type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
-
-export type StepDefinitionCode = (this: {[key: string]: any}, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
+export type StepDefinitionCode = (this: World, ...stepArgs: any[]) => any;
 
 export interface StepDefinitionOptions {
     timeout?: number;
@@ -45,7 +47,8 @@ export interface HookScenarioResult {
     stepsResults: any;
 }
 
-export type HookCode = (this: { [key: string]: any }, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
+export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
+export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 // tslint:disable-next-line ban-types
 export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void) => void;
@@ -64,12 +67,16 @@ export interface HookOptions {
 export interface Hooks {
     Before(code: HookCode): void;
     Before(options: HookOptions, code: HookCode): void;
+    BeforeAll(code: GlobalHookCode): void;
+    BeforeAll(options: HookOptions, code: GlobalHookCode): void;
     After(code: HookCode): void;
     After(options: HookOptions, code: HookCode): void;
+    AfterAll(code: GlobalHookCode): void;
+    AfterAll(options: HookOptions, code: GlobalHookCode): void;
     Around(code: AroundCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
-    setWorldConstructor(world: ((this: {[key: string]: any}, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
+    setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
     registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
     registerListener(listener: EventListener): void;
     defineParameterType(transform: Transform): void;

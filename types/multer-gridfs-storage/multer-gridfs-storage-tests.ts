@@ -2,22 +2,18 @@ import * as MulterGridfsStorage from 'multer-gridfs-storage';
 import { Db, MongoClient, Server } from "mongodb";
 
 // Exported interfaces
-let opt1: MulterGridfsStorage.DbStorageOptions;
-let opt2: MulterGridfsStorage.UrlStorageOptions;
-let conf: MulterGridfsStorage.FileConfig;
-
-conf = {
+const conf: MulterGridfsStorage.FileConfig = {
     filename: 'name',
     bucketName: 'plants'
 };
 
 // Connection promise
-let dbPromise = MongoClient.connect('mongodb://yourhost:27017/database');
+const dbPromise = MongoClient.connect('mongodb://yourhost:27017/database');
 
-let server = new Server('localhost', 27017);
-let db = new Db('database', server);
+const server = new Server('localhost', 27017);
+const db = new Db('database', server);
 
-opt1 = {
+const opt1: MulterGridfsStorage.DbStorageOptions = {
     db,
     file: (req, file) => {
         return new Promise((resolve) => {
@@ -28,7 +24,7 @@ opt1 = {
     }
 };
 
-opt2 = {
+const opt2: MulterGridfsStorage.UrlStorageOptions = {
     url: 'mongodb://yourhost:27017/database',
     connectionOpts: {},
     file: (req, file) => {
@@ -39,20 +35,20 @@ opt2 = {
 };
 
 // All options
-let dbFileStorage = new MulterGridfsStorage(opt1);
+const dbFileStorage = new MulterGridfsStorage(opt1);
 
-let urlFileStorage = new MulterGridfsStorage(opt2);
+const urlFileStorage = new MulterGridfsStorage(opt2);
 
 // Other properties are optional
-let promiseStorage = new MulterGridfsStorage({
+const promiseStorage = new MulterGridfsStorage({
     db: dbPromise
 });
 
-let dbStorage = new MulterGridfsStorage({
+const dbStorage = new MulterGridfsStorage({
     db
 });
 
-let urlStorage = new MulterGridfsStorage({
+const urlStorage = new MulterGridfsStorage({
     url: 'mongodb://yourhost:27017/database'
 });
 

@@ -1,6 +1,6 @@
 // Type definitions for react-ga 2.1
 // Project: https://github.com/react-ga/react-ga
-// Definitions by: Tim Aldridge <https://github.com/telshin>
+// Definitions by: Tim Aldridge <https://github.com/telshin>, Vasya Aksyonov <https://github.com/outring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface EventArgs {
@@ -25,6 +25,8 @@ export interface GaOptions {
     legacyHistoryImport?: boolean;
     allowLinker?: boolean;
     userId?: string;
+    language?: string;
+    hostName?: string;
 }
 
 export interface InitializeOptions {
@@ -54,7 +56,8 @@ export interface OutboundLinkArgs {
 }
 
 export function initialize(trackingCode: string, options?: InitializeOptions): void;
-export function ga(): any;
+export function ga(): (...args: any[]) => any;
+export function ga(...args: any[]): any;
 export function set(fieldsObject: FieldsObject): void;
 export function send(fieldsObject: FieldsObject): void;
 export function pageview(path: string): void;

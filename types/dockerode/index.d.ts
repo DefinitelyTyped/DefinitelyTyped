@@ -1,8 +1,10 @@
-// Type definitions for dockerode 2.4
+// Type definitions for dockerode 2.5
 // Project: https://github.com/apocas/dockerode
 // Definitions by: Carl Winkler <https://github.com/seikho>
 //                 Nicolas Laplante <https://github.com/nlaplante>
 //                 ByeongHun Yoo <https://github.com/isac322>
+//                 Ray Fang <https://github.com/lazarusx>
+//                 Marius Meisenzahl <https://github.com/meisenzahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -443,6 +445,7 @@ declare namespace Dockerode {
   }
 
   interface HostConfig {
+    AutoRemove: boolean;
     Binds: string[];
     ContainerIDFile: string;
     LogConfig: {
@@ -488,6 +491,7 @@ declare namespace Dockerode {
     CpusetCpus: string;
     CpusetMems: string;
     Devices?: any;
+    DiskQuota: number;
     KernelMemory: number;
     Memory: number;
     MemoryReservation: number;
@@ -591,6 +595,7 @@ declare namespace Dockerode {
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
     HostConfig?: {
+      AutoRemove?: boolean;
       Binds?: string[];
       Links?: string[];
       Memory?: number;
@@ -654,15 +659,21 @@ declare namespace Dockerode {
     };
   }
 
+  interface KeyObject {
+    pem: string | Buffer;
+    passphrase?: string;
+  }
+
   interface DockerOptions {
     socketPath?: string;
     host?: string;
     port?: number | string;
-    ca?: string;
-    cert?: string;
-    key?: string;
+    ca?: string | string[] | Buffer | Buffer[];
+    cert?: string | string[] | Buffer | Buffer[];
+    key?: string | string[] | Buffer | Buffer[] | KeyObject[];
     protocol?: "https" | "http";
     timeout?: number;
+    version?: string;
     Promise?: typeof Promise;
   }
 

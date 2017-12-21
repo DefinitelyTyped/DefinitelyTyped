@@ -4,7 +4,7 @@ import q = require('q');
 var commandFactory = hystrixjs.commandFactory;
 
 var command = commandFactory
-    .getOrCreate('testCommand', 'testGroup')
+    .getOrCreate<string, string>('testCommand', 'testGroup')
     .circuitBreakerSleepWindowInMilliseconds(5000)
     .errorHandler((error) => {
         return false;

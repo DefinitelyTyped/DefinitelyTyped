@@ -1,15 +1,25 @@
-// Type definitions for prettier 1.5
+// Type definitions for prettier 1.9
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { File } from 'babel-types';
 
 export type AST = File;
 
 export type BuiltInParser = (text: string, options?: any) => AST;
-export type BuiltInParserName = 'babylon' | 'flow' | 'typescript' | 'postcss' | 'json' | 'graphql';
+export type BuiltInParserName =
+    | 'babylon'
+    | 'flow'
+    | 'typescript'
+    | 'postcss' // deprecated
+    | 'css'
+    | 'less'
+    | 'scss'
+    | 'json'
+    | 'graphql'
+    | 'markdown';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -62,6 +72,31 @@ export interface Options {
      * Specify the input filepath. This will be used to do parser inference.
      */
     filepath?: string;
+    /**
+     * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
+     * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     */
+    requirePragma?: boolean;
+    /**
+     * Prettier can insert a special @format marker at the top of files specifying that
+     * the file has been formatted with prettier. This works well when used in tandem with
+     * the --require-pragma option. If there is already a docblock at the top of
+     * the file then this option will add a newline to it with the @format marker.
+     */
+    insertPragma?: boolean;
+    /**
+     * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
+     * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
+     */
+    proseWrap?:
+        | boolean // deprecated
+        | 'always'
+        | 'never'
+        | 'preserve';
+    /**
+     * Include parentheses around a sole arrow function parameter.
+     */
+    arrowParens?: 'avoid' | 'always';
 }
 
 export interface CursorOptions extends Options {
@@ -96,6 +131,78 @@ export function check(source: string, options?: Options): boolean;
  * The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
  */
 export function formatWithCursor(source: string, options: CursorOptions): CursorResult;
+
+export interface ResolveConfigOptions {
+    /**
+     * If set to `false`, all caching will be bypassed.
+     */
+    useCache?: boolean;
+    /**
+     * Pass directly the path of the config file if you don't wish to search for it.
+     */
+    config?: string;
+    /**
+     * If set to `true` and an `.editorconfig` file is in your project,
+     * Prettier will parse it and convert its properties to the corresponding prettier configuration.
+     * This configuration will be overridden by `.prettierrc`, etc. Currently,
+     * the following EditorConfig properties are supported:
+     * - indent_style
+     * - indent_size/tab_width
+     * - max_line_length
+     */
+    editorconfig?: boolean;
+}
+
+/**
+ * `resolveConfig` can be used to resolve configuration for a given source file,
+ * passing its path as the first argument. The config search will start at the
+ * file path and continue to search up the directory.
+ * (You can use `process.cwd()` to start searching from the current directory).
+ *
+ * A promise is returned which will resolve to:
+ *
+ *  - An options object, providing a [config file](https://github.com/prettier/prettier#configuration-file) was found.
+ *  - `null`, if no file was found.
+ *
+ * The promise will be rejected if there was an error parsing the configuration file.
+ */
+export function resolveConfig(filePath: string, options?: ResolveConfigOptions): Promise<null | Options>;
+export namespace resolveConfig {
+    function sync(filePath: string, options?: ResolveConfigOptions): null | Options;
+}
+
+/**
+ * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
+ * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+ */
+export function clearConfigCache(): void;
+
+export interface SupportLanguage {
+    name: string;
+    since: string;
+    parsers: string[];
+    group?: string;
+    tmScope: string;
+    aceMode: string;
+    codemirrorMode: string;
+    codemirrorMimeType: string;
+    aliases?: string[];
+    extensions: string[];
+    filenames?: string[];
+    linguistLanguageId: number;
+    vscodeLanguageIds: string[];
+}
+
+export interface SupportInfo {
+    languages: SupportLanguage[];
+}
+
+/**
+ * Returns an object representing the parsers, languages and file types Prettier supports.
+ * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
+ * otherwise information for the current version will be returned.
+ */
+export function getSupportInfo(version?: string): SupportInfo;
 
 /**
  * `version` field in `package.json`

@@ -66,6 +66,8 @@ export interface MigrationBuilder {
 
     sql(sql: string, args?: object): void;
     func(sql: string): PgLiteral;
+
+    noTransaction(): void;
 }
 
 export default function(options: any): Promise<void>;

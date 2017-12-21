@@ -38,7 +38,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 These can be used by TypeScript 1.0.
 
 * [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
+* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 * Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
@@ -88,6 +88,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
+  - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
   - Or if there are more people, it can be multiline
   ```typescript
@@ -144,6 +145,10 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
     Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
     Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
     Exception: `new Map<string, number>()` is OK.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* `var foo: string | any`:
+    When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+    Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 
 #### Removing a package
@@ -199,7 +204,14 @@ This script uses [dtslint](https://github.com/Microsoft/dtslint).
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
 The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
-This usually happens within an hour of changes being merged.
+
+#### I've submitted a pull request. How long until it is merged?
+
+It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) to see progress as maintainers work through the open PRs.
+
+#### My PR is merged; when will the `@types` NPM package be updated?
+
+NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
@@ -273,9 +285,28 @@ transitively `react-router-bootstrap` (which depends on `react-router`) also add
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 
+#### How do I write definitions for packages that can be used globally and as a module?
+
+The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
+
+To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
+
+Please note that it is not required to fully exercise the definition in each test file - it is sufficient to test only the globally-accessible elements on the global test file and fully exercise the definition in the module test file, or vice versa.
+
 #### What about scoped packages?
 
 Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
+When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated
+`tsconfig.json` to correctly reference the scoped package:
+
+```json
+{
+    "paths":{
+      "@foo/bar": ["foo__bar"]
+    }
+}
+```
 
 
 #### The file history in GitHub looks incomplete.

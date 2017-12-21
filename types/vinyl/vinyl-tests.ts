@@ -24,10 +24,6 @@ interface TestFile extends File {
 	_base?: string;
 }
 
-declare module 'fs' {
-	class Stats { }
-}
-
 var pipe: (streams: [NodeJS.ReadableStream, NodeJS.WritableStream], cb: (err?: Error) => void) => void = miss.pipe;
 var from: (values: any[]) => NodeJS.ReadableStream = miss.from;
 var concat: (fn: (d: Buffer) => void) => NodeJS.WritableStream = miss.concat;

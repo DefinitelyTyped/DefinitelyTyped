@@ -7,8 +7,8 @@ interface State {
 
 class Normal extends React.Component<{}, State> {
     constructor() {
-        super();
-        let arr: string[] = [];
+        super({});
+        const arr: string[] = [];
         for (let i = 0; i < 200; i++) {
             arr.push(`${i}`);
         }

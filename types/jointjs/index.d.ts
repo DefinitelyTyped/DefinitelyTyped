@@ -1,6 +1,6 @@
 // Type definitions for Joint JS 1.0.1
 // Project: http://www.jointjs.com/
-// Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>, Federico Caselli <https://github.com/CaselIT>, Chris Moran <https://github.com/ChrisMoran>
+// Definitions by: Aidan Reel <https://github.com/areel>, David Durman <https://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>, Federico Caselli <https://github.com/CaselIT>, Chris Moran <https://github.com/ChrisMoran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 // typings: https://github.com/CaselIT/typings-jointjs

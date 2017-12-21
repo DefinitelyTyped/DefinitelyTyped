@@ -1,6 +1,6 @@
 // Type definitions for sharp-timer 0.3
 // Project: https://github.com/afractal/SharpTimer
-// Definitions by: Hermes Gjini - afractal <https://github.com/afractal/>
+// Definitions by: Hermes Gjini - afractal <https://github.com/afractal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type ElapsedEvent = () => void;

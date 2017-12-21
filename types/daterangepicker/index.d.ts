@@ -1,7 +1,8 @@
-// Type definitions for Date Range Picker v2.1.25
+// Type definitions for Date Range Picker v2.1.30
 // Project: http://www.daterangepicker.com/
-// Definitions by: SirMartin <https://github.com/SirMartin/>
-//                 Steven Masala <https://github.com/smasala/>
+// Definitions by: SirMartin <https://github.com/SirMartin>
+//                 Steven Masala <https://github.com/smasala>
+//                 Grant Hutchins <https://github.com/nertzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,14 +19,15 @@ declare global {
 declare const daterangepicker: daterangepicker.DateRangePicker;
 
 declare namespace daterangepicker {
-    type DataRangePickerCallback = (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any;
+    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string | null) => any;
 
     interface DateRangePicker {
         new (element: HTMLElement, settings?: daterangepicker.Settings, callback?: DataRangePickerCallback): DateRangePicker;
 
         startDate: moment.Moment;
         endDate: moment.Moment;
-        
+        container: JQuery;
+
         setStartDate(date: Date | moment.Moment | string): void;
         setEndDate(date: Date | moment.Moment | string): void;
         remove(): void;

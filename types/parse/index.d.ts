@@ -1,6 +1,9 @@
-// Type definitions for parse 1.9
+// Type definitions for parse 2.4
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
+// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
+//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
+//                  Cedric Kemp <https://github.com/jaeggerr>
+//                  Flavio Negrão <https://github.com/flavionegrao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,11 +13,12 @@
 
 declare namespace Parse {
 
-    var applicationId: string;
-    var javaScriptKey: string | undefined;
-    var masterKey: string | undefined;
-    var serverURL: string;
-    var VERSION: string;
+    let applicationId: string;
+    let javaScriptKey: string | undefined;
+    let masterKey: string | undefined;
+    let serverURL: string;
+    let liveQueryServerURL: string;
+    let VERSION: string;
 
     interface SuccessOption {
         success?: Function;
@@ -96,9 +100,15 @@ declare namespace Parse {
         then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
                 rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-            rejectedCallback?: (reason: any) => U): IPromise<U>;
+                rejectedCallback?: (reason: any) => U): IPromise<U>;
+    }
+
+    interface Pointer {
+        __type: string;
+        className: string;
+        objectId: string;
     }
 
     interface IBaseObject {
@@ -187,7 +197,7 @@ declare namespace Parse {
      *     this is omitted, the content type will be inferred from the name's
      *     extension.
      */
-     class File {
+    class File {
 
         constructor(name: string, data: any, type?: string);
         name(): string;
@@ -329,8 +339,8 @@ declare namespace Parse {
         static extend(className: string, protoProps?: any, classProps?: any): any;
         static fromJSON(json: any, override: boolean): any;
 
-        static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
-        static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
+        static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
+        static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -354,6 +364,7 @@ declare namespace Parse {
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        isNew(): boolean;
         isValid(): boolean;
         op(attr: string): any;
         previous(attr: string): any;
@@ -364,6 +375,7 @@ declare namespace Parse {
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        toPointer(): Pointer;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -372,6 +384,8 @@ declare namespace Parse {
         interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
         interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
@@ -580,7 +594,7 @@ declare namespace Parse {
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: new(...args: any[]) => T);
+        constructor(objectClass: new (...args: any[]) => T);
 
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
@@ -884,19 +898,29 @@ declare namespace Parse {
             object: Object;
         }
 
-        interface AfterSaveRequest extends TriggerRequest {}
-        interface AfterDeleteRequest extends TriggerRequest {}
-        interface BeforeDeleteRequest extends TriggerRequest {}
-        interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends TriggerRequest {}
+        interface BeforeFindTriggerRequest extends TriggerRequest {
+            query?: Query
+            count?: boolean
+        }
+
+        interface AfterSaveRequest extends TriggerRequest { }
+        interface AfterDeleteRequest extends TriggerRequest { }
+        interface BeforeDeleteRequest extends TriggerRequest { }
+        interface BeforeDeleteResponse extends FunctionResponse { }
+        interface BeforeSaveRequest extends TriggerRequest { }
+        interface BeforeFindRequest extends BeforeFindTriggerRequest { }
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
+        }
+        interface BeforeFindRequest extends TriggerRequest {
+            query: Query;
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest, response: BeforeFindRequest) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
@@ -910,7 +934,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        var HTTPOptions: new () => HTTPOptions;
+        let HTTPOptions: new () => HTTPOptions;
         interface HTTPOptions {
             /**
              * The body of the request.
@@ -964,56 +988,56 @@ declare namespace Parse {
 
         OTHER_CAUSE = -1,
         INTERNAL_SERVER_ERROR = 1,
-        CONNECTION_FAILED =  100,
-        OBJECT_NOT_FOUND =  101,
-        INVALID_QUERY =  102,
-        INVALID_CLASS_NAME =  103,
-        MISSING_OBJECT_ID =  104,
-        INVALID_KEY_NAME =  105,
-        INVALID_POINTER =  106,
-        INVALID_JSON =  107,
-        COMMAND_UNAVAILABLE =  108,
-        NOT_INITIALIZED =  109,
-        INCORRECT_TYPE =  111,
-        INVALID_CHANNEL_NAME =  112,
-        PUSH_MISCONFIGURED =  115,
-        OBJECT_TOO_LARGE =  116,
-        OPERATION_FORBIDDEN =  119,
-        CACHE_MISS =  120,
-        INVALID_NESTED_KEY =  121,
-        INVALID_FILE_NAME =  122,
-        INVALID_ACL =  123,
-        TIMEOUT =  124,
-        INVALID_EMAIL_ADDRESS =  125,
-        MISSING_CONTENT_TYPE =  126,
-        MISSING_CONTENT_LENGTH =  127,
-        INVALID_CONTENT_LENGTH =  128,
-        FILE_TOO_LARGE =  129,
-        FILE_SAVE_ERROR =  130,
-        DUPLICATE_VALUE =  137,
-        INVALID_ROLE_NAME =  139,
-        EXCEEDED_QUOTA =  140,
-        SCRIPT_FAILED =  141,
-        VALIDATION_ERROR =  142,
-        INVALID_IMAGE_DATA =  150,
-        UNSAVED_FILE_ERROR =  151,
+        CONNECTION_FAILED = 100,
+        OBJECT_NOT_FOUND = 101,
+        INVALID_QUERY = 102,
+        INVALID_CLASS_NAME = 103,
+        MISSING_OBJECT_ID = 104,
+        INVALID_KEY_NAME = 105,
+        INVALID_POINTER = 106,
+        INVALID_JSON = 107,
+        COMMAND_UNAVAILABLE = 108,
+        NOT_INITIALIZED = 109,
+        INCORRECT_TYPE = 111,
+        INVALID_CHANNEL_NAME = 112,
+        PUSH_MISCONFIGURED = 115,
+        OBJECT_TOO_LARGE = 116,
+        OPERATION_FORBIDDEN = 119,
+        CACHE_MISS = 120,
+        INVALID_NESTED_KEY = 121,
+        INVALID_FILE_NAME = 122,
+        INVALID_ACL = 123,
+        TIMEOUT = 124,
+        INVALID_EMAIL_ADDRESS = 125,
+        MISSING_CONTENT_TYPE = 126,
+        MISSING_CONTENT_LENGTH = 127,
+        INVALID_CONTENT_LENGTH = 128,
+        FILE_TOO_LARGE = 129,
+        FILE_SAVE_ERROR = 130,
+        DUPLICATE_VALUE = 137,
+        INVALID_ROLE_NAME = 139,
+        EXCEEDED_QUOTA = 140,
+        SCRIPT_FAILED = 141,
+        VALIDATION_ERROR = 142,
+        INVALID_IMAGE_DATA = 150,
+        UNSAVED_FILE_ERROR = 151,
         INVALID_PUSH_TIME_ERROR = 152,
         FILE_DELETE_ERROR = 153,
         REQUEST_LIMIT_EXCEEDED = 155,
         INVALID_EVENT_NAME = 160,
-        USERNAME_MISSING =  200,
-        PASSWORD_MISSING =  201,
-        USERNAME_TAKEN =  202,
-        EMAIL_TAKEN =  203,
-        EMAIL_MISSING =  204,
-        EMAIL_NOT_FOUND =  205,
-        SESSION_MISSING =  206,
-        MUST_CREATE_USER_THROUGH_SIGNUP =  207,
-        ACCOUNT_ALREADY_LINKED =  208,
+        USERNAME_MISSING = 200,
+        PASSWORD_MISSING = 201,
+        USERNAME_TAKEN = 202,
+        EMAIL_TAKEN = 203,
+        EMAIL_MISSING = 204,
+        EMAIL_NOT_FOUND = 205,
+        SESSION_MISSING = 206,
+        MUST_CREATE_USER_THROUGH_SIGNUP = 207,
+        ACCOUNT_ALREADY_LINKED = 208,
         INVALID_SESSION_TOKEN = 209,
-        LINKED_ID_MISSING =  250,
-        INVALID_LINKED_SESSION =  251,
-        UNSUPPORTED_SERVICE =  252,
+        LINKED_ID_MISSING = 250,
+        INVALID_LINKED_SESSION = 251,
+        UNSUPPORTED_SERVICE = 252,
         AGGREGATE_ERROR = 600,
         FILE_READ_ERROR = 601,
         X_DOMAIN_REQUEST = 602

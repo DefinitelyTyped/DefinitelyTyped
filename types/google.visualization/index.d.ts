@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -15,7 +15,7 @@ declare namespace google {
         function setOnLoadCallback(handler: Function): void;
     }
 
-    //https://developers.google.com/chart/interactive/docs/reference
+    // https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
 
         export interface ChartSpecs {
@@ -291,7 +291,7 @@ declare namespace google {
         //#endregion
         //#region GeoChart
 
-        //https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart
+        // https://developers.google.com/chart/interactive/docs/gallery/geochart
         export class GeoChart extends ChartBase {
             draw(data: DataTable, options: GeoChartOptions): void;
         }
@@ -306,7 +306,7 @@ declare namespace google {
             enableRegionInteractivity?: boolean;
             height?: number;
             keepAspectRatio?: boolean;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             region?: string;
             magnifyingGlass?: GeoChartMagnifyingGlass;
             markerOpacity?: number;
@@ -410,23 +410,26 @@ declare namespace google {
         }
 
         export interface ChartArea {
-            top?: any;
-            left?: any;
-            right?: any;
-            bottom?: any;
-            width?: any;
-            height?: any;
+            backgroundColor?: string | { stroke: string; strokeWidth?: number };
+            top?: number | string;
+            left?: number | string;
+            right?: number | string;
+            bottom?: number | string;
+            width?: number | string;
+            height?: number | string;
         }
 
+        export type ChartLegendPosition = 'bottom' | 'left' | 'in' | 'none' | 'right' | 'top';
+        export type ChartLegendAlignment = 'start' | 'center' | 'end';
         export interface ChartLegend {
-            alignment?: string;
+            alignment?: ChartLegendAlignment;
             maxLines?: number;
-            position?: string;
+            position?: ChartLegendPosition;
             textStyle?: ChartTextStyle;
             numberFormat?: string;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/animation
+        // https://developers.google.com/chart/interactive/docs/animation
         export interface TransitionAnimation {
             duration?: number;
             easing?: string; // linear, in, out, inAndOut
@@ -434,7 +437,7 @@ declare namespace google {
         }
 
         export interface ChartAxis {
-            baseline?: number; // This option is only supported for a continuous axis. https://google-developers.appspot.com/chart/interactive/docs/customizing_axes#Terminology
+            baseline?: number; // This option is only supported for a continuous axis. https://developers.google.com/chart/interactive/docs/customizing_axes#Terminology
             baselineColor?: string; // google's documentation on this is wrong, specifies it as a number. The color of the baseline for the horizontal axis. Can be any HTML color string, for example: 'red' or '#00cc00'
             direction?: number; // The direction in which the values along the horizontal axis grow. Specify -1 to reverse the order of the values.
             format?: string; // icu pattern set http://icu-project.org/apiref/icu4c/classDecimalFormat.html#_details
@@ -453,8 +456,8 @@ declare namespace google {
             maxTextLines?: number;
             minTextSpacing?: number;
             showTextEvery?: number;
-            maxValue?: number;
-            minValue?: number;
+            maxValue?: number | Date | number[];
+            minValue?: number | Date | number[];
             viewWindowMode?: string;
             viewWindow?: ChartViewWindow;
         }
@@ -465,8 +468,8 @@ declare namespace google {
         }
 
         export interface ChartViewWindow {
-            max?: number;
-            min?: number;
+            max?: number | Date | number[];
+            min?: number | Date | number[];
         }
 
         export interface ChartTooltip {
@@ -536,10 +539,9 @@ declare namespace google {
         //#endregion
         //#region ScatterChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart
+        // https://developers.google.com/chart/interactive/docs/gallery/scatterchart
         export class ScatterChart extends CoreChartBase {
-            draw(data: DataTable, options?: ScatterChartOptions): void;
-            draw(data: DataView, options?: ScatterChartOptions): void;
+            draw(data: DataTable | DataView, options?: ScatterChartOptions): void;
         }
 
         export interface ScatterChartOptions {
@@ -560,7 +562,7 @@ declare namespace google {
             forceIFrame?: boolean;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             lineWidth?: number;
             pointSize?: number;
             selectionMode?: string;
@@ -577,13 +579,12 @@ declare namespace google {
         //#endregion
         //#region ColumnChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/columnchart
+        // https://developers.google.com/chart/interactive/docs/gallery/columnchart
         export class ColumnChart extends CoreChartBase {
-            draw(data: DataTable, options: ColumnChartOptions): void;
-            draw(data: DataView, options: ColumnChartOptions): void;
+            draw(data: DataTable | DataView, options: ColumnChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/columnchart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options
         export interface ColumnChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -599,8 +600,8 @@ declare namespace google {
             fontName?: string;
             hAxis?: ChartAxis;
             height?: number;
-            isStacked?: boolean;
-            legend?: ChartLegend;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
+            legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
             series?: any;
@@ -617,13 +618,12 @@ declare namespace google {
         //#endregion
         //#region LineChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart
+        // https://developers.google.com/chart/interactive/docs/gallery/linechart
         export class LineChart extends CoreChartBase {
-            draw(data: DataTable, options: LineChartOptions): void;
-            draw(data: DataView, options: LineChartOptions): void;
+            draw(data: DataTable | DataView, options: LineChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -643,8 +643,9 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             interpolateNulls?: boolean;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             lineWidth?: number;
+            min?: number;
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
@@ -663,7 +664,7 @@ declare namespace google {
         //#endregion
         //#region BarChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
         export interface BarChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -681,8 +682,8 @@ declare namespace google {
             hAxes?: any;
             hAxis?: ChartAxis;
             height?: number;
-            isStacked?: boolean;
-            legend?: ChartLegend;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
+            legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
             series?: any;
             theme?: string;
@@ -695,22 +696,20 @@ declare namespace google {
             width?: number;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart
+        // https://developers.google.com/chart/interactive/docs/gallery/barchart
         export class BarChart extends CoreChartBase {
-            draw(data: DataTable, options: BarChartOptions): void;
-            draw(data: DataView, options: BarChartOptions): void;
+            draw(data: DataTable | DataView, options: BarChartOptions): void;
         }
 
         //#endregion
         //#region Histogram
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/histogram
+        // https://developers.google.com/chart/interactive/docs/gallery/histogram
         export class Histogram extends CoreChartBase {
-            draw(data: DataTable, options: HistogramOptions): void;
-            draw(data: DataView, options: HistogramOptions): void;
+            draw(data: DataTable | DataView, options: HistogramOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/histogram#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/histogram#configuration-options
         export interface HistogramOptions {
             animation?: TransitionAnimation;
             axisTitlesPosition?: string; // in, out, none
@@ -727,8 +726,8 @@ declare namespace google {
             histogram?: HistogramHistogramOptions;
             height?: number;
             interpolateNulls?: boolean;
-            isStacked?: boolean;
-            legend?: ChartLegend;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
+            legend?: ChartLegend | 'none';
             orientation?: string;
             reverseCategories?: boolean;
             series?: any;
@@ -751,13 +750,12 @@ declare namespace google {
         //#endregion
         //#region AreaChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart
+        // https://developers.google.com/chart/interactive/docs/gallery/areachart
         export class AreaChart extends CoreChartBase {
-            draw(data: DataTable, options: AreaChartOptions): void;
-            draw(data: DataView, options: AreaChartOptions): void;
+            draw(data: DataTable | DataView, options: AreaChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/areachart#configuration-options
         export interface AreaChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -777,8 +775,8 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             interpolateNulls?: boolean;
-            isStacked?: boolean;
-            legend?: ChartLegend;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
+            legend?: ChartLegend | 'none';
             lineWidth?: number;
             orientation?: string;
             pointSize?: number;
@@ -801,8 +799,7 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/annotationchart
         export class AnnotationChart extends CoreChartBase
         {
-            draw(data: DataTable, options: AnnotationChartOptions): void;
-            draw(data: DataView, options: AnnotationChartOptions): void;
+            draw(data: DataTable | DataView, options: AnnotationChartOptions): void;
             setVisibleChartRange(start: Date, end: Date): void;
             getVisibleChartRange(): {start: Date; end: Date };
             hideDataColumns(columnIndexes: number | number[]): void;
@@ -826,7 +823,7 @@ declare namespace google {
             displayRangeSelector?: boolean;
             displayZoomButtons?: boolean;
             fill?: number;
-            legendPosition?: string;
+            legendPosition?: 'sameRow' | 'newRow';
             max?: number;
             min?: number;
             numberFormats?: any;
@@ -841,13 +838,12 @@ declare namespace google {
         //#endregion
         //#region SteppedAreaChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart
+        // https://developers.google.com/chart/interactive/docs/gallery/areachart
         export class SteppedAreaChart extends CoreChartBase {
-            draw(data: DataTable, options: SteppedAreaChartOptions): void;
-            draw(data: DataView, options: SteppedAreaChartOptions): void;
+            draw(data: DataTable | DataView, options: SteppedAreaChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/areachart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/steppedareachart#configuration-options
         export interface SteppedAreaChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -864,8 +860,8 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             interpolateNulls?: boolean;
-            isStacked?: boolean;
-            legend?: ChartLegend;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
+            legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
             series?: any;
@@ -882,13 +878,12 @@ declare namespace google {
         //#endregion
         //#region PieChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
+        // https://developers.google.com/chart/interactive/docs/gallery/piechart
         export class PieChart extends CoreChartBase {
-            draw(data: DataTable, options: PieChartOptions): void;
-            draw(data: DataView, options: PieChartOptions): void;
+            draw(data: DataTable | DataView, options: PieChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options
         export interface PieChartOptions {
             backgroundColor?: any;
             chartArea?: ChartArea;
@@ -898,7 +893,7 @@ declare namespace google {
             fontName?: string;
             height?: number;
             is3D?: boolean;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             pieHole?: number;
             pieSliceBorderColor?: string;
             pieSliceText?: string;
@@ -918,10 +913,9 @@ declare namespace google {
         //#endregion
         //#region BubbleChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart
+        // https://developers.google.com/chart/interactive/docs/gallery/scatterchart
         export class BubbleChart extends CoreChartBase {
-            draw(data: DataTable, options?: BubbleChartOptions): void;
-            draw(data: DataView, options?: BubbleChartOptions): void;
+            draw(data: DataTable | DataView, options?: BubbleChartOptions): void;
         }
 
         export interface BubbleChartOptions {
@@ -939,7 +933,7 @@ declare namespace google {
             forceIFrame?: boolean;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             selectionMode?: string;
             series?: any;
             sizeAxis?: ChartSizeAxis;
@@ -969,15 +963,14 @@ declare namespace google {
         //#endregion
         //#region TreeMap
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/treemap
+        // https://developers.google.com/chart/interactive/docs/gallery/treemap
         export class TreeMap extends ChartBase {
-            draw(data: DataTable, options?: TreeMapOptions): void;
-            draw(data: DataView, options?: TreeMapOptions): void;
+            draw(data: DataTable | DataView, options?: TreeMapOptions): void;
             goUpAndDraw(): void;
             getMaxPossibleDepth(): number;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/treemap#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/treemap#Configuration_Options
         export interface TreeMapOptions {
             fontColor?: string;
             fontFamily?: string;
@@ -1008,17 +1001,16 @@ declare namespace google {
         //#endregion
         //#region Table
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/table
+        // https://developers.google.com/chart/interactive/docs/gallery/table
         export class Table extends ChartBase {
-            draw(data: DataTable, options?: TableOptions): void;
-            draw(data: DataView, options?: TableOptions): void;
+            draw(data: DataTable | DataView, options?: TableOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/table#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/table#Configuration_Options
         export interface TableOptions {
             allowHtml?: boolean;
             alternatingRowStyle?: boolean;
-            cssClassName?: CssClassNames;
+            cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             height?: string;
             page?: string;
@@ -1047,15 +1039,14 @@ declare namespace google {
         //#endregion
         //#region Timeline
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/timeline
+        // https://developers.google.com/chart/interactive/docs/gallery/timeline
         export class Timeline {
             constructor(element: Element);
-            draw(data: DataTable, options?: TimelineOptions): void;
-            draw(data: DataView, options?: TimelineOptions): void;
+            draw(data: DataTable | DataView, options?: TimelineOptions): void;
             clearChart(): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/timeline#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/timeline#Configuration_Options
         export interface TimelineOptions {
             avoidOverlappingGridLines?: boolean;
             backgroundColor?: any;
@@ -1083,13 +1074,12 @@ declare namespace google {
         //#endregion
         //#region CandlestickChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart
+        // https://developers.google.com/chart/interactive/docs/gallery/candlestickchart
         export class CandlestickChart extends CoreChartBase {
-            draw(data: DataTable, options: CandlestickChartOptions): void;
-            draw(data: DataView, options: CandlestickChartOptions): void;
+            draw(data: DataTable | DataView, options: CandlestickChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/candlestickchart#Configuration_Options
         export interface CandlestickChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -1105,7 +1095,7 @@ declare namespace google {
             fontName?: string;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             orientation?: string;
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
@@ -1123,13 +1113,12 @@ declare namespace google {
         //#endregion
         //#region ComboChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/combochart
+        // https://developers.google.com/chart/interactive/docs/gallery/combochart
         export class ComboChart extends CoreChartBase {
-            draw(data: DataTable, options: ComboChartOptions): void;
-            draw(data: DataView, options: ComboChartOptions): void;
+            draw(data: DataTable | DataView, options: ComboChartOptions): void;
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/combochart#configuration-options
+        // https://developers.google.com/chart/interactive/docs/gallery/combochart#configuration-options
         export interface ComboChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -1153,7 +1142,7 @@ declare namespace google {
             height?: number;
             interpolateNulls?: boolean;
             isStacked?: boolean;
-            legend?: ChartLegend;
+            legend?: ChartLegend | 'none';
             lineDashStyle?: number[];
             lineWidth?: number;
             orientation?: string;
@@ -1180,6 +1169,8 @@ declare namespace google {
         namespace events {
             function addListener(visualization: any, eventName: string, callback: Function): any;
             function addListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
+            function addOneTimeListener(visualization: any, eventName: string, callback: Function): any;
+            function addOneTimeListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
             function removeListener(listener: any): void;
             function removeAllListeners(visualization: any): void;
             function trigger(visualization: any, eventName: string, args?: any): void;
@@ -1383,16 +1374,15 @@ declare namespace google {
         //#endregion
         //#region OrgChart
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/orgchart
+        // https://developers.google.com/chart/interactive/docs/gallery/orgchart
         export class OrgChart extends CoreChartBase {
-            draw(data: DataTable, options: OrgChartOptions): void;
-            draw(data: DataView, options: OrgChartOptions): void;
+            draw(data: DataTable | DataView, options: OrgChartOptions): void;
             collapse(row: number, collapsed: boolean): void;
             getChildrenIndexes(row: number): number[];
             getCollapsedNodes(): number[];
         }
 
-        // https://google-developers.appspot.com/chart/interactive/docs/gallery/orgchart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/orgchart#Configuration_Options
         export interface OrgChartOptions {
             allowCollapse?: boolean;
             allowHtml?: boolean;

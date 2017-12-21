@@ -9,7 +9,7 @@ declare namespace filenamify {
     interface Options {
         replacement: string;
     }
-    function path(input: string, options?: filenamify.Options): string;
+    function path(input: string, options?: Options): string;
 }
 
 export = filenamify;

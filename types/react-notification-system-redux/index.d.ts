@@ -12,7 +12,7 @@ export as namespace Notifications;
 
 export = Notifications;
 
-declare class Notifications extends Component<Notifications.NotificationsProps, {}> {}
+declare class Notifications extends Component<Notifications.NotificationsProps> {}
 
 declare namespace Notifications {
     type NotificationsState = Notification[];

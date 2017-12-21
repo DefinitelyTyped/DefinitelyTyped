@@ -1,6 +1,6 @@
 // Type definitions for TinyMCE 4.5
 // Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
+// Definitions by: Martin Duparc <https://github.com/martinduparc>, Poul Poulsen <https://github.com/ipoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -64,6 +64,10 @@ export interface Settings {
   external_plugins?: {};
 
   hidden_input?: boolean;
+
+  paste_data_images?: boolean;
+
+  advlist_number_styles?: string;
 
   init_instance_callback?(editor: Editor): void;
 
@@ -704,7 +708,7 @@ export interface notificationManager {
 
 export namespace ui {
   interface ControlSettings {
-    menu: ui.Menu;
+    menu: Menu;
   }
 
   interface Collection {}
@@ -730,7 +734,7 @@ export namespace ui {
     constructor();
 
     $el: JQuery;
-    on(name: string, callback: string): ui.Control;
+    on(name: string, callback: string): Control;
     tooltip(): Control;
     settings: ControlSettings;
     disabled(state: boolean): void;
@@ -822,7 +826,7 @@ export namespace dom {
 
     parseStyle(cssText: string): {};
 
-    remove<T>(node: string, keepChildren?: boolean): Element | T[];
+    remove<T>(node: string | Element, keepChildren?: boolean): Element | T[];
 
     removeAllAttribs(e: Element): void;
 
@@ -1108,13 +1112,13 @@ export namespace html {
 
     addNodeFilter(attributes: string, callback: () => void): void;
 
-    filterNode(node: html.Node): html.Node;
+    filterNode(node: Node): Node;
 
-    parse(html: string, args?: {}): html.Node;
+    parse(html: string, args?: {}): Node;
   }
 
   class DomParser implements DomParser {
-    constructor(settings: {}, schema: html.Schema);
+    constructor(settings: {}, schema: Schema);
   }
 
   interface Entities {
@@ -1132,31 +1136,31 @@ export namespace html {
   }
 
   interface Node {
-    append(node: html.Node): html.Node;
+    append(node: Node): Node;
 
-    attr(name: string, value?: string): string | html.Node;
+    attr(name: string, value?: string): string | Node;
 
-    clone(): html.Node;
+    clone(): Node;
 
     create(name: string, attrs: {}): void;
 
-    empty(): html.Node;
+    empty(): Node;
 
-    getAll(name: string): html.Node[];
+    getAll(name: string): Node[];
 
-    insert(node: html.Node, ref_node: html.Node, before?: boolean): html.Node;
+    insert(node: Node, ref_node: Node, before?: boolean): Node;
 
     isEmpty(elements: {}): boolean;
 
-    remove(): html.Node;
+    remove(): Node;
 
-    replace(node: html.Node): html.Node;
+    replace(node: Node): Node;
 
     unwrap(): void;
 
-    walk(prev?: boolean): html.Node;
+    walk(prev?: boolean): Node;
 
-    wrap(wrapperNode: html.Node): html.Node;
+    wrap(wrapperNode: Node): Node;
   }
 
   class Node implements Node {
@@ -1168,7 +1172,7 @@ export namespace html {
   }
 
   class SaxParser implements SaxParser {
-    constructor(settings: {}, schema: html.Schema);
+    constructor(settings: {}, schema: Schema);
   }
 
   interface Schema {
@@ -1220,11 +1224,11 @@ export namespace html {
   }
 
   interface Serializer {
-    serialize(node: html.Node): string;
+    serialize(node: Node): string;
   }
 
   class Serializer implements Serializer {
-    constructor(settings: {}, schema: html.Schema);
+    constructor(settings: {}, schema: Schema);
   }
 
   interface Styles {
@@ -1260,7 +1264,7 @@ export class Writer implements Writer {
 
 export namespace util {
   interface Color {
-    parse(value: {}): util.Color;
+    parse(value: {}): Color;
 
     toHex(): string;
 
@@ -1388,7 +1392,7 @@ export namespace util {
   interface URI {
     getURI(noProtoHost: boolean): URI;
 
-    isSameOrigin(uri: util.URI): boolean;
+    isSameOrigin(uri: URI): boolean;
 
     setPath(path: string): void;
 

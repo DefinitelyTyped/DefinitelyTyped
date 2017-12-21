@@ -4,7 +4,7 @@ import { RedisClient } from 'redis';
 import IoRedisClient = require('ioredis');
 import { using } from 'bluebird';
 
-let lock: Lock = <Lock> {};
+const lock: Lock = <Lock> {};
 
 const client1 = new RedisClient({port: 6379, host: 'redis1.example.com'});
 const client2 = new RedisClient({port: 6379, host: 'redis2.example.com'});

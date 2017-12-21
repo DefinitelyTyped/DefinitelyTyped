@@ -34,23 +34,20 @@ class Graph extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    let _this = this;
-
     setInterval(() => {
-      let oldDataSet = _this.state;
-      let newData: number[] = [];
+      const oldDataSet = this.state;
+      const newData: number[] = [];
 
-      _this.state.labels.forEach(() => {
+      this.state.labels.forEach(() => {
         newData.push(Math.floor(Math.random() * 100));
       });
 
-      let newDataSet = {
-        ...oldDataSet
+      const newDataSet = {
+        ...oldDataSet,
+        data: newData
       };
 
-      newDataSet.data = newData;
-
-      _this.setState({ datasets: [newDataSet] });
+      this.setState({ datasets: [newDataSet] });
     }, 5000);
   }
 
@@ -61,9 +58,7 @@ class Graph extends React.Component<any, any> {
   }
 }
 
-export default React.createClass({
-  displayName: 'RandomizedDataLineExample',
-
+export default class RandomizedDataLineExample extends React.Component {
   render() {
     return (
       <div>
@@ -72,4 +67,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

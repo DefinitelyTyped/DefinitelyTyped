@@ -1,7 +1,8 @@
 // Type definitions for body-parser 1.16
 // Project: https://github.com/expressjs/body-parser
-// Definitions by: Santi Albo <https://github.com/santialbo>, Vilic Vane <https://github.com/vilic>, Jonathan Häberle <https://github.com/dreampulse>, Gevik Babakhani <https://github.com/blendsdk/>, Tomasz Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Santi Albo <https://github.com/santialbo>, Vilic Vane <https://github.com/vilic>, Jonathan Häberle <https://github.com/dreampulse>, Gevik Babakhani <https://github.com/blendsdk>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 

@@ -10,12 +10,12 @@
 /// <reference types="node" />
 import BigInteger = require("bigi");
 
-export interface Output {
+export interface Out {
     script: Buffer;
     value: number;
 }
 
-export interface Input {
+export interface In {
     script: Buffer;
     hash: Buffer;
     index: number;
@@ -62,9 +62,11 @@ export class Block {
 }
 
 export class ECPair {
-    constructor(d: BigInteger, Q?: null | undefined, options?: { compressed?: boolean, network?: Network });
+    constructor(d: BigInteger, Q?: null, options?: { compressed?: boolean, network?: Network });
 
     constructor(d: null | undefined, Q: any, options?: { compressed?: boolean, network?: Network }); // Q should be ECPoint, but not sure how to define such type
+
+    d: BigInteger;
 
     getAddress(): string;
 
@@ -132,7 +134,7 @@ export class HDNode {
 
     toBase58(): string;
 
-    verify(hash: Buffer, signature: ECSignature): Buffer;
+    verify(hash: Buffer, signature: ECSignature): boolean;
 
     static HIGHEST_BIT: number;
 
@@ -150,8 +152,8 @@ export class HDNode {
 export class Transaction {
     version: number;
     locktime: number;
-    ins: Input[];
-    outs: Output[];
+    ins: In[];
+    outs: Out[];
     constructor();
 
     addInput(hash: Buffer, index: number, sequence?: number, scriptSig?: Buffer): number;
@@ -203,7 +205,20 @@ export class Transaction {
     static isCoinbaseHash(buffer: Buffer): boolean;
 }
 
+export interface Input {
+    pubKeys: Buffer[];
+    signatures: Buffer[];
+    prevOutScript: Buffer;
+    prevOutType: string;
+    signType: string;
+    signScript: Buffer;
+    witness: boolean;
+}
+
 export class TransactionBuilder {
+    tx: Transaction;
+    inputs: Input[];
+
     constructor(network?: Network, maximumFeeRate?: number);
 
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
@@ -350,13 +365,13 @@ export const opcodes: {
 };
 
 export namespace address {
-    function fromBase58Check(address: string): Buffer;
+    function fromBase58Check(address: string): { hash: Buffer, version: number };
 
     function fromOutputScript(outputScript: Buffer, network?: Network): Buffer;
 
     function toBase58Check(hash: Buffer, version: number): string;
 
-    function toOutputScript(address: string, network?: Network): string;
+    function toOutputScript(address: string, network?: Network): Buffer;
 }
 
 export namespace bufferutils {
@@ -466,7 +481,7 @@ export namespace script {
         output: {
             check(script: Buffer): boolean;
             decode(buffer: Buffer): Buffer;
-            encode(pubKeyHash: Buffer | number): Buffer;
+            encode(pubKeyHash: Buffer): Buffer;
         };
     };
 
@@ -504,7 +519,7 @@ export namespace script {
         output: {
             check(script: Buffer): boolean;
             decode(buffer: Buffer): Buffer;
-            encode(pubKeyHash: Buffer | number): Buffer;
+            encode(pubKeyHash: Buffer): Buffer;
         };
     };
 
@@ -526,7 +541,7 @@ export namespace script {
         output: {
             check(script: Buffer): boolean;
             decode(buffer: Buffer): Buffer;
-            encode(data: Buffer[]): Buffer;
+            encode(data: Buffer): Buffer;
         };
     };
 }

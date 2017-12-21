@@ -1,6 +1,6 @@
 // Type definitions for decimal.js
 // Project: http://mikemcl.github.io/decimal.js
-// Definitions by: Joseph Rossi <http://github.com/musicist288>
+// Definitions by: Joseph Rossi <https://github.com/musicist288>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Decimal: decimal.IDecimalStatic;
@@ -642,7 +642,7 @@ declare namespace decimal {
          *
          * If a maximum denominator is not specified, or is null or undefined, the denominator will be the lowest value necessary to represent the number exactly.
          */
-        toFraction(max_denominator?: number | string | Decimal): string[];
+        toFraction(max_denominator?: number | string | Decimal): Decimal[];
 
         toJSON(): string;
 

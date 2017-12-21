@@ -1,6 +1,6 @@
 // Type definitions for metisMenu 2.6
-// Project: http://github.com/onokumus/metisMenu
-// Definitions by: onokums <https://github.com/onokumus/>, denis <https://github.com/denisname/>
+// Project: https://github.com/onokumus/metisMenu
+// Definitions by: onokums <https://github.com/onokumus>, denis <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

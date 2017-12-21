@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -20,16 +21,16 @@
     "files": [
         "index.d.ts",
         "test/index.tsx",
-		"test/bar.tsx",
-		"test/bubble.tsx",
-		"test/doughnut.tsx",
-		"test/dynamic-doughnut.tsx",
-		"test/horizontalBar.tsx",
-		"test/line.tsx",
-		"test/mix.tsx",
-		"test/pie.tsx",
-		"test/polar.tsx",
-		"test/radar.tsx",
-		"test/randomizedLine.tsx"
+        "test/bar.tsx",
+        "test/bubble.tsx",
+        "test/doughnut.tsx",
+        "test/dynamic-doughnut.tsx",
+        "test/horizontalBar.tsx",
+        "test/line.tsx",
+        "test/mix.tsx",
+        "test/pie.tsx",
+        "test/polar.tsx",
+        "test/radar.tsx",
+        "test/randomizedLine.tsx"
     ]
 }

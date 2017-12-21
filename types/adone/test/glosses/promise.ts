@@ -6,7 +6,7 @@ namespace promiseTests {
         a.promise.then((x) => 2);
         a.resolve(2);
         a.reject(3);
-        const b = promise.defer<string>();
+        const b = promise.defer();
         b.resolve("3");
         b.reject(2);
         b.promise.then((x: string) => x);
@@ -25,6 +25,18 @@ namespace promiseTests {
     namespace nodeify {
         promise.nodeify(Promise.resolve(2), (err: any, value: number) => value).then((x: number) => x);
         promise.nodeify(Promise.resolve(2), () => 42).then((x: number) => x);
+    }
+
+    namespace callbackifyTests {
+        const { callbackify } = promise;
+
+        callbackify(async () => {})((err: any, a: undefined) => {}).then((x: undefined) => {});
+        callbackify(async () => 42)((err: any, a: number) => {}).then((x: number) => {});
+        callbackify(async (a: number) => a)(123, (err: any, a: number) => {}).then((x: number) => {});
+        callbackify(async (a: number, b: string) => b)(123, "456", (err: any, a: string) => {}).then((x: string) => {});
+        callbackify(async (a: number, b: string, c: number) => c)(123, "456", 123, (err: any, a: number) => {}).then((x: number) => {});
+        callbackify(async (a: number, b: string, c: number, d: string) => d)(123, "456", 123, "456", (err: any, a: string) => {}).then((x: string) => {});
+        callbackify(async (a: number, b: string, c: number, d: string, e: number) => e)(123, "456", 123, "456", 123, (err: any, a: number) => {}).then((x: number) => {});
     }
 
     namespace promisify {

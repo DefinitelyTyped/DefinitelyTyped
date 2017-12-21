@@ -1,8 +1,8 @@
 // Type definitions for hapi-decorators v0.4.3
 // Project: https://github.com/knownasilya/hapi-decorators
-// Definitions by: Ken Howard <http://github.com/kenhowardpdx>
+// Definitions by: Ken Howard <https://github.com/kenhowardpdx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as hapi from 'hapi';
 import * as Joi from 'joi';

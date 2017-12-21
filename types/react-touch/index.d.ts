@@ -2,7 +2,7 @@
 // Project: https://github.com/leonaves/react-touch
 // Definitions by: Grzegorz Kielak <https://github.com/grzesie2k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -30,7 +30,7 @@ export interface HoldableProps {
     onTouchStart?(): void;
 }
 
-export class Holdable extends React.Component<HoldableProps, {}> {
+export class Holdable extends React.Component<HoldableProps> {
 }
 
 export interface DraggableStyle {
@@ -59,7 +59,7 @@ export interface DraggableProps {
     children: DraggableCallback;
 }
 
-export class Draggable extends React.Component<DraggableProps, {}> {
+export class Draggable extends React.Component<DraggableProps> {
 }
 
 export function defineSwipe(config?: SwipeConfig): SwipeableConfig;
@@ -88,7 +88,7 @@ export interface SwipeableProps {
     onTouchStart?(): void;
 }
 
-export class Swipeable extends React.Component<SwipeableProps, {}> {
+export class Swipeable extends React.Component<SwipeableProps> {
 }
 
 export enum moves {UPLEFT, UP, UPRIGHT, LEFT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT}
@@ -98,5 +98,5 @@ export interface CustomGestureProps {
     onGesture(): void;
 }
 
-export class CustomGesture extends React.Component<CustomGestureProps, {}> {
+export class CustomGesture extends React.Component<CustomGestureProps> {
 }

@@ -5,7 +5,10 @@ import * as util from 'util';
 const app = express();
 
 app.use((req, res, next) => {
-    if (!req) return next(create('Please login to view this page.', 401));
+    if (!req) {
+        next(create('Please login to view this page.', 401));
+        return;
+    }
     next();
 });
 
@@ -68,10 +71,6 @@ err = create(404, 'LOL', {id: 1});
 // create(status, msg, { expose: false })
 err = create(404, 'LOL', {expose: false});
 
-// new create.HttpError() should throw: cannot construct abstract class
-// $ExpectType never
-new create.HttpError();
-
 err = new create.NotFound();
 err = new create.InternalServerError();
 err = new create[404]();
@@ -88,8 +87,15 @@ err = new create[404]('This might be a problem');
 err = new create.MisdirectedRequest();
 err = new create.MisdirectedRequest('Where should this go?');
 
+// $ExpectType HttpError
+new create.HttpError();
+
 // $ExpectType boolean
 new Error() instanceof create.HttpError;
+
+if (err instanceof create.HttpError) {
+    err.statusCode;
+}
 
 // should support err instanceof Error
 create(404) instanceof Error;

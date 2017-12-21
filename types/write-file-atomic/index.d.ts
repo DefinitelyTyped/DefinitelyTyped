@@ -11,7 +11,7 @@ declare function writeFile(filename: string, data: string | Buffer, options: wri
 declare function writeFile(filename: string, data: string | Buffer, callback: (error?: Error) => void): void;
 
 declare namespace writeFile {
-    function sync(filename: string, data: string | Buffer, options?: writeFile.Options): void;
+    function sync(filename: string, data: string | Buffer, options?: Options): void;
 
     interface Options {
         chown?: {

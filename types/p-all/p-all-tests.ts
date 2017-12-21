@@ -8,7 +8,7 @@ const actions: [() => Promise<string>, () => Promise<string>, () => Promise<void
 ];
 
 pAll(actions, {concurrency: 2}).then(result => {
-    let str: string = result[0];
-    let str2: string = result[1];
-    let num: number = result[3];
+    const str: string = result[0];
+    const str2: string = result[1];
+    const num: number = result[3];
 });

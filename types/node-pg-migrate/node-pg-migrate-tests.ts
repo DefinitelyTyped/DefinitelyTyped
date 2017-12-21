@@ -58,3 +58,5 @@ pgm.addColumn({ schema: 'schema', name: 'table' }, {
         onUpdate: '',
     }
 });
+
+pgm.noTransaction();

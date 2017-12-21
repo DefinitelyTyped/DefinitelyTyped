@@ -63,8 +63,14 @@ describe("Testing react-ga v2.1.2", () => {
     it("Able to make ga calls", () => {
         ga.ga();
     });
+    it("Able to make ga calls with any arguments", () => {
+        ga.ga("create", "UA-65432-1", "auto", "trackerName");
+    });
+    it("Able to make returned ga calls with any arguments", () => {
+        ga.ga()("create", "UA-65432-1", "auto", "trackerName");
+    });
     it("Able to make send calls", () => {
-        let fieldObject: ga.FieldsObject = {
+        const fieldObject: ga.FieldsObject = {
             page: '/users'
         };
 
@@ -79,7 +85,7 @@ describe("Testing react-ga v2.1.2", () => {
         });
     });
     it("Able to make exception calls", () => {
-        let fieldObject: ga.FieldsObject = {
+        const fieldObject: ga.FieldsObject = {
             page: '/users'
         };
         ga.exception(fieldObject);

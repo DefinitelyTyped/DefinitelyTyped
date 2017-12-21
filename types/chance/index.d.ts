@@ -1,6 +1,6 @@
 // Type definitions for Chance 0.7.3
 // Project: http://chancejs.com
-// Definitions by: Chris Bowdon <https://github.com/cbowdon/>
+// Definitions by: Chris Bowdon <https://github.com/cbowdon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {

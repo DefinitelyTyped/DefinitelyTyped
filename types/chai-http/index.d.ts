@@ -49,6 +49,8 @@ declare global {
 			type: string;
 			status: number;
 			text: string;
+			setEncoding(encoding: string): void;
+			on(event: string, fn: (...args: any[]) => void): void;
 		}
 
 		interface Request extends FinishedRequest {
@@ -59,6 +61,7 @@ declare global {
 			auth(user: string, name: string): Request;
 			field(name: string, val: string): Request;
 			buffer(): Request;
+			parse(fn: (res: Response, cb: (e?: Error, r?: any) => void) => void): Request;
 			end(callback?: (err: any, res: Response) => void): FinishedRequest;
 		}
 

@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.3
+// Type definitions for auth0 2.5
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,8 +7,18 @@
 import * as Promise from 'bluebird';
 
 export interface ManagementClientOptions {
-  token: string;
-  domain?: string;
+  token?: string;
+  domain: string;
+  clientId?: string;
+  clientSecret?: string;
+  audience?: string;
+  scope?: string;
+  tokenProvider?: TokenProvider;
+}
+
+export interface TokenProvider {
+  enableCache: boolean;
+  cacheTTLInSeconds?: number;
 }
 
 export interface UserMetadata { }
@@ -48,6 +58,111 @@ export interface GetUsersData {
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface Rule {
+  /**
+   * The name of the rule.
+   */
+  name?: string;
+  /**
+   * The rule's identifier.
+   */
+  id?: string;
+  /**
+   * The code to be executed when the rule runs.
+   */
+  script?: string;
+  /**
+   * The rule's execution stage.
+   */
+  stage?: string;
+  /**
+   * `true` if the connection is enabled, `false` otherwise.
+   */
+  enabled?: boolean;
+  /**
+   * The rule's order in relation to other rules. A rule with a lower order than another rule executes first.
+   */
+  order?: number;
+}
+
+
+export interface Client {
+  /**
+   * The name of the client.
+   */
+  name?: string;
+  /**
+   * Free text description of the purpose of the Client. (Max character length: `140`).
+   */
+  description?: string;
+  /**
+   * The id of the client.
+   */
+  client_id?: string;
+  /**
+   * The client secret, it must not be public.
+   */
+  client_secret?: string;
+  /**
+   * The type of application this client represents.
+   */
+  app_type?: string;
+  /**
+   * The URL of the client logo (recommended size: 150x150).
+   */
+  logo_uri?: string;
+  /**
+   * Whether this client a first party client or not.
+   */
+  is_first_party?: boolean;
+  /**
+   * Whether this client will conform to strict OIDC specifications.
+   */
+  oidc_conformant?: boolean;
+  /**
+   * The URLs that Auth0 can use to as a callback for the client.
+   */
+  callbacks?: string[];
+  allowed_origins?: string[];
+  web_origins?: string[];
+  client_aliases?: string[];
+  allowed_clients?: string[];
+  allowed_logout_urls?: string[];
+  jwt_configuration?: any;
+  /**
+   * Client signing keys.
+   */
+  signing_keys?: string[];
+  encryption_key?: any;
+  sso?: boolean;
+  /**
+   * `true` to disable Single Sign On, `false` otherwise (default: `false`)
+   */
+  sso_disabled?: boolean;
+  /**
+   * `true` if this client can be used to make cross-origin authentication requests, `false` otherwise (default: `false`)
+   */
+  cross_origin_auth?: boolean;
+  /**
+   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   */
+  cross_origin_loc?: string;
+  /**
+   * `true` if the custom login page is to be used, `false` otherwise. (default: `true`)
+   */
+  custom_login_page_on?: boolean;
+  custom_login_page?: string;
+  custom_login_page_preview?: string;
+  form_template?: string;
+  addons?: any;
+  /**
+   * Defines the requested authentication method for the token endpoint. Possible values are 'none' (public client without a client secret), 'client_secret_post' (client uses HTTP POST parameters) or 'client_secret_basic' (client uses HTTP Basic) ['none' or 'client_secret_post' or 'client_secret_basic']
+   */
+  token_endpoint_auth_method?: string;
+  client_metadata?: any;
+  mobile?: any;
 }
 
 export interface User {
@@ -301,21 +416,22 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<User>;
-  getClients(cb: (err: Error, data: any) => void): void;
+  getClients(): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void): void;
 
-  getClient(params: ClientParams): Promise<User>;
-  getClient(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getClient(params: ClientParams): Promise<Client>;
+  getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
 
-  createClient(data: Data): Promise<User>;
-  createClient(data: Data, cb: (err: Error, data: any) => void): void;
+  createClient(data: Data): Promise<Client>;
+  createClient(data: Data, cb: (err: Error, client: Client) => void): void;
 
-  updateClient(params: ClientParams, data: Data): Promise<User>;
-  updateClient(params: ClientParams, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClient(params: ClientParams, data: Data): Promise<Client>;
+  updateClient(params: ClientParams, data: Data, cb: (err: Error, client: Client) => void): void;
 
-  deleteClient(params: ClientParams): Promise<User>;
-  deleteClient(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  deleteClient(params: ClientParams): Promise<void>;
+  deleteClient(params: ClientParams, cb: (err: Error) => void): void;
 
+                                              
   // Client Grants
   getClientGrants(): Promise<User>;
   getClientGrants(cb: (err: Error, data: any) => void): void;
@@ -342,31 +458,35 @@ export class ManagementClient {
 
 
   // Rules
-  getRules(): Promise<User>;
-  getRules(cb: (err: Error, data: any) => void): void;
+  getRules(): Promise<Rule[]>;
+  getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
-  getRule(params: ClientParams): Promise<User>;
-  getRule(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getRule(params: ClientParams): Promise<Rule>;
+  getRule(params: ClientParams, cb: (err: Error, rule: Rule) => void): void;
 
-  createRules(data: Data): Promise<User>;
-  createRules(data: Data, cb: (err: Error, data: any) => void): void;
+  createRule(data: Data): Promise<Rule>;
+  createRule(data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  updateRule(params: ObjectWithId, data: Data): Promise<User>;
-  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateRule(params: ObjectWithId, data: Data): Promise<Rule>;
+  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  deleteRule(params: ObjectWithId): Promise<User>;
-  deleteRule(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteRule(params: ObjectWithId): Promise<void>;
+  deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Users
   getUsers(params?: GetUsersData): Promise<User[]>;
+  getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
 
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
+  getUsersByEmail(email: string): Promise<User[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
+
   createUser(data: CreateUserData): Promise<User>;
-  createUser(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
 
   updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
   updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
@@ -412,8 +532,8 @@ export class ManagementClient {
   deleteEmailProvider(): Promise<any>;
   deleteEmailProvider(cb?: (err: Error, data: any) => void): void;
 
-  updateEmailProvider(data: Data): Promise<any>;
-  updateEmailProvider(data: Data, cb?: (err: Error, data: any) => void): void;
+  updateEmailProvider(params: {}, data: Data): Promise<any>;
+  updateEmailProvider(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Statistics

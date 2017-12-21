@@ -3,9 +3,8 @@
 const assert = console.assert;
 const random = () => Math.trunc(Math.exp(Math.log(Date.now()) * Math.random()));
 
-import * as Vue from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 import * as VueI18n from 'vue-i18n';
-import { ComponentOptions } from 'vue';
 
 /**
  * VueI18n.install

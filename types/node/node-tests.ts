@@ -27,6 +27,10 @@ import * as repl from "repl";
 import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
+import * as http2 from "http2";
+import * as inspector from "inspector";
+import * as perf_hooks from "perf_hooks";
+import Module = require("module");
 
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
@@ -336,6 +340,16 @@ namespace fs_tests {
         const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
         typeof v2 === "string" ? s = v2 : b = v2;
     }
+
+    {
+        fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+
+        const cf = util.promisify(fs.copyFile);
+        cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -391,6 +405,46 @@ function bufferTests() {
     {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
+    }
+
+    // Class Method byteLenght
+    {
+        let len: number;
+        len = Buffer.byteLength("foo");
+        len = Buffer.byteLength("foo", "utf8");
+
+        const b = Buffer.from("bar");
+        len = Buffer.byteLength(b);
+        len = Buffer.byteLength(b, "utf16le");
+
+        const ab = new ArrayBuffer(15);
+        len = Buffer.byteLength(ab);
+        len = Buffer.byteLength(ab, "ascii");
+
+        const dv = new DataView(ab);
+        len = Buffer.byteLength(dv);
+        len = Buffer.byteLength(dv, "utf16le");
+    }
+
+    // Class Method poolSize
+    {
+        let s: number;
+        s = Buffer.poolSize;
+        Buffer.poolSize = 4096;
     }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
@@ -502,6 +556,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -516,7 +572,9 @@ namespace url_tests {
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
-        assert.equal(helloUrl.query.hello, 'world');
+        if (typeof helloUrl.query !== 'string') {
+            assert.equal(helloUrl.query['hello'], 'world');
+        }
     }
 
     {
@@ -639,9 +697,87 @@ namespace util_tests {
             breakLength: Infinity
         });
         assert(typeof util.inspect.custom === 'symbol');
+
+        // util.callbackify
+        // tslint:disable-next-line no-unnecessary-class
+        class callbackifyTest {
+            static fn(): Promise<void> {
+                assert(arguments.length === 0);
+
+                return Promise.resolve();
+            }
+
+            static fnE(): Promise<void> {
+                assert(arguments.length === 0);
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnT1(arg1: string): Promise<void> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.resolve();
+            }
+
+            static fnT1E(arg1: string): Promise<void> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnTResult(): Promise<string> {
+                assert(arguments.length === 0);
+
+                return Promise.resolve('result');
+            }
+
+            static fnTResultE(): Promise<string> {
+                assert(arguments.length === 0);
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnT1TResult(arg1: string): Promise<string> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.resolve('result');
+            }
+
+            static fnT1TResultE(arg1: string): Promise<string> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static test(): void {
+                var cfn = util.callbackify(this.fn);
+                var cfnE = util.callbackify(this.fnE);
+                var cfnT1 = util.callbackify(this.fnT1);
+                var cfnT1E = util.callbackify(this.fnT1E);
+                var cfnTResult = util.callbackify(this.fnTResult);
+                var cfnTResultE = util.callbackify(this.fnTResultE);
+                var cfnT1TResult = util.callbackify(this.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+
+                cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+                cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnT1('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+                cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnTResult((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+                cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnT1TResult('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+                cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+            }
+        }
+        callbackifyTest.test();
+
         // util.promisify
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
+        var arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
+        var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
+        var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
+        var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -663,13 +799,16 @@ function stream_readable_pipe_test() {
     var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
 
+    assert(typeof z.bytesRead === 'number');
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
     assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
+    z.flush();
     r.close();
+    z.close();
     rs.close();
 }
 
@@ -723,6 +862,9 @@ function simplified_stream_ctor_test() {
         },
         destroy(error) {
             error.stack;
+        },
+        final(cb) {
+            cb(null);
         }
     });
 
@@ -781,7 +923,37 @@ function simplified_stream_ctor_test() {
 
 namespace crypto_tests {
     {
+        // crypto_hash_string_test
+        var hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hash_buffer_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hash_dataview_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    }
+
+    {
+        // crypto_hmac_string_test
         var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hmac_buffer_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hmac_dataview_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
     }
 
     {
@@ -816,6 +988,28 @@ namespace crypto_tests {
         cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
+
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_dataview_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: DataView = new DataView(
+            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
@@ -874,6 +1068,9 @@ namespace tls_tests {
             port: 55
         };
         var tlsSocket = tls.connect(connOpts);
+
+        const ciphers: string[] = tls.getCiphers();
+        const curve: string = tls.DEFAULT_ECDH_CURVE;
     }
 
     {
@@ -1076,6 +1273,7 @@ namespace http_tests {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
 
     // http IncomingMessage
@@ -1178,6 +1376,10 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() return a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
@@ -1190,9 +1392,24 @@ namespace http_tests {
         request.abort();
     }
 
-    const options: http.RequestOptions = {
-        timeout: 30000
-    };
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
+    }
 }
 
 //////////////////////////////////////////////////////
@@ -1219,6 +1436,17 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
+
+    {
+        const server = new https.Server();
+
+        const timeout: number = server.timeout;
+        const listening: boolean = server.listening;
+        const keepAliveTimeout: number = server.keepAliveTimeout;
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -1256,6 +1484,8 @@ namespace dgram_tests {
         ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+        ds.setMulticastInterface("127.0.0.1");
+        ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
     }
 
     {
@@ -1326,6 +1556,20 @@ namespace dgram_tests {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         });
+    }
+
+    {
+        let ds: dgram.Socket = dgram.createSocket({
+            type: 'udp4',
+            recvBufferSize: 10000,
+            sendBufferSize: 15000
+        });
+
+        let size: number;
+        size = ds.getRecvBufferSize();
+        ds.setRecvBufferSize(size);
+        size = ds.getSendBufferSize();
+        ds.setSendBufferSize(size);
     }
 }
 
@@ -1462,19 +1706,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH);
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH);
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter);
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt');
     // returns
@@ -1500,6 +1732,15 @@ namespace path_tests {
         root: "/",
         dir: "/home/user/dir",
         base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.format({
+        root: "/",
+        dir: "/home/user/dir",
         ext: ".txt",
         name: "file"
     });
@@ -1593,6 +1834,14 @@ namespace readline_tests {
 
         readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
+    }
+
+    {
+        let stream: NodeJS.ReadableStream;
+        let readLineInterface: readline.ReadLine;
+
+        readline.emitKeypressEvents(stream);
+        readline.emitKeypressEvents(stream, readLineInterface);
     }
 
     {
@@ -1703,6 +1952,25 @@ namespace child_process_tests {
     {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
+    }
+
+    {
+        childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", ["-v"], () => {});
+        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
+
+    async function testPromisify() {
+        const execFile = util.promisify(childProcess.execFile);
+        let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+        r = await execFile("npm", ["-v"]);
+        r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+        r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+        r = await execFile("npm", { encoding: 'utf-8' });
+        r = await execFile("npm", { encoding: 'buffer' });
     }
 
     {
@@ -1915,6 +2183,36 @@ namespace child_process_tests {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
         });
+    }
+    {
+        process.stdin.setEncoding('utf8');
+
+        process.stdin.on('readable', () => {
+            const chunk = process.stdin.read();
+            if (chunk !== null) {
+              process.stdout.write(`data: ${chunk}`);
+            }
+        });
+
+        process.stdin.on('end', () => {
+            process.stdout.write('end');
+        });
+
+        process.stdin.pipe(process.stdout);
+
+        console.log(process.stdin.isTTY);
+        console.log(process.stdout.isTTY);
+
+        console.log(process.stdin instanceof net.Socket);
+        console.log(process.stdout instanceof fs.ReadStream);
+
+        var stdin: stream.Readable = process.stdin;
+        console.log(stdin instanceof net.Socket);
+        console.log(stdin instanceof fs.ReadStream);
+
+        var stdout: stream.Writable = process.stdout;
+        console.log(stdout instanceof net.Socket);
+        console.log(stdout instanceof fs.WriteStream);
     }
 }
 
@@ -2174,6 +2472,15 @@ namespace timers_tests {
         timeout.ref();
         timers.clearTimeout(timeout);
     }
+    async function testPromisify() {
+        const setTimeout = util.promisify(timers.setTimeout);
+        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
+        let s: string = await setTimeout(100, "");
+
+        const setImmediate = util.promisify(timers.setImmediate);
+        v = await setImmediate(); // tslint:disable-line no-void-expression
+        s = await setImmediate("");
+    }
 }
 
 /////////////////////////////////////////////////////////
@@ -2187,6 +2494,26 @@ namespace errors_tests {
     {
         const myObject = {};
         Error.captureStackTrace(myObject);
+    }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
     }
 }
 
@@ -2221,8 +2548,8 @@ namespace process_tests {
         process.once("warning", (warning: Error) => { });
         process.prependListener("message", (message: any, sendHandle: any) => { });
         process.prependOnceListener("SIGBREAK", () => { });
-        process.on("newListener", (event: string, listener: Function) => { });
-        process.once("removeListener", (event: string, listener: Function) => { });
+        process.on("newListener", (event: string | symbol, listener: Function) => { });
+        process.once("removeListener", (event: string | symbol, listener: Function) => { });
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
@@ -2252,6 +2579,19 @@ namespace console_tests {
 
 namespace net_tests {
     {
+        const connectOpts: net.NetConnectOpts = {
+            allowHalfOpen: true,
+            family: 4,
+            host: "localhost",
+            port: 443,
+            timeout: 10E3
+        };
+        const socket: net.Socket = net.createConnection(connectOpts, (): void => {
+            // nothing
+        });
+    }
+
+    {
         let server = net.createServer();
         // Check methods which return server instances by chaining calls
         server = server.listen(0)
@@ -2271,6 +2611,13 @@ namespace net_tests {
     }
 
     {
+        const constructorOpts: net.SocketConstructorOpts = {
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        };
+
         /**
          * net.Socket - events.EventEmitter
          *   1. close
@@ -2282,18 +2629,36 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket = new net.Socket({
-            fd: 1,
-            allowHalfOpen: false,
-            readable: false,
-            writable: false
-        });
+        let _socket: net.Socket = new net.Socket(constructorOpts);
 
         let bool: boolean;
         let buffer: Buffer;
         let error: Error;
         let str: string;
         let num: number;
+
+        let ipcConnectOpts: net.IpcSocketConnectOpts = {
+            path: "/"
+        };
+        let tcpConnectOpts: net.TcpSocketConnectOpts = {
+            family: 4,
+            hints: 0,
+            host: "localhost",
+            localAddress: "10.0.0.1",
+            localPort: 1234,
+            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
+                // nothing
+            },
+            port: 80
+        };
+        _socket = _socket.connect(ipcConnectOpts);
+        _socket = _socket.connect(ipcConnectOpts, (): void => {});
+        _socket = _socket.connect(tcpConnectOpts);
+        _socket = _socket.connect(tcpConnectOpts, (): void => {});
+        _socket = _socket.connect(80, "localhost");
+        _socket = _socket.connect(80, "localhost", (): void => {});
+        _socket = _socket.connect(80);
+        _socket = _socket.connect(80, (): void => {});
 
         /// addListener
 
@@ -2531,6 +2896,11 @@ namespace repl_tests {
 
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
+
+        _server.outputStream.write("test");
+        let line = _server.inputStream.read();
+
+        throw new repl.Recoverable(new Error("test"));
     }
 }
 
@@ -2637,6 +3007,7 @@ namespace dns_tests {
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
+import { PerformanceObserver, PerformanceObserverCallback } from "perf_hooks";
 namespace constants_tests {
     var str: string;
     var num: number;
@@ -2694,6 +3065,7 @@ namespace constants_tests {
     num = constants.O_NOATIME;
     num = constants.O_NOFOLLOW;
     num = constants.O_SYNC;
+    num = constants.O_DSYNC;
     num = constants.O_DIRECT;
     num = constants.O_NONBLOCK;
     num = constants.S_IRWXU;
@@ -2791,26 +3163,46 @@ namespace v8_tests {
     v8.setFlagsFromString('--collect_maps');
 }
 
-///////////////////////////////////////////////////////////
-/// Debugger Tests                                      ///
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+/// PerfHooks tests : https://nodejs.org/api/perf_hooks.html
+////////////////////////////////////////////////////
+namespace perf_hooks_tests {
+    perf_hooks.performance.mark('start');
+    (
+        () => {}
+    )();
+    perf_hooks.performance.mark('end');
 
-import { Client } from "_debugger";
+    const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
+    const timeOrigin = perf_hooks.performance.timeOrigin;
 
-var client = new Client();
-
-client.connect(8888, 'localhost');
-client.listbreakpoints((err, body, packet) => { });
+    const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
+        const {
+            duration,
+            entryType,
+            name,
+            startTime,
+        } = list.getEntries()[0];
+        obs.disconnect();
+        perf_hooks.performance.clearFunctions();
+    };
+    const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
+    obs.observe({
+        entryTypes: ['function'],
+        buffered: true,
+    });
+}
 
 ////////////////////////////////////////////////////
 /// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
 ////////////////////////////////////////////////////
 namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
-        init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
-        before: (asyncId: number) => void {},
-        after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {}
+        init() {},
+        before() {},
+        after() {},
+        destroy() {},
+        promiseResolve() {},
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -2819,6 +3211,27 @@ namespace async_hooks_tests {
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+
+    class TestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE');
+        }
+    }
+
+    class AnotherTestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE', 42);
+            const aId: number = this.asyncId();
+            const tId: number = this.triggerAsyncId();
+        }
+        run() {
+            this.emitBefore();
+            this.emitAfter();
+        }
+        destroy() {
+            this.emitDestroy();
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -2835,4 +3248,626 @@ namespace zlib_tests {
         const deflate = zlib.deflateSync('test');
         const inflate = zlib.inflateSync(deflate.toString());
     }
+}
+
+///////////////////////////////////////////////////////////
+/// HTTP/2 Tests                                        ///
+///////////////////////////////////////////////////////////
+
+namespace http2_tests {
+    // Headers & Settings
+    {
+        let headers: http2.OutgoingHttpHeaders = {
+            ':status': 200,
+            'content-type': 'text-plain',
+            ABC: ['has', 'more', 'than', 'one', 'value'],
+            undef: undefined
+        };
+
+        let settings: http2.Settings = {
+            headerTableSize: 0,
+            enablePush: true,
+            initialWindowSize: 0,
+            maxFrameSize: 0,
+            maxConcurrentStreams: 0,
+            maxHeaderListSize: 0
+        };
+    }
+
+    // Http2Session
+    {
+        let http2Session: http2.Http2Session;
+        let ee: events.EventEmitter = http2Session;
+
+        http2Session.on('close', () => {});
+        http2Session.on('connect', (session: http2.Http2Session, socket: net.Socket) => {});
+        http2Session.on('error', (err: Error) => {});
+        http2Session.on('frameError', (frameType: number, errorCode: number, streamID: number) => {});
+        http2Session.on('goaway', (errorCode: number, lastStreamID: number, opaqueData: Buffer) => {});
+        http2Session.on('localSettings', (settings: http2.Settings) => {});
+        http2Session.on('remoteSettings', (settings: http2.Settings) => {});
+        http2Session.on('stream', (stream: http2.Http2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
+        http2Session.on('socketError', (err: Error) => {});
+        http2Session.on('timeout', () => {});
+
+        http2Session.destroy();
+
+        let destroyed: boolean = http2Session.destroyed;
+        let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
+        let settings: http2.Settings = http2Session.localSettings;
+        settings = http2Session.remoteSettings;
+
+        let headers: http2.OutgoingHttpHeaders;
+        let options: http2.ClientSessionRequestOptions = {
+            endStream: true,
+            exclusive: true,
+            parent: 0,
+            weight: 0,
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+        };
+        (http2Session as http2.ClientHttp2Session).request();
+        (http2Session as http2.ClientHttp2Session).request(headers);
+        (http2Session as http2.ClientHttp2Session).request(headers, options);
+
+        let stream: http2.Http2Stream;
+        http2Session.rstStream(stream);
+        http2Session.rstStream(stream, 0);
+
+        http2Session.setTimeout(100, () => {});
+
+        let shutdownOptions: http2.SessionShutdownOptions = {
+            graceful: true,
+            errorCode: 0,
+            lastStreamID: 0,
+            opaqueData: Buffer.from([])
+        };
+        shutdownOptions.opaqueData = Uint8Array.from([]);
+        http2Session.shutdown(shutdownOptions);
+        http2Session.shutdown(shutdownOptions, () => {});
+
+        let socket: net.Socket | tls.TLSSocket = http2Session.socket;
+        let state: http2.SessionState = http2Session.state;
+        state = {
+            effectiveLocalWindowSize: 0,
+            effectiveRecvDataLength: 0,
+            nextStreamID: 0,
+            localWindowSize: 0,
+            lastProcStreamID: 0,
+            remoteWindowSize: 0,
+            outboundQueueSize: 0,
+            deflateDynamicTableSize: 0,
+            inflateDynamicTableSize: 0
+        };
+
+        http2Session.priority(stream, {
+            exclusive: true,
+            parent: 0,
+            weight: 0,
+            silent: true
+        });
+
+        http2Session.settings(settings);
+    }
+
+    // Http2Stream
+    {
+        let http2Stream: http2.Http2Stream;
+        let duplex: stream.Duplex = http2Stream;
+
+        http2Stream.on('aborted', () => {});
+        http2Stream.on('error', (err: Error) => {});
+        http2Stream.on('frameError', (frameType: number, errorCode: number, streamID: number) => {});
+        http2Stream.on('streamClosed', (code: number) => {});
+        http2Stream.on('timeout', () => {});
+        http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
+
+        let aborted: boolean = http2Stream.aborted;
+        let destroyed: boolean = http2Stream.destroyed;
+
+        http2Stream.priority({
+            exclusive: true,
+            parent: 0,
+            weight: 0,
+            silent: true
+        });
+
+        let rstCode: number = http2Stream.rstCode;
+        http2Stream.rstStream(rstCode);
+        http2Stream.rstWithNoError();
+        http2Stream.rstWithProtocolError();
+        http2Stream.rstWithCancel();
+        http2Stream.rstWithRefuse();
+        http2Stream.rstWithInternalError();
+
+        let sesh: http2.Http2Session = http2Stream.session;
+
+        http2Stream.setTimeout(100, () => {});
+
+        let state: http2.StreamState = http2Stream.state;
+        state = {
+            localWindowSize: 0,
+            state: 0,
+            streamLocalClose: 0,
+            streamRemoteClose: 0,
+            sumDependencyWeight: 0,
+            weight: 0
+        };
+
+        // ClientHttp2Stream
+        let clientHttp2Stream: http2.ClientHttp2Stream;
+        clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+
+        // ServerHttp2Stream
+        let serverHttp2Stream: http2.ServerHttp2Stream;
+        let headers: http2.OutgoingHttpHeaders;
+
+        serverHttp2Stream.additionalHeaders(headers);
+        let headerSent: boolean = serverHttp2Stream.headersSent;
+        let pushAllowed: boolean = serverHttp2Stream.pushAllowed;
+        serverHttp2Stream.pushStream(headers, (pushStream: http2.ServerHttp2Stream) => {});
+
+        let options: http2.ServerStreamResponseOptions = {
+            endStream: true,
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+        };
+        serverHttp2Stream.respond();
+        serverHttp2Stream.respond(headers);
+        serverHttp2Stream.respond(headers, options);
+
+        let options2: http2.ServerStreamFileResponseOptions = {
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
+            offset: 0,
+            length: 0
+        };
+        serverHttp2Stream.respondWithFD(0);
+        serverHttp2Stream.respondWithFD(0, headers);
+        serverHttp2Stream.respondWithFD(0, headers, options2);
+        serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
+        let options3: http2.ServerStreamFileResponseOptionsWithError = {
+            onError: (err: NodeJS.ErrnoException) => {},
+            statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
+            offset: 0,
+            length: 0
+        };
+        serverHttp2Stream.respondWithFile('');
+        serverHttp2Stream.respondWithFile('', headers);
+        serverHttp2Stream.respondWithFile('', headers, options3);
+        serverHttp2Stream.respondWithFile('', headers, {statCheck: () => false});
+    }
+
+    // Http2Server / Http2SecureServer
+    {
+        let http2Server: http2.Http2Server;
+        let http2SecureServer: http2.Http2SecureServer;
+        let s1: net.Server = http2Server;
+        let s2: tls.Server = http2SecureServer;
+        [http2Server, http2SecureServer].forEach((server) => {
+            server.on('sessionError', (err: Error) => {});
+            server.on('socketError', (err: Error) => {});
+            server.on('stream', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
+            server.on('request', (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {});
+            server.on('timeout', () => {});
+        });
+
+        http2SecureServer.on('unknownProtocol', (socket: tls.TLSSocket) => {});
+    }
+
+    // Public API (except constants)
+    {
+        let settings: http2.Settings;
+        let serverOptions: http2.ServerOptions = {
+            maxDeflateDynamicTableSize: 0,
+            maxReservedRemoteStreams: 0,
+            maxSendHeaderBlockLength: 0,
+            paddingStrategy: 0,
+            peerMaxConcurrentStreams: 0,
+            selectPadding: (frameLen: number, maxFrameLen: number) => 0,
+            settings,
+            allowHTTP1: true
+        };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
+        secureServerOptions.ca = '';
+        let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
+            // Http2ServerRequest
+
+            let readable: stream.Readable = request;
+            let incomingHeaders: http2.IncomingHttpHeaders = request.headers;
+            incomingHeaders = request.trailers;
+            let httpVersion: string = request.httpVersion;
+            let method: string = request.method;
+            let rawHeaders: string[] = request.rawHeaders;
+            rawHeaders = request.rawTrailers;
+            let socket: net.Socket | tls.TLSSocket = request.socket;
+            let stream: http2.ServerHttp2Stream = request.stream;
+            let url: string = request.url;
+
+            request.setTimeout(0, () => {});
+            request.on('aborted', (hadError: boolean, code: number) => {});
+
+            // Http2ServerResponse
+
+            let outgoingHeaders: http2.OutgoingHttpHeaders;
+            response.addTrailers(outgoingHeaders);
+            socket = response.connection;
+            let finished: boolean = response.finished;
+            response.sendDate = true;
+            response.statusCode = 200;
+            response.statusMessage = '';
+            socket = response.socket;
+            stream = response.stream;
+
+            method = response.getHeader(':method');
+            let headers: string[] = response.getHeaderNames();
+            outgoingHeaders = response.getHeaders();
+            let hasMethod = response.hasHeader(':method');
+            response.removeHeader(':method');
+            response.setHeader(':method', 'GET');
+            response.setHeader(':status', 200);
+            response.setHeader('some-list', ['', '']);
+            let headersSent: boolean = response.headersSent;
+
+            response.setTimeout(0, () => {});
+            response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => {});
+
+            response.writeContinue();
+            response.writeHead(200);
+            response.writeHead(200, outgoingHeaders);
+            response.writeHead(200, 'OK', outgoingHeaders);
+            response.writeHead(200, 'OK');
+            response.write('');
+            response.write('', (err: Error) => {});
+            response.write('', 'utf8');
+            response.write('', 'utf8', (err: Error) => {});
+            response.write(Buffer.from([]));
+            response.write(Buffer.from([]), (err: Error) => {});
+            response.write(Buffer.from([]), 'utf8');
+            response.write(Buffer.from([]), 'utf8', (err: Error) => {});
+            response.end();
+            response.end(() => {});
+            response.end('');
+            response.end('', () => {});
+            response.end('', 'utf8');
+            response.end('', 'utf8', () => {});
+            response.end(Buffer.from([]));
+            response.end(Buffer.from([]), () => {});
+            response.end(Buffer.from([]), 'utf8');
+            response.end(Buffer.from([]), 'utf8', () => {});
+
+            request.on('aborted', (hadError: boolean, code: number) => {});
+            request.on('close', () => {});
+            request.on('drain', () => {});
+            request.on('error', (error: Error) => {});
+            request.on('finish', () => {});
+        };
+
+        let http2Server: http2.Http2Server;
+        let http2SecureServer: http2.Http2SecureServer;
+
+        http2Server = http2.createServer();
+        http2Server = http2.createServer(serverOptions);
+        http2Server = http2.createServer(onRequestHandler);
+        http2Server = http2.createServer(serverOptions, onRequestHandler);
+
+        http2SecureServer = http2.createSecureServer();
+        http2SecureServer = http2.createSecureServer(secureServerOptions);
+        http2SecureServer = http2.createSecureServer(onRequestHandler);
+        http2SecureServer = http2.createSecureServer(secureServerOptions, onRequestHandler);
+
+        let clientSessionOptions: http2.ClientSessionOptions = {
+            maxDeflateDynamicTableSize: 0,
+            maxReservedRemoteStreams: 0,
+            maxSendHeaderBlockLength: 0,
+            paddingStrategy: 0,
+            peerMaxConcurrentStreams: 0,
+            selectPadding: (frameLen: number, maxFrameLen: number) => 0,
+            settings
+        };
+        // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
+        let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
+        secureClientSessionOptions.ca = '';
+        let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
+
+        let clientHttp2Session: http2.ClientHttp2Session;
+
+        clientHttp2Session = http2.connect('');
+        clientHttp2Session = http2.connect('', onConnectHandler);
+        clientHttp2Session = http2.connect('', clientSessionOptions);
+        clientHttp2Session = http2.connect('', clientSessionOptions, onConnectHandler);
+        clientHttp2Session = http2.connect('', secureClientSessionOptions);
+        clientHttp2Session = http2.connect('', secureClientSessionOptions, onConnectHandler);
+
+        settings = http2.getDefaultSettings();
+        settings = http2.getPackedSettings(settings);
+        settings = http2.getUnpackedSettings(Buffer.from([]));
+        settings = http2.getUnpackedSettings(Uint8Array.from([]));
+    }
+
+    // constants
+    {
+        const constants = http2.constants;
+        let num: number;
+        let str: string;
+        num = constants.NGHTTP2_SESSION_SERVER;
+        num = constants.NGHTTP2_SESSION_CLIENT;
+        num = constants.NGHTTP2_STREAM_STATE_IDLE;
+        num = constants.NGHTTP2_STREAM_STATE_OPEN;
+        num = constants.NGHTTP2_STREAM_STATE_RESERVED_LOCAL;
+        num = constants.NGHTTP2_STREAM_STATE_RESERVED_REMOTE;
+        num = constants.NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL;
+        num = constants.NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE;
+        num = constants.NGHTTP2_STREAM_STATE_CLOSED;
+        num = constants.NGHTTP2_NO_ERROR;
+        num = constants.NGHTTP2_PROTOCOL_ERROR;
+        num = constants.NGHTTP2_INTERNAL_ERROR;
+        num = constants.NGHTTP2_FLOW_CONTROL_ERROR;
+        num = constants.NGHTTP2_SETTINGS_TIMEOUT;
+        num = constants.NGHTTP2_STREAM_CLOSED;
+        num = constants.NGHTTP2_FRAME_SIZE_ERROR;
+        num = constants.NGHTTP2_REFUSED_STREAM;
+        num = constants.NGHTTP2_CANCEL;
+        num = constants.NGHTTP2_COMPRESSION_ERROR;
+        num = constants.NGHTTP2_CONNECT_ERROR;
+        num = constants.NGHTTP2_ENHANCE_YOUR_CALM;
+        num = constants.NGHTTP2_INADEQUATE_SECURITY;
+        num = constants.NGHTTP2_HTTP_1_1_REQUIRED;
+        num = constants.NGHTTP2_ERR_FRAME_SIZE_ERROR;
+        num = constants.NGHTTP2_FLAG_NONE;
+        num = constants.NGHTTP2_FLAG_END_STREAM;
+        num = constants.NGHTTP2_FLAG_END_HEADERS;
+        num = constants.NGHTTP2_FLAG_ACK;
+        num = constants.NGHTTP2_FLAG_PADDED;
+        num = constants.NGHTTP2_FLAG_PRIORITY;
+        num = constants.DEFAULT_SETTINGS_HEADER_TABLE_SIZE;
+        num = constants.DEFAULT_SETTINGS_ENABLE_PUSH;
+        num = constants.DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE;
+        num = constants.DEFAULT_SETTINGS_MAX_FRAME_SIZE;
+        num = constants.MAX_MAX_FRAME_SIZE;
+        num = constants.MIN_MAX_FRAME_SIZE;
+        num = constants.MAX_INITIAL_WINDOW_SIZE;
+        num = constants.NGHTTP2_DEFAULT_WEIGHT;
+        num = constants.NGHTTP2_SETTINGS_HEADER_TABLE_SIZE;
+        num = constants.NGHTTP2_SETTINGS_ENABLE_PUSH;
+        num = constants.NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS;
+        num = constants.NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE;
+        num = constants.NGHTTP2_SETTINGS_MAX_FRAME_SIZE;
+        num = constants.NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE;
+        num = constants.PADDING_STRATEGY_NONE;
+        num = constants.PADDING_STRATEGY_MAX;
+        num = constants.PADDING_STRATEGY_CALLBACK;
+        num = constants.HTTP_STATUS_CONTINUE;
+        num = constants.HTTP_STATUS_SWITCHING_PROTOCOLS;
+        num = constants.HTTP_STATUS_PROCESSING;
+        num = constants.HTTP_STATUS_OK;
+        num = constants.HTTP_STATUS_CREATED;
+        num = constants.HTTP_STATUS_ACCEPTED;
+        num = constants.HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION;
+        num = constants.HTTP_STATUS_NO_CONTENT;
+        num = constants.HTTP_STATUS_RESET_CONTENT;
+        num = constants.HTTP_STATUS_PARTIAL_CONTENT;
+        num = constants.HTTP_STATUS_MULTI_STATUS;
+        num = constants.HTTP_STATUS_ALREADY_REPORTED;
+        num = constants.HTTP_STATUS_IM_USED;
+        num = constants.HTTP_STATUS_MULTIPLE_CHOICES;
+        num = constants.HTTP_STATUS_MOVED_PERMANENTLY;
+        num = constants.HTTP_STATUS_FOUND;
+        num = constants.HTTP_STATUS_SEE_OTHER;
+        num = constants.HTTP_STATUS_NOT_MODIFIED;
+        num = constants.HTTP_STATUS_USE_PROXY;
+        num = constants.HTTP_STATUS_TEMPORARY_REDIRECT;
+        num = constants.HTTP_STATUS_PERMANENT_REDIRECT;
+        num = constants.HTTP_STATUS_BAD_REQUEST;
+        num = constants.HTTP_STATUS_UNAUTHORIZED;
+        num = constants.HTTP_STATUS_PAYMENT_REQUIRED;
+        num = constants.HTTP_STATUS_FORBIDDEN;
+        num = constants.HTTP_STATUS_NOT_FOUND;
+        num = constants.HTTP_STATUS_METHOD_NOT_ALLOWED;
+        num = constants.HTTP_STATUS_NOT_ACCEPTABLE;
+        num = constants.HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED;
+        num = constants.HTTP_STATUS_REQUEST_TIMEOUT;
+        num = constants.HTTP_STATUS_CONFLICT;
+        num = constants.HTTP_STATUS_GONE;
+        num = constants.HTTP_STATUS_LENGTH_REQUIRED;
+        num = constants.HTTP_STATUS_PRECONDITION_FAILED;
+        num = constants.HTTP_STATUS_PAYLOAD_TOO_LARGE;
+        num = constants.HTTP_STATUS_URI_TOO_LONG;
+        num = constants.HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE;
+        num = constants.HTTP_STATUS_RANGE_NOT_SATISFIABLE;
+        num = constants.HTTP_STATUS_EXPECTATION_FAILED;
+        num = constants.HTTP_STATUS_TEAPOT;
+        num = constants.HTTP_STATUS_MISDIRECTED_REQUEST;
+        num = constants.HTTP_STATUS_UNPROCESSABLE_ENTITY;
+        num = constants.HTTP_STATUS_LOCKED;
+        num = constants.HTTP_STATUS_FAILED_DEPENDENCY;
+        num = constants.HTTP_STATUS_UNORDERED_COLLECTION;
+        num = constants.HTTP_STATUS_UPGRADE_REQUIRED;
+        num = constants.HTTP_STATUS_PRECONDITION_REQUIRED;
+        num = constants.HTTP_STATUS_TOO_MANY_REQUESTS;
+        num = constants.HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE;
+        num = constants.HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS;
+        num = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        num = constants.HTTP_STATUS_NOT_IMPLEMENTED;
+        num = constants.HTTP_STATUS_BAD_GATEWAY;
+        num = constants.HTTP_STATUS_SERVICE_UNAVAILABLE;
+        num = constants.HTTP_STATUS_GATEWAY_TIMEOUT;
+        num = constants.HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED;
+        num = constants.HTTP_STATUS_VARIANT_ALSO_NEGOTIATES;
+        num = constants.HTTP_STATUS_INSUFFICIENT_STORAGE;
+        num = constants.HTTP_STATUS_LOOP_DETECTED;
+        num = constants.HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED;
+        num = constants.HTTP_STATUS_NOT_EXTENDED;
+        num = constants.HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED;
+        str = constants.HTTP2_HEADER_STATUS;
+        str = constants.HTTP2_HEADER_METHOD;
+        str = constants.HTTP2_HEADER_AUTHORITY;
+        str = constants.HTTP2_HEADER_SCHEME;
+        str = constants.HTTP2_HEADER_PATH;
+        str = constants.HTTP2_HEADER_ACCEPT_CHARSET;
+        str = constants.HTTP2_HEADER_ACCEPT_ENCODING;
+        str = constants.HTTP2_HEADER_ACCEPT_LANGUAGE;
+        str = constants.HTTP2_HEADER_ACCEPT_RANGES;
+        str = constants.HTTP2_HEADER_ACCEPT;
+        str = constants.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN;
+        str = constants.HTTP2_HEADER_AGE;
+        str = constants.HTTP2_HEADER_ALLOW;
+        str = constants.HTTP2_HEADER_AUTHORIZATION;
+        str = constants.HTTP2_HEADER_CACHE_CONTROL;
+        str = constants.HTTP2_HEADER_CONNECTION;
+        str = constants.HTTP2_HEADER_CONTENT_DISPOSITION;
+        str = constants.HTTP2_HEADER_CONTENT_ENCODING;
+        str = constants.HTTP2_HEADER_CONTENT_LANGUAGE;
+        str = constants.HTTP2_HEADER_CONTENT_LENGTH;
+        str = constants.HTTP2_HEADER_CONTENT_LOCATION;
+        str = constants.HTTP2_HEADER_CONTENT_MD5;
+        str = constants.HTTP2_HEADER_CONTENT_RANGE;
+        str = constants.HTTP2_HEADER_CONTENT_TYPE;
+        str = constants.HTTP2_HEADER_COOKIE;
+        str = constants.HTTP2_HEADER_DATE;
+        str = constants.HTTP2_HEADER_ETAG;
+        str = constants.HTTP2_HEADER_EXPECT;
+        str = constants.HTTP2_HEADER_EXPIRES;
+        str = constants.HTTP2_HEADER_FROM;
+        str = constants.HTTP2_HEADER_HOST;
+        str = constants.HTTP2_HEADER_IF_MATCH;
+        str = constants.HTTP2_HEADER_IF_MODIFIED_SINCE;
+        str = constants.HTTP2_HEADER_IF_NONE_MATCH;
+        str = constants.HTTP2_HEADER_IF_RANGE;
+        str = constants.HTTP2_HEADER_IF_UNMODIFIED_SINCE;
+        str = constants.HTTP2_HEADER_LAST_MODIFIED;
+        str = constants.HTTP2_HEADER_LINK;
+        str = constants.HTTP2_HEADER_LOCATION;
+        str = constants.HTTP2_HEADER_MAX_FORWARDS;
+        str = constants.HTTP2_HEADER_PREFER;
+        str = constants.HTTP2_HEADER_PROXY_AUTHENTICATE;
+        str = constants.HTTP2_HEADER_PROXY_AUTHORIZATION;
+        str = constants.HTTP2_HEADER_RANGE;
+        str = constants.HTTP2_HEADER_REFERER;
+        str = constants.HTTP2_HEADER_REFRESH;
+        str = constants.HTTP2_HEADER_RETRY_AFTER;
+        str = constants.HTTP2_HEADER_SERVER;
+        str = constants.HTTP2_HEADER_SET_COOKIE;
+        str = constants.HTTP2_HEADER_STRICT_TRANSPORT_SECURITY;
+        str = constants.HTTP2_HEADER_TRANSFER_ENCODING;
+        str = constants.HTTP2_HEADER_TE;
+        str = constants.HTTP2_HEADER_UPGRADE;
+        str = constants.HTTP2_HEADER_USER_AGENT;
+        str = constants.HTTP2_HEADER_VARY;
+        str = constants.HTTP2_HEADER_VIA;
+        str = constants.HTTP2_HEADER_WWW_AUTHENTICATE;
+        str = constants.HTTP2_HEADER_HTTP2_SETTINGS;
+        str = constants.HTTP2_HEADER_KEEP_ALIVE;
+        str = constants.HTTP2_HEADER_PROXY_CONNECTION;
+        str = constants.HTTP2_METHOD_ACL;
+        str = constants.HTTP2_METHOD_BASELINE_CONTROL;
+        str = constants.HTTP2_METHOD_BIND;
+        str = constants.HTTP2_METHOD_CHECKIN;
+        str = constants.HTTP2_METHOD_CHECKOUT;
+        str = constants.HTTP2_METHOD_CONNECT;
+        str = constants.HTTP2_METHOD_COPY;
+        str = constants.HTTP2_METHOD_DELETE;
+        str = constants.HTTP2_METHOD_GET;
+        str = constants.HTTP2_METHOD_HEAD;
+        str = constants.HTTP2_METHOD_LABEL;
+        str = constants.HTTP2_METHOD_LINK;
+        str = constants.HTTP2_METHOD_LOCK;
+        str = constants.HTTP2_METHOD_MERGE;
+        str = constants.HTTP2_METHOD_MKACTIVITY;
+        str = constants.HTTP2_METHOD_MKCALENDAR;
+        str = constants.HTTP2_METHOD_MKCOL;
+        str = constants.HTTP2_METHOD_MKREDIRECTREF;
+        str = constants.HTTP2_METHOD_MKWORKSPACE;
+        str = constants.HTTP2_METHOD_MOVE;
+        str = constants.HTTP2_METHOD_OPTIONS;
+        str = constants.HTTP2_METHOD_ORDERPATCH;
+        str = constants.HTTP2_METHOD_PATCH;
+        str = constants.HTTP2_METHOD_POST;
+        str = constants.HTTP2_METHOD_PRI;
+        str = constants.HTTP2_METHOD_PROPFIND;
+        str = constants.HTTP2_METHOD_PROPPATCH;
+        str = constants.HTTP2_METHOD_PUT;
+        str = constants.HTTP2_METHOD_REBIND;
+        str = constants.HTTP2_METHOD_REPORT;
+        str = constants.HTTP2_METHOD_SEARCH;
+        str = constants.HTTP2_METHOD_TRACE;
+        str = constants.HTTP2_METHOD_UNBIND;
+        str = constants.HTTP2_METHOD_UNCHECKOUT;
+        str = constants.HTTP2_METHOD_UNLINK;
+        str = constants.HTTP2_METHOD_UNLOCK;
+        str = constants.HTTP2_METHOD_UPDATE;
+        str = constants.HTTP2_METHOD_UPDATEREDIRECTREF;
+        str = constants.HTTP2_METHOD_VERSION_CONTROL;
+    }
+}
+
+///////////////////////////////////////////////////////////
+/// Inspector Tests                                     ///
+///////////////////////////////////////////////////////////
+
+namespace inspector_tests {
+    {
+        inspector.open();
+        inspector.open(0);
+        inspector.open(0, 'localhost');
+        inspector.open(0, 'localhost', true);
+        inspector.close();
+        const inspectorUrl: string = inspector.url();
+
+        const session = new inspector.Session();
+        session.connect();
+        session.disconnect();
+
+        // Unknown post method
+        session.post('A.b', { key: 'value' }, (err, params) => {});
+        // TODO: parameters are implicitly 'any' and need type annotation
+        session.post('A.b', (err: Error | null, params?: {}) => {});
+        session.post('A.b');
+        // Known post method
+        const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
+        session.post('Runtime.evaluate', parameter,
+            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
+            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
+            const resultClassName: string = params.result.className;
+        });
+        session.post('Runtime.evaluate');
+
+        // General event
+        session.on('inspectorNotification', message => {
+            message; // $ExpectType InspectorNotification<{}>
+        });
+        // Known events
+        session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
+            const method: string = message.method;
+            const pauseReason: string = message.params.reason;
+        });
+        session.on('Debugger.resumed', () => {});
+    }
+}
+
+////////////////////////////////////////////////////
+/// module tests : http://nodejs.org/api/modules.html
+////////////////////////////////////////////////////
+
+namespace module_tests {
+    require.extensions[".ts"] = () => "";
+
+    Module.runMain();
+    const s: string = Module.wrap("some code");
+
+    const m1: Module = new Module("moduleId");
+    const m2: Module = new Module.Module("moduleId");
+}
+
+////////////////////////////////////////////////////
+/// Node.js ESNEXT Support
+////////////////////////////////////////////////////
+
+namespace esnext_string_tests {
+    const s: string = 'foo';
+    const s1: string = s.trimLeft();
+    const s2: string = s.trimRight();
 }

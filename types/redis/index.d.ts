@@ -1,6 +1,11 @@
-// Type definitions for redis 2.6.0
+// Type definitions for redis 2.8
 // Project: https://github.com/mranney/node_redis
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+//                 Peter Harris <https://github.com/CodeAnimal>
+//                 TANAKA Koichi <https://github.com/MugeSo>
+//                 Stuart Schechter <https://github.com/UppaJung>
+//                 Junyoung Choi <https://github.com/Rokt33r>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -11,15 +16,13 @@ import { EventEmitter } from 'events';
 import { Duplex } from 'stream';
 
 export interface RetryStrategyOptions {
-    error: Error;
+    error: NodeJS.ErrnoException;
     total_retry_time: number;
     times_connected: number;
     attempt: number;
 }
 
-export interface RetryStrategy {
-    (options: RetryStrategyOptions): number | Error;
-}
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
 
 export interface ClientOpts {
     host?: string;
@@ -39,17 +42,15 @@ export interface ClientOpts {
     retry_unfulfilled_commands?: boolean;
     auth_pass?: string;
     password?: string;
-    db?: string;
+    db?: string | number;
     family?: string;
-    rename_commands?: { [command: string]: string };
+    rename_commands?: { [command: string]: string } | null;
     tls?: any;
     prefix?: string;
     retry_strategy?: RetryStrategy;
 }
 
-export interface Callback<T> {
-    (err: Error | null, reply: T): void;
-}
+export type Callback<T> = (err: Error | null, reply: T) => void;
 
 export interface ServerInfo {
     redis_version: string;
@@ -57,65 +58,54 @@ export interface ServerInfo {
 }
 
 export interface OverloadedCommand<T, U, R> {
-    (args: T[], cb?: Callback<U>): R;
-    (arg: T, args: T[], cb?: Callback<U>): R;
-
     (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
-    (arg1: T, arg2: T, cb?: Callback<U>): R;
-    (arg1: T, cb?: Callback<U>): R;
-    (...args: (T | Callback<U>)[]): R;
+    (arg1: T, arg2: T | T[], cb?: Callback<U>): R;
+    (arg1: T | T[], cb?: Callback<U>): R;
+    (...args: Array<T | Callback<U>>): R;
 }
 
 export interface OverloadedKeyCommand<T, U, R> {
-    (key: string, args: T[], cb?: Callback<U>): R;
-
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string, arg1: T, cb?: Callback<U>): R;
-    (key: string, ...args: (T | Callback<U>)[]): R;
-    (...args: (string | T | Callback<U>)[]): R;
+    (key: string, arg1: T| T[], cb?: Callback<U>): R;
+    (key: string, ...args: Array<T | Callback<U>>): R;
+    (...args: Array<string | T | Callback<U>>): R;
 }
 
 export interface OverloadedListCommand<T, U, R> {
-    (args: T[], cb?: Callback<U>): R;
-
     (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (arg1: T, arg2: T, cb?: Callback<U>): R;
-    (arg1: T, cb?: Callback<U>): R;
-    (...args: (T | Callback<U>)[]): R;
+    (arg1: T | T[], cb?: Callback<U>): R;
+    (...args: Array<T | Callback<U>>): R;
 }
 
 export interface OverloadedSetCommand<T, U, R> {
-    (key: string, args: { [key: string]: T } | T[], cb?: Callback<U>): R;
-
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string, arg1: T, cb?: Callback<U>): R;
-    (key: string, ...args: (T | Callback<U>)[]): R;
+    (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
+    (key: string, ...args: Array<T | Callback<U>>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
-    (args: (T1 | T2)[], cb?: Callback<U>): R;
-    (arg: T1, args: (T1 | T2)[], cb?: Callback<U>): R;
-
     (arg1: T1, arg2: T1, arg3: T1, arg4: T1, arg5: T1, arg6: T2, cb?: Callback<U>): R;
     (arg1: T1, arg2: T1, arg3: T1, arg4: T1, arg5: T2, cb?: Callback<U>): R;
     (arg1: T1, arg2: T1, arg3: T1, arg4: T2, cb?: Callback<U>): R;
     (arg1: T1, arg2: T1, arg3: T2, cb?: Callback<U>): R;
-    (arg1: T1, arg2: T2, cb?: Callback<U>): R;
-    (...args: (T1 | T2 | Callback<U>)[]): R;
+    (arg1: T1, arg2: T2 | Array<T1 | T2>, cb?: Callback<U>): R;
+    (args: Array<T1 | T2>, cb?: Callback<U>): R;
+    (...args: Array<T1 | T2 | Callback<U>>): R;
 }
 
 export interface Commands<R> {
@@ -229,11 +219,11 @@ export interface Commands<R> {
     bitop(operation: string, destkey: string, key1: string, key2: string, key3: string, cb?: Callback<number>): R;
     bitop(operation: string, destkey: string, key1: string, key2: string, cb?: Callback<number>): R;
     bitop(operation: string, destkey: string, key: string, cb?: Callback<number>): R;
-    bitop(operation: string, destkey: string, ...args: (string | Callback<number>)[]): R;
+    bitop(operation: string, destkey: string, ...args: Array<string | Callback<number>>): R;
     BITOP(operation: string, destkey: string, key1: string, key2: string, key3: string, cb?: Callback<number>): R;
     BITOP(operation: string, destkey: string, key1: string, key2: string, cb?: Callback<number>): R;
     BITOP(operation: string, destkey: string, key: string, cb?: Callback<number>): R;
-    BITOP(operation: string, destkey: string, ...args: (string | Callback<number>)[]): R;
+    BITOP(operation: string, destkey: string, ...args: Array<string | Callback<number>>): R;
 
     /**
      * Find first bit set or clear in a string.
@@ -260,8 +250,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -542,20 +532,20 @@ export interface Commands<R> {
     /**
      * Increment the integer value of a key by one.
      */
-    incr(key: string, cb?: Callback<string[]>): R;
-    INCR(key: string, cb?: Callback<string[]>): R;
+    incr(key: string, cb?: Callback<number>): R;
+    INCR(key: string, cb?: Callback<number>): R;
 
     /**
      * Increment the integer value of a key by the given amount.
      */
-    incrby(key: string, increment: number, cb?: Callback<string[]>): R;
-    INCRBY(key: string, increment: number, cb?: Callback<string[]>): R;
+    incrby(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBY(key: string, increment: number, cb?: Callback<number>): R;
 
     /**
      * Increment the float value of a key by the given amount.
      */
-    incrbyfloat(key: string, increment: number, cb?: Callback<string[]>): R;
-    INCRBYFLOAT(key: string, increment: number, cb?: Callback<string[]>): R;
+    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
 
     /**
      * Find all keys matching the given pattern.
@@ -1084,8 +1074,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set.
      */
-    zrank(key: string, member: string, cb?: Callback<number | void>): R;
-    ZRANK(key: string, member: string, cb?: Callback<number | void>): R;
+    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
 
     /**
      * Remove one or more members from a sorted set.
@@ -1134,8 +1124,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
      */
-    zrevrank(key: string, member: string, cb?: Callback<number | void>): R;
-    ZREVRANK(key: string, member: string, cb?: Callback<number | void>): R;
+    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
 
     /**
      * Get the score associated with the given member in a sorted set.
@@ -1190,14 +1180,10 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     server_info: ServerInfo;
     stream: Duplex;
 
-    on(event: 'message', listener: (channel: string, message: string) => void): this;
-    on(event: 'pmessage', listener: (pattern: string, channel: string, message: string) => void): this;
-    on(event: 'message_buffer', listener: (channel: string, message: string) => void): this;
-    on(event: 'pmessage_buffer', listener: (pattern: string, channel: string, message: string) => void): this;
-    on(event: 'subscribe', listener: (channel: string, count: number) => void): this;
-    on(event: 'psubscribe', listener: (pattern: string, count: number) => void): this;
-    on(event: 'unsubscribe', listener: (channel: string, count: number) => void): this;
-    on(event: 'punsubscribe', listener: (pattern: string, count: number) => void): this;
+    on(event: 'message' | 'message_buffer', listener: (channel: string, message: string) => void): this;
+    on(event: 'pmessage' | 'pmessage_buffer', listener: (pattern: string, channel: string, message: string) => void): this;
+    on(event: 'subscribe' | 'unsubscribe', listener: (channel: string, count: number) => void): this;
+    on(event: 'psubscribe' | 'punsubscribe', listener: (pattern: string, count: number) => void): this;
     on(event: string, listener: (...args: any[]) => void): this;
 
     /**
@@ -1216,6 +1202,9 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     sendCommand(command: string, args?: any[], cb?: Callback<any>): boolean;
     send_command(command: string, cb?: Callback<any>): boolean;
     send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
+
+    addCommand(command: string): void;
+    add_command(command: string): void;
 
     /**
      * Mark the start of a transaction block.
@@ -1246,4 +1235,4 @@ export function createClient(unix_socket: string, options?: ClientOpts): RedisCl
 export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
 export function createClient(options?: ClientOpts): RedisClient;
 
-export function print(err: Error | void, reply: any): void;
+export function print(err: Error | undefined, reply: any): void;

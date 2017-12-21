@@ -1,7 +1,7 @@
 import { Annyang, CommandOption } from 'annyang';
 
-declare let annyang: Annyang;
-declare let console: any;
+declare const annyang: Annyang;
+declare const console: any;
 
 // Tests based on API documentation at https://github.com/TalAter/annyang/blob/master/docs/README.md
 
@@ -11,12 +11,12 @@ function testStartListening() {
 }
 
 function testAddComments() {
-    let helloFunction = (): string => {
+    const helloFunction = (): string => {
         return 'hello';
     };
 
-    let commands: CommandOption = {'hello :name': helloFunction, howdy: helloFunction};
-    let commands2: CommandOption = {hi: helloFunction};
+    const commands: CommandOption = {'hello :name': helloFunction, howdy: helloFunction};
+    const commands2: CommandOption = {hi: helloFunction};
 
     annyang.addCommands(commands); // $ExpectType void
     annyang.addCommands(commands2); // $ExpectType void
@@ -26,10 +26,10 @@ function testAddComments() {
     annyang.removeCommands(['howdy', 'hi']); // $ExpectType void
 }
 
-let notConnected = () => { console.error('network connection error'); };
+const notConnected = () => { console.error('network connection error'); };
 
 function testAddCallback() {
-    annyang.addCallback('error', () => console.error('There was an error!') ); // $ExpectType void
+    annyang.addCallback('error', () => console.error('There was an error!')); // $ExpectType void
 
     // $ExpectType void
     annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
@@ -42,8 +42,8 @@ function testAddCallback() {
 }
 
 function testRemoveCallback() {
-    let start = () => { console.log('start'); };
-    let end = () => { console.log('end'); };
+    const start = () => { console.log('start'); };
+    const end = () => { console.log('end'); };
 
     annyang.addCallback('start', start); // $ExpectType void
     annyang.addCallback('end', end); // $ExpectType void

@@ -123,7 +123,7 @@ context.addTelemetryInitializer(envelope => { });
 
 // a sample from: https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#example
 context.addTelemetryInitializer(envelope => {
-    let telemetryItem = envelope.data.baseData;
+    const telemetryItem = envelope.data.baseData;
     if (envelope.name === Microsoft.ApplicationInsights.Telemetry.PageView.envelopeType) {
         telemetryItem.url = "URL CENSORED";
     }

@@ -138,7 +138,7 @@ declare namespace ReactIntl {
         }
 
         interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | number | JSX.Element};
+            values?: {[key: string]: string | number | boolean | Date | JSX.Element};
             tagName?: string;
         }
     }

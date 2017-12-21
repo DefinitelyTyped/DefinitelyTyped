@@ -1,13 +1,17 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Baronfel <https://github.com/baronfel>
+//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import events = require("events");
-import Promise = require("bluebird");
+import stream = require ("stream");
+import Bluebird = require("bluebird");
 
 type Callback = Function;
 type Client = Function;
@@ -21,9 +25,9 @@ interface Knex extends Knex.QueryInterface {
     __knex__: string;
 
     raw: Knex.RawBuilder;
-    transaction(transactionScope: (trx: Knex.Transaction) => any): Promise<any>;
+    transaction<T>(transactionScope: (trx: Knex.Transaction) => Promise<T> | Bluebird<T> | void): Bluebird<T>;
     destroy(callback: Function): void;
-    destroy(): Promise<void>;
+    destroy(): Bluebird<void>;
     batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
     queryBuilder(): Knex.QueryBuilder;
@@ -155,7 +159,7 @@ declare namespace Knex {
         delete(returning?: string | string[]): QueryBuilder;
         truncate(): QueryBuilder;
 
-        transacting(trx: Transaction): QueryBuilder;
+        transacting(trx?: Transaction): QueryBuilder;
         connection(connection: any): QueryBuilder;
 
         clone(): QueryBuilder;
@@ -178,7 +182,7 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: TableName, clause: (this: JoinClause) => void): QueryBuilder;
+        (tableName: TableName, clause: (this: JoinClause, join: JoinClause) => void): QueryBuilder;
         (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
@@ -205,6 +209,30 @@ declare namespace Knex {
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
         orOn(column1: string, operator: string, column2: string): JoinClause;
+        onIn(column1: string, values: any[]): JoinClause;
+        andOnIn(column1: string, values: any[]): JoinClause;
+        orOnIn(column1: string, values: any[]): JoinClause;
+        onNotIn(column1: string, values: any[]): JoinClause;
+        andOnNotIn(column1: string, values: any[]): JoinClause;
+        orOnNotIn(column1: string, values: any[]): JoinClause;
+        onNull(column1: string): JoinClause;
+        andOnNull(column1: string): JoinClause;
+        orOnNull(column1: string): JoinClause;
+        onNotNull(column1: string): JoinClause;
+        andOnNotNull(column1: string): JoinClause;
+        orOnNotNull(column1: string): JoinClause;
+        onExists(callback: () => void): JoinClause;
+        andOnExists(callback: () => void): JoinClause;
+        orOnExists(callback: () => void): JoinClause;
+        onNotExists(callback: () => void): JoinClause;
+        andOnNotExists(callback: () => void): JoinClause;
+        orOnNotExists(callback: () => void): JoinClause;
+        onBetween(column1: string, range: [any, any]): JoinClause;
+        andOnBetween(column1: string, range: [any, any]): JoinClause;
+        orOnBetween(column1: string, range: [any, any]): JoinClause;
+        onNotBetween(column1: string, range: [any, any]): JoinClause;
+        andOnNotBetween(column1: string, range: [any, any]): JoinClause;
+        orOnNotBetween(column1: string, range: [any, any]): JoinClause;
         using(column: string | string[] | Raw | { [key: string]: string | Raw }): JoinClause;
         type(type: string): JoinClause;
     }
@@ -326,7 +354,7 @@ declare namespace Knex {
         and: QueryBuilder;
 
         //TODO: Promise?
-        columnInfo(column?: string): Promise<ColumnInfo>;
+        columnInfo(column?: string): Bluebird<ColumnInfo>;
 
         forUpdate(): QueryBuilder;
         forShare(): QueryBuilder;
@@ -347,17 +375,18 @@ declare namespace Knex {
     // Chainable interface
     //
 
-    interface ChainableInterface extends Promise<any> {
+    interface ChainableInterface extends Bluebird<any> {
         toQuery(): string;
         options(options: any): QueryBuilder;
-        stream(options?: any, callback?: (builder: QueryBuilder) => any): QueryBuilder;
-        stream(callback?: (builder: QueryBuilder) => any): QueryBuilder;
-        pipe(writable: any): QueryBuilder;
+        stream(callback: (readable: stream.PassThrough) => any): Bluebird<any>;
+        stream(options?: { [key: string]: any }): stream.PassThrough;
+        stream(options: { [key: string]: any }, callback: (readable: stream.PassThrough) => any): Bluebird<any>;
+        pipe(writable: any): stream.PassThrough;
         exec(callback: Function): QueryBuilder;
     }
 
     interface Transaction extends Knex {
-        savepoint(transactionScope: (trx: Transaction) => any): Promise<any>;
+        savepoint(transactionScope: (trx: Transaction) => any): Bluebird<any>;
         commit(value?: any): QueryBuilder;
         rollback(error?: any): QueryBuilder;
     }
@@ -366,14 +395,14 @@ declare namespace Knex {
     // Schema builder
     //
 
-    interface SchemaBuilder extends Promise<any> {
+    interface SchemaBuilder extends Bluebird<any> {
         createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
-        renameTable(oldTableName: string, newTableName: string): Promise<void>;
+        renameTable(oldTableName: string, newTableName: string): Bluebird<void>;
         dropTable(tableName: string): SchemaBuilder;
-        hasTable(tableName: string): Promise<boolean>;
-        hasColumn(tableName: string, columnName: string): Promise<boolean>;
-        table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
+        hasTable(tableName: string): Bluebird<boolean>;
+        hasColumn(tableName: string, columnName: string): Bluebird<boolean>;
+        table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Bluebird<void>;
         dropTableIfExists(tableName: string): SchemaBuilder;
         raw(statement: string): SchemaBuilder;
         withSchema(schemaName: string): SchemaBuilder;
@@ -414,6 +443,7 @@ declare namespace Knex {
         dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
         dropIndex(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
+        dropTimestamps(): ColumnBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -443,6 +473,7 @@ declare namespace Knex {
         notNullable(): ColumnBuilder;
         nullable(): ColumnBuilder;
         comment(value: string): ColumnBuilder;
+        alter(): ColumnBuilder;
     }
 
     interface ForeignConstraintBuilder {
@@ -482,12 +513,14 @@ declare namespace Knex {
 
     interface Config {
         debug?: boolean;
-        client?: string;
+        client?: string | typeof Client;
         dialect?: string;
+        version?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
         searchPath?: string;
@@ -558,7 +591,7 @@ declare namespace Knex {
         connectTimeout?: number;
         stringifyObjects?: boolean;
         insecureAuth?: boolean;
-        typeCast?: boolean;
+        typeCast?: any;
         queryFormat?: (query: string, values: any) => string;
         supportBigNumbers?: boolean;
         bigNumberStrings?: boolean;
@@ -610,6 +643,17 @@ declare namespace Knex {
         priorityRange?: number;
         validate?: Function;
         log?: boolean;
+
+        // generic-pool v3 configs
+        maxWaitingClients?: number;
+        testOnBorrow?: boolean;
+        acquireTimeoutMillis?: number;
+        fifo?: boolean;
+        autostart?: boolean;
+        evictionRunIntervalMillis?: number;
+        numTestsPerRun?: number;
+        softIdleTimeoutMillis?: number;
+        Promise?: any;
     }
 
     interface MigratorConfig {
@@ -620,16 +664,36 @@ declare namespace Knex {
         disableTransactions?: boolean;
     }
 
+    interface SeedsConfig {
+        directory?: string;
+    }
+
     interface Migrator {
-        make(name: string, config?: MigratorConfig): Promise<string>;
-        latest(config?: MigratorConfig): Promise<any>;
-        rollback(config?: MigratorConfig): Promise<any>;
-        status(config?: MigratorConfig): Promise<number>;
-        currentVersion(config?: MigratorConfig): Promise<string>;
+        make(name: string, config?: MigratorConfig): Bluebird<string>;
+        latest(config?: MigratorConfig): Bluebird<any>;
+        rollback(config?: MigratorConfig): Bluebird<any>;
+        status(config?: MigratorConfig): Bluebird<number>;
+        currentVersion(config?: MigratorConfig): Bluebird<string>;
     }
 
     interface FunctionHelper {
         now(): Raw;
+    }
+
+    //
+    // Clients
+    //
+
+    class Client extends events.EventEmitter {
+      constructor(config: Config);
+      config: Config;
+      dialect: string;
+      driverName: string;
+      connectionSettings: object;
+
+      acquireRawConnection(): Promise<any>;
+      destroyRawConnection(connection: any): Promise<void>;
+      validateConnection(connection: any): Promise<boolean>;
     }
 }
 

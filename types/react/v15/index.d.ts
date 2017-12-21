@@ -35,7 +35,7 @@ Therefore, the type of props is left as Q, which should work for most cases.
 If you need to call cloneElement with key or ref, you'll need a type cast:
 
 interface ButtonProps {
-    label: string,
+    label: string;
     isDisabled?: boolean;
 }
 var element: React.CElement<ButtonProps, Button>;
@@ -78,7 +78,7 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T | null) => any);
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -190,6 +190,12 @@ declare namespace React {
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
+    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
+    function createElement(
+            type: "input",
+            props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+            ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,
@@ -217,7 +223,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
+        type: SFC<P> | ComponentClass<P> | string,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -276,11 +282,13 @@ declare namespace React {
     class Component<P, S> {
         constructor(props?: P, context?: any);
 
-        // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
+        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
+        setState<K extends keyof S>(
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
+            callback?: () => any
+        ): void;
 
         forceUpdate(callBack?: () => any): void;
         render(): JSX.Element | null | false;
@@ -515,7 +523,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = (event: E) => void;
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
@@ -2428,6 +2436,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
@@ -2714,6 +2723,8 @@ declare namespace React {
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
         href?: string;
         hrefLang?: string;
         integrity?: string;
@@ -2738,6 +2749,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
+        playsinline?: boolean;
         preload?: string;
         src?: string;
     }
@@ -3114,7 +3126,7 @@ declare namespace React {
         strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-        strokeMiterlimit?: string;
+        strokeMiterlimit?: number | string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         surfaceScale?: number | string;
@@ -3327,7 +3339,7 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
+    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
@@ -3396,7 +3408,7 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
@@ -3404,9 +3416,10 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML

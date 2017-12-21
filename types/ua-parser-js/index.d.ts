@@ -1,6 +1,6 @@
 // Type definitions for ua-parser-js v0.7.10
 // Project: https://github.com/faisalman/ua-parser-js
-// Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
+// Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>, Pablo Rodríguez <https://github.com/MeLlamoPablo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace IUAParser {
@@ -18,31 +18,31 @@ declare namespace IUAParser {
          * Tizen, UCBrowser, Vivaldi, w3m, Yandex
          *
          */
-        name: string;
+        name: string | undefined;
 
         /**
          * Determined dynamically
          */
-        version: string;
+        version: string | undefined;
 
         /**
          * Determined dynamically
          * @deprecated
          */
-        major: string;
+        major: string | undefined;
     }
 
     export interface IDevice {
         /**
          * Determined dynamically
          */
-        model: string;
+        model: string | undefined;
 
         /**
          * Possible type:
          * console, mobile, tablet, smarttv, wearable, embedded
          */
-        type: string;
+        type: string | undefined;
 
         /**
          * Possible vendor:
@@ -51,7 +51,7 @@ declare namespace IUAParser {
          * Nintendo, Nokia, Nvidia, Ouya, Palm, Panasonic, Polytron, RIM, Samsung, Sharp,
          * Siemens, Sony-Ericsson, Sprint, Xbox, ZTE
          */
-        vendor: string;
+        vendor: string | undefined;
     }
 
     export interface IEngine {
@@ -60,11 +60,11 @@ declare namespace IUAParser {
          * Amaya, EdgeHTML, Gecko, iCab, KHTML, Links, Lynx, NetFront, NetSurf, Presto,
          * Tasman, Trident, w3m, WebKit
          */
-        name: string;
+        name: string | undefined;
         /**
          * Determined dynamically
          */
-        version: string;
+        version: string | undefined;
     }
 
     export interface IOS {
@@ -77,11 +77,11 @@ declare namespace IUAParser {
          * RIM Tablet OS, RISC OS, Sailfish, Series40, Slackware, Solaris, SUSE, Symbian, Tizen,
          * Ubuntu, UNIX, VectorLinux, WebOS, Windows [Phone/Mobile], Zenwalk
          */
-        name: string;
+        name: string | undefined;
         /**
          * Determined dynamically
          */
-        version: string;
+        version: string | undefined;
     }
 
     export interface ICPU {
@@ -90,7 +90,7 @@ declare namespace IUAParser {
          *  68k, amd64, arm, arm64, avr, ia32, ia64, irix, irix64, mips, mips64, pa-risc,
          *  ppc, sparc, sparc64
          */
-        architecture: string;
+        architecture: string | undefined;
     }
 
     export interface IResult {

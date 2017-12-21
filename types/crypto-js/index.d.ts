@@ -1,6 +1,6 @@
-// Type definitions for crypto-js v3.1.4
+// Type definitions for crypto-js v3.1.8
 // Project: https://github.com/evanvosberg/crypto-js
-// Definitions by: Michael Zabka <https://github.com/misak113/>
+// Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CryptoJS;
@@ -8,10 +8,10 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-	type Hash = (message: string, key?: string, ...options: any[]) => string;
+	type Hash = (message: string | LibWordArray, key?: string | WordArray, ...options: any[]) => WordArray;
 	interface Cipher {
-		encrypt(message: string, secretPassphrase: string, option?: CipherOption): WordArray;
-		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string, option?: CipherOption): DecryptedMessage;
+		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
 	}
 	interface CipherAlgorythm {
 		createEncryptor(secretPassphrase: string, option?: CipherOption): Encriptor;
@@ -25,11 +25,16 @@ declare namespace CryptoJS {
 		process(messagePart: string): string;
 		finalize(): string;
 	}
+	interface LibWordArray {
+		sigBytes: number,
+		words: number[],
+	}
 	export interface WordArray {
 		iv: string;
 		salt: string;
 		ciphertext: string;
 		key?: string;
+		toString(encoder?: Encoder): string;
 	}
 	export type DecryptedMessage = {
 		toString(encoder?: Encoder): string;
@@ -95,6 +100,11 @@ declare namespace CryptoJS {
 			Utf16: Encoder;
 			Utf16LE: Encoder;
 			Base64: Encoder;
+		};
+		lib: {
+			WordArray: {
+				create: (v: any) => LibWordArray;
+			};
 		};
 		mode: {
 			CBC: Mode;

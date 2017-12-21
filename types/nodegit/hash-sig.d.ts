@@ -8,44 +8,10 @@ export namespace Hashsig {
 }
 
 export class Hashsig {
-    /**
-     *
-     *
-     * @static
-     * @param {string} buf
-     * @param {number} buflen
-     * @param {number} opts
-     * @returns {Promise<Hashsig>}
-     *
-     * @memberof Hashsig
-     */
     static create(buf: string, buflen: number, opts: number): Promise<Hashsig>;
-    /**
-     *
-     *
-     * @static
-     * @param {string} path
-     * @param {number} opts
-     * @returns {Promise<Hashsig>}
-     *
-     * @memberof Hashsig
-     */
     static createFromFile(path: string, opts: number): Promise<Hashsig>;
 
-    /**
-     *
-     *
-     * @param {Hashsig} b
-     * @returns {number}
-     *
-     * @memberof Hashsig
-     */
     compare(b: Hashsig): number;
-    /**
-     *
-     *
-     *
-     * @memberof Hashsig
-     */
+
     free(): void;
 }

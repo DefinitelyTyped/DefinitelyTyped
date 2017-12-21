@@ -1,6 +1,6 @@
 // Type definitions for js-logging-sdk 1.0
 // Project: https://github.com/SumoLogic/js-logging-sdk
-// Definitions by: forabi <https://github.com/forabi/>
+// Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -118,7 +118,8 @@ declare class SumoLogger {
      */
     log<T extends object>(event: Partial<SumoLogger.PerMessageOptions> & T): void;
 
-    /** Force any pending logs to be sent immediately. This is mainly for use in a
+    /**
+     * Force any pending logs to be sent immediately. This is mainly for use in a
      * logOut/`window.onBeforeUnload` flow to ensure that any remaining queued
      * messages are sent to Sumo Logic.
      */

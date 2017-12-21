@@ -1,6 +1,6 @@
 // Type definitions for react-list 0.8
 // Project: https://github.com/orgsync/react-list
-// Definitions by: Yifei Yan <https://github.com/buptyyf>
+// Definitions by: Yifei Yan <https://github.com/buptyyf>, Tom Shen <https://github.com/tomshen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,22 +8,14 @@ import {
     Component,
     Props
 } from "react";
-export as namespace ReactList;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function scrollTo(index: number): void;
-export function scrollAround(index: number): void;
-export function getVisibleRange(): number[];
+type ItemRenderer = (index: number, key: number | string) => JSX.Element;
+type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;
+type ItemSizeEstimator = (index: number, cache: {}) => number;
+type ItemSizeGetter = (index: number) => number;
+type ScrollParentGetter = () => JSX.Element;
 
-/*~ You can declare types that are available via importing the module */
-export type ItemRenderer = (index: number, key: number | string) => JSX.Element;
-export type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;
-export type ItemSizeEstimator = (index: number, cache: {}) => number;
-export type ItemSizeGetter = (index: number) => number;
-export type ScrollParentGetter = () => JSX.Element;
-
-export interface ReactListProps extends Props<ReactList> {
+interface ReactListProps extends Props<ReactList> {
     axis?: 'x' | 'y';
     initialIndex?: number;
     itemRenderer?: ItemRenderer;
@@ -40,4 +32,10 @@ export interface ReactListProps extends Props<ReactList> {
     useTranslate3d?: boolean;
 }
 
-export default class ReactList extends Component<ReactListProps, {}> {}
+declare class ReactList extends Component<ReactListProps> {
+    scrollTo(index: number): void;
+    scrollAround(index: number): void;
+    getVisibleRange(): number[];
+}
+declare namespace ReactList { }
+export = ReactList;

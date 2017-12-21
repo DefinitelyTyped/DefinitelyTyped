@@ -1,6 +1,6 @@
 // Type definitions for tus-js-client 1.4
 // Project: https://github.com/tus/tus-js-client/
-// Definitions by: Kevin Somers-Higgins <https://github.com/kevhiggins/>
+// Definitions by: Kevin Somers-Higgins <https://github.com/kevhiggins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface UploadOptions {

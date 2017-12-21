@@ -182,7 +182,7 @@ x.floor();
 y = new BigNumber(-1.3);
 y.floor();
 
-0.1 > (0.3 - 0.2);
+0.1 > (0.3 - 0.2); // tslint:disable-line binary-expression-operand-order
 x = new BigNumber(0.1);
 x.greaterThan(BigNumber(0.3).minus(0.2));
 BigNumber(0).gt(x);

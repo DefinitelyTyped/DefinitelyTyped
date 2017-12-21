@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.21
+// Type definitions for ArcGIS API for JavaScript 3.22
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -284,6 +284,8 @@ declare module "esri" {
     columnDelimiter?: string;
     /** Copyright information for the layer. */
     copyright?: string;
+    /** Enables feature reduction (for example clustering) on point layers. */
+    featureReduction?: any;
     /** The fields property contains objects with "name", "alias" and "type" String properties. */
     fields?: any[];
     /** The latitude field name. */
@@ -608,13 +610,13 @@ declare module "esri" {
     locationProvider: LocationProviderBase;
   }
   export interface DataBrowserOptions {
-    /** Whether or not to display the hierarchy dropdown for countries with multiple hierarchies (e.g. */
+    /** Whether or not to display the hierarchy dropdown for countries with multiple hierarchies (for example USA has both Census and Landscape, Germany has both Census and Nexiga). */
     allowHierarchies?: boolean;
     /** Show/hide country drop down. */
     countryBox?: boolean;
     /** Two-digit country code selected in the country drop down. */
     countryID?: string;
-    /** The hierarchy to load for a country (e.g. */
+    /** The hierarchy to load for a country (for example 'Census' or 'Landscape' for USA). */
     hierarchyID?: string;
     /** Text string to display on the back button on the second and third pages of the Data Browser. */
     pageBackButton?: string;
@@ -896,6 +898,8 @@ declare module "esri" {
     displayOnPan?: boolean;
     /** Set a callback function that will be invoked by  FeatureLayer.getEditSummary. */
     editSummaryCallback?: Function;
+    /** Enables feature reduction (for example clustering) on point layers. */
+    featureReduction?: any;
     /** Specify the geodatabase version to display. */
     gdbVersion?: string;
     /** Unique ID to assign to the layer. */
@@ -1172,7 +1176,7 @@ declare module "esri" {
     remove(): void;
   }
   export interface HeatmapRendererOptions {
-    /** The radius (in pixels) of the circle over which the majority of each points value is spread out over. */
+    /** The radius (in pixels) of the circle over which the majority of each point's value is spread out. */
     blurRadius?: number;
     /** An array of CSS color strings (#RGB, #RRGGBB, rgb(r,g,b), rgba(r,g,b,a)). */
     colors: string[];
@@ -1718,7 +1722,7 @@ declare module "esri" {
     pixels: number[][];
     /** Pixel type. */
     pixelType?: string;
-    /** Array of objects containing numeric statistical properties (e.g. */
+    /** Array of objects containing numeric statistical properties (for example minValue, maxValue, noDataValue, etc.). */
     statistics?: any[];
     /** Number of columns. */
     width: number;
@@ -1856,7 +1860,7 @@ declare module "esri" {
     primaryHandle?: number;
     /** Toggle for showing the black handle bars. */
     showHandles?: boolean;
-    /** Flexible toggle for showing labels (e.g. */
+    /** Flexible toggle for showing labels (for example ["data", "handle"]). */
     showLabels?: boolean | string[];
     /** Toggle for showing the horizontal line indicators from the center of the handle. */
     showTicks?: boolean;
@@ -2153,7 +2157,7 @@ declare module "esri" {
   }
   export interface TemplatePickerOptions {
     /** Number of visible columns. */
-    columns?: number;
+    columns?: number | string;
     /** Defines the text to be displayed when the template picker does not have any templates to display. */
     emptyMessage?: string;
     /** Array of input feature layers. */
@@ -2165,7 +2169,7 @@ declare module "esri" {
     /** Length of label description. */
     maxLabelLength?: number;
     /** Number of visible rows. */
-    rows?: number;
+    rows?: number | string;
     /** Tooltip content contains the template name and description. */
     showTooltip?: boolean;
     /** HTML style attributes for the widget. */
@@ -3488,7 +3492,7 @@ declare module "esri/dijit/BasemapGallery" {
     basemaps: Basemap[];
     /** This value is true after the BasemapGallery retrieves the ArcGIS.com basemaps. */
     loaded: boolean;
-    /** Optional parameter to pass in a portal URL, including the instance name, used to access the group containing the basemap gallery items. */
+    /** Optional parameter to pass in a portal URL, including the instance name, used to access the group containing the basemap gallery items, for example www.myportal.com/myInstance or http://www.myportal.com/myInstance. */
     portalUrl: string;
     /**
      * Creates a new BasemapGallery dijit.
@@ -4567,8 +4571,8 @@ declare module "esri/dijit/InfoWindow" {
     /** Determines whether the InfoWindow is currently shown on the map. */
     isShowing: boolean;
     /**
-     * Create a new Info Window.
-     * @param params Optional parameters.
+     * Create a new InfoWindow.
+     * @param params Specify optional parameters used to create the InfoWindow.
      * @param srcNodeRef Reference or id of the HTML element where the widget should be rendered.
      */
     constructor(params: any, srcNodeRef: Node | string);
@@ -4633,6 +4637,12 @@ declare module "esri/dijit/InfoWindowLite" {
     fixedAnchor: string;
     /** Determines whether the InfoWindowLite is currently shown on the map. */
     isShowing: boolean;
+    /**
+     * Create a new InfoWindowLite.
+     * @param params Specify optional parameters used to create the InfoWindowLite.
+     * @param srcNodeRef Reference or id of the HTML element where the widget should be rendered.
+     */
+    constructor(params: any, srcNodeRef: Node | string);
     /** Hides the InfoWindow. */
     hide(): void;
     /**
@@ -5117,8 +5127,8 @@ declare module "esri/dijit/OverviewMap" {
 declare module "esri/dijit/Popup" {
   import esri = require("esri");
   import InfoWindowBase = require("esri/InfoWindowBase");
-  import Graphic = require("esri/graphic");
   import FillSymbol = require("esri/symbols/FillSymbol");
+  import Graphic = require("esri/graphic");
   import LineSymbol = require("esri/symbols/LineSymbol");
   import Point = require("esri/geometry/Point");
   import MarkerSymbol = require("esri/symbols/MarkerSymbol");
@@ -5127,6 +5137,8 @@ declare module "esri/dijit/Popup" {
   class Popup extends InfoWindowBase {
     /** Controls the placement of the popup window with respect to the geographic location. */
     anchor: string;
+    /** Visualizes the extent of the points summarized by the cluster graphic when the user selects the "Browse Features" action in the cluster popup. */
+    clusterFillSymbol: FillSymbol;
     /** The number of features associated with the info window. */
     count: number;
     /** An array of  pending deferreds, null if there are not any pending deferreds. */
@@ -5179,16 +5191,28 @@ declare module "esri/dijit/Popup" {
      * @param srcNodeRef Reference or id of the HTML element where the widget should be rendered.
      */
     constructor(options: esri.PopupOptions, srcNodeRef: Node | string);
+    /**
+     * Creates links for the specified actions at the bottom of the popup window.
+     * @param actions An array of action objects that define the behavior for actions included in the popup.
+     */
+    addActions(actions: any[]): any[];
     /** Removes all features and destroys any pending deferreds. */
     clearFeatures(): void;
     /** Destroy the popup. */
     destroy(): void;
+    /** Returns the current placement of the popup window. */
+    getCurrentAnchor(): string;
     /** Get the currently selected feature. */
     getSelectedFeature(): Graphic;
     /** Hide the info window. */
     hide(): void;
     /** Maximize the info window. */
     maximize(): void;
+    /**
+     * Removes the specified actions from the popup window.
+     * @param actionInfos An array of objects that describe actions  created with addActions().
+     */
+    removeActions(actionInfos: any[]): void;
     /** Re-calculates the popup's position with respect to the map location it is pointing to. */
     reposition(): void;
     /**
@@ -5222,8 +5246,9 @@ declare module "esri/dijit/Popup" {
     /**
      * Associate an array of features or an array of deferreds that return features with the info window.
      * @param features An array of features or deferreds.
+     * @param options Additional options for setting features in the popup.
      */
-    setFeatures(features: Graphic[] | any[]): void;
+    setFeatures(features: Graphic[] | any[], options?: any): void;
     /**
      * Sets the info window title.
      * @param title The text for the title.
@@ -5332,8 +5357,6 @@ declare module "esri/dijit/PopupTemplate" {
 
   /** The PopupTemplate class extends esri/InfoTemplate and provides support for defining a layout. */
   class PopupTemplate extends InfoTemplate {
-    /** An array of objects that reference Arcade expressions. */
-    expressionInfos: any[];
     /** The popup definition defined as a JavaScript object. */
     info: any;
     /**
@@ -5399,7 +5422,7 @@ declare module "esri/dijit/RendererSlider" {
     precision: number;
     /** Toggle for showing the black handle bars. */
     showHandles: boolean;
-    /** Flexible toggle for showing labels e.g. */
+    /** Flexible toggle for showing labels, for example ["data","handle"]. */
     showLabels: boolean | string[];
     /** Toggle for showing the horizontal line indicators from the center of the handle. */
     showTicks: boolean;
@@ -7991,10 +8014,10 @@ declare module "esri/geometry/geometryEngine" {
     clip(geometry: Geometry, envelope: Extent): Geometry;
     /**
      * Indicates if one geometry contains another geometry.
-     * @param geometry1 The geometry that is tested for the contains relationship to the other geometry.
-     * @param geometry2 The geometry that is tested for within relationship to the other geometry.
+     * @param containerGeometry The geometry that is tested for the "contains" relationship to the other geometry.
+     * @param insideGeometry The geometry that is tested for the "within" relationship to the containerGeometry.
      */
-    contains(geometry1: Geometry, geometry2: Geometry): boolean;
+    contains(containerGeometry: Geometry, insideGeometry: Geometry): boolean;
     /**
      * Calculates the convex hull of the input geometry.
      * @param geometry The input geometry.
@@ -8200,10 +8223,10 @@ declare module "esri/geometry/geometryEngine" {
     union(geometries: Geometry[]): Geometry;
     /**
      * Indicates if one geometry is within another geometry.
-     * @param geometry1 The base geometry that is tested for within relationship to the other geometry.
-     * @param geometry2 The comparison geometry that is tested for the contains relationship to the other geometry.
+     * @param innerGeometry The base geometry that is tested for within relationship to the other geometry.
+     * @param outerGeometry The comparison geometry that is tested for the contains relationship to the other geometry.
      */
-    within(geometry1: Geometry, geometry2: Geometry): boolean;
+    within(innerGeometry: Geometry, outerGeometry: Geometry): boolean;
   };
   export = geometryEngine;
 }
@@ -8234,10 +8257,10 @@ declare module "esri/geometry/geometryEngineAsync" {
     clip(geometry: Geometry, envelope: Extent): any;
     /**
      * Indicates if one geometry contains another geometry.
-     * @param geometry1 The geometry that is tested for the contains relationship to the other geometry.
-     * @param geometry2 The geometry that is tested for within relationship to the other geometry.
+     * @param containerGeometry The geometry that is tested for the "contains" relationship to the other geometry.
+     * @param insideGeometry The geometry that is tested for the "within" relationship to the containerGeometry.
      */
-    contains(geometry1: Geometry, geometry2: Geometry): any;
+    contains(containerGeometry: Geometry, insideGeometry: Geometry): any;
     /**
      * Calculates the convex hull of the input geometry.
      * @param geometry The input geometry.
@@ -8443,10 +8466,10 @@ declare module "esri/geometry/geometryEngineAsync" {
     union(geometries: Geometry[]): any;
     /**
      * Indicates if one geometry is within another geometry.
-     * @param geometry1 The base geometry that is tested for within relationship to the other geometry.
-     * @param geometry2 The comparison geometry that is tested for the contains relationship to the other geometry.
+     * @param innerGeometry The base geometry that is tested for within relationship to the other geometry.
+     * @param outerGeometry The comparison geometry that is tested for the contains relationship to the other geometry.
      */
-    within(geometry1: Geometry, geometry2: Geometry): any;
+    within(innerGeometry: Geometry, outerGeometry: Geometry): any;
   };
   export = geometryEngineAsync;
 }
@@ -8664,8 +8687,15 @@ declare module "esri/graphic" {
      * @param value The value of the attribute.
      */
     attr(name: string, value: string): Graphic;
+    /** Creates a deep clone of the graphic object. */
+    clone(): Graphic;
     /** Draws the graphic. */
     draw(): Graphic;
+    /**
+     * Returns the graphics summarized by the given aggregate graphic in a clustering or feature reduction visualization.
+     * @param aggregateGraphic A graphic representing the aggregation (or reduction) of several individual graphics in a layer.
+     */
+    getChildGraphics(aggregateGraphic: Graphic): Graphic[];
     /** Returns the content string based on attributes and infoTemplate values. */
     getContent(): string;
     /** Returns the dojo/gfx/shape.Shape of the Esri graphic. */
@@ -8688,6 +8718,8 @@ declare module "esri/graphic" {
     getTitle(): string;
     /** Hides the graphic. */
     hide(): void;
+    /** Indicates if the graphic represents a cluster of features. */
+    isAggregate(): boolean;
     /**
      * Defines the attributes of the graphic.
      * @param attributes The name value pairs of fields and field values associated with the graphic.
@@ -9055,7 +9087,7 @@ declare module "esri/layers/ArcGISImageServiceLayer" {
     timeInfo: TimeInfo;
     /** By default, images are exported in MIME format, and the image is streamed to the client. */
     useMapImage: boolean;
-    /** The version of ArcGIS Server the image service is published to, e.g. */
+    /** The version of ArcGIS Server the image service is published to, such as 9.3, 9.31, 10, 10.41. */
     version: number;
     /**
      * Creates a new ArcGISImageServiceLayer object.
@@ -9073,7 +9105,7 @@ declare module "esri/layers/ArcGISImageServiceLayer" {
     getDefinitionExpression(): string;
     /** Get key properties of an ImageService including information such as the band names associated with the imagery. */
     getKeyProperties(): any;
-    /** Asynchronously returns the raster attribute table of an ImageService which returns categorical mapping of pixel values (e.g. */
+    /** Asynchronously returns the raster attribute table of an ImageService which returns categorical mapping of pixel values (for example a class, group, category, or membership). */
     getRasterAttributeTable(): any;
     /** Gets the currently visible rasters. */
     getVisibleRasters(): Graphic[];
@@ -9651,6 +9683,12 @@ declare module "esri/layers/FeatureLayer" {
      * @param errback An error object is returned if an error occurs.
      */
     deleteAttachments(objectId: number, attachmentIds: number[], callback?: Function, errback?: Function): any;
+    /** Disables feature reduction (for example clustering) on the layer. */
+    disableFeatureReduction(): void;
+    /** Enables feature reduction (for example clustering) on the layer using the options set in setFeatureReduction(). */
+    enableFeatureReduction(): void;
+    /** Returns graphics representing the aggregation of several point features clustered together. */
+    getAggregateGraphics(): Graphic[];
     /** Asynchrously returns custom data for the layer when available. */
     getAttributionData(): any;
     /** Returns the current definition expression. */
@@ -9678,6 +9716,8 @@ declare module "esri/layers/FeatureLayer" {
      * @param options See the object specifications table below for the structure of the  options  object.
      */
     getEditSummary(feature: Graphic, options?: any): string;
+    /** Returns the options used to reduce the number of features visualized by the layer (for example clustering). */
+    getFeatureReduction(): any;
     /**
      * Returns the Field given the specified field name.
      * @param fieldName Name of the attribute field.
@@ -9691,6 +9731,8 @@ declare module "esri/layers/FeatureLayer" {
     getSelectedFeatures(): Graphic[];
     /** Gets the current selection symbol. */
     getSelectionSymbol(): Symbol;
+    /** Returns graphics from the layer that are not represented by aggregate graphics when feature reduction (such as clustering) is enabled. */
+    getSingleGraphics(): Graphic[];
     /** Get the current time definition applied to the feature layer. */
     getTimeDefinition(): TimeExtent;
     /**
@@ -9702,6 +9744,10 @@ declare module "esri/layers/FeatureLayer" {
     hasXYFootprint(): boolean;
     /** Returns true if the FeatureLayer is editable. */
     isEditable(): boolean;
+    /** Indicates if feature reduction (for example clustering) is active in the view. */
+    isFeatureReductionActive(): boolean;
+    /** Indicates if feature reduction (for example clustering) is enabled. */
+    isFeatureReductionEnabled(): boolean;
     /**
      * Returns true if the layer is visible at the given scale.
      * @param scale The scale at which to check if the layer is visible.
@@ -9778,6 +9824,11 @@ declare module "esri/layers/FeatureLayer" {
      * @param editable When true, the layer will be set as editable.
      */
     setEditable(editable: boolean): FeatureLayer;
+    /**
+     * Sets feature reduction options on the layer (for example clustering options).
+     * @param options Options for reducing (or aggregating) the features in the map.
+     */
+    setFeatureReduction(options: any): void;
     /**
      * Set the layer's data source to the specified geodatabase version.
      * @param versionName The name of the geodatabase version to use as the layer's data source.
@@ -10340,6 +10391,8 @@ declare module "esri/layers/KMLLayer" {
      * @param isVisible The visibility of the folder and all kml features within the folder.
      */
     setFolderVisibility(folder: KMLFolder, isVisible: boolean): void;
+    /** Fires when one or more of the layer's network link children fail to load. */
+    on(type: "network-link-error", listener: (event: { error: Error; target: KMLLayer }) => void): esri.Handle;
     /** Fired after the layer is refreshed. */
     on(type: "refresh", listener: (event: { target: KMLLayer }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
@@ -10692,11 +10745,11 @@ declare module "esri/layers/PixelBlock" {
     height: number;
     /** An array of nodata mask. */
     mask: any[];
-    /** A two dimensional array. */
+    /** A two dimensional array representing the pixels from the Image Service displayed on the client. */
     pixels: number[][];
     /** Pixel type. */
     pixelType: string;
-    /** Array of objects containing numeric statistical properties (e.g. */
+    /** Array of objects containing numeric statistical properties (for example minValue, maxValue, noDataValue, etc.). */
     statistics: any[];
     /** Number of columns. */
     width: number;
@@ -10710,7 +10763,7 @@ declare module "esri/layers/PixelBlock" {
      * @param planeData Must have two properties set: pixels and statistics.
      */
     addData(planeData: any): void;
-    /** Returns pixels and masks using a single array in bip format (e.g. */
+    /** Returns pixels and masks using a single array in bip format (for example [p_00_r, p_00_g, p_00_b, p_00_a, p_10_r, p_10_g, p_10_b, p_10_a, .....]). */
     getAsRGBA(): any[];
     /** Similar to getAsRGBA, but returns floating point data. */
     getAsRGBAFloat(): any[];
@@ -12026,7 +12079,7 @@ declare module "esri/map" {
     resize(immediate?: boolean): void;
     /**
      * Change the background color of the map.
-     * @param color Color specified using either a named string (e.g.
+     * @param color Color specified using either a named string (for example red), hex string (for example #FF0000), array of rgba values with "a" in the 0-1 range (for example [255,0,0,0.75]), or an instance of esri/Color.
      */
     setBackgroundColor(color: Color | string): void;
     /**
@@ -13023,7 +13076,7 @@ declare module "esri/renderers/HeatmapRenderer" {
 
   /** The HeatmapRenderer renders feature layer point data into a raster visualization that emphasizes areas of higher density or weighted values. */
   class HeatmapRenderer extends Renderer {
-    /** The radius (in pixels) of the circle over which the majority of each points value is spread out over. */
+    /** The radius (in pixels) of the circle over which the majority of each point's value is spread out. */
     blurRadius: number;
     /** An array of CSS color strings (#RGB, #RRGGBB, rgb(r,g,b), rgba(r,g,b,a)). */
     colors: string[];
@@ -13336,6 +13389,7 @@ declare module "esri/renderers/TimeRampAger" {
 
 declare module "esri/renderers/UniqueValueRenderer" {
   import Renderer = require("esri/renderers/Renderer");
+  import FillSymbol = require("esri/symbols/FillSymbol");
   import Symbol = require("esri/symbols/Symbol");
   import Graphic = require("esri/graphic");
 
@@ -13347,6 +13401,8 @@ declare module "esri/renderers/UniqueValueRenderer" {
     attributeField2: string;
     /** If needed, specify an additional attribute field the renderer uses to match values. */
     attributeField3: string;
+    /** A symbol used for polygon features as a background if the renderer uses point symbols, for example for bivariate types & size rendering. */
+    backgroundFillSymbol: FillSymbol;
     /** Label for the default symbol used to draw unspecified values. */
     defaultLabel: string;
     /** Default symbol used when a value or break cannot be matched. */
@@ -13506,7 +13562,7 @@ declare module "esri/renderers/smartMapping" {
      */
     createTypeRenderer(params: any): any;
     /**
-     * Searches the fields of an input layer or array of field objects for field names commonly used in rendering based on usage (e.g.
+     * Searches the fields of an input layer or array of field objects for field names commonly used in rendering based on usage (e.g., RANK, TOTAL, AVERAGE, NAME, etc).
      * @param params See the object specifications table below for details about the params object.
      */
     getSuggestedField(params: any): any;
@@ -15247,8 +15303,12 @@ declare module "esri/tasks/IdentifyParameters" {
     mapExtent: Extent;
     /** The maximum allowable offset used for generalizing geometries returned by the identify operation. */
     maxAllowableOffset: number;
+    /** If true, field names will be returned instead of field aliases. */
+    returnFieldName: boolean;
     /** If "true", the result set includes the geometry associated with each result. */
     returnGeometry: boolean;
+    /** If true, the values in the result will not be formatted i.e. */
+    returnUnformattedValues: boolean;
     /** The spatial reference of the input and output geometries as well as of the mapExtent. */
     spatialReference: SpatialReference;
     /** Specify the time extent used by the identify task. */

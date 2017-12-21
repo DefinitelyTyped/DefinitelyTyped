@@ -1,4 +1,4 @@
-import PouchDB from 'pouchdb';
+import * as PouchDB from 'pouchdb';
 
 function isString(someString: string) {
 }
@@ -38,7 +38,7 @@ function testAllDocs() {
 }
 
 function testDestroy() {
-    const db = new PouchDB<{}>();
+    const db = new PouchDB();
 
     db.destroy({}, (error) => {
     });

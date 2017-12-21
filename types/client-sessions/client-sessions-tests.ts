@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as session from "client-sessions";
+import express = require("express");
+import session = require("client-sessions");
 
 const secret = "yolo";
 const app = express();

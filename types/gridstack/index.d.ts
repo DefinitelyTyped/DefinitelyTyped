@@ -1,6 +1,6 @@
 // Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
-// Definitions by: Pascal Senn <https://github.com/PascalSenn/>, Ricky Blankenaufulland <https://github.com/ZoolWay/>, Sl1MBoy <https://github.com/Sl1MBoy>
+// Definitions by: Pascal Senn <https://github.com/PascalSenn>, Ricky Blankenaufulland <https://github.com/ZoolWay>, Sl1MBoy <https://github.com/Sl1MBoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -321,7 +321,7 @@ interface IGridstackOptions {
     /**
      * if true widgets could be removed by dragging outside of the grid. It could also be a jQuery selector string, 
      */
-    removable?: boolean;
+    removable?: boolean | string;
     /**
      * time in milliseconds before widget is being removed while dragging outside of the grid. (default: 2000)
      */

@@ -1,7 +1,6 @@
-import { abs } from 'numjs';
 import * as nj from 'numjs';
 
-const a = abs(2);
+const a = nj.abs(2);
 
 const arr = nj.arange(6);
 arr.reshape(1, 2, 3);

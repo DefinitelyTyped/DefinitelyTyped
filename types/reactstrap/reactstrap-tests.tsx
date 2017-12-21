@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   Card,
+  CardBody,
   CardBlock,
   CardColumns,
   CardDeck,
@@ -61,8 +62,8 @@ import {
   PaginationItem,
   PaginationLink,
   Popover,
-  PopoverContent,
-  PopoverTitle,
+  PopoverBody,
+  PopoverHeader,
   Progress,
   TabPane,
   UncontrolledButtonDropdown,
@@ -2478,9 +2479,9 @@ class Example85 extends React.Component<any, any> {
         <Button id="Popover1" onClick={this.toggle}>
           Launch Popover
         </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => {}}>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </div>
     );
@@ -2510,8 +2511,8 @@ class PopoverItem extends React.Component<any, any> {
           {this.props.item.text}
         </Button>
         <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </span>
     );
@@ -3265,7 +3266,7 @@ function Example105() {
         Toggle
       </a>
 
-      <DropdownMenu right>
+      <DropdownMenu right className="asdf">
         <div className="d-block">
           Item
         </div>
@@ -3296,3 +3297,227 @@ const CSSModuleExample = (props: any) => {
     <Button color="secondary" cssModule={cssModule}>Button</Button>
   );
 };
+
+class Example107 extends React.Component {
+  private input: HTMLInputElement;
+
+  render() {
+    return <Input type="file" innerRef={(input) => { this.input = input; }} />;
+  }
+}
+
+class Example108 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" dark toggleable>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example109 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example110 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example111 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand tag="a" href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example112 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand className="logo" href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+const Example113 = (props: any) => {
+    return (
+      <div>
+        <Card>
+          <CardBody>
+            Anim pariatur cliche reprehenderit,
+            enim eiusmod high life accusamus terry richardson ad squid. Nihil
+            anim keffiyeh helvetica, craft beer labore wes anderson cred
+            nesciunt sapiente ea proident.
+          </CardBody>
+        </Card>
+      </div>
+    );
+  };
+
+class Example114 extends React.Component<any, any> {
+private element: HTMLElement;
+
+refFn(r: HTMLElement | null) {
+    if (r) {
+        this.element = r;
+    }
+}
+
+render() {
+    return (
+    <div>
+        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+        Hello world!
+        </Tooltip>
+    </div>
+    );
+}
+}

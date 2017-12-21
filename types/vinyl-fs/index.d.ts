@@ -1,7 +1,7 @@
 // Type definitions for vinyl-fs 2.4
 // Project: https://github.com/wearefractal/vinyl-fs
-// Definitions by: vvakame <https://github.com/vvakame/>
-//                 remisery <https://github.com/remisery/>
+// Definitions by: vvakame <https://github.com/vvakame>
+//                 remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -108,12 +108,14 @@ export interface SrcOptions extends globStream.Options {
 }
 
 export interface DestOptions {
-   /** Specify the working directory the folder is relative to
+   /**
+    * Specify the working directory the folder is relative to
     * Default is process.cwd()
     */
    cwd?: string;
 
-   /** Specify the mode the files should be created with
+   /**
+    * Specify the mode the files should be created with
     * Default is the mode of the input file (file.stat.mode)
     * or the process mode if the input file has no mode property
     */
@@ -125,12 +127,14 @@ export interface DestOptions {
    /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
    overwrite?: boolean;
 
-   /** Enables sourcemap support on files passed through the stream. Will write inline soucemaps if
+   /**
+    * Enables sourcemap support on files passed through the stream. Will write inline soucemaps if
     * specified as true. Specifying a string path will write external sourcemaps at the given path.
     */
    sourcemaps?: true | string;
 
-   /** When creating a symlink, whether or not the created symlink should be relative. If false,
+   /**
+    * When creating a symlink, whether or not the created symlink should be relative. If false,
     * the symlink will be absolute. Note: This option will be ignored if a junction is being created.
     */
    relativeSymlinks?: boolean;

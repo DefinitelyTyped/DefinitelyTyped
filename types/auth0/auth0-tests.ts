@@ -111,3 +111,12 @@ management
 // Update app metadata using callback
 management
   .updateAppMetadata({id: "user_id"}, {"key": "value"}, (err: Error, users: auth0.User) => {});
+
+
+management.getUsersByEmail('email@address.com', (err, users) => {
+  console.log(users);
+});
+
+management.getUsersByEmail('email@address.com').then((users) => {
+  console.log(users);
+});

@@ -1,6 +1,6 @@
 // Type definitions for react-native-modalbox 1.4
 // Project: https://github.com/maxs15/react-native-modalbox#readme
-// Definitions by: Kyle Roach <https://github.com/me>
+// Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,8 +13,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is false
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   isOpen?: boolean;
 
@@ -23,8 +21,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is false
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   isDisabled?: boolean;
 
@@ -33,8 +29,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is true
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   backdropPressToClose?: boolean;
 
@@ -43,8 +37,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is true
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   swipeToClose?: boolean;
 
@@ -53,8 +45,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is 50
    *
-   * @type {number}
-   * @memberof ModalProps
    */
   swipeThreshold?: number;
 
@@ -63,8 +53,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is the Window Height
    *
-   * @type {number}
-   * @memberof ModalProps
    */
   swipeArea?: number;
 
@@ -74,8 +62,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is center
    *
-   * @type {string}
-   * @memberof ModalProps
    */
   position?: 'top' | 'center' | 'bottom' | string;
 
@@ -84,8 +70,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is bottom
    *
-   * @type {('top' | 'bottom' | string)}
-   * @memberof ModalProps
    */
   entry?: 'top' | 'bottom' | string;
 
@@ -94,8 +78,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is true
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   backdrop?: boolean;
 
@@ -104,8 +86,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is 0.5
    *
-   * @type {number}
-   * @memberof ModalProps
    */
   backdropOpacity?: number;
 
@@ -114,8 +94,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is black
    *
-   * @type {string}
-   * @memberof ModalProps
    */
   backdropColor?: string;
 
@@ -124,8 +102,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is null
    *
-   * @type {JSX.Element}
-   * @memberof ModalProps
    */
   backdropContent?: React.ReactNode;
 
@@ -134,8 +110,6 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is 400ms
    *
-   * @type {number}
-   * @memberof ModalProps
    */
   animationDuration?: number;
 
@@ -144,16 +118,12 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is false
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   backButtonClose?: boolean;
 
   /**
    *
    * Default is false
-   * @type {boolean}
-   * @memberof ModalProps
    */
   coverScreen?: boolean;
 
@@ -162,22 +132,25 @@ export interface ModalProps extends ViewProperties {
    *
    * Default is false
    *
-   * @type {boolean}
-   * @memberof ModalProps
    */
   startOpen?: boolean;
 
   /**
+   * This property prevent the modal to cover the ios status bar when the modal is scrolling up because the keyboard is opening
+   *
+   * Default is ios:22, android:0
+   */
+  keyboardTopOffset?: number;
+
+  /**
    * Event fired when the modal is closed and the animation is complete
    *
-   * @memberof ModalProps
    */
   onClosed?(): void;
 
   /**
    * Event fired when the modal is opened and the animation is complete
    *
-   * @memberof ModalProps
    */
   onOpened?(): void;
 
@@ -185,29 +158,23 @@ export interface ModalProps extends ViewProperties {
    * When the state of the swipe to close feature has changed
    * (useful to change the content of the modal, display a message for example)
    *
-   * @param {boolean} state
    *
-   * @memberof ModalProps
    */
   onClosingState?(state: boolean): void;
 }
 
-export default class Modal extends React.Component<ModalProps, {}> {
+export default class Modal extends React.Component<ModalProps> {
   /**
    * Open the modal
    *
-   * @static
    *
-   * @memberof Modal
    */
   open(): void;
 
   /**
    * Close the modal
    *
-   * @static
    *
-   * @memberof Modal
    */
   close(): void;
 }

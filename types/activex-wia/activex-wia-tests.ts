@@ -7,7 +7,7 @@ let img = commonDialog.ShowAcquireImage();
 // when DefinitelyTyped supports Typescript 2.4 -- end of July 2017, replace these:
 let jpegFormatID =  '{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}';
 if (img.FormatID !== jpegFormatID) {
-    let ip = new ActiveXObject('WIA.ImageProcess');
+    const ip = new ActiveXObject('WIA.ImageProcess');
     ip.Filters.Add(ip.FilterInfos.Item('Convert').FilterID);
     ip.Filters.Item(1).Properties.Item('FormatID').Value = jpegFormatID;
     img = ip.Apply(img);
@@ -24,8 +24,8 @@ if (img.FormatID !== jpegFormatID) {
 let dev = commonDialog.ShowSelectDevice();
 if (dev.Type === WIA.WiaDeviceType.CameraDeviceType) {
     // when DefinitelyTyped supports Typescript 2.4 -- end of July 2017, replace these:
-    let commandID = '{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}';
-    let itm = dev.ExecuteCommand(commandID);
+    const commandID = '{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}';
+    const itm = dev.ExecuteCommand(commandID);
 
     // with this:
     // let itm = dev.ExecuteCommand(WIA.CommandID.wiaCommandTakePicture);
@@ -36,15 +36,15 @@ dev = commonDialog.ShowSelectDevice();
 let e = new Enumerator<WIA.Property>(dev.Properties);  // no foreach over ActiveX collections
 e.moveFirst();
 while (!e.atEnd()) {
-    let p = e.item();
-    let s = p.Name + ' (' + p.PropertyID + ') = ';
+    const p = e.item();
+    let s = `${p.Name} (${p.PropertyID}) = `;
     if (p.IsVector) {
         s += '[vector of data]';
     } else {
         s += p.Value;
         if (p.SubType !== WIA.WiaSubType.UnspecifiedSubType) {
             if (p.Value !== p.SubTypeDefault) {
-                s += ' (Default = ' + p.SubTypeDefault + ')';
+                s += ` (Default = ${p.SubTypeDefault})`;
             }
         }
     }
@@ -60,7 +60,7 @@ while (!e.atEnd()) {
                 } else {
                     s += ' [valid values include: ';
                 }
-                let count = p.SubTypeValues.Count;
+                const count = p.SubTypeValues.Count;
                 for (let i = 1; i <= count; i++) {
                     s += p.SubTypeValues.Item(i);
                     if (i < count) {
@@ -70,7 +70,7 @@ while (!e.atEnd()) {
                 s += ']';
                 break;
             case WIA.WiaSubType.RangeSubType:
-                s += ' [valid values in the range from ' + p.SubTypeMin + ' to ' + p.SubTypeMax + ' in increments of ' + p.SubTypeStep + ']';
+                s += ` [valid values in the range from ${p.SubTypeMin} to ${p.SubTypeMax} in increments of ${p.SubTypeStep}]`;
                 break;
         }
     }

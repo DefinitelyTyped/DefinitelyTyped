@@ -303,6 +303,14 @@ declare module "victory" {
             after?: (datum: any) => AnimationStyle;
         };
         /**
+         * Animation load transition configuration
+         */
+        onLoad?: {
+            duration?: number;
+            before?: (datum: any) => AnimationStyle;
+            after?: (datum: any) => AnimationStyle;
+        };
+        /**
          * The easing prop specifies an easing function name to use for tweening.
          * @default "quadInOut"
          */
@@ -358,10 +366,8 @@ declare module "victory" {
     /**
      * Data domain type
      */
-    type DomainPropType = [number, number] | {
-        x: [number, number];
-        y: [number, number];
-    };
+    type DomainTuple = [number, number] | [Date, Date];
+    type DomainPropType = DomainTuple | { x?: DomainTuple; y: DomainTuple; } | { x: DomainTuple; y?: DomainTuple; };
     /**
      * Domain padding
      */
@@ -758,6 +764,10 @@ declare module "victory" {
          * @default <GridLine/>
          */
         gridComponent?: React.ReactElement<any>;
+        /**
+         * If true, this value will flip the domain of a given axis.
+         */
+        invertAxis?: boolean;
         /**
          * The label prop defines the label that will appear along the axis. This
          * prop should be given as a value or an entire, HTML-complete label

@@ -45,7 +45,7 @@ Bleno.on('stateChange', (state: string) => {
   }
 });
 
-let characteristic = new EchoCharacteristic();
+const characteristic = new EchoCharacteristic();
 Bleno.on('advertisingStart', (error: string) => {
   if (!error) {
     Bleno.setServices(

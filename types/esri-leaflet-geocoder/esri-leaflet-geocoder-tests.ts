@@ -1,4 +1,5 @@
-import * as L from 'esri-leaflet-geocoder';
+import * as L from 'leaflet';
+import 'esri-leaflet-geocoder';
 
 const map = L.map('map').setView([45.5165, -122.6764], 12);
 const tiles = L.esri.basemapLayer("Streets").addTo(map);
@@ -21,7 +22,7 @@ const gisDay = L.esri.Geocoding.featureLayerProvider({
     searchFields: ['Name', 'Organization'], // Search these fields for text matches
     label: 'GIS Day Events', // Group suggestions under this header
     formatSuggestion(feature) {
-        return feature.properties.Name + ' - ' + feature.properties.Organization; // format suggestions like this.
+        return `${feature.properties.Name} - ${feature.properties.Organization}`; // format suggestions like this.
     }
 });
 

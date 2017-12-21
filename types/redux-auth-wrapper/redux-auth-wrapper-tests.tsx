@@ -7,18 +7,18 @@ import { LocationDescriptorObject } from "history";
 import {
     connectedRouterRedirect  as H3connectedRouterRedirect,
     connectedReduxRedirect  as H3connectedReduxRedirect,
-    createOnEnter,
-    locationHelperBuilder  as H3locationHelperBuilder
+    createOnEnter
 } from "redux-auth-wrapper/history3/redirect";
+import H3locationHelperBuilder from "redux-auth-wrapper/history3/locationHelper";
 
 import {
     connectedRouterRedirect,
-    connectedReduxRedirect,
-    locationHelperBuilder
+    connectedReduxRedirect
 } from "redux-auth-wrapper/history4/redirect";
+import locationHelperBuilder from "redux-auth-wrapper/history4/locationHelper";
 
-import { authWrapper } from "redux-auth-wrapper/authWrapper";
-import { connectedAuthWrapper } from "redux-auth-wrapper/connectedAuthWrapper";
+import authWrapper from "redux-auth-wrapper/authWrapper";
+import connectedAuthWrapper from "redux-auth-wrapper/connectedAuthWrapper";
 
 interface TestReduxState {
     foo: string;

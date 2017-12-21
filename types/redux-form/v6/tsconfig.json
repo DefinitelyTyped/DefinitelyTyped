@@ -7,9 +7,9 @@
         ],
         "experimentalDecorators": true,
         "noImplicitAny": true,
-        "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "jsx": "react",
         "baseUrl": "../../",
         "typeRoots": [
@@ -17,8 +17,12 @@
         ],
         "types": [],
         "paths": {
-            "redux-form": ["redux-form/v6"],
-            "redux-form/*": ["redux-form/v6/*"]
+            "redux-form": [
+                "redux-form/v6"
+            ],
+            "redux-form/*": [
+                "redux-form/v6/*"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

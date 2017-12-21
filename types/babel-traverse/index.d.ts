@@ -8,7 +8,7 @@
 import * as t from 'babel-types';
 export type Node = t.Node;
 
-export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath<Node>): void;
+export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
 
 export interface TraverseOptions extends Visitor {
     scope?: Scope;
@@ -16,8 +16,8 @@ export interface TraverseOptions extends Visitor {
 }
 
 export class Scope {
-    constructor(path: NodePath<Node>, parentScope?: Scope);
-    path: NodePath<Node>;
+    constructor(path: NodePath, parentScope?: Scope);
+    path: NodePath;
     block: Node;
     parentBlock: Node;
     parent: Scope;
@@ -61,13 +61,13 @@ export class Scope {
 
     toArray(node: Node, i?: number): Node;
 
-    registerDeclaration(path: NodePath<Node>): void;
+    registerDeclaration(path: NodePath): void;
 
     buildUndefinedNode(): Node;
 
-    registerConstantViolation(path: NodePath<Node>): void;
+    registerConstantViolation(path: NodePath): void;
 
-    registerBinding(kind: string, path: NodePath<Node>, bindingPath?: NodePath<Node>): void;
+    registerBinding(kind: string, path: NodePath, bindingPath?: NodePath): void;
 
     addGlobal(node: Node): void;
 
@@ -121,195 +121,200 @@ export class Scope {
 }
 
 export class Binding {
-    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath<Node>; kind: 'var' | 'let' | 'const'; });
+    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath; kind: 'var' | 'let' | 'const'; });
     identifier: t.Identifier;
     scope: Scope;
-    path: NodePath<Node>;
+    path: NodePath;
     kind: 'var' | 'let' | 'const' | 'module';
     referenced: boolean;
     references: number;
-    referencePaths: Array<NodePath<Node>>;
+    referencePaths: NodePath[];
     constant: boolean;
-    constantViolations: Array<NodePath<Node>>;
+    constantViolations: NodePath[];
 }
 
-export interface Visitor extends VisitNodeObject<Node> {
-    ArrayExpression?: VisitNode<t.ArrayExpression>;
-    AssignmentExpression?: VisitNode<t.AssignmentExpression>;
-    LVal?: VisitNode<t.LVal>;
-    Expression?: VisitNode<t.Expression>;
-    BinaryExpression?: VisitNode<t.BinaryExpression>;
-    Directive?: VisitNode<t.Directive>;
-    DirectiveLiteral?: VisitNode<t.DirectiveLiteral>;
-    BlockStatement?: VisitNode<t.BlockStatement>;
-    BreakStatement?: VisitNode<t.BreakStatement>;
-    Identifier?: VisitNode<t.Identifier>;
-    CallExpression?: VisitNode<t.CallExpression>;
-    CatchClause?: VisitNode<t.CatchClause>;
-    ConditionalExpression?: VisitNode<t.ConditionalExpression>;
-    ContinueStatement?: VisitNode<t.ContinueStatement>;
-    DebuggerStatement?: VisitNode<t.DebuggerStatement>;
-    DoWhileStatement?: VisitNode<t.DoWhileStatement>;
-    Statement?: VisitNode<t.Statement>;
-    EmptyStatement?: VisitNode<t.EmptyStatement>;
-    ExpressionStatement?: VisitNode<t.ExpressionStatement>;
-    File?: VisitNode<t.File>;
-    Program?: VisitNode<t.Program>;
-    ForInStatement?: VisitNode<t.ForInStatement>;
-    VariableDeclaration?: VisitNode<t.VariableDeclaration>;
-    ForStatement?: VisitNode<t.ForStatement>;
-    FunctionDeclaration?: VisitNode<t.FunctionDeclaration>;
-    FunctionExpression?: VisitNode<t.FunctionExpression>;
-    IfStatement?: VisitNode<t.IfStatement>;
-    LabeledStatement?: VisitNode<t.LabeledStatement>;
-    StringLiteral?: VisitNode<t.StringLiteral>;
-    NumericLiteral?: VisitNode<t.NumericLiteral>;
-    NullLiteral?: VisitNode<t.NullLiteral>;
-    BooleanLiteral?: VisitNode<t.BooleanLiteral>;
-    RegExpLiteral?: VisitNode<t.RegExpLiteral>;
-    LogicalExpression?: VisitNode<t.LogicalExpression>;
-    MemberExpression?: VisitNode<t.MemberExpression>;
-    NewExpression?: VisitNode<t.NewExpression>;
-    ObjectExpression?: VisitNode<t.ObjectExpression>;
-    ObjectMethod?: VisitNode<t.ObjectMethod>;
-    ObjectProperty?: VisitNode<t.ObjectProperty>;
-    RestElement?: VisitNode<t.RestElement>;
-    ReturnStatement?: VisitNode<t.ReturnStatement>;
-    SequenceExpression?: VisitNode<t.SequenceExpression>;
-    SwitchCase?: VisitNode<t.SwitchCase>;
-    SwitchStatement?: VisitNode<t.SwitchStatement>;
-    ThisExpression?: VisitNode<t.ThisExpression>;
-    ThrowStatement?: VisitNode<t.ThrowStatement>;
-    TryStatement?: VisitNode<t.TryStatement>;
-    UnaryExpression?: VisitNode<t.UnaryExpression>;
-    UpdateExpression?: VisitNode<t.UpdateExpression>;
-    VariableDeclarator?: VisitNode<t.VariableDeclarator>;
-    WhileStatement?: VisitNode<t.WhileStatement>;
-    WithStatement?: VisitNode<t.WithStatement>;
-    AssignmentPattern?: VisitNode<t.AssignmentPattern>;
-    ArrayPattern?: VisitNode<t.ArrayPattern>;
-    ArrowFunctionExpression?: VisitNode<t.ArrowFunctionExpression>;
-    ClassBody?: VisitNode<t.ClassBody>;
-    ClassDeclaration?: VisitNode<t.ClassDeclaration>;
-    ClassExpression?: VisitNode<t.ClassExpression>;
-    ExportAllDeclaration?: VisitNode<t.ExportAllDeclaration>;
-    ExportDefaultDeclaration?: VisitNode<t.ExportDefaultDeclaration>;
-    ExportNamedDeclaration?: VisitNode<t.ExportNamedDeclaration>;
-    Declaration?: VisitNode<t.Declaration>;
-    ExportSpecifier?: VisitNode<t.ExportSpecifier>;
-    ForOfStatement?: VisitNode<t.ForOfStatement>;
-    ImportDeclaration?: VisitNode<t.ImportDeclaration>;
-    ImportDefaultSpecifier?: VisitNode<t.ImportDefaultSpecifier>;
-    ImportNamespaceSpecifier?: VisitNode<t.ImportNamespaceSpecifier>;
-    ImportSpecifier?: VisitNode<t.ImportSpecifier>;
-    MetaProperty?: VisitNode<t.MetaProperty>;
-    ClassMethod?: VisitNode<t.ClassMethod>;
-    ObjectPattern?: VisitNode<t.ObjectPattern>;
-    SpreadElement?: VisitNode<t.SpreadElement>;
-    Super?: VisitNode<t.Super>;
-    TaggedTemplateExpression?: VisitNode<t.TaggedTemplateExpression>;
-    TemplateLiteral?: VisitNode<t.TemplateLiteral>;
-    TemplateElement?: VisitNode<t.TemplateElement>;
-    YieldExpression?: VisitNode<t.YieldExpression>;
-    AnyTypeAnnotation?: VisitNode<t.AnyTypeAnnotation>;
-    ArrayTypeAnnotation?: VisitNode<t.ArrayTypeAnnotation>;
-    BooleanTypeAnnotation?: VisitNode<t.BooleanTypeAnnotation>;
-    BooleanLiteralTypeAnnotation?: VisitNode<t.BooleanLiteralTypeAnnotation>;
-    NullLiteralTypeAnnotation?: VisitNode<t.NullLiteralTypeAnnotation>;
-    ClassImplements?: VisitNode<t.ClassImplements>;
-    ClassProperty?: VisitNode<t.ClassProperty>;
-    DeclareClass?: VisitNode<t.DeclareClass>;
-    DeclareFunction?: VisitNode<t.DeclareFunction>;
-    DeclareInterface?: VisitNode<t.DeclareInterface>;
-    DeclareModule?: VisitNode<t.DeclareModule>;
-    DeclareTypeAlias?: VisitNode<t.DeclareTypeAlias>;
-    DeclareVariable?: VisitNode<t.DeclareVariable>;
-    ExistentialTypeParam?: VisitNode<t.ExistentialTypeParam>;
-    FunctionTypeAnnotation?: VisitNode<t.FunctionTypeAnnotation>;
-    FunctionTypeParam?: VisitNode<t.FunctionTypeParam>;
-    GenericTypeAnnotation?: VisitNode<t.GenericTypeAnnotation>;
-    InterfaceExtends?: VisitNode<t.InterfaceExtends>;
-    InterfaceDeclaration?: VisitNode<t.InterfaceDeclaration>;
-    IntersectionTypeAnnotation?: VisitNode<t.IntersectionTypeAnnotation>;
-    MixedTypeAnnotation?: VisitNode<t.MixedTypeAnnotation>;
-    NullableTypeAnnotation?: VisitNode<t.NullableTypeAnnotation>;
-    NumericLiteralTypeAnnotation?: VisitNode<t.NumericLiteralTypeAnnotation>;
-    NumberTypeAnnotation?: VisitNode<t.NumberTypeAnnotation>;
-    StringLiteralTypeAnnotation?: VisitNode<t.StringLiteralTypeAnnotation>;
-    StringTypeAnnotation?: VisitNode<t.StringTypeAnnotation>;
-    ThisTypeAnnotation?: VisitNode<t.ThisTypeAnnotation>;
-    TupleTypeAnnotation?: VisitNode<t.TupleTypeAnnotation>;
-    TypeofTypeAnnotation?: VisitNode<t.TypeofTypeAnnotation>;
-    TypeAlias?: VisitNode<t.TypeAlias>;
-    TypeAnnotation?: VisitNode<t.TypeAnnotation>;
-    TypeCastExpression?: VisitNode<t.TypeCastExpression>;
-    TypeParameterDeclaration?: VisitNode<t.TypeParameterDeclaration>;
-    TypeParameterInstantiation?: VisitNode<t.TypeParameterInstantiation>;
-    ObjectTypeAnnotation?: VisitNode<t.ObjectTypeAnnotation>;
-    ObjectTypeCallProperty?: VisitNode<t.ObjectTypeCallProperty>;
-    ObjectTypeIndexer?: VisitNode<t.ObjectTypeIndexer>;
-    ObjectTypeProperty?: VisitNode<t.ObjectTypeProperty>;
-    QualifiedTypeIdentifier?: VisitNode<t.QualifiedTypeIdentifier>;
-    UnionTypeAnnotation?: VisitNode<t.UnionTypeAnnotation>;
-    VoidTypeAnnotation?: VisitNode<t.VoidTypeAnnotation>;
-    JSXAttribute?: VisitNode<t.JSXAttribute>;
-    JSXIdentifier?: VisitNode<t.JSXIdentifier>;
-    JSXNamespacedName?: VisitNode<t.JSXNamespacedName>;
-    JSXElement?: VisitNode<t.JSXElement>;
-    JSXExpressionContainer?: VisitNode<t.JSXExpressionContainer>;
-    JSXClosingElement?: VisitNode<t.JSXClosingElement>;
-    JSXMemberExpression?: VisitNode<t.JSXMemberExpression>;
-    JSXOpeningElement?: VisitNode<t.JSXOpeningElement>;
-    JSXEmptyExpression?: VisitNode<t.JSXEmptyExpression>;
-    JSXSpreadAttribute?: VisitNode<t.JSXSpreadAttribute>;
-    JSXText?: VisitNode<t.JSXText>;
-    Noop?: VisitNode<t.Noop>;
-    ParenthesizedExpression?: VisitNode<t.ParenthesizedExpression>;
-    AwaitExpression?: VisitNode<t.AwaitExpression>;
-    BindExpression?: VisitNode<t.BindExpression>;
-    Decorator?: VisitNode<t.Decorator>;
-    DoExpression?: VisitNode<t.DoExpression>;
-    ExportDefaultSpecifier?: VisitNode<t.ExportDefaultSpecifier>;
-    ExportNamespaceSpecifier?: VisitNode<t.ExportNamespaceSpecifier>;
-    RestProperty?: VisitNode<t.RestProperty>;
-    SpreadProperty?: VisitNode<t.SpreadProperty>;
-    Binary?: VisitNode<t.Binary>;
-    Scopable?: VisitNode<t.Scopable>;
-    BlockParent?: VisitNode<t.BlockParent>;
-    Block?: VisitNode<t.Block>;
-    Terminatorless?: VisitNode<t.Terminatorless>;
-    CompletionStatement?: VisitNode<t.CompletionStatement>;
-    Conditional?: VisitNode<t.Conditional>;
-    Loop?: VisitNode<t.Loop>;
-    While?: VisitNode<t.While>;
-    ExpressionWrapper?: VisitNode<t.ExpressionWrapper>;
-    For?: VisitNode<t.For>;
-    ForXStatement?: VisitNode<t.ForXStatement>;
-    Function?: VisitNode<t.Function>;
-    FunctionParent?: VisitNode<t.FunctionParent>;
-    Pureish?: VisitNode<t.Pureish>;
-    Literal?: VisitNode<t.Literal>;
-    Immutable?: VisitNode<t.Immutable>;
-    UserWhitespacable?: VisitNode<t.UserWhitespacable>;
-    Method?: VisitNode<t.Method>;
-    ObjectMember?: VisitNode<t.ObjectMember>;
-    Property?: VisitNode<t.Property>;
-    UnaryLike?: VisitNode<t.UnaryLike>;
-    Pattern?: VisitNode<t.Pattern>;
-    Class?: VisitNode<t.Class>;
-    ModuleDeclaration?: VisitNode<t.ModuleDeclaration>;
-    ExportDeclaration?: VisitNode<t.ExportDeclaration>;
-    ModuleSpecifier?: VisitNode<t.ModuleSpecifier>;
-    Flow?: VisitNode<t.Flow>;
-    FlowBaseAnnotation?: VisitNode<t.FlowBaseAnnotation>;
-    FlowDeclaration?: VisitNode<t.FlowDeclaration>;
-    JSX?: VisitNode<t.JSX>;
-    Scope?: VisitNode<t.Scopable>;
+// The Visitor has to be generic because babel binds `this` for each property.
+// `this` is usually used in babel plugins to pass plugin state from
+// `pre` -> `visitor` -> `post`. An example of this can be seen in the official
+// babel handbook:
+// https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#-pre-and-post-in-plugins
+export interface Visitor<S = Node> extends VisitNodeObject<Node> {
+    ArrayExpression?: VisitNode<S, t.ArrayExpression>;
+    AssignmentExpression?: VisitNode<S, t.AssignmentExpression>;
+    LVal?: VisitNode<S, t.LVal>;
+    Expression?: VisitNode<S, t.Expression>;
+    BinaryExpression?: VisitNode<S, t.BinaryExpression>;
+    Directive?: VisitNode<S, t.Directive>;
+    DirectiveLiteral?: VisitNode<S, t.DirectiveLiteral>;
+    BlockStatement?: VisitNode<S, t.BlockStatement>;
+    BreakStatement?: VisitNode<S, t.BreakStatement>;
+    Identifier?: VisitNode<S, t.Identifier>;
+    CallExpression?: VisitNode<S, t.CallExpression>;
+    CatchClause?: VisitNode<S, t.CatchClause>;
+    ConditionalExpression?: VisitNode<S, t.ConditionalExpression>;
+    ContinueStatement?: VisitNode<S, t.ContinueStatement>;
+    DebuggerStatement?: VisitNode<S, t.DebuggerStatement>;
+    DoWhileStatement?: VisitNode<S, t.DoWhileStatement>;
+    Statement?: VisitNode<S, t.Statement>;
+    EmptyStatement?: VisitNode<S, t.EmptyStatement>;
+    ExpressionStatement?: VisitNode<S, t.ExpressionStatement>;
+    File?: VisitNode<S, t.File>;
+    Program?: VisitNode<S, t.Program>;
+    ForInStatement?: VisitNode<S, t.ForInStatement>;
+    VariableDeclaration?: VisitNode<S, t.VariableDeclaration>;
+    ForStatement?: VisitNode<S, t.ForStatement>;
+    FunctionDeclaration?: VisitNode<S, t.FunctionDeclaration>;
+    FunctionExpression?: VisitNode<S, t.FunctionExpression>;
+    IfStatement?: VisitNode<S, t.IfStatement>;
+    LabeledStatement?: VisitNode<S, t.LabeledStatement>;
+    StringLiteral?: VisitNode<S, t.StringLiteral>;
+    NumericLiteral?: VisitNode<S, t.NumericLiteral>;
+    NullLiteral?: VisitNode<S, t.NullLiteral>;
+    BooleanLiteral?: VisitNode<S, t.BooleanLiteral>;
+    RegExpLiteral?: VisitNode<S, t.RegExpLiteral>;
+    LogicalExpression?: VisitNode<S, t.LogicalExpression>;
+    MemberExpression?: VisitNode<S, t.MemberExpression>;
+    NewExpression?: VisitNode<S, t.NewExpression>;
+    ObjectExpression?: VisitNode<S, t.ObjectExpression>;
+    ObjectMethod?: VisitNode<S, t.ObjectMethod>;
+    ObjectProperty?: VisitNode<S, t.ObjectProperty>;
+    RestElement?: VisitNode<S, t.RestElement>;
+    ReturnStatement?: VisitNode<S, t.ReturnStatement>;
+    SequenceExpression?: VisitNode<S, t.SequenceExpression>;
+    SwitchCase?: VisitNode<S, t.SwitchCase>;
+    SwitchStatement?: VisitNode<S, t.SwitchStatement>;
+    ThisExpression?: VisitNode<S, t.ThisExpression>;
+    ThrowStatement?: VisitNode<S, t.ThrowStatement>;
+    TryStatement?: VisitNode<S, t.TryStatement>;
+    UnaryExpression?: VisitNode<S, t.UnaryExpression>;
+    UpdateExpression?: VisitNode<S, t.UpdateExpression>;
+    VariableDeclarator?: VisitNode<S, t.VariableDeclarator>;
+    WhileStatement?: VisitNode<S, t.WhileStatement>;
+    WithStatement?: VisitNode<S, t.WithStatement>;
+    AssignmentPattern?: VisitNode<S, t.AssignmentPattern>;
+    ArrayPattern?: VisitNode<S, t.ArrayPattern>;
+    ArrowFunctionExpression?: VisitNode<S, t.ArrowFunctionExpression>;
+    ClassBody?: VisitNode<S, t.ClassBody>;
+    ClassDeclaration?: VisitNode<S, t.ClassDeclaration>;
+    ClassExpression?: VisitNode<S, t.ClassExpression>;
+    ExportAllDeclaration?: VisitNode<S, t.ExportAllDeclaration>;
+    ExportDefaultDeclaration?: VisitNode<S, t.ExportDefaultDeclaration>;
+    ExportNamedDeclaration?: VisitNode<S, t.ExportNamedDeclaration>;
+    Declaration?: VisitNode<S, t.Declaration>;
+    ExportSpecifier?: VisitNode<S, t.ExportSpecifier>;
+    ForOfStatement?: VisitNode<S, t.ForOfStatement>;
+    ImportDeclaration?: VisitNode<S, t.ImportDeclaration>;
+    ImportDefaultSpecifier?: VisitNode<S, t.ImportDefaultSpecifier>;
+    ImportNamespaceSpecifier?: VisitNode<S, t.ImportNamespaceSpecifier>;
+    ImportSpecifier?: VisitNode<S, t.ImportSpecifier>;
+    MetaProperty?: VisitNode<S, t.MetaProperty>;
+    ClassMethod?: VisitNode<S, t.ClassMethod>;
+    ObjectPattern?: VisitNode<S, t.ObjectPattern>;
+    SpreadElement?: VisitNode<S, t.SpreadElement>;
+    Super?: VisitNode<S, t.Super>;
+    TaggedTemplateExpression?: VisitNode<S, t.TaggedTemplateExpression>;
+    TemplateLiteral?: VisitNode<S, t.TemplateLiteral>;
+    TemplateElement?: VisitNode<S, t.TemplateElement>;
+    YieldExpression?: VisitNode<S, t.YieldExpression>;
+    AnyTypeAnnotation?: VisitNode<S, t.AnyTypeAnnotation>;
+    ArrayTypeAnnotation?: VisitNode<S, t.ArrayTypeAnnotation>;
+    BooleanTypeAnnotation?: VisitNode<S, t.BooleanTypeAnnotation>;
+    BooleanLiteralTypeAnnotation?: VisitNode<S, t.BooleanLiteralTypeAnnotation>;
+    NullLiteralTypeAnnotation?: VisitNode<S, t.NullLiteralTypeAnnotation>;
+    ClassImplements?: VisitNode<S, t.ClassImplements>;
+    ClassProperty?: VisitNode<S, t.ClassProperty>;
+    DeclareClass?: VisitNode<S, t.DeclareClass>;
+    DeclareFunction?: VisitNode<S, t.DeclareFunction>;
+    DeclareInterface?: VisitNode<S, t.DeclareInterface>;
+    DeclareModule?: VisitNode<S, t.DeclareModule>;
+    DeclareTypeAlias?: VisitNode<S, t.DeclareTypeAlias>;
+    DeclareVariable?: VisitNode<S, t.DeclareVariable>;
+    ExistentialTypeParam?: VisitNode<S, t.ExistentialTypeParam>;
+    FunctionTypeAnnotation?: VisitNode<S, t.FunctionTypeAnnotation>;
+    FunctionTypeParam?: VisitNode<S, t.FunctionTypeParam>;
+    GenericTypeAnnotation?: VisitNode<S, t.GenericTypeAnnotation>;
+    InterfaceExtends?: VisitNode<S, t.InterfaceExtends>;
+    InterfaceDeclaration?: VisitNode<S, t.InterfaceDeclaration>;
+    IntersectionTypeAnnotation?: VisitNode<S, t.IntersectionTypeAnnotation>;
+    MixedTypeAnnotation?: VisitNode<S, t.MixedTypeAnnotation>;
+    NullableTypeAnnotation?: VisitNode<S, t.NullableTypeAnnotation>;
+    NumericLiteralTypeAnnotation?: VisitNode<S, t.NumericLiteralTypeAnnotation>;
+    NumberTypeAnnotation?: VisitNode<S, t.NumberTypeAnnotation>;
+    StringLiteralTypeAnnotation?: VisitNode<S, t.StringLiteralTypeAnnotation>;
+    StringTypeAnnotation?: VisitNode<S, t.StringTypeAnnotation>;
+    ThisTypeAnnotation?: VisitNode<S, t.ThisTypeAnnotation>;
+    TupleTypeAnnotation?: VisitNode<S, t.TupleTypeAnnotation>;
+    TypeofTypeAnnotation?: VisitNode<S, t.TypeofTypeAnnotation>;
+    TypeAlias?: VisitNode<S, t.TypeAlias>;
+    TypeAnnotation?: VisitNode<S, t.TypeAnnotation>;
+    TypeCastExpression?: VisitNode<S, t.TypeCastExpression>;
+    TypeParameterDeclaration?: VisitNode<S, t.TypeParameterDeclaration>;
+    TypeParameterInstantiation?: VisitNode<S, t.TypeParameterInstantiation>;
+    ObjectTypeAnnotation?: VisitNode<S, t.ObjectTypeAnnotation>;
+    ObjectTypeCallProperty?: VisitNode<S, t.ObjectTypeCallProperty>;
+    ObjectTypeIndexer?: VisitNode<S, t.ObjectTypeIndexer>;
+    ObjectTypeProperty?: VisitNode<S, t.ObjectTypeProperty>;
+    QualifiedTypeIdentifier?: VisitNode<S, t.QualifiedTypeIdentifier>;
+    UnionTypeAnnotation?: VisitNode<S, t.UnionTypeAnnotation>;
+    VoidTypeAnnotation?: VisitNode<S, t.VoidTypeAnnotation>;
+    JSXAttribute?: VisitNode<S, t.JSXAttribute>;
+    JSXIdentifier?: VisitNode<S, t.JSXIdentifier>;
+    JSXNamespacedName?: VisitNode<S, t.JSXNamespacedName>;
+    JSXElement?: VisitNode<S, t.JSXElement>;
+    JSXExpressionContainer?: VisitNode<S, t.JSXExpressionContainer>;
+    JSXClosingElement?: VisitNode<S, t.JSXClosingElement>;
+    JSXMemberExpression?: VisitNode<S, t.JSXMemberExpression>;
+    JSXOpeningElement?: VisitNode<S, t.JSXOpeningElement>;
+    JSXEmptyExpression?: VisitNode<S, t.JSXEmptyExpression>;
+    JSXSpreadAttribute?: VisitNode<S, t.JSXSpreadAttribute>;
+    JSXText?: VisitNode<S, t.JSXText>;
+    Noop?: VisitNode<S, t.Noop>;
+    ParenthesizedExpression?: VisitNode<S, t.ParenthesizedExpression>;
+    AwaitExpression?: VisitNode<S, t.AwaitExpression>;
+    BindExpression?: VisitNode<S, t.BindExpression>;
+    Decorator?: VisitNode<S, t.Decorator>;
+    DoExpression?: VisitNode<S, t.DoExpression>;
+    ExportDefaultSpecifier?: VisitNode<S, t.ExportDefaultSpecifier>;
+    ExportNamespaceSpecifier?: VisitNode<S, t.ExportNamespaceSpecifier>;
+    RestProperty?: VisitNode<S, t.RestProperty>;
+    SpreadProperty?: VisitNode<S, t.SpreadProperty>;
+    Binary?: VisitNode<S, t.Binary>;
+    Scopable?: VisitNode<S, t.Scopable>;
+    BlockParent?: VisitNode<S, t.BlockParent>;
+    Block?: VisitNode<S, t.Block>;
+    Terminatorless?: VisitNode<S, t.Terminatorless>;
+    CompletionStatement?: VisitNode<S, t.CompletionStatement>;
+    Conditional?: VisitNode<S, t.Conditional>;
+    Loop?: VisitNode<S, t.Loop>;
+    While?: VisitNode<S, t.While>;
+    ExpressionWrapper?: VisitNode<S, t.ExpressionWrapper>;
+    For?: VisitNode<S, t.For>;
+    ForXStatement?: VisitNode<S, t.ForXStatement>;
+    Function?: VisitNode<S, t.Function>;
+    FunctionParent?: VisitNode<S, t.FunctionParent>;
+    Pureish?: VisitNode<S, t.Pureish>;
+    Literal?: VisitNode<S, t.Literal>;
+    Immutable?: VisitNode<S, t.Immutable>;
+    UserWhitespacable?: VisitNode<S, t.UserWhitespacable>;
+    Method?: VisitNode<S, t.Method>;
+    ObjectMember?: VisitNode<S, t.ObjectMember>;
+    Property?: VisitNode<S, t.Property>;
+    UnaryLike?: VisitNode<S, t.UnaryLike>;
+    Pattern?: VisitNode<S, t.Pattern>;
+    Class?: VisitNode<S, t.Class>;
+    ModuleDeclaration?: VisitNode<S, t.ModuleDeclaration>;
+    ExportDeclaration?: VisitNode<S, t.ExportDeclaration>;
+    ModuleSpecifier?: VisitNode<S, t.ModuleSpecifier>;
+    Flow?: VisitNode<S, t.Flow>;
+    FlowBaseAnnotation?: VisitNode<S, t.FlowBaseAnnotation>;
+    FlowDeclaration?: VisitNode<S, t.FlowDeclaration>;
+    JSX?: VisitNode<S, t.JSX>;
+    Scope?: VisitNode<S, t.Scopable>;
 }
 
-export type VisitNode<T> = VisitNodeFunction<T> | VisitNodeObject<T>;
+export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<T>;
 
-export type VisitNodeFunction<T> = (path: NodePath<T>, state: any) => void;
+export type VisitNodeFunction<T, P> = (this: T, path: NodePath<P>, state: any) => void;
 
 export interface VisitNodeObject<T> {
     enter?(path: NodePath<T>, state: any): void;
@@ -328,7 +333,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath<Node>;
+    parentPath: NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
@@ -362,15 +367,15 @@ export class NodePath<T = Node> {
      * Call the provided `callback` with the `NodePath`s of all the parents.
      * When the `callback` returns a truthy value, we return that node path.
      */
-    findParent(callback: (path: NodePath<Node>) => boolean): NodePath<Node>;
+    findParent(callback: (path: NodePath) => boolean): NodePath;
 
-    find(callback: (path: NodePath<Node>) => boolean): NodePath<Node>;
+    find(callback: (path: NodePath) => boolean): NodePath;
 
     /** Get the parent function of the current path. */
-    getFunctionParent(): NodePath<Node>;
+    getFunctionParent(): NodePath;
 
     /** Walk up the tree until we hit a parent node path in a list. */
-    getStatementParent(): NodePath<Node>;
+    getStatementParent(): NodePath;
 
     /**
      * Get the deepest common ancestor and then from it, get the earliest relationship path
@@ -379,20 +384,20 @@ export class NodePath<T = Node> {
      * Earliest is defined as being "before" all the other nodes in terms of list container
      * position and visiting key.
      */
-    getEarliestCommonAncestorFrom(paths: Array<NodePath<Node>>): Array<NodePath<Node>>;
+    getEarliestCommonAncestorFrom(paths: NodePath[]): NodePath[];
 
     /** Get the earliest path in the tree where the provided `paths` intersect. */
     getDeepestCommonAncestorFrom(
-        paths: Array<NodePath<Node>>,
-        filter?: (deepest: Node, i: number, ancestries: Array<NodePath<Node>>) => NodePath<Node>
-    ): NodePath<Node>;
+        paths: NodePath[],
+        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath
+    ): NodePath;
 
     /**
      * Build an array of node paths containing the entire ancestry of the current node path.
      *
      * NOTE: The current node path is included in this.
      */
-    getAncestry(): Array<NodePath<Node>>;
+    getAncestry(): NodePath[];
 
     inType(...candidateTypes: string[]): boolean;
 
@@ -404,7 +409,7 @@ export class NodePath<T = Node> {
 
     couldBeBaseType(name: string): boolean;
 
-    baseTypeStrictlyMatches(right: NodePath<Node>): boolean;
+    baseTypeStrictlyMatches(right: NodePath): boolean;
 
     isGenericType(genericName: string): boolean;
 
@@ -428,7 +433,7 @@ export class NodePath<T = Node> {
     replaceWithSourceString(replacement: any): void;
 
     /** Replace the current node with another. */
-    replaceWith(replacement: Node | NodePath<Node>): void;
+    replaceWith(replacement: Node | NodePath): void;
 
     /**
      * This method takes an array of statements nodes and then explodes it
@@ -573,13 +578,13 @@ export class NodePath<T = Node> {
     hoist(scope: Scope): void;
 
     // ------------------------- family -------------------------
-    getOpposite(): NodePath<Node>;
+    getOpposite(): NodePath;
 
-    getCompletionRecords(): Array<NodePath<Node>>;
+    getCompletionRecords(): NodePath[];
 
-    getSibling(key: string): NodePath<Node>;
+    getSibling(key: string): NodePath;
 
-    get(key: string, context?: boolean | TraversalContext): NodePath<Node>;
+    get(key: string, context?: boolean | TraversalContext): NodePath;
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 
@@ -595,185 +600,185 @@ export class NodePath<T = Node> {
     addComments(type: string, comments: any[]): void;
 
     // ------------------------- isXXX -------------------------
-    isArrayExpression(opts?: object): boolean;
-    isAssignmentExpression(opts?: object): boolean;
-    isBinaryExpression(opts?: object): boolean;
-    isDirective(opts?: object): boolean;
-    isDirectiveLiteral(opts?: object): boolean;
-    isBlockStatement(opts?: object): boolean;
-    isBreakStatement(opts?: object): boolean;
-    isCallExpression(opts?: object): boolean;
-    isCatchClause(opts?: object): boolean;
-    isConditionalExpression(opts?: object): boolean;
-    isContinueStatement(opts?: object): boolean;
-    isDebuggerStatement(opts?: object): boolean;
-    isDoWhileStatement(opts?: object): boolean;
-    isEmptyStatement(opts?: object): boolean;
-    isExpressionStatement(opts?: object): boolean;
-    isFile(opts?: object): boolean;
-    isForInStatement(opts?: object): boolean;
-    isForStatement(opts?: object): boolean;
-    isFunctionDeclaration(opts?: object): boolean;
-    isFunctionExpression(opts?: object): boolean;
-    isIdentifier(opts?: object): boolean;
-    isIfStatement(opts?: object): boolean;
-    isLabeledStatement(opts?: object): boolean;
-    isStringLiteral(opts?: object): boolean;
-    isNumericLiteral(opts?: object): boolean;
-    isNullLiteral(opts?: object): boolean;
-    isBooleanLiteral(opts?: object): boolean;
-    isRegExpLiteral(opts?: object): boolean;
-    isLogicalExpression(opts?: object): boolean;
-    isMemberExpression(opts?: object): boolean;
-    isNewExpression(opts?: object): boolean;
-    isProgram(opts?: object): boolean;
-    isObjectExpression(opts?: object): boolean;
-    isObjectMethod(opts?: object): boolean;
-    isObjectProperty(opts?: object): boolean;
-    isRestElement(opts?: object): boolean;
-    isReturnStatement(opts?: object): boolean;
-    isSequenceExpression(opts?: object): boolean;
-    isSwitchCase(opts?: object): boolean;
-    isSwitchStatement(opts?: object): boolean;
-    isThisExpression(opts?: object): boolean;
-    isThrowStatement(opts?: object): boolean;
-    isTryStatement(opts?: object): boolean;
-    isUnaryExpression(opts?: object): boolean;
-    isUpdateExpression(opts?: object): boolean;
-    isVariableDeclaration(opts?: object): boolean;
-    isVariableDeclarator(opts?: object): boolean;
-    isWhileStatement(opts?: object): boolean;
-    isWithStatement(opts?: object): boolean;
-    isAssignmentPattern(opts?: object): boolean;
-    isArrayPattern(opts?: object): boolean;
-    isArrowFunctionExpression(opts?: object): boolean;
-    isClassBody(opts?: object): boolean;
-    isClassDeclaration(opts?: object): boolean;
-    isClassExpression(opts?: object): boolean;
-    isExportAllDeclaration(opts?: object): boolean;
-    isExportDefaultDeclaration(opts?: object): boolean;
-    isExportNamedDeclaration(opts?: object): boolean;
-    isExportSpecifier(opts?: object): boolean;
-    isForOfStatement(opts?: object): boolean;
-    isImportDeclaration(opts?: object): boolean;
-    isImportDefaultSpecifier(opts?: object): boolean;
-    isImportNamespaceSpecifier(opts?: object): boolean;
-    isImportSpecifier(opts?: object): boolean;
-    isMetaProperty(opts?: object): boolean;
-    isClassMethod(opts?: object): boolean;
-    isObjectPattern(opts?: object): boolean;
-    isSpreadElement(opts?: object): boolean;
-    isSuper(opts?: object): boolean;
-    isTaggedTemplateExpression(opts?: object): boolean;
-    isTemplateElement(opts?: object): boolean;
-    isTemplateLiteral(opts?: object): boolean;
-    isYieldExpression(opts?: object): boolean;
-    isAnyTypeAnnotation(opts?: object): boolean;
-    isArrayTypeAnnotation(opts?: object): boolean;
-    isBooleanTypeAnnotation(opts?: object): boolean;
-    isBooleanLiteralTypeAnnotation(opts?: object): boolean;
-    isNullLiteralTypeAnnotation(opts?: object): boolean;
-    isClassImplements(opts?: object): boolean;
-    isClassProperty(opts?: object): boolean;
-    isDeclareClass(opts?: object): boolean;
-    isDeclareFunction(opts?: object): boolean;
-    isDeclareInterface(opts?: object): boolean;
-    isDeclareModule(opts?: object): boolean;
-    isDeclareTypeAlias(opts?: object): boolean;
-    isDeclareVariable(opts?: object): boolean;
-    isExistentialTypeParam(opts?: object): boolean;
-    isFunctionTypeAnnotation(opts?: object): boolean;
-    isFunctionTypeParam(opts?: object): boolean;
-    isGenericTypeAnnotation(opts?: object): boolean;
-    isInterfaceExtends(opts?: object): boolean;
-    isInterfaceDeclaration(opts?: object): boolean;
-    isIntersectionTypeAnnotation(opts?: object): boolean;
-    isMixedTypeAnnotation(opts?: object): boolean;
-    isNullableTypeAnnotation(opts?: object): boolean;
-    isNumericLiteralTypeAnnotation(opts?: object): boolean;
-    isNumberTypeAnnotation(opts?: object): boolean;
-    isStringLiteralTypeAnnotation(opts?: object): boolean;
-    isStringTypeAnnotation(opts?: object): boolean;
-    isThisTypeAnnotation(opts?: object): boolean;
-    isTupleTypeAnnotation(opts?: object): boolean;
-    isTypeofTypeAnnotation(opts?: object): boolean;
-    isTypeAlias(opts?: object): boolean;
-    isTypeAnnotation(opts?: object): boolean;
-    isTypeCastExpression(opts?: object): boolean;
-    isTypeParameterDeclaration(opts?: object): boolean;
-    isTypeParameterInstantiation(opts?: object): boolean;
-    isObjectTypeAnnotation(opts?: object): boolean;
-    isObjectTypeCallProperty(opts?: object): boolean;
-    isObjectTypeIndexer(opts?: object): boolean;
-    isObjectTypeProperty(opts?: object): boolean;
-    isQualifiedTypeIdentifier(opts?: object): boolean;
-    isUnionTypeAnnotation(opts?: object): boolean;
-    isVoidTypeAnnotation(opts?: object): boolean;
-    isJSXAttribute(opts?: object): boolean;
-    isJSXClosingElement(opts?: object): boolean;
-    isJSXElement(opts?: object): boolean;
-    isJSXEmptyExpression(opts?: object): boolean;
-    isJSXExpressionContainer(opts?: object): boolean;
-    isJSXIdentifier(opts?: object): boolean;
-    isJSXMemberExpression(opts?: object): boolean;
-    isJSXNamespacedName(opts?: object): boolean;
-    isJSXOpeningElement(opts?: object): boolean;
-    isJSXSpreadAttribute(opts?: object): boolean;
-    isJSXText(opts?: object): boolean;
-    isNoop(opts?: object): boolean;
-    isParenthesizedExpression(opts?: object): boolean;
-    isAwaitExpression(opts?: object): boolean;
-    isBindExpression(opts?: object): boolean;
-    isDecorator(opts?: object): boolean;
-    isDoExpression(opts?: object): boolean;
-    isExportDefaultSpecifier(opts?: object): boolean;
-    isExportNamespaceSpecifier(opts?: object): boolean;
-    isRestProperty(opts?: object): boolean;
-    isSpreadProperty(opts?: object): boolean;
-    isExpression(opts?: object): boolean;
-    isBinary(opts?: object): boolean;
-    isScopable(opts?: object): boolean;
-    isBlockParent(opts?: object): boolean;
-    isBlock(opts?: object): boolean;
-    isStatement(opts?: object): boolean;
-    isTerminatorless(opts?: object): boolean;
-    isCompletionStatement(opts?: object): boolean;
-    isConditional(opts?: object): boolean;
-    isLoop(opts?: object): boolean;
-    isWhile(opts?: object): boolean;
-    isExpressionWrapper(opts?: object): boolean;
-    isFor(opts?: object): boolean;
-    isForXStatement(opts?: object): boolean;
-    isFunction(opts?: object): boolean;
-    isFunctionParent(opts?: object): boolean;
-    isPureish(opts?: object): boolean;
-    isDeclaration(opts?: object): boolean;
-    isLVal(opts?: object): boolean;
-    isLiteral(opts?: object): boolean;
-    isImmutable(opts?: object): boolean;
-    isUserWhitespacable(opts?: object): boolean;
-    isMethod(opts?: object): boolean;
-    isObjectMember(opts?: object): boolean;
-    isProperty(opts?: object): boolean;
-    isUnaryLike(opts?: object): boolean;
-    isPattern(opts?: object): boolean;
-    isClass(opts?: object): boolean;
-    isModuleDeclaration(opts?: object): boolean;
-    isExportDeclaration(opts?: object): boolean;
-    isModuleSpecifier(opts?: object): boolean;
-    isFlow(opts?: object): boolean;
-    isFlowBaseAnnotation(opts?: object): boolean;
-    isFlowDeclaration(opts?: object): boolean;
-    isJSX(opts?: object): boolean;
-    isNumberLiteral(opts?: object): boolean;
-    isRegexLiteral(opts?: object): boolean;
-    isReferencedIdentifier(opts?: object): boolean;
-    isReferencedMemberExpression(opts?: object): boolean;
-    isBindingIdentifier(opts?: object): boolean;
-    isScope(opts?: object): boolean;
+    isArrayExpression(opts?: object): this is NodePath<t.ArrayExpression> ;
+    isAssignmentExpression(opts?: object): this is NodePath<t.AssignmentExpression>;
+    isBinaryExpression(opts?: object): this is NodePath<t.BinaryExpression>;
+    isDirective(opts?: object): this is NodePath<t.Directive>;
+    isDirectiveLiteral(opts?: object): this is NodePath<t.DirectiveLiteral>;
+    isBlockStatement(opts?: object): this is NodePath<t.BlockStatement>;
+    isBreakStatement(opts?: object): this is NodePath<t.BreakStatement>;
+    isCallExpression(opts?: object): this is NodePath<t.CallExpression>;
+    isCatchClause(opts?: object): this is NodePath<t.CatchClause>;
+    isConditionalExpression(opts?: object): this is NodePath<t.ConditionalExpression>;
+    isContinueStatement(opts?: object): this is NodePath<t.ContinueStatement>;
+    isDebuggerStatement(opts?: object): this is NodePath<t.DebuggerStatement>;
+    isDoWhileStatement(opts?: object): this is NodePath<t.DoWhileStatement>;
+    isEmptyStatement(opts?: object): this is NodePath<t.EmptyStatement>;
+    isExpressionStatement(opts?: object): this is NodePath<t.ExpressionStatement>;
+    isFile(opts?: object): this is NodePath<t.File>;
+    isForInStatement(opts?: object): this is NodePath<t.ForInStatement>;
+    isForStatement(opts?: object): this is NodePath<t.ForStatement>;
+    isFunctionDeclaration(opts?: object): this is NodePath<t.FunctionDeclaration>;
+    isFunctionExpression(opts?: object): this is NodePath<t.FunctionExpression>;
+    isIdentifier(opts?: object): this is NodePath<t.Identifier>;
+    isIfStatement(opts?: object): this is NodePath<t.IfStatement>;
+    isLabeledStatement(opts?: object): this is NodePath<t.LabeledStatement>;
+    isStringLiteral(opts?: object): this is NodePath<t.StringLiteral>;
+    isNumericLiteral(opts?: object): this is NodePath<t.NumericLiteral>;
+    isNullLiteral(opts?: object): this is NodePath<t.NullLiteral>;
+    isBooleanLiteral(opts?: object): this is NodePath<t.BooleanLiteral>;
+    isRegExpLiteral(opts?: object): this is NodePath<t.RegExpLiteral>;
+    isLogicalExpression(opts?: object): this is NodePath<t.LogicalExpression>;
+    isMemberExpression(opts?: object): this is NodePath<t.MemberExpression>;
+    isNewExpression(opts?: object): this is NodePath<t.NewExpression>;
+    isProgram(opts?: object): this is NodePath<t.Program>;
+    isObjectExpression(opts?: object): this is NodePath<t.ObjectExpression>;
+    isObjectMethod(opts?: object): this is NodePath<t.ObjectMethod>;
+    isObjectProperty(opts?: object): this is NodePath<t.ObjectProperty>;
+    isRestElement(opts?: object): this is NodePath<t.RestElement>;
+    isReturnStatement(opts?: object): this is NodePath<t.ReturnStatement>;
+    isSequenceExpression(opts?: object): this is NodePath<t.SequenceExpression>;
+    isSwitchCase(opts?: object): this is NodePath<t.SwitchCase>;
+    isSwitchStatement(opts?: object): this is NodePath<t.SwitchStatement>;
+    isThisExpression(opts?: object): this is NodePath<t.ThisExpression>;
+    isThrowStatement(opts?: object): this is NodePath<t.ThrowStatement>;
+    isTryStatement(opts?: object): this is NodePath<t.TryStatement>;
+    isUnaryExpression(opts?: object): this is NodePath<t.UnaryExpression>;
+    isUpdateExpression(opts?: object): this is NodePath<t.UpdateExpression>;
+    isVariableDeclaration(opts?: object): this is NodePath<t.VariableDeclaration>;
+    isVariableDeclarator(opts?: object): this is NodePath<t.VariableDeclarator>;
+    isWhileStatement(opts?: object): this is NodePath<t.WhileStatement>;
+    isWithStatement(opts?: object): this is NodePath<t.WithStatement>;
+    isAssignmentPattern(opts?: object): this is NodePath<t.AssignmentPattern>;
+    isArrayPattern(opts?: object): this is NodePath<t.ArrayPattern>;
+    isArrowFunctionExpression(opts?: object): this is NodePath<t.ArrowFunctionExpression>;
+    isClassBody(opts?: object): this is NodePath<t.ClassBody>;
+    isClassDeclaration(opts?: object): this is NodePath<t.ClassDeclaration>;
+    isClassExpression(opts?: object): this is NodePath<t.ClassExpression>;
+    isExportAllDeclaration(opts?: object): this is NodePath<t.ExportAllDeclaration>;
+    isExportDefaultDeclaration(opts?: object): this is NodePath<t.ExportDefaultDeclaration>;
+    isExportNamedDeclaration(opts?: object): this is NodePath<t.ExportNamedDeclaration>;
+    isExportSpecifier(opts?: object): this is NodePath<t.ExportSpecifier>;
+    isForOfStatement(opts?: object): this is NodePath<t.ForOfStatement>;
+    isImportDeclaration(opts?: object): this is NodePath<t.ImportDeclaration>;
+    isImportDefaultSpecifier(opts?: object): this is NodePath<t.ImportDefaultSpecifier>;
+    isImportNamespaceSpecifier(opts?: object): this is NodePath<t.ImportNamespaceSpecifier>;
+    isImportSpecifier(opts?: object): this is NodePath<t.ImportSpecifier>;
+    isMetaProperty(opts?: object): this is NodePath<t.MetaProperty>;
+    isClassMethod(opts?: object): this is NodePath<t.ClassMethod>;
+    isObjectPattern(opts?: object): this is NodePath<t.ObjectPattern>;
+    isSpreadElement(opts?: object): this is NodePath<t.SpreadElement>;
+    isSuper(opts?: object): this is NodePath<t.Super>;
+    isTaggedTemplateExpression(opts?: object): this is NodePath<t.TaggedTemplateExpression>;
+    isTemplateElement(opts?: object): this is NodePath<t.TemplateElement>;
+    isTemplateLiteral(opts?: object): this is NodePath<t.TemplateLiteral>;
+    isYieldExpression(opts?: object): this is NodePath<t.YieldExpression>;
+    isAnyTypeAnnotation(opts?: object): this is NodePath<t.AnyTypeAnnotation>;
+    isArrayTypeAnnotation(opts?: object): this is NodePath<t.ArrayTypeAnnotation>;
+    isBooleanTypeAnnotation(opts?: object): this is NodePath<t.BooleanTypeAnnotation>;
+    isBooleanLiteralTypeAnnotation(opts?: object): this is NodePath<t.BooleanLiteralTypeAnnotation>;
+    isNullLiteralTypeAnnotation(opts?: object): this is NodePath<t.NullLiteralTypeAnnotation>;
+    isClassImplements(opts?: object): this is NodePath<t.ClassImplements>;
+    isClassProperty(opts?: object): this is NodePath<t.ClassProperty>;
+    isDeclareClass(opts?: object): this is NodePath<t.DeclareClass>;
+    isDeclareFunction(opts?: object): this is NodePath<t.DeclareFunction>;
+    isDeclareInterface(opts?: object): this is NodePath<t.DeclareInterface>;
+    isDeclareModule(opts?: object): this is NodePath<t.DeclareModule>;
+    isDeclareTypeAlias(opts?: object): this is NodePath<t.DeclareTypeAlias>;
+    isDeclareVariable(opts?: object): this is NodePath<t.DeclareVariable>;
+    isExistentialTypeParam(opts?: object): this is NodePath<t.ExistentialTypeParam>;
+    isFunctionTypeAnnotation(opts?: object): this is NodePath<t.FunctionTypeAnnotation>;
+    isFunctionTypeParam(opts?: object): this is NodePath<t.FunctionTypeParam>;
+    isGenericTypeAnnotation(opts?: object): this is NodePath<t.GenericTypeAnnotation>;
+    isInterfaceExtends(opts?: object): this is NodePath<t.InterfaceExtends>;
+    isInterfaceDeclaration(opts?: object): this is NodePath<t.InterfaceDeclaration>;
+    isIntersectionTypeAnnotation(opts?: object): this is NodePath<t.IntersectionTypeAnnotation>;
+    isMixedTypeAnnotation(opts?: object): this is NodePath<t.MixedTypeAnnotation>;
+    isNullableTypeAnnotation(opts?: object): this is NodePath<t.NullableTypeAnnotation>;
+    isNumericLiteralTypeAnnotation(opts?: object): this is NodePath<t.NumericLiteralTypeAnnotation>;
+    isNumberTypeAnnotation(opts?: object): this is NodePath<t.NumberTypeAnnotation>;
+    isStringLiteralTypeAnnotation(opts?: object): this is NodePath<t.StringLiteralTypeAnnotation>;
+    isStringTypeAnnotation(opts?: object): this is NodePath<t.StringTypeAnnotation>;
+    isThisTypeAnnotation(opts?: object): this is NodePath<t.ThisTypeAnnotation>;
+    isTupleTypeAnnotation(opts?: object): this is NodePath<t.TupleTypeAnnotation>;
+    isTypeofTypeAnnotation(opts?: object): this is NodePath<t.TypeofTypeAnnotation>;
+    isTypeAlias(opts?: object): this is NodePath<t.TypeAlias>;
+    isTypeAnnotation(opts?: object): this is NodePath<t.TypeAnnotation>;
+    isTypeCastExpression(opts?: object): this is NodePath<t.TypeCastExpression>;
+    isTypeParameterDeclaration(opts?: object): this is NodePath<t.TypeParameterDeclaration>;
+    isTypeParameterInstantiation(opts?: object): this is NodePath<t.TypeParameterInstantiation>;
+    isObjectTypeAnnotation(opts?: object): this is NodePath<t.ObjectTypeAnnotation>;
+    isObjectTypeCallProperty(opts?: object): this is NodePath<t.ObjectTypeCallProperty>;
+    isObjectTypeIndexer(opts?: object): this is NodePath<t.ObjectTypeIndexer>;
+    isObjectTypeProperty(opts?: object): this is NodePath<t.ObjectTypeProperty>;
+    isQualifiedTypeIdentifier(opts?: object): this is NodePath<t.QualifiedTypeIdentifier>;
+    isUnionTypeAnnotation(opts?: object): this is NodePath<t.UnionTypeAnnotation>;
+    isVoidTypeAnnotation(opts?: object): this is NodePath<t.VoidTypeAnnotation>;
+    isJSXAttribute(opts?: object): this is NodePath<t.JSXAttribute>;
+    isJSXClosingElement(opts?: object): this is NodePath<t.JSXClosingElement>;
+    isJSXElement(opts?: object): this is NodePath<t.JSXElement>;
+    isJSXEmptyExpression(opts?: object): this is NodePath<t.JSXEmptyExpression>;
+    isJSXExpressionContainer(opts?: object): this is NodePath<t.JSXExpressionContainer>;
+    isJSXIdentifier(opts?: object): this is NodePath<t.JSXIdentifier>;
+    isJSXMemberExpression(opts?: object): this is NodePath<t.JSXMemberExpression>;
+    isJSXNamespacedName(opts?: object): this is NodePath<t.JSXNamespacedName>;
+    isJSXOpeningElement(opts?: object): this is NodePath<t.JSXOpeningElement>;
+    isJSXSpreadAttribute(opts?: object): this is NodePath<t.JSXSpreadAttribute>;
+    isJSXText(opts?: object): this is NodePath<t.JSXText>;
+    isNoop(opts?: object): this is NodePath<t.Noop>;
+    isParenthesizedExpression(opts?: object): this is NodePath<t.ParenthesizedExpression>;
+    isAwaitExpression(opts?: object): this is NodePath<t.AwaitExpression>;
+    isBindExpression(opts?: object): this is NodePath<t.BindExpression>;
+    isDecorator(opts?: object): this is NodePath<t.Decorator>;
+    isDoExpression(opts?: object): this is NodePath<t.DoExpression>;
+    isExportDefaultSpecifier(opts?: object): this is NodePath<t.ExportDefaultSpecifier>;
+    isExportNamespaceSpecifier(opts?: object): this is NodePath<t.ExportNamespaceSpecifier>;
+    isRestProperty(opts?: object): this is NodePath<t.RestProperty>;
+    isSpreadProperty(opts?: object): this is NodePath<t.SpreadProperty>;
+    isExpression(opts?: object): this is NodePath<t.Expression>;
+    isBinary(opts?: object): this is NodePath<t.Binary>;
+    isScopable(opts?: object): this is NodePath<t.Scopable>;
+    isBlockParent(opts?: object): this is NodePath<t.BlockParent>;
+    isBlock(opts?: object): this is NodePath<t.Block>;
+    isStatement(opts?: object): this is NodePath<t.Statement>;
+    isTerminatorless(opts?: object): this is NodePath<t.Terminatorless>;
+    isCompletionStatement(opts?: object): this is NodePath<t.CompletionStatement>;
+    isConditional(opts?: object): this is NodePath<t.Conditional>;
+    isLoop(opts?: object): this is NodePath<t.Loop>;
+    isWhile(opts?: object): this is NodePath<t.While>;
+    isExpressionWrapper(opts?: object): this is NodePath<t.ExpressionWrapper>;
+    isFor(opts?: object): this is NodePath<t.For>;
+    isForXStatement(opts?: object): this is NodePath<t.ForXStatement>;
+    isFunction(opts?: object): this is NodePath<t.Function>;
+    isFunctionParent(opts?: object): this is NodePath<t.FunctionParent>;
+    isPureish(opts?: object): this is NodePath<t.Pureish>;
+    isDeclaration(opts?: object): this is NodePath<t.Declaration>;
+    isLVal(opts?: object): this is NodePath<t.LVal>;
+    isLiteral(opts?: object): this is NodePath<t.Literal>;
+    isImmutable(opts?: object): this is NodePath<t.Immutable>;
+    isUserWhitespacable(opts?: object): this is NodePath<t.UserWhitespacable>;
+    isMethod(opts?: object): this is NodePath<t.Method>;
+    isObjectMember(opts?: object): this is NodePath<t.ObjectMember>;
+    isProperty(opts?: object): this is NodePath<t.Property>;
+    isUnaryLike(opts?: object): this is NodePath<t.UnaryLike>;
+    isPattern(opts?: object): this is NodePath<t.Pattern>;
+    isClass(opts?: object): this is NodePath<t.Class>;
+    isModuleDeclaration(opts?: object): this is NodePath<t.ModuleDeclaration>;
+    isExportDeclaration(opts?: object): this is NodePath<t.ExportDeclaration>;
+    isModuleSpecifier(opts?: object): this is NodePath<t.ModuleSpecifier>;
+    isFlow(opts?: object): this is NodePath<t.Flow>;
+    isFlowBaseAnnotation(opts?: object): this is NodePath<t.FlowBaseAnnotation>;
+    isFlowDeclaration(opts?: object): this is NodePath<t.FlowDeclaration>;
+    isJSX(opts?: object): this is NodePath<t.JSX>;
+    isNumberLiteral(opts?: object): this is NodePath<t.NumericLiteral>;
+    isRegexLiteral(opts?: object): this is NodePath<t.RegExpLiteral>;
+    isReferencedIdentifier(opts?: object): this is NodePath<t.Identifier | t.JSXIdentifier>;
+    isReferencedMemberExpression(opts?: object): this is NodePath<t.MemberExpression>;
+    isBindingIdentifier(opts?: object): this is NodePath<t.Identifier>;
+    isScope(opts?: object): this is NodePath<t.Scopable>;
     isReferenced(opts?: object): boolean;
-    isBlockScoped(opts?: object): boolean;
-    isVar(opts?: object): boolean;
+    isBlockScoped(opts?: object): this is NodePath<t.FunctionDeclaration | t.ClassDeclaration | t.VariableDeclaration>;
+    isVar(opts?: object): this is NodePath<t.VariableDeclaration>;
     isUser(opts?: object): boolean;
     isGenerated(opts?: object): boolean;
     isPure(opts?: object): boolean;
@@ -960,7 +965,7 @@ export class Hub {
 }
 
 export interface TraversalContext {
-    parentPath: NodePath<Node>;
+    parentPath: NodePath;
     scope: Scope;
     state: any;
     opts: any;

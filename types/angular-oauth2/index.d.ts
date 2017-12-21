@@ -27,9 +27,9 @@ declare module 'angular' {
 
         interface OAuth {
             isAuthenticated(): boolean;
-            getAccessToken(data: Data, options?: any): angular.IPromise<string>;
-            getRefreshToken(data?: Data, options?: any): angular.IPromise<string>;
-            revokeToken(data?: Data, options?: any): angular.IPromise<string>;
+            getAccessToken(data: Data, options?: any): IPromise<string>;
+            getRefreshToken(data?: Data, options?: any): IPromise<string>;
+            revokeToken(data?: Data, options?: any): IPromise<string>;
         }
 
         interface OAuthTokenConfig {

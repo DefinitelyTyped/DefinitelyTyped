@@ -1,9 +1,9 @@
 // Type definitions for moxios 0.4
 // Project: https://github.com/mzabriskie/moxios
-// Definitions by: Asuka Ito <https://github.com/itoasuka/>
+// Definitions by: Asuka Ito <https://github.com/itoasuka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosRequestConfig } from "axios";
 
 interface Item {
     response?: any;
@@ -24,36 +24,29 @@ declare class Tracker {
     /**
      * Add an item to be tracked
      *
-     * @param {Object} item An item to be tracked
+     * @param item An item to be tracked
      */
     track(item: Item): void;
 
     /**
      * The count of items being tracked
-     *
-     * @return {number}
      */
     count(): number;
 
     /**
      * Get an item being tracked at a given index
      *
-     * @param {number} index The index for the item to retrieve
-     * @return {Object}
+     * @param index The index for the item to retrieve
      */
     at(index: number): Request;
 
     /**
      * Get the first item being tracked
-     *
-     * @return {Object}
      */
     first(): Request;
 
     /**
      * Get the most recent (last) item being tracked
-     *
-     * @return {Object}
      */
     mostRecent(): Request;
 
@@ -78,24 +71,31 @@ declare class Request {
     /**
      * Create a new Request object
      *
-     * @param {Function} resolve The function to call when Promise is resolved
-     * @param {Function} reject The function to call when Promise is rejected
-     * @param {Object} config The config object to be used for the request
+     * @param resolve The function to call when Promise is resolved
+     * @param reject The function to call when Promise is rejected
+     * @param config The config object to be used for the request
      */
-    constructor(resolve: (arg: any) => void, reject: (arg: any) => void, config: any);
+    constructor(resolve: (arg: any) => void, reject: (arg: any) => void, config: AxiosRequestConfig);
+
+    config: AxiosRequestConfig;
+    headers: any;
+    url: string;
+    timeout: number;
+    withCredentials: boolean;
+    responseType: string;
 
     /**
      * Respond to this request with a timeout result
      *
-     * @return {Promise} A Promise that rejects with a timeout result
+     * @return A Promise that rejects with a timeout result
      */
     respondWithTimeout(): Promise<Response>;
 
     /**
      * Respond to this request with a specified result
      *
-     * @param {Object} res The data representing the result of the request
-     * @return {Promise} A Promise that resolves once the response is ready
+     * @param res The data representing the result of the request
+     * @return A Promise that resolves once the response is ready
      */
     respondWith(res: Item): Promise<Response>;
 }
@@ -104,17 +104,18 @@ declare class Response {
     /**
      * Create a new Response object
      *
-     * @param {Request} req The Request that this Response is associated with
-     * @param {Object} res The data representing the result of the request
+     * @param req The Request that this Response is associated with
+     * @param res The data representing the result of the request
      */
     constructor(req: Request, res: any);
 
-    config: any;
+    config: AxiosRequestConfig;
     data?: any;
     status?: number;
     statusText?: string;
     headers: any;
     request: Request;
+    code?: string;
 }
 
 declare let moxios: {
@@ -136,8 +137,8 @@ declare let moxios: {
     /**
      * Stub a response to be used to respond to a request matching a URL or RegExp
      *
-     * @param {string|RegExp} urlOrRegExp A URL or RegExp to test against
-     * @param {Object} response The response to use when a match is made
+     * @param urlOrRegExp A URL or RegExp to test against
+     * @param response The response to use when a match is made
      */
     stubRequest(urlOrRegExp: string | RegExp, response: Item): void;
 
@@ -145,9 +146,9 @@ declare let moxios: {
      * Stub a response to be used one or more times to respond to a request matching a
      * method and a URL or RegExp.
      *
-     * @param {string} method An axios command
-     * @param {string|RegExp} urlOrRegExp A URL or RegExp to test against
-     * @param {Object} response The response to use when a match is made
+     * @param method An axios command
+     * @param urlOrRegExp A URL or RegExp to test against
+     * @param response The response to use when a match is made
      */
     stubOnce(method: string, urlOrRegExp: string | RegExp, response: Item): Promise<void>;
 
@@ -156,16 +157,16 @@ declare let moxios: {
      * timer fires, reject with a TimeoutException for simple assertions. The goal is
      * to show that a certain request was not made.
      *
-     * @param {string} method An axios command
-     * @param {string|RegExp} urlOrRegExp A URL or RegExp to test against
-     * @param {Object} response The response to use when a match is made
+     * @param method An axios command
+     * @param urlOrRegExp A URL or RegExp to test against
+     * @param response The response to use when a match is made
      */
     stubFailure(method: string, urlOrRegExp: string | RegExp, response: Item): Promise<void>;
 
     /**
      * Stub a timeout to be used to respond to a request matching a URL or RegExp
      *
-     * @param {string|RegExp} urlOrRegExp A URL or RegExp to test against
+     * @param urlOrRegExp A URL or RegExp to test against
      */
     stubTimeout(urlOrRegExp: string | RegExp): string;
 
@@ -174,7 +175,7 @@ declare let moxios: {
      * This will install the mock adapter, execute the function provided,
      * then uninstall the mock adapter once complete.
      *
-     * @param {Function} fn The function to be executed
+     * @param fn The function to be executed
      */
     withMock(fn: () => void): void;
 
@@ -183,8 +184,8 @@ declare let moxios: {
      * This is naively using a `setTimeout`.
      * May need to beef this up a bit in the future.
      *
-     * @param {Function} fn The function to execute once waiting is over
-     * @param {number} delay How much time in milliseconds to wait
+     * @param fn The function to execute once waiting is over
+     * @param delay How much time in milliseconds to wait
      */
     wait(fn: () => void, delay?: number): void;
 };

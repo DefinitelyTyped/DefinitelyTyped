@@ -1,10 +1,12 @@
 // Type definitions for htmlparser2 v3.7.x
 // Project: https://github.com/fb55/htmlparser2/
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction/>
+// Definitions by: James Roland Cabresos <https://github.com/staticfunction>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference types="node"/>
 
-
+import { Writable } from 'stream'
 
 export interface Handler {
     onopentag?: (name: string, attribs: { [type: string]: string }) => void;
@@ -58,6 +60,10 @@ export interface Options {
      * NOTE: If xmlMode is set to true then self-closing tags will always be recognized.
      */
     recognizeSelfClosing?: boolean;
+}
+
+export declare class WritableStream extends Writable {
+    constructor(handler: Handler, options?: Options);
 }
 
 export declare class Parser {

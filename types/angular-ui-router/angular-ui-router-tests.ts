@@ -157,7 +157,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
             // Note that we do not concern ourselves with what to do if this request fails,
             // because if it fails, the web page will be redirected away to the login screen.
-            this.$http({ url: "/api/me", method: "GET" }).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+            this.$http({ url: "/api/me", method: "GET" }).then((response: ng.IHttpResponse<any>) => {
                 this.currentUser = response.data;
 
                 // sync the ui-state with the location in the browser, which effectively
@@ -197,6 +197,11 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         this.$state.get(this.$state.current);
         this.$state.get(this.$state.current, "yourState");
         this.$state.get(this.$state.current, this.$state.current);
+
+        // make sure get() accepts a discriminated union type as well
+        let myState: string | ng.ui.IState;
+        this.$state.get(myState);
+
         this.$state.reload();
 
         // http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#properties

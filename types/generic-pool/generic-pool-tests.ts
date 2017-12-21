@@ -7,7 +7,7 @@ class Connection {
 const factory = {
     create: (): Promise<Connection> => {
         return new Promise<Connection>(resolve => {
-            let conn = new Connection();
+            const conn = new Connection();
             resolve(conn);
         });
     },
@@ -24,7 +24,7 @@ const factory = {
     }
 };
 
-let opts = {
+const opts = {
     max: 10,
     min: 2,
     maxWaitingClients: 2,
@@ -39,7 +39,7 @@ let opts = {
     idleTimeoutMillis: 5000
 };
 
-let pool = genericPool.createPool<Connection>(factory, opts);
+const pool = genericPool.createPool<Connection>(factory, opts);
 
 pool.acquire()
     .then((conn: Connection) => {

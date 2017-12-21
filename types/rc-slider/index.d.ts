@@ -1,6 +1,8 @@
-// Type definitions for rc-slider 8.1
+// Type definitions for rc-slider 8.2
 // Project: https://github.com/react-component/slider
-// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>, Alexander Mattoni <https://github.com/mattoni/>
+// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
+//                 Alexander Mattoni <https://github.com/mattoni>
+//                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -39,7 +41,7 @@ export interface CommonApiProps {
      * Value to be added or subtracted on each step the slider makes. Must be greater than zero, and max - min should be evenly divisible by the step value.
      *  @default 1
      */
-    step?: number;
+    step?: number | null;
     /**
      * If vertical is true, the slider will be vertical.
      * @default false
@@ -103,6 +105,16 @@ export interface CommonApiProps {
      * The style used for the track base color.
      */
     railStyle?: React.CSSProperties;
+
+    /**
+     * The style used for the dots.
+     */
+    dotStyle?: React.CSSProperties;
+
+    /**
+     * The style used for the active dots.
+     */
+    activeDotStyle?: React.CSSProperties;
 }
 
 export interface SliderProps extends CommonApiProps {
@@ -141,7 +153,7 @@ export interface RangeProps extends CommonApiProps {
      * pushable could be set as true to allow pushing of surrounding handles when moving an handle. When set to a number, the number will be the minimum ensured distance between handles.
      *  @default true
      */
-    pushable?: boolean;
+    pushable?: boolean | number;
 }
 
 export interface HandleProps extends CommonApiProps {
@@ -163,3 +175,6 @@ export interface HandleProps extends CommonApiProps {
 export default class Slider extends React.Component<SliderProps> { }
 export class Range extends React.Component<RangeProps> { }
 export class Handle extends React.Component<HandleProps> { }
+
+export function createSliderWithTooltip(slider: typeof Slider): new() => Slider;
+export function createSliderWithTooltip(range: typeof Range): new() => Range;

@@ -36,101 +36,68 @@ export interface requestAuthorization {
 export interface Request extends http.IncomingMessage {
     /**
      * builds an absolute URI for the request.
-     * @private
-     * @function absoluteUri
-     * @param    {String} path a url path
-     * @returns  {String}
+     * @param    path a url path
      */
     absoluteUri(path: string): string;
 
     /**
      * returns any header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
-     * @public
-     * @function header
-     * @param    {String} name  the name of the header
-     * @param    {String} value default value if header isn't found on the req
-     * @returns  {String}
+     * @param    name  the name of the header
+     * @param    value default value if header isn't found on the req
      */
     header(name: string, value?: string): string;
 
     /**
      * returns any trailer header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
-     * @public
-     * @function trailer
-     * @param    {String} name  the name of the header
-     * @param    {String} value default value if header isn't found on the req
-     * @returns  {String}
+     * @param    name  the name of the header
+     * @param    value default value if header isn't found on the req
      */
     trailer(name: string, value?: string): string;
 
     /**
      * checks if the accept header is present and has the value requested.
      * e.g., req.accepts('html');
-     * @public
-     * @function accepts
-     * @param    {String | Array} types an array of accept type headers
-     * @returns  {Boolean}
+     * @param    types an array of accept type headers
      */
     accepts(types: string | string[]): boolean;
 
     /**
      * checks if the request accepts the encoding types.
-     * @public
-     * @function acceptsEncoding
-     * @param    {String | Array} types an array of accept type headers
-     * @returns  {Boolean}
+     * @param    types an array of accept type headers
      */
     acceptsEncoding(types: string | string[]): boolean;
 
     /**
      * Check if the incoming request contains the Content-Type header field, and
      * if it contains the given mime type.
-     * @public
-     * @function is
-     * @param    {String} type  a content-type header value
-     * @returns  {Boolean}
+     * @param    type  a content-type header value
      */
     is(type: string): boolean;
 
     /**
      * Check if the incoming request is chunked.
-     * @public
-     * @function isChunked
-     * @returns  {Boolean}
      */
     isChunked(): boolean;
 
     /**
      * Check if the incoming request is kept alive.
-     * @public
-     * @function isKeepAlive
-     * @returns  {Boolean}
      */
     isKeepAlive(): boolean;
 
     /**
      * Check if the incoming request has been upgraded.
-     * @public
-     * @function isUpgradeRequest
-     * @returns  {Boolean}
      */
     isUpgradeRequest(): boolean;
 
     /**
      * Check if the incoming request is an upload verb.
-     * @public
-     * @function isUpload
-     * @returns  {Boolean}
      */
     isUpload(): boolean;
 
     /**
      * retrieves the user-agent header.
-     * @public
-     * @function userAgent
-     * @returns  {String}
      */
     userAgent(): string;
 
@@ -138,19 +105,13 @@ export interface Request extends http.IncomingMessage {
      * Start the timer for a request handler function. You must explicitly invoke
      * endHandlerTimer() after invoking this function. Otherwise timing information
      * will be inaccurate.
-     * @public
-     * @function startHandlerTimer
-     * @param    {String}    handlerName The name of the handler.
-     * @returns  {undefined}
+     * @param       handlerName The name of the handler.
      */
     startHandlerTimer(handlerName: string): void;
 
     /**
      * Stop the timer for a request handler function.
-     * @public
-     * @function endHandlerTimer
-     * @param    {String}    handlerName The name of the handler.
-     * @returns  {undefined}
+     * @param       handlerName The name of the handler.
      */
     endHandlerTimer(handlerName: string): void;
 
@@ -158,23 +119,16 @@ export interface Request extends http.IncomingMessage {
 
     /**
      * gets the content-length header off the request.
-     * @public
-     * @function getContentLength
-     * @returns {Number}
      */
     getContentLength(): number;
 
     /**
      * @see getContentLength
-     * @function contentLength
      */
     contentLength(): number;
 
     /**
      * gets the content-type header.
-     * @public
-     * @function getContentType
-     * @returns {String}
      */
     getContentType(): string;
 
@@ -185,9 +139,6 @@ export interface Request extends http.IncomingMessage {
 
     /**
      * retrieves the complete URI requested by the client.
-     * @public
-     * @function getHref
-     * @returns {String}
      */
     getHref(): string;
 
@@ -199,9 +150,6 @@ export interface Request extends http.IncomingMessage {
     log: Logger;
     /**
      * retrieves the request uuid. was created when the request was setup.
-     * @public
-     * @function getId
-     * @returns  {String}
      */
     getId(): string;
 
@@ -213,9 +161,6 @@ export interface Request extends http.IncomingMessage {
     /**
      * retrieves the cleaned up url path.
      * e.g., /foo?a=1  =>  /foo
-     * @public
-     * @function getPath
-     * @returns  {String}
      */
     getPath(): string;
 
@@ -226,9 +171,6 @@ export interface Request extends http.IncomingMessage {
 
     /**
      * returns the raw query string
-     * @public
-     * @function getQuery
-     * @returns  {String}
      */
     getQuery(): string;
 
@@ -241,25 +183,16 @@ export interface Request extends http.IncomingMessage {
 
     /**
      * returns ms since epoch when request was setup.
-     * @public
-     * @function time
-     * @returns  {Number}
      */
     time(): number;
 
     /**
      * returns a parsed URL object.
-     * @public
-     * @function getUrl
-     * @returns  {Object}
      */
     getUrl(): url.Url;
 
     /**
      * returns the accept-version header.
-     * @public
-     * @function getVersion
-     * @returns  {String}
      */
     getVersion(): string;
 
@@ -272,9 +205,6 @@ export interface Request extends http.IncomingMessage {
 
     /**
      * Check if the incoming request is encrypted.
-     * @public
-     * @function isSecure
-     * @returns  {Boolean}
      */
     isSecure(): boolean;
     /** available when bodyParser plugin is used */
@@ -290,8 +220,6 @@ export interface Request extends http.IncomingMessage {
 /**
  * Timer object used to identify how long a specific handler took to run
  *
- * @property {String} name The name of the handler.
- * @property {Array} time A tuple of [seconds, nanoseconds], how long the handler took.
  */
 export interface HandlerTiming {
     name: string;
@@ -362,33 +290,31 @@ export interface Router {
 
     /**
      * Takes an object of route params and query params, and 'renders' a URL
-     * @param    {String} routeName the route name
-     * @param    {Object} params    an object of route params
-     * @param    {Object} query     an object of query params
-     * @returns  {String}
+     * @param    routeName the route name
+     * @param    params    an object of route params
+     * @param    query     an object of query params
      */
     render(routeName: string, params: any, query?: any): string;
 
     /**
      * adds a route.
-     * @param    {Object} options an options object
-     * @returns  {String}         returns the route name if creation is successful.
+     * @param    options an options object
+     * @returns          returns the route name if creation is successful.
      */
     mount(options: any): string | boolean;
 
     /**
      * unmounts a route.
-     * @param    {String} name the route name
-     * @returns  {String}      the name of the deleted route (or false if it was not matched)
+     * @param    name the route name
+     * @returns       the name of the deleted route (or false if it was not matched)
      */
     unmount(name: string): string | boolean;
 
     /**
      * finds the route for a given request and response.
-     * @param    {Request}  req      the request object
-     * @param    {Response} res      the response object
-     * @param    {Function} callback operation callback
-     * @returns  {undefined}
+     * @param     req      the request object
+     * @param    res      the response object
+     * @param    callback operation callback
      */
     find(req: Request, res: Response, callback: (err: Error, route: Route) => void): void;
 }

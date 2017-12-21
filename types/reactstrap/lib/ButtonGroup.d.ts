@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ButtonGroupProps {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;
@@ -10,5 +10,5 @@ interface Props {
   vertical?: boolean;
 }
 
-declare var ButtonGroup: React.StatelessComponent<Props>;
+declare const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
 export default ButtonGroup;

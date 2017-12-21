@@ -1,4 +1,4 @@
-// Type definitions for moment-timezone.js 0.2
+// Type definitions for moment-timezone.js 0.5
 // Project: http://momentjs.com/timezone/
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,9 +14,11 @@ declare module "moment" {
         abbrs: string[];
         untils: number[];
         offsets: number[];
+        population: number;
 
         abbr(timestamp: number): string;
         offset(timestamp: number): number;
+        utcOffset(timestamp: number): number;
         parse(timestamp: number): number;
     }
 

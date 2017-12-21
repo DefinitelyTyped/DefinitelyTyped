@@ -1,9 +1,11 @@
-// Type definitions for Umzug v1.8.0
+// Type definitions for Umzug v2.1.0
 // Project: https://github.com/sequelize/umzug
-// Definitions by: Ivan Drinchev <https://github.com/drinchev/>
+// Definitions by: Ivan Drinchev <https://github.com/drinchev>
+//                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { EventEmitter } from 'events';
 import Sequelize = require("sequelize");
 
 declare namespace umzug {
@@ -28,6 +30,16 @@ declare namespace umzug {
          */
         wrap?: <T>(fn: T) => T;
 
+        /**
+         * A function that maps a file path to a migration object in the form
+         * { up: Function, down: Function }. The default for this is to require(...)
+         * the file as javascript, but you can use this to transpile TypeScript,
+         * read raw sql etc.
+         * See https://github.com/sequelize/umzug/tree/master/test/fixtures
+         * for examples.
+         */
+        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+        
     }
 
     interface JSONStorageOptions {
@@ -122,7 +134,7 @@ declare namespace umzug {
 
     }
 
-    interface UpDownToOptions {
+    interface UpToOptions {
 
         /**
          * It is also possible to pass the name of a migration in order to
@@ -130,6 +142,17 @@ declare namespace umzug {
          * migration name.
          */
         to: string;
+
+    }
+
+    interface DownToOptions {
+
+        /**
+         * It is also possible to pass the name of a migration in order to
+         * just run the migrations from the current state to the passed
+         * migration name. down allows to pass 0 to revert everything.
+         */
+        to: string | 0;
 
     }
 
@@ -148,7 +171,7 @@ declare namespace umzug {
         file: string;
     }
 
-    interface Umzug {
+    interface Umzug extends EventEmitter {
         /**
          * The execute method is a general purpose function that runs for
          * every specified migrations the respective function.
@@ -170,21 +193,25 @@ declare namespace umzug {
          */
         up(migration?: string): Promise<Migration[]>;
         up(migrations?: string[]): Promise<Migration[]>;
-        up(options?: UpDownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
+        up(options?: UpToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
 
         /**
          * The down method can be used to revert the last executed migration.
          */
         down(migration?: string): Promise<Migration[]>;
         down(migrations?: string[]): Promise<Migration[]>;
-        down(options?: UpDownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
+        down(options?: DownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
+
+        on(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+        addListener(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
+        removeListener(eventName: 'migrating' | 'reverting' | 'migrated' | 'reverted', cb?: (name: string, migration: Migration) => void): this;
 
     }
 
     interface UmzugStatic {
-        new (options?: UmzugOptions): Umzug;
+        new(options?: UmzugOptions): Umzug;
     }
 }
 
-declare var umzug: umzug.UmzugStatic;
+declare const umzug: umzug.UmzugStatic;
 export = umzug;

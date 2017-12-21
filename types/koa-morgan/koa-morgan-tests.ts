@@ -77,8 +77,8 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
             developmentExtendedFormatLine.memoizer = {};
         }
 
-        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile('\x1b[0m:method :url \x1b['
-            + color + 'm:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent');
+        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile(
+            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`);
     }
 
     return fn(tokens, req, res);

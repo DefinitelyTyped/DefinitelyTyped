@@ -421,7 +421,7 @@ $('#calendar').fullCalendar({
             alert('Clicked on the slot: ' + date);
         }
 
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        alert(`Coordinates: ${jsEvent.pageX},${jsEvent.pageY}`);
 
         alert('Current view: ' + view.name);
 
@@ -433,7 +433,7 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar({
     eventClick(calEvent, jsEvent, view) {
         alert('Event: ' + calEvent.title);
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        alert(`Coordinates: ${jsEvent.pageX},${jsEvent.pageY}`);
         alert('View: ' + view.name);
 
         // change the border color just for fun
@@ -656,7 +656,7 @@ $('#my-draggable').draggable({
 $('#calendar').fullCalendar({
     droppable: true,
     drop(date, allDay) {
-        alert("Dropped on " + date + " with allDay=" + allDay);
+        alert(`Dropped on ${date} with allDay=${allDay}`);
     }
 });
 

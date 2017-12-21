@@ -53,7 +53,7 @@ declare global {
 
       // Debouncer
 
-      debounce?(jobName: string, callback: Function, wait: number): void;
+      debounce?(jobName: string, callback: Function, wait?: number): void;
 
       isDebouncerActive?(jobName: string): boolean;
 
@@ -185,7 +185,7 @@ declare global {
 
       // XStyling
 
-      updateStyles?(): void;
+      updateStyles?(styles?: {[prop: string]: string;}): void;
 
       /* common api */
 

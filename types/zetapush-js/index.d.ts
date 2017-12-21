@@ -120,10 +120,10 @@ export interface ClientHelper {
 
 export type ConnectionStatusHandler = number;
 
-export class Authentication {
-  static delegating({ token }: TokenAuthData): TokenHandshake;
-  static simple({ login, password }: CredentialsAuthData): CredentialsHandshake;
-  static weak({ token }: TokenAuthData): TokenHandshake;
+export namespace Authentication {
+  function delegating({ token }: TokenAuthData): TokenHandshake;
+  function simple({ login, password }: CredentialsAuthData): CredentialsHandshake;
+  function weak({ token }: TokenAuthData): TokenHandshake;
 }
 
 export interface ConnectionStatusListener {

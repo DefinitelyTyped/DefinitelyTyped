@@ -1,15 +1,15 @@
 import * as Tus from 'tus-js-client';
 
-let file = new File(["foo"], "foo.txt", {
+const file = new File(["foo"], "foo.txt", {
   type: "text/plain",
 });
 
-let upload = new Tus.Upload(file, {
+const upload = new Tus.Upload(file, {
     endpoint: "",
     fingerprint: "fingerprint",
     resume: true,
     onProgress: (bytesSent: number, bytesTotal: number) => {
-        let percentage = (bytesSent / bytesTotal * 100).toFixed(2);
+        const percentage = (bytesSent / bytesTotal * 100).toFixed(2);
         console.log(bytesSent, bytesTotal, percentage + "%");
     },
     onChunkComplete: (chunkSize: number, bytesAccepted: number) => {},
@@ -32,6 +32,6 @@ upload.start();
 
 upload.abort();
 
-let upload2 = new Tus.Upload(file, {
+const upload2 = new Tus.Upload(file, {
 	endpoint: ""
 });

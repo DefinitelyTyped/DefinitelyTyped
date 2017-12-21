@@ -1430,9 +1430,9 @@ declare namespace Hls {
      */
     levelId?: number;
     /**
-     * ErrorDetails type
+     * ErrorDetails type or Level Details
      */
-    details?: string;
+    details?: string | LevelDetails;
     /**
      * PTS drift observed when parsing last fragment
      */
@@ -1540,7 +1540,7 @@ declare namespace Hls {
    *  Customized text track syncronization controller.
    */
   interface TimelineController {
-    /**d
+    /**
      * clean-up all used resources
      */
     destory(): void;

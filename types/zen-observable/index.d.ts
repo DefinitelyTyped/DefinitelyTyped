@@ -7,9 +7,7 @@ declare global {
     interface SymbolConstructor {
         observable: symbol;
     }
-}
 
-declare global {
     namespace ZenObservable {
         interface SubscriptionObserver<T> {
             closed: boolean;

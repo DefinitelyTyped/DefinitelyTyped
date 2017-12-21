@@ -1,7 +1,7 @@
 // Type definitions for Highcharts 5.0.10
 // Project: http://www.highcharts.com/
-// Definitions by: Damiano Gambarotto <http://github.com/damianog>
-//                 Dan Lewi Harkestad <http://github.com/baltie>
+// Definitions by: Damiano Gambarotto <https://github.com/damianog>
+//                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -507,7 +507,7 @@ declare namespace Highcharts {
          * The actual text of the axis title. It can contain basic HTML text markup like <b>, <i> and spans with style.
          * @default xAxis: null, yAxis: 'Values'
          */
-        text?: string;
+        text?: string | null;
         /**
          * Horizontal pixel offset of the title position.
          * @default 0
@@ -575,7 +575,7 @@ declare namespace Highcharts {
          * categories: ['Apples', 'Bananas', 'Oranges']
          * @default null
          */
-        categories?: string[];
+        categories?: any[];
         /**
          * The highest allowed value for automatically computed axis extremes.
          * @since 4.0
@@ -1021,9 +1021,9 @@ declare namespace Highcharts {
          */
         tickmarkPlacement?: string;
         /**
-         * The axis title, showing next to the axis line.
+         * The axis title, showing next to the axis line. To disable the title, set the text to null.
          */
-        title?: AxisTitle;
+        title?: AxisTitle | null;
         /**
          * The type of axis. Can be one of 'linear', 'logarithmic', 'datetime' or 'category'. In a datetime axis, the
          * numbers are given in milliseconds, and tick marks are placed on appropriate values like full hours or days. In a
@@ -1036,7 +1036,7 @@ declare namespace Highcharts {
          * Datetime axis only. An array determining what time intervals the ticks are allowed to fall on. Each array item is
          * an array where the first value is the time unit and the second value another array of allowed multiples.
          */
-        units?: [[string, [number]]];
+        units?: Array<[string, number[]]>;
         /**
          * Whether axis, including axis title, line, ticks and labels, should be visible.
          * @default true
@@ -1518,12 +1518,10 @@ declare namespace Highcharts {
         stops?: any[][];
         /**
          * Brighten the color
-         * @param {number} alpha
          */
         brighten?(alpha: number): Gradient;
         /**
          * Return the color a specified format
-         * @param {string} format
          */
         get?(format: string): string;
         /**
@@ -1536,8 +1534,6 @@ declare namespace Highcharts {
         rgba?: number[];
         /**
          * Set the color's opacity to a given alpha value
-         * @param  {number} alpha
-         * @return {Gradient}
          */
         setOpacity?(alpha: number): Gradient;
     }
@@ -1672,7 +1668,6 @@ declare namespace Highcharts {
         stroke?: string;
         /**
          * The button stroke width
-         * @type {[type]}
          */
         'stroke-width'?: number;
         /**
@@ -1758,9 +1753,6 @@ declare namespace Highcharts {
          * @deprecated
          */
         defaultSeriesType?: string;
-        /**
-         *
-         */
         description?: string;
         /**
          * Event listeners for the chart.
@@ -1994,6 +1986,8 @@ declare namespace Highcharts {
         position?: string;
         top?: string;
         textOutline?: string;
+        textOverflow?: string;
+        whiteSpace?: string;
     }
 
     interface CreditsOptions {
@@ -2046,7 +2040,7 @@ declare namespace Highcharts {
          * switchRowsAndColumns is set, the columns are interpreted as series.
          * @since 4.0
          */
-        columns?: Array<[string | number]>;
+        columns?: Array<Array<string | number>>;
         /**
          * The callback that is evaluated when the data is finished loading, optionally from an external source, and parsed.
          * The first argument passed is a finished chart options object, containing the series. These options can be
@@ -3669,9 +3663,6 @@ declare namespace Highcharts {
          * @default 0.1
          */
         brightness?: number;
-        /**
-         *
-         */
         color?: string | Gradient;
         /**
          * Enable separate styles for the hovered series to visualize that the user hovers either the series itself or the
@@ -4219,7 +4210,7 @@ declare namespace Highcharts {
          * @default true
          * @since 4.1.9
          */
-        softTreshold?: boolean;
+        softThreshold?: boolean;
         /**
          * Whether to stack the values of each series on top of each other. Possible values are null to disable, 'normal' to
          * stack by value or 'percent'.
@@ -5275,6 +5266,9 @@ declare namespace Highcharts {
         * interfaces (AreaChartSeriesOptions, LineChartSeriesOptions, etc.)
         */
     interface IndividualSeriesOptions {
+        size?: number | string;
+        innerSize?: number | string;
+
         type?: string;
         /**
          * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
@@ -5369,6 +5363,10 @@ declare namespace Highcharts {
          * @since 2.1
          */
         stack?: any;
+        /**
+         * The series' visibility state as set by series.show(), series.hide(), or the initial configuration.
+         */
+        visible?: boolean;
         /**
          * When using dual or multiple x axes, this number defines which xAxis the particular series is connected to. It
          * refers to either the axis id or the index of the axis in the xAxis array, with 0 being the first.
@@ -5613,7 +5611,7 @@ declare namespace Highcharts {
          * The title of the chart. To disable the title, set the text to null.
          * @default 'Chart title'
          */
-        text?: string;
+        text?: string | null;
         /**
          * Whether to {@link http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html|use HTML} to render the text.
          * @default false
@@ -6065,13 +6063,13 @@ declare namespace Highcharts {
     interface AxisObject {
         /**
          * Add a plot band after render time.
-         * @param {PlotBands} options A configuration object consisting of the same members as options.xAxis.plotBands
+         * @param options A configuration object consisting of the same members as options.xAxis.plotBands
          * @since 1.2.0
          */
         addPlotBand(options: PlotBands): void;
         /**
          * Add a plot line after render time.
-         * @param {PlotLines} options A configuration object consisting of the same members as options.xAxis.plotLines
+         * @param options A configuration object consisting of the same members as options.xAxis.plotLines
          * @since 1.2.0
          */
         addPlotLine(options: PlotLines): void;
@@ -6088,26 +6086,26 @@ declare namespace Highcharts {
         remove(redraw?: boolean): void;
         /**
          * Remove a plot band by its id.
-         * @param {string} id The plot band's id as given in the original configuration object or in the addPlotBand method.
+         * @param id The plot band's id as given in the original configuration object or in the addPlotBand method.
          * @since 1.2.0
          */
         removePlotBand(id: string): void;
         /**
          * Remove a plot line by its id.
-         * @param {string} id The plot line's id as given in the original configuration object or in the addPlotLine method.
+         * @param id The plot line's id as given in the original configuration object or in the addPlotLine method.
          * @since 1.2.0
          */
         removePlotLine(id: string): void;
         /**
          * Set new categories for the axis. Redraws.
-         * @param {string[]} categories The new category names.
+         * @param categories The new category names.
          * @since 1.2.0
          */
         setCategories(categories: string[]): void;
         /**
          * Set new categories for the axis.
-         * @param {string[]} categories The new category names.
-         * @param {boolean}  redraw     Whether to redraw the axis or wait for an explicit call to chart.redraw().
+         * @param categories The new category names.
+         * @param  redraw     Whether to redraw the axis or wait for an explicit call to chart.redraw().
          * @since 1.2.0
          */
         setCategories(categories: string[], redraw: boolean): void;
@@ -6116,42 +6114,40 @@ declare namespace Highcharts {
          * minimum and maximum values are rounded off to the nearest tick. To prevent this, these options can be set to
          * false before calling setExtremes. Also, setExtremes will not allow a range lower than the minRange option, which
          * by default is the range of five points.
-         * @param {number} min The new minimum value
-         * @param {number} max The new maximum value
-         * @param {boolean} redraw Whether to redraw the chart or wait for an explicit call to chart.redraw().
-         * @param {boolean | Animation} animation When true, the resize will be animated with default animation options.
+         * @param min The new minimum value
+         * @param max The new maximum value
+         * @param redraw Whether to redraw the chart or wait for an explicit call to chart.redraw().
+         * @param animation When true, the resize will be animated with default animation options.
          * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
         setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | Animation, eventArguments?: any): void;
         /**
          * Update the title of the axis after render time.
-         * @param {AxisTitle} title  The new title options on the same format as given in xAxis.title.
-         * @param {boolean}             redraw Whether to redraw the chart now or hold until the next chart.redraw()
+         * @param title  The new title options on the same format as given in xAxis.title.
+         * @param             redraw Whether to redraw the chart now or hold until the next chart.redraw()
          * @since 2.2
          */
         setTitle(title: AxisTitle, redraw?: boolean): void;
         /**
          * Translates a value in terms of axis units in to pixels within the chart.
-         * @param  {number}  value           A value in terms of axis units.
-         * @param  {boolean} paneCoordinates Whether to return the pixel coordinate relative to the chart or just the axis/pane itself.
-         * @return {number}
+         * @param   value           A value in terms of axis units.
+         * @param  paneCoordinates Whether to return the pixel coordinate relative to the chart or just the axis/pane itself.
          * @since 3.0
          */
         toPixels(value: number, paneCoordinates?: boolean): number;
         /**
          * Translate a pixel position along the axis to a value in terms of axis units.
-         * @param  {number}  pixel           A pixel position along the axis.
-         * @param  {boolean} paneCoordinates Whether the input pixel position is relative to the chart or just the axis/pane itself.
-         * @return {number}
+         * @param   pixel           A pixel position along the axis.
+         * @param  paneCoordinates Whether the input pixel position is relative to the chart or just the axis/pane itself.
          * @since 3.0
          */
         toValue(pixel: number, paneCoordinates?: boolean): number;
         /**
          * Update an axis object with a new set of options. The options are merged with the existing options, so only new or
          * altered options need to be specified.
-         * @param {AxisOptions} options The new options that will be merged in with existing options on the axis.
-         * @param {boolean}               redraw  Defaults to true. Whether to redraw the chart after the new options are set.
+         * @param options The new options that will be merged in with existing options on the axis.
+         * @param               redraw  Defaults to true. Whether to redraw the chart after the new options are set.
          * @since 3.0
          */
         update(options: AxisOptions, redraw?: boolean): void;
@@ -6167,12 +6163,11 @@ declare namespace Highcharts {
          * Add an axis to the chart after render time. Note that this method should never be used when adding data
          * synchronously at chart render time, as it adds expense to the calculations and rendering. When adding data at the
          * same time as the chart is initiated, add the axis as a configuration option instead.
-         * @param  {AxisOptions} options The Axis options, as documented under xAxis and yAxis.
+         * @param  options The Axis options, as documented under xAxis and yAxis.
          * @param  [boolean] isX Whether it is an X axis or Y axis
          * @param  [boolean] redraw Defaults to true. Whether to redraw the chart after the series is added. See the redraw() method.
          * @param  [boolean | Animation] animation Defaults to true. When true, the series' updating will be animated with default animation options.
          * The animation can also be a configuration object with properties duration and easing.
-         * @return {AxisObject}
          * @since 3.0
          */
         addAxis(options: AxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | Animation): AxisObject;
@@ -6186,7 +6181,7 @@ declare namespace Highcharts {
          * Add a series to the chart after render time. Note that this method should never be used when adding data
          * synchronously at chart render time, as it adds expense to the calculations and rendering. When adding data at the
          * same time as the chart is initiated, add the series as a configuration option instead.
-         * @param {T} options The series options, as documented under plotOptions.series and under the plotOptions for each series type.
+         * @param options The series options, as documented under plotOptions.series and under the plotOptions for each series type.
          * @param [boolean] redraw
          * @since 1.2.0
          */
@@ -6195,8 +6190,8 @@ declare namespace Highcharts {
          * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
          * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
          * series. When not async, the setup is simpler using the drilldown.series options structure.
-         * @param {PointObject} point The existing Point object from which the drilldown will start.
-         * @param {IndividualSeriesOptions} seriesOptions The series options, as documented under plotOptions.series and under the plotOptions for each series type.
+         * @param point The existing Point object from which the drilldown will start.
+         * @param seriesOptions The series options, as documented under plotOptions.series and under the plotOptions for each series type.
          * @since 3.0.8
          */
         addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
@@ -6230,7 +6225,7 @@ declare namespace Highcharts {
         /**
          * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
          * conversion.
-         * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
+         * @param options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
          * All options default to the values given in the exporting config options. filename: the filename for the export without extension,
          * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server,
          * type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
@@ -6240,11 +6235,11 @@ declare namespace Highcharts {
         /**
          * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
          * conversion.
-         * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
+         * @param options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
          * All options default to the values given in the exporting config options. filename: the filename for the export without extension,
          * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server,
          * type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
-         * @param {Options} chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
+         * @param chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
          * @since 2.0
          */
         exportChart(options: ExportingOptions, chartOptions: Options): void;
@@ -6257,7 +6252,7 @@ declare namespace Highcharts {
         /**
          * Export the chart to a PNG or SVG without sending it to a server. Requires
          * modules/exporting.js and modules/offline-exporting.js.
-         * @param {ExportingOptions} options Exporting options. Same as
+         * @param options Exporting options. Same as
          * the exportChart params.
          * @since 2.0
          */
@@ -6265,39 +6260,37 @@ declare namespace Highcharts {
         /**
          * Export the chart to a PNG or SVG without sending it to a server.
          * Requires modules/exporting.js and modules/offline-exporting.js.
-         * @param {ExportingOptions} options Exporting options. Same as
+         * @param options Exporting options. Same as
          * the exportChart params.
-         * @param {Options} chartOptions Additional chart options for the
+         * @param chartOptions Additional chart options for the
          * exported chart. Same as the exportChart params.
          * @since 2.0
          */
         exportChartLocal(options: ExportingOptions, chartOptions: Options): void;
         /**
          * Get an axis, series or point by its id as given in the configuration options.
-         * @param  {string} id The id of the axis, series or point to get.
-         * @return {AxisObject|SeriesObject|PointObject}
+         * @param  id The id of the axis, series or point to get.
          * @since 1.2.0
          */
         get(id: string): AxisObject | SeriesObject | PointObject;
         /**
          * Exporting module required. Get an SVG string representing the chart.
-         * @param  {Options} additionalOptions Chart options to add to the exported chart in addition to the options given for the original chart.
+         * @param  additionalOptions Chart options to add to the exported chart in addition to the options given for the original chart.
          * For example if series.lineWidth should be greater in the exported chart than in the original, or the chart should have a different background color, this is added here.
-         * @return {string}
          * @since 2.0
          */
         getSVG(additionalOptions?: Options): string;
         /**
          * Returns an array of all currently selected points in the chart. Points can be selected either programmatically by
          * the point.select() method or by clicking.
-         * @return {PointObject[]} An array of the selected points.
+         * @return An array of the selected points.
          * @since 1.2.0
          */
         getSelectedPoints(): PointObject[];
         /**
          * Returns an array of all currently selected series in the chart. Series can be selected either programmatically by
          * the series.select() method or by checking the checkbox next to the legend item if series.showCheckBox is true.
-         * @return {SeriesObject[]} An array of the selected Series items.
+         * @return An array of the selected Series items.
          * @since 1.2.0
          */
         getSelectedSeries(): SeriesObject[];
@@ -6336,21 +6329,20 @@ declare namespace Highcharts {
         reflow(): void;
         /**
          * An array of all the chart's series.
-         * @type {SeriesObject[]}
          * @since 1.2.0
          */
         series: SeriesObject[];
         /**
          * Resize the chart to a given width and height.
-         * @param {number} width The new pixel width of the chart.
-         * @param {number} height The new pixel height of the chart.
-         * @param {boolean | Animation} animation Defaults to true. When true, the resize will be animated with default animation options.
+         * @param width The new pixel width of the chart.
+         * @param height The new pixel height of the chart.
+         * @param animation Defaults to true. When true, the resize will be animated with default animation options.
          *  The animation can also be a configuration object with properties duration and easing.
          */
         setSize(width: number, height: number, animation?: boolean | Animation): void;
         /**
          * Set a new title or subtitle for the chart
-         * @param {TitleOptions} title A configuration object for the new title as defined at #title.
+         * @param title A configuration object for the new title as defined at #title.
          * @param [SubtitleOptions] subtitle A configuration object for the new subtitle as defined at #subtitle.
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @since 2.1.0
@@ -6380,11 +6372,11 @@ declare namespace Highcharts {
          * found, the first item is updated. So for example, running chart.update with a series item without an id, will cause
          * the existing chart's first series to be updated.
          * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
-         * @param {ChartOptions} option A configuration object for the new chart options as defined in the options section of the API.
+         * @param option A configuration object for the new chart options as defined in the options section of the API.
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @since 5.0.0
          */
-        update(options: ChartOptions, redraw?: boolean): void;
+        update(options: Options, redraw?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5
@@ -6410,36 +6402,32 @@ declare namespace Highcharts {
     interface Chart {
         /**
          * This is the constructor for creating a new chart object.
-         * @param  {Options} options The chart options
-         * @return {ChartObject}
+         * @param  options The chart options
          */
         new (options: Options): ChartObject;
         /**
          * This is the constructor for creating a new chart object.
-         * @param {Options} options The chart options
+         * @param options The chart options
          * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread,
          * but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready,
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * s a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
-         * @return {ChartObject}
          */
         new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
         /**
          * This is the constructor for creating a new chart object.
-         * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
-         * @param {Options} options The chart options
-         * @return {ChartObject}
+         * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
+         * @param options The chart options
          */
         new (renderTo: string | HTMLElement, options: Options): ChartObject;
         /**
          * This is the constructor for creating a new chart object.
-         * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
-         * @param {Options} options The chart options
+         * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
+         * @param options The chart options
          * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread,
          * but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready,
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
-         * @return {ChartObject}
          */
         new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
     }
@@ -6452,18 +6440,16 @@ declare namespace Highcharts {
     interface ElementObject {
         /**
          * Add the element to the renderer canvas.
-         * @param  {ElementObject} parent The element can be added to a g (group) element.
-         * @return {ElementObject}
+         * @param  parent The element can be added to a g (group) element.
          * @since 2.0
          */
         add(parent?: ElementObject): ElementObject;
         /**
          * Apply numeric attributes to the SVG/VML element by animation. See Element.attr() for more information on setting
          * attributes.
-         * @param  {any} attributes A set of attributes to apply.
-         * @param  {any} animation Optional animation parameters that are passed over to jQuery or other framework.
+         * @param  attributes A set of attributes to apply.
+         * @param  animation Optional animation parameters that are passed over to jQuery or other framework.
          * Valid properties depend on the library, but options like duration, easing and complete are supported by jQuery.
-         * @return {ElementObject}
          * @since 2.0
          */
         animate(attributes: any, animation?: any): ElementObject;
@@ -6475,15 +6461,13 @@ declare namespace Highcharts {
          * to position the element instead.
          *
          * Attributes frequently used in Highcharts are fill, stroke, stroke-width.
-         * @param  {any} hash A set of attributes to apply.
-         * @return {ElementObject}
+         * @param  hash A set of attributes to apply.
          * @since 2.0
          */
         attr(hash: any): ElementObject;
         /**
          * Apply some CSS properties to the element
-         * @param {Object} hash The object literal of CSS properties to apply. Properties should be hyphenated, not camelCased.
-         * @return {ElementObject}
+         * @param hash The object literal of CSS properties to apply. Properties should be hyphenated, not camelCased.
          * @since 2.0
          */
         css(hash: Object): ElementObject;
@@ -6501,15 +6485,14 @@ declare namespace Highcharts {
         getBBox(): { x: number; y: number; height: number; width: number; };
         /**
          * Apply an event handler to the element
-         * @param {string} eventType The event type to attach, for example 'click', 'mouseover', 'touch'.
+         * @param eventType The event type to attach, for example 'click', 'mouseover', 'touch'.
          * @param handler The event handler function.
-         * @return {ElementObject}
          * @since 2.0
          */
         on(eventType: string, handler: () => void): ElementObject;
         /**
          * Bring the element to the front. Alternatively, a zIndex attribute can be given.
-         * @return {ElementObject} The element object
+         * @return The element object
          * @since 2.0
          */
         toFront(): ElementObject;
@@ -6530,22 +6513,20 @@ declare namespace Highcharts {
     interface RendererObject {
         /**
          * Draw an arc on the renderer canvas.
-         * @param  {number} centerX The x position of the arc's center in the SVG element.
-         * @param  {number} centerY The y position of the arc's center in the SVG element.
-         * @param  {number} outerRadius The outer radius of the arc.
-         * @param  {number} innerRadius The inner radius of the arc.
-         * @param  {number} start The starting angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
-         * @param  {number} end The ending angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
-         * @return {ElementObject}
+         * @param  centerX The x position of the arc's center in the SVG element.
+         * @param  centerY The y position of the arc's center in the SVG element.
+         * @param  outerRadius The outer radius of the arc.
+         * @param  innerRadius The inner radius of the arc.
+         * @param  start The starting angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
+         * @param  end The ending angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
          * @since 2.0
          */
         arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number): ElementObject;
         /**
          * Draw circle on the renderer canvas.
-         * @param  {number} centerX The x position of the circle's center in the SVG element.
-         * @param  {number} centerY The y position of the circle's center in the SVG element.
-         * @param  {number} radius  [description]
-         * @return {ElementObject}
+         * @param  centerX The x position of the circle's center in the SVG element.
+         * @param  centerY The y position of the circle's center in the SVG element.
+         * @param  radius  [description]
          * @since 2.0
          */
         circle(centerX: number, centerY: number, radius: number): ElementObject;
@@ -6553,26 +6534,24 @@ declare namespace Highcharts {
          * Styled mode only. A hook for adding general definitions to the SVG's defs tag. Definitions can be referenced from
          * the CSS by its id. Read more in Gradients, shadows and patterns.
          * The definitions can also be added as configuration options, see defs.
-         * @param {def} A serialized form of an SVG definition, including children.
+         * @param A serialized form of an SVG definition, including children.
          * @since 5.0.0
          */
-        definition(def: object): Highcharts.ElementObject;
+        definition(def: object): ElementObject;
         /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.
          * Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
-         * @return {ElementObject}
          * @since 2.0
          */
         g(name?: string): ElementObject;
         /**
          * Add an image from an external resource.
-         * @param  {string} source The URL of the image.
-         * @param  {number} x      The x position of the image's upper left corner.
-         * @param  {number} y      The y position of the image's upper left corner.
-         * @param  {number} width  The width of the image.
-         * @param  {number} height The height of the image.
-         * @return {ElementObject}
+         * @param  source The URL of the image.
+         * @param  x      The x position of the image's upper left corner.
+         * @param  y      The y position of the image's upper left corner.
+         * @param  width  The width of the image.
+         * @param  height The height of the image.
          * @since 2.0
          */
         image(source: string, x: number, y: number, width: number, height: number): ElementObject;
@@ -6581,9 +6560,9 @@ declare namespace Highcharts {
          * element with a text and a path or rect inside, to make it behave somewhat like a HTML div. Border and background
          * are set through stroke, stroke-width and fill attributes using the attr method. This must be done before calling
          * add.
-         * @param  {string} str The text or HTML to draw
-         * @param  {number} x The x position of the label's left side.
-         * @param  {number} y The y position of the label's top side or baseline, depending on the baseline parameter.
+         * @param  str The text or HTML to draw
+         * @param  x The x position of the label's left side.
+         * @param  y The y position of the label's top side or baseline, depending on the baseline parameter.
          * @param  [string] shape The shape of the label's border/background, if any. Defaults to rect.
          * @param  [number] anchorX If the shape has a pointer, like the chevron on a callout shape, anchorX is the x position to point to.
          * @param  [number] anchorY If the shape has a pointer, like the chevron on a callout shape, anchorY is the y position to point to.
@@ -6591,35 +6570,31 @@ declare namespace Highcharts {
          * @param  [boolean] baseline Whether the label should be vertically aligned by the text baseline, which makes it behave like the text element,
          * or by the top left side, which makes it behave like a HTML div.
          * @param  [string] className A class name for the g element surrounding the label.
-         * @return {ElementObject}
          * @since 2.0
          */
         label(str: string, x: number, y: number, shape?: string, anchorX?: number, anchorY?: number, useHTML?: boolean, baseline?: boolean, className?: string): ElementObject;
         /**
          * Add a path based on SVG's path commands. In SVG capable browsers all path commands are supported, but in VML only
          * a subset is supported: absolute moveTo (M), absolute lineTo (L), absolute curveTo (C) and close (Z).
-         * @param  {(string|number)[]} path An SVG path split up in array form.
-         * @return {ElementObject}
+         * @param  path An SVG path split up in array form.
          */
-        path(path: [string | number]): ElementObject;
+        path(path: Array<string | number>): ElementObject;
         /**
          * Add a rectangle.
-         * @param  {number} x The x position of the rectangle's upper left corner.
-         * @param  {number} y The y position of the rectangle's upper left corner.
-         * @param  {number} width The width of the rectangle.
-         * @param  {number} height The height of the rectangle.
-         * @param  {number} cornerRadius The corner radius of all the rectangle's corners.
-         * @return {ElementObject}
+         * @param  x The x position of the rectangle's upper left corner.
+         * @param  y The y position of the rectangle's upper left corner.
+         * @param  width The width of the rectangle.
+         * @param  height The height of the rectangle.
+         * @param  cornerRadius The corner radius of all the rectangle's corners.
          * @since 2.0
          */
         rect(x: number, y: number, width: number, height: number, cornerRadius: number): ElementObject;
         /**
          * Draw text. The text can contain a subset of HTML, like spans and anchors and some basic text styling of these.
          * For more advanced features like border and background, use label instead.
-         * @param  {string} str The text or HTML to draw
-         * @param  {number} x The x position of the text's lower left corner.
-         * @param  {number} y The y position of the text's lower left corner.
-         * @return {ElementObject}
+         * @param  str The text or HTML to draw
+         * @param  x The x position of the text's lower left corner.
+         * @param  y The y position of the text's lower left corner.
          * @since 2.0
          */
         text(str: string, x: number, y: number): ElementObject;
@@ -6654,10 +6629,9 @@ declare namespace Highcharts {
          * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a human readable date string. The
          * format is a subset of the formats for PHP's strftime function. Additional formats can be given in the
          * Highcharts.dateFormats hook, see below.
-         * @param  {string} format A string containing some of the formats.
+         * @param  format A string containing some of the formats.
          * @param  [number] time The JavaScript time to format.
          * @param  [boolean] capitalize Whether to capitalize words in the return string.
-         * @return {string}
          */
         dateFormat(format: string, time?: number, capitalize?: boolean): string;
         /**
@@ -6669,27 +6643,25 @@ declare namespace Highcharts {
         /**
          * The error handler function. By default is provides error messages for debugging, with links to the descriptions on Highcharts website.
          * This function can be redefined to catch errors in client applications.
-         * @param {code} Number|String The error code. If this is a number, the default error function prints a link to a human readable error code
+         * @param Number|String The error code. If this is a number, the default error function prints a link to a human readable error code
          * description according to error definition file. If it's a string, the description is printed in the console.
-         * @param {fatal} Whether the error should stop execution.
+         * @param Whether the error should stop execution.
          * @since 5.0.6
          */
         error(code: number | string, fatal: boolean): Function;
         /**
          * Formats a JavaScript number with grouped thousands, a fixed amount of decimals and an optional decimal point. It
          * is a port of PHP's function with the same name. See PHP number_format for a full explanation of the parameters.
-         * @param  {number} value        The raw number to format.
-         * @param  {number} decimals     The desired number of decimals.
-         * @param  {string} decimalPoint The decimal point. Defaults to '.' or to the string specified globally in options.lang.decimalPoint.
-         * @param  {string} thousandsSep The thousands separator. Defaults to ' ' or to the string specified globally in options.lang.thousandsSep.
-         * @return {string}
+         * @param  value        The raw number to format.
+         * @param  decimals     The desired number of decimals.
+         * @param  decimalPoint The decimal point. Defaults to '.' or to the string specified globally in options.lang.decimalPoint.
+         * @param  thousandsSep The thousands separator. Defaults to ' ' or to the string specified globally in options.lang.thousandsSep.
          */
         numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
         /**
          * Sets the options globally for all charts created after this has been called. Takes an options JavaScript object
          * structure as the argument. These options are merged with the default options and the result is returned.
          * @param options The chart configuration object.
-         * @return {Options}
          */
         setOptions(options: GlobalOptions): Options;
         /**
@@ -6768,12 +6740,12 @@ declare namespace Highcharts {
         total: number;
         /**
          * Update the point with new values.
-         * @param {number|[number,number]|DataPoint} options The point options. Point options are handled as described under the series<type>.data item for each series type.
+         * @param options The point options. Point options are handled as described under the series<type>.data item for each series type.
          * For example for a line series, if options is a single number, the point will be given that number as the main y value. If it is an array,
          * it will be interpreted as x and y values respectively. If it is an object, advanced options are applied.
          * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is updated.If doing more operations on the chart,
          * it is a good idea to set redraw to false and call chart.redraw() after.
-         * @param {boolean|Animation} animation Defaults to true. When true, the update will be animated with default animation options.
+         * @param animation Defaults to true. When true, the update will be animated with default animation options.
          * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
@@ -6808,7 +6780,7 @@ declare namespace Highcharts {
         /**
          * Add a point to the series after render time. The point can be added at the end, or by giving it an X value, to
          * the start or in the middle of the series.
-         * @param {number|[number,number]|DataPoint} The point options. If options is a single number, a point with that y value is appended to the series.
+         * @param The point options. If options is a single number, a point with that y value is appended to the series.
          * If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options as outlined under series.data are applied.
          * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point,
          * it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
@@ -6855,7 +6827,7 @@ declare namespace Highcharts {
         /**
          * Remove a point from the series. Unlike the Point.remove method, this can also be done on a point that is not
          * instanciated because it is outside the view or subject to data grouping.
-         * @param {number} index - The index of the point in the data array.
+         * @param index - The index of the point in the data array.
          * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point,
          * it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
          * @param [boolean|Animation=true] animation - When true, the graph will be animated with default animation options.
@@ -6878,7 +6850,7 @@ declare namespace Highcharts {
         /**
          * Apply a new set of data to the series and optionally redraw it. Note that this method throws away all points and
          * creates new ones. For updating the values of existing points, use Point.update() instead.
-         * @param {number[]|number[][]|DataPoint[]} data - Takes an array of data in the same format as described under series<type>data for the given series type.
+         * @param data - Takes an array of data in the same format as described under series<type>data for the given series type.
          * @param [boolean=true] redraw - Whether to redraw the chart after the series is altered.If doing more operations on the chart,
          * it is a good idea to set redraw to false and call chart.redraw() after.
          * @param [boolean|Animation] animation - When the updated data is the same length as the existing data, points will be updated by default,
@@ -6910,7 +6882,7 @@ declare namespace Highcharts {
          * Update the series with a new set of options. For a clean and precise handling of new options, all methods and
          * elements from the series is removed, and it is initiated from scratch. Therefore, this method is more performance
          * expensive than some other utility methods like setData or setVisible.
-         * @param {IndividualSeriesOptions} options New options that will be merged into the series' existing options.
+         * @param options New options that will be merged into the series' existing options.
          * @param [boolean] redraw - Whether to redraw the chart after the series is altered. If doing more operations on the chart,
          * it is a good idea to set redraw to false and call chart.redraw() after.
          * @since 1.2.0
@@ -6936,7 +6908,7 @@ declare namespace Highcharts {
     interface LegendObject {
         /**
          * Update the legend with new options.
-         * @param {LegendOptions} options New options that will be merged into the legend's existing options.
+         * @param options New options that will be merged into the legend's existing options.
          * @param [boolean] redraw - Whether to redraw the chart. Defaults to true.
          * @since 5.0.0
          */
@@ -6950,14 +6922,14 @@ declare global {
         /**
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
-         * @param {Options} options Options for this chart
+         * @param options Options for this chart
          * @return current {JQuery} selector the current JQuery selector
          */
         highcharts(options: Highcharts.Options): JQuery;
         /**
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
-         * @param {Options} options Options for this chart
+         * @param options Options for this chart
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current {JQuery} selector the current JQuery selector
          */

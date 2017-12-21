@@ -37,6 +37,8 @@ interface IQueryAPI {
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
     filter(predicate: (document: Object) => boolean,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
+    filter(predicate: (document: Object) => boolean,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
     filter<T>(predicate: (document: Object) => boolean,
@@ -49,6 +51,8 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
+    map(predicate: (document: Object) => Object,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
     map(predicate: (document: Object) => Object,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
@@ -63,6 +67,8 @@ interface IQueryAPI {
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
     pluck(propertyName: string,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
+    pluck(propertyName: string,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
     pluck<T>(propertyName: string,
@@ -76,6 +82,8 @@ interface IQueryAPI {
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
     flatten(isShallow?: boolean,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
+    flatten(isShallow?: boolean,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
     flatten<T>(isShallow?: boolean,
@@ -88,16 +96,12 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    sortBy(predicate: (document: Object) => string,
+    sortBy(predicate: (document: Object) => string | number,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
+    sortBy(predicate: (document: Object) => string | number,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortBy(predicate: (document: Object) => number,
-        options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortBy<T>(predicate: (document: Object) => string,
-        options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortBy<T>(predicate: (document: Object) => number,
+    sortBy<T>(predicate: (document: Object) => string | number,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
     /**
@@ -107,16 +111,12 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    sortByDescending(predicate: (document: Object) => string,
+    sortByDescending(predicate: (document: Object) => string | number,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
+    sortByDescending(predicate: (document: Object) => string | number,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortByDescending(predicate: (document: Object) => number,
-        options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortByDescending<T>(predicate: (document: Object) => string,
-        options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortByDescending<T>(predicate: (document: Object) => number,
+    sortByDescending<T>(predicate: (document: Object) => string | number,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
     /**
@@ -125,19 +125,20 @@ interface IQueryAPI {
      * @param options Optional query options for the entire chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body.
      */
+    value(callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
     value(options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
     value<T>(options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
 }
-	
+
 /**
  * Stored procedures and triggers are registered for a particular collection. The Collection object supports create, read, update and delete (CRUD) and query operations on documents and attachments in the current collection.
  * All collection operations are completed asynchronously. You can provide a callback to handle the result of the operation, and to perform error handling if necessary.
  * Stored procedures and triggers are executed in a time-limited manner. Long-running stored procedures and triggers are defensively timed out and all transactions performed are rolled back.
  * We stop queuing collection operations if the stored procedure is close to timing out. You can inspect the boolean return value of all collection operations to see if an operation was not queued and handle this situation gracefully.
  */
-interface ICollection extends IQueryAPI {		
+interface ICollection extends IQueryAPI {
     /** Opening call to start a chained query. Should be used in conjunction with the closing value call to perform chained queries. */
     chain(): IQueryResponse;
 
@@ -150,9 +151,12 @@ interface ICollection extends IQueryAPI {
      */
     createAttachment(documentLink: string,
         body: IAttachment,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    createAttachment(documentLink: string,
+        body: IAttachment,
         options?: ICreateOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-			
+
 	/**
 	 * Create a document under the collection.
 	 * @param collectionLink resource link of the collection under which the document will be created
@@ -162,9 +166,12 @@ interface ICollection extends IQueryAPI {
 	 */
     createDocument(collectionLink: string,
         body: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    createDocument(collectionLink: string,
+        body: Object,
         options?: ICreateOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-		
+
 	/**
 	 * Delete an attachment.
 	 * @param attachmentLink resource link of the attachment to be deleted
@@ -172,9 +179,11 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     deleteAttachment(attachmentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    deleteAttachment(attachmentLink: string,
         options?: IDeleteOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-		
+
 	/**
 	 * Delete a document.
 	 * @param documentLink resource link of the document to delete
@@ -182,15 +191,17 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     deleteDocument(documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    deleteDocument(documentLink: string,
         options?: IDeleteOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-		
+
     /** Get alt link (name-based link) of current collection. */
     getAltLink(): string;
 
     /** Get self link of current collection. */
     getSelfLink(): string;
-		
+
 	/**
 	 * Execute a SQL query on the attachments for the document.
 	 * @param documentLink resource link of the document whose attachments are being queried
@@ -199,14 +210,13 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     queryAttachments(documentLink: string,
-        query: string,
-        options?: IFeedOptions,
+        query: string | IParameterizedQuery,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
     queryAttachments(documentLink: string,
-        query: IParameterizedQuery,
+        query: string | IParameterizedQuery,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-		
+
 	/**
 	 * Execute a SQL query on the documents of the collection.
 	 * @param collectionLink resource link of the collection whose documents are being queried
@@ -216,6 +226,9 @@ interface ICollection extends IQueryAPI {
 	 */
     queryDocuments(collectionLink: string,
         filterQuery: string,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    queryDocuments(collectionLink: string,
+        filterQuery: string,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments<T>(collectionLink: string,
@@ -224,13 +237,16 @@ interface ICollection extends IQueryAPI {
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments(collectionLink: string,
         filterQuery: IParameterizedQuery,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    queryDocuments(collectionLink: string,
+        filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments<T>(collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
-			
+
 	/**
 	 * Read an Attachment.
 	 * @param attachmenLink resource link of the attachment to read
@@ -238,9 +254,11 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     readAttachment(attachmenLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    readAttachment(attachmenLink: string,
         options?: IReadOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-			
+
 	/**
 	 * Get all attachments for the document.
 	 * @param documentLink resource link of the document whose attachments are being read
@@ -248,9 +266,11 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     readAttachments(documentLink: string,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    readAttachments(documentLink: string,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-		
+
 	/**
 	 * Read a document.
 	 * @param documentLink resource link of the document to read
@@ -258,12 +278,14 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     readDocument(documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    readDocument(documentLink: string,
         options?: IReadOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
     readDocument<T>(documentLink: string,
         options?: IReadOptions,
         callback?: (error: IRequestCallbackError, resources: T, options: IRequestCallbackOptions) => void): boolean;
-		
+
 	/**
 	 * Get all documents for the collection.
 	 * @param collectionLink resource link of the collection whose documents are being read
@@ -271,12 +293,14 @@ interface ICollection extends IQueryAPI {
 	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
 	 */
     readDocuments(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    readDocuments(collectionLink: string,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
     readDocuments<T>(collectionLink: string,
         options?: IFeedOptions,
         callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
-			
+
 	/**
 	 * Replace an attachment.
 	 * @param attachmentLink resource link of the attachment to be replaced
@@ -286,9 +310,12 @@ interface ICollection extends IQueryAPI {
 	 */
     replaceAttachment(attachmentLink: string,
         attachment: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    replaceAttachment(attachmentLink: string,
+        attachment: Object,
         options?: IReplaceOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-			
+
 	/**
 	 * Replace a document.
 	 * @param documentLink resource link of the document
@@ -298,10 +325,13 @@ interface ICollection extends IQueryAPI {
 	 */
     replaceDocument(documentLink: string,
         document: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    replaceDocument(documentLink: string,
+        document: Object,
         options?: IReplaceOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 }
-	
+
 /** Options associated with a create operation. */
 interface ICreateOptions {
     /** Specifies indexing directives. */
@@ -309,7 +339,7 @@ interface ICreateOptions {
     /** Disables automatic generation of "id" field of the document to be created (if it is not provided) */
     disableAutomaticIdGeneration?: string;
 }
-	
+
 /** Options associated with a delete operation. */
 interface IDeleteOptions {
 	/**
@@ -318,7 +348,7 @@ interface IDeleteOptions {
 	 */
     etag?: string;
 }
-	
+
 /** Will contain error information if an error occurs, undefined otherwise. */
 interface IFeedCallbackError {
     /** The HTTP response code corresponding to the error. */
@@ -326,7 +356,7 @@ interface IFeedCallbackError {
     /** A string containing the error information. */
     body: string;
 }
-	
+
 /** Information associated with the response to the operation. */
 interface IFeedCallbackOptions {
     /** Opaque token for continuing the read feed or query. */
@@ -336,7 +366,7 @@ interface IFeedCallbackOptions {
     /** Comma delimited string containing the collection's maximum quota metrics (storage, number of stored procedure, triggers and UDFs). */
     maxCollectionSizeInMB: string;
 }
-	
+
 /** Options associated with a read feed or query operation. */
 interface IFeedOptions {
 	/**
@@ -360,13 +390,13 @@ interface IQueryResponse extends IQueryAPI {
     /** True if the query has been queued, false if it is not queued because of a pending timeout. */
     isAccepted: boolean;
 }
-	
+
 /** Options associated with a read operation. */
 interface IReadOptions {
     /** The conditional HTTP method ifNoneMatch value. */
     ifNoneMatch?: string;
 }
-	
+
 /** Options associated with a replace operation. */
 interface IReplaceOptions {
     /** Specifies indexing directives. */
@@ -377,7 +407,7 @@ interface IReplaceOptions {
 	 */
     etag?: string;
 }
-	
+
 /** Will contain error information if an error occurs, undefined otherwise. */
 interface IRequestCallbackError {
     /** The HTTP response code corresponding to the error. */
@@ -385,7 +415,7 @@ interface IRequestCallbackError {
     /** A string containing the error information. */
     body: string;
 }
-	
+
 /** Information associated with the response to the operation. */
 interface IRequestCallbackOptions {
     /** Comma delimited string containing the collection's current quota metrics (storage, number of stored procedure, triggers and UDFs) after completion of the operation. */
@@ -411,7 +441,7 @@ interface IDocumentMeta extends Object {
     _etag?: string;
     _attachments?: string;
 }
-	
+
 /**
  * The Request object represents the request message that was sent to the server. This includes information about HTTP headers and the body of the HTTP request sent to the server.
  * For triggers, the request represents the operation that is executing when the trigger is run. For example, if the trigger is being run ("triggered") on the creation of a document, then
@@ -445,7 +475,7 @@ interface IRequest {
 	 */
     setValue(key: string, value: string): void;
 }
-	
+
 /**
  * The Response object represents the response message that will be sent from the server in response to the requested operation. This includes information about the HTTP headers and body of the response from the server.
  * The Response object is not present in pre-triggers because they are run before the response is generated.

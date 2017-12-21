@@ -1,7 +1,11 @@
 import * as fetchMock from "fetch-mock";
-import { MockResponse } from "fetch-mock";
 
 fetchMock.mock("http://test.com", 200);
+fetchMock.mock("http://test.com", 200, {
+    headers: {
+        test: "header"
+    }
+});
 fetchMock.mock(/test\.com/, 200);
 fetchMock.mock(() => true, 200);
 fetchMock.mock((url, opts) => true, 200);

@@ -75,34 +75,49 @@ export interface DownloadImgopts {
 
 export type Root = string | HTMLElement;
 
-export function newPlot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
-export function plot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function plot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
 export const d3: any;
-export function restyle(root: Root, aobj: Partial<Data>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
-export function update(root: Root, traceUpdate: Partial<Data>, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
-export function addTraces(root: Root, traces: Partial<Data> | Array<Partial<Data>>, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
+export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
+export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
+export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
 export function moveTraces(root: Root, currentIndices: number[] | number, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
-export function extendTraces(root: Root, update: Partial<Data> | Array<Partial<Data>>, indices: number | number[]): Promise<PlotlyHTMLElement>;
-export function prependTraces(root: Root, update: Partial<Data> | Array<Partial<Data>>, indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function extendTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
 
 // Layout
 export interface Layout {
 	title: string;
+	titlefont: Partial<Font>;
 	autosize: boolean;
 	showlegend: boolean;
-	xaxis: Partial<Axis>;
-	yaxis: Partial<Axis>;
+	paper_bgcolor: Color;
+    plot_bgcolor: Color;
+    separators: string;
+    hidesources: boolean;
+    xaxis: Partial<LayoutAxis>;
+	yaxis: Partial<LayoutAxis>;
+	yaxis2: Partial<LayoutAxis>;
+	yaxis3: Partial<LayoutAxis>;
+	yaxis4: Partial<LayoutAxis>;
+	yaxis5: Partial<LayoutAxis>;
+	yaxis6: Partial<LayoutAxis>;
+	yaxis7: Partial<LayoutAxis>;
+	yaxis8: Partial<LayoutAxis>;
+	yaxis9: Partial<LayoutAxis>;
 	margin: Partial<Margin>;
 	height: number;
 	width: number;
-	hovermode: "closest" | "x" | "y" | false;
-	'xaxis.range': [Datum, Datum];
+	hovermode: 'closest' | 'x' | 'y' | false;
+	hoverlabel: Partial<Label>;
+	calendar: Calendar;
+    'xaxis.range': [Datum, Datum];
 	'xaxis.range[0]': Datum;
 	'xaxis.range[1]': Datum;
 	'yaxis.range': [Datum, Datum];
@@ -112,42 +127,112 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
-	dragmode: "lasso" | "pan" | "select" | "zoom";
+	ternary: {}; // TODO
+    geo: {}; // TODO
+    mapbox: {}; // TODO
+	radialaxis: {}; // TODO
+    angularaxis: {}; // TODO
+    direction: 'clockwise' | 'counterclockwise';
+    dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
+    orientation: number;
+    annotations: {}; // TODO
 	shapes: Array<Partial<Shape>>;
-	legend: Partial<Legend>;
+    images: {}; // TODO
+    updatemenus: {}; // TODO
+    sliders: {}; // TODO
+    legend: Partial<Legend>;
+	font: Partial<Font>;
+	scene: Partial<Scene>;
 }
 
-export interface Legend {
-	traceorder: "grouped" | "normal" | "reversed";
+export interface Legend extends Label {
+	traceorder: 'grouped' | 'normal' | 'reversed';
 	x: number;
 	y: number;
-	font: Partial<Font>;
-	bgcolor: string;
-	bordercolor: string;
 	borderwidth: number;
-	orientation: "v" | "h";
+	orientation: 'v' | 'h';
 	tracegroupgap: number;
 	xanchor: 'auto' | 'left' | 'center' | 'right';
 	yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
-export type AxisType = "date" | "log" | "linear";
+export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
 
 export interface Axis {
-	title: string;
-	showgrid: boolean;
-	fixedrange: boolean;
-	rangemode: "tozero" | 'normal' | 'nonnegative';
-	type: AxisType;
-	tickformat: string;
-	hoverformat: string;
-	rangeslider: Partial<RangeSlider>;
-	rangeselector: Partial<RangeSelector>;
-	range: [Datum, Datum];
-	showticklabels: boolean;
-	autotick: boolean;
-	zeroline: boolean;
-	autorange: boolean | 'reversed';
+    visible: boolean;
+    color: Color;
+    title: string;
+    titlefont: Partial<Font>;
+    type: AxisType;
+    autorange: true | false | 'reversed';
+    rangemode: 'normal' | 'tozero' | 'nonnegative';
+    range: any[];
+    tickmode: 'auto' | 'linear' | 'array';
+    nticks: number;
+    tick0: number | string;
+    dtick: number | string;
+    tickvals: any[];
+    ticktext: string[];
+    ticks: 'outside' | 'inside' | '';
+    mirror: true | 'ticks' | false | 'all' | 'allticks';
+    ticklen: number;
+    tickwidth: number;
+    tickcolor: Color;
+    showticklabels: boolean;
+    showspikes: boolean;
+    spikecolor: Color;
+    spikethickness: number;
+    categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array';
+    categoryarray: any[];
+    tickfont: Partial<Font>;
+    tickangle: number;
+    tickprefix: string;
+    showtickprefix: 'all' | 'first' | 'last' | 'none';
+    ticksuffix: string;
+    showticksuffix: 'all' | 'first' | 'last' | 'none';
+    showexponent: 'all' | 'first' | 'last' | 'none';
+    exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+    separatethousands: boolean;
+    tickformat: string;
+    hoverformat: string;
+    showline: boolean;
+    linecolor: Color;
+    linewidth: number;
+    showgrid: boolean;
+    gridcolor: Color;
+    gridwidth: number;
+    zeroline: boolean;
+    zerolinecolor: Color;
+    zerolinewidth: number;
+    calendar: Calendar;
+}
+
+export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
+    'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
+
+export interface LayoutAxis extends Axis {
+    fixedrange: boolean;
+    scaleanchor: '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+    scaleratio: number;
+    constrain: 'range' | 'domain';
+    constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
+    spikedash: string;
+    spikemode: string;
+    anchor: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+    side: 'top' | 'bottom' | 'left' | 'right';
+    overlaying: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+    layer: 'above traces' | 'below traces';
+    domain: number[];
+    position: number;
+    rangeslider: Partial<RangeSlider>;
+    rangeselector: Partial<RangeSelector>;
+}
+
+export interface SceneAxis extends Axis {
+    spikesides: boolean;
+    showbackground: boolean;
+    backgroundcolor: Color;
+    showaxeslabels: boolean;
 }
 
 export interface ShapeLine {
@@ -186,7 +271,7 @@ export type ModeBarButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoS
 	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
 	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
 	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews';
+	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
 
 // Data
 
@@ -199,9 +284,12 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'scatter' | 'scattergl';
+	type: 'bar' | 'scatter' | 'scattergl' | 'scatter3d';
 	x: Datum[] | Datum[][];
 	y: Datum[] | Datum[][];
+	z: Datum[] | Datum[][] | Datum[][][];
+	xaxis: string;
+	yaxis: string;
 	text: string | string[];
 	line: Partial<ScatterLine>;
 	'line.color': Color;
@@ -218,13 +306,13 @@ export interface ScatterData {
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
 	'marker.sizemin': number;
-	'marker.sizemode': "diameter" | "area";
+	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
-	'marker.line': {}; // TODO
+	'marker.line': Partial<ScatterMarkerLine>;
 	'marker.colorbar': {}; // TODO
-	mode: "lines" | "markers" | "text" | "lines+markers" | "text+markers" | "text+lines" | "text+lines+markers" | "none";
-	hoveron: "points" | "fills";
-	hoverinfo: "text";
+	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
+	hoveron: 'points' | 'fills';
+	hoverinfo: 'text';
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
@@ -234,16 +322,34 @@ export interface ScatterData {
 
 export interface ScatterMarker {
 	symbol: string | string[]; // Drawing.symbolList
-	color: Color;
+	color: Color | number[];
+	colorscale: string | string[];
+	cauto: boolean;
+	cmax: boolean;
+	cmin: boolean;
+	autocolorscale: boolean;
+    reversescale: boolean;
 	opacity: number | number[];
 	size: number | number[];
 	maxdisplayed: number;
 	sizeref: number;
 	sizemin: number;
-	sizemode: "diameter" | "area";
+	sizemode: 'diameter' | 'area';
 	showscale: boolean;
-	line: {}; // TODO
+	line: Partial<ScatterMarkerLine>;
 	colorbar: {}; // TODO
+    gradient: {}; // TODO
+}
+
+export interface ScatterMarkerLine {
+    width: number | number[];
+    color: Color;
+    colorscale: string | string[];
+    cauto: boolean;
+    cmax: number;
+    cmin: number;
+    autocolorscale: boolean;
+    reversescale: boolean;
 }
 
 export interface ScatterLine {
@@ -364,16 +470,73 @@ export interface RangeSelectorButton {
 	label: string;
 }
 
-export interface RangeSelector {
+export interface RangeSelector extends Label {
 	buttons: Array<Partial<RangeSelectorButton>>;
 	visible: boolean;
 	x: number;
 	xanchor: 'auto' | 'left' | 'center' | 'right';
 	y: number;
 	yanchor: 'auto' | 'top' | 'middle' | 'bottom';
-	bgcolor: string;
 	activecolor: string;
-	bordercolor: string;
 	borderwidth: number;
+}
+
+export interface Camera {
+	up: Partial<Point>;
+	center: Partial<Point>;
+	eye: Partial<Point>;
+}
+
+export interface Label {
+	bgcolor: string;
+	bordercolor: string;
 	font: Partial<Font>;
+}
+
+export interface Annotations extends Point, Label {
+	visible: boolean;
+	ax: number;
+	ay: number;
+	xanchor: 'auto' | 'left' | 'center' | 'right';
+	xshift: number;
+	yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+	yshift: number;
+	text: string;
+	textangle: string;
+	width: number;
+	height: number;
+	opacity: number;
+	align: 'left' | 'center' | 'right';
+	valign: 'top' | 'middle' | 'bottom';
+	borderpad: number;
+	borderwidth: number;
+	showarrow: boolean;
+	arrowcolor: string;
+	arrowhead: number;
+	arrowsize: number;
+	arrowwidth: number;
+	standoff: number;
+	hovertext: string;
+	hoverlabel: Partial<Label>;
+	captureevents: boolean;
+}
+
+export interface Scene {
+	bgcolor: string;
+	camera: Partial<Camera>;
+	domain: Partial<Domain>;
+	aspectmode: 'auto' | 'cube' | 'data' | 'manual';
+	aspectratio: Partial<Point>;
+	xaxis: Partial<SceneAxis>;
+	yaxis: Partial<SceneAxis>;
+	zaxis: Partial<SceneAxis>;
+	dragmode: 'orbit' | 'turntable' | 'zoom' | 'pan' | false;
+	hovermode: 'closest' | false;
+	annotations: Partial<Annotations> | Array<Partial<Annotations>>;
+	captureevents: boolean;
+}
+
+export interface Domain {
+    x: number[];
+    y: number[];
 }

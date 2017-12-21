@@ -1,6 +1,6 @@
 // Type definitions for hapi 8.2.0
-// Project: http://github.com/spumko/hapi
-// Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
+// Project: https://github.com/spumko/hapi
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //This is a total rewrite of Hakubo's original hapi.d.ts, as it was out of date/incomplete.
@@ -88,11 +88,11 @@ export interface IConnectionConfigurationServerDefaults {
     /**  connection load limits configuration where:  */
     load?: {
         /**  maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxHeapUsedBytes: number;
+        maxHeapUsedBytes?: number;
         /**  maximum process RSS size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxRssBytes: number;
+        maxRssBytes?: number;
         /**  maximum event loop delay duration in milliseconds over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxEventLoopDelay: number;
+        maxEventLoopDelay?: number;
     };
     /**  plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
     plugins?: any;

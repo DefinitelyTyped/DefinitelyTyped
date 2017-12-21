@@ -6,11 +6,11 @@ function test_parse_options() {
             throw err;
         }
 
-        let origin = config['remote "origin"'];
+        const origin = config['remote "origin"'];
         if (origin && origin.url) {
             origin.url.split('/');
         }
-    }) === undefined;
+    });
 }
 
 function test_parse_cwd() {
@@ -19,11 +19,11 @@ function test_parse_cwd() {
             throw err;
         }
 
-        let origin = config['remote "origin"'];
+        const origin = config['remote "origin"'];
         if (origin && origin.url) {
             origin.url.split('/');
         }
-    }) === undefined;
+    });
 }
 
 function test_parse() {
@@ -32,17 +32,17 @@ function test_parse() {
             throw err;
         }
 
-        let origin = config['remote "origin"'];
+        const origin = config['remote "origin"'];
         if (origin && origin.url) {
             origin.url.split('/');
         }
-    }) === undefined;
+    });
 }
 
 function test_sync_options() {
     const config = parse.sync({ cwd: 'foo', path: '.git/config' });
 
-    let origin = config['remote "origin"'];
+    const origin = config['remote "origin"'];
     if (origin && origin.url) {
         origin.url.split('/');
     }
@@ -51,7 +51,7 @@ function test_sync_options() {
 function test_sync_cwd() {
     const config = parse.sync('foo');
 
-    let origin = config['remote "origin"'];
+    const origin = config['remote "origin"'];
     if (origin && origin.url) {
         origin.url.split('/');
     }
@@ -60,7 +60,7 @@ function test_sync_cwd() {
 function test_sync() {
     const config = parse.sync();
 
-    let origin = config['remote "origin"'];
+    const origin = config['remote "origin"'];
     if (origin && origin.url) {
         origin.url.split('/');
     }

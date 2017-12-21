@@ -21,7 +21,7 @@ export function cfServiceCredentials(filter: ServiceFilter): any;
 /**
  * Returns an array of Cloud Foundry services matching the given filter.
  *
- * @param filter {(string|Object|function)}
+ * @param filter
  *  - if string, returns the service with the same service instance name (name property)
  *  - if Object, should have some of these properties [name, label, tag, plan] and returns all services
  *    where all of the given properties match. Given tag matches if it is present in the tags array.
@@ -35,12 +35,12 @@ export function filterCFServices(filter: ServiceFilter): any;
  *
  * If a service is not found in VCAP_SERVICES, returns default service configuration loaded from a JSON file.
  *
- * @param query {object} describes requested Cloud Foundry services, each property value is a filter
+ * @param query describes requested Cloud Foundry services, each property value is a filter
  *  as described in filterCFServices.
- * @param servicesFile {string} path to JSON file to load default service configuration (default is default-services.json).
+ * @param servicesFile path to JSON file to load default service configuration (default is default-services.json).
  *  If null, do not load default service configuration.
  *
- * @returns {object} with the same properties as in query argument where the value of each
+ * @returns with the same properties as in query argument where the value of each
  *  property is the respective service credentials object.
  * @throws Error, if for some of the requested services no or multiple instances are found; Error, if query parameter is not provided
  */
