@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js 3.1
+// Type definitions for cucumber-js 3.2
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
@@ -56,7 +56,8 @@ export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: st
 export interface Transform {
     regexp: RegExp;
     transformer(arg: string): any;
-    typeName: string;
+    name?: string;
+    typeName?: string; // deprecated
 }
 
 export interface HookOptions {
