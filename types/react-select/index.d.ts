@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.0
+// Type definitions for react-select 1.1
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -153,9 +153,15 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     autoBlur?: boolean;
     /**
      * autofocus the component on mount
+     * @deprecated. Use autoFocus instead
      * @default false
      */
     autofocus?: boolean;
+    /**
+     * autofocus the component on mount
+     * @default false
+     */
+    autoFocus?: boolean;
     /**
      *  If enabled, the input will expand as the length of its value increases
      */
