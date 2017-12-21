@@ -1,6 +1,7 @@
 // Type definitions for cannon 0.1
 // Project: https://github.com/clark-stevenson/cannon.d.ts
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
+//                 Grzegorz Rozdzialik <https://github.com/Gelio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -148,6 +149,8 @@ declare module CANNON {
         constructor(bodyA: Body, bodyB: Body, options?: IConstraintOptions);
 
         update(): void;
+        disable(): void;
+        enable(): void;
 
     }
 
@@ -191,6 +194,19 @@ declare module CANNON {
 
     export class LockConstraint extends Constraint {
         constructor(bodyA: Body, bodyB: Body, options?:any);
+    }
+
+    export interface IConeTwistConstraintOptions {
+        pivotA?: Vec3;
+        pivotB?: Vec3;
+        axisA?: Vec3;
+        axisB?: Vec3;
+        maxForce?: number;
+    }
+
+    export class ConeTwistConstraint extends Constraint {
+        constructor(bodyA: Body, bodyB: Body, options?: IConeTwistConstraintOptions);
+
     }
 
 
