@@ -307,6 +307,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "http-status-codes",
+            "typingsPackageName": "http-status-codes",
+            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "Facebook's Immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
