@@ -643,6 +643,12 @@
             "asOfVersion": "7.0.1"
         },
         {
+            "libraryName": "qrcode-generator",
+            "typingsPackageName": "qrcode-generator",
+            "sourceRepoURL": "https://github.com/kazuhikoarase/qrcode-generator",
+            "asOfVersion": "1.0.6"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
