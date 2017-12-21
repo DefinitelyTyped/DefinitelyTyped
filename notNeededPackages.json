@@ -757,6 +757,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "rvo2",
+            "typingsPackageName": "rvo2",
+            "sourceRepoURL": "https://github.com/TNOCS/rvo2",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "samchon",
             "typingsPackageName": "samchon",
             "sourceRepoURL": "https://github.com/samchon/framework",
