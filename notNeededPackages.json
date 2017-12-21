@@ -313,6 +313,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "iconv-lite",
+            "typingsPackageName": "iconv-lite",
+            "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
+            "asOfVersion": "0.4.14"
+        },
+        {
             "libraryName": "Facebook's Immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
