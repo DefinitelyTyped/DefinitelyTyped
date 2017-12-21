@@ -943,6 +943,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "xadesjs",
+            "typingsPackageName": "xadesjs",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/xadesjs",
+            "asOfVersion": "2.0.2"
+        },
+        {
             "libraryName": "xlsx",
             "typingsPackageName": "xlsx",
             "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
