@@ -189,7 +189,7 @@
         {
             "libraryName": "docker-file-parser",
             "typingsPackageName": "docker-file-parser",
-            "sourceRepoURL": "https://github.com/joyent/docker-file-parse",
+            "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
             "asOfVersion": "1.0.3"
         },
         {
