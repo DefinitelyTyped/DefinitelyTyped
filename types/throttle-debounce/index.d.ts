@@ -1,6 +1,6 @@
-// Type definitions for throttle-debounce 1.0.1
+// Type definitions for throttle-debounce 1.0
 // Project: https://github.com/niksy/throttle-debounce
-// Definitions by: Marek Buchar <https://github.com/czbuchi/>
+// Definitions by: Marek Buchar <https://github.com/czbuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -27,7 +27,8 @@
  * to execute after `delay` ms. If `debounceMode` is false (at end), schedule
  * `callback` to execute after `delay` ms.
  *
- * @return {Function}  A new, throttled, function.
+ * @return
+ * A new, throttled, function.
  */
 export function throttle<T>(
   delay: number,
@@ -53,7 +54,8 @@ export function throttle<T>(
  * to execute after `delay` ms. If `debounceMode` is false (at end), schedule
  * `callback` to execute after `delay` ms.
  *
- * @return {Function}  A new, throttled, function.
+ * @return
+ * A new, throttled, function.
  */
 export function throttle<T>(
   delay: number,
@@ -66,23 +68,24 @@ export function throttle<T>(
  * guarantees that a function is only executed a single time, either at the
  * very beginning of a series of calls, or at the very end.
  *
- * @param  {Number}   delay
+ * @param delay
  * A zero-or-greater delay in milliseconds. For event callbacks, values around
  * 100 or 250 (or even higher) are most useful.
  *
- * @param  {Boolean}  atBegin
+ * @param atBegin
  * If atBegin is false or unspecified, callback will only be executed `delay`
  * milliseconds after the last debounced-function call. If atBegin is true,
  * callback will be executed only at the first debounced-function call. (After
  * the throttled-function has not been called for `delay` milliseconds, the
  * internal counter is reset).
  *
- * @param  {Function} callback
+ * @param callback
  * A function to be executed after delay milliseconds. The `this` context and
  * all arguments are passed through, as-is, to `callback` when the
  * debounced-function is executed.
  *
- * @return {Function} A new, debounced function.
+ * @return
+ * A new, debounced function.
  */
 export function debounce<T>(delay: number, atBegin: boolean, callback: T): T;
 
@@ -91,15 +94,16 @@ export function debounce<T>(delay: number, atBegin: boolean, callback: T): T;
  * guarantees that a function is only executed a single time, either at the
  * very beginning of a series of calls, or at the very end.
  *
- * @param  {Number}   delay
+ * @param delay
  * A zero-or-greater delay in milliseconds. For event callbacks, values around
  * 100 or 250 (or even higher) are most useful.
  *
- * @param  {Function} callback
+ * @param callback
  * A function to be executed after delay milliseconds. The `this` context and
  * all arguments are passed through, as-is, to `callback` when the
  * debounced-function is executed.
  *
- * @return {Function} A new, debounced function.
+ * @return
+ * A new, debounced function.
  */
 export function debounce<T>(delay: number, callback: T): T;

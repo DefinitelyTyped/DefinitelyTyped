@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "throttle-tests.ts"
+        "throttle-debounce-tests.ts"
     ]
 }
