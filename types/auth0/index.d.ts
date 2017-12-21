@@ -166,10 +166,6 @@ export interface Client {
 }
 
 export interface ResourceServer {
-  /**
-   * The identifier of the resource server.
-   */
-  identifier?: string;
   scopes?: { description: string, value: string }[];
   /**
    * The algorithm used to sign tokens.
@@ -203,6 +199,13 @@ export interface ResourceServer {
    * A friendly name for the resource server.
    */
   name?: string;
+}
+
+export interface CreateResourceServer extends ResourceServer {
+  /**
+   * The identifier of the resource server.
+   */
+  identifier?: string;
 }
 
 export interface User {
@@ -618,8 +621,8 @@ export class ManagementClient {
 
 
   // Resource Server
-  createResourceServer(data: ResourceServer): Promise<ResourceServer>;
-  createResourceServer(data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+  createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
+  createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
   getResourceServers(): Promise<ResourceServer[]>;
   getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
