@@ -1,52 +1,46 @@
-import {Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute} from "hapi";
+'use strict';
 
-const options: ServerOptions = {
-    port: 8000,
-};
+import * as Hapi from 'hapi';
 
 // different methods
-var routeConfig: ServerRoute = {
+var routeConfig: Hapi.RouteConfiguration = {
   path: '/signin',
   method: 'PUT',
   vhost: 'site.coms',
 };
-var routeConfig: ServerRoute = {
+var routeConfig: Hapi.RouteConfiguration = {
   path: '/signin',
   method: '*'
 };
-var routeConfig: ServerRoute = {
+var routeConfig: Hapi.RouteConfiguration = {
   path: '/signin',
   method: ['OPTIONS', '*']
 };
 
 // different handlers
-var routeConfig: ServerRoute = {
+var routeConfig: Hapi.RouteConfiguration = {
   path: '/signin',
   method: 'PUT',
-  handler: (request: Request, h: ResponseToolkit) => {
-    return 'ok';
-  }
+  handler: 'some registered handler'
 };
-var routeConfig: ServerRoute = {
+var routeConfig: Hapi.RouteConfiguration = {
   path: '/signin',
   method: 'PUT',
-  handler: (request: Request, h: ResponseToolkit) => {
-    return 'ok';
+  handler: function (request, reply) {
+    return reply('ok');
   }
 };
 
-const server = new Server(options);
+const server = new Hapi.Server();
 server.route(routeConfig);
 
 // Handler in config
-const user: RouteOptions = {
+const user: Hapi.RouteAdditionalConfigurationOptions = {
     cache: { expiresIn: 5000 },
-    handler: (request: Request, h: ResponseToolkit) => {
-        return { name: 'John' };
+    handler: function (request, reply) {
+
+        return reply({ name: 'John' });
     }
 };
 
-server.route({method: 'GET', path: '/user', options: user });
-
-server.start();
-console.log('Server started at: ' + server.info.uri);
+server.route({method: 'GET', path: '/user', config: user });
