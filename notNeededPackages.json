@@ -313,6 +313,12 @@
             "asOfVersion": "4.0.2"
         },
         {
+            "libraryName": "es6-promise",
+            "typingsPackageName": "es6-promise",
+            "sourceRepoURL": "https://github.com/jakearchibald/ES6-Promise",
+            "asOfVersion": "3.3.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
