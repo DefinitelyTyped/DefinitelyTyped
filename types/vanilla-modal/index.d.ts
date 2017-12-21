@@ -36,7 +36,7 @@ export default class VanillaModal {
   removeOpenId(): void;
   open(allMatches: string, e?: Event): void;
   detectTransition(): boolean;
-  close(e: Event): void;
+  close(e?: Event): void;
   closeModal(e: Event): void;
   closeModalWithTransition(e: Event): void;
   captureNode(node: Node): void;
