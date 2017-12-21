@@ -205,6 +205,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "dwt",
+            "typingsPackageName": "dwt",
+            "sourceRepoURL": "http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx",
+            "asOfVersion": "13.2.0"
+        },
+        {
             "libraryName": "ecmarkup",
             "typingsPackageName": "ecmarkup",
             "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
