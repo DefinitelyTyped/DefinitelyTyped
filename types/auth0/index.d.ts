@@ -203,9 +203,42 @@ export interface ResourceServer {
 
 export interface CreateResourceServer extends ResourceServer {
   /**
-   * The identifier of the resource server.
+   * The identifier of the client.
    */
   identifier?: string;
+}
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
+}
+
+export type UpdateClientGrant = Pick<Partial<CreateClientGrant>, 'scope'>;
+
+export type ClientGrant = Partial<CreateClientGrant> & {
+  /**
+   * The id of the client grant.
+   */
+  id?: string;
+};
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
 }
 
 export interface User {
@@ -476,17 +509,17 @@ export class ManagementClient {
 
                                               
   // Client Grants
-  getClientGrants(): Promise<User>;
-  getClientGrants(cb: (err: Error, data: any) => void): void;
+  getClientGrants(): Promise<ClientGrant[]>;
+  getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
 
-  createClientGrant(data: Data): Promise<User>;
-  createClientGrant(data: Data, cb: (err: Error, data: any) => void): void;
+  createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
+  createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  updateClientGrant(params: ObjectWithId, data: Data): Promise<User>;
-  updateClientGrant(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant): Promise<ClientGrant>;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  deleteClientGrant(params: ObjectWithId): Promise<User>;
-  deleteClientGrant(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteClientGrant(params: ObjectWithId): Promise<void>;
+  deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Device Keys
