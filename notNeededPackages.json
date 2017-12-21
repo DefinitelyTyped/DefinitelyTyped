@@ -1231,6 +1231,12 @@
             "asOfVersion": "2.11.0"
         },
         {
+            "libraryName": "wolfy87-eventemitter",
+            "typingsPackageName": "wolfy87-eventemitter",
+            "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "wonder-commonlib",
             "typingsPackageName": "wonder-commonlib",
             "sourceRepoURL": "https://github.com/yyc-git/Wonder-CommonLib",
