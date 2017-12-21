@@ -805,6 +805,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "Smoothie Charts",
+            "typingsPackageName": "smoothie",
+            "sourceRepoURL": "https://github.com/joewalnes/smoothie",
+            "asOfVersion": "1.29.1"
+        },
+        {
             "libraryName": "snake-case",
             "typingsPackageName": "snake-case",
             "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
