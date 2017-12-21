@@ -589,6 +589,12 @@
             "asOfVersion": "1.0.4"
         },
         {
+            "libraryName": "plottable",
+            "typingsPackageName": "plottable",
+            "sourceRepoURL": "http://plottablejs.org/",
+            "asOfVersion": "3.7.0"
+        },
+        {
             "libraryName": "poly2tri.js",
             "typingsPackageName": "poly2tri",
             "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
