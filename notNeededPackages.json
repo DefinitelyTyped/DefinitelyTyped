@@ -271,6 +271,18 @@
             "asOfVersion": "0.3.1"
         },
         {
+            "libraryName": "easy-x-headers",
+            "typingsPackageName": "easy-x-headers",
+            "sourceRepoURL": "https://github.com/DeadAlready/easy-x-headers",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "easy-xapi-supertest",
+            "typingsPackageName": "easy-xapi-supertest",
+            "sourceRepoURL": "https://github.com/DeadAlready/easy-xapi-supertest",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "ecmarkup",
             "typingsPackageName": "ecmarkup",
             "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
