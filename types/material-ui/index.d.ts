@@ -578,8 +578,8 @@ declare namespace __MaterialUI {
         iconElementRight?: React.ReactElement<any>;
         iconStyleRight?: React.CSSProperties;
         iconStyleLeft?: React.CSSProperties;
-        onLeftIconButtonTouchTap?: TouchTapEventHandler;
-        onRightIconButtonTouchTap?: TouchTapEventHandler;
+        onLeftIconButtonClick?: TouchTapEventHandler;
+        onRightIconButtonClick?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
         showMenuIconButton?: boolean;
         style?: React.CSSProperties;
