@@ -8,16 +8,21 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "grecaptcha": [
+                "grecaptcha/v0"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "recaptcha-tests.ts"
+        "grecaptcha-tests.ts"
     ]
 }
