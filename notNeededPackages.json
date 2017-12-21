@@ -151,6 +151,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "chunked-dc",
+            "typingsPackageName": "chunked-dc",
+            "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
+            "asOfVersion": "0.2.2"
+        },
+        {
             "libraryName": "commander",
             "typingsPackageName": "commander",
             "sourceRepoURL": "https://github.com/tj/commander.js",
