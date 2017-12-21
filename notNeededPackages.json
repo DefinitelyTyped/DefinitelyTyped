@@ -811,6 +811,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "soap",
+            "typingsPackageName": "soap",
+            "sourceRepoURL": "https://www.npmjs.com/package/soap",
+            "asOfVersion": "0.21.0"
+        },
+        {
             "libraryName": "Spin.js",
             "typingsPackageName": "spin.js",
             "sourceRepoURL": "http://fgnass.github.com/spin.js/",
