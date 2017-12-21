@@ -1,33 +1,37 @@
-/// <reference types='tether' />
+/// <reference types='react' />
 
 import { CSSModule } from '../index';
 
-type Placement
-  = 'top'
-  | 'bottom'
-  | 'left'
+export type Placement
+  = 'auto'
+  | 'auto-start'
+  | 'auto-end'
+  | 'top'
+  | 'top-start'
+  | 'top-end'
   | 'right'
-  | 'top left'
-  | 'top center'
-  | 'top right'
-  | 'right top'
-  | 'right middle'
-  | 'right bottom'
-  | 'bottom right'
-  | 'bottom center'
-  | 'bottom left'
-  | 'left top'
-  | 'left middle'
-  | 'left bottom';
+  | 'right-start'
+  | 'right-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end';
 
-export interface PopoverProps {
-  placement?: Placement;
-  target: string;
+export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean;
-  tether?: Tether.ITetherOptions;
-  className?: string;
-  cssModule?: CSSModule;
   toggle?: () => void;
+  target: string | HTMLElement;
+  container?: string | HTMLElement;
+  className?: string;
+  placement?: Placement;
+  innerClassName?: string;
+  disabled?: boolean;
+  placementPrefix?: string;
+  delay?: number | {show: number, hide: number};
+  modifiers?: object;
+  cssModule?: CSSModule;
 }
 
 declare const Popover: React.StatelessComponent<PopoverProps>;

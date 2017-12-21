@@ -1,4 +1,4 @@
-// Type definitions for expo 23.0
+// Type definitions for expo 24.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -456,7 +456,11 @@ export namespace Constants {
         version?: string;
         orientation?: Orientation;
         primaryColor?: string;
+        privacy?: 'public' | 'unlisted';
+        scheme?: string;
         icon?: string;
+        platforms?: string[];
+        githubUrl?: string;
         notification?: {
             icon?: string,
             color?: string,
@@ -472,13 +476,11 @@ export namespace Constants {
             hideExponentText?: boolean
         };
         appKey?: string;
-        androidStatusBarColor?: string;
         androidStatusBar?: {
             barStyle?: 'lignt-content' | 'dark-content',
             backgroundColor?: string
         };
-        androidHideExponentNotificationInShellApp?: boolean;
-        scheme?: string;
+        androidShowExponentNotificationInShellApp?: boolean;
         extra?: {
             [propName: string]: any
         };
@@ -525,16 +527,16 @@ export namespace Constants {
                 }
             }
         };
-        facebookScheme: any;
-        xde: boolean;
-        developper?: {
-            tool?: string,
-            [propName: string]: any
+        facebookScheme?: any;
+        facebookAppId?: string;
+        facebookDisplayName?: string;
+        splash?: {
+            backgroundColor?: string;
+            resizeMode?: ResizeModeContain | ResizeModeCover;
+            image?: string;
         };
-        bundleUrl?: string;
-        debuggerHost?: string;
-        mainModuleName?: string;
-        logUrl?: string;
+        assetBundlePatterns?: string[];
+        releaseChannel: string;
         [propName: string]: any;
     }
     const manifest: Manifest;
@@ -968,10 +970,19 @@ export namespace ImagePicker {
 
     type ImageResult = { cancelled: true } | ({ cancelled: false } & ImageInfo);
 
+    interface _MediaTypeOptions {
+        All: 'All';
+        Videos: 'Videos';
+        Images: 'Images';
+    }
+
+    const MediaTypeOptions: _MediaTypeOptions;
+
     interface ImageLibraryOptions {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        mediaTypes?: keyof _MediaTypeOptions;
     }
 
     function launchImageLibraryAsync(options?: ImageLibraryOptions): Promise<ImageResult>;
@@ -1478,4 +1489,103 @@ export namespace WebBrowser {
     function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function dismissBrowser(): Promise<{ type: 'dismissed' }>;
+}
+
+/**
+ * ImageManipulator
+ */
+export namespace ImageManipulator {
+    interface ImageResult {
+        uri: string;
+        width: number;
+        height: number;
+        base64?: string;
+    }
+    interface SaveOptions {
+        base64?: boolean;
+        compress?: FloatFromZeroToOne;
+        format?: 'jpeg' | 'png';
+    }
+    interface CropParameters {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
+    interface ImageManipulationOptions {
+        resize?: { width?: number; height?: number };
+        rotate?: number;
+        flip?: { vertical?: boolean; horizontal?: boolean };
+        crop?: CropParameters;
+    }
+    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+}
+
+/**
+ * FaceDetector
+ */
+export namespace FaceDetector {
+    interface Point {
+        x: Axis;
+        y: Axis;
+    }
+    interface Face {
+        bounds: {
+            size: {
+                width: number;
+                height: number;
+            },
+            origin: Point;
+        };
+        smilingProbability?: number;
+        leftEarPosition?: Point;
+        rightEarPosition?: Point;
+        leftEyePosition?: Point;
+        leftEyeOpenProbability?: number;
+        rightEyePosition?: Point;
+        rightEyeOpenProbability?: number;
+        leftCheekPosition?: Point;
+        rightCheekPosition?: Point;
+        leftMouthPosition?: Point;
+        mouthPosition?: Point;
+        rightMouthPosition?: Point;
+        bottomMouthPosition?: Point;
+        noseBasePosition?: Point;
+        yawAngle?: number;
+        rollAngle?: number;
+    }
+    interface DetectFaceResult {
+        faces: Face[];
+        image: {
+            uri: string;
+            width: number;
+            height: number;
+            orientation: number;
+        };
+    }
+    interface Mode {
+        fast: 'fast';
+        accurate: 'accurate';
+    }
+    interface _Shared {
+        all: 'all';
+        none: 'none';
+    }
+    type Landmarks = _Shared;
+    type Classifications = _Shared;
+    interface _Constants {
+        Mode: Mode;
+        Landmarks: Landmarks;
+        Classifications: Classifications;
+    }
+
+    const Constants: _Constants;
+
+    interface Options {
+        mode?: keyof Mode;
+        detectLandmarks?: keyof Landmarks;
+        runClassifications?: keyof Classifications;
+    }
+
+    function detectFaces(uri: string, options?: Options): Promise<DetectFaceResult>;
 }

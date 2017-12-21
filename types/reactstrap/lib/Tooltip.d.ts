@@ -1,35 +1,34 @@
-/// <reference types='tether' />
+/// <reference types='react' />
 
 import { CSSModule } from '../index';
 
-type Placement
-  = 'top'
-  | 'bottom'
-  | 'left'
+export type Placement
+  = 'auto'
+  | 'auto-start'
+  | 'auto-end'
+  | 'top'
+  | 'top-start'
+  | 'top-end'
   | 'right'
-  | 'top left'
-  | 'top center'
-  | 'top right'
-  | 'right top'
-  | 'right middle'
-  | 'right bottom'
-  | 'bottom right'
-  | 'bottom center'
-  | 'bottom left'
-  | 'left top'
-  | 'left middle'
-  | 'left bottom';
+  | 'right-start'
+  | 'right-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end';
 
-export interface UncontrolledProps {
-  placement?: Placement;
-  target: string;
-  disabled?: boolean;
-  tether?: Tether.ITetherOptions;
-  tetherRef?: (tether: Tether) => void;
+export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
+  target: string | HTMLElement;
+  container?: string | HTMLElement;
+  delay?: number | {show: number, hide: number};
   className?: string;
-  cssModule?: CSSModule;
+  innerClassName?: string;
   autohide?: boolean;
-  delay?: number | { show: number, hide: number };
+  placement?: Placement;
+  modifiers?: object;
+  cssModule?: CSSModule;
 }
 export interface UncontrolledTooltipProps extends UncontrolledProps {
   /* intentionally blank */

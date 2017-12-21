@@ -814,17 +814,7 @@ export interface TextPropertiesAndroid {
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
-export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid {
-    /**
-     * When set to `true`, indicates that the view is an accessibility element. The default value
-     * for a `Text` element is `true`.
-     *
-     * See the
-     * [Accessibility guide](/react-native/docs/accessibility.html#accessible-ios-android)
-     * for more information.
-     */
-    accessible?: boolean;
-
+export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid, AccessibilityProperties {
     /**
      * This can be one of the following values:
      *
@@ -1063,7 +1053,8 @@ export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo"
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputProperties extends ViewProperties, TextInputIOSProperties, TextInputAndroidProperties {
+export interface TextInputProperties
+    extends ViewProperties, TextInputIOSProperties, TextInputAndroidProperties, AccessibilityProperties {
     /**
      * Can tell TextInput to automatically capitalize certain characters.
      *      characters: all characters,
@@ -1565,10 +1556,23 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
 
 export interface ViewPropertiesIOS {
     /**
-     * Provides additional traits to screen reader.
-     * By default no traits are provided unless specified otherwise in element
+     * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
+     * @platform ios
      */
-    accessibilityTraits?: ViewAccessibilityTraits | ViewAccessibilityTraits[];
+    accessibilityViewIsModal?: boolean;
+
+    /**
+     * Provides an array of custom actions available for accessibility.
+     * @platform ios
+     */
+    accessibilityActions?: Array<string>;
+
+    /**
+     * When `accessible` is true, the system will try to invoke this function
+     * when the user performs an accessibility custom action.
+     * @platform ios
+     */
+    onAccessibilityAction?: () => void;
 
     /**
      * Whether this view should be rendered as a bitmap before compositing.
@@ -1585,37 +1589,11 @@ export interface ViewPropertiesIOS {
 
 export interface ViewPropertiesAndroid {
     /**
-     * Indicates to accessibility services to treat UI component like a native one.
-     * Works for Android only.
-     */
-    accessibilityComponentType?: "none" | "button" | "radiobutton_checked" | "radiobutton_unchecked";
-
-    /**
-     * Indicates to accessibility services whether the user should be notified when this view changes.
-     * Works for Android API >= 19 only.
-     * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
-     */
-    accessibilityLiveRegion?: "none" | "polite" | "assertive";
-
-    /**
      * Views that are only used to layout their children or otherwise don't draw anything
      * may be automatically removed from the native hierarchy as an optimization.
      * Set this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.
      */
     collapsable?: boolean;
-
-    /**
-     * Controls how view is important for accessibility which is if it fires accessibility events
-     * and if it is reported to accessibility services that query the screen.
-     * Works for Android only. See http://developer.android.com/reference/android/R.attr.html#importantForAccessibility for references.
-     *
-     * Possible values:
-     *      'auto' - The system determines whether the view is important for accessibility - default (recommended).
-     *      'yes' - The view is important for accessibility.
-     *      'no' - The view is not important for accessibility.
-     *      'no-hide-descendants' - The view is not important for accessibility, nor are any of its descendant views.
-     */
-    importantForAccessibility?: "auto" | "yes" | "no" | "no-hide-descendants";
 
     /**
      * Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.
@@ -1650,21 +1628,99 @@ type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
 
 /**
- * @see https://facebook.github.io/react-native/docs/view.html#props
+ * @see https://facebook.github.io/react-native/docs/accessibility.html#accessibility-properties
  */
-export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable {
-    /**
-     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
-     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
-     */
-    accessibilityLabel?: string;
-
+export interface AccessibilityProperties extends AccessibilityPropertiesAndroid, AccessibilityPropertiesIOS {
     /**
      * When true, indicates that the view is an accessibility element.
      * By default, all the touchable elements are accessible.
      */
     accessible?: boolean;
 
+    /**
+     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
+     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
+     */
+    accessibilityLabel?: string;
+}
+
+export interface AccessibilityPropertiesAndroid {
+    /**
+     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
+     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
+     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
+     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
+     * @platform android
+     */
+    accessibilityComponentType?: "none" | "button" | "radiobutton_checked" | "radiobutton_unchecked";
+
+    /**
+     * Indicates to accessibility services whether the user should be notified when this view changes.
+     * Works for Android API >= 19 only.
+     * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
+     * @platform android
+     */
+    accessibilityLiveRegion?: "none" | "polite" | "assertive";
+
+    /**
+     * Controls how view is important for accessibility which is if it fires accessibility events
+     * and if it is reported to accessibility services that query the screen.
+     * Works for Android only. See http://developer.android.com/reference/android/R.attr.html#importantForAccessibility for references.
+     *
+     * Possible values:
+     *      'auto' - The system determines whether the view is important for accessibility - default (recommended).
+     *      'yes' - The view is important for accessibility.
+     *      'no' - The view is not important for accessibility.
+     *      'no-hide-descendants' - The view is not important for accessibility, nor are any of its descendant views.
+     */
+    importantForAccessibility?: "auto" | "yes" | "no" | "no-hide-descendants";
+}
+
+export interface AccessibilityPropertiesIOS {
+    /**
+     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
+     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
+     * @platform ios
+     */
+    accessibilityTraits?: AccessibilityTraits | AccessibilityTraits[];
+
+    /**
+     * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
+     * @platform ios
+     */
+    onAcccessibilityTap?: () => void;
+
+    /**
+     * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
+     * @platform ios
+     */
+    onMagicTap?: () => void;
+}
+
+type AccessibilityTraits =
+    | "none"
+    | "button"
+    | "link"
+    | "header"
+    | "search"
+    | "image"
+    | "selected"
+    | "plays"
+    | "key"
+    | "text"
+    | "summary"
+    | "disabled"
+    | "frequentUpdates"
+    | "startsMedia"
+    | "adjustable"
+    | "allowsDirectInteraction"
+    | "pageTurn";
+
+/**
+ * @see https://facebook.github.io/react-native/docs/view.html#props
+ */
+export interface ViewProperties
+    extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, AccessibilityProperties {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -1678,21 +1734,11 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
     hitSlop?: Insets;
 
     /**
-     * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
-     */
-    onAcccessibilityTap?: () => void;
-
-    /**
      * Invoked on mount and layout changes with
      *
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
-
-    /**
-     * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
-     */
-    onMagicTap?: () => void;
 
     /**
      *
@@ -1742,28 +1788,6 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
  * whether that is a UIView, <div>, android.view, etc.
  */
 export interface ViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {
-    AccessibilityTraits: [
-        "none",
-        "button",
-        "link",
-        "header",
-        "search",
-        "image",
-        "selected",
-        "plays",
-        "key",
-        "text",
-        "summary",
-        "disabled",
-        "frequentUpdates",
-        "startsMedia",
-        "adjustable",
-        "allowsDirectInteraction",
-        "pageTurn"
-    ];
-
-    AccessibilityComponentType: ["none", "button", "radiobutton_checked", "radiobutton_unchecked"];
-
     /**
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
      * @platform ios
@@ -3190,16 +3214,6 @@ export type ImageRequireSource = number;
 
 export interface ImagePropertiesIOS {
     /**
-     * The text that's read by the screen reader when the user interacts with the image.
-     */
-    accessibilityLabel?: string;
-
-    /**
-     * When true, indicates the image is an accessibility element.
-     */
-    accessible?: boolean;
-
-    /**
      * blurRadius: the blur radius of the blur filter added to the image
      * @platform ios
      */
@@ -3257,7 +3271,7 @@ interface ImagePropertiesAndroid {
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid {
+export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, AccessibilityProperties {
     /**
      * onLayout function
      *
@@ -3614,7 +3628,7 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: { animated?: boolean; index: number; viewPosition?: number }) => void;
+    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
@@ -4397,59 +4411,10 @@ interface TouchableMixin {
     touchableGetHitSlop(): Insets;
 }
 
-export interface TouchableWithoutFeedbackAndroidProperties {
-    /**
-     * Indicates to accessibility services to treat UI component like a native one.
-     * Works for Android only.
-     */
-    accessibilityComponentType?: "none" | "button" | "radiobutton_checked" | "radiobutton_unchecked";
-}
-
-type ViewAccessibilityTraits =
-    | "none"
-    | "button"
-    | "link"
-    | "header"
-    | "search"
-    | "image"
-    | "selected"
-    | "plays"
-    | "key"
-    | "text"
-    | "summary"
-    | "disabled"
-    | "frequentUpdates"
-    | "startsMedia"
-    | "adjustable"
-    | "allowsDirectInteraction"
-    | "pageTurn";
-
-export interface TouchableWithoutFeedbackIOSProperties {
-    /**
-     * Provides additional traits to screen reader.
-     * By default no traits are provided unless specified otherwise in element
-     */
-    accessibilityTraits?: ViewAccessibilityTraits | ViewAccessibilityTraits[];
-}
-
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProperties
-    extends TouchableWithoutFeedbackAndroidProperties,
-        TouchableWithoutFeedbackIOSProperties {
-    /**
-     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
-     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
-     */
-    accessibilityLabel?: string;
-
-    /**
-     * When true, indicates that the view is an accessibility element.
-     * By default, all the touchable elements are accessible.
-     */
-    accessible?: boolean;
-
+export interface TouchableWithoutFeedbackProperties extends AccessibilityProperties {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -6540,6 +6505,11 @@ export interface ButtonProperties {
     color?: string;
     accessibilityLabel?: string;
     disabled?: boolean;
+
+    /**
+     * Used to locate this button in end-to-end tests.
+     */
+    testID?: string;
 }
 
 export interface ButtonStatic extends React.ComponentClass<ButtonProperties> {}
