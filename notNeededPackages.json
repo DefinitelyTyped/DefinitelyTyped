@@ -655,6 +655,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-chartjs-2",
+            "typingsPackageName": "react-chartjs-2",
+            "sourceRepoURL": "https://github.com/gor181/react-chartjs-2",
+            "asOfVersion": "2.5.7"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
