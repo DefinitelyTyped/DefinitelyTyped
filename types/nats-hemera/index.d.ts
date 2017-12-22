@@ -824,7 +824,7 @@ declare namespace Hemera {
         /**
          * Sets the allowed object keys.
          */
-        keys(schema?: SchemaMap): this;
+        keys(schema?: any): this;
 
         /**
          * Specifies the minimum number of keys in the object.
