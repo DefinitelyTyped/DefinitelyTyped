@@ -630,7 +630,7 @@ declare namespace Hemera {
         negative(): this;
     }
 
-    export interface StringSchema extends AnySchema {
+    interface StringSchema extends AnySchema {
         /**
          * Allows the value to match any whitelist of blacklist item in a case insensitive comparison.
          */
@@ -819,12 +819,16 @@ declare namespace Hemera {
         unique(comparator?: string): this;
         unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
     }
+    
+    // interface SchemaMap1<T>{
+    //     [key: string | number]: SchemaLike | SchemaLike[];
+    // }
 
     interface ObjectSchema extends AnySchema {
         /**
          * Sets the allowed object keys.
          */
-        keys<T>(schema?: T): this;
+        keys<R>(schema?: R): this;
 
         /**
          * Specifies the minimum number of keys in the object.
