@@ -121,6 +121,12 @@
             "asOfVersion": "0.0.31"
         },
         {
+            "libraryName": "Bowser",
+            "typingsPackageName": "bowser",
+            "sourceRepoURL": "https://github.com/ded/bowser",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
@@ -149,6 +155,12 @@
             "typingsPackageName": "cheap-ruler",
             "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
             "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "chunked-dc",
+            "typingsPackageName": "chunked-dc",
+            "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
+            "asOfVersion": "0.2.2"
         },
         {
             "libraryName": "commander",
@@ -185,6 +197,12 @@
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
             "asOfVersion": "1.3.1"
+        },
+        {
+            "libraryName": "docker-file-parser",
+            "typingsPackageName": "docker-file-parser",
+            "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
+            "asOfVersion": "1.0.3"
         },
         {
             "libraryName": "dot-case",
@@ -259,6 +277,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "fecha",
+            "typingsPackageName": "fecha",
+            "sourceRepoURL": "https://github.com/taylorhakes/fecha",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -293,6 +317,18 @@
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "http-status-codes",
+            "typingsPackageName": "http-status-codes",
+            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
+            "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "iconv-lite",
+            "typingsPackageName": "iconv-lite",
+            "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
+            "asOfVersion": "0.4.14"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -355,6 +391,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jimp",
+            "typingsPackageName": "jimp",
+            "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
+            "asOfVersion": "0.2.28"
+        },
+        {
             "libraryName": "jpush-react-native",
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
@@ -389,6 +431,12 @@
             "typingsPackageName": "jsplumb",
             "sourceRepoURL": "https://github.com/jsplumb/jsPlumb",
             "asOfVersion": "2.5.7"
+        },
+        {
+            "libraryName": "keycloak-js",
+            "typingsPackageName": "keycloak-js",
+            "sourceRepoURL": "https://github.com/keycloak/keycloak",
+            "asOfVersion": "3.4.1"
         },
         {
             "libraryName": "knockout-paging",
@@ -581,6 +629,12 @@
             "typingsPackageName": "pkcs11js",
             "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
             "asOfVersion": "1.0.4"
+        },
+        {
+            "libraryName": "plottable",
+            "typingsPackageName": "plottable",
+            "sourceRepoURL": "http://plottablejs.org/",
+            "asOfVersion": "3.7.0"
         },
         {
             "libraryName": "poly2tri.js",
@@ -929,6 +983,12 @@
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "zetapush-js",
+            "typingsPackageName": "zetapush-js",
+            "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "Zone.js",
