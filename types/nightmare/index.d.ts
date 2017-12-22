@@ -31,7 +31,7 @@ declare class Nightmare {
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
     download(path:string): Nightmare;
-    download(action: "cancel" | "continue"): Nightmare;  
+    download(action: "cancel" | "continue"): Nightmare;
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
@@ -44,6 +44,11 @@ declare class Nightmare {
     wait(): Nightmare;
     wait(ms: number): Nightmare;
     wait(selector: string): Nightmare;
+    wait<T>(fn: (arg1: T) => any, value1: T): Nightmare;
+    wait<T, U>(fn: (arg1: T, arg2: U) => any, value1: T, value2: U): Nightmare;
+    wait<T, U, V>(fn: (arg1: T, arg2: U, arg3: V) => any, value1: T, value2: U, value3: V): Nightmare;
+    wait<T, U, V, W>(fn: (arg1: T, arg2: U, arg3: V, arg4: W) => any, value1: T, value2: U, value3: V, value4: W): Nightmare;
+    wait<T, U, V, W, X>(fn: (arg1: T, arg2: U, arg3: V, arg4: W, arg5: X) => any, value1: T, value2: U, value3: V, value4: W, value5: X): Nightmare;
     wait(fn: () => any, value: any, delay?: number): Nightmare;
     header(header: string, value: string): Nightmare;
     use(plugin: (nightmare: Nightmare) => void): Nightmare;
