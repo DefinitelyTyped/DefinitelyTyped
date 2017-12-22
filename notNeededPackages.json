@@ -271,6 +271,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "fecha",
+            "typingsPackageName": "fecha",
+            "sourceRepoURL": "https://github.com/taylorhakes/fecha",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
