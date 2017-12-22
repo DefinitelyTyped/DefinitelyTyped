@@ -5,6 +5,7 @@
         "no-single-declare-module": false,
         "interface-over-type-literal": false,
         "unified-signatures": false,
-        "no-declare-current-package": false
+        "no-declare-current-package": false,
+        "no-unnecessary-class": false
     }
 }
