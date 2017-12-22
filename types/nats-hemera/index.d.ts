@@ -574,6 +574,7 @@ declare namespace Hemera {
         /**
          * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
          * (when not in strict() mode) to be matched in a case insensitive manner.
+         *
          */
         insensitive(enabled?: boolean): this;
     }
@@ -1041,8 +1042,8 @@ declare namespace Hemera {
     interface Rules<P extends object = any> {
         name: string;
         params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
-        setup?(this: ExtensionBoundSchema, params: P): Schema | undefined;
-        validate?<R = any>(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
+        setup?(this: ExtensionBoundSchema, params: any): Schema | undefined;
+        validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | any;
         description?: string | ((params: P) => string);
     }
 
@@ -1050,8 +1051,8 @@ declare namespace Hemera {
         name: string;
         base?: Schema;
         language?: LanguageOptions;
-        coerce?<R = any>(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | R;
-        pre?<R = any>(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | R;
+        coerce?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | any;
+        pre?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | any;
         describe?(this: Schema, description: Description): Description;
         rules?: Rules[];
     }
@@ -1080,13 +1081,13 @@ declare namespace Hemera {
         validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
         validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
         compile(schema: SchemaLike): Schema;
-        compile<T extends Schema>(schema: SchemaLike): T;
+        compile<Schema>(schema: SchemaLike): any;
         assert(value: any, schema: SchemaLike, message?: string | Error): undefined;
         attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
         ref(key: string, options?: ReferenceOptions): Reference;
         isRef(ref: any): ref is Reference;
         reach(schema: ObjectSchema, path: string): Schema;
-        reach<T extends Schema>(schema: ObjectSchema, path: string): T;
+        reach<Schema>(schema: ObjectSchema, path: string): any;
     }
 }
 
