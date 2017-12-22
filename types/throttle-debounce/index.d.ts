@@ -23,9 +23,9 @@
  * all arguments are passed through, as-is, to `callback` when the
  * throttled-function is executed.
  *
- * @param debounceMode If `debounceMode` is true (at begin), schedule `clear`
- * to execute after `delay` ms. If `debounceMode` is false (at end), schedule
- * `callback` to execute after `delay` ms.
+ * @param debounceMode If `debounceMode` is true (at begin), schedule 
+ * `callback` to execute after `delay` ms. If `debounceMode` is false (at end),
+ * schedule `callback` to execute after `delay` ms.
  *
  * @return
  * A new, throttled, function.
@@ -50,9 +50,9 @@ export function throttle<T>(
  * all arguments are passed through, as-is, to `callback` when the
  * throttled-function is executed.
  *
- * @param debounceMode If `debounceMode` is true (at begin), schedule `clear`
- * to execute after `delay` ms. If `debounceMode` is false (at end), schedule
- * `callback` to execute after `delay` ms.
+ * @param debounceMode If `debounceMode` is true (at begin), schedule 
+ * `callback` to execute after `delay` ms. If `debounceMode` is false (at end),
+ * schedule `callback` to execute after `delay` ms.
  *
  * @return
  * A new, throttled, function.
