@@ -1,4 +1,4 @@
-// Type definitions for Chance 0.7.3
+// Type definitions for Chance 0.7.4
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
 //                 Brice BERNARD <https://github.com/brikou>
