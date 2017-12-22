@@ -1,5 +1,3 @@
-
-
 // Instantiation
 var globalInstance: Chance.Chance = chance;
 var createYourOwn = new Chance(Math.random);
@@ -8,7 +6,7 @@ var createYourOwn = new Chance(Math.random);
 var randBool: boolean = chance.bool();
 
 var birthday: Date = chance.birthday();
-var birthdayStr: Date|string = chance.birthday({ string: true });
+var birthdayStr: Date | string = chance.birthday({ string: true });
 
 var strArr: string[] = chance.n(chance.string, 42);
 
@@ -26,15 +24,15 @@ declare namespace Chance {
 }
 
 chance.mixin({
-    time: function () {
+    time: function() {
         var h = chance.hour({ twentyfour: true }),
             m = chance.minute();
         return `${h}:${m}`;
-    }
+    },
 });
 
 var timeString: string = chance.time();
 
 var chanceConstructedWithSeed100 = new Chance(100);
-var chanceCalledWithSeed100 = Chance()
-var chanceConstructedWithStringSeed = new Chance("test")
+var chanceCalledWithSeed100 = Chance();
+var chanceConstructedWithStringSeed = new Chance("test");
