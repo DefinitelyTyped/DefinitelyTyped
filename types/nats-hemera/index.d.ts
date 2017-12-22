@@ -165,19 +165,19 @@ declare namespace Hemera {
         duration: number;
     }
 
-    export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
+    type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
 
-    export type LanguageOptions = string | boolean | null | {
+    type LanguageOptions = string | boolean | null | {
         [key: string]: LanguageOptions;
     };
 
-    export type LanguageRootOptions = {
+    type LanguageRootOptions = {
         root?: string;
         key?: string;
         messages?: { wrapArrays?: boolean; };
     } & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions; };
 
-    export interface ValidationOptions {
+    interface ValidationOptions {
         /**
          * when true, stops validation on the first error, otherwise returns all the errors found. Defaults to true.
          */
@@ -220,7 +220,7 @@ declare namespace Hemera {
         noDefaults?: boolean;
     }
 
-    export interface RenameOptions {
+    interface RenameOptions {
         /**
          * if true, does not delete the old key name, keeping both the new and old keys in place. Defaults to false.
          */
@@ -239,7 +239,7 @@ declare namespace Hemera {
         ignoreUndefined?: boolean;
     }
 
-    export interface EmailOptions {
+    interface EmailOptions {
         /**
          * Numerical threshold at which an email address is considered invalid
          */
@@ -254,7 +254,7 @@ declare namespace Hemera {
         minDomainAtoms?: number;
     }
 
-    export interface IpOptions {
+    interface IpOptions {
         /**
          * One or more IP address versions to validate against. Valid values: ipv4, ipv6, ipvfuture
          */
@@ -265,13 +265,13 @@ declare namespace Hemera {
         cidr?: string;
     }
 
-    export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
+    type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
 
-    export interface GuidOptions {
+    interface GuidOptions {
         version: GuidVersions[] | GuidVersions;
     }
 
-    export interface UriOptions {
+    interface UriOptions {
         /**
          * Specifies one or more acceptable Schemes, should only include the scheme name.
          * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
@@ -279,14 +279,14 @@ declare namespace Hemera {
         scheme?: string | RegExp | Array<string | RegExp>;
     }
 
-    export interface Base64Options {
+    interface Base64Options {
         /**
          * optional parameter defaulting to true which will require = padding if true or make padding optional if false
          */
         paddingRequired?: boolean;
     }
 
-    export interface WhenOptions {
+    interface WhenOptions {
         /**
          * the required condition joi type.
          */
@@ -301,7 +301,7 @@ declare namespace Hemera {
         otherwise?: SchemaLike;
     }
 
-    export interface ReferenceOptions {
+    interface ReferenceOptions {
         separator?: string;
         contextPrefix?: string;
         default?: any;
@@ -309,22 +309,22 @@ declare namespace Hemera {
         functions?: boolean;
     }
 
-    export interface IPOptions {
+    interface IPOptions {
         version?: Array<string>;
         cidr?: string
     }
 
-    export interface JoiObject {
+    interface JoiObject {
         isJoi: boolean;
     }
 
-    export interface ValidationError extends Error, JoiObject {
+    interface ValidationError extends Error, JoiObject {
         details: ValidationErrorItem[];
         annotate(): string;
         _object: any;
     }
 
-    export interface ValidationErrorItem {
+    interface ValidationErrorItem {
         message: string;
         type: string;
         path: string[];
@@ -332,22 +332,22 @@ declare namespace Hemera {
         context?: Context;
     }
 
-    export interface ValidationErrorFunction {
+    interface ValidationErrorFunction {
         (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
     }
 
-    export interface ValidationResult<T> {
+    interface ValidationResult<T> {
         error: ValidationError;
         value: T;
     }
 
-    export type SchemaLike = string | number | boolean | object | null | Schema | SchemaMap;
+    type SchemaLike = string | number | boolean | object | null | Schema | SchemaMap;
 
-    export interface SchemaMap {
+    interface SchemaMap {
         [key: string]: SchemaLike | SchemaLike[];
     }
 
-    export type Schema = AnySchema
+    type Schema = AnySchema
         | ArraySchema
         | AlternativesSchema
         | BinarySchema
@@ -359,7 +359,7 @@ declare namespace Hemera {
         | StringSchema
         | LazySchema;
 
-    export interface AnySchema extends JoiObject {
+    interface AnySchema extends JoiObject {
 
         schemaType?: Types | string;
 
@@ -534,7 +534,7 @@ declare namespace Hemera {
         describe(): Description;
     }
 
-    export interface Description {
+    interface Description {
         type?: Types | string;
         label?: string;
         description?: string;
@@ -550,20 +550,20 @@ declare namespace Hemera {
         [key: string]: any;
     }
 
-    export interface Context {
+    interface Context {
         [key: string]: any;
         key?: string;
         label?: string;
     }
 
-    export interface State {
+    interface State {
         key?: string;
         path?: string;
         parent?: any;
         reference?: any;
     }
 
-    export interface BooleanSchema extends AnySchema {
+    interface BooleanSchema extends AnySchema {
 
         /**
          * Allows for additional values to be considered valid booleans by converting them to true during validation.
@@ -589,7 +589,7 @@ declare namespace Hemera {
         insensitive(enabled?: boolean): this;
     }
 
-    export interface NumberSchema extends AnySchema {
+    interface NumberSchema extends AnySchema {
         /**
          * Specifies the minimum value.
          * It can also be a reference to another field.
@@ -645,7 +645,7 @@ declare namespace Hemera {
         negative(): this;
     }
 
-    export interface StringSchema extends AnySchema {
+    interface StringSchema extends AnySchema {
         /**
          * Allows the value to match any whitelist of blacklist item in a case insensitive comparison.
          */
@@ -779,7 +779,7 @@ declare namespace Hemera {
         trim(): this;
     }
 
-    export interface ArraySchema extends AnySchema {
+    interface ArraySchema extends AnySchema {
         /**
          * Allow this array to be sparse.
          * enabled can be used with a falsy value to go back to the default behavior.
@@ -838,7 +838,7 @@ declare namespace Hemera {
         unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
     }
 
-    export interface ObjectSchema extends AnySchema {
+    interface ObjectSchema extends AnySchema {
 
         /**
          * Sets the allowed object keys.
@@ -953,7 +953,7 @@ declare namespace Hemera {
         optionalKeys(...children: string[]): this;
     }
 
-    export interface BinarySchema extends AnySchema {
+    interface BinarySchema extends AnySchema {
         /**
          * Sets the string encoding format if a string input is converted to a buffer.
          */
@@ -975,7 +975,7 @@ declare namespace Hemera {
         length(limit: number): this;
     }
 
-    export interface DateSchema extends AnySchema {
+    interface DateSchema extends AnySchema {
 
         /**
          * Specifies the oldest date allowed.
@@ -1018,7 +1018,7 @@ declare namespace Hemera {
         timestamp(type?: 'javascript' | 'unix'): this;
     }
 
-    export interface FunctionSchema extends AnySchema {
+    interface FunctionSchema extends AnySchema {
 
         /**
          * Specifies the arity of the function where:
@@ -1044,18 +1044,18 @@ declare namespace Hemera {
         ref(): this;
     }
 
-    export interface AlternativesSchema extends AnySchema {
+    interface AlternativesSchema extends AnySchema {
         try(types: SchemaLike[]): this;
         try(...types: SchemaLike[]): this;
         when(ref: string, options: WhenOptions): this;
         when(ref: Reference, options: WhenOptions): this;
     }
 
-    export interface LazySchema extends AnySchema {
+    interface LazySchema extends AnySchema {
 
     }
 
-    export interface Reference extends JoiObject {
+    interface Reference extends JoiObject {
         (value: any, validationOptions: ValidationOptions): any;
         isContext: boolean;
         key: string;
@@ -1063,7 +1063,7 @@ declare namespace Hemera {
         toString(): string;
     }
 
-    export type ExtensionBoundSchema = Schema & {
+    type ExtensionBoundSchema = Schema & {
         /**
          * Creates a joi error object.
          * Used in conjunction with custom rules.
@@ -1075,7 +1075,7 @@ declare namespace Hemera {
         createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
     }
 
-    export interface Rules<P extends object = any> {
+    interface Rules<P extends object = any> {
         name: string;
         params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
         setup?(this: ExtensionBoundSchema, params: P): Schema | void;
@@ -1083,7 +1083,7 @@ declare namespace Hemera {
         description?: string | ((params: P) => string);
     }
 
-    export interface Extension {
+    interface Extension {
         name: string;
         base?: Schema;
         language?: LanguageOptions;
@@ -1093,7 +1093,7 @@ declare namespace Hemera {
         rules?: Rules[];
     }
 
-    export interface Err extends JoiObject {
+    interface Err extends JoiObject {
         toString(): string;
     }
 
