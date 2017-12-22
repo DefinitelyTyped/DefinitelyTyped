@@ -13,7 +13,7 @@ function StepSample() {
     type Table = cucumber.TableDefinition;
     type HookScenarioResult = cucumber.HookScenarioResult;
 
-    cucumber.defineSupportCode(({setWorldConstructor, defineParameterType, After, Around, Before, registerHandler, Given, When, Then}) => {
+    cucumber.defineSupportCode(({setWorldConstructor, defineParameterType, After, AfterAll, Around, Before, BeforeAll, registerHandler, Given, When, Then}) => {
         setWorldConstructor(function({attach, parameters}) {
             this.attach = attach;
             this.parameters = parameters;
@@ -32,6 +32,16 @@ function StepSample() {
             callback();
         });
 
+        BeforeAll((callback: Callback) => {
+            console.log("Before all");
+            callback();
+        });
+
+        BeforeAll({ timeout: 1000 }, (callback: Callback) => {
+            console.log("Before all");
+            callback();
+        });
+
         Around((scenarioResult: HookScenarioResult, runScenario: (error: string | null, callback?: () => void) => void) => {
             if (scenarioResult.status === "failed") {
                 runScenario(null, () => {
@@ -47,6 +57,16 @@ function StepSample() {
 
         After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
             console.log("After");
+            callback();
+        });
+
+        AfterAll((callback: Callback) => {
+            console.log("After all");
+            callback();
+        });
+
+        AfterAll({ timeout: 1000 }, (callback: Callback) => {
+            console.log("After all");
             callback();
         });
 

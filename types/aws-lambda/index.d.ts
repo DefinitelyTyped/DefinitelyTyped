@@ -8,6 +8,7 @@
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
+//                 Michael Marner <https://github.com/MichaelMarner>
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
 //                 Markus Tacker <https://github.com/coderbyheart>
@@ -63,6 +64,53 @@ interface CustomAuthorizerEvent {
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
     requestContext?: APIGatewayEventRequestContext;
+}
+
+// Context
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
+interface AttributeValue {
+    B?: string;
+    BS?: Array<string>;
+    BOOL?: boolean;
+    L?: Array<AttributeValue>;
+    M?: { [id: string]: AttributeValue };
+    N?: number;
+    NS?: Array<string>;
+    NULL?: boolean;
+    S?: string;
+    SS?: Array<string>;
+}
+
+// Context
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
+interface StreamRecord {
+    ApproximateCreationTime?: number;
+    Keys?: { [key: string]: AttributeValue };
+    NewImage?: { [key: string]: AttributeValue };
+    OldImage?: { [key: string]: AttributeValue };
+    SequenceNumber?: string;
+    SizeBytes?: number;
+    StreamViewType?: 'KEYS_ONLY' | 'NEW_IMAGE' | 'OLD_IMAGE' | 'NEW_AND_OLD_IMAGES';
+}
+
+// Context
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.html
+interface DynamoDBRecord {
+    awsRegion?: string;
+    dynamodb?: StreamRecord;
+    eventID?: string;
+    eventName?: 'INSERT' | 'MODIFY' | 'REMOVE';
+    eventSource?: string;
+    eventSourceARN?: string;
+    eventVersion?: string;
+    userIdentity?: any;
+}
+
+// AWS Lambda Stream event
+// Context
+// http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-ddb-update
+interface DynamoDBStreamEvent {
+    Records: Array<DynamoDBRecord>;
 }
 
 // SNS "event"

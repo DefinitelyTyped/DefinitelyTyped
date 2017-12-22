@@ -19,6 +19,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/model.ts",
+        "test/module-api.ts",
         "test/adapter.ts",
         "test/serializer.ts",
         "test/transform.ts",

@@ -2471,8 +2471,16 @@ declare namespace google.maps {
             description: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
+            reference: string;
+            structured_formatting: AutocompleteStructuredFormatting;
             terms: PredictionTerm[];
             types: string[];
+        }
+        
+        export interface AutocompleteStructuredFormatting {
+            main_text: string;
+            main_text_matched_substrings: PredictionSubstring[];
+            secondary_text: string;
         }
 
         export interface OpeningHours {
