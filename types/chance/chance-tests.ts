@@ -8,6 +8,10 @@ var randBool: boolean = chance.bool();
 var birthday: Date = chance.birthday();
 var birthdayStr: Date | string = chance.birthday({ string: true });
 
+var guid = chance.guid();
+var guid = chance.guid({ version: 4 });
+var guid = chance.guid({ version: 5 });
+
 var strArr: string[] = chance.n(chance.string, 42);
 
 var uniqInts: number[] = chance.unique(chance.integer, 99);

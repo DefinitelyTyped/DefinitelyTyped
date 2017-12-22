@@ -1,6 +1,7 @@
 // Type definitions for Chance 0.7.3
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
+//                 Brice BERNARD <https://github.com/brikou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {
@@ -143,7 +144,7 @@ declare namespace Chance {
         d20(): number;
         d30(): number;
         d100(): number;
-        guid(): string;
+        guid(options?: { version: 4 | 5 }): string;
         hash(opts?: Options): string;
         n<T>(generator: () => T, count: number, opts?: Options): T[];
         normal(opts?: Options): number;
