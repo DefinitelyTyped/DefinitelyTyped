@@ -1170,4 +1170,3 @@ declare class Hemera {
     trace$: Hemera.Trace;
     request$: Hemera.Request;
 }
-
