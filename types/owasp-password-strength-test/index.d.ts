@@ -6,7 +6,7 @@
 
 export as namespace owaspPasswordStrengthTest;
 
-export interface PasswordTestResult {
+export interface TestResult {
     /** error messages associated with the failed tests */
     errors: string[];
     /** enumerates which tests have failed, beginning from 0 with the first required test */
@@ -28,28 +28,28 @@ export interface PasswordTestResult {
      */
     optionalTestsPassed: number;
 }
-export interface PasswordTestConfiguration {
+export interface TestConfig {
     /**
      * toggles the "passphrase" mechanism on and off;
      * If set to false, the strength-checker will abandon the notion of "passphrases",
      * and will subject all passwords to the same complexity requirements.
      */
-    allowPassphrases?: boolean;
+    allowPassphrases: boolean;
     /** constraint on a password's maximum length */
-    maxLength?: number;
+    maxLength: number;
     /** constraint on a password's minimum length */
-    minLength?: number;
+    minLength: number;
     /**
      * minimum length a password needs to achieve in order to be considered a "passphrase"
      * (and thus exempted from the optional complexity tests by default)
      */
-    minPhraseLength?: number;
+    minPhraseLength: number;
     /**
      * minimum number of optional tests that a password must pass in order to be considered "strong";
      * By default (per the OWASP guidelines), four optional complexity tests are made,
      * and a password must pass at least three of them in order to be considered "strong"
      */
-    minOptionalTestsToPass?: number;
+    minOptionalTestsToPass: number;
 
     // // to add support for https://github.com/nowsecure/owasp-password-strength-test/pull/5
     // /**
@@ -63,11 +63,11 @@ export interface PasswordTestConfiguration {
 
 export type PasswordTest = (password: string) => string | undefined;
 
-export function test(password: string): PasswordTestResult;
-export function config(configuration: PasswordTestConfiguration): void;
+export function test(password: string): TestResult;
+export function config(configuration: Partial<TestConfig>): void;
 
 export let tests: {
     required: PasswordTest[];
     optional: PasswordTest[];
 };
-export const configs: Readonly<PasswordTestConfiguration>;
+export const configs: Readonly<TestConfig>;
