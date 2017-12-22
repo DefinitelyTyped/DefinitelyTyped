@@ -839,12 +839,6 @@
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
             "asOfVersion": "0.5.12"
-        },
-        {
-            "libraryName": "mirror",
-            "typingsPackageName": "mirrorx",
-            "sourceRepoURL": "https://github.com/mirrorjs/mirror",
-            "asOfVersion": "0.2.10"
         }
     ]
 }
