@@ -883,6 +883,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "timezonecomplete",
+            "typingsPackageName": "timezonecomplete",
+            "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
+            "asOfVersion": "5.5.0"
+        },
+        {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
