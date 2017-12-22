@@ -819,16 +819,12 @@ declare namespace Hemera {
         unique(comparator?: string): this;
         unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
     }
-    
-    // interface SchemaMap1<T>{
-    //     [key: string | number]: SchemaLike | SchemaLike[];
-    // }
 
     interface ObjectSchema extends AnySchema {
         /**
          * Sets the allowed object keys.
          */
-        keys<R>(schema?: R): this;
+        keys<R>(schema?: R): R;
 
         /**
          * Specifies the minimum number of keys in the object.
