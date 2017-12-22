@@ -101,7 +101,7 @@ declare namespace Hemera {
         action: any;
         plugin: PluginDefinition;
         use(handler: AddMetaMiddleware): AddMeta;
-        end(cb: () => void): void;
+        end(cb: () => void): undefined;
     }
 
     type AddMetaMiddleware = (request: ServerRequest, response: ServerResponse, next: () => void) => void;
@@ -265,7 +265,7 @@ declare namespace Hemera {
         cidr?: string;
     }
 
-    type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
+    type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
 
     interface GuidOptions {
         version: GuidVersions[] | GuidVersions;
@@ -309,9 +309,9 @@ declare namespace Hemera {
         functions?: boolean;
     }
 
-    interface IPOptions {
-        version?: Array<string>;
-        cidr?: string
+    interface POptions {
+        version?: string[];
+        cidr?: string;
     }
 
     interface JoiObject {
@@ -332,9 +332,7 @@ declare namespace Hemera {
         context?: Context;
     }
 
-    interface ValidationErrorFunction {
-        (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
-    }
+    type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
 
     interface ValidationResult<T> {
         error: ValidationError;
@@ -356,18 +354,15 @@ declare namespace Hemera {
         | FunctionSchema
         | NumberSchema
         | ObjectSchema
-        | StringSchema
-        | LazySchema;
+        | StringSchema;
 
     interface AnySchema extends JoiObject {
-
         schemaType?: Types | string;
 
         /**
          * Validates a value using the schema and options.
          */
         validate<T>(value: T): ValidationResult<T>;
-        validate<T>(value: T, options: ValidationOptions): ValidationResult<T>;
         validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
         validate<T, R>(value: T, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 
@@ -426,14 +421,12 @@ declare namespace Hemera {
         /**
          * Annotates the key
          */
-        notes(notes: string): this;
-        notes(notes: string[]): this;
+        notes(notes: string[] | string): this;
 
         /**
          * Annotates the key
          */
-        tags(notes: string): this;
-        tags(notes: string[]): this;
+        tags(notes: string[] | string): this;
 
         /**
          * Attaches metadata to the key.
@@ -478,8 +471,7 @@ declare namespace Hemera {
          * Additionally, when specifying a method you must either have a description property on your method or the
          *  second parameter is required.
          */
-        default(value: any, description?: string): this;
-        default(): this;
+        default(value?: any, description?: string): this;
 
         /**
          * Returns a new type that is the result of adding the rules of one type to another.
@@ -489,8 +481,7 @@ declare namespace Hemera {
         /**
          * Converts the type into an alternatives type where the conditions are merged into the type definition where:
          */
-        when(ref: string, options: WhenOptions): AlternativesSchema;
-        when(ref: Reference, options: WhenOptions): AlternativesSchema;
+        when(ref: string | Reference, options: WhenOptions): AlternativesSchema;
 
         /**
          * Overrides the key name in error messages.
@@ -564,7 +555,6 @@ declare namespace Hemera {
     }
 
     interface BooleanSchema extends AnySchema {
-
         /**
          * Allows for additional values to be considered valid booleans by converting them to true during validation.
          * Accepts a value or an array of values. String comparisons are by default case insensitive,
@@ -594,29 +584,24 @@ declare namespace Hemera {
          * Specifies the minimum value.
          * It can also be a reference to another field.
          */
-        min(limit: number): this;
-        min(limit: Reference): this;
+        min(limit: number | Reference): this;
 
         /**
          * Specifies the maximum value.
          * It can also be a reference to another field.
          */
-        max(limit: number): this;
-        max(limit: Reference): this;
+        max(limit: number | Reference): this;
 
         /**
          * Specifies that the value must be greater than limit.
          * It can also be a reference to another field.
          */
-        greater(limit: number): this;
-        greater(limit: Reference): this;
-
+        greater(limit: number | Reference): this;
         /**
          * Specifies that the value must be less than limit.
          * It can also be a reference to another field.
          */
-        less(limit: number): this;
-        less(limit: Reference): this;
+        less(limit: number | Reference): this;
 
         /**
          * Requires the number to be an integer (no floating point).
@@ -656,16 +641,14 @@ declare namespace Hemera {
          * @param limit - the minimum number of string characters required. It can also be a reference to another field.
          * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
          */
-        min(limit: number, encoding?: string): this;
-        min(limit: Reference, encoding?: string): this;
+        min(limit: number | Reference, encoding?: string): this;
 
         /**
          * Specifies the maximum number of string characters.
          * @param limit - the maximum number of string characters allowed. It can also be a reference to another field.
          * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
          */
-        max(limit: number, encoding?: string): this;
-        max(limit: Reference, encoding?: string): this;
+        max(limit: number | Reference, encoding?: string): this;
 
         /**
          * Specifies whether the string.max() limit should be used as a truncation.
@@ -695,9 +678,7 @@ declare namespace Hemera {
          * @param limit - the required string length. It can also be a reference to another field.
          * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
          */
-        length(limit: number, encoding?: string): this;
-        length(limit: Reference, encoding?: string): this;
-
+        length(limit: number | Reference, encoding?: string): this;
         /**
          * Defines a regular expression rule.
          * @param pattern - a regular expression object the string value must match against.
@@ -710,8 +691,7 @@ declare namespace Hemera {
          * @param pattern - a regular expression object to match against, or a string of which all occurrences will be replaced.
          * @param replacement - the string that will replace the pattern.
          */
-        replace(pattern: RegExp, replacement: string): this;
-        replace(pattern: string, replacement: string): this;
+        replace(pattern: RegExp | string, replacement: string): this;
 
         /**
          * Requires the string value to only contain a-z, A-Z, and 0-9.
@@ -808,8 +788,10 @@ declare namespace Hemera {
 
         /**
          * Lists the types in sequence order for the array values where:
-         * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
-         * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
+         * @param type - a joi schema object to validate against each array item in sequence order.
+         * type can be an array of values, or multiple values can be passed as individual arguments.
+         * If a given type is .required() then there must be a matching item with the same index position
+         * in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
          */
         ordered(...types: SchemaLike[]): this;
         ordered(types: SchemaLike[]): this;
@@ -839,7 +821,6 @@ declare namespace Hemera {
     }
 
     interface ObjectSchema extends AnySchema {
-
         /**
          * Sets the allowed object keys.
          */
@@ -896,14 +877,12 @@ declare namespace Hemera {
         /**
          * Requires the presence of other keys whenever the specified key is present.
          */
-        with(key: string, peers: string): this;
-        with(key: string, peers: string[]): this;
+        with(key: string, peers: string | string[]): this;
 
         /**
          * Forbids the presence of other keys whenever the specified is present.
          */
-        without(key: string, peers: string): this;
-        without(key: string, peers: string[]): this;
+        without(key: string, peers: string | string[]): this;
 
         /**
          * Renames a key to another name (deletes the renamed key).
@@ -913,8 +892,7 @@ declare namespace Hemera {
         /**
          * Verifies an assertion where.
          */
-        assert(ref: string, schema: SchemaLike, message?: string): this;
-        assert(ref: Reference, schema: SchemaLike, message?: string): this;
+        assert(ref: string | Reference, schema: SchemaLike, message?: string): this;
 
         /**
          * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
@@ -927,7 +905,7 @@ declare namespace Hemera {
          * @param constructor - the constructor function that the object must be an instance of.
          * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
          */
-        type(constructor: Function, name?: string): this;
+        type(constructor: () => void, name?: string): this;
 
         /**
          * Sets the specified children to required.
@@ -976,17 +954,13 @@ declare namespace Hemera {
     }
 
     interface DateSchema extends AnySchema {
-
         /**
          * Specifies the oldest date allowed.
          * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
          * allowing to explicitly ensure a date is either in the past or in the future.
          * It can also be a reference to another field.
          */
-        min(date: Date): this;
-        min(date: number): this;
-        min(date: string): this;
-        min(date: Reference): this;
+        min(date: Date | number | string | Reference): this;
 
         /**
          * Specifies the latest date allowed.
@@ -994,17 +968,13 @@ declare namespace Hemera {
          * allowing to explicitly ensure a date is either in the past or in the future.
          * It can also be a reference to another field.
          */
-        max(date: Date): this;
-        max(date: number): this;
-        max(date: string): this;
-        max(date: Reference): this;
+        max(date: Date | number | string | Reference): this;
 
         /**
          * Specifies the allowed date format:
          * @param format - string or array of strings that follow the moment.js format.
          */
-        format(format: string): this;
-        format(format: string[]): this;
+        format(format: string | string[]): this;
 
         /**
          * Requires the string value to be in valid ISO 8601 date format.
@@ -1019,7 +989,6 @@ declare namespace Hemera {
     }
 
     interface FunctionSchema extends AnySchema {
-
         /**
          * Specifies the arity of the function where:
          * @param n - the arity expected.
@@ -1047,12 +1016,7 @@ declare namespace Hemera {
     interface AlternativesSchema extends AnySchema {
         try(types: SchemaLike[]): this;
         try(...types: SchemaLike[]): this;
-        when(ref: string, options: WhenOptions): this;
-        when(ref: Reference, options: WhenOptions): this;
-    }
-
-    interface LazySchema extends AnySchema {
-
+        when(ref: string | Reference, options: WhenOptions): this;
     }
 
     interface Reference extends JoiObject {
@@ -1073,12 +1037,12 @@ declare namespace Hemera {
          * @param options - should the context passed into the `validate` function in a custom rule
          */
         createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
-    }
+    };
 
     interface Rules<P extends object = any> {
         name: string;
         params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
-        setup?(this: ExtensionBoundSchema, params: P): Schema | void;
+        setup?(this: ExtensionBoundSchema, params: P): Schema | undefined;
         validate?<R = any>(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
         description?: string | ((params: P) => string);
     }
@@ -1112,20 +1076,18 @@ declare namespace Hemera {
         alternatives(...types: SchemaLike[]): AlternativesSchema;
         alt(types: SchemaLike[]): AlternativesSchema;
         alt(...types: SchemaLike[]): AlternativesSchema;
-        lazy(cb: () => Schema): LazySchema;
+        lazy(cb: () => Schema): AnySchema;
         validate<T>(value: T, schema: SchemaLike): ValidationResult<T>;
         validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
-        validate<T>(value: T, schema: SchemaLike, options: ValidationOptions): ValidationResult<T>;
         validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
         compile(schema: SchemaLike): Schema;
         compile<T extends Schema>(schema: SchemaLike): T;
-        assert(value: any, schema: SchemaLike, message?: string | Error): void;
+        assert(value: any, schema: SchemaLike, message?: string | Error): undefined;
         attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
         ref(key: string, options?: ReferenceOptions): Reference;
         isRef(ref: any): ref is Reference;
         reach(schema: ObjectSchema, path: string): Schema;
         reach<T extends Schema>(schema: ObjectSchema, path: string): T;
-        extend(extension: Extension|Extension[], ...extensions: (Extension|Extension[])[]): any;
     }
 }
 
