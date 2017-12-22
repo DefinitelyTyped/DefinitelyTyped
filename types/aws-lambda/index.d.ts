@@ -12,6 +12,7 @@
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
 //                 Markus Tacker <https://github.com/coderbyheart>
+//                 Tomas Polovincak <https://github.com/polovi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -452,9 +453,9 @@ export type CloudFrontRequestEvent = {
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
  */
-export type Handler = (event: any, context: Context, callback?: Callback) => Promise<void> | void;
-export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => Promise<void> | void;
-export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => Promise<void> | void;
+export type Handler = (event: any, context: Context, callback: Callback) => Promise<void> | void;
+export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback: ProxyCallback) => Promise<void> | void;
+export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback: CustomAuthorizerCallback) => Promise<void> | void;
 
 /**
  * Optional callback parameter.
