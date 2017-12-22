@@ -574,7 +574,7 @@ declare namespace Hemera {
         /**
          * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
          * (when not in strict() mode) to be matched in a case insensitive manner.
-         *
+         * 
          */
         insensitive(enabled?: boolean): this;
     }
@@ -630,7 +630,7 @@ declare namespace Hemera {
         negative(): this;
     }
 
-    interface StringSchema extends AnySchema {
+    export interface StringSchema extends AnySchema {
         /**
          * Allows the value to match any whitelist of blacklist item in a case insensitive comparison.
          */
@@ -824,7 +824,7 @@ declare namespace Hemera {
         /**
          * Sets the allowed object keys.
          */
-        keys<T = any>(schema?: T): this
+        keys<T>(schema?: T): this;
 
         /**
          * Specifies the minimum number of keys in the object.
@@ -1130,3 +1130,4 @@ declare class Hemera {
     trace$: Hemera.Trace;
     request$: Hemera.Request;
 }
+
