@@ -21,8 +21,10 @@ kraken({
 // $ExpectType Kraken
 app.use(kraken());
 
-// $ExpectType void
-app.once('event', (err, result) => {});
+new Promise(resolve => {
+    // $ExpectType Kraken
+    app.once('event', resolve);
+});
 
 // $ExpectType any
 app.kraken.get('configProp');
