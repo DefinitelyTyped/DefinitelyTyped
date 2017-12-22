@@ -1043,7 +1043,7 @@ declare namespace Hemera {
         name: string;
         params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
         setup?(this: ExtensionBoundSchema, params: any): Schema | undefined;
-        validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | any;
+        validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): any;
         description?: string | ((params: P) => string);
     }
 
@@ -1051,8 +1051,8 @@ declare namespace Hemera {
         name: string;
         base?: Schema;
         language?: LanguageOptions;
-        coerce?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | any;
-        pre?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | any;
+        coerce?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): any;
+        pre?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): any;
         describe?(this: Schema, description: Description): Description;
         rules?: Rules[];
     }
@@ -1081,13 +1081,11 @@ declare namespace Hemera {
         validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
         validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
         compile(schema: SchemaLike): Schema;
-        compile<Schema>(schema: SchemaLike): any;
         assert(value: any, schema: SchemaLike, message?: string | Error): undefined;
         attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
         ref(key: string, options?: ReferenceOptions): Reference;
         isRef(ref: any): ref is Reference;
         reach(schema: ObjectSchema, path: string): Schema;
-        reach<Schema>(schema: ObjectSchema, path: string): any;
     }
 }
 
