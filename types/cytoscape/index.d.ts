@@ -176,9 +176,7 @@ declare namespace cytoscape {
          * leaving your nodes in their current positions
          * (e.g. specified in options.elements at initialisation time)
          */
-        layout?: NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
-        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
+        layout?: LayoutOptions;
 
         ///////////////////////////////////////
         // initial viewport state:
@@ -4142,9 +4140,9 @@ declare namespace cytoscape {
     interface Layouts extends LayoutManipulation, LayoutEvents { }
 
     type LayoutOptions =
-        NullLayoutOptions | PresetLayoutOptions | GridLayoutOptions |
-        CircleLayoutOptions | ConcentricLayoutOptions | BreadthFirstLayoutOptions |
-        CoseLayoutOptions | BaseLayoutOptions;
+        NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
+        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
+        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
 
     type LayoutHandler = () => void;
 
