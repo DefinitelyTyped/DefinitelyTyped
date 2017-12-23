@@ -809,7 +809,7 @@ declare namespace jest {
         watchman: boolean;
     }
 
-    interface ProjectConfig {        
+    interface ProjectConfig {
         automock: boolean;
         browser: boolean;
         cache: boolean;
