@@ -1,54 +1,33 @@
 import * as React from 'react';
 import * as i18n from 'i18next';
 import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction, loadNamespaces, Trans } from 'react-i18next';
-import { InjectedI18nProps } from 'react-i18next/src/props';
 
 interface InnerAnotherComponentProps {
-  _: TranslationFunction;
+  _?: TranslationFunction;
 }
 
 class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps> {
   render() {
-    const _ = this.props._;
+    const _ = this.props._!;
     return <p>{_('content.text', { /* options t options */ })}</p>;
   }
 }
 
-const AnotherComponent = translate<Key, "_">('view', { wait: true, translateFuncName: '_' })(InnerAnotherComponent);
-const instanceWithoutRef = new AnotherComponent({});
-instanceWithoutRef.componentWillReceiveProps!({
-    i18n,
-    initialI18nStore: { context: { text: "a message" } },
-    initialLanguage: "en"
-}, {});
-
-translate.setDefaults({ wait: false });
-translate.setI18n(i18n);
-
-const AnotherComponentWithRef = translate<Key, "_">("view" as Key, { translateFuncName: "_", withRef: true })(InnerAnotherComponent);
-const instanceWithRef = new AnotherComponentWithRef({});
-const ref = instanceWithRef.getWrappedInstance();
-instanceWithRef.componentWillReceiveProps!({
-    i18n,
-    initialI18nStore: { context: { text: "a message" } },
-    initialLanguage: "en"
-}, {});
+const AnotherComponent = translate('view', { wait: true, translateFuncName: '_' })(InnerAnotherComponent);
 
 class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
   render() {
-    const t = this.props.t;
+    const t = this.props.t!;
     return <p>{t('usingDefaultNS', { /* options t options */ })}</p>;
   }
 }
 
 const YetAnotherComponent = translate()(InnerYetAnotherComponent);
 
-const YetAnotherComponentWithRef = translate(undefined, { withRef: true })(InnerYetAnotherComponent);
-new YetAnotherComponentWithRef({}).getWrappedInstance();
-
+@translate(['view', 'nav'], { wait: true })
 class TranslatableView extends React.Component<InjectedTranslateProps> {
   render() {
-    const t = this.props.t;
+    const t = this.props.t!;
     const interpolateComponent = <strong>"a interpolated component"</strong>;
 
     return (
@@ -76,14 +55,12 @@ class TranslatableView extends React.Component<InjectedTranslateProps> {
   }
 }
 
-const TranslatedView = translate(["view", "nav"] as Key[], { wait: true })(TranslatableView);
-
 class App extends React.Component {
   render() {
     return (
       <div className='main'>
         <main>
-          <TranslatedView />
+          <TranslatableView />
         </main>
       </div>
     );
@@ -104,34 +81,12 @@ loadNamespaces({ components: [App], i18n }).then(() => { }).catch(error => { });
 
 type Key = "view" | "nav";
 
+@translate<Key>(['view', 'nav'])
 class GenericsTest extends React.Component<InjectedTranslateProps> {
   render() { return null; }
 }
 
-const TranslatedGenericsTest = translate(["view", "nav"] as Key[])(GenericsTest);
-<TranslatedGenericsTest />;
-
+@translate<Key>('view')
 class GenericsTest2 extends React.Component<InjectedTranslateProps> {
   render() { return null; }
-}
-
-const TranslatedGenericsTest2 = translate("view" as Key)(GenericsTest2);
-<TranslatedGenericsTest2 />;
-
-class ComponentWithInjectedI18n extends React.Component<InjectedI18nProps> {
-  render() { return null; }
-}
-
-const TranslatedComponentWithInjectedI18n = translate()(ComponentWithInjectedI18n);
-<TranslatedComponentWithInjectedI18n />;
-
-function StatlessComponent(props: InjectedTranslateProps) {
-  return <h1>{props.t("hy")}</h1>;
-}
-
-const TranslatedStatlessComponent = translate()(StatlessComponent);
-<TranslatedStatlessComponent />;
-
-interface CustomTranslateFunctionProps {
-  _: TranslationFunction;
 }

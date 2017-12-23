@@ -8,11 +8,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "react-i18next": [ "react-i18next/v4" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
