@@ -3961,7 +3961,7 @@ declare namespace cytoscape {
      */
     interface AbstractEventObject {
         /** a reference to the corresponding core Core */
-        cy: any;
+        cy: Core;
         /** indicates the element or core that first caused the event */
         target?: any;
         /** the event type string (e.g. "tap") */
