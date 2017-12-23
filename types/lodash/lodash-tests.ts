@@ -11266,6 +11266,22 @@ namespace TestGet {
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
+    _.get('abc', 4); // $ExpectType string | undefined
+    _('abc').get(4); // $ExpectType string | undefined
+    _.chain('abc').get(4); // $ExpectType LoDashExplicitWrapper<string | undefined>
+
+    _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
+    _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
+    _.chain({ a: { b: true } }).get("a"); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
+
+    _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
+    _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
+    _.chain({ a: { b: true } }).get(["a"]); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
+
+    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType any
+    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
+
     {
         let result: string;
 
@@ -11322,7 +11338,7 @@ namespace TestGet {
         result = _({a: true}).get<boolean>(['a']);
         result = _({a: true}).get<boolean>(['a'], false);
     }
-
+/*
     {
         let result: _.LoDashExplicitWrapper<string>;
 
@@ -11348,7 +11364,7 @@ namespace TestGet {
         result = _({a: true}).chain().get('a', false);
         result = _({a: true}).chain().get(['a']);
         result = _({a: true}).chain().get(['a'], false);
-    }
+    }*/
 }
 
 // _.has
