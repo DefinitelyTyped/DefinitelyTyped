@@ -3302,6 +3302,12 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
     onLoadStart?: () => void;
 
     progressiveRenderingEnabled?: boolean;
+    
+    borderRadius?: number;
+    borderTopLeftRadius?: number;
+    borderTopRightRadius?: number;
+    borderBottomLeftRadius?: number;
+    borderBottomRightRadius?: number;
 
     /**
      * Determines how to resize the image when the frame doesn't match the raw
