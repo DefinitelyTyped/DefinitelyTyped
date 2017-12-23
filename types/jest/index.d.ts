@@ -1,4 +1,4 @@
-// Type definitions for Jest 21.1
+// Type definitions for Jest 22.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -9,6 +9,7 @@
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
+//                 Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -808,13 +809,17 @@ declare namespace jest {
         watchman: boolean;
     }
 
-    interface ProjectConfig {
+    interface ProjectConfig {        
         automock: boolean;
         browser: boolean;
         cache: boolean;
         cacheDirectory: Path;
         clearMocks: boolean;
         coveragePathIgnorePatterns: string[];
+        cwd: Path;
+        detectLeaks: boolean;
+        displayName: Maybe<string>;
+        forceCoverageMatch: Glob[];
         globals: ConfigGlobals;
         haste: HasteConfig;
         moduleDirectories: string[];
@@ -829,11 +834,14 @@ declare namespace jest {
         resolver: Maybe<Path>;
         rootDir: Path;
         roots: Path[];
+        runner: string;
         setupFiles: Path[];
         setupTestFrameworkScriptFile: Path;
         skipNodeResolution: boolean;
         snapshotSerializers: Path[];
         testEnvironment: string;
+        testEnvironmentOptions: object;
+        testLocationInResults: boolean;
         testMatch: Glob[];
         testPathIgnorePatterns: string[];
         testRegex: string;
@@ -843,6 +851,7 @@ declare namespace jest {
         transform: Array<[string, Path]>;
         transformIgnorePatterns: Glob[];
         unmockedModulePathPatterns: Maybe<string[]>;
+        watchPathIgnorePatterns: string[];
     }
 
     // Console
