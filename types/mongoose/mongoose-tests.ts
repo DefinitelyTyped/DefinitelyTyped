@@ -503,6 +503,25 @@ doc.populate(cb);
 doc.populate({path: 'hello'}).execPopulate().catch(cb);
 doc.update({$inc: {wheels:1}}, { w: 1 }, cb);
 
+const ImageSchema = new mongoose.Schema({
+  name: {type: String, required: true},
+  id: {type: Number, unique: true, required: true, index: true},
+}, { id: false });
+
+interface ImageDoc extends mongoose.Document {
+  name: string,
+  id: number
+}
+
+const ImageModel = mongoose.model<ImageDoc>('image', ImageSchema);
+
+ImageModel.findOne({}, function(err, doc) {
+  if (doc) {
+    doc.name;
+    doc.id;
+  }
+});
+
 /*
  * section types/subdocument.js
  * http://mongoosejs.com/docs/api.html#types-subdocument-js
@@ -1277,6 +1296,7 @@ mongoModel.remove(function (err, product) {
   if (err) throw(err);
   MongoModel.findById(product._id, function (err, product) {
     if (product) {
+      product.id.toLowerCase();
       product.remove();
     }
   });

@@ -13,6 +13,7 @@ declare let element: HTMLElement;
 declare let elements: HTMLElement[];
 declare const div: HTMLDivElement;
 declare const event: KeyboardEvent;
+declare const mouseEvent: MouseEvent;
 
 declare let buffer: Atom.TextBuffer;
 declare const color: Atom.Color;
@@ -65,6 +66,9 @@ declare let subscription: Atom.Disposable;
 declare let subscriptions: Atom.CompositeDisposable;
 declare let tooltips: Atom.Tooltip[];
 declare let workspaceCenter: Atom.WorkspaceCenter;
+declare let pixelPos: Atom.PixelPosition;
+declare let textEditorElement: Atom.TextEditorElement;
+declare let textEditorComponent: Atom.TextEditorComponent;
 
 // AtomEnvironment ============================================================
 function testAtomEnvironment() {
@@ -196,6 +200,8 @@ function testAtomEnvironment() {
     }
 
     atom.executeJavaScriptInDevTools("Test");
+
+    const path: string = atom.getConfigDirPath();
 }
 
 // BufferedNodeProcess ========================================================
@@ -266,6 +272,10 @@ function testCommandRegistry() {
         didDispatch: (event) => event.stopImmediatePropagation(),
         description: "A Command Test",
         displayName: "Command: Test",
+    });
+    atom.commands.add("atom-text-editor", {
+        "test-function": (event) => event.currentTarget.getModel(),
+        "test-function2": (event) => event.currentTarget.getComponent(),
     });
 
     const commands = atom.commands.findCommands({ target: element });
@@ -1056,6 +1066,10 @@ function testGrammar() {
     tokenizeLineResult.tokens;
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack);
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack, false);
+
+    let str: string;
+    str = grammar.name;
+    str = grammar.scopeName;
 }
 
 // GrammarRegistry ============================================================
@@ -1396,6 +1410,9 @@ function testPackageManager() {
     subscription = atom.packages.onDidDeactivatePackage(pack => pack.path);
     subscription = atom.packages.onDidLoadPackage(pack => pack.isCompatible());
     subscription = atom.packages.onDidUnloadPackage(pack => pack.name);
+    subscription = atom.packages.onDidTriggerActivationHook(
+      'language-javascript:grammar-used', () => {}
+    );
 
     // Package system data
     str = atom.packages.getApmPath();
@@ -1587,7 +1604,8 @@ function testPanel() {
 }
 
 // PathWatcher ================================================================
-function testPathWatcher() {
+async function testPathWatcher() {
+    const pathWatcher = await pathWatcherPromise;
     pathWatcher.dispose();
     subscription = pathWatcher.onDidError((error) => str = error.name);
 
@@ -2352,14 +2370,14 @@ function testTextEditor() {
     // Mutating Text
     editor.setText("Test");
 
-    editor.setTextInBufferRange(range, "Test");
-    editor.setTextInBufferRange([pos, pos], "Test");
-    editor.setTextInBufferRange([pos, [0, 0]], "Test");
-    editor.setTextInBufferRange([[0, 0], pos], "Test");
-    editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
-    editor.setTextInBufferRange(range, "Test", {});
-    editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
-    editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
+    range = editor.setTextInBufferRange(range, "Test");
+    range = editor.setTextInBufferRange([pos, pos], "Test");
+    range = editor.setTextInBufferRange([pos, [0, 0]], "Test");
+    range = editor.setTextInBufferRange([[0, 0], pos], "Test");
+    range = editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
+    range = editor.setTextInBufferRange(range, "Test", {});
+    range = editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
+    range = editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
         undo: "skip" });
 
     editor.insertText("Test");
@@ -2922,6 +2940,15 @@ function testTextEditor() {
     // TextEditor Rendering
     str = editor.getPlaceholderText();
     editor.setPlaceholderText("Test");
+
+    range = editor.bufferRangeForScopeAtPosition('source.js', [0, 0]);
+    range = editor.bufferRangeForScopeAtPosition('source.js', {row: 10, column: 11});
+    range = editor.bufferRangeForScopeAtPosition('source.js', pos);
+
+    let token: {value: string, scopes: string[]};
+    token = editor.tokenForBufferPosition([5, 6]);
+    token = editor.tokenForBufferPosition({row: 0, column: 1});
+    token = editor.tokenForBufferPosition(pos);
 }
 
 // ThemeManager ===============================================================
@@ -2981,6 +3008,7 @@ function testViewRegistry() {
     });
 
     element = atom.views.getView(element);
+    textEditorElement = atom.views.getView(editor);
 }
 
 // Workspace ==================================================================
@@ -3213,10 +3241,46 @@ function testWorkspaceCenter() {
 }
 
 // watchPath ==================================================================
-const pathWatcher = Atom.watchPath("/var/test", {}, (events) => {
+const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
         if (event.oldPath) str = event.oldPath;
     }
 });
+
+// TextEditorElement ==========================================================
+function testTextEditorElement() {
+  textEditorComponent = textEditorElement.getComponent();
+  editor = textEditorElement.getModel();
+
+  textEditorElement.getNextUpdatePromise().then(() => {});
+  let num: number = textEditorElement.getBaseCharacterWidth();
+
+  textEditorElement.scrollToTop();
+  textEditorElement.scrollToBottom();
+  textEditorElement.setScrollTop(num);
+  num = textEditorElement.getScrollTop();
+  textEditorElement.setScrollLeft(num);
+  num = textEditorElement.getScrollLeft();
+  num = textEditorElement.getScrollHeight();
+
+  pixelPos = textEditorElement.pixelPositionForBufferPosition(pos);
+  pixelPos = textEditorElement.pixelPositionForScreenPosition({row: 1, column: 2});
+  pixelPos = textEditorElement.pixelPositionForScreenPosition(pos);
+
+  subscription = textEditorElement.onDidChangeScrollTop((scrollTop: number) => {});
+  subscription = textEditorElement.onDidChangeScrollLeft((scrollLeft: number) => {});
+  subscription = textEditorElement.onDidAttach(() => {});
+  subscription = textEditorElement.onDidDetach(() => {});
+
+  textEditorElement = document.createElement('atom-text-editor');
+}
+
+// TextEditorComponent ========================================================
+function testTextEditorComponent() {
+  pixelPos = textEditorComponent.pixelPositionForMouseEvent(mouseEvent);
+  pixelPos = textEditorComponent.pixelPositionForScreenPosition(pos);
+  pos = textEditorComponent.screenPositionForMouseEvent(mouseEvent);
+  pos = textEditorComponent.screenPositionForPixelPosition(pixelPos);
+}
