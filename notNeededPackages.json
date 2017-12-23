@@ -187,6 +187,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "decimal.js",
+            "typingsPackageName": "decimal.js",
+            "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
+            "asOfVersion": "7.4.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
