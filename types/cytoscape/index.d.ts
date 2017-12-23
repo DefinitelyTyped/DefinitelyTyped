@@ -4144,7 +4144,7 @@ declare namespace cytoscape {
         GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
         BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
 
-    type LayoutHandler = () => void;
+    type LayoutHandler = (e: LayoutEventObject) => void;
 
     interface BaseLayoutOptions {
         name: string;
