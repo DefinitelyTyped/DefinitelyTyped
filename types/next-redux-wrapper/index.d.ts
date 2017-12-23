@@ -28,7 +28,7 @@ declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispa
 ): (Component: Component<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent;
 declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
     createStore: nextReduxWrapper.NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-    mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps>,
+    mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, TInitialState>,
     mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options?: ConnectOptions
@@ -49,7 +49,7 @@ declare namespace nextReduxWrapper {
         createStore: NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>;
         debug?: boolean;
         storeKey?: string;
-        mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps>;
+        mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, TInitialState>;
         mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>;
         mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>;
         connectOptions?: ConnectOptions;
