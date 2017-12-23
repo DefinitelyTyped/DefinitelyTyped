@@ -1411,7 +1411,7 @@ export interface SvgCommonProps {
     originY?: number;
 }
 
-export class Svg extends Component<{ width: number, heigth: number }> { }
+export class Svg extends Component<{ width: number, height: number }> { }
 export class Rect extends Component<SvgCommonProps> { }
 
 export interface CircleProps extends SvgCommonProps {
