@@ -25,6 +25,9 @@ export interface Country {
      * Country flag Emoji string unicode characters space-separated, e.g. "U+1F1FA U+1F1E6".
      */
     emojiU: string;
+    /**
+     * List of Country's spoken Languages (alpha-2 codes).
+     */
     languages: string[];
     /**
      * Country name in English.
