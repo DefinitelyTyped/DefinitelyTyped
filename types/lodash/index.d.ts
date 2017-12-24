@@ -9410,7 +9410,7 @@ declare namespace _ {
          * func({ 'a': '1', 'b': '2' });
          * // => 'no match'
          */
-        cond<T, R>(pairs: CondPair<T, R>[]): (Target: T) => R;
+        cond<T, R>(pairs: Array<CondPair<T, R>>): (Target: T) => R;
     }
 
     //_.eq
@@ -9634,7 +9634,7 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
-        isArrayLike(value: ((...args: any[]) => any) | Function | null | undefined): value is never;
+        isArrayLike(value: ((...args: any[]) => any) | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
@@ -9684,12 +9684,14 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
+        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
         isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
          */
-        isArrayLikeObject<T extends object>(value: T | string | boolean | number | null | undefined): value is T & { length: number };
+        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
+        isArrayLikeObject<T extends object>(value: T | ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is T & { length: number };
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -10240,7 +10242,7 @@ declare namespace _ {
          *
          * @retrun Returns true if value is a native function, else false.
          */
-        isNative(value: any): value is ((...args: any[]) => any) | Function;
+        isNative(value: any): value is (...args: any[]) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {

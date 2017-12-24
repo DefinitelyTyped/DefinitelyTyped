@@ -1203,7 +1203,7 @@ namespace TestFlattenDeep {
 // _.fromPairs
 namespace TestFromPairs {
     let twoDimensionalArray: string[][] | null | undefined = [] as any;
-    let numberTupleArray: [string, number][] | null | undefined = [] as any;
+    let numberTupleArray: Array<[string, number]> | null | undefined = [] as any;
     let stringDict: _.Dictionary<string>;
     let numberDict: _.Dictionary<number>;
 
@@ -3046,21 +3046,21 @@ namespace TestUnzip {
     }
 
     {
-        let result: (string|number|boolean)[][];
+        let result: Array<Array<string|number|boolean>>;
 
         result = _.unzip<string|number|boolean>(array);
         result = _.unzip<string|number|boolean>(list);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<(string|number|boolean)[]>;
+        let result: _.LoDashImplicitArrayWrapper<Array<string|number|boolean>>;
 
         result = _(array).unzip<string|number|boolean>();
         result = _(list).unzip<string|number|boolean>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<(string|number|boolean)[]>;
+        let result: _.LoDashExplicitArrayWrapper<Array<string|number|boolean>>;
 
         result = _(array).chain().unzip<string|number|boolean>();
         result = _(list).chain().unzip<string|number|boolean>();
@@ -4780,18 +4780,18 @@ namespace TestFindLast {
 
 // _.flatMap
 namespace TestFlatMap {
-    let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
-    let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
+    let numArray: Array<number|number[]> | null | undefined = [1, [2, 3]] as any;
+    let objArray: Array<{a: number}|Array<{a: number}>> | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
     let obj: any = {};
     let numList: _.List<number|number[]> | null | undefined = obj;
-    let objList: _.List<{a: number}|{a: number}[]> | null | undefined = obj;
+    let objList: _.List<{a: number}|Array<{a: number}>> | null | undefined = obj;
 
     let numDictionary: _.Dictionary<number|number[]> | null | undefined = obj;
-    let objDictionary: _.Dictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let objDictionary: _.Dictionary<{a: number}|Array<{a: number}>> | null | undefined = obj;
 
     let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = obj;
-    let objNumericDictionary: _.NumericDictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let objNumericDictionary: _.NumericDictionary<{a: number}|Array<{a: number}>> | null | undefined = obj;
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => string|string[] = (a, b, c) => "";
 
@@ -4964,18 +4964,17 @@ namespace TestFlatMap {
 
 // _.flatMapDeep
 namespace TestFlatMapDeep {
-    let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
-    let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
+    let numArray: Array<number|number[]> | null | undefined = [1, [2, 3]] as any;
+    let objArray: Array<{a: number}|Array<{a: number}>> | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
-    let obj: any = {};
-    let numList: _.List<number|number[]> | null | undefined = obj;
-    let objList: _.List<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numList: _.List<number|number[]> | null | undefined = any;
+    let objList: _.List<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numDictionary: _.Dictionary<number|number[]> | null | undefined = obj;
-    let objDictionary: _.Dictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numDictionary: _.Dictionary<number|number[]> | null | undefined = any;
+    let objDictionary: _.Dictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = obj;
-    let objNumericDictionary: _.NumericDictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = any;
+    let objNumericDictionary: _.NumericDictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => _.ListOfRecursiveArraysOrValues<string> = (a, b, c) => ['a', 'b', 'c'];
 
@@ -5126,18 +5125,17 @@ namespace TestFlatMapDeep {
 
 // _.flatMapDepth
 namespace TestFlatMapDepth {
-    let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
-    let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
+    let numArray: Array<number|number[]> | null | undefined = [1, [2, 3]] as any;
+    let objArray: Array<{a: number}|Array<{a: number}>> | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
-    let obj: any = {};
-    let numList: _.List<number|number[]> | null | undefined = obj;
-    let objList: _.List<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numList: _.List<number|number[]> | null | undefined = any;
+    let objList: _.List<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numDictionary: _.Dictionary<number|number[]> | null | undefined = obj;
-    let objDictionary: _.Dictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numDictionary: _.Dictionary<number|number[]> | null | undefined = any;
+    let objDictionary: _.Dictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = obj;
-    let objNumericDictionary: _.NumericDictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = any;
+    let objNumericDictionary: _.NumericDictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => _.ListOfRecursiveArraysOrValues<string> = (a, b, c) => "";
 
@@ -5948,7 +5946,7 @@ namespace TestKeyBy {
 namespace TestInvoke {
     let boolArray: boolean[] = [true, false];
 
-    let nestedDict: _.Dictionary<Array<number>> = {
+    let nestedDict: _.Dictionary<number[]> = {
         a: [0, 1, 2]
     }
 
@@ -6861,7 +6859,7 @@ namespace TestorderBy {
     const orders: boolean|string|Array<boolean|string> = any;
 
     {
-        let iteratees: (value: string) => any|((value: string) => any)[] = (value) => 1;
+        let iteratees: (value: string) => any|Array<(value: string) => any> = (value) => 1;
         let result: string[];
 
         result = _.orderBy<string>('acbd', iteratees);
@@ -7135,9 +7133,9 @@ namespace TestBind {
 // _.bindAll
 namespace TestBindAll {
     interface SampleObject {
-        a: Function;
-        b: Function;
-        c: Function;
+        a(): void;
+        b(): void;
+        c(): void;
     }
 
     let object: SampleObject = { a: () => {}, b: () => {}, c: () => {} };
@@ -7691,7 +7689,7 @@ const greetPartial = (greeting: string, name: string) => `${greeting} ${name}`;
 const hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
-const defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
+const defaultsDeep: (...args: any[]) => any = _.partialRight(_.merge, _.defaults);
 
 const optionsPartialRight = {
     'variable': 'data',
@@ -7741,7 +7739,7 @@ namespace TestRest {
 
 //_.spread
 namespace TestSpread {
-    type SampleFunc = (args: (number|string)[]) => boolean;
+    type SampleFunc = (args: Array<number|string>) => boolean;
     type SampleResult = (a: number, b: string) => boolean;
 
     let func: SampleFunc = (a) => true;
@@ -8333,12 +8331,12 @@ namespace TestIsArrayLike {
     }
 
     {
-        let value: Function = any;
+        let value: () => number = any;
 
         if (_.isArrayLike(value)) {
             value; // $ExpectType never
         } else {
-            value; // $ExpectType Function
+            value; // $ExpectType () => number
         }
     }
 
@@ -8408,12 +8406,12 @@ namespace TestIsArrayLikeObject {
     }
 
     {
-        let value: string | Function = any;
+        let value: (a: string) => boolean = any;
 
         if (_.isArrayLikeObject(value)) {
             value; // $ExpectType never
         } else {
-            value; // $ExpectType string | Function
+            value; // $ExpectType (a: string) => boolean
         }
     }
 
@@ -8690,13 +8688,13 @@ namespace TestIsFinite {
 // _.isFunction
 namespace TestIsFunction {
     {
-        let value: number|Function = () => {};
+        let value: number|(() => void) = any;
 
         if (_.isFunction(value)) {
-            let result: Function = value;
+            value; // $ExpectType () => void
         }
         else {
-            let result: number|Function = value;
+            value; // $ExpectType number
         }
 
         if (_.isFunction(any)) {
@@ -8839,13 +8837,13 @@ namespace TestIsNaN {
 // _.isNative
 namespace TestIsNative {
     {
-        let value: number|Function = () => {};
+        let value: number|(() => void) = any;
 
         if (_.isNative(value)) {
-            let result: Function = value;
+            value; // $ExpectType () => void
         }
         else {
-            let result: number = value;
+            value; // $ExpectType number
         }
     }
 
@@ -9742,7 +9740,7 @@ namespace TestSum {
 // _.sumBy
 namespace TestSumBy {
     let array: number[] | null | undefined = [] as any;
-    let objectArray: { 'age': number }[] | null | undefined = [] as any;
+    let objectArray: Array<{ 'age': number }> | null | undefined = [] as any;
 
     let list: _.List<number> | null | undefined = [] as any;
     let objectList: _.List<{ 'age': number }> | null | undefined = [] as any;
@@ -10523,7 +10521,7 @@ namespace TestEntries {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.entries(object);
     }
@@ -10546,7 +10544,7 @@ namespace TestEntriesIn {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.entriesIn(object);
     }
@@ -11444,7 +11442,7 @@ namespace TestInvert {
 
 // _.invertBy
 namespace TestInvertBy {
-    let array: ({a: number;})[] = [];
+    let array: Array<{a: number;}> = [];
     let list: _.List<{a: number;}> = [];
     let dictionary: _.Dictionary<{a: number;}> = {};
     let numericDictionary: _.NumericDictionary<{a: number;}> = {};
@@ -12065,7 +12063,7 @@ namespace TestToPairs {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.toPairs(object);
     }
@@ -12088,7 +12086,7 @@ namespace TestToPairsIn {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.toPairsIn(object);
     }
@@ -12823,7 +12821,7 @@ namespace TestStartsWith {
 // _.template
 namespace TestTemplate {
     interface TemplateExecutor {
-        (obj?: Object): string;
+        (obj?: object): string;
         source: string;
     }
 
@@ -13537,7 +13535,7 @@ namespace TestMethod {
 
 // _.methodOf
 namespace TestMethodOf {
-    type SampleObject = { a: { b(): TResult }[] };
+    type SampleObject = { a: Array<{ b(): TResult }> };
     type ResultFn = (path: string | string[]) => TResult;
 
     let object: SampleObject = { a: [] };
@@ -13951,14 +13949,14 @@ namespace TestRangeRight {
 // _.stubObject
 {
     {
-        let result: Object;
+        let result: object;
 
         result = _.stubObject();
         result = _(any).stubObject();
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<Object>;
+        let result: _.LoDashExplicitObjectWrapper<object>;
 
         result = _('a').chain().stubObject();
         result = _([1]).chain().stubObject();
