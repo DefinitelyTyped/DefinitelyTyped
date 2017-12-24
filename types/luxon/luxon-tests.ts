@@ -1,4 +1,4 @@
-import { DateTime, Duration, Interval } from 'luxon';
+import { DateTime, Duration, Interval, Settings } from 'luxon';
 
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
@@ -68,3 +68,6 @@ i.contains(DateTime.local(2019));
 
 i.toISO();
 i.toString();
+
+Settings.defaultLocale = 'fr';
+Settings.defaultZoneName = 'Europe/Paris';
