@@ -82,7 +82,11 @@ Info.weekdays('long');
 /* Settings */
 Settings.defaultLocale;
 Settings.defaultLocale = 'en';
+Settings.defaultZoneName = 'Europe/Paris';
 Settings.now();
 Settings.now = () => 0;
+
+// $ExpectError
+Settings.defaultZone = Settings.defaultZone;
 
 /* Zone */

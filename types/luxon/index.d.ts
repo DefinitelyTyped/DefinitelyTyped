@@ -343,10 +343,10 @@ declare module 'luxon' {
             static defaultLocale: string;
             static defaultNumberingSystem: string;
             static defaultOutputCalendar: string;
-            static defaultZone: Zone;
+            static readonly defaultZone: Zone;
             static defaultZoneName: string;
             static throwOnInvalid: boolean;
-            static now(): number;
+            static now: () => number;
             static resetCache(): void;
         }
 
