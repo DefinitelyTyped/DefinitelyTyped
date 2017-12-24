@@ -8,7 +8,7 @@
 export default class Siema {
     currentSlide: number;
 
-    constructor(options?: ISiemaOptions);
+    constructor(options?: SiemaOptions);
 
     next(index?: number, callback?: () => void): void;
     prev(index?: number, callback?: () => void): void;
@@ -20,15 +20,15 @@ export default class Siema {
     destroy(restoreMarkup?: boolean, callback?: () => void): void;
 }
 
-export interface IPageInterface {
+export interface PageInterface {
   [key: number]: number;
 }
 
-export interface ISiemaOptions {
+export interface SiemaOptions {
     selector?: string | HTMLElement;
     duration?: number;
     easing?: string;
-    perPage?: number | IPageInterface;
+    perPage?: number | PageInterface;
     startIndex?: number;
     draggable?: boolean;
     multipleDrag?: boolean;
