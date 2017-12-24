@@ -5250,7 +5250,7 @@ export interface Dimensions {
      * @param type the type of event to listen to
      * @param handler the event handler
      */
-    addEventListener(type: "change", handler: () => void): void;
+    addEventListener(type: "change", handler: ({ window, screen }: { window: ScaledSize, screen: ScaledSize }) => void): void;
 
     /**
      * Remove an event listener
@@ -5258,7 +5258,7 @@ export interface Dimensions {
      * @param type the type of event
      * @param handler the event handler
      */
-    removeEventListener(type: "change", handler: () => void): void;
+    removeEventListener(type: "change", handler: ({ window, screen }: { window: ScaledSize, screen: ScaledSize }) => void): void;
 }
 
 export type SimpleTask = {
