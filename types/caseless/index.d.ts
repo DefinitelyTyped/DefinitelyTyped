@@ -8,8 +8,7 @@ type KeyType = string;
 type ValueType = any;
 type RawDict = object;
 
-declare class Caseless {
-    constructor(dict?: RawDict);
+export interface Caseless {
     set(name: KeyType, value: ValueType, clobber?: boolean): KeyType | false;
     set(dict: RawDict): void;
     has(name: KeyType): KeyType | false;
