@@ -1,4 +1,4 @@
-import * as scrypt from 'scryptsy';
+import scrypt = require('scryptsy');
 
 const key = 'TheKey';
 const salt = 'Salty';
