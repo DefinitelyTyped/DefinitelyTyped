@@ -5,6 +5,7 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
+//                 Naoufal El Yousfi <https://github.com/nelyousfi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1045,6 +1046,7 @@ export type KeyboardTypeIOS =
     | "decimal-pad"
     | "twitter"
     | "web-search";
+export type KeyboardTypeAndroid = "visible-password";
 
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type ReturnKeyTypeAndroid = "none" | "previous";
@@ -1097,11 +1099,14 @@ export interface TextInputProperties
     editable?: boolean;
 
     /**
-     * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad', 'decimal-pad', 'twitter', 'web-search')
+     * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad',
+     * 'decimal-pad', 'twitter', 'web-search', 'visible-password')
      * Determines which keyboard to open, e.g.numeric.
      * The following values work across platforms: - default - numeric - email-address - phone-pad
+     * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
+     * The following values work on Android: - visible-password
      */
-    keyboardType?: KeyboardType | KeyboardTypeIOS;
+    keyboardType?: KeyboardType | KeyboardTypeIOS | KeyboardTypeAndroid;
 
     /**
      * Limits the maximum number of characters that can be entered.
@@ -3662,7 +3667,7 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
 
-export interface SectionListProperties<ItemT> extends ScrollViewProperties {
+export interface SectionListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -3736,7 +3741,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem: ListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.

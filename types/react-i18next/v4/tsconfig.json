@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "react-i18next": [ "react-i18next/v4" ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "experimentalDecorators": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/react-i18next-tests.tsx",
+        "src/I18nextProvider.d.ts",
+        "src/interpolate.d.ts",
+        "src/loadNamespaces.d.ts",
+        "src/trans.d.ts",
+        "src/translate.d.ts"
+    ]
+}

@@ -2,12 +2,13 @@
 // Project: https://github.com/pawelgrzybek/siema
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
 //                 Pavel Puchkov <https://github.com/0x6368656174>
+//                 Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Siema {
     currentSlide: number;
 
-    constructor(options?: SiemaOptions);
+    constructor(options?: ISiemaOptions);
 
     next(index?: number, callback?: () => void): void;
     prev(index?: number, callback?: () => void): void;
@@ -19,11 +20,15 @@ export default class Siema {
     destroy(restoreMarkup?: boolean, callback?: () => void): void;
 }
 
-export interface SiemaOptions {
-    selector?: string;
+export interface IPageInterface {
+  [key: number]: number;
+}
+
+export interface ISiemaOptions {
+    selector?: string | HTMLElement;
     duration?: number;
     easing?: string;
-    perPage?: number;
+    perPage?: number | IPageInterface;
     startIndex?: number;
     draggable?: boolean;
     multipleDrag?: boolean;
