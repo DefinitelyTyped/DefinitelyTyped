@@ -1,4 +1,4 @@
-// Type definitions for luxon 0.2
+// Type definitions for luxon 0.3
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -334,16 +334,16 @@ declare module 'luxon' {
             union(other: Interval): Interval;
         }
 
-        type Settings = {
-            defaultLocale: string;
-            defaultNumberingSystem: string;
-            defaultOutputCalendar: string;
-            defaultZone: Zone;
-            defaultZoneName: string;
-            now: Function;
-            throwOnInvalid: boolean;
-            resetCache(): void;
-        };
+        namespace Settings {
+            let defaultLocale: string;
+            let defaultNumberingSystem: string;
+            let defaultOutputCalendar: string;
+            const defaultZone: Zone;
+            let defaultZoneName: string;
+            let now: number;
+            let throwOnInvalid: boolean;
+            function resetCache(): void;
+        }
 
         type ZoneOffsetOptions = {
             format?: 'short' | 'long';
