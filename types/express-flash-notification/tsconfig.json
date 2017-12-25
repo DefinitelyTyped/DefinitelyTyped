@@ -5,9 +5,9 @@
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
+		"noImplicitThis": true,
+        "strictNullChecks": true,
+		"strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "decimal.js-tests.ts"
+        "express-flash-notification-tests.ts"
     ]
 }
