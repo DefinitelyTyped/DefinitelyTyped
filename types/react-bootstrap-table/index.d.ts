@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-table 4.3.1
+// Type definitions for react-bootstrap-table 4.3
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
