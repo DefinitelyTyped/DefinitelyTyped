@@ -104,12 +104,21 @@ export function explain(spec: spec.SpecInput, value: any): void;
 export function explainStr(spec: spec.SpecInput, value: any): string;
 
 /**
+ * Returns a string with the problem statement from the given Problem.
+ * @param problem the problem
+ */
+export function problemStr(problem: Problem): string;
+
+/**
  * Tests if a value conforms to a spec, and if not, throws an Error.
  * @param spec the spec to test with
  * @param value the value to test
  */
 export function assert(spec: spec.SpecInput, value: any): void;
 
+/**
+ * Symbols used
+ */
 export namespace symbol {
     /**
      * Returned by conform() to indicate a value does not conform to a spec.

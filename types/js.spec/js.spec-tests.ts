@@ -17,7 +17,9 @@ S.explainData((value) => true, "a value");
 
 const {path, via, value, predicate}: {path: string[], via: string[], value: any, predicate: S.Predicate} = problems[0];
 
-const problemStr: string = S.explainStr(S.spec.even, 3);
+const problemStr: string = S.problemStr(problems[0]);
+
+const explainStr: string = S.explainStr(S.spec.even, 3);
 S.explainStr((value) => true, "a value");
 
 // $ExpectType void
