@@ -29,6 +29,7 @@ declare module "node-forge" {
         function publicKeyFromPem(pem: PEM): Key;
         function privateKeyFromPem(pem: PEM): Key;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
+        function publicKeyFromAsn1(obj: asn1.Asn1): Key;
 
         interface oids {
             [key: string]: string;
