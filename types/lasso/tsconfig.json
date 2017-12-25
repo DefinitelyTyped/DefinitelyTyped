@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "lasso-tests.ts",
+        "middleware.d.ts",
+        "node-require-no-op.d.ts",
+        "lib/dependencies.d.ts",
+        "lib/Lasso.d.ts",
+        "lib/LassoContext.d.ts"
+    ]
+}
