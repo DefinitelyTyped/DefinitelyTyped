@@ -50,7 +50,7 @@ declare module "node-forge" {
 
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
-        }
+            function setPrivateKey(n: <any>, e: <any>, d: <any>, p: <any>, q: <any>, dP: <any>, dQ: <any>, qInv: <any>): <Key>;
 
         interface CertificateFieldOptions {
             name?: string;
