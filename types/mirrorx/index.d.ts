@@ -111,8 +111,6 @@ export interface defaultOptions {
 }
 
 export interface Renderer {
-  // Deprecated(render): The return value is deprecated.
-  // In future releases the render function's return type will be void.
   <T extends Element>(
     element: React.DOMElement<React.DOMAttributes<T>, T>,
     container: Element | null,
