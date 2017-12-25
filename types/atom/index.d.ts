@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.22
+// Type definitions for Atom 1.23
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.22.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.23.0/exports/atom.js
 
 /// <reference types="jquery" />
 /// <reference types="node" />
@@ -268,6 +268,7 @@ export type CommandRegistryListener<TargetType extends EventTarget> = {
   didDispatch(event: CommandEvent<TargetType>): void,
   displayName?: string,
   description?: string,
+  hiddenInCommandPalette?: boolean,
 } | ((event: CommandEvent<TargetType>) => void);
 
 /**
@@ -280,6 +281,7 @@ export interface CommandRegistry {
         target: T, commandName: string,
         listener: CommandRegistryListener<CommandRegistryTargetMap[T]>
       ): Disposable;
+    /** Register a single command. */
     add<T extends Node>(
         target: T, commandName: string,
         listener: CommandRegistryListener<T>
@@ -287,10 +289,11 @@ export interface CommandRegistry {
 
     /** Register multiple commands. */
     add<T extends keyof CommandRegistryTargetMap>(target: T, commands: {
-        [key: string]: (event: CommandEvent<CommandRegistryTargetMap[T]>) => void
+        [key: string]: CommandRegistryListener<CommandRegistryTargetMap[T]>
     }): CompositeDisposable;
+    /** Register multiple commands. */
     add<T extends Node>(target: T, commands: {
-        [key: string]: (event: CommandEvent<T>) => void
+        [key: string]: CommandRegistryListener<T>
     }): CompositeDisposable;
 
     /** Find all registered commands matching a query. */
@@ -466,6 +469,14 @@ export interface Decoration {
 
     /** Returns the marker associated with this Decoration. */
     getMarker(): DisplayMarker;
+
+    /**
+     *  Check if this decoration is of the given type.
+     *  @param type A decoration type, such as `line-number` or `line`. This may also
+     *  be an array of decoration types, with isType returning true if the decoration's
+     *  type matches any in the array.
+     */
+    isType(type: string|string[]): boolean;
 
     // Properties
     /** Returns the Decoration's properties. */
@@ -1483,14 +1494,7 @@ export class TextEditor {
         { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
 
     /* For each selection, replace the selected text with the given text. */
-    insertText(text: string, options?: {
-        select?: boolean,
-        autoIndent?: boolean,
-        autoIndentNewline?: boolean,
-        autoDecreaseIndent?: boolean,
-        normalizeLineEndings?: boolean,
-        undo?: "skip"
-    }): Range|boolean;
+    insertText(text: string, options?: TextInsertionOptions): Range|false;
 
     /** For each selection, replace the selected text with a newline. */
     insertNewline(): void;
@@ -3760,6 +3764,13 @@ export interface GrammarRegistry {
      */
     onDidUpdateGrammar(callback: (grammar: Grammar) => void): Disposable;
 
+    /**
+     *  Invoke the given callback when a grammar is removed from the registry.
+     *  @param callback The callback to be invoked whenever a grammar is removed.
+     *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
+     */
+    onDidRemoveGrammar(callback: (grammar: Grammar) => void): Disposable;
+
     // Managing Grammars
     /**
      *  Get all the grammars in this registry.
@@ -5344,6 +5355,21 @@ export interface BufferChangingEvent {
 }
 
 export interface BufferChangedEvent {
+    /**
+     *  An array of objects summarizing the aggregated changes that occurred
+     *  during the transaction.
+     */
+    changes: Array<{
+        /**
+         *  The Range of the deleted text in the contents of the buffer as it existed
+         *  before the batch of changes reported by this event.
+         */
+        oldRange: Range;
+
+        /** The Range of the inserted text in the current contents of the buffer. */
+        newRange: Range;
+    }>;
+
     /** Range of the old text. */
     oldRange: Range;
 
@@ -5665,7 +5691,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.22.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.23.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6269,6 +6295,7 @@ export interface TextInsertionOptions {
     autoIndent?: boolean;
     autoIndentNewline?: boolean;
     autoDecreaseIndent?: boolean;
+    preserveTrailingLineIndentation?: boolean;
     normalizeLineEndings?: boolean;
     undo?: "skip";
 }
