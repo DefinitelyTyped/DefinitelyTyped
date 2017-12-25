@@ -1,4 +1,4 @@
-// Type definitions for expo 24.0.2
+// Type definitions for expo 24.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
