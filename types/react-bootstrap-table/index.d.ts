@@ -1,9 +1,10 @@
-// Type definitions for react-bootstrap-table 4.2
+// Type definitions for react-bootstrap-table 4.3.1
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
 //                 Josué Us <https://github.com/UJosue10>
 //                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Oscar Andersson <https://github.com/Ogglas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -376,9 +377,9 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 		search?: boolean;
 	};
 	/**
-	 * Set a style to be used for the table rows.
+	 * Set a style to be used for the table rows. Example: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/style/tr-style-table.js
 	 */
-	trStyle?: CSSProperties;
+	trStyle?: CSSProperties | ((rowData: any, rowIndex: number) => CSSProperties);
 	/**
 	 * Disable the automatic tabIndex for navigating between cells. This can be useful if you have a page with multiple
 	 * tables on the page, to stop the tab moving to another table. Default is false.
