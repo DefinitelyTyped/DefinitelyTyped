@@ -18,7 +18,8 @@ import {
     FileSystem,
 	ImagePicker,
 	ImageManipulator,
-	FaceDetector
+	FaceDetector,
+    Svg
 } from 'expo';
 
 Accelerometer.addListener((obj) => {
@@ -244,3 +245,103 @@ async () => {
 
 	result.faces[0];
 };
+
+() => (
+    <Svg width={100} height={50}>
+        <Svg.Rect
+            x={25}
+            y={5}
+            width={150}
+            height={50}
+            fill='rgb(0,0,255)'
+            strokeWidth={3}
+            stroke='rgb(0,0,0)'
+        />
+        <Svg.Circle
+            cx={50}
+            cy={50}
+            r={50}
+            fill="pink"
+        />
+        <Svg.Ellipse
+            cx={55}
+            cy={55}
+            rx={50}
+            ry={30}
+            stroke="purple"
+            strokeWidth={2}
+            fill="yellow"
+        />
+        <Svg.Line
+            x1={0}
+            y1={0}
+            x2={100}
+            y2={100}
+            stroke="red"
+            strokeWidth={2}
+        />
+        <Svg.Polygon
+            points="40,5 70,80 25,95"
+            fill="lime"
+            stroke="purple"
+            strokeWidth={1}
+        />
+        <Svg.Polyline
+            points="10,10 20,12 30,20 40,60 60,70 95,90"
+            fill="none"
+            stroke="black"
+            strokeWidth={3}
+        />
+        <Svg.Text
+            fill="none"
+            stroke="purple"
+            fontSize={20}
+            fontWeight="bold"
+            x={100}
+            y={20}
+            textAnchor="middle"
+        >
+            STROKED TEXT
+        </Svg.Text>
+        <Svg.Defs>
+            <Svg.Path
+                id="path"
+                d=""
+            />
+        </Svg.Defs>
+        <Svg.G y={20}>
+            <Svg.Text fill="blue"        >
+                <Svg.TextPath href="#path" startOffset="-10%">
+                    We go up and down,
+                    <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
+                </Svg.TextPath>
+            </Svg.Text>
+            <Svg.Path
+                d=""
+                fill="none"
+                stroke="red"
+                strokeWidth={1}
+            />
+        </Svg.G>
+        <Svg.Use href="#shape" x="20" y="0" />
+        <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
+            <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
+            <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
+        </Svg.Symbol>
+        <Svg.Defs>
+            <Svg.ClipPath id="clip">
+                <Svg.Circle cx="50%" cy="50%" r="40%"/>
+            </Svg.ClipPath>
+            <Svg.RadialGradient id="grad" cx="50%" cy="50%" rx="50%" ry="50%" fx="50%" fy="50%" gradientUnits="userSpaceOnUse">
+                <Svg.Stop
+                    offset="0%"
+                    stopColor="#ff0"
+                    stopOpacity="1"
+                />
+            </Svg.RadialGradient>
+            <Svg.LinearGradient id="grad" x1="0" y1="0" x2="170" y2="0">
+                <Svg.Stop offset="1" stopColor="red" stopOpacity="1" />
+            </Svg.LinearGradient>
+        </Svg.Defs>
+    </Svg>
+);
