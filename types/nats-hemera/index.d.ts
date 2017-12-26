@@ -1120,6 +1120,7 @@ declare class Hemera {
     topics: any;
     transport: any;
     joi: Hemera.JOI;
+    mongodb: any;
 
     context$: any;
     meta$: any;
