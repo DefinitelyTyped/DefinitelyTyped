@@ -187,6 +187,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "decimal.js",
+            "typingsPackageName": "decimal.js",
+            "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
+            "asOfVersion": "7.4.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
@@ -197,6 +203,12 @@
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
             "asOfVersion": "1.3.1"
+        },
+        {
+            "libraryName": "docker-file-parser",
+            "typingsPackageName": "docker-file-parser",
+            "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
+            "asOfVersion": "1.0.3"
         },
         {
             "libraryName": "dot-case",
@@ -269,6 +281,12 @@
             "typingsPackageName": "fast-simplex-noise",
             "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "fecha",
+            "typingsPackageName": "fecha",
+            "sourceRepoURL": "https://github.com/taylorhakes/fecha",
+            "asOfVersion": "2.3.1"
         },
         {
             "libraryName": "FineUploader",
@@ -871,6 +889,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "timezonecomplete",
+            "typingsPackageName": "timezonecomplete",
+            "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
+            "asOfVersion": "5.5.0"
+        },
+        {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
@@ -971,6 +995,12 @@
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "zetapush-js",
+            "typingsPackageName": "zetapush-js",
+            "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "Zone.js",

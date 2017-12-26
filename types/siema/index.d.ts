@@ -1,6 +1,7 @@
 // Type definitions for siema 1.4
 // Project: https://github.com/pawelgrzybek/siema
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
+//                 Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare class Siema {
     currentSlide: number;
@@ -17,17 +18,21 @@ declare class Siema {
     destroy(restoreMarkup: boolean, callback?: () => void): void;
 }
 
+interface perPageInterface {
+  [key: number]: number;
+}
+
 interface SiemaOptions {
-    selector?: string;
+    selector?: string | HTMLElement;
     duration?: number;
     easing?: string;
-    perPage?: number;
+    perPage?: number | perPageInterface;
     startIndex?: number;
     draggable?: boolean;
     multipleDrag?: boolean;
     threshold?: number;
     loop?: boolean;
-    onInit(): void;
+    onInit?(): void;
     onChange?(): void;
 }
 
