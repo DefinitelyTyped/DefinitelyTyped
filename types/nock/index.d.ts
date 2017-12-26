@@ -3,6 +3,7 @@
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
 //                 afharo <https://github.com/afharo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -17,7 +18,7 @@ declare namespace nock {
     export function activate(): void;
     export function isActive(): boolean;
     export function isDone(): boolean;
-    export function pendingMocks(): void;
+    export function pendingMocks(): string[];
     export function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
     export function disableNetConnect(): void;
     export function enableNetConnect(matcher?: string | RegExp): void;
