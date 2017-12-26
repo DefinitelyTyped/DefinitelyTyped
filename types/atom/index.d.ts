@@ -6291,12 +6291,33 @@ export interface SpawnProcessOptions {
 }
 
 export interface TextInsertionOptions {
+    /** If true, selects the newly added text. */
     select?: boolean;
+
+    /** If true, indents all inserted text appropriately. */
     autoIndent?: boolean;
+
+    /** If true, indent newline appropriately. */
     autoIndentNewline?: boolean;
+
+    /**
+     *  If true, decreases indent level appropriately (for example, when a closing
+     *  bracket is inserted).
+     */
     autoDecreaseIndent?: boolean;
+
+    /**
+     *  By default, when pasting multiple lines, Atom attempts to preserve the relative
+     *  indent level between the first line and trailing lines, even if the indent
+     *  level of the first line has changed from the copied text. If this option is
+     *  true, this behavior is suppressed.
+     */
     preserveTrailingLineIndentation?: boolean;
+
+    /** If true, all line endings will be normalized to match the editor's current mode. */
     normalizeLineEndings?: boolean;
+
+    /** If skip, skips the undo stack for this operation. */
     undo?: "skip";
 }
 
