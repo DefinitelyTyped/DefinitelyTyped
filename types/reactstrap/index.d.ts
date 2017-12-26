@@ -81,7 +81,6 @@ export { default as TabContent,           TabContentProps                 } from
 export { default as Table,                TableProps                      } from './lib/Table';
 export { default as TabPane,              TabPaneProps                    } from './lib/TabPane';
 export { default as Tag,                  TagProps                        } from './lib/Tag';
-export { default as TetherContent,        TetherContentProps              } from './lib/TetherContent';
 export { default as Tooltip,              TooltipProps                    } from './lib/Tooltip';
 export { UncontrolledAlert,               UncontrolledAlertProps          } from './lib/Uncontrolled';
 export { UncontrolledButtonDropdown,      UncontrolledButtonDropdownProps } from './lib/Uncontrolled';

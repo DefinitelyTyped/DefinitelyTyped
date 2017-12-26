@@ -73,7 +73,6 @@ import {
   TabContent,
   Table,
   Tag,
-  TetherContent,
   Tooltip
 } from 'reactstrap';
 
