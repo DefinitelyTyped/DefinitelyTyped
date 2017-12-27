@@ -63,7 +63,7 @@ class SingleDatePickerFullTest extends React.Component {
                     numberOfMonths={2}
                     orientation="horizontal"
                     monthFormat="MM"
-                    renderDay={day => day.toString()}
+                    renderDayContents={day => day.toString()}
                     />
     }
 }
@@ -118,7 +118,7 @@ class DateRangePickerFullTest extends React.Component {
                     numberOfMonths={2}
                     orientation="horizontal"
                     monthFormat="MM"
-                    renderDay={day => day.toString()}
+                    renderDayContents={day => day.toString()}
                     />
     }
 }
