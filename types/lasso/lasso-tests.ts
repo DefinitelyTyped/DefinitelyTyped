@@ -1,16 +1,36 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { transforms, configure, create, lassoPage, getDefaultLasso } from 'lasso';
-import { serveStatic } from 'lasso/middleware';
-import { enable } from 'lasso/node-require-no-op';
+
+import { transforms, configure, create, lassoPage, getDefaultLasso, writers } from 'lasso';
 import LassoContext from 'lasso/lib/LassoContext';
 import LassoPageResult from 'lasso/lib/LassoPageResult';
+import { serveStatic } from 'lasso/middleware';
+import { enable } from 'lasso/node-require-no-op';
+
+// configure() tests
 
 // $ExpectType void
 configure('lasso-config.json');
 
 // $ExpectType void
 configure({});
+
+// $ExpectType void
+configure({
+    cspNonceProvider(out) {
+        const res = out.stream;
+
+        return res.csp && res.csp.nonce;
+    }
+});
+
+// $ExpectType void
+configure({
+    require: {
+        extensions: [ '.js' ],
+        transforms: [ 'deamdify' ]
+    }
+});
 
 // $ExpectType Lasso
 create({});
@@ -48,21 +68,6 @@ lassoPage({
     flags: ['mobile', 'foo', 'bar']
 });
 
-configure({
-    cspNonceProvider(out) {
-        const res = out.stream;
-
-        return res.csp && res.csp.nonce;
-    }
-});
-
-configure({
-    require: {
-        extensions: [ '.js' ],
-        transforms: [ 'deamdify' ]
-    }
-});
-
 // $ExpectType Lasso
 lasso.on('afterLassoPage', (event) => {
     const lassoPageResult: LassoPageResult = event.result;
@@ -72,6 +77,8 @@ lasso.on('afterLassoPage', (event) => {
 });
 
 const dependencies = lasso.dependencies;
+
+// Register new types
 
 // $ExpectType void
 dependencies.registerJavaScriptType('my-js-type', require('./dependency-my-js-type')); // tslint:disable-line: no-var-requires
@@ -172,6 +179,8 @@ lasso.lassoResource('path/to/foo.png', (err: any, result: any) => {
     }
 });
 
+// Transformer tests
+
 // $ExpectType void
 lasso.addTransform(require('./my-transform')); // tslint:disable-line: no-var-requires
 
@@ -188,6 +197,8 @@ lasso.addTransform({
 // $ExpectType void
 transforms.createTransformer([], new LassoContext(), (err, result) => {});
 
+// Middleware tests
+
 // $ExpectType RequestHandler
 serveStatic();
 
@@ -197,5 +208,12 @@ serveStatic({
     sendOptions: {}
 });
 
+// node-require-no-op tests
+
 // $ExpectType void
 enable();
+
+// Writer tests
+
+// $ExpectType Writer
+writers.createWriter({});
