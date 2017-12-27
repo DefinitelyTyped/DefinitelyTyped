@@ -1,6 +1,7 @@
 // Type definitions for @storybook/react 3.0
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
+//                 Anton Izmailov <https://github.com/wapgear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,7 +10,7 @@
 import * as React from 'react';
 
 export type Renderable = React.ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable;
+export type RenderFunction = () => Renderable | Array<Renderable>;
 
 export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
 
