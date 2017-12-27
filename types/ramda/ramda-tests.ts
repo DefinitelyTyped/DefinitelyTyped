@@ -658,6 +658,8 @@ interface Obj {
 };
 
 () => {
+    R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
+
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
     // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
 
@@ -1223,7 +1225,7 @@ type Pair = KeyValuePair<string, number>;
     const o2                                        = {a: 10, b: 20, c: 3, d: 40};
     const a1                                      = R.eqProps("a", o1, o2); // => false
     const a2                                      = R.eqProps("c", o1, o2); // => true
-    const a3: <T, U>(obj1: T, obj2: U) => boolean = R.eqProps("c");
+    const a3: <T extends { c: any }, U extends { c: any }>(obj1: T, obj2: U) => boolean = R.eqProps("c");
     const a4: <U>(obj2: U) => boolean             = R.eqProps("c", o1);
 };
 
