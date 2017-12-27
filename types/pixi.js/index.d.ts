@@ -2402,6 +2402,7 @@ declare namespace PIXI {
             spineData: any;
             textures?: TextureDictionary;
         }
+        const shared: Loader;
     }
 
     //////////////////////////////////////////////////////////////////////////////
