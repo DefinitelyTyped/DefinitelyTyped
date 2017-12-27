@@ -5,6 +5,7 @@
 //                 Derek Wickern <https://github.com/dwickern>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Theron Cross <https://github.com/theroncross>
+//                 Martin Feckie <https://github.com/mfeckie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1141,24 +1142,24 @@ declare module 'ember' {
                 callbackfn: (value: T, index: number, array: T[]) => value is S,
                 thisArg?: any
             ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
              */
-            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
             /**
              * Returns an array with just the items with the matched property. You
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            filterBy(key: string, value?: any): any[];
+            filterBy(key: string, value?: any): Enumerable<T>;
             /**
              * Returns an array with the items that do not have truthy values for
              * key.  You can pass an optional second argument with the target value.  Otherwise
              * this will match any property that evaluates to false.
              */
-            rejectBy(key: string, value?: string): any[];
+            rejectBy(key: string, value?: string): Enumerable<T>;
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -1617,6 +1618,11 @@ declare module 'ember' {
              */
             reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
             reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+            filter<S extends T>(
+                callbackfn: (value: T, index: number, array: T[]) => value is S,
+                thisArg?: any
+            ): S[];
+            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
