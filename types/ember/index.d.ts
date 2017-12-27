@@ -1492,7 +1492,7 @@ declare module 'ember' {
          * It builds upon the Array mixin and adds methods to modify the array.
          * One concrete implementations of this class include ArrayProxy.
          */
-        interface MutableArray<T> extends Array<T>, MutableEnumberable<T> {
+        interface MutableArray<T> extends Array<T>, MutableEnumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1559,7 +1559,7 @@ declare module 'ember' {
          * can be applied to an object regardless of whether it is ordered or
          * unordered.
          */
-        interface MutableEnumberable<T> extends Enumerable<T> {
+        interface MutableEnumerable<T> extends Enumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1577,7 +1577,7 @@ declare module 'ember' {
              */
             removeObjects(objects: Enumerable<T>): this;
         }
-        const MutableEnumerable: Mixin<MutableEnumberable<any>>;
+        const MutableEnumerable: Mixin<MutableEnumerable<any>>;
         /**
          * A Namespace is an object usually used to contain other objects or methods
          * such as an application or framework. Create a namespace anytime you want
