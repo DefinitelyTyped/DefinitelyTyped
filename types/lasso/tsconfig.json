@@ -18,12 +18,15 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
         "lasso-tests.ts",
-        "middleware.d.ts",
         "node-require-no-op.d.ts",
+        "index.d.ts",
+        "lib/index.d.ts",
         "lib/dependencies.d.ts",
         "lib/Lasso.d.ts",
-        "lib/LassoContext.d.ts"
+        "lib/LassoContext.d.ts",
+        "lib/writers/index.d.ts",
+        "lib/writers/Writer.d.ts",
+        "middleware/index.d.ts"
     ]
 }
