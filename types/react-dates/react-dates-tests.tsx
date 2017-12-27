@@ -42,6 +42,8 @@ class SingleDatePickerFullTest extends React.Component {
                     placeholder="test"
                     required={false}
                     showClearDate={true}
+                    noBorder={true}
+                    block={false}
                     isDayBlocked={(day:any)=> false}
                     isOutsideRange={(day:any)=> false}
                     keepOpenOnDateSelect={true}
@@ -90,6 +92,8 @@ class DateRangePickerFullTest extends React.Component {
                     showDefaultInputIcon={true}
                     required={false}
                     showClearDates={true}
+                    noBorder={true}
+                    block={false}
                     startDate={moment().add(3, 'days')}
                     endDate={moment().add(5, 'days')}
                     anchorDirection="left"

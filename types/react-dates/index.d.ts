@@ -49,6 +49,8 @@ declare namespace ReactDates {
         customInputIcon?: string | JSX.Element,
         customArrowIcon?: string | JSX.Element,
         customCloseIcon?: string | JSX.Element,
+        noBorder?: boolean,
+        block?: boolean,
 
         // calendar presentation and interaction related props
         orientation?: OrientationShape,
@@ -137,6 +139,8 @@ declare namespace ReactDates {
         customCloseIcon?: string | JSX.Element,
         showDefaultInputIcon?: boolean,
         customInputIcon?: string | JSX.Element,
+        noBorder?: boolean,
+        block?: boolean,
 
         // calendar presentation and interaction related props
         orientation?: OrientationShape,
@@ -224,6 +228,7 @@ declare namespace ReactDates {
         renderCalendarInfo?: () => (string | JSX.Element),
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
+        noBorder?: boolean,
 
         // navigation related props
         navPrev?: string | JSX.Element,
