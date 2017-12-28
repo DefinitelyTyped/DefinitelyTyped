@@ -13,6 +13,7 @@ declare let element: HTMLElement;
 declare let elements: HTMLElement[];
 declare const div: HTMLDivElement;
 declare const event: KeyboardEvent;
+declare const mouseEvent: MouseEvent;
 
 declare let buffer: Atom.TextBuffer;
 declare const color: Atom.Color;
@@ -65,6 +66,9 @@ declare let subscription: Atom.Disposable;
 declare let subscriptions: Atom.CompositeDisposable;
 declare let tooltips: Atom.Tooltip[];
 declare let workspaceCenter: Atom.WorkspaceCenter;
+declare let pixelPos: Atom.PixelPosition;
+declare let textEditorElement: Atom.TextEditorElement;
+declare let textEditorComponent: Atom.TextEditorComponent;
 
 // AtomEnvironment ============================================================
 function testAtomEnvironment() {
@@ -196,6 +200,8 @@ function testAtomEnvironment() {
     }
 
     atom.executeJavaScriptInDevTools("Test");
+
+    const path: string = atom.getConfigDirPath();
 }
 
 // BufferedNodeProcess ========================================================
@@ -266,6 +272,16 @@ function testCommandRegistry() {
         didDispatch: (event) => event.stopImmediatePropagation(),
         description: "A Command Test",
         displayName: "Command: Test",
+    });
+    atom.commands.add("atom-text-editor", {
+        "test-function": (event) => event.currentTarget.getModel(),
+        "test-function2": (event) => event.currentTarget.getComponent(),
+    });
+    atom.commands.add("atom-workspace", {
+        "test-command": {
+            didDispatch: (event) => {},
+            hiddenInCommandPalette: true
+        }
     });
 
     const commands = atom.commands.findCommands({ target: element });
@@ -505,6 +521,8 @@ function testDecoration() {
     // Decoration Details
     num = decoration.getId();
     displayMarker = decoration.getMarker();
+    bool = decoration.isType("line-number");
+    bool = decoration.isType(["line-number", "line"]);
 
     // Properties
     const decorationProps = decoration.getProperties();
@@ -844,9 +862,12 @@ function testDock() {
 }
 
 // Emitter ====================================================================
+interface TestEmissions {
+    "test-event": string;
+}
+
 function testEmitter() {
     emitter = new Atom.Emitter();
-
     emitter.clear();
     emitter.dispose();
 
@@ -858,6 +879,27 @@ function testEmitter() {
     // Event Emission
     emitter.emit("test-event");
     emitter.emit("test-event", 42);
+
+    // Optional Value Emitter
+    const optEmitter = new Atom.Emitter<{ "test-event": string }>();
+    optEmitter.emit("test-event");
+    optEmitter.emit("test-event", "test");
+    optEmitter.on("test-event", value => {
+        str = value ? value : "";
+    });
+
+    // Required Value Emitter
+    const reqEmitter = new Atom.Emitter<{}, TestEmissions>();
+    reqEmitter.on("test-event", value => {
+        str = value;
+    });
+    reqEmitter.emit("test-event", "test");
+
+    // Mixed Value Emitter
+    const mixedEmitter = new Atom.Emitter<{ "t1": "test" }, { "t2": "test" }>();
+    mixedEmitter.emit("t1");
+    mixedEmitter.emit("t1", "test");
+    mixedEmitter.emit("t2", "test");
 }
 
 // File =======================================================================
@@ -1032,6 +1074,10 @@ function testGrammar() {
     tokenizeLineResult.tokens;
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack);
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack, false);
+
+    let str: string;
+    str = grammar.name;
+    str = grammar.scopeName;
 }
 
 // GrammarRegistry ============================================================
@@ -1039,6 +1085,7 @@ function testGrammarRegistry() {
     // Event Subscription
     subscription = registry.onDidAddGrammar(grammar => grammar.name);
     subscription = registry.onDidUpdateGrammar(grammar => grammar.name);
+    subscription = registry.onDidRemoveGrammar(grammar => grammar.name);
 
     // Managing Grammars
     grammars = registry.getGrammars();
@@ -1372,6 +1419,9 @@ function testPackageManager() {
     subscription = atom.packages.onDidDeactivatePackage(pack => pack.path);
     subscription = atom.packages.onDidLoadPackage(pack => pack.isCompatible());
     subscription = atom.packages.onDidUnloadPackage(pack => pack.name);
+    subscription = atom.packages.onDidTriggerActivationHook(
+      'language-javascript:grammar-used', () => {}
+    );
 
     // Package system data
     str = atom.packages.getApmPath();
@@ -1563,7 +1613,8 @@ function testPanel() {
 }
 
 // PathWatcher ================================================================
-function testPathWatcher() {
+async function testPathWatcher() {
+    const pathWatcher = await pathWatcherPromise;
     pathWatcher.dispose();
     subscription = pathWatcher.onDidError((error) => str = error.name);
 
@@ -1854,7 +1905,7 @@ function testSelection() {
     selection.insertText("Replacement", { undo: "skip" });
     selection.insertText("Replacement", { select: true, autoIndent: true,
         autoIndentNewline: true, autoDecreaseIndent: true, normalizeLineEndings: true,
-        undo: "skip" });
+        undo: "skip", preserveTrailingLineIndentation: false });
 
     selection.backspace();
     selection.deleteToPreviousWordBoundary();
@@ -1956,7 +2007,14 @@ function testTextBuffer() {
 
     // Event Subscription
     subscription = buffer.onWillChange(() => void {});
-    subscription = buffer.onDidChange(() => void {});
+
+    subscription = buffer.onDidChange((event): void => {
+        range = event.newRange;
+        for (const change of event.changes) {
+            range = change.newRange;
+        }
+    });
+
     subscription = buffer.onDidChangeText(() => void {});
 
     subscription = buffer.onDidStopChanging((event): void => {
@@ -2328,14 +2386,14 @@ function testTextEditor() {
     // Mutating Text
     editor.setText("Test");
 
-    editor.setTextInBufferRange(range, "Test");
-    editor.setTextInBufferRange([pos, pos], "Test");
-    editor.setTextInBufferRange([pos, [0, 0]], "Test");
-    editor.setTextInBufferRange([[0, 0], pos], "Test");
-    editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
-    editor.setTextInBufferRange(range, "Test", {});
-    editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
-    editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
+    range = editor.setTextInBufferRange(range, "Test");
+    range = editor.setTextInBufferRange([pos, pos], "Test");
+    range = editor.setTextInBufferRange([pos, [0, 0]], "Test");
+    range = editor.setTextInBufferRange([[0, 0], pos], "Test");
+    range = editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
+    range = editor.setTextInBufferRange(range, "Test", {});
+    range = editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
+    range = editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
         undo: "skip" });
 
     editor.insertText("Test");
@@ -2347,7 +2405,8 @@ function testTextEditor() {
     editor.insertText("Test", { select: true });
     editor.insertText("Test", { undo: "skip" });
     editor.insertText("Text", { autoDecreaseIndent: false, autoIndent: false,
-        autoIndentNewline: false, normalizeLineEndings: false, select: false, undo: "skip" });
+        autoIndentNewline: false, normalizeLineEndings: false, select: false,
+        undo: "skip", preserveTrailingLineIndentation: true });
 
     editor.insertNewline();
     editor.delete();
@@ -2898,6 +2957,15 @@ function testTextEditor() {
     // TextEditor Rendering
     str = editor.getPlaceholderText();
     editor.setPlaceholderText("Test");
+
+    range = editor.bufferRangeForScopeAtPosition('source.js', [0, 0]);
+    range = editor.bufferRangeForScopeAtPosition('source.js', {row: 10, column: 11});
+    range = editor.bufferRangeForScopeAtPosition('source.js', pos);
+
+    let token: {value: string, scopes: string[]};
+    token = editor.tokenForBufferPosition([5, 6]);
+    token = editor.tokenForBufferPosition({row: 0, column: 1});
+    token = editor.tokenForBufferPosition(pos);
 }
 
 // ThemeManager ===============================================================
@@ -2939,7 +3007,7 @@ function testTooltipManager() {
     subscription = atom.tooltips.add(element, { class: "test-class" });
     subscription = atom.tooltips.add(element, { placement: "top" });
 
-    subscription = atom.tooltips.add(element, { placement: () => "left" });
+    subscription = atom.tooltips.add(element, { placement: () => "auto left" });
 
     subscription = atom.tooltips.add(element, { trigger: "click" });
     subscription = atom.tooltips.add(element, { delay: { hide: 42, show: 42 }});
@@ -2957,6 +3025,7 @@ function testViewRegistry() {
     });
 
     element = atom.views.getView(element);
+    textEditorElement = atom.views.getView(editor);
 }
 
 // Workspace ==================================================================
@@ -3189,10 +3258,46 @@ function testWorkspaceCenter() {
 }
 
 // watchPath ==================================================================
-const pathWatcher = Atom.watchPath("/var/test", {}, (events) => {
+const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
         if (event.oldPath) str = event.oldPath;
     }
 });
+
+// TextEditorElement ==========================================================
+function testTextEditorElement() {
+  textEditorComponent = textEditorElement.getComponent();
+  editor = textEditorElement.getModel();
+
+  textEditorElement.getNextUpdatePromise().then(() => {});
+  let num: number = textEditorElement.getBaseCharacterWidth();
+
+  textEditorElement.scrollToTop();
+  textEditorElement.scrollToBottom();
+  textEditorElement.setScrollTop(num);
+  num = textEditorElement.getScrollTop();
+  textEditorElement.setScrollLeft(num);
+  num = textEditorElement.getScrollLeft();
+  num = textEditorElement.getScrollHeight();
+
+  pixelPos = textEditorElement.pixelPositionForBufferPosition(pos);
+  pixelPos = textEditorElement.pixelPositionForScreenPosition({row: 1, column: 2});
+  pixelPos = textEditorElement.pixelPositionForScreenPosition(pos);
+
+  subscription = textEditorElement.onDidChangeScrollTop((scrollTop: number) => {});
+  subscription = textEditorElement.onDidChangeScrollLeft((scrollLeft: number) => {});
+  subscription = textEditorElement.onDidAttach(() => {});
+  subscription = textEditorElement.onDidDetach(() => {});
+
+  textEditorElement = document.createElement('atom-text-editor');
+}
+
+// TextEditorComponent ========================================================
+function testTextEditorComponent() {
+  pixelPos = textEditorComponent.pixelPositionForMouseEvent(mouseEvent);
+  pixelPos = textEditorComponent.pixelPositionForScreenPosition(pos);
+  pos = textEditorComponent.screenPositionForMouseEvent(mouseEvent);
+  pos = textEditorComponent.screenPositionForPixelPosition(pixelPos);
+}

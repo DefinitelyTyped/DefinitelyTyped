@@ -61,6 +61,18 @@
             "asOfVersion": "0.4.0"
         },
         {
+            "libraryName": "aurelia-knockout",
+            "typingsPackageName": "aurelia-knockout",
+            "sourceRepoURL": "https://github.com/code-chris/aurelia-knockout",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "autobind-decorator",
+            "typingsPackageName": "autobind-decorator",
+            "sourceRepoURL": "https://github.com/andreypopp/autobind-decorator",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "aws-sdk",
             "typingsPackageName": "aws-sdk",
             "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
@@ -77,6 +89,12 @@
             "typingsPackageName": "axios",
             "sourceRepoURL": "https://github.com/mzabriskie/axios",
             "asOfVersion": "0.14.0"
+        },
+        {
+            "libraryName": "axios-mock-adapter",
+            "typingsPackageName": "axios-mock-adapter",
+            "sourceRepoURL": "https://github.com/ctimmerm/axios-mock-adapter",
+            "asOfVersion": "1.10.0"
         },
         {
             "libraryName": "azure-mobile-apps",
@@ -101,6 +119,12 @@
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
             "asOfVersion": "0.0.31"
+        },
+        {
+            "libraryName": "Bowser",
+            "typingsPackageName": "bowser",
+            "sourceRepoURL": "https://github.com/ded/bowser",
+            "asOfVersion": "1.1.1"
         },
         {
             "libraryName": "Bugsnag Browser",
@@ -133,16 +157,40 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "chunked-dc",
+            "typingsPackageName": "chunked-dc",
+            "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
+            "asOfVersion": "0.2.2"
+        },
+        {
+            "libraryName": "commander",
+            "typingsPackageName": "commander",
+            "sourceRepoURL": "https://github.com/tj/commander.js",
+            "asOfVersion": "2.12.2"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "cypress",
+            "typingsPackageName": "cypress",
+            "sourceRepoURL": "https://cypress.io",
+            "asOfVersion": "1.1.3"
+        },
+        {
             "libraryName": "date-fns",
             "typingsPackageName": "date-fns",
             "sourceRepoURL": "https://github.com/date-fns/date-fns",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "decimal.js",
+            "typingsPackageName": "decimal.js",
+            "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
+            "asOfVersion": "7.4.0"
         },
         {
             "libraryName": "DevExtreme",
@@ -155,6 +203,12 @@
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
             "asOfVersion": "1.3.1"
+        },
+        {
+            "libraryName": "docker-file-parser",
+            "typingsPackageName": "docker-file-parser",
+            "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
+            "asOfVersion": "1.0.3"
         },
         {
             "libraryName": "dot-case",
@@ -211,6 +265,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "extended-listbox",
+            "typingsPackageName": "extended-listbox",
+            "sourceRepoURL": "https://github.com/code-chris/extended-listbox",
+            "asOfVersion": "4.0.1"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
@@ -223,6 +283,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "fecha",
+            "typingsPackageName": "fecha",
+            "sourceRepoURL": "https://github.com/taylorhakes/fecha",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -233,6 +299,12 @@
             "typingsPackageName": "flatpickr",
             "sourceRepoURL": "https://github.com/chmln/flatpickr",
             "asOfVersion": "3.1.2"
+        },
+        {
+            "libraryName": "flux-standard-action",
+            "typingsPackageName": "flux-standard-action",
+            "sourceRepoURL": "https://github.com/acdlite/flux-standard-action",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "gaea-model",
@@ -251,6 +323,18 @@
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "http-status-codes",
+            "typingsPackageName": "http-status-codes",
+            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
+            "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "iconv-lite",
+            "typingsPackageName": "iconv-lite",
+            "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
+            "asOfVersion": "0.4.14"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -295,6 +379,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "Ionic",
+            "typingsPackageName": "ionic",
+            "sourceRepoURL": "http://ionicframework.com",
+            "asOfVersion": "3.19.0"
+        },
+        {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
@@ -305,6 +395,12 @@
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "jimp",
+            "typingsPackageName": "jimp",
+            "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
+            "asOfVersion": "0.2.28"
         },
         {
             "libraryName": "jpush-react-native",
@@ -343,6 +439,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "keycloak-js",
+            "typingsPackageName": "keycloak-js",
+            "sourceRepoURL": "https://github.com/keycloak/keycloak",
+            "asOfVersion": "3.4.1"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
@@ -359,6 +461,18 @@
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
             "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "ldclient-js",
+            "typingsPackageName": "ldclient-js",
+            "sourceRepoURL": "https://github.com/launchdarkly/js-client",
+            "asOfVersion": "1.1.11"
+        },
+        {
+            "libraryName": "left-pad",
+            "typingsPackageName": "left-pad",
+            "sourceRepoURL": "https://github.com/stevemao/left-pad",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "Linq.JS",
@@ -493,10 +607,22 @@
             "asOfVersion": "1.7.0"
         },
         {
+            "libraryName": "pg-connection-string",
+            "typingsPackageName": "pg-connection-string",
+            "sourceRepoURL": "https://github.com/iceddev/pg-connection-string",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
             "asOfVersion": "5.4.3"
+        },
+        {
+            "libraryName": "phonegap-plugin-push",
+            "typingsPackageName": "phonegap-plugin-push",
+            "sourceRepoURL": "https://github.com/phonegap/phonegap-plugin-push",
+            "asOfVersion": "2.1.2"
         },
         {
             "libraryName": "pixi-spine",
@@ -509,6 +635,12 @@
             "typingsPackageName": "pkcs11js",
             "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
             "asOfVersion": "1.0.4"
+        },
+        {
+            "libraryName": "plottable",
+            "typingsPackageName": "plottable",
+            "sourceRepoURL": "http://plottablejs.org/",
+            "asOfVersion": "3.7.0"
         },
         {
             "libraryName": "poly2tri.js",
@@ -559,6 +691,24 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "react-native-elements",
+            "typingsPackageName": "react-native-elements",
+            "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
+            "asOfVersion": "0.18.0"
+        },
+        {
+            "libraryName": "react-native-google-analytics-bridge",
+            "typingsPackageName": "react-native-google-analytics-bridge",
+            "sourceRepoURL": "https://github.com/idehub/react-native-google-analytics-bridge",
+            "asOfVersion": "5.3.3"
+        },
+        {
+            "libraryName": "react-split-pane",
+            "typingsPackageName": "react-split-pane",
+            "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
+            "asOfVersion": "0.1.67"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
@@ -575,6 +725,12 @@
             "typingsPackageName": "redux-batched-actions",
             "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "react-bootstrap",
+            "typingsPackageName": "redux-bootstrap",
+            "sourceRepoURL": "https://github.com/remojansen/redux-bootstrap",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "redux-devtools-extension",
@@ -685,10 +841,22 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "Spin.js",
+            "typingsPackageName": "spin.js",
+            "sourceRepoURL": "http://fgnass.github.com/spin.js/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "spotify-web-api-js",
             "typingsPackageName": "spotify-web-api-js",
             "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
             "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "striptags",
+            "typingsPackageName": "striptags",
+            "sourceRepoURL": "https://github.com/ericnorris/striptags",
+            "asOfVersion": "3.1.1"
         },
         {
             "libraryName": "Sugar",
@@ -719,6 +887,12 @@
             "typingsPackageName": "tcomb",
             "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "timezonecomplete",
+            "typingsPackageName": "timezonecomplete",
+            "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
+            "asOfVersion": "5.5.0"
         },
         {
             "libraryName": "title-case",
@@ -769,6 +943,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "Validate.js",
+            "typingsPackageName": "validate.js",
+            "sourceRepoURL": "https://github.com/ansman/validate.js",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "vso-node-api",
             "typingsPackageName": "vso-node-api",
             "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
@@ -815,6 +995,12 @@
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "zetapush-js",
+            "typingsPackageName": "zetapush-js",
+            "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
+            "asOfVersion": "3.1.2"
         },
         {
             "libraryName": "Zone.js",

@@ -5,6 +5,7 @@
 //                 TANAKA Koichi <https://github.com/MugeSo>
 //                 Stuart Schechter <https://github.com/UppaJung>
 //                 Junyoung Choi <https://github.com/Rokt33r>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -43,7 +44,7 @@ export interface ClientOpts {
     password?: string;
     db?: string | number;
     family?: string;
-    rename_commands?: { [command: string]: string };
+    rename_commands?: { [command: string]: string } | null;
     tls?: any;
     prefix?: string;
     retry_strategy?: RetryStrategy;
@@ -249,8 +250,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -1201,6 +1202,9 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     sendCommand(command: string, args?: any[], cb?: Callback<any>): boolean;
     send_command(command: string, cb?: Callback<any>): boolean;
     send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
+
+    addCommand(command: string): void;
+    add_command(command: string): void;
 
     /**
      * Mark the start of a transaction block.

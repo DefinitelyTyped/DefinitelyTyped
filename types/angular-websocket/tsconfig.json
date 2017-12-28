@@ -1,8 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "angular-websocket-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -11,8 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -20,5 +16,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "angular-websocket-tests.ts"
+    ]
 }

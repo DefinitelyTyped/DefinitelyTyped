@@ -13,33 +13,53 @@ import {
     I18n,
     ReactI18NextOptions
 } from 'react-i18next';
+import { InjectedI18nProps } from 'react-i18next/src/props';
 
 interface InnerAnotherComponentProps {
-    _?: TranslationFunction;
+    _: TranslationFunction;
 }
 
 class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps> {
     render() {
-        const _ = this.props._!;
+        const _ = this.props._;
         return <p>{_('content.text', {/* options t options */})}</p>;
     }
 }
 
-const AnotherComponent = translate('view', {wait: true, translateFuncName: '_'})(InnerAnotherComponent);
+const AnotherComponent = translate<Key, "_">('view', {wait: true, translateFuncName: '_'})(InnerAnotherComponent);
+const instanceWithoutRef = new AnotherComponent({});
+instanceWithoutRef.componentWillReceiveProps!({
+    i18n,
+    initialI18nStore: { context: { text: "a message" } },
+    initialLanguage: "en"
+}, {});
+
+translate.setDefaults({ wait: false });
+translate.setI18n(i18n);
+
+const AnotherComponentWithRef = translate<Key, "_">("view" as Key, { translateFuncName: "_", withRef: true })(InnerAnotherComponent);
+const instanceWithRef = new AnotherComponentWithRef({});
+const ref = instanceWithRef.getWrappedInstance();
+instanceWithRef.componentWillReceiveProps!({
+    i18n,
+    initialI18nStore: { context: { text: "a message" } },
+    initialLanguage: "en"
+}, {});
 
 class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
     render() {
-        const t = this.props.t!;
+        const t = this.props.t;
         return <p>{t('usingDefaultNS', {/* options t options */})}</p>;
     }
 }
 
 const YetAnotherComponent = translate()(InnerYetAnotherComponent);
 
-@translate(['view', 'nav'], {wait: true})
+const YetAnotherComponentWithRef =translate(undefined, { withRef: true })(InnerYetAnotherComponent);
+new YetAnotherComponentWithRef({}).getWrappedInstance();
 class TranslatableView extends React.Component<InjectedTranslateProps> {
     render() {
-        const t = this.props.t!;
+        const t = this.props.t;
         const interpolateComponent = <strong>"a interpolated component"</strong>;
         const options: i18n.InterpolationOptions = {};
         return (
@@ -69,16 +89,18 @@ class TranslatableView extends React.Component<InjectedTranslateProps> {
     }
 }
 
+const TranslatedView = translate(["view", "nav"] as Key[], { wait: true })(TranslatableView);
+
 class App extends React.Component {
-    render() {
-        return (
-            <div className='main'>
-                <main>
-                    <TranslatableView/>
-                </main>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className='main'>
+        <main>
+          <TranslatedView />
+        </main>
+      </div>
+    );
+  }
 }
 
 <I18nextProvider i18n={i18n} initialLanguage={'en'} initialI18nStore={{}}>
@@ -100,18 +122,40 @@ loadNamespaces({components: [App], i18n}).then(() => {
 
 type Key = "view" | "nav";
 
-@translate<Key>(["view", "nav"] as Key[])
 class GenericsTest extends React.Component<InjectedTranslateProps> {
     render() {
         return null;
     }
 }
 
-@translate<Key>("view")
+const TranslatedGenericsTest = translate(["view", "nav"] as Key[])(GenericsTest);
+<TranslatedGenericsTest />;
+
 class GenericsTest2 extends React.Component<InjectedTranslateProps> {
     render() {
         return null;
     }
+}
+
+const TranslatedGenericsTest2 = translate("view" as Key)(GenericsTest2);
+<TranslatedGenericsTest2 />;
+
+class ComponentWithInjectedI18n extends React.Component<InjectedI18nProps> {
+  render() { return null; }
+}
+
+const TranslatedComponentWithInjectedI18n = translate()(ComponentWithInjectedI18n);
+<TranslatedComponentWithInjectedI18n />;
+
+function StatlessComponent(props: InjectedTranslateProps) {
+  return <h1>{props.t("hy")}</h1>;
+}
+
+const TranslatedStatlessComponent = translate()(StatlessComponent);
+<TranslatedStatlessComponent />;
+
+interface CustomTranslateFunctionProps {
+  _: TranslationFunction;
 }
 
 <I18n ns={['defaultNamespace', 'anotherNamespace']} wait={true} nsMode={'string'} bindI18n={'languageChanged loaded'}

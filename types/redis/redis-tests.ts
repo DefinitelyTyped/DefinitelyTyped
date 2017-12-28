@@ -6,10 +6,10 @@ const num = 0;
 const str = 'any string';
 const err: Error = new Error();
 const args: any[] = [];
-const resCallback: (err: Error, res: any) => void = () => null;
-const numCallback: (err: Error, res: number) => void = () => null;
-const strCallback: (err: Error, res: string) => void = () => null;
-const messageHandler: (channel: string, message: any) => void = () => null;
+const resCallback: (err: Error | null, res: any) => void = () => {};
+const numCallback: (err: Error | null, res: number) => void = () => {};
+const strCallback: (err: Error | null, res: string) => void = () => {};
+const messageHandler: (channel: string, message: any) => void = () => {};
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -117,3 +117,7 @@ client.cork();
 client.set("abc", "fff", strCallback);
 client.get("abc", resCallback);
 client.uncork();
+
+// Add command
+client.add_command('my command');
+client.addCommand('my other command');

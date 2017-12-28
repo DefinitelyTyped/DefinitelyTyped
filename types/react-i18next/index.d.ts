@@ -3,9 +3,9 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Simon Baumann <https://github.com/chnoch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
-import { TranslationFunction } from "i18next";
+import { i18n as I18n, TranslationFunction } from "i18next";
 
 import {
     setDefaults,
@@ -38,16 +38,6 @@ export {
     TranslationFunction
 };
 
-/**
- * Extend your component's Prop interface with this one to get access to `this.props.t`
- *
- * Please note that if you use the `translateFuncName` option, you should create
- * your own interface just like this one, but with your name of the translation function.
- *
- * interface MyComponentProps extends ReactI18next.InjectedTranslateProps {}
- */
-export interface InjectedTranslateProps {
-    t?: TranslationFunction;
-}
+export { InjectedI18nProps, InjectedTranslateProps } from "./src/props";
 
 export as namespace reactI18Next;

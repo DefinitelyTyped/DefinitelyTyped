@@ -300,7 +300,7 @@ declare module 'ember' {
             /**
              * Given a fullName return a corresponding instance.
              */
-            lookup(fullName: string, options: {}): any;
+            lookup(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 
@@ -2097,7 +2097,15 @@ declare module 'ember' {
                 options?: { path?: string; resetNamespace?: boolean },
                 callback?: (this: RouterDSL) => void
             ): void;
-            mount(name: string): void;
+            mount(
+                name: string,
+                options?: {
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
+                }
+            ): void;
         }
         class Service extends Object {}
         /**

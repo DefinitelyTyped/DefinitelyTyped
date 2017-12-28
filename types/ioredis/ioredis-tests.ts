@@ -104,3 +104,6 @@ redis.multi([
 ]).exec((err, results) => {
     // results = [[null, 'OK'], [null, 'bar']]
 });
+
+const keys = [ 'foo', 'bar' ];
+redis.mget(...keys);

@@ -176,6 +176,8 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
+        // Plugins can require any options
+        plugins?: any;
     }
 
     interface ChartFontOptions {
@@ -362,7 +364,7 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
-        autoSkipPadding?: boolean;
+        autoSkipPadding?: number;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;

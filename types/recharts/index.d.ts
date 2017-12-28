@@ -21,7 +21,7 @@ export type ItemSorter<T> = (a: T, b: T) => number;
 export type ContentRenderer<P> = (props: P) => React.ReactNode;
 export type DataKey = string | number | ((dataObject: any) => number | [number, number]);
 
-export type IconType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye';
+export type IconType = 'plainline' | 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'plainline';
 export type LegendType = IconType | 'none';
 export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';

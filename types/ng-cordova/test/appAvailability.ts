@@ -1,7 +1,12 @@
 // For the full application demo please see following repo :
 // https://github.com/ksachdeva/ngCordova-typescript-demo
 
-/// <reference types="ionic" />
+// Simplified ionic types to avoid needing a dependency on it
+declare namespace ionic.platform {
+  interface IonicPlatformService {
+    ready(cb: () => void): void;
+  }
+}
 
 namespace demo.appavailability {
   'use strict';

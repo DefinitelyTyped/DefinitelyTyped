@@ -714,8 +714,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     interface CustomMatcherResult {
@@ -1046,6 +1046,8 @@ declare namespace jest {
         path: Path;
     }
 
+    // tslint:disable-next-line:no-empty-interface
+    interface Set<T> {} // To allow non-ES6 users the Set below
     interface Reporter {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;

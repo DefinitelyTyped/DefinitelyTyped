@@ -482,6 +482,9 @@ export class ManagementClient {
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
+  getUsersByEmail(email: string): Promise<User[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
+
   createUser(data: CreateUserData): Promise<User>;
   createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
 
