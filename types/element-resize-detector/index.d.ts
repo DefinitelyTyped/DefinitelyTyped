@@ -3,7 +3,7 @@
 // Definitions by: Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker.ErdmOptions) : elementResizeDetectorMaker.Erd;
+declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker.ErdmOptions): elementResizeDetectorMaker.Erd;
 
 declare namespace elementResizeDetectorMaker {
     interface ErdmOptions {
