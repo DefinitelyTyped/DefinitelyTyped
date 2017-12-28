@@ -73,7 +73,6 @@ new Nightmare()
   .goto('http://yahoo.com')
   .evaluate(function (parameter) {
     return document.title + ' -- ' + parameter;
-  }, function (title) {
   }, 'testparameter')
   .run(done);
 
@@ -82,7 +81,6 @@ new Nightmare()
   .inject('js', 'test/files/jquery-2.1.1.min.js')
   .evaluate(function () {
     return $('a').length;
-  }, function (numAnchors) {
   })
   .run(done);
 
@@ -92,7 +90,6 @@ new Nightmare()
   .inject('css', 'test/files/test.css')
   .evaluate(function () {
     return $('body').css('background-color');
-  }, function (color) {
   })
   .run(done);
 
@@ -102,7 +99,6 @@ new Nightmare()
   .inject('pdf', 'test/files/test.css')
   .evaluate(function () {
     return $('body').css('background-color');
-  }, function (color) {
   })
   .run(done);
 
@@ -110,10 +106,9 @@ new Nightmare()
   .goto('http://yahoo.com')
   .type('input[title="Search"]', 'github nightmare')
   .click('.searchsubmit')
-  .wait()
+  .wait('bbb')
   .evaluate(function () {
     return document.title;
-  }, function (title) {
   })
   .run(done);
 
@@ -121,25 +116,23 @@ new Nightmare()
   .goto('http://yahoo.com')
   .type('input[title="Search"]', 'github nightmare')
   .click('.searchsubmit')
-  .wait()
+  .wait('bbb')
   .click('.breadcrumb_link')
-  .wait()
+  .wait('bbb')
   .evaluate(function () {
     return document.title;
-  }, function (title) {
   })
   .run(done);
 
 new Nightmare()
   .viewport(320, 320)
   .goto('http://www.yahoo.com')
-  .wait()
+  .wait('bbb')
   .evaluate(function () {
     return {
       top: document.body.scrollTop,
       left: document.body.scrollLeft
     };
-  }, function (coordinates) {
   })
   .scrollTo(100,50)
   .evaluate(function () {
@@ -147,7 +140,6 @@ new Nightmare()
       top: document.body.scrollTop,
       left: document.body.scrollLeft
     };
-  }, function (coordinates) {
   })
   .run(done);
 
@@ -156,7 +148,6 @@ new Nightmare()
   .upload('#uploaded_file', 'test/files/jquery-2.1.1.min.js')
   .evaluate(function () {
     return (<HTMLInputElement>document.getElementById('uploaded_file')).value;
-  }, function (value) {
   })
   .run(done);
 
@@ -218,7 +209,7 @@ new Nightmare()
   .run(done);
 
 new Nightmare({
-    timeout: 1000
+    waitTimeout: 1000
   })
   .on('timeout', function (msg) {
   })
@@ -257,7 +248,6 @@ new Nightmare()
   .goto('http://www.wikipedia.org/')
   .evaluate(function () {
     return window.navigator.userAgent;
-  }, function (res) {
   })
   .run(done);
 
@@ -266,7 +256,6 @@ new Nightmare()
   .goto('http://httpbin.org/basic-auth/my/auth')
   .evaluate(function () {
     return document.body.innerHTML;
-  }, function (data){
   })
   .run(done);
 
@@ -279,19 +268,18 @@ new Nightmare()
       width: window.innerWidth,
       height: window.innerHeight
     };
-  }, function (res) {
   })
   .run(done);
 
 new Nightmare()
   .viewport(1600, 900)
   .goto('http://www.wikipedia.org')
-  .wait()
+  .wait('bbb')
   .screenshot('test/testScaleDefault.png')
   .viewport(3200, 1800)
   .zoom(2)
   .goto('http://www.wikipedia.org')
-  .wait()
+  .wait('bbb')
   .screenshot('test/testScaleIs2.png')
   .run(done);
 
@@ -303,7 +291,6 @@ new Nightmare()
   .goto('http://httpbin.org/headers')
   .evaluate(function () {
     return (<HTMLElement>document.body.children[0]).innerHTML;
-  }, function (data: string) {
   })
   .run(done);
 
@@ -318,7 +305,7 @@ function search(term: string) {
       .goto('http://yahoo.com')
         .type('.input-query', term)
         .click('.searchsubmit')
-      .wait();
+      .wait('bbb');
   };
 }
 function testTitle(term: string) {
@@ -326,7 +313,6 @@ function testTitle(term: string) {
     nightmare
       .evaluate(function () {
         return document.title;
-      }, function (title: string) {
       });
   };
 }
