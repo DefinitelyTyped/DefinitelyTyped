@@ -1,4 +1,4 @@
-// Type definitions for stripe 4.9
+// Type definitions for stripe 5.0
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
