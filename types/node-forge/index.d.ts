@@ -29,7 +29,7 @@ declare module "node-forge" {
 		}
 
 		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
-		function decode(str: string): ObjectPEM;
+		function decode(str: string): ObjectPEM[];
 	}
     
     namespace pki {
