@@ -6,6 +6,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Brannon Jones <https://github.com/brannon>
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
+//                 Kensuke Hoshikawa <https://github.com/starhoshi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
