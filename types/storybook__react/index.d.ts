@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 export type Renderable = React.ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable | Array<Renderable>;
+export type RenderFunction = () => Renderable | Renderable[];
 
 export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
 
