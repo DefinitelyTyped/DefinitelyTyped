@@ -158,6 +158,8 @@ declare namespace Stripe {
              * established in. For example, if you are in the United States and the
              * business you’re creating an account for is legally represented in Canada,
              * you would use “CA” as the country for the account being created.
+             * 
+             * optional, default is your own country
              */
             country?: string;
 
@@ -166,18 +168,20 @@ declare namespace Stripe {
              * will email your user with instructions for how to set up their account. For
              * managed accounts, this is only to make the account easier to identify to
              * you: Stripe will never directly reach out to your users.
+             * 
+             * required if type is "standard"
              */
-            email: string;
+            email?: string;
 
             /**
-             * Whether you'd like to create a managed or standalone account. Managed
+             * Whether you'd like to create a Custom or Standard account. Custom
              * accounts have extra parameters available to them, and require that you,
              * the platform, handle all communication with the account holder.
-             * Standalone accounts are normal Stripe accounts: Stripe will email the
+             * Standard accounts are normal Stripe accounts: Stripe will email the
              * account holder to setup a username and password, and handle all account
-             * management directly with them.
+             * management directly with them. Possible values are custom and standard.
              */
-            managed?: boolean;
+            type: 'custom' | 'standard';
         }
 
         interface IAccountShared {
