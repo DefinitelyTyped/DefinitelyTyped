@@ -257,6 +257,10 @@ knex.select('*').from('users').join('accounts', function(join: Knex.JoinClause) 
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
+knex.select('*').from('user').join('contacts', () => {
+  this.on('users.id', '=', knex.raw(7));
+});
+
 knex.select('*').from('users').join('contacts', function() {
   this.on('users.id', '=', 'contacts.id').onIn('contacts.id', [7, 15, 23, 41])
 });
