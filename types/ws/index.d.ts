@@ -62,6 +62,15 @@ declare class WebSocket extends events.EventEmitter {
     addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
     addEventListener(method: string, listener?: () => void): void;
 
+    removeEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
+    removeEventListener(method: 'close', cb?: (event: {
+        wasClean: boolean; code: number;
+        reason: string; target: WebSocket
+    }) => void): void;
+    removeEventListener(method: 'error', cb?: (err: Error) => void): void;
+    removeEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
+    removeEventListener(method: string, listener?: () => void): void;
+
     // Events
     on(event: 'close', listener: (code: number, reason: string) => void): this;
     on(event: 'error', listener: (err: Error) => void): this;
@@ -80,6 +89,15 @@ declare class WebSocket extends events.EventEmitter {
     addListener(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
     addListener(event: 'unexpected-response', listener: (request: http.ClientRequest, response: http.IncomingMessage) => void): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    removeListener(event: 'close', listener: (code: number, message: string) => void): this;
+    removeListener(event: 'error', listener: (err: Error) => void): this;
+    removeListener(event: 'headers', listener: (headers: {}, request: http.IncomingMessage) => void): this;
+    removeListener(event: 'message', listener: (data: WebSocket.Data) => void): this;
+    removeListener(event: 'open' , listener: () => void): this;
+    removeListener(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
+    removeListener(event: 'unexpected-response', listener: (request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
 declare namespace WebSocket {

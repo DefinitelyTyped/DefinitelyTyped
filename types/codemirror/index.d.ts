@@ -105,9 +105,9 @@ declare namespace CodeMirror {
     function signal(target: any, name: string, ...args: any[]): void;
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
-    
+
     type CoordsMode = 'window' | 'page' | 'local';
-    
+
     interface Token {
         /** The character(on the given line) at which the token starts. */
         start: number;
@@ -202,10 +202,10 @@ declare namespace CodeMirror {
         /** Compute the line at the given pixel height. mode is the relative element
         to use to compute this line, it may be "window", "page" (the default), or "local" */
         lineAtHeight(height: number, mode?: CoordsMode): number;
-        
-        /** Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window", 
-        "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value 
-        is the bottom of the last line in the document. By default, the position of the actual text is returned. 
+
+        /** Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window",
+        "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value
+        is the bottom of the last line in the document. By default, the position of the actual text is returned.
         If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
         heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
@@ -292,7 +292,7 @@ declare namespace CodeMirror {
         charCoords(pos: CodeMirror.Position, mode?: CoordsMode): { left: number; right: number; top: number; bottom: number; };
 
         /** Given an { left , top } object , returns the { line , ch } position that corresponds to it.
-        The optional mode parameter determines relative to what the coordinates are interpreted. 
+        The optional mode parameter determines relative to what the coordinates are interpreted.
         It may be "window", "page" (the default), or "local". */
         coordsChar(object: { left: number; top: number; }, mode?: CoordsMode): CodeMirror.Position;
 
@@ -512,7 +512,7 @@ declare namespace CodeMirror {
 
         /** Get the currently selected code. */
         getSelection(): string;
-        
+
         /** Returns an array containing a string for each selection, representing the content of the selections. */
         getSelections(lineSep?: string): Array<string>;
 
@@ -535,8 +535,14 @@ declare namespace CodeMirror {
         /** Set the cursor position.You can either pass a single { line , ch } object , or the line and the character as two separate parameters. */
         setCursor(pos: CodeMirror.Position): void;
 
-        /** Set the selection range.anchor and head should be { line , ch } objects.head defaults to anchor when not given. */
-        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position): void;
+        /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
+        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+
+        /** Sets a new set of selections. There must be at least one selection in the given array. When primary is a
+        number, it determines which selection is the primary one. When it is not given, the primary index is taken from
+        the previous selection, or set to the last range if the previous selection had less ranges than the new one.
+        Supports the same options as setSelection. */
+        setSelections(ranges: Array<{ anchor: CodeMirror.Position, head: CodeMirror.Position }>, primary?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Similar to setSelection , but will, if shift is held or the extending flag is set,
         move the head of the selection while leaving the anchor at its current place.
@@ -692,7 +698,7 @@ declare namespace CodeMirror {
 
     interface EditorChangeCancellable extends CodeMirror.EditorChange {
         /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact. */
-        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string): void;
+        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
 
         cancel(): void;
     }
@@ -779,7 +785,7 @@ declare namespace CodeMirror {
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
         fixedGutter?: boolean;
-        
+
         /**
          * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
          * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
@@ -1141,6 +1147,7 @@ declare namespace CodeMirror {
     interface LintStateOptions {
         async: boolean;
         hasGutters: boolean;
+        onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
     }
 
     /**

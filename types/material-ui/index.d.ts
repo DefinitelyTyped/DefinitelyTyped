@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.18.17
+// Type definitions for material-ui v0.20.0
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
@@ -1440,6 +1440,7 @@ declare namespace __MaterialUI {
         hintText?: React.ReactNode;
         iconStyle?: React.CSSProperties;
         id?: string;
+        name?: string;
         labelStyle?: React.CSSProperties;
         multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
@@ -1627,7 +1628,7 @@ declare namespace __MaterialUI {
         className?: string;
         contentStyle?: React.CSSProperties;
         message: React.ReactNode;
-        onActionTouchTap?: React.TouchEventHandler<{}>;
+        onActionClick?: React.MouseEventHandler<{}>;
         onRequestClose?(reason: string): void;
         open: boolean;
         style?: React.CSSProperties;
@@ -1683,7 +1684,7 @@ declare namespace __MaterialUI {
             bodyStyle?: React.CSSProperties;
             className?: string;
             message: string | JSX.Element;
-            onActionTouchTap?: React.TouchEventHandler<{}>;
+            onActionClick?: React.MouseEventHandler<{}>;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED
             onRequestClose(reason: string): void;

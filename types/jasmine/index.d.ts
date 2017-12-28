@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.6.0
+// Type definitions for Jasmine 2.8.0
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,6 +91,11 @@ declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
 /**
+ * Create an expectation for a spec.
+ */
+declare function expect(): jasmine.NothingMatcher;
+
+/**
  * Explicitly mark a spec as failed.
  * @param e
  */
@@ -134,9 +139,10 @@ declare namespace jasmine {
 
     function anything(): Any;
 
-    function arrayContaining(sample: any[]): ArrayContaining;
+    function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
+    function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
-    function createSpy(name: string, originalFn?: Function): Spy;
+    function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: any[] | {[methodName: string]: any}): any;
     function createSpyObj<T>(baseName: string, methodNames: any[] | {[methodName: string]: any}): SpyObj<T>;
@@ -172,8 +178,8 @@ declare namespace jasmine {
         [n: number]: T;
     }
 
-    interface ArrayContaining {
-        new (sample: any[]): any;
+    interface ArrayContaining<T> {
+        new (sample: ArrayLike<T>): ArrayLike<T>;
 
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
@@ -213,8 +219,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;
@@ -440,16 +446,21 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+
         not: Matchers<T>;
 
         Any: Any;
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
-        toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
-        toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
         toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
+    }
+
+    interface NothingMatcher {
+        nothing(): void;
     }
 
     interface Reporter {

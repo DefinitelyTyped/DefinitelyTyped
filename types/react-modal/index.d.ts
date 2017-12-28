@@ -1,10 +1,11 @@
-// Type definitions for react-modal 2.2
+// Type definitions for react-modal 3.1
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
 //                 Thomas B Homburg <https://github.com/homburg>,
 //                 Tatu Tamminen <https://github.com/ttamminen>,
-//                 Uwe Wiemer <https://github.com/hallowatcher>
+//                 Uwe Wiemer <https://github.com/hallowatcher>,
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,9 +25,9 @@ declare namespace ReactModal {
     }
 
     interface Classes {
-        base?: string;
-        afterOpen?: string;
-        beforeClose?: string;
+        base: string;
+        afterOpen: string;
+        beforeClose: string;
     }
 
     interface Aria {
@@ -68,8 +69,17 @@ declare namespace ReactModal {
         /* Boolean indicating if the appElement should be hidden. Defaults to true. */
         ariaHideApp?: boolean;
 
+        /* Boolean indicating if the modal should be focused after render */
+        shouldFocusAfterRender?: boolean;
+
         /* Boolean indicating if the overlay should close the modal. Defaults to true. */
         shouldCloseOnOverlayClick?: boolean;
+
+        /* Boolean indicating if pressing the esc key should close the modal */
+        shouldCloseOnEsc?: boolean;
+
+        /* Boolean indicating if the modal should restore focus to the element that had focus prior to its display. */
+        shouldReturnFocusAfterClose?: boolean;
 
         /* Function that will be called to get the parent element that the modal will be attached to. */
         parentSelector?(): HTMLElement;
@@ -81,13 +91,16 @@ declare namespace ReactModal {
         role?: string;
 
         /* String indicating how the content container should be announced to screenreaders. */
-        contentLabel: string;
+        contentLabel?: string;
     }
 }
 
 declare class ReactModal extends React.Component<ReactModal.Props> {
     /* Override base styles for all instances of this component. */
     static defaultStyles: ReactModal.Styles;
-    /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
-    static setAppElement(appElement: HTMLElement): void;
+    /**
+     * Call this to properly hide your application from assistive screenreaders
+     * and other assistive technologies while the modal is open.
+     */
+    static setAppElement(appElement: string | HTMLElement): void;
 }

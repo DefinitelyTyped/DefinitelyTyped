@@ -1,4 +1,4 @@
-// Type definitions for Nightmare 1.6.6
+// Type definitions for Nightmare 2.10.0
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Sam Yang <https://github.com/samyang-au>
@@ -147,6 +147,13 @@ declare namespace Nightmare {
         typeInterval?: number;
         x?: number;
         y?: number;
+        openDevTools?: {
+            /**
+             * Opens the devtools with specified dock state, can be right, bottom, undocked, detach.
+             * https://github.com/electron/electron/blob/master/docs/api/web-contents.md#contentsopendevtoolsoptions
+             */
+            mode?: string;
+        };
     }
 
     export interface IRequest {

@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardTextProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var CardText: React.StatelessComponent<Props>;
+declare const CardText: React.StatelessComponent<CardTextProps>;
 export default CardText;

@@ -5,6 +5,7 @@ interface TestScope extends ng.IScope {
 }
 
 myApp.config((
+    $mdAriaProvider: ng.material.IAriaProvider,
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
     $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
@@ -52,6 +53,9 @@ myApp.config((
             return c * Math.pow(2, (t / d - 1) * 10) + b;
         }
     });
+
+    // Globally disables all ARIA warnings.
+    $mdAriaProvider.disableWarnings();
 });
 
 myApp.controller('BottomSheetController', ($scope: TestScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
@@ -135,6 +139,9 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
     };
     $scope['promptDialog'] = () => {
         $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
+    };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().required(true));
     };
     $scope['prerenderedDialog'] = () => {
         $mdDialog.show({

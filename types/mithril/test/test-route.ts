@@ -8,7 +8,7 @@ const component1 = {
 	}
 };
 
-const component2: Component<{title: string}, {}> = {
+const component2: Component<{title: string}> = {
 	view({attrs: {title}}) {
 		return h('h1', title);
 	}
@@ -34,7 +34,7 @@ const component3: Comp<Attrs, State> = {
 };
 
 class Component4 implements ClassComponent<Attrs> {
-	view({attrs}: Vnode<Attrs, {}>) {
+	view({attrs}: Vnode<Attrs>) {
 		return h('p', 'id: ' + attrs.id);
 	}
 }
@@ -47,8 +47,12 @@ const component5: FactoryComponent<Attrs> = () => {
 	};
 };
 
-// RouteResolver example using Attrs type and this context
-const routeResolver: RouteResolver<Attrs, State> & {message: string} = {
+interface RRState {
+	message: string;
+}
+
+// Stateful RouteResolver example using Attrs type and this context
+const routeResolver: RouteResolver<Attrs, RRState> & RRState = {
 	message: "",
 	onmatch(attrs, path) {
 		this.message = "Match";

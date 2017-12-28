@@ -140,7 +140,7 @@ declare namespace ReactGridLayout {
         /**
          * Compaction type.
          */
-        compactType?: "vertical" | "horizontal";
+        compactType?: "vertical" | "horizontal" | null;
 
         /**
          * This allows setting the initial width on the server side.
@@ -177,6 +177,11 @@ declare namespace ReactGridLayout {
          * Enable or disable grid rearrangement when dragging/resizing an element.
          */
         isRearrangeable?: boolean;
+
+        /**
+         * If true, grid items won't change position when being dragged over.
+         */
+        preventCollision?: boolean;
 
         /**
          * Uses CSS3 `translate()` instead of position top/left.

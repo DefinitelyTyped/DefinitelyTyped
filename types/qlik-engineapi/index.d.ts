@@ -1,5 +1,5 @@
-// Type definitions for qlik-engineapi 12.34
-// Project: http://help.qlik.com/en-US/sense-developer/September2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
+// Type definitions for qlik-engineapi 12.67
+// Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -2402,7 +2402,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at app level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the app.
      */
-    interface IApp {
+    interface IApp extends enigmaJS.IGeneratedAPI {
         global: IGlobal;
 
         /**
@@ -2983,6 +2983,13 @@ declare namespace EngineAPI {
          * @returns - return a Promise of FieldDescription.
          */
         getFieldDescription(qFieldName: string): Promise<IFieldDescription>;
+
+        /**
+         * Fetches the Expression behind a Field that is declared with DECLARE FIELD DEFINITIO
+         * @param qReadableName: name of a Field that is declared with DECLARE FIELD DEFINITION
+         * @returns qname wich contains the expression
+         */
+        getFieldOnTheFlyByName(qReadableName: string): Promise<{qName: string}>;
 
         /**
          * Retrieves the description of a field.
@@ -4060,7 +4067,7 @@ declare namespace EngineAPI {
         /**
          * Identifier and type of the dimension.
          */
-        qDim: INxLibraryMeasureDef;
+        qDim: INxLibraryDimensionDef;
 
         /**
          * Cardinal and tags related to the dimension.
@@ -4106,7 +4113,7 @@ declare namespace EngineAPI {
          *
          * @returns - A promise GenericDimension.
          */
-        getDimension(): Promise<IGenericDimension>;
+        getDimension(): Promise<IGenericDimensionProperties>;
 
         /**
          * Returns the type and identifier of the object.
@@ -5071,31 +5078,10 @@ declare namespace EngineAPI {
     }
 
     /**
-     * ImplementOn...
-     */
-    interface IImplementOn {
-        /**
-         * register a function for events
-         * @param event - function called if this event occures
-         * @param func - function that is called
-         */
-        on(event: "changed" | "closed", func: () => void): void;
-
-        /**
-         * manual emit an events
-         * @param event - event that occures
-         */
-        emit(event: "changed" | "closed"): void;
-
-        // ? not in Docu
-        id: string;
-    }
-
-    /**
      * This class describes all the methods that apply at generic object level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic object.
      */
-    interface IGenericObject extends IImplementOn {
+    interface IGenericObject extends enigmaJS.IGeneratedAPI {
         /**
          * app describes all the methods that apply at app level.
          */
@@ -6010,7 +5996,7 @@ declare namespace EngineAPI {
     interface IGenericDerivedFieldProperties extends IGenericProperties {
     }
 
-    interface IGenericDerivedFields extends IImplementOn {
+    interface IGenericDerivedFields extends enigmaJS.IGeneratedAPI {
         /**
          * Shows the properties of an object.
          * Returns the identifier and the definition of the derived field.
@@ -6054,7 +6040,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at measure level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the measure.
      */
-    interface IGenericMeasure extends IImplementOn {
+    interface IGenericMeasure extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
@@ -6087,7 +6073,7 @@ declare namespace EngineAPI {
          * @returns - Information about the measure.
          * >> This parameter is mandatory.
          */
-        getMeasure(): Promise<INxLibraryMeasureDef>;
+        getMeasure(): Promise<IGenericMeasureProperties>;
 
         /**
          * Shows the properties of an object.
@@ -6122,7 +6108,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at generic variable level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic variable.
      */
-    interface IGenericVariable extends IImplementOn {
+    interface IGenericVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of a variable. Allows an update to some of the properties.
          *
@@ -6245,7 +6231,7 @@ declare namespace EngineAPI {
      *
      * The handle member in the JSON request for all methods listed in this section is the handle of the variable.
      */
-    interface IVariable extends IImplementOn {
+    interface IVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Sets the value of a dual variable overriding any input constraints.
          *
@@ -6879,12 +6865,6 @@ declare namespace EngineAPI {
         qSignature: string;
     }
 
-    interface IQOptions {
-        qBookmarkId: string;
-
-        qExpires: number;
-    }
-
     interface IQDownloadInfo {
         /**
          * URL of the generated QVF
@@ -6932,7 +6912,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at global level.
      * The handle member in the JSON request for all methods listed in this section is -1.
      */
-    interface IGlobal {
+    interface IGlobal extends enigmaJS.IGeneratedAPI {
         /**
          * Sets an abort flag on all pending and ongoing requests in the current engine session.
          * If an abort flag is set on a pending request, the request is aborted.
@@ -7105,14 +7085,6 @@ declare namespace EngineAPI {
         exportApp(qTargetPath: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
 
         /**
-         * Reduce an app in the memory to the current selection of a specified bookmark
-         * and make it as http download available.
-         * @params - optional qOptions
-         * @returns - A Promise of qDownloadInfo
-         */
-        exportReducedData(qOptions?: IQOptions): Promise<IQDownloadInfo>;
-
-        /**
          * Returns the handle of the current app.
          *
          * Note: If no app is opened, an error message is returned:
@@ -7184,6 +7156,21 @@ declare namespace EngineAPI {
          * @returns A Promise qBnfHash
          */
         getBaseBNFHash(qBnfType: BnfType): Promise<{ qBnfHash: string }>;
+
+        /**
+         * Gets the current Backus-Naur Form (BNF) grammar of the Qlik engine scripting language,
+         * as well as a string hash calculated from that grammar. The BNF rules define the syntax
+         * for the script statements and the script or chart functions. If the hash changes between
+         * subsequent calls to this method, this indicates that the BNF has changed.
+         *
+         * In the Qlik engine grammars, a token is a string of one or more characters that is significant as a group.
+         * For example, a token could be a function name, a number, a letter, a parenthesis, and so on.
+         * @param qBnfType The type of grammar to return:
+         *                   S: returns the script statements and the script functions.
+         *                   E: returns the chart functions.
+         * @returns qBnfDefs and qBnfHash
+         */
+        getBaseBNFString(qBnfType: BnfType): Promise<{qBnfDefs: IBNFDef, qBnfHash: string}>;
 
         /**
          * Get a Config Object
@@ -9143,8 +9130,7 @@ declare namespace EngineAPI {
     /**
      * SelectionListObject width extend GenericObject
      */
-    interface ISelectionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericSelectionListLayout>;
+    interface ISelectionListObject extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {
     }
 
     interface IApp {
@@ -9206,8 +9192,7 @@ declare namespace EngineAPI {
     /**
      * BookmarkListObject width extend GenericObject
      */
-    interface IBookmarkListObject extends IGenericObject {
-        getLayout(): Promise<IGenericBookmarkListLayout>;
+    interface IBookmarkListObject extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {
     }
 
     interface IApp {
@@ -9269,8 +9254,7 @@ declare namespace EngineAPI {
     /**
      * IMeassureListObject
      */
-    interface IMeassureListObject extends IGenericObject {
-        getLayout(): Promise<IGenericMeasureListLayout>;
+    interface IMeassureListObject extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {
     }
 
     interface IApp {
@@ -9337,8 +9321,7 @@ declare namespace EngineAPI {
         qData: any;
     }
 
-    interface IDimensionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericDimensionListLayout>;
+    interface IDimensionListObject extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {
     }
 
     interface IApp {
@@ -9415,15 +9398,15 @@ declare namespace EngineAPI {
     /**
      * VariableListObject...
      */
-    interface IVariableListObject {
+    interface IVariableList {
         qItems: INxVariableListItem[];
     }
 
     /**
      * GenericVariableLayout width extend GenericObjectLayout
      */
-    interface IGenericVariableLayout extends IGenericObjectLayout {
-        qVariableListObject: IVariableListObject;
+    interface IGenericVariableListLayout extends IGenericBaseLayout {
+        qVariableListObject: IVariableList;
     }
 
     /**
@@ -9461,8 +9444,7 @@ declare namespace EngineAPI {
     /**
      * VariableListObject width extend GenericObject
      */
-    interface IVariableListObject extends IGenericObject {
-        getLayout(): Promise<IGenericVariableLayout>;
+    interface IVariableListObject extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {
     }
 
     interface IApp {
@@ -9477,21 +9459,11 @@ declare namespace EngineAPI {
     /**
      * FieldListObject...
      */
-    interface IFieldListObject {
+    interface IFieldList {
         /**
          * NxFieldDescription[]
          */
         qItems: INxFieldDescription[];
-    }
-
-    /**
-     * GenericFieldLayout width extend GenericObjectLayout
-     */
-    interface IGenericFieldLayout extends IGenericObjectLayout {
-        /**
-         * FieldListObject...
-         */
-        qFieldListObject: IFieldListObject;
     }
 
     /**
@@ -9708,9 +9680,30 @@ declare namespace EngineAPI {
         qShowImplicit?: boolean;
     }
 
+    /**
+     * GenericFieldLayout width extend GenericObjectLayout
+     */
+    interface IGenericFieldLayout extends IGenericBaseLayout {
+        /**
+         * FieldListObject...
+         */
+        qFieldListObject: IFieldList;
+    }
+
+    /**
+     * FieldListObject width extend GenericObject
+     */
+    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {
+    }
+
     interface IApp {
         createObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
         createSessionObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
     }
 }
 //#endregion
+
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+    }
+}

@@ -33,7 +33,7 @@ describe("Included matchers:", () => {
         var b = a;
 
         expect(a).toBe(b);
-        expect(a).not.toBe(null);
+        expect(a).not.toBe(24);
     });
 
     describe("The 'toEqual' matcher", () => {
@@ -53,6 +53,11 @@ describe("Included matchers:", () => {
                 b: 34
             };
             expect(foo).toEqual(bar);
+        });
+
+        it("should work for optional values", () => {
+            var opt: string | undefined = "s";
+            expect(opt as (string | undefined)).toEqual(undefined);
         });
     });
 
@@ -83,7 +88,7 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeNull' matcher compares against null", () => {
-        var a: string = null;
+        var a: string | null = null;
         var foo = "foo";
 
         expect(null).toBeNull();
@@ -92,14 +97,14 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeTruthy' matcher is for boolean casting testing", () => {
-        var a: string, foo = "foo";
+        var a: string | undefined, foo = "foo";
 
         expect(foo).toBeTruthy();
         expect(a).not.toBeTruthy();
     });
 
     it("The 'toBeFalsy' matcher is for boolean casting testing", () => {
-        var a: string, foo = "foo";
+        var a: string | undefined, foo = "foo";
 
         expect(a).toBeFalsy();
         expect(foo).not.toBeFalsy();
@@ -665,6 +670,12 @@ describe("Multiple spies, when created manually", () => {
     });
 });
 
+describe("jasmine.nothing", () => {
+    it("matches any value", () => {
+        expect().nothing();
+    });
+});
+
 describe("jasmine.any", () => {
     it("matches any value", () => {
         expect({}).toEqual(jasmine.any(Object));
@@ -754,7 +765,7 @@ describe("jasmine.objectContaining", () => {
 });
 
 describe("jasmine.arrayContaining", () => {
-    var foo: any;
+    var foo: Array<number>;
 
     beforeEach(() => {
         foo = [1, 2, 3, 4];
@@ -763,6 +774,9 @@ describe("jasmine.arrayContaining", () => {
     it("matches arrays with some of the values", () => {
         expect(foo).toEqual(jasmine.arrayContaining([3, 1]));
         expect(foo).not.toEqual(jasmine.arrayContaining([6]));
+
+        expect(foo).toBe(jasmine.arrayContaining([3, 1]));
+        expect(foo).not.toBe(jasmine.arrayContaining([6]));
     });
 
     describe("when used with a spy", () => {
@@ -773,6 +787,33 @@ describe("jasmine.arrayContaining", () => {
 
             expect(callback).toHaveBeenCalledWith(jasmine.arrayContaining([4, 2, 3]));
             expect(callback).not.toHaveBeenCalledWith(jasmine.arrayContaining([5, 2]));
+        });
+    });
+});
+
+describe("jasmine.arrayWithExactContents", () => {
+    var foo: Array<number>;
+
+    beforeEach(() => {
+        foo = [1, 2, 3, 4];
+    });
+
+    it("matches arrays with exactly the same values", () => {
+        expect(foo).toEqual(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+        expect(foo).not.toEqual(jasmine.arrayWithExactContents([6]));
+
+        expect(foo).toBe(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+        expect(foo).not.toBe(jasmine.arrayWithExactContents([6]));
+    });
+
+    describe("when used with a spy", () => {
+        it("is useful when comparing arguments", () => {
+            var callback = jasmine.createSpy('callback');
+
+            callback([1, 2, 3, 4]);
+
+            expect(callback).toHaveBeenCalledWith(jasmine.arrayWithExactContents([1, 2, 3, 4]));
+            expect(callback).not.toHaveBeenCalledWith(jasmine.arrayWithExactContents([5, 2]));
         });
     });
 });
@@ -922,6 +963,15 @@ var customMatchers: jasmine.CustomMatcherFactories = {
                 return result;
             }
         };
+    },
+    toBeWithinRange: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
+        return {
+            compare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
+                const pass = actual >= floor && actual <= ceiling;
+                const message = `expected ${actual} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
+                return { message, pass };
+            }
+        };
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
@@ -936,6 +986,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
 declare namespace jasmine {
     interface Matchers<T> {
         toBeGoofy(expected?: jasmine.Expected<T>): boolean;
+        toBeWithinRange(expected?: jasmine.Expected<T>, floor?: number, ceiling?: number): boolean;
     }
 }
 
@@ -954,6 +1005,10 @@ describe("Custom matcher: 'toBeGoofy'", () => {
         expect({
             hyuk: 'gawrsh is fun'
         }).toBeGoofy({ hyuk: ' is fun' });
+    });
+
+    it("can take many 'expected' parameters", () => {
+        expect(2).toBeWithinRange(1, 3);
     });
 
     it("can be negated", () => {
@@ -990,19 +1045,19 @@ var myReporter: jasmine.CustomReporter = {
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
             console.log("Expected: " + result.failedExpectations[i].expected);
             console.log(result.failedExpectations[i].stack);
         }
-        console.log(result.passedExpectations.length);
+        console.log(result.passedExpectations && result.passedExpectations.length);
     },
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }

@@ -16,7 +16,7 @@ type CustomOrigin = (
 
 declare namespace e {
     interface CorsOptions {
-        origin?: boolean | string | RegExp | string[] | RegExp[] | CustomOrigin;
+        origin?: boolean | string | RegExp | (string | RegExp)[] | CustomOrigin;
         methods?: string | string[];
         allowedHeaders?: string | string[];
         exposedHeaders?: string | string[];

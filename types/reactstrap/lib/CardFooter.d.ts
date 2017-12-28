@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardFooterProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var CardFooter: React.StatelessComponent<Props>;
+declare const CardFooter: React.StatelessComponent<CardFooterProps>;
 export default CardFooter;

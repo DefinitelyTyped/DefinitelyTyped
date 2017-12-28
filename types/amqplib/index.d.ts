@@ -63,4 +63,4 @@ export interface ConfirmChannel extends Channel {
     waitForConfirms(): Promise<void>;
 }
 
-export function connect(url: string, socketOptions?: any): Promise<Connection>;
+export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;

@@ -1,16 +1,16 @@
 // Type definitions for webpack-hot-middleware 2.16
 // Project: https://github.com/glenjamin/webpack-hot-middleware#readme
-// Definitions by: Benjamin Lim <https://github.com/bumbleblym>
+// Definitions by: Benjamin Lim <https://github.com/bumbleblym>, Ron Martinez <https://github.com/icylace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import { NextHandleFunction } from 'connect';
-import { compiler } from 'webpack';
+import * as webpack from 'webpack';
 
 export = WebpackHotMiddleware;
 
 declare function WebpackHotMiddleware(
-	compiler: compiler.Compiler,
+	compiler: webpack.ICompiler,
 	options?: WebpackHotMiddleware.Options
 ): NextHandleFunction & WebpackHotMiddleware.EventStream;
 

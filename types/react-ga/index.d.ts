@@ -25,6 +25,8 @@ export interface GaOptions {
     legacyHistoryImport?: boolean;
     allowLinker?: boolean;
     userId?: string;
+    language?: string;
+    hostName?: string;
 }
 
 export interface InitializeOptions {

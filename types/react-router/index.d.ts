@@ -15,7 +15,7 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 import * as H from 'history';
@@ -34,14 +34,14 @@ export interface RouterChildContext<P> {
 export interface MemoryRouterProps {
   initialEntries?: H.LocationDescriptor[];
   initialIndex?: number;
-  getUserConfirmation?: (() => void);
+  getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
   keyLength?: number;
 }
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
 
 export interface PromptProps {
-  message: string | ((location: H.Location) => void);
+  message: string | ((location: H.Location) => string | boolean);
   when?: boolean;
 }
 export class Prompt extends React.Component<PromptProps, any> { }
@@ -99,7 +99,14 @@ export interface match<P> {
   url: string;
 }
 
+// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
+export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
-export function withRouter<P>(component: React.ComponentType<RouteComponentProps<any> & P>): React.ComponentClass<P>;
-// decorator signature
-export function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction;
+
+// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
+// they are decorating. Due to this, if you are using @withRouter decorator in your code,
+// you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
+// on a separate line instead of as a decorator.
+export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
