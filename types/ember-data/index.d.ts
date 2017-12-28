@@ -947,12 +947,12 @@ declare module "ember-data" {
              */
             belongsTo(
                 keyName: string,
-                options: {}
+                options?: {}
             ): Snapshot | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
-            hasMany(keyName: string, options: {}): any[] | undefined;
+            hasMany(keyName: string, options?: {}): any[] | undefined;
             /**
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.
