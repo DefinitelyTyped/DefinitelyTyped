@@ -1,7 +1,6 @@
 // Type definitions for ember-qunit 3.0
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Frank Tan <https://github.com/tansongyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
