@@ -113,6 +113,19 @@ export declare function convertUnicodeIndices(text: string, entities: EntityWith
 
 export declare function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;
 
+export interface ParseTweetOptions {
+    version?: number;
+	maxWeightedTweetLength?: number;
+	scale?: number;
+	defaultWeight?: number;
+	transformedURLLength?: number;
+	ranges?: Array<{
+		start: number;
+		end: number;
+		weight: number;
+	}>;
+}
+
 export interface ParsedTweet {
   weightedLength: number;
   permillage: number;
@@ -123,4 +136,4 @@ export interface ParsedTweet {
   validRangeStart: number;
 }
 
-export declare function parseTweet(text: string): ParsedTweet;
+export declare function parseTweet(text: string, options?: ParseTweetOptions): ParsedTweet;
