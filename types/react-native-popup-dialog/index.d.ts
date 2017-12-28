@@ -1,11 +1,12 @@
 // Type definitions for react-native-popup-dialog 0.9
 // Project: https://github.com/jacklam718/react-native-popup-dialog/blob/master/README.md
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
+//                 connectdotz <https://github.com/connectdotz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import * as React from 'react';
-import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native';
+import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 export type AlignTypes = 'left' | 'right' | 'center';
 export type OverlayPointerEventTypes = 'auto' | 'none';
@@ -16,7 +17,7 @@ export interface DialogButtonProps {
     align?: AlignTypes;
     onPress?: (event: GestureResponderEvent) => void;
     buttonStyle?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
     textContainerStyle?: StyleProp<ViewStyle>;
     disabled?: boolean;
     activeOpacity?: number;
