@@ -529,6 +529,12 @@
             "asOfVersion": "0.8.1"
         },
         {
+            "libraryName": "metisMenu",
+            "typingsPackageName": "metismenu",
+            "sourceRepoURL": "https://github.com/onokumus/metisMenu",
+            "asOfVersion": "2.7.1"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
