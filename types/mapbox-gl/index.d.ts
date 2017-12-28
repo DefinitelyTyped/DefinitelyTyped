@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.42.2
+// Type definitions for Mapbox GL JS v0.43.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
