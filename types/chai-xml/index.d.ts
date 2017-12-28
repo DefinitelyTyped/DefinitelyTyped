@@ -3,18 +3,18 @@
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="chai" />
+import { Assertion } from "chai";
 
-declare global {
-    namespace Chai {
-        interface Assertion {
-            xml: ChaiXml.XmlAssertion;
-        }
+declare function chaiXml(chai: any, utils: any): void;
+export = chaiXml;
+
+declare module "chai" {
+    interface Assertion {
+        xml: XmlAssertion;
     }
 }
 
-declare namespace ChaiXml {
-  interface XmlAssertion extends Chai.Assertion {
+interface XmlAssertion extends Assertion {
     valid(): XmlAssertion;
 
     not: XmlAssertion;
@@ -31,8 +31,4 @@ declare namespace ChaiXml {
     at: XmlAssertion;
     of: XmlAssertion;
     same: XmlAssertion;
-  }
 }
-
-declare  function chaiXml(chai: any, utils: any): void;
-export = chaiXml;

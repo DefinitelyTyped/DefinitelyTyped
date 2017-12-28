@@ -1,7 +1,7 @@
 import chaiJestSnapshot from 'chai-jest-snapshot';
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 
-chai.use(chaiJestSnapshot);
+use(chaiJestSnapshot);
 
 expect({}).to.matchSnapshot();
 expect({}).to.matchSnapshot(true);

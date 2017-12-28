@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as chaiEnzyme from "chai-enzyme";
-import { expect } from "chai";
+import { expect, use } from "chai";
 import { shallow } from "enzyme";
 
 const Test = () => <div/>;
@@ -11,7 +11,7 @@ class Test2 extends React.Component {
     }
 }
 
-chai.use(chaiEnzyme());
+use(chaiEnzyme());
 
 const wrapper = shallow(<Test />);
 

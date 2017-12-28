@@ -3,9 +3,12 @@
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="chai" />
+import { ArrayAssertion } from "chai";
 
-declare namespace Chai {
+declare function chaiThings(chai: any, utils: any): void;
+export = chaiThings;
+
+declare module "chai" {
     interface ArrayAssertion {
         include: ArrayInclude;
         contain: ArrayInclude;
@@ -54,11 +57,8 @@ declare namespace Chai {
     }
 }
 
-interface Array<T> {
-    should: Chai.ArrayAssertion;
-}
-
-declare module "chai-things" {
-    function chaiThings(chai: any, utils: any): void;
-    export = chaiThings;
+declare global {
+    interface Array<T> {
+        should: ArrayAssertion;
+    }
 }

@@ -3,10 +3,10 @@
 // Definitions by: Jay Sherby <https://github.com/JayAndCatchFire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import chai = require('chai');
+import { AssertStatic, ExpectStatic, Should } from "chai";
 
 declare global {
-    var assert: Chai.AssertStatic;
-    var expect: Chai.ExpectStatic;
-    var should: Chai.Should;
+    var assert: AssertStatic;
+    var expect: ExpectStatic;
+    var should: Should;
 }

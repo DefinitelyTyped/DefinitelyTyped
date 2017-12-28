@@ -3,9 +3,6 @@
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="chai" />
-
-
 interface JsxChaiStatic {
     jsxChai: jsxChaiFunction;
 }

@@ -7,22 +7,19 @@
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="chai" />
+import { PromisedAssertion } from "chai";
 
-declare module 'chai-as-promised' {
-    function chaiAsPromised(chai: any, utils: any): void;
+declare function chaiAsPromised(chai: any, utils: any): void;
 
-    namespace chaiAsPromised {
-        function transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
+declare namespace chaiAsPromised {
+    function transferPromiseness(assertion: PromisedAssertion, promise: PromiseLike<any>): void;
 
-        function transformAsserterArgs(values: any[]): any;
-    }
-
-    export = chaiAsPromised;
+    function transformAsserterArgs(values: any[]): any;
 }
 
-declare namespace Chai {
+export = chaiAsPromised;
 
+declare module "chai" {
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         eventually: PromisedAssertion;
