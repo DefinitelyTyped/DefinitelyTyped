@@ -10,7 +10,7 @@ import { Component } from 'react';
 import { Action, ActionCreator, Reducer } from 'redux';
 
 export type iconType = 'success' | 'info' | 'warning' | 'error';
-export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-ceter' | 'bottom-right';
+export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
 export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
 export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
@@ -19,7 +19,7 @@ interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
     component?: Component;
-    icon?: Component;
+    icon?: JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
@@ -34,8 +34,8 @@ interface BasicToastrOptions {
 interface LightToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: Component;
-    icon?: iconType | Component;
+    component?: JSX.Element;
+    icon?: iconType | JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
@@ -55,7 +55,7 @@ interface ConfirmToastrOptions {
 }
 
 interface ConfirmToastrCustomOptions {
-    component: Component;
+    component: JSX.Element;
 }
 
 export interface Toastr {

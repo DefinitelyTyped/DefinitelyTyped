@@ -1,6 +1,6 @@
-// Type definitions for twitter-text v1.13.4
+// Type definitions for twitter-text v2.0.0
 // Project: https://github.com/twitter/twitter-text
-// Definitions by: rhysd <https://rhysd.github.io>
+// Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -36,6 +36,10 @@ interface Indices {
     indices: [number, number];
 }
 
+interface Attributes {
+    [name: string]: string | null;
+}
+
 export declare function htmlEscape(text: string): string;
 export declare function splitTags(text: string): string[];
 
@@ -69,12 +73,17 @@ export interface AutoLinkOptions {
     usernameClass?: string;
     usernameUrlBase?: string;
     listUrlBase?: string;
-    htmlAttrs?: string;
     invisibleTagAttrs?: string;
     htmlEscapeNonEntities?: boolean;
     targetBlank?: boolean;
     suppressNoFollow?: boolean;
     urlEntities?: UrlEntity[];
+    usernameIncludeSymbol?: boolean;
+    linkAttributeBlock?: (entity: EntityWithIndices, attributes: Attributes) => void;
+    linkTextBlock?: (entity: EntityWithIndices, text: string) => void;
+    symbolTag?: string;
+    textWithSymbolTag?: string;
+    htmlAttrs?: Attributes;
 }
 
 export declare function autoLink(text: string, options?: AutoLinkOptions): string;
@@ -103,3 +112,28 @@ export declare function getUnicodeTextLength(text: string): number;
 export declare function convertUnicodeIndices(text: string, entities: EntityWithIndices[], indicesInUTF16?: boolean): void;
 
 export declare function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;
+
+export interface ParseTweetOptions {
+    version?: number;
+    maxWeightedTweetLength?: number;
+    scale?: number;
+    defaultWeight?: number;
+    transformedURLLength?: number;
+    ranges?: Array<{
+        start: number;
+        end: number;
+        weight: number;
+    }>;
+}
+
+export interface ParsedTweet {
+    weightedLength: number;
+    permillage: number;
+    valid: boolean;
+    displayRangeEnd: number;
+    displayRangeStart: number;
+    validRangeEnd: number;
+    validRangeStart: number;
+}
+
+export declare function parseTweet(text: string, options?: ParseTweetOptions): ParsedTweet;

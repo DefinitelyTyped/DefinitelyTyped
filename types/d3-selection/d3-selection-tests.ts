@@ -1036,6 +1036,19 @@ positions = d3Selection.touches(svg, changedTouches);
 positions = d3Selection.touches(g, changedTouches);
 positions = d3Selection.touches(h, changedTouches);
 
+// clientPoint() ---------------------------------------------------------------------
+
+let clientPoint: [number, number];
+declare let mEvt: MouseEvent;
+declare let tEvt: Touch;
+declare let msgEvt: MSGestureEvent;
+declare let customEvt: {clientX: number, clientY: number}; // minimally conforming  object
+
+clientPoint = d3Selection.clientPoint(svg, mEvt);
+clientPoint = d3Selection.clientPoint(g, tEvt);
+clientPoint = d3Selection.clientPoint(h, msgEvt);
+clientPoint = d3Selection.clientPoint(h, customEvt);
+
 // ---------------------------------------------------------------------------------------
 // Tests of style
 // ---------------------------------------------------------------------------------------

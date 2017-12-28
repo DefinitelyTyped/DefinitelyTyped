@@ -1,8 +1,9 @@
 // Type definitions for Video.js 6.2
-// Project: https://github.com/zencoder/video-js
+// Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
+//                 Christoph Wagner <https://github.com/IgelCampus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -29,10 +30,11 @@ declare namespace videojs {
 		autoplay?: boolean;
 		preload?: string;
 		sources?: Source[];
-		apsectRatio?: string;
+		aspectRatio?: string;
 		fluid?: boolean;
 		language?: string;
 		notSupportedMessage?: string;
+		plugins?: any;
 	}
 
 	interface Source {

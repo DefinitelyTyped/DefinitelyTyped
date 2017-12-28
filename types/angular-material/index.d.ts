@@ -1,6 +1,6 @@
 // Type definitions for angular-material 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>, Edward Knowles <https://github.com/eknowles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,6 +11,10 @@ export = _;
 
 declare module 'angular' {
     namespace material {
+        interface IAriaProvider {
+            disableWarnings(): void;
+        }
+
         interface ResolveObject {
             [name: string]: Injectable<(...args: any[]) => PromiseLike<any>>;
         }
@@ -76,6 +80,7 @@ declare module 'angular' {
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
+            required(required: boolean): IPromptDialog; // default: false
             placeholder(placeholder: string): IPromptDialog;
             initialValue(initialValue: string): IPromptDialog;
         }

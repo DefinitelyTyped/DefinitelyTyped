@@ -945,6 +945,9 @@ declare class Dockerode {
   info(callback: Callback<any>): void;
   info(): Promise<any>;
 
+  df(callback: Callback<any>): void;
+  df(): Promise<any>;
+
   version(callback: Callback<any>): void;
   version(): Promise<any>;
 

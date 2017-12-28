@@ -1,8 +1,10 @@
 
 import websocket = require('websocket');
 import http = require('http');
+import os = require('os');
 
-{
+/*
+function serverTest() {
     var server = http.createServer((req, res) => {
         console.log((new Date()) + ' Received request for ' + req.url);
         res.writeHead(404);
@@ -88,7 +90,7 @@ import http = require('http');
     wsRouter.unmount(/^route\/[a-zA-Z]+$/, 'protocol');
 }
 
-{
+function clientTest() {
     var WebSocketClient = require('websocket').client;
     var client = new WebSocketClient();
 
@@ -124,4 +126,62 @@ import http = require('http');
     });
 
     client.connect('ws://localhost:8080/', 'echo-protocol');
+}*/
+
+function getLocalIpArray(): Array<string> {
+    var interfaces: any = os.networkInterfaces();
+    var ipArray: Array<string> = [];
+    for (var dev in interfaces) {
+        for (var i = 0; i < interfaces[dev].length; i++) {
+            if (interfaces[dev][i].family == "IPv4" && interfaces[dev][i].internal == false) {
+                ipArray.push(interfaces[dev][i].address);
+            }
+        }
+    }
+    return ipArray;
+}
+
+function serverTest2() {
+    var server = http.createServer((req, rsp) => {
+        rsp.writeHead(200);
+        rsp.end("Hello, world!");
+    });
+    server.listen(8888);
+
+    var wsServer = new websocket.server({
+        httpServer: server,
+        autoAcceptConnections: true
+    });
+
+    wsServer.on("connect", (conn) => {
+        conn.sendUTF(`Your IP Address is - ${conn.remoteAddress}`)
+    });
+}
+
+function clientTest2() {
+    var ipArray = getLocalIpArray();
+    
+    var client = new websocket.client();
+    client.on("connect", (conn) => {
+        console.log(`on connect`);
+        conn.on("frame", (frame) => {
+            console.log(`on frame - ${frame.binaryPayload.toString()}`);
+        });
+        conn.on("message", (data) => {
+            console.log(`on message - ${data.utf8Data}`);
+        });
+    });
+    client.on("connectFailed", (err) => {
+        console.log(`on failed: ${err}`);
+    });
+    client.connect(`ws://${ipArray[0]}:8888`, undefined, undefined, undefined, {
+        localAddress: ipArray[0]
+    });
+    
+}
+
+{
+    console.log(`websocket test start.`);
+    serverTest2();
+    clientTest2();
 }

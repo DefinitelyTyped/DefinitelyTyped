@@ -995,7 +995,7 @@ declare global {
         /**
          * Immediately switches to a different view.
          */
-        fullCalendar(method: 'changeView', viewName: string): void;
+        fullCalendar(method: 'changeView', viewName: string, dateOrRange?: moment.Moment | Date | string | TimeRange): void;
 
         /**
          * Moves the calendar one step back (either by a month, week, or day).

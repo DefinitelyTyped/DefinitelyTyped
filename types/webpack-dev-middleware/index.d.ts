@@ -1,11 +1,13 @@
-// Type definitions for webpack-dev-middleware 1.9
+// Type definitions for webpack-dev-middleware 1.12
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
+//                 reduckted <https://github.com/reduckted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import { NextHandleFunction } from 'connect';
 import * as webpack from 'webpack';
+import MemoryFileSystem = require('memory-fs');
 
 export = WebpackDevMiddleware;
 
@@ -49,5 +51,7 @@ declare namespace WebpackDevMiddleware {
 		close(callback?: () => void): void;
 		invalidate(callback?: (stats: webpack.Stats) => void): void;
 		waitUntilValid(callback?: (stats: webpack.Stats) => void): void;
+		getFilenameFromUrl: (url: string) => string | false;
+		fileSystem: MemoryFileSystem;
 	}
 }

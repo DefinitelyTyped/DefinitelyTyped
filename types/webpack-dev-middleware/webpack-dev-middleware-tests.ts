@@ -29,8 +29,22 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
 
-webpackDevMiddlewareInstance.close();
-webpackDevMiddlewareInstance.invalidate();
-webpackDevMiddlewareInstance.waitUntilValid(() => {
-	console.log('Package is in a valid state');
+webpackDevMiddlewareInstance.close(() => {
+	console.log('closed');
 });
+
+webpackDevMiddlewareInstance.invalidate((stats) => {
+	console.log(stats.toJson());
+});
+
+webpackDevMiddlewareInstance.waitUntilValid((stats) => {
+	console.log('Package is in a valid state:' + stats.toJson());
+});
+
+const fs = webpackDevMiddlewareInstance.fileSystem;
+fs.mkdirpSync('foo');
+
+let filename = webpackDevMiddlewareInstance.getFilenameFromUrl('url');
+if (filename !== false) {
+	filename = filename.substr(0);
+}

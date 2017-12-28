@@ -2,6 +2,7 @@
 // Project: https://github.com/mysqljs/mysql
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
 // 	                Kacper Polak <https://github.com/kacepe>
+// 	                Krittanan Pingclasai <https://github.com/kpping>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -422,7 +423,7 @@ export interface ConnectionConfig extends ConnectionOptions {
     /**
      * object with ssl parameters or a string containing name of ssl profile
      */
-    ssl?: tls.SecureContextOptions & { rejectUnauthorized?: boolean };
+    ssl?: string | (tls.SecureContextOptions & { rejectUnauthorized?: boolean });
 }
 
 export interface PoolConfig extends ConnectionConfig {

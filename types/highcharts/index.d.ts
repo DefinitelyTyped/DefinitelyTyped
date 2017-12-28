@@ -5266,6 +5266,9 @@ declare namespace Highcharts {
         * interfaces (AreaChartSeriesOptions, LineChartSeriesOptions, etc.)
         */
     interface IndividualSeriesOptions {
+        size?: number | string;
+        innerSize?: number | string;
+
         type?: string;
         /**
          * The main color or the series. In line type series it applies to the line and the point markers unless otherwise

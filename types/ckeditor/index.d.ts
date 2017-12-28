@@ -602,13 +602,17 @@ declare namespace CKEDITOR {
         browserContextMenuOnCtrl?: boolean;
 
         clipboard_defaultContentType?: string; // html | text
+        clipboard_notificationDuration?: number;
         codeSnippet_codeClass?: string;
         codeSnippet_languages?: Object;
         coceSnippet_theme?: string;
         colorButton_backStyle?: config.styleObject;
         colorButton_colors?: string;
+        colorButton_colorsPerRow?: number;
+        colorButton_enableAutomatic?: boolean;
         colorButton_enableMore?: boolean;
         colorButton_foreStyle?: config.styleObject;
+        colorButton_normalizeBackground?: boolean;
         contentsCss?: string | string[];
         contentsLangDirection?: string;
         contentsLanguage?: string;
@@ -727,7 +731,7 @@ declare namespace CKEDITOR {
         magicline_holdDistance?: number;
         magicline_keystrokeNext?: number;
         magicline_keystrokePrevious?: number;
-        magicline_tabuList?: number;
+        magicline_tabuList?: string[];
         magicline_triggerOffset?: number;
         mathJaxLib?: string;
         menu_groups?: string;

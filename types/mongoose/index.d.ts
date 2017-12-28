@@ -364,6 +364,60 @@ declare module "mongoose" {
     pass?: string;
     /** options for authentication (see http://mongodb.github.com/node-mongodb-native/api-generated/db.html#authenticate) */
     auth?: any;
+    /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
+    ssl?: boolean;
+    /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslValidate?: object;
+    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
+    poolSize?: number;
+    /** Reconnect on error (default: true) */
+    autoReconnect?: boolean;
+    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
+    keepAlive?: number;
+    /** TCP Connection timeout setting (default: 0) */
+    connectTimeoutMS?: number;
+    /** TCP Socket timeout setting (default: 0) */
+    socketTimeoutMS?: number;
+    /** If the database authentication is dependent on another databaseName. */
+    authSource?: string;
+    /** If you're connected to a single server or mongos proxy (as opposed to a replica set),
+     * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
+     * times, and give up afterward. When the driver gives up, the mongoose connection emits a
+     * reconnectFailed event. (default: 30) */
+    reconnectTries?: number;
+    /** Will wait # milliseconds between retries (default: 1000) */
+    reconnectInterval?: number;
+    /** The name of the replicaset to connect to. */
+    replicaSet?: string;
+    /** The current value of the parameter native_parser */
+    nativeParser?: boolean;
+    /** Auth mechanism */
+    authMechanism?: any;
+    /** Specify a journal write concern (default: false). */
+    journal?: boolean;
+    /** The write concern */
+    w?: number|string;
+    /** The write concern timeout. */
+    wTimeoutMS?: number;
+    /** The ReadPreference mode as listed here: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreference?: string;
+    /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreferencetags?: object;
+    /** Triggers the server instance to call ismaster (default: true). */
+    monitoring?: boolean;
+    /** The interval of calling ismaster when monitoring is enabled (default: 10000). */
+    haInterval?: number;
+    /** Enable the wrapping of the callback in the current domain, disabled by default to avoid perf hit (default: false). */
+    domainsEnabled?: boolean;
+    /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
+    bufferMaxEntries?: number;
+
+    // TODO
+    safe?: any;
+    fsync?: any;
+    rs_name?: any;
+    slaveOk?: any;
+    authdb?: any;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */
@@ -473,7 +527,7 @@ declare module "mongoose" {
     /** defaults to 1 */
     parallel?: number;
   }
-  
+
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -644,10 +698,8 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
+    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
 
     /**
      * Adds a method call to the queue.
@@ -704,6 +756,29 @@ declare module "mongoose" {
     statics: any;
     /** The original object passed to the schema constructor */
     obj: any;
+  }
+
+  // Hook functions: https://github.com/vkarpov15/hooks-fixed
+  interface HookSyncCallback {
+    (next: HookNextFunction, ...hookArgs:any[]): any;
+  }
+
+  interface HookAsyncCallback {
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
+  }
+
+  interface HookErrorCallback {
+    (error: Error): any;
+  }
+
+  interface HookNextFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
+  }
+
+  interface HookDoneFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
   }
 
   interface SchemaOptions {
@@ -764,7 +839,7 @@ declare module "mongoose" {
    * Intellisense for Schema definitions
    */
   interface SchemaDefinition {
-    [path: string]: SchemaTypeOpts<any>;
+    [path: string]: SchemaTypeOpts<any> | Schema | SchemaType;
   }
 
   /*
@@ -1100,8 +1175,13 @@ declare module "mongoose" {
   }
 
   interface MongooseDocumentOptionals {
-    /** The string version of this documents _id. */
-    id?: string;
+    /**
+     * Virtual getter that by default returns the document's _id field cast to a string,
+     * or in the case of ObjectIds, its hexString. This id getter may be disabled by
+     * passing the option { id: false } at schema construction time. If disabled, id
+     * behaves like any other field on a document and can be assigned any value.
+     */
+    id?: any;
   }
 
   interface DocumentToObjectOptions {
@@ -1579,7 +1659,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<Object>;
+    lean(bool?: boolean): Query<object>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -2680,7 +2760,7 @@ declare module "mongoose" {
     passRawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
-    /** 
+    /**
      * if true, run all setters defined on the associated model's schema for all fields
      * defined in the query and the update.
      */

@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-table 4.1
+// Type definitions for react-bootstrap-table 4.2
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
@@ -217,7 +217,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 *      return rowIndex % 2 == 0 ? "tr-odd" : "tr-even"; // return a class name.
 	 *    }
 	 */
-	trClassName?: string | ((rowData: ReadonlyArray<any>, rowIndex: number) => string);
+	trClassName?: string | ((rowData: any, rowIndex: number) => string);
 	/**
 	 * Enable row insertion by setting insertRow to true, default is false.
 	 * If you enable row insertion, there's a button on the upper left side of table.
@@ -400,6 +400,10 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 * Table footer custom class
 	 */
 	tableFooterClass?: string;
+	/**
+	 * Render react-s-alert notifications
+	 */
+	renderAlert?: boolean;
 }
 
 /**
@@ -544,17 +548,33 @@ export interface CellEdit<TRow extends object = any> {
 	 *   `cellName`: the column dataField cell name that has been modified.
 	 *   `cellValue`: the new cell value.
 	 *   `done`: a callback function to use if this is an async operation, to indicate if the save data is valid.
+	 *   `props`: an object containing the current cell's rowIndex and colIndex values.
 	 * If your validation is async, for example: you want to pop a confirm dialog for user to confim in this case,
 	 * react-bootstrap-table pass a callback function to you. You are supposed to call this callback function with a
 	 * bool value to perfom if it is valid or not in addition, you should return 1 from the main function to tell
 	 * react-bootstrap-table that this is a async operation.
 	 */
-	beforeSaveCell?<K extends keyof TRow>(row: TRow, cellName: K, cellValue: TRow[K], done: (isValid: boolean) => void): boolean | 1;
+	beforeSaveCell?<K extends keyof TRow>(
+		row: TRow,
+		cellName: K,
+		cellValue: TRow[K],
+		done: (isValid: boolean) => void,
+		props: { rowIndex: number; colIndex: number }
+	): boolean | 1;
 	/**
 	 * Accept a custom callback function, after cell saving, this function will be called.
 	 * This callback function takes three arguments: row, cellName and cellValue
+	 *   `row`: the row data that was saved.
+	 *   `cellName`: the column dataField cell name that has been modified.
+	 *   `cellValue`: the new cell value.
+	 *   `props`: an object containing the current cell's rowIndex and colIndex values.
 	 */
-	afterSaveCell?<K extends keyof TRow>(row: TRow, cellName: K, cellValue: TRow[K]): void;
+	afterSaveCell?<K extends keyof TRow>(
+		row: TRow,
+		cellName: K,
+		cellValue: TRow[K],
+		props: { rowIndex: number; colIndex: number }
+	): void;
 }
 
 /**
@@ -564,11 +584,13 @@ export interface Options<TRow extends object = any> {
 	/**
 	 * Provide the name of the column that should be sorted by.
 	 * If multi-column sort is active, this is an array of columns.
+	 * If there should be no active sort, both sortName and sortOrder should be undefined.
 	 */
 	sortName?: keyof TRow | Array<keyof TRow>;
 	/**
 	 * Specify whether the sort should be ascending or descending.
 	 * If multi-column sort is active, this is an array of sortOrder items.
+	 * If there should be no active sort, both sortName and sortOrder should be undefined.
 	 */
 	sortOrder?: SortOrder | SortOrder[];
 	/**
@@ -691,17 +713,20 @@ export interface Options<TRow extends object = any> {
 	onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
 	/**
 	 * Assign a callback function which will be called after a row click.
-	 * This function takes three arguments:
+	 * This function takes four arguments:
 	 *   `row`: which is the row data that was clicked on.
 	 *   `columnIndex`: index of the column that was clicked on.
 	 *   `rowIndex`: index of the row that was clicked on.
+	 *   `event`: the click event.
 	 */
-	onRowClick?(row: TRow, columnIndex: number, rowIndex: number): void;
+	onRowClick?(row: TRow, columnIndex: number, rowIndex: number, event: React.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called after a row double click.
-	 * This function takes one argument: row which is the row data that was double clicked on.
+	 * This function takes two arguments:
+	 *   `row`: which is the row data that was double clicked on.
+	 *   `event`: the double click event.
 	 */
-	onRowDoubleClick?(row: TRow): void;
+	onRowDoubleClick?(row: TRow, event: React.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called when mouse enters the table.
 	 */
@@ -1029,12 +1054,12 @@ export interface Options<TRow extends object = any> {
 	 */
 	exportCSVSeparator?: string;
 	/**
-	 * Set a function to be called when expanding or collapsing a row. This function takes two arguments: rowKey
-	 * and isExpand.
+	 * Set a function to be called when expanding or collapsing a row. This function takes three arguments:
 	 *   `rowKey`: dataField key for the row that is expanding or collapsing.
 	 *   `isExpand`: True if the row is expanding, false if it is collapsing.
+	 *   `event`: The click event.
 	 */
-	onExpand?(rowKey: number | string, isExpand: boolean): void;
+	onExpand?(rowKey: number | string, isExpand: boolean, event: React.MouseEvent<any>): void;
 	/**
 	 * Specify that only one row should be able to be expanded at the same time.
 	 */
@@ -1713,7 +1738,7 @@ export type Filter = TextFilter | SelectFilter | RegexFilter | NumberFilter | Da
  * The "value" type for a number filter
  */
 export interface NumberFilterValue {
-	number: number;
+	number: number | string;
 	comparator: FilterComparator;
 }
 
@@ -1834,6 +1859,10 @@ export interface KeyboardNavigation {
 	 * When set to true, pressing ENTER will expand or collapse the current row.
 	 */
 	enterToExpand?: boolean;
+	/**
+	 * When set to true, pressing ENTER will select or unselect the current row.
+	 */
+	enterToSelect?: boolean;
 }
 
 /**

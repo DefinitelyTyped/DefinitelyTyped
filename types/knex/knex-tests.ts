@@ -128,6 +128,13 @@ var knex = Knex({
   useNullAsDefault: true,
 });
 
+// Using custom client
+class TestClient extends Knex.Client {}
+
+var knex = Knex({
+  client: TestClient,
+});
+
 knex('books').insert({title: 'Test'}).returning('*').toString();
 
 // Migrations
@@ -248,6 +255,10 @@ knex.select('*').from('users').join('accounts', function(join: Knex.JoinClause) 
   }
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('user').join('contacts', () => {
+  this.on('users.id', '=', knex.raw(7));
 });
 
 knex.select('*').from('users').join('contacts', function() {
@@ -520,7 +531,6 @@ knex.transaction(function(trx) {
     })
     .then(trx.commit)
     .catch(trx.rollback);
-
 }).then(function() {
   console.log('Transaction complete.');
 }).catch(function(err) {
@@ -537,7 +547,17 @@ knex.transaction(function(trx) {
     .transacting(trx)
     .forShare()
     .select('*')
-});
+})
+
+const transactionReturnValue = knex.transaction(function(trx) {
+  return knex("table")
+    .insert({ foo: "bar" })
+    .returning(["id"])
+    .then(function(result) { return result[0].id as number })
+})
+
+// Tests that the transaction has kept the type of its return value by referencing a method of number
+transactionReturnValue.then(value => value.toExponential);
 
 knex('users').count('active');
 
@@ -616,7 +636,7 @@ knex.transaction(function(trx) {
 });
 
 // Using trx as a transaction object:
-knex.transaction(function(trx) {
+knex.transaction<{ length: number }>(function(trx) {
 
   trx.raw('');
 
@@ -662,6 +682,9 @@ knex.transaction(function(trx) {
   // nor any of the books inserts will have taken place.
   console.error(error);
 });
+
+// transacting handles undefined
+knex.insert({ name: 'Old Books'}).transacting(undefined);
 
 knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
 
