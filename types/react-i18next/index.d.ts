@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { i18n as I18n, TranslationFunction } from "i18next";
+import { TranslationFunction } from "i18next";
 
 import {
     setDefaults,

@@ -55,7 +55,7 @@ class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
 
 const YetAnotherComponent = translate()(InnerYetAnotherComponent);
 
-const YetAnotherComponentWithRef =translate(undefined, { withRef: true })(InnerYetAnotherComponent);
+const YetAnotherComponentWithRef = translate(undefined, { withRef: true })(InnerYetAnotherComponent);
 new YetAnotherComponentWithRef({}).getWrappedInstance();
 class TranslatableView extends React.Component<InjectedTranslateProps> {
     render() {
