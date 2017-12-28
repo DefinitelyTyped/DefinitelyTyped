@@ -192,14 +192,14 @@ declare namespace algoliasearch {
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: AlgoliaAction, cb: (err: Error, res: any) => void): void;
+    batch(action: AlgoliaAction[], cb: (err: Error, res: any) => void): void;
     /**
      * Perform multiple operations with one API call to reduce latency
      * @param action
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: AlgoliaAction): Promise<any>;
+    batch(action: AlgoliaAction[]): Promise<any>;
     /**
      * Lists global API Keys
      * @param cb(err, res)
