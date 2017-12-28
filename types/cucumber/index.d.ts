@@ -66,13 +66,13 @@ export interface HookOptions {
 
 export interface Hooks {
     Before(code: HookCode): void;
-    Before(options: HookOptions, code: HookCode): void;
+    Before(options: HookOptions | string, code: HookCode): void;
     BeforeAll(code: GlobalHookCode): void;
-    BeforeAll(options: HookOptions, code: GlobalHookCode): void;
+    BeforeAll(options: HookOptions | string, code: GlobalHookCode): void;
     After(code: HookCode): void;
-    After(options: HookOptions, code: HookCode): void;
+    After(options: HookOptions | string, code: HookCode): void;
     AfterAll(code: GlobalHookCode): void;
-    AfterAll(options: HookOptions, code: GlobalHookCode): void;
+    AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
     Around(code: AroundCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
