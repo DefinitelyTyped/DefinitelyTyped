@@ -79,6 +79,8 @@ declare namespace mapboxgl {
 
         addImage(name: string, image: HTMLImageElement | ArrayBufferView, options?: { width?: number, height?: number, pixelRatio?: number }): this;
 
+        hasImage(name: string): boolean;
+
         removeImage(name: string): this;
 
         loadImage(url: string, callback: Function): this;
@@ -93,7 +95,7 @@ declare namespace mapboxgl {
 
         setFilter(layer: string, filter?: any[]): this;
 
-        setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
+        setLayerZoomRange(layerId: string, minzoom?: number, maxzoom?: number): this;
 
         getFilter(layer: string): any[];
 
@@ -752,6 +754,10 @@ declare namespace mapboxgl {
         setPopup(popup?: Popup): this;
 
         getPopup(): Popup;
+
+        getOffset(): PointLike;
+
+        setOffset(offset: PointLike): this;
 
         togglePopup(): this;
     }
