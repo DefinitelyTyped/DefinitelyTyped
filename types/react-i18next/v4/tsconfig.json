@@ -16,9 +16,6 @@
         "paths": {
             "react-i18next": [
                 "react-i18next/v4"
-            ],
-            "i18next": [
-                "i18next"
             ]
         },
         "types": [],

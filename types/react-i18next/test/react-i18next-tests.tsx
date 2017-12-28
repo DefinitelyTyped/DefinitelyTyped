@@ -117,7 +117,7 @@ class GenericsTest2 extends React.Component<InjectedTranslateProps> {
 <I18n ns={['defaultNamespace', 'anotherNamespace']} wait={true} nsMode={'string'} bindI18n={'languageChanged loaded'}
       bindStore={'added removed'}>
     {
-        (t: TranslationFunction, i18n: i18n.i18n) => (
+        (t, {i18n}) => (
             <div>
                 <h1>{t('keyFromDefault')}</h1>
                 <p>{t('anotherNamespace:key.from.another.namespace', {/* options t options */})}</p>
