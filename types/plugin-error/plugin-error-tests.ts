@@ -1,4 +1,4 @@
-import * as PluginError from 'plugin-error';
+import PluginError = require('plugin-error');
 
 let e: PluginError;
 

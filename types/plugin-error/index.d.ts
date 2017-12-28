@@ -6,7 +6,7 @@
 export = PluginError;
 
 declare namespace PluginError {
-    export interface PluginErrorOpts {
+    interface PluginErrorOpts {
         /**
          * By default the stack will not be shown. Set options.showStack to true if you think the stack is important for your error.
          */
@@ -17,14 +17,14 @@ declare namespace PluginError {
         showProperties?: boolean;
     }
 
-    export interface PluginErrorOpts2 extends PluginErrorOpts {
+    interface PluginErrorOpts2 extends PluginErrorOpts {
         /**
          * If you pass an error object as the message the stack will be pulled from that, otherwise one will be created.
          */
         message?: string | Error;
     }
 
-    export interface PluginErrorOpts3 extends PluginErrorOpts2 {
+    interface PluginErrorOpts3 extends PluginErrorOpts2 {
         /**
          * The name of the plugin
          */
