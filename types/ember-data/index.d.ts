@@ -121,7 +121,7 @@ declare module "ember-data" {
                 modelName?: string,
                 id?: string | any[] | {} | null,
                 snapshot?: Snapshot | any[] | null,
-                requestType?: 'findRecord' | 'findAll' | 'query' | 'queryRecord' | 'findMany' | 'findHasMany' | 'findBelongsTo' | 'createRecord' | 'updateRecord' | 'deleteRecord' | string,
+                requestType?: string,
                 query?: {}
             ): string;
             /**
@@ -1296,7 +1296,7 @@ declare module "ember-data" {
                 modelName?: string,
                 id?: string | any[] | {} | null,
                 snapshot?: Snapshot | any[] | null,
-                requestType?: 'findRecord' | 'findAll' | 'query' | 'queryRecord' | 'findMany' | 'findHasMany' | 'findBelongsTo' | 'createRecord' | 'updateRecord' | 'deleteRecord' | string,
+                requestType?: string,
                 query?: {}
             ): string;
             /**
