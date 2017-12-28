@@ -133,7 +133,7 @@ module('x-foo', function(hooks) {
     setupRenderingTest(hooks);
 });
 
-// http://rwjblue.com/2017/10/23/ember-qunit-simplication/#setuprenderingtest
+// http://rwjblue.com/2017/10/23/ember-qunit-simplication/#setuptest
 module('foo service', function(hooks) {
     setupTest(hooks);
 });
