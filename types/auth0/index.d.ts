@@ -14,11 +14,23 @@ export interface ManagementClientOptions {
   audience?: string;
   scope?: string;
   tokenProvider?: TokenProvider;
+  retry?: RetryOptions;
 }
 
 export interface TokenProvider {
   enableCache: boolean;
   cacheTTLInSeconds?: number;
+}
+
+export interface RetryOptions {
+  /**
+   * Default value is `true`.
+   */
+  enabled?: boolean;
+  /**
+   * Default value is `10`.
+   */
+  maxRetries?: number;
 }
 
 export interface UserMetadata { }
