@@ -2,6 +2,7 @@
 // Project: http://mgcrea.github.io/angular-strap/
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
 //                 Matthias Kannwischer <https://github.com/mkannwischer>
+//                 Gilles Waeber <https://github.com/gilleswaeber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -193,6 +194,8 @@ declare namespace mgcrea.ngStrap {
             onHide?(tooltip: ITooltip): void;
             onBeforeHide?(tooltip: ITooltip): void;
             viewport?: string | { selector: string; padding: string | number };
+            show?: boolean; // Not documented
+            scope?: ng.IScope; // Not documented
         }
 
         interface ITooltipScope extends ng.IScope {
@@ -242,6 +245,8 @@ declare namespace mgcrea.ngStrap {
             onHide?(popover: IPopover): void;
             onBeforeHide?(popover: IPopover): void;
             viewport?: string | { selector: string; padding: string | number };
+            show?: boolean; // Not documented
+            scope?: ng.IScope; // Not documented
         }
 
         interface IPopoverScope extends ng.IScope {
