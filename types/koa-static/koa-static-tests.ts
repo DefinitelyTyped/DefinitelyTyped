@@ -6,7 +6,12 @@ const app = new Koa();
 app.use(serve('.', {
   index: false,
   defer: false,
-  extensions: ['html']
+  extensions: ['html'],
+  setHeaders: (res, path, stats) => {
+    if (path.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0');
+    }
+  }
 }));
 
 app.listen(80);
