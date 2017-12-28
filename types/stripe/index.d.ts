@@ -925,6 +925,23 @@ declare namespace Stripe {
             destination?: string;
 
             /**
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            transfer_group?: string;
+
+            /**
+             * The Stripe account ID that these funds are intended for.
+             * Automatically set if you use the destination parameter.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            on_behalf_of?: string;
+
+            /**
              * A set of key/value pairs that you can attach to a charge object. It can be
              * useful for storing additional information about the customer in a
              * structured format. It's often a good idea to store an email address in
