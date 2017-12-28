@@ -3583,12 +3583,6 @@ declare namespace Stripe {
             destination: string;
 
             /**
-             * An arbitrary string which you can attach to a transfer object. It is
-             * displayed when in the web interface alongside the transfer.
-             */
-            description?: string
-
-            /**
              * You can use this parameter to transfer funds from a charge (or
              * other transaction) before they are added to your available
              * balance. A pending balance will transfer immediately but the
@@ -3598,21 +3592,10 @@ declare namespace Stripe {
             source_transaction?: string;
 
             /**
-             * A string to be displayed on the recipient's bank or card
-             * statement. This may be at most 22 characters. Attempting to use
-             * a statement_descriptor longer than 22 characters will return
-             * an error. Note: Most banks will truncate this information and/or
-             * display it inconsistently. Some may not display it at all.
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
              */
-            statement_descriptor?: string;
-
-            /**
-             * The source balance to draw this transfer from. Balances for
-             * different payment sources are kept separately. You can find the
-             * amounts with the balances API. Valid options are:
-             * "alipay_account", "bank_account", "bitcoin_receiver", and "card".
-             */
-            source_type?: SourceTypes;
+            transfer_group?: string;
         }
 
         interface ITransferUpdateOptions extends IDataOptionsWithMetadata {
