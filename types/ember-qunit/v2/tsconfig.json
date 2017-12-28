@@ -2,14 +2,18 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "ember-qunit": ["ember-qunit/v2"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
