@@ -118,11 +118,11 @@ declare module "ember-data" {
              * Builds a URL for a given type and optional ID.
              */
             buildURL(
-                modelName: string,
-                id: string | any[] | {},
-                snapshot: Snapshot | any[],
-                requestType: string,
-                query: {}
+                modelName?: string,
+                id?: string | any[] | {} | null,
+                snapshot?: Snapshot | any[] | null,
+                requestType?: 'findRecord' | 'findAll' | 'query' | 'queryRecord' | 'findMany' | 'findHasMany' | 'findBelongsTo' | 'createRecord' | 'updateRecord' | 'deleteRecord' | string,
+                query?: {}
             ): string;
             /**
              * Builds a URL for a `store.findRecord(type, id)` call.
@@ -1293,11 +1293,11 @@ declare module "ember-data" {
              * Builds a URL for a given type and optional ID.
              */
             buildURL(
-                modelName: string,
-                id: string | any[] | {},
-                snapshot: Snapshot | any[],
-                requestType: string,
-                query: {}
+                modelName?: string,
+                id?: string | any[] | {} | null,
+                snapshot?: Snapshot | any[] | null,
+                requestType?: 'findRecord' | 'findAll' | 'query' | 'queryRecord' | 'findMany' | 'findHasMany' | 'findBelongsTo' | 'createRecord' | 'updateRecord' | 'deleteRecord' | string,
+                query?: {}
             ): string;
             /**
              * Builds a URL for a `store.findRecord(type, id)` call.
