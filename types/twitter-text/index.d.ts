@@ -115,25 +115,25 @@ export declare function hitHighlight(text: string, hits?: number[][], options?: 
 
 export interface ParseTweetOptions {
     version?: number;
-	maxWeightedTweetLength?: number;
-	scale?: number;
-	defaultWeight?: number;
-	transformedURLLength?: number;
-	ranges?: Array<{
-		start: number;
-		end: number;
-		weight: number;
-	}>;
+    maxWeightedTweetLength?: number;
+    scale?: number;
+    defaultWeight?: number;
+    transformedURLLength?: number;
+	  ranges?: Array<{
+		    start: number;
+		    end: number;
+		    weight: number;
+	  }>;
 }
 
 export interface ParsedTweet {
-  weightedLength: number;
-  permillage: number;
-  valid: boolean;
-  displayRangeEnd: number;
-  displayRangeStart: number;
-  validRangeEnd: number;
-  validRangeStart: number;
+    weightedLength: number;
+    permillage: number;
+    valid: boolean;
+    displayRangeEnd: number;
+    displayRangeStart: number;
+    validRangeEnd: number;
+    validRangeStart: number;
 }
 
 export declare function parseTweet(text: string, options?: ParseTweetOptions): ParsedTweet;
