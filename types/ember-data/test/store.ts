@@ -5,7 +5,7 @@ import { assertType } from "./lib/assert";
 declare const store: DS.Store;
 
 class Post extends DS.Model {
-    title = DS.attr('string');
+  title = DS.attr('string');
 }
 
 let post = store.createRecord<Post>('post', {
@@ -52,7 +52,7 @@ if (store.hasRecordForId('post', 1)) {
 }
 
 class Message extends DS.Model {
-    hasBeenSeen = DS.attr('boolean');
+  hasBeenSeen = DS.attr('boolean');
 }
 
 const messages = store.peekAll<Message>('message');
@@ -70,7 +70,7 @@ people.get('isUpdating'); // true
 
 const MyRoute = Ember.Route.extend({
     model(params: any): any {
-        return this.store.findRecord('post', params.post_id, { include: 'comments,comments.author' });
+        return this.store.findRecord('post', params.post_id, {include: 'comments,comments.author'});
     }
 });
 

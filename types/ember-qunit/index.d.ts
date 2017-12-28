@@ -44,7 +44,7 @@ declare module 'ember-qunit' {
      */
     export function setResolver(resolver: Ember.Resolver): void;
 
-    export class QUnitAdapter extends Ember.Test.Adapter { }
+    export class QUnitAdapter extends Ember.Test.Adapter {}
 
     export { module, test, skip, only, todo } from 'qunit';
 }
