@@ -119,11 +119,11 @@ export interface ParseTweetOptions {
     scale?: number;
     defaultWeight?: number;
     transformedURLLength?: number;
-	  ranges?: Array<{
-		    start: number;
-		    end: number;
-		    weight: number;
-	  }>;
+    ranges?: Array<{
+        start: number;
+        end: number;
+        weight: number;
+    }>;
 }
 
 export interface ParsedTweet {
