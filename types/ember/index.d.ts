@@ -23,9 +23,7 @@ declare module 'ember' {
     /**
      * Deconstructs computed properties into the types which would be returned by `.get()`.
      */
-    type ComputedProperties<T> = {
-        [K in keyof T]: Ember.ComputedProperty<T[K]> | T[K]
-    };
+    type ComputedProperties<T> = { [K in keyof T]: Ember.ComputedProperty<T[K]> | T[K] };
 
     /**
      * Check that any arguments to `create()` match the type's properties.
@@ -98,9 +96,7 @@ declare module 'ember' {
         __ember_run_timer_brand__: any;
     }
 
-    type RunMethod<Target, Ret = any> =
-        | ((this: Target, ...args: any[]) => Ret)
-        | keyof Target;
+    type RunMethod<Target, Ret = any> = ((this: Target, ...args: any[]) => Ret) | keyof Target;
     type EmberRunQueues =
         | 'sync'
         | 'actions'
@@ -111,13 +107,7 @@ declare module 'ember' {
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
-        | ((
-              this: Target,
-              sender: Sender,
-              key: keyof Sender,
-              value: any,
-              rev: number
-          ) => void);
+        | ((this: Target, sender: Sender, key: keyof Sender, value: any, rev: number) => void);
 
     interface RenderOptions {
         into?: string;
@@ -230,10 +220,7 @@ declare module 'ember' {
 
     Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
     **/
-    class CoreView extends Ember.Object.extend(
-        Ember.Evented,
-        Ember.ActionHandler
-    ) {}
+    class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHandler) {}
     interface ActionSupport {
         sendAction(action: string, ...params: any[]): void;
     }
@@ -299,10 +286,7 @@ declare module 'ember' {
             on(...args: string[]): this;
         }
 
-        interface ArrayPrototypeExtensions<T>
-            extends MutableArray<T>,
-                Observable,
-                Copyable {}
+        interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Copyable {}
 
         /**
          * Given a fullName return a factory manager.
@@ -346,11 +330,7 @@ declare module 'ember' {
             /**
              * Register an option for a particular factory.
              */
-            registerOption(
-                fullName: string,
-                optionName: string,
-                options: {}
-            ): any;
+            registerOption(fullName: string, optionName: string, options: {}): any;
             /**
              * Return a specific registered option for a particular factory.
              */
@@ -375,11 +355,7 @@ declare module 'ember' {
              * Define a dependency injection onto a specific factory or all factories
              * of a type.
              */
-            inject(
-                factoryNameOrType: string,
-                property: string,
-                injectionName: string
-            ): any;
+            inject(factoryNameOrType: string, property: string, injectionName: string): any;
         }
         const _RegistryProxyMixin: Mixin<_RegistryProxyMixin>;
         /**
@@ -427,11 +403,7 @@ declare module 'ember' {
             /**
             defines an injection or typeInjection
             **/
-            inject(
-                factoryNameOrType: string,
-                property: string,
-                injectionName: string
-            ): void;
+            inject(factoryNameOrType: string, property: string, injectionName: string): void;
             /**
             This injects the test helpers into the window's scope. If a function of the
             same name has already been defined it will be cached (so that it can be reset
@@ -560,22 +532,14 @@ declare module 'ember' {
              * invalidate any related properties. Pass the starting index of the change
              * as well as a delta of the amounts to change.
              */
-            arrayContentWillChange(
-                startIdx: number,
-                removeAmt: number,
-                addAmt: number
-            ): this;
+            arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): this;
             /**
              * If you are implementing an object that supports `Ember.Array`, call this
              * method just after the array content changes to notify any observers and
              * invalidate any related properties. Pass the starting index of the change
              * as well as a delta of the amounts to change.
              */
-            arrayContentDidChange(
-                startIdx: number,
-                removeAmt: number,
-                addAmt: number
-            ): this;
+            arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): this;
             /**
              * Returns a special object that can be used to observe individual properties
              * on the array. Just get an equivalent property on this object and it will
@@ -640,11 +604,7 @@ declare module 'ember' {
         and actions are targeted at the view object. There is no access to the surrounding context or
         outer controller; all contextual information is passed in.
         **/
-        class Component extends CoreView.extend(
-            ViewMixin,
-            ActionSupport,
-            ClassNamesSupport
-        ) {
+        class Component extends CoreView.extend(ViewMixin, ActionSupport, ClassNamesSupport) {
             // methods
             readDOMAttr(name: string): string;
             // properties
@@ -844,18 +804,10 @@ declare module 'ember' {
             **/
             toString(): string;
 
-            static create<Instance>(
-                this: EmberClassConstructor<Instance>
-            ): Fix<Instance>;
+            static create<Instance>(this: EmberClassConstructor<Instance>): Fix<Instance>;
 
-            static create<
-                Instance,
-                Args,
-                T1 extends EmberInstanceArguments<Args>
-            >(
-                this: EmberClassConstructor<
-                    Instance & ComputedProperties<Args>
-                >,
+            static create<Instance, Args, T1 extends EmberInstanceArguments<Args>>(
+                this: EmberClassConstructor<Instance & ComputedProperties<Args>>,
                 arg1: T1 & ThisType<Fix<T1 & Instance>>
             ): Fix<Instance & T1>;
 
@@ -865,9 +817,7 @@ declare module 'ember' {
                 T1 extends EmberInstanceArguments<Args>,
                 T2 extends EmberInstanceArguments<Args>
             >(
-                this: EmberClassConstructor<
-                    Instance & ComputedProperties<Args>
-                >,
+                this: EmberClassConstructor<Instance & ComputedProperties<Args>>,
                 arg1: T1 & ThisType<Fix<Instance & T1>>,
                 arg2: T2 & ThisType<Fix<Instance & T1 & T2>>
             ): Fix<Instance & T1 & T2>;
@@ -879,9 +829,7 @@ declare module 'ember' {
                 T2 extends EmberInstanceArguments<Args>,
                 T3 extends EmberInstanceArguments<Args>
             >(
-                this: EmberClassConstructor<
-                    Instance & ComputedProperties<Args>
-                >,
+                this: EmberClassConstructor<Instance & ComputedProperties<Args>>,
                 arg1: T1 & ThisType<Fix<Instance & T1>>,
                 arg2: T2 & ThisType<Fix<Instance & T1 & T2>>,
                 arg3: T3 & ThisType<Fix<Instance & T1 & T2 & T3>>
@@ -891,12 +839,7 @@ declare module 'ember' {
                 this: Statics & EmberClassConstructor<Instance>
             ): Objectify<Statics> & EmberClassConstructor<Instance>;
 
-            static extend<
-                Statics,
-                Instance extends B1,
-                T1 extends EmberClassArguments,
-                B1
-            >(
+            static extend<Statics, Instance extends B1, T1 extends EmberClassArguments, B1>(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>
             ): Objectify<Statics> & EmberClassConstructor<T1 & Instance>;
@@ -926,12 +869,9 @@ declare module 'ember' {
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> &
-                    ThisType<Fix<Instance & T1 & T2>>,
-                arg3: MixinOrLiteral<T3, B3> &
-                    ThisType<Fix<Instance & T1 & T2 & T3>>
-            ): Objectify<Statics> &
-                EmberClassConstructor<T1 & T2 & T3 & Instance>;
+                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
+                arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>
+            ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & T3 & Instance>;
 
             static extend<
                 Statics,
@@ -947,25 +887,16 @@ declare module 'ember' {
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> &
-                    ThisType<Fix<Instance & T1 & T2>>,
-                arg3: MixinOrLiteral<T3, B3> &
-                    ThisType<Fix<Instance & T1 & T2 & T3>>,
-                arg4: MixinOrLiteral<T4, B4> &
-                    ThisType<Fix<Instance & T1 & T2 & T3 & T4>>
-            ): Objectify<Statics> &
-                EmberClassConstructor<T1 & T2 & T3 & T4 & Instance>;
+                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
+                arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>,
+                arg4: MixinOrLiteral<T4, B4> & ThisType<Fix<Instance & T1 & T2 & T3 & T4>>
+            ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & T3 & T4 & Instance>;
 
             static reopen<Statics, Instance>(
                 this: Statics & EmberClassConstructor<Instance>
             ): Objectify<Statics> & EmberClassConstructor<Instance>;
 
-            static reopen<
-                Statics,
-                Instance extends B1,
-                T1 extends EmberClassArguments,
-                B1
-            >(
+            static reopen<Statics, Instance extends B1, T1 extends EmberClassArguments, B1>(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>
             ): Objectify<Statics> & EmberClassConstructor<Instance & T1>;
@@ -995,12 +926,9 @@ declare module 'ember' {
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> &
-                    ThisType<Fix<Instance & T1 & T2>>,
-                arg3: MixinOrLiteral<T3, B3> &
-                    ThisType<Fix<Instance & T1 & T2 & T3>>
-            ): Objectify<Statics> &
-                EmberClassConstructor<Instance & T1 & T2 & T3>;
+                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
+                arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>
+            ): Objectify<Statics> & EmberClassConstructor<Instance & T1 & T2 & T3>;
 
             static reopenClass<Statics>(this: Statics): Statics;
 
@@ -1020,12 +948,7 @@ declare module 'ember' {
                 T1 extends EmberClassArguments,
                 T2 extends EmberClassArguments,
                 T3 extends EmberClassArguments
-            >(
-                this: Statics,
-                arg1: T1,
-                arg2: T2,
-                arg3: T3
-            ): Statics & T1 & T2 & T3;
+            >(this: Statics, arg1: T1, arg2: T2, arg3: T3): Statics & T1 & T2 & T3;
 
             static detect<Statics, Instance>(
                 this: Statics & EmberClassConstructor<Instance>,
@@ -1075,10 +998,7 @@ declare module 'ember' {
             /**
              * Fetch the model types and observe them for changes.
              */
-            watchModelTypes(
-                typesAdded: Function,
-                typesUpdated: Function
-            ): Function;
+            watchModelTypes(typesAdded: Function, typesUpdated: Function): Function;
             /**
              * Fetch the records of a given type and observe them for changes.
              */
@@ -1190,10 +1110,7 @@ declare module 'ember' {
              * item. This method corresponds to the `forEach()` method defined in
              * JavaScript 1.6.
              */
-            forEach(
-                callbackfn: (value: T, index: number, array: T[]) => void,
-                thisArg?: any
-            ): void;
+            forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
             /**
              * Alias for `mapBy`
              */
@@ -1209,10 +1126,7 @@ declare module 'ember' {
              * Maps all of the items in the enumeration to another value, returning
              * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
              */
-            map<U>(
-                callbackfn: (value: T, index: number, array: T[]) => U,
-                thisArg?: any
-            ): U[];
+            map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
             /**
              * Similar to map, this specialized function returns the value of the named
              * property on all items in the enumeration.
@@ -1227,18 +1141,12 @@ declare module 'ember' {
                 callbackfn: (value: T, index: number, array: T[]) => value is S,
                 thisArg?: any
             ): S[];
-            filter(
-                callbackfn: (value: T, index: number, array: T[]) => any,
-                thisArg?: any
-            ): T[];
+            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
              */
-            reject(
-                callbackfn: (value: T, index: number, array: T[]) => any,
-                thisArg?: any
-            ): T[];
+            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
             /**
              * Returns an array with just the items with the matched property. You
              * can pass an optional second argument with the target value. Otherwise
@@ -1284,10 +1192,7 @@ declare module 'ember' {
              * Returns `true` if the passed function returns true for any item in the
              * enumeration.
              */
-            any(
-                callback: (value: T, index: number, array: T[]) => boolean,
-                target?: {}
-            ): boolean;
+            any(callback: (value: T, index: number, array: T[]) => boolean, target?: {}): boolean;
             /**
              * Returns `true` if the passed property resolves to the value of the second
              * argument for any item in the enumerable. This method is often simpler/faster
@@ -1299,24 +1204,8 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(
-                callbackfn: (
-                    previousValue: T,
-                    currentValue: T,
-                    currentIndex: number,
-                    array: T[]
-                ) => T,
-                initialValue?: T
-            ): T;
-            reduce<U>(
-                callbackfn: (
-                    previousValue: U,
-                    currentValue: T,
-                    currentIndex: number,
-                    array: T[]
-                ) => U,
-                initialValue: U
-            ): U;
+            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
@@ -1460,9 +1349,7 @@ declare module 'ember' {
              * The `helper` method create pure-function helpers without instances. For
              * example:
              */
-            static helper(
-                helper: (params: any[], hash?: object) => any
-            ): Helper;
+            static helper(helper: (params: any[], hash?: object) => any): Helper;
             /**
              * Override this function when writing a class-based helper.
              */
@@ -1479,12 +1366,7 @@ declare module 'ember' {
          * for Ember.
          */
         const Instrumentation: {
-            instrument(
-                name: string,
-                payload: any,
-                callback: Function,
-                binding: any
-            ): void;
+            instrument(name: string, payload: any, callback: Function, binding: any): void;
             reset(): void;
             subscribe(pattern: string, object: any): void;
             unsubscribe(subscriber: any): void;
@@ -1728,11 +1610,7 @@ declare module 'ember' {
          * false, this will be applied automatically. Otherwise you can apply the mixin
          * at anytime by calling `Ember.NativeArray.apply(Array.prototype)`.
          */
-        interface NativeArray<T>
-            extends GlobalArray<T>,
-                MutableArray<T>,
-                Observable,
-                Copyable {
+        interface NativeArray<T> extends GlobalArray<T>, MutableArray<T>, Observable, Copyable {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1756,24 +1634,8 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(
-                callbackfn: (
-                    previousValue: T,
-                    currentValue: T,
-                    currentIndex: number,
-                    array: T[]
-                ) => T,
-                initialValue?: T
-            ): T;
-            reduce<U>(
-                callbackfn: (
-                    previousValue: U,
-                    currentValue: T,
-                    currentIndex: number,
-                    array: T[]
-                ) => U,
-                initialValue: U
-            ): U;
+            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
@@ -1806,18 +1668,12 @@ declare module 'ember' {
             /**
              * Retrieves the value of a property from the object.
              */
-            get<T, K extends keyof T>(
-                this: ComputedProperties<T>,
-                key: K
-            ): T[K];
+            get<T, K extends keyof T>(this: ComputedProperties<T>, key: K): T[K];
             /**
              * To get the values of multiple properties at once, call `getProperties`
              * with a list of strings or an array:
              */
-            getProperties<T, K extends keyof T>(
-                this: ComputedProperties<T>,
-                list: K[]
-            ): Pick<T, K>;
+            getProperties<T, K extends keyof T>(this: ComputedProperties<T>, list: K[]): Pick<T, K>;
             getProperties<T, K extends keyof T>(
                 this: ComputedProperties<T>,
                 ...list: K[]
@@ -1825,11 +1681,7 @@ declare module 'ember' {
             /**
              * Sets the provided key or path to the value.
              */
-            set<T, K extends keyof T>(
-                this: ComputedProperties<T>,
-                key: K,
-                value: T[K]
-            ): T[K];
+            set<T, K extends keyof T>(this: ComputedProperties<T>, key: K, value: T[K]): T[K];
             /**
              * Sets a list of properties at once. These properties are set inside
              * a single `beginPropertyChanges` and `endPropertyChanges` batch, so
@@ -1890,10 +1742,7 @@ declare module 'ember' {
              * without accidentally invoking it if it is intended to be
              * generated lazily.
              */
-            cacheFor<T, K extends keyof T>(
-                this: ComputedProperties<T>,
-                key: K
-            ): T[K] | undefined;
+            cacheFor<T, K extends keyof T>(this: ComputedProperties<T>, key: K): T[K] | undefined;
         }
         const Observable: Mixin<Observable, Ember.CoreObject>;
         /**
@@ -2003,9 +1852,7 @@ declare module 'ember' {
             /**
              * Disconnects a view that has been rendered into an outlet.
              */
-            disconnectOutlet(
-                options: string | { outlet?: string; parentView?: string }
-            ): void;
+            disconnectOutlet(options: string | { outlet?: string; parentView?: string }): void;
 
             /**
              * A hook you can implement to convert the URL into the model for
@@ -2092,11 +1939,7 @@ declare module 'ember' {
              * A hook you can use to reset controller values either when the model
              * changes or the route is exiting.
              */
-            resetController(
-                controller: Controller,
-                isExiting: boolean,
-                transition: any
-            ): void;
+            resetController(controller: Controller, isExiting: boolean, transition: any): void;
 
             /**
              * Sends an action to the router, which will delegate it to the currently active
@@ -2276,10 +2119,10 @@ declare module 'ember' {
             mount(
                 name: string,
                 options?: {
-                    as?: string;
-                    path?: string;
-                    resetNamespace?: boolean;
-                    engineInfo?: any;
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
                 }
             ): void;
         }
@@ -2395,9 +2238,7 @@ declare module 'ember' {
              * Used to register callbacks to be fired whenever `App.injectTestHelpers`
              * is called.
              */
-            function onInjectHelpers(
-                callback: (app: Application) => void
-            ): void;
+            function onInjectHelpers(callback: (app: Application) => void): void;
             /**
              * This returns a thenable tailored for testing.  It catches failed
              * `onSuccess` callbacks and invokes the `Ember.Test.adapter.exception`
@@ -2415,11 +2256,7 @@ declare module 'ember' {
              * The only difference is this uses
              * an instance of `Ember.Test.Promise`
              */
-            function resolve<T>(
-                value?: T | PromiseLike<T>,
-                label?: string
-            ): Ember.Test.Promise<T>;
-            function resolve(): Ember.Test.Promise<void>;
+            function resolve<T>(value?: T | PromiseLike<T>, label?: string): Ember.Test.Promise<T>;
             /**
              * This allows ember-testing to play nicely with other asynchronous
              * events, such as an application that is waiting for a CSS3
@@ -2517,12 +2354,7 @@ declare module 'ember' {
         }
         namespace Handlebars {
             function compile(string: string): Function;
-            function compile(
-                environment: any,
-                options?: any,
-                context?: any,
-                asObject?: any
-            ): any;
+            function compile(environment: any, options?: any, context?: any, asObject?: any): any;
             function precompile(string: string, options: any): void;
             class Compiler {}
             class JavaScriptCompiler {}
@@ -2554,14 +2386,8 @@ declare module 'ember' {
         }
         const computed: {
             <T>(cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
-            <T>(k1: string, cb: ComputedPropertyCallback<T>): ComputedProperty<
-                T
-            >;
-            <T>(
-                k1: string,
-                k2: string,
-                cb: ComputedPropertyCallback<T>
-            ): ComputedProperty<T>;
+            <T>(k1: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
+            <T>(k1: string, k2: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
             <T>(
                 k1: string,
                 k2: string,
@@ -2634,10 +2460,7 @@ declare module 'ember' {
              * dependent property against a given RegExp, returning `true`
              * if the value matches the RegExp and `false` if it does not.
              */
-            match(
-                dependentKey: string,
-                regexp: RegExp
-            ): ComputedProperty<boolean>;
+            match(dependentKey: string, regexp: RegExp): ComputedProperty<boolean>;
             /**
              * A computed property that returns true if the provided dependent property
              * is equal to the given value.
@@ -2742,10 +2565,7 @@ declare module 'ember' {
             /**
              * Returns an array mapped to the specified key.
              */
-            mapBy(
-                dependentKey: string,
-                propertyKey: string
-            ): ComputedProperty<any[]>;
+            mapBy(dependentKey: string, propertyKey: string): ComputedProperty<any[]>;
             /**
              * Filters the array by the callback.
              */
@@ -2770,10 +2590,7 @@ declare module 'ember' {
              * A computed property which returns a new array with all the unique
              * elements from an array, with uniqueness determined by specific key.
              */
-            uniqBy(
-                dependentKey: string,
-                propertyKey: string
-            ): ComputedProperty<any[]>;
+            uniqBy(dependentKey: string, propertyKey: string): ComputedProperty<any[]>;
             /**
              * A computed property which returns a new array with all the unique
              * elements from one or more dependent arrays.
@@ -2789,10 +2606,7 @@ declare module 'ember' {
              * properties from the first dependent array that are not in the second
              * dependent array.
              */
-            setDiff(
-                setAProperty: string,
-                setBProperty: string
-            ): ComputedProperty<any[]>;
+            setDiff(setAProperty: string, setBProperty: string): ComputedProperty<any[]>;
             /**
              * A computed property that returns the array of values
              * for the provided dependent properties.
@@ -2821,10 +2635,7 @@ declare module 'ember' {
              * present it will queue itself to run on the existing run-loops action
              * queue.
              */
-            join<Ret>(
-                method: (...args: any[]) => Ret,
-                ...args: any[]
-            ): Ret | undefined;
+            join<Ret>(method: (...args: any[]) => Ret, ...args: any[]): Ret | undefined;
             join<Target, Ret>(
                 target: Target,
                 method: RunMethod<Target, Ret>,
@@ -2876,11 +2687,7 @@ declare module 'ember' {
              * of milliseconds.
              */
             later(method: (...args: any[]) => any, wait: number): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                wait: number
-            ): EmberRunTimer;
+            later<Target>(target: Target, method: RunMethod<Target>, wait: number): EmberRunTimer;
             later<Target>(
                 target: Target,
                 method: RunMethod<Target>,
@@ -2936,11 +2743,7 @@ declare module 'ember' {
              * Schedule a function to run one time during the current RunLoop. This is equivalent
              * to calling `scheduleOnce` with the "actions" queue.
              */
-            once<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                ...args: any[]
-            ): EmberRunTimer;
+            once<Target>(target: Target, method: RunMethod<Target>, ...args: any[]): EmberRunTimer;
             /**
              * Schedules a function to run one time in a given queue of the current RunLoop.
              * Calling this method with the same queue/target/method combination will have
@@ -2957,11 +2760,7 @@ declare module 'ember' {
              * control has been returned to the system. This is equivalent to calling
              * `run.later` with a wait time of 1ms.
              */
-            next<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                ...args: any[]
-            ): EmberRunTimer;
+            next<Target>(target: Target, method: RunMethod<Target>, ...args: any[]): EmberRunTimer;
             /**
              * Cancels a scheduled item. Must be a value returned by `run.later()`,
              * `run.once()`, `run.scheduleOnce()`, `run.next()`, `run.debounce()`, or
@@ -3185,20 +2984,12 @@ declare module 'ember' {
         /**
          * Display a warning with the provided message.
          */
-        function warn(
-            message: string,
-            test: boolean,
-            options: { id: string }
-        ): any;
+        function warn(message: string, test: boolean, options: { id: string }): any;
         function warn(message: string, options: { id: string }): any;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(
-            message: string,
-            test: boolean,
-            options?: { id?: string }
-        ): any;
+        function warn(message: string, test: boolean, options?: { id?: string }): any;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
@@ -3244,20 +3035,12 @@ declare module 'ember' {
          * a target is executed on the passed object. If an array of actions
          * is not passed, the actions stored on the passed object are invoked.
          */
-        function sendEvent(
-            obj: any,
-            eventName: string,
-            params?: any[],
-            actions?: any[]
-        ): boolean;
+        function sendEvent(obj: any, eventName: string, params?: any[], actions?: any[]): boolean;
         /**
          * Define a property as a function that should be executed when
          * a specified event or events are triggered.
          */
-        function on(
-            eventNames: string,
-            func: (...args: any[]) => void
-        ): (...args: any[]) => void;
+        function on(eventNames: string, func: (...args: any[]) => void): (...args: any[]) => void;
         /**
          * To get multiple properties at once, call `Ember.getProperties`
          * with an object followed by a list of strings or an array:
@@ -3301,10 +3084,7 @@ declare module 'ember' {
         /**
          * Specify a method that observes property changes.
          */
-        function observer(
-            key1: string,
-            func: (target: any, key: string) => void
-        ): void;
+        function observer(key1: string, func: (target: any, key: string) => void): void;
         function observer(
             key1: string,
             key2: string,
@@ -3356,10 +3136,7 @@ declare module 'ember' {
          * the function will be invoked. If the property is not defined but the
          * object implements the `unknownProperty` method then that will be invoked.
          */
-        function get<T, K extends keyof T>(
-            obj: ComputedProperties<T>,
-            key: K
-        ): T[K];
+        function get<T, K extends keyof T>(obj: ComputedProperties<T>, key: K): T[K];
         /**
          * Retrieves the value of a property from an Object, or a default value in the
          * case that the property returns `undefined`.
@@ -3440,12 +3217,7 @@ declare module 'ember' {
          */
         function assign<T, U>(target: T, source: U): T & U;
         function assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;
-        function assign<T, U, V, W>(
-            target: T,
-            source1: U,
-            source2: V,
-            source3: W
-        ): T & U & V & W;
+        function assign<T, U, V, W>(target: T, source1: U, source2: V, source3: W): T & U & V & W;
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
@@ -3527,10 +3299,7 @@ declare module 'ember' {
         /**
          * Expands `pattern`, invoking `callback` for each expansion.
          */
-        function expandProperties(
-            pattern: string,
-            callback: (expanded: string) => void
-        ): void;
+        function expandProperties(pattern: string, callback: (expanded: string) => void): void;
     }
 
     export default Ember;

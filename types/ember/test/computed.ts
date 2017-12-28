@@ -27,13 +27,13 @@ const Person = Ember.Object.extend({
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
-        },
+        }
     }),
 
     fullNameGetOnly: Ember.computed<string>('fullName', {
         get() {
             return this.get('fullName');
-        },
+        }
     }),
 
     fullNameSetOnly: Ember.computed<string>('firstName', 'lastName', {
@@ -42,16 +42,15 @@ const Person = Ember.Object.extend({
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
-        },
+        }
     }),
 
     combinators: Ember.computed<string>(function() {
         return this.get('firstName');
-    })
-        .property('firstName')
-        .meta({ foo: 'bar' })
-        .volatile()
-        .readOnly(),
+    }).property('firstName')
+      .meta({ foo: 'bar' })
+      .volatile()
+      .readOnly()
 });
 
 const person = Person.create({
@@ -80,12 +79,10 @@ assertType<string>(person.get('fullNameGetOnly'));
 assertType<string>(person.get('fullNameSetOnly'));
 assertType<string>(person.get('combinators'));
 
-assertType<{ firstName: string; fullName: string; age: number }>(
-    person.getProperties('firstName', 'fullName', 'age')
-);
+assertType<{ firstName: string, fullName: string, age: number }>(person.getProperties('firstName', 'fullName', 'age'));
 
 const person2 = Person.create({
-    fullName: 'Fred Smith',
+    fullName: 'Fred Smith'
 });
 
 assertType<string>(person2.get('firstName'));
@@ -93,7 +90,7 @@ assertType<string>(person2.get('fullName'));
 
 const person3 = Person.extend({
     firstName: 'Fred',
-    fullName: 'Fred Smith',
+    fullName: 'Fred Smith'
 }).create();
 
 assertType<string>(person3.get('firstName'));
@@ -101,7 +98,7 @@ assertType<string>(person3.get('fullName'));
 
 const person4 = Person.extend({
     firstName: Ember.computed(() => 'Fred'),
-    fullName: Ember.computed(() => 'Fred Smith'),
+    fullName: Ember.computed(() => 'Fred Smith')
 }).create();
 
 assertType<string>(person4.get('firstName'));
@@ -115,13 +112,13 @@ const objectWithComputedProperties = Ember.Object.extend({
     collect: Ember.computed.collect('foo', 'bar', 'baz', 'qux'),
     deprecatingAlias: Ember.computed.deprecatingAlias('foo', {
         id: 'hamster.deprecate-banana',
-        until: '3.0.0',
+        until: '3.0.0'
     }),
     empty: Ember.computed.empty('foo'),
     equalNumber: Ember.computed.equal('foo', 1),
     equalString: Ember.computed.equal('foo', 'bar'),
     equalObject: Ember.computed.equal('foo', {}),
-    filter: Ember.computed.filter('foo', item => item === 'bar'),
+    filter: Ember.computed.filter('foo', (item) => item === 'bar'),
     filterBy1: Ember.computed.filterBy('foo', 'bar'),
     filterBy2: Ember.computed.filterBy('foo', 'bar', false),
     gt: Ember.computed.gt('foo', 3),
@@ -155,11 +152,11 @@ const objectWithComputedProperties = Ember.Object.extend({
     sum: Ember.computed.sum('foo'),
     union: Ember.computed.union('foo', 'bar', 'baz', 'qux'),
     uniq: Ember.computed.uniq('foo'),
-    uniqBy: Ember.computed.uniqBy('foo', 'bar'),
+    uniqBy: Ember.computed.uniqBy('foo', 'bar')
 });
 
 const component2 = Component.extend({
-    isAnimal: or('isDog', 'isCat'),
+    isAnimal: or('isDog', 'isCat')
 }).create();
 
 assertType<boolean>(component2.get('isAnimal'));

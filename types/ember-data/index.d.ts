@@ -208,7 +208,7 @@ declare module "ember-data" {
          * subclasses are used to indicate specific error states. The following
          * subclasses are provided:
          */
-        class AdapterError { }
+        class AdapterError {}
         /**
          * A `DS.InvalidError` is used by an adapter to signal the external API
          * was unable to process a request because the content was not
@@ -218,27 +218,27 @@ declare module "ember-data" {
          * transition to the `invalid` state and the errors will be set to the
          * `errors` property on the record.
          */
-        class InvalidError { }
+        class InvalidError {}
         /**
          * A `DS.TimeoutError` is used by an adapter to signal that a request
          * to the external API has timed out. I.e. no response was received from
          * the external API within an allowed time period.
          */
-        class TimeoutError { }
+        class TimeoutError {}
         /**
          * A `DS.AbortError` is used by an adapter to signal that a request to
          * the external API was aborted. For example, this can occur if the user
          * navigates away from the current page after a request to the external API
          * has been initiated but before a response has been received.
          */
-        class AbortError { }
+        class AbortError {}
         /**
          * A `DS.UnauthorizedError` equates to a HTTP `401 Unauthorized` response
          * status. It is used by an adapter to signal that a request to the external
          * API was rejected because authorization is required and has failed or has not
          * yet been provided.
          */
-        class UnauthorizedError { }
+        class UnauthorizedError {}
         /**
          * A `DS.ForbiddenError` equates to a HTTP `403 Forbidden` response status.
          * It is used by an adapter to signal that a request to the external API was
@@ -246,13 +246,13 @@ declare module "ember-data" {
          * provided and is valid, then the authenticated user does not have the
          * necessary permissions for the request.
          */
-        class ForbiddenError { }
+        class ForbiddenError {}
         /**
          * A `DS.NotFoundError` equates to a HTTP `404 Not Found` response status.
          * It is used by an adapter to signal that a request to the external API
          * was rejected because the resource could not be found on the API.
          */
-        class NotFoundError { }
+        class NotFoundError {}
         /**
          * A `DS.ConflictError` equates to a HTTP `409 Conflict` response status.
          * It is used by an adapter to indicate that the request could not be processed
@@ -260,17 +260,17 @@ declare module "ember-data" {
          * creating a record with a client generated id but that id is already known
          * to the external API.
          */
-        class ConflictError { }
+        class ConflictError {}
         /**
          * A `DS.ServerError` equates to a HTTP `500 Internal Server Error` response
          * status. It is used by the adapter to indicate that a request has failed
          * because of an error in the external API.
          */
-        class ServerError { }
+        class ServerError {}
         /**
          * Holds validation errors for a given record, organized by attribute names.
          */
-        interface Errors extends Ember.Enumerable<any>, Ember.Evented { }
+        interface Errors extends Ember.Enumerable<any>, Ember.Evented {}
         class Errors extends Ember.Object {
             /**
              * DEPRECATED:
@@ -544,7 +544,7 @@ declare module "ember-data" {
              */
             static relatedTypes: Ember.ComputedProperty<
                 Ember.NativeArray<string>
-                >;
+            >;
             /**
              * A map whose keys are the relationships of a model and whose values are
              * relationship descriptors.
@@ -613,14 +613,14 @@ declare module "ember-data" {
         /**
          * ### State
          */
-        class RootState { }
+        class RootState {}
         /**
          * Represents an ordered list of records whose order and membership is
          * determined by the adapter. For example, a query sent to the adapter
          * may trigger a search on the server, whose results would be loaded
          * into an instance of the `AdapterPopulatedRecordArray`.
          */
-        class AdapterPopulatedRecordArray<T> extends RecordArray<T> { }
+        class AdapterPopulatedRecordArray<T> extends RecordArray<T> {}
         /**
          * Represents a list of records whose membership is determined by the
          * store. As records are created, loaded, or modified, the store
@@ -641,7 +641,7 @@ declare module "ember-data" {
          * `DS.RecordArray` or its subclasses will be returned by your application's store
          * in response to queries.
          */
-        interface RecordArray<T> extends Ember.ArrayProxy<T>, Ember.Evented { }
+        interface RecordArray<T> extends Ember.ArrayProxy<T>, Ember.Evented {}
         class RecordArray<T> {
             /**
              * The flag to signal a `RecordArray` is finished loading data.
@@ -814,7 +814,7 @@ declare module "ember-data" {
          * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
          * relationship.
          */
-        interface ManyArray<T> extends Ember.MutableArray<T> { }
+        interface ManyArray<T> extends Ember.MutableArray<T> {}
         class ManyArray<T> extends Ember.Object.extend(
             Ember.MutableArray as {},
             Ember.Evented
@@ -852,8 +852,8 @@ declare module "ember-data" {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-            Ember.PromiseProxyMixin<PromiseArray<T>> { }
-        class PromiseArray<T> { }
+        Ember.PromiseProxyMixin<PromiseArray<T>> {}
+        class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
          * and a promise. When the promise is resolved, then the resulting value
@@ -863,8 +863,8 @@ declare module "ember-data" {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-            Ember.PromiseProxyMixin<T & PromiseObject<T>> { }
-        class PromiseObject<T> { }
+        Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
+        class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
          * to the underlying manyArray.
@@ -1817,7 +1817,7 @@ declare module "ember-data" {
          * used when `boolean` is passed as the type parameter to the
          * [DS.attr](../../data#method_attr) function.
          */
-        class BooleanTransform extends Transform { }
+        class BooleanTransform extends Transform {}
         /**
          * The `DS.DateTransform` class is used to serialize and deserialize
          * date attributes on Ember Data record objects. This transform is used
@@ -1825,21 +1825,21 @@ declare module "ember-data" {
          * [DS.attr](../../data#method_attr) function. It uses the [`ISO 8601`](https://en.wikipedia.org/wiki/ISO_8601)
          * standard.
          */
-        class DateTransform extends Transform { }
+        class DateTransform extends Transform {}
         /**
          * The `DS.NumberTransform` class is used to serialize and deserialize
          * numeric attributes on Ember Data record objects. This transform is
          * used when `number` is passed as the type parameter to the
          * [DS.attr](../../data#method_attr) function.
          */
-        class NumberTransform extends Transform { }
+        class NumberTransform extends Transform {}
         /**
          * The `DS.StringTransform` class is used to serialize and deserialize
          * string attributes on Ember Data record objects. This transform is
          * used when `string` is passed as the type parameter to the
          * [DS.attr](../../data#method_attr) function.
          */
-        class StringTransform extends Transform { }
+        class StringTransform extends Transform {}
         /**
          * The `DS.Transform` class is used to serialize and deserialize model
          * attributes when they are saved or loaded from an
@@ -2069,63 +2069,63 @@ declare module "ember" {
     }
 }
 declare module 'ember-data/adapter' {
-    import DS from 'ember-data';
-    export default DS.Adapter;
+	import DS from 'ember-data';
+	export default DS.Adapter;
 }
 declare module 'ember-data/adapters/errors' {
-    import DS from 'ember-data';
-    const AdapterError: typeof DS.AdapterError;
-    const InvalidError: typeof DS.InvalidError;
-    const UnauthorizedError: typeof DS.UnauthorizedError;
-    const ForbiddenError: typeof DS.ForbiddenError;
-    const NotFoundError: typeof DS.NotFoundError;
-    const ConflictError: typeof DS.ConflictError;
-    const ServerError: typeof DS.ServerError;
-    const TimeoutError: typeof DS.TimeoutError;
-    const AbortError: typeof DS.AbortError;
-    const errorsHashToArray: typeof DS.errorsHashToArray;
-    const errorsArrayToHash: typeof DS.errorsArrayToHash;
+	import DS from 'ember-data';
+	const AdapterError: typeof DS.AdapterError;
+	const InvalidError: typeof DS.InvalidError;
+	const UnauthorizedError: typeof DS.UnauthorizedError;
+	const ForbiddenError: typeof DS.ForbiddenError;
+	const NotFoundError: typeof DS.NotFoundError;
+	const ConflictError: typeof DS.ConflictError;
+	const ServerError: typeof DS.ServerError;
+	const TimeoutError: typeof DS.TimeoutError;
+	const AbortError: typeof DS.AbortError;
+	const errorsHashToArray: typeof DS.errorsHashToArray;
+	const errorsArrayToHash: typeof DS.errorsArrayToHash;
 }
 declare module 'ember-data/adapters/json-api' {
-    import DS from 'ember-data';
-    export default DS.JSONAPIAdapter;
+	import DS from 'ember-data';
+	export default DS.JSONAPIAdapter;
 }
 declare module 'ember-data/adapters/rest' {
-    import DS from 'ember-data';
-    export default DS.RESTAdapter;
+	import DS from 'ember-data';
+	export default DS.RESTAdapter;
 }
 declare module 'ember-data/attr' {
-    import DS from 'ember-data';
-    export default DS.attr;
+	import DS from 'ember-data';
+	export default DS.attr;
 }
 declare module 'ember-data/model' {
-    import DS from 'ember-data';
-    export default DS.Model;
+	import DS from 'ember-data';
+	export default DS.Model;
 }
 declare module 'ember-data/relationships' {
-    import DS from 'ember-data';
-    const hasMany: typeof DS.hasMany;
-    const belongsTo: typeof DS.belongsTo;
+	import DS from 'ember-data';
+	const hasMany: typeof DS.hasMany;
+	const belongsTo: typeof DS.belongsTo;
 }
 declare module 'ember-data/serializer' {
-    import DS from 'ember-data';
-    export default DS.Serializer;
+	import DS from 'ember-data';
+	export default DS.Serializer;
 }
 declare module 'ember-data/serializers/embedded-records-mixin' {
-    import DS from 'ember-data';
-    export default DS.EmbeddedRecordsMixin;
+	import DS from 'ember-data';
+	export default DS.EmbeddedRecordsMixin;
 }
 declare module 'ember-data/serializers/json-api' {
-    import DS from 'ember-data';
-    export default DS.JSONAPISerializer;
+	import DS from 'ember-data';
+	export default DS.JSONAPISerializer;
 }
 declare module 'ember-data/serializers/json' {
-    import DS from 'ember-data';
-    export default DS.JSONSerializer;
+	import DS from 'ember-data';
+	export default DS.JSONSerializer;
 }
 declare module 'ember-data/serializers/rest' {
-    import DS from 'ember-data';
-    export default DS.RESTSerializer;
+	import DS from 'ember-data';
+	export default DS.RESTSerializer;
 }
 declare module "ember-data/store" {
     import DS from "ember-data";
