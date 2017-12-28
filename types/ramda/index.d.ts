@@ -11,6 +11,7 @@
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
+//                 Rayner Pupo <https://github.com/raynerd>
 //                 Miika Hänninen <https://github.com/googol>
 //                 Nikita Moshensky <https://github.com/moshensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -817,15 +818,13 @@ declare namespace R {
         invertObj(obj: { [index: string]: string } | { [index: number]: string }): { [index: string]: string };
 
         /**
-         * Turns a named method of an object (or object prototype) into a function that can be
-         * called directly. Passing the optional `len` parameter restricts the returned function to
-         * the initial `len` parameters of the method.
+         * Turns a named method with a specified arity into a function that can be called directly
+         * supplied with arguments and a target object.
          *
-         * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
-         * when `len` is not specified), and the final parameter is the target object.
+         * The returned function is curried and accepts `arity + 1` parameters where the final
+         * parameter is the target object.
          */
-        invoker(name: string, obj: any, len?: number): (...a: any[]) => any;
-        invoker(name: string): (obj: any, len?: number) => (...a: any[]) => any;
+        invoker(arity: number, method: string): (...a: any[]) => any;
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
