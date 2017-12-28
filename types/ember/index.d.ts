@@ -1174,7 +1174,7 @@ declare module 'ember' {
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            findBy(key: string, value: string): T | undefined;
+            findBy(key: string, value: any): T | undefined;
             /**
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
