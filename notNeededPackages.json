@@ -43,6 +43,12 @@
             "asOfVersion": "0.6.46"
         },
         {
+            "libraryName": "anydb-sql-migrations",
+            "typingsPackageName": "anydb-sql-migrations",
+            "sourceRepoURL": "https://github.com/spion/anydb-sql-migrations",
+            "asOfVersion": "2.1.1"
+        },
+        {
             "libraryName": "apn",
             "typingsPackageName": "apn",
             "sourceRepoURL": "https://github.com/node-apn/node-apn",
