@@ -511,6 +511,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "log4javascript",
+            "typingsPackageName": "log4javascript",
+            "sourceRepoURL": "http://log4javascript.org/",
+            "asOfVersion": "1.4.15"
+        },
+        {
             "libraryName": "log4js",
             "typingsPackageName": "log4js",
             "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
