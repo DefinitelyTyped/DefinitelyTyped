@@ -919,6 +919,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "svg-pan-zoom",
+            "typingsPackageName": "svg-pan-zoom",
+            "sourceRepoURL": "https://github.com/ariutta/svg-pan-zoom",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "svg.js",
             "typingsPackageName": "svg.js",
             "sourceRepoURL": "http://www.svgjs.com/",
