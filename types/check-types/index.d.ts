@@ -52,7 +52,9 @@ interface ObjectFunction {
   };
 }
 
-type AssertFunction = <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }) => T & CheckType;
+interface AssertFunction extends CheckType {
+  <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }): T
+}
 
 interface CheckType {
   /* General predicates */
