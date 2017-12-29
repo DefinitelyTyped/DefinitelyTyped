@@ -1003,6 +1003,18 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "wonder-commonlib",
+            "typingsPackageName": "wonder-commonlib",
+            "sourceRepoURL": "https://github.com/yyc-git/Wonder-CommonLib",
+            "asOfVersion": "0.1.12"
+        },
+        {
+            "libraryName": "wonder-frp",
+            "typingsPackageName": "wonder-frp",
+            "sourceRepoURL": "https://github.com/yyc-git/Wonder-FRP",
+            "asOfVersion": "0.1.25"
+        },
+        {
             "libraryName": "x2js",
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
