@@ -469,6 +469,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "JSData Http Adapter",
+            "typingsPackageName": "js-data-http",
+            "sourceRepoURL": "https://github.com/js-data/js-data-http",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
