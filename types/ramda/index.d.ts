@@ -11,7 +11,9 @@
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
+//                 Rayner Pupo <https://github.com/raynerd>
 //                 Miika Hänninen <https://github.com/googol>
+//                 Nikita Moshensky <https://github.com/moshensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -581,7 +583,7 @@ declare namespace R {
          * Reports whether two functions have the same value for the specified property.
          */
         eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
-        eqProps(prop: string): <T, U>(obj1: T, obj2: U) => boolean;
+        eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
         eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
         /**
@@ -681,6 +683,7 @@ declare namespace R {
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
          */
+        groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
 
@@ -815,15 +818,13 @@ declare namespace R {
         invertObj(obj: { [index: string]: string } | { [index: number]: string }): { [index: string]: string };
 
         /**
-         * Turns a named method of an object (or object prototype) into a function that can be
-         * called directly. Passing the optional `len` parameter restricts the returned function to
-         * the initial `len` parameters of the method.
+         * Turns a named method with a specified arity into a function that can be called directly
+         * supplied with arguments and a target object.
          *
-         * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
-         * when `len` is not specified), and the final parameter is the target object.
+         * The returned function is curried and accepts `arity + 1` parameters where the final
+         * parameter is the target object.
          */
-        invoker(name: string, obj: any, len?: number): (...a: any[]) => any;
-        invoker(name: string): (obj: any, len?: number) => (...a: any[]) => any;
+        invoker(arity: number, method: string): (...a: any[]) => any;
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.

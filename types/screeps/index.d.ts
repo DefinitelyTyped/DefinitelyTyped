@@ -1,4 +1,4 @@
-// Type definitions for Screeps
+// Type definitions for Screeps 2.1
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -1110,7 +1110,7 @@ interface Game {
     notify(message: string, groupInterval?: number): undefined;
 }
 
-declare const Game: Game;
+declare let Game: Game;
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
@@ -3259,7 +3259,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     /**
      * An object with the controller reservation info if present: username, ticksToEnd
      */
-    reservation: ReservationDefinition;
+    reservation: ReservationDefinition | undefined;
     /**
      * How many ticks of safe mode are remaining, or undefined.
      */
@@ -3275,7 +3275,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     /**
      * An object with the controller sign info if present
      */
-    sign: SignDefinition;
+    sign: SignDefinition | undefined;
     /**
      * The amount of game ticks when this controller will lose one level. This timer can be reset by using Creep.upgradeController.
      */

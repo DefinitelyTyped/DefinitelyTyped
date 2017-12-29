@@ -18,18 +18,15 @@ export class Class {
 
 export class Transformation {
     constructor(a: number, b: number, c: number, d: number);
-
     transform(point: Point, scale?: number): Point;
-
     untransform(point: Point, scale?: number): Point;
 }
 
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
-
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
-
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
 }
 
 export namespace PolyUtil {

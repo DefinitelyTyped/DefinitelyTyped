@@ -698,10 +698,8 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
+    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
 
     /**
      * Adds a method call to the queue.
@@ -758,6 +756,29 @@ declare module "mongoose" {
     statics: any;
     /** The original object passed to the schema constructor */
     obj: any;
+  }
+
+  // Hook functions: https://github.com/vkarpov15/hooks-fixed
+  interface HookSyncCallback {
+    (next: HookNextFunction, ...hookArgs:any[]): any;
+  }
+
+  interface HookAsyncCallback {
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
+  }
+
+  interface HookErrorCallback {
+    (error: Error): any;
+  }
+
+  interface HookNextFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
+  }
+
+  interface HookDoneFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
   }
 
   interface SchemaOptions {
