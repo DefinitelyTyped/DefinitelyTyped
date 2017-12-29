@@ -7,8 +7,7 @@ const compiler = webpack({});
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-	noInfo: false,
-	quiet: false,
+	logLevel: 'silent',
 	lazy: true,
 	watchOptions: {
 		aggregateTimeout: 300,
