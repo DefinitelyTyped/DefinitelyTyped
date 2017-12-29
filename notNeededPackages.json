@@ -55,6 +55,12 @@
             "asOfVersion": "2.1.2"
         },
         {
+            "libraryName": "Application Insights",
+            "typingsPackageName": "applicationinsights",
+            "sourceRepoURL": "https://github.com/Microsoft/ApplicationInsights-node.js",
+            "asOfVersion": "0.20.0"
+        },
+        {
             "libraryName": "Argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
