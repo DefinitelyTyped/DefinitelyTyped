@@ -8,7 +8,13 @@ import {
     EnumTypeDefinitionNode,
     EnumValueDefinitionNode,
     InputObjectTypeDefinitionNode,
-    TypeExtensionDefinitionNode,
+    TypeExtensionNode,
+    ScalarTypeExtensionNode,
+    ObjectTypeExtensionNode,
+    InterfaceTypeExtensionNode,
+    UnionTypeExtensionNode,
+    EnumTypeExtensionNode,
+    InputObjectTypeExtensionNode,
     OperationDefinitionNode,
     FieldNode,
     FragmentDefinitionNode,
@@ -231,7 +237,7 @@ export class GraphQLObjectType {
     name: string;
     description: string;
     astNode?: ObjectTypeDefinitionNode;
-    extensionASTNodes: Array<TypeExtensionDefinitionNode>;
+    extensionASTNodes: Array<TypeExtensionNode>;
     isTypeOf: GraphQLIsTypeOfFn<any, any>;
 
     constructor(config: GraphQLObjectTypeConfig<any, any>);
@@ -247,7 +253,7 @@ export interface GraphQLObjectTypeConfig<TSource, TContext> {
     isTypeOf?: GraphQLIsTypeOfFn<TSource, TContext>;
     description?: string;
     astNode?: ObjectTypeDefinitionNode;
-    extensionASTNodes?: Array<TypeExtensionDefinitionNode>;
+    extensionASTNodes?: Array<TypeExtensionNode>;
 }
 
 export type GraphQLTypeResolver<TSource, TContext> = (
