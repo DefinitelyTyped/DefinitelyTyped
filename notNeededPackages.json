@@ -367,6 +367,12 @@
             "asOfVersion": "0.0.0"
         },
         {
+            "libraryName": "geolib",
+            "typingsPackageName": "geolib",
+            "sourceRepoURL": "https://github.com/manuelbieh/Geolib",
+            "asOfVersion": "2.0.23"
+        },
+        {
             "libraryName": "github",
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
