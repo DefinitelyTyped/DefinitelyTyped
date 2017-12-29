@@ -2,7 +2,8 @@ import { phonecall, email, text, textWithoutEncoding, web } from 'react-native-c
 
 phonecall('123456789', true);
 
-email('a@example.com', 'a@example.com', 'a@example.com', 'subject', 'body');
+email();
+email(['a@example.com'], ['a@example.com'], ['a@example.com'], 'subject', 'body');
 
 text();
 text('123456789');
