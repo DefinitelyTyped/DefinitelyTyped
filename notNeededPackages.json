@@ -1063,6 +1063,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+            "typingsPackageName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+            "sourceRepoURL": "https://github.com/dpa99c/phonegap-launch-navigator",
+            "asOfVersion": "3.2.2"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
