@@ -5,7 +5,7 @@
 //                 Sarun Intaralawan <https://github.com/sarunint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Croppie {
+declare class Croppie {
     constructor(container: HTMLElement, options?: CroppieOptions);
 
     bind(options: {
@@ -29,13 +29,13 @@ export default class Croppie {
     destroy(): void;
 }
 
-export type CropType = 'square' | 'circle';
+type CropType = 'square' | 'circle';
 
-export type Format = 'jpeg' | 'png' | 'webp';
+type Format = 'jpeg' | 'png' | 'webp';
 
-export type Type = 'canvas' | 'base64' | 'html' | 'blob' | 'rawcanvas';
+type Type = 'canvas' | 'base64' | 'html' | 'blob' | 'rawcanvas';
 
-export interface ResultOptions {
+interface ResultOptions {
     type?: Type;
     size?: 'viewport' | 'original' | { width: number, height: number };
     format?: Format;
@@ -43,7 +43,7 @@ export interface ResultOptions {
     circle?: boolean;
 }
 
-export interface CroppieOptions {
+interface CroppieOptions {
     boundary?: { width: number, height: number };
     customClass?: string;
     enableExif?: boolean;
@@ -54,3 +54,5 @@ export interface CroppieOptions {
     showZoomer?: boolean;
     viewport?: { width: number, height: number, type?: CropType };
 }
+
+export = Croppie;
