@@ -181,6 +181,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "confirmdialog",
+            "typingsPackageName": "confirmdialog",
+            "sourceRepoURL": "https://github.com/allipierre/Type-definitions-for-jquery-confirm/tree/master/types/confirmDialog-js",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
