@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as m from 'karma';
-import webpack = require('webpack');
-import webpackDevMiddleware = require('webpack-dev-middleware');
+import 'karma';
+import * as Webpack from 'webpack';
+import { Reporter, Logger } from 'webpack-dev-middleware';
 
 declare module 'karma' {
     // Note: karma-webpack will set publicPath for us, so it is optional here.
@@ -16,24 +16,24 @@ declare module 'karma' {
         noInfo?: boolean;
         quiet?: boolean;
         lazy?: boolean;
-        watchOptions?: webpack.Options.WatchOptions;
+        watchOptions?: Webpack.Options.WatchOptions;
         publicPath?: string;
         index?: string;
         headers?: {
             [name: string]: string;
         };
-        stats?: webpack.Options.Stats;
-        reporter?: webpackDevMiddleware.Reporter | null;
+        stats?: Webpack.Options.Stats;
+        reporter?: Reporter | null;
         serverSideRender?: boolean;
 
-        log?: webpackDevMiddleware.Logger;
-        warn?: webpackDevMiddleware.Logger;
-        error?: webpackDevMiddleware.Logger;
+        log?: Logger;
+        warn?: Logger;
+        error?: Logger;
         filename?: string;
     }
 
     interface ConfigOptions {
-        webpack: webpack.Configuration;
+        webpack: Webpack.Configuration;
         webpackMiddlewareOptions: KarmaWebpackMiddlewareOptions;
     }
 }
