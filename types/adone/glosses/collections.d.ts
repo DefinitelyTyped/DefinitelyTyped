@@ -1651,7 +1651,8 @@ declare namespace adone {
             /**
              * Ends the stream
              */
-            end(chunk?: Buffer): void;
+            end(cb?: Function): void;
+            end(chunk: Buffer, cb?: Function): void;
 
             /**
              * Returns the byte at the specified index
