@@ -53,7 +53,7 @@ interface ObjectFunction {
 }
 
 interface AssertFunction extends CheckType {
-  <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }): T
+  <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }): T;
 }
 
 interface CheckType {
