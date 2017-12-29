@@ -59,7 +59,12 @@ export const INPUT_OBJECT_TYPE_DEFINITION: 'InputObjectTypeDefinition';
 
 // Type Extensions
 
-export const TYPE_EXTENSION_DEFINITION: 'TypeExtensionDefinition';
+export const SCALAR_TYPE_EXTENSION: 'ScalarTypeExtension';
+export const OBJECT_TYPE_EXTENSION: 'ObjectTypeExtension';
+export const INTERFACE_TYPE_EXTENSION: 'InterfaceTypeExtension';
+export const UNION_TYPE_EXTENSION: 'UnionTypeExtension';
+export const ENUM_TYPE_EXTENSION: 'EnumTypeExtension';
+export const INPUT_OBJECT_TYPE_EXTENSION: 'InputObjectTypeExtension';
 
 // Directive Definitions
 
