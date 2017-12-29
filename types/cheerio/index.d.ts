@@ -271,6 +271,8 @@ interface CheerioAPI extends CheerioSelector, CheerioStatic {
   load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
 
+interface Document { }
+
 declare var cheerio:CheerioAPI;
 
 declare module "cheerio" {
