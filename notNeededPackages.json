@@ -271,6 +271,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "es6-error",
+            "typingsPackageName": "es6-error",
+            "sourceRepoURL": "https://github.com/bjyoungblood/es6-error",
+            "asOfVersion": "4.0.2"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
