@@ -1,4 +1,4 @@
-import * as check from "./";
+import * as check from "check-types";
 
 const a: boolean = check.number(2);
 
@@ -14,7 +14,7 @@ check.even(3);
 
 check.not.even(3);
 
-check.maybe.even(null);
+check.maybe.even(2);
 
 check.assert.like({ foo: 'bar' }, { baz: 'qux' });
 
@@ -24,7 +24,7 @@ check.assert.not.like({ foo: 'bar' }, { baz: 'qux' });
 
 check.assert.maybe.like(undefined, { foo: 'bar' });
 
-check.assert(function a() { return {}; }, 'Something went wrong', Error);
+check.assert(function a(): any { return {}; }, 'Something went wrong', Error);
 
 check.apply([ 'foo', 'bar', '' ], check.nonEmptyString);
 
