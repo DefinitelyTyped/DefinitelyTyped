@@ -1,4 +1,4 @@
-// Type definitions for check-types
+// Type definitions for check-types 7.3.0
 // Project: https://github.com/philbooth/check-types.js
 // Definitions by: idchlife <https://github.com/idchlife>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
