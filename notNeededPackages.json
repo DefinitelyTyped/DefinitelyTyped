@@ -67,6 +67,12 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "artyom.js",
+            "typingsPackageName": "artyom.js",
+            "sourceRepoURL": "https://github.com/sdkcarlos/artyom.js",
+            "asOfVersion": "1.0.3"
+        },
+        {
             "libraryName": "askmethat-rating",
             "typingsPackageName": "askmethat-rating",
             "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
