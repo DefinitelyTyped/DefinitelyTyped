@@ -1142,24 +1142,24 @@ declare module 'ember' {
                 callbackfn: (value: T, index: number, array: T[]) => value is S,
                 thisArg?: any
             ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
+            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
              */
-            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
+            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
             /**
              * Returns an array with just the items with the matched property. You
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            filterBy(key: string, value?: any): Enumerable<T>;
+            filterBy(key: string, value?: any): NativeArray<T>;
             /**
              * Returns an array with the items that do not have truthy values for
              * key.  You can pass an optional second argument with the target value.  Otherwise
              * this will match any property that evaluates to false.
              */
-            rejectBy(key: string, value?: string): Enumerable<T>;
+            rejectBy(key: string, value?: string): NativeArray<T>;
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -1174,7 +1174,7 @@ declare module 'ember' {
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            findBy(key: string, value: any): T | undefined;
+            findBy(key: string, value?: any): T | undefined;
             /**
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
@@ -1221,28 +1221,28 @@ declare module 'ember' {
             /**
              * Returns a copy of the array with all `null` and `undefined` elements removed.
              */
-            compact(): Enumerable<T>;
+            compact(): NativeArray<T>;
             /**
              * Returns a new enumerable that excludes the passed value. The default
              * implementation returns an array regardless of the receiver type.
              * If the receiver does not contain the value it returns the original enumerable.
              */
-            without(value: T): Enumerable<T>;
+            without(value: T): NativeArray<T>;
             /**
              * Returns a new enumerable that contains only unique values. The default
              * implementation returns an array regardless of the receiver type.
              */
-            uniq(): Enumerable<T>;
+            uniq(): NativeArray<T>;
             /**
              * Converts the enumerable into an array and sorts by the keys
              * specified in the argument.
              */
-            sortBy(property: string): Enumerable<T>;
+            sortBy(property: string): NativeArray<T>;
             /**
              * Returns a new enumerable that contains only items containing a unique property value.
              * The default implementation returns an array regardless of the receiver type.
              */
-            uniqBy(): Enumerable<T>;
+            uniqBy(): NativeArray<T>;
             /**
              * Returns `true` if the passed object can be found in the enumerable.
              */
