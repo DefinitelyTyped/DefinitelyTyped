@@ -235,6 +235,12 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "Egg",
+            "typingsPackageName": "egg",
+            "sourceRepoURL": "https://github.com/eggjs/egg",
+            "asOfVersion": "1.5.0"
+        },
+        {
             "libraryName": "electron",
             "typingsPackageName": "electron",
             "sourceRepoURL": "https://github.com/electron/electron",
