@@ -877,6 +877,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "sharp-timer",
+            "typingsPackageName": "sharp-timer",
+            "sourceRepoURL": "https://github.com/afractal/SharpTimer",
+            "asOfVersion": "0.1.3"
+        },
+        {
             "libraryName": "Shopify Prime",
             "typingsPackageName": "shopify-prime",
             "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
