@@ -15,6 +15,7 @@ declare module 'ember-qunit' {
         setup?(assert: Assert): void;
         teardown?(assert: Assert): void;
         afterTeardown?(assert: Assert): void;
+        needs?: string[];
     }
 
     /**
