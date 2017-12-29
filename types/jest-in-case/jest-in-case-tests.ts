@@ -1,6 +1,3 @@
-/// <reference types="jest" />
-/// <reference types="node" />
-
 declare const global: any;
 
 import cases = require("jest-in-case");
