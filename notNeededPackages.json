@@ -931,6 +931,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "SweetAlert",
+            "typingsPackageName": "sweetalert",
+            "sourceRepoURL": "https://github.com/t4t5/sweetalert/",
+            "asOfVersion": "2.0.4"
+        },
+        {
             "libraryName": "Tabris.js",
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
