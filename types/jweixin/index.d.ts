@@ -245,6 +245,16 @@ declare namespace wx {
 	 * 下载图片接口
 	 */
 	function downloadImage(params: IdownloadImage): void;
+	
+	interface IgetLocalImgData extends BaseParams {
+		localId: string; // 图片的localID
+		// localData是图片的base64数据，可以用img标签显示
+		success(res: {localData: string}): void;
+	}
+	/**
+	 * 获取本地图片接口
+	 */
+	function getLocalImgData(params: IgetLocalImgData): void;
 	/*=============================图像接口================================*/
 	/*=============================音频接口================================*/
 	/**
