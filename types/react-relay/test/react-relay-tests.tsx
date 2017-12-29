@@ -1,9 +1,6 @@
 import * as React from "react";
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from "relay-runtime";
 
-////////////////////////////
-//  RELAY MODERN TESTS
-///////////////////////////
 import {
     graphql,
     commitMutation,
@@ -215,7 +212,7 @@ const FeedPaginationContainer = createPaginationContainer(
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Mutations
 // ~~~~~~~~~~~~~~~~~~~~~
-const mutation = graphql`
+export const mutation = graphql`
     mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
         markReadNotification(data: $input) {
             notification {
@@ -225,7 +222,7 @@ const mutation = graphql`
     }
 `;
 
-const optimisticResponse = {
+export const optimisticResponse = {
     markReadNotification: {
         notification: {
             seenState: "SEEN",
@@ -233,7 +230,7 @@ const optimisticResponse = {
     },
 };
 
-const configs = [
+export const configs = [
     {
         type: "NODE_DELETE" as "NODE_DELETE",
         deletedIDFieldName: "destroyedShipId",
@@ -325,150 +322,3 @@ requestSubscription(
         },
     }
 );
-
-////////////////////////////
-//  RELAY COMPAT TESTS
-///////////////////////////
-import {
-    QueryRenderer as CompatQueryRenderer,
-    createFragmentContainer as createFragmentContainerCompat,
-    commitMutation as commitMutationCompat,
-    CompatEnvironment,
-    RelayPaginationProp as RelayPaginationPropCompat,
-} from "react-relay/compat";
-
-// testting compat mutation with classic environment
-function markNotificationAsReadCompat(environment: CompatEnvironment, source: string, storyID: string) {
-    const variables = {
-        input: {
-            source,
-            storyID,
-        },
-    };
-
-    commitMutationCompat(environment, {
-        configs,
-        mutation,
-        optimisticResponse,
-        variables,
-        onCompleted: (response, errors) => {
-            console.log("Response received from server.");
-        },
-        onError: err => console.error(err),
-        updater: (store, data) => {
-            const field = store.get(storyID);
-            if (field) {
-                field.setValue(data.story, "story");
-            }
-        }
-    });
-}
-
-interface CompatProps {
-    relay: RelayPaginationPropCompat;
-}
-
-export class CompatComponent extends React.Component<CompatProps> {
-    markNotificationAsRead(source: string, storyID: string) {
-        markNotificationAsReadCompat(this.props.relay.environment, source, storyID);
-    }
-
-    render() {
-        return (<div/>);
-    }
-}
-
-const CompatContainer = createFragmentContainerCompat(CompatComponent, {});
-
-////////////////////////////
-//  RELAY-CLASSIC TESTS
-///////////////////////////
-import * as Relay from "react-relay/classic";
-
-interface Props {
-    text: string;
-    userId: string;
-}
-
-export default class AddTweetMutation extends Relay.Mutation<Props, {}> {
-    getMutation() {
-        return Relay.QL`mutation{addTweet}`;
-    }
-
-    getFatQuery() {
-        return Relay.QL`
-            fragment on AddTweetPayload {
-                tweetEdge
-                user
-            }
-        `;
-    }
-
-    getConfigs() {
-        return [
-            {
-                type: "RANGE_ADD",
-                parentName: "user",
-                parentID: this.props.userId,
-                connectionName: "tweets",
-                edgeName: "tweetEdge",
-                rangeBehaviors: {
-                    "": "append",
-                },
-            },
-        ];
-    }
-
-    getVariables() {
-        return this.props;
-    }
-}
-
-interface ArtwokRelayVariables {
-    artworkID: string;
-}
-
-interface ArtworkProps extends Relay.RelayProps<ArtwokRelayVariables> {
-    artwork: {
-        title: string;
-    };
-}
-
-class Artwork extends React.Component<ArtworkProps> {
-    render() {
-        return <a href={`/artworks/${this.props.relay.variables.artworkID}`}>{this.props.artwork.title}</a>;
-    }
-}
-
-const ArtworkContainer = Relay.createContainer(Artwork, {
-    fragments: {
-        artwork: () => Relay.QL`
-            fragment on Artwork {
-                title
-                ${ CompatContainer.getFragment('whatever') }
-            }
-        `,
-    },
-});
-
-class StubbedArtwork extends React.Component {
-    render() {
-        const props = {
-            artwork: { title: "CHAMPAGNE FORMICA FLAG" },
-            relay: {
-                route: {
-                    name: "champagne",
-                },
-                variables: {
-                    artworkID: "champagne-formica-flag",
-                },
-                setVariables: () => {},
-                forceFetch: () => {},
-                hasOptimisticUpdate: () => false,
-                getPendingTransactions: (): any => undefined,
-                commitUpdate: () => {},
-            },
-        };
-        return <ArtworkContainer {...props} />;
-    }
-}

@@ -1,12 +1,8 @@
-export {
-    QueryRenderer,
-    fetchQuery,
-    graphql,
-} from "./index";
+export { QueryRenderer, fetchQuery, graphql } from "./index";
 import {
     ConnectionConfig,
     RelayPaginationProp as RelayModernPaginationProp,
-    RelayRefetchProp as RelayModernRefetchProp
+    RelayRefetchProp as RelayModernRefetchProp,
 } from "./index";
 import * as RelayRuntimeTypes from "relay-runtime";
 import { RelayEnvironmentInterface } from "./classic";
