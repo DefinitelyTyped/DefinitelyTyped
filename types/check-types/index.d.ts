@@ -1,22 +1,19 @@
-// Type definitions for check-types 7.3.0
+// Type definitions for check-types 7.3
 // Project: https://github.com/philbooth/check-types.js
 // Definitions by: idchlife <https://github.com/idchlife>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// TypeScript Version: 2.2
 
 /**
  * If there is problems with types or something email me at idchlife@gmail.com
  * You also can mention me on github via @idchlife
  */
 
-declare type NegationFunction = {
-  (val: any): boolean;
-}
+type NegationFunction = (val: any) => boolean;
 
-declare type MaybeFunction = {
-  <T>(val: T): boolean | T;
-}
+type MaybeFunction = <T>(val: T) => boolean | T;
 
-declare type ArrayFunction = {
+interface ArrayFunction {
   (a: any): a is any[];
 
   // TODO: Maybe there is a way to create type guards for array type checks
@@ -28,7 +25,7 @@ declare type ArrayFunction = {
   };
 }
 
-declare type ArrayLikeFunction = {
+interface ArrayLikeFunction {
   (a: any): a is ArrayLike<any>;
 
   // See in array explanation of this type
@@ -37,7 +34,7 @@ declare type ArrayLikeFunction = {
   };
 }
 
-declare type IterableFunction = {
+interface IterableFunction {
   (a: any): a is Iterable<any>;
 
   // See in array explanation of this type
@@ -46,7 +43,7 @@ declare type IterableFunction = {
   };
 }
 
-declare type ObjectFunction = {
+interface ObjectFunction {
   (a: any): a is object;
 
   // See in array explanation of this type
@@ -55,11 +52,9 @@ declare type ObjectFunction = {
   };
 }
 
-declare type AssertFunction = {
-  <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }): T;
-} & CheckType;
+type AssertFunction = <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }) => T & CheckType;
 
-declare type CheckType = {
+interface CheckType {
   /* General predicates */
 
   equal(a: any, b: any): boolean;
@@ -137,10 +132,9 @@ declare type CheckType = {
 
   /* Function predicates */
 
-  function(a: any): a is Function;
+  function(a: any): a is (...args: any[]) => any;
 
   /* Modifiers (some of them in their respected sections) */
-  
   not: CheckType & NegationFunction;
   maybe: CheckType & MaybeFunction;
   assert: AssertFunction;
@@ -149,28 +143,24 @@ declare type CheckType = {
 
   /**
    * Applying predicate to every element of array and returning resulting array
-   * 
+   *
    * Example: apply([2, 3, "four"], check.number) => [true, true, false]
    */
   apply<T>(arr: any[], predicate: (...args: any[]) => T): T[];
 
   // Also some difficulties with returning object with only defined in predicates object propertis.
   // Will gladly accept help or ideas. Now using any for returned object
-  map<T extends { [k: string]: any | T }>(
+  map<T extends { [k: string]: any }>(
     arr: T,
     predicates: Partial<{ [k in keyof T]: (...args: any[]) => boolean }>
   ): Partial<{ [k in keyof T]: any }>;
 
   // Pretty much the same difficulties as with ArrayFunction. Can't return nested type guards I guess.
-  all<T>(arr: any[], predicate: (...args: any[]) => T ): arr is T[];
+  all<T>(arr: any[], predicate: (...args: any[]) => T): arr is T[];
 
   any(arr: boolean[]): boolean;
 }
 
-declare const mainObject: CheckType;
+declare const check: CheckType;
 
-
-
-declare module "check-types" {
-  export = mainObject;
-}
+export = check;
