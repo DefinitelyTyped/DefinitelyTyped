@@ -907,6 +907,12 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "ServiceStack Utils",
+            "typingsPackageName": "ss-utils",
+            "sourceRepoURL": "https://servicestack.net/",
+            "asOfVersion": "0.1.5"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "sourceRepoURL": "https://github.com/ericnorris/striptags",
