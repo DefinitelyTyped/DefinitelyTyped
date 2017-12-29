@@ -1,16 +1,6 @@
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import { module } from 'qunit';
-import {
-    test,
-    skip,
-    moduleFor,
-    moduleForModel,
-    moduleForComponent,
-    setResolver,
-    setupRenderingTest,
-    setupTest,
-} from 'ember-qunit';
+import { test, skip, moduleFor, moduleForModel, moduleForComponent, setResolver } from 'ember-qunit';
 
 moduleForComponent('x-foo', {
     integration: true
@@ -115,25 +105,3 @@ test('It can calculate the result', function(assert) {
 skip('disabled test');
 
 skip('disabled test', function(assert) { });
-
-// https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md#qunit-nested-modules-api
-QUnit.module('some description', function(hooks) {
-  hooks.before(() => {});
-  hooks.beforeEach(() => {});
-  hooks.afterEach(() => {});
-  hooks.after(() => {});
-
-  QUnit.test('it blends', function(assert) {
-    assert.ok(true, 'of course!');
-  });
-});
-
-// http://rwjblue.com/2017/10/23/ember-qunit-simplication/#setuprenderingtest
-module('x-foo', function(hooks) {
-    setupRenderingTest(hooks);
-});
-
-// http://rwjblue.com/2017/10/23/ember-qunit-simplication/#setuptest
-module('foo service', function(hooks) {
-    setupTest(hooks);
-});
