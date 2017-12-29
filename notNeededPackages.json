@@ -79,6 +79,12 @@
             "asOfVersion": "0.4.0"
         },
         {
+            "libraryName": "asyncblock",
+            "typingsPackageName": "asyncblock",
+            "sourceRepoURL": "https://github.com/scriby/asyncblock",
+            "asOfVersion": "2.2.11"
+        },
+        {
             "libraryName": "aurelia-knockout",
             "typingsPackageName": "aurelia-knockout",
             "sourceRepoURL": "https://github.com/code-chris/aurelia-knockout",
