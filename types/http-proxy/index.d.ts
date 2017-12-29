@@ -163,7 +163,7 @@ declare class Server extends events.EventEmitter {
 
 declare namespace Server {
   interface ServerOptions {
-    /**  */
+    /** Buffer */
     buffer?: stream.Stream;
     /** URL string to be parsed with the url module. */
     target?: string;
