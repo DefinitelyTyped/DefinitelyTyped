@@ -313,6 +313,12 @@
             "asOfVersion": "5.14.0"
         },
         {
+            "libraryName": "Firebase API",
+            "typingsPackageName": "firebase",
+            "sourceRepoURL": "https://www.firebase.com/docs/javascript/firebase",
+            "asOfVersion": "3.2.1"
+        },
+        {
             "libraryName": "flatpickr",
             "typingsPackageName": "flatpickr",
             "sourceRepoURL": "https://github.com/chmln/flatpickr",
