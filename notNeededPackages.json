@@ -883,6 +883,12 @@
             "asOfVersion": "0.10.5"
         },
         {
+            "libraryName": "redux-saga-routines",
+            "typingsPackageName": "redux-saga-routines",
+            "sourceRepoURL": "https://github.com/afitiskin/redux-saga-routines#readme",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "Redux Thunk",
             "typingsPackageName": "redux-thunk",
             "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
