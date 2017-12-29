@@ -1639,7 +1639,7 @@ declare module "ember-data" {
                 hash: {},
                 typeClass: Model,
                 snapshot: Snapshot,
-                options: {}
+                options?: {}
             ): any;
             /**
              * `serializeAttribute` can be used to customize how `DS.attr`
@@ -1772,7 +1772,7 @@ declare module "ember-data" {
                 hash: {},
                 typeClass: Model,
                 snapshot: Snapshot,
-                options: {}
+                options?: {}
             ): any;
             /**
              * You can use `payloadKeyFromModelName` to override the root key for an outgoing
