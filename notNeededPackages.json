@@ -859,6 +859,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "should.js",
+            "typingsPackageName": "should",
+            "sourceRepoURL": "https://github.com/shouldjs/should.js",
+            "asOfVersion": "13.0.0"
+        },
+        {
             "libraryName": "SimpleSignal",
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
