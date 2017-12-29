@@ -535,6 +535,12 @@
             "asOfVersion": "0.7.1"
         },
         {
+            "libraryName": "koa-jwt",
+            "typingsPackageName": "koa-jwt",
+            "sourceRepoURL": "https://github.com/koajs/jwt",
+            "asOfVersion": "3.2.2"
+        },
+        {
             "libraryName": "lambda-phi",
             "typingsPackageName": "lambda-phi",
             "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
