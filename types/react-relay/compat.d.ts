@@ -26,7 +26,6 @@ export interface StatelessWithFragment<T> extends React.StatelessComponent<T> {
     getFragment: typeof getFragment;
 }
 export type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWithFragment<T>;
-export type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 export type RelayClassicEnvironment = RelayEnvironmentInterface;
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -64,18 +63,18 @@ export interface GeneratedNodeMap {
 }
 
 export function createFragmentContainer<T>(
-    Component: ReactBaseComponent<T>,
+    Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
 ): ReactFragmentComponent<T>;
 
 export function createRefetchContainer<T>(
-    Component: ReactBaseComponent<T>,
+    Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
 ): ReactFragmentComponent<T>;
 
 export function createPaginationContainer<T>(
-    Component: ReactBaseComponent<T>,
+    Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<T>
 ): ReactFragmentComponent<T>;
