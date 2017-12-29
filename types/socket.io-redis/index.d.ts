@@ -125,6 +125,12 @@ declare namespace SocketIORedis {
 		clients(rooms: string[], callback: (err: any, clients: string[]) => void) : void;
 
 		/**
+		 * clients returns the list of client IDs connected to rooms across all nodes.
+		 * @param {(err?: any, clients: string[]) => void} callback
+		 */
+		clients(callback: (err: any, clients: string[]) => void) : void;
+
+		/**
 		 * clientRooms returns the list of rooms the client with the given ID has joined 
 		 * (even on another node).
 		 * @param {string} id 
