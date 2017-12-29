@@ -15,6 +15,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "check-types-tests.ts"
   ]
 }
