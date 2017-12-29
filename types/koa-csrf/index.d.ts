@@ -2,6 +2,7 @@
 // Project: https://github.com/koajs/csrf
 // Definitions by: Haskaalo <https://github.com/haskaalo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 import * as koaCsrf from 'koa-csrf';
