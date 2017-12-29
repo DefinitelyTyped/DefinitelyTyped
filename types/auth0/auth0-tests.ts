@@ -120,3 +120,14 @@ management.getUsersByEmail('email@address.com', (err, users) => {
 management.getUsersByEmail('email@address.com').then((users) => {
   console.log(users);
 });
+
+// Using different client settings.
+
+const retryableManagementClient = new auth0.ManagementClient({
+  clientId: '',
+  clientSecret: '',
+  domain: 'xxx.auth0.com',
+  retry: {
+    enabled : true
+  }
+});

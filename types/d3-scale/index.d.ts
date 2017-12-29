@@ -152,7 +152,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -664,7 +664,7 @@ export interface ScaleIdentity {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -1231,7 +1231,7 @@ export interface ScaleQuantize<Range> {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 

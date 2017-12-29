@@ -43,10 +43,22 @@
             "asOfVersion": "0.6.46"
         },
         {
+            "libraryName": "anydb-sql-migrations",
+            "typingsPackageName": "anydb-sql-migrations",
+            "sourceRepoURL": "https://github.com/spion/anydb-sql-migrations",
+            "asOfVersion": "2.1.1"
+        },
+        {
             "libraryName": "apn",
             "typingsPackageName": "apn",
             "sourceRepoURL": "https://github.com/node-apn/node-apn",
             "asOfVersion": "2.1.2"
+        },
+        {
+            "libraryName": "Application Insights",
+            "typingsPackageName": "applicationinsights",
+            "sourceRepoURL": "https://github.com/Microsoft/ApplicationInsights-node.js",
+            "asOfVersion": "0.20.0"
         },
         {
             "libraryName": "Argon2",
@@ -55,10 +67,22 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "artyom.js",
+            "typingsPackageName": "artyom.js",
+            "sourceRepoURL": "https://github.com/sdkcarlos/artyom.js",
+            "asOfVersion": "1.0.3"
+        },
+        {
             "libraryName": "askmethat-rating",
             "typingsPackageName": "askmethat-rating",
             "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
             "asOfVersion": "0.4.0"
+        },
+        {
+            "libraryName": "asyncblock",
+            "typingsPackageName": "asyncblock",
+            "sourceRepoURL": "https://github.com/scriby/asyncblock",
+            "asOfVersion": "2.2.11"
         },
         {
             "libraryName": "aurelia-knockout",
@@ -115,6 +139,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "better-scroll",
+            "typingsPackageName": "better-scroll",
+            "sourceRepoURL": "https://github.com/ustbhuangyi/better-scroll",
+            "asOfVersion": "1.5.0"
+        },
+        {
             "libraryName": "BigInteger.js",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
@@ -131,6 +161,12 @@
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "CacheFactory",
+            "typingsPackageName": "cachefactory",
+            "sourceRepoURL": "https://github.com/jmdobry/CacheFactory",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "camel-case",
@@ -169,6 +205,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "confirmdialog",
+            "typingsPackageName": "confirmdialog",
+            "sourceRepoURL": "https://github.com/allipierre/Type-definitions-for-jquery-confirm/tree/master/types/confirmDialog-js",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
@@ -185,6 +227,12 @@
             "typingsPackageName": "date-fns",
             "sourceRepoURL": "https://github.com/date-fns/date-fns",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "decimal.js",
+            "typingsPackageName": "decimal.js",
+            "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
+            "asOfVersion": "7.4.0"
         },
         {
             "libraryName": "DevExtreme",
@@ -217,10 +265,22 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "EasyStar.js",
+            "typingsPackageName": "easystarjs",
+            "sourceRepoURL": "http://easystarjs.com/",
+            "asOfVersion": "0.3.1"
+        },
+        {
             "libraryName": "ecmarkup",
             "typingsPackageName": "ecmarkup",
             "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
             "asOfVersion": "3.4.0"
+        },
+        {
+            "libraryName": "Egg",
+            "typingsPackageName": "egg",
+            "sourceRepoURL": "https://github.com/eggjs/egg",
+            "asOfVersion": "1.5.0"
         },
         {
             "libraryName": "electron",
@@ -235,10 +295,22 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "email-validator",
+            "typingsPackageName": "email-validator",
+            "sourceRepoURL": "https://github.com/Sembiance/email-validator",
+            "asOfVersion": "1.0.6"
+        },
+        {
             "libraryName": "error-stack-parser",
             "typingsPackageName": "error-stack-parser",
             "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "es6-error",
+            "typingsPackageName": "es6-error",
+            "sourceRepoURL": "https://github.com/bjyoungblood/es6-error",
+            "asOfVersion": "4.0.2"
         },
         {
             "libraryName": "eventemitter2",
@@ -289,6 +361,12 @@
             "asOfVersion": "5.14.0"
         },
         {
+            "libraryName": "Firebase API",
+            "typingsPackageName": "firebase",
+            "sourceRepoURL": "https://www.firebase.com/docs/javascript/firebase",
+            "asOfVersion": "3.2.1"
+        },
+        {
             "libraryName": "flatpickr",
             "typingsPackageName": "flatpickr",
             "sourceRepoURL": "https://github.com/chmln/flatpickr",
@@ -307,10 +385,22 @@
             "asOfVersion": "0.0.0"
         },
         {
+            "libraryName": "geolib",
+            "typingsPackageName": "geolib",
+            "sourceRepoURL": "https://github.com/manuelbieh/Geolib",
+            "asOfVersion": "2.0.23"
+        },
+        {
             "libraryName": "github",
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
             "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "graphene-pk11",
+            "typingsPackageName": "graphene-pk11",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
+            "asOfVersion": "2.0.31"
         },
         {
             "libraryName": "gulp-typescript",
@@ -385,6 +475,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "is-plain-object",
+            "typingsPackageName": "is-plain-object",
+            "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
+            "asOfVersion": "2.0.4"
+        },
+        {
             "libraryName": "is-upper-case",
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
@@ -412,6 +508,12 @@
             "libraryName": "js-data",
             "typingsPackageName": "js-data",
             "sourceRepoURL": "https://github.com/js-data/js-data",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "JSData Http Adapter",
+            "typingsPackageName": "js-data-http",
+            "sourceRepoURL": "https://github.com/js-data/js-data-http",
             "asOfVersion": "3.0.0"
         },
         {
@@ -449,6 +551,12 @@
             "typingsPackageName": "knockout-pre-rendered",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-pre-rendered",
             "asOfVersion": "0.7.1"
+        },
+        {
+            "libraryName": "koa-jwt",
+            "typingsPackageName": "koa-jwt",
+            "sourceRepoURL": "https://github.com/koajs/jwt",
+            "asOfVersion": "3.2.2"
         },
         {
             "libraryName": "lambda-phi",
@@ -493,6 +601,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "log4javascript",
+            "typingsPackageName": "log4javascript",
+            "sourceRepoURL": "http://log4javascript.org/",
+            "asOfVersion": "1.4.15"
+        },
+        {
             "libraryName": "log4js",
             "typingsPackageName": "log4js",
             "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
@@ -523,6 +637,12 @@
             "asOfVersion": "0.8.1"
         },
         {
+            "libraryName": "metisMenu",
+            "typingsPackageName": "metismenu",
+            "sourceRepoURL": "https://github.com/onokumus/metisMenu",
+            "asOfVersion": "2.7.1"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
@@ -539,6 +659,12 @@
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "Monk",
+            "typingsPackageName": "monk",
+            "sourceRepoURL": "https://github.com/LearnBoost/monk.git",
+            "asOfVersion": "6.0.0"
         },
         {
             "libraryName": "MQTT",
@@ -655,6 +781,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "ProtoBuf.js",
+            "typingsPackageName": "protobufjs",
+            "sourceRepoURL": "https://github.com/dcodeIO/ProtoBuf.js",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "Protractor",
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
@@ -665,6 +797,12 @@
             "typingsPackageName": "qiniu",
             "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
             "asOfVersion": "7.0.1"
+        },
+        {
+            "libraryName": "qrcode-generator",
+            "typingsPackageName": "qrcode-generator",
+            "sourceRepoURL": "https://github.com/kazuhikoarase/qrcode-generator",
+            "asOfVersion": "1.0.6"
         },
         {
             "libraryName": "Raven JS",
@@ -679,10 +817,22 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-chartjs-2",
+            "typingsPackageName": "react-chartjs-2",
+            "sourceRepoURL": "https://github.com/gor181/react-chartjs-2",
+            "asOfVersion": "2.5.7"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
             "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "react-ga",
+            "typingsPackageName": "react-ga",
+            "sourceRepoURL": "https://github.com/react-ga/react-ga",
+            "asOfVersion": "2.3.0"
         },
         {
             "libraryName": "react-native-elements",
@@ -751,10 +901,22 @@
             "asOfVersion": "0.10.5"
         },
         {
+            "libraryName": "redux-saga-routines",
+            "typingsPackageName": "redux-saga-routines",
+            "sourceRepoURL": "https://github.com/afitiskin/redux-saga-routines#readme",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "Redux Thunk",
             "typingsPackageName": "redux-thunk",
             "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "reflect-metadata",
+            "typingsPackageName": "reflect-metadata",
+            "sourceRepoURL": "https://github.com/rbuckton/ReflectDecorators",
+            "asOfVersion": "0.1.0"
         },
         {
             "libraryName": "reselect",
@@ -779,6 +941,12 @@
             "typingsPackageName": "router5",
             "sourceRepoURL": "https://github.com/router5/router5",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "rvo2",
+            "typingsPackageName": "rvo2",
+            "sourceRepoURL": "https://github.com/TNOCS/rvo2",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "samchon",
@@ -817,10 +985,22 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "sharp-timer",
+            "typingsPackageName": "sharp-timer",
+            "sourceRepoURL": "https://github.com/afractal/SharpTimer",
+            "asOfVersion": "0.1.3"
+        },
+        {
             "libraryName": "Shopify Prime",
             "typingsPackageName": "shopify-prime",
             "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "should.js",
+            "typingsPackageName": "should",
+            "sourceRepoURL": "https://github.com/shouldjs/should.js",
+            "asOfVersion": "13.0.0"
         },
         {
             "libraryName": "SimpleSignal",
@@ -829,10 +1009,22 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "Smoothie Charts",
+            "typingsPackageName": "smoothie",
+            "sourceRepoURL": "https://github.com/joewalnes/smoothie",
+            "asOfVersion": "1.29.1"
+        },
+        {
             "libraryName": "snake-case",
             "typingsPackageName": "snake-case",
             "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "soap",
+            "typingsPackageName": "soap",
+            "sourceRepoURL": "https://www.npmjs.com/package/soap",
+            "asOfVersion": "0.21.0"
         },
         {
             "libraryName": "Spin.js",
@@ -847,6 +1039,12 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "ServiceStack Utils",
+            "typingsPackageName": "ss-utils",
+            "sourceRepoURL": "https://servicestack.net/",
+            "asOfVersion": "0.1.5"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "sourceRepoURL": "https://github.com/ericnorris/striptags",
@@ -857,6 +1055,12 @@
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "svg-pan-zoom",
+            "typingsPackageName": "svg-pan-zoom",
+            "sourceRepoURL": "https://github.com/ariutta/svg-pan-zoom",
+            "asOfVersion": "3.4.0"
         },
         {
             "libraryName": "svg.js",
@@ -871,6 +1075,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "SweetAlert",
+            "typingsPackageName": "sweetalert",
+            "sourceRepoURL": "https://github.com/t4t5/sweetalert/",
+            "asOfVersion": "2.0.4"
+        },
+        {
             "libraryName": "Tabris.js",
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
@@ -881,6 +1091,12 @@
             "typingsPackageName": "tcomb",
             "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "timezonecomplete",
+            "typingsPackageName": "timezonecomplete",
+            "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
+            "asOfVersion": "5.5.0"
         },
         {
             "libraryName": "title-case",
@@ -919,6 +1135,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+            "typingsPackageName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+            "sourceRepoURL": "https://github.com/dpa99c/phonegap-launch-navigator",
+            "asOfVersion": "3.2.2"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
@@ -949,6 +1171,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "vue-i18n",
+            "typingsPackageName": "vue-i18n",
+            "sourceRepoURL": "https://github.com/kazupon/vue-i18n",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "vue-router",
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
@@ -961,10 +1189,28 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "wonder-commonlib",
+            "typingsPackageName": "wonder-commonlib",
+            "sourceRepoURL": "https://github.com/yyc-git/Wonder-CommonLib",
+            "asOfVersion": "0.1.12"
+        },
+        {
+            "libraryName": "wonder-frp",
+            "typingsPackageName": "wonder-frp",
+            "sourceRepoURL": "https://github.com/yyc-git/Wonder-FRP",
+            "asOfVersion": "0.1.25"
+        },
+        {
             "libraryName": "x2js",
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xadesjs",
+            "typingsPackageName": "xadesjs",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/xadesjs",
+            "asOfVersion": "2.0.2"
         },
         {
             "libraryName": "xlsx",
