@@ -1,4 +1,4 @@
-import * as isNegatedGlob from 'is-negated-glob';
+import isNegatedGlob = require('is-negated-glob');
 
 const result = isNegatedGlob('!foo.*');
 const negated: boolean = result.negated;
