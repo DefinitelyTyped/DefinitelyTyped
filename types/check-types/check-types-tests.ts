@@ -34,3 +34,24 @@ check.any(
       check.string
   )
 );
+
+check.any(
+  check.map(
+    { foo: 0, bar: '' },
+    { foo: check.number, bar: check.string }
+  )
+);
+
+check.all(
+  check.map(
+      { foo: 0, bar: '' },
+      { foo: check.number, bar: check.string }
+  )
+);
+
+check.all(
+  check.apply(
+    [ 1, 2, 3, '' ],
+    check.string
+  )
+);

@@ -152,10 +152,9 @@ interface CheckType {
     predicates: Partial<{ [k in keyof T]: (...args: any[]) => boolean }>
   ): Partial<{ [k in keyof T]: any }>;
 
-  // Pretty much the same difficulties as with ArrayFunction. Can't return nested type guards I guess.
-  all<T>(arr: any[], predicate: (...args: any[]) => T): arr is T[];
+  all(arr: boolean[] | { [k: string]: boolean }): boolean;
 
-  any(arr: boolean[]): boolean;
+  any(arr: boolean[] | { [k: string]: boolean }): boolean;
 }
 
 declare const check: CheckType;
