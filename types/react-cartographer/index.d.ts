@@ -3,7 +3,6 @@
 // Definitions by: Tre`Von McKay <https://github.com/trevonmckay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-
 import Map from './lib/components/Map';
 
 export {
