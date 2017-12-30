@@ -1,24 +1,24 @@
 // Instantiation
-var globalInstance: Chance.Chance = chance;
-var createYourOwn = new Chance(Math.random);
+let globalInstance: Chance.Chance = chance;
+let createYourOwn = new Chance(Math.random);
 
 // Basic usage
-var randBool: boolean = chance.bool();
+let randBool: boolean = chance.bool();
 
-var birthday: Date = chance.birthday();
-var birthdayStr: Date | string = chance.birthday({ string: true });
+let birthday: Date = chance.birthday();
+let birthdayStr: Date | string = chance.birthday({ string: true });
 
-var guid = chance.guid();
-var guid = chance.guid({ version: 4 });
-var guid = chance.guid({ version: 5 });
+let guid = chance.guid();
+guid = chance.guid({ version: 4 });
+guid = chance.guid({ version: 5 });
 
-var strArr: string[] = chance.n(chance.string, 42);
+let strArr: string[] = chance.n(chance.string, 42);
 
-var uniqInts: number[] = chance.unique(chance.integer, 99);
+let uniqInts: number[] = chance.unique(chance.integer, 99);
 
-var currencyPair = chance.currency_pair();
-var firstCurrency = currencyPair[0];
-var secondCurrency = currencyPair[1];
+let currencyPair = chance.currency_pair();
+let firstCurrency = currencyPair[0];
+let secondCurrency = currencyPair[1];
 
 // Mixins can be used with on-the-fly type declaration
 declare namespace Chance {
@@ -28,15 +28,15 @@ declare namespace Chance {
 }
 
 chance.mixin({
-    time: function() {
-        var h = chance.hour({ twentyfour: true }),
-            m = chance.minute();
+    time() {
+        const h = chance.hour({ twentyfour: true });
+        const m = chance.minute();
         return `${h}:${m}`;
     },
 });
 
-var timeString: string = chance.time();
+let timeString: string = chance.time();
 
-var chanceConstructedWithSeed100 = new Chance(100);
-var chanceCalledWithSeed100 = Chance();
-var chanceConstructedWithStringSeed = new Chance("test");
+let chanceConstructedWithSeed100 = new Chance(100);
+let chanceCalledWithSeed100 = Chance();
+let chanceConstructedWithStringSeed = new Chance("test");
