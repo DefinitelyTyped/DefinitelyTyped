@@ -266,15 +266,15 @@ declare module 'luxon' {
             timezones: boolean;
         };
 
-        class Info {
-            static eras(length?: EraLength, options?: InfoOptions): string[];
-            static features(): Features;
-            static hasDST(zone: string | Zone): boolean;
-            static meridiems(options?: InfoOptions): string[];
-            static months(length?: UnitLength, options?: UnitOptions): string[];
-            static monthsFormat(length?: UnitLength, options?: UnitOptions): string[];
-            static weekdays(length?: UnitLength, options?: UnitOptions): string[];
-            static weekdaysFormat(
+        namespace Info {
+            function eras(length?: EraLength, options?: InfoOptions): string[];
+            function features(): Features;
+            function hasDST(zone: string | Zone): boolean;
+            function meridiems(options?: InfoOptions): string[];
+            function months(length?: UnitLength, options?: UnitOptions): string[];
+            function monthsFormat(length?: UnitLength, options?: UnitOptions): string[];
+            function weekdays(length?: UnitLength, options?: UnitOptions): string[];
+            function weekdaysFormat(
                 length?: UnitLength,
                 options?: UnitOptions
             ): string[];
@@ -339,15 +339,15 @@ declare module 'luxon' {
             union(other: Interval): Interval;
         }
 
-        class Settings {
-            static defaultLocale: string;
-            static defaultNumberingSystem: string;
-            static defaultOutputCalendar: string;
-            static readonly defaultZone: Zone;
-            static defaultZoneName: string;
-            static throwOnInvalid: boolean;
-            static now: () => number;
-            static resetCache(): void;
+        namespace Settings {
+            let defaultLocale: string;
+            let defaultNumberingSystem: string;
+            let defaultOutputCalendar: string;
+            const defaultZone: Zone;
+            let defaultZoneName: string;
+            let throwOnInvalid: boolean;
+            let now: () => number;
+            function resetCache(): void;
         }
 
         type ZoneOffsetOptions = {
