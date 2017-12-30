@@ -1,4 +1,4 @@
-import * as koaCsrf from 'koa-csrf';
+import koaCsrf = require("koa-csrf");
 import * as Koa from "koa";
 const app = new Koa();
 
