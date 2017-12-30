@@ -7,9 +7,18 @@ This package contains type definitions for zipcodes (https://github.com/davglass
 # Usage
 
 ```typescript
-import * as zipcodes from 'zipcodes'
+import { ZipCode, ZipCodes } from 'zipcodes';
 
-zipcodes.lookupByState('CA'); // returns a ZipCode[]
+const beverlyHills : ZipCode = {
+    zip: '90210',
+    latitude: 34.088808,
+    longitude: -118.406125,
+    city: 'Beverly Hills',
+    state: 'CA',
+    country: 'US'
+};
+
+ZipCodes.lookupByState('CA'); // returns a ZipCode[]
 ```
 # Details
 Files were exported from https://www.github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/zipcodes
