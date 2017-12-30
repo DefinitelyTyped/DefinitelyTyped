@@ -4,11 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 // TypeScript Version: 2.2
 
-/**
- * If there is problems with types or something email me at idchlife@gmail.com
- * You also can mention me on github via @idchlife
- */
-
 type NegationFunction = (val: any) => boolean;
 
 type MaybeFunction = <T>(val: T) => boolean | T;
