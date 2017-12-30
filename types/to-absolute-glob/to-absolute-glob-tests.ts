@@ -1,4 +1,4 @@
-import * as toAbsoluteGlob from 'to-absolute-glob';
+import toAbsoluteGlob = require('to-absolute-glob');
 
 let result: string = toAbsoluteGlob('foo.*');
 result = toAbsoluteGlob('/foo.*', {root: '/bar'});
