@@ -26,7 +26,7 @@ player.on("ready", (data) => {
 
 player.getCurrentState().then((playbackState) => {
     if (playbackState) {
-        let { current_track, next_tracks } = playbackState.track_window;
+        const { current_track, next_tracks } = playbackState.track_window;
 
         console.log("Currently Playing", current_track);
         console.log("Playing Next", next_tracks[0]);
@@ -36,7 +36,7 @@ player.getCurrentState().then((playbackState) => {
 });
 
 player.getVolume().then((volume) => {
-    let volume_percentage = (volume * 100);
+    const volume_percentage = (volume * 100);
     console.log(`The volume of the player is ${volume_percentage}%`);
 });
 
@@ -69,13 +69,13 @@ player.nextTrack().then(() => {
 });
 
 player.on("ready", (data) => {
-    let { device_id } = data;
+    const { device_id } = data;
     console.log("Connected with Device ID", device_id);
 });
 
 player.on("player_state_changed", (playbackState) => {
-    let { position, duration } = playbackState;
-    let { current_track } = playbackState.track_window;
+    const { position, duration } = playbackState;
+    const { current_track } = playbackState.track_window;
 
     console.log("Currently Playing", current_track);
     console.log("Position in Song", position);
