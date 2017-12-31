@@ -58,6 +58,24 @@ export interface SelectData {
     event: "select";
 }
 
+interface OnDragStartData { 
+    event: Event, 
+    node: TreeNode 
+}
+
+interface OnDragEnterData {
+    event: Event;
+    node: TreeNode;
+    expandedKeys: string[];
+}
+
+interface OnDropData {
+    event: Event;
+    node: TreeNode;
+    dragNode: TreeNode;
+    dragNodesKeys: string[];
+}
+
 export interface TreeProps extends Props<Tree> {
     /**
      * additional css class of root dom node
@@ -149,12 +167,18 @@ export interface TreeProps extends Props<Tree> {
      * whether can drag treeNode.
      */
     draggable?: boolean;
-    /* 
-    * On Drag Start Called
+    /**
+     * Event on Drag Start
     */
-    onDragStart?: Function;
-    onDragEnter?: Function;
-    onDrop?: Function;
+    onDragStart?: (props: OnDragStartData) => void;
+    /**
+     * Event on Drag Enter
+    */
+    onDragEnter?: (props: OnDragEnterData) => void;
+    /**
+     * Event on Drag Drop
+    */
+    onDrop?: (props: OnDropData) => void;
 }
 
 export default class Tree extends Component<TreeProps> { }
