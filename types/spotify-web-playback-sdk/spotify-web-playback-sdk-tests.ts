@@ -14,7 +14,7 @@ const player = new Spotify.Player({
 
 player.connect().then((success) => {
     if (success) {
-        console.log("The Web Playback SDK successfully connected to Spotify!")
+        console.log("The Web Playback SDK successfully connected to Spotify!");
     }
 });
 
