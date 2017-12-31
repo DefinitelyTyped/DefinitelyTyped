@@ -1,4 +1,4 @@
-// Type definitions for CodeMirror
+﻿// Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
@@ -781,6 +781,9 @@ declare namespace CodeMirror {
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
         gutters?: string[];
+
+        /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
+        foldGutter?: boolean;
 
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
