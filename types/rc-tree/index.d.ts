@@ -58,18 +58,18 @@ export interface SelectData {
     event: "select";
 }
 
-interface OnDragStartData { 
+export interface OnDragStartData {
     event: Event;
     node: TreeNode;
 }
 
-interface OnDragEnterData {
+export interface OnDragEnterData {
     event: Event;
     node: TreeNode;
     expandedKeys: string[];
 }
 
-interface OnDropData {
+export interface OnDropData {
     event: Event;
     node: TreeNode;
     dragNode: TreeNode;
