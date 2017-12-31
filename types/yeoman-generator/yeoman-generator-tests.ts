@@ -1,5 +1,5 @@
 import Base = require('yeoman-generator');
-import { Questions, Answers } from 'inquirer';
+import { Questions, Answers } from 'yeoman-generator';
 import { EventEmitter } from 'events';
 
 class MyES2015Generator extends Base {}
@@ -111,6 +111,7 @@ generator.option('opt4', {
 const optionsHelp: string = generator.optionsHelp();
 
 const answers: Promise<Answers> = generator.prompt([] as Questions);
+const answers2: Promise<Answers> = generator.prompt([{store: true}] as Questions);
 
 generator.registerTransformStream([]);
 

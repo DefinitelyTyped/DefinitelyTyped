@@ -7,11 +7,20 @@
 // TypeScript Version: 2.2
 
 import { EventEmitter } from 'events';
-import { Questions, Answers } from 'inquirer';
+import * as inquirer from 'inquirer';
 
 type Callback = (err: any) => void;
 
 declare namespace Base {
+    interface Question extends inquirer.Question {
+        /**
+         * whether to store the user's previous answer
+         */
+        store: boolean;
+    }
+    type Questions = Question | Question[] | Rx.Observable<Question>;
+    type Answers = inquirer.Answers;
+
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
 
@@ -91,7 +100,7 @@ declare class Base extends EventEmitter {
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
     option(name: string, config: Base.OptionConfig): this;
-    prompt(questions: Questions): Promise<Answers>;
+    prompt(questions: Base.Questions): Promise<Base.Answers>;
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
