@@ -168,15 +168,15 @@ export interface TreeProps extends Props<Tree> {
      */
     draggable?: boolean;
     /**
-     * Event on Drag Start
+     * event on drag start
      */
     onDragStart?: (props: OnDragStartData) => void;
     /**
-     * Event on Drag Enter
+     * event on drag enter
      */
     onDragEnter?: (props: OnDragEnterData) => void;
     /**
-     * Event on Drag Drop
+     * event on drag drop
      */
     onDrop?: (props: OnDropData) => void;
 }
