@@ -510,7 +510,7 @@ declare namespace NodeJS {
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
-    type SignalsListener = () => void;
+    type SignalsListener = (signal: Signals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
 
