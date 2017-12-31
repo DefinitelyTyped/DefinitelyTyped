@@ -8,7 +8,7 @@ interface Window {
 }
 
 declare namespace Spotify {
-    const Player: SpotifyPlayer;
+    const Player: typeof SpotifyPlayer;
 
     interface Album {
         uri: string;
@@ -86,8 +86,8 @@ declare namespace Spotify {
         FULL_REPEAT = 2,
     }
 
-    interface SpotifyPlayer {
-        new(options: PlayerInit): this;
+    class SpotifyPlayer {
+        constructor(options: PlayerInit);
 
         connect(): Promise<boolean>;
         disconnect(): void;
