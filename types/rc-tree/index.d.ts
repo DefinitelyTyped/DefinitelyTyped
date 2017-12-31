@@ -149,6 +149,12 @@ export interface TreeProps extends Props<Tree> {
      * whether can drag treeNode.
      */
     draggable?: boolean;
+    /* 
+    * On Drag Start Called
+    */
+    onDragStart?: Function;
+    onDragEnter?: Function;
+    onDrop?: Function;
 }
 
 export default class Tree extends Component<TreeProps> { }
