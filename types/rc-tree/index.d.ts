@@ -59,8 +59,8 @@ export interface SelectData {
 }
 
 interface OnDragStartData { 
-    event: Event, 
-    node: TreeNode 
+    event: Event;
+    node: TreeNode;
 }
 
 interface OnDragEnterData {
