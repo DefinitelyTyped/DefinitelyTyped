@@ -3,6 +3,10 @@
 // Definitions by: Festify Dev Team <mail@festify.rocks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Window {
+    onSpotifyWebPlaybackSDKReady(): void;
+}
+
 declare namespace Spotify {
     const Player: SpotifyPlayer;
 
