@@ -87,7 +87,7 @@ export class Demo extends React.Component<Props, State> {
                 defaultCheckedKeys={this.state.defaultCheckedKeys}
                 onSelect={this.onSelect} onCheck={this.onCheck}
                 onDragStart={this.onDragStart} OnDragEnterData={this.OnDragEnterData}
-                OnDragEnterData={this.OnDragEnterData}
+                OnDropData={this.OnDropData}
             >
                 <TreeNode title="parent 1" key="0-0">
                     <TreeNode title={customLabel} key="0-0-0">
