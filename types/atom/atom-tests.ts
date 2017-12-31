@@ -3102,7 +3102,9 @@ function testWorkspace() {
 
     obj = atom.workspace.createItemForURI("https://test");
 
-    bool = atom.workspace.isTextEditor(obj);
+    if (atom.workspace.isTextEditor(obj)) {
+      const textEditor: Atom.TextEditor = obj;
+    }
 
     async function workspaceReopen() {
         const result = await atom.workspace.reopenItem();

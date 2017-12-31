@@ -2697,7 +2697,7 @@ export interface Workspace {
     createItemForURI(uri: string): Promise<object|TextEditor>;
 
     /** Returns a boolean that is true if object is a TextEditor. */
-    isTextEditor(object: object): boolean;
+    isTextEditor(object: object): object is TextEditor;
 
     /**
      *  Asynchronously reopens the last-closed item's URI if it hasn't already
