@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Tree, { TreeNode, SelectData, CheckData } from 'rc-tree';
+import { TreeNode as TreeNodeInterface } from './index.d.ts';
 
 interface Props {
     keys: string[];
@@ -43,6 +44,18 @@ export class Demo extends React.Component<Props, State> {
     onCheck(checkedKeys: string[], info: CheckData) {
         console.log('onCheck', checkedKeys, info);
     }
+    
+    onDragStart(params: {event: Event, node: TreeNodeInterface}) {
+        console.log('onDragStart', params.event, params.node);
+    }
+    
+    OnDragEnterData(params: {event: Event, node: TreeNodeInterface, expandedKeys: string[]}) {
+        console.log('OnDragEnterData', params.event, params.node, params.expandedKeys);
+    }
+    
+    OnDropData(params: {event: Event, node: TreeNode, dragNode: TreeNode, dragNodesKeys: string[]}) {
+        console.log('OnDropData', params.event, params.node, params.dragNode, params.dragNodesKeys);
+    }
 
     onEdit() {
         setTimeout(() => {
@@ -73,6 +86,8 @@ export class Demo extends React.Component<Props, State> {
                 defaultSelectedKeys={this.state.defaultSelectedKeys}
                 defaultCheckedKeys={this.state.defaultCheckedKeys}
                 onSelect={this.onSelect} onCheck={this.onCheck}
+                onDragStart={this.onDragStart} OnDragEnterData={this.OnDragEnterData}
+                OnDragEnterData={this.OnDragEnterData}
             >
                 <TreeNode title="parent 1" key="0-0">
                     <TreeNode title={customLabel} key="0-0-0">
