@@ -1,4 +1,4 @@
-// Type definitions for spotify-web-playback-sdk (not on npm)
+// Type definitions for spotify-web-playback-sdk 0.1
 // Project: https://beta.developer.spotify.com/documentation/web-playback-sdk/reference/
 // Definitions by: Festify Dev Team <mail@festify.rocks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
