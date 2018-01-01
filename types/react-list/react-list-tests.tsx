@@ -7,6 +7,7 @@ const renderItem = (index: number, key: number) =>
     </div>;
 
 <ReactList
+    className="react-list"
     itemRenderer={renderItem}
     type="uniform"
     length={1000}
