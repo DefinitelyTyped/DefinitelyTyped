@@ -16,7 +16,7 @@ declare namespace Base {
         /**
          * whether to store the user's previous answer
          */
-        store: boolean;
+        store?: boolean;
     }
     type Questions = Question | Question[] | Rx.Observable<Question>;
     type Answers = inquirer.Answers;
