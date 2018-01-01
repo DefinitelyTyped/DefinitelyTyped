@@ -331,6 +331,21 @@ interface ICollection extends IQueryAPI {
         document: Object,
         options?: IReplaceOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    
+	/**
+	 * Upsert an attachment for the document.
+	 * @param documentLink resource link of the document under which the attachment will be upserted
+	 * @param body metadata that defines the attachment media like media, contentType. It can include any other properties as part of the metadata.
+	 * @param options optional upsert options
+	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+	 */
+    upsertAttachment(documentLink: string,
+        body: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    upsertAttachment(documentLink: string,
+        body: Object,
+        options?: IUpsertOptions,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 }
 
 /** Options associated with a create operation. */
