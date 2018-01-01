@@ -1,6 +1,6 @@
 
 
-// Samples taken from http://dl.windowsazure.com/documentDB/jsserverdocs/Collection.html
+// Samples taken from http://azure.github.io/azure-documentdb-js-server/Collection.html
 function chain() {
     var name: string = "John";
     var result: IQueryResponse = __.chain()
