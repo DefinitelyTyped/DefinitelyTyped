@@ -333,6 +333,8 @@ function bulkDeleteSproc(query: string) {
     }
 }
 
+// NOTE: the sample `sum` stored procedure (https://github.com/Azure/azure-documentdb-js-server/blob/master/samples/stored-procedures/sum.js) does not currently work, because it appears to throw an invalid Error object. See https://github.com/Azure/azure-documentdb-js-server/issues/23 to track this issue.
+
 /**
  * A DocumentDB stored procedure that updates a document by id, using a similar syntax to MongoDB's update operator.<br/>
  * <br/>
@@ -727,3 +729,4 @@ function updateMetadata() {
     }
 }
 
+// NOTE: the sample `uniqueConstraint` trigger (https://github.com/Azure/azure-documentdb-js-server/blob/master/samples/triggers/uniqueConstraint.js) does not currently work, because it appears to use a method that does not exist on `Request`, and also appears to throw an invalid Error object. See https://github.com/Azure/azure-documentdb-js-server/issues/22 and https://github.com/Azure/azure-documentdb-js-server/issues/23 to track these issues.
