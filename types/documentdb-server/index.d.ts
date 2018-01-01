@@ -542,6 +542,14 @@ interface IQueryParam {
     value: any;
 }
 
+/** Options associated with a upsert operation. */
+interface IUpsertOptions {
+    /** Specifies indexing directives. */
+    indexAction?: string;
+    /** Disables automatic generation of "id" field of the document to be upserted (if it is not provided) */
+    disableAutomaticIdGeneration?: string;
+}
+
 /** List of error codes returned by database operations in the RequestCallback and FeedCallback. See the corresponding error message for more details. */
 interface IErrorCodes {
     // Client error
