@@ -6,7 +6,8 @@
 
 import {
     Component,
-    Props
+    DetailedHTMLProps,
+    HTMLAttributes
 } from "react";
 
 type ItemRenderer = (index: number, key: number | string) => JSX.Element;
@@ -15,7 +16,7 @@ type ItemSizeEstimator = (index: number, cache: {}) => number;
 type ItemSizeGetter = (index: number) => number;
 type ScrollParentGetter = () => JSX.Element;
 
-interface ReactListProps extends Props<ReactList> {
+interface ReactListProps extends DetailedHTMLProps<HTMLAttributes<ReactList>, ReactList> {
     axis?: 'x' | 'y';
     initialIndex?: number;
     itemRenderer?: ItemRenderer;
