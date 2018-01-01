@@ -285,10 +285,10 @@ declare namespace React {
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
             state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
-            callback?: () => any
+            callback?: () => void
         ): void;
 
-        forceUpdate(callBack?: () => any): void;
+        forceUpdate(callBack?: () => void): void;
         render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -307,7 +307,7 @@ declare namespace React {
     class PureComponent<P = {}, S = {}> extends Component<P, S> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
-        replaceState(nextState: S, callback?: () => any): void;
+        replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
     }
@@ -3480,7 +3480,7 @@ declare namespace React {
 
     interface ReactChildren {
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
-        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => void): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactElement<any>;
         toArray(children: ReactNode): ReactChild[];
