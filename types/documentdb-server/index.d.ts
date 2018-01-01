@@ -346,6 +346,21 @@ interface ICollection extends IQueryAPI {
         body: Object,
         options?: IUpsertOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+
+    /**
+	 * Upsert a document under the collection.
+	 * @param collectionLink resource link of the collection under which the document will be upserted
+	 * @param body body of the document. The "id" property is required and will be generated automatically if not provided (this behaviour can be overriden using the UpsertOptions). Any other properties can be added.
+	 * @param options optional upsert options
+	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+	 */
+    upsertDocument(collectionLink: string,
+        body: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    upsertDocument(collectionLink: string,
+        body: Object,
+        options?: IUpsertOptions,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 }
 
 /** Options associated with a create operation. */
