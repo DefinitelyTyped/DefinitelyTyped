@@ -62,7 +62,7 @@ export class PushNotificationObject {
 }
 
 export class PushNotificationScheduleObject extends PushNotificationObject {
-    Date: Date;
+    date: Date;
 }
 
 export interface PushNotification {

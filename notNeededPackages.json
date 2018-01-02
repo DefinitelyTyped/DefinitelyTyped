@@ -70,7 +70,7 @@
             "libraryName": "artyom.js",
             "typingsPackageName": "artyom.js",
             "sourceRepoURL": "https://github.com/sdkcarlos/artyom.js",
-            "asOfVersion": "1.0.3"
+            "asOfVersion": "1.0.6"
         },
         {
             "libraryName": "askmethat-rating",
@@ -154,7 +154,7 @@
             "libraryName": "bignumber.js",
             "typingsPackageName": "bignumber.js",
             "sourceRepoURL": "https://github.com/MikeMcl/bignumber.js/",
-            "asOfVersion": "4.0.3"
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "botvs",
@@ -298,7 +298,7 @@
             "libraryName": "cordova-plugin-inappbrowser",
             "typingsPackageName": "cordova-plugin-inappbrowser",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-inappbrowser",
-            "asOfVersion": "1.7.0"
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "cordova-plugin-media",
@@ -691,6 +691,12 @@
             "asOfVersion": "1.0.13"
         },
         {
+            "libraryName": "JointJS",
+            "typingsPackageName": "jointjs",
+            "sourceRepoURL": "http://www.jointjs.com/",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "jpush-react-native",
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
@@ -754,7 +760,7 @@
             "libraryName": "koa-jwt",
             "typingsPackageName": "koa-jwt",
             "sourceRepoURL": "https://github.com/koajs/jwt",
-            "asOfVersion": "3.2.2"
+            "asOfVersion": "3.3.0"
         },
         {
             "libraryName": "lambda-phi",
@@ -1396,7 +1402,7 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "typingsPackageName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "sourceRepoURL": "https://github.com/dpa99c/phonegap-launch-navigator",
-            "asOfVersion": "3.2.2"
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "upper-case",
