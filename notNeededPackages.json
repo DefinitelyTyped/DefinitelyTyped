@@ -1057,6 +1057,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "survey-knockout",
+            "typingsPackageName": "survey-knockout",
+            "sourceRepoURL": "http://surveyjs.org/",
+            "asOfVersion": "0.10.0"
+        },
+        {
             "libraryName": "svg-pan-zoom",
             "typingsPackageName": "svg-pan-zoom",
             "sourceRepoURL": "https://github.com/ariutta/svg-pan-zoom",
