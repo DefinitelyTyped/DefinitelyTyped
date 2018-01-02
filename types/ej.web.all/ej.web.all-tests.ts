@@ -1,6 +1,4 @@
 /* tslint:disable */
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module AccordionComponent {
     $(function () {
@@ -2776,8 +2774,7 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
-    });
+        });    });
 }
 
 /// <reference path="../tsfiles/jquery.d.ts" />
