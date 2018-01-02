@@ -44,7 +44,8 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                     zeroLineBorderDashOffset: 2
                 }
             }]
-        }
+        },
+        plugins: { arbitraryPlugin: {option: "value"} }
     }
 });
 chart.update();

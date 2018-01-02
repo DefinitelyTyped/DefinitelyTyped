@@ -1,11 +1,11 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface JumbotronProps {
   tag?: React.ReactType;
   fluid?: boolean;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var Jumbotron: React.StatelessComponent<Props>;
+declare const Jumbotron: React.StatelessComponent<JumbotronProps>;
 export default Jumbotron;

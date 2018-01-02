@@ -746,7 +746,7 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap: any): ContentState;
+                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap?: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
@@ -797,7 +797,7 @@ declare namespace Draft {
             class CharacterMetadata {
                 static applyStyle(record: CharacterMetadata, style: string): CharacterMetadata;
                 static removeStyle(record: CharacterMetadata, style: string): CharacterMetadata;
-                static applyEntity(record: CharacterMetadata, entityKey: string): CharacterMetadata;
+                static applyEntity(record: CharacterMetadata, entityKey: string | null): CharacterMetadata;
                 static applyEntity(record: CharacterMetadata): CharacterMetadata;
                 /**
                  * Use this function instead of the `CharacterMetadata` constructor.
@@ -894,7 +894,7 @@ declare namespace Draft {
 
                 static setBlockData(contentState: ContentState, selectionState: SelectionState, blockData: Immutable.Map<any, any>): ContentState;
                 static mergeBlockData(contentState: ContentState, selectionState: SelectionState, blockData: Immutable.Map<any, any>): ContentState;
-                static applyEntity(contentState: ContentState, selectionState: SelectionState, entityKey: string): ContentState;
+                static applyEntity(contentState: ContentState, selectionState: SelectionState, entityKey: string | null): ContentState;
             }
 
             class RichTextEditorUtil {

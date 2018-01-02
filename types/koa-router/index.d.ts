@@ -219,7 +219,7 @@ declare class Router {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middlewares(): Router.IMiddleware;
+    middleware(): Router.IMiddleware;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with

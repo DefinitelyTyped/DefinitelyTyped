@@ -1,13 +1,14 @@
 // Type definitions for accepts 1.3
 // Project: https://github.com/jshttp/accepts
 // Definitions by: Stefan Reichel <https://github.com/bomret>
+//                 Brice BERNARD <https://github.com/brikou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace accepts {
-    interface Headers {
-        [key: string]: string | string[];
-    }
+/// <reference types="node" />
 
+import { IncomingMessage } from "http";
+
+declare namespace accepts {
     interface Accepts {
         /**
          * Return the first accepted charset. If nothing in `charsets` is accepted, then `false` is returned.
@@ -55,6 +56,6 @@ declare namespace accepts {
     }
 }
 
-declare function accepts(req: { headers: accepts.Headers }): accepts.Accepts;
+declare function accepts(req: IncomingMessage): accepts.Accepts;
 
 export = accepts;

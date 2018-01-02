@@ -1,123 +1,165 @@
-// Type definitions for GeoJSON Format Specification Revision 1.0
-// Project: http://geojson.org/
+// Type definitions for geojson 7946.0
+// Project: https://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster>
 //                 Arne Schubert <https://github.com/atd-schubert>
+//                 Jeff Jacobson <https://github.com/JeffJacobson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// Note: as of the RFC 7946 version of GeoJSON, Coordinate Reference Systems
+// are no longer supported. (See https://tools.ietf.org/html/rfc7946#appendix-B)}
+
 export as namespace GeoJSON;
 
-/***
- * http://geojson.org/geojson-spec.html#geojson-objects
+/**
+ * The valid values for the "type" property of GeoJSON geometry objects.
+ * https://tools.ietf.org/html/rfc7946#section-1.4
+ */
+export type GeoJsonGeometryTypes = "Point" | "LineString" | "MultiPoint" | "Polygon" | "MultiLineString" |
+    "MultiPolygon" | "GeometryCollection";
+
+/**
+ * The value values for the "type" property of GeoJSON Objects.
+ * https://tools.ietf.org/html/rfc7946#section-1.4
+ */
+export type GeoJsonTypes = "FeatureCollection" | "Feature" | GeoJsonGeometryTypes;
+
+/**
+ * Bounding box
+ * https://tools.ietf.org/html/rfc7946#section-5
+ */
+export type BBox = [number, number, number, number] | [number, number, number, number, number, number];
+
+/**
+ * A Position is an array of coordinates.
+ * https://tools.ietf.org/html/rfc7946#section-3.1.1
+ * Array should contain between two and three elements.
+ * The previous GeoJSON specification allowed more elements (e.g., which could be used to represent M values),
+ * but the current specification only allows X, Y, and (optionally) Z to be defined.
+ */
+export type Position = number[]; // [number, number] | [number, number, number];
+
+/**
+ * The base GeoJSON object.
+ * https://tools.ietf.org/html/rfc7946#section-3
+ * The GeoJSON specification also allows foreign members
+ * (https://tools.ietf.org/html/rfc7946#section-6.1)
+ * Developers should use "&" type in TypeScript or extend the interface
+ * to add these foreign members.
  */
 export interface GeoJsonObject {
-    type: string;
-    bbox?: number[];
-    crs?: CoordinateReferenceSystem;
+    // Don't include foreign members directly into this type def.
+    // in order to preserve type safety.
+    // [key: string]: any;
+    /**
+     * Specifies the type of GeoJSON object.
+     */
+    type: GeoJsonTypes;
+    /**
+     * Bounding box of the coordinate range of the object's Geometries, Features, or Feature Collections.
+     * https://tools.ietf.org/html/rfc7946#section-5
+     */
+    bbox?: BBox;
 }
 
-/***
- * http://geojson.org/geojson-spec.html#positions
- */
-export type Position = number[];
-
-/***
- * http://geojson.org/geojson-spec.html#geometry-objects
- */
-export interface DirectGeometryObject extends GeoJsonObject {
-    coordinates: Position[][][] | Position[][] | Position[] | Position;
-}
 /**
- * GeometryObject supports geometry collection as well
+ * A geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3
  */
-export type GeometryObject = DirectGeometryObject | GeometryCollection;
+export interface GeometryObject extends GeoJsonObject {
+    type: GeoJsonGeometryTypes;
+}
 
-/***
- * http://geojson.org/geojson-spec.html#point
+/**
+ * Point geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3.1.2
  */
-export interface Point extends DirectGeometryObject {
+export interface Point extends GeometryObject {
     type: "Point";
     coordinates: Position;
 }
 
-/***
- * http://geojson.org/geojson-spec.html#multipoint
+/**
+ * MultiPoint geometry object.
+ *  https://tools.ietf.org/html/rfc7946#section-3.1.3
  */
-export interface MultiPoint extends DirectGeometryObject {
+export interface MultiPoint extends GeometryObject {
     type: "MultiPoint";
     coordinates: Position[];
 }
 
-/***
- * http://geojson.org/geojson-spec.html#linestring
+/**
+ * LineString geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3.1.4
  */
-export interface LineString extends DirectGeometryObject {
+export interface LineString extends GeometryObject {
     type: "LineString";
     coordinates: Position[];
 }
 
-/***
- * http://geojson.org/geojson-spec.html#multilinestring
+/**
+ * MultiLineString geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3.1.5
  */
-export interface MultiLineString extends DirectGeometryObject {
+export interface MultiLineString extends GeometryObject {
     type: "MultiLineString";
     coordinates: Position[][];
 }
 
-/***
- * http://geojson.org/geojson-spec.html#polygon
+/**
+ * Polygon geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3.1.6
  */
-export interface Polygon extends DirectGeometryObject {
+export interface Polygon extends GeometryObject {
     type: "Polygon";
     coordinates: Position[][];
 }
 
-/***
- * http://geojson.org/geojson-spec.html#multipolygon
+/**
+ * MultiPolygon geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3.1.7
  */
-export interface MultiPolygon extends DirectGeometryObject {
+export interface MultiPolygon extends GeometryObject {
     type: "MultiPolygon";
     coordinates: Position[][][];
 }
 
-/***
- * http://geojson.org/geojson-spec.html#geometry-collection
+/**
+ * Geometry Collection
+ * https://tools.ietf.org/html/rfc7946#section-3.1.8
  */
-export interface GeometryCollection extends GeoJsonObject {
+export interface GeometryCollection extends GeometryObject {
     type: "GeometryCollection";
-    geometries: GeometryObject[];
+    geometries: Array<Point | LineString | Polygon | MultiPoint | MultiLineString | MultiPolygon>;
 }
 
-/***
+export type GeoJsonProperties = { [name: string]: any; } | null;
+
+/**
+ * A feature object which contains a geometry and associated properties.
  * https://tools.ietf.org/html/rfc7946#section-3.2
  */
-export interface Feature<G extends GeometryObject, P = any> extends GeoJsonObject {
+export interface Feature<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
     type: "Feature";
-    geometry: G;
-    properties: P;
+    /**
+     * The feature's geometry
+     */
+    geometry: G | null;
+    /**
+     * A value that uniquely identifies this feature in a
+     * https://tools.ietf.org/html/rfc7946#section-3.2.
+     */
     id?: string | number;
+    /**
+     * Properties associated with this feature.
+     */
+    properties: P | null;
 }
 
-/***
- * http://geojson.org/geojson-spec.html#feature-collection-objects
+/**
+ * A collection of feature objects.
+ *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
-export interface FeatureCollection<G extends GeometryObject, P = any> extends GeoJsonObject {
-    type: "FeatureCollection";
+export interface FeatureCollection<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
     features: Array<Feature<G, P>>;
-}
-
-/***
- * http://geojson.org/geojson-spec.html#coordinate-reference-system-objects
- */
-export interface CoordinateReferenceSystem {
-    type: string;
-    properties: any;
-}
-
-export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem {
-    properties: { name: string };
-}
-
-export interface LinkedCoordinateReferenceSystem extends CoordinateReferenceSystem {
-    properties: { href: string; type: string };
 }

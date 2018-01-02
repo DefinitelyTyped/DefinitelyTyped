@@ -19,7 +19,7 @@ interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
     component?: Component;
-    icon?: Component;
+    icon?: JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
@@ -34,8 +34,8 @@ interface BasicToastrOptions {
 interface LightToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: Component;
-    icon?: iconType | Component;
+    component?: JSX.Element;
+    icon?: iconType | JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
@@ -55,7 +55,7 @@ interface ConfirmToastrOptions {
 }
 
 interface ConfirmToastrCustomOptions {
-    component: Component;
+    component: JSX.Element;
 }
 
 export interface Toastr {
