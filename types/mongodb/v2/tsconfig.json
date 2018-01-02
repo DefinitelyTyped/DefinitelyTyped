@@ -4,13 +4,18 @@
         "lib": [
             "es6"
         ],
+        "paths": {
+            "mongodb": [
+                "mongodb/v2"
+            ]
+        },
         "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
