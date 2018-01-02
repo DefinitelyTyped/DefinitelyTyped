@@ -775,6 +775,18 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "LevelDown",
+            "typingsPackageName": "leveldown",
+            "sourceRepoURL": "https://github.com/level/leveldown",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "LevelUp",
+            "typingsPackageName": "levelup",
+            "sourceRepoURL": "https://github.com/Level/levelup",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "Linq.JS",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
