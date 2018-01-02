@@ -396,7 +396,7 @@ export interface Config {
     /** Retrieves the setting for the given key. */
     get<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
         excludeSources?: string[], scope?: string[]|ScopeDescriptor }):
-        ConfigValues[T]|undefined;
+        ConfigValues[T];
 
     /**
      *  Sets the value for a configuration setting.
