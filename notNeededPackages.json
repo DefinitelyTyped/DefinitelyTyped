@@ -541,6 +541,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jasmine-expect",
+            "typingsPackageName": "jasmine-expect",
+            "sourceRepoURL": "https://github.com/JamieMason/Jasmine-Matchers",
+            "asOfVersion": "3.8.1"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
