@@ -13376,6 +13376,14 @@ declare namespace _ {
          * @see _.get
          */
         get<T>(
+            object: NumericDictionary<T>,
+            path: number
+        ): T;
+
+        /**
+         * @see _.get
+         */
+        get<T>(
             object: NumericDictionary<T> | null | undefined,
             path: number
         ): T | undefined;
@@ -13445,6 +13453,14 @@ declare namespace _ {
          * @see _.get
          */
         get<T>(
+            this: LoDashImplicitWrapper<NumericDictionary<T>>,
+            path: number
+        ): T;
+
+        /**
+         * @see _.get
+         */
+        get<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
             path: number
         ): T | undefined;
@@ -13508,6 +13524,14 @@ declare namespace _ {
             path: TKey | [TKey],
             defaultValue: TDefault
         ): LoDashExplicitWrapper<TObject[TKey] | TDefault>;
+
+        /**
+         * @see _.get
+         */
+        get<T>(
+            this: LoDashExplicitWrapper<NumericDictionary<T>>,
+            path: number
+        ): LoDashExplicitWrapper<T>;
 
         /**
          * @see _.get
