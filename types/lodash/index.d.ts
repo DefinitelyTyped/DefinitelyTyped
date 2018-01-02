@@ -6106,8 +6106,8 @@ declare namespace _ {
          * @see _.map
          */
         map<T, TResult>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee: DictionaryIterator<T, TResult>
+            collection: T | null | undefined,
+            iteratee: ObjectIterator<T, TResult>
         ): TResult[];
 
         /** @see _.map */
@@ -17226,7 +17226,7 @@ declare namespace _ {
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
-    type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
+    type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: keyof TObject, collection: TObject) => TResult;
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | object | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
