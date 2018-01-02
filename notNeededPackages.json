@@ -1117,6 +1117,12 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "source-map",
+            "typingsPackageName": "source-map",
+            "sourceRepoURL": "https://github.com/mozilla/source-map",
+            "asOfVersion": "0.5.7"
+        },
+        {
             "libraryName": "Spin.js",
             "typingsPackageName": "spin.js",
             "sourceRepoURL": "http://fgnass.github.com/spin.js/",
