@@ -11178,8 +11178,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartXAxisItemTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartXAxisItemTitleMargin;
-        padding?: ChartXAxisItemTitlePadding;
+        margin?: ChartXAxisItemTitleMargin | number;
+        padding?: ChartXAxisItemTitlePadding | number;
         position?: string;
         rotation?: number;
         text?: string;
