@@ -685,6 +685,12 @@
             "asOfVersion": "4.0.5"
         },
         {
+            "libraryName": "mobile-detect",
+            "typingsPackageName": "mobile-detect",
+            "sourceRepoURL": "http://hgoebl.github.io/mobile-detect.js/",
+            "asOfVersion": "1.3.4"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
