@@ -1439,7 +1439,7 @@ s.define( 'profile', {
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
     email : Sequelize.STRING,
-    access_level : Sequelize.INTEGER,
+    access_level : Sequelize.TINYINT,
     other_value : Sequelize.INTEGER
 }, {
     defaultScope : {

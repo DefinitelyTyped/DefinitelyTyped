@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.0.0
+// Type definitions for Sequelize 4.27.0
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -8,6 +8,7 @@
 //                 Sebastien Bramille <https://github.com/oktapodia>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Carven Zhang <https://github.com/zjy01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1702,6 +1703,34 @@ declare namespace sequelize {
 
     }
 
+    interface DataTypeTinyInt extends DataTypeAbstractNumber<DataTypeTinyInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeTinyInt;
+        (length: number): DataTypeTinyInt;
+
+    }
+    interface DataTypeSmallInt extends DataTypeAbstractNumber<DataTypeSmallInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeSmallInt;
+        (length: number): DataTypeSmallInt;
+
+    }
+    interface DataTypeMediumInt extends DataTypeAbstractNumber<DataTypeMediumInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeMediumInt;
+        (length: number): DataTypeMediumInt;
+
+    }
+
     interface DataTypeBigInt extends DataTypeAbstractNumber<DataTypeBigInt> {
 
         /**
@@ -1893,6 +1922,9 @@ declare namespace sequelize {
         CHAR: DataTypeChar;
         TEXT: DataTypeText;
         NUMBER: DataTypeNumber;
+        TINYINT: DataTypeTinyInt;
+        SMALLINT: DataTypeSmallInt;
+        MEDIUMINT: DataTypeMediumInt;
         INTEGER: DataTypeInteger;
         BIGINT: DataTypeBigInt;
         FLOAT: DataTypeFloat;
