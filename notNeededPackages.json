@@ -151,6 +151,12 @@
             "asOfVersion": "0.0.31"
         },
         {
+            "libraryName": "bignumber.js",
+            "typingsPackageName": "bignumber.js",
+            "sourceRepoURL": "https://github.com/MikeMcl/bignumber.js/",
+            "asOfVersion": "4.0.3"
+        },
+        {
             "libraryName": "Bowser",
             "typingsPackageName": "bowser",
             "sourceRepoURL": "https://github.com/ded/bowser",
