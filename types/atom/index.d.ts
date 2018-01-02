@@ -3279,10 +3279,10 @@ export class Directory {
 
     // Directory Metadata
     /** Returns a boolean, always false. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a roolean, always true. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -3496,10 +3496,10 @@ export class File {
 
     // File Metadata
     /** Returns a boolean, always true. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a boolean, always false. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
