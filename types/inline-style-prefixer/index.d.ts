@@ -4,7 +4,7 @@
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare type CSSStyleDeclaration = any;
+type CSSStyleDeclaration = any;
 
 declare namespace InlineStylePrefixer {
     interface Configuration {
