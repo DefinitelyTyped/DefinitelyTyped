@@ -113,6 +113,8 @@ const optionsHelp: string = generator.optionsHelp();
 const answers: Promise<Answers> = generator.prompt([] as Questions);
 const answers2: Promise<Answers> = generator.prompt([{store: true}] as Questions);
 const answers3: Promise<Answers> = generator.prompt([{type: "input"}] as Questions);
+const answers4: Promise<Answers> = generator.prompt({type: "input"});
+const answers5: Promise<Answers> = generator.prompt({type: "input", store: false});
 
 generator.registerTransformStream([]);
 
