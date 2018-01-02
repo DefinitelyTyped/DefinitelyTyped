@@ -529,6 +529,12 @@
             "asOfVersion": "0.2.28"
         },
         {
+            "libraryName": "joData",
+            "typingsPackageName": "jodata",
+            "sourceRepoURL": "https://github.com/mccow002/joData",
+            "asOfVersion": "1.0.13"
+        },
+        {
             "libraryName": "jpush-react-native",
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
