@@ -186,6 +186,12 @@ declare namespace __WebpackModuleApi {
          */
         autoApply?: boolean;
     }
+    /**
+    * Inside env you can pass any variable
+    */
+    interface NodeProcess {
+        env?: any;
+    }
 
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
@@ -247,3 +253,11 @@ declare var DEBUG: boolean;
 interface NodeModule extends __WebpackModuleApi.Module {}
 
 declare var module: NodeModule;
+
+/**
+* Declare process variable
+*/
+declare namespace NodeJS {
+    interface Process extends __WebpackModuleApi.NodeProcess {}
+}
+declare var process: NodeJS.Process;

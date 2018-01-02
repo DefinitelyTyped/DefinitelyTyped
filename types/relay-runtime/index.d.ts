@@ -145,7 +145,7 @@ export interface RecordProxy {
     copyFieldsFrom(source: RecordProxy): void;
     getDataID(): DataID;
     getLinkedRecord(name: string, args?: Variables): RecordProxy | null;
-    getLinkedRecords(name: string, args?: Variables): Array<RecordProxy | null> | null;
+    getLinkedRecords(name: string, args?: Variables): ReadonlyArray<RecordProxy | null> | null;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables): RecordProxy;
     getType(): string;
     getValue(name: string, args?: Variables): any;
@@ -843,7 +843,7 @@ export class RelayRecordSourceInspector {
 }
 
 // note RecordSourceInspector is only available in dev environment
-export type RecordSourceInspector = RelayRecordSourceInspector;
+export class RecordSourceInspector extends RelayRecordSourceInspector {}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayObservable

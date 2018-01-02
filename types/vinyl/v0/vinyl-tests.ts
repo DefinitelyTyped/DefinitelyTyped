@@ -1,13 +1,27 @@
 /// <reference types="mocha" />
-/// <reference types="should" />
-
-
 
 import File = require('vinyl');
 import Stream = require('stream');
 import fs = require('fs');
 
 declare var fakeStream: NodeJS.ReadWriteStream;
+
+// TODO: These aren't useful as types tests since they take `any`.
+declare const should: ShouldStatic;
+interface ShouldStatic {
+	exist(obj: any, desc?: string): void;
+	not: this;
+};
+interface Should {
+	be: { true: undefined; false: undefined; };
+	equal(obj: any, desc?: string): void;
+	not: this;
+}
+declare global {
+	interface Object {
+		should: Should;
+	}
+}
 
 describe('File', () => {
 

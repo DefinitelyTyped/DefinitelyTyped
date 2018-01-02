@@ -1,12 +1,13 @@
-// Type definitions for Atom 1.22
+// Type definitions for Atom 1.23
 // Project: https://github.com/atom/atom
-// Definitions by: GlenCFL <https://github.com/GlenCFL>,
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
+//                 lierdakil <https://github.com/lierdakil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.22.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.23.0/exports/atom.js
 
 /// <reference types="jquery" />
 /// <reference types="node" />
@@ -16,6 +17,10 @@ import { ChildProcess } from "child_process";
 
 declare global {
     const atom: AtomEnvironment;
+
+    interface HTMLElementTagNameMap {
+      "atom-text-editor": TextEditorElement;
+    }
 }
 
 /**
@@ -24,7 +29,7 @@ declare global {
  *  Project::onDidChangeFiles instead.
  */
 export function watchPath(rootPath: string, options: {}, eventCallback: (events:
-    FilesystemChangeEvent) => void): PathWatcher;
+    FilesystemChangeEvent) => void): Promise<PathWatcher>;
 
 // Essential Classes ==========================================================
 
@@ -137,11 +142,11 @@ export interface AtomEnvironment {
 
     // Managing the Atom Window
     /** Open a new Atom window using the given options. */
-    open(params: {
+    open(params?: {
         pathsToOpen: ReadonlyArray<string>,
-        newWindow: boolean,
-        devMode: boolean,
-        safeMode: boolean,
+        newWindow?: boolean,
+        devMode?: boolean,
+        safeMode?: boolean,
     }): void;
 
     /** Close the current window. */
@@ -238,6 +243,9 @@ export interface AtomEnvironment {
 
     /** Execute code in dev tools. */
     executeJavaScriptInDevTools(code: string): void;
+
+    /** Undocumented: get Atom config directory path */
+    getConfigDirPath(): string;
 }
 
 /**
@@ -252,33 +260,55 @@ export interface Color {
     toRGBAString(): string;
 }
 
+export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
+  [key: string]: EventTarget;
+}
+
+export type CommandRegistryListener<TargetType extends EventTarget> = {
+  didDispatch(event: CommandEvent<TargetType>): void,
+  displayName?: string,
+  description?: string,
+  hiddenInCommandPalette?: boolean,
+} | ((event: CommandEvent<TargetType>) => void);
+
 /**
  *  Associates listener functions with commands in a context-sensitive way
  *  using CSS selectors.
  */
 export interface CommandRegistry {
     /** Register a single command. */
-    add(target: string|Node, commandName: string, listener: {
-        didDispatch(event: CommandEvent): void,
-        displayName?: string,
-        description?: string,
-    } | ((event: CommandEvent) => void)): Disposable;
+    add<T extends keyof CommandRegistryTargetMap>(
+        target: T, commandName: string,
+        listener: CommandRegistryListener<CommandRegistryTargetMap[T]>
+      ): Disposable;
+    /** Register a single command. */
+    add<T extends Node>(
+        target: T, commandName: string,
+        listener: CommandRegistryListener<T>
+      ): Disposable;
 
     /** Register multiple commands. */
-    add(target: string|Node, commands: {
-        [key: string]: (event: CommandEvent) => void
+    add<T extends keyof CommandRegistryTargetMap>(target: T, commands: {
+        [key: string]: CommandRegistryListener<CommandRegistryTargetMap[T]>
+    }): CompositeDisposable;
+    /** Register multiple commands. */
+    add<T extends Node>(target: T, commands: {
+        [key: string]: CommandRegistryListener<T>
     }): CompositeDisposable;
 
     /** Find all registered commands matching a query. */
-    findCommands(params: { target: Node }): Array<{
+    findCommands(params: { target: string|Node }): Array<{
         name: string,
         displayName: string,
         description?: string,
         tags?: string[],
     }>;
 
-    /** Simulate the dispatch of a command on a DOM node. */
-    dispatch(target: Node, commandName: string): void;
+    /**
+     *  Simulate the dispatch of a command on a DOM node.
+     *  @return Whether or not there was a matching command for the target.
+     */
+    dispatch(target: Node, commandName: string): boolean;
 
     /** Invoke the given callback before dispatching a command event. */
     onWillDispatch(callback: (event: CommandEvent) => void): Disposable;
@@ -366,7 +396,7 @@ export interface Config {
     /** Retrieves the setting for the given key. */
     get<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
         excludeSources?: string[], scope?: string[]|ScopeDescriptor }):
-        ConfigValues[T]|undefined;
+        ConfigValues[T];
 
     /**
      *  Sets the value for a configuration setting.
@@ -439,6 +469,14 @@ export interface Decoration {
 
     /** Returns the marker associated with this Decoration. */
     getMarker(): DisplayMarker;
+
+    /**
+     *  Check if this decoration is of the given type.
+     *  @param type A decoration type, such as `line-number` or `line`. This may also
+     *  be an array of decoration types, with isType returning true if the decoration's
+     *  type matches any in the array.
+     */
+    isType(type: string|string[]): boolean;
 
     // Properties
     /** Returns the Decoration's properties. */
@@ -714,7 +752,9 @@ export class Disposable implements DisposableLike {
  *  Utility class to be used when implementing event-based APIs that allows
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
-export class Emitter implements DisposableLike {
+// tslint:disable-next-line:no-any
+export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {}>
+        implements DisposableLike {
     /** Construct an emitter. */
     constructor();
 
@@ -726,27 +766,47 @@ export class Emitter implements DisposableLike {
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
-        Disposable;
+    on<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /** Registers a handler to be invoked whenever the given event is emitted. */
+    on<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
-        Disposable;
+    once<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /**
+     *  Register the given handler function to be invoked the next time an event
+     *  with the given name is emitted via ::emit.
+     */
+    once<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked before all other
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    preempt<T extends keyof Emissions>(eventName: T, handler: (value?: Emissions[T]) => void):
-        Disposable;
+    preempt<T extends keyof OptionalEmissions>(eventName: T, handler: (value?:
+        OptionalEmissions[T]) => void): Disposable;
+    /**
+     *  Register the given handler function to be invoked before all other
+     *  handlers existing at the time of subscription whenever events by the
+     *  given name are emitted via ::emit.
+     */
+    preempt<T extends keyof RequiredEmissions>(eventName: T, handler: (value:
+        RequiredEmissions[T]) => void): Disposable;
 
     // Event Emission
     /** Invoke the handlers registered via ::on for the given event name. */
-    emit<T extends keyof Emissions>(eventName: T, value?: Emissions[T]): void;
+    emit<T extends keyof OptionalEmissions>(eventName: T, value?:
+        OptionalEmissions[T]): void;
+    /** Invoke the handlers registered via ::on for the given event name. */
+    emit<T extends keyof RequiredEmissions>(eventName: T, value:
+        RequiredEmissions[T]): void;
 }
 
 /**
@@ -1012,10 +1072,7 @@ export class Point {
      *  Create a Point from an array containing two numbers representing the
      *  row and column.
      */
-    static fromObject(object: [number, number]): Point;
-
-    /** Create a Point from an existing object which implements PointLike. */
-    static fromObject(object: PointLike, copy?: boolean): Point;
+    static fromObject(object: PointCompatible, copy?: boolean): Point;
 
     /** Construct a Point object */
     constructor(row?: number, column?: number);
@@ -1092,10 +1149,10 @@ export class Point {
 export class Range {
     // Properties
     /** A Point representing the start of the Range. */
-    start: PointLike;
+    start: Point;
 
     /** A Point representing the end of the Range. */
-    end: PointLike;
+    end: Point;
 
     // Construction
     /** Convert any range-compatible object to a Range. */
@@ -1114,7 +1171,7 @@ export class Range {
     negate(): Range;
 
     // Serialization and Deserialization
-    /** Returns a plain javascript object representation of the range. */
+    /** Returns a plain javascript object representation of the Range. */
     serialize(): number[][];
 
     // Range Details
@@ -1434,17 +1491,10 @@ export class TextEditor {
 
     /** Set the text in the given Range in buffer coordinates. */
     setTextInBufferRange(range: RangeCompatible, text: string, options?:
-        { normalizeLineEndings?: boolean, undo?: "skip" }): void;
+        { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
 
     /* For each selection, replace the selected text with the given text. */
-    insertText(text: string, options?: {
-        select?: boolean,
-        autoIndent?: boolean,
-        autoIndentNewline?: boolean,
-        autoDecreaseIndent?: boolean,
-        normalizeLineEndings?: boolean,
-        undo?: "skip"
-    }): Range|boolean;
+    insertText(text: string, options?: TextInsertionOptions): Range|false;
 
     /** For each selection, replace the selected text with a newline. */
     insertNewline(): void;
@@ -1772,7 +1822,8 @@ export class TextEditor {
         void;
 
     /** Add a cursor at the given position in buffer coordinates. */
-    addCursorAtBufferPosition(bufferPosition: PointCompatible): Cursor;
+    addCursorAtBufferPosition(bufferPosition: PointCompatible, options?:
+        { autoscroll?: boolean }): Cursor;
 
     /** Add a cursor at the position in screen coordinates. */
     addCursorAtScreenPosition(screenPosition: PointCompatible): Cursor;
@@ -2356,6 +2407,74 @@ export class TextEditor {
      *  displayed when the editor has no content.
      */
     setPlaceholderText(placeholderText: string): void;
+
+    /** Undocumented: Buffer range for syntax scope at position */
+    bufferRangeForScopeAtPosition(scope: string, point: PointCompatible): Range;
+
+    /** Undocumented: Get syntax token at buffer position */
+    tokenForBufferPosition(pos: PointCompatible): {value: string, scopes: string[]};
+}
+
+export interface PixelPosition {
+    left: number;
+    top: number;
+}
+
+/**
+ *  Undocumented: Rendering component for TextEditor
+ */
+export interface TextEditorComponent {
+  /** Does not clip screenPosition, unlike similar method on TextEditorElement */
+  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
+  screenPositionForPixelPosition(pos: PixelPosition): Point;
+  pixelPositionForMouseEvent(event: {
+    clientX: number, clientY: number
+  }): PixelPosition;
+  screenPositionForMouseEvent(event: {clientX: number, clientY: number}): Point;
+}
+
+/**
+ *  Undocumented: Custom HTML elemnent for TextEditor, atom-text-editor
+ */
+export interface TextEditorElement extends HTMLElement {
+  getModel(): TextEditor;
+  getComponent(): TextEditorComponent;
+  /**
+   * Extended: Get a promise that resolves the next time the element's
+   * DOM is updated in any way.
+   */
+  getNextUpdatePromise(): Promise<void>;
+
+  /** Extended: get the width of an `x` character displayed in this element. */
+  getBaseCharacterWidth(): number;
+
+  /** Essential: Scrolls the editor to the top. */
+  scrollToTop(): void;
+
+  /** Essential: Scrolls the editor to the bottom. */
+  scrollToBottom(): void;
+
+  setScrollTop(scrollTop: number): void;
+  getScrollTop(): number;
+
+  setScrollLeft(scrollLeft: number): void;
+  getScrollLeft(): number;
+
+  getScrollHeight(): number;
+
+  /** Extended: Converts a buffer position to a pixel position. */
+  pixelPositionForBufferPosition(bufferPosition: PointLike): PixelPosition;
+
+  /** Extended: Converts a screen position to a pixel position. */
+  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
+
+  // Event subscription
+  onDidChangeScrollTop(callback: (scrollTop: number) => void): Disposable;
+  onDidChangeScrollLeft(callback: (scrollLeft: number) => void): Disposable;
+  /** Called when the editor is attached to the DOM. */
+  onDidAttach(callback: () => void): Disposable;
+  /** Called when the editor is detached from the DOM. */
+  onDidDetach(callback: () => void): Disposable;
 }
 
 /** Experimental: This global registry tracks registered TextEditors. */
@@ -2400,27 +2519,25 @@ export interface TextEditorRegistry {
     observe(callback: (editor: TextEditor) => void): Disposable;
 }
 
+export type TooltipPlacement =
+    |"top"|"bottom"|"left"|"right"
+    |"auto"|"auto top"|"auto bottom"|"auto left"|"auto right";
+
 /** Associates tooltips with HTML elements or selectors. */
 export interface TooltipManager {
     /** Add a tooltip to the given element. */
     add(target: HTMLElement, options: {
-        title?: string,
-        html?: boolean,
-        item?: HTMLElement|{ element: HTMLElement },
-        class?: string,
-        placement?: "top"|"bottom"|"left"|"right"|"auto"|(() => string),
-        trigger?: "click"|"hover"|"focus"|"manual",
-        delay?: { show: number, hide: number },
-        keyBindingCommand?: string,
-        keyBindingTarget?: HTMLElement
+        item?: object,
     } | {
         title?: string|(() => string),
         html?: boolean,
-        item?: HTMLElement|{ element: HTMLElement },
-        class?: string,
-        placement?: "top"|"bottom"|"left"|"right"|"auto"|(() => string),
+        keyBindingCommand?: string,
+        keyBindingTarget?: HTMLElement
+    } & {
+        class?: string;
+        placement?: TooltipPlacement|(() => TooltipPlacement),
         trigger?: "click"|"hover"|"focus"|"manual",
-        delay?: { show: number, hide: number },
+        delay?: { show: number, hide: number }
     }): Disposable;
 
     /** Find the tooltips that have been applied to the given element. */
@@ -2448,6 +2565,7 @@ export interface ViewRegistry {
         (instance: T) => HTMLElement|undefined): Disposable;
 
     /** Get the view associated with an object in the workspace. */
+    getView(obj: TextEditor): TextEditorElement;
     getView(obj: object): HTMLElement;
 }
 
@@ -2579,7 +2697,7 @@ export interface Workspace {
     createItemForURI(uri: string): Promise<object|TextEditor>;
 
     /** Returns a boolean that is true if object is a TextEditor. */
-    isTextEditor(object: object): boolean;
+    isTextEditor(object: object): object is TextEditor;
 
     /**
      *  Asynchronously reopens the last-closed item's URI if it hasn't already
@@ -3161,10 +3279,10 @@ export class Directory {
 
     // Directory Metadata
     /** Returns a boolean, always false. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a roolean, always true. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -3378,10 +3496,10 @@ export class File {
 
     // File Metadata
     /** Returns a boolean, always true. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a boolean, always false. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -3589,7 +3707,10 @@ export class GitRepository {
 /** Grammar that tokenizes lines of text. */
 export interface Grammar {
     /** The name of the Grammar. */
-    name: string;
+    readonly name: string;
+
+    /** Undocumented: scope name of the Grammar. */
+    readonly scopeName: string;
 
     // Event Subscription
     onDidUpdate(callback: () => void): Disposable;
@@ -3642,6 +3763,13 @@ export interface GrammarRegistry {
      *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
      */
     onDidUpdateGrammar(callback: (grammar: Grammar) => void): Disposable;
+
+    /**
+     *  Invoke the given callback when a grammar is removed from the registry.
+     *  @param callback The callback to be invoked whenever a grammar is removed.
+     *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
+     */
+    onDidRemoveGrammar(callback: (grammar: Grammar) => void): Disposable;
 
     // Managing Grammars
     /**
@@ -3916,6 +4044,9 @@ export interface PackageManager {
 
     /** Invoke the given callback when a package is unloaded. */
     onDidUnloadPackage(callback: (package: Package) => void): Disposable;
+
+    /** Undocumented: invoke the given callback when an activation hook is triggered */
+    onDidTriggerActivationHook(hook: string, callback: () => void): Disposable;
 
     // Package System Data
     /** Get the path to the apm command. */
@@ -4710,7 +4841,7 @@ export class TextBuffer {
     destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
-    static load(source: string, params?: BufferLoadOptions): Promise<TextBuffer>;
+    static load(filePath: string, params?: BufferLoadOptions): Promise<TextBuffer>;
 
     /**
      *  Create a new buffer backed by the given file path. For better performance,
@@ -4736,6 +4867,9 @@ export class TextBuffer {
          */
         shouldDestroyOnFileDelete?(): boolean
     });
+
+    /** Returns a plain javascript object representation of the TextBuffer. */
+    serialize(options?: { markerLayers?: boolean, history?: boolean }): object;
 
     /** Returns the unique identifier for this buffer. */
     getId(): string;
@@ -5221,6 +5355,21 @@ export interface BufferChangingEvent {
 }
 
 export interface BufferChangedEvent {
+    /**
+     *  An array of objects summarizing the aggregated changes that occurred
+     *  during the transaction.
+     */
+    changes: Array<{
+        /**
+         *  The Range of the deleted text in the contents of the buffer as it existed
+         *  before the batch of changes reported by this event.
+         */
+        oldRange: Range;
+
+        /** The Range of the inserted text in the current contents of the buffer. */
+        newRange: Range;
+    }>;
+
     /** Range of the old text. */
     oldRange: Range;
 
@@ -5244,13 +5393,14 @@ export interface BufferStoppedChangingEvent {
  *  intent to stop propagation so event bubbling can be properly simulated for
  *  detached elements.
  */
-export interface CommandEvent extends CustomEvent {
+export interface CommandEvent<CurrentTarget extends EventTarget = EventTarget> extends CustomEvent {
     keyBindingAborted: boolean;
     propagationStopped: boolean;
 
     abortKeyBinding(): void;
     stopPropagation(): CustomEvent;
     stopImmediatePropagation(): CustomEvent;
+    currentTarget: CurrentTarget;
 }
 
 export interface CursorPositionChangedEvent {
@@ -5259,7 +5409,7 @@ export interface CursorPositionChangedEvent {
     newBufferPosition: Point;
     newScreenPosition: Point;
     textChanged: boolean;
-    Cursor:	Cursor;
+    cursor:	Cursor;
 }
 
 export interface DecorationPropsChangedEvent {
@@ -5541,7 +5691,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.22.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.23.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -5785,16 +5935,6 @@ export interface ConfigValues {
      */
     "editor.zoomFontWhenCtrlScrolling": boolean;
 
-    // tslint:disable-next-line:no-any
-    [key: string]: any;
-}
-
-/**
- *  Allows you to strongly type event emissions across your codebase. Additional
- *  key:value pairings merged into this interface will result in emissions under
- *  the value of each key being templated by the type of the associated value.
- */
-export interface Emissions {
     // tslint:disable-next-line:no-any
     [key: string]: any;
 }
@@ -6088,7 +6228,7 @@ export interface SharedDecorationOptions {
      *  An HTMLElement or a model Object with a corresponding view registered. Only
      *  applicable to the gutter, overlay and block types.
      */
-    item?: HTMLElement;
+    item?: object;
 
     /**
      *  If true, the decoration will only be applied to the head of the DisplayMarker.
@@ -6151,11 +6291,33 @@ export interface SpawnProcessOptions {
 }
 
 export interface TextInsertionOptions {
+    /** If true, selects the newly added text. */
     select?: boolean;
+
+    /** If true, indents all inserted text appropriately. */
     autoIndent?: boolean;
+
+    /** If true, indent newline appropriately. */
     autoIndentNewline?: boolean;
+
+    /**
+     *  If true, decreases indent level appropriately (for example, when a closing
+     *  bracket is inserted).
+     */
     autoDecreaseIndent?: boolean;
+
+    /**
+     *  By default, when pasting multiple lines, Atom attempts to preserve the relative
+     *  indent level between the first line and trailing lines, even if the indent
+     *  level of the first line has changed from the copied text. If this option is
+     *  true, this behavior is suppressed.
+     */
+    preserveTrailingLineIndentation?: boolean;
+
+    /** If true, all line endings will be normalized to match the editor's current mode. */
     normalizeLineEndings?: boolean;
+
+    /** If skip, skips the undo stack for this operation. */
     undo?: "skip";
 }
 

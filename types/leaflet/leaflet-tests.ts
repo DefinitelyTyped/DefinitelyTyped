@@ -381,11 +381,11 @@ draggable.on('drag', () => {});
 
 let twoCoords: [number, number] = [1, 2];
 latLng = L.GeoJSON.coordsToLatLng(twoCoords);
-twoCoords = L.GeoJSON.latLngToCoords(latLng);
+twoCoords = L.GeoJSON.latLngToCoords(latLng) as [number, number];
 
-let threeCoords: [number, number] = [1, 2];
+let threeCoords: [number, number, number] = [1, 2, 3];
 latLng = L.GeoJSON.coordsToLatLng(threeCoords);
-threeCoords = L.GeoJSON.latLngToCoords(latLng);
+threeCoords = L.GeoJSON.latLngToCoords(latLng) as [number, number, number];
 
 let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
@@ -496,3 +496,17 @@ interface MyProperties {
 		iconUrl: 'my-icon.png'
 	})
 }) as L.Marker<MyProperties>).feature.properties.testProperty = "test";
+
+let lg = L.layerGroup();
+lg = L.layerGroup([new L.Layer(), new L.Layer()]);
+lg = L.layerGroup([new L.Layer(), new L.Layer()], {
+	pane: 'overlayPane',
+	attribution: 'test'
+});
+
+lg = new L.LayerGroup();
+lg = new L.LayerGroup([new L.Layer(), new L.Layer()]);
+lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
+	pane: 'overlayPane',
+	attribution: 'test'
+});

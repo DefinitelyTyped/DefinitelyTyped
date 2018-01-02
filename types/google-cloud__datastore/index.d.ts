@@ -1,5 +1,5 @@
-// Type definitions for @google-cloud/datastore 1.1
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/datastore
+// Type definitions for @google-cloud/datastore 1.3
+// Project: https://github.com/googleapis/nodejs-datastore
 // Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -20,7 +20,11 @@ declare module '@google-cloud/datastore' {
         DatastoreCoords,
         OneOrMany
     } from '@google-cloud/datastore/entity';
-    import { DatastoreRequest as DatastoreRequest_, CommitCallback, CommitResult } from '@google-cloud/datastore/request';
+    import {
+        DatastoreRequest as DatastoreRequest_,
+        CommitCallback,
+        CommitResult
+    } from '@google-cloud/datastore/request';
     import {
         Query as DatastoreQuery,
         MoreResultsAfterCursor,
@@ -51,11 +55,19 @@ declare module '@google-cloud/datastore' {
 
         int(value: string | number): DatastoreInt;
 
+        isInt(value: any): value is DatastoreInt;
+
         double(value: string | number): DatastoreDouble;
+
+        isDouble(value: any): value is DatastoreDouble;
 
         geoPoint(coordinates: DatastoreCoords): DatastoreGeopoint;
 
+        isGeoPoint(value: any): value is DatastoreGeopoint;
+
         key(pathOrOptions: DatastoreKeyPath | DatastoreKeyOptions): DatastoreKey;
+
+        isKey(value: any): value is DatastoreKey;
 
         determineBaseUrl_(customApiEndpoint?: string): void;
     }
@@ -84,6 +96,7 @@ declare module '@google-cloud/datastore/entity' {
     interface DatastoreInt {
         value: string;
     }
+
     interface DatastoreDouble {
         value: string;
     }
@@ -92,6 +105,7 @@ declare module '@google-cloud/datastore/entity' {
         latitude: number;
         longitude: number;
     }
+
     interface DatastoreGeopoint {
         value: DatastoreCoords;
     }
@@ -297,6 +311,8 @@ declare module '@google-cloud/datastore/transaction' {
     type RollbackCallback = (err: Error, rollbackResponse: {}) => void;
     type RollbackResult = [{}];
 
-    type TransactionCallback = (err: Error, tx: DatastoreTransaction, beginTxResponse: BeginTransactionResponse) => void;
+    type TransactionCallback = (err: Error,
+                                tx: DatastoreTransaction,
+                                beginTxResponse: BeginTransactionResponse) => void;
     type TransactionResult = [DatastoreTransaction, BeginTransactionResponse];
 }

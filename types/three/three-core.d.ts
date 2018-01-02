@@ -463,6 +463,8 @@ export class CubeCamera extends Object3D {
     renderTarget: WebGLRenderTargetCube;
 
     updateCubeMap(renderer: Renderer, scene: Scene): void;
+
+    update(renderer: Renderer, scene: Scene): void;
 }
 
 /**
@@ -862,7 +864,8 @@ export class BufferGeometry extends EventDispatcher {
 
     center(): Vector3;
 
-    setFromObject(object: Object3D): void;
+    setFromObject(object: Object3D): BufferGeometry;
+    setFromPoints(points: Vector3[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
@@ -1366,6 +1369,8 @@ export class Geometry extends EventDispatcher {
      */
     mergeVertices(): number;
 
+    setFromPoints(points: Array<Vector2> | Array<Vector3>): this;
+
     sortFacesByMaterialIndex(): void;
 
     toJSON(): any;
@@ -1446,6 +1451,7 @@ export class InterleavedBuffer {
     count: number;
     needsUpdate: boolean;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
     copy(source: this): this;
@@ -1467,7 +1473,7 @@ export class InstancedInterleavedBuffer extends InterleavedBuffer {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js">src/core/InterleavedBufferAttribute.js</a>
  */
 export class InterleavedBufferAttribute {
-    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized: boolean);
+    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized?: boolean);
 
     uuid: string;
     data: InterleavedBuffer;
@@ -1920,7 +1926,7 @@ export class AmbientLight extends Light {
      * This creates a Ambientlight with a color.
      * @param color Numeric value of the RGB component of the color or a Color instance.
      */
-    constructor(color?: number|string|Color, intensity?: number);
+    constructor(color?: Color | string | number, intensity?: number);
 
     castShadow: boolean;
 }
@@ -1937,7 +1943,7 @@ export class AmbientLight extends Light {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js">src/lights/DirectionalLight.js</a>
  */
 export class DirectionalLight extends Light {
-    constructor(color?: number|string|Color, intensity?: number);
+    constructor(color?: Color | string | number, intensity?: number);
 
     /**
      * Target used for shadow camera orientation.
@@ -1958,8 +1964,9 @@ export class DirectionalLightShadow extends LightShadow {
 }
 
 export class HemisphereLight extends Light {
-    constructor(skyColor?: number|string|Color, groundColor?: number|string|Color, intensity?: number);
+    constructor(skyColor?: Color | string | number, groundColor?: Color | string | number, intensity?: number);
 
+	skyColor: Color;
     groundColor: Color;
     intensity: number;
 }
@@ -1973,7 +1980,7 @@ export class HemisphereLight extends Light {
  * scene.add( light );
  */
 export class PointLight extends Light {
-    constructor(color?: number|string|Color, intensity?: number, distance?: number, decay?: number);
+    constructor(color?: Color | string | number, intensity?: number, distance?: number, decay?: number);
 
     /*
         * Light's intensity.
@@ -2000,7 +2007,7 @@ export class PointLightShadow extends LightShadow {
  * A point light that can cast shadow in one direction.
  */
 export class SpotLight extends Light {
-    constructor(color?: number|string|Color, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
+    constructor(color?: Color | string | number, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
     /**
      * Spotlight focus points at target.position.
@@ -2595,7 +2602,7 @@ export class Material extends EventDispatcher {
 }
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     linewidth?: number;
     linecap?: string;
     linejoin?: string;
@@ -2613,7 +2620,7 @@ export class LineBasicMaterial extends Material {
 }
 
 export interface LineDashedMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     linewidth?: number;
     scale?: number;
     dashSize?: number;
@@ -2636,7 +2643,7 @@ export class LineDashedMaterial extends Material {
  * parameters is an object with one or more properties defining the material's appearance.
  */
 export interface MeshBasicMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     opacity?: number;
     map?: Texture;
     aoMap?: Texture;
@@ -2695,8 +2702,8 @@ export class MeshDepthMaterial extends Material {
 }
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
-    emissive?: number|string;
+    color?: Color | string | number;
+    emissive?: Color | string | number;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     map?: Texture;
@@ -2749,7 +2756,7 @@ export class MeshLambertMaterial extends Material {
 }
 
 export interface MeshStandardMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     roughness?: number;
     metalness?: number;
     map?: Texture;
@@ -2757,7 +2764,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: Color;
+    emissive?: Color | string | number;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
@@ -2837,8 +2844,8 @@ export class MeshNormalMaterial extends Material {
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
-    color?: number|string|Color;
-    specular?: number;
+    color?: Color | string | number;
+    specular?: Color | string | number;
     shininess?: number;
     opacity?: number;
     map?: Texture;
@@ -2846,7 +2853,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: number;
+    emissive?: Color | string | number;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
@@ -2874,7 +2881,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
 export class MeshPhongMaterial extends Material {
     constructor(parameters?: MeshPhongMaterialParameters);
 
-    color: Color; // diffuse
+    color: Color;
     specular: Color;
     shininess: number;
     map: Texture;
@@ -2947,7 +2954,7 @@ export class MultiMaterial extends Material {
 export class MeshFaceMaterial extends MultiMaterial {}
 
 export interface PointsMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     map?: Texture;
     size?: number;
     sizeAttenuation?: boolean;
@@ -3024,7 +3031,7 @@ export class RawShaderMaterial extends ShaderMaterial {
 }
 
 export interface SpriteMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     map?: Texture;
     rotation?: number;
 }
@@ -4487,6 +4494,7 @@ export class Vector3 implements Vector {
      * http://en.wikipedia.org/wiki/Taxicab_geometry
      */
     lengthManhattan(): number;
+    manhattanDistanceTo(v:Vector3):number;
 
     /**
      * Normalizes this vector.
@@ -5235,14 +5243,14 @@ export interface RenderTarget {} // not defined in the code, used in LightShadow
 
 export interface RenderItem
 {
-    id: number
-    object: THREE.Object3D,
-    geometry: THREE.Geometry | THREE.BufferGeometry,
-    material: THREE.Material,
-    program: THREE.WebGLProgram,
-    renderOrder: number,
-    z: number,
-    group: THREE.Group
+    id: number;
+    object: Object3D;
+    geometry: Geometry | BufferGeometry;
+    material: Material;
+    program: WebGLProgram;
+    renderOrder: number;
+    z: number;
+    group: Group;
 }
 
 export class WebGLRenderList

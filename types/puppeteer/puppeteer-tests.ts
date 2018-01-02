@@ -13,7 +13,7 @@ import * as puppeteer from "puppeteer";
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle" });
+  await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle0" });
   await page.pdf({ path: "hn.pdf", format: "A4" });
 
   browser.close();
@@ -99,7 +99,7 @@ puppeteer.launch().then(async browser => {
   await page.emulateMedia("screen");
   await page.pdf({ path: "page.pdf" });
 
-  await page.setRequestInterceptionEnabled(true);
+  await page.setRequestInterception(true);
   page.on("request", interceptedRequest => {
     if (
       interceptedRequest.url.endsWith(".png") ||
@@ -118,7 +118,7 @@ puppeteer.launch().then(async browser => {
 
   let currentURL: string;
   page
-    .waitForSelector("img")
+    .waitForSelector("img", { visible: true })
     .then(() => console.log("First URL with image: " + currentURL));
   for (currentURL of [
     "https://example.com",
@@ -150,7 +150,7 @@ puppeteer.launch().then(async browser => {
     browser.close();
   });
 
-  const inputElement = await page.$("input[type=submit]");
+  const inputElement = (await page.$("input[type=submit]"))!;
   await inputElement.click();
 });
 
@@ -160,7 +160,10 @@ puppeteer.launch().then(async browser => {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-    ]
+    ],
+    handleSIGINT: true,
+    handleSIGHUP: true,
+    handleSIGTERM: true,
   });
   const page = await browser.newPage();
   await page.goto("https://example.com");
@@ -178,12 +181,18 @@ puppeteer.launch().then(async browser => {
     }
   });
   const page = await browser.newPage();
-  const button = await page.$("#myButton");
-  const div = await page.$("#myDiv");
-  const input = await page.$("#myInput");
+  const button = (await page.$("#myButton"))!;
+  const div = (await page.$("#myDiv"))!;
+  const input = (await page.$("#myInput"))!;
+
+  if (!button)
+    throw new Error('Unable to select myButton');
+
+  if (!input)
+    throw new Error('Unable to select myInput');
 
   await page.addStyleTag({
-      url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   });
 
   console.log(page.url());
@@ -214,7 +223,7 @@ puppeteer.launch().then(async browser => {
 
   await page.deleteCookie(...await page.cookies());
 
-  const metrics = page.getMetrics();
+  const metrics = await page.metrics();
   console.log(metrics.Documents, metrics.Frames, metrics.JSEventListeners);
 
   const navResponse = await page.waitForNavigation({
@@ -223,12 +232,12 @@ puppeteer.launch().then(async browser => {
   console.log(navResponse.ok, navResponse.status, navResponse.url, navResponse.headers);
 
   // evaluate example
-  const bodyHandle = await page.$('body');
+  const bodyHandle = (await page.$('body'))!;
   const html = await page.evaluate(body => body.innerHTML, bodyHandle);
   await bodyHandle.dispose();
 
   // getProperties example
-  const handle = await page.evaluateHandle(() => ({window, document}));
+  const handle = await page.evaluateHandle(() => ({ window, document }));
   const properties = await handle.getProperties();
   const windowHandle = properties.get('window');
   const documentHandle = properties.get('document');
@@ -251,6 +260,24 @@ puppeteer.launch().then(async browser => {
   const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
   console.log(await resultHandle.jsonValue());
   await resultHandle.dispose();
+
+  browser.close();
+})();
+
+// test $eval and $$eval
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  let elementText = await page.$eval('#someElement', (element) => {
+    return element.innerHTML;
+  });
+
+  elementText = await page.$$eval('.someClassName', (elements) => {
+    console.log(elements.length);
+    console.log(elements.item(0).outerHTML);
+    return elements[3].innerHTML;
+  });
 
   browser.close();
 })();

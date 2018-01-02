@@ -1,8 +1,11 @@
-// Type definitions for Express 4.x
+// Type definitions for Express 4.11
 // Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Michał Lytek <https://github.com/19majkel94>
+//                 Kacper Polak <https://github.com/kacepe>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -73,8 +76,12 @@ export interface IRouter extends RequestHandler {
      *      });
      */
     param(name: string, handler: RequestParamHandler): this;
-    // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-    // deprecated since express 4.11.0
+
+    /**
+     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
+     *
+     * @deprecated since version 4.11
+     */
     param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
@@ -297,7 +304,7 @@ export interface Request extends http.IncomingMessage, Express.Request {
     accepted: MediaType[];
 
     /**
-     * @deprecated Use either req.params, req.body or req.query, as applicable.
+     * @deprecated since 4.11 Use either req.params, req.body or req.query, as applicable.
      *
      * Return the value of param `name` when present or `defaultValue`.
      *
@@ -807,6 +814,17 @@ export interface Response extends http.ServerResponse, Express.Response {
     vary(field: string): Response;
 
     app: Application;
+
+    /**
+     * Appends the specified value to the HTTP response header field.
+     * If the header is not already set, it creates the header with the specified value.
+     * The value parameter can be a string or an array.
+     *
+     * Note: calling res.set() after res.append() will reset the previously-set header value.
+     *
+     * @since 4.11.0
+     */
+    append(field: string, value?: string[]|string): Response;
 }
 
 export interface Handler extends RequestHandler { }
@@ -820,7 +838,7 @@ export interface Application extends IRouter, Express.Application {
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
      */
-    (req: Request, res: Response): any;
+    (req: Request | http.IncomingMessage, res: Response | http.ServerResponse): any;
 
     /**
      * Initialize the server.
@@ -882,7 +900,12 @@ export interface Application extends IRouter, Express.Application {
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
-    // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+
+    /**
+     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
+     *
+     * @deprecated since version 4.11
+     */
     param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**

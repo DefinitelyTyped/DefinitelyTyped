@@ -19,14 +19,14 @@ export function cd(dir: string): void;
  * Returns the current directory.
  * @return The current directory.
  */
-export function pwd(): string;
+export function pwd(): ShellString;
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
  * @param  ...paths Paths to search.
  * @return          An array of files in the given path(s).
  */
-export function ls(...paths: string[]): string[];
+export function ls(...paths: Array<string | string[]>): ShellArray;
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
@@ -34,50 +34,21 @@ export function ls(...paths: string[]): string[];
  * @param  ...paths Paths to search.
  * @return          An array of files in the given path(s).
  */
-export function ls(options: string, ...paths: string[]): string[];
-
-/**
- * Returns array of files in the given path, or in current directory if no path provided.
- * @param  paths Paths to search.
- * @return       An array of files in the given path(s).
- */
-export function ls(paths: string[]): string[];
-
-/**
- * Returns array of files in the given path, or in current directory if no path provided.
- * @param    options  Available options: -R (recursive), -A (all files, include files beginning with ., except for . and ..)
- * @param  paths    Paths to search.
- * @return          An array of files in the given path(s).
- */
-export function ls(options: string, paths: string[]): string[];
+export function ls(options: string, ...paths: Array<string | string[]>): ShellArray;
 
 /**
  * Returns array of all files (however deep) in the given paths.
  * @param ...path   The path(s) to search.
  * @return          An array of all files (however deep) in the given path(s).
  */
-export function find(...path: string[]): string[];
-
-/**
- * Returns array of all files (however deep) in the given paths.
- * @param path   The path(s) to search.
- * @return       An array of all files (however deep) in the given path(s).
- */
-export function find(path: string[]): string[];
+export function find(...path: Array<string | string[]>): ShellArray;
 
 /**
  * Copies files. The wildcard * is accepted.
  * @param source  The source.
  * @param   dest  The destination.
  */
-export function cp(source: string, dest: string): void;
-
-/**
- * Copies files. The wildcard * is accepted.
- * @param source  The source.
- * @param   dest    The destination.
- */
-export function cp(source: string[], dest: string): void;
+export function cp(source: string | string[], dest: string): void;
 
 /**
  * Copies files. The wildcard * is accepted.
@@ -85,81 +56,40 @@ export function cp(source: string[], dest: string): void;
  * @param source  The source.
  * @param dest    The destination.
  */
-export function cp(options: string, source: string, dest: string): void;
-
-/**
- * Copies files. The wildcard * is accepted.
- * @param   options Available options: -f (force), -r, -R (recursive)
- * @param source  The source.
- * @param   dest    The destination.
- */
-export function cp(options: string, source: string[], dest: string): void;
+export function cp(options: string, source: string | string[], dest: string): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param ...files Files to remove.
  */
-export function rm(...files: string[]): void;
-
-/**
- * Removes files. The wildcard * is accepted.
- * @param files Files to remove.
- */
-export function rm(files: string[]): void;
+export function rm(...files: Array<string | string[]>): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param   options  Available options: -f (force), -r, -R (recursive)
  * @param ...files Files to remove.
  */
-export function rm(options: string, ...files: string[]): void;
-
-/**
- * Removes files. The wildcard * is accepted.
- * @param   options  Available options: -f (force), -r, -R (recursive)
- * @param ...files Files to remove.
- */
-export function rm(options: string, files: string[]): void;
+export function rm(options: string, ...files: Array<string | string[]>): void;
 
 /**
  * Moves files. The wildcard * is accepted.
  * @param source The source.
  * @param dest   The destination.
  */
-export function mv(source: string, dest: string): void;
-
-/**
- * Moves files. The wildcard * is accepted.
- * @param source The source.
- * @param   dest   The destination.
- */
-export function mv(source: string[], dest: string): void;
+export function mv(source: string | string[], dest: string): void;
 
 /**
  * Creates directories.
  * @param ...dir Directories to create.
  */
-export function mkdir(...dir: string[]): void;
-
-/**
- * Creates directories.
- * @param dir Directories to create.
- */
-export function mkdir(dir: string[]): void;
+export function mkdir(...dir: Array<string | string[]>): void;
 
 /**
  * Creates directories.
  * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param ...dir  The directories to create.
  */
-export function mkdir(options: string, ...dir: string[]): void;
-
-/**
- * Creates directories.
- * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
- * @param dir     The directories to create.
- */
-export function mkdir(options: string, dir: string[]): void;
+export function mkdir(options: string, ...dir: Array<string | string[]>): void;
 
 /**
  * Evaluates expression using the available primaries and returns corresponding value.
@@ -174,29 +104,7 @@ export function test(option: string, path: string): boolean;
  * @param  ...files Files to use.
  * @return            A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
  */
-export function cat(...files: string[]): string;
-
-/**
- * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
- * @param  files Files to use.
- * @return         A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
- */
-export function cat(files: string[]): string;
-
-// Does not work yet.
-export interface String {
-    /**
-     * Analogous to the redirection operator > in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc). Like Unix redirections, to() will overwrite any existing file!
-     * @param file The file to use.
-     */
-    to(file: string): void;
-
-    /**
-     * Analogous to the redirect-and-append operator >> in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc).
-     * @param file The file to append to.
-     */
-    toEnd(file: string): void;
-}
+export function cat(...files: Array<string | string[]>): ShellString;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -205,16 +113,7 @@ export interface String {
  * @param  file        The file to process.
  * @return             The new string after replacement.
  */
-export function sed(searchRegex: RegExp, replacement: string, file: string): string;
-
-/**
- * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
- * @param  searchRegex The regular expression to use for search.
- * @param  replacement The replacement.
- * @param  file        The file to process.
- * @return             The new string after replacement.
- */
-export function sed(searchRegex: string, replacement: string, file: string): string;
+export function sed(searchRegex: string | RegExp, replacement: string, file: string): ShellString;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -224,17 +123,7 @@ export function sed(searchRegex: string, replacement: string, file: string): str
  * @param  file        The file to process.
  * @return             The new string after replacement.
  */
-export function sed(options: string, searchRegex: RegExp, replacement: string, file: string): string;
-
-/**
- * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
- * @param  options     Available options: -i (Replace contents of 'file' in-place. Note that no backups will be created!)
- * @param  searchRegex The regular expression to use for search.
- * @param  replacement The replacement.
- * @param  file        The file to process.
- * @return             The new string after replacement.
- */
-export function sed(options: string, searchRegex: string, replacement: string, file: string): string;
+export function sed(options: string, searchRegex: string | RegExp, replacement: string, file: string): ShellString;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -242,15 +131,7 @@ export function sed(options: string, searchRegex: string, replacement: string, f
  * @param  ...files     The files to process.
  * @return                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export function grep(regex_filter: RegExp, ...files: string[]): string;
-
-/**
- * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
- * @param    regex_filter The regular expression to use.
- * @param  ...files     The files to process.
- * @return                Returns a string containing all lines of the file that match the given regex_filter.
- */
-export function grep(regex_filter: RegExp, files: string[]): string;
+export function grep(regex_filter: string | RegExp, ...files: Array<string | string[]>): ShellString;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -259,51 +140,42 @@ export function grep(regex_filter: RegExp, files: string[]): string;
  * @param  ...files     The files to process.
  * @return                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export function grep(options: string, regex_filter: string, ...files: string[]): string;
-
-/**
- * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
- * @param    options      Available options: -v (Inverse the sense of the regex and print the lines not matching the criteria.)
- * @param    regex_filter The regular expression to use.
- * @param  files        The files to process.
- * @return                Returns a string containing all lines of the file that match the given regex_filter.
- */
-export function grep(options: string, regex_filter: string, files: string[]): string;
+export function grep(options: string, regex_filter: string | RegExp, ...files: Array<string | string[]>): ShellString;
 
 /**
  * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
  * @param  command The command to search for.
  * @return         Returns string containing the absolute path to the command.
  */
-export function which(command: string): string;
+export function which(command: string): ShellString;
 
 /**
  * Prints string to stdout, and returns string with additional utility methods like .to().
  * @param  ...text The text to print.
  * @return           Returns the string that was passed as argument.
  */
-export function echo(...text: string[]): string;
+export function echo(...text: string[]): ShellString;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
  * @param      dir Brings the Nth directory (counting from the left of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return     Returns an array of paths in the stack.
  */
-export function pushd(dir: "+N"): string[];
+export function pushd(dir: "+N"): ShellArray;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
  * @param      dir Brings the Nth directory (counting from the right of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return     Returns an array of paths in the stack.
  */
-export function pushd(dir: "-N"): string[];
+export function pushd(dir: "-N"): ShellArray;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
  * @param      dir Makes the current working directory be the top of the stack, and then executes the equivalent of cd dir.
  * @return       Returns an array of paths in the stack.
  */
-export function pushd(dir: string): string[];
+export function pushd(dir: string): ShellArray;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
@@ -311,7 +183,7 @@ export function pushd(dir: string): string[];
  * @param      dir Brings the Nth directory (counting from the left of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return     Returns an array of paths in the stack.
  */
-export function pushd(options: string, dir: "+N"): string[];
+export function pushd(options: string, dir: "+N"): ShellArray;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
@@ -319,7 +191,7 @@ export function pushd(options: string, dir: "+N"): string[];
  * @param      dir Brings the Nth directory (counting from the right of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return     Returns an array of paths in the stack.
  */
-export function pushd(options: string, dir: "-N"): string[];
+export function pushd(options: string, dir: "-N"): ShellArray;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
@@ -327,34 +199,34 @@ export function pushd(options: string, dir: "-N"): string[];
  * @param    dir     Makes the current working directory be the top of the stack, and then executes the equivalent of cd dir.
  * @return         Returns an array of paths in the stack.
  */
-export function pushd(options: string, dir: string): string[];
+export function pushd(options: string, dir: string): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @param      dir Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
  * @return     Returns an array of paths in the stack.
  */
-export function popd(dir: "+N"): string[];
+export function popd(dir: "+N"): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @return     Returns an array of paths in the stack.
  */
-export function popd(): string[];
+export function popd(): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @param      dir Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
  * @return     Returns an array of paths in the stack.
  */
-export function popd(dir: "-N"): string[];
+export function popd(dir: "-N"): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @param      dir You can only use -N and +N.
  * @return       Returns an array of paths in the stack.
  */
-export function popd(dir: string): string[];
+export function popd(dir: string): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
@@ -362,7 +234,7 @@ export function popd(dir: string): string[];
  * @param      dir     Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
  * @return         Returns an array of paths in the stack.
  */
-export function popd(options: string, dir: "+N"): string[];
+export function popd(options: string, dir: "+N"): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
@@ -370,7 +242,7 @@ export function popd(options: string, dir: "+N"): string[];
  * @param      dir     Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
  * @return         Returns an array of paths in the stack.
  */
-export function popd(options: string, dir: "-N"): string[];
+export function popd(options: string, dir: "-N"): ShellArray;
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
@@ -378,28 +250,28 @@ export function popd(options: string, dir: "-N"): string[];
  * @param    dir     You can only use -N and +N.
  * @return         Returns an array of paths in the stack.
  */
-export function popd(options: string, dir: string): string[];
+export function popd(options: string, dir: string): ShellArray;
 
 /**
  * Clears the directory stack by deleting all of the elements.
  * @param      options Clears the directory stack by deleting all of the elements.
  * @return         Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export function dirs(options: "-c"): string[];
+export function dirs(options: "-c"): ShellArray;
 
 /**
  * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
  * @param    options Displays the Nth directory (counting from the left of the list printed by dirs when invoked without options), starting with zero.
  * @return       Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export function dirs(options: "+N"): string;
+export function dirs(options: "+N"): ShellString;
 
 /**
  * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
  * @param    options Displays the Nth directory (counting from the right of the list printed by dirs when invoked without options), starting with zero.
  * @return       Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export function dirs(options: "-N"): string;
+export function dirs(options: "-N"): ShellString;
 
 /**
  * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
@@ -474,6 +346,30 @@ export interface ExecOutputReturnValue {
     stderr: string;
 }
 
+export interface ShellReturnValue extends ExecOutputReturnValue {
+    /**
+     * Analogous to the redirection operator > in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc). Like Unix redirections, to() will overwrite any existing file!
+     * @param file The file to use.
+     */
+    to(file: string): void;
+
+    /**
+     * Analogous to the redirect-and-append operator >> in Unix, but works with JavaScript strings (such as those returned by cat, grep, etc).
+     * @param file The file to append to.
+     */
+    toEnd(file: string): void;
+
+    cat(...files: string[]): ShellString;
+    exec(callback: ExecCallback): child.ChildProcess;
+    exec(): ExecOutputReturnValue;
+    grep(...files: Array<string | string[]>): ShellString;
+    sed(replacement: string, file: string): ShellString;
+}
+
+export type ShellString = string & ShellReturnValue;
+
+export type ShellArray = string[] & ShellReturnValue;
+
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
  * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
@@ -498,30 +394,34 @@ export function chmod(mode: string, file: string): void;
  * Searches and returns string containing a writeable, platform-dependent temporary directory. Follows Python's tempfile algorithm.
  * @return The temp file path.
  */
-export function tempdir(): string;
+export function tempdir(): ShellString;
 
 /**
  * Tests if error occurred in the last command.
  * @return Returns null if no error occurred, otherwise returns string explaining the error
  */
-export function error(): string;
+export function error(): ShellString;
 
 export type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
 
 /**
  * Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
  */
-export interface touchOptionsArray {
+export interface TouchOptionsArray {
     '-d'?: string;
     '-r'?: string;
 }
 
 export function touch(...files: string[]): void;
 export function touch(files: string[]): void;
-export function touch(options: TouchOptionsLiteral, ...files: string[]): void;
-export function touch(options: TouchOptionsLiteral, files: string[]): void;
-export function touch(options: touchOptionsArray, ...files: string[]): void;
-export function touch(options: touchOptionsArray, files: string[]): void;
+export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): void;
+export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): void;
+
+/**
+ * Sets global configuration variables
+ * @param options Available options: `+/-e`: exit upon error (`config.fatal`), `+/-v`: verbose: show all commands (`config.verbose`), `+/-f`: disable filename expansion (globbing)
+ */
+export function set(options: string): void;
 
 // Configuration
 

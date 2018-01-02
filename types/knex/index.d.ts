@@ -1,6 +1,9 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Baronfel <https://github.com/baronfel>
+//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,7 +11,7 @@
 
 import events = require("events");
 import stream = require ("stream");
-import Promise = require("bluebird");
+import Bluebird = require("bluebird");
 
 type Callback = Function;
 type Client = Function;
@@ -22,9 +25,9 @@ interface Knex extends Knex.QueryInterface {
     __knex__: string;
 
     raw: Knex.RawBuilder;
-    transaction(transactionScope: (trx: Knex.Transaction) => any): Promise<any>;
+    transaction<T>(transactionScope: (trx: Knex.Transaction) => Promise<T> | Bluebird<T> | void): Bluebird<T>;
     destroy(callback: Function): void;
-    destroy(): Promise<void>;
+    destroy(): Bluebird<void>;
     batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
     queryBuilder(): Knex.QueryBuilder;
@@ -156,7 +159,7 @@ declare namespace Knex {
         delete(returning?: string | string[]): QueryBuilder;
         truncate(): QueryBuilder;
 
-        transacting(trx: Transaction): QueryBuilder;
+        transacting(trx?: Transaction): QueryBuilder;
         connection(connection: any): QueryBuilder;
 
         clone(): QueryBuilder;
@@ -193,19 +196,19 @@ declare namespace Knex {
         on(columns: { [key: string]: string | Raw }): JoinClause;
         on(column1: string, column2: string): JoinClause;
         on(column1: string, raw: Raw): JoinClause;
-        on(column1: string, operator: string, column2: string): JoinClause;
+        on(column1: string, operator: string, column2: string | Raw): JoinClause;
         andOn(raw: Raw): JoinClause;
         andOn(callback: Function): JoinClause;
         andOn(columns: { [key: string]: string | Raw }): JoinClause;
         andOn(column1: string, column2: string): JoinClause;
         andOn(column1: string, raw: Raw): JoinClause;
-        andOn(column1: string, operator: string, column2: string): JoinClause;
+        andOn(column1: string, operator: string, column2: string | Raw): JoinClause;
         orOn(raw: Raw): JoinClause;
         orOn(callback: Function): JoinClause;
         orOn(columns: { [key: string]: string | Raw }): JoinClause;
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
-        orOn(column1: string, operator: string, column2: string): JoinClause;
+        orOn(column1: string, operator: string, column2: string | Raw): JoinClause;
         onIn(column1: string, values: any[]): JoinClause;
         andOnIn(column1: string, values: any[]): JoinClause;
         orOnIn(column1: string, values: any[]): JoinClause;
@@ -351,7 +354,7 @@ declare namespace Knex {
         and: QueryBuilder;
 
         //TODO: Promise?
-        columnInfo(column?: string): Promise<ColumnInfo>;
+        columnInfo(column?: string): Bluebird<ColumnInfo>;
 
         forUpdate(): QueryBuilder;
         forShare(): QueryBuilder;
@@ -372,18 +375,18 @@ declare namespace Knex {
     // Chainable interface
     //
 
-    interface ChainableInterface extends Promise<any> {
+    interface ChainableInterface extends Bluebird<any> {
         toQuery(): string;
         options(options: any): QueryBuilder;
-        stream(callback: (readable: stream.PassThrough) => any): Promise<any>;
+        stream(callback: (readable: stream.PassThrough) => any): Bluebird<any>;
         stream(options?: { [key: string]: any }): stream.PassThrough;
-        stream(options: { [key: string]: any }, callback: (readable: stream.PassThrough) => any): Promise<any>;
+        stream(options: { [key: string]: any }, callback: (readable: stream.PassThrough) => any): Bluebird<any>;
         pipe(writable: any): stream.PassThrough;
         exec(callback: Function): QueryBuilder;
     }
 
     interface Transaction extends Knex {
-        savepoint(transactionScope: (trx: Transaction) => any): Promise<any>;
+        savepoint(transactionScope: (trx: Transaction) => any): Bluebird<any>;
         commit(value?: any): QueryBuilder;
         rollback(error?: any): QueryBuilder;
     }
@@ -392,14 +395,14 @@ declare namespace Knex {
     // Schema builder
     //
 
-    interface SchemaBuilder extends Promise<any> {
+    interface SchemaBuilder extends Bluebird<any> {
         createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
-        renameTable(oldTableName: string, newTableName: string): Promise<void>;
+        renameTable(oldTableName: string, newTableName: string): Bluebird<void>;
         dropTable(tableName: string): SchemaBuilder;
-        hasTable(tableName: string): Promise<boolean>;
-        hasColumn(tableName: string, columnName: string): Promise<boolean>;
-        table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
+        hasTable(tableName: string): Bluebird<boolean>;
+        hasColumn(tableName: string, columnName: string): Bluebird<boolean>;
+        table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Bluebird<void>;
         dropTableIfExists(tableName: string): SchemaBuilder;
         raw(statement: string): SchemaBuilder;
         withSchema(schemaName: string): SchemaBuilder;
@@ -510,7 +513,7 @@ declare namespace Knex {
 
     interface Config {
         debug?: boolean;
-        client?: string;
+        client?: string | typeof Client;
         dialect?: string;
         version?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
@@ -666,15 +669,31 @@ declare namespace Knex {
     }
 
     interface Migrator {
-        make(name: string, config?: MigratorConfig): Promise<string>;
-        latest(config?: MigratorConfig): Promise<any>;
-        rollback(config?: MigratorConfig): Promise<any>;
-        status(config?: MigratorConfig): Promise<number>;
-        currentVersion(config?: MigratorConfig): Promise<string>;
+        make(name: string, config?: MigratorConfig): Bluebird<string>;
+        latest(config?: MigratorConfig): Bluebird<any>;
+        rollback(config?: MigratorConfig): Bluebird<any>;
+        status(config?: MigratorConfig): Bluebird<number>;
+        currentVersion(config?: MigratorConfig): Bluebird<string>;
     }
 
     interface FunctionHelper {
         now(): Raw;
+    }
+
+    //
+    // Clients
+    //
+
+    class Client extends events.EventEmitter {
+      constructor(config: Config);
+      config: Config;
+      dialect: string;
+      driverName: string;
+      connectionSettings: object;
+
+      acquireRawConnection(): Promise<any>;
+      destroyRawConnection(connection: any): Promise<void>;
+      validateConnection(connection: any): Promise<boolean>;
     }
 }
 

@@ -257,6 +257,6 @@ const client = zookeeper.createClient(
 }
 
 {
-    new zookeeper.Exception(zookeeper.Exception.NO_NODE, 'test');
-    new zookeeper.Exception(zookeeper.Exception.NO_NODE, 'test', '/test');
+    new zookeeper.Exception(zookeeper.Exception.NO_NODE, 'test', zookeeper.Exception);
+    new zookeeper.Exception(zookeeper.Exception.NO_NODE, 'test', '/test', zookeeper.Exception);
 }

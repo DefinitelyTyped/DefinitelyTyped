@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.5
+// Type definitions for auth0 2.6
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,11 +14,23 @@ export interface ManagementClientOptions {
   audience?: string;
   scope?: string;
   tokenProvider?: TokenProvider;
+  retry?: RetryOptions;
 }
 
 export interface TokenProvider {
   enableCache: boolean;
   cacheTTLInSeconds?: number;
+}
+
+export interface RetryOptions {
+  /**
+   * Default value is `true`.
+   */
+  enabled?: boolean;
+  /**
+   * Default value is `10`.
+   */
+  maxRetries?: number;
 }
 
 export interface UserMetadata { }
@@ -163,6 +175,82 @@ export interface Client {
   token_endpoint_auth_method?: string;
   client_metadata?: any;
   mobile?: any;
+}
+
+export interface ResourceServer {
+  scopes?: { description: string, value: string }[];
+  /**
+   * The algorithm used to sign tokens.
+   */
+  signing_alg?: 'HS256' | 'RS256';
+  /**
+   * The secret used to sign tokens when using symmetric algorithms.
+   */
+  signing_secret?: string;
+  /**
+   * Allows issuance of refresh tokens for this entity.
+   */
+  allow_offline_access?: boolean;
+  /**
+   * Flag this entity as capable of skipping consent.
+   */
+  skip_consent_for_verifiable_first_party_clients?: boolean;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued.
+   */
+  token_lifetime?: number;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued from browser based flows. Value cannot be larger than token_lifetime..
+   */
+  token_lifetime_for_web?: number;
+  /**
+   * The ID of the resource server.
+   */
+  id?: string;
+  /**
+   * A friendly name for the resource server.
+   */
+  name?: string;
+}
+
+export interface CreateResourceServer extends ResourceServer {
+  /**
+   * The identifier of the client.
+   */
+  identifier?: string;
+}
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
+}
+
+export type UpdateClientGrant = Pick<Partial<CreateClientGrant>, 'scope'>;
+
+export type ClientGrant = Partial<CreateClientGrant> & {
+  /**
+   * The id of the client grant.
+   */
+  id?: string;
+};
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
 }
 
 export interface User {
@@ -433,17 +521,17 @@ export class ManagementClient {
 
                                               
   // Client Grants
-  getClientGrants(): Promise<User>;
-  getClientGrants(cb: (err: Error, data: any) => void): void;
+  getClientGrants(): Promise<ClientGrant[]>;
+  getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
 
-  createClientGrant(data: Data): Promise<User>;
-  createClientGrant(data: Data, cb: (err: Error, data: any) => void): void;
+  createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
+  createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  updateClientGrant(params: ObjectWithId, data: Data): Promise<User>;
-  updateClientGrant(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant): Promise<ClientGrant>;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  deleteClientGrant(params: ObjectWithId): Promise<User>;
-  deleteClientGrant(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteClientGrant(params: ObjectWithId): Promise<void>;
+  deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Device Keys
@@ -481,6 +569,9 @@ export class ManagementClient {
 
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
+
+  getUsersByEmail(email: string): Promise<User[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
 
   createUser(data: CreateUserData): Promise<User>;
   createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
@@ -529,8 +620,8 @@ export class ManagementClient {
   deleteEmailProvider(): Promise<any>;
   deleteEmailProvider(cb?: (err: Error, data: any) => void): void;
 
-  updateEmailProvider(data: Data): Promise<any>;
-  updateEmailProvider(data: Data, cb?: (err: Error, data: any) => void): void;
+  updateEmailProvider(params: {}, data: Data): Promise<any>;
+  updateEmailProvider(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Statistics
@@ -575,22 +666,18 @@ export class ManagementClient {
 
 
   // Resource Server
-  createResourceServer(data: Data): Promise<any>;
-  createResourceServer(data: Data, cb?: (err: Error, data: any) => void): void;
+  createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
+  createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  getResourceServers(): Promise<any>;
-  getResourceServers(cb?: (err: Error, data: any) => void): void;
+  getResourceServers(): Promise<ResourceServer[]>;
+  getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
-  getResourceServer(data: ObjectWithId): Promise<any>;
-  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  getResourceServer(data: ObjectWithId): Promise<ResourceServer>;
+  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  deleteResourceServer(params: ObjectWithId): Promise<any>;
-  deleteResourceServer(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  deleteResourceServer(params: ObjectWithId): Promise<void>;
+  deleteResourceServer(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateResourceServer(params: ObjectWithId, data: Data): Promise<any>;
-  updateResourceServer(params: ObjectWithId, data: Data, cb?: (err: Error, data: any) => void): void;
-
-
-
-
+  updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
+  updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 }

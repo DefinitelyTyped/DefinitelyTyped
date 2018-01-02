@@ -300,7 +300,7 @@ declare module 'ember' {
             /**
              * Given a fullName return a corresponding instance.
              */
-            lookup(fullName: string, options: {}): any;
+            lookup(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 
@@ -558,6 +558,8 @@ declare module 'ember' {
         **/
         interface ArrayProxy<T> extends MutableArray<T> {}
         class ArrayProxy<T> extends Object.extend(MutableArray as {}) {
+            content: NativeArray<T>;
+
             /**
              * Should actually retrieve the object at the specified index from the
              * content. You can override this method in subclasses to transform the
@@ -1477,12 +1479,31 @@ declare module 'ember' {
         class Mixin<T, Base = Ember.Object> {
             /**
              * Mixin needs to have *something* on its prototype, otherwise it's treated like an empty interface.
+             * It cannot be private, sadly.
              */
-            private __ember_mixin__: never;
+            __ember_mixin__: never;
 
             static create<T, Base = Ember.Object>(
                 args?: T & ThisType<Fix<T & Base>>
             ): Mixin<T, Base>;
+
+            static create<T1, T2, Base = Ember.Object>(
+                arg1: T1 & ThisType<Fix<T1 & Base>>,
+                arg2: T2 & ThisType<Fix<T2 & Base>>
+            ): Mixin<T1 & T2, Base>;
+
+            static create<T1, T2, T3, Base = Ember.Object>(
+                arg1: T1 & ThisType<Fix<T1 & Base>>,
+                arg2: T2 & ThisType<Fix<T2 & Base>>,
+                arg3: T3 & ThisType<Fix<T3 & Base>>
+            ): Mixin<T1 & T2 & T3, Base>;
+
+            static create<T1, T2, T3, T4, Base = Ember.Object>(
+                arg1: T1 & ThisType<Fix<T1 & Base>>,
+                arg2: T2 & ThisType<Fix<T2 & Base>>,
+                arg3: T3 & ThisType<Fix<T3 & Base>>,
+                arg4: T4 & ThisType<Fix<T4 & Base>>
+            ): Mixin<T1 & T2 & T3 & T4, Base>;
         }
         /**
          * This mixin defines the API for modifying array-like objects. These methods
@@ -1797,7 +1818,7 @@ declare module 'ember' {
             logic that can only take place after the model has already
             resolved.
             */
-            afterModel(resolvedModel: any, transition: Transition): Rsvp.Promise<any>;
+            afterModel(resolvedModel: any, transition: Transition): any;
 
             /**
             This hook is the first of the route entry validation hooks
@@ -1837,7 +1858,7 @@ declare module 'ember' {
              * A hook you can implement to convert the URL into the model for
              * this route.
              */
-            model<T>(params: {}, transition: Transition): T | Rsvp.Promise<T>;
+            model(params: {}, transition: Transition): any;
 
             /**
              * Returns the model of a parent (or any ancestor) route
@@ -1937,7 +1958,7 @@ declare module 'ember' {
              * This method is called when `transitionTo` is called with a context
              * in order to populate the URL.
              */
-            serialize(model: {}, params: string[]): string;
+            serialize(model: {}, params: string[]): string | object;
 
             /**
              * A hook you can use to setup the controller for the current route.
@@ -2095,7 +2116,15 @@ declare module 'ember' {
                 options?: { path?: string; resetNamespace?: boolean },
                 callback?: (this: RouterDSL) => void
             ): void;
-            mount(name: string): void;
+            mount(
+                name: string,
+                options?: {
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
+                }
+            ): void;
         }
         class Service extends Object {}
         /**
@@ -2228,7 +2257,6 @@ declare module 'ember' {
              * an instance of `Ember.Test.Promise`
              */
             function resolve<T>(value?: T | PromiseLike<T>, label?: string): Ember.Test.Promise<T>;
-            function resolve(): Ember.Test.Promise<void>;
             /**
              * This allows ember-testing to play nicely with other asynchronous
              * events, such as an application that is waiting for a CSS3
@@ -2462,12 +2490,12 @@ declare module 'ember' {
              * A computed property that performs a logical `and` on the
              * original values for the provided dependent properties.
              */
-            and(...dependentKeys: string[]): ComputedProperty<any>;
+            and(...dependentKeys: string[]): ComputedProperty<boolean>;
             /**
              * A computed property which performs a logical `or` on the
              * original values for the provided dependent properties.
              */
-            or(...dependentKeys: string[]): ComputedProperty<any>;
+            or(...dependentKeys: string[]): ComputedProperty<boolean>;
             /**
              * Creates a new property that is an alias for another property
              * on an object. Calls to `get` or `set` this property behave as

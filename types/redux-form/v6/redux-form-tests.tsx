@@ -120,7 +120,7 @@ const DecoratedInitializeFromStateFormFunction = reduxForm<{}, Props & DispatchP
 
 // You have to connect() to any reducers that you wish to connect to yourself
 const ConnectedDecoratedInitializeFromStateFormFunction = connect(
-    state => ({
+    (state: any) => ({
         initialValues: state.account.data // pull initial values from account reducer
     }),
 )(DecoratedInitializeFromStateFormFunction);

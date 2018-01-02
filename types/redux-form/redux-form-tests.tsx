@@ -14,11 +14,11 @@ import {
     WrappedFieldProps,
     Fields,
     GenericFields,
-    BaseFieldProps,
     WrappedFieldsProps,
     FieldArray,
     GenericFieldArray,
     WrappedFieldArrayProps,
+    BaseFieldProps,
     reducer,
     FormAction,
     actionTypes,
@@ -125,6 +125,12 @@ const MyField: React.StatelessComponent<MyFieldProps> = ({
     return null;
 };
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
+
+
+type FieldProps = BaseFieldProps<MyFieldCustomProps> & MyFieldCustomProps;
+const FieldCustomComp: StatelessComponent<FieldProps> = props => (
+    <FieldCustom {...props} component={MyField} />
+)
 
 const MyFieldImm: React.StatelessComponent<MyFieldProps> = ({
     children,
@@ -266,6 +272,11 @@ const Test = reduxForm<TestFormData>({
                             <FieldCustom
                                 name="field4"
                                 component={ MyField }
+                                foo="bar"
+                            />
+
+                            <FieldCustomComp
+                                name="field_4_comp"
                                 foo="bar"
                             />
 

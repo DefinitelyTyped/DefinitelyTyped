@@ -7,20 +7,30 @@ const name: string = spec.name;
 const options: object = spec.options;
 
 const isValid: boolean = S.valid(S.spec.boolean, true);
+S.valid((value) => true, "a value");
 
 const result = S.conform(S.spec.map("dancing", {field: S.spec.string}), "not a map");
+S.conform((value) => true, "a value");
 
 const problems: S.Problem[] = S.explainData(S.spec.int, "not a number");
+S.explainData((value) => true, "a value");
 
 const {path, via, value, predicate}: {path: string[], via: string[], value: any, predicate: S.Predicate} = problems[0];
 
-const problemStr: string = S.explainStr(S.spec.even, 3);
+const problemStr: string = S.problemStr(problems[0]);
+
+const explainStr: string = S.explainStr(S.spec.even, 3);
+S.explainStr((value) => true, "a value");
 
 // $ExpectType void
 S.explain(S.spec.positive, true);
+// $ExpectType void
+S.explain((value) => true, "a value");
 
 // $ExpectType void
 S.assert(S.spec.string, "things");
+// $ExpectType void
+S.assert((value) => true, "a value");
 
 const symbols: symbol[] = [S.symbol.count, S.symbol.invalid, S.symbol.maxCount, S.symbol.minCount, S.symbol.optional];
 
@@ -37,6 +47,8 @@ const tupleSpec: S.Spec = S.spec.tuple("tuple test", S.spec.bool, S.spec.date, S
 const mapSpec: S.Spec = S.spec.map("map test", { email: S.spec.string, [S.symbol.optional]: { name: S.spec.string } });
 
 const oneOfSpec: S.Spec = S.spec.oneOf("oneOf test", "a", "b", "c");
+
+const predicateSpec: S.Spec = S.spec.predicate("predicate test", (value) => true);
 
 // Predicates
 
