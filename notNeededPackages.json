@@ -1279,6 +1279,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "UUID.js",
+            "typingsPackageName": "uuidjs",
+            "sourceRepoURL": "https://github.com/LiosK/UUID.js",
+            "asOfVersion": "3.6.0"
+        },
+        {
             "libraryName": "Validate.js",
             "typingsPackageName": "validate.js",
             "sourceRepoURL": "https://github.com/ansman/validate.js",
