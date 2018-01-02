@@ -35,9 +35,9 @@ export interface TabPanelProps {
     selectedClassName?: string;
 }
 
-export declare class Tabs extends React.Component<TabsProps> {}
-export declare class TabList extends React.Component<TabListProps> {}
-export declare class Tab extends React.Component<TabProps> {}
-export declare class TabPanel extends React.Component<TabPanelProps> {}
+export declare class Tabs extends React.Component<TabsProps, undefined> {}
+export declare class TabList extends React.Component<TabListProps, undefined> {}
+export declare class Tab extends React.Component<TabProps, undefined> {}
+export declare class TabPanel extends React.Component<TabPanelProps, undefined> {}
 
 export declare function resetIdCounter(): void;
