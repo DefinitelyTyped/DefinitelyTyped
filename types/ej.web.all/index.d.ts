@@ -1,15 +1,13 @@
-// Type definitions for ej.web.all 15.4
+// Type definitions for ej.web.all 15.4.20
 // Project: http://help.syncfusion.com/js/typescript
-// Definitions by: Syncfusion <https://github.com/syncfusion>
+// Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.4.0.17
+*  version : 15.4.0.20
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -17,6 +15,7 @@
 *  applicable laws.
 */
 declare namespace ej {
+    /* tslint:disable:no-empty-interface */
     const dataUtil: dataUtil;
     function isMobile(): boolean;
     function isIOS(): boolean;
@@ -94,12 +93,12 @@ declare namespace ej {
     function avg(json: any, filedName: string): any;
     function getGuid(prefix: string): number;
     function group(jsonArray: any, field: string, agg: string, level: number, groupDs: string): any;
-    function isJson(jsonData: string): string;
+    function isJSON(jsonData: string): string;
     function max(jsonArray: any, fieldName?: string, comparer?: string): any;
     function min(jsonArray: any, fieldName: string, comparer: string): any;
     function merge(first: string, second: string): any;
     function mergeshort(jsonArray: any, fieldName: string, comparer: string): any;
-    function parseJson(jsonText: string): string;
+    function parseJSON(jsonText: string): string;
     function parseTable(table: number, headerOption: string, headerRowIndex: string): any;
     function select(jsonArray: any, fields: string): any;
     function setTransition(): boolean;
@@ -2477,6 +2476,10 @@ declare namespace ej {
              */
             stringFormat?: string;
 
+            /** This property allows user to search text for any number of fields in the suggestion list without modifying the selected text format.
+             */
+            searchColumnIndices?: any[];
+
             /** Field and Header Text collections can be defined and customized through columns field.
              */
             columns?: MultiColumnSettingsColumn[];
@@ -4592,8 +4595,8 @@ declare namespace ej {
             toolIcon?: string;
 
             /** This property allows to define the customized text or content to displayed when mouse over the following elements. This property also allows to use the culture values.
-             * @Default {{ switcher: Switcher, addbutton: Add Color, basic: Basic, monochrome: Mono Chrome, flatcolors: Flat Color, seawolf: Sea Wolf, webcolors: Web Colors, sandy: Sandy,
-             * pinkshades: Pink Shades, misty: Misty, citrus: Citrus, vintage: Vintage, moonlight: Moon Light, candycrush: Candy Crush, currentcolor: Current Color, selectedcolor: Selected
+             * @Default {{ switcher: Switcher, addButton: Add Color, basic: Basic, monoChrome: Mono Chrome, flatColors: Flat Color, seaWolf: Sea Wolf, webColors: Web Colors, sandy: Sandy,
+             * pinkShades: Pink Shades, misty: Misty, citrus: Citrus, vintage: Vintage, moonLight: Moon Light, candyCrush: Candy Crush, currentColor: Current Color, selectedColor: Selected
              * Color }}
              */
             tooltipText?: TooltipText;
@@ -4749,7 +4752,7 @@ declare namespace ej {
 
             /** Sets the tooltip text for the add button.
              */
-            addbutton?: string;
+            addButton?: string;
 
             /** Sets the tooltip text for the basic preset.
              */
@@ -4757,19 +4760,19 @@ declare namespace ej {
 
             /** Sets the tooltip text for the mono chrome preset.
              */
-            monochrome?: string;
+            monoChrome?: string;
 
             /** Sets the tooltip text for the flat colors preset.
              */
-            flatcolors?: string;
+            flatColors?: string;
 
             /** Sets the tooltip text for the sea wolf preset.
              */
-            seawolf?: string;
+            seaWolf?: string;
 
             /** Sets the tooltip text for the web colors preset.
              */
-            webcolors?: string;
+            webColors?: string;
 
             /** Sets the tooltip text for the sandy preset.
              */
@@ -4777,7 +4780,7 @@ declare namespace ej {
 
             /** Sets the tooltip text for the pink shades preset.
              */
-            pinkshades?: string;
+            pinkShades?: string;
 
             /** Sets the tooltip text for the misty preset.
              */
@@ -4793,19 +4796,19 @@ declare namespace ej {
 
             /** Sets the tooltip text for the moon light preset.
              */
-            moonlight?: string;
+            moonLight?: string;
 
             /** Sets the tooltip text for the candy crush preset.
              */
-            candycrush?: string;
+            candyCrush?: string;
 
             /** Sets the tooltip text for the current color area.
              */
-            currentcolor?: string;
+            currentColor?: string;
 
             /** Sets the tooltip text for the selected color area.
              */
-            selectedcolor?: string;
+            selectedColor?: string;
         }
 
         enum ModelType {
@@ -7751,7 +7754,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set 'showHeader' as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set showHeader as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
@@ -8488,6 +8491,11 @@ declare namespace ej {
              * @Default {false}
              */
             enableSorting?: boolean;
+
+            /** The property is used to determine whether the popup list is generated dynamically.
+             * @Default {false}
+             */
+            loadOnDemand?: boolean;
 
             /** Specifies the mapping fields for the data items of the DropDownList.
              * @Default {null}
@@ -10888,7 +10896,7 @@ declare namespace ej {
 
             /** Fires when keydown in mask edit textbox control.
              */
-            keydown?(e: KeydownEventArgs): void;
+            onKeyDown?(e: OnKeyDownEventArgs): void;
 
             /** Fires when key press in mask edit textbox control.
              */
@@ -10896,7 +10904,7 @@ declare namespace ej {
 
             /** Fires when keyup in mask edit textbox control.
              */
-            keyup?(e: KeyupEventArgs): void;
+            keyUp?(e: KeyUpEventArgs): void;
 
             /** Fires when mouse out in mask edit textbox control.
              */
@@ -11006,7 +11014,7 @@ declare namespace ej {
             unmaskedValue?: string;
         }
 
-        export interface KeydownEventArgs {
+        export interface OnKeyDownEventArgs {
 
             /** if the event should be canceled; otherwise, false.
              */
@@ -11052,7 +11060,7 @@ declare namespace ej {
             unmaskedValue?: string;
         }
 
-        export interface KeyupEventArgs {
+        export interface KeyUpEventArgs {
 
             /** if the event should be canceled; otherwise, false.
              */
@@ -11185,9 +11193,10 @@ declare namespace ej {
         hide(): void;
 
         /** Hides the specific items in Menu control.
+         * @param {string|any[]} ItemID of the Menu item to be hidden
          * @returns {void}
          */
-        hideItems(): void;
+        hideItems(itemID: string|any[]): void;
 
         /** Insert the menu item as child of target node.
          * @param {any} Information about Menu item.
@@ -11226,9 +11235,10 @@ declare namespace ej {
         show(locationX: number, locationY: number, targetElement: any, event: any): void;
 
         /** Show the specific items in Menu control.
+         * @param {string|any[]} ItemID of the Menu item to be shown
          * @returns {void}
          */
-        showItems(): void;
+        showItems(itemID: string|any[]): void;
     }
     export namespace Menu {
 
@@ -11692,6 +11702,26 @@ declare namespace ej {
          */
         gotoPage(pageIndex: number): void;
 
+        /** goToFirstPage() helps to navigate to the first page of the pager.
+         * @returns {void}
+         */
+        goToFirstPage(): void;
+
+        /** goToNextPage() helps to navigate to the next page to the current page of the pager.
+         * @returns {void}
+         */
+        goToNextPage(): void;
+
+        /** goToLastPage() helps to navigate to the Last page of the pager.
+         * @returns {void}
+         */
+        goToLastPage(): void;
+
+        /** goToPrevPage() helps to navigate to the previous page to the current page of the pager.
+         * @returns {void}
+         */
+        goToPrevPage(): void;
+
         /** refreshPager() helps to refresh the model value of pager control.
          * @returns {void}
          */
@@ -11709,6 +11739,15 @@ declare namespace ej {
              * @Default {1}
              */
             currentPage?: number;
+
+            /** Sets the root CSS class, which can be used for customization of pager control.
+             */
+            cssClass?: string;
+
+            /** Enable or disable the Pager control.
+             * @Default {true}
+             */
+            enabled?: boolean;
 
             /** Gets or sets a value that indicates whether to display the external Message in Pager.
              * @Default {false}
@@ -11728,6 +11767,11 @@ declare namespace ej {
             /** Gets or sets a value that indicates whether to display the external Message in Pager.
              */
             externalMessage?: string;
+
+            /** Enables or disables responsive support for the Pager control items on window resize.
+             * @Default {false}
+             */
+            isResponsive?: boolean;
 
             /** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data i.e. in a language and culture specific to
              * a particular country or region.
@@ -11751,6 +11795,15 @@ declare namespace ej {
              */
             pageSizeList?: any[];
 
+            /** Indicates the pageSizeMessage to be displayed in Pager when pageSizeList API is defined.
+             */
+            pageSizeMessage?: String;
+
+            /** Template option allows to customize UI appearance of the ejPager by defining their own page layout.
+             * @Default {null}
+             */
+            template?: string;
+
             /** Get or sets a value of total number of pages in the pager. The totalPages value is calculated based on page size and total records.
              * @Default {null}
              */
@@ -11769,6 +11822,22 @@ declare namespace ej {
             /** Triggered when pager numeric item is clicked in pager control.
              */
             click?(e: ClickEventArgs): void;
+
+            /** Triggers when the current page value of the Pager control is changed.
+             */
+            change?(e: ChangeEventArgs): void;
+
+            /** Triggered when Pager control is successfully created.
+             */
+            create?(e: CreateEventArgs): void;
+
+            /** Triggered when Pager control is successfully destroyed.
+             */
+            destroy?(e: DestroyEventArgs): void;
+
+            /** Triggered when a value is selected in the pageSizeList dropdown.
+             */
+            pageSizeSelected?(e: PageSizeSelectedEventArgs): void;
         }
 
         export interface ClickEventArgs {
@@ -11792,6 +11861,70 @@ declare namespace ej {
             /** Returns current action event type and its target.
              */
             event?: any;
+        }
+
+        export interface ChangeEventArgs {
+
+            /** Returns the current page index.
+             */
+            currentPage?: number;
+
+            /** Returns the pager model.
+             */
+            model?: any;
+
+            /** Returns the name of event
+             */
+            type?: string;
+
+            /** Returns current action event type and its target.
+             */
+            event?: any;
+        }
+
+        export interface CreateEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the pager model.
+             */
+            model?: any;
+
+            /** Returns the name of event
+             */
+            type?: string;
+        }
+
+        export interface DestroyEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the pager model.
+             */
+            model?: any;
+
+            /** Returns the name of event
+             */
+            type?: string;
+        }
+
+        export interface PageSizeSelectedEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the pager model.
+             */
+            model?: any;
+
+            /** Returns the name of event
+             */
+            type?: string;
         }
     }
 
@@ -13988,6 +14121,11 @@ declare namespace ej {
              */
             allowDragAndDrop?: boolean;
 
+            /** Gets or sets a value that indicates whether to enable drag and drop behavior between Kanban controls.
+             * @Default {false}
+             */
+            allowExternalDragAndDrop?: boolean;
+
             /** To enable or disable the title of the card.
              * @Default {false}
              */
@@ -14156,6 +14294,11 @@ declare namespace ej {
              * @Default {en-US}
              */
             locale?: string;
+
+            /** Gets or sets a value that indicates whether to render kanban columns using without data source.
+             * @Default {false}
+             */
+            showColumnWhenEmpty?: boolean;
 
             /** Triggered for every Kanban action before its starts.
              */
@@ -15199,6 +15342,10 @@ declare namespace ej {
              * @Default {Object}
              */
             colorMapping?: any;
+
+            /** This specifies the Kanban card to drop into particular target element.
+             */
+            externalDropTarget?: string;
         }
 
         export interface CustomToolbarItem {
@@ -17639,6 +17786,11 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
+            /** Specifies HTML element string to replace the existing expand/collapse icons.
+             * @Default {null}
+             */
+            expanderTemplate?: string;
+
             /** Specify height for splitter control.
              * @Default {null}
              */
@@ -17672,6 +17824,10 @@ declare namespace ej {
             /** Fires before expanding / collapsing the split pane of splitter control.
              */
             beforeExpandCollapse?(e: BeforeExpandCollapseEventArgs): void;
+
+            /** Triggered when we click on the template icon. (Note: This will work only when expanderTemplate is defined.)
+             */
+            clickOnExpander?(e: ClickOnExpanderEventArgs): void;
 
             /** Fires when splitter control pane has been created.
              */
@@ -17715,6 +17871,25 @@ declare namespace ej {
             /** returns the name of the event.
              */
             type?: string;
+        }
+
+        export interface ClickOnExpanderEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the splitter model.
+             */
+            model?: ej.Splitter.Model;
+
+            /** returns the name of the event.
+             */
+            type?: string;
+
+            /** returns the target element from which click action is triggered.
+             */
+            targetElement?: any;
         }
 
         export interface CreateEventArgs {
@@ -23235,6 +23410,10 @@ declare namespace ej {
              */
             rowDrop?(e: RowDropEventArgs): void;
 
+            /** Triggered while hover the grid row.
+             */
+            rowHover?(e: RowHoverEventArgs): void;
+
             /** Triggered when refresh the template column elements in the Grid.
              */
             templateRefresh?(e: TemplateRefreshEventArgs): void;
@@ -24484,7 +24663,7 @@ declare namespace ej {
 
             /** Method to merge the header cells.
              */
-            headerCellMerge?(): void;
+            headerCellMerge?(startIndex:number,count:number): void
 
             /** Returns the column headers.
              */
@@ -25097,6 +25276,25 @@ declare namespace ej {
             /** Returns the JSON data of dragged rows.
              */
             droppedRecords?: any;
+        }
+
+        export interface RowHoverEventArgs {
+
+            /** Returns the hovered row.
+             */
+            row?: any;
+
+            /** Returns the hovered row index.
+             */
+            rowIndex?: any;
+
+            /** Returns the hovered record details
+             */
+            rowData?: any;
+
+            /** Returns the hovered row cell
+             */
+            cell?: any;
         }
 
         export interface TemplateRefreshEventArgs {
@@ -28277,7 +28475,7 @@ declare namespace ej {
             enableColumnResizing?: boolean;
 
             /** Allows the user to fit the width of the column based on its maximum text width.
-             * @Default {false}
+             * @Default {true}
              */
             resizeColumnsToFit?: boolean;
 
@@ -28763,7 +28961,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property sets type of display of date.
+            /** This property is set to display the formatted values with format types in PivotGrid.
              */
             formatString?: string;
 
@@ -28862,7 +29060,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property sets type of display of date.
+            /** This property is set to display the formatted values with format types in PivotGrid.
              */
             formatString?: string;
 
@@ -28931,7 +29129,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property sets type of display of date.
+            /** This property is set to display the formatted values with format types in PivotGrid.
              */
             formatString?: string;
 
@@ -30266,7 +30464,7 @@ declare namespace ej {
              */
             analysisMode?: ej.Pivot.AnalysisMode|string;
 
-            /** Allows the user to set the specific chart type for PivotChart inside PivotClient widget.
+            /** Allows the user to set the specific Chart type for PivotChart inside PivotClient widget.
              * @Default {ej.PivotChart.ChartTypes.Column}
              */
             chartType?: ej.PivotChart.ChartTypes|string;
@@ -30311,6 +30509,11 @@ declare namespace ej {
              */
             showUniqueNameOnPivotButton?: boolean;
 
+            /** Allows user to load the saved report collection from the database.
+             * @Default {false}
+             */
+            showReportCollection?: boolean;
+
             /** Enables the splitter option for resizing the elements inside the control.
              * @Default {false}
              */
@@ -30336,7 +30539,7 @@ declare namespace ej {
              */
             enablePaging?: boolean;
 
-            /** Allows the user to include the PivotTreeMap component as one of the chart types.
+            /** Allows the user to include the PivotTreeMap component as one of the Chart types.
              * @Default {false}
              */
             enablePivotTreeMap?: boolean;
@@ -30450,6 +30653,18 @@ declare namespace ej {
              */
             treeMapLoad?(e: TreeMapLoadEventArgs): void;
 
+            /** Triggers on clicking any value cell in PivotGrid.
+             */
+            valueCellHyperlinkClick?(e: ValueCellHyperlinkClickEventArgs): void;
+
+            /** Triggers when clicking on any Chart series points in the PivotChart.
+             */
+            pointRegionClick?(e: PointRegionClickEventArgs): void;
+
+            /** Triggers before Chart label rendering in the PivotChart.
+             */
+            axesLabelRendering?(e: AxesLabelRenderingEventArgs): void;
+
             /** Triggers while clicking value cells in PivotGrid.
              */
             drillThrough?(e: DrillThroughEventArgs): void;
@@ -30562,9 +30777,9 @@ declare namespace ej {
 
         export interface SchemaLoadEventArgs {
 
-            /** returns the HTML element of PivotSchemaDesigner control.
+            /** returns the current action of PivotSchemaDesigner control.
              */
-            element?: any;
+            action?: string;
         }
 
         export interface TreeMapLoadEventArgs {
@@ -30580,6 +30795,59 @@ declare namespace ej {
             /** returns the HTML element of PivotTreeMap control.
              */
             element?: any;
+        }
+
+        export interface ValueCellHyperlinkClickEventArgs {
+
+            /** returns the current action of PivotClient control.
+             */
+            type?: string;
+
+            /** returns the clicked cell information.
+             */
+            args?: any;
+
+            /** returns the custom object bounds with PivotClient control.
+             */
+            customerObject?: any;
+
+            /** returns the HTML element of PivotGrid control.
+             */
+            element?: any;
+
+            /** returns the model object bound with PivotClient control.
+             */
+            model?: any;
+        }
+
+        export interface PointRegionClickEventArgs {
+
+            /** returns the current action of PivotClient control.
+             */
+            type?: string;
+
+            /** returns the clicked Chart series points information.
+             */
+            data?: any;
+
+            /** returns the model object bound with PivotClient control.
+             */
+            model?: any;
+        }
+
+        export interface AxesLabelRenderingEventArgs {
+
+            /** returns the current action of PivotClient control.
+             */
+            type?: string;
+
+            /** returns the Chart label information.
+             */
+            data?: any;
+
+            /** returns the model object bound with PivotClient control.
+             */
+            model?: any;
         }
 
         export interface DrillThroughEventArgs {
@@ -30708,7 +30976,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property sets type of display of date.
+            /** This property is set to display the formatted values with format types in PivotGrid.
              */
             formatString?: string;
 
@@ -30803,7 +31071,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property sets type of display of date.
+            /** This property is set to display the formatted values with format types in PivotGrid.
              */
             formatString?: string;
 
@@ -30868,7 +31136,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property sets type of display of date.
+            /** This property is set to display the formatted values with format types in PivotGrid.
              */
             formatString?: string;
 
@@ -32160,6 +32428,14 @@ declare namespace ej {
          * @returns {void}
          */
         exportSchedule(action: string, serverEvent: string, id: string|number): void;
+
+        /** Exports the appointments from the Schedule control and saves it in a Excel file.
+         * @param {string} It refers the controller action name to redirect. (For MVC)
+         * @param {string} It refers the server event name.(For ASP)
+         * @param {boolean} Indicates whether to export all the appointments including or excluding the individual occurrences of the recurrence appointments.
+         * @returns {void}
+         */
+        exportToExcel(action: string, serverEvent: string, type: boolean): void;
 
         /** Searches and filters the appointments from appointment list of Schedule control.
          * @param {any[]} Holds array of one or more conditional objects for filtering the appointments based on it.
@@ -34088,13 +34364,6 @@ declare namespace ej {
          */
         addRecord(data: any, rowPosition: string): void;
 
-        /** To select cell based on the cell and row index dynamically.
-         * @param {any[]} array of cell indexes to be select
-         * @param {boolean} Defines that we need to preserve the previously selected cells of not
-         * @returns {void}
-         */
-        selectCells(Indexes: any[], preservePreviousSelectedCell: boolean): void;
-
         /** Positions the splitter by the specified column index.
          * @param {number} Set the splitter position based on column index.
          * @returns {void}
@@ -34178,6 +34447,19 @@ declare namespace ej {
          */
         saveEdit(): void;
 
+        /** To select cell based on the cell and row index dynamically.
+         * @param {any[]} array of cell indexes to be select
+         * @param {boolean} Defines that we need to preserve the previously selected cells of not
+         * @returns {void}
+         */
+        selectCells(Indexes: any[], preservePreviousSelectedCell: boolean): void;
+
+        /** To select multiple rows dynamically.
+         * @param {any[]} array of row indexes to select
+         * @returns {void}
+         */
+        selectMultipleRows(rowIndexes: any[]): void;
+
         /** To search an item with search string provided at the run time
          * @param {string} you can pass a text to search in Gantt Control.
          * @returns {void}
@@ -34195,6 +34477,13 @@ declare namespace ej {
          * @returns {void}
          */
         showColumn(headerText: string): void;
+
+        /** To change an existing Gantt ID by new ID value dynamically
+         * @param {number} you can pass an existing ID value to be change
+         * @param {number} you can pass a new ID value to be change
+         * @returns {void}
+         */
+        updateTaskId(currentId: number, newId: number): void;
     }
     export namespace Gantt {
 
@@ -35653,6 +35942,11 @@ declare namespace ej {
              * @Default {ej.Gantt.RowPosition.BelowSelectedRow}
              */
             rowPosition?: ej.Gantt.RowPosition|string;
+
+            /** Enable or disable the confirmation dialog while deleting the record.
+             * @Default {false}
+             */
+            showDeleteConfirmDialog?: boolean;
         }
 
         export interface Holiday {
@@ -36158,6 +36452,11 @@ declare namespace ej {
              * @Default {1}
              */
             zoomFactor?: number;
+
+            /** Specifies the token for authorizing reporting service url to process the reports.
+             * @Default {empty}
+             */
+            serviceAuthorizationToken?: string;
 
             /** Fires when the report viewer is destroyed successfully.If you want to perform any operation after destroying the reportviewer control,you can make use of the destroy event.
              */
@@ -36933,6 +37232,11 @@ declare namespace ej {
              */
             allowSorting?: boolean;
 
+            /** Enables or disables the toolbar searching in TreeGrid.
+             * @Default {false}
+             */
+            allowSearching?: boolean;
+
             /** Enables/disables pagination of rows in TreeGrid
              * @Default {false}
              */
@@ -37128,6 +37432,10 @@ declare namespace ej {
              */
             stackedHeaderRows?: StackedHeaderRow[];
 
+            /** Specifies the toolbar searching customizations.
+             */
+            searchSettings?: SearchSettings;
+
             /** Specifies the visibility of summary row
              * @Default {false}
              */
@@ -37193,10 +37501,6 @@ declare namespace ej {
             /** Triggered while collapsing the TreeGrid record
              */
             collapsing?(e: CollapsingEventArgs): void;
-
-            /** Triggered while clicking a row, even when allowSelection property is disabled.
-             */
-            recordClick?(e: RecordClickEventArgs): void;
 
             /** Triggered  when you start to drag a column
              */
@@ -37293,6 +37597,14 @@ declare namespace ej {
             /** Triggered before the row is going to be selected.
              */
             rowSelecting?(e: RowSelectingEventArgs): void;
+
+            /** Triggered while clicking a row, even when allowSelection property is disabled.
+             */
+            recordClick?(e: RecordClickEventArgs): void;
+
+            /** Triggered during record double click action, even when allowSelection property is disabled.
+             */
+            recordDoubleClick?(e: RecordDoubleClickEventArgs): void;
 
             /** Triggered when toolbar item is clicked in TreeGrid.
              */
@@ -37459,37 +37771,6 @@ declare namespace ej {
             /** Returns state of a record whether it is in expanded or collapsing state.
              */
             expanded?: boolean;
-        }
-
-        export interface RecordClickEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the element of clicked cell.
-             */
-            cell?: any;
-
-            /** Returns the index of the clicked cell.
-             */
-            cellIndex?: number;
-
-            /** Returns the data of clicked cell.
-             */
-            cellValue?: any;
-
-            /** Returns the element of the clicked row.
-             */
-            row?: any;
-
-            /** Returns the index of the clicked row.
-             */
-            rowIndex?: number;
-
-            /** Returns the column name of the clicked cell.
-             */
-            columnName?: string;
         }
 
         export interface ColumnDragStartEventArgs {
@@ -37937,6 +38218,10 @@ declare namespace ej {
              */
             draggedRowIndex?: number;
 
+            /** Returns the drop position details such as insertAbove,insertBelow,insertAsChild and invalidPosition
+             */
+            dropPosition?: string;
+
             /** Returns the row on which we are dragging.
              */
             targetRow?: any;
@@ -38160,6 +38445,68 @@ declare namespace ej {
             previousTreeGridRow?: any;
         }
 
+        export interface RecordClickEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the element of clicked cell.
+             */
+            cell?: any;
+
+            /** Returns the index of the clicked cell.
+             */
+            cellIndex?: number;
+
+            /** Returns the data of clicked cell.
+             */
+            cellValue?: any;
+
+            /** Returns the element of the clicked row.
+             */
+            row?: any;
+
+            /** Returns the index of the clicked row.
+             */
+            rowIndex?: number;
+
+            /** Returns the column name of the clicked cell.
+             */
+            columnName?: string;
+        }
+
+        export interface RecordDoubleClickEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the element of clicked cell.
+             */
+            cell?: any;
+
+            /** Returns the index of the clicked cell.
+             */
+            cellIndex?: number;
+
+            /** Returns the data of clicked cell.
+             */
+            cellValue?: any;
+
+            /** Returns the element of the clicked row.
+             */
+            row?: any;
+
+            /** Returns the index of the clicked row.
+             */
+            rowIndex?: number;
+
+            /** Returns the column name of the clicked cell.
+             */
+            columnName?: string;
+        }
+
         export interface ToolbarClickEventArgs {
 
             /** Returns the cancel option value.
@@ -38254,6 +38601,11 @@ declare namespace ej {
              * @Default {ej.TreeGrid.EditingType.String}
              */
             filterEditType?: ej.TreeGrid.EditingType|string;
+
+            /** Gets or sets a value to render either excel or menu filtering in TreeGrid column filtering.
+             * @Default {null}
+             */
+            filterType?: ej.TreeGrid.FilterType|string;
 
             /** Header text of the column.
              * @Default {null}
@@ -38420,6 +38772,11 @@ declare namespace ej {
              * @Default {null}
              */
             dialogEditorTemplateID?: string;
+
+            /** Enable or disable the confirmation dialog while deleting the record.
+             * @Default {false}
+             */
+            showDeleteConfirmDialog?: boolean;
         }
 
         export interface ColumnResizeSettings {
@@ -38465,6 +38822,21 @@ declare namespace ej {
              * @Default {[]}
              */
             filteredColumns?: FilterSettingsFilteredColumn[];
+
+            /** Gets or sets a value that indicates the maximum number of filter choices that can be showed in the excel styled filter menu.
+             * @Default {1000}
+             */
+            maxFilterChoice?: number;
+
+            /** Gets or sets a value that indicates to perform the filter operation with case sensitive in excel styled filter menu mode.
+             * @Default {false}
+             */
+            enableCaseSensitivity?: boolean;
+
+            /** Enables or disables the ability to filter the columns with empty, null and undefined values.
+             * @Default {true}
+             */
+            enableComplexBlankFilter?: boolean;
         }
 
         export interface PageSettings {
@@ -38574,6 +38946,28 @@ declare namespace ej {
              * @Default {[]}
              */
             stackedHeaderColumns?: StackedHeaderRowsStackedHeaderColumn[];
+        }
+
+        export interface SearchSettings {
+
+            /** Default Value
+             * @Default {[]}
+             */
+            fields?: any[];
+
+            /** Default Value
+             */
+            key?: string;
+
+            /** Specifies the operator for the search key words in toolbar searching.
+             * @Default {contains}
+             */
+            operator?: string;
+
+            /** Default Value
+             * @Default {true}
+             */
+            ignoreCase?: boolean;
         }
 
         export interface SummaryRowsSummaryColumn {
@@ -38703,6 +39097,16 @@ declare namespace ej {
         }
 
 
+        enum FilterType {
+
+            ///Specifies the filter type as menu.
+            Menu,
+
+            ///Specifies the filter type as excel.
+            Excel
+        }
+
+
         enum UnboundType {
 
             ///Unbound type to perform edit action
@@ -38791,16 +39195,6 @@ declare namespace ej {
 
             ///In this mode columns are stretched with control width in load time and on resizing action.
             NextColumn
-        }
-
-
-        enum FilterType {
-
-            ///Enables the filterbar filtering
-            FilterBar,
-
-            ///Enables the menu filtering
-            Menu
         }
 
 
@@ -40585,6 +40979,11 @@ declare namespace ej {
          */
         addNewSheet(): void;
 
+        /** This method is used to blank the workbook in Spreadsheet.
+         * @returns {void}
+         */
+        blankWorkbook(): void;
+
         /** It is used to clear all the data and format in the specified range of cells in Spreadsheet.
          * @param {string|any[]} Optional. If range is specified, then it will clear all content in the specified range else it will use the current selected range.
          * @returns {void}
@@ -40707,6 +41106,15 @@ declare namespace ej {
          */
         getAutoFillElem(): HTMLElement;
 
+        /** This method is used to get the alpha range of the given index in Spreadsheet.
+         * @param {number} Pass the start row index.
+         * @param {number} Pass the start column index.
+         * @param {number} Pass the end row index.
+         * @param {number} Pass the end column index.
+         * @returns {String}
+         */
+        getAlphaRange(sRIndex: number, sCIndex: number, eRIndex: number, eCIndex: number): String;
+
         /** This method is used to get the cell element based on specified row and column index in the Spreadsheet.
          * @param {number} Pass the row index.
          * @param {number} Pass the column index.
@@ -40739,6 +41147,12 @@ declare namespace ej {
          */
         getHyperlink(cell: HTMLElement): any;
 
+        /** This method is used to get the keys from the given object in Spreadsheet.
+         * @param {any} Pass the Object
+         * @returns {any[]}
+         */
+        getObjectKeys(obj: any): any[];
+
         /** This method is used to get all cell elements in the specified range.
          * @param {string} Pass the range that you want to get the cells.
          * @param {number} Pass the index of the sheet.
@@ -40752,6 +41166,14 @@ declare namespace ej {
          * @returns {any[]}
          */
         getRangeData(options?: any): any[];
+
+        /** This method is used to get the data as object in the specified range.
+         * @param {any} Pass the start cell.
+         * @param {any} Pass the end cell.
+         * @param {boolean} Optional. Pass {{'`true`' | markdownify}}, if you want to skip the hidden rows.
+         * @returns {any}
+         */
+        getRangeDataAsObject(startcell: any, endcell: any, skipHiddenRow?: boolean): any;
 
         /** This method is used to get the range indices array based on the specified alpha range in Spreadsheet.
          * @param {string} Pass the alpha range that you want to get range indices.
@@ -41432,6 +41854,12 @@ declare namespace ej {
              */
             editCell(rowIdx: number, colIdx: number, oldData: boolean): void;
 
+            /** This method is used to get the column index with specified field value in Spreadsheet.
+             * @param {string} Pass the column field value
+             * @returns {void}
+             */
+            getColumnIndexByField(field: string): void;
+
             /** This method is used to get the property value of particular cell, based on the row and column index in the Spreadsheet.
              * @param {number} Pass the row index to get the property value.
              * @param {number} Pass the column index to get the property value.
@@ -41473,6 +41901,15 @@ declare namespace ej {
              * @returns {void}
              */
             updateCellValue(cellIdx: any, val: string|number, formatClass: string, sheetIdx: number): void;
+
+            /** This method is used to update a particular cell value and its format in the Spreadsheet.
+             * @param {string} Pass the range.
+             * @param {string|number} Pass the cell value.
+             * @param {string} Pass the class name to update format.
+             * @param {number} Pass sheet index.
+             * @returns {void}
+             */
+            updateValue(aRange: string, val: string|number, formatClass: string, sheetIdx: number): void;
         }
 
         export interface XLExport {
@@ -41517,6 +41954,20 @@ declare namespace ej {
              */
             addFontFamily(fontName: string): void;
 
+            /** This method is used to add the new custom cell style in spreadsheet.
+             * @param {string} Pass the style name.
+             * @param {any} Pass the format object.
+             * @returns {void}
+             */
+            addNewCustomStyle(styleName: string, options: any): void;
+
+            /** This method is used to apply the custom cell style in the specified range.
+             * @param {string} Pass the style name.
+             * @param {string} Pass the range to applied.
+             * @returns {void}
+             */
+            applyCustomCellStyle(styleName: string, range: string): void;
+
             /** This method is used to convert table range to normal range.
              * @param {any} Pass the sheet index and table id.
              * @returns {void}
@@ -41530,12 +41981,58 @@ declare namespace ej {
              */
             createTable(tableObject: any, range: string|any[]): string;
 
+            /** This method is used to delete the added custom cell style in spreadsheet.
+             * @param {string} Pass the cell style name
+             * @returns {void}
+             */
+            deleteCustomStyle(styleName: string): void;
+
             /** This method is used to set format style and values in a cell or range of cells.
              * @param {any} Pass the formatObject which contains style, type, format, groupSeparator and decimalPlaces.
              * @param {string} Pass the range to format cells.
              * @returns {void}
              */
             format(formatObj: any, range: string): void;
+
+            /** This method is used to get the border from hashcode in the Spreadsheet.
+             * @param {string} Pass the border hashcode.
+             * @param {boolean} Optional. pass `true` to get the complete border object
+             * @returns {any}
+             */
+            getBorderFromHashCode(code: string, isComplete: boolean): any;
+
+            /** This method is used to get the format class in spreadsheet.
+             * @param {string} Pass the style name.
+             * @param {boolean} Optional. Pass true to get the border class.
+             * @returns {void}
+             */
+            getFormatClass(classname: string, isborder: boolean): void;
+
+            /** This method is used to get the format from the given hashcode in spreadsheet.
+             * @param {string} Pass the hashcode.
+             * @returns {void}
+             */
+            getFormatFromHashCode(hashCode: string): void;
+
+            /** This method is used to get the hashcode from the given style object in spreadsheet.
+             * @param {any} Pass the style object that you want to get the hashcode.
+             * @returns {void}
+             */
+            getFormatHashCode(style: any): void;
+
+            /** This method is used to get the format as array from the given specified range in spreadsheet.
+             * @param {string} Pass the range.
+             * @returns {void}
+             */
+            getHashCodeClassAsArray(range: string): void;
+
+            /** This method is used to modify the added custom cell style in spreadsheet.
+             * @param {string} pass the old style name
+             * @param {any} pass the format object to be modified
+             * @param {string} pass the new style name
+             * @returns {void}
+             */
+            modifyCustomStyle(oldStyleName: string, options: any, newStyleName: string): void;
 
             /** This method is used to remove the font from the Ribbon font family dropdown.
              * @param {string} Font name which needs to remove from the font family drop down.
@@ -45965,6 +46462,470 @@ declare namespace ej {
              */
             importUrl?: string;
         }
+    }
+
+    class ComboBox extends ej.Widget {
+        static fn: ComboBox;
+        constructor(element: JQuery | Element, options?: ComboBox.Model);
+        static Locale: any;
+        model: ComboBox.Model;
+        defaults: ComboBox.Model;
+
+        /** Adds a new item to the popup list. By default, new item appends to the list as the last item, but you can insert based on the index parameter.
+         * @returns {void}
+         */
+        addItem(): void;
+
+        /** Sets the focus to the component for interaction.
+         * @returns {void}
+         */
+        focusIn(): void;
+
+        /** Moves the focus from the component if the component is already focused.
+         * @returns {void}
+         */
+        focusOut(): void;
+
+        /** Gets the data object that matches the given value.
+         * @returns {any}
+         */
+        getDataByValue(): any;
+
+        /** Gets all the list items bound on this component.
+         * @returns {Element[]}
+         */
+        getItems(): Element[];
+
+        /** Hides the popup if it is in open state.
+         * @returns {void}
+         */
+        hidePopup(): void;
+
+        /** Opens the popup that displays the list of items.
+         * @returns {void}
+         */
+        showPopup(): void;
+    }
+    export namespace ComboBox {
+
+        export interface Model {
+
+            /** Accepts the template and assigns it to the popup list content of the component when the data fetch request from the remote server fails.
+             * @Default {The Request Failed}
+             */
+            actionFailureTemplate?: string;
+
+            /** Specifies whether the component allows user defined value which does not exist in data source.
+             * @Default {true}
+             */
+            allowCustom?: boolean;
+
+            /** When allowFiltering is set to true, show the filter bar (search box) of the component. The filter action retrieves matched items through the filtering event based on the
+             * characters typed in the search TextBox. If no match is found, the value of the noRecordsTemplate property will be displayed.
+             * @Default {false}
+             */
+            allowFiltering?: boolean;
+
+            /** Specifies whether suggest a first matched item in input when searching. No action happens when no matches found.
+             * @Default {false}
+             */
+            autofill?: boolean;
+
+            /** Sets CSS classes to the root element of the component that helps customize the UI styles.
+             * @Default {null}
+             */
+            cssClass?: string;
+
+            /** Accepts the list items either through local or remote service and binds it to the component. It can be an array of JSON objects or an instance of DataManager.
+             * @Default {[]}
+             */
+            dataSource?: any|any[];
+
+            /** When set to true, enables RTL mode of the component that displays the content in the right-to-left direction.
+             * @Default {false}
+             */
+            enableRtl?: boolean;
+
+            /** Specifies a value that indicates whether the component is enabled or not.
+             * @Default {true}
+             */
+            enabled?: boolean;
+
+            /** The fields property maps the columns of the data table and binds the data to the component.
+             */
+            fields?: Fields;
+
+            /** Accepts the template design and assigns it to the footer container of the popup list.
+             * @Default {null}
+             */
+            footerTemplate?: string;
+
+            /** Accepts the template design and assigns it to the group headers present in the popup list.
+             * @Default {null}
+             */
+            groupTemplate?: string;
+
+            /** Accepts the template design and assigns it to the header container of the popup list.
+             * @Default {null}
+             */
+            headerTemplate?: string;
+
+            /** Allows additional HTML attributes such as title, name, etc., and accepts n number of attributes in a key-value pair format.
+             * @Default {{}}
+             */
+            htmlAttributes?: any;
+
+            /** Gets or sets the index of the selected item in the component.
+             * @Default {null}
+             */
+            index?: number;
+
+            /** Accepts the template design and assigns it to each list item present in the popup.
+             * @Default {null}
+             */
+            itemTemplate?: string;
+
+            /** Overrides the global culture and localization value for this component. Default global culture is 'en-US'.
+             * @Default {en-US}
+             */
+            locale?: string;
+
+            /** Accepts the template design and assigns it to popup list of component when no data is available on the component.
+             * @Default {No Records Found}
+             */
+            noRecordsTemplate?: string;
+
+            /** Accepts the value to be displayed as a watermark text on the component input.
+             * @Default {null}
+             */
+            placeholder?: string;
+
+            /** Specifies the height of the popup list.
+             * @Default {300px}
+             */
+            popupHeight?: string|number;
+
+            /** Specifies the width of the popup list. By default, the popup width sets based on the width of the component.
+             * @Default {100%}
+             */
+            popupWidth?: string|number;
+
+            /** The query to retrieve the data from the data source.
+             * @Default {null}
+             */
+            query?: ej.Query;
+
+            /** When set to true, the user interactions on the component are disabled.
+             * @Default {false}
+             */
+            readonly?: boolean;
+
+            /** Specifies whether to show or hide the clear button. When the clear button is clicked, value, text, and index properties are reset to null.
+             * @Default {true}
+             */
+            showClearButton?: boolean;
+
+            /** Specifies the sortOrder to sort the data source. The available type of sort orders are
+             * @Default {ej.SortOrder.None}
+             */
+            sortOrder?: ej.ComboBox.SortOrder|string;
+
+            /** Gets or sets the display text of the selected item in the component.
+             * @Default {null}
+             */
+            text?: string;
+
+            /** Gets or sets the value of the selected item in the component.
+             * @Default {null}
+             */
+            value?: number|string;
+
+            /** Specifies the width of the component. By default, the component width sets based on the width of its parent container. You can also set the width in pixel values.
+             * @Default {100%}
+             */
+            width?: number|string;
+
+            /** Triggers before fetching data from the remote server.
+             */
+            actionBegin?(e: ActionBeginEventArgs): void;
+
+            /** Triggers after data is fetched successfully from the remote server.
+             */
+            actionComplete?(e: ActionCompleteEventArgs): void;
+
+            /** Triggers when the data fetch request from the remote server fails.
+             */
+            actionFailure?(e: ActionFailureEventArgs): void;
+
+            /** Triggers when an item in a popup is selected or when the model value is changed.
+             */
+            change?(e: ChangeEventArgs): void;
+
+            /** Triggers when the popup is closed.
+             */
+            close?(e: CloseEventArgs): void;
+
+            /** Triggers when ComboBox widget is created.
+             */
+            create?(e: CreateEventArgs): void;
+
+            /** Triggers on set a custom value to this component.
+             */
+            customValueSpecifier?(e: CustomValueSpecifierEventArgs): void;
+
+            /** Triggers on typing a character in the component.
+             */
+            filtering?(e: FilteringEventArgs): void;
+
+            /** Triggers when the component is focused.
+             */
+            focus?(e: FocusEventArgs): void;
+
+            /** Triggers after the suggestion list is opened.
+             */
+            open?(e: OpenEventArgs): void;
+
+            /** Triggers when an item in the popup is selected.
+             */
+            select?(e: SelectEventArgs): void;
+        }
+
+        export interface ActionBeginEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the ComboBox model
+             */
+            model?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface ActionCompleteEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the Autocomplete model
+             */
+            model?: any;
+
+            /** Returns the query for data retrieval from the Database
+             */
+            e?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface ActionFailureEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Returns the error message
+             */
+            e?: any;
+
+            /** returns the Autocomplete model
+             */
+            model?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface ChangeEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the combobox model object.
+             */
+            model?: ej.ComboBox.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** Value of the combobox textbox.
+             */
+            value?: string|number;
+
+            /** Li element of the selected item.
+             */
+            Item?: any;
+
+            /** Event argument.
+             */
+            e?: any;
+
+            /** value of the interaction
+             */
+            isInteracted?: boolean;
+        }
+
+        export interface CloseEventArgs {
+
+            /** Element of the combobox popup list
+             */
+            popup?: any;
+        }
+
+        export interface CreateEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the combobox model object.
+             */
+            model?: ej.ComboBox.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+        }
+
+        export interface CustomValueSpecifierEventArgs {
+
+            /** Instance of the combobox model object.
+             */
+            model?: ej.ComboBox.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** text of the combobox.
+             */
+            text?: string;
+        }
+
+        export interface FilteringEventArgs {
+
+            /** Instance of the combobox model object.
+             */
+            model?: ej.ComboBox.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** text of the combobox.
+             */
+            text?: string;
+
+            /** Function used to update the filtering value.
+             */
+            updateData?: any;
+        }
+
+        export interface FocusEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the combobox model object.
+             */
+            model?: ej.ComboBox.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+        }
+
+        export interface OpenEventArgs {
+
+            /** Element of the combobox popup list
+             */
+            popup?: any;
+        }
+
+        export interface SelectEventArgs {
+
+            /** Set this option to true to cancel the event.
+             */
+            cancel?: boolean;
+
+            /** Instance of the combobox model object.
+             */
+            model?: ej.ComboBox.Model;
+
+            /** Name of the event.
+             */
+            type?: string;
+
+            /** Value of the combobox textbox.
+             */
+            value?: string|number;
+
+            /** Text of the selected item.
+             */
+            text?: string;
+
+            /** Data object of the selected item.
+             */
+            itemData?: ej.ComboBox.Model;
+
+            /** Li element of the selected item.
+             */
+            Item?: any;
+
+            /** Event argument.
+             */
+            e?: any;
+
+            /** value of the interaction
+             */
+            isInteracted?: boolean;
+        }
+
+        export interface Fields {
+
+            /** Used to group the popup list items.
+             * @Default {null}
+             */
+            groupBy?: string;
+
+            /** Defines class for the item.
+             * @Default {null}
+             */
+            iconCss?: string;
+
+            /** Defines the specific field name which contains unique values for the list items.
+             * @Default {null}
+             */
+            value?: string;
+
+            /** Defines the specific field name in the data source to load the popup list with data.
+             * @Default {null}
+             */
+            text?: string;
+        }
+
+        enum SortOrder {
+
+            ///The data source is not sorting.
+            None,
+
+            ///The data source is sorting with ascending order.
+            Ascending,
+
+            ///The data source is sorting with descending order.
+            Descending
+        }
+
     }
 
 }
@@ -64066,7 +65027,7 @@ declare namespace ej.datavisualization {
             historyManager?: HistoryManager;
 
             /** Defines the type of the rendering mode of label.
-             * @Default {Html}
+             * @Default {HTML}
              */
             labelRenderingMode?: ej.datavisualization.Diagram.LabelRenderingMode|string;
 
@@ -65424,6 +66385,10 @@ declare namespace ej.datavisualization {
              */
             borderWidth?: number;
 
+            /** This property allows you to customize sourceDecorator appearance using user-defined CSS.
+             */
+            cssClass?: string;
+
             /** Sets the fill color of the source decorator
              * @Default {black}
              */
@@ -65468,6 +66433,10 @@ declare namespace ej.datavisualization {
              * @Default {black}
              */
             borderColor?: string;
+
+            /** This property allows you to customize targetDecorator appearance using user-defined CSS.
+             */
+            cssClass?: string;
 
             /** Sets the color with which the decorator will be filled
              * @Default {black}
@@ -65516,7 +66485,7 @@ declare namespace ej.datavisualization {
              */
             cornerRadius?: number;
 
-            /** Configures the styles of shapes
+            /** This property allows you to customize connectors appearance using user-defined CSS.
              */
             cssClass?: string;
 
@@ -66213,6 +67182,11 @@ declare namespace ej.datavisualization {
              */
             stops?: any[];
 
+            /** Defines the type of gradient
+             * @Default {linear}
+             */
+            type?: string;
+
             /** Defines the left most position(relative to node) of the rectangular region that needs to be painted
              * @Default {0}
              */
@@ -66235,6 +67209,11 @@ declare namespace ej.datavisualization {
         }
 
         export interface NodesGradientRadialGradient {
+
+            /** Defines the type of gradient
+             * @Default {radial}
+             */
+            type?: string;
 
             /** Defines the position of the outermost circle
              * @Default {0}
@@ -66350,6 +67329,10 @@ declare namespace ej.datavisualization {
              */
             borderWidth?: number;
 
+            /** This property allows you to customize labels appearance using user-defined CSS.
+             */
+            cssClass?: string;
+
             /** Enables or disables the default behaviors of the label.
              * @Default {ej.datavisualization.Diagram.LabelConstraints.None}
              */
@@ -66429,6 +67412,10 @@ declare namespace ej.datavisualization {
              */
             rotateAngle?: number;
 
+            /** Sets the id of svg/html templates. Applicable, if the node's label is HTML or native.
+             */
+            templateId?: string;
+
             /** Defines the label text
              */
             text?: string;
@@ -66470,6 +67457,10 @@ declare namespace ej.datavisualization {
         }
 
         export interface NodesLane {
+
+            /** This property allows you to customize lanes appearance using user-defined CSS.
+             */
+            cssClass?: string;
 
             /** Defines the width of lane
              * @Default {0}
@@ -66622,6 +67613,10 @@ declare namespace ej.datavisualization {
              * @Default {ej.datavisualization.Diagram.PortConstraints.Connect}
              */
             constraints?: ej.datavisualization.Diagram.PortConstraints|string;
+
+            /** This property allows you to customize ports appearance using user-defined CSS.
+             */
+            cssClass?: string;
 
             /** Sets the fill color of the port
              * @Default {white}
@@ -66865,7 +67860,7 @@ declare namespace ej.datavisualization {
              */
             cornerRadius?: number;
 
-            /** Configures the styles of shapes
+            /** This property allows you to customize nodes appearance using user-defined CSS.
              */
             cssClass?: string;
 
@@ -67982,10 +68977,10 @@ declare namespace ej.datavisualization {
     }
     namespace Diagram {
         enum LabelRenderingMode {
-            //Sets the labelRenderingMode as Html
-            Html,
-            //Sets the labelRenderingMode as Svg
-            Svg,
+            //Sets the labelRenderingMode as HTML
+            HTML,
+            //Sets the labelRenderingMode as SVG
+            SVG,
         }
     }
     namespace Diagram {
@@ -68094,7 +69089,7 @@ declare namespace ej.datavisualization {
             PointerEvents,
             //Enables contrast between clean edges for the node over rendering speed and geometric precision
             CrispEdges,
-            //Enables all node constraints
+            //Enables default node interactions such as select,delete,drag,rotate,resize,connect,inheritCrispEdges and inheritTooltip
             Default,
         }
     }
@@ -68458,8 +69453,8 @@ declare namespace ej.datavisualization {
             Text,
             //Used to specify node type as Image
             Image,
-            //Used to specify node type as Html
-            Html,
+            //Used to specify node type as HTML
+            HTML,
             //Used to specify node type as Native
             Native,
             //Used to specify node type as Basic
@@ -71150,6 +72145,9 @@ interface JQuery {
     ejColorPicker(options?: ej.ColorPicker.Model): JQuery;
     ejColorPicker(memberName: any, value?: any, param?: any): any;
 
+    ejComboBox(options?: ej.ComboBox.Model): JQuery;
+    ejComboBox(memberName: any, value?: any, param?: any): any;
+
     ejDatePicker(options?: ej.DatePicker.Model): JQuery;
     ejDatePicker(memberName: any, value?: any, param?: any): any;
 
@@ -71378,6 +72376,7 @@ interface JQuery {
     data(key: "ejCheckBox"): ej.CheckBox;
     data(key: "ejCircularGauge"): ej.datavisualization.CircularGauge;
     data(key: "ejColorPicker"): ej.ColorPicker;
+    data(key: "ejComboBox"): ej.ComboBox;
     data(key: "ejDatePicker"): ej.DatePicker;
     data(key: "ejDateRangePicker"): ej.DateRangePicker;
     data(key: "ejDateTimePicker"): ej.DateTimePicker;
