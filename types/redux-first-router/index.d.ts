@@ -12,34 +12,34 @@ import {
     Store,
     Reducer,
     Middleware,
-    GenericStoreEnhancer
+    StoreEnhancer
 } from 'redux';
 import { History } from 'history';
 
 export type Nullable<T> = T | null | undefined;
 
-export type StateGetter = () => object;
+export type StateGetter<TState = any> = () => TState;
 
 export type RouteString = string;
 
-export type RouteThunk = (
-    dispatch: Dispatch<any>,
-    getState: StateGetter
+export type RouteThunk<TState = any> = (
+    dispatch: Dispatch<TState>,
+    getState: StateGetter<TState>,
 ) => any | Promise<any>;
 
-export type RouteObject<TKeys> = TKeys & {
+export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     capitalizedWords?: boolean;
     navKey?: string;
     path: string;
-    thunk?: RouteThunk;
+    thunk?: RouteThunk<TState>;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
 };
 
-export type Route<TKeys = {}> = RouteString | RouteObject<TKeys>;
+export type Route<TKeys = {}, TState = any> = RouteString | RouteObject<TKeys, TState>;
 
-export interface RoutesMap<TKeys = {}> {
-    [key: string]: Route<TKeys>;
+export interface RoutesMap<TKeys = {}, TState = any> {
+    [key: string]: Route<TKeys, TState>;
 }
 
 export interface ReceivedAction {
@@ -77,7 +77,7 @@ export interface Location {
     search?: string;
 }
 
-export interface LocationState {
+export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
     payload: Payload;
@@ -86,7 +86,7 @@ export interface LocationState {
     prev: Location;
     kind: Nullable<string>;
     history: Nullable<HistoryData>;
-    routesMap: RoutesMap;
+    routesMap: RoutesMap<TKeys, TState>;
     hasSSR?: boolean;
 }
 
@@ -138,70 +138,70 @@ export type Listener = (
 
 export type ScrollBehavior = object;
 
-export interface Router {
+export interface Router<TState = any> {
     getStateForActionOriginal(
         action: object,
-        state: Nullable<object>
-    ): Nullable<object>;
+        state: Nullable<TState>
+    ): Nullable<TState>;
     getStateForAction(
         action: object,
-        state: Nullable<object>
-    ): Nullable<object>;
+        state: Nullable<TState>
+    ): Nullable<TState>;
     getPathAndParamsForState(
-        state: object
+        state: TState
     ): { path: Nullable<string>; params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
-export interface Navigator {
-    router: Router;
+export interface Navigator<TState = any> {
+    router: Router<TState>;
 }
 
-export interface Navigators {
-    [key: string]: Navigator;
+export interface Navigators<TState = any> {
+    [key: string]: Navigator<TState>;
 }
 
-export type SelectLocationState = (state: object) => LocationState;
-export type SelectTitleState = (state: object) => string;
+export type SelectLocationState<TKeys = {}, TState = any> = (state: TState) => LocationState<TKeys, TState>;
+export type SelectTitleState<TState = any> = (state: TState) => string;
 
 export interface QuerySerializer {
     stringify(params: Params): string;
     parse(queryString: string): object;
 }
 
-export interface NavigatorsConfig {
-    navigators: Navigators;
-    patchNavigators(navigators: Navigators): void;
+export interface NavigatorsConfig<TKeys = {}, TState = any> {
+    navigators: Navigators<TState>;
+    patchNavigators(navigators: Navigators<TState>): void;
 
     actionToNavigation(
-        navigators: Navigators,
+        navigators: Navigators<TState>,
         action: object, // TODO check this
         navigationAction: Nullable<NavigationAction>,
-        route: Nullable<Route>
+        route: Nullable<Route<TKeys, TState>>
     ): object;
     navigationToAction(
-        navigators: Navigators,
-        store: Store<any>,
-        routesMap: RoutesMap,
+        navigators: Navigators<TState>,
+        store: Store<TState>,
+        routesMap: RoutesMap<TKeys, TState>,
         action: object
     ): {
-        action: object;
-        navigationAction: Nullable<NavigationAction>;
-    };
+            action: object;
+            navigationAction: Nullable<NavigationAction>;
+        };
 }
 
-export interface Options {
-    title?: string | SelectTitleState;
-    location?: string | SelectLocationState;
+export interface Options<TKeys = {}, TState = any> {
+    title?: string | SelectTitleState<TState>;
+    location?: string | SelectLocationState<TKeys, TState>;
     notFoundPath?: string;
     scrollTop?: boolean;
-    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter): void;
-    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter): void;
-    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter): void;
+    onBeforeChange?(dispatch: Dispatch<TState>, getState: StateGetter<TState>): void;
+    onAfterChange?(dispatch: Dispatch<TState>, getState: StateGetter<TState>): void;
+    onBackNext?(dispatch: Dispatch<TState>, getState: StateGetter<TState>): void;
     restoreScroll?(history: History): ScrollBehavior;
     initialDispatch?: boolean;
     querySerializer?: QuerySerializer;
-    navigators?: NavigatorsConfig;
+    navigators?: NavigatorsConfig<TKeys, TState>;
 }
 
 export type Params = object;
@@ -211,9 +211,9 @@ export type ScrollUpdater = (performedByUser: boolean) => void;
 
 export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
 
-export function actionToPath(
+export function actionToPath<TKeys = {}, TState = any>(
     action: ReceivedAction,
-    routesMap: RoutesMap,
+    routesMap: RoutesMap<TKeys, TState>,
     querySerializer?: QuerySerializer
 ): string;
 
@@ -225,17 +225,17 @@ export function canGoBack(): boolean;
 
 export function canGoForward(): boolean;
 
-export function connectRoutes(
+export function connectRoutes<TKeys = {}, TState = any>(
     history: History,
-    routesMap: RoutesMap,
-    options?: Options
+    routesMap: RoutesMap<TKeys, TState>,
+    options?: Options<TKeys, TState>
 ): {
-    reducer: Reducer<LocationState>;
-    middleware: Middleware;
-    thunk(store: Store<any>): Promise<Nullable<RouteThunk>>;
-    enhancer: GenericStoreEnhancer;
-    initialDispatch?(): void;
-};
+        reducer: Reducer<LocationState<TKeys, TState>>;
+        middleware: Middleware;
+        thunk<ThunkState = TState>(store: Store<ThunkState>): Promise<Nullable<RouteThunk<ThunkState>>>;
+        enhancer: StoreEnhancer<TState>;
+        initialDispatch?(): void;
+    };
 
 export function go(n: number): void;
 
@@ -247,9 +247,9 @@ export function next(): void;
 
 export function nextPath(): string | void;
 
-export function pathToAction(
+export function pathToAction<TKeys = {}, TState = any>(
     pathname: string,
-    routesMap: RoutesMap
+    routesMap: RoutesMap<TKeys, TState>
 ): ReceivedAction;
 
 export function prevPath(): string | void;
