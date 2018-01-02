@@ -1,14 +1,26 @@
-// Type definitions for yeoman-generator 1.0
+// Type definitions for yeoman-generator 2.0
 // Project: https://github.com/yeoman/generator
-// Definitions by: Kentaro Okuno <https://github.com/armorik83>, Jay Anslow <https://github.com/janslow>
+// Definitions by: Kentaro Okuno <https://github.com/armorik83>
+//                 Jay Anslow <https://github.com/janslow>
+//                 Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { EventEmitter } from 'events';
-import { Questions, Answers } from 'inquirer';
+import * as inquirer from 'inquirer';
 
 type Callback = (err: any) => void;
 
 declare namespace Base {
+    interface Question extends inquirer.Question {
+        /**
+         * whether to store the user's previous answer
+         */
+        store?: boolean;
+    }
+    type Questions = Question | Question[] | Rx.Observable<Question>;
+    type Answers = inquirer.Answers;
+
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
 
@@ -20,11 +32,22 @@ declare namespace Base {
         set(key: string, value: any): any;
     }
     interface InstallOptions {
-        npm?: boolean;
-        bower?: boolean;
-        yarn?: boolean;
+        /**
+         * whether to run `npm install` or can be options to pass to `dargs` as arguments
+         */
+        npm?: boolean | object;
+        /**
+         * whether to run `bower install` or can be options to pass to `dargs` as arguments
+         */
+        bower?: boolean | object;
+        /**
+         * whether to run `yarn install` or can be options to pass to `dargs` as arguments
+         */
+        yarn?: boolean | object;
+        /**
+         * whether to log the used commands
+         */
         skipMessage?: boolean;
-        callback?: Callback;
     }
     interface ArgumentConfig {
         description?: string;
@@ -57,8 +80,6 @@ declare namespace Base {
 }
 
 declare class Base extends EventEmitter {
-    static extend(protoProps?: any, staticProps?: any): Base;
-
     constructor(args: string|string[], options: {});
 
     env: {
@@ -79,7 +100,7 @@ declare class Base extends EventEmitter {
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
     option(name: string, config: Base.OptionConfig): this;
-    prompt(questions: Questions): Promise<Answers>;
+    prompt(questions: Base.Questions): Promise<Base.Answers>;
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
@@ -99,20 +120,97 @@ declare class Base extends EventEmitter {
     spawnCommandSync(command: string, args: string[], opt?: {}): any;
 
     // actions/install mixin
-    bowerInstall(component?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
-    installDependencies(options?: Base.InstallOptions): this;
-    npmInstall(pkgs?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
-    runInstall(installer: string, paths?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
-    yarnInstall(pkgs?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
+    /**
+     * Receives a list of `components` and an `options` object to install through bower.
+     *
+     * The installation will automatically run during the run loop `install` phase.
+     *
+     * @param component Components to install
+     * @param options Options to pass to `dargs` as arguments
+     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @return Resolved if install successful, rejected otherwise
+     */
+    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    /**
+     * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
+     * message to let the user know.
+     *
+     * @example
+     * this.installDependencies({
+     *   bower: true,
+     *   npm: true
+     * }).then(() => console.log('Everything is ready!'));
+     *
+     * @example
+     * this.installDependencies({
+     *   yarn: {force: true},
+     *   npm: false
+     * }).then(() => console.log('Everything is ready!'));
+     *
+     * @return Resolved if install successful, rejected otherwise
+     */
+    installDependencies(options?: Base.InstallOptions): Promise<void>;
+    /**
+     * Receives a list of `packages` and an `options` object to install through npm.
+     *
+     * The installation will automatically run during the run loop `install` phase.
+     *
+     * @param pkgs Packages to install
+     * @param options Options to pass to `dargs` as arguments
+     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @return Resolved if install successful, rejected otherwise
+     */
+    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    /**
+     * Combine package manager cmd line arguments and run the `install` command.
+     *
+     * During the `install` step, every command will be scheduled to run once, on the
+     * run loop. This means you can use `Promise.then` to log information, but don't
+     * return it or mix it with `this.async` as it'll dead lock the process.
+     *
+     * @param installer Which package manager to use
+     * @param paths Packages to install. Use an empty string for `npm install`
+     * @param options Options to pass to `dargs` as arguments
+     * @param spawnOptions Options to pass `child_process.spawn`. ref
+     *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+     * @return Resolved if install successful, rejected otherwise
+     */
+    runInstall(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    /**
+     * Receives a list of `packages` and an `options` object to install through npm.
+     *
+     * The installation will automatically run during the run loop `install` phase.
+     *
+     * @param pkgs Packages to install
+     * @param options Options to pass to `dargs` as arguments
+     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @return Resolved if install successful, rejected otherwise
+     */
+    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
 
     // actions/user mixin
     readonly user: {
         readonly git: {
+            /**
+             * Retrieves user's email from Git in the global scope or the project scope
+             * (it'll take what Git will use in the current context)
+             * @return configured git email or undefined
+             */
             email(): string;
+            /**
+             * Retrieves user's name from Git in the global scope or the project scope
+             * (it'll take what Git will use in the current context)
+             * @return configured git name or undefined
+             */
             name(): string;
         };
         readonly github: {
-            username(): string;
+            /**
+             * Retrieves GitHub's username from the GitHub API
+             * @return Resolved with the GitHub username or rejected if unable to
+             *         get the information
+             */
+            username(): Promise<string>;
         }
     };
 }

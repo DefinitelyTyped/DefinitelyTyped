@@ -24,6 +24,20 @@ var knex = Knex({
 
 var knex = Knex({
   debug: true,
+  client: 'pg',
+  version: '9.5',
+  connection: {
+    user    : 'your_database_user',
+    password: 'your_database_password',
+    server  : 'your_database_server',
+    options : {
+      database: 'myapp_test'
+    }
+  }
+});
+
+var knex = Knex({
+  debug: true,
   client: 'mssql',
   connection: {
     user    : 'your_database_user',
@@ -112,6 +126,13 @@ var knex = Knex({
 var knex = Knex({
   client: 'sqlite',
   useNullAsDefault: true,
+});
+
+// Using custom client
+class TestClient extends Knex.Client {}
+
+var knex = Knex({
+  client: TestClient,
 });
 
 knex('books').insert({title: 'Test'}).returning('*').toString();
@@ -236,6 +257,123 @@ knex.select('*').from('users').join('accounts', function(join: Knex.JoinClause) 
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
+knex.select('*').from('user').join('contacts', () => {
+  this.on('users.id', '=', knex.raw(7));
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
 
 knex.select('*').from('users').join('accounts', (join: Knex.JoinClause) => {
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
@@ -393,7 +531,6 @@ knex.transaction(function(trx) {
     })
     .then(trx.commit)
     .catch(trx.rollback);
-
 }).then(function() {
   console.log('Transaction complete.');
 }).catch(function(err) {
@@ -410,7 +547,17 @@ knex.transaction(function(trx) {
     .transacting(trx)
     .forShare()
     .select('*')
-});
+})
+
+const transactionReturnValue = knex.transaction(function(trx) {
+  return knex("table")
+    .insert({ foo: "bar" })
+    .returning(["id"])
+    .then(function(result) { return result[0].id as number })
+})
+
+// Tests that the transaction has kept the type of its return value by referencing a method of number
+transactionReturnValue.then(value => value.toExponential);
 
 knex('users').count('active');
 
@@ -489,7 +636,7 @@ knex.transaction(function(trx) {
 });
 
 // Using trx as a transaction object:
-knex.transaction(function(trx) {
+knex.transaction<{ length: number }>(function(trx) {
 
   trx.raw('');
 
@@ -535,6 +682,9 @@ knex.transaction(function(trx) {
   // nor any of the books inserts will have taken place.
   console.error(error);
 });
+
+// transacting handles undefined
+knex.insert({ name: 'Old Books'}).transacting(undefined);
 
 knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
 

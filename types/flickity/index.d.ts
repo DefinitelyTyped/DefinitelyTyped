@@ -80,19 +80,16 @@ declare class Flickity {
     // properties
 
     /**
-     * @type integer
      * The selected cell index.
      */
     selectedIndex: number;
 
     /**
-     * @type Element
      * The selected cell element.
      */
     selectedElement: Element;
 
     /**
-     * @type Element[]
      * The array of cells. Use cells.length for the total number of cells.
      */
     cells: Element[];
@@ -144,10 +141,9 @@ declare class Flickity {
     /**
      * Select a slide of a cell. Useful for groupCells.
      *
-     * @param {number | string} index Zero-based index OR selector string of the cell to select.
-     * @param {boolean} [isWrapped] Optional. If true, the last slide will be selected if at the first slide.
-     * @param {boolean} [isInstant] If true, immediately view the selected slide without animation.
-     * @memberof Flickity
+     * @param index Zero-based index OR selector string of the cell to select.
+     * @param isWrapped If true, the last slide will be selected if at the first slide.
+     * @param isInstant If true, immediately view the selected slide without animation.
      */
     selectCell(index: number | string, isWrapped?: boolean, isInstant?: boolean): void;
 

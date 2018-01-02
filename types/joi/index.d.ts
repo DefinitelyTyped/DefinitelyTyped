@@ -1,6 +1,14 @@
-// Type definitions for joi v10.4.2
+// Type definitions for joi v13.0.1
 // Project: https://github.com/hapijs/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>, Youngrok Kim <https://github.com/rokoroku>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Laurence Dougal Myers <https://github.com/laurence-myers>
+//                 Christopher Glantschnig <https://github.com/cglantschnig>
+//                 David Broder-Rodgers <https://github.com/DavidBR-SW>
+//                 Gael Magnan de Bornier <https://github.com/GaelMagnan>
+//                 Rytis Alekna <https://github.com/ralekna>
+//                 Pavel Ivanov <https://github.com/schfkt>
+//                 Youngrok Kim <https://github.com/rokoroku>
+//                 Dan Kraus <https://github.com/dankraus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -8,7 +16,7 @@
 
 export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
 
-export type LanguageOptions = string | false | null | {
+export type LanguageOptions = string | boolean | null | {
     [key: string]: LanguageOptions;
 };
 
@@ -88,7 +96,7 @@ export interface EmailOptions {
     /**
      * Specifies a list of acceptable TLDs.
      */
-    tldWhitelist?: string[] | Object;
+    tldWhitelist?: string[] | object;
     /**
      * Number of atoms required for the domain. Be careful since some domains, such as io, directly allow email.
      */
@@ -118,6 +126,13 @@ export interface UriOptions {
      * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
      */
     scheme?: string | RegExp | Array<string | RegExp>;
+}
+
+export interface Base64Options {
+    /**
+     * optional parameter defaulting to true which will require = padding if true or make padding optional if false
+     */
+    paddingRequired?: boolean;
 }
 
 export interface WhenOptions {
@@ -161,7 +176,7 @@ export interface ValidationError extends Error, JoiObject {
 export interface ValidationErrorItem {
     message: string;
     type: string;
-    path: string;
+    path: string[];
     options?: ValidationOptions;
     context?: Context;
 }
@@ -194,6 +209,8 @@ export type Schema = AnySchema
     | LazySchema;
 
 export interface AnySchema extends JoiObject {
+
+    schemaType?: Types | string;
 
     /**
      * Validates a value using the schema and options.
@@ -270,7 +287,7 @@ export interface AnySchema extends JoiObject {
     /**
      * Attaches metadata to the key.
      */
-    meta(meta: Object): this;
+    meta(meta: object): this;
 
     /**
      * Annotates the key with an example value, must be valid.
@@ -346,7 +363,7 @@ export interface AnySchema extends JoiObject {
      *   an instance of `Error` - the override error.
      *   a `function(errors)`, taking an array of errors as argument, where it must either:
      *    return a `string` - substitutes the error message with this text
-     *    return a single `object` or an `Array` of it, where:
+     *    return a single ` object` or an `Array` of it, where:
      *     `type` - optional parameter providing the type of the error (eg. `number.min`).
      *     `message` - optional parameter if `template` is provided, containing the text of the error.
      *     `template` - optional parameter if `message` is provided, containing a template string, using the same format as usual joi language errors.
@@ -384,6 +401,8 @@ export interface Description {
 
 export interface Context {
     [key: string]: any;
+    key?: string;
+    label?: string;
 }
 
 export interface State {
@@ -455,7 +474,7 @@ export interface NumberSchema extends AnySchema {
 
     /**
      * Specifies the maximum number of decimal places where:
-     *  limit - the maximum number of decimal places allowed.
+     * @param limit - the maximum number of decimal places allowed.
      */
     precision(limit: number): this;
 
@@ -496,6 +515,24 @@ export interface StringSchema extends AnySchema {
      */
     max(limit: number, encoding?: string): this;
     max(limit: Reference, encoding?: string): this;
+
+    /**
+     * Specifies whether the string.max() limit should be used as a truncation.
+     * @param enabled - optional parameter defaulting to true which allows you to reset the behavior of truncate by providing a falsy value.
+     */
+    truncate(enabled?: boolean): this;
+
+    /**
+     * Requires the string value to be in a unicode normalized form. If the validation convert option is on (enabled by default), the string will be normalized.
+     * @param form - The unicode normalization form to use. Valid values: NFC [default], NFD, NFKC, NFKD
+     */
+    normalize(form?: 'NFC' | 'NFD' | 'NFKC' | 'NFKD'): this;
+
+    /**
+     * Requires the string value to be a valid base64 string; does not check the decoded value.
+     * @param options - optional settings: The unicode normalization options to use. Valid values: NFC [default], NFD, NFKC, NFKD
+     */
+    base64(options?: Base64Options): this;
 
     /**
      * Requires the number to be a credit card number (Using Lunh Algorithm).
@@ -554,7 +591,7 @@ export interface StringSchema extends AnySchema {
      * Requires the string value to be a valid GUID.
      */
     guid(options?: GuidOptions): this;
-    
+
     /**
      * Alias for `guid` -- Requires the string value to be a valid GUID
      */
@@ -651,6 +688,7 @@ export interface ArraySchema extends AnySchema {
 }
 
 export interface ObjectSchema extends AnySchema {
+
     /**
      * Sets the allowed object keys.
      */
@@ -888,7 +926,7 @@ export type ExtensionBoundSchema = Schema & {
 
 export interface Rules<P extends object = any> {
     name: string;
-    params?: ObjectSchema | { [key in keyof P]: SchemaLike; };
+    params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
     setup?(this: ExtensionBoundSchema, params: P): Schema | void;
     validate?<R = any>(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
     description?: string | ((params: P) => string);
@@ -965,9 +1003,14 @@ export function string(): StringSchema;
 /**
  * Generates a type that will match one of the provided alternative schemas
  */
-export function alternatives(): AlternativesSchema;
 export function alternatives(types: SchemaLike[]): AlternativesSchema;
 export function alternatives(...types: SchemaLike[]): AlternativesSchema;
+
+/**
+ * Alias for `alternatives`
+ */
+export function alt(types: SchemaLike[]): AlternativesSchema;
+export function alt(...types: SchemaLike[]): AlternativesSchema;
 
 /**
  * Generates a placeholder schema for a schema that you would provide with the fn.
@@ -1028,9 +1071,142 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
-export function extend(extention: Extension): any;
+export function extend(extension: Extension|Extension[], ...extensions: (Extension|Extension[])[]): any;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+import * as Module from 'joi';
+export type Root = typeof Module;
+export type DefaultsFunction = (root: Schema) => Schema;
+
+/**
+ * Creates a new Joi instance that will apply defaults onto newly created schemas
+ * through the use of the fn function that takes exactly one argument, the schema being created.
+ *
+ * @param fn - The function must always return a schema, even if untransformed.
+ */
+export function defaults(fn: DefaultsFunction): Root;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Below are undocumented APIs. use at your own risk
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 /**
  * Returns a plain object representing the schema's rules and properties
  */
 export function describe(schema: Schema): Description;
+
+/**
+* Whitelists a value
+*/
+export function allow(value: any, ...values: any[]): Schema;
+export function allow(values: any[]): Schema;
+
+/**
+ * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
+ */
+export function valid(value: any, ...values: any[]): Schema;
+export function valid(values: any[]): Schema;
+export function only(value: any, ...values: any[]): Schema;
+export function only(values: any[]): Schema;
+export function equal(value: any, ...values: any[]): Schema;
+export function equal(values: any[]): Schema;
+
+/**
+ * Blacklists a value
+ */
+export function invalid(value: any, ...values: any[]): Schema;
+export function invalid(values: any[]): Schema;
+export function disallow(value: any, ...values: any[]): Schema;
+export function disallow(values: any[]): Schema;
+export function not(value: any, ...values: any[]): Schema;
+export function not(values: any[]): Schema;
+
+/**
+ * Marks a key as required which will not allow undefined as value. All keys are optional by default.
+ */
+export function required(): Schema;
+
+/**
+ * Marks a key as optional which will allow undefined as values. Used to annotate the schema for readability as all keys are optional by default.
+ */
+export function optional(): Schema;
+
+/**
+ * Marks a key as forbidden which will not allow any value except undefined. Used to explicitly forbid keys.
+ */
+export function forbidden(): Schema;
+
+/**
+ * Marks a key to be removed from a resulting object or array after validation. Used to sanitize output.
+ */
+export function strip(): Schema;
+
+/**
+ * Annotates the key
+ */
+export function description(desc: string): Schema;
+
+/**
+ * Annotates the key
+ */
+export function notes(notes: string): Schema;
+export function notes(notes: string[]): Schema;
+
+/**
+ * Annotates the key
+ */
+export function tags(notes: string): Schema;
+export function tags(notes: string[]): Schema;
+
+/**
+ * Attaches metadata to the key.
+ */
+export function meta(meta: object): Schema;
+
+/**
+ * Annotates the key with an example value, must be valid.
+ */
+export function example(value: any): Schema;
+
+/**
+ * Annotates the key with an unit name.
+ */
+export function unit(name: string): Schema;
+
+/**
+ * Overrides the global validate() options for the current key and any sub-key.
+ */
+export function options(options: ValidationOptions): Schema;
+
+/**
+ * Sets the options.convert options to false which prevent type casting for the current key and any child keys.
+ */
+export function strict(isStrict?: boolean): Schema;
+
+/**
+ * Returns a new type that is the result of adding the rules of one type to another.
+ */
+export function concat<T>(schema: T): T;
+
+/**
+ * Converts the type into an alternatives type where the conditions are merged into the type definition where:
+ */
+export function when(ref: string, options: WhenOptions): AlternativesSchema;
+export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
+
+/**
+ * Overrides the key name in error messages.
+ */
+export function label(name: string): Schema;
+
+/**
+ * Outputs the original untouched value instead of the casted value.
+ */
+export function raw(isRaw?: boolean): Schema;
+
+/**
+ * Considers anything that matches the schema to be empty (undefined).
+ * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
+ */
+export function empty(schema?: any): Schema;

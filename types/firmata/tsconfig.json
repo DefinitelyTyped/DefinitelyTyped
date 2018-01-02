@@ -12,6 +12,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "serialport": ["serialport/v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

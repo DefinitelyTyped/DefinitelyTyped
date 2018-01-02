@@ -1,7 +1,8 @@
 // Type definitions for websocket
 // Project: https://github.com/theturtle32/WebSocket-Node
 // Definitions by: Paul Loyd <https://github.com/loyd>,
-//                 Kay Schecker <https://github.com/flynetworks>
+//                 Kay Schecker <https://github.com/flynetworks>,
+//                 Zhao Lei <https://github.com/zhaoleimxd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -563,10 +564,10 @@ declare class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[]): void;
-    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: any[]): void;
-    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: any[]): void;
-    connect(requestUrl: string, protocols?: string, origin?: string, headers?: any[]): void;
+    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string, origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
 
     // Events
     on(event: string, listener: () => void): this;

@@ -3,6 +3,8 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>, Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 interface MochaSetupOptions {
     //milliseconds to wait before considering a test slow
     slow?: number;
@@ -27,6 +29,9 @@ interface MochaSetupOptions {
 
     // grep string or regexp to filter tests with
     grep?: any;
+    
+    // require modules before running tests
+    require?: string[];
 }
 
 declare var mocha: Mocha;
@@ -169,7 +174,7 @@ declare namespace Mocha {
 
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner { }
+    interface IRunner extends NodeJS.EventEmitter { }
 
     interface IContextDefinition {
         (description: string, callback: (this: ISuiteCallbackContext) => void): ISuite;

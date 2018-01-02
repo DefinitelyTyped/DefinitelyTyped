@@ -26,6 +26,14 @@ declare namespace Dropzone {
 		accepted: boolean;
 		xhr?: XMLHttpRequest;
 	}
+	
+	export interface DropzoneDictFileSizeUnits { 
+		tb?: string;
+		gb?: string;
+		mb?: string;
+		kb?: string;
+		b?: string;
+	}
 
 	export interface DropzoneOptions {
 		url?: string;
@@ -72,6 +80,7 @@ declare namespace Dropzone {
 		dictRemoveFile?: string;
 		dictRemoveFileConfirmation?: string;
 		dictMaxFilesExceeded?: string;
+		dictFileSizeUnits?: DropzoneDictFileSizeUnits;
 
 		accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
 		init?(): void;

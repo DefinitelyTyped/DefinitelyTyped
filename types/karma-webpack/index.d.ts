@@ -2,12 +2,15 @@
 // Project: http://github.com/webpack/karma-webpack
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as m from 'karma';
 import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 declare module 'karma' {
+    type Logger = (message?: any, ...optionalParams: any[]) => void;
+
     // Note: karma-webpack will set publicPath for us, so it is optional here.
     // Unfortuantely, Typescript doesn't let you overload properties, so
     // the entire definition is duplicated here.
@@ -25,9 +28,9 @@ declare module 'karma' {
         reporter?: webpackDevMiddleware.Reporter | null;
         serverSideRender?: boolean;
 
-        log?: webpackDevMiddleware.Logger;
-        warn?: webpackDevMiddleware.Logger;
-        error?: webpackDevMiddleware.Logger;
+        log?: Logger;
+        warn?: Logger;
+        error?: Logger;
         filename?: string;
     }
 

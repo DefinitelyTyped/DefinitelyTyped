@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ModalProps {
   isOpen?: boolean;
   autoFocus?: boolean;
   size?: string;
@@ -19,5 +19,5 @@ interface Props {
   fade?: boolean;
 }
 
-declare var Modal: React.StatelessComponent<Props>;
+declare const Modal: React.StatelessComponent<ModalProps>;
 export default Modal;

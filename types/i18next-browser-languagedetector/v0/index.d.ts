@@ -2,6 +2,7 @@
 // Project: http://i18next.com/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as i18next from "i18next";
 
@@ -11,10 +12,7 @@ declare namespace I18next {
 }
 
 declare namespace i18nextBrowserLanguageDetector {
-    /**
-     * @summary Interface for Language detector options.
-     * @interface
-     */
+    /** Interface for Language detector options. */
     interface LanguageDetectorOptions {
         caches?: string[] | boolean;
         cookieDomain?: string;
@@ -26,10 +24,7 @@ declare namespace i18nextBrowserLanguageDetector {
         order?: string[];
     }
 
-    /**
-     * @summary Interface for custom detector.
-     * @interface
-     */
+    /** Interface for custom detector. */
     interface CustomDetector {
         name: string;
 
@@ -38,43 +33,24 @@ declare namespace i18nextBrowserLanguageDetector {
         lookup(options: {}): string;
     }
 
-    /**
-     * @summary i18next options.
-     * @interface
-     */
+    /** i18next options. */
     interface I18nextOptions {
         detection?: LanguageDetectorOptions;
     }
 
-    /**
-     * @summary i18next interface.
-     * @interface
-     */
+    /** i18next interface. */
     interface I18nextStatic {
         use(module: LngDetector): I18nextStatic;
     }
 
-    /**
-     * @summary i18next language detection.
-     * @class
-     */
+    /** i18next language detection. */
     class LngDetector {
-        /**
-         * @summary Constructor.
-         * @constructor
-         */
         constructor(services?: any, options?: LanguageDetectorOptions);
 
-        /**
-         * @summary Adds detector.
-         * @param {CustomDetector} detector The custom detector.
-         */
+        /** Adds detector. */
         addDetector(detector: CustomDetector): LngDetector;
 
-        /**
-         * @summary Initializes detector.
-         * @param {LanguageDetectorOptions} options The options.
-         */
+        /** Initializes detector. */
         init(options?: LanguageDetectorOptions): void;
     }
 }

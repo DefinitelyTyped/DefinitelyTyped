@@ -1,8 +1,14 @@
 // Type definitions for request 2.0
 // Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <https://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>, Jon Stevens <https://github.com/lookfirst>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>,
+//                 bonnici <https://github.com/bonnici>,
+//                 Bart van der Schoor <https://github.com/Bartvds>,
+//                 Joe Skeen <https://github.com/joeskeen>,
+//                 Christopher Currens <https://github.com/ccurrens>,
+//                 Jon Stevens <https://github.com/lookfirst>,
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript version: 2.3
+// TypeScript Version: 2.3
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
@@ -17,10 +23,7 @@ import FormData = require('form-data');
 import { Url } from 'url';
 
 declare namespace request {
-    export interface RequestAPI<TRequest extends Request,
-        TOptions extends CoreOptions,
-        TUriUrlOptions> {
-
+    export interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
         defaults(options: TOptions): RequestAPI<TRequest, TOptions, RequiredUriUrl>;
         defaults(options: RequiredUriUrl & TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
 
@@ -56,18 +59,20 @@ declare namespace request {
         delete(uri: string, callback?: RequestCallback): TRequest;
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
+        initParams(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        initParams(uri: string, callback?: RequestCallback): TRequest;
+        initParams(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
         cookie(str: string): Cookie;
 
-        initParams: any;
         debug: boolean;
     }
 
     interface DefaultUriUrlRequestApi<TRequest extends Request,
-        TOptions extends CoreOptions,
-        TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
-
+            TOptions extends CoreOptions,
+            TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
         (callback?: RequestCallback): TRequest;
 
@@ -173,13 +178,11 @@ declare namespace request {
     export type OptionsWithUrl = UrlOptions & CoreOptions;
     export type Options = OptionsWithUri | OptionsWithUrl;
 
-    export interface RequestCallback {
-        (error: any, response: RequestResponse, body: any): void;
-    }
+    export type RequestCallback = (error: any, response: RequestResponse, body: any) => void;
 
     export type ResponseRequest = CoreOptions & {
       uri: Url;
-    }
+    };
 
 	export interface RequestResponse extends http.IncomingMessage {
 		request: ResponseRequest;
@@ -209,7 +212,7 @@ declare namespace request {
         postData?: {
             mimeType?: string;
             params?: NameValuePair[];
-        }
+        };
     }
 
     export interface NameValuePair {
@@ -219,10 +222,10 @@ declare namespace request {
 
     export interface Multipart {
         chunked?: boolean;
-        data?: {
+        data?: Array<{
             'content-type'?: string,
             body: string
-        }[];
+        }>;
     }
 
     export interface RequestPart {
@@ -235,8 +238,8 @@ declare namespace request {
         writable: boolean;
 
         getAgent(): http.Agent;
-        //start(): void;
-        //abort(): void;
+        // start(): void;
+        // abort(): void;
         pipeDest(dest: any): void;
         setHeader(name: string, value: string, clobber?: boolean): Request;
         setHeaders(headers: Headers): Request;
@@ -293,7 +296,7 @@ declare namespace request {
         token_secret?: string;
         transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
-        body_hash?: true | string
+        body_hash?: true | string;
     }
 
     export interface HawkOptions {
@@ -306,9 +309,9 @@ declare namespace request {
     }
 
     export interface CookieJar {
-        setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void
-        getCookieString(uri: string | url.Url): string
-        getCookies(uri: string | url.Url): Cookie[]
+        setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void;
+        getCookieString(uri: string | url.Url): string;
+        getCookies(uri: string | url.Url): Cookie[];
     }
 
     export interface CookieValue {

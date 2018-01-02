@@ -1,4 +1,4 @@
-// Type definitions for Jest 21.1
+// Type definitions for Jest 22.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -8,6 +8,8 @@
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
+//                 Jamie Mason <https://github.com/JamieMason>
+//                 Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -144,10 +146,16 @@ declare namespace jest {
      */
     function runOnlyPendingTimers(): typeof jest;
     /**
-     * Executes only the macro task queue (i.e. all tasks queued by setTimeout()
-     * or setInterval() and setImmediate()).
+     * (renamed to `advanceTimersByTime` in Jest 21.3.0+) Executes only the macro
+     * task queue (i.e. all tasks queued by setTimeout() or setInterval() and setImmediate()).
      */
     function runTimersToTime(msToRun: number): typeof jest;
+    /**
+     * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
+     * queued via setTimeout() or setInterval(), and would be executed within this timeframe
+     * will be executed.
+     */
+    function advanceTimersByTime(msToRun: number): typeof jest;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -198,9 +206,9 @@ declare namespace jest {
         /**
          * Creates a test closure.
          *
-         * @param {string} name The name of your test
-         * @param {fn?} ProvidesCallback The function for your test
-         * @param {timeout?} timeout The timeout for an async function test
+         * @param name The name of your test
+         * @param fn The function for your test
+         * @param timeout The timeout for an async function test
          */
         (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
@@ -240,7 +248,7 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, actual: any) => { message(): string, pass: boolean };
+        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
     }
 
     interface SnapshotSerializerOptions {
@@ -290,7 +298,7 @@ declare namespace jest {
          * The `expect` function is used every time you want to test a value.
          * You will rarely call `expect` by itself.
          *
-         * @param {any} actual The value to apply matchers against.
+         * @param actual The value to apply matchers against.
          */
         (actual: any): Matchers<void>;
         anything(): any;
@@ -554,7 +562,7 @@ declare namespace jasmine {
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
-    function createSpy(name: string, originalFn?: (...args: any[]) => any): Spy;
+    function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
@@ -707,8 +715,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     interface CustomMatcherResult {
@@ -808,6 +816,10 @@ declare namespace jest {
         cacheDirectory: Path;
         clearMocks: boolean;
         coveragePathIgnorePatterns: string[];
+        cwd: Path;
+        detectLeaks: boolean;
+        displayName: Maybe<string>;
+        forceCoverageMatch: Glob[];
         globals: ConfigGlobals;
         haste: HasteConfig;
         moduleDirectories: string[];
@@ -822,11 +834,14 @@ declare namespace jest {
         resolver: Maybe<Path>;
         rootDir: Path;
         roots: Path[];
+        runner: string;
         setupFiles: Path[];
         setupTestFrameworkScriptFile: Path;
         skipNodeResolution: boolean;
         snapshotSerializers: Path[];
         testEnvironment: string;
+        testEnvironmentOptions: object;
+        testLocationInResults: boolean;
         testMatch: Glob[];
         testPathIgnorePatterns: string[];
         testRegex: string;
@@ -836,6 +851,7 @@ declare namespace jest {
         transform: Array<[string, Path]>;
         transformIgnorePatterns: Glob[];
         unmockedModulePathPatterns: Maybe<string[]>;
+        watchPathIgnorePatterns: string[];
     }
 
     // Console
@@ -866,6 +882,7 @@ declare namespace jest {
         runAllTicks(): void;
         runAllTimers(): void;
         runTimersToTime(msToRun: number): void;
+        advanceTimersByTime(msToRun: number): void;
         runOnlyPendingTimers(): void;
         runWithRealTimers(callback: any): void;
         useFakeTimers(): void;
@@ -1038,6 +1055,8 @@ declare namespace jest {
         path: Path;
     }
 
+    // tslint:disable-next-line:no-empty-interface
+    interface Set<T> {} // To allow non-ES6 users the Set below
     interface Reporter {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;

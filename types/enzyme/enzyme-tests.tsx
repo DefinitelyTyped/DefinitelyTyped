@@ -1,5 +1,14 @@
 import * as React from "react";
-import { shallow, mount, render, ShallowWrapper, ReactWrapper } from "enzyme";
+import {
+    shallow,
+    mount,
+    render,
+    ShallowWrapper,
+    ReactWrapper,
+    configure,
+    EnzymeAdapter,
+    ShallowRendererProps,
+} from "enzyme";
 import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
 // Help classes/interfaces
@@ -23,6 +32,18 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
 }
 
 const MyStatelessComponent = (props: StatelessProps) => <span />;
+
+// Enzyme.configure
+function configureTest() {
+    const configureAdapter: { adapter: EnzymeAdapter } = { adapter: {} };
+    configure(configureAdapter);
+
+    const configureAdapterAndDisableLifecycle: typeof configureAdapter & Pick<ShallowRendererProps, "disableLifecycleMethods"> = {
+        adapter: {},
+        disableLifecycleMethods: true,
+    };
+    configure(configureAdapterAndDisableLifecycle);
+}
 
 // ShallowWrapper
 function ShallowWrapperTest() {
@@ -50,7 +71,8 @@ function ShallowWrapperTest() {
             context: {
                 test: "a",
             },
-            lifecycleExperimental: true
+            lifecycleExperimental: true,
+            disableLifecycleMethods: true
         });
     }
 

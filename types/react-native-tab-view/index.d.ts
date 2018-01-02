@@ -9,7 +9,7 @@ import {
   Animated,
   StyleProp,
   ViewStyle,
-  NavigationTransitionSpec,
+  EasingFunction
 } from 'react-native'
 
 export type Key = { key: string }
@@ -51,6 +51,14 @@ export type SubscriptionName = 'reset' | 'position'
 
 export type TransitionProps = {
   progress: number
+}
+
+export type NavigationTransitionSpec = {
+  duration?: number,
+  // An easing function from `Easing`.
+  easing?: EasingFunction,
+  // A timing function such as `Animated.timing`.
+  timing?: (value: Animated.Value, config: any) => any,
 }
 
 export type TransitionConfigurator = (

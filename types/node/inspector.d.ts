@@ -690,6 +690,11 @@ declare module "inspector" {
              * Stack trace captured when the call was made.
              */
             stackTrace?: Runtime.StackTrace;
+            /**
+             * Console context descriptor for calls on non-default console context (not console.*): 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call on named context.
+             * @experimental
+             */
+            context?: string;
         }
 
         export interface InspectRequestedEventDataType {
@@ -1434,6 +1439,10 @@ declare module "inspector" {
              * Source ranges inside the function with coverage data.
              */
             ranges: Profiler.CoverageRange[];
+            /**
+             * Whether coverage data for this function has block granularity.
+             */
+            isBlockCoverage: boolean;
         }
 
         /**

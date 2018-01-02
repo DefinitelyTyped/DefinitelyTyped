@@ -558,6 +558,12 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     url: stringValue
 });
 
+//test without projection
+tileWMS = new ol.source.TileWMS({
+    params: {},
+    serverType: stringValue,
+    url: stringValue
+});
 voidValue = tileWMS.updateParams(tileWMS.getParams());
 stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 
@@ -700,10 +706,111 @@ jsonValue = geojsonFormat.writeGeometryObject(geometry);
 jsonValue = geojsonFormat.writeGeometryObject(geometry, writeOptions);
 
 //
+// ol.format.filter
+//
+
+let bboxFilter: ol.format.filter.Bbox;
+bboxFilter = new ol.format.filter.Bbox("geometry", extent);
+bboxFilter = new ol.format.filter.Bbox("geometry", extent, "srs");
+bboxFilter = ol.format.filter.bbox("geometry", extent);
+bboxFilter = ol.format.filter.bbox("geometry", extent, "srs");
+
+let equalToFilter: ol.format.filter.EqualTo;
+equalToFilter = new ol.format.filter.EqualTo("property", "abc");
+equalToFilter = new ol.format.filter.EqualTo("property", "abc", true);
+equalToFilter = new ol.format.filter.EqualTo("property", 123);
+equalToFilter = new ol.format.filter.EqualTo("property", 123, true);
+equalToFilter = ol.format.filter.equalTo("property", "abc");
+equalToFilter = ol.format.filter.equalTo("property", "abc", true);
+equalToFilter = ol.format.filter.equalTo("property", 123);
+equalToFilter = ol.format.filter.equalTo("property", 123, true);
+
+let greaterThanFilter: ol.format.filter.GreaterThan;
+greaterThanFilter = new ol.format.filter.GreaterThan("property", 123);
+greaterThanFilter = ol.format.filter.greaterThan("property", 123);
+
+let greaterThanEqualToFilter: ol.format.filter.GreaterThanOrEqualTo;
+greaterThanEqualToFilter = new ol.format.filter.GreaterThanOrEqualTo("property", 123);
+greaterThanEqualToFilter = ol.format.filter.greaterThanOrEqualTo("property", 123);
+
+let lessThanFilter: ol.format.filter.LessThan;
+lessThanFilter = new ol.format.filter.LessThan("property", 123);
+lessThanFilter = ol.format.filter.lessThan("property", 123);
+
+let lessThanEqualToFilter: ol.format.filter.LessThanOrEqualTo;
+lessThanEqualToFilter = new ol.format.filter.LessThanOrEqualTo("property", 123);
+lessThanEqualToFilter = ol.format.filter.lessThanOrEqualTo("property", 123);
+
+let notEqualToFilter: ol.format.filter.NotEqualTo;
+notEqualToFilter = new ol.format.filter.NotEqualTo("property", "abc");
+notEqualToFilter = new ol.format.filter.NotEqualTo("property", "abc", true);
+notEqualToFilter = new ol.format.filter.NotEqualTo("property", 123);
+notEqualToFilter = new ol.format.filter.NotEqualTo("property", 123, true);
+notEqualToFilter = ol.format.filter.notEqualTo("property", "abc");
+notEqualToFilter = ol.format.filter.notEqualTo("property", "abc", true);
+notEqualToFilter = ol.format.filter.notEqualTo("property", 123);
+notEqualToFilter = ol.format.filter.notEqualTo("property", 123, true);
+
+let duringFilter: ol.format.filter.During;
+duringFilter = new ol.format.filter.During("property", "2017-01-01T12:00Z", "2017-01-01T14:00Z");
+duringFilter = ol.format.filter.during("property", "2017-01-01T12:00Z", "2017-01-01T14:00Z");
+
+let isBetweenFilter: ol.format.filter.IsBetween;
+isBetweenFilter = new ol.format.filter.IsBetween("property", 1, 10);
+isBetweenFilter = ol.format.filter.between("property", 1, 10);
+
+let isLikeFilter: ol.format.filter.IsLike;
+isLikeFilter = new ol.format.filter.IsLike("property", "pattern");
+isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard");
+isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard", "s");
+isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard", "s", "e");
+isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard", "s", "e", true);
+isLikeFilter = ol.format.filter.like("property", "pattern");
+isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard");
+isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard", "s");
+isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard", "s", "e");
+isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard", "s", "e", true);
+
+let isNullFilter: ol.format.filter.IsNull;
+isNullFilter = new ol.format.filter.IsNull("property");
+isNullFilter = ol.format.filter.isNull("property");
+
+let andFilter: ol.format.filter.And;
+andFilter = new ol.format.filter.And(isNullFilter, duringFilter);
+andFilter = ol.format.filter.and(isNullFilter, duringFilter);
+
+let orFilter: ol.format.filter.Or;
+orFilter = new ol.format.filter.Or(isNullFilter, duringFilter);
+orFilter = ol.format.filter.or(isNullFilter, duringFilter);
+
+let notFilter: ol.format.filter.Not;
+notFilter = new ol.format.filter.Not(isBetweenFilter);
+notFilter = ol.format.filter.not(isBetweenFilter);
+
+let intersectsFilter: ol.format.filter.Intersects;
+intersectsFilter = new ol.format.filter.Intersects("geometry", geometry);
+intersectsFilter = new ol.format.filter.Intersects("geometry", geometry, "srs");
+intersectsFilter = ol.format.filter.intersects("geometry", geometry);
+intersectsFilter = ol.format.filter.intersects("geometry", geometry, "srs");
+
+let withinFilter: ol.format.filter.Within;
+withinFilter = new ol.format.filter.Within("geometry", geometry);
+withinFilter = new ol.format.filter.Within("geometry", geometry, "srs");
+withinFilter = ol.format.filter.within("geometry", geometry);
+withinFilter = ol.format.filter.within("geometry", geometry, "srs");
+
+//
 // ol.interactions
 //
-let modify: ol.interaction.Modify = new ol.interaction.Modify({
-    features: new ol.Collection<ol.Feature>(featureArray)
+let modifyFeature: ol.interaction.Modify = new ol.interaction.Modify({
+    insertVertexCondition: ol.events.condition.never,
+    features: new ol.Collection<ol.Feature>(featureArray),
+});
+let modifySource: ol.interaction.Modify = new ol.interaction.Modify({
+    insertVertexCondition: ol.events.condition.never,
+    source: new ol.source.Vector({
+        features: new ol.Collection<ol.Feature>(featureArray),
+    }),
 });
 
 let draw: ol.interaction.Draw = new ol.interaction.Draw({

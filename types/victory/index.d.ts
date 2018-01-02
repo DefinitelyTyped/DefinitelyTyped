@@ -765,6 +765,10 @@ declare module "victory" {
          */
         gridComponent?: React.ReactElement<any>;
         /**
+         * If true, this value will flip the domain of a given axis.
+         */
+        invertAxis?: boolean;
+        /**
          * The label prop defines the label that will appear along the axis. This
          * prop should be given as a value or an entire, HTML-complete label
          * component. If a label component is given, it will be cloned. The new

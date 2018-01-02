@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.x
+// Type definitions for Node.js 8.5.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -13,12 +13,15 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
+//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
+//                 Alberto Schiabel <https://github.com/jkomyno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
-*               Node.js v8.x API                *
+*               Node.js v8.5.x API              *
 *                                               *
 ************************************************/
 
@@ -43,8 +46,18 @@ interface Error {
     stack?: string;
 }
 
+// Declare "static" methods in Error
 interface ErrorConstructor {
+    /** Create .stack property on a target object */
     captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+
+    /**
+     * Optional override for formatting stack traces
+     *
+     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     */
+    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+
     stackTraceLimit: number;
 }
 
@@ -66,6 +79,14 @@ interface SymbolConstructor {
     readonly iterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
+
+// Node.js ESNEXT support
+interface String {
+    /** Removes whitespace from the left end of a string. */
+    trimLeft(): string;
+    /** Removes whitespace from the right end of a string. */
+    trimRight(): string;
+}
 
 /************************************************
 *                                               *
@@ -95,8 +116,8 @@ declare namespace setImmediate {
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
-/* tslint:disable:callable-types */
 interface NodeRequireFunction {
+/* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -193,8 +214,6 @@ declare var Buffer: {
     prototype: Buffer;
     /**
      * Allocates a new Buffer using an {array} of octets.
-     *
-     * @param array
      */
     from(array: any[]): Buffer;
     /**
@@ -204,22 +223,16 @@ declare var Buffer: {
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
-     * @param byteOffset
-     * @param length
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Copies the passed {buffer} data onto a new Buffer instance.
-     *
-     * @param buffer
      */
     from(buffer: Buffer): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
-     *
-     * @param str
      */
     from(str: string, encoding?: string): Buffer;
     /**
@@ -309,6 +322,80 @@ declare namespace NodeJS {
         new(stdout: WritableStream, stderr?: WritableStream): Console;
     }
 
+    export interface CallSite {
+        /**
+         * Value of "this"
+         */
+        getThis(): any;
+
+        /**
+         * Type of "this" as a string.
+         * This is the name of the function stored in the constructor field of
+         * "this", if available.  Otherwise the object's [[Class]] internal
+         * property.
+         */
+        getTypeName(): string | null;
+
+        /**
+         * Current function
+         */
+        getFunction(): Function | undefined;
+
+        /**
+         * Name of the current function, typically its name property.
+         * If a name property is not available an attempt will be made to try
+         * to infer a name from the function's context.
+         */
+        getFunctionName(): string | null;
+
+        /**
+         * Name of the property [of "this" or one of its prototypes] that holds
+         * the current function
+         */
+        getMethodName(): string | null;
+
+        /**
+         * Name of the script [if this function was defined in a script]
+         */
+        getFileName(): string | null;
+
+        /**
+         * Current line number [if this function was defined in a script]
+         */
+        getLineNumber(): number | null;
+
+        /**
+         * Current column number [if this function was defined in a script]
+         */
+        getColumnNumber(): number | null;
+
+        /**
+         * A call site object representing the location where eval was called
+         * [if this function was created using a call to eval]
+         */
+        getEvalOrigin(): string | undefined;
+
+        /**
+         * Is this a toplevel invocation, that is, is "this" the global object?
+         */
+        isToplevel(): boolean;
+
+        /**
+         * Does this call take place in code defined by a call to eval?
+         */
+        isEval(): boolean;
+
+        /**
+         * Is this call in native V8 code?
+         */
+        isNative(): boolean;
+
+        /**
+         * Is this a constructor call?
+         */
+        isConstructor(): boolean;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -352,7 +439,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -472,11 +559,15 @@ declare namespace NodeJS {
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
-        setgid(id: number): void;
-        setgid(id: string): void;
+        setgid(id: number | string): void;
         getuid(): number;
-        setuid(id: number): void;
-        setuid(id: string): void;
+        setuid(id: number | string): void;
+        geteuid(): number;
+        seteuid(id: number | string): void;
+        getegid(): number;
+        setegid(id: number | string): void;
+        getgroups(): number[];
+        setgroups(groups: Array<string | number>): void;
         version: string;
         versions: ProcessVersions;
         config: {
@@ -796,8 +887,10 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
+    interface ParsedUrlQuery { [key: string]: string | string[]; }
+
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): any;
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -838,7 +931,47 @@ declare module "http" {
 
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
-        [header: string]: string | string[];
+        'accept'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-headers'?: string;
+        'accept-patch'?: string;
+        'accept-ranges'?: string;
+        'age'?: string;
+        'allow'?: string;
+        'alt-svc'?: string;
+        'cache-control'?: string;
+        'connection'?: string;
+        'content-disposition'?: string;
+        'content-encoding'?: string;
+        'content-language'?: string;
+        'content-length'?: string;
+        'content-location'?: string;
+        'content-range'?: string;
+        'content-type'?: string;
+        'date'?: string;
+        'expires'?: string;
+        'host'?: string;
+        'last-modified'?: string;
+        'location'?: string;
+        'pragma'?: string;
+        'proxy-authenticate'?: string;
+        'public-key-pins'?: string;
+        'retry-after'?: string;
+        'set-cookie'?: string[];
+        'strict-transport-security'?: string;
+        'trailer'?: string;
+        'transfer-encoding'?: string;
+        'tk'?: string;
+        'upgrade'?: string;
+        'vary'?: string;
+        'via'?: string;
+        'warning'?: string;
+        'www-authenticate'?: string;
+        [header: string]: string | string[] | undefined;
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
@@ -869,10 +1002,10 @@ declare module "http" {
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        setTimeout(callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
-        listening: boolean;
         keepAliveTimeout: number;
     }
     /**
@@ -1059,7 +1192,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
@@ -1307,13 +1440,27 @@ declare module "zlib" {
         dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
-    export interface Gzip extends stream.Transform { }
-    export interface Gunzip extends stream.Transform { }
-    export interface Deflate extends stream.Transform { }
-    export interface Inflate extends stream.Transform { }
-    export interface DeflateRaw extends stream.Transform { }
-    export interface InflateRaw extends stream.Transform { }
-    export interface Unzip extends stream.Transform { }
+    export interface Zlib {
+        readonly bytesRead: number;
+        close(callback?: () => void): void;
+        flush(kind?: number | (() => void), callback?: () => void): void;
+    }
+
+    export interface ZlibParams {
+        params(level: number, strategy: number, callback: () => void): void;
+    }
+
+    export interface ZlibReset {
+        reset(): void;
+    }
+
+    export interface Gzip extends stream.Transform, Zlib { }
+    export interface Gunzip extends stream.Transform, Zlib { }
+    export interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface Inflate extends stream.Transform, Zlib, ZlibReset { }
+    export interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
+    export interface Unzip extends stream.Transform, Zlib { }
 
     export function createGzip(options?: ZlibOptions): Gzip;
     export function createGunzip(options?: ZlibOptions): Gunzip;
@@ -1604,7 +1751,7 @@ declare module "https" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: tls.SecureContext) => any) => any;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -1616,35 +1763,28 @@ declare module "https" {
         ciphers?: string;
         rejectUnauthorized?: boolean;
         secureProtocol?: string;
+        servername?: string;
     }
 
-    export interface ClientRequest extends http.ClientRequest { }
-
-    export interface IncomingMessage extends http.IncomingMessage { }
-
-    export interface ServerResponse extends http.ServerResponse { }
-
-    export interface Agent extends http.Agent { }
-
-    export interface AgentOptions extends http.AgentOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        ciphers?: string;
+    export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
-        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
-    export var Agent: {
-        new(options?: AgentOptions): Agent;
-    };
-    export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export class Agent extends http.Agent {
+        constructor(options?: AgentOptions);
+    }
+
+    export class Server extends tls.Server {
+        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        timeout: number;
+        keepAliveTimeout: number;
+    }
+
+    export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
+    export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1955,6 +2095,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
 
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
@@ -2014,6 +2155,7 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -2080,6 +2222,7 @@ declare module "child_process" {
         stdio?: any[];
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
 
@@ -2095,6 +2238,7 @@ declare module "child_process" {
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2171,7 +2315,9 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface UrlObject {
+    import { ParsedUrlQuery } from 'querystring';
+
+    export interface UrlObjectCommon {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2179,16 +2325,21 @@ declare module "url" {
         href?: string;
         path?: string;
         pathname?: string;
-        port?: string | number;
         protocol?: string;
-        query?: string | { [key: string]: any; };
         search?: string;
         slashes?: boolean;
     }
 
-    export interface Url extends UrlObject {
+    // Input to `url.format`
+    export interface UrlObject extends UrlObjectCommon {
+        port?: string | number;
+        query?: string | null | { [key: string]: any };
+    }
+
+    // Output of `url.parse`
+    export interface Url extends UrlObjectCommon {
         port?: string;
-        query?: any;
+        query?: string | null | ParsedUrlQuery;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
@@ -2410,6 +2561,8 @@ declare module "net" {
     import * as events from "events";
     import * as dns from "dns";
 
+    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+
     export interface SocketConstructorOpts {
         fd?: number;
         allowHalfOpen?: boolean;
@@ -2424,7 +2577,7 @@ declare module "net" {
         localPort?: number;
         hints?: number;
         family?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+        lookup?: LookupFunction;
     }
 
     export interface IpcSocketConnectOpts {
@@ -2434,7 +2587,7 @@ declare module "net" {
     export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
     export class Socket extends stream.Duplex {
-        constructor(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; });
+        constructor(options?: SocketConstructorOpts);
 
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -2448,6 +2601,7 @@ declare module "net" {
         connect(port: number, host: string, connectionListener?: Function): this;
         connect(port: number, connectionListener?: Function): this;
         connect(path: string, connectionListener?: Function): this;
+
         bufferSize: number;
         setEncoding(encoding?: string): this;
         destroy(err?: any): void;
@@ -2562,20 +2716,20 @@ declare module "net" {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, listeningListener?: Function): Server;
-        listen(path: string, backlog?: number, listeningListener?: Function): Server;
-        listen(path: string, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
-        listen(handle: any, backlog?: number, listeningListener?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-        close(callback?: Function): Server;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, hostname?: string, listeningListener?: Function): this;
+        listen(port?: number, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, listeningListener?: Function): this;
+        listen(path: string, backlog?: number, listeningListener?: Function): this;
+        listen(path: string, listeningListener?: Function): this;
+        listen(options: ListenOptions, listeningListener?: Function): this;
+        listen(handle: any, backlog?: number, listeningListener?: Function): this;
+        listen(handle: any, listeningListener?: Function): this;
+        close(callback?: Function): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error | null, count: number) => void): void;
-        ref(): Server;
-        unref(): Server;
+        ref(): this;
+        unref(): this;
         maxConnections: number;
         connections: number;
         listening: boolean;
@@ -4306,6 +4460,7 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
         end?: number;
+        highWaterMark?: number;
     }): ReadStream;
 
     /**
@@ -4419,6 +4574,29 @@ declare module "path" {
         name: string;
     }
 
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
+
     /**
      * Normalize a string path, reducing '..' and '.' parts.
      * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
@@ -4452,9 +4630,6 @@ declare module "path" {
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
-     *
-     * @param from
-     * @param to
      */
     export function relative(from: string, to: string): string;
     /**
@@ -4497,7 +4672,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
@@ -4658,7 +4833,7 @@ declare module "tls" {
              * SecureContext.) If SNICallback wasn't provided the default callback
              * with high-level API will be used (see below).
              */
-            SNICallback?: Function,
+            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
             /**
              * An optional Buffer instance containing a TLS session.
              */
@@ -4670,12 +4845,7 @@ declare module "tls" {
              */
             requestOCSP?: boolean
         });
-        /**
-         * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system.
-         * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
-         */
-        address(): { port: number; family: string; address: string };
+
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
          */
@@ -4692,7 +4862,7 @@ declare module "tls" {
         encrypted: boolean;
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
-         * @returns {CipherNameAndProtocol} - Returns an object representing the cipher name
+         * @returns Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
@@ -4702,55 +4872,34 @@ declare module "tls" {
          * If detailed argument is true the full chain with issuer property will be returned,
          * if false only the top certificate without issuer property.
          * If the peer does not provide a certificate, it returns null or an empty object.
-         * @param {boolean} detailed - If true; the full chain with issuer property will be returned.
-         * @returns {PeerCertificate | DetailedPeerCertificate} - An object representing the peer's certificate.
+         * @param detailed - If true; the full chain with issuer property will be returned.
+         * @returns An object representing the peer's certificate.
          */
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
-         * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
+         * @returns ASN.1 encoded TLS session or undefined if none was negotiated.
          */
         getSession(): any;
         /**
          * NOTE: Works only with client TLS sockets.
          * Useful only for debugging, for session reuse provide session option to tls.connect().
-         * @returns {any} - TLS session ticket or undefined if none was negotiated.
+         * @returns TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket(): any;
-        /**
-         * The string representation of the local IP address.
-         */
-        localAddress: string;
-        /**
-         * The numeric representation of the local port.
-         */
-        localPort: number;
-        /**
-         * The string representation of the remote IP address.
-         * For example, '74.125.127.100' or '2001:4860:a005::68'.
-         */
-        remoteAddress: string;
-        /**
-         * The string representation of the remote IP family. 'IPv4' or 'IPv6'.
-         */
-        remoteFamily: string;
-        /**
-         * The numeric representation of the remote port. For example, 443.
-         */
-        remotePort: number;
         /**
          * Initiate TLS renegotiation process.
          *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
-         * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
+         * @param options - The options may contain the following fields: rejectUnauthorized,
          * requestCert (See tls.createServer() for details).
-         * @param {Function} callback - callback(err) will be executed with null as err, once the renegotiation
+         * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: TlsOptions, callback: (err: Error) => any): any;
+        renegotiate(options: TlsOptions, callback: (err: Error | null) => void): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -4758,8 +4907,8 @@ declare module "tls" {
          * large fragments can span multiple roundtrips, and their processing can be delayed due to packet
          * loss or reordering. However, smaller fragments add extra TLS framing bytes and CPU overhead,
          * which may decrease overall server throughput.
-         * @param {number} size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
-         * @returns {boolean} - Returns true on success, false otherwise.
+         * @param size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
+         * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
 
@@ -4807,49 +4956,40 @@ declare module "tls" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: string[] | Buffer;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: SecureContext) => any) => any;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
         ecdhCurve?: string;
         dhparam?: string | Buffer;
         handshakeTimeout?: number;
         ALPNProtocols?: string[] | Buffer;
         sessionTimeout?: number;
-        ticketKeys?: any;
+        ticketKeys?: Buffer;
         sessionIdContext?: string;
         secureProtocol?: string;
+        secureOptions?: number;
     }
 
-    export interface ConnectionOptions {
+    export interface ConnectionOptions extends SecureContextOptions {
         host?: string;
         port?: number;
-        socket?: net.Socket;
-        pfx?: string | Buffer;
-        key?: string | string[] | Buffer | Buffer[];
-        passphrase?: string;
-        cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | Buffer | Array<string | Buffer>;
-        rejectUnauthorized?: boolean;
+        path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+        socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
+        rejectUnauthorized?: boolean; // Defaults to true
         NPNProtocols?: Array<string | Buffer>;
-        servername?: string;
-        path?: string;
         ALPNProtocols?: Array<string | Buffer>;
-        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
-        secureProtocol?: string;
-        secureContext?: Object;
+        checkServerIdentity?: typeof checkServerIdentity;
+        servername?: string; // SNI TLS Extension
         session?: Buffer;
         minDHSize?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+        secureContext?: SecureContext; // If not provided, the entire ConnectionOptions object will be passed to tls.createSecureContext()
+        lookup?: net.LookupFunction;
     }
 
-    export interface Server extends net.Server {
-        close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+    export class Server extends net.Server {
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
             ca: string;
         }): void;
-        maxConnections: number;
-        connections: number;
 
         /**
          * events.EventEmitter
@@ -4925,20 +5065,33 @@ declare module "tls" {
     }
 
     export interface SecureContextOptions {
-        pfx?: string | Buffer;
-        key?: string | Buffer;
+        pfx?: string | Buffer | Array<string | Buffer | Object>;
+        key?: string | Buffer | Array<Buffer | Object>;
         passphrase?: string;
-        cert?: string | Buffer;
-        ca?: string | Buffer;
-        crl?: string | string[];
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
         ciphers?: string;
         honorCipherOrder?: boolean;
+        ecdhCurve?: string;
+        crl?: string | Buffer | Array<string | Buffer>;
+        dhparam?: string | Buffer;
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string;
     }
 
     export interface SecureContext {
         context: any;
     }
 
+    /*
+     * Verifies the certificate `cert` is issued to host `host`.
+     * @host The hostname to verify the certificate against
+     * @cert PeerCertificate representing the peer's certificate
+     *
+     * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
+     */
+    export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
@@ -4984,23 +5137,23 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     export interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hash;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hash;
+        update(data: string | Buffer | DataView): Hash;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hmac;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
+        update(data: string | Buffer | DataView): Hmac;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -5011,9 +5164,9 @@ declare module "crypto" {
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -5023,15 +5176,15 @@ declare module "crypto" {
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: string | Buffer): Signer;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        update(data: string | Buffer | DataView): Signer;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string }): Buffer;
         sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: string | Buffer): Verify;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
+        update(data: string | Buffer | DataView): Verify;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: string | Object, signature: Buffer | DataView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
@@ -5226,7 +5379,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
@@ -5317,7 +5470,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
@@ -5400,16 +5553,18 @@ declare module "util" {
     export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
 
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<TResult>(fn: (callback: (err: Error, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify(fn: (callback: (err: Error) => void) => void): () => Promise<void>;
+    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
@@ -5831,133 +5986,6 @@ declare module "console" {
 }
 
 /**
- * _debugger module is not documented.
- * Source code is at https://github.com/nodejs/node/blob/master/lib/_debugger.js
- */
-declare module "_debugger" {
-    export interface Packet {
-        raw: string;
-        headers: string[];
-        body: Message;
-    }
-
-    export interface Message {
-        seq: number;
-        type: string;
-    }
-
-    export interface RequestInfo {
-        command: string;
-        arguments: any;
-    }
-
-    export interface Request extends Message, RequestInfo {
-    }
-
-    export interface Event extends Message {
-        event: string;
-        body?: any;
-    }
-
-    export interface Response extends Message {
-        request_seq: number;
-        success: boolean;
-        /** Contains error message if success === false. */
-        message?: string;
-        /** Contains message body if success === true. */
-        body?: any;
-    }
-
-    export interface BreakpointMessageBody {
-        type: string;
-        target: number;
-        line: number;
-    }
-
-    export class Protocol {
-        res: Packet;
-        state: string;
-        execute(data: string): void;
-        serialize(rq: Request): string;
-        onResponse: (pkt: Packet) => void;
-    }
-
-    export var NO_FRAME: number;
-    export var port: number;
-
-    export interface ScriptDesc {
-        name: string;
-        id: number;
-        isNative?: boolean;
-        handle?: number;
-        type: string;
-        lineOffset?: number;
-        columnOffset?: number;
-        lineCount?: number;
-    }
-
-    export interface Breakpoint {
-        id: number;
-        scriptId: number;
-        script: ScriptDesc;
-        line: number;
-        condition?: string;
-        scriptReq?: string;
-    }
-
-    export interface RequestHandler {
-        (err: boolean, body: Message, res: Packet): void;
-        request_seq?: number;
-    }
-
-    export interface ResponseBodyHandler {
-        (err: boolean, body?: any): void;
-        request_seq?: number;
-    }
-
-    export interface ExceptionInfo {
-        text: string;
-    }
-
-    export interface BreakResponse {
-        script?: ScriptDesc;
-        exception?: ExceptionInfo;
-        sourceLine: number;
-        sourceLineText: string;
-        sourceColumn: number;
-    }
-
-    export function SourceInfo(body: BreakResponse): string;
-
-    export interface ClientInstance extends NodeJS.EventEmitter {
-        protocol: Protocol;
-        scripts: ScriptDesc[];
-        handles: ScriptDesc[];
-        breakpoints: Breakpoint[];
-        currentSourceLine: number;
-        currentSourceColumn: number;
-        currentSourceLineText: string;
-        currentFrame: number;
-        currentScript: string;
-
-        connect(port: number, host: string): void;
-        req(req: any, cb: RequestHandler): void;
-        reqFrameEval(code: string, frame: number, cb: RequestHandler): void;
-        mirrorObject(obj: any, depth: number, cb: ResponseBodyHandler): void;
-        setBreakpoint(rq: BreakpointMessageBody, cb: RequestHandler): void;
-        clearBreakpoint(rq: Request, cb: RequestHandler): void;
-        listbreakpoints(cb: RequestHandler): void;
-        reqSource(from: number, to: number, cb: RequestHandler): void;
-        reqScripts(cb: any): void;
-        reqContinue(cb: RequestHandler): void;
-    }
-
-    export var Client: {
-        new(): ClientInstance
-    };
-}
-
-/**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
 declare module "async_hooks" {
@@ -6103,7 +6131,7 @@ declare module "http2" {
 
     export interface ServerStreamResponseOptions {
         endStream?: boolean;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
     }
 
     export interface StatOptions {
@@ -6112,10 +6140,14 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: IncomingHttpHeaders, statOptions: StatOptions) => void;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void|boolean;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
         offset?: number;
         length?: number;
+    }
+
+    export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
+        onError?: (err: NodeJS.ErrnoException) => void;
     }
 
     export interface Http2Stream extends stream.Duplex {
@@ -6264,7 +6296,7 @@ declare module "http2" {
         pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (pushStream: ServerHttp2Stream) => void): void;
         respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
         respondWithFD(fd: number, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
-        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
+        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
     }
 
     // Http2Session
@@ -6283,7 +6315,7 @@ declare module "http2" {
         exclusive?: boolean;
         parent?: number;
         weight?: number;
-        getTrailers?: (trailers: IncomingHttpHeaders, flags: number) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders, flags: number) => void;
     }
 
     export interface SessionShutdownOptions {
@@ -6661,216 +6693,216 @@ declare module "http2" {
 
     // Public API
 
-    export const constants: {
-        NGHTTP2_SESSION_SERVER: number;
-        NGHTTP2_SESSION_CLIENT: number;
-        NGHTTP2_STREAM_STATE_IDLE: number;
-        NGHTTP2_STREAM_STATE_OPEN: number;
-        NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
-        NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
-        NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
-        NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
-        NGHTTP2_STREAM_STATE_CLOSED: number;
-        NGHTTP2_NO_ERROR: number;
-        NGHTTP2_PROTOCOL_ERROR: number;
-        NGHTTP2_INTERNAL_ERROR: number;
-        NGHTTP2_FLOW_CONTROL_ERROR: number;
-        NGHTTP2_SETTINGS_TIMEOUT: number;
-        NGHTTP2_STREAM_CLOSED: number;
-        NGHTTP2_FRAME_SIZE_ERROR: number;
-        NGHTTP2_REFUSED_STREAM: number;
-        NGHTTP2_CANCEL: number;
-        NGHTTP2_COMPRESSION_ERROR: number;
-        NGHTTP2_CONNECT_ERROR: number;
-        NGHTTP2_ENHANCE_YOUR_CALM: number;
-        NGHTTP2_INADEQUATE_SECURITY: number;
-        NGHTTP2_HTTP_1_1_REQUIRED: number;
-        NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
-        NGHTTP2_FLAG_NONE: number;
-        NGHTTP2_FLAG_END_STREAM: number;
-        NGHTTP2_FLAG_END_HEADERS: number;
-        NGHTTP2_FLAG_ACK: number;
-        NGHTTP2_FLAG_PADDED: number;
-        NGHTTP2_FLAG_PRIORITY: number;
-        DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
-        DEFAULT_SETTINGS_ENABLE_PUSH: number;
-        DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
-        MAX_MAX_FRAME_SIZE: number;
-        MIN_MAX_FRAME_SIZE: number;
-        MAX_INITIAL_WINDOW_SIZE: number;
-        NGHTTP2_DEFAULT_WEIGHT: number;
-        NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
-        NGHTTP2_SETTINGS_ENABLE_PUSH: number;
-        NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
-        NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
-        NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
-        PADDING_STRATEGY_NONE: number;
-        PADDING_STRATEGY_MAX: number;
-        PADDING_STRATEGY_CALLBACK: number;
-        HTTP2_HEADER_STATUS: string;
-        HTTP2_HEADER_METHOD: string;
-        HTTP2_HEADER_AUTHORITY: string;
-        HTTP2_HEADER_SCHEME: string;
-        HTTP2_HEADER_PATH: string;
-        HTTP2_HEADER_ACCEPT_CHARSET: string;
-        HTTP2_HEADER_ACCEPT_ENCODING: string;
-        HTTP2_HEADER_ACCEPT_LANGUAGE: string;
-        HTTP2_HEADER_ACCEPT_RANGES: string;
-        HTTP2_HEADER_ACCEPT: string;
-        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
-        HTTP2_HEADER_AGE: string;
-        HTTP2_HEADER_ALLOW: string;
-        HTTP2_HEADER_AUTHORIZATION: string;
-        HTTP2_HEADER_CACHE_CONTROL: string;
-        HTTP2_HEADER_CONNECTION: string;
-        HTTP2_HEADER_CONTENT_DISPOSITION: string;
-        HTTP2_HEADER_CONTENT_ENCODING: string;
-        HTTP2_HEADER_CONTENT_LANGUAGE: string;
-        HTTP2_HEADER_CONTENT_LENGTH: string;
-        HTTP2_HEADER_CONTENT_LOCATION: string;
-        HTTP2_HEADER_CONTENT_MD5: string;
-        HTTP2_HEADER_CONTENT_RANGE: string;
-        HTTP2_HEADER_CONTENT_TYPE: string;
-        HTTP2_HEADER_COOKIE: string;
-        HTTP2_HEADER_DATE: string;
-        HTTP2_HEADER_ETAG: string;
-        HTTP2_HEADER_EXPECT: string;
-        HTTP2_HEADER_EXPIRES: string;
-        HTTP2_HEADER_FROM: string;
-        HTTP2_HEADER_HOST: string;
-        HTTP2_HEADER_IF_MATCH: string;
-        HTTP2_HEADER_IF_MODIFIED_SINCE: string;
-        HTTP2_HEADER_IF_NONE_MATCH: string;
-        HTTP2_HEADER_IF_RANGE: string;
-        HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
-        HTTP2_HEADER_LAST_MODIFIED: string;
-        HTTP2_HEADER_LINK: string;
-        HTTP2_HEADER_LOCATION: string;
-        HTTP2_HEADER_MAX_FORWARDS: string;
-        HTTP2_HEADER_PREFER: string;
-        HTTP2_HEADER_PROXY_AUTHENTICATE: string;
-        HTTP2_HEADER_PROXY_AUTHORIZATION: string;
-        HTTP2_HEADER_RANGE: string;
-        HTTP2_HEADER_REFERER: string;
-        HTTP2_HEADER_REFRESH: string;
-        HTTP2_HEADER_RETRY_AFTER: string;
-        HTTP2_HEADER_SERVER: string;
-        HTTP2_HEADER_SET_COOKIE: string;
-        HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
-        HTTP2_HEADER_TRANSFER_ENCODING: string;
-        HTTP2_HEADER_TE: string;
-        HTTP2_HEADER_UPGRADE: string;
-        HTTP2_HEADER_USER_AGENT: string;
-        HTTP2_HEADER_VARY: string;
-        HTTP2_HEADER_VIA: string;
-        HTTP2_HEADER_WWW_AUTHENTICATE: string;
-        HTTP2_HEADER_HTTP2_SETTINGS: string;
-        HTTP2_HEADER_KEEP_ALIVE: string;
-        HTTP2_HEADER_PROXY_CONNECTION: string;
-        HTTP2_METHOD_ACL: string;
-        HTTP2_METHOD_BASELINE_CONTROL: string;
-        HTTP2_METHOD_BIND: string;
-        HTTP2_METHOD_CHECKIN: string;
-        HTTP2_METHOD_CHECKOUT: string;
-        HTTP2_METHOD_CONNECT: string;
-        HTTP2_METHOD_COPY: string;
-        HTTP2_METHOD_DELETE: string;
-        HTTP2_METHOD_GET: string;
-        HTTP2_METHOD_HEAD: string;
-        HTTP2_METHOD_LABEL: string;
-        HTTP2_METHOD_LINK: string;
-        HTTP2_METHOD_LOCK: string;
-        HTTP2_METHOD_MERGE: string;
-        HTTP2_METHOD_MKACTIVITY: string;
-        HTTP2_METHOD_MKCALENDAR: string;
-        HTTP2_METHOD_MKCOL: string;
-        HTTP2_METHOD_MKREDIRECTREF: string;
-        HTTP2_METHOD_MKWORKSPACE: string;
-        HTTP2_METHOD_MOVE: string;
-        HTTP2_METHOD_OPTIONS: string;
-        HTTP2_METHOD_ORDERPATCH: string;
-        HTTP2_METHOD_PATCH: string;
-        HTTP2_METHOD_POST: string;
-        HTTP2_METHOD_PRI: string;
-        HTTP2_METHOD_PROPFIND: string;
-        HTTP2_METHOD_PROPPATCH: string;
-        HTTP2_METHOD_PUT: string;
-        HTTP2_METHOD_REBIND: string;
-        HTTP2_METHOD_REPORT: string;
-        HTTP2_METHOD_SEARCH: string;
-        HTTP2_METHOD_TRACE: string;
-        HTTP2_METHOD_UNBIND: string;
-        HTTP2_METHOD_UNCHECKOUT: string;
-        HTTP2_METHOD_UNLINK: string;
-        HTTP2_METHOD_UNLOCK: string;
-        HTTP2_METHOD_UPDATE: string;
-        HTTP2_METHOD_UPDATEREDIRECTREF: string;
-        HTTP2_METHOD_VERSION_CONTROL: string;
-        HTTP_STATUS_CONTINUE: number;
-        HTTP_STATUS_SWITCHING_PROTOCOLS: number;
-        HTTP_STATUS_PROCESSING: number;
-        HTTP_STATUS_OK: number;
-        HTTP_STATUS_CREATED: number;
-        HTTP_STATUS_ACCEPTED: number;
-        HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
-        HTTP_STATUS_NO_CONTENT: number;
-        HTTP_STATUS_RESET_CONTENT: number;
-        HTTP_STATUS_PARTIAL_CONTENT: number;
-        HTTP_STATUS_MULTI_STATUS: number;
-        HTTP_STATUS_ALREADY_REPORTED: number;
-        HTTP_STATUS_IM_USED: number;
-        HTTP_STATUS_MULTIPLE_CHOICES: number;
-        HTTP_STATUS_MOVED_PERMANENTLY: number;
-        HTTP_STATUS_FOUND: number;
-        HTTP_STATUS_SEE_OTHER: number;
-        HTTP_STATUS_NOT_MODIFIED: number;
-        HTTP_STATUS_USE_PROXY: number;
-        HTTP_STATUS_TEMPORARY_REDIRECT: number;
-        HTTP_STATUS_PERMANENT_REDIRECT: number;
-        HTTP_STATUS_BAD_REQUEST: number;
-        HTTP_STATUS_UNAUTHORIZED: number;
-        HTTP_STATUS_PAYMENT_REQUIRED: number;
-        HTTP_STATUS_FORBIDDEN: number;
-        HTTP_STATUS_NOT_FOUND: number;
-        HTTP_STATUS_METHOD_NOT_ALLOWED: number;
-        HTTP_STATUS_NOT_ACCEPTABLE: number;
-        HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
-        HTTP_STATUS_REQUEST_TIMEOUT: number;
-        HTTP_STATUS_CONFLICT: number;
-        HTTP_STATUS_GONE: number;
-        HTTP_STATUS_LENGTH_REQUIRED: number;
-        HTTP_STATUS_PRECONDITION_FAILED: number;
-        HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
-        HTTP_STATUS_URI_TOO_LONG: number;
-        HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
-        HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
-        HTTP_STATUS_EXPECTATION_FAILED: number;
-        HTTP_STATUS_TEAPOT: number;
-        HTTP_STATUS_MISDIRECTED_REQUEST: number;
-        HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
-        HTTP_STATUS_LOCKED: number;
-        HTTP_STATUS_FAILED_DEPENDENCY: number;
-        HTTP_STATUS_UNORDERED_COLLECTION: number;
-        HTTP_STATUS_UPGRADE_REQUIRED: number;
-        HTTP_STATUS_PRECONDITION_REQUIRED: number;
-        HTTP_STATUS_TOO_MANY_REQUESTS: number;
-        HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
-        HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
-        HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
-        HTTP_STATUS_NOT_IMPLEMENTED: number;
-        HTTP_STATUS_BAD_GATEWAY: number;
-        HTTP_STATUS_SERVICE_UNAVAILABLE: number;
-        HTTP_STATUS_GATEWAY_TIMEOUT: number;
-        HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
-        HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
-        HTTP_STATUS_INSUFFICIENT_STORAGE: number;
-        HTTP_STATUS_LOOP_DETECTED: number;
-        HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
-        HTTP_STATUS_NOT_EXTENDED: number;
-        HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
-    };
+    export namespace constants {
+        export const NGHTTP2_SESSION_SERVER: number;
+        export const NGHTTP2_SESSION_CLIENT: number;
+        export const NGHTTP2_STREAM_STATE_IDLE: number;
+        export const NGHTTP2_STREAM_STATE_OPEN: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_CLOSED: number;
+        export const NGHTTP2_NO_ERROR: number;
+        export const NGHTTP2_PROTOCOL_ERROR: number;
+        export const NGHTTP2_INTERNAL_ERROR: number;
+        export const NGHTTP2_FLOW_CONTROL_ERROR: number;
+        export const NGHTTP2_SETTINGS_TIMEOUT: number;
+        export const NGHTTP2_STREAM_CLOSED: number;
+        export const NGHTTP2_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_REFUSED_STREAM: number;
+        export const NGHTTP2_CANCEL: number;
+        export const NGHTTP2_COMPRESSION_ERROR: number;
+        export const NGHTTP2_CONNECT_ERROR: number;
+        export const NGHTTP2_ENHANCE_YOUR_CALM: number;
+        export const NGHTTP2_INADEQUATE_SECURITY: number;
+        export const NGHTTP2_HTTP_1_1_REQUIRED: number;
+        export const NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_FLAG_NONE: number;
+        export const NGHTTP2_FLAG_END_STREAM: number;
+        export const NGHTTP2_FLAG_END_HEADERS: number;
+        export const NGHTTP2_FLAG_ACK: number;
+        export const NGHTTP2_FLAG_PADDED: number;
+        export const NGHTTP2_FLAG_PRIORITY: number;
+        export const DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const DEFAULT_SETTINGS_ENABLE_PUSH: number;
+        export const DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
+        export const MAX_MAX_FRAME_SIZE: number;
+        export const MIN_MAX_FRAME_SIZE: number;
+        export const MAX_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_DEFAULT_WEIGHT: number;
+        export const NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const NGHTTP2_SETTINGS_ENABLE_PUSH: number;
+        export const NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
+        export const NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
+        export const PADDING_STRATEGY_NONE: number;
+        export const PADDING_STRATEGY_MAX: number;
+        export const PADDING_STRATEGY_CALLBACK: number;
+        export const HTTP2_HEADER_STATUS: string;
+        export const HTTP2_HEADER_METHOD: string;
+        export const HTTP2_HEADER_AUTHORITY: string;
+        export const HTTP2_HEADER_SCHEME: string;
+        export const HTTP2_HEADER_PATH: string;
+        export const HTTP2_HEADER_ACCEPT_CHARSET: string;
+        export const HTTP2_HEADER_ACCEPT_ENCODING: string;
+        export const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
+        export const HTTP2_HEADER_ACCEPT_RANGES: string;
+        export const HTTP2_HEADER_ACCEPT: string;
+        export const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        export const HTTP2_HEADER_AGE: string;
+        export const HTTP2_HEADER_ALLOW: string;
+        export const HTTP2_HEADER_AUTHORIZATION: string;
+        export const HTTP2_HEADER_CACHE_CONTROL: string;
+        export const HTTP2_HEADER_CONNECTION: string;
+        export const HTTP2_HEADER_CONTENT_DISPOSITION: string;
+        export const HTTP2_HEADER_CONTENT_ENCODING: string;
+        export const HTTP2_HEADER_CONTENT_LANGUAGE: string;
+        export const HTTP2_HEADER_CONTENT_LENGTH: string;
+        export const HTTP2_HEADER_CONTENT_LOCATION: string;
+        export const HTTP2_HEADER_CONTENT_MD5: string;
+        export const HTTP2_HEADER_CONTENT_RANGE: string;
+        export const HTTP2_HEADER_CONTENT_TYPE: string;
+        export const HTTP2_HEADER_COOKIE: string;
+        export const HTTP2_HEADER_DATE: string;
+        export const HTTP2_HEADER_ETAG: string;
+        export const HTTP2_HEADER_EXPECT: string;
+        export const HTTP2_HEADER_EXPIRES: string;
+        export const HTTP2_HEADER_FROM: string;
+        export const HTTP2_HEADER_HOST: string;
+        export const HTTP2_HEADER_IF_MATCH: string;
+        export const HTTP2_HEADER_IF_MODIFIED_SINCE: string;
+        export const HTTP2_HEADER_IF_NONE_MATCH: string;
+        export const HTTP2_HEADER_IF_RANGE: string;
+        export const HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
+        export const HTTP2_HEADER_LAST_MODIFIED: string;
+        export const HTTP2_HEADER_LINK: string;
+        export const HTTP2_HEADER_LOCATION: string;
+        export const HTTP2_HEADER_MAX_FORWARDS: string;
+        export const HTTP2_HEADER_PREFER: string;
+        export const HTTP2_HEADER_PROXY_AUTHENTICATE: string;
+        export const HTTP2_HEADER_PROXY_AUTHORIZATION: string;
+        export const HTTP2_HEADER_RANGE: string;
+        export const HTTP2_HEADER_REFERER: string;
+        export const HTTP2_HEADER_REFRESH: string;
+        export const HTTP2_HEADER_RETRY_AFTER: string;
+        export const HTTP2_HEADER_SERVER: string;
+        export const HTTP2_HEADER_SET_COOKIE: string;
+        export const HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
+        export const HTTP2_HEADER_TRANSFER_ENCODING: string;
+        export const HTTP2_HEADER_TE: string;
+        export const HTTP2_HEADER_UPGRADE: string;
+        export const HTTP2_HEADER_USER_AGENT: string;
+        export const HTTP2_HEADER_VARY: string;
+        export const HTTP2_HEADER_VIA: string;
+        export const HTTP2_HEADER_WWW_AUTHENTICATE: string;
+        export const HTTP2_HEADER_HTTP2_SETTINGS: string;
+        export const HTTP2_HEADER_KEEP_ALIVE: string;
+        export const HTTP2_HEADER_PROXY_CONNECTION: string;
+        export const HTTP2_METHOD_ACL: string;
+        export const HTTP2_METHOD_BASELINE_CONTROL: string;
+        export const HTTP2_METHOD_BIND: string;
+        export const HTTP2_METHOD_CHECKIN: string;
+        export const HTTP2_METHOD_CHECKOUT: string;
+        export const HTTP2_METHOD_CONNECT: string;
+        export const HTTP2_METHOD_COPY: string;
+        export const HTTP2_METHOD_DELETE: string;
+        export const HTTP2_METHOD_GET: string;
+        export const HTTP2_METHOD_HEAD: string;
+        export const HTTP2_METHOD_LABEL: string;
+        export const HTTP2_METHOD_LINK: string;
+        export const HTTP2_METHOD_LOCK: string;
+        export const HTTP2_METHOD_MERGE: string;
+        export const HTTP2_METHOD_MKACTIVITY: string;
+        export const HTTP2_METHOD_MKCALENDAR: string;
+        export const HTTP2_METHOD_MKCOL: string;
+        export const HTTP2_METHOD_MKREDIRECTREF: string;
+        export const HTTP2_METHOD_MKWORKSPACE: string;
+        export const HTTP2_METHOD_MOVE: string;
+        export const HTTP2_METHOD_OPTIONS: string;
+        export const HTTP2_METHOD_ORDERPATCH: string;
+        export const HTTP2_METHOD_PATCH: string;
+        export const HTTP2_METHOD_POST: string;
+        export const HTTP2_METHOD_PRI: string;
+        export const HTTP2_METHOD_PROPFIND: string;
+        export const HTTP2_METHOD_PROPPATCH: string;
+        export const HTTP2_METHOD_PUT: string;
+        export const HTTP2_METHOD_REBIND: string;
+        export const HTTP2_METHOD_REPORT: string;
+        export const HTTP2_METHOD_SEARCH: string;
+        export const HTTP2_METHOD_TRACE: string;
+        export const HTTP2_METHOD_UNBIND: string;
+        export const HTTP2_METHOD_UNCHECKOUT: string;
+        export const HTTP2_METHOD_UNLINK: string;
+        export const HTTP2_METHOD_UNLOCK: string;
+        export const HTTP2_METHOD_UPDATE: string;
+        export const HTTP2_METHOD_UPDATEREDIRECTREF: string;
+        export const HTTP2_METHOD_VERSION_CONTROL: string;
+        export const HTTP_STATUS_CONTINUE: number;
+        export const HTTP_STATUS_SWITCHING_PROTOCOLS: number;
+        export const HTTP_STATUS_PROCESSING: number;
+        export const HTTP_STATUS_OK: number;
+        export const HTTP_STATUS_CREATED: number;
+        export const HTTP_STATUS_ACCEPTED: number;
+        export const HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
+        export const HTTP_STATUS_NO_CONTENT: number;
+        export const HTTP_STATUS_RESET_CONTENT: number;
+        export const HTTP_STATUS_PARTIAL_CONTENT: number;
+        export const HTTP_STATUS_MULTI_STATUS: number;
+        export const HTTP_STATUS_ALREADY_REPORTED: number;
+        export const HTTP_STATUS_IM_USED: number;
+        export const HTTP_STATUS_MULTIPLE_CHOICES: number;
+        export const HTTP_STATUS_MOVED_PERMANENTLY: number;
+        export const HTTP_STATUS_FOUND: number;
+        export const HTTP_STATUS_SEE_OTHER: number;
+        export const HTTP_STATUS_NOT_MODIFIED: number;
+        export const HTTP_STATUS_USE_PROXY: number;
+        export const HTTP_STATUS_TEMPORARY_REDIRECT: number;
+        export const HTTP_STATUS_PERMANENT_REDIRECT: number;
+        export const HTTP_STATUS_BAD_REQUEST: number;
+        export const HTTP_STATUS_UNAUTHORIZED: number;
+        export const HTTP_STATUS_PAYMENT_REQUIRED: number;
+        export const HTTP_STATUS_FORBIDDEN: number;
+        export const HTTP_STATUS_NOT_FOUND: number;
+        export const HTTP_STATUS_METHOD_NOT_ALLOWED: number;
+        export const HTTP_STATUS_NOT_ACCEPTABLE: number;
+        export const HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
+        export const HTTP_STATUS_REQUEST_TIMEOUT: number;
+        export const HTTP_STATUS_CONFLICT: number;
+        export const HTTP_STATUS_GONE: number;
+        export const HTTP_STATUS_LENGTH_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_FAILED: number;
+        export const HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
+        export const HTTP_STATUS_URI_TOO_LONG: number;
+        export const HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
+        export const HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
+        export const HTTP_STATUS_EXPECTATION_FAILED: number;
+        export const HTTP_STATUS_TEAPOT: number;
+        export const HTTP_STATUS_MISDIRECTED_REQUEST: number;
+        export const HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
+        export const HTTP_STATUS_LOCKED: number;
+        export const HTTP_STATUS_FAILED_DEPENDENCY: number;
+        export const HTTP_STATUS_UNORDERED_COLLECTION: number;
+        export const HTTP_STATUS_UPGRADE_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_REQUIRED: number;
+        export const HTTP_STATUS_TOO_MANY_REQUESTS: number;
+        export const HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
+        export const HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
+        export const HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
+        export const HTTP_STATUS_NOT_IMPLEMENTED: number;
+        export const HTTP_STATUS_BAD_GATEWAY: number;
+        export const HTTP_STATUS_SERVICE_UNAVAILABLE: number;
+        export const HTTP_STATUS_GATEWAY_TIMEOUT: number;
+        export const HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
+        export const HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
+        export const HTTP_STATUS_INSUFFICIENT_STORAGE: number;
+        export const HTTP_STATUS_LOOP_DETECTED: number;
+        export const HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
+        export const HTTP_STATUS_NOT_EXTENDED: number;
+        export const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
+    }
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Settings;
@@ -6884,4 +6916,244 @@ declare module "http2" {
 
     export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
     export function connect(authority: string | url.URL, options?: ClientSessionOptions | SecureClientSessionOptions, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
+}
+
+declare module "perf_hooks" {
+	export interface PerformanceEntry {
+		/**
+		 * The total number of milliseconds elapsed for this entry.
+		 * This value will not be meaningful for all Performance Entry types.
+		 */
+		readonly duration: number;
+
+		/**
+		 * The name of the performance entry.
+		 */
+		readonly name: string;
+
+		/**
+		 * The high resolution millisecond timestamp marking the starting time of the Performance Entry.
+		 */
+		readonly startTime: number;
+
+		/**
+		 * The type of the performance entry.
+		 * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
+		 */
+		readonly entryType: string;
+
+		/**
+		 * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
+		 * the type of garbage collection operation that occurred.
+		 * The value may be one of perf_hooks.constants.
+		 */
+		readonly kind?: number;
+	}
+
+	export interface PerformanceNodeTiming extends PerformanceEntry {
+		/**
+		 * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
+		 */
+		readonly bootstrapComplete: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which cluster processing ended.
+		 */
+		readonly clusterSetupEnd: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which cluster processing started.
+		 */
+		readonly clusterSetupStart: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which the Node.js event loop exited.
+		 */
+		readonly loopExit: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which the Node.js event loop started.
+		 */
+		readonly loopStart: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which main module load ended.
+		 */
+		readonly moduleLoadEnd: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which main module load started.
+		 */
+		readonly moduleLoadStart: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which the Node.js process was initialized.
+		 */
+		readonly nodeStart: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which preload module load ended.
+		 */
+		readonly preloadModuleLoadEnd: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which preload module load started.
+		 */
+		readonly preloadModuleLoadStart: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which third_party_main processing ended.
+		 */
+		readonly thirdPartyMainEnd: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which third_party_main processing started.
+		 */
+		readonly thirdPartyMainStart: number;
+
+		/**
+		 * The high resolution millisecond timestamp at which the V8 platform was initialized.
+		 */
+		readonly v8Start: number;
+    }
+
+	export interface Performance {
+		/**
+		 * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
+		 * If name is provided, removes entries with name.
+		 * @param name
+		 */
+		clearFunctions(name?: string): void;
+
+		/**
+		 * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
+		 * If name is provided, removes only the named mark.
+		 * @param name
+		 */
+		clearMarks(name?: string): void;
+
+		/**
+		 * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+		 * If name is provided, removes only objects whose performanceEntry.name matches name.
+		 */
+		clearMeasures(name?: string): void;
+
+		/**
+		 * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+		 * @return list of all PerformanceEntry objects
+		 */
+		getEntries(): PerformanceEntry[];
+
+		/**
+		 * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+		 * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+		 * @param name
+		 * @param type
+		 * @return list of all PerformanceEntry objects
+		 */
+		getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+		/**
+		 * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+		 * whose performanceEntry.entryType is equal to type.
+		 * @param type
+		 * @return list of all PerformanceEntry objects
+		 */
+		getEntriesByType(type: string): PerformanceEntry[];
+
+		/**
+		 * Creates a new PerformanceMark entry in the Performance Timeline.
+		 * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
+		 * and whose performanceEntry.duration is always 0.
+		 * Performance marks are used to mark specific significant moments in the Performance Timeline.
+		 * @param name
+		 */
+		mark(name?: string): void;
+
+		/**
+		 * Creates a new PerformanceMeasure entry in the Performance Timeline.
+		 * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
+		 * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
+		 *
+		 * The startMark argument may identify any existing PerformanceMark in the the Performance Timeline, or may identify
+		 * any of the timestamp properties provided by the PerformanceNodeTiming class. If the named startMark does not exist,
+		 * then startMark is set to timeOrigin by default.
+		 *
+		 * The endMark argument must identify any existing PerformanceMark in the the Performance Timeline or any of the timestamp
+		 * properties provided by the PerformanceNodeTiming class. If the named endMark does not exist, an error will be thrown.
+		 * @param name
+		 * @param startMark
+		 * @param endMark
+		 */
+		measure(name: string, startMark: string, endMark: string): void;
+
+		/**
+		 * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
+		 */
+		readonly nodeTiming: PerformanceNodeTiming;
+
+		/**
+		 * @return the current high resolution millisecond timestamp
+		 */
+		now(): number;
+
+		/**
+		 * The timeOrigin specifies the high resolution millisecond timestamp from which all performance metric durations are measured.
+		 */
+		readonly timeOrigin: number;
+
+		/**
+		 * Wraps a function within a new function that measures the running time of the wrapped function.
+		 * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
+		 * @param fn
+		 */
+		timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+    }
+
+    export interface PerformanceObserverEntryList {
+        /**
+         * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+         */
+        getEntries(): PerformanceEntry[];
+
+        /**
+         * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+         */
+        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+        /**
+         * @return Returns a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.entryType is equal to type.
+         */
+        getEntriesByType(type: string): PerformanceEntry[];
+    }
+
+    export type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
+
+    export class PerformanceObserver {
+        constructor(callback: PerformanceObserverCallback);
+
+        /**
+         * Disconnects the PerformanceObserver instance from all notifications.
+         */
+        disconnect(): void;
+
+        /**
+         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances identified by options.entryTypes.
+         * When options.buffered is false, the callback will be invoked once for every PerformanceEntry instance.
+         * Property buffered defaults to false.
+         * @param options
+         */
+        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+    }
+
+    export namespace constants {
+        export const NODE_PERFORMANCE_GC_MAJOR: number;
+        export const NODE_PERFORMANCE_GC_MINOR: number;
+        export const NODE_PERFORMANCE_GC_INCREMENTAL: number;
+        export const NODE_PERFORMANCE_GC_WEAKCB: number;
+    }
+
+	const performance: Performance;
 }

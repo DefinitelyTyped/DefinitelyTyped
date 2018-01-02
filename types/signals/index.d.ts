@@ -1,7 +1,8 @@
-// Type definitions for JS-Signals
+// Type definitions for JS-Signals 1.0
 // Project: http://millermedeiros.github.io/js-signals/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var signals: signals.SignalWrapper;
 
@@ -9,9 +10,8 @@ export = signals;
 export as namespace signals;
 
 declare namespace signals {
-
     interface SignalWrapper<T = any> {
-        Signal: Signal<T>
+        Signal: Signal<T>;
     }
 
     interface SignalBinding<T = any> {
@@ -30,9 +30,7 @@ declare namespace signals {
         /**
          * Custom event broadcaster
          * <br />- inspired by Robert Penner's AS3 Signals.
-         * @name Signal
          * @author Miller Medeiros
-         * @constructor
          */
         new (): Signal<T>;
 
@@ -57,17 +55,21 @@ declare namespace signals {
          *
          * @param listener Signal handler function.
          * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
-         * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
+         * @param priority The priority level of the event listener.
+         *        Listeners with higher priority will be executed before listeners with lower priority.
+         *        Listeners with same priority level will be executed at the same order as they were added. (default = 0)
          */
         add(listener: (...params: T[]) => void, listenerContext?: any, priority?: Number): SignalBinding<T>;
 
         /**
-        * Add listener to the signal that should be removed after first execution (will be executed only once).
-        *
-        * @param listener Signal handler function.
-        * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
-        * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
-        */
+         * Add listener to the signal that should be removed after first execution (will be executed only once).
+         *
+         * @param listener Signal handler function.
+         * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
+         * @param priority The priority level of the event listener.
+         *                 Listeners with higher priority will be executed before listeners with lower priority.
+         *                 Listeners with same priority level will be executed at the same order as they were added. (default = 0)
+         */
         addOnce(listener: (...params: T[]) => void, listenerContext?: any, priority?: Number): SignalBinding<T>;
 
         /**
