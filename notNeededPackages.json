@@ -760,7 +760,7 @@
             "libraryName": "koa-jwt",
             "typingsPackageName": "koa-jwt",
             "sourceRepoURL": "https://github.com/koajs/jwt",
-            "asOfVersion": "3.2.2"
+            "asOfVersion": "3.3.0"
         },
         {
             "libraryName": "lambda-phi",
@@ -1402,7 +1402,7 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "typingsPackageName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "sourceRepoURL": "https://github.com/dpa99c/phonegap-launch-navigator",
-            "asOfVersion": "3.2.2"
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "upper-case",
