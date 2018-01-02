@@ -4,86 +4,19 @@ interface IFoodOrganic {
     name: string;
     organic: boolean;
 }
-
-interface IFoodType {
-    name: string;
-    type: string;
-}
-
-interface IFoodCombined {
-    name: string;
-    organic: boolean;
-    type: string;
-}
-
-interface IStoogesQuote {
-    name: string;
-    quotes: string[];
-}
-
 interface IStoogesAge {
     name: string;
     age: number;
-}
-
-interface IStoogesCombined {
-    name: string;
-    age: number;
-    quotes: string[];
-}
-
-interface IKey {
-    dir: string;
-    code: number;
-}
-
-interface IDictionary<T> {
-    [index: string]: T;
 }
 
 const foodsOrganic: IFoodOrganic[] = [
     { name: 'banana', organic: true },
     { name: 'beet', organic: false },
 ];
-const foodsType: IFoodType[] = [
-    { name: 'apple', type: 'fruit' },
-    { name: 'banana', type: 'fruit' },
-    { name: 'beet', type: 'vegetable' }
-];
-const foodsCombined: IFoodCombined[] = [
-    { 'name': 'apple', 'organic': false, 'type': 'fruit' },
-    { 'name': 'carrot', 'organic': true, 'type': 'vegetable' }
-];
-
-const stoogesQuotes: IStoogesQuote[] = [
-    { 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-    { 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
-];
 const stoogesAges: IStoogesAge[] = [
     { 'name': 'moe', 'age': 40 },
     { 'name': 'larry', 'age': 50 }
 ];
-const stoogesAgesDict: IDictionary<IStoogesAge> = {
-    first: { 'name': 'moe', 'age': 40 },
-    second: { 'name': 'larry', 'age': 50 }
-};
-const stoogesCombined: IStoogesCombined[] = [
-    { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-    { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
-];
-
-const keys: IKey[] = [
-    { 'dir': 'left', 'code': 97 },
-    { 'dir': 'right', 'code': 100 }
-];
-
-class Dog {
-    constructor(public name: string) { }
-
-    bark() {
-        // Woof
-    }
-}
 
 let result: any;
 
@@ -3513,6 +3446,9 @@ namespace TestZipWith {
             return 1;
         });
 
+        let mat = [[1, 2], [1, 2], [1, 2]];
+        result = _.zipWith(...mat, (...group: number[]) => 1);
+
         result = _([1, 2]).zipWith((value1) => {
             value1; // $ExpectType number
             return 1;
@@ -4591,9 +4527,9 @@ namespace TestFilter {
     let obj: any = {};
     let dictionary: _.Dictionary<TResult> | null | undefined = obj;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
+    let stringIterator = (char: string, index: number, string: string) => true;
+    let listIterator = (value: TResult, index: number, collection: _.List<TResult>) => true;
+    let dictionaryIterator = (value: TResult, key: string, collection: _.Dictionary<TResult>) => true;
 
     {
         let result: string[];
@@ -5207,7 +5143,7 @@ namespace TestFlatMapDepth {
 
     let listIterator: (value: number|number[], index: number, collection: _.List<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) =>[ 1];
 
-    let dictionaryIterator: (value: number|number[], key: number, collection: _.Dictionary<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) => [1];
+    let dictionaryIterator: (value: number|number[], key: string, collection: _.Dictionary<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) => [1];
 
     let numericDictionaryIterator: (value: number|number[], key: number, collection: _.NumericDictionary<number|number[]>) => _.ListOfRecursiveArraysOrValues<number> = (a, b, c) => [1];
 
@@ -5776,8 +5712,8 @@ namespace TestGroupBy {
     {
         let result: _.Dictionary<string[]>;
 
-        result = _.groupBy<string>('');
-        result = _.groupBy<string>('', stringIterator);
+        result = _.groupBy('');
+        result = _.groupBy('', stringIterator);
     }
 
     {
@@ -5909,16 +5845,16 @@ namespace TestKeyBy {
     let dictionary: _.Dictionary<SampleObject> | null | undefined = obj;
     let numericDictionary: _.NumericDictionary<SampleObject> | null | undefined = obj;
 
-    let stringIterator: (value: string, index: number, collection: string) => any = (value: string, index: number, collection: string) => 1;
-    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => any = (value: SampleObject, index: number, collection: _.List<SampleObject>) => 1;
-    let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => any = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => 1;
-    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => any = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => 1;
+    let stringIterator = (value: string, index: number, collection: string) => "a";
+    let listIterator = (value: SampleObject, index: number, collection: _.List<SampleObject>) => 1;
+    let dictionaryIterator = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => Symbol.name;
+    let numericDictionaryIterator = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => "a";
 
     {
         let result: _.Dictionary<string>;
 
-        result = _.keyBy<string>('abcd');
-        result = _.keyBy<string>('abcd', stringIterator);
+        result = _.keyBy('abcd');
+        result = _.keyBy('abcd', stringIterator);
     }
 
     {
@@ -6464,9 +6400,9 @@ namespace TestReject {
     let obj: any = {};
     let dictionary: _.Dictionary<TResult> | null | undefined = obj;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
+    let stringIterator = (char: string, index: number, string: string) => true;
+    let listIterator = (value: TResult, index: number, collection: _.List<TResult>) => true;
+    let dictionaryIterator = (value: TResult, key: string, collection: _.Dictionary<TResult>) => true;
 
     {
         let result: string[];
@@ -8667,9 +8603,7 @@ namespace TestIsEqual {
 
 // _.isEqualWith
 namespace TestIsEqualWith {
-    let customizer = (value: any, other: any, indexOrKey: number|string|undefined, parent: any, otherParent: any, stack: any) => {
-        return value ? undefined : true;
-    };
+    let customizer = (value: any, other: any, indexOrKey: number|string|symbol|undefined, parent: any, otherParent: any, stack: any) => true;
 
     {
         let result: boolean;
@@ -8873,7 +8807,7 @@ namespace TestIsMatch {
 
 // _.isMatchWith
 namespace TestIsMatchWith {
-    let testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string) => true;
+    let testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol) => true;
 
     let result: boolean;
 
@@ -9871,8 +9805,10 @@ namespace TestInClamp {
         let result: number;
 
         result = _.clamp(3, 2, 4);
+        result = _.clamp(3, 4);
 
         result = _(3).clamp(2, 4);
+        result = _(3).clamp(4);
     }
 
     {
@@ -9930,6 +9866,9 @@ namespace TestRandom {
         result = _(1).chain().random(true);
         result = _(true).chain().random();
     }
+
+    // $ExpectType number[]
+    _.map([5, 5], _.random);
 }
 
 /**********
@@ -11877,36 +11816,51 @@ namespace TestOmitBy {
 
 // _.pick
 namespace TestPick {
-    let obj: TResult | null | undefined = any;
+    let obj1: TResult | null | undefined = any;
+    let obj2: TResult = any;
 
     {
         let result: Partial<TResult>;
 
-        result = _.pick(obj, 'a');
-        result = _.pick(obj, 0, 'a');
-        result = _.pick(obj, ['b', 1], 0, 'a');
+        result = _.pick(obj1, 'a');
+        result = _.pick(obj1, 0, 'a');
+        result = _.pick(obj1, ['b', 1], 0, 'a');
     }
 
     {
         let result: Pick<TResult, 'a' | 'b'>;
-        result = _.pick(obj, 'a', 'b');
-        result = _.pick(obj, ['a', 'b']);
+        result = _.pick(obj2, 'a', 'b');
+        result = _.pick(obj2, ['a' as 'a', 'b' as 'b']);
     }
 
     {
         let result: _.LoDashImplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).pick<TResult>('a');
-        result = _(obj).pick<TResult>(0, 'a');
-        result = _(obj).pick<TResult>(['b', 1], 0, 'a');
+        result = _(obj1).pick('a');
+        result = _(obj1).pick(0, 'a');
+        result = _(obj1).pick(['b', 1], 0, 'a');
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<Pick<TResult, 'a' | 'b'>>;
+
+        result = _(obj2).pick('a', 'b');
+        result = _(obj2).pick(['a' as 'a', 'b' as 'b']);
     }
 
     {
         let result: _.LoDashExplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).chain().pick<TResult>('a');
-        result = _(obj).chain().pick<TResult>(0, 'a');
-        result = _(obj).chain().pick<TResult>(['b', 1], 0, 'a');
+        result = _(obj1).chain().pick('a');
+        result = _(obj1).chain().pick(0, 'a');
+        result = _(obj1).chain().pick(['b', 1], 0, 'a');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<Pick<TResult, 'a' | 'b'>>;
+
+        result = _(obj2).chain().pick('a', 'b');
+        result = _(obj2).chain().pick(['a' as 'a', 'b' as 'b']);
     }
 }
 
@@ -12809,6 +12763,9 @@ namespace TestSplit {
         result = _('a-b-c').chain().split('-');
         result = _('a-b-c').chain().split('-', 2);
     }
+
+    // $ExpectType string[][]
+    _.map(['abc', 'def'], _.split);
 }
 
 // _.startCase
@@ -12932,6 +12889,9 @@ namespace TestTrim {
         result = _('-_-abc-_-').chain().trim();
         result = _('-_-abc-_-').chain().trim('_-');
     }
+
+    // $ExpectType string[]
+    _.map(['  foo  ', '  bar  '], _.trim);
 }
 
 // _.trimEnd
@@ -13068,6 +13028,9 @@ namespace TestWords {
         result = _('fred, barney, & pebbles').chain().words();
         result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
     }
+
+    // $ExpectType string[][]
+    _.map(['fred, barney', 'pebbles'], _.words);
 }
 
 /***********
@@ -13744,60 +13707,60 @@ namespace TestOver {
 // _.overEvery
 namespace TestOverEvery {
     {
-        let result: (...args: any[]) => boolean;
+        let result: (...args: number[]) => boolean;
 
-        result = _.overEvery(() => true);
-        result = _.overEvery(() => true, () => true);
-        result = _.overEvery([() => true]);
-        result = _.overEvery([() => true], [() => true]);
+        result = _.overEvery((number) => true);
+        result = _.overEvery((number) => true, (number) => true);
+        result = _.overEvery([(number) => true]);
+        result = _.overEvery([(number) => true], [(number) => true]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overEvery();
-        result = _(Math.max).overEvery(() => true);
+        result = _(Math.max).overEvery((number) => true);
         result = _([Math.max]).overEvery();
-        result = _([Math.max]).overEvery([() => true]);
+        result = _([Math.max]).overEvery([(number) => true]);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overEvery();
-        result = _(Math.max).chain().overEvery(() => true);
+        result = _(Math.max).chain().overEvery((number) => true);
         result = _([Math.max]).chain().overEvery();
-        result = _([Math.max]).chain().overEvery([() => true]);
+        result = _([Math.max]).chain().overEvery([(number) => true]);
     }
 }
 
 // _.overSome
 namespace TestOverSome {
     {
-        let result: (...args: any[]) => boolean;
+        let result: (...args: number[]) => boolean;
 
-        result = _.overSome(() => true);
-        result = _.overSome(() => true, () => true);
-        result = _.overSome([() => true]);
-        result = _.overSome([() => true], [() => true]);
+        result = _.overSome((n: number) => true);
+        result = _.overSome((n: number) => true, (n: number) => true);
+        result = _.overSome([(n: number) => true]);
+        result = _.overSome([(n: number) => true], [(n: number) => true]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overSome();
-        result = _(Math.max).overSome(() => true);
+        result = _(Math.max).overSome((n: number) => true);
         result = _([Math.max]).overSome();
-        result = _([Math.max]).overSome([() => true]);
+        result = _([Math.max]).overSome([(n: number) => true]);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overSome();
-        result = _(Math.max).chain().overSome(() => true);
+        result = _(Math.max).chain().overSome((n: number) => true);
         result = _([Math.max]).chain().overSome();
-        result = _([Math.max]).chain().overSome([() => true]);
+        result = _([Math.max]).chain().overSome([(n: number) => true]);
     }
 }
 
@@ -13886,6 +13849,9 @@ namespace TestRange {
         result = _(1).chain().range(11);
         result = _(0).chain().range(30, 5);
     }
+
+    // $ExpectType number[][]
+    _.map([5, 5], _.range);
 }
 
 // _.rangeRight
@@ -13913,6 +13879,9 @@ namespace TestRangeRight {
         result = _(1).chain().rangeRight(11);
         result = _(0).chain().rangeRight(30, 5);
     }
+
+    // $ExpectType number[][]
+    _.map([5, 5], _.rangeRight);
 }
 
 // _.runInContext

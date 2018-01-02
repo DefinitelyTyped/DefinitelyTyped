@@ -392,7 +392,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string, callback: Function): number;
+        route(route: string|RegExp, callback: Function): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;

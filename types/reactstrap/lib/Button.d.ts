@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLButtonElement> {
+export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
@@ -17,5 +17,5 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
   cssModule?: CSSModule;
 }
 
-declare var Button: React.StatelessComponent<Props>;
+declare const Button: React.StatelessComponent<ButtonProps>;
 export default Button;

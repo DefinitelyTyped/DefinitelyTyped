@@ -146,6 +146,11 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     tabBarOptions: { activeBackgroundColor: "blue" },
 };
 
+const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
+  ...tabNavigatorConfig,
+  initialLayout: { height: 0, width: 100 },
+};
+
 const BasicTabNavigator = TabNavigator(
     routeConfigMap,
     tabNavigatorConfig,

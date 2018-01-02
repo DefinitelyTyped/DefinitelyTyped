@@ -60,3 +60,6 @@ const linked: string = twitter.autoLink("link @user, and expand url... http://t.
     ]});
 
 const usernames: string[] = twitter.extractMentions("Mentioning @twitter and @jack");
+
+const tweet = twitter.parseTweet('foo');
+const tweetWithOptions = twitter.parseTweet('foo', {maxWeightedTweetLength: 140});

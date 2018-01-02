@@ -100,10 +100,10 @@ export function putJson(url: string, data?: any, options?: RestlingOptions): Pro
  */
 export function request(url: string, options?: RestlingOptions): Promise<RestlingResult>;
 
-export function settleAsync(requests: [{ url: string, options?: RestlingOptions }]): Promise<[RestlingResult]>;
+export function settleAsync(requests: Array<{ url: string, options?: RestlingOptions }>): Promise<[RestlingResult]>;
 export function settleAsync(requests: { [key: string]: { url: string, options?: RestlingOptions } }): Promise<{ [key: string]: RestlingResult }>;
 
-export function allAsync(requests: [{ url: string, options?: RestlingOptions }]): Promise<[RestlingResult]>;
+export function allAsync(requests: Array<{ url: string, options?: RestlingOptions }>): Promise<[RestlingResult]>;
 export function allAsync(requests: { [key: string]: { url: string, options?: RestlingOptions } }): Promise<{ [key: string]: RestlingResult }>;
 
 /**

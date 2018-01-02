@@ -24,8 +24,6 @@ declare class Logger extends EventEmitter {
     fields: any;
     src: boolean;
 
-    /* tslint:disable:unified-signatures */
-
     /**
      * Returns a boolean: is the `trace` level enabled?
      *
@@ -199,8 +197,6 @@ declare class Logger extends EventEmitter {
      * Uses `util.format` for msg formatting.
      */
     fatal(format: any, ...params: any[]): void;
-
-    /* tslint:enable:unified-signatures */
 }
 
 declare namespace Logger {

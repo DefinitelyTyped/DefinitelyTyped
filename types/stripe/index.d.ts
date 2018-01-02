@@ -1,10 +1,12 @@
-// Type definitions for stripe 4.8
+// Type definitions for stripe 5.0
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Brannon Jones <https://github.com/brannon>
+//                 Kyle Kamperschroer <https://github.com/kkamperschroer>
+//                 Kensuke Hoshikawa <https://github.com/starhoshi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -157,6 +159,8 @@ declare namespace Stripe {
              * established in. For example, if you are in the United States and the
              * business you’re creating an account for is legally represented in Canada,
              * you would use “CA” as the country for the account being created.
+             * 
+             * optional, default is your own country
              */
             country?: string;
 
@@ -165,18 +169,20 @@ declare namespace Stripe {
              * will email your user with instructions for how to set up their account. For
              * managed accounts, this is only to make the account easier to identify to
              * you: Stripe will never directly reach out to your users.
+             * 
+             * required if type is "standard"
              */
-            email: string;
+            email?: string;
 
             /**
-             * Whether you'd like to create a managed or standalone account. Managed
+             * Whether you'd like to create a Custom or Standard account. Custom
              * accounts have extra parameters available to them, and require that you,
              * the platform, handle all communication with the account holder.
-             * Standalone accounts are normal Stripe accounts: Stripe will email the
+             * Standard accounts are normal Stripe accounts: Stripe will email the
              * account holder to setup a username and password, and handle all account
-             * management directly with them.
+             * management directly with them. Possible values are custom and standard.
              */
-            managed?: boolean;
+            type: 'custom' | 'standard';
         }
 
         interface IAccountShared {
@@ -735,7 +741,7 @@ declare namespace Stripe {
              * The application fee (if any) for the charge. See the Connect documentation
              * for details. [Expandable]
              */
-            application_fee?: string;
+            application_fee?: string | applicationFees.IApplicationFee;
 
             /**
              * ID of the balance transaction that describes the impact of this charge on
@@ -922,6 +928,23 @@ declare namespace Stripe {
              * Connect only.
              */
             destination?: string;
+
+            /**
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            transfer_group?: string;
+
+            /**
+             * The Stripe account ID that these funds are intended for.
+             * Automatically set if you use the destination parameter.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            on_behalf_of?: string;
 
             /**
              * A set of key/value pairs that you can attach to a charge object. It can be
@@ -3565,12 +3588,6 @@ declare namespace Stripe {
             destination: string;
 
             /**
-             * An arbitrary string which you can attach to a transfer object. It is
-             * displayed when in the web interface alongside the transfer.
-             */
-            description?: string
-
-            /**
              * You can use this parameter to transfer funds from a charge (or
              * other transaction) before they are added to your available
              * balance. A pending balance will transfer immediately but the
@@ -3580,21 +3597,10 @@ declare namespace Stripe {
             source_transaction?: string;
 
             /**
-             * A string to be displayed on the recipient's bank or card
-             * statement. This may be at most 22 characters. Attempting to use
-             * a statement_descriptor longer than 22 characters will return
-             * an error. Note: Most banks will truncate this information and/or
-             * display it inconsistently. Some may not display it at all.
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
              */
-            statement_descriptor?: string;
-
-            /**
-             * The source balance to draw this transfer from. Balances for
-             * different payment sources are kept separately. You can find the
-             * amounts with the balances API. Valid options are:
-             * "alipay_account", "bank_account", "bitcoin_receiver", and "card".
-             */
-            source_type?: SourceTypes;
+            transfer_group?: string;
         }
 
         interface ITransferUpdateOptions extends IDataOptionsWithMetadata {
@@ -4258,7 +4264,10 @@ declare namespace Stripe {
              */
             current_period_start: number;
 
-            customer: string;
+            /**
+             * ID of the customer who owns the subscription. [Expandable]
+             */
+            customer: string | customers.ICustomer;
 
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a

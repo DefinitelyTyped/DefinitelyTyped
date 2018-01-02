@@ -455,3 +455,9 @@ function test_run_withOnComplete() {
 function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
 }
+
+function test_runner_fluentParams() {
+    new MochaDef().run(); // $ExpectType IRunner
+    new MochaDef().run().on("event-string", function() {}); // $ExpectType IRunner
+    new MochaDef().run().on(Symbol("event-symbol"), function() {}); // $ExpectType IRunner
+}

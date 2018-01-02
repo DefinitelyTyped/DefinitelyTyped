@@ -1,31 +1,31 @@
-// Type definitions for amCharts
+// Type definitions for amCharts 3.21
 // Project: http://www.amcharts.com/
 // Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
+//                 ldrick <https://github.com/ldrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page.
-declare namespace AmCharts {
-
+export namespace AmCharts {
     /** Set it to true if you have base href set for your page. This will fix rendering problems in Firefox caused by base href. */
-    var baseHref: boolean;
+    let baseHref: boolean;
 
     /** Array of day names, used when formatting dates (if categoryAxis.parseDates is set to true) ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] */
-    var dayNames: string[];
+    let dayNames: string[];
 
     /** Array of month names, used when formatting dates (if categoryAxis.parseDates is set to true) ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] */
-    var monthNames: string[];
+    let monthNames: string[];
 
     /** Array of short versions of day names, used when formatting dates (if categoryAxis.parseDates is set to true) ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] */
-    var shortDayNames: string[];
+    let shortDayNames: string[];
 
     /** Array of short versions of month names, used when formatting dates (if categoryAxis.parseDates is set to true) ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] */
-    var shortMonthNames: string[];
+    let shortMonthNames: string[];
 
     /** Set it to true if you want UTC time to be used instead of local time. */
-    var useUTC: boolean;
+    let useUTC: boolean;
 
     /** Object with themes */
-    var themes: any;
+    let themes: any;
 
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear(): void;
@@ -40,16 +40,16 @@ declare namespace AmCharts {
      * When the method is called, the chart instance is passed as an attribute.
      * You can use this feature to preprocess chart data or do some other things you need
      * before initializing the chart.
-     * @param {Function} handler - The method to be called.
-     * @param {string[]} types - Which chart types should call this method. Defaults to all
+     * @param handler - The method to be called.
+     * @param types - Which chart types should call this method. Defaults to all
      * if none is passed.
      */
     function addInitHandler(handler: Function, types: string[]): any;
 
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
-            var chartData = [{title:"Pie I have eaten",value:70},{title:"Pie I haven\'t eaten",value:30}];
-            var chart = new AmCharts.AmPieChart();
+            let chartData = [{title:"Pie I have eaten",value:70},{title:"Pie I haven\'t eaten",value:30}];
+            let chart = new AmCharts.AmPieChart();
             chart.valueField = "value";
             chart.titleField = "title";
             chart.dataProvider = chartData;
@@ -223,8 +223,8 @@ declare namespace AmCharts {
 
     /** AmRadarChart is the class you have to use for radar and polar chart types.
         @example
-    var chart;
-    var chartData = [
+    let chart;
+    let chartData = [
         {country:"Czech Republic",litres:156.90},
         {country:"Ireland",litres:131.10},
         {country:"Germany",litres:115.80},
@@ -239,7 +239,7 @@ declare namespace AmCharts {
       chart.categoryField = "country";
       chart.startDuration = 2;
 
-      var valueAxis = new AmCharts.ValueAxis();
+      let valueAxis = new AmCharts.ValueAxis();
       valueAxis.axisAlpha = 0.15;
       valueAxis.minimum = 0;
       valueAxis.dashLength = 3;
@@ -247,7 +247,7 @@ declare namespace AmCharts {
       valueAxis.gridCount = 5;
       chart.addValueAxis(valueAxis);
 
-      var graph = new AmCharts.AmGraph();
+      let graph = new AmCharts.AmGraph();
       graph.valueField = "litres";
       graph.bullet = "round";
       graph.balloonText = "[[value]] litres of beer per year"
@@ -271,7 +271,7 @@ declare namespace AmCharts {
 
     /** AmXYChart is the class you have to use for XY/Bubble/Scatter chart types. The chart supports simple and logarithmic scales, it can have multiple value axes.
         @example
-            var chartData = [
+            let chartData = [
                 {x:10, y:14, value:59},
                 {x:5, y:3, value:50},
                 {x:-10, y:-3, value:19},
@@ -281,23 +281,23 @@ declare namespace AmCharts {
                 {x:1, y:6, value:35}
             ];
 
-            var chart = new AmCharts.AmXYChart();
+            let chart = new AmCharts.AmXYChart();
             chart.pathToImages = "../../amcharts/javascript/images/";
             chart.dataProvider = chartData;
             chart.marginLeft = 35;
             chart.startDuration = 1.5;
 
-            var xAxis = new AmCharts.ValueAxis();
+            let xAxis = new AmCharts.ValueAxis();
             xAxis.position = "left";
             xAxis.autoGridCount = true;
             chart.addValueAxis(xAxis);
 
-            var yAxis = new AmCharts.ValueAxis();
+            let yAxis = new AmCharts.ValueAxis();
             yAxis.position = "bottom";
             yAxis.autoGridCount = true;
             chart.addValueAxis(yAxis);
 
-            var graph = new AmCharts.AmGraph();
+            let graph = new AmCharts.AmGraph();
             graph.valueField = "value";
             graph.xField = "x";
             graph.yField = "y";
@@ -305,10 +305,10 @@ declare namespace AmCharts {
             graph.bullet = "round";
             chart.addGraph(graph);
 
-            var chartCursor = new AmCharts.ChartCursor();
+            let chartCursor = new AmCharts.ChartCursor();
             chart.addChartCursor(chartCursor);
 
-            var chartScrollbar = new AmCharts.ChartScrollbar();
+            let chartScrollbar = new AmCharts.ChartScrollbar();
             chartScrollbar.hideResizeGrips = false;
             chart.addChartScrollbar(chartScrollbar);
 
@@ -517,7 +517,6 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         visibleInLegend: boolean;
     }
 
-
     /** AmStockChart is a main class Stock chart. */
     class AmStockChart {
         /** Specifies if animation was already played. Animation is only played once, when chart is rendered for the first time. If you want the animation to be repeated, set this property to false. */
@@ -578,8 +577,6 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         clear(): void;
         /** Hides event bullets. */
         hideStockEvents(): void;
-        /** Removes event listener from the object. */
-        removeListener(obj: any, type: string, handler: any): void;
         /** Removes panel from the stock chart. Requires stockChart.validateNow() method to be called after this action. */
         removePanel(panel: StockPanel): void;
         /** Shows event bullets. */
@@ -712,18 +709,15 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         unit: string;
         /** Position of the unit. Possible values are "left" or "right". */
         unitPosition: string;
-
     }
-
 
     /** AmLegend is the class that displays legend of the chart. Legend to the chart should be added using chart.addLegend(legend) method.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var legend = new AmCharts.AmLegend();
+            let chart = new AmCharts.AmSerialChart();
+            let legend = new AmCharts.AmLegend();
             chart.addLegend(legend);
     */
     class AmLegend {
-
         /** Alignment of legend entries. Possible values are: "left", "center", "right". left */
         align: string;
         /** Used if chart is Serial or XY. In case true, margins of the legend are adjusted and made equal to chart's margins.
@@ -850,10 +844,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
                 If the type if "rollOverMarker", dispatched when user clicks on a legend item marker and shows corresponding object.
         */
 
-        /** Adds event listener of the type "showItem" to the object.
-            @param type Always "showItem".
-            @param handler
-        */
+        /**
+         * Adds event listener of the type "showItem" to the object.
+         * @param type Always "showItem".
+         * @param handler The event handler.
+         */
         addListener(type: string, handler: (e: {/** Always "showItem". */
             type: string; dataItem: Object; chart: AmChart;
         }) => void): void;
@@ -863,18 +858,14 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** StockLegend is a legend of StockPanel. */
-
     class StockLegend extends AmLegend {
         /** The text which will be displayed in the value portion of the legend when graph is comparable and at least one dataSet is selected for comparing. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents.value/open/close/low/high]], [[description]]. [[percents.value]]% */
-
         valueTextComparing: string;
         /** The text which will be displayed in the value portion of the legend. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents]], [[description]].  [[value]] */
-
         valueTextRegular: string;
     }
 
     /** StockPanel class creates stock panels (charts). AmStockChart can have multiple Stock panels. */
-
     class StockPanel extends AmSerialChart {
         /** Specifies whether x button will be displayed near the panel. This button allows turning panel off. */
         allowTurningOff: boolean;
@@ -896,7 +887,6 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @default true
         */
         showCategoryAxis: boolean;
-        /**  */
         stockGraphs: StockGraph[];
         /** Stock chart legend. */
         stockLegend: StockLegend;
@@ -991,7 +981,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /**  Specifies absolute or relative path to amCharts files, i.e. "amcharts/". (where all .js files are located)
             If relative URLs are used, they will be relative to the current web page, displaying the chart.
             You can also set path globally, using global JavaScript variable AmCharts_path. If this variable is set, and "path" is not set in chart config, the chart will assume the path from the global variable. This allows setting amCharts path globally. I.e.:
-            var AmCharts_path = "/libs/amcharts/";
+            let AmCharts_path = "/libs/amcharts/";
             "path" parameter will be used by the charts to locate it's files, like images, plugins or patterns.*/
         path: string;
         /** Specifies path to the folder where images like resize grips, lens and similar are.
@@ -1035,23 +1025,25 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string): any;
-        /** Adds a legend to the chart.
-            By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
-            (NOTE: This method will not work on StockPanel.)
-            @param legend
-            @param legendDivId - Id of the legend div (optional).
-        */
+        addLabel(x: number | string, y: number | string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string): any;
+        /**
+         * Adds a legend to the chart.
+         * By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
+         * (NOTE: This method will not work on StockPanel.)
+         * @param legend - The legend.
+         * @param legendDivId - Id of the legend div (optional).
+         */
         addLegend(legend: AmLegend, legendDivId?: string): void;
-        /** Adds a legend to the chart.
-            By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
-            (NOTE: This method will not work on StockPanel.)
-            @param legend
-            @param legendDiv - Legend div (optional).
+        /**
+         * Adds a legend to the chart.
+         * By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
+         * (NOTE: This method will not work on StockPanel.)
+         * @param legend - The legend.
+         * @param legendDiv - Legend div (optional).
         */
         addLegend(legend: AmLegend, legendDiv: HTMLElement): void;
 
-        /**   Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method. text - text of a title size - font size color - title color alpha - title opacity bold - boolean value indicating if title should be bold. */
+        /** Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method. text - text of a title size - font size color - title color alpha - title opacity bold - boolean value indicating if title should be bold. */
         addTitle(text: string, size: number, color: string, alpha: number, bold: boolean): void;
         /** Clears the chart area, intervals, etc. */
         clear(): void;
@@ -1226,22 +1218,17 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** SerialDataItem holds all the information about each series. When working with a chart, you do not create SerialDataItem objects or change it's properties directly. Consider properties of a SerialDataItem read-only - change values in chart's data provider if you need to. When serial chart parses dataProvider, it generates "chartData" array. Objects of this array are SerialDataItem objects. */
     class SerialDataItem {
-
         /** You can access each GraphDataItem using this object. The data structure is: graphDataItem = serialDataItem.axes[axisId].graphs[graphId]. */
         axes: Object;
-
         /** category value. String if parseDates is false, Date if true. */
         category: any;
-
         /** Timestamp of a series date. Avalable only if parseDates property of CategoryAxis is set to true. */
         time: number;
-
         /** Coordinate (horizontal or vertical, depends on chart's rotate property) of the series. */
         x: number;
     }
 
     class CategoryAxis extends AxisBase {
-
         /** When parse dates is on for the category axis, the chart will try to highlight the beginning of the periods, like month, in bold. Set this to false to disable the functionality.
             @default true
         */
@@ -1299,8 +1286,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** ChartScrollbar class displays chart scrollbar. Supported by AmSerialChart and AmXYChart.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var chartScrollbar = new AmCharts.ChartScrollbar();
+            let chart = new AmCharts.AmSerialChart();
+            let chartScrollbar = new AmCharts.ChartScrollbar();
             chart.addChartScrollbar(chartScrollbar);
     */
     class ChartScrollbar {
@@ -1473,7 +1460,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /* Trend lines are straight lines indicating trends, might also be used for some different purposes. Can be used by Serial and XY charts. To add/remove trend line, use chart.addTrendLine(trendLine)/chart.removeTrendLine(trendLine) methods or simply pass array of trend lines: chart.trendLines = [trendLine1, trendLine2].
         @example
-            var trendLine = new AmCharts.TrendLine();
+            let trendLine = new AmCharts.TrendLine();
             trendLine.initialDate = new Date(2012, 0, 2, 12); // 12 is hour - to start trend line in the middle of the day
             trendLine.finalDate = new Date(2012, 0, 11, 12);
             trendLine.initialValue = 10;
@@ -1481,14 +1468,12 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             trendLine.lineColor = "#CC0000";
             chart.addTrendLine(trendLine);
     */
-    class TrendLine {
-
-    }
+    class TrendLine { }
 
     /** ChartCursor is a class which displays a cursor which follows the mouse. In case of Serial chart it also shows value and category balloons.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var chartCursor = new AmCharts.ChartCursor();
+            let chart = new AmCharts.AmSerialChart();
+            let chartCursor = new AmCharts.ChartCursor();
             chart.addChartCursor(chartCursor);
     */
     class ChartCursor {
@@ -1545,11 +1530,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Indicates if currently user is selecting some chart area to zoom-in. */
         zooming: boolean;
 
-
         /** Hides cursor. */
         hideCursor(): void;
         /** You can force cursor to appear at specified cateogry or date. */
-        showCursorAt(category: string): void;
+        showCursorAt(category: string | Date): void;
         /** Adds event listener of the type "changed" to the object.
             @param type Always "changed".
             @param handler Dispatched when cursor position is changed. "index" is a series index over which chart cursors currently is. "zooming" specifies if user is currently zooming (is selecting) the chart. mostCloseGraph property is set only when oneBalloonOnly is set to true.*/
@@ -1578,13 +1562,13 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmSerialChart is the class you have to use for majority of chart types. The supported chart types are: line, area, column, bar, step line, smoothed line, candlestick and OHLC. The chart can be rotated by 90 degrees so the column chart becomes bar chart. The chart supports simple and logarithmic scales, it can have multiple value axes. The chart can place data points at equal intervals or can parse dates and place data points at irregular intervals.
         @example
-            var chartData = [{title:"sample 1",value:130},{title:"sample 2",value:26}];
+            let chartData = [{title:"sample 1",value:130},{title:"sample 2",value:26}];
 
-            var chart = new AmCharts.AmSerialChart();
+            let chart = new AmCharts.AmSerialChart();
             chart.categoryField = "title";
             chart.dataProvider = chartData;
 
-            var graph = new AmCharts.AmGraph();
+            let graph = new AmCharts.AmGraph();
             graph.valueField = "value";
             graph.type = "column";
             graph.fillAlphas = 1;
@@ -1593,7 +1577,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             chart.write("chartdiv");
     */
     class AmSerialChart extends AmRectangularChart {
-    	/** Date format of the graph balloon (if chart parses dates and you don't use chartCursor).
+        /** Date format of the graph balloon (if chart parses dates and you don't use chartCursor).
             @default 'MMM DD, YYYY'
         */
         balloonDateFormat: string;
@@ -1650,6 +1634,728 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomToDates(start: Date, end: Date): void;
         /** Zooms the chart by the index of the category. start - start index, Number \\ end - end index, Number */
         zoomToIndexes(start: Date, end: Date): void;
+    }
+
+    // AmAngularGauge Extension for AmChart to create gauge charts.
+    class AmAngularGauge extends AmChart {
+        /** When enabled, chart adds aria-label attributes to columns, bullets or map objects. You can control values of these labels using properties like accessibleLabel of AmGraph. Note, not all screen readers support these tags. We tested this mostly with NVDA Screen reader. WAI-ARIA is now official W3 standard, so in future more readers will handle this well. We will be improving accessibility on our charts, so we would be glad to hear your feedback.
+            @default true
+         */
+        accessible: boolean;
+
+        /** Description which will be added to node of SVG element. Most of the screen readers will read this description. */
+        accessibleDescription: string;
+
+        /** Description which is added to of a SVG element. Some of the screen readers will read this description. */
+        accessibleTitle: string;
+
+        /** Specifies, if class names should be added to chart elements.
+            @default false
+        */
+        addClassNames: boolean;
+
+        /** Uses the whole space of the canvas to draw the gauge.
+            @default true
+        */
+        adjustSize: boolean;
+
+        /** Array of Labels. Example of label object, with all possible properties:
+        {"x": 20, "y": 20, "text": "this is label", "align": "left", "size": 12, "color": "#CC0000", "alpha": 1, "rotation": 0, "bold": true, "url": "http://www.amcharts.com"}
+            @default []
+        */
+        allLabels: [Label];
+
+        /** Array of arrows. */
+        arrows: [GaugeArrow];
+
+        /** If you set it to true the chart will automatically monitor changes of display style of chart’s container (or any of it’s parents) and will render chart correctly if it is changed from none to block. We recommend setting it to true if you change this style at a run time, as it affects performance a bit.
+            @default false
+        */
+        autoDisplay: boolean;
+
+        /** Set this to false if you don't want chart to resize itself whenever its parent container size changes.
+            @default true
+        */
+        autoResize: boolean;
+
+        /** If you set it to true and your chart div (or any of the parent div) has css scale applied, the chart will position mouse at a correct position. Default value is false because this operation consumes some CPU and quite a few people are using css transfroms.
+            @default false
+        */
+        autoTransform: boolean;
+
+        /** Array of axes.
+            @default [GaugeAxis]
+        */
+        axes: [GaugeAxis];
+
+        /** Opacity of background. Set it to >0 value if you want backgroundColor to work. However we recommend changing div's background-color style for changing background color.
+            @default 0
+        */
+        backgroundAlpha: number;
+
+        /** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property.
+            @default #FFFFFF
+        */
+        backgroundColor: string;
+
+        /** The chart creates AmBalloon class itself. If you want to customize balloon, get balloon instance using this property, and then change balloon's properties.
+            @default AmBalloon
+        */
+        balloon: AmBalloon;
+
+        /** Opacity of chart's border. Value range is 0 - 1.
+            @default 0
+        */
+        borderAlpha: number;
+
+        /** Color of chart's border. You should set borderAlpha >0 in order border to be visible. We recommend setting border color directly on a chart's DIV instead of using this property.
+            @default #000000
+        */
+        borderColor: string;
+
+        /** This prefix is added to all class names which are added to all visual elements of a chart in case addClassNames is set to true.
+            @default amcharts
+        */
+        classNamePrefix: string;
+
+        /** In case you use gauge to create a clock, set this to true.
+            @default false
+        */
+        clockWiseOnly: boolean;
+
+        /** Text color.
+            @default #000000
+        */
+        color: string;
+
+        /** Non-commercial version only. Specifies position of link to amCharts site. Allowed values are: top-left, top-right, bottom-left and bottom-right.
+            @default 'top - left'
+        */
+        creditsPosition: string;
+
+        /** A config object for Data Loader plugin. Please refer to the following page for more information. */
+        dataLoader: Object;
+
+        /** Array of data objects, for example: [{country:"US", value:524},{country:"UK", value:624},{country:"Lithuania", value:824}]. You can have any number of fields and use any field names. In case of AmMap, data provider should be MapData object.
+
+       The data set data.
+
+       Important: if you are using date/time-based category axis, the data points needs to come pre-ordered in ascending order. Data with incorrect order might result in visual and functional glitches on the chart. */
+        dataProvider: [Object];
+
+        /** Decimal separator.
+            @default .
+        */
+        decimalSeparator: string;
+
+        /** Using this property you can add any additional information to SVG, like SVG filters or clip paths. The structure of this object should be identical to XML structure of a object you are adding, only in JSON format. */
+        defs: Object;
+
+        /** Export config. Specifies how export to image/data export/print/annotate menu will look and behave. You can find a lot of examples in amcharts/plugins/export folder. More details can be found here. */
+        export: ExportSettings;
+
+        /** Gauge face opacity.
+            @default 0
+        */
+        faceAlpha: number;
+
+        /** Gauge face border opacity.
+            @default 0
+        */
+        faceBorderAlpha: number;
+
+        /** Gauge face border color.
+            @default #555555
+        */
+        faceBorderColor: string;
+
+        /** Gauge face border width.
+            @default 1
+        */
+        faceBorderWidth: number;
+
+        /** Gauge face color, requires faceAlpha > 0
+            @default #FAFAFA
+        */
+        faceColor: string;
+
+        /** Gauge face image-pattern.
+       Example: {"url":"../amcharts/patterns/black/pattern1.png", "width":4, "height":4}
+        fontFamily	String	Verdana	Font family.
+        fontSize	Number	11	Font size. */
+        facePattern: Object;
+
+        /** Gauge's horizontal position in pixel, origin is the center. Centered by default. */
+        gaugeX: number;
+
+        /** Gauge's vertical position in pixel, origin is the center. Centered by default. */
+        gaugeY: number;
+
+        /** If you set this to true, the lines of the chart will be distorted and will produce hand-drawn effect. Try to adjust chart.handDrawScatter and chart.handDrawThickness properties for a more scattered result.
+            @default false
+        */
+        handDrawn: boolean;
+
+        /** Defines by how many pixels hand-drawn line (when handDrawn is set to true) will fluctuate.
+            @default 2
+        */
+        handDrawScatter: number;
+
+        /** Defines by how many pixels line thickness will fluctuate (when handDrawn is set to true).
+            @default 1
+        */
+        handDrawThickness: number;
+
+        /** Time, in milliseconds after which balloon is hidden if the user rolls-out of the object. Might be useful for AmMap to avoid balloon flickering while moving mouse over the areas. Note, this is not duration of fade-out. Duration of fade-out is set in AmBalloon class.
+            @default 150
+        */
+        hideBalloonTime: number;
+
+        /** Allows changing language easily. Note, you should include language js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de"; Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application. */
+        language: string;
+
+        /** Legend of a chart. */
+        legend: AmLegend;
+
+        /** Read-only. Reference to the div of the legend. */
+        legendDiv: HTMLElement;
+
+        /** You can add listeners of events using this property. Example: listeners = [{"event":"dataUpdated", "method":handleEvent}];
+            @default [Object]
+        */
+        listeners: [Object];
+
+        /** Bottom spacing between chart and container.
+            @default 10
+        */
+        marginBottom: number;
+
+        /** Left-hand spacing between chart and container.
+            @default 10
+        */
+        marginLeft: number;
+
+        /** Right-hand spacing between chart and container.
+            @default 10
+        */
+        marginRight: number;
+
+        /** Top spacing between chart and container.
+            @default 10
+        */
+        marginTop: number;
+
+        /** Minimum radius of a gauge.
+            @default 10
+        */
+        minRadius: number;
+
+        /** This setting affects touch-screen devices only. If a chart is on a page, and panEventsEnabled are set to true, the page won't move if the user touches the chart first. If a chart is big enough and occupies all the screen of your touch device, the user won’t be able to move the page at all. If you think that selecting/panning the chart or moving/pinching the map is a primary purpose of your users, you should set panEventsEnabled to true, otherwise - false.
+            @default true
+        */
+        panEventsEnabled: boolean;
+
+        /** Specifies absolute or relative path to amCharts files, i.e."amcharts/". (where all.js files are located)
+        If relative URLs are used, they will be relative to the current web page, displaying the chart.
+        You can also set path globally, using global JavaScript variable AmCharts_path.If this variable is set, and "path" is not set in chart config, the chart will assume the path from the global variable.This allows setting amCharts path globally.I.e.:
+        let AmCharts_path = "/libs/amcharts/";
+        "path" parameter will be used by the charts to locate it's files, like images, plugins or patterns.
+            @default 'amcharts/'
+        */
+        path: string;
+
+        /** Specifies path to the folder where images like resize grips, lens and similar are.
+
+           IMPORTANT: Since V3.14.12, you should use "path" to point to amCharts directory instead. The "pathToImages" will be automatically set and does not need to be in the chart config, unless you keep your images separately from other amCharts files. */
+        pathToImages: string;
+
+        /** Precision of percent values. -1 means percent values won't be rounded at all and show as they are.
+                @default 2
+            */
+        percentPrecision: number;
+
+        /** Precision of values. -1 means values won't be rounded at all and show as they are.
+                @default -1
+            */
+        precision: number;
+
+        /**Prefixes which are used to make big numbers shorter: 2M instead of 2000000, etc.Prefixes are used on value axes and in the legend.To enable prefixes, set usePrefixes property to true.
+                @default [{ "number": 1e+3, "prefix": "k" }, { "number": 1e+6, "prefix": "M" }, { "number": 1e+9, "prefix": "G" }, { "number": 1e+12, "prefix": "T" }, { "number": 1e+15, "prefix": "P" }, { "number": 1e+18, "prefix": "E" }, { "number": 1e+21, "prefix": "Z" }, { "number": 1e+24, "prefix": "Y" }]
+            */
+        prefixesOfBigNumbers: [Object];
+
+        /** Prefixes which are used to make small numbers shorter: 2μ instead of 0.000002, etc.Prefixes are used on value axes and in the legend.To enable prefixes, set usePrefixes property to true.
+                @default [{ "number": 1e-24, "prefix": "y" }, { "number": 1e-21, "prefix": "z" }, { "number": 1e-18, "prefix": "a" }, { "number": 1e-15, "prefix": "f" }, { "number": 1e-12, "prefix": "p" }, { "number": 1e-9, "prefix": "n" }, { "number": 1e-6, "prefix": "μ" }, { "number": 1e-3, "prefix": "m" }]
+            */
+        prefixesOfSmallNumbers: [Object];
+
+        /** If processTimeout is > 0, 1000 data items will be parsed at a time, then the chart will make pause and continue parsing data until it finishes.
+                @default 1000
+            */
+        processCount: number;
+
+        /** If you set it to 1 millisecond or some bigger value, chart will be built in chunks instead of all at once. This is useful if you work with a lot of data and the initial build of the chart takes a lot of time, which freezes the whole web application by not allowing other processes to do their job while the chart is busy.
+                @default 0
+            */
+        processTimeout: number;
+
+        /** A config object for Responsive plugin. Please refer to the following page for more information. */
+        responsive: Object;
+
+        /** Duration of arrow animation.
+                @default 1
+            */
+        startDuration: number;
+
+        /** Transition effect of the arrows, possible effects: easeOutSine, easeInSine, elastic, bounce.
+                @default easeInSine
+            */
+        startEffect: string;
+
+        /** Charts will use SVG icons (some are loaded from images folder and some are drawn inline) if browser supports SVG. his makes icons look good on retina displays on all resolutions.
+                @default true
+            */
+        svgIcons: boolean;
+
+        /** Charts which require gestures like swipe (charts with scrollbar/cursor) or pinch (maps) used to prevent regular page scrolling and could result page to stick to the same spot if the chart occupied whole screen. Now, in order these gestures to start working user has to touch the chart/maps once. Regular touch events like touching on the bar/slice/map area do not require the first tap and will show balloons and perform other tasks as usual. If you have a map or chart which occupies full screen and your page does not require scrolling, set tapToActivate to false – this will bring old behavior back.
+                @default true
+            */
+        tapToActivate: boolean;
+
+        /** Theme of a chart. Config files of themes can be found in amcharts/themes/ folder. More info about using themes.
+                @default none
+            */
+        theme: string;
+
+        /** Thousands separator.
+            @default ,
+        */
+        thousandsSeparator: string;
+
+        /** Array of Title objects.
+                @default []
+            */
+        titles: [Title];
+
+        /** If you set it to 200 (milliseconds) or so, the chart will fire clickGraphItem or clickSlice (AmSlicedChart) or clickMapObject only if user holds his/her finger for 0.2 seconds (200 ms) on the column/bullet/slice/map object.
+            @default 0
+        */
+        touchClickDuration: number;
+
+        /** Type of a chart. Required when creating chart using JSON. Possible types are: serial, pie, xy, radar, funnel, gauge, map, gantt, stock. */
+        type: string;
+
+        /** If true, prefixes will be used for big and small numbers.You can set arrays of prefixes via prefixesOfSmallNumbers and prefixesOfBigNumbers properties.
+                @default false
+            */
+        usePrefixes: boolean;
+
+        /** Read-only. Indicates current version of a script. */
+        version: string;
+
+        /** Adds arrow to the chart. */
+        addArrow(arrow: GaugeArrow): void;
+
+        /** Adds axis to angular gauge. */
+        addAxis(axis: GaugeAxis): void;
+
+        /** Adds a label on a chart. You can use it for labeling axes, adding chart title, etc. x and y coordinates can be set in number, percent, or a number with ! in front of it - coordinate will be calculated from right or bottom instead of left or top. */
+        addLabel(x: number, y: number, text: string, align: string, size: number, color: string, rotation: number, alpha: number, bold: boolean, url: string): void;
+
+        /** Adds a legend to the chart. By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter. (NOTE: This method will not work on StockPanel.) */
+        addLegend(legend: AmLegend, legendDivId?: string): void;
+        /**
+         * Adds a legend to the chart.
+         * By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
+         * (NOTE: This method will not work on StockPanel.)
+         * @param legend - The legend.
+         * @param legendDiv - Legend div (optional).
+         */
+        addLegend(legend: AmLegend, legendDiv: HTMLElement): void;
+
+        /** Adds event listener to the object. */
+        addListener(type: string, handler: Function): void;
+
+        /** Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method. */
+        addTitle(text: string, size: number, color: string, alpha: number, bold: boolean): void;
+
+        /** Clears the chart area, intervals, etc. */
+        clear(): void;
+
+        /** Removes all labels added to the chart. */
+        clearLabels(): void;
+
+        /** Use this method to force the chart to resize to it's current container size. */
+        invalidateSize(): void;
+
+        /** This method allows to create charts with a single config. */
+        makeChart(container: string, config: any, delay: number): AmChart;
+
+        /** Removes arrow from the chart. */
+        removeArrow(arrow: GaugeArrow): void;
+
+        /** Removes axis from the chart. */
+        removeAxis(axis: GaugeAxis): void;
+
+        /** Removes chart's legend. */
+        removeLegend(): void;
+
+        /** Removes event listener from chart object. */
+        removeListener(chart: AmChart, type: string, handler: any): void;
+
+        /** This method should be called after data in your data provider changed or a new array was set to dataProvider. After calling this method the chart will parse data and redraw. */
+        validateData(): void;
+
+        /** This method should be called after you changed one or more properties of any class. The chart will redraw after this method is called.Both attributes, validateData and skipEvents are optional (false by default). */
+        validateNow(): void;
+
+        /** Adds chart to the specified DIV.
+            @param container DIV object which will hold the chart. */
+        write(container: HTMLElement): void;
+        /** Adds chart to the specified DIV.
+            @param container Id of a DIV which will hold the chart. */
+        write(container: string): void;
+    }
+
+    class GaugeArrow {
+        /** Opacity of an arrow.
+            @default 1
+        */
+        alpha: number;
+
+        /** Axis of the arrow. You can use reference to the axis or id of the axis. If you don't set any axis, the first axis of a chart will be used.
+            @default GaugeAxis
+        */
+        axis: GaugeAxis;
+
+        /** Opacity of arrow border.
+            @default 1
+        */
+        borderAlpha: number;
+
+        /** In case you need the arrow to rotate only clock-wise, set this property to true.
+            @default false
+        */
+        clockWiseOnly: boolean;
+
+        /** Color of an arrow.
+            @default #000000
+        */
+        color: string;
+
+        /** Unique id of an arrow. */
+        id: string;
+
+        /** Inner radius of an arrow.
+            @default 0
+        */
+        innerRadius: any;
+
+        /** Opacity of a nail, holding the arrow.
+            @default 1
+        */
+        nailAlpha: number;
+
+        /** Opacity of nail border.
+            @default 0
+        */
+        nailBorderAlpha: number;
+
+        /** Thickness of nail border.
+            @default 1
+        */
+        nailBorderThickness: number;
+
+        /** Radius of a nail, holding the arrow.
+            @default 8
+        */
+        nailRadius: number;
+
+        /** Radius of an arrow.
+            @default '90%'
+        */
+        radius: any;
+
+        /** Width of arrow root.
+            @default 8
+        */
+        startWidth: number;
+
+        /** Value to which the arrow should point at. */
+        value: number;
+
+        /** Sets value for the arrow. Arrow will animate to this value if you do it after chart is written to it's container. */
+        setValue(value: number): void;
+    }
+
+    class GaugeAxis {
+        /** Axis opacity.
+            @default 1
+        */
+        axisAlpha: number;
+
+        /** Axis color.
+            @default #000000
+        */
+        axisColor: string;
+
+        /** Thickness of the axis outline.
+            @default 1
+        */
+        axisThickness: number;
+
+        /** Opacity of band fills.
+            @default 1
+        */
+        bandAlpha: number;
+
+        /** Example: [-0.2, 0, -0.2]. Will make bands to be filled with color gradients. Negative value means the color will be darker than the original, and positive number means the color will be lighter.
+            @default []
+        */
+        bandGradientRatio: [number];
+
+        /** Opacity of band outlines.
+            @default 0
+        */
+        bandOutlineAlpha: number;
+
+        /** Color of band outlines.
+            @default #000000
+        */
+        bandOutlineColor: string;
+
+        /** Thickness of band outlines.
+            @default 0
+        */
+        bandOutlineThickness: number;
+
+        /** Array of bands - GaugeBand objects. Bands are used to draw color fills between specified values. */
+        bands: [GaugeBand];
+
+        /** Text displayed below the axis center. */
+        bottomText: string;
+
+        /** Specifies if text should be bold.
+            @default true
+        */
+        bottomTextBold: boolean;
+
+        /** Bottom text color. */
+        bottomTextColor: string;
+
+        /** Font size of bottom text. */
+        bottomTextFontSize: number;
+
+        /** Y offset of bottom text.
+            @default 0
+        */
+        bottomTextYOffset: number;
+
+        /** X position of the axis, relative to the center of the gauge.
+            @default '0%'
+        */
+        centerX: any;
+
+        /** Y position of the axis, relative to the center of the gauge.
+            @default '0%'
+        */
+        centerY: any;
+
+        /** Specifies labels color of the axis. */
+        color: string;
+
+        /** Axis end angle. Valid values are from - 180 to 180.
+            @default 120
+        */
+        endAngle: number;
+
+        /** Axis end (max) value */
+        endValue: number;
+
+        /** Font size for axis labels. */
+        fontSize: number;
+
+        /** Number of grid lines. Note, GaugeAxis doesn't adjust gridCount, so you should check your values and choose a proper gridCount which would result grids at round numbers.
+            @default 5
+        */
+        gridCount: number;
+
+        /** Specifies if grid should be drawn inside or outside the axis.
+            @default true
+        */
+        gridInside: boolean;
+
+        /** Unique id of an axis. */
+        id: any;
+
+        /** Specifies if labels should be placed inside or outside the axis.
+            @default true
+        */
+        inside: boolean;
+
+        /** Frequency of labels.
+            @default 1
+        */
+        labelFrequency: number;
+
+        /** You can use this function to format axis labels. This function is called and value is passed as a attribute: labelFunction(value); */
+        labelFunction: Function;
+
+        /** Distance from axis to the labels.
+            @default 15
+        */
+        labelOffset: number;
+
+        /** Specifies if labels on the axis should be shown.
+            @default true
+        */
+        labelsEnabled: boolean;
+
+        /** You can add listeners of events using this property. Example: listeners = [{"event":"clickBand", "method":handleClick}]; */
+        listeners: Object[];
+
+        /** Interval, at which minor ticks should be placed. */
+        minorTickInterval: number;
+
+        /** Length of a minor tick.
+            @default 5
+        */
+        minorTickLength: number;
+
+        /** Axis radius.
+            @default '95%'
+        */
+        radius: any;
+
+        /** Specifies if the first label should be shown.
+            @default true
+        */
+        showFirstLabel: boolean;
+
+        /** Specifies if the last label should be shown.
+            @default true
+        */
+        showLastLabel: boolean;
+
+        /** Axis start angle. Valid values are from - 180 to 180.
+            @default -120
+        */
+        startAngle: number;
+
+        /** Axis start (min) value.
+            @default 0
+        */
+        startValue: number;
+
+        /** Opacity of axis ticks.
+            @default 1
+        */
+        tickAlpha: number;
+
+        /** Color of axis ticks.
+            @default #555555
+        */
+        tickColor: string;
+
+        /** Length of a major tick.
+            @default 10
+        */
+        tickLength: number;
+
+        /** Tick thickness.
+            @default 1
+        */
+        tickThickness: number;
+
+        /** Text displayed above the axis center. */
+        topText: string;
+
+        /** Specifies if text should be bold.
+            @default true
+        */
+        topTextBold: boolean;
+
+        /** Color of top text. */
+        topTextColor: string;
+
+        /** Font size of top text. */
+        topTextFontSize: number;
+
+        /** Y offset of top text.
+            @default 0
+        */
+        topTextYOffset: number;
+
+        /** A string which can be placed next to axis labels. */
+        unit: string;
+
+        /** Position of the unit.
+            @default right
+        */
+        unitPosition: string;
+
+        /** Specifies if small and big numbers should use prefixes to make them more readable.
+            @default false
+        */
+        usePrefixes: boolean;
+
+        /** Interval, at which ticks with values should be placed. */
+        valueInterval: number;
+
+        /** Adds event listener to the object. */
+        addListener(type: string, handler: any): void;
+
+        /** Removes event listener from chart object. */
+        removeListener(chart: AmChart, type: string, handler: any): void;
+
+        /** Sets bottom text. */
+        setBottomText(text: string): void;
+
+        /** Sets top text. */
+        setTopText(textstring: string): void;
+
+        /** Returns angle of the value. */
+        value2angle(value: number): void;
+    }
+
+    class GaugeBand {
+        /** Opacity of band fill. Will use axis.bandAlpha if not set any. */
+        alpha: number;
+
+        /** When rolled-over, band will display balloon if you set some text for this property. */
+        balloonText: string;
+
+        /** Color of a band. */
+        color: string;
+
+        /** End value of a fill. */
+        endValue: number;
+
+        /** Example: [-0.2, 0, -0.2]. Will make bands to be filled with color gradients. Negative value means the color will be darker than the original, and positive number means the color will be lighter.
+            @default []
+        */
+        gradientRatio: [number];
+
+        /** Unique id of a band. */
+        id: string;
+
+        /** Inner radius of a band. If not set any, the band will end with the end of minor ticks. Set 0 if you want the band to be drawn to the axis center. */
+        innerRadius: any;
+
+        /** Band radius. If not set any, the band will start with the axis outline. */
+        radius: any;
+
+        /** Start value of a fill. */
+        startValue: number;
+
+        /** Gauge band can be clickable and can lead to some page. */
+        url: string;
+
+        /** Sets end value for the band. */
+        setEndValue(value: number): void;
+
+        /** Sets start value for the band. */
+        setStartValue(value: number): void;
     }
 
     class PeriodSelector {
@@ -1938,7 +2644,6 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         valueWidth: number;
         /** Vertical space between legend items, in pixels. */
         verticalGap: number;
-
     }
 
     /** DataSetSelector is a tool for selecting data set's as main and for comparing with main data set. */
@@ -1963,9 +2668,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmBalloon is the class which generates balloons (datatips). Balloon follows the mouse when you roll-over the pie slice/line bullet/column/etc, chart indicator of serial charts displays value balloons and category balloon. Balloon instance is created by the chart automatically and can be accessed via "balloon" property of AmChart. Chart shows/hides and sets position for every balloon automatically, so all you need to do is to change balloon appearance, if you want to.
         @example
-            var chart = new AmCharts.AmSerialChart();
+            let chart = new AmCharts.AmSerialChart();
             // get balloon intance
-            var balloon = chart.balloon;
+            let balloon = chart.balloon;
             // set properties
             balloon.adjustBorderColor = true;
             balloon.color = "#000000";
@@ -2183,8 +2888,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmGraph class displays all types of graphs - line, column, step line, smoothed line, ohlc and candlestick.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var graph = new AmCharts.AmGraph();
+            let chart = new AmCharts.AmSerialChart();
+            let graph = new AmCharts.AmGraph();
             graph.valueField = 'value';
             graph.type = 'column';
             graph.fillAlphas = 1;
@@ -2713,16 +3418,12 @@ Your function should return string.*/
 
         /** Adds guide to the axis. */
         addGuide(guide: Guide): void;
-        /** Adds event listener to the object.  type - string like 'axisChanged' (should be listed in 'events' section of this class or classes which extend this class). handler - function which is called when event happens */
-        addListener(type: string, handler: any): void;
         /** Number, - value of coordinate. Returns value of the coordinate.  coordinate - y or x coordinate, in pixels. */
         coordinateToValue(coordinate: number): void;
         /** Number - coordinate Returns coordinate of the value in pixels. value - Number */
         getCoordinate(value: number): void;
         /** Removes guide from the axis.*/
         removeGuide(guide: Guide): void;
-        /** Removes event listener from the object. */
-        removeListener(obj: any, type: string, handler: any): void;
 
         /** One value axis can be synchronized with another value axis. You should set synchronizationMultiplyer in order for this to work. */
         synchronizeWithAxis(axis: ValueAxis): void;
@@ -2769,6 +3470,6 @@ Your function should return string.*/
         menu: Object;
         config: any;
         capture(config: any, callback: () => void): any;
-        toJPG(config: any, callback: (config:any) => void): any;
+        toJPG(config: any, callback: (config: any) => void): any;
     }
 }
