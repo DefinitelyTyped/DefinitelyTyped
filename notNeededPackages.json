@@ -1219,6 +1219,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "webgme",
+            "typingsPackageName": "webgme",
+            "sourceRepoURL": "https://webgme.org",
+            "asOfVersion": "2.11.0"
+        },
+        {
             "libraryName": "wonder-commonlib",
             "typingsPackageName": "wonder-commonlib",
             "sourceRepoURL": "https://github.com/yyc-git/Wonder-CommonLib",
