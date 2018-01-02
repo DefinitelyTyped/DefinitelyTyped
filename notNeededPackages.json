@@ -403,6 +403,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "Foundation Sites",
+            "typingsPackageName": "foundation-sites",
+            "sourceRepoURL": "http://foundation.zurb.com/",
+            "asOfVersion": "6.4.3"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
