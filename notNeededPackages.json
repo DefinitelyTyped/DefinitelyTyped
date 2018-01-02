@@ -895,6 +895,12 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-goby",
+            "typingsPackageName": "react-native-goby",
+            "sourceRepoURL": "https://gitlab.com/MessageDream/react-native-goby",
+            "asOfVersion": "0.0.5"
+        },
+        {
             "libraryName": "react-native-google-analytics-bridge",
             "typingsPackageName": "react-native-google-analytics-bridge",
             "sourceRepoURL": "https://github.com/idehub/react-native-google-analytics-bridge",
