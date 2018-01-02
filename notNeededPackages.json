@@ -295,6 +295,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "email-addresses",
+            "typingsPackageName": "email-addresses",
+            "sourceRepoURL": "https://github.com/jackbowman/email-addresses",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "email-validator",
             "typingsPackageName": "email-validator",
             "sourceRepoURL": "https://github.com/Sembiance/email-validator",
