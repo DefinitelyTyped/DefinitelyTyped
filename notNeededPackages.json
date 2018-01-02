@@ -793,6 +793,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "passport-client-cert",
+            "typingsPackageName": "passport-client-cert",
+            "sourceRepoURL": "https://github.com/ripjar/passport-client-cert",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "path-case",
             "typingsPackageName": "path-case",
             "sourceRepoURL": "https://github.com/blakeembrey/path-case",
