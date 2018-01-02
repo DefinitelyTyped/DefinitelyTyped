@@ -433,6 +433,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "gulp-tslint",
+            "typingsPackageName": "gulp-tslint",
+            "sourceRepoURL": "https://github.com/panuhorsmalahti/gulp-tslint",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "gulp-typescript",
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
