@@ -18,6 +18,9 @@ interface FBInitParams{
 interface ShareDialogParams {
     method: string; // "share"
     href: string;
+    hashtag?: string;
+    quote?: string;
+    mobile_iframe: boolean;
 }
 
 interface PageTabDialogParams {
