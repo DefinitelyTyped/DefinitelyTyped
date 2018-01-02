@@ -29,7 +29,6 @@
         "stop_word_filter.d.ts",
         "tokenizer.d.ts",
         "trimmer.d.ts",
-        "tsconfig.json",
         "utils.d.ts",
         "types.d.ts",
         "index.d.ts",
