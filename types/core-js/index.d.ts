@@ -58,8 +58,8 @@ declare function $for<T>(iterable: Iterable<T>): $for<T>;
 
 interface String {
     at(index: number): string;
-    padStart(maxLength: number, fillString?: string): string;
-    padEnd(maxLength: number, fillString?: string): string;
+    padStart(length: number, fillStr?: string): string;
+    padEnd(length: number, fillStr?: string): string;
 }
 
 interface Object {
