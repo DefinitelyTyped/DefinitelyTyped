@@ -14,6 +14,25 @@ declare module "node-forge" {
     type Utf8 = string;
     type OID = string;
 
+    namespace pem {	
+
+		interface EncodeOptions {
+			maxline?: number;
+		}
+
+		interface ObjectPEM {
+			type: string;
+			body: Bytes;
+			procType?: any;
+			contentDomain?: any;
+			dekInfo?: any;
+			headers?: any[];
+		}
+
+		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
+		function decode(str: string): ObjectPEM[];
+	}
+    
     namespace pki {
 
         type PEM = string;
