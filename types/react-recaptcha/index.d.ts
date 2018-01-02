@@ -1,11 +1,10 @@
-// Type definitions for react-recaptcha 2.2
+// Type definitions for react-recaptcha 2.3.5
 // Project: https://github.com/appleboy/react-recaptcha
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { Component } from "react";
-export = Recaptcha;
 
 interface RecaptchaProps {
     className?: string;
@@ -24,7 +23,8 @@ interface RecaptchaProps {
     sitekey?: string;
 }
 
-declare class Recaptcha extends Component<RecaptchaProps> {
+export default class Recaptcha extends Component<RecaptchaProps> {
     static propTypes: any;
     static defaultProps: RecaptchaProps;
+    reset(): void;
 }
