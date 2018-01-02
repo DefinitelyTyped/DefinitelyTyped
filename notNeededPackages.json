@@ -469,6 +469,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "handsontable",
+            "typingsPackageName": "handsontable",
+            "sourceRepoURL": "https://handsontable.com/",
+            "asOfVersion": "0.35.0"
+        },
+        {
             "libraryName": "http-status-codes",
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
