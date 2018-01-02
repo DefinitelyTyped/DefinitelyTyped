@@ -90,7 +90,7 @@ declare namespace Ffmpeg {
     type FormatsCallback = (err: Error, formats: Formats) => void;
 
     interface FfprobeData {
-        stream: any[];
+        streams: any[];
         format: any;
         chapters: any[];
     }
@@ -281,12 +281,10 @@ declare namespace Ffmpeg {
         getAvailableFormats(callback: FormatsCallback): void;
 
         // ffprobe
-        /* tslint:disable:unified-signatures */
-        ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        /* tslint:enable:unified-signatures */
+        ffprobe(callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
+        ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 
         // recipes
         saveToFile(output: string): FfmpegCommand;
@@ -305,6 +303,11 @@ declare namespace Ffmpeg {
         clone(): FfmpegCommand;
         run(): void;
     }
+
+    function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
+    function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

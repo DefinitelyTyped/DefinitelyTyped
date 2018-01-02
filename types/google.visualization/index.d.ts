@@ -410,7 +410,7 @@ declare namespace google {
         }
 
         export interface ChartArea {
-            backgroundColor: string | { stroke: string; strokeWidth?: number };
+            backgroundColor?: string | { stroke: string; strokeWidth?: number };
             top?: number | string;
             left?: number | string;
             right?: number | string;
@@ -456,8 +456,8 @@ declare namespace google {
             maxTextLines?: number;
             minTextSpacing?: number;
             showTextEvery?: number;
-            maxValue?: number;
-            minValue?: number;
+            maxValue?: number | Date | number[];
+            minValue?: number | Date | number[];
             viewWindowMode?: string;
             viewWindow?: ChartViewWindow;
         }
@@ -468,8 +468,8 @@ declare namespace google {
         }
 
         export interface ChartViewWindow {
-            max?: number;
-            min?: number;
+            max?: number | Date | number[];
+            min?: number | Date | number[];
         }
 
         export interface ChartTooltip {
@@ -584,7 +584,7 @@ declare namespace google {
             draw(data: DataTable | DataView, options: ColumnChartOptions): void;
         }
 
-        // https://developers.google.com/chart/interactive/docs/gallery/columnchart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options
         export interface ColumnChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -600,7 +600,7 @@ declare namespace google {
             fontName?: string;
             hAxis?: ChartAxis;
             height?: number;
-            isStacked?: boolean;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
@@ -645,6 +645,7 @@ declare namespace google {
             interpolateNulls?: boolean;
             legend?: ChartLegend | 'none';
             lineWidth?: number;
+            min?: number;
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
@@ -663,7 +664,7 @@ declare namespace google {
         //#endregion
         //#region BarChart
 
-        // https://developers.google.com/chart/interactive/docs/gallery/barchart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
         export interface BarChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -681,7 +682,7 @@ declare namespace google {
             hAxes?: any;
             hAxis?: ChartAxis;
             height?: number;
-            isStacked?: boolean;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
             series?: any;
@@ -708,7 +709,7 @@ declare namespace google {
             draw(data: DataTable | DataView, options: HistogramOptions): void;
         }
 
-        // https://developers.google.com/chart/interactive/docs/gallery/histogram#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/histogram#configuration-options
         export interface HistogramOptions {
             animation?: TransitionAnimation;
             axisTitlesPosition?: string; // in, out, none
@@ -725,7 +726,7 @@ declare namespace google {
             histogram?: HistogramHistogramOptions;
             height?: number;
             interpolateNulls?: boolean;
-            isStacked?: boolean;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             orientation?: string;
             reverseCategories?: boolean;
@@ -754,7 +755,7 @@ declare namespace google {
             draw(data: DataTable | DataView, options: AreaChartOptions): void;
         }
 
-        // https://developers.google.com/chart/interactive/docs/gallery/areachart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/areachart#configuration-options
         export interface AreaChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -774,7 +775,7 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             interpolateNulls?: boolean;
-            isStacked?: boolean;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             lineWidth?: number;
             orientation?: string;
@@ -842,7 +843,7 @@ declare namespace google {
             draw(data: DataTable | DataView, options: SteppedAreaChartOptions): void;
         }
 
-        // https://developers.google.com/chart/interactive/docs/gallery/areachart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/steppedareachart#configuration-options
         export interface SteppedAreaChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
@@ -859,7 +860,7 @@ declare namespace google {
             hAxis?: ChartAxis;
             height?: number;
             interpolateNulls?: boolean;
-            isStacked?: boolean;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
             legend?: ChartLegend | 'none';
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
@@ -882,7 +883,7 @@ declare namespace google {
             draw(data: DataTable | DataView, options: PieChartOptions): void;
         }
 
-        // https://developers.google.com/chart/interactive/docs/gallery/piechart#Configuration_Options
+        // https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options
         export interface PieChartOptions {
             backgroundColor?: any;
             chartArea?: ChartArea;
@@ -1009,7 +1010,7 @@ declare namespace google {
         export interface TableOptions {
             allowHtml?: boolean;
             alternatingRowStyle?: boolean;
-            cssClassName?: CssClassNames;
+            cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             height?: string;
             page?: string;

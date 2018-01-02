@@ -1,4 +1,4 @@
-// Type definitions for vis.js 4.18
+// Type definitions for vis.js 4.21
 // Project: https://github.com/almende/vis
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>
@@ -6,12 +6,24 @@
 //                 Severin <https://github.com/seveves>
 //                 kaktus40 <https://github.com/kaktus40>
 //                 Matthieu Maitre <https://github.com/mmaitre314>
+//                 Adam Lewis <https://github.com/supercargo>
+//                 Alex Soh <https://github.com/takato1314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
+export type MomentConstructor1 =
+  (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
+export type MomentConstructor2 =
+  (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
+
+export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 
 export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
 export type HeightWidthType = IdType;
+export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
+export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
 export type TimelineTimeAxisScaleType = 'millisecond' | 'second' | 'minute' | 'hour' |
   'weekday' | 'day' | 'month' | 'year';
 export type TimelineEventPropertiesResultWhatType = 'item' | 'background' | 'axis' |
@@ -21,6 +33,11 @@ export type TimelineEvents =
   'click' |
   'contextmenu' |
   'doubleClick' |
+  'drop' |
+  'mouseOver' |
+  'mouseDown' |
+  'mouseUp' |
+  'mouseMove' |
   'groupDragged' |
   'changed' |
   'rangechange' |
@@ -100,12 +117,43 @@ export interface TimelineEditableOption {
   remove?: boolean;
   updateGroup?: boolean;
   updateTime?: boolean;
+  overrideItems?: boolean;
+}
+
+export type TimelineFormatLabelsFunction = (date: Date, scale: string, step: number) => string;
+
+export interface TimelineFormatLabelsOption {
+  millisecond?: string;
+  second?: string;
+  minute?: string;
+  hour?: string;
+  weekday?: string;
+  day?: string;
+  week?: string;
+  month?: string;
+  year?: string;
+}
+
+export interface TimelineFormatOption {
+  minorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction;
+  majorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction;
 }
 
 export interface TimelineGroupEditableOption {
   add?: boolean;
   remove?: boolean;
   order?: boolean;
+}
+
+export interface TimelineHiddenDateOption {
+  start: DateType;
+  end: DateType;
+  repeat?: 'daily' | 'weekly' | 'monthly' | 'yearly';
+}
+
+export interface TimelineItemsAlwaysDraggableOption {
+  item?: boolean;
+  range?: boolean;
 }
 
 export interface TimelineMarginItem {
@@ -130,37 +178,53 @@ export interface TimelineTimeAxisOption {
   step?: number;
 }
 
+export interface TimelineRollingModeOption {
+  follow?: boolean;
+  offset?: number;
+}
+
+export interface TimelineTooltipOption {
+  followMouse: boolean;
+  overflowMethod: 'cap' | 'flip';
+}
+
 export type TimelineOptionsConfigureFunction = (option: string, path: string[]) => boolean;
 export type TimelineOptionsConfigureType = boolean | TimelineOptionsConfigureFunction;
 export type TimelineOptionsDataAttributesType = boolean | string | string[];
 export type TimelineOptionsEditableType = boolean | TimelineEditableOption;
+export type TimelineOptionsItemCallbackFunction = (item: TimelineItem, callback: (item: TimelineItem | null) => void) => void;
+export type TimelineOptionsGroupCallbackFunction = (group: TimelineGroup, callback: (group: TimelineGroup | null) => void) => void;
 export type TimelineOptionsGroupEditableType = boolean | TimelineGroupEditableOption;
-export type TimelineOptionsGroupOrderType = string | (() => void); // TODO
+export type TimelineOptionsGroupOrderType = string | TimelineOptionsComparisonFunction;
 export type TimelineOptionsGroupOrderSwapFunction = (fromGroup: any, toGroup: any, groups: DataSet<DataGroup>) => void;
+export type TimelineOptionsHiddenDatesType = TimelineHiddenDateOption | TimelineHiddenDateOption[];
+export type TimelineOptionsItemsAlwaysDraggableType = boolean | TimelineItemsAlwaysDraggableOption;
 export type TimelineOptionsMarginType = number | TimelineMarginOption;
 export type TimelineOptionsOrientationType = string | TimelineOrientationOption;
 export type TimelineOptionsSnapFunction = (date: Date, scale: string, step: number) => Date | number;
+export type TimelineOptionsTemplateFunction = (item?: any, element?: any, data?: any) => string;
+export type TimelineOptionsComparisonFunction = (a: any, b: any) => number;
 
 export interface TimelineOptions {
-  align?: string;
+  align?: TimelineAlignType;
   autoResize?: boolean;
   clickToUse?: boolean;
   configure?: TimelineOptionsConfigureType;
   dataAttributes?: TimelineOptionsDataAttributesType;
   editable?: TimelineOptionsEditableType;
   end?: DateType;
-  format?: any; // TODO
+  format?: TimelineFormatOption;
   groupEditable?: TimelineOptionsGroupEditableType;
   groupOrder?: TimelineOptionsGroupOrderType;
   groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-  groupTemplate?(item?: any, element?: any, data?: any): any;
+  groupTemplate?: TimelineOptionsTemplateFunction;
   height?: HeightWidthType;
-  hiddenDates?: any; // TODO
+  hiddenDates?: TimelineOptionsHiddenDatesType;
   horizontalScroll?: boolean;
-  itemsAlwaysDraggable?: boolean;
+  itemsAlwaysDraggable?: TimelineOptionsItemsAlwaysDraggableType;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -170,28 +234,33 @@ export interface TimelineOptions {
   moveable?: boolean;
   multiselect?: boolean;
   multiselectPerGroup?: boolean;
-  onAdd?(): void; // TODO
-  onAddGroup?(): void; // TODO
-  onUpdate?(): void; // TODO
-  onMove?(): void; // TODO
-  onMoveGroup?(): void; // TODO
-  onMoving?(): void; // TODO
-  onRemove?(): void; // TODO
-  onRemoveGroup?(): void; // TODO
-  order?(): void; // TODO
+  onAdd?: TimelineOptionsItemCallbackFunction;
+  onAddGroup?: TimelineOptionsGroupCallbackFunction;
+  onUpdate?: TimelineOptionsItemCallbackFunction;
+  onMove?: TimelineOptionsItemCallbackFunction;
+  onMoveGroup?: TimelineOptionsGroupCallbackFunction;
+  onMoving?: TimelineOptionsItemCallbackFunction;
+  onRemove?: TimelineOptionsItemCallbackFunction;
+  onRemoveGroup?: TimelineOptionsGroupCallbackFunction;
+  order?: TimelineOptionsComparisonFunction;
   orientation?: TimelineOptionsOrientationType;
-  rollingMode?: any;
+  rollingMode?: TimelineRollingModeOption;
+  rtl?: boolean;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
   showMinorLabels?: boolean;
+  showTooltips?: boolean;
   stack?: boolean;
+  stackSubgroups?: boolean;
   snap?: TimelineOptionsSnapFunction;
   start?: DateType;
-  template?(item?: any, element?: any, data?: any): any;
+  template?: TimelineOptionsTemplateFunction;
+  visibleFrameTemplate?: TimelineOptionsTemplateFunction;
   throttleRedraw?: number;
   timeAxis?: TimelineTimeAxisOption;
   type?: string;
+  tooltip?: TimelineTooltipOption;
   tooltipOnItemUpdateTime?: boolean | { template(item: any): any };
   verticalScroll?: boolean;
   width?: HeightWidthType;
@@ -201,34 +270,71 @@ export interface TimelineOptions {
   zoomMin?: number;
 }
 
-export interface TimelineFitAnimation {
-  duration?: number;
-  easingFunction?: string;
-}
+/**
+ * If true (default) or an Object, the range is animated smoothly to the new window.
+ * An object can be provided to specify duration and easing function.
+ * Default duration is 500 ms, and default easing function is 'easeInOutQuad'.
+ */
+export type TimelineAnimationType = boolean | AnimationOptions;
 
-export type TimelineFitAnimationType = boolean | TimelineFitAnimation;
-
-export interface TimelineFitOptions {
-  animation?: TimelineFitAnimationType;
+export interface TimelineAnimationOptions {
+  animation?: TimelineAnimationType;
 }
 
 export interface TimelineEventPropertiesResult {
-  group?: number;
-  item?: number;
+  /**
+   *  The id of the clicked group
+   */
+  group?: number | null;
+
+  /**
+   * The id of the clicked item.
+   */
+  item?: number | null;
+
+  /**
+   * Absolute horizontal position of the click event.
+   */
   pageX: number;
+
+  /**
+   * Absolute vertical position of the click event.
+   */
   pageY: number;
+
+  /**
+   * Relative horizontal position of the click event.
+   */
   x: number;
+
+  /**
+   * Relative vertical position of the click event.
+   */
   y: number;
+
+  /**
+   *  Date of the clicked event.
+   */
   time: Date;
+
+  /**
+   * Date of the clicked event, snapped to a nice value.
+   */
   snappedTime: Date;
+
+  /**
+   * Name of the clicked thing.
+   */
   what?: TimelineEventPropertiesResultWhatType;
+
+  /**
+   * The original click event.
+   */
   event: Event;
 }
 
 /**
  * Options that can be passed to a DataSet.
- *
- * @interface DataSetOptions
  */
 export interface DataSetOptions extends DataSetQueueOptions {
   /**
@@ -236,9 +342,6 @@ export interface DataSetOptions extends DataSetQueueOptions {
    * When data is fetched from a server which uses some specific field to identify items,
    * this field name can be specified in the DataSet using the option fieldId.
    * For example CouchDB uses the field "_id" to identify documents.
-   *
-   * @type {string}
-   * @memberOf DataSetOptions
    */
   fieldId?: string;
 
@@ -249,9 +352,6 @@ export interface DataSetOptions extends DataSetQueueOptions {
    * This is useful for example to automatically convert stringified dates coming
    * from a server into JavaScript Date objects.
    * The available data types are listed in section Data Types.
-   *
-   * @type {*}
-   * @memberOf DataSetOptions
    */
   type?: any;
 }
@@ -267,9 +367,6 @@ export interface DataSetQueueOptions {
    * Default value is null.
    * max: number - When the queue exceeds the given maximum number of entries, the queue is flushed automatically. Default value is Infinity.
    * Default value is Infinity.
-   *
-   * @type {(any | boolean)}
-   * @memberOf DataSetOptions
    */
   queue?: any | boolean;
 }
@@ -278,27 +375,20 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
   /**
    * Creates an instance of DataSet.
    *
-   * @param {DataSetOptions} [options] DataSet options.
-   *
-   * @memberOf DataSet
+   * @param [options] DataSet options.
    */
   constructor(options: DataSetOptions);
 
   /**
    * Creates an instance of DataSet.
    *
-   * @param {T[]} [data] An Array with items.
-   * @param {DataSetOptions} [options] DataSet options.
-   *
-   * @memberOf DataSet
+   * @param [data] An Array with items.
+   * @param [options] DataSet options.
    */
   constructor(data?: T[], options?: DataSetOptions);
 
   /**
    * The number of items in the DataSet.
-   *
-   * @type {number}
-   * @memberOf DataSet
    */
   length: number;
 
@@ -306,21 +396,17 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * Add one or multiple items to the DataSet.
    * Adding an item will fail when there already is an item with the same id.
    *
-   * @param {(T | T[])} data data can be a single item or an array with items.
-   * @param {IdType} [senderId] Optional sender id.
-   * @returns {IdType[]} The function returns an array with the ids of the added items.
-   *
-   * @memberOf DataSet
+   * @param data data can be a single item or an array with items.
+   * @param [senderId] Optional sender id.
+   * @returns The function returns an array with the ids of the added items.
    */
   add(data: T | T[], senderId?: IdType): IdType[];
 
   /**
    * Clear all data from the DataSet.
    *
-   * @param {IdType} [senderId] Optional sender id.
-   * @returns {IdType[]} The function returns an array with the ids of the removed items.
-   *
-   * @memberOf DataSet
+   * @param [senderId] Optional sender id.
+   * @returns The function returns an array with the ids of the removed items.
    */
   clear(senderId?: IdType): IdType[];
 
@@ -328,63 +414,50 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * Find all distinct values of a specified field.
    * If data items do not contain the specified field are ignored.
    *
-   * @param {string} field The search term.
-   * @returns {any[]} Returns an unordered array containing all distinct values.
-   *
-   * @memberOf DataSet
+   * @param field The search term.
+   * @returns Returns an unordered array containing all distinct values.
    */
   distinct(field: string): any[];
 
   /**
    * Flush queued changes.
    * Only available when the DataSet is configured with the option queue.
-   *
-   * @memberOf DataSet
    */
   flush(): void;
 
   /**
    * Execute a callback function for every item in the dataset.
    *
-   * @param {(item: T, id: IdType) => void} callback The item callback.
-   * @param {DataSelectionOptions<T>} [options] Optional options
-   *
-   * @memberOf DataSet
+   * @param callback The item callback.
+   * @param [options] Optional options
    */
   forEach(callback: (item: T, id: IdType) => void, options?: DataSelectionOptions<T>): void;
 
   /**
    * Get all items from the DataSet.
    *
-   * @param {DataSelectionOptions<T>} [options] Optional options.
-   * @returns {T[]} When no item is found, null is returned when a single item was requested,
+   * @param [options] Optional options.
+   * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
-   *
-   * @memberOf DataSet
    */
   get(options?: DataSelectionOptions<T>): T[];
 
   /**
    * Get a single item from the DataSet.
    *
-   * @param {IdType} id The item id.
-   * @param {DataSelectionOptions<T>} [options]
-   * @returns {T} When no item is found, null is returned when a single item was requested,
+   * @param id The item id.
+   * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
-   *
-   * @memberOf DataSet
    */
   get(id: IdType, options?: DataSelectionOptions<T>): T;
 
   /**
    * Get multiple items from the DataSet.
    *
-   * @param {IdType[]} ids Array of item ids.
-   * @param {DataSelectionOptions<T>} [options] Optional options.
-   * @returns {T[]} When no item is found, null is returned when a single item was requested,
+   * @param ids Array of item ids.
+   * @param [options] Optional options.
+   * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
-   *
-   * @memberOf DataSet
    */
   get(ids: IdType[], options?: DataSelectionOptions<T>): T[];
 
@@ -393,92 +466,69 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * In case of a DataView, this function does not return the DataSet
    * to which the DataView is connected.
    *
-   * @returns {DataSet<T>} The DataSet itself.
-   *
-   * @memberOf DataSet
+   * @returns The DataSet itself.
    */
   getDataSet(): DataSet<T>;
 
   /**
    * Get ids of all items or of a filtered set of items.
    *
-   * @param {DataSelectionOptions<T>} [options]
-   * @returns {IdType[]} ids of all items or of a filtered set of items.
-   *
-   * @memberOf DataSet
+   * @returns ids of all items or of a filtered set of items.
    */
   getIds(options?: DataSelectionOptions<T>): IdType[];
 
   /**
    * Map every item in the DataSet.
    *
-   * @param {(item: T, id: IdType) => T} callback The mapping callback.
-   * @param {DataSelectionOptions<T>} [options] Optional options.
-   * @returns {T[]} The mapped items.
-   *
-   * @memberOf DataSet
+   * @param callback The mapping callback.
+   * @param [options] Optional options.
+   * @returns The mapped items.
    */
   map(callback: (item: T, id: IdType) => any, options?: DataSelectionOptions<T>): any[];
 
   /**
    * Find the item with maximum value of specified field.
    *
-   * @param {string} field
-   * @returns {T} Returns null if no item is found.
-   *
-   * @memberOf DataSet
+   * @returns Returns null if no item is found.
    */
   max(field: string): T;
 
   /**
    * Find the item with minimum value of specified field.
    *
-   * @param {string} field
-   * @returns {T} Returns null if no item is found.
-   *
-   * @memberOf DataSet
+   * @returns Returns null if no item is found.
    */
   min(field: string): T;
 
   /**
    * Subscribe from an event.
    *
-   * @param {string} event The event name.
-   * @param {((event: string, properties: any, senderId: IdType) => void)} callback
+   * @param event The event name.
+   * @param callback
    * a callback function which will be called each time the event occurs.
-   *
-   * @memberOf DataSet
    */
   on(event: string, callback: (event: string, properties: any, senderId: IdType) => void): void;
 
   /**
    * Unsubscribe to an event.
    *
-   * @param {string} event The event name.
-   * @param {((event: string, properties: any, senderId: IdType) => void)} callback
+   * @param event The event name.
+   * @param callback
    * The exact same callback that was used when calling 'on'.
-   *
-   * @memberOf DataSet
    */
   off(event: string, callback: (event: string, properties: any, senderId: IdType) => void): void;
 
   /**
    * Remove one or more items by id.
    *
-   * @param {IdType} id The item id.
-   * @param {IdType} [senderId] The sender id.
-   * @returns {IdType[]} Returns an array with the ids of the removed items.
-   *
-   * @memberOf DataSet
+   * @param id The item id.
+   * @param [senderId] The sender id.
+   * @returns Returns an array with the ids of the removed items.
    */
   remove(id: IdType | IdType[], senderId?: IdType): IdType[];
 
   /**
    * Set options for the DataSet.
-   *
-   * @param {DataSetQueueOptions} [options]
-   *
-   * @memberOf DataSet
    */
   setOptions(options?: DataSetQueueOptions): void;
 
@@ -486,11 +536,8 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * Update one or multiple existing items.
    * When an item doesn't exist, it will be created.
    *
-   * @param {(T | T[])} data a single item or an array with items.
-   * @param {IdType} [senderId]
-   * @returns {IdType[]} Returns an array with the ids of the updated items.
-   *
-   * @memberOf DataSet
+   * @param data a single item or an array with items.
+   * @returns Returns an array with the ids of the updated items.
    */
   update(data: T | T[], senderId?: IdType): IdType[];
 }
@@ -499,8 +546,6 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
  * The DataSet contains functionality to format, filter, and sort data retrieved
  * via the methods get, getIds, forEach, and map.
  * These methods can have these options as a parameter.
- *
- * @interface DataSelectionOptions
  */
 export interface DataSelectionOptions<T> {
   /**
@@ -509,9 +554,6 @@ export interface DataSelectionOptions<T> {
    * By default, all properties of the items are emitted.
    * When fields is defined, only the properties whose name is specified
    * in fields will be included in the returned items.
-   *
-   * @type {(string[] | any)}
-   * @memberOf DataSelectionOptions
    */
   fields?: string[] | any;
 
@@ -521,9 +563,6 @@ export interface DataSelectionOptions<T> {
    * When a field type is specified, this field in the items will be converted to the specified type.
    * This can be used for example to convert ISO strings containing a date to a JavaScript Date object,
    * or convert strings to numbers or vice versa. The available data types are listed in section Data Types.
-   *
-   * @type {*}
-   * @memberOf DataSelectionOptions
    */
   type?: any;
 
@@ -534,16 +573,11 @@ export interface DataSelectionOptions<T> {
    * The function must return a boolean.
    * All items for which the filter function returns true will be emitted.
    * See section Data Filtering.
-   *
-   * @memberOf DataSelectionOptions
    */
   filter?(item: T): boolean;
 
   /**
    * Order the items by a field name or custom sort function.
-   *
-   * @type {(string | any)}
-   * @memberOf DataSelectionOptions
    */
   order?: string | any;
 
@@ -552,9 +586,6 @@ export interface DataSelectionOptions<T> {
    * Allowed values are 'Array' | 'Object'.
    * The default returnType is an Array.
    * The Object type will return a JSON object with the ID's as keys.
-   *
-   * @type {string}
-   * @memberOf DataSelectionOptions
    */
   returnType?: string;
 }
@@ -640,7 +671,7 @@ export interface Graph2dOptions {
   legend?: Graph2dLegendOption;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   max?: DateType;
   maxHeight?: HeightWidthType;
   maxMinorChars?: number;
@@ -683,8 +714,8 @@ export class Graph2d {
 
   addCustomTime(time: DateType, id?: IdType): IdType;
   destroy(): void;
-  fit(options?: TimelineFitOptions): void;
-  focus(ids: IdType | IdType[], options?: TimelineFitOptions): void;
+  fit(options?: TimelineAnimationOptions): void;
+  focus(ids: IdType | IdType[], options?: TimelineAnimationOptions): void;
   getCurrentTime(): Date;
   getCustomTime(id?: IdType): Date;
   getEventProperties(event: Event): TimelineEventPropertiesResult;
@@ -692,7 +723,7 @@ export class Graph2d {
   getSelection(): IdType[];
   getVisibleItems(): IdType[];
   getWindow(): { start: Date, end: Date };
-  moveTo(time: DateType, options?: TimelineFitOptions): void;
+  moveTo(time: DateType, options?: TimelineAnimationOptions): void;
   on(event: TimelineEvents, callback: () => void): void;
   off(event: TimelineEvents, callback: () => void): void;
   redraw(): void;
@@ -705,7 +736,7 @@ export class Graph2d {
   setItems(items: DataItemCollectionType): void;
   setOptions(options: TimelineOptions): void;
   setSelection(ids: IdType | IdType[]): void;
-  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
+  setWindow(start: DateType, end: DateType, options?: TimelineAnimationOptions): void;
 }
 
 export interface Graph2d {
@@ -725,41 +756,174 @@ export class Timeline {
     groups: DataGroupCollectionType,
     options?: TimelineOptions
   );
+
   constructor(
     container: HTMLElement,
     items: DataItemCollectionType,
     options?: TimelineOptions
   );
 
+  /**
+   * Add new vertical bar representing a custom time that can be dragged by the user. Parameter time can be a Date, Number, or String, and is new Date() by default.
+   * Parameter id can be Number or String and is undefined by default. The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
+   * The method returns id of the created bar.
+   */
   addCustomTime(time: DateType, id?: IdType): IdType;
+
+  /**
+   * Destroy the Timeline. The timeline is removed from memory. all DOM elements and event listeners are cleaned up.
+   */
   destroy(): void;
-  fit(options?: TimelineFitOptions): void;
-  focus(ids: IdType | IdType[], options?: TimelineFitOptions): void;
+
+  /**
+   * Adjust the visible window such that it fits all items. See also focus(id).
+   */
+  fit(options?: TimelineAnimationOptions): void;
+
+  /**
+   * Adjust the visible window such that the selected item (or multiple items) are centered on screen. See also function fit()
+   */
+  focus(ids: IdType | IdType[], options?: TimelineAnimationOptions): void;
+
+  /**
+   * Get the current time. Only applicable when option showCurrentTime is true.
+   */
   getCurrentTime(): Date;
+
+  /**
+   * Retrieve the custom time from the custom time bar with given id.
+   * @param id Id is undefined by default.
+   */
   getCustomTime(id?: IdType): Date;
+
   getEventProperties(event: Event): TimelineEventPropertiesResult;
-  getItemRange(): any; // TODO
+
+  /**
+   * Get the range of all the items as an object containing min date and max date
+   */
+  getItemRange(): { min: Date, max: Date };
+
+  /**
+   * Get an array with the ids of the currently selected items
+   */
   getSelection(): IdType[];
+
+  /**
+   * Get an array with the ids of the currently visible items.
+   */
   getVisibleItems(): IdType[];
-  getWindow(): { start: Date, end: Date };
-  moveTo(time: DateType, options?: TimelineFitOptions): void;
-  on(event: TimelineEvents, callback: () => void): void;
-  off(event: TimelineEvents, callback: () => void): void;
+
+  /**
+   * Get the current visible window.
+   */
+  getWindow(): TimelineWindow;
+
+  /**
+   * Move the window such that given time is centered on screen.
+   */
+  moveTo(time: DateType, options?: TimelineAnimationOptions, callback?: (properties?: any) => void): void;
+
+  /**
+   * Create an event listener. The callback function is invoked every time the event is triggered.
+   */
+  on(event: TimelineEvents, callback?: (properties?: any) => void): void;
+
+  /**
+   * Remove an event listener created before via function on(event[, callback]).
+   */
+  off(event: TimelineEvents, callback?: (properties?: any) => void): void;
+
+  /**
+   * Force a redraw of the Timeline. The size of all items will be recalculated.
+   * Can be useful to manually redraw when option autoResize=false and the window has been resized, or when the items CSS has been changed.
+   */
   redraw(): void;
+
+  /**
+   * Remove vertical bars previously added to the timeline via addCustomTime method.
+   * @param id ID of the custom vertical bar returned by addCustomTime method.
+   */
   removeCustomTime(id: IdType): void;
+
+  /**
+   * Set a current time. This can be used for example to ensure that a client's time is synchronized with a shared server time. Only applicable when option showCurrentTime is true.
+   */
   setCurrentTime(time: DateType): void;
+
+  /**
+   * Adjust the time of a custom time bar.
+   * @param time The time the custom time bar should point to
+   * @param id Id of the custom time bar, and is undefined by default.
+   */
   setCustomTime(time: DateType, id?: IdType): void;
+
+  /**
+   * Adjust the title attribute of a custom time bar.
+   * @param title The title shown when hover over time bar
+   * @param id Id of the custom time bar, and is undefined by default.
+   */
   setCustomTimeTitle(title: string, id?: IdType): void;
+
+  /**
+   * Set both groups and items at once. Both properties are optional.
+   * This is a convenience method for individually calling both setItems(items) and setGroups(groups).
+   * Both items and groups can be an Array with Objects, a DataSet (offering 2 way data binding), or a DataView (offering 1 way data binding).
+   */
   setData(data: { groups?: DataGroupCollectionType; items?: DataItemCollectionType }): void;
+
+  /**
+   * Set a data set with groups for the Timeline.
+   */
   setGroups(groups?: DataGroupCollectionType): void;
+
+  /**
+   * Set a data set with items for the Timeline.
+   */
   setItems(items: DataItemCollectionType): void;
+
+  /**
+   * Set or update options. It is possible to change any option of the timeline at any time. You can for example switch orientation on the fly.
+   */
   setOptions(options: TimelineOptions): void;
-  setSelection(ids: IdType | IdType[]): void;
-  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
+
+  /**
+   * Select one or multiple items by their id. The currently selected items will be unselected. To unselect all selected items, call `setSelection([])`.
+   */
+  setSelection(ids: IdType | IdType[], options?: { focus: boolean, animation: TimelineAnimationOptions }): void;
+
+  /**
+   * Set the current visible window.
+   * @param start If the parameter value of start is null, the parameter will be left unchanged.
+   * @param end If the parameter value of end is null, the parameter will be left unchanged.
+   * @param options Timeline animation options. See {@link TimelineAnimationOptions}
+   * @param callback The callback function
+   */
+  setWindow(start: DateType, end: DateType, options?: TimelineAnimationOptions, callback?: () => void): void;
+
+  /**
+   * Toggle rollingMode.
+   */
+  toggleRollingMode(): void;
+
+  /**
+   * Zoom in the current visible window.
+   * @param percentage A number and must be between 0 and 1. If null, the window will be left unchanged.
+   * @param options Timeline animation options. See {@link TimelineAnimationOptions}
+   * @param callback The callback function
+   */
+  zoomIn(percentage: number, options?: TimelineAnimationOptions, callback?: () => void): void;
+
+  /**
+   * Zoom out the current visible window.
+   * @param percentage A number and must be between 0 and 1. If null, the window will be left unchanged.
+   * @param options Timeline animation options. See {@link TimelineAnimationOptions}
+   * @param callback The callback function
+   */
+  zoomOut(percentage: number, options?: TimelineAnimationOptions, callback?: () => void): void;
 }
 
 export interface TimelineStatic {
-  new (id: HTMLElement, data: any, options?: any): vis.Timeline;
+  new(id: HTMLElement, data: any, options?: any): vis.Timeline;
 }
 
 export interface Timeline {
@@ -769,6 +933,7 @@ export interface Timeline {
   setWindow(start: any, date: any): void;
   focus(selection: any): void;
   on(event?: string, callback?: (properties: any) => void): void;
+  off(event: string, callback?: (properties?: any) => void): void;
 }
 
 export interface TimelineWindow {
@@ -776,19 +941,39 @@ export interface TimelineWindow {
   end: Date;
 }
 
+export interface TimelineItemEditableOption {
+  remove?: boolean;
+  updateGroup?: boolean;
+  updateTime?: boolean;
+}
+
+export type TimelineItemEditableType = boolean | TimelineItemEditableOption;
+
 export interface TimelineItem {
-  id: number;
+  className?: string;
+  align?: TimelineAlignType;
   content: string;
-  group?: number;
-  start: number;
-  end?: number;
-  editable?: boolean;
+  end?: DateType;
+  group?: IdType;
+  id: IdType;
+  start: DateType;
+  style?: string;
+  subgroup?: IdType;
+  title?: string;
+  type?: TimelineItemType;
+  editable?: TimelineItemEditableType;
 }
 
 export interface TimelineGroup {
-  id: number;
-  content: string;
+  className?: string;
+  content: string | HTMLElement;
+  id: IdType;
   style?: string;
+  subgroupOrder?: TimelineOptionsGroupOrderType;
+  title?: string;
+  visible?: boolean;
+  nestedGroups?: IdType[];
+  showNested?: boolean;
 }
 
 export interface VisSelectProperties {
@@ -832,27 +1017,19 @@ export type NetworkEvents =
  * The visualization is easy to use and supports custom shapes, styles, colors, sizes, images, and more.
  * The network visualization works smooth on any modern browser for up to a few thousand nodes and edges.
  * To handle a larger amount of nodes, Network has clustering support. Network uses HTML canvas for rendering.
- *
- * @export
- * @class Network
- * @implements {INetwork}
  */
 export class Network {
   /**
    * Creates an instance of Network.
    *
-   * @param {HTMLElement} container the HTML element representing the network container
-   * @param {IData} data network data
-   * @param {IOptions} [options] optional network options
-   *
-   * @memberOf Network
+   * @param container the HTML element representing the network container
+   * @param data network data
+   * @param [options] optional network options
    */
   constructor(container: HTMLElement, data: Data, options?: Options);
 
   /**
    * 	Remove the network from the DOM and remove all Hammer bindings and references.
-   *
-   * @memberOf Network
    */
   destroy(): void;
 
@@ -862,9 +1039,7 @@ export class Network {
    * the network will stabilize again.
    * This method is also performed when first initializing the network.
    *
-   * @param {IData} data network data
-   *
-   * @memberOf Network
+   * @param data network data
    */
   setData(data: Data): void;
 
@@ -873,9 +1048,7 @@ export class Network {
    * All available options can be found in the modules above.
    * Each module requires it's own container with the module name to contain its options.
    *
-   * @param {IOptions} options network options
-   *
-   * @memberOf Network
+   * @param options network options
    */
   setOptions(options: Options): void;
 
@@ -883,10 +1056,8 @@ export class Network {
    * Set an event listener.
    * Depending on the type of event you get different parameters for the callback function.
    *
-   * @param {string} eventName the name of the event, f.e. 'click'
-   * @param {(params?: any) => void} callback the callback function that will be raised
-   *
-   * @memberOf Network
+   * @param eventName the name of the event, f.e. 'click'
+   * @param callback the callback function that will be raised
    */
   on(eventName: NetworkEvents, callback: (params?: any) => void): void;
 
@@ -895,10 +1066,8 @@ export class Network {
    * The function you supply has to be the exact same as the one you used in the on function.
    * If no function is supplied, all listeners will be removed.
    *
-   * @param {string} eventName the name of the event, f.e. 'click'
-   * @param {(params?: any) => void} [callback] the exact same callback function that was used when calling 'on'
-   *
-   * @memberOf Network
+   * @param eventName the name of the event, f.e. 'click'
+   * @param [callback] the exact same callback function that was used when calling 'on'
    */
   off(eventName: NetworkEvents, callback?: (params?: any) => void): void;
 
@@ -907,10 +1076,8 @@ export class Network {
    * After it has taken place, the event listener will be removed.
    * Depending on the type of event you get different parameters for the callback function.
    *
-   * @param {string} eventName the name of the event, f.e. 'click'
-   * @param {(params?: any) => void} callback the callback function that will be raised once
-   *
-   * @memberOf Network
+   * @param eventName the name of the event, f.e. 'click'
+   * @param callback the callback function that will be raised once
    */
   once(eventName: NetworkEvents, callback: (params?: any) => void): void;
 
@@ -919,10 +1086,8 @@ export class Network {
    * Input and output are in the form of {x:Number, y:Number} (IPosition interface).
    * The DOM values are relative to the network container.
    *
-   * @param {IPosition} position the canvas coordinates
-   * @returns {IPosition} the DOM coordinates
-   *
-   * @memberOf Network
+   * @param position the canvas coordinates
+   * @returns the DOM coordinates
    */
   canvasToDOM(position: Position): Position;
 
@@ -931,17 +1096,13 @@ export class Network {
    * Input and output are in the form of {x:Number,y:Number} (IPosition interface).
    * The DOM values are relative to the network container.
    *
-   * @param {IPosition} position the DOM coordinates
-   * @returns {IPosition} the canvas coordinates
-   *
-   * @memberOf Network
+   * @param position the DOM coordinates
+   * @returns the canvas coordinates
    */
   DOMtoCanvas(position: Position): Position;
 
   /**
    * Redraw the network.
-   *
-   * @memberOf Network
    */
   redraw(): void;
 
@@ -949,19 +1110,13 @@ export class Network {
    * Set the size of the canvas.
    * This is automatically done on a window resize.
    *
-   * @param {string} width width in a common format, f.e. '100px'
-   * @param {string} height height in a common format, f.e. '100px'
-   *
-   * @memberOf Network
+   * @param width width in a common format, f.e. '100px'
+   * @param height height in a common format, f.e. '100px'
    */
   setSize(width: string, height: string): void;
 
   /**
    * The joinCondition function is presented with all nodes.
-   *
-   * @param {IClusterOptions} [options]
-   *
-   * @memberOf Network
    */
   cluster(options?: ClusterOptions): void;
 
@@ -971,10 +1126,8 @@ export class Network {
    * All options of this object are explained below.
    * The joinCondition is only presented with the connected nodes.
    *
-   * @param {string} nodeId the id of the node
-   * @param {IClusterOptions} [options] the cluster options
-   *
-   * @memberOf Network
+   * @param nodeId the id of the node
+   * @param [options] the cluster options
    */
   clusterByConnection(nodeId: string, options?: ClusterOptions): void;
 
@@ -986,19 +1139,15 @@ export class Network {
    * For all qualifying nodes, clusterByConnection is performed on each of them.
    * The options object is described for clusterByConnection and does the same here.
    *
-   * @param {number} [hubsize] optional hubsize
-   * @param {IClusterOptions} [options] optional cluster options
-   *
-   * @memberOf Network
+   * @param [hubsize] optional hubsize
+   * @param [options] optional cluster options
    */
   clusterByHubsize(hubsize?: number, options?: ClusterOptions): void;
 
   /**
    * This method will cluster all nodes with 1 edge with their respective connected node.
    *
-   * @param {IClusterOptions} [options] optional cluster options
-   *
-   * @memberOf Network
+   * @param [options] optional cluster options
    */
   clusterOutliers(options?: ClusterOptions): void;
 
@@ -1013,10 +1162,8 @@ export class Network {
    *
    * network.clustering.findNode('fred') will return ['A','B','C','fred'].
    *
-   * @param {IdType} nodeId the node id.
-   * @returns {IdType[]} an array of nodeIds showing where the node is
-   *
-   * @memberOf Network
+   * @param nodeId the node id.
+   * @returns an array of nodeIds showing where the node is
    */
   findNode(nodeId: IdType): IdType[];
 
@@ -1024,8 +1171,8 @@ export class Network {
    * Similar to findNode in that it returns all the edge ids that were
    * created from the provided edge during clustering.
    *
-   * @param {IdType} baseEdgeId the base edge id
-   * @returns {IdType[]} an array of edgeIds
+   * @param baseEdgeId the base edge id
+   * @returns an array of edgeIds
    */
   getClusteredEdges(baseEdgeId: IdType): IdType[];
 
@@ -1034,9 +1181,6 @@ export class Network {
    * baseEdgeId provided in data.edges ie.
    * After clustering the 'SelectEdge' event is fired but provides only the clustered edge.
    * This method can then be used to return the baseEdgeId.
-   *
-   * @param {IdType} clusteredEdgeId
-   * @returns {IdType}
    */
   getBaseEdge(clusteredEdgeId: IdType): IdType;
 
@@ -1046,9 +1190,6 @@ export class Network {
    * the edges between clusters are created and the previous edges are hidden,
    * until the cluster is opened. This method takes an edgeId (ie. a base edgeId from data.edges)
    * and applys the options to it and any edges that were created from it while clustering.
-   *
-   * @param {IdType} startEdgeId
-   * @param {IEdgeOptions} [options]
    */
   updateEdge(startEdgeId: IdType, options?: EdgeOptions): void;
 
@@ -1061,10 +1202,7 @@ export class Network {
   /**
    * Returns true if the node whose ID has been supplied is a cluster.
    *
-   * @param {IdType} nodeId the node id.
-   * @returns {boolean}
-   *
-   * @memberOf Network
+   * @param nodeId the node id.
    */
   isCluster(nodeId: IdType): boolean;
 
@@ -1072,10 +1210,7 @@ export class Network {
    * Returns an array of all nodeIds of the nodes that
    * would be released if you open the cluster.
    *
-   * @param {IdType} clusterNodeId the id of the cluster node
-   * @returns {IdType[]}
-   *
-   * @memberOf Network
+   * @param clusterNodeId the id of the cluster node
    */
   getNodesInCluster(clusterNodeId: IdType): IdType[];
 
@@ -1086,10 +1221,8 @@ export class Network {
    * releaseFunction, which is a function that can be used to manually
    * position the nodes after the cluster is opened.
    *
-   * @param {IdType} nodeId the node id
-   * @param {IOpenClusterOptions} [options] optional open cluster options
-   *
-   * @memberOf Network
+   * @param nodeId the node id
+   * @param [options] optional open cluster options
    */
   openCluster(nodeId: IdType, options?: OpenClusterOptions): void;
 
@@ -1098,25 +1231,19 @@ export class Network {
    * and would like it to start in the same way next time,
    * ask for the seed using this method and put it in the layout.randomSeed option.
    *
-   * @returns {number} the current seed of the network.
-   *
-   * @memberOf Network
+   * @returns the current seed of the network.
    */
   getSeed(): number;
 
   /**
    * 	Programatically enable the edit mode.
    * Similar effect to pressing the edit button.
-   *
-   * @memberOf Network
    */
   enableEditMode(): void;
 
   /**
    * Programatically disable the edit mode.
    * Similar effect to pressing the close icon (small cross in the corner of the toolbar).
-   *
-   * @memberOf Network
    */
   disableEditMode(): void;
 
@@ -1125,40 +1252,30 @@ export class Network {
    * To get out of this mode, call disableEditMode().
    * The callback functions defined in handlerFunctions still apply.
    * To use these methods without having the manipulation GUI, make sure you set enabled to false.
-   *
-   * @memberOf Network
    */
   addNodeMode(): void;
 
   /**
    * Edit the selected node.
    * The explaination from addNodeMode applies here as well.
-   *
-   * @memberOf Network
    */
   editNode(): void;
 
   /**
    * Go into addEdge mode.
    * The explaination from addNodeMode applies here as well.
-   *
-   * @memberOf Network
    */
   addEdgeMode(): void;
 
   /**
    * Go into editEdge mode.
    * The explaination from addNodeMode applies here as well.
-   *
-   * @memberOf Network
    */
   editEdgeMode(): void;
 
   /**
    * Delete selected.
    * Having edit mode or manipulation enabled is not required.
-   *
-   * @memberOf Network
    */
   deleteSelected(): void;
 
@@ -1168,11 +1285,6 @@ export class Network {
    * Alternative inputs are a String containing a nodeId or nothing.
    * When a String is supplied, the position of the node corresponding to the ID is returned.
    * When nothing is supplied, the positions of all nodes are returned.
-   *
-   * @param {string[]} nodeIds
-   * @returns {{[nodeId: IdType]: IPosition}}
-   *
-   * @memberOf Network
    */
   getPositions(nodeIds?: IdType[]): { [nodeId: string]: Position };
   getPositions(nodeId: IdType): Position;
@@ -1190,8 +1302,6 @@ export class Network {
    * This method does not support clustering.
    * At the moment it is not possible to cache positions when using clusters since
    * they cannot be correctly initialized from just the positions.
-   *
-   * @memberOf Network
    */
   storePositions(): void;
 
@@ -1199,21 +1309,15 @@ export class Network {
    * You can use this to programatically move a node.
    * The supplied x and y positions have to be in canvas space!
    *
-   * @param {IdType} nodeId the node that will be moved
-   * @param {number} x new canvas space x position
-   * @param {number} y new canvas space y position
-   *
-   * @memberOf Network
+   * @param nodeId the node that will be moved
+   * @param x new canvas space x position
+   * @param y new canvas space y position
    */
   moveNode(nodeId: IdType, x: number, y: number): void;
 
   /**
    * Returns a bounding box for the node including label.
    *
-   * @param {IdType} nodeId
-   * @returns {IBoundingBox}
-   *
-   * @memberOf Network
    */
   getBoundingBox(nodeId: IdType): BoundingBox;
 
@@ -1222,20 +1326,14 @@ export class Network {
    * If you supply an edgeId, vis will first match the id to nodes.
    * If no match is found, it will search in the edgelist and return an array: [fromId, toId].
    *
-   * @param {IdType} nodeOrEdgeId a node or edge id
-   * @returns {(IdType[] | {fromId: IdType, toId: IdType}[])}
-   *
-   * @memberOf Network
+   * @param nodeOrEdgeId a node or edge id
    */
   getConnectedNodes(nodeOrEdgeId: IdType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
 
   /**
    * Returns an array of edgeIds of the edges connected to this node.
    *
-   * @param {IdType} nodeId the node id
-   * @returns {IdType[]}
-   *
-   * @memberOf Network
+   * @param nodeId the node id
    */
   getConnectedEdges(nodeId: IdType): IdType[];
 
@@ -1243,8 +1341,6 @@ export class Network {
    * Start the physics simulation.
    * This is normally done whenever needed and is only really useful
    * if you stop the simulation yourself and wish to continue it afterwards.
-   *
-   * @memberOf Network
    */
   startSimulation(): void;
 
@@ -1252,8 +1348,6 @@ export class Network {
    * This stops the physics simulation and triggers a stabilized event.
    * Tt can be restarted by dragging a node,
    * altering the dataset or calling startSimulation().
-   *
-   * @memberOf Network
    */
   stopSimulation(): void;
 
@@ -1262,18 +1356,13 @@ export class Network {
    * All the stabilization options above are used.
    * You can optionally supply the number of iterations it should do.
    *
-   * @param {number} [iterations] the number of iterations it should do
-   *
-   * @memberOf Network
+   * @param [iterations] the number of iterations it should do
    */
   stabilize(iterations?: number): void;
 
   /**
    * Returns an object with selected nodes and edges ids.
    *
-   * @returns {{ nodes: IdType[], edges: IdType[] }}
-   *
-   * @memberOf Network
    */
   getSelection(): { nodes: IdType[], edges: IdType[] };
 
@@ -1281,9 +1370,6 @@ export class Network {
    * Returns an array of selected node ids like so:
    * [nodeId1, nodeId2, ..].
    *
-   * @returns {IdType[]}
-   *
-   * @memberOf Network
    */
   getSelectedNodes(): IdType[];
 
@@ -1291,9 +1377,6 @@ export class Network {
    * Returns an array of selected edge ids like so:
    * [edgeId1, edgeId2, ..].
    *
-   * @returns {IdType[]}
-   *
-   * @memberOf Network
    */
   getSelectedEdges(): IdType[];
 
@@ -1301,10 +1384,6 @@ export class Network {
    * Returns a nodeId or undefined.
    * The DOM positions are expected to be in pixels from the top left corner of the canvas.
    *
-   * @param {IPosition} position
-   * @returns {IdType}
-   *
-   * @memberOf Network
    */
   getNodeAt(position: Position): IdType;
 
@@ -1312,10 +1391,6 @@ export class Network {
    * Returns a edgeId or undefined.
    * The DOM positions are expected to be in pixels from the top left corner of the canvas.
    *
-   * @param {IPosition} position
-   * @returns {IdType}
-   *
-   * @memberOf Network
    */
   getEdgeAt(position: Position): IdType;
 
@@ -1324,10 +1399,6 @@ export class Network {
    * If highlightEdges is true or undefined, the neighbouring edges will also be selected.
    * This method unselects all other objects before selecting its own objects. Does not fire events.
    *
-   * @param {IdType[]} nodeIds
-   * @param {boolean} [highlightEdges]
-   *
-   * @memberOf Network
    */
   selectNodes(nodeIds: IdType[], highlightEdges?: boolean): void;
 
@@ -1336,9 +1407,6 @@ export class Network {
    * This method unselects all other objects before selecting its own objects.
    * Does not fire events.
    *
-   * @param {IdType[]} edgeIds
-   *
-   * @memberOf Network
    */
   selectEdges(edgeIds: IdType[]): void;
 
@@ -1346,18 +1414,12 @@ export class Network {
    * Sets the selection.
    * You can also pass only nodes or edges in selection object.
    *
-   * @param {{ nodes: IdType[], edges: IdType[] }} selection
-   * @param {ISelectionOptions} [options]
-   *
-   * @memberOf Network
    */
   setSelection(selection: { nodes: IdType[], edges: IdType[] }, options?: SelectionOptions): void;
 
   /**
    * Unselect all objects.
    * Does not fire events.
-   *
-   * @memberOf Network
    */
   unselectAll(): void;
 
@@ -1365,27 +1427,21 @@ export class Network {
    * Returns the current scale of the network.
    * 1.0 is comparible to 100%, 0 is zoomed out infinitely.
    *
-   * @returns {number} the current scale of the network
-   *
-   * @memberOf Network
+   * @returns the current scale of the network
    */
   getScale(): number;
 
   /**
    * Returns the current central focus point of the view in the form: { x: {Number}, y: {Number} }
    *
-   * @returns {IPosition} the view position;
-   *
-   * @memberOf Network
+   * @returns the view position;
    */
   getViewPosition(): Position;
 
   /**
    * Zooms out so all nodes fit on the canvas.
    *
-   * @param {IFitOptions} [options] All options are optional for the fit method
-   *
-   * @memberOf Network
+   * @param [options] All options are optional for the fit method
    */
   fit(options?: FitOptions): void;
 
@@ -1394,26 +1450,17 @@ export class Network {
    * What that means is the view will lock onto that node, if it is moving, the view will also move accordingly.
    * If the view is dragged by the user, the focus is broken. You can supply options to customize the effect.
    *
-   * @param {IdType} nodeId
-   * @param {IFocusOptions} [options]
-   *
-   * @memberOf Network
    */
   focus(nodeId: IdType, options?: FocusOptions): void;
 
   /**
    * You can animate or move the camera using the moveTo method.
    *
-   * @param {IMoveToOptions} options
-   *
-   * @memberOf Network
    */
   moveTo(options: MoveToOptions): void;
 
   /**
    * Programatically release the focussed node.
-   *
-   * @memberOf Network
    */
   releaseNode(): void;
 
@@ -1421,63 +1468,41 @@ export class Network {
    * If you use the configurator, you can call this method to get an options object that contains
    * all differences from the default options caused by users interacting with the configurator.
    *
-   * @returns {*}
-   *
-   * @memberOf Network
    */
   getOptionsFromConfigurator(): any;
 }
 
 /**
  * Options interface for focus function.
- *
- * @export
- * @interface IFocusOptions
- * @extends {IViewPortOptions}
  */
 export interface FocusOptions extends ViewPortOptions {
   /**
    * Locked denotes whether or not the view remains locked to
    * the node once the zoom-in animation is finished.
    * Default value is true.
-   *
-   * @type {boolean}
-   * @memberOf IFocusOptions
    */
   locked?: boolean;
 }
 
 /**
  * Base options interface for some viewport functions.
- *
- * @export
- * @interface IViewPortOptions
  */
 export interface ViewPortOptions {
   /**
    * The scale is the target zoomlevel.
    * Default value is 1.0.
-   *
-   * @type {number} the scale.
-   * @memberOf IFocusOptions
    */
   scale?: number;
 
   /**
    * The offset (in DOM units) is how many pixels from the center the view is focussed.
    * Default value is {x:0,y:0}
-   *
-   * @type {IPosition}
-   * @memberOf IFocusOptions
    */
   offset?: Position;
 
   /**
    * For animation you can either use a Boolean to use it with the default options or
    * disable it or you can define the duration (in milliseconds) and easing function manually.
-   *
-   * @type {(IAnimationOptions | boolean)}
-   * @memberOf IFitOptions
    */
   animation?: AnimationOptions | boolean;
 }
@@ -1485,33 +1510,20 @@ export interface ViewPortOptions {
 /**
  * You will have to define at least a scale, position or offset.
  * Otherwise, there is nothing to move to.
- *
- * @export
- * @interface IMoveToOptions
- * @extends {IViewPortOptions}
  */
 export interface MoveToOptions extends ViewPortOptions {
   /**
    * The position (in canvas units!) is the position of the central focus point of the camera.
-   *
-   * @type {IPosition}
-   * @memberOf IMoveToOptions
    */
   position?: Position;
 }
 
 /**
  * Animation options interface.
- *
- * @export
- * @interface IAnimationOptions
  */
 export interface AnimationOptions {
   /**
    * The duration (in milliseconds).
-   *
-   * @type {number}
-   * @memberOf IAnimationOptions
    */
   duration: number;
   /**
@@ -1521,36 +1533,39 @@ export interface AnimationOptions {
    * linear, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic,
    * easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart,
    * easeInQuint, easeOutQuint, easeInOutQuint.
-   *
-   * @type {string}
-   * @memberOf IAnimationOptions
    */
-  easingFunction: string;
+  easingFunction: EasingFunction;
 }
+
+export type EasingFunction =
+  'linear' |
+  'easeInQuad' |
+  'easeOutQuad' |
+  'easeInOutQuad' |
+  'easeInCubic' |
+  'easeOutCubic' |
+  'easeInOutCubic' |
+  'easeInQuart' |
+  'easeOutQuart' |
+  'easeInOutQuart' |
+  'easeInQuint' |
+  'easeOutQuint' |
+  'easeInOutQuint';
 
 /**
  * Optional options for the fit method.
- *
- * @export
- * @interface IFitOptions
  */
 export interface FitOptions {
   /**
    * The nodes can be used to zoom to fit only specific nodes in the view.
-   *
-   * @type {string[]}
-   * @memberOf IFitOptions
    */
   nodes?: string[];
 
   /**
    * For animation you can either use a Boolean to use it with the default options or
    * disable it or you can define the duration (in milliseconds) and easing function manually.
-   *
-   * @type {(IAnimationOptions | boolean)}
-   * @memberOf IFitOptions
    */
-  animation: AnimationOptions | boolean;
+  animation: TimelineAnimationType;
 }
 
 export interface SelectionOptions {
@@ -1560,9 +1575,6 @@ export interface SelectionOptions {
 
 /**
  * These values are in canvas space.
- *
- * @export
- * @interface IBoundingBox
  */
 export interface BoundingBox {
   top: number;
@@ -1573,9 +1585,6 @@ export interface BoundingBox {
 
 /**
  * Cluster methods options interface.
- *
- * @export
- * @interface IClusterOptions
  */
 export interface ClusterOptions {
   /**
@@ -1584,8 +1593,6 @@ export interface ClusterOptions {
    * and calls this function with their data as argument. If this function returns true,
    * this node will be added to the cluster. You have access to all options (including the default)
    * as well as any custom fields you may have added to the node to determine whether or not to include it in the cluster.
-   *
-   * @memberOf IClusterOptions
    */
   joinCondition?(nodeOptions: any): boolean;
 
@@ -1595,9 +1602,6 @@ export interface ClusterOptions {
    * supplied by you (clusterNodeProperties), all contained nodes and all contained edges.
    * You can use this to update the properties of the cluster based on which items it contains.
    * The function should return the properties to create the cluster node.
-   *
-   * @type {(clusterOptions: any, childNodesOptions: any[], childEdgesOptions: any[])}
-   * @memberOf IClusterOptions
    */
   processProperties?(clusterOptions: any, childNodesOptions: any[], childEdgesOptions: any[]): any;
 
@@ -1608,9 +1612,6 @@ export interface ClusterOptions {
    * This allows you to style your cluster node any way you want.
    * This is also the style object that is provided in the processProperties function for fine tuning.
    * If undefined, default node options will be used.
-   *
-   * @type {INodeOptions}
-   * @memberOf IClusterOptions
    */
   clusterNodeProperties?: NodeOptions;
 
@@ -1621,18 +1622,12 @@ export interface ClusterOptions {
    * Using this, you can style the edges connecting to the cluster any way you want.
    * If none are provided, the options from the edges that are replaced are used.
    * If undefined, default edge options will be used.
-   *
-   * @type {IEdgeOptions}
-   * @memberOf IClusterOptions
    */
   clusterEdgeProperties?: EdgeOptions;
 }
 
 /**
  * Options for the openCluster function of Network.
- *
- * @export
- * @interface IOpenClusterOptions
  */
 export interface OpenClusterOptions {
   /**
@@ -1646,8 +1641,6 @@ export interface OpenClusterOptions {
    * For all nodeIds not listed in this returned object,
    * we will position them at the location of the cluster.
    * This is also the default behaviour when no releaseFunction is defined.
-   *
-   * @memberOf IOpenClusterOptions
    */
   releaseFunction(
     clusterPosition: Position,
@@ -1695,6 +1688,7 @@ export interface Node {
   fixed?: boolean;
   image?: string;
   shape?: string;
+  color?: string | Color;
 }
 
 export interface Edge {
@@ -1704,30 +1698,31 @@ export interface Edge {
 }
 
 export interface Locales {
-    [language: string]: LocaleMessages | undefined;
-    en?: LocaleMessages;
-    de?: LocaleMessages;
-    es?: LocaleMessages;
-    it?: LocaleMessages;
-    nl?: LocaleMessages;
-    'pt-br'?: LocaleMessages;
-    ru?: LocaleMessages;
+  [language: string]: LocaleMessages | undefined;
+  en?: LocaleMessages;
+  cn?: LocaleMessages;
+  de?: LocaleMessages;
+  es?: LocaleMessages;
+  it?: LocaleMessages;
+  nl?: LocaleMessages;
+  'pt-br'?: LocaleMessages;
+  ru?: LocaleMessages;
 }
 
 export interface LocaleMessages {
-    edit: string;
-    del: string;
-    back: string;
-    addNode: string;
-    addEdge: string;
-    editNode: string;
-    editEdge: string;
-    addDescription: string;
-    edgeDescription: string;
-    editEdgeDescription: string;
-    createEdgeError: string;
-    deleteClusterError: string;
-    editClusterError: string;
+  edit: string;
+  del: string;
+  back: string;
+  addNode: string;
+  addEdge: string;
+  editNode: string;
+  editEdge: string;
+  addDescription: string;
+  edgeDescription: string;
+  editEdgeDescription: string;
+  createEdgeError: string;
+  deleteClusterError: string;
+  editClusterError: string;
 }
 
 export interface Options {
@@ -1760,6 +1755,22 @@ export interface Options {
   physics?: any; // http://visjs.org/docs/network/physics.html#
 }
 
+export interface Color {
+  border?: string;
+
+  background?: string;
+
+  highlight?: string | {
+    border?: string;
+    background?: string;
+  };
+
+  hover?: string | {
+    border?: string;
+    background?: string;
+  };
+}
+
 export interface NodeOptions {
   borderWidth?: number;
 
@@ -1767,18 +1778,7 @@ export interface NodeOptions {
 
   brokenImage?: string;
 
-  color?: {
-    border?: string,
-    background?: string,
-    highlight?: string | {
-      border?: string,
-      background?: string,
-    },
-    hover?: string | {
-      border?: string,
-      background?: string,
-    }
-  };
+  color?: Color;
 
   fixed?: boolean | {
     x?: boolean,

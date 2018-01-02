@@ -1,6 +1,7 @@
-// Type definitions for watson-developer-cloud 2.31
+// Type definitions for watson-developer-cloud 2.40
 // Project: https://github.com/watson-developer-cloud/node-sdk#readme
 // Definitions by: Roy Wallace <https://github.com/waldo000000>
+//                 Gintautas Miselis <https://github.com/Naktibalda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -55,20 +56,6 @@ export class AlchemyLanguageV1 {
     static URL: string;
 }
 
-export class AlchemyVisionV1 {
-    constructor(options: any);
-
-    getImageKeywords(_params: any, callback: any): any;
-
-    getImageLinks(_params: any, callback: any): any;
-
-    getImageSceneText(_params: any, callback: any): any;
-
-    recognizeFaces(_params: any, callback: any): any;
-
-    static URL: string;
-}
-
 export class AuthorizationV1 {
     constructor(options: any);
 
@@ -81,6 +68,8 @@ export class ConversationV1 {
     constructor(options: any);
 
     createCounterExample(params: any, callback: any): any;
+
+    createDialogNode(params: any, callback: any): any;
 
     createEntity(params: any, callback: any): any;
 
@@ -95,6 +84,8 @@ export class ConversationV1 {
     createWorkspace(params: any, callback: any): any;
 
     deleteCounterExample(params: any, callback: any): any;
+
+    deleteDialogNode(params: any, callback: any): any;
 
     deleteEntity(params: any, callback: any): any;
 
@@ -111,6 +102,10 @@ export class ConversationV1 {
     getCounterExample(params: any, callback: any): any;
 
     getCounterExamples(params: any, callback: any): any;
+
+    getDialogNode(params: any, callback: any): any;
+
+    getDialogNodes(params: any, callback: any): any;
 
     getEntities(params: any, callback: any): any;
 
@@ -142,6 +137,8 @@ export class ConversationV1 {
 
     updateCounterExample(params: any, callback: any): any;
 
+    updateDialogNode(params: any, callback: any): any;
+
     updateEntity(params: any, callback: any): any;
 
     updateExample(params: any, callback: any): any;
@@ -165,6 +162,8 @@ export class ConversationV1 {
     static VERSION_DATE_2017_02_03: string;
 
     static VERSION_DATE_2017_04_21: string;
+
+    static VERSION_DATE_2017_05_26: string;
 }
 
 export class ConversationV1Experimental {
@@ -206,7 +205,11 @@ export class DiscoveryV1 {
 
     addDocument(params: any, callback: any): any;
 
+    addJsonDocument(params: any, callback: any): any;
+
     createCollection(params: any, callback: any): any;
+
+    createConfiguration(params: any, callback: any): any;
 
     createEnvironment(params: any, callback: any): any;
 
@@ -217,6 +220,8 @@ export class DiscoveryV1 {
     deleteEnvironment(params: any, callback: any): any;
 
     getCollection(params: any, callback: any): any;
+
+    getCollectionFields(params: any, callback: any): any;
 
     getCollections(params: any, callback: any): any;
 
@@ -230,7 +235,13 @@ export class DiscoveryV1 {
 
     query(params: any, callback: any): any;
 
+    updateCollection(params: any, callback: any): any;
+
+    updateConfiguration(params: any, callback: any): any;
+
     updateDocument(params: any, callback: any): any;
+
+    updateJsonDocument(params: any, callback: any): any;
 
     updateEnvironment(params: any, callback: any): any;
 
@@ -239,6 +250,8 @@ export class DiscoveryV1 {
     static VERSION_DATE_2016_12_15: string;
 
     static VERSION_DATE_2017_04_27: string;
+
+    static VERSION_DATE_2017_08_01: string;
 }
 
 export class DiscoveryV1Experimental {
@@ -615,4 +628,6 @@ export class VisualRecognitionV3 {
     setImageMetadata(params: any, callback: any): any;
 
     static URL: string;
+
+    static VERSION_DATE_2016_05_20: string;
 }

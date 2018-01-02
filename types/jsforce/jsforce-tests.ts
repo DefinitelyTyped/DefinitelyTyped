@@ -63,3 +63,29 @@ salesforceConnection.sobject("ContentDocumentLink").create({
 });
 
 sf.Date.YESTERDAY;
+
+salesforceConnection.sobject<any>('Coverage__c')
+    .select(['Id', 'Name'])
+    .include('Coverage_State_Configurations__r')
+    .select(['Id']).where({ Is_Active__c: true })
+    .end()
+    .where({ Is_Active__c: true }).execute();
+
+const records: any[] = [];
+salesforceConnection.query('SELECT Id FROM Account')
+    .on('record', (record) => {
+        records.push(record);
+    })
+    .on('end', (query: any) => {
+        console.log(records);
+    })
+    .on('error', (error) => {
+        console.log('Error returned from query:', error);
+    })
+    .run({ autoFetch: true, maxFetch: 25 });
+
+salesforceConnection.sobject<any>('Coverage__c')
+    .select(['Id', 'Name']).del(() => { });
+
+salesforceConnection.sobject<any>('Coverage__c')
+    .select(['Id', 'Name']).del("test", () => { });

@@ -99,7 +99,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: Object
+  export var STATES: Object;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** The node-mongodb-native driver Mongoose uses. */
@@ -364,6 +364,60 @@ declare module "mongoose" {
     pass?: string;
     /** options for authentication (see http://mongodb.github.com/node-mongodb-native/api-generated/db.html#authenticate) */
     auth?: any;
+    /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
+    ssl?: boolean;
+    /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslValidate?: object;
+    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
+    poolSize?: number;
+    /** Reconnect on error (default: true) */
+    autoReconnect?: boolean;
+    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
+    keepAlive?: number;
+    /** TCP Connection timeout setting (default: 0) */
+    connectTimeoutMS?: number;
+    /** TCP Socket timeout setting (default: 0) */
+    socketTimeoutMS?: number;
+    /** If the database authentication is dependent on another databaseName. */
+    authSource?: string;
+    /** If you're connected to a single server or mongos proxy (as opposed to a replica set),
+     * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
+     * times, and give up afterward. When the driver gives up, the mongoose connection emits a
+     * reconnectFailed event. (default: 30) */
+    reconnectTries?: number;
+    /** Will wait # milliseconds between retries (default: 1000) */
+    reconnectInterval?: number;
+    /** The name of the replicaset to connect to. */
+    replicaSet?: string;
+    /** The current value of the parameter native_parser */
+    nativeParser?: boolean;
+    /** Auth mechanism */
+    authMechanism?: any;
+    /** Specify a journal write concern (default: false). */
+    journal?: boolean;
+    /** The write concern */
+    w?: number|string;
+    /** The write concern timeout. */
+    wTimeoutMS?: number;
+    /** The ReadPreference mode as listed here: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreference?: string;
+    /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
+    readPreferencetags?: object;
+    /** Triggers the server instance to call ismaster (default: true). */
+    monitoring?: boolean;
+    /** The interval of calling ismaster when monitoring is enabled (default: 10000). */
+    haInterval?: number;
+    /** Enable the wrapping of the callback in the current domain, disabled by default to avoid perf hit (default: false). */
+    domainsEnabled?: boolean;
+    /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
+    bufferMaxEntries?: number;
+
+    // TODO
+    safe?: any;
+    fsync?: any;
+    rs_name?: any;
+    slaveOk?: any;
+    authdb?: any;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */
@@ -469,6 +523,11 @@ declare module "mongoose" {
     static Messages: Object;
   }
 
+  interface EachAsyncOptions {
+    /** defaults to 1 */
+    parallel?: number;
+  }
+
   /*
    * section querycursor.js
    * http://mongoosejs.com/docs/api.html#querycursor-js
@@ -500,9 +559,20 @@ declare module "mongoose" {
      * Execute fn for every document in the cursor. If fn returns a promise,
      * will wait for the promise to resolve before iterating on to the next one.
      * Returns a promise that resolves when done.
-     * @param callback executed when all docs have been processed
+     * @param fn Function to be executed for every document in the cursor
+     * @param callback Executed when all docs have been processed
      */
     eachAsync(fn: (doc: T) => any, callback?: (err: any) => void): Promise<T>;
+
+    /**
+     * Execute fn for every document in the cursor. If fn returns a promise,
+     * will wait for the promise to resolve before iterating on to the next one.
+     * Returns a promise that resolves when done.
+     * @param fn Function to be executed for every document in the cursor
+     * @param options Async options (e. g. parallel function execution)
+     * @param callback Executed when all docs have been processed
+     */
+    eachAsync(fn: (doc: T) => any, options: EachAsyncOptions, callback?: (err: any) => void): Promise<T>;
 
     /**
      * Registers a transform function which subsequently maps documents retrieved
@@ -628,10 +698,8 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: () => void) => void,
-      errorCb?: (err: Error) => void): this;
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
+    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
 
     /**
      * Adds a method call to the queue.
@@ -690,6 +758,29 @@ declare module "mongoose" {
     obj: any;
   }
 
+  // Hook functions: https://github.com/vkarpov15/hooks-fixed
+  interface HookSyncCallback {
+    (next: HookNextFunction, ...hookArgs:any[]): any;
+  }
+
+  interface HookAsyncCallback {
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
+  }
+
+  interface HookErrorCallback {
+    (error: Error): any;
+  }
+
+  interface HookNextFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
+  }
+
+  interface HookDoneFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
+  }
+
   interface SchemaOptions {
     /** defaults to null (which means use the connection's autoIndex option) */
     autoIndex?: boolean;
@@ -711,7 +802,7 @@ declare module "mongoose" {
     minimize?: boolean;
     read?: string;
     /** defaults to true. */
-    safe?: boolean;
+    safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
@@ -748,7 +839,7 @@ declare module "mongoose" {
    * Intellisense for Schema definitions
    */
   interface SchemaDefinition {
-    [path: string]: SchemaTypeOpts<any>;
+    [path: string]: SchemaTypeOpts<any> | Schema | SchemaType;
   }
 
   /*
@@ -1084,8 +1175,13 @@ declare module "mongoose" {
   }
 
   interface MongooseDocumentOptionals {
-    /** The string version of this documents _id. */
-    id?: string;
+    /**
+     * Virtual getter that by default returns the document's _id field cast to a string,
+     * or in the case of ObjectIds, its hexString. This id getter may be disabled by
+     * passing the option { id: false } at schema construction time. If disabled, id
+     * behaves like any other field on a document and can be assigned any value.
+     */
+    id?: any;
   }
 
   interface DocumentToObjectOptions {
@@ -1307,7 +1403,7 @@ declare module "mongoose" {
     // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
     type ObjectIdConstructor = typeof mongodb.ObjectID & {
       (s?: string | number): mongodb.ObjectID;
-    }
+    };
 
     // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
     //   the ObjectIdConstructor, so we add the interface below
@@ -1563,7 +1659,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<Object>;
+    lean(bool?: boolean): Query<object>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -2198,7 +2294,7 @@ declare module "mongoose" {
 
     /** Provides promise for aggregate. */
     then<TRes>(resolve?: (val: T) =>  void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>
+      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2552,6 +2648,8 @@ declare module "mongoose" {
 
     /** Removes documents from the collection. */
     remove(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteOne(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteMany(conditions: Object, callback?: (err: any) => void): Query<void>;
 
     /**
      * Updates documents in the database without returning them.
@@ -2560,6 +2658,14 @@ declare module "mongoose" {
     update(conditions: Object, doc: Object,
       callback?: (err: any, raw: any) => void): Query<any>;
     update(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any>;
 
     /** Creates a Query, applies the passed conditions, and returns the Query. */
@@ -2660,6 +2766,15 @@ declare module "mongoose" {
     sort?: Object;
     /** sets the document fields to return */
     select?: Object;
+    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
+    passRawResult?: boolean;
+    /** overwrites the schema's strict mode option for this update */
+    strict?: boolean;
+    /**
+     * if true, run all setters defined on the associated model's schema for all fields
+     * defined in the query and the update.
+     */
+    runSettersOnQuery?: boolean;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
@@ -2683,7 +2798,7 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: Object;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[]
+    populate?: ModelPopulateOptions | ModelPopulateOptions[];
   }
 
   interface ModelUpdateOptions {

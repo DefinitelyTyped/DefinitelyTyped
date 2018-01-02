@@ -1,6 +1,7 @@
 // Type definitions for react-pointable 1.1
 // Project: https://github.com/MilllerTime/react-pointable
 // Definitions by: Stefan Fochler <https://github.com/istefo>
+//                 Dibyo Majumdar <https://github.com/mdibyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,10 +9,10 @@ import * as React from 'react';
 
 export type TouchAction = 'auto' | 'none' | 'pan-x' | 'pan-y' | 'manipulation';
 
-export interface PointableProps extends React.HTMLAttributes<HTMLElement> {
-    tagName?: keyof HTMLElementTagNameMap;
+export interface PointableProps extends React.HTMLAttributes<Element>, React.SVGAttributes<Element> {
+    tagName?: keyof ElementTagNameMap;
     touchAction?: TouchAction;
-    elementRef?(el: HTMLElement): void;
+    elementRef?(el: HTMLElement|SVGElement): void;
     onPointerMove?(evt: PointerEvent): void;
     onPointerDown?(evt: PointerEvent): void;
     onPointerUp?(evt: PointerEvent): void;

@@ -87,6 +87,7 @@ var email = jobs.create('email', {
   .priority('high')
   .save();
 
+console.log('email job priority: ', email.priority());
 
 email.on('promotion', function() {
   console.log('renewal job promoted');

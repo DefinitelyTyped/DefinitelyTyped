@@ -18,3 +18,14 @@ let opts: ldap.SearchOptions = {
 client.search('o=example', opts, (err: Error, res: NodeJS.EventEmitter): void => {
 	// nothing
 });
+
+let change = new ldap.Change({
+    operation: 'add',
+    modification: {
+        pets: ['cat', 'dog']
+    }
+});
+
+client.modify('cn=foo, o=example', change, function(err) {
+    // nothing
+});

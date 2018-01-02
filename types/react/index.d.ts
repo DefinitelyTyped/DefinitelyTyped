@@ -13,6 +13,7 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
+//                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,7 +33,7 @@ And since any object is assignable to {}, we would lose the type safety of the P
 Therefore, the type of props is left as Q, which should work for most cases.
 If you need to call cloneElement with key or ref, you'll need a type cast:
 interface ButtonProps {
-    label: string,
+    label: string;
     isDisabled?: boolean;
 }
 var element: React.CElement<ButtonProps, Button>;
@@ -46,6 +47,8 @@ React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
     isDisabled: true
 });
 */
+
+/// <reference path="global.d.ts" />
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -68,11 +71,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ReactType<P = any> = string | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T | null) => any);
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -121,6 +124,11 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
+    interface ReactPortal {
+        key: Key | null;
+        children: ReactNode;
+    }
+
     //
     // Factories
     // ----------------------------------------------------------------------
@@ -159,13 +167,11 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //
     // Top Level API
     // ----------------------------------------------------------------------
-
-    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
     // DOM Elements
     function createFactory<T extends HTMLElement>(
@@ -216,7 +222,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
+        type: SFC<P> | ComponentClass<P> | string,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -256,11 +262,10 @@ declare namespace React {
         props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
 
-    function isValidElement<P>(object: {}): object is ReactElement<P>;
+    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    const DOM: ReactDOM;
-    const PropTypes: ReactPropTypes;
     const Children: ReactChildren;
+    const Fragment: ComponentType;
     const version: string;
 
     //
@@ -273,16 +278,18 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
-        constructor(props?: P, context?: any);
+        constructor(props: P, context?: any);
 
-        // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
+        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
+        setState<K extends keyof S>(
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
+            callback?: () => any
+        ): void;
 
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null | false;
+        render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -323,7 +330,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+        new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -332,7 +339,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -343,8 +350,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T) &
+        (new (props: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -417,7 +424,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | null;
+        render(): ReactNode;
 
         [propertyName: string]: any;
     }
@@ -428,6 +435,9 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
+        /**
+         * A reference to the element on which the event listener is registered.
+         */
         currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
@@ -440,6 +450,12 @@ declare namespace React {
         isPropagationStopped(): boolean;
         persist(): void;
         // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+        /**
+         * A reference to the element from which the event was originally dispatched.
+         * This might be a child element to the element on which the event listener is registered.
+         *
+         * @see currentTarget
+         */
         target: EventTarget;
         timeStamp: number;
         type: string;
@@ -481,7 +497,13 @@ declare namespace React {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
+        /**
+         * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
+         */
         key: string;
         keyCode: number;
         locale: string;
@@ -500,6 +522,9 @@ declare namespace React {
         clientX: number;
         clientY: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeMouseEvent;
@@ -515,6 +540,9 @@ declare namespace React {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeTouchEvent;
@@ -555,7 +583,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = (event: E) => void;
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
@@ -902,6 +930,11 @@ declare namespace React {
         backgroundRepeat?: CSSWideKeyword | any;
 
         /**
+         * Defines the size of the background images
+         */
+        backgroundSize?: CSSWideKeyword | any;
+
+        /**
          * Obsolete - spec retired, not implemented.
          */
         baselineShift?: CSSWideKeyword | any;
@@ -931,12 +964,12 @@ declare namespace React {
         /**
          * Defines the shape of the border of the bottom-left corner.
          */
-        borderBottomLeftRadius?: CSSWideKeyword | any;
+        borderBottomLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Defines the shape of the border of the bottom-right corner.
          */
-        borderBottomRightRadius?: CSSWideKeyword | any;
+        borderBottomRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the line style of the bottom border of a box.
@@ -1015,6 +1048,11 @@ declare namespace React {
         borderLeftWidth?: CSSWideKeyword | any;
 
         /**
+         * Shorthand property that sets the rounding of all four corners.
+         */
+        borderRadius?: CSSWideKeyword | CSSLength;
+
+        /**
          * Shorthand property that defines the border-width, border-style and border-color of an element's right border
          * in a single declaration. Note that you can use the corresponding longhand properties to set specific
          * individual properties of the right border — border-right-width, border-right-style and border-right-color.
@@ -1074,12 +1112,12 @@ declare namespace React {
         /**
          * Sets the rounding of the top-left corner of the element.
          */
-        borderTopLeftRadius?: CSSWideKeyword | any;
+        borderTopLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the rounding of the top-right corner of the element.
          */
-        borderTopRightRadius?: CSSWideKeyword | any;
+        borderTopRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style.
@@ -2468,6 +2506,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
@@ -2576,6 +2615,8 @@ declare namespace React {
         media?: string;
         rel?: string;
         target?: string;
+        type?: string;
+        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -2623,6 +2664,7 @@ declare namespace React {
 
     interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+        width?: number | string;
     }
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2754,6 +2796,8 @@ declare namespace React {
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
         href?: string;
         hrefLang?: string;
         integrity?: string;
@@ -2774,10 +2818,12 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean;
         controls?: boolean;
+        controlsList?: string;
         crossOrigin?: string;
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
+        playsinline?: boolean;
         preload?: string;
         src?: string;
     }
@@ -3155,7 +3201,7 @@ declare namespace React {
         strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-        strokeMiterlimit?: string;
+        strokeMiterlimit?: number | string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         surfaceScale?: number | string;
@@ -3339,16 +3385,46 @@ declare namespace React {
     }
 
     interface ReactSVG {
-        svg: SVGFactory;
         animate: SVGFactory;
         circle: SVGFactory;
+        clipPath: SVGFactory;
         defs: SVGFactory;
+        desc: SVGFactory;
         ellipse: SVGFactory;
+        feBlend: SVGFactory;
+        feColorMatrix: SVGFactory;
+        feComponentTransfer: SVGFactory;
+        feComposite: SVGFactory;
+        feConvolveMatrix: SVGFactory;
+        feDiffuseLighting: SVGFactory;
+        feDisplacementMap: SVGFactory;
+        feDistantLight: SVGFactory;
+        feDropShadow: SVGFactory;
+        feFlood: SVGFactory;
+        feFuncA: SVGFactory;
+        feFuncB: SVGFactory;
+        feFuncG: SVGFactory;
+        feFuncR: SVGFactory;
+        feGaussianBlur: SVGFactory;
+        feImage: SVGFactory;
+        feMerge: SVGFactory;
+        feMergeNode: SVGFactory;
+        feMorphology: SVGFactory;
+        feOffset: SVGFactory;
+        fePointLight: SVGFactory;
+        feSpecularLighting: SVGFactory;
+        feSpotLight: SVGFactory;
+        feTile: SVGFactory;
+        feTurbulence: SVGFactory;
+        filter: SVGFactory;
+        foreignObject: SVGFactory;
         g: SVGFactory;
         image: SVGFactory;
         line: SVGFactory;
         linearGradient: SVGFactory;
+        marker: SVGFactory;
         mask: SVGFactory;
+        metadata: SVGFactory;
         path: SVGFactory;
         pattern: SVGFactory;
         polygon: SVGFactory;
@@ -3356,10 +3432,14 @@ declare namespace React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        svg: SVGFactory;
+        switch: SVGFactory;
         symbol: SVGFactory;
         text: SVGFactory;
+        textPath: SVGFactory;
         tspan: SVGFactory;
         use: SVGFactory;
+        view: SVGFactory;
     }
 
     interface ReactDOM extends ReactHTML, ReactSVG { }
@@ -3368,7 +3448,7 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
+    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
@@ -3447,17 +3527,18 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | null | false;
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML

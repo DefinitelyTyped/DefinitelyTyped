@@ -6,15 +6,11 @@
 interface LoadJsonFile {
     /**
      * Returns a promise for the parsed JSON.
-     *
-     * @param filepath
      */
     (filepath: string): Promise<any>;
 
     /**
      * Returns the parsed JSON.
-     *
-     * @param filepath
      */
     sync(filepath: string): any;
 }

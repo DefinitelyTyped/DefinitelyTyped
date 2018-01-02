@@ -16,15 +16,15 @@ export type Formatter = (value: any, name: string) => any;
 export type Parser = (value: any, name: string) => any;
 export type Validator = (value: any, allValues?: any, props?: any) => any;
 
-interface EventHandler<Event> {
+export interface EventHandler<Event> {
     (event: Event): void;
 }
 
-interface EventOrValueHandler<Event> extends EventHandler<Event> {
+export interface EventOrValueHandler<Event> extends EventHandler<Event> {
     (value: any): void;
 }
 
-interface CommonFieldProps {
+export interface CommonFieldProps {
     name: string;
     onBlur: EventOrValueHandler<FocusEvent<any>>;
     onChange: EventOrValueHandler<ChangeEvent<any>>;
@@ -33,9 +33,10 @@ interface CommonFieldProps {
     onFocus: EventHandler<FocusEvent<any>>;
 }
 
-interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
+export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
-    component?: ComponentType<P> | "input" | "select" | "textarea",
+    label?: string;
+    component?: ComponentType<P & WrappedFieldProps> | "input" | "select" | "textarea",
     format?: Formatter | null;
     normalize?: Normalizer;
     props?: P;
@@ -53,7 +54,10 @@ export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
     getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
-type GenericFieldHTMLAttributes = InputHTMLAttributes<HTMLInputElement> | SelectHTMLAttributes<HTMLSelectElement> | TextareaHTMLAttributes<HTMLTextAreaElement>;
+export type GenericFieldHTMLAttributes =
+    InputHTMLAttributes<HTMLInputElement> |
+    SelectHTMLAttributes<HTMLSelectElement> |
+    TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldProps<P> & P> implements GenericField<P> {
     dirty: boolean;
@@ -63,17 +67,17 @@ export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldPr
     getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
-interface WrappedFieldProps {
+export interface WrappedFieldProps {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
 }
 
-interface WrappedFieldInputProps extends CommonFieldProps {
+export interface WrappedFieldInputProps extends CommonFieldProps {
     checked?: boolean;
     value: any;
 }
 
-interface WrappedFieldMetaProps {
+export interface WrappedFieldMetaProps {
     active?: boolean;
     autofilled: boolean;
     asyncValidating: boolean;
@@ -91,3 +95,5 @@ interface WrappedFieldMetaProps {
     visited: boolean;
     warning?: any;
 }
+
+export default Field;

@@ -4,6 +4,7 @@ var anyObj: any = { abc: 123 };
 var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
+var apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
 var apiGwEvt: AWSLambda.APIGatewayEvent;
 var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 var clientCtx: AWSLambda.ClientContext;
@@ -22,33 +23,33 @@ var snsEvtRec: AWSLambda.SNSEventRecord;
 var snsMsg: AWSLambda.SNSMessage;
 var snsMsgAttr: AWSLambda.SNSMessageAttribute;
 var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
-var S3EvtRec: AWSLambda.S3EventRecord = {  
+var S3EvtRec: AWSLambda.S3EventRecord = {
     eventVersion: '2.0',
     eventSource: 'aws:s3',
     awsRegion: 'us-east-1',
     eventTime: '1970-01-01T00:00:00.000Z',
     eventName: 'ObjectCreated:Put',
-    userIdentity: {  
+    userIdentity: {
         principalId: 'AIDAJDPLRKLG7UEXAMPLE'
     },
-    requestParameters:{  
+    requestParameters:{
         sourceIPAddress: '127.0.0.1'
     },
-    responseElements: {  
+    responseElements: {
         'x-amz-request-id': 'C3D13FE58DE4C810',
         'x-amz-id-2': 'FMyUVURIY8/IgAtTv8xRjskZQpcIZ9KG4V5Wp6S7S/JRWeUWerMUE5JgHvANOjpD'
     },
-    s3: {  
+    s3: {
         s3SchemaVersion: '1.0',
         configurationId: 'testConfigRule',
-        bucket: {  
+        bucket: {
             name: 'mybucket',
-            ownerIdentity: {  
+            ownerIdentity: {
                 principalId: 'A3NL1KOZZKExample'
             },
             arn: 'arn:aws:s3:::mybucket'
         },
-        object: {  
+        object: {
             key: 'HappyFace.jpg',
             size: 1024,
             eTag: 'd41d8cd98f00b204e9800998ecf8427e',
@@ -65,6 +66,28 @@ var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
 
+/* API Gateway Event request context */
+str = apiGwEvtReqCtx.accountId;
+str = apiGwEvtReqCtx.apiId;
+authResponseContext = apiGwEvtReqCtx.authorizer;
+str = apiGwEvtReqCtx.httpMethod;
+str = apiGwEvtReqCtx.identity.accessKey;
+str = apiGwEvtReqCtx.identity.accountId;
+str = apiGwEvtReqCtx.identity.apiKey;
+str = apiGwEvtReqCtx.identity.caller;
+str = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
+str = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
+str = apiGwEvtReqCtx.identity.cognitoIdentityId;
+str = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
+str = apiGwEvtReqCtx.identity.sourceIp;
+str = apiGwEvtReqCtx.identity.user;
+str = apiGwEvtReqCtx.identity.userAgent;
+str = apiGwEvtReqCtx.identity.userArn;
+str = apiGwEvtReqCtx.stage;
+str = apiGwEvtReqCtx.requestId;
+str = apiGwEvtReqCtx.resourceId;
+str = apiGwEvtReqCtx.resourcePath;
+
 /* API Gateway Event */
 str = apiGwEvt.body;
 str = apiGwEvt.headers["example"];
@@ -74,31 +97,112 @@ str = apiGwEvt.path;
 str = apiGwEvt.pathParameters["example"];
 str = apiGwEvt.queryStringParameters["example"];
 str = apiGwEvt.stageVariables["example"];
-str = apiGwEvt.requestContext.accountId;
-str = apiGwEvt.requestContext.apiId;
-str = apiGwEvt.requestContext.httpMethod;
-str = apiGwEvt.requestContext.identity.accessKey;
-str = apiGwEvt.requestContext.identity.accountId;
-str = apiGwEvt.requestContext.identity.apiKey;
-str = apiGwEvt.requestContext.identity.caller;
-str = apiGwEvt.requestContext.identity.cognitoAuthenticationProvider;
-str = apiGwEvt.requestContext.identity.cognitoAuthenticationType;
-str = apiGwEvt.requestContext.identity.cognitoIdentityId;
-str = apiGwEvt.requestContext.identity.cognitoIdentityPoolId;
-str = apiGwEvt.requestContext.identity.sourceIp;
-str = apiGwEvt.requestContext.identity.user;
-str = apiGwEvt.requestContext.identity.userAgent;
-str = apiGwEvt.requestContext.identity.userArn;
-str = apiGwEvt.requestContext.stage;
-str = apiGwEvt.requestContext.requestId;
-str = apiGwEvt.requestContext.resourceId;
-str = apiGwEvt.requestContext.resourcePath;
+apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
 
 /* API Gateway CustomAuthorizer Event */
 str = customAuthorizerEvt.type;
-str = customAuthorizerEvt.authorizationToken;
 str = customAuthorizerEvt.methodArn;
+str = customAuthorizerEvt.authorizationToken;
+str = apiGwEvt.pathParameters["example"];
+str = apiGwEvt.queryStringParameters["example"];
+str = apiGwEvt.stageVariables["example"];
+apiGwEvtReqCtx = apiGwEvt.requestContext;
+
+/* DynamoDB Stream Event */
+var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
+    Records: [
+        {
+            eventID: '1',
+            eventVersion: '1.0',
+            dynamodb: {
+                Keys: {
+                    Id: {
+                        N: 101
+                    }
+                },
+                NewImage: {
+                    Message: {
+                        S: 'New item!'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES',
+                SequenceNumber: '111',
+                SizeBytes: 26
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'INSERT',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        },
+        {
+            eventID: '2',
+            eventVersion: '1.0',
+            dynamodb: {
+                OldImage: {
+                    Message: {
+                        S: 'New item!'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                SequenceNumber: '222',
+                Keys: {
+                    Id: {
+                        N: 101
+                    }
+                },
+                SizeBytes: 59,
+                NewImage: {
+                    Message: {
+                        S: 'This item has changed'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'MODIFY',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        },
+        {
+            eventID: '3',
+            eventVersion: '1.0',
+            dynamodb: {
+                Keys: {
+                    Id: {
+                        N: 101
+                    }
+                },
+                SizeBytes: 38,
+                SequenceNumber: '333',
+                OldImage: {
+                    Message: {
+                        S: 'This item has changed'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'REMOVE',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        }
+    ]
+};
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
@@ -285,6 +389,9 @@ function callback(cb: AWSLambda.Callback) {
     cb(null);
     cb(error);
     cb(null, anyObj);
+    cb(null, b);
+    cb(null, str);
+    cb(null, num);
 }
 
 /* Proxy Callback */
@@ -302,6 +409,131 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
     cb(error);
     cb(null, authResponse);
 }
+
+/* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
+var CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+  "Records": [
+    {
+      "cf": {
+        "config": {
+          "distributionId": "EDFDVBD6EXAMPLE",
+          "requestId": "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        "request": {
+          "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          "method": "GET",
+          "uri": "/picture.jpg",
+          "querystring": "size=large",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                "key": "User-Agent",
+                "value": "curl/7.51.0"
+              }
+            ]
+          },
+          "origin": {
+            "custom": {
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "example.com",
+              "keepaliveTimeout": 5,
+              "path": "/custom_path",
+              "port": 443,
+              "protocol": "https",
+              "readTimeout": 5,
+              "sslProtocols": [
+                "TLSv1",
+                "TLSv1.1"
+              ]
+            },
+            "s3": {
+              "authMethod": "origin-access-identity",
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "my-bucket.s3.amazonaws.com",
+              "path": "/s3_path",
+              "region": "us-east-1"
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+var CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
+    "Records": [
+        {
+            "cf": {
+                "config": {
+                    "distributionId": "EDFDVBD6EXAMPLE",
+                    "requestId": "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
+                },
+                "request": {
+                    "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+                    "method": "GET",
+                    "uri": "/picture.jpg",
+                    "querystring": "size=large",
+                    "headers": {
+                        "host": [
+                            {
+                                "key": "Host",
+                                "value": "d111111abcdef8.cloudfront.net"
+                            }
+                        ],
+                        "user-agent": [
+                            {
+                                "key": "User-Agent",
+                                "value": "curl/7.18.1"
+                            }
+                        ]
+                    }
+                },
+                "response": {
+                    "status": "200",
+                    "statusDescription": "OK",
+                    "headers": {
+                        "server": [
+                            {
+                                "key": "Server",
+                                "value": "MyCustomOrigin"
+                            }
+                        ],
+                        "set-cookie": [
+                            {
+                                "key": "Set-Cookie",
+                                "value": "theme=light"
+                            },
+                            {
+                                "key": "Set-Cookie",
+                                "value": "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+};
 
 /* Compatibility functions */
 context.done();

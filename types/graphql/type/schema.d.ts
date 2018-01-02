@@ -7,6 +7,9 @@ import {
     GraphQLAbstractType
 } from './definition';
 import {
+  SchemaDefinitionNode
+} from '../language/ast';
+import {
     GraphQLDirective,
 } from './directives';
 
@@ -37,6 +40,7 @@ import {
  *
  */
 export class GraphQLSchema {
+    astNode?: SchemaDefinitionNode;
     // private _queryType: GraphQLObjectType;
     // private _mutationType: GraphQLObjectType;
     // private _subscriptionType: GraphQLObjectType;
@@ -69,4 +73,5 @@ export interface GraphQLSchemaConfig {
     subscription?: GraphQLObjectType;
     types?: GraphQLNamedType[];
     directives?: GraphQLDirective[];
+    astNode?: SchemaDefinitionNode;
 }

@@ -7,7 +7,7 @@ import Bluebird = require('bluebird');
 // ~~~~~~~~~~
 //
 
-interface AnyAttributes { };
+interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
@@ -914,6 +914,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
@@ -937,6 +938,7 @@ User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as 
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
 User.findOne( { where : s.fn('count', []) } );
+User.findOne( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
@@ -1205,6 +1207,17 @@ new Sequelize( {
     typeValidation: true
 } );
 
+new Sequelize({
+    operatorsAliases: false,
+});
+
+new Sequelize({
+    operatorsAliases: {
+        $and: Sequelize.Op.and,
+        customAlias: Sequelize.Op.or,
+    },
+});
+
 s.model( 'Project' );
 s.models['Project'];
 s.define( 'Project', {
@@ -1464,6 +1477,13 @@ Chair.findAll({
     where: {
         color: 'blue',
         legs: { $in: [3, 4] },
+    },
+});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { [Sequelize.Op.in]: [3, 4] },
     },
 });
 

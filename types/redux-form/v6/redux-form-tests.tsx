@@ -3,6 +3,8 @@ import { Component } from 'react';
 import { Action } from 'redux';
 import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
+ // TODO: tests fail in TypeScript@next when strictFunctionTypes=true
+
 interface CustomComponentProps {
     customProp: string;
 }
@@ -86,7 +88,7 @@ reduxForm({
 // adapted from: http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState/
 
 import { connect, DispatchProp } from 'react-redux'
-const { DOM: { input } } = React
+import { input } from 'react-dom-factories';
 
 interface DataShape {
     firstName: string;
@@ -119,7 +121,7 @@ const DecoratedInitializeFromStateFormFunction = reduxForm({
 
 // You have to connect() to any reducers that you wish to connect to yourself
 const ConnectedDecoratedInitializeFromStateFormFunction = connect(
-    state => ({
+    (state: any) => ({
         initialValues: state.account.data // pull initial values from account reducer
     }),
 )(DecoratedInitializeFromStateFormFunction);

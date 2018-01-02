@@ -46,6 +46,15 @@ commonTags.source`
   </div>
 `;
 
+let userMessages = ['hi', 'what are you up to?', '<script>alert("something evil")</script>']
+commonTags.html`
+  <div class="chat-list">
+    <ul>
+      ${userMessages.map(message => commonTags.safeHtml`<li>${message}</li>`)}
+    </ul>
+  </div>
+`
+
 commonTags.oneLine`
   foo
   bar
@@ -145,6 +154,10 @@ new commonTags.TemplateTag(commonTags.stripIndentTransformer('initial'));
 new commonTags.TemplateTag(commonTags.stripIndentTransformer('all'));
 
 new commonTags.TemplateTag(commonTags.replaceResultTransformer('foo', 'bar'));
+new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/baz/g, 'bar'));
+
+new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer('foo', 'bar'));
+new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/baz/g, 'bar'));
 
 new commonTags.TemplateTag(commonTags.inlineArrayTransformer());
 new commonTags.TemplateTag(commonTags.inlineArrayTransformer({}));

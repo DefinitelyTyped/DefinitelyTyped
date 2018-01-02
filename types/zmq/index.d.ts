@@ -44,7 +44,7 @@ interface SocketOptions {
     swap: number;
 }
 
-interface Socket extends EventEmitter {
+export class Socket implements EventEmitter {
     /**
      * Set `opt` to `val`.
      *

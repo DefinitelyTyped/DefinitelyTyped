@@ -418,7 +418,7 @@ declare namespace __ReactMDL {
         hideSpacer?: boolean;
     }
     interface HeaderRowProps extends __MDLOtherProps {
-        title?: string;
+        title?: any; // string | JSX.Element
         hideSpacer?: boolean;
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {
@@ -584,7 +584,7 @@ declare namespace __ReactMDL {
     class Tabs extends __MDLComponent<TabsProps> { }
 
 
-    interface TextfieldProps extends MDLHTMLAttributes, React.DOMAttributes<Textfield> {
+    interface TextfieldProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLInputElement> {
         label: string;
         disabled?: boolean;
         error?: React.ReactNode;
@@ -594,7 +594,7 @@ declare namespace __ReactMDL {
         id?: string;
         inputClassName?: string;
         maxRows?: number;
-        onChange?: React.FormEventHandler<Textfield>;
+        onChange?: React.FormEventHandler<HTMLInputElement>;
         pattern?: string;
         required?: boolean;
         rows?: number;
@@ -603,7 +603,9 @@ declare namespace __ReactMDL {
         name?: string;
         title?: string;
     }
-    class Textfield extends __MDLComponent<TextfieldProps> { }
+    class Textfield extends __MDLComponent<TextfieldProps> {
+        inputRef?: HTMLInputElement;
+    }
 
 
     interface TooltipProps extends MDLHTMLAttributes, React.DOMAttributes<Tooltip> {

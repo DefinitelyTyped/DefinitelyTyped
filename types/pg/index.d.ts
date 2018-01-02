@@ -1,4 +1,4 @@
-// Type definitions for pg 7.1
+// Type definitions for pg 7.4
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,6 +47,7 @@ export interface QueryConfig {
     name?: string;
     text: string;
     values?: any[];
+    rowMode?: string;
 }
 
 export interface QueryResult {
@@ -93,9 +94,9 @@ export class Pool extends events.EventEmitter {
 }
 
 export class Client extends events.EventEmitter {
-    constructor(config: ClientConfig);
+    constructor(config: string | ClientConfig);
 
-    connect(): Promise<Client>;
+    connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
 
     end(): Promise<void>;
@@ -115,9 +116,12 @@ export class Client extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
+    escapeIdentifier(str: string): string;
+    escapeLiteral(str: string): string;
+
     on(event: "drain", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "notification" | "notice", listener: (message: Notification) => void): this;
+    on(event: "error" | "notice", listener: (err: Error) => void): this;
+    on(event: "notification", listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
 }
@@ -136,6 +140,6 @@ export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
 
-import * as Pg from 'pg';
+import * as Pg from '.';
 
 export const native: typeof Pg | null;

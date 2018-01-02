@@ -1,6 +1,7 @@
-// Type definitions for react-native-material-kit 0.4
+// Type definitions for react-native-material-kit 0.5
 // Project: https://github.com/xinthink/react-native-material-kit
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -185,6 +186,10 @@ export interface TickProperties extends ViewProperties {
 ///////////////////////////////
 // COMPONENTS
 ///////////////////////////////
+
+export class MKComponent<P, S> extends React.Component<P, S> {
+    static Builder: any;
+}
 
 export interface MKColorStatic {
     Amber: string;
@@ -374,32 +379,29 @@ export const MKColor: MKColorStatic;
 export function setTheme(theme: ThemeStatic): void;
 export function getTheme(): ThemeStatic;
 
-export class MKButton extends React.Component<MKButtonProperties, any> {}
+export class MKButton extends MKComponent<MKButtonProperties, any> {}
 
-export class MKTextField extends React.Component<MKTextFieldProperties, any> {}
+export class MKTextField extends MKComponent<MKTextFieldProperties, any> {}
 
-export class MKSwitch extends React.Component<MKSwitchProperties, any> {}
+export class MKSwitch extends MKComponent<MKSwitchProperties, any> {}
 
-export class MKIconToggle extends
-    React.Component<MKIconToggleProperties, any> {}
+export class MKIconToggle extends MKComponent<MKIconToggleProperties, any> {}
 
-export class MKRipple extends React.Component<MKRippleProperties, any> {}
+export class MKRipple extends MKComponent<MKRippleProperties, any> {}
 
-export class MKProgress extends React.Component<MKProgressProperties, any> {}
+export class MKProgress extends MKComponent<MKProgressProperties, any> {}
 
 export namespace MKProgress {
     class Indeterminate extends React.Component<IndeterminateProgressProperties> {}
 }
 
-export class MKSlider extends React.Component<MKSliderProperties, any> {}
+export class MKSlider extends MKComponent<MKSliderProperties, any> {}
 
-export class MKRangeSlider extends
-    React.Component<MKRangeSliderProperties, any> {}
+export class MKRangeSlider extends MKComponent<MKRangeSliderProperties, any> {}
 
-export class MKSpinner extends React.Component<MKSpinnerProperties, any> {}
+export class MKSpinner extends MKComponent<MKSpinnerProperties, any> {}
 
-export class MKRadioButton extends
-React.Component<MKRadioButtonProperties, any> {}
+export class MKRadioButton extends MKComponent<MKRadioButtonProperties, any> {}
 
 export namespace MKRadioButton {
     class MKRadioButton {}
@@ -416,4 +418,4 @@ export namespace MKRadioButton {
     }
 }
 
-export class MKCheckbox extends React.Component<MKCheckboxProperties, any> {}
+export class MKCheckbox extends MKComponent<MKCheckboxProperties, any> {}

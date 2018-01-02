@@ -1,8 +1,9 @@
-// Type definitions for react-grid-layout 0.14
+// Type definitions for react-grid-layout 0.16
 // Project: https://github.com/STRML/react-grid-layout
 // Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
 //                 Ali Taheri <https://github.com/alitaheri>,
-//                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Zheyang Song <https://github.com/ZheyangSong>,
+//                 Andrew Hathaway <https://github.com/andrewhathaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -62,6 +63,11 @@ declare namespace ReactGridLayout {
          * Maximum height in grid units.
          */
         maxH?: number;
+
+        /**
+         * set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)
+         */
+        moved?: boolean;
 
         /**
          * If true, equal to `isDraggable: false` and `isResizable: false`.
@@ -132,6 +138,11 @@ declare namespace ReactGridLayout {
         verticalCompact?: boolean;
 
         /**
+         * Compaction type.
+         */
+        compactType?: "vertical" | "horizontal" | null;
+
+        /**
          * This allows setting the initial width on the server side.
          * This is required unless using the HOC <WidthProvider> or similar.
          */
@@ -161,6 +172,16 @@ declare namespace ReactGridLayout {
          * If set to false it will disable resizing on all children.
          */
         isResizable?: boolean;
+
+        /**
+         * Enable or disable grid rearrangement when dragging/resizing an element.
+         */
+        isRearrangeable?: boolean;
+
+        /**
+         * If true, grid items won't change position when being dragged over.
+         */
+        preventCollision?: boolean;
 
         /**
          * Uses CSS3 `translate()` instead of position top/left.

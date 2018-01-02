@@ -8,6 +8,7 @@ import {
     FormSection,
     GenericFormSection,
     formValues,
+    formValueSelector,
     Field,
     GenericField,
     WrappedFieldProps,
@@ -17,14 +18,27 @@ import {
     FieldArray,
     GenericFieldArray,
     WrappedFieldArrayProps,
+    BaseFieldProps,
     reducer,
     FormAction,
-    actionTypes
+    actionTypes,
+    submit
 } from "redux-form";
 import {
     Field as ImmutableField,
     reduxForm as immutableReduxForm
 } from "redux-form/immutable";
+
+import LibField, {
+    WrappedFieldProps as LibWrappedFieldProps
+} from "redux-form/lib/Field";
+import libReducer from "redux-form/lib/reducer";
+import LibFormSection from "redux-form/lib/FormSection";
+import libFormValueSelector from "redux-form/lib/formValueSelector";
+import libReduxForm from "redux-form/lib/reduxForm";
+import libActions from "redux-form/lib/actions";
+
+ // TODO: tests fail in TypeScript@next when strictFunctionTypes=true
 
 /* Decorated components */
 interface TestFormData {
@@ -112,6 +126,11 @@ const MyField: StatelessComponent<MyFieldProps> = ({
 };
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
+type FieldProps = BaseFieldProps<MyFieldCustomProps> & MyFieldCustomProps;
+const FieldCustomComp: StatelessComponent<FieldProps> = props => (
+    <FieldCustom {...props} component={MyField} />
+)
+
 const MyFieldImm: StatelessComponent<MyFieldProps> = ({
     children,
     input,
@@ -183,7 +202,7 @@ const testFormWithInitialValuesDecorator = reduxForm<MultivalueFormData>({
     }
 })
 
-// Specifying form data type *is* required here, because type inference will guess the type of 
+// Specifying form data type *is* required here, because type inference will guess the type of
 // the form data type parameter to be {foo: string}. The result of validate does not contain "foo"
 const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueFormData>({
     form: "testWithValidation",
@@ -249,6 +268,11 @@ const Test = reduxForm({
                                 foo="bar"
                             />
 
+                            <FieldCustomComp
+                                name="field_4_comp"
+                                foo="bar"
+                            />
+
                             <FieldImmutableCustom
                                 name="field4"
                                 component={ MyField }
@@ -304,3 +328,27 @@ reducer.plugin({
     }
 });
 
+/* Test using versions imported directly/as defaults from lib */
+const DefaultField = (
+    <LibField
+        name="defaultfield"
+        component="input"
+        type="text"
+    />
+);
+
+libReducer({}, {
+    type: "ACTION"
+});
+
+const DefaultFormSection = (
+    <LibFormSection
+        name="defaultformsection"
+    />
+);
+
+const TestLibFormRequired = libReduxForm<TestFormData>({})(TestFormComponent);
+const TestLibForm = libReduxForm<TestFormData>({ form : "test" })(TestFormComponent);
+
+const testSubmit = submit("test");
+const testLibSubmit = libActions.submit("test");

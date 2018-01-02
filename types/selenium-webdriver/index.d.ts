@@ -862,49 +862,8 @@ export namespace promise {
    * @interface
    * @template T
    */
-  class Thenable<T> implements IThenable<T> {
-    /**
-     * Registers listeners for when this instance is resolved.
-     *
-     * @param onfulfilled
-     *     The function to call if this promise is successfully resolved. The function
-     *     should expect a single argument: the promise's resolved value.
-     * @param onrejected
-     *     The function to call if this promise is rejected. The function should
-     *     expect a single argument: the rejection reason.
-     * @return A new promise which will be resolved with the result
-     *     of the invoked callback.
-     * @template R
-     */
-    then<TResult1 = T, TResult2 = never>(
-      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-
-    /**
-     * Registers a listener for when this promise is rejected. This is synonymous
-     * with the {@code catch} clause in a synchronous API:
-     *
-     *     // Synchronous API:
-     *     try {
-     *       doSynchronousWork();
-     *     } catch (ex) {
-     *       console.error(ex);
-     *     }
-     *
-     *     // Asynchronous promise API:
-     *     doAsynchronousWork().catch(function(ex) {
-     *       console.error(ex);
-     *     });
-     *
-     * @param {function(*): (R|IThenable<R>)} errback The
-     *     function to call if this promise is rejected. The function should
-     *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    catch<R>(errback: Function): Promise<R>;
-
+  interface Thenable<T> extends IThenable<T> {}
+  class Thenable<T> {
     /**
      * Registers a listener to invoke when this promise is resolved, regardless
      * of whether the promise's value was successfully computed. This function
@@ -2025,7 +1984,8 @@ export class Alert {
  * @implements {promise.Thenable.<!Alert>}
  * @final
  */
-export class AlertPromise extends Alert implements promise.IThenable<Alert> {
+export interface AlertPromise extends promise.IThenable<Alert> {}
+export class AlertPromise extends Alert {
   /**
    * @param {!WebDriver} driver The driver controlling the browser this
    *     alert is attached to.
@@ -2033,48 +1993,6 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
    *     that will be fulfilled with the promised alert.
    */
   constructor(driver: WebDriver, alert: promise.Promise<Alert>);
-
-  // region Methods
-
-  /**
-   * Registers listeners for when this instance is resolved. This function most
-   * overridden by subtypes.
-   *
-   * @param opt_callback The function to call if this promise is
-   *     successfully resolved. The function should expect a single argument: the
-   *     promise's resolved value.
-   * @param opt_errback The function to call if this promise is
-   *     rejected. The function should expect a single argument: the rejection
-   *     reason.
-   * @return A new promise which will be resolved
-   *     with the result of the invoked callback.
-   */
-  then(opt_callback?: Function, opt_errback?: Function): promise.Promise<any>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   *
-   *     // Synchronous API:
-   *     try {
-   *       doSynchronousWork();
-   *     } catch (ex) {
-   *       console.error(ex);
-   *     }
-   *
-   *     // Asynchronous promise API:
-   *     doAsynchronousWork().catch(function(ex) {
-   *       console.error(ex);
-   *     });
-   *
-   * @param {function(*): (R|IThenable<R>)} errback The
-   *     function to call if this promise is rejected. The function should
-   *     expect a single argument: the rejection reason.
-   * @return {!ManagedPromise<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  catch<R>(errback: Function): promise.Promise<R>;
 }
 
 /**
@@ -4776,7 +4694,8 @@ export class WebElement implements Serializable<IWebElementId> {
  * @implements {promise.Thenable.<!WebElement>}
  * @final
  */
-export class WebElementPromise extends WebElement implements promise.IThenable<WebElement> {
+export interface WebElementPromise extends promise.IThenable<WebElement> {}
+export class WebElementPromise extends WebElement {
   /**
    * @param {!WebDriver} driver The parent WebDriver instance for this
    *     element.
@@ -4784,59 +4703,6 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
    *     that will resolve to the promised element.
    */
   constructor(driver: WebDriver, el: promise.Promise<WebElement>);
-
-  /**
-   * Registers listeners for when this instance is resolved.
-   *
-   * @param opt_callback The
-   *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise's resolved value.
-   * @param opt_errback The
-   *     function to call if this promise is rejected. The function should expect
-   *     a single argument: the rejection reason.
-   * @return A new promise which will be
-   *     resolved with the result of the invoked callback.
-   */
-  then<R>(opt_callback?: (value: WebElement) => promise.Promise<R>, opt_errback?: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers listeners for when this instance is resolved.
-   *
-   * @param opt_callback The
-   *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise's resolved value.
-   * @param opt_errback The
-   *     function to call if this promise is rejected. The function should expect
-   *     a single argument: the rejection reason.
-   * @return A new promise which will be
-   *     resolved with the result of the invoked callback.
-   */
-  then<R>(opt_callback?: (value: WebElement) => R, opt_errback?: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   *
-   *     // Synchronous API:
-   *     try {
-   *       doSynchronousWork();
-   *     } catch (ex) {
-   *       console.error(ex);
-   *     }
-   *
-   *     // Asynchronous promise API:
-   *     doAsynchronousWork().catch(function(ex) {
-   *       console.error(ex);
-   *     });
-   *
-   * @param {function(*): (R|IThenable<R>)} errback The
-   *     function to call if this promise is rejected. The function should
-   *     expect a single argument: the rejection reason.
-   * @return {!ManagedPromise<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  catch<R>(errback: Function): promise.Promise<R>;
 }
 
 /**

@@ -826,7 +826,7 @@ export namespace dom {
 
     parseStyle(cssText: string): {};
 
-    remove<T>(node: string, keepChildren?: boolean): Element | T[];
+    remove<T>(node: string | Element, keepChildren?: boolean): Element | T[];
 
     removeAllAttribs(e: Element): void;
 

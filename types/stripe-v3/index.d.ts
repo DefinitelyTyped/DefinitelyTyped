@@ -19,6 +19,7 @@ declare namespace stripe {
     interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
         createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+        createSource(options: SourceOptions): Promise<SourceResponse>;
     }
 
     interface StripeOptions {
@@ -34,6 +35,36 @@ declare namespace stripe {
         address_zip?: string;
         address_country?: string;
         currency?: string;
+    }
+
+    interface SourceOptions {
+        type: string;
+        flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
+        sepa_debit?: {
+            iban: string;
+        };
+        currency?: string;
+        amount?: number;
+        owner?: {
+            address?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+            };
+            name?: string;
+            email?: string;
+            phone?: string;
+        };
+        metadata?: {};
+        statement_descriptor?: string;
+        redirect?: {
+            return_url: string;
+        };
+        token?: string;
+        usage?: 'reusable' | 'single_use';
     }
 
     interface Token {
@@ -53,12 +84,41 @@ declare namespace stripe {
         error?: Error;
     }
 
+    interface Source {
+        client_secret: string;
+        created: number;
+        currency: string;
+        id: string;
+        owner: {
+            address: string | null;
+            email: string | null;
+            name: string | null;
+            phone: string | null;
+            verified_address: string | null;
+            verified_email: string | null;
+            verified_name: string | null;
+            verified_phone: string | null;
+        };
+        sepa_debit?: {
+            bank_code: string | null;
+            country: string | null;
+            fingerprint: string;
+            last4: string;
+            mandate_reference: string;
+        };
+    }
+
+    interface SourceResponse {
+        source?: Source;
+        error?: Error;
+    }
+
     interface Error {
         type: string;
         charge: string;
         message?: string;
         code?: string;
-        declined_code?: string;
+        decline_code?: string;
         param?: string;
     }
 
@@ -119,12 +179,13 @@ declare namespace stripe {
         interface Element {
             // HTMLElement keeps giving this error for some reason:
             // Cannot find name 'HTMLElement'
-            mount(domElement: string | any): void;
+            mount(domElement: any): void;
             on(event: eventTypes, handler: handler): void;
             focus(): void;
             blur(): void;
             clear(): void;
             unmount(): void;
+            destroy(): void;
             update(options: ElementsOptions): void;
         }
 
