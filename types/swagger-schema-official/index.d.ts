@@ -165,7 +165,7 @@ export interface BaseSecurity {
   description?: string;
 }
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
   // It's the exact same interface as BaseSecurity
 }

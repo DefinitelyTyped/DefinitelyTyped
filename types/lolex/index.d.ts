@@ -1,6 +1,8 @@
-// Type definitions for lolex 1.5
+// Type definitions for lolex 2.1
 // Project: https://github.com/sinonjs/lolex
-// Definitions by: Wim Looman <https://github.com/Nemo157>, Josh Goldberg <https://github.com/joshuakgoldberg>
+// Definitions by: Wim Looman <https://github.com/Nemo157>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -34,7 +36,7 @@ type BrowserClock = LolexClock<number>;
 type NodeClock = LolexClock<NodeTimer> & {
     /**
      * Mimicks process.hrtime().
-     * 
+     *
      * @param prevTime   Previous system time to calculate time elapsed.
      * @returns High resolution real time as [seconds, nanoseconds].
      */
@@ -49,7 +51,7 @@ type Clock = BrowserClock | NodeClock;
 /**
  * Names of clock methods that may be faked by install.
  */
-type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date";
+type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime";
 
 /**
  * Controls the flow of time.
@@ -67,7 +69,7 @@ export interface LolexClock<TTimerId extends TimerId> {
 
     /**
      * Schedules a callback to be fired once timeout milliseconds have ticked by.
-     * 
+     *
      * @param callback   Callback to be fired.
      * @param timeout   How many ticks to wait to run the callback.
      * @param args   Any extra arguments to pass to the callback.
@@ -77,14 +79,14 @@ export interface LolexClock<TTimerId extends TimerId> {
 
     /**
      * Clears a timer, as long as it was created using setTimeout.
-     * 
+     *
      * @param id   Timer ID or object.
      */
     clearTimeout(id: TTimerId): void;
 
     /**
      * Schedules a callback to be fired every time timeout milliseconds have ticked by.
-     * 
+     *
      * @param callback   Callback to be fired.
      * @param timeout   How many ticks to wait between callbacks.
      * @param args   Any extra arguments to pass to the callback.
@@ -94,14 +96,14 @@ export interface LolexClock<TTimerId extends TimerId> {
 
     /**
      * Clears a timer, as long as it was created using setInterval.
-     * 
+     *
      * @param id   Timer ID or object.
      */
     clearInterval(id: TTimerId): void;
 
     /**
      * Schedules the callback to be fired once 0 milliseconds have ticked by.
-     * 
+     *
      * @param callback   Callback to be fired.
      * @remarks You'll still have to call clock.tick() for the callback to fire.
      * @remarks If called during a tick the callback won't fire until 1 millisecond has ticked by.
@@ -110,10 +112,15 @@ export interface LolexClock<TTimerId extends TimerId> {
 
     /**
      * Clears a timer, as long as it was created using setImmediate.
-     * 
+     *
      * @param id   Timer ID or object.
      */
     clearImmediate(id: TTimerId): void;
+
+    /**
+     * Simulates process.nextTick();
+     */
+    nextTick(callback: () => void): void;
 
     /**
      * Advances the clock to the the moment of the first scheduled timer, firing it.
@@ -122,14 +129,14 @@ export interface LolexClock<TTimerId extends TimerId> {
 
     /**
      * Advance the clock, firing callbacks if necessary.
-     * 
+     *
      * @param time   How many ticks to advance by.
      */
     tick(time: number | string): void;
 
     /**
      * Runs all pending timers until there are none remaining.
-     * 
+     *
      * @remarks  If new timers are added while it is executing they will be run as well.
      */
     runAll(): void;
@@ -142,7 +149,7 @@ export interface LolexClock<TTimerId extends TimerId> {
 
     /**
      * Simulates a user changing the system clock.
-     * 
+     *
      * @param now   New system time.
      * @remarks This affects the current time but it does not in itself cause timers to fire.
      */
@@ -157,7 +164,7 @@ export interface LolexClock<TTimerId extends TimerId> {
 
 /**
  * Creates a clock.
- * 
+ *
  * @param now   Current time for the clock.
  * @param loopLimit    Maximum number of timers that will be run when calling runAll()
  *                     before assuming that we have an infinite loop and throwing an error
@@ -167,23 +174,47 @@ export interface LolexClock<TTimerId extends TimerId> {
  */
 export declare function createClock<TClock extends Clock>(now?: number | Date, loopLimit?: number): TClock;
 
-/**
- * Creates a clock and installs it globally.
- * 
- * @param now   Current time for the clock, as with lolex.createClock().
- * @param toFake   Names of methods that should be faked.
- * @type TClock   Type of clock to create.
- * @usage lolex.install(["setTimeout", "clearTimeout"]);
- */
-export declare function install<TClock extends Clock>(now?: number | Date, toFake?: FakeMethod[]): TClock;
+
+export interface LolexInstallOpts {
+    /**
+     * Installs lolex onto the specified target context (default: global)
+     */
+    target?: any;
+
+    /**
+     * Installs lolex with the specified unix epoch (default: 0)
+     */
+    now?: number;
+
+    /**
+     * An array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick
+     * e.g., lolex.install({ toFake: ["setTimeout", "nextTick"]}) will fake only setTimeout and nextTick
+     */
+    toFake?: FakeMethod[];
+
+    /**
+     * The maximum number of timers that will be run when calling runAll() (default: 1000)
+     */
+    loopLimit?: number;
+
+    /**
+     * Tells lolex to increment mocked time automatically based on the real system time shift (e.g. the mocked time will be incremented by
+     * 20ms for every 20ms change in the real system time) (default: false)
+     */
+    shouldAdvanceTime?: boolean;
+
+    /**
+     * Relevant only when using with shouldAdvanceTime: true. increment mocked time by advanceTimeDelta ms every advanceTimeDelta ms change
+     * in the real system time (default: 20)
+     */
+    advanceTimeDelta?: number;
+}
 
 /**
- * Creates a clock and installs it onto the context object.
- * 
- * @param context   Context to install the clock onto.
+ * Creates a clock and installs it globally.
+ *
  * @param now   Current time for the clock, as with lolex.createClock().
  * @param toFake   Names of methods that should be faked.
  * @type TClock   Type of clock to create.
- * @usage lolex.install(context, ["setTimeout", "clearTimeout"]);
  */
-export declare function install<TClock extends Clock>(context?: any, now?: number | Date, toFake?: FakeMethod[]): TClock;
+export declare function install<TClock extends Clock>(opts?: LolexInstallOpts): TClock;
