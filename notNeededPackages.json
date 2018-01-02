@@ -151,6 +151,18 @@
             "asOfVersion": "0.0.31"
         },
         {
+            "libraryName": "bignumber.js",
+            "typingsPackageName": "bignumber.js",
+            "sourceRepoURL": "https://github.com/MikeMcl/bignumber.js/",
+            "asOfVersion": "4.0.3"
+        },
+        {
+            "libraryName": "botvs",
+            "typingsPackageName": "botvs",
+            "sourceRepoURL": "https://www.botvs.com/",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "Bowser",
             "typingsPackageName": "bowser",
             "sourceRepoURL": "https://github.com/ded/bowser",
@@ -217,6 +229,120 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "core-decorators.js",
+            "typingsPackageName": "core-decorators",
+            "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
+            "asOfVersion": "0.20.0"
+        },
+        {
+            "libraryName": "cordova-plugin-battery-status",
+            "typingsPackageName": "cordova-plugin-battery-status",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-battery-status",
+            "asOfVersion": "1.2.3"
+        },
+        {
+            "libraryName": "cordova-plugin-camera",
+            "typingsPackageName": "cordova-plugin-camera",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-camera",
+            "asOfVersion": "2.4.0"
+        },
+        {
+            "libraryName": "cordova-plugin-contacts",
+            "typingsPackageName": "cordova-plugin-contacts",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-contacts",
+            "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "cordova-plugin-device",
+            "typingsPackageName": "cordova-plugin-device",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-device",
+            "asOfVersion": "1.1.5"
+        },
+        {
+            "libraryName": "cordova-plugin-device-motion",
+            "typingsPackageName": "cordova-plugin-device-motion",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-device-motion",
+            "asOfVersion": "1.2.4"
+        },
+        {
+            "libraryName": "Apache Cordova Device Orientation plugin",
+            "typingsPackageName": "cordova-plugin-device-orientation",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-device-orientation",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "cordova-plugin-dialogs",
+            "typingsPackageName": "cordova-plugin-dialogs",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-dialogs",
+            "asOfVersion": "1.3.2"
+        },
+        {
+            "libraryName": "Apache Cordova File System plugin",
+            "typingsPackageName": "cordova-plugin-file",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-file",
+            "asOfVersion": "4.3.2"
+        },
+        {
+            "libraryName": "cordova-plugin-file-transfer",
+            "typingsPackageName": "cordova-plugin-file-transfer",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-file-transfer",
+            "asOfVersion": "1.6.2"
+        },
+        {
+            "libraryName": "cordova-plugin-globalization",
+            "typingsPackageName": "cordova-plugin-globalization",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-globalization",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "cordova-plugin-inappbrowser",
+            "typingsPackageName": "cordova-plugin-inappbrowser",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-inappbrowser",
+            "asOfVersion": "1.7.0"
+        },
+        {
+            "libraryName": "cordova-plugin-media",
+            "typingsPackageName": "cordova-plugin-media",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-media",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "cordova-plugin-media-capture",
+            "typingsPackageName": "cordova-plugin-media-capture",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-media-capture",
+            "asOfVersion": "1.4.2"
+        },
+        {
+            "libraryName": "cordova-plugin-network-information",
+            "typingsPackageName": "cordova-plugin-network-information",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-network-information",
+            "asOfVersion": "1.3.2"
+        },
+        {
+            "libraryName": "cordova-plugin-splashscreen",
+            "typingsPackageName": "cordova-plugin-splashscreen",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-splashscreen",
+            "asOfVersion": "4.0.2"
+        },
+        {
+            "libraryName": "Apache Cordova StatusBar plugin",
+            "typingsPackageName": "cordova-plugin-statusbar",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-statusbar",
+            "asOfVersion": "2.2.2"
+        },
+        {
+            "libraryName": "Apache Cordova Vibration plugin",
+            "typingsPackageName": "cordova-plugin-vibration",
+            "sourceRepoURL": "https://github.com/apache/cordova-plugin-vibration",
+            "asOfVersion": "2.1.4"
+        },
+        {
+            "libraryName": "cordova.plugins.diagnostic",
+            "typingsPackageName": "cordova.plugins.diagnostic",
+            "sourceRepoURL": "https://github.com/dpa99c/cordova-diagnostic-plugin",
+            "asOfVersion": "3.7.0"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
@@ -271,6 +397,18 @@
             "asOfVersion": "0.3.1"
         },
         {
+            "libraryName": "easy-x-headers",
+            "typingsPackageName": "easy-x-headers",
+            "sourceRepoURL": "https://github.com/DeadAlready/easy-x-headers",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "easy-xapi-supertest",
+            "typingsPackageName": "easy-xapi-supertest",
+            "sourceRepoURL": "https://github.com/DeadAlready/easy-xapi-supertest",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "ecmarkup",
             "typingsPackageName": "ecmarkup",
             "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
@@ -295,6 +433,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "email-addresses",
+            "typingsPackageName": "email-addresses",
+            "sourceRepoURL": "https://github.com/jackbowman/email-addresses",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "email-validator",
             "typingsPackageName": "email-validator",
             "sourceRepoURL": "https://github.com/Sembiance/email-validator",
@@ -311,6 +455,12 @@
             "typingsPackageName": "es6-error",
             "sourceRepoURL": "https://github.com/bjyoungblood/es6-error",
             "asOfVersion": "4.0.2"
+        },
+        {
+            "libraryName": "es6-promise",
+            "typingsPackageName": "es6-promise",
+            "sourceRepoURL": "https://github.com/jakearchibald/ES6-Promise",
+            "asOfVersion": "3.3.0"
         },
         {
             "libraryName": "eventemitter2",
@@ -379,6 +529,18 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "Foundation Sites",
+            "typingsPackageName": "foundation-sites",
+            "sourceRepoURL": "http://foundation.zurb.com/",
+            "asOfVersion": "6.4.3"
+        },
+        {
+            "libraryName": "FullCalendar",
+            "typingsPackageName": "fullcalendar",
+            "sourceRepoURL": "http://arshaw.com/fullcalendar/",
+            "asOfVersion": "3.8.0"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
@@ -403,16 +565,40 @@
             "asOfVersion": "2.0.31"
         },
         {
+            "libraryName": "griddle-react",
+            "typingsPackageName": "griddle-react",
+            "sourceRepoURL": "https://github.com/griddlegriddle/griddle",
+            "asOfVersion": "1.3.0"
+        },
+        {
+            "libraryName": "gulp-tslint",
+            "typingsPackageName": "gulp-tslint",
+            "sourceRepoURL": "https://github.com/panuhorsmalahti/gulp-tslint",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "gulp-typescript",
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "handsontable",
+            "typingsPackageName": "handsontable",
+            "sourceRepoURL": "https://handsontable.com/",
+            "asOfVersion": "0.35.0"
+        },
+        {
             "libraryName": "http-status-codes",
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "homeworks",
+            "typingsPackageName": "homeworks",
+            "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
+            "asOfVersion": "1.0.19"
         },
         {
             "libraryName": "iconv-lite",
@@ -487,10 +673,22 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jasmine-expect",
+            "typingsPackageName": "jasmine-expect",
+            "sourceRepoURL": "https://github.com/JamieMason/Jasmine-Matchers",
+            "asOfVersion": "3.8.1"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
             "asOfVersion": "0.2.28"
+        },
+        {
+            "libraryName": "joData",
+            "typingsPackageName": "jodata",
+            "sourceRepoURL": "https://github.com/mccow002/joData",
+            "asOfVersion": "1.0.13"
         },
         {
             "libraryName": "jpush-react-native",
@@ -643,6 +841,18 @@
             "asOfVersion": "2.7.1"
         },
         {
+            "libraryName": "microgears",
+            "typingsPackageName": "microgears",
+            "sourceRepoURL": "https://github.com/marcusdb/microgears",
+            "asOfVersion": "4.0.5"
+        },
+        {
+            "libraryName": "mobile-detect",
+            "typingsPackageName": "mobile-detect",
+            "sourceRepoURL": "http://hgoebl.github.io/mobile-detect.js/",
+            "asOfVersion": "1.3.4"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
@@ -715,6 +925,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "passport-client-cert",
+            "typingsPackageName": "passport-client-cert",
+            "sourceRepoURL": "https://github.com/ripjar/passport-client-cert",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "path-case",
             "typingsPackageName": "path-case",
             "sourceRepoURL": "https://github.com/blakeembrey/path-case",
@@ -725,6 +941,12 @@
             "typingsPackageName": "path-to-regexp",
             "sourceRepoURL": "https://github.com/pillarjs/path-to-regexp",
             "asOfVersion": "1.7.0"
+        },
+        {
+            "libraryName": "perfect-scrollbar",
+            "typingsPackageName": "perfect-scrollbar",
+            "sourceRepoURL": "https://github.com/noraesae/perfect-scrollbar",
+            "asOfVersion": "1.3.0"
         },
         {
             "libraryName": "pg-connection-string",
@@ -829,6 +1051,12 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "react-flip-move",
+            "typingsPackageName": "react-flip-move",
+            "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
+            "asOfVersion": "2.9.12"
+        },
+        {
             "libraryName": "react-ga",
             "typingsPackageName": "react-ga",
             "sourceRepoURL": "https://github.com/react-ga/react-ga",
@@ -841,10 +1069,22 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "react-native-goby",
+            "typingsPackageName": "react-native-goby",
+            "sourceRepoURL": "https://gitlab.com/MessageDream/react-native-goby",
+            "asOfVersion": "0.0.5"
+        },
+        {
             "libraryName": "react-native-google-analytics-bridge",
             "typingsPackageName": "react-native-google-analytics-bridge",
             "sourceRepoURL": "https://github.com/idehub/react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
+        },
+        {
+            "libraryName": "react-native-modal",
+            "typingsPackageName": "react-native-modal",
+            "sourceRepoURL": "https://github.com/react-native-community/react-native-modal",
+            "asOfVersion": "4.1.1"
         },
         {
             "libraryName": "react-split-pane",
@@ -1009,6 +1249,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "smooth-scrollbar",
+            "typingsPackageName": "smooth-scrollbar",
+            "sourceRepoURL": "https://github.com/idiotWu/smooth-scrollbar",
+            "asOfVersion": "8.2.5"
+        },
+        {
             "libraryName": "Smoothie Charts",
             "typingsPackageName": "smoothie",
             "sourceRepoURL": "https://github.com/joewalnes/smoothie",
@@ -1025,6 +1271,12 @@
             "typingsPackageName": "soap",
             "sourceRepoURL": "https://www.npmjs.com/package/soap",
             "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "source-map",
+            "typingsPackageName": "source-map",
+            "sourceRepoURL": "https://github.com/mozilla/source-map",
+            "asOfVersion": "0.5.7"
         },
         {
             "libraryName": "Spin.js",
@@ -1055,6 +1307,12 @@
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "survey-knockout",
+            "typingsPackageName": "survey-knockout",
+            "sourceRepoURL": "http://surveyjs.org/",
+            "asOfVersion": "0.10.0"
         },
         {
             "libraryName": "svg-pan-zoom",
@@ -1153,6 +1411,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "UUID.js",
+            "typingsPackageName": "uuidjs",
+            "sourceRepoURL": "https://github.com/LiosK/UUID.js",
+            "asOfVersion": "3.6.0"
+        },
+        {
             "libraryName": "Validate.js",
             "typingsPackageName": "validate.js",
             "sourceRepoURL": "https://github.com/ansman/validate.js",
@@ -1187,6 +1451,18 @@
             "typingsPackageName": "webcola",
             "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "webgme",
+            "typingsPackageName": "webgme",
+            "sourceRepoURL": "https://webgme.org",
+            "asOfVersion": "2.11.0"
+        },
+        {
+            "libraryName": "wolfy87-eventemitter",
+            "typingsPackageName": "wolfy87-eventemitter",
+            "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
+            "asOfVersion": "5.2.0"
         },
         {
             "libraryName": "wonder-commonlib",

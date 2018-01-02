@@ -1148,8 +1148,8 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: ReadonlyArray<T>): T;
-        nth(n: number): <T>(list: ReadonlyArray<T>) => T;
+        nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
+        nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
         /**
          * Returns a function which returns its nth argument.
@@ -1643,16 +1643,22 @@ declare namespace R {
         /**
          * Splits a given list or string at a given index.
          */
-        splitAt<T>(index: number, list: T): T[];
-        splitAt(index: number): <T>(list: T) => T[];
-        splitAt<T>(index: number, list: ReadonlyArray<T>): T[][];
-        splitAt(index: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitAt<T>(index: number, list: ReadonlyArray<T>): [T[], T[]];
+        splitAt(index: number, list: string): [string, string];
+        splitAt(index: number): {
+            <T>(list: ReadonlyArray<T>): [T[], T[]];
+            (list: string): [string, string];
+        };
 
         /**
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
-        splitEvery(a: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitEvery(a: number, list: string): string[];
+        splitEvery(a: number): {
+            (list: string): string[];
+            <T>(list: ReadonlyArray<T>): T[][];
+        };
 
         /**
          * Takes a list and a predicate and returns a pair of lists with the following properties:

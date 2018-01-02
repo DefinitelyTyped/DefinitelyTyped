@@ -1899,6 +1899,14 @@ class Rectangle {
     const b: number[][] = R.splitAt(1)([1, 2, 3]);        // => [[1], [2, 3]]
     const c: string[]   = R.splitAt(5, "hello world");      // => ['hello', ' world']
     const d: string[]   = R.splitAt(-1, "foobar");          // => ['fooba', 'r']
+    const e: string[]   = R.splitAt(-1)("foobar");          // => ['fooba', 'r']
+};
+
+() => {
+    const a: number[][] = R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const b: number[][] = R.splitEvery(3)([1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const c: string[]   = R.splitEvery(3, 'foobarbaz'); // => ['foo', 'bar', 'baz']
+    const d: string[]   = R.splitEvery(3)('foobarbaz'); // => ['foo', 'bar', 'baz']
 };
 
 () => {
