@@ -8,10 +8,17 @@ import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
 declare namespace h {}
 
-declare function h<P>(
+type Element = ReactElement<any> | string | number | null;
+
+declare function h(
+    componentOrTag: ComponentClass | StatelessComponent | string,
+    children?: ReadonlyArray<Element> | Element
+): ReactElement<any>;
+
+declare function h<P extends {[attr: string]: any}>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,
-    properties?: P,
-    children?: ReadonlyArray<ReactElement<any>> | string
+    properties: P,
+    children?: ReadonlyArray<Element> | Element
 ): ReactElement<P>;
 
 export = h;

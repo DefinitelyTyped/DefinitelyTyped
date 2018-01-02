@@ -1,6 +1,8 @@
-// Type definitions for nock v8.2.0
+// Type definitions for nock v9.1.3
 // Project: https://github.com/node-nock/nock
-// Definitions by: bonnici <https://github.com/bonnici>, Horiuchi_H <https://github.com/horiuchi>
+// Definitions by: bonnici <https://github.com/bonnici>
+//                 Horiuchi_H <https://github.com/horiuchi>
+//                 afharo <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -67,7 +69,7 @@ declare namespace nock {
         filteringRequestBody(fn: (body: string) => string): this;
 
         log(out: () => void): this;
-        persist(): this;
+        persist(flag?: boolean): this;
         shouldPersist(): boolean;
         replyContentLength(): this;
         replyDate(d?: Date): this;

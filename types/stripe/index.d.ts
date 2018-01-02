@@ -1,10 +1,11 @@
-// Type definitions for stripe 4.8
+// Type definitions for stripe 4.9
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Brannon Jones <https://github.com/brannon>
+//                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -735,7 +736,7 @@ declare namespace Stripe {
              * The application fee (if any) for the charge. See the Connect documentation
              * for details. [Expandable]
              */
-            application_fee?: string;
+            application_fee?: string | applicationFees.IApplicationFee;
 
             /**
              * ID of the balance transaction that describes the impact of this charge on
@@ -4258,7 +4259,10 @@ declare namespace Stripe {
              */
             current_period_start: number;
 
-            customer: string;
+            /**
+             * ID of the customer who owns the subscription. [Expandable]
+             */
+            customer: string | customers.ICustomer;
 
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a

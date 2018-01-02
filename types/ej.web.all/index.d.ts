@@ -17,7 +17,6 @@
 *  applicable laws.
 */
 declare namespace ej {
-    /* tslint:disable:no-empty-interface */
     const dataUtil: dataUtil;
     function isMobile(): boolean;
     function isIOS(): boolean;
