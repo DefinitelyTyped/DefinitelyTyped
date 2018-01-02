@@ -9,6 +9,11 @@ export interface PaginationProps {
 	display: number;
 	current: number;
 	onChange(value: number): void;
+	styleRoot: React.CSSProperties;
+	styleFirstPageLink: React.CSSProperties;
+	styleLastPageLink: React.CSSProperties;
+	styleButton: React.CSSProperties;
+	stylePrimary: React.CSSProperties;
 }
 declare class Pagination extends React.Component<PaginationProps, {}> {}
 export default Pagination;
