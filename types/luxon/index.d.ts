@@ -88,6 +88,7 @@ declare module 'luxon' {
                 text: string,
                 options?: DateTimeOptions
             ): DateTime;
+            static fromSQL(text: string, options?: DateTimeOptions): DateTime;
             static fromString(
                 text: string,
                 format: string,
@@ -180,6 +181,9 @@ declare module 'luxon' {
             toLocaleString(options?: DateTimeFormat): string;
             toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
+            toSQL(options?: Object): string;
+            toSQLDate(): string;
+            toSQLTime(options?: Object): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
             until(other: DateTime): Duration;
