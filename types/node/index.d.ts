@@ -1176,6 +1176,7 @@ declare module "cluster" {
         stdio?: any[];
         uid?: number;
         gid?: number;
+        inspectPort?: number | (() => number);
     }
 
     export interface Address {
