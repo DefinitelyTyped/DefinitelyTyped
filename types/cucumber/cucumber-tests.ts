@@ -165,7 +165,13 @@ function StepSample() {
         defineParameterType({
             regexp: /particular/,
             transformer: s => s.toUpperCase(),
-            typeName: 'param'
+            typeName: 'param'  // deprecated but still supported
+        });
+
+        defineParameterType({
+            regexp: /particularly/,
+            transformer: s => s.toUpperCase(),
+            name: 'param'
         });
 
         Given('a {param} step', param => {
