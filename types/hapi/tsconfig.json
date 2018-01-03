@@ -33,6 +33,7 @@
         "test/route/handler.ts",
         "test/route/route-options.ts",
         "test/route/route-options-pre.ts",
+        "test/route/validation.ts",
         "test/server/server-app.ts",
         "test/server/server-auth-api.ts",
         "test/server/server-auth-default.ts",
