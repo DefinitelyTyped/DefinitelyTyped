@@ -5,6 +5,7 @@
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace Papa;
 
