@@ -50,11 +50,49 @@ export interface StepDefinitions {
 }
 
 export interface HookScenarioResult {
+    sourceLocation: SourceLocation;
+    result: ScenarioResult;
+    pickle: pickle.Pickle;
+}
+
+export interface SourceLocation {
+    line: number;
+    url: string;
+}
+
+export interface ScenarioResult {
     duration: number;
-    failureException: Error;
-    scenario: Scenario;
     status: Status;
-    stepsResults: any;
+}
+
+export namespace pickle {
+    interface Pickle {
+        language: string;
+        locations: Location[];
+        name: string;
+        steps: Step[];
+        tags: string[];
+    }
+
+    interface Location {
+        column: number;
+        line: number;
+    }
+
+    interface Step {
+        arguments: Argument[];
+        locations: Location[];
+        text: string;
+    }
+
+    interface Argument {
+        rows: Cell[];
+    }
+
+    interface Cell {
+        location: Location;
+        value: string;
+    }
 }
 
 export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
