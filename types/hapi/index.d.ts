@@ -2661,7 +2661,7 @@ export interface PluginRegistrationObject<OptionsPassedToPlugin> extends PluginR
     /** the plugin registration function. */
     register: PluginFunction<OptionsPassedToPlugin>;
     /** optional options passed to the registration function when called. */
-    options?: OptionsPassedToPlugin;
+    options?: any;
 }
 
 /**
