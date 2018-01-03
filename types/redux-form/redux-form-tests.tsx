@@ -126,11 +126,10 @@ const MyField: React.StatelessComponent<MyFieldProps> = ({
 };
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
-
 type FieldProps = BaseFieldProps<MyFieldCustomProps> & MyFieldCustomProps;
-const FieldCustomComp: StatelessComponent<FieldProps> = props => (
+const FieldCustomComp: React.StatelessComponent<FieldProps> = props => (
     <FieldCustom {...props} component={MyField} />
-)
+);
 
 const MyFieldImm: React.StatelessComponent<MyFieldProps> = ({
     children,
