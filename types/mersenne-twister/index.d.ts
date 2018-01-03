@@ -1,15 +1,15 @@
 // Type definitions for mersenne-twister 1.1
 // Project: https://github.com/boo1ean/mersenne-twister
 // Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
+//                 taichi <https://github.com/taichi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = MersenneTwister;
-declare class MersenneTwister {
+export default class MersenneTwister {
     /**
      * constructs mt with a number
      * @params seed
      */
-    constructor(seed?: number|number[]);
+    constructor(seed?: number | number[]);
 
     /**
      * initializes mt with a number
