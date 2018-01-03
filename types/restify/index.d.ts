@@ -439,9 +439,10 @@ export interface Request extends http.IncomingMessage {
     // query(): string;
 
     /**
-     * returns ms since epoch when request was setup.
+     * returns the high-resolution time since epoch when request was setup in a [seconds, nanoseconds] tuple Array,
+     * where nanoseconds is the remaining part of the real time that can't be represented in second precision.
      */
-    time(): number;
+    time(): [number, number];
 
     /**
      * returns a parsed URL object.
