@@ -18,7 +18,4 @@ export function spacingElementById(id: string): void;
 export function spacingElementByClassName(className: string): void;
 export function spacingElementByTagName(tagName: string): void;
 
-export namespace Pangu {
-}
-export default Pangu;
 export as namespace pangu;
