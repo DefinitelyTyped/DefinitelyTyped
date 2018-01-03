@@ -7442,6 +7442,13 @@ namespace TestFlow {
     let Fn2 = (m: number, n: number) => 0;
     let Fn3 = (a: number) => "";
     let Fn4 = (a: string) => 0;
+    let Fn5 = (a?: string) => 0;
+
+    {
+        const result = _.flow(Fn5, Fn1);
+
+        result('foo');
+    }
 
     {
         // type infer test
