@@ -1,0 +1,7 @@
+{
+	"name": "discord-rpc-typings",
+	"version": "1.0.0",
+	"dependencies": {
+		"discord.js": "github:hydrabolt/discord.js"
+	}
+}
