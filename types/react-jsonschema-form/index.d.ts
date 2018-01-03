@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 0.51.0
+// Type definitions for react-jsonschema-form 1.0.0
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 //                 Jon Surrell <https://github.com/sirreal>
