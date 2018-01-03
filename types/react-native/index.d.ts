@@ -3307,15 +3307,15 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
     onLoadStart?: () => void;
 
     progressiveRenderingEnabled?: boolean;
-    
+
     borderRadius?: number;
-    
+
     borderTopLeftRadius?: number;
-    
+
     borderTopRightRadius?: number; 
-    
+
     borderBottomLeftRadius?: number;
-    
+
     borderBottomRightRadius?: number; 
 
     /**
