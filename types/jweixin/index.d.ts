@@ -1,6 +1,7 @@
 // Type definitions for jweixin 1.0
 // Project: https://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html
 // Definitions by: taoqf <https://github.com/taoqf>
+// 					gomydodo <https://github.com/gomydodo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* =================== USAGE ===================
 import * as wx from 'jweixin';
@@ -245,6 +246,17 @@ declare namespace wx {
 	 * 下载图片接口
 	 */
 	function downloadImage(params: IdownloadImage): void;
+
+	interface IgetLocalImgData extends BaseParams {
+		localId: string; // 图片的localID
+		// localData是图片的base64数据，可以用img标签显示
+		success(res: { localData: string }): void;
+	}
+
+	/**
+	 * 获取本地图片接口
+	 */
+	function getLocalImgData(params: IgetLocalImgData): void;
 	/*=============================图像接口================================*/
 	/*=============================音频接口================================*/
 	/**
