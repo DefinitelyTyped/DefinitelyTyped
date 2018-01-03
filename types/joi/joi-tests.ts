@@ -693,6 +693,10 @@ objSchema = objSchema.optionalKeys(str);
 objSchema = objSchema.optionalKeys(str, str);
 objSchema = objSchema.optionalKeys(strArr);
 
+objSchema = objSchema.forbiddenKeys(str);
+objSchema = objSchema.forbiddenKeys(str, str);
+objSchema = objSchema.forbiddenKeys(strArr);
+
 namespace common {
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);

@@ -2648,6 +2648,8 @@ declare module "mongoose" {
 
     /** Removes documents from the collection. */
     remove(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteOne(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteMany(conditions: Object, callback?: (err: any) => void): Query<void>;
 
     /**
      * Updates documents in the database without returning them.
@@ -2656,6 +2658,14 @@ declare module "mongoose" {
     update(conditions: Object, doc: Object,
       callback?: (err: any, raw: any) => void): Query<any>;
     update(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any>;
 
     /** Creates a Query, applies the passed conditions, and returns the Query. */

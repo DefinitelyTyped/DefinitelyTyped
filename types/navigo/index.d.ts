@@ -15,7 +15,7 @@ declare class Navigo {
      * @param root The main URL of your application.
      * @param useHash If useHash set to true then the router uses an old routing approach with hash in the URL. Navigo anyways falls back to this mode if there is no History API supported.
      */
-    constructor(root?: string | null, useHash?: boolean);
+    constructor(root?: string | null, useHash?: boolean, hash?: string);
 
     on(location: string, handler: RouteHandler, hooks?: NavigoHooks): Navigo;
     on(location: RegExp, handler: (...parameters: string[]) => void, hooks?: NavigoHooks): Navigo;
