@@ -5216,6 +5216,10 @@ export class WebGLRenderer implements Renderer {
     setTexture(texture: Texture, slot: number): void;
     setTexture2D(texture: Texture, slot: number): void;
     setTextureCube(texture: Texture, slot: number): void;
+    getRenderTarget(): RenderTarget;
+	/**
+     * @deprecated Use getRenderTarget instead.
+     */
     getCurrentRenderTarget(): RenderTarget;
     setRenderTarget(renderTarget: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
