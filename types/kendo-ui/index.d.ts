@@ -3748,7 +3748,7 @@ declare namespace kendo.ui {
         aggregates?: any;
         attributes?: any;
         columns?: any;
-        command?: GridColumnCommandItem[];
+        command?: string|(string|GridColumnCommandItem)[];
         editable?: Function;
         encoded?: boolean;
         field?: string;
