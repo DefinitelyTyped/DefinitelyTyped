@@ -27,7 +27,7 @@ interface Cache {
     get<T>(key: string, callback: (error: any, result: T) => void): void;
     get<T>(key: string): Promise<any>;
 
-    del(key: string, callback?: (error: any) => void): void;
+    del(key: string, callback: (error: any) => void): void;
     del(key: string): Promise<any>;
 }
 
