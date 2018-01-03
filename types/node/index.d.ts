@@ -21,7 +21,7 @@
 
 /************************************************
 *                                               *
-*               Node.js v8.5.x API              *
+*               Node.js v9.x.x API              *
 *                                               *
 ************************************************/
 
@@ -33,6 +33,7 @@ interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: NodeJS.InspectOptions): void;
+	debug(message?: any, ...optionalParams: any[]): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -455,7 +456,6 @@ declare namespace NodeJS {
         remove(emitter: Events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -568,6 +568,8 @@ declare namespace NodeJS {
         setegid(id: number | string): void;
         getgroups(): number[];
         setgroups(groups: Array<string | number>): void;
+        setUncaughtExceptionCaptureCallback((err: Error) => void | null): void
+        hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
         versions: ProcessVersions;
         config: {
@@ -598,6 +600,7 @@ declare namespace NodeJS {
         };
         kill(pid: number, signal?: string | number): void;
         pid: number;
+		ppid: number;
         title: string;
         arch: string;
         platform: Platform;
@@ -5285,6 +5288,7 @@ declare module "stream" {
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
+            readableHighWaterMark: number;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -5371,6 +5375,7 @@ declare module "stream" {
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
+            writableHighWaterMark: number;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5641,7 +5646,6 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
         members: any[];
         enter(): void;
         exit(): void;
