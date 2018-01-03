@@ -1,6 +1,6 @@
 // Type definitions for spotify-web-playback-sdk 0.1
 // Project: https://beta.developer.spotify.com/documentation/web-playback-sdk/reference/
-// Definitions by: Festify Dev Team <mail@festify.rocks>
+// Definitions by: Festify Dev Team <https://github.com/Festify>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Window {
