@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "react-date-range": "^0.9.4"
+  }
+}
