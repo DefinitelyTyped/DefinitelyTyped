@@ -27,6 +27,15 @@ declare module "react-jsonschema-form" {
         safeRenderCompletion?: boolean;
         FieldTemplate?: any;
         transformErrors?: (errors: any) => any;
+        id?: string;
+        className?: string;
+        name?: string;
+        method?: string;
+        target?: string;
+        action?: string;
+        autocomplete?: boolean;
+        enctype?: string;
+        acceptcharset?: string;
     }
 
     export interface IChangeEvent {
