@@ -2928,6 +2928,70 @@ declare namespace ymaps {
 		setCoordinates(coordinates: number[] | null): this;
 	}
 
+    interface ILinearRingGeometryAccess extends IFreezable {
+        contains(position: number[]): boolean;
+
+        get(index: number): number[];
+
+        getChildGeometry(index: number): IPointGeometryAccess;
+
+        getClosest(anchorPosition: number[]): object;
+
+        getCoordinates(): [number,number][];
+
+        getFillRule(): string;
+
+        getLength(): number;
+
+        insert(index: number, path: number[]): ILinearRingGeometryAccess;
+
+        remove(index: number): number[];
+
+        set(index: number, path: number[]): ILinearRingGeometryAccess;
+
+        setCoordinates(coordinates: [number,number][]): ILinearRingGeometryAccess;
+
+        setFillRule(fillRule: string): ILinearRingGeometryAccess;
+
+        splice(index: number, number: number): number[][];
+    }
+
+    interface IPolygonGeometryAccess extends IFreezable {
+        contains(position: number[]): boolean;
+
+        get(index: number): number[][];
+
+        getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+        getClosest(anchorPosition: number[]): object;
+
+        getCoordinates(): [number,number][][];
+
+        getFillRule(): string;
+
+        getLength(): number;
+
+        insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+        remove(index: number): ILinearRingGeometryAccess;
+
+        set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+        setCoordinates(coordinates: [number,number][][]): IPolygonGeometryAccess;
+
+        setFillRule(fillRule: string): IPolygonGeometryAccess;
+
+        splice(index: number, number: number): ILinearRingGeometryAccess;
+    }
+
+    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess {
+        getType(): string;
+    }
+
+    class Polygon extends GeoObject {
+        constructor(geometry: [number,number][][] | object | IPolygonGeometry, properties?: object | IDataManager, options?: object)
+    }
+
 	interface IPopup<T> extends ICustomizable, IEventEmitter {
 		close(force?: boolean): Promise<T>;
 
