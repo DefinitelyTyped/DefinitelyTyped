@@ -33,7 +33,7 @@ interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: NodeJS.InspectOptions): void;
-	debug(message?: any, ...optionalParams: any[]): void;
+    debug(message?: any, ...optionalParams: any[]): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -600,7 +600,7 @@ declare namespace NodeJS {
         };
         kill(pid: number, signal?: string | number): void;
         pid: number;
-		ppid: number;
+        ppid: number;
         title: string;
         arch: string;
         platform: Platform;
