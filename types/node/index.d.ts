@@ -1746,6 +1746,7 @@ declare module "https" {
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
+		secureProtocol?: string;	   
     }
 
     export interface RequestOptions extends http.RequestOptions {
