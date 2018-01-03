@@ -3446,6 +3446,9 @@ namespace TestZipWith {
             return 1;
         });
 
+        let mat = [[1, 2], [1, 2], [1, 2]];
+        result = _.zipWith(...mat, (...group: number[]) => 1);
+
         result = _([1, 2]).zipWith((value1) => {
             value1; // $ExpectType number
             return 1;
@@ -9802,8 +9805,10 @@ namespace TestInClamp {
         let result: number;
 
         result = _.clamp(3, 2, 4);
+        result = _.clamp(3, 4);
 
         result = _(3).clamp(2, 4);
+        result = _(3).clamp(4);
     }
 
     {
@@ -9861,6 +9866,9 @@ namespace TestRandom {
         result = _(1).chain().random(true);
         result = _(true).chain().random();
     }
+
+    // $ExpectType number[]
+    _.map([5, 5], _.random);
 }
 
 /**********
@@ -11808,50 +11816,51 @@ namespace TestOmitBy {
 
 // _.pick
 namespace TestPick {
-    let obj: TResult | null | undefined = any;
+    let obj1: TResult | null | undefined = any;
+    let obj2: TResult = any;
 
     {
         let result: Partial<TResult>;
 
-        result = _.pick(obj, 'a');
-        result = _.pick(obj, 0, 'a');
-        result = _.pick(obj, ['b', 1], 0, 'a');
+        result = _.pick(obj1, 'a');
+        result = _.pick(obj1, 0, 'a');
+        result = _.pick(obj1, ['b', 1], 0, 'a');
     }
 
     {
         let result: Pick<TResult, 'a' | 'b'>;
-        result = _.pick(obj, 'a', 'b');
-        result = _.pick(obj, ['a' as 'a', 'b' as 'b']);
+        result = _.pick(obj2, 'a', 'b');
+        result = _.pick(obj2, ['a' as 'a', 'b' as 'b']);
     }
 
     {
         let result: _.LoDashImplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).pick<TResult>('a');
-        result = _(obj).pick<TResult>(0, 'a');
-        result = _(obj).pick<TResult>(['b', 1], 0, 'a');
+        result = _(obj1).pick('a');
+        result = _(obj1).pick(0, 'a');
+        result = _(obj1).pick(['b', 1], 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitWrapper<Pick<TResult, 'a' | 'b'>>;
 
-        result = _(obj).pick('a', 'b');
-        result = _(obj).pick(['a' as 'a', 'b' as 'b']);
+        result = _(obj2).pick('a', 'b');
+        result = _(obj2).pick(['a' as 'a', 'b' as 'b']);
     }
 
     {
         let result: _.LoDashExplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).chain().pick<TResult>('a');
-        result = _(obj).chain().pick<TResult>(0, 'a');
-        result = _(obj).chain().pick<TResult>(['b', 1], 0, 'a');
+        result = _(obj1).chain().pick('a');
+        result = _(obj1).chain().pick(0, 'a');
+        result = _(obj1).chain().pick(['b', 1], 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitWrapper<Pick<TResult, 'a' | 'b'>>;
 
-        result = _(obj).chain().pick('a', 'b');
-        result = _(obj).chain().pick(['a' as 'a', 'b' as 'b']);
+        result = _(obj2).chain().pick('a', 'b');
+        result = _(obj2).chain().pick(['a' as 'a', 'b' as 'b']);
     }
 }
 
@@ -12754,6 +12763,9 @@ namespace TestSplit {
         result = _('a-b-c').chain().split('-');
         result = _('a-b-c').chain().split('-', 2);
     }
+
+    // $ExpectType string[][]
+    _.map(['abc', 'def'], _.split);
 }
 
 // _.startCase
@@ -12877,6 +12889,9 @@ namespace TestTrim {
         result = _('-_-abc-_-').chain().trim();
         result = _('-_-abc-_-').chain().trim('_-');
     }
+
+    // $ExpectType string[]
+    _.map(['  foo  ', '  bar  '], _.trim);
 }
 
 // _.trimEnd
@@ -13013,6 +13028,9 @@ namespace TestWords {
         result = _('fred, barney, & pebbles').chain().words();
         result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
     }
+
+    // $ExpectType string[][]
+    _.map(['fred, barney', 'pebbles'], _.words);
 }
 
 /***********
@@ -13689,60 +13707,60 @@ namespace TestOver {
 // _.overEvery
 namespace TestOverEvery {
     {
-        let result: (...args: any[]) => boolean;
+        let result: (...args: number[]) => boolean;
 
-        result = _.overEvery(() => true);
-        result = _.overEvery(() => true, () => true);
-        result = _.overEvery([() => true]);
-        result = _.overEvery([() => true], [() => true]);
+        result = _.overEvery((number) => true);
+        result = _.overEvery((number) => true, (number) => true);
+        result = _.overEvery([(number) => true]);
+        result = _.overEvery([(number) => true], [(number) => true]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overEvery();
-        result = _(Math.max).overEvery(() => true);
+        result = _(Math.max).overEvery((number) => true);
         result = _([Math.max]).overEvery();
-        result = _([Math.max]).overEvery([() => true]);
+        result = _([Math.max]).overEvery([(number) => true]);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overEvery();
-        result = _(Math.max).chain().overEvery(() => true);
+        result = _(Math.max).chain().overEvery((number) => true);
         result = _([Math.max]).chain().overEvery();
-        result = _([Math.max]).chain().overEvery([() => true]);
+        result = _([Math.max]).chain().overEvery([(number) => true]);
     }
 }
 
 // _.overSome
 namespace TestOverSome {
     {
-        let result: (...args: any[]) => boolean;
+        let result: (...args: number[]) => boolean;
 
-        result = _.overSome(() => true);
-        result = _.overSome(() => true, () => true);
-        result = _.overSome([() => true]);
-        result = _.overSome([() => true], [() => true]);
+        result = _.overSome((n: number) => true);
+        result = _.overSome((n: number) => true, (n: number) => true);
+        result = _.overSome([(n: number) => true]);
+        result = _.overSome([(n: number) => true], [(n: number) => true]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).overSome();
-        result = _(Math.max).overSome(() => true);
+        result = _(Math.max).overSome((n: number) => true);
         result = _([Math.max]).overSome();
-        result = _([Math.max]).overSome([() => true]);
+        result = _([Math.max]).overSome([(n: number) => true]);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: number[]) => boolean>;
 
         result = _(Math.max).chain().overSome();
-        result = _(Math.max).chain().overSome(() => true);
+        result = _(Math.max).chain().overSome((n: number) => true);
         result = _([Math.max]).chain().overSome();
-        result = _([Math.max]).chain().overSome([() => true]);
+        result = _([Math.max]).chain().overSome([(n: number) => true]);
     }
 }
 
@@ -13831,6 +13849,9 @@ namespace TestRange {
         result = _(1).chain().range(11);
         result = _(0).chain().range(30, 5);
     }
+
+    // $ExpectType number[][]
+    _.map([5, 5], _.range);
 }
 
 // _.rangeRight
@@ -13858,6 +13879,9 @@ namespace TestRangeRight {
         result = _(1).chain().rangeRight(11);
         result = _(0).chain().rangeRight(30, 5);
     }
+
+    // $ExpectType number[][]
+    _.map([5, 5], _.rangeRight);
 }
 
 // _.runInContext

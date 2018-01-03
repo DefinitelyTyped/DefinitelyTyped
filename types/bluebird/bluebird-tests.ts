@@ -352,7 +352,7 @@ class CustomError extends Error {
 	customField: number;
 }
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch(CustomError, (reason: CustomError) => {
+fooProm.catch(CustomError, reason => {
 	let a: number = reason.customField;
 });
 
@@ -366,7 +366,7 @@ class CustomErrorWithConstructor extends Error {
 	}
 }
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch(CustomErrorWithConstructor, (reason: CustomErrorWithConstructor) => {
+fooProm.catch(CustomErrorWithConstructor, reason => {
 	let a: boolean = reason.arg1;
 	let b: number = reason.arg2;
 });

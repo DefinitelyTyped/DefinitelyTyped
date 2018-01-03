@@ -3,12 +3,9 @@
 import Nes = require('nes');
 
 var client = new Nes.Client('ws://localhost');
-client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }, function (err) {
+client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
-    client.request('hello', function (err, payload) {   // Can also request '/h'
-
-        // payload -> 'Hello John Doe'
-    });
+    client.request('hello');
 });
 
 // Added in addition to nes doc example code
@@ -16,10 +13,7 @@ client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } 
 import NesClient = require('nes/client');
 
 var client = new NesClient('ws://localhost');
-client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }, function (err) {
+client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
-    client.request('hello', function (err, payload) {   // Can also request '/h'
-
-        // payload -> 'Hello John Doe'
-    });
+    return client.request('hello');
 });

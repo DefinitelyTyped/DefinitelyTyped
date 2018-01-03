@@ -1,5 +1,5 @@
 import * as React from "react";
-import { InterpolationOptions } from "i18next";
+import { i18n, InterpolationOptions, TranslationFunction } from "i18next";
 
 export type InterpolateValue = string | JSX.Element;
 
@@ -12,6 +12,8 @@ export interface InterpolatePropsBase {
     i18nKey?: string;
     className?: string;
     style?: React.CSSProperties;
+    i18n?: i18n;
+    t?: TranslationFunction;
 }
 
 export interface OtherInterpolateProps {
@@ -20,4 +22,4 @@ export interface OtherInterpolateProps {
 
 export type InterpolateProps = InterpolatePropsBase & OtherInterpolateProps;
 
-export default class Interpolate extends React.Component<InterpolateProps> { }
+export default class Interpolate extends React.PureComponent<InterpolateProps> { }

@@ -128,6 +128,13 @@ var knex = Knex({
   useNullAsDefault: true,
 });
 
+// Using custom client
+class TestClient extends Knex.Client {}
+
+var knex = Knex({
+  client: TestClient,
+});
+
 knex('books').insert({title: 'Test'}).returning('*').toString();
 
 // Migrations
@@ -248,6 +255,10 @@ knex.select('*').from('users').join('accounts', function(join: Knex.JoinClause) 
   }
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('user').join('contacts', () => {
+  this.on('users.id', '=', knex.raw(7));
 });
 
 knex.select('*').from('users').join('contacts', function() {

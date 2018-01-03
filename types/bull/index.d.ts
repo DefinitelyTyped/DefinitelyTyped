@@ -16,12 +16,10 @@ import * as Promise from "bluebird";
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
 declare const Bull: {
-  // tslint:disable:unified-signatures
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url?: string): Bull.Queue;
+  (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
   new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url?: string): Bull.Queue;
-  // tslint:enable:unified-signatures
+  new (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
@@ -136,7 +134,7 @@ declare namespace Bull {
     promote(): Promise<void>;
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
+  type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -520,8 +518,6 @@ declare namespace Bull {
      */
     clean(grace: number, status?: JobStatus, limit?: number): Promise<Job[]>;
 
-    // tslint:disable:unified-signatures
-
     /**
      * Listens to queue events
      */
@@ -566,7 +562,7 @@ declare namespace Bull {
     /**
      * The queue has been resumed
      */
-    on(event: 'resumed', callback: EventCallback): this;
+    on(event: 'resumed', callback: EventCallback): this; // tslint:disable-line unified-signatures
 
     /**
      * Old jobs have been cleaned from the queue.
@@ -575,8 +571,6 @@ declare namespace Bull {
      * @see Queue#clean() for details
      */
     on(event: 'cleaned', callback: CleanedEventCallback): this;
-
-    // tslint:enable:unified-signatures
   }
 
   type EventCallback = () => void;

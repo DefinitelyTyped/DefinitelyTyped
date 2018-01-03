@@ -1,4 +1,4 @@
-// Type definitions for chai 4.0.0
+// Type definitions for chai 4.0
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -13,7 +13,6 @@
 // <reference types="assertion-error"/>
 
 declare namespace Chai {
-
     interface ChaiStatic {
         expect: ExpectStatic;
         should(): Should;
@@ -55,8 +54,7 @@ declare namespace Chai {
     }
 
     interface ShouldThrow {
-        (actual: Function): void;
-        (actual: Function, expected: string|RegExp, message?: string): void;
+        (actual: Function, expected?: string|RegExp, message?: string): void;
         (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
     }
 
@@ -219,9 +217,7 @@ declare namespace Chai {
     }
 
     interface Include {
-        (value: Object, message?: string): Assertion;
-        (value: string, message?: string): Assertion;
-        (value: number, message?: string): Assertion;
+        (value: Object | string | number, message?: string): Assertion;
         keys: Keys;
         deep: Deep;
         ordered: Ordered;
@@ -236,18 +232,12 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: any[]): Assertion;
-        (keys: Object): Assertion;
+        (keys: any[]|Object): Assertion;
     }
 
     interface Throw {
-        (): Assertion;
-        (expected: string, message?: string): Assertion;
-        (expected: RegExp, message?: string): Assertion;
-        (constructor: Error, expected?: string, message?: string): Assertion;
-        (constructor: Error, expected?: RegExp, message?: string): Assertion;
-        (constructor: Function, expected?: string, message?: string): Assertion;
-        (constructor: Function, expected?: RegExp, message?: string): Assertion;
+        (expected?: string|RegExp, message?: string): Assertion;
+        (constructor: Error|Function, expected?: string|RegExp, message?: string): Assertion;
     }
 
     interface RespondTo {
@@ -698,21 +688,11 @@ declare namespace Chai {
         /**
          * Asserts that haystack does not include needle.
          *
-         * @param haystack   Container string.
+         * @param haystack   Container string or array.
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notInclude(haystack: string, needle: any, message?: string): void;
-
-        /**
-         * Asserts that haystack does not include needle.
-         *
-         * @param haystack   Container array.
-         * @param needle   Potential value contained in haystack.
-         * @param message   Message to display on error.
-         */
-        notInclude(haystack: any[], needle: any, message?: string): void;
-
+        notInclude(haystack: string | any[], needle: any, message?: string): void;
 
         /**
          * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
@@ -735,20 +715,11 @@ declare namespace Chai {
         /**
          * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
          *
-         * @param haystack   Container string.
+         * @param haystack   Container string or array.
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notDeepInclude(haystack: string, needle: any, message?: string): void;
-
-        /**
-         * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
-         *
-         * @param haystack
-         * @param needle
-         * @param message   Message to display on error.
-         */
-        notDeepInclude(haystack: any[], needle: any, message?: string): void;
+        notDeepInclude(haystack: string | any[], needle: any, message?: string): void;
 
         /**
          * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
@@ -1014,19 +985,10 @@ declare namespace Chai {
          * Asserts that function will throw an error with message matching regexp.
          *
          * @param fn   Function that may throw.
-         * @param regExp   Potential expected message match.
+         * @param errType  Potential expected message match or error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, regExp: RegExp, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        throws(fn: Function, errType: Function, message?: string): void;
+        throws(fn: Function, errType: RegExp|Function, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1289,7 +1251,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be modified.
          * @param message   Message to display on error.
          */
-        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not change the value of a property.
@@ -1300,7 +1262,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be modified.
          * @param message   Message to display on error.
          */
-        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function increases an object property.
@@ -1311,7 +1273,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be increased.
          * @param message   Message to display on error.
          */
-        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not increase an object property.
@@ -1322,7 +1284,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be increased.
          * @param message   Message to display on error.
          */
-        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function decreases an object property.
@@ -1333,7 +1295,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be decreased.
          * @param message   Message to display on error.
          */
-        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not decrease an object property.
@@ -1344,7 +1306,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be decreased.
          * @param message   Message to display on error.
          */
-        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.

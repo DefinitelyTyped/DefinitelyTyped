@@ -217,4 +217,4 @@ export interface LolexInstallOpts {
  * @param toFake   Names of methods that should be faked.
  * @type TClock   Type of clock to create.
  */
-export declare function install<TClock extends Clock>(opts: LolexInstallOpts): TClock;
+export declare function install<TClock extends Clock>(opts?: LolexInstallOpts): TClock;

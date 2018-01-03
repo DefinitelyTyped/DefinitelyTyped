@@ -65,6 +65,8 @@ var S3CreateEvent: AWSLambda.S3CreateEvent = {
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
+var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
+var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -108,6 +110,101 @@ str = apiGwEvt.pathParameters["example"];
 str = apiGwEvt.queryStringParameters["example"];
 str = apiGwEvt.stageVariables["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
+
+/* DynamoDB Stream Event */
+var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
+    Records: [
+        {
+            eventID: '1',
+            eventVersion: '1.0',
+            dynamodb: {
+                Keys: {
+                    Id: {
+                        N: 101
+                    }
+                },
+                NewImage: {
+                    Message: {
+                        S: 'New item!'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES',
+                SequenceNumber: '111',
+                SizeBytes: 26
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'INSERT',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        },
+        {
+            eventID: '2',
+            eventVersion: '1.0',
+            dynamodb: {
+                OldImage: {
+                    Message: {
+                        S: 'New item!'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                SequenceNumber: '222',
+                Keys: {
+                    Id: {
+                        N: 101
+                    }
+                },
+                SizeBytes: 59,
+                NewImage: {
+                    Message: {
+                        S: 'This item has changed'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'MODIFY',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        },
+        {
+            eventID: '3',
+            eventVersion: '1.0',
+            dynamodb: {
+                Keys: {
+                    Id: {
+                        N: 101
+                    }
+                },
+                SizeBytes: 38,
+                SequenceNumber: '333',
+                OldImage: {
+                    Message: {
+                        S: 'This item has changed'
+                    },
+                    Id: {
+                        N: 101
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'REMOVE',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        }
+    ]
+};
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
@@ -269,6 +366,18 @@ clientCtx = context.clientContext;
 str = identity.cognitoIdentityId;
 str = identity.cognitoIdentityPoolId;
 
+/* CloudWatch Logs */
+str = cloudwatchLogsEvent.awslogs.data;
+
+str = cloudwatchLogsDecodedData.owner;
+str = cloudwatchLogsDecodedData.logGroup;
+str = cloudwatchLogsDecodedData.logStream;
+str = cloudwatchLogsDecodedData.subscriptionFilters[0];
+str = cloudwatchLogsDecodedData.messageType;
+str = cloudwatchLogsDecodedData.logEvents[0].id;
+num = cloudwatchLogsDecodedData.logEvents[0].timestamp;
+str = cloudwatchLogsDecodedData.logEvents[0].message;
+
 /* ClientContext */
 clientContextClient = clientCtx.client;
 anyObj = clientCtx.Custom;
@@ -294,6 +403,9 @@ function callback(cb: AWSLambda.Callback) {
     cb(null);
     cb(error);
     cb(null, anyObj);
+    cb(null, b);
+    cb(null, str);
+    cb(null, num);
 }
 
 /* Proxy Callback */
@@ -311,6 +423,131 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
     cb(error);
     cb(null, authResponse);
 }
+
+/* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
+var CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+  "Records": [
+    {
+      "cf": {
+        "config": {
+          "distributionId": "EDFDVBD6EXAMPLE",
+          "requestId": "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        "request": {
+          "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          "method": "GET",
+          "uri": "/picture.jpg",
+          "querystring": "size=large",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                "key": "User-Agent",
+                "value": "curl/7.51.0"
+              }
+            ]
+          },
+          "origin": {
+            "custom": {
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "example.com",
+              "keepaliveTimeout": 5,
+              "path": "/custom_path",
+              "port": 443,
+              "protocol": "https",
+              "readTimeout": 5,
+              "sslProtocols": [
+                "TLSv1",
+                "TLSv1.1"
+              ]
+            },
+            "s3": {
+              "authMethod": "origin-access-identity",
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "my-bucket.s3.amazonaws.com",
+              "path": "/s3_path",
+              "region": "us-east-1"
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+var CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
+    "Records": [
+        {
+            "cf": {
+                "config": {
+                    "distributionId": "EDFDVBD6EXAMPLE",
+                    "requestId": "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
+                },
+                "request": {
+                    "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+                    "method": "GET",
+                    "uri": "/picture.jpg",
+                    "querystring": "size=large",
+                    "headers": {
+                        "host": [
+                            {
+                                "key": "Host",
+                                "value": "d111111abcdef8.cloudfront.net"
+                            }
+                        ],
+                        "user-agent": [
+                            {
+                                "key": "User-Agent",
+                                "value": "curl/7.18.1"
+                            }
+                        ]
+                    }
+                },
+                "response": {
+                    "status": "200",
+                    "statusDescription": "OK",
+                    "headers": {
+                        "server": [
+                            {
+                                "key": "Server",
+                                "value": "MyCustomOrigin"
+                            }
+                        ],
+                        "set-cookie": [
+                            {
+                                "key": "Set-Cookie",
+                                "value": "theme=light"
+                            },
+                            {
+                                "key": "Set-Cookie",
+                                "value": "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+};
 
 /* Compatibility functions */
 context.done();

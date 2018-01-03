@@ -19,7 +19,7 @@ export interface MobxApolloQueryOptions<T> extends WatchQueryOptions {
 
 export interface MobxApolloQuery<T> {
     loading: boolean;
-    data: T;
+    data?: T;
     error?: ApolloError;
     ref: ObservableQuery<T>;
 }

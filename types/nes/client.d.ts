@@ -1,6 +1,7 @@
-// Type definitions for nes 6.4.2
+// Type definitions for nes 7.0.0
 // Project: https://github.com/hapijs/nes
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Client {
@@ -9,14 +10,14 @@ declare class Client {
     onConnect: () => void;
     onDisconnect: () => void;
     onUpdate: (message: any) => void;
-    connect(options: Client.ClientConnectOptions, callback: (err?: any) => void): void;
-    connect(callback: (err?: any) => void): void;
-    disconnect(): void;
+    connect(options: Client.ClientConnectOptions): Promise<any>;
+    connect(): Promise<any>;
+    disconnect(): Promise<any>;
     id: any;  // can be `null | number` but also the "socket" value from websocket message data.
-    request(options: string | Client.ClientRequestOptions, callback: (err: any, payload: any, statusCode?: number, headers?: Object) => void): void;
-    message(message: any, callback: (err: any, message: any) => void): void;
-    subscribe(path: string, handler: Client.Handler, callback: (err?: any) => void): void;
-    unsubscribe(path: string, handler: Client.Handler, callback: (err?: any) => void): void;
+    request(options: string | Client.ClientRequestOptions): Promise<any>;
+    message(message: any): Promise<any>;
+    subscribe(path: string, handler: Client.Handler): Promise<any>;
+    unsubscribe(path: string, handler: Client.Handler): Promise<any>;
     subscriptions(): string[];
     overrideReconnectionAuth(auth: any): void;
 }
