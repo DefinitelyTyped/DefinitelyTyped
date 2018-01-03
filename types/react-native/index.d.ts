@@ -3312,11 +3312,11 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
 
     borderTopLeftRadius?: number;
 
-    borderTopRightRadius?: number; 
+    borderTopRightRadius?: number;
 
     borderBottomLeftRadius?: number;
 
-    borderBottomRightRadius?: number; 
+    borderBottomRightRadius?: number;
 
     /**
      * Determines how to resize the image when the frame doesn't match the raw
