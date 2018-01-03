@@ -28,3 +28,8 @@ download('unicorn.com/foo.jpg', 'dest', {
 	},
 	useElectronNet: true
 });
+
+import * as download2 from 'download';
+
+let downloadFunction = download;
+downloadFunction = download2;
