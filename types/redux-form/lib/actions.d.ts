@@ -1,10 +1,10 @@
 import { Action } from "redux";
-import { FormErrors, FormWarnings, FieldType } from "redux-form";
+import { FormErrors, FormWarnings, FieldType } from "../index";
 
 export interface FormAction extends Action {
-    meta: {
-        form: string;
-    };
+    meta?: any;
+    payload?: any;
+    error?: any;
 }
 
 export declare function arrayInsert(form: string, field: string, index: number, value: any): FormAction;
@@ -24,7 +24,7 @@ export declare function destroy(...form: string[]): FormAction;
 export declare function focus(form: string, field: string): FormAction;
 
 export interface InitializeOptions {
-    keepDirty : boolean;
+    keepDirty: boolean;
     keepSubmitSucceeded: boolean;
 }
 
