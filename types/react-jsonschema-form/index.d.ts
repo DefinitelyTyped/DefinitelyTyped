@@ -33,7 +33,7 @@ declare module "react-jsonschema-form" {
         method?: string;
         target?: string;
         action?: string;
-        autocomplete?: boolean;
+        autocomplete?: string;
         enctype?: string;
         acceptcharset?: string;
     }
