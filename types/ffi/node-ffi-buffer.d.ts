@@ -45,7 +45,6 @@ interface Buffer {
 	/**
 	 * Generate string for inspecting.
 	 * String includes the hex-encoded memory address of the Buffer instance.
-	 * @override
 	 */
 	inspect(): string;
 }
