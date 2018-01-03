@@ -36,6 +36,7 @@ interface DownloadOptions {
     proxy?: string;
 }
 
+declare namespace download {}
 declare function download(url: string, destination?: string, options?: DownloadOptions): Promise<Buffer> & NodeJS.WritableStream & NodeJS.ReadableStream;
 
 export = download;
