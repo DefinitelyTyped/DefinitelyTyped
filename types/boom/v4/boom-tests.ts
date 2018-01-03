@@ -1,10 +1,11 @@
 import Boom = require('boom');
+import * as Hapi from 'hapi';
 
 // 4xx and data type
 
 const badRequestError = Boom.badRequest('message', {some: 'data'});
 badRequestError.data.some;
-const badRequestError2: Boom.Boom = Boom.badImplementation('message');
+const badRequestError2: Boom.BoomError = Boom.badImplementation('message');
 
 const unauthorizedError1 = Boom.unauthorized('message', 'scheme', {some: 'attribute'});
 unauthorizedError1.output.payload.attributes === { some: 'attribute', error: 'message' };
@@ -24,131 +25,125 @@ unauthorizedError4.output.headers === { 'WWW-Authenticate': 'scheme some="attrib
 
 const paymentRequiredError = Boom.paymentRequired('message', {some: 'data'});
 paymentRequiredError.data.some;
-const paymentRequiredError2: Boom.Boom = Boom.paymentRequired('message');
+const paymentRequiredError2: Boom.BoomError = Boom.paymentRequired('message');
 
 const forbiddenError = Boom.forbidden('message', {some: 'data'});
 forbiddenError.data.some;
-const forbiddenError2: Boom.Boom = Boom.forbidden('message');
+const forbiddenError2: Boom.BoomError = Boom.forbidden('message');
 
 const notFoundError = Boom.notFound('message', {some: 'data'});
 notFoundError.data.some;
-const notFoundError2: Boom.Boom = Boom.notFound('message');
+const notFoundError2: Boom.BoomError = Boom.notFound('message');
 
 const methodNotAllowedError = Boom.methodNotAllowed('message', {some: 'data'});
 methodNotAllowedError.data.some;
-const methodNotAllowedError2: Boom.Boom = Boom.methodNotAllowed('message');
+const methodNotAllowedError2: Boom.BoomError = Boom.methodNotAllowed('message');
 
 const notAcceptableError = Boom.notAcceptable('message', {some: 'data'});
 notAcceptableError.data.some;
-const notAcceptableError2: Boom.Boom = Boom.notAcceptable('message');
+const notAcceptableError2: Boom.BoomError = Boom.notAcceptable('message');
 
 const proxyAuthRequiredError = Boom.proxyAuthRequired('message', {some: 'data'});
 proxyAuthRequiredError.data.some;
-const proxyAuthRequiredError2: Boom.Boom = Boom.proxyAuthRequired('message');
+const proxyAuthRequiredError2: Boom.BoomError = Boom.proxyAuthRequired('message');
 
 const clientTimeoutError = Boom.clientTimeout('message', {some: 'data'});
 clientTimeoutError.data.some;
-const clientTimeoutError2: Boom.Boom = Boom.clientTimeout('message');
+const clientTimeoutError2: Boom.BoomError = Boom.clientTimeout('message');
 
 const conflictError = Boom.conflict('message', {some: 'data'});
 conflictError.data.some;
 
 const resourceGoneError = Boom.resourceGone('message', {some: 'data'});
 resourceGoneError.data.some;
-const resourceGoneError2: Boom.Boom = Boom.resourceGone('message');
+const resourceGoneError2: Boom.BoomError = Boom.resourceGone('message');
 
 const lengthRequiredError = Boom.lengthRequired('message', {some: 'data'});
 lengthRequiredError.data.some;
-const lengthRequiredError2: Boom.Boom = Boom.lengthRequired('message');
+const lengthRequiredError2: Boom.BoomError = Boom.lengthRequired('message');
 
 const preconditionFailedError = Boom.preconditionFailed('message', {some: 'data'});
 preconditionFailedError.data.some;
-const preconditionFailedError2: Boom.Boom = Boom.preconditionFailed('message');
+const preconditionFailedError2: Boom.BoomError = Boom.preconditionFailed('message');
 
 const entityTooLargeError = Boom.entityTooLarge('message', {some: 'data'});
 entityTooLargeError.data.some;
-const entityTooLargeError2: Boom.Boom = Boom.lengthRequired('message');
+const entityTooLargeError2: Boom.BoomError = Boom.lengthRequired('message');
 
 const uriTooLongError = Boom.uriTooLong('message', {some: 'data'});
 uriTooLongError.data.some;
-const uriTooLongError2: Boom.Boom = Boom.uriTooLong('message');
+const uriTooLongError2: Boom.BoomError = Boom.uriTooLong('message');
 
 const unsupportedMediaTypeError = Boom.unsupportedMediaType('message', {some: 'data'});
 unsupportedMediaTypeError.data.some;
-const unsupportedMediaTypeError2: Boom.Boom = Boom.unsupportedMediaType('message');
+const unsupportedMediaTypeError2: Boom.BoomError = Boom.unsupportedMediaType('message');
 
 const rangeNotSatisfiableError = Boom.rangeNotSatisfiable('message', {some: 'data'});
 rangeNotSatisfiableError.data.some;
-const rangeNotSatisfiableError2: Boom.Boom = Boom.rangeNotSatisfiable('message');
+const rangeNotSatisfiableError2: Boom.BoomError = Boom.rangeNotSatisfiable('message');
 
 const expectationFailedError = Boom.expectationFailed('message', {some: 'data'});
 expectationFailedError.data.some;
-const expectationFailedError2: Boom.Boom = Boom.expectationFailed('message');
+const expectationFailedError2: Boom.BoomError = Boom.expectationFailed('message');
 
 const teapotError = Boom.teapot('message', {some: 'data'});
 teapotError.data.some;
-const teapotError2: Boom.Boom = Boom.teapot('message');
+const teapotError2: Boom.BoomError = Boom.teapot('message');
 
 const badDataError = Boom.badData('message', {some: 'data'});
 badDataError.data.some;
-const badDataError2: Boom.Boom = Boom.badData('message');
+const badDataError2: Boom.BoomError = Boom.badData('message');
 
 const lockedError = Boom.locked('message', {some: 'data'});
 lockedError.data.some;
-const lockedError2: Boom.Boom = Boom.locked('message');
+const lockedError2: Boom.BoomError = Boom.locked('message');
 
 const preconditionRequiredError = Boom.preconditionRequired('message', {some: 'data'});
 preconditionRequiredError.data.some;
-const preconditionRequiredError2: Boom.Boom = Boom.preconditionRequired('message');
+const preconditionRequiredError2: Boom.BoomError = Boom.preconditionRequired('message');
 
 const tooManyRequestsError = Boom.tooManyRequests('message', {some: 'data'});
 tooManyRequestsError.data.some;
-const tooManyRequestsError2: Boom.Boom = Boom.tooManyRequests('message');
+const tooManyRequestsError2: Boom.BoomError = Boom.tooManyRequests('message');
 
 const illegalError = Boom.illegal('message', {some: 'data'});
 illegalError.data.some;
-const illegalError2: Boom.Boom = Boom.illegal('message');
+const illegalError2: Boom.BoomError = Boom.illegal('message');
 
 // 5xx and data type
 
 const badImplementationError = Boom.badImplementation('message', {some: 'data'});
 badImplementationError.data.some;
-const badImplementationError2: Boom.Boom = Boom.badImplementation('message');
+const badImplementationError2: Boom.BoomError = Boom.badImplementation('message');
 
 const internalError = Boom.internal('message', {some: 'data'});
 internalError.data.some;
-const internalError2: Boom.Boom = Boom.internal('message');
+const internalError2: Boom.BoomError = Boom.internal('message');
 
 const notImplementedError = Boom.notImplemented('message', {some: 'data'});
 notImplementedError.data.some;
-const notImplementedError2: Boom.Boom = Boom.notImplemented('message');
+const notImplementedError2: Boom.BoomError = Boom.notImplemented('message');
 
 const badGatewayError = Boom.badGateway('message', {some: 'data'});
 badGatewayError.data.some;
-const badGatewayError2: Boom.Boom = Boom.badGateway('message');
+const badGatewayError2: Boom.BoomError = Boom.badGateway('message');
 
 const serverUnavailableError = Boom.serverUnavailable('message', {some: 'data'});
 serverUnavailableError.data.some;
-const serverUnavailableError2: Boom.Boom = Boom.serverUnavailable('message');
+const serverUnavailableError2: Boom.BoomError = Boom.serverUnavailable('message');
 
 const gatewayTimeoutError = Boom.gatewayTimeout('message', {some: 'data'});
 gatewayTimeoutError.data.some;
-const gatewayTimeoutError2: Boom.Boom = Boom.gatewayTimeout('message');
+const gatewayTimeoutError2: Boom.BoomError = Boom.gatewayTimeout('message');
 
-// boomify
-const boomifiedError = Boom.boomify(new Error('test'), { statusCode: 400, message: 'some message' });
+// boomify, wrap, and create
+const boomifiedError = Boom.boomify(new Error('test'), { statusCode: 400, message: 'some message' })
 
-// isBoom
+const wrappedError = Boom.wrap(new Error('test'), 400, 'some message');
 
-const isBoomError = new Boom.Boom('test')
-
-Boom.isBoom(isBoomError);
-
-// constructor
-
-const constructorError: Boom.Boom = new Boom.Boom('test');
-
-constructorError.message;
+const error1 = Boom.create(500, 'Internal server error', { timestamp: Date.now() });
+error1.data.timestamp;
+const error2: Boom.BoomError = Boom.create(500, 'Internal server error');
 
 // type widen asserting
 
@@ -174,11 +169,11 @@ interface CustomPayload extends Boom.Payload {
  * Test assignment of custom error data:
  */
 const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: 'Custom1', isCustom: true } as CustomData1);
-const errorWithNoExplicitDataType: Boom.Boom = errorWithData; // can assign to error without explicit data type
-const errorWithExplicitType: Boom.Boom<CustomData> = errorWithData; // can assign to union data type
-const errorWithConcreteCustomData: Boom.Boom<CustomData1> = errorWithData; // can assign to concrete data type
+const errorWithNoExplicitDataType: Boom.BoomError = errorWithData; // can assign to error without explicit data type
+const errorWithExplicitType: Boom.BoomError<CustomData> = errorWithData; // can assign to union data type
+const errorWithConcreteCustomData: Boom.BoomError<CustomData1> = errorWithData; // can assign to concrete data type
 // assignment to CustomData2 would not be possible
-// const errorWithConcreteCustomData2: Boom.Boom<CustomData2> = errorWithData;
+// const errorWithConcreteCustomData2: Boom.BoomError<CustomData2> = errorWithData;
 
 // Some complex error data types for testing purposes:
 interface CustomDataBase {

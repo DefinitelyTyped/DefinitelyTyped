@@ -8,19 +8,21 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "paths": {
-            "boom": ["boom/v4"]
+            "boom": [
+                "boom/v4"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "catbox-tests.ts"
+        "boom-tests.ts"
     ]
 }
