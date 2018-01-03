@@ -95,6 +95,8 @@ interface KnockoutObservableArrayStatic {
 }
 
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
+    <T>(): T[];
+
     subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
@@ -110,7 +112,7 @@ interface KnockoutObservableStatic {
 }
 
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
-    (): T;
+    <T>(): T;
     (value: T | null): void;
 
     peek(): T;
