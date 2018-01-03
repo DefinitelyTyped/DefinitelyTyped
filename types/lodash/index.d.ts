@@ -10,7 +10,7 @@
 //                 Georgii Dolzhykov <https://github.com/thorn0>,
 //                 Jack Moore <https://github.com/jtmthf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.7
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -17298,6 +17298,6 @@ declare namespace _ {
 declare global {
     interface Set<T> { }
     interface Map<K, V> { }
-    interface WeakSet<T> { }
+    interface WeakSet<T extends object> { }
     interface WeakMap<K extends object, V> { }
 }
