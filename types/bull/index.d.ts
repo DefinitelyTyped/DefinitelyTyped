@@ -16,12 +16,12 @@ import * as Promise from "bluebird";
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
 declare const Bull: {
-  // tslint:disable:unified-signatures
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
+  // tslint:disable-next-line:unified-signatures
   (queueName: string, url?: string): Bull.Queue;
   new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
+  // tslint:disable-next-line:unified-signatures
   new (queueName: string, url?: string): Bull.Queue;
-  // tslint:enable:unified-signatures
 };
 
 declare namespace Bull {
