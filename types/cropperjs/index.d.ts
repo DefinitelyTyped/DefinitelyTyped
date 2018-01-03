@@ -403,6 +403,11 @@ declare namespace cropperjs {
          * a color to fill any alpha values in the output canvas
          */
         fillColor?: string;
+        /**
+         * image smoothing
+         */
+        imageSmoothingEnabled?: boolean;
+        imageSmoothingQuality?: 'low' | 'medium' | 'high';
     }
 }
 
