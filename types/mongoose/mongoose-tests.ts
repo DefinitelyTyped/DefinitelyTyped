@@ -430,6 +430,12 @@ new mongoose.Schema({
   }
 });
 
+export default function(schema: mongoose.Schema) {
+  schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void, data: any): void {
+    data.name = 'Hello world';
+  });
+}
+
 /*
  * section document.js
  * http://mongoosejs.com/docs/api.html#document-js

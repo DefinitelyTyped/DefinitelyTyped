@@ -6,11 +6,11 @@
 
 import { TranslationFunction } from "i18next";
 
-import I18nextProvider from "./src/I18nextProvider";
-import Interpolate from "./src/interpolate";
-import loadNamespaces from "./src/loadNamespaces";
-import Trans from "./src/trans";
-import translate from "./src/translate";
+import I18nextProvider from "./I18nextProvider";
+import Interpolate from "./interpolate";
+import loadNamespaces from "./loadNamespaces";
+import Trans from "./trans";
+import translate from "./translate";
 
 export {
     I18nextProvider,

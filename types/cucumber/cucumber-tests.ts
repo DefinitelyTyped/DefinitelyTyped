@@ -32,12 +32,22 @@ function StepSample() {
             callback();
         });
 
+        Before('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
+            console.log(scenarioResult.status === "failed");
+            callback();
+        });
+
         BeforeAll((callback: Callback) => {
             console.log("Before all");
             callback();
         });
 
         BeforeAll({ timeout: 1000 }, (callback: Callback) => {
+            console.log("Before all");
+            callback();
+        });
+
+        BeforeAll('@tag', (callback: Callback) => {
             console.log("Before all");
             callback();
         });
@@ -60,12 +70,22 @@ function StepSample() {
             callback();
         });
 
+        After('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
+            console.log("After");
+            callback();
+        });
+
         AfterAll((callback: Callback) => {
             console.log("After all");
             callback();
         });
 
         AfterAll({ timeout: 1000 }, (callback: Callback) => {
+            console.log("After all");
+            callback();
+        });
+
+        AfterAll('@tag', (callback: Callback) => {
             console.log("After all");
             callback();
         });

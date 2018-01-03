@@ -115,5 +115,8 @@ store.push({
     }]
 });
 
-assertType<DS.Adapter>(store.adapterFor('person'));
-assertType<DS.Serializer>(store.serializerFor('person'));
+class UserAdapter extends DS.Adapter { }
+class UserSerializer extends DS.Serializer { }
+
+assertType<UserAdapter>(store.adapterFor<UserAdapter>('user'));
+assertType<UserSerializer>(store.serializerFor<UserSerializer>('user'));
