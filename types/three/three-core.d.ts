@@ -5991,6 +5991,8 @@ export class Texture extends EventDispatcher {
     type: TextureDataType;
     offset: Vector2;
     repeat: Vector2;
+    center: Vector2;
+    rotation: number;
     generateMipmaps: boolean;
     premultiplyAlpha: boolean;
     flipY: boolean;
