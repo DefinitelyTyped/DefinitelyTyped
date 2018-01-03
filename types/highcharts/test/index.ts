@@ -2247,7 +2247,7 @@ function test_AxisOptions() {
             distance: 10,
             enabled: true,
             format: "format",
-            formatter() { return this.value; },
+            formatter() { return String(this.value); },
             maxStaggerLines: 5,
             overflow: false,
             padding: 10,

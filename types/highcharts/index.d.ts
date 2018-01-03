@@ -55,6 +55,12 @@ declare namespace Highcharts {
         max: number;
     }
 
+    interface AxisLabelFormatterOptions {
+        value: number;
+        isFirst: number;
+        isLast: number;
+    }
+
     interface AxisLabels {
         /**
          * What part of the string the given position is anchored to. Can be one of 'left', 'center' or 'right'. Defaults to
@@ -100,7 +106,7 @@ declare namespace Highcharts {
          * this are axis, chart, isFirst and isLast.
          * @default function() {return this.value;}
          */
-        formatter?(): string;
+        formatter?(this: AxisLabelFormatterOptions): string;
         /**
          * Horizontal axis only. When staggerLines is not set, maxStaggerLines defines how many lines the axis is allowed to
          * add to automatically avoid overlapping X labels. Set to 1 to disable overlap detection.
