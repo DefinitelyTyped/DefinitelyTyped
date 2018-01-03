@@ -1993,6 +1993,28 @@ declare module "path" {
          */
         name: string;
     }
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
 
     /**
      * Normalize a string path, reducing '..' and '.' parts.
@@ -2076,7 +2098,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
       export function normalize(p: string): string;
@@ -2090,7 +2112,7 @@ declare module "path" {
       export var sep: string;
       export var delimiter: string;
       export function parse(p: string): ParsedPath;
-      export function format(pP: ParsedPath): string;
+      export function format(pP: FormatInputPathObject): string;
     }
 
     export module win32 {
@@ -2105,7 +2127,7 @@ declare module "path" {
       export var sep: string;
       export var delimiter: string;
       export function parse(p: string): ParsedPath;
-      export function format(pP: ParsedPath): string;
+      export function format(pP: FormatInputPathObject): string;
     }
 }
 
