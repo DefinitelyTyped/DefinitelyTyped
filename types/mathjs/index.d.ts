@@ -532,7 +532,7 @@ declare namespace mathjs {
 		/**
 		 * Create a number or convert a string, boolean, or unit to a number. When value is a matrix, all elements will be converted to number.
 		 */
-		number(value?: string|number|boolean|MathArray|Matrix|Unit): number|MathArray|Matrix;
+		number(value?: string|number|boolean|MathArray|Matrix|Unit|BigNumber): number|MathArray|Matrix;
 		number(unit: Unit, valuelessUnit: Unit|string): number|MathArray|Matrix;
 
 		/**

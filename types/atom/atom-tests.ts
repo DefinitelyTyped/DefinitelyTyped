@@ -32,6 +32,7 @@ declare let editor: Atom.TextEditor;
 declare let editors: Atom.TextEditor[];
 declare let emitter: Atom.Emitter;
 declare let file: Atom.File;
+declare let fileOrDir: Atom.File | Atom.Directory;
 declare let grammar: Atom.Grammar;
 declare let grammars: Atom.Grammar[];
 declare let gutter: Atom.Gutter;
@@ -277,6 +278,12 @@ function testCommandRegistry() {
         "test-function": (event) => event.currentTarget.getModel(),
         "test-function2": (event) => event.currentTarget.getComponent(),
     });
+    atom.commands.add("atom-workspace", {
+        "test-command": {
+            didDispatch: (event) => {},
+            hiddenInCommandPalette: true
+        }
+    });
 
     const commands = atom.commands.findCommands({ target: element });
     atom.commands.dispatch(element, "test:function");
@@ -515,6 +522,8 @@ function testDecoration() {
     // Decoration Details
     num = decoration.getId();
     displayMarker = decoration.getMarker();
+    bool = decoration.isType("line-number");
+    bool = decoration.isType(["line-number", "line"]);
 
     // Properties
     const decorationProps = decoration.getProperties();
@@ -958,6 +967,16 @@ function testFile() {
     file.writeSync("Test");
 }
 
+// File/Directory Type Guarding ===============================================
+function testFileDirectoryTypeGuarding() {
+    if (fileOrDir.isFile()) {
+      file = fileOrDir;
+    }
+    if (fileOrDir.isDirectory()) {
+      dir = fileOrDir;
+    }
+}
+
 // GitRepository ==============================================================
 function testGitRepository() {
     // Construction and Destruction
@@ -1077,6 +1096,7 @@ function testGrammarRegistry() {
     // Event Subscription
     subscription = registry.onDidAddGrammar(grammar => grammar.name);
     subscription = registry.onDidUpdateGrammar(grammar => grammar.name);
+    subscription = registry.onDidRemoveGrammar(grammar => grammar.name);
 
     // Managing Grammars
     grammars = registry.getGrammars();
@@ -1896,7 +1916,7 @@ function testSelection() {
     selection.insertText("Replacement", { undo: "skip" });
     selection.insertText("Replacement", { select: true, autoIndent: true,
         autoIndentNewline: true, autoDecreaseIndent: true, normalizeLineEndings: true,
-        undo: "skip" });
+        undo: "skip", preserveTrailingLineIndentation: false });
 
     selection.backspace();
     selection.deleteToPreviousWordBoundary();
@@ -1998,7 +2018,14 @@ function testTextBuffer() {
 
     // Event Subscription
     subscription = buffer.onWillChange(() => void {});
-    subscription = buffer.onDidChange(() => void {});
+
+    subscription = buffer.onDidChange((event): void => {
+        range = event.newRange;
+        for (const change of event.changes) {
+            range = change.newRange;
+        }
+    });
+
     subscription = buffer.onDidChangeText(() => void {});
 
     subscription = buffer.onDidStopChanging((event): void => {
@@ -2389,7 +2416,8 @@ function testTextEditor() {
     editor.insertText("Test", { select: true });
     editor.insertText("Test", { undo: "skip" });
     editor.insertText("Text", { autoDecreaseIndent: false, autoIndent: false,
-        autoIndentNewline: false, normalizeLineEndings: false, select: false, undo: "skip" });
+        autoIndentNewline: false, normalizeLineEndings: false, select: false,
+        undo: "skip", preserveTrailingLineIndentation: true });
 
     editor.insertNewline();
     editor.delete();
@@ -3085,7 +3113,9 @@ function testWorkspace() {
 
     obj = atom.workspace.createItemForURI("https://test");
 
-    bool = atom.workspace.isTextEditor(obj);
+    if (atom.workspace.isTextEditor(obj)) {
+      const textEditor: Atom.TextEditor = obj;
+    }
 
     async function workspaceReopen() {
         const result = await atom.workspace.reopenItem();
