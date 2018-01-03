@@ -414,7 +414,7 @@ declare class ByteBuffer
     /**
      * Reads a zig-zag encoded 32bit base 128 variable-length integer.
      */
-    readVarint32ZiZag( offset?: number ): number;
+    readVarint32ZigZag( offset?: number ): number;
 
     /**
      * Reads a 64bit base 128 variable-length integer. Requires Long.js.
