@@ -4364,6 +4364,11 @@ export interface ModalProperties {
      * @platform ios
      */
     onOrientationChange?: () => void;
+     /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     * @platform ios
+     */
+    onDismiss?: () => void;
 }
 
 export interface ModalStatic extends React.ComponentClass<ModalProperties> {}
