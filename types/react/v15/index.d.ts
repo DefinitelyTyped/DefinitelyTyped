@@ -284,8 +284,9 @@ declare namespace React {
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> & Partial<S>)) | (Pick<S, K> & Partial<S>),
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
             callback?: () => any
         ): void;
 

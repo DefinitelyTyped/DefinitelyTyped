@@ -18,7 +18,7 @@ export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: JSX.Element;
+    component?: Component;
     icon?: JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;

@@ -1,4 +1,4 @@
-// Type definitions for ember-qunit 2.2
+// Type definitions for ember-qunit 3.0
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,6 +15,7 @@ declare module 'ember-qunit' {
         setup?(assert: Assert): void;
         teardown?(assert: Assert): void;
         afterTeardown?(assert: Assert): void;
+        needs?: string[];
     }
 
     /**
@@ -42,6 +43,42 @@ declare module 'ember-qunit' {
      * Sets a Resolver globally which will be used to look up objects from each test's container.
      */
     export function setResolver(resolver: Ember.Resolver): void;
+
+    /**
+     * Sets up tests that need to render snippets of templates.
+     *
+     * The setupRenderingTest method is used for tests that need to render
+     * snippets of templates. It is also invoked in the callback scope of a
+     * QUnit module (aka "nested module").
+     *
+     * Once invoked, all subsequent hooks.beforeEach and test invocations will
+     * have access to the following:
+     * * All of the methods / properties listed for `setupTest`
+     * * this.render(...) - Renders the provided template snippet returning a
+     * promise that resolves once rendering has completed
+     * * An importable render function that de-sugars into this.render will be
+     * the default output of blueprints
+     * * this.element - Returns the native DOM element representing the element
+     * that was rendered via this.render
+     * * this.$(...) - When jQuery is present, executes a jQuery selector with
+     * the current this.element as its root
+     */
+    export function setupRenderingTest(hooks: NestedHooks): void;
+
+    /**
+     * Sets up tests that do not need to render snippets of templates.
+     *
+     * The `setupTest` method is used for all types of tests except for those
+     * that need to render snippets of templates. It is invoked in the callback
+     * scope of a QUnit module (aka "nested module").
+     *
+     * Once invoked, all subsequent hooks.beforeEach and test invocations will
+     * have access to the following:
+     * * this.owner - This exposes the standard "owner API" for the test environment.
+     * * this.set / this.setProperties - Allows setting values on the test context.
+     * * this.get / this.getProperties - Retrieves values from the test context.
+     */
+    export function setupTest(hooks: NestedHooks): void;
 
     export class QUnitAdapter extends Ember.Test.Adapter {}
 

@@ -294,6 +294,37 @@ type CloudFormationCustomResourceFailedResponse = CloudFormationCustomResourceRe
 
 export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
 
+/**
+ * See http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-cloudwatch-logs
+ */
+interface CloudWatchLogsEvent {
+    awslogs: CloudWatchLogsEventData;
+}
+
+interface CloudWatchLogsEventData {
+    data: string;
+}
+
+interface CloudWatchLogsDecodedData {
+    owner: string;
+    logGroup: string;
+    logStream: string;
+    subscriptionFilters: string[];
+    messageType: string;
+    logEvents: CloudWatchLogsLogEvent[];
+}
+
+/**
+ * See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html#LambdaFunctionExample
+ */
+interface CloudWatchLogsLogEvent {
+    id: string;
+    timestamp: number;
+    message: string;
+}
+
+
+
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
 interface Context {

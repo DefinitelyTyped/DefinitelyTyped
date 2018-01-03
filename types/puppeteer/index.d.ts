@@ -675,7 +675,7 @@ export interface FrameBase {
    */
   $eval(
     selector: string,
-    fn: (element: ElementHandle | null, ...args: any[]) => any,
+    pageFunction: (element: Element, ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 
@@ -689,7 +689,7 @@ export interface FrameBase {
    */
   $$eval(
     selector: string,
-    fn: (elements: ElementHandle[], ...args: any[]) => any,
+    pageFunction: (elements: NodeListOf<Element>, ...args: any[]) => any,
     ...args: any[]
   ): Promise<any>;
 
@@ -968,7 +968,7 @@ export interface Page extends EventEmitter, FrameBase {
    * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
    * all values are considered, otherwise only the first one is taken into account.
    */
-  select(selector: string, ...values: string[]): Promise<void>;
+  select(selector: string, ...values: string[]): Promise<string[]>;
 
   /**
    * Sets the page content.

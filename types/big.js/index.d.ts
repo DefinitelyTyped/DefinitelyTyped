@@ -275,6 +275,18 @@ export interface Big {
      * the value of Big.E_POS and Big.E_NEG. By default, Big numbers correspond to Javascript's number type in this regard.
      */
     toJSON(): string;
+    /**
+     * Returns an array of single digits
+     */
+    c: number[];
+    /**
+     * Returns the exponent, Integer, -1e+6 to 1e+6 inclusive
+     */
+    e: number;
+    /**
+     * Returns the sign, -1 or 1
+     */
+    s: number;
 }
 
 export const Big: BigConstructor;

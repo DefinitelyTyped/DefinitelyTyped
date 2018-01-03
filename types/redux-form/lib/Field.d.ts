@@ -16,9 +16,7 @@ export type Formatter = (value: any, name: string) => any;
 export type Parser = (value: any, name: string) => any;
 export type Validator = (value: any, allValues?: any, props?: any) => any;
 
-export interface EventHandler<Event> {
-    (event: Event): void;
-}
+export type EventHandler<Event> = (event: Event) => void;
 
 export interface EventOrValueHandler<Event> extends EventHandler<Event> {
     (value: any): void;
@@ -36,7 +34,7 @@ export interface CommonFieldProps {
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
     label?: string;
-    component?: ComponentType<P & WrappedFieldProps> | "input" | "select" | "textarea",
+    component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea";
     format?: Formatter | null;
     normalize?: Normalizer;
     props?: P;

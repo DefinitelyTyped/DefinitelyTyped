@@ -221,7 +221,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -1804,7 +1804,7 @@ declare module "stream" {
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(): void;
+        end(cb?: Function): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
     }
@@ -1821,7 +1821,7 @@ declare module "stream" {
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(): void;
+        end(cb?: Function): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
     }

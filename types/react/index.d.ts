@@ -282,8 +282,9 @@ declare namespace React {
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> & Partial<S>)) | (Pick<S, K> & Partial<S>),
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
             callback?: () => any
         ): void;
 
@@ -1606,7 +1607,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | "stretch";
 
         layoutGrid?: CSSWideKeyword | any;
 
