@@ -11266,9 +11266,9 @@ namespace TestGet {
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
-    _.get('abc', 4); // $ExpectType string
-    _('abc').get(4); // $ExpectType string
-    _.chain('abc').get(4); // $ExpectType LoDashExplicitWrapper<string>
+    _.get('abc', 1); // $ExpectType string
+    _('abc').get(1); // $ExpectType string
+    _.chain('abc').get(1); // $ExpectType LoDashExplicitWrapper<string>
 
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
