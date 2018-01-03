@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { NextHandleFunction } from 'connect';
-import { Logger } from 'loglevel';
 import * as webpack from 'webpack';
+import * as loglevel from 'loglevel';
+import { NextHandleFunction } from 'connect';
 import MemoryFileSystem = require('memory-fs');
 
 export = WebpackDevMiddleware;
@@ -40,6 +40,7 @@ declare namespace WebpackDevMiddleware {
 		log: Logger;
 	}
 
+	type Logger = loglevel.Logger;
 	type Reporter = (middlewareOptions: Options, reporterOptions: ReporterOptions) => void;
 
 	interface WebpackDevMiddleware {
