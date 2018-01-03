@@ -65,6 +65,8 @@ var S3CreateEvent: AWSLambda.S3CreateEvent = {
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
+var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
+var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -363,6 +365,18 @@ clientCtx = context.clientContext;
 /* CognitoIdentity */
 str = identity.cognitoIdentityId;
 str = identity.cognitoIdentityPoolId;
+
+/* CloudWatch Logs */
+str = cloudwatchLogsEvent.awslogs.data;
+
+str = cloudwatchLogsDecodedData.owner;
+str = cloudwatchLogsDecodedData.logGroup;
+str = cloudwatchLogsDecodedData.logStream;
+str = cloudwatchLogsDecodedData.subscriptionFilters[0];
+str = cloudwatchLogsDecodedData.messageType;
+str = cloudwatchLogsDecodedData.logEvents[0].id;
+num = cloudwatchLogsDecodedData.logEvents[0].timestamp;
+str = cloudwatchLogsDecodedData.logEvents[0].message;
 
 /* ClientContext */
 clientContextClient = clientCtx.client;

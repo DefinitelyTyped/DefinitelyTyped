@@ -52,6 +52,7 @@ declare namespace R {
     }
 
     type Pred = (...a: any[]) => boolean;
+    type SafePred<T> = (...a: T[]) => boolean;
 
     type ObjPred = (value: any, key: string) => boolean;
 
@@ -211,7 +212,7 @@ declare namespace R {
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
          */
-        anyPass(preds: ReadonlyArray<Pred>): Pred;
+        anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
         /**
          * ap applies a list of functions to a list of values.
