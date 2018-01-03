@@ -708,3 +708,13 @@ class RenderChildren extends React.Component {
         return children !== undefined ? children : null;
     }
 }
+
+// Stateless functional components should be able to return bare arrays
+const ArrayElement: React.SFC = () => ([ 'Hello, ', 1337, '!']);
+const NullElement: React.SFC = () => null;
+
+// Render methods should not be allowed to return undefined
+// $ExpectError
+class NoUndefined extends React.Component {
+    render() { return undefined; }
+}
