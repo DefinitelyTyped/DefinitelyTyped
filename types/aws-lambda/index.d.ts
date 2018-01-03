@@ -483,9 +483,9 @@ export type CloudFrontRequestEvent = {
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
  */
-export type Handler = (event: any, context: Context, callback?: Callback) => void;
-export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
-export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => void;
+export type Handler = (event: any, context: Context, callback?: Callback) => Promise<void> | void;
+export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => Promise<void> | void;
+export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => Promise<void> | void;
 
 /**
  * Optional callback parameter.
