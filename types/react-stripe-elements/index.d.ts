@@ -44,8 +44,8 @@ export namespace ReactStripeElements {
 
 	interface ElementProps extends ElementsOptions {
 		className?: string;
-		
-		paymentRequest?: Object;
+
+		paymentRequest?: object;
 
 		elementRef?(): void;
 
@@ -83,6 +83,6 @@ export class CardCVCElement extends React.Component<ReactStripeElements.ElementP
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {
 }
-										  
+
 export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {
 }
