@@ -100,7 +100,7 @@ interface KnockoutValidationConfiguration {
      * Supply the HTML5 input types validation will be
      * added to. Defaults to ["email", "number", "date"]
      */
-    html5InputTypes: string[];
+    html5InputTypes?: string[];
 }
 
 interface KnockoutValidationUtils {
