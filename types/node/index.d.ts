@@ -1178,13 +1178,6 @@ declare module "cluster" {
         gid?: number;
     }
 
-    export interface ClusterSetupMasterSettings {
-        exec?: string;  // default: process.argv[1]
-        args?: string[];  // default: process.argv.slice(2)
-        silent?: boolean;  // default: false
-        stdio?: any[];
-    }
-
     export interface Address {
         address: string;
         port: number;
@@ -1269,7 +1262,7 @@ declare module "cluster" {
         isWorker: boolean;
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
-        setupMaster(settings?: ClusterSetupMasterSettings): void;
+        setupMaster(settings?: ClusterSettings): void;
         worker?: Worker;
         workers?: {
             [index: string]: Worker | undefined
@@ -1346,7 +1339,7 @@ declare module "cluster" {
     export var isWorker: boolean;
     // TODO: cluster.schedulingPolicy
     export var settings: ClusterSettings;
-    export function setupMaster(settings?: ClusterSetupMasterSettings): void;
+    export function setupMaster(settings?: ClusterSettings): void;
     export var worker: Worker;
     export var workers: {
         [index: string]: Worker | undefined
