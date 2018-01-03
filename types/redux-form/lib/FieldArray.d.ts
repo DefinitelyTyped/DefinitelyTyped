@@ -3,7 +3,7 @@ import { Validator } from "../index";
 
 interface BaseFieldArrayProps<P = {}> {
     name: string;
-    component: ComponentType<P>;
+    component: ComponentType<WrappedFieldArrayProps<any> & P>,
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;
