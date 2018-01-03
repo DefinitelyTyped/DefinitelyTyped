@@ -1,4 +1,4 @@
-/* tslint:disable */
+﻿/* tslint:disable */
 
 module AccordionComponent {
     $(function () {
