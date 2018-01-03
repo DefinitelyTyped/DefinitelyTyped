@@ -1,11 +1,12 @@
 // Type definitions for expo 24.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
+//                 Martynas Kadiša <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 import { EventSubscription } from 'fbemitter';
-import { Component, Ref } from 'react';
+import { Component, ComponentClass, Ref } from 'react';
 import {
     ViewStyle,
     ViewProperties,
@@ -1394,66 +1395,136 @@ export namespace SQLite {
  */
 export interface SvgCommonProps {
     fill?: string;
-    fillOpacity?: number;
+    fillOpacity?: number | string;
     stroke?: string;
-    strokeWidth?: number;
-    strokeOpacity?: number;
+    strokeWidth?: number | string;
+    strokeOpacity?: number | string;
     strokeLinecap?: string;
     strokeLineJoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
-    x?: Axis;
-    y?: Axis;
-    rotate?: number;
-    scale?: number;
+    x?: number | string;
+    y?: number | string;
+    rotate?: number | string;
+    scale?: number | string;
     origin?: number | string;
-    originX?: number;
-    originY?: number;
+    originX?: number | string;
+    originY?: number | string;
+    id?: string;
+    disabled?: boolean;
+    onPress?: () => any;
+    onPressIn?: () => any;
+    onPressOut?: () => any;
+    onLongPress?: () => any;
+    delayPressIn?: number;
+    delayPressOut?: number;
+    delayLongPress?: number;
 }
 
-export class Svg extends Component<{ width: number, height: number }> { }
-export class Rect extends Component<SvgCommonProps> { }
-
-export interface CircleProps extends SvgCommonProps {
-    cx: Axis;
-    cy: Axis;
+export interface SvgRectProps extends SvgCommonProps {
+    width: number | string;
+    height: number | string;
 }
-export class Circle extends Component<CircleProps> { }
 
-export interface EllipseProps extends CircleProps {
-    rx: Axis;
-    ry: Axis;
+export interface SvgCircleProps extends SvgCommonProps {
+    cx: number | string;
+    cy: number | string;
+    r: number | string;
 }
-export class Ellipse extends Component<SvgCommonProps> { }
 
-export interface LineProps extends SvgCommonProps {
-    x1: Axis;
-    y1: Axis;
-    x2: Axis;
-    y2: Axis;
+export interface SvgEllipseProps extends SvgCommonProps {
+    cx: number | string;
+    cy: number | string;
+    rx: number | string;
+    ry: number | string;
 }
-export class Line extends Component<LineProps> { }
 
-export interface PolyProps extends SvgCommonProps {
+export interface SvgLineProps extends SvgCommonProps {
+    x1: number | string;
+    y1: number | string;
+    x2: number | string;
+    y2: number | string;
+}
+
+export interface SvgPolyProps extends SvgCommonProps {
     points: string;
 }
-export class Polygon extends Component<PolyProps> { }
-export class Polyline extends Component<PolyProps> { }
 
-export interface PathLine extends SvgCommonProps {
+export interface SvgPathProps extends SvgCommonProps {
     d: string;
 }
-export class Path extends Component<PolyProps> { }
 
-export interface TextProps extends SvgCommonProps {
-    textAnchor: string;
+export interface SvgTextProps extends SvgCommonProps {
+    textAnchor?: string;
+    fontSize?: number | string;
+    fontWeight?: string;
 }
-export class Text extends Component<TextProps> { }
-export class G extends Component<SvgCommonProps> { }
-export class Use extends Component<{ href: string, x: number, y: number }> { }
-export class Symbol extends Component<{ viewbox: string, widt: number, height: number }> { }
-export class Defs extends Component { }
-export class RadialGradient extends Component<SvgCommonProps> { }
+
+export interface SvgTSpanProps extends SvgTextProps {
+    dx?: string;
+    dy?: string;
+}
+
+export interface SvgTextPathProps extends SvgCommonProps {
+    href?: string;
+    startOffset?: string;
+}
+
+export interface SvgUseProps extends SvgCommonProps {
+    href: string;
+    x: number | string;
+    y: number | string;
+}
+
+export interface SvgSymbolProps extends SvgCommonProps {
+    viewBox: string;
+    width: number | string;
+    height: number | string;
+}
+
+export interface SvgLinearGradientProps extends SvgCommonProps {
+    x1: number | string;
+    x2: number | string;
+    y1: number | string;
+    y2: number | string;
+}
+
+export interface SvgRadialGradientProps extends SvgCommonProps {
+    cx: number | string;
+    cy: number | string;
+    rx: number | string;
+    ry: number | string;
+    fx: number | string;
+    fy: number | string;
+    gradientUnits?: string;
+}
+
+export interface SvgStopProps extends SvgCommonProps {
+    offset?: string;
+    stopColor?: string;
+    stopOpacity?: string;
+}
+
+export class Svg extends Component<{ width: number, height: number }> {
+    static Circle: ComponentClass<SvgCircleProps>;
+    static ClipPath: ComponentClass<SvgCommonProps>;
+    static Defs: ComponentClass<{ }>;
+    static Ellipse: ComponentClass<SvgEllipseProps>;
+    static G: ComponentClass<SvgCommonProps>;
+    static Line: ComponentClass<SvgLineProps>;
+    static LinearGradient: ComponentClass<SvgLinearGradientProps>;
+    static Path: ComponentClass<SvgPathProps>;
+    static Polygon: ComponentClass<SvgPolyProps>;
+    static Polyline: ComponentClass<SvgPolyProps>;
+    static RadialGradient: ComponentClass<SvgRadialGradientProps>;
+    static Rect: ComponentClass<SvgRectProps>;
+    static Stop: ComponentClass<SvgStopProps>;
+    static Symbol: ComponentClass<SvgSymbolProps>;
+    static Text: ComponentClass<SvgTextProps>;
+    static TextPath: ComponentClass<SvgTextPathProps>;
+    static TSpan: ComponentClass<SvgTSpanProps>;
+    static Use: ComponentClass<SvgUseProps>;
+}
 
 /**
  * Take Snapshot
