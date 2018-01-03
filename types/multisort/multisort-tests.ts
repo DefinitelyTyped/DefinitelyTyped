@@ -1,4 +1,4 @@
-import multisort from '.';
+import * as multisort from '.';
 
 const gameShowHosts = [
     {
