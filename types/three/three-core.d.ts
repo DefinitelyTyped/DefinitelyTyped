@@ -1451,6 +1451,7 @@ export class InterleavedBuffer {
     count: number;
     needsUpdate: boolean;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
     copy(source: this): this;
@@ -1472,7 +1473,7 @@ export class InstancedInterleavedBuffer extends InterleavedBuffer {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js">src/core/InterleavedBufferAttribute.js</a>
  */
 export class InterleavedBufferAttribute {
-    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized: boolean);
+    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized?: boolean);
 
     uuid: string;
     data: InterleavedBuffer;
@@ -5990,6 +5991,8 @@ export class Texture extends EventDispatcher {
     type: TextureDataType;
     offset: Vector2;
     repeat: Vector2;
+    center: Vector2;
+    rotation: number;
     generateMipmaps: boolean;
     premultiplyAlpha: boolean;
     flipY: boolean;

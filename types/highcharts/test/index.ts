@@ -2448,6 +2448,9 @@ function test_ChartObject() {
     const firstXAxis = chart.xAxis[0];
     const firstYAxis = chart.yAxis[0];
     const legend = chart.legend;
+    chart.update(<Highcharts.Options> {});
+    chart.update(<Highcharts.Options> {}, true);
+    chart.update(<Highcharts.Options> {}, true, true);
 }
 
 function test_ElementObject() {

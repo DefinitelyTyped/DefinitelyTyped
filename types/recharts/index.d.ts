@@ -21,7 +21,7 @@ export type ItemSorter<T> = (a: T, b: T) => number;
 export type ContentRenderer<P> = (props: P) => React.ReactNode;
 export type DataKey = string | number | ((dataObject: any) => number | [number, number]);
 
-export type IconType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'plainline';
+export type IconType = 'plainline' | 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'plainline';
 export type LegendType = IconType | 'none';
 export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
@@ -202,6 +202,8 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     hide?: boolean;
     shape?: React.ReactElement<any> | ContentRenderer<RectangleProps>;
     data?: BarData[];
+    // see label section at http://recharts.org/#/en-US/api/Bar
+    label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<Label>;
 }
 
 export class Bar extends React.Component<BarProps> { }
@@ -820,6 +822,14 @@ export interface Label {
     content?: React.ReactElement<any> | ContentRenderer<Label>;
 }
 
+export interface LabelProps extends ViewBox {
+    index: number;
+    value: string | number;
+    offset?: number;
+    viewBox: ViewBox;
+    content?: React.ReactElement<any> | ContentRenderer<Label>;
+}
+
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 
 export interface XPadding {
@@ -868,6 +878,8 @@ export interface XAxisProps extends EventAttributes {
     tickSize?: number;
     interval?: AxisInterval;
     reversed?: boolean;
+    // see label section at http://recharts.org/#/en-US/api/XAxis
+    label?: string | number | Label;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -915,6 +927,8 @@ export interface YAxisProps extends EventAttributes {
     tickSize?: number;
     interval?: AxisInterval;
     reversed?: boolean;
+    // see label section at http://recharts.org/#/en-US/api/YAxis
+    label?: string | number | Label;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }

@@ -104,11 +104,9 @@ export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P i
 export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
-export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
 
-// decorator signature
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
 // on a separate line instead of as a decorator.
-export function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction;
+export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
