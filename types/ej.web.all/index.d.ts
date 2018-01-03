@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.4
+﻿// Type definitions for ej.web.all 15.4
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,7 +16,6 @@
 *  applicable laws.
 */
 declare namespace ej {
-    /* tslint:disable:no-empty-interface */
     const dataUtil: dataUtil;
     function isMobile(): boolean;
     function isIOS(): boolean;
