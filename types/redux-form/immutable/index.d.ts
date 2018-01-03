@@ -21,4 +21,4 @@ export {
     isSubmitting,
     isValid,
     SubmissionError
-} from "redux-form";
+} from "../";
