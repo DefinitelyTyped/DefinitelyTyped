@@ -160,7 +160,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     dot?: boolean | object | React.ReactElement<any> | ContentRenderer<DotProps>;
-    label?: boolean | object | React.ReactElement<any> | Label['content'];
+    label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     hide?: boolean;
     layout?: LayoutType;
     baseLine?: number | any[];
@@ -398,7 +398,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     width?: number;
     height?: number;
     dataKey: string | number; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    label?: boolean | object | React.ReactElement<any> | Label['content'];
+    label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     points?: Point[];
 }
 
@@ -431,7 +431,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | Label['content'] | React.ReactElement<any> | boolean;
+    } | LabelProps['content'] | React.ReactElement<any> | boolean;
     activeShape?: object |ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
 }
@@ -546,7 +546,7 @@ export interface RadarProps extends EventAttributes, Partial<PresentationAttribu
     shape?: React.ReactElement<any> | ContentRenderer<RadarProps>;
     activeDot?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
     dot?: object | React.ReactElement<any> | ContentRenderer<DotProps> | boolean;
-    label?: object | React.ReactElement<any> | Label['content'] | boolean;
+    label?: object | React.ReactElement<any> | LabelProps['content'] | boolean;
     legendType?: LegendType;
     hide?: boolean;
 }
@@ -585,7 +585,7 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     maxBarSize?: number;
     data?: RadialBarData[];
     legendType?: LegendType;
-    label?: boolean | React.ReactElement<any> | Label['content'] | object;
+    label?: boolean | React.ReactElement<any> | LabelProps['content'] | object;
     background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     hide?: boolean;
 }
@@ -807,18 +807,20 @@ export interface TreemapProps extends EventAttributes, Animatable {
     children?: React.ReactNode[] | React.ReactNode;
 }
 
-export class Treemap extends React.Component<TreemapProps> { }
-
-export interface Label {
-    className?: string;
-    viewBox?: ViewBox | PolarViewBox;
-    formatter?: LabelFormatter;
-    value: string | number;
-    offset?: number;
-    position?: PositionType;
-    children?: React.ReactNode[] | React.ReactNode;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+export interface LabelProps {
+	className?: string;
+	viewBox?: ViewBox | PolarViewBox;
+	formatter?: LabelFormatter;
+	value?: string | number;
+	offset?: number;
+	position?: PositionType;
+	children?: any;
+	content?: React.ReactElement<any> | ContentRenderer<Label>;
+	angle?: number;
+	style?: React.CSSProperties;
 }
+
+export class Label extends React.Component<LabelProps> { }
 
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 
