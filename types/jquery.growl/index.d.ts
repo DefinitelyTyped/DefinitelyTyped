@@ -34,6 +34,7 @@ interface growl {
 	error(options: growl.Options): void;
 	notice(options: growl.Options): void;
 	warning(options: growl.Options): void;
+	success(options: growl.Options): void;
 }
 
 interface JQueryStatic {
