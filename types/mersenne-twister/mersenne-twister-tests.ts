@@ -1,4 +1,4 @@
-import MersenneTwister = require('mersenne-twister');
+import MersenneTwister from 'mersenne-twister';
 
 const msWithTime = new MersenneTwister();
 const msWithNumber = new MersenneTwister(1);
