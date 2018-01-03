@@ -97,6 +97,7 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
 export interface ConfigProps<FormData = {}, P = {}> {
     form: string;
     asyncBlurFields?: string[];
+    asyncChangeFields?: string[];
     asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>, blurredField: string): Promise<any>;
     destroyOnUnmount?: boolean;
     enableReinitialize?: boolean;
