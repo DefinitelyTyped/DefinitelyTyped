@@ -1607,7 +1607,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | "stretch";
 
         layoutGrid?: CSSWideKeyword | any;
 
