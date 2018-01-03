@@ -6,8 +6,6 @@
  * License: MIT
  */
 
-/* tslint:disable:no-empty no-shadowed-variable */
-
 class AuthService {
     /**
       * Holds all the requests which failed due to 401 response,

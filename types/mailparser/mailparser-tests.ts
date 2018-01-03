@@ -1,4 +1,3 @@
-// tslint:disable
 import mailparser_mod = require('mailparser');
 import MailParser = mailparser_mod.MailParser;
 import simpleParser = mailparser_mod.simpleParser;

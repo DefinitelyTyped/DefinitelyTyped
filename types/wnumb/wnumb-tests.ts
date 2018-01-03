@@ -1,18 +1,15 @@
-
-
-
-var moneyFormat = wNumb({
+const moneyFormat = wNumb({
 	mark: '.',
 	thousand: ',',
 	prefix: '$ ',
 	postfix: ' p.p.'
 });
 
-moneyFormat.to( 301980.62 );
+moneyFormat.to(301980.62);
 
-moneyFormat.from( '$ 301,980.62 p.p.' );
+moneyFormat.from('$ 301,980.62 p.p.');
 
-var Format = wNumb({
+let Format = wNumb({
 	prefix: '$ ',
 	decimals: 3,
 	thousand: ','
@@ -20,12 +17,8 @@ var Format = wNumb({
 
 Format = wNumb({
 	thousand: '.',
-	encoder: function( a ){
-		return a * 1E7;
-	},
-	decoder: function( a ){
-		return a / 1E7;
-	}
+	encoder: a => a * 1E7,
+	decoder: a => a / 1E7,
 });
 
 Format = wNumb({
@@ -34,9 +27,7 @@ Format = wNumb({
 	thousand: ','
 });
 
-
 Format = wNumb({
 	prefix: '$',
 	negativeBefore: '[NEGATIVE] '
 });
-

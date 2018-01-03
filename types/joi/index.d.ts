@@ -16,7 +16,7 @@
 
 export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
 
-export type LanguageOptions = string | false | null | {
+export type LanguageOptions = string | boolean | null | {
     [key: string]: LanguageOptions;
 };
 
@@ -1071,7 +1071,7 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
-export function extend(extention: Extension): any;
+export function extend(extension: Extension|Extension[], ...extensions: (Extension|Extension[])[]): any;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

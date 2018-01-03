@@ -1,6 +1,8 @@
-// Type definitions for prism 1.6
+// Type definitions for prism 1.9
 // Project: http://prismjs.com/
-// Definitions by: Erik Lieben <https://github.com/eriklieben>, Andre Wiggins <https://github.com/andrewiggins>
+// Definitions by: Erik Lieben <https://github.com/eriklieben>
+//                 Andre Wiggins <https://github.com/andrewiggins>
+//                 Michał Miszczyszyn <https://github.com/mmiszy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace Prism;
@@ -11,15 +13,27 @@ export const plugins: any;
 export const hooks: Hooks;
 
 /**
- * This is the most high-level function in Prism’s API. It fetches all the elements that have a .language-xxxx class and
- * then calls Prism.highlightElement() on each one of them.
+ * Used to highlight all elements on current website. Calls Prism.highlightAllUnder on `document`.
  *
+ * @see highlightAllUnder
  * @param async Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting
  * very large chunks of code. False by default.
  * @param callback An optional callback to be invoked after the highlighting is done. Mostly useful when async
  * is true, since in that case, the highlighting is done asynchronously.
  */
-export function highlightAll(async: boolean, callback?: (element: Element) => void): void;
+export function highlightAll(async?: boolean, callback?: (element: Element) => void): void;
+
+/**
+ * This is the most high-level function in Prism’s API. It fetches all the elements inside `container` that
+ * have a .language-xxxx class and then calls Prism.highlightElement() on each one of them.
+ *
+ * @param container The element which contains elements containing code.
+ * @param async Whether to use Web Workers to improve performance and avoid blocking the UI when highlighting
+ * very large chunks of code. False by default.
+ * @param callback An optional callback to be invoked after the highlighting is done. Mostly useful when async
+ * is true, since in that case, the highlighting is done asynchronously.
+ */
+export function highlightAllUnder(container: Element, async?: boolean, callback?: (element: Element) => void): void;
 
 /**
  * Highlights the code inside a single element.
@@ -31,18 +45,18 @@ export function highlightAll(async: boolean, callback?: (element: Element) => vo
  * @param callback An optional callback to be invoked after the highlighting is done.
  * Mostly useful when async is true, since in that case, the highlighting is done asynchronously.
  */
-export function highlightElement(element: Element, async: boolean, callback?: (element: Element) => void): void;
+export function highlightElement(element: Element, async?: boolean, callback?: (element: Element) => void): void;
 
 /**
  * Low-level function, only use if you know what you’re doing. It accepts a string of text as input and the language
  * definitions to use, and returns a string with the HTML produced.
  *
  * @param text A string with the code to be highlighted.
- * @param grammer - An object containing the tokens to use. Usually a language definition like
+ * @param grammar - An object containing the tokens to use. Usually a language definition like
  * Prism.languages.markup
  * @returns The highlighted HTML
  */
-export function highlight(text: string, grammer: LanguageDefinition, language?: LanguageDefinition): string;
+export function highlight(text: string, grammar: LanguageDefinition, language?: LanguageDefinition): string;
 
 /**
  * This is the heart of Prism, and the most low-level function you can use. It accepts a string of text as input and the
@@ -50,8 +64,8 @@ export function highlight(text: string, grammer: LanguageDefinition, language?: 
  * nested tokens, the function is called recursively on each of these tokens. This method could be useful in other
  * contexts as well, as a very crude parser.
  *
- * @param  text A string with the code to be highlighted.
- * @param  grammar An object containing the tokens to use. Usually a language definition like
+ * @param text A string with the code to be highlighted.
+ * @param grammar An object containing the tokens to use. Usually a language definition like
  * Prism.languages.markup
  * @returns An array of strings, tokens (class Prism.Token) and other arrays.
  */

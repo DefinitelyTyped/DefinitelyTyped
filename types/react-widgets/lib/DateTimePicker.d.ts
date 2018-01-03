@@ -122,6 +122,10 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * object to localize widget text and increase accessibility.
      */
     messages?: DateTimePickerMessages;
+    /**
+    * Text to display in the input when the value is empty.
+    */
+    placeholder?: string;
 }
 
 interface DateTimePickerMessages {

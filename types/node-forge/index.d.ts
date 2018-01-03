@@ -1,8 +1,9 @@
-// Type definitions for node-forge 0.6.43
+// Type definitions for node-forge 0.7.2
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
 //                 Aakash Goenka <https://github.com/a-k-g>
+//                 Rafal2228 <https://github.com/rafal2228>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-forge" {
@@ -13,6 +14,25 @@ declare module "node-forge" {
     type Utf8 = string;
     type OID = string;
 
+    namespace pem {	
+
+		interface EncodeOptions {
+			maxline?: number;
+		}
+
+		interface ObjectPEM {
+			type: string;
+			body: Bytes;
+			procType?: any;
+			contentDomain?: any;
+			dekInfo?: any;
+			headers?: any[];
+		}
+
+		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
+		function decode(str: string): ObjectPEM[];
+	}
+    
     namespace pki {
 
         type PEM = string;
@@ -95,10 +115,40 @@ declare module "node-forge" {
     }
 
     namespace ssh {
+        interface FingerprintOptions {
+            /**
+             * @description the delimiter to use between bytes for `hex` encoded output
+             */
+            delimiter?: string;
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding?: 'hex' | 'binary';
+            /**
+             * @description if not specified defaults to `md.md5`
+             */
+            md?: md.MessageDigest;
+        }
+
         /**
-         * Encodes a private RSA key as an OpenSSH file.
+         * @description Encodes a private RSA key as an OpenSSH file
          */
-        function privateKeyToOpenSSH(privateKey?: string, passphrase?: string): string;
+        function privateKeyToOpenSSH(privateKey: pki.Key, passphrase?: string): string;
+
+        /**
+         * @description Encodes (and optionally encrypts) a private RSA key as a Putty PPK file
+         */
+        function privateKeyToPutty(privateKey: pki.Key, passphrase?: string, comment?: string): string;
+
+        /**
+         * @description Encodes a public RSA key as an OpenSSH file
+         */
+        function publicKeyToOpenSSH(publicKey: pki.Key, comment?: string): string | pki.PEM;
+
+        /**
+         * @description Gets the SSH fingerprint for the given public key
+         */
+        function getPublicKeyFingerprint(publicKey: pki.Key, options?: FingerprintOptions): util.ByteStringBuffer | Hex | string;
     }
 
     namespace asn1 {

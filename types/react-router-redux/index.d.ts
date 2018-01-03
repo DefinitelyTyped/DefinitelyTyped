@@ -22,7 +22,7 @@ import * as React from 'react';
 
 export interface ConnectedRouterProps<State> {
     store?: Store<State>;
-    history?: History;
+    history: History;
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
