@@ -3913,6 +3913,8 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    let paths: string[] = module.paths;
+    paths = m1.paths;
 }
 
 ////////////////////////////////////////////////////
