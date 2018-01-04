@@ -39,9 +39,9 @@ declare global { namespace L {
             icon?: string;
 
             /**
-            * Select de icon library. 'fa' for font-awesome or 'glyphicon' for bootstrap 3.
-            */
-            prefix?: 'fa' | 'glyphicon';
+             * Select de icon library. 'fa' for font-awesome 4, 'fa*' for font-awesome 5, or 'glyphicon' for bootstrap 3.
+             */
+            prefix?: 'fa' | 'fas' | 'far' | 'fal' | 'fab' | 'glyphicon';
 
             /**
             * Color of the marker

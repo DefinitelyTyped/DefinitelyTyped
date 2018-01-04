@@ -17,3 +17,4 @@ L.marker([51.941196, 4.512291], { icon: redMarker }).addTo(map);
 L.marker([51.941196, 4.512291], { icon: blueMarker }).addTo(map);
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
+L.AwesomeMarkers.Icon.prototype.options.prefix = 'fas';
