@@ -45,9 +45,9 @@ declare namespace reactDateRange {
 
 	interface Range {
 		/** default: today */
-        startDate?: DateInputType;
+        startDate?: moment.Moment;
 		/** default: today */
-        endDate?: DateInputType;
+        endDate?: moment.Moment;
 	}
 
 	interface CommonCalendarProps {
