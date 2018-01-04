@@ -17,6 +17,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -145,6 +146,7 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    paths: string[];
 }
 
 declare var module: NodeModule;
