@@ -54,3 +54,5 @@ export const TextDecoder: TextEncoding.TextDecoderStatic;
 export const TextEncoder: TextEncoding.TextEncoderStatic;
 
 export const TextEncoding: TextEncoding.TextEncodingStatic;
+
+export as namespace TextEncoding;
