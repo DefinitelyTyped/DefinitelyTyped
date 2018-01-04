@@ -3889,6 +3889,19 @@ export class Spherical {
     setFromVector3(vec3: Vector3): Spherical;
 }
 
+export class Cylindrical {
+    constructor(radius?: number, theta?: number, y?: number);
+
+    radius: number;
+    theta: number;
+    y: number;
+
+    clone(): this;
+    copy(other: this): this;
+    set(radius: number, theta: number, y: number): this;
+    setFromVector3(vec3: Vector3): this;
+}
+
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
  *
