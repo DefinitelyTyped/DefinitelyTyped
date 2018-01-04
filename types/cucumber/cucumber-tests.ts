@@ -24,17 +24,17 @@ function StepSample() {
         });
 
         Before((scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === Status.FAILED);
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
         Before({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === Status.FAILED);
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
         Before('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === Status.FAILED);
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
@@ -54,7 +54,7 @@ function StepSample() {
         });
 
         Around((scenarioResult: HookScenarioResult, runScenario: (error: string | null, callback?: () => void) => void) => {
-            if (scenarioResult.status === Status.FAILED) {
+            if (scenarioResult.result.status === Status.FAILED) {
                 runScenario(null, () => {
                     console.log('finish tasks');
                 });
