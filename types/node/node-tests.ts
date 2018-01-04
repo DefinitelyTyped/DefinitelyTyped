@@ -2568,6 +2568,13 @@ namespace process_tests {
         const oldHandler = listeners[listeners.length - 1];
         process.addListener('uncaughtException', oldHandler);
     }
+    {
+        function myCb(err: Error): void {
+        }
+        process.setUncaughtExceptionCaptureCallback(myCb);
+        process.setUncaughtExceptionCaptureCallback(null);
+        const b: boolean = process.hasUncaughtExceptionCaptureCallback();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -3873,6 +3880,7 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    const b: string[] = Module.builtinModules;
 }
 
 ////////////////////////////////////////////////////
