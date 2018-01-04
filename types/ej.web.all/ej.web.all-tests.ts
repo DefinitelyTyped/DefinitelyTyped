@@ -1,3 +1,4 @@
+/// <reference path="../tsfiles/jquery.d.ts" />
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
