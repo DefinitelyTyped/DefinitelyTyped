@@ -110,6 +110,7 @@ interface Howl {
     state(): 'unloaded' | 'loading' | 'loaded';
     load(): void;
     unload(): void;
+    stereo(): number | null;
     stereo(pan: number, id?: number): this | void;
     pos(x: number, y: number, z: number, id?: number): this | void;
     orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
