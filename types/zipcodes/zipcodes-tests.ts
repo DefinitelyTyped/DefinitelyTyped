@@ -1,6 +1,6 @@
-import { ZipCode, ZipCodes } from "zipcodes";
+import * as ZipCodes from 'zipcodes';
 
-const zipA: ZipCode = {
+const zipA: ZipCodes.ZipCode = {
   zip: '90210',
   latitude: 34.088808,
   longitude: -118.406125,
@@ -9,7 +9,7 @@ const zipA: ZipCode = {
   country: 'US'
 };
 
-const zipB: ZipCode = {
+const zipB: ZipCodes.ZipCode = {
   zip: '95015',
   latitude: 37.323,
   longitude: -122.0527,

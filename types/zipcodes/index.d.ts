@@ -1,31 +1,31 @@
 // Type definitions for zipcodes 6.0
-// Project: https://github.com/davglass/zipcodes
+// Project: https://github.com/davglass/zipcodes#readme
 // Definitions by: Brayden Lopez <https://github.com/headdetect>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace ZipCodes;
+
 export interface ZipCode {
-  zip: string;
-  latitude: number;
-  longitude: number;
-  city: string;
-  state: string;
-  country: string;
+    zip: string;
+    latitude: number;
+    longitude: number;
+    city: string;
+    state: string;
+    country: string;
 }
 
-export namespace ZipCodes {
-  function lookup(zip: any): ZipCode;
+export function lookup(zip: any): ZipCode;
 
-  function lookupByName(city: string, state: string): ZipCode[];
+export function lookupByName(city: string, state: string): ZipCode[];
 
-  function lookupByState(state: string): ZipCode[];
+export function lookupByState(state: string): ZipCode[];
 
-  function distance(zipA: ZipCode, zipB: ZipCode): number;
+export function distance(zipA: ZipCode, zipB: ZipCode): number;
 
-  function radius(zip: ZipCode, miles: number, full: boolean): string | ZipCode[];
+export function radius(zip: ZipCode, miles: number, full: boolean): string | ZipCode[];
 
-  function toMiles(kilos: number): number;
+export function toMiles(kilos: number): number;
 
-  function toKilometers(miles: number): number;
+export function toKilometers(miles: number): number;
 
-  function lookupByCoords(lat: number, lon: number): ZipCode;
-}
+export function lookupByCoords(lat: number, lon: number): ZipCode;
