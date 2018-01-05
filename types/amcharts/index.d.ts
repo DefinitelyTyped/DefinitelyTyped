@@ -1,7 +1,6 @@
 // Type definitions for amCharts 3.21
 // Project: http://www.amcharts.com/
-// Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
-//                 ldrick <https://github.com/ldrick>
+// Definitions by: ldrick <https://github.com/ldrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
