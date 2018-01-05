@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export namespace fabric {
-
 	export const isLikelyNode: boolean;
 	export const isTouchSupported: boolean;
 
