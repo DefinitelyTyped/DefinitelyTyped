@@ -237,6 +237,7 @@ declare namespace ReactDates {
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
         noBorder?: boolean,
+        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
 
         // navigation related props
         navPrev?: string | JSX.Element,
