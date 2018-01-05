@@ -65,7 +65,6 @@
         "prefer-method-signature": false,
         "prefer-template": false,
         "radix": false,
-        "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,

@@ -251,7 +251,7 @@ declare namespace Knex {
     }
 
     interface WithSchema {
-        (schema: string): QueryBuilder
+        (schema: string): QueryBuilder;
     }
 
     interface WithWrapped {
