@@ -56,7 +56,7 @@ declare namespace Highcharts {
     }
 
     interface AxisLabelFormatterOptions {
-        value: number;
+        value: string;
         isFirst: number;
         isLast: number;
     }
