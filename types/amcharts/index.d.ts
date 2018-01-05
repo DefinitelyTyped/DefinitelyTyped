@@ -79,7 +79,12 @@ export namespace AmCharts {
     let useUTC: boolean;
 
     /**
-     * Object with themes
+     * Set global used AmCharts theme.
+     */
+    let theme: any;
+
+    /**
+     * Object with existing themes.
      */
     let themes: any;
 
