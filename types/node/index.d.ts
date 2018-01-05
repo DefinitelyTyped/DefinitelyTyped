@@ -3469,6 +3469,9 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function realpath(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+    namespace realpath {
+        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+    }
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -3512,6 +3515,11 @@ declare module "fs" {
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
         export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+        export function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+        export function native(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
     }
 
     /**
@@ -3534,6 +3542,12 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    export namespace realpathSync {
+        export function realpathSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+        export function realpathSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+        export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    }
 
     /**
      * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
