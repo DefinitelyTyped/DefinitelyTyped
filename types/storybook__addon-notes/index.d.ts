@@ -1,4 +1,4 @@
-// Type definitions for @storybook/addon-notes 3.3.3
+// Type definitions for @storybook/addon-notes 3.3
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
