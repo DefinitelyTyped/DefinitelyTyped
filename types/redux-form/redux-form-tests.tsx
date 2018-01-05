@@ -22,7 +22,8 @@ import {
     reducer,
     FormAction,
     actionTypes,
-    submit
+    submit,
+    SubmissionError
 } from "redux-form";
 import {
     Field as ImmutableField,
@@ -37,6 +38,7 @@ import LibFormSection from "redux-form/lib/FormSection";
 import libFormValueSelector from "redux-form/lib/formValueSelector";
 import libReduxForm from "redux-form/lib/reduxForm";
 import libActions from "redux-form/lib/actions";
+import LibSubmissionError from "redux-form/lib/SubmissionError";
 
 /* Decorated components */
 interface TestFormData {
@@ -334,6 +336,14 @@ reducer.plugin({
     }
 });
 
+try {
+    throw new SubmissionError({_error: "Submission failed."});
+} catch (error) {
+    if (!(error instanceof SubmissionError)) {
+        throw new Error("SubmissionError not imported correctly");
+    }
+}
+
 /* Test using versions imported directly/as defaults from lib */
 const DefaultField = (
     <LibField
@@ -358,3 +368,11 @@ const TestLibForm = libReduxForm<TestFormData, TestFormComponentProps>({ form : 
 
 const testSubmit = submit("test");
 const testLibSubmit = libActions.submit("test");
+
+try {
+    throw new LibSubmissionError({_error: "Submission failed."});
+} catch (error) {
+    if (!(error instanceof LibSubmissionError)) {
+        throw new Error("SubmissionError from lib not imported correctly");
+    }
+}
