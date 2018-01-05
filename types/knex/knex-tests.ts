@@ -118,8 +118,12 @@ var knex = Knex({
 
 // searchPath
 var knex = Knex({
-  client: 'pg',
-  searchPath: 'public',
+    client: 'pg',
+    searchPath: 'public',
+});
+var knex = Knex({
+    client: 'pg',
+    searchPath: ['public', 'private'],
 });
 
 // useNullAsDefault
