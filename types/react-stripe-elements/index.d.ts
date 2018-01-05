@@ -2,6 +2,7 @@
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
+//                 sonnysangha <https://github.com/sonnysangha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -44,6 +45,8 @@ export namespace ReactStripeElements {
 	interface ElementProps extends ElementsOptions {
 		className?: string;
 
+		paymentRequest?: object;
+
 		elementRef?(): void;
 
 		onChange?(event: ElementChangeResponse): void;
@@ -79,4 +82,7 @@ export class CardCVCElement extends React.Component<ReactStripeElements.ElementP
 }
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {
+}
+
+export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {
 }

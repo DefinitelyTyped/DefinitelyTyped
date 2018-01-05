@@ -7,6 +7,7 @@
 
 declare module "ember-data" {
     import Ember from "ember";
+    import RSVP from 'rsvp';
     namespace DS {
         /**
          * Convert an hash of errors into an array with errors in JSON-API format.
@@ -118,11 +119,11 @@ declare module "ember-data" {
              * Builds a URL for a given type and optional ID.
              */
             buildURL(
-                modelName: string,
-                id: string | any[] | {},
-                snapshot: Snapshot | any[],
-                requestType: string,
-                query: {}
+                modelName?: string,
+                id?: string | any[] | {} | null,
+                snapshot?: Snapshot | any[] | null,
+                requestType?: string,
+                query?: {}
             ): string;
             /**
              * Builds a URL for a `store.findRecord(type, id)` call.
@@ -423,7 +424,7 @@ declare module "ember-data" {
              * Create a JSON representation of the record, using the serialization
              * strategy of the store's adapter.
              */
-            serialize(options: {}): {};
+            serialize(options?: { includeId?: boolean }): {};
             /**
              * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
              * get the JSON representation of a record.
@@ -472,7 +473,7 @@ declare module "ember-data" {
             /**
              * Same as `deleteRecord`, but saves the record immediately.
              */
-            destroyRecord(options: {}): Promise<any>;
+            destroyRecord(options: {}): RSVP.Promise<any>;
             /**
              * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
              */
@@ -491,11 +492,11 @@ declare module "ember-data" {
              * Save the record and persist any changes to the record to an
              * external source via the adapter.
              */
-            save(options?: {}): Promise<this>;
+            save(options?: {}): RSVP.Promise<this>;
             /**
              * Reload the record from the adapter.
              */
-            reload(): Promise<any>;
+            reload(): RSVP.Promise<any>;
             /**
              * Get the reference for the specified belongsTo relationship.
              */
@@ -698,7 +699,7 @@ declare module "ember-data" {
              * Data will treat the new data as the conanical value of this
              * relationship on the backend.
              */
-            push(objectOrPromise: {} | Promise<any>): Promise<any>;
+            push(objectOrPromise: {} | RSVP.Promise<any>): RSVP.Promise<any>;
             /**
              * `value()` synchronously returns the current value of the belongs-to
              * relationship. Unlike `record.get('relationshipName')`, calling
@@ -706,20 +707,20 @@ declare module "ember-data" {
              * relationship is not yet loaded. If the relationship is not loaded
              * it will always return `null`.
              */
-            value(objectOrPromise: {} | Promise<any>): Model;
+            value(objectOrPromise: {} | RSVP.Promise<any>): Model;
             /**
              * Loads a record in a belongs to relationship if it is not already
              * loaded. If the relationship is already loaded this method does not
              * trigger a new load.
              */
-            load(): Promise<any>;
+            load(): RSVP.Promise<any>;
             /**
              * Triggers a reload of the value in this relationship. If the
              * remoteType is `"link"` Ember Data will use the relationship link to
              * reload the relationship. Otherwise it will reload the record by its
              * id.
              */
-            reload(): Promise<any>;
+            reload(): RSVP.Promise<any>;
         }
         /**
          * A HasManyReference is a low level API that allows users and addon
@@ -750,7 +751,7 @@ declare module "ember-data" {
              * Data will treat the new data as the canonical value of this
              * relationship on the backend.
              */
-            push(objectOrPromise: T[] | Promise<T[]>): ManyArray<T>;
+            push(objectOrPromise: T[] | RSVP.Promise<T[]>): ManyArray<T>;
             /**
              * `value()` synchronously returns the current value of the has-many
              * relationship. Unlike `record.get('relationshipName')`, calling
@@ -764,11 +765,11 @@ declare module "ember-data" {
              * relationship is already loaded this method does not trigger a new
              * load.
              */
-            load(): Promise<any>;
+            load(): RSVP.Promise<any>;
             /**
              * Reloads this has-many relationship.
              */
-            reload(): Promise<any>;
+            reload(): RSVP.Promise<any>;
         }
         /**
          * An RecordReference is a low level API that allows users and
@@ -791,7 +792,7 @@ declare module "ember-data" {
              * normalized hash of data and the object represented by the reference
              * will update.
              */
-            push(payload: Promise<any> | {}): PromiseObject<T> & T;
+            push(payload: RSVP.Promise<any> | {}): PromiseObject<T> & T;
             /**
              * If the entity referred to by the reference is already loaded, it is
              * present as `reference.value`. Otherwise the value returned by this function
@@ -851,7 +852,7 @@ declare module "ember-data" {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-                Ember.PromiseProxyMixin<PromiseArray<T>> {}
+        Ember.PromiseProxyMixin<PromiseArray<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -862,7 +863,7 @@ declare module "ember-data" {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-                Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
+        Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
@@ -947,12 +948,12 @@ declare module "ember-data" {
              */
             belongsTo(
                 keyName: string,
-                options: {}
+                options?: {}
             ): Snapshot | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
-            hasMany(keyName: string, options: {}): any[] | undefined;
+            hasMany(keyName: string, options?: {}): any[] | undefined;
             /**
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.
@@ -1042,7 +1043,7 @@ declare module "ember-data" {
             queryRecord<T extends Model>(
                 modelName: string,
                 query: any
-            ): Promise<T>;
+            ): RSVP.Promise<T>;
             /**
              * `findAll` asks the adapter's `findAll` method to find the records for the
              * given type, and returns a promise which will resolve with all records of
@@ -1077,7 +1078,7 @@ declare module "ember-data" {
             /**
              * Returns the model class for the particular `modelName`.
              */
-            modelFor(modelName: string): Model;
+            modelFor<M extends Model>(modelName: string): M;
             /**
              * Push some data for a given type into the store.
              */
@@ -1097,13 +1098,13 @@ declare module "ember-data" {
              * example, `adapterFor('person')` will return an instance of
              * `App.PersonAdapter`.
              */
-            adapterFor(modelName: string): Adapter;
+            adapterFor<A extends Adapter>(modelName: string): A;
             /**
              * Returns an instance of the serializer for a given type. For
              * example, `serializerFor('person')` will return an instance of
              * `App.PersonSerializer`.
              */
-            serializerFor(modelName: string): Serializer;
+            serializerFor<S extends Serializer>(modelName: string): S;
         }
         /**
          * The `JSONAPIAdapter` is the default adapter used by Ember Data. It
@@ -1129,7 +1130,7 @@ declare module "ember-data" {
             /**
              * Takes a URL, an HTTP method and a hash of data, and makes an HTTP request.
              */
-            ajax(url: string, type: string, options?: object): Promise<any>;
+            ajax(url: string, type: string, options?: object): RSVP.Promise<any>;
             /**
              * Generate ajax options
              */
@@ -1172,7 +1173,7 @@ declare module "ember-data" {
                 type: Model,
                 id: string,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for all
              * of the records for a given type.
@@ -1182,17 +1183,17 @@ declare module "ember-data" {
                 type: Model,
                 sinceToken: string,
                 snapshotRecordArray: SnapshotRecordArray
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for
              * the records that match a particular query.
              */
-            query(store: Store, type: Model, query: {}): Promise<any>;
+            query(store: Store, type: Model, query: {}): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON object for
              * the record that matches a particular query.
              */
-            queryRecord(store: Store, type: Model, query: {}): Promise<any>;
+            queryRecord(store: Store, type: Model, query: {}): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch several records together if `coalesceFindRequests` is true
              */
@@ -1201,7 +1202,7 @@ declare module "ember-data" {
                 type: Model,
                 ids: any[],
                 snapshots: any[]
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for
              * the unloaded records in a has-many relationship that were originally
@@ -1212,7 +1213,7 @@ declare module "ember-data" {
                 snapshot: Snapshot,
                 url: string,
                 relationship: {}
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch the JSON for the unloaded record in a
              * belongs-to relationship that was originally specified as a URL (inside of
@@ -1222,7 +1223,7 @@ declare module "ember-data" {
                 store: Store,
                 snapshot: Snapshot,
                 url: string
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store when a newly created record is
              * saved via the `save` method on a model record instance.
@@ -1231,7 +1232,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store when an existing record is saved
              * via the `save` method on a model record instance.
@@ -1240,7 +1241,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Called by the store when a record is deleted.
              */
@@ -1248,7 +1249,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Organize records into groups, each of which is to be passed to separate
              * calls to `findMany`.
@@ -1293,11 +1294,11 @@ declare module "ember-data" {
              * Builds a URL for a given type and optional ID.
              */
             buildURL(
-                modelName: string,
-                id: string | any[] | {},
-                snapshot: Snapshot | any[],
-                requestType: string,
-                query: {}
+                modelName?: string,
+                id?: string | any[] | {} | null,
+                snapshot?: Snapshot | any[] | null,
+                requestType?: string,
+                query?: {}
             ): string;
             /**
              * Builds a URL for a `store.findRecord(type, id)` call.
@@ -1639,7 +1640,7 @@ declare module "ember-data" {
                 hash: {},
                 typeClass: Model,
                 snapshot: Snapshot,
-                options: {}
+                options?: {}
             ): any;
             /**
              * `serializeAttribute` can be used to customize how `DS.attr`
@@ -1772,7 +1773,7 @@ declare module "ember-data" {
                 hash: {},
                 typeClass: Model,
                 snapshot: Snapshot,
-                options: {}
+                options?: {}
             ): any;
             /**
              * You can use `payloadKeyFromModelName` to override the root key for an outgoing
@@ -1885,7 +1886,7 @@ declare module "ember-data" {
                 type: Model,
                 id: string,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * The `findAll()` method is used to retrieve all records for a given type.
              */
@@ -1894,7 +1895,7 @@ declare module "ember-data" {
                 type: Model,
                 sinceToken: string,
                 snapshotRecordArray: SnapshotRecordArray
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * This method is called when you call `query` on the store.
              */
@@ -1903,12 +1904,12 @@ declare module "ember-data" {
                 type: Model,
                 query: {},
                 recordArray: AdapterPopulatedRecordArray<any>
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * The `queryRecord()` method is invoked when the store is asked for a single
              * record through a query object.
              */
-            queryRecord(store: Store, type: Model, query: {}): Promise<any>;
+            queryRecord(store: Store, type: Model, query: {}): RSVP.Promise<any>;
             /**
              * If the globally unique IDs for your records should be generated on the client,
              * implement the `generateIdForRecord()` method. This method will be invoked
@@ -1932,7 +1933,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Implement this method in a subclass to handle the updating of
              * a record.
@@ -1941,7 +1942,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Implement this method in a subclass to handle the deletion of
              * a record.
@@ -1950,7 +1951,7 @@ declare module "ember-data" {
                 store: Store,
                 type: Model,
                 snapshot: Snapshot
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
              * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
@@ -1968,7 +1969,7 @@ declare module "ember-data" {
                 type: Model,
                 ids: any[],
                 snapshots: any[]
-            ): Promise<any>;
+            ): RSVP.Promise<any>;
             /**
              * Organize records into groups, each of which is to be passed to separate
              * calls to `findMany`.

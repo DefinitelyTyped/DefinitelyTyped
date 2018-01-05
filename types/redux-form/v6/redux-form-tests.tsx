@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 import { Action } from 'redux';
 import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
@@ -9,13 +8,13 @@ interface CustomComponentProps {
     customProp: string;
 }
 
-class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps> {
+class CustomComponent extends React.Component<WrappedFieldProps<any> & CustomComponentProps> {
     render() {
         const {
             input,
             meta : { touched },
             customProp
-        } = this.props
+        } = this.props;
 
         return (
             <div>
@@ -27,7 +26,7 @@ class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponent
     }
 }
 
-class CustomField extends Component<BaseFieldProps & CustomComponentProps> {
+class CustomField extends React.Component<BaseFieldProps & CustomComponentProps> {
     render() {
         const F = Field as new () => GenericField<CustomComponentProps, any>;
         return <F component={CustomComponent} {...this.props} />;
@@ -42,7 +41,7 @@ interface FormData {
 @reduxForm<FormData, any, any>({
     form: 'myForm'
 })
-class MyForm extends Component {
+class MyForm extends React.Component {
     render() {
         return (
             <div>
@@ -66,7 +65,7 @@ reduxForm({
     form: 'mySFCForm'
 })(MyStatelessFunctionalComponent);
 
-class MyReusableForm extends Component<void, undefined> {
+class MyReusableForm extends React.Component<void, undefined> {
     render() {
         return (
             <div>
@@ -87,7 +86,7 @@ reduxForm({
 
 // adapted from: http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState/
 
-import { connect, DispatchProp } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux';
 import { input } from 'react-dom-factories';
 
 interface DataShape {
@@ -96,7 +95,7 @@ interface DataShape {
 
 interface Props extends FormProps<DataShape, {}, {}> {}
 
-let InitializeFromStateFormFunction = (props: Props) => {
+const InitializeFromStateFormFunction = (props: Props) => {
     const { handleSubmit, pristine, reset, submitting } = props;
     return (
         <form onSubmit={handleSubmit}>
@@ -112,12 +111,12 @@ let InitializeFromStateFormFunction = (props: Props) => {
         </div>
         </form>
     );
-}
+};
 
 // Decorate with reduxForm(). It will read the initialValues prop provided by connect()
-const DecoratedInitializeFromStateFormFunction = reduxForm({
+const DecoratedInitializeFromStateFormFunction = reduxForm<{}, Props & DispatchProp<any>>({
   form: 'initializeFromState'  // a unique identifier for this form
-})(InitializeFromStateFormFunction)
+})(InitializeFromStateFormFunction);
 
 // You have to connect() to any reducers that you wish to connect to yourself
 const ConnectedDecoratedInitializeFromStateFormFunction = connect(
