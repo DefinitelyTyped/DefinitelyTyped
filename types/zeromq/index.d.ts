@@ -56,7 +56,7 @@ export interface SocketOptions {
     zap_domain: number;
 }
 
-export interface Socket {
+export class Socket {
     /**
      * Set `opt` to `val`.
      *
@@ -148,8 +148,8 @@ export interface Socket {
      * 'accept', 'accept_error', 'close', 'close_error', 'disconnect'.
      * Each event receives the parameters: (eventValue, eventEndpointAddrress, error)
      *
-     * @param {Number} timer interval in ms > 0 or Undefined for default
-     * @return {Socket} for chaining
+     * @param timer interval in ms > 0 or Undefined for default
+     * @return for chaining
      */
     monitor(interval?: number): Socket;
 
@@ -161,8 +161,6 @@ export interface Socket {
 
     /**
      * Socket event - 'message'
-     * @param eventName {string}
-     * @param callback {Function}
      */
     on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
 
@@ -204,16 +202,12 @@ export interface CurveKeyPair {
     /**
      * A Z85 string denoting the public portion of the Curve25519 key.
      *
-     * @name CurveKeyPair#public
-     * @type string
      */
     public: string;
 
     /**
      * A Z85 string denoting the private, secret portion of the Curve25519 key.
      *
-     * @name CurveKeyPair#secret
-     * @type string
      */
     secret: string;
 }
@@ -228,18 +222,18 @@ export let options: SocketOptions;
 
 /**
  * Creates a ZeroMQ socket of the specified type.
- * @return {Socket} The created socket in an unconnected state.
+ * @return The created socket in an unconnected state.
  */
 export function socket(type: string|number, options?: any): Socket;
 
 /**
  * Creates a ZeroMQ socket of the specified type.
- * @return {Socket} The created socket in an unconnected state.
+ * @return The created socket in an unconnected state.
  */
 export function createSocket(type: string, options?: any): Socket;
 
 /**
  * Generates a CurveZMQ (Curve25519) key pair.
- * @return {CurveKeyPair} The public and secret portions of the key.
+ * @return The public and secret portions of the key.
  */
 export function curveKeypair(): CurveKeyPair;

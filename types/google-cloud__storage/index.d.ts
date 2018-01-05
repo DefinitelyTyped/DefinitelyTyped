@@ -134,7 +134,7 @@ declare namespace Storage {
         makePublic(): Promise<[ApiResponse]>;
         move(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
         name: string;
-        save(data: string, options?: WriteStreamOptions): Promise<void>;
+        save(data: string | Buffer, options?: WriteStreamOptions): Promise<void>;
         setEncryptionKey(encryptionKey: string | Buffer): File;
         setMetadata(metadata: FileMetadata): Promise<[ApiResponse]>;
         metadata?: FileMetadata;
@@ -153,6 +153,7 @@ declare namespace Storage {
     interface FileMetadata {
         contentType?: string;
         metadata?: CustomFileMetadata;
+        cacheControl?: string;
     }
 
     /**

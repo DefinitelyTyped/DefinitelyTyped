@@ -8,6 +8,5 @@ declare module GoogleAppsScript {
   type Byte = number;
   type Integer = number;
   type Char = string;
-  type String = string;
   type JdbcSQL_XML = any;
 }

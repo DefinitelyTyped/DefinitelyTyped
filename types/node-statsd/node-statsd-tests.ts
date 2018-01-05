@@ -10,6 +10,8 @@ client.timing('response_time', 42);
 // Increment: Increments a stat by a value (default is 1)
 client.increment('my_counter');
 
+client.increment('my_counter', 1, ['foo:1', 'bar:abc']);
+
 // Decrement: Decrements a stat by a value (default is -1)
 client.decrement('my_counter');
 

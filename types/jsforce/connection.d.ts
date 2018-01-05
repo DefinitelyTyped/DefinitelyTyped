@@ -58,7 +58,7 @@ export type ConnectionEvent = "refresh";
  * to ensure that you have the correct data types for the various collection names.
  */
 export interface Connection {
-    query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): QueryResult<T>;
+    query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     sobject<T>(resource: string): SObject<T>;
 }
 

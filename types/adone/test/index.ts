@@ -29,9 +29,12 @@ namespace AdoneRootTests {
     adone.lazify({});
     adone.lazify({}, {});
     adone.lazify({}, {}, () => { });
+    adone.lazify({}, {}, () => { }, {});
     adone.lazify({}, {}, () => { }, { configurable: true });
+    adone.lazify({}, {}, () => { }, { writable: false });
+    adone.lazify({}, {}, () => { }, { mapper: (key: string, obj: any) => null });
     adone.tag.set({}, "123");
-    adone.tag.has({}, "123") === true;
+    { const a: boolean = adone.tag.has({}, "123"); }
     adone.tag.define("12");
     adone.tag.define("123", "456");
     { const a: symbol = adone.tag.SUBSYSTEM; }
@@ -59,8 +62,6 @@ namespace AdoneRootTests {
     { const a: symbol = adone.tag.FAST_STREAM; }
     { const a: symbol = adone.tag.FAST_FS_STREAM; }
     { const a: symbol = adone.tag.FAST_FS_MAP_STREAM; }
-    { const a: Promise<void> = adone.run({}); }
-    { const a: Promise<void> = adone.run({}, false); }
     { const a: object = adone.bind("library"); } // hmm
     { const a: string = adone.getAssetAbsolutePath("asset"); }
     { const a: Buffer | string = adone.loadAsset("asset"); }

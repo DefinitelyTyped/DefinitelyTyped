@@ -1,7 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package unifiable overloaded functions, lot of effort to fix
-        "unified-signatures": false
-    }
+    "extends": "dtslint/dt.json"
 }

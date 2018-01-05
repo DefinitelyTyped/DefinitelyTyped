@@ -50,12 +50,12 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
     const formattedRelative = formatRelative(new Date().getTime(), { format: "short" });
     const formattedNumber = formatNumber(123, { format: "short" });
     const formattedPlural = formatPlural(1, { style: "ordinal" });
-    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger", nullAllowed: null, undefinedAllowed: undefined });
     const formattedMessagePlurals = formatMessage({
         id: "hello",
-        defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" },
-        { name: "Roger", unreadCount: 123 });
-    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+        defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!"
+    }, { name: "Roger", unreadCount: 123 });
+    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger", nullAllowed: null, undefinedAllowed: undefined });
     return (
         <div className={className}>
         </div>
@@ -134,6 +134,13 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 description="Test"
                 defaultMessage="Hi plurals: {valueOne, number} {valueOne, plural, one {plural} other {plurals}} {valueTen, number} {valueTen, plural, one {plural} other {plurals}} !"
                 values={{ valueOne: 1, valueTen: 10 }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi {blank} and {empty}!"
+                values={{ blank: null, empty: undefined }}
                 tagName="div" />
 
             <FormattedHTMLMessage

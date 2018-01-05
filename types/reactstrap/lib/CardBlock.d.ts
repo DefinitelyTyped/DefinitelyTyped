@@ -1,11 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardBlockProps {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var CardBlock: React.StatelessComponent<Props>;
+declare const CardBlock: React.StatelessComponent<CardBlockProps>;
 export default CardBlock;
-

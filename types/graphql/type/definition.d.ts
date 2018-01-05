@@ -288,6 +288,7 @@ export interface GraphQLFieldConfig<TSource, TContext> {
     type: GraphQLOutputType;
     args?: GraphQLFieldConfigArgumentMap;
     resolve?: GraphQLFieldResolver<TSource, TContext>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext>;
     deprecationReason?: string;
     description?: string;
     astNode?: FieldDefinitionNode;
@@ -314,6 +315,7 @@ export interface GraphQLField<TSource, TContext> {
     type: GraphQLOutputType;
     args: GraphQLArgument[];
     resolve?: GraphQLFieldResolver<TSource, TContext>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext>;
     isDeprecated?: boolean;
     deprecationReason?: string;
     astNode?: FieldDefinitionNode;
@@ -453,6 +455,7 @@ export class GraphQLEnumType {
     constructor(config: GraphQLEnumTypeConfig);
     getValues(): GraphQLEnumValue[];
     getValue(name: string): GraphQLEnumValue;
+    isValidValue(value: any): boolean;
     serialize(value: any): string;
     parseValue(value: any): any;
     parseLiteral(valueNode: ValueNode): any;

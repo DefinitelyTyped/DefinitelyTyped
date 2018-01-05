@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.3
+// Type definitions for ej.web.all 15.4
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,10 @@
 
 /// <reference types="jquery" />
 
+
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.3.0.29
+*  version : 15.4.0.17
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -16,7 +17,6 @@
 *  applicable laws.
 */
 declare namespace ej {
-    /* tslint:disable:no-empty-interface */
     const dataUtil: dataUtil;
     function isMobile(): boolean;
     function isIOS(): boolean;
@@ -37,7 +37,7 @@ declare namespace ej {
     function createObject(nameSpace: string, value: any, initIn: any): JQuery;
     function createObject(element: any, eventEmitter: any, model: any): any;
     function setCulture(culture: string): void;
-    function getObject<T>(element: string, model: any): T;
+    function getObject(element: string, model: any): any;
     function getObject(nameSpace: string, fromdata?: any): any;
     function defineClass(className: string, constructor: any, proto: any, replace: boolean): any;
     function destroyWidgets(element: any): void;
@@ -54,7 +54,7 @@ declare namespace ej {
     function getNameSpace(className: string): string;
     function getOffset(ele: string): any;
     function getRenderMode(): string;
-    function getScrollableParents(element: any): void;
+    function getScrollableParents(element: any): JQuery;
     function getTheme(): string;
     function getZindexPartial(element: any, popupEle: string): number;
     function hasRenderMode(element: string): void;
@@ -5131,6 +5131,10 @@ declare namespace ej {
              */
             beforeUpload?(e: BeforeUploadEventArgs): void;
 
+            /** Fires before opening the upload dialog.
+             */
+            beforeUploadDialogOpen?(e: BeforeUploadDialogOpenEventArgs): void;
+
             /** Fires when FileExplorer control was created
              */
             create?(e: CreateEventArgs): void;
@@ -5349,6 +5353,21 @@ declare namespace ej {
             /** returns the upload item details.
              */
             uploadItemDetails?: any;
+
+            /** returns the name of the event.
+             */
+            type?: string;
+        }
+
+        export interface BeforeUploadDialogOpenEventArgs {
+
+            /** returns Selected FileList objects
+             */
+            files?: any;
+
+            /** returns the FileExplorer model
+             */
+            model?: any;
 
             /** returns the name of the event.
              */
@@ -7732,7 +7751,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set "showHeader" as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set 'showHeader' as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
@@ -7791,7 +7810,7 @@ declare namespace ej {
              */
             target?: string;
 
-            /** The title text to be displayed in the dialog header. In order to set title, you need to set "showHeader" as true since the title will be displayed in the dialog header.
+            /** The title text to be displayed in the dialog header. In order to set title, you need to set showHeader as true since the title will be displayed in the dialog header.
              */
             title?: string;
 
@@ -8442,6 +8461,12 @@ declare namespace ej {
              * @Default {false}
              */
             enableFilterSearch?: boolean;
+
+            /** The serverfiltering is to perform filter action when text is typed in the search box and filtering will be done based on the collection which contains the matched item from entire
+             * datasource. Serverfiltering will be done based on the entire items in DataSource.
+             * @Default {false}
+             */
+            enableServerFiltering?: boolean;
 
             /** Saves the current model value to the browser cookies for state maintenance. While refreshing the DropDownList control page, it retains the model value and it is applied from the
              * browser cookies.
@@ -10273,7 +10298,7 @@ declare namespace ej {
 
             /** Specifies the field settings to map the datasource.
              */
-            fieldSettings?: any;
+            fieldSettings?: FieldSettings;
 
             /** Contains the array of items to be added in ListView.
              * @Default {[]}
@@ -10644,6 +10669,61 @@ declare namespace ej {
              */
             type?: string;
         }
+
+        export interface FieldSettings {
+
+            /** Defines the specific field name which contains Boolean values to specify whether the list items to be checked by default or not.
+             */
+            checked?: boolean;
+
+            /** Defines the URL to be navigated while clicking the list item.
+             */
+            navigateUrl?: string;
+
+            /** Defines the HTML attributes such as id, class, styles for the specific list item.
+             */
+            attributes?: any;
+
+            /** Defines the specific field name which contains id values for the list items.
+             */
+            id?: string;
+
+            /** Defines the URL for the image to be displayed in the list item.
+             */
+            imageUrl?: string;
+
+            /** Defines the class name for image in that specific list items.
+             */
+            imageClass?: string;
+
+            /** Specifies whether to prevent the selection of the list item.
+             */
+            preventSelection?: boolean;
+
+            /** Specifies whether to retain the selection of the list item.
+             */
+            persistSelection?: boolean;
+
+            /** To define the first level of list items.
+             */
+            primaryKey?: string;
+
+            /** To define the child level of list items inside the parent items.
+             */
+            parentPrimaryKey?: string;
+
+            /** Defines the specific field name in the data source to load the list with data.
+             */
+            text?: string;
+
+            /** To trigger the mouseup event for specific list items.
+             */
+            mouseUP?: string;
+
+            /** To trigger the mousedown event for specific list items.
+             */
+            mouseDown?: string;
+        }
     }
 
     class MaskEdit extends ej.Widget {
@@ -10720,6 +10800,11 @@ declare namespace ej {
              * @Default {ej.InputMode.Text}
              */
             inputMode?: ej.InputMode|string;
+
+            /** Defines the localization culture for MaskEdit.
+             * @Default {en-US}
+             */
+            locale?: string;
 
             /** Specifies the input mask.
              * @Default {null}
@@ -11741,7 +11826,7 @@ declare namespace ej {
              */
             externalStyles?: string;
 
-            /** Prepend a doctype to the document frame.
+            /** Prepend a docType to the document frame.
              * @Default {&lt;!doctype html&gt;}
              */
             docType?: string;
@@ -15901,7 +15986,7 @@ declare namespace ej {
         /** Performs the action value based on the given command.
          * @param {string} Command Name.
          * @param {any} Content to be inserted as argument.
-         * @param {boolean} Boolean value to specify whether the argument is textnode or not, this is optional.
+         * @param {boolean} Boolean value to specify whether the argument is textNode or not, this is optional.
          * @returns {void}
          */
         executeCommand(cmdName: string, args: any, textnodeType?: boolean): void;
@@ -16854,6 +16939,11 @@ declare namespace ej {
              * @Default {false}
              */
             readOnly?: boolean;
+
+            /** Shows/Hides the increment and decrement buttons of the slider.
+             * @Default {false}
+             */
+            showButtons?: boolean;
 
             /** Specifies the rounded corner behavior for slider.
              * @Default {false}
@@ -22044,6 +22134,19 @@ declare namespace ej {
          */
         cancelEditCell(): void;
 
+        /** Returns the total page size need to be displayed in grid based on the given container height. This method will also work when the property allowTextWrap as true only when wrap
+         * mode is header.
+         * @param {number} When passing the container height as integer or percentage, it will returns the page size that need to be displayed for grid.
+         * @returns {number}
+         */
+        calculatePageSizeByParentHeight(containerHeight: number): number;
+
+        /** It is used to change the number of records displayed per page in grid based on the given page size.
+         * @param {number} When passing the page size, it will change the number of records displayed per page in grid.
+         * @returns {void}
+         */
+        changePageSize(pageSize: number): void;
+
         /** It is used to clear all the cell selection.
          * @returns {boolean}
          */
@@ -22169,7 +22272,7 @@ declare namespace ej {
         export(action?: string, serverEvent?: string, multipleExport?: boolean, gridIds?: any[]): void;
 
         /** Send a filtering request to filter one column in grid.
-         * @param {any[]} Pass the field name of the column
+         * @param {any[]|string} Pass the field name of the column
          * @param {string} string/integer/dateTime operator
          * @param {string} Pass the value to be filtered in a column
          * @param {string} Pass the predicate as and/or
@@ -22177,7 +22280,7 @@ declare namespace ej {
          * @param {any} optionalactualFilterValue denote the filter object of current filtered columns.Pass the value to filtered in a column
          * @returns {void}
          */
-        filterColumn(fieldName: any[], filterOperator: string, filterValue: string, predicate: string, matchcase?: boolean, actualFilterValue?: any): void;
+        filterColumn(fieldName: any[]|string, filterOperator: string, filterValue: string, predicate: string, matchcase?: boolean, actualFilterValue?: any): void;
 
         /** Send a filtering request to filter single or multiple column in grid.
          * @param {any[]} Pass array of filterColumn query for performing filter operation
@@ -25152,7 +25255,7 @@ declare namespace ej {
             /** Gets or sets a value that indicates to display a column value as checkbox or string
              * @Default {true}
              */
-            displayAsCheckBox?: boolean;
+            displayAsCheckbox?: boolean;
 
             /** Gets or sets a value that indicates to customize ejNumericTextbox of an editable column. See editingType
              */
@@ -25288,6 +25391,11 @@ declare namespace ej {
              * @Default {[]}
              */
             subMenu?: any[];
+
+            /** Used to get or set the sub menu items to the custom context menu item using JsRender template.
+             * @Default {null}
+             */
+            template?: string;
         }
 
         export interface ContextMenuSettings {
@@ -32546,17 +32654,13 @@ declare namespace ej {
 
         export interface ActionBeginEventArgs {
 
-            /** Returns the current date value.
-             */
-            currentDate?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
 
-            /** Returns the current view value.
+            /** Returns the data about the view change action.
              */
-            currentView?: string;
+            data?: any;
 
             /** Returns the Schedule model.
              */
@@ -32566,21 +32670,17 @@ declare namespace ej {
              */
             requestType?: string;
 
-            /** Returns the target of the click.
-             */
-            target?: any;
-
             /** Returns the name of the event.
              */
             type?: string;
 
-            /** Returns the save appointment value.
+            /** Returns the name of the CRUD action performed.
              */
-            data?: any;
+            currentAction?: string;
 
-            /** Returns the id of delete appointment.
+            /** Returns the GUid of appointment.
              */
-            id?: number;
+            id?: string;
         }
 
         export interface ActionCompleteEventArgs {
@@ -32604,6 +32704,10 @@ declare namespace ej {
             /** Returns the name of the event.
              */
             type?: string;
+
+            /** Returns the name of the CRUD action performed.
+             */
+            currentAction?: string;
 
             /** Returns the appointment data dropped.
              */
@@ -32635,13 +32739,17 @@ declare namespace ej {
 
         export interface BeforeAppointmentRemoveEventArgs {
 
+            /** Returns the deleted appointment object.
+             */
+            appointment?: any;
+
             /** Returns the cancel option value.
              */
             cancel?: boolean;
 
-            /** Returns the deleted appointment object.
+            /** Returns the name of the CRUD action performed.
              */
-            appointment?: any;
+            currentAction?: string;
 
             /** Returns the Schedule model.
              */
@@ -32662,9 +32770,17 @@ declare namespace ej {
              */
             cancel?: boolean;
 
+            /** Returns the name of the CRUD action performed.
+             */
+            currentAction?: string;
+
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns the name of the Scheduler event.
+             */
+            requestType?: string;
 
             /** Returns the name of the Scheduler event.
              */
@@ -32797,13 +32913,13 @@ declare namespace ej {
 
         export interface CellClickEventArgs {
 
-            /** Returns the object of cellClick event.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
+
+            /** Returns the index of the cell.
+             */
+            cellIndex?: number;
 
             /** Returns the end time of the clicked cell.
              */
@@ -32812,6 +32928,14 @@ declare namespace ej {
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns day, date and time information.
+             */
+            quickString?: string;
+
+            /** Returns the object of the resource.
+             */
+            resources?: any;
 
             /** Returns the start time of the clicked cell.
              */
@@ -32828,10 +32952,6 @@ declare namespace ej {
 
         export interface CellDoubleClickEventArgs {
 
-            /** Returns the object of cellDoubleClick event.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
@@ -32843,6 +32963,10 @@ declare namespace ej {
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns the object of the resource.
+             */
+            resources?: any;
 
             /** Returns the start time of the double clicked cell.
              */
@@ -32859,25 +32983,29 @@ declare namespace ej {
 
         export interface CellHoverEventArgs {
 
-            /** Returns the object of cellHover event.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
 
             /** Returns the index of the hovered cell.
              */
-            cellIndex?: any;
+            cellIndex?: number;
 
-            /** Returns the current date of the hovered cell.
+            /** Returns the end time of the clicked cell.
              */
-            currentDate?: any;
+            endTime?: any;
 
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns the object of the resource.
+             */
+            resources?: any;
+
+            /** Returns the start time of the clicked cell.
+             */
+            startTime?: any;
 
             /** Returns the target of the clicked cell.
              */
@@ -32920,10 +33048,6 @@ declare namespace ej {
 
         export interface DragEventArgs {
 
-            /** Returns the object of dragOver event.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
@@ -32939,13 +33063,17 @@ declare namespace ej {
             /** Returns the name of the event.
              */
             type?: string;
+
+            /** Returns the default dragging interval range in minutes
+             */
+            interval?: number;
         }
 
         export interface DragStartEventArgs {
 
-            /** Returns the object of dragStart event.
+            /** Returns the dragged appointment.
              */
-            object?: any;
+            appointment?: any;
 
             /** Returns the cancel option value.
              */
@@ -32966,10 +33094,6 @@ declare namespace ej {
 
         export interface DragStopEventArgs {
 
-            /** Returns the object of dragDrop event.
-             */
-            object?: any;
-
             /** Returns the dropped appointment object.
              */
             appointment?: any;
@@ -32989,10 +33113,6 @@ declare namespace ej {
 
         export interface MenuItemClickEventArgs {
 
-            /** Returns the object of menuItemClick event.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
@@ -33004,6 +33124,10 @@ declare namespace ej {
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns the right clicked cell details.
+             */
+            targetInfo?: any;
 
             /** Returns the name of the event.
              */
@@ -33035,6 +33159,10 @@ declare namespace ej {
             /** Returns the target of the action.
              */
             target?: any;
+
+            /** Returns the name of the Scheduler event.
+             */
+            requestType?: string;
 
             /** Returns the name of the event.
              */
@@ -33109,10 +33237,6 @@ declare namespace ej {
 
         export interface ResizeEventArgs {
 
-            /** Returns the object of resizing event.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
@@ -33120,6 +33244,10 @@ declare namespace ej {
             /** Returns the resize element value.
              */
             element?: any;
+
+            /** Returns the default appointment resizing range .
+             */
+            interval?: number;
 
             /** Returns the Schedule model.
              */
@@ -33132,9 +33260,9 @@ declare namespace ej {
 
         export interface ResizeStartEventArgs {
 
-            /** Returns the object of resizeStart event.
+            /** Returns the object of the resized appointment.
              */
-            object?: any;
+            appointment?: any;
 
             /** Returns the cancel option value.
              */
@@ -33154,10 +33282,6 @@ declare namespace ej {
         }
 
         export interface ResizeStopEventArgs {
-
-            /** Returns the object of resizeStop event.
-             */
-            object?: any;
 
             /** Returns the resized appointment value.
              */
@@ -33182,13 +33306,13 @@ declare namespace ej {
 
         export interface OverflowButtonClickEventArgs {
 
-            /** Returns the object consisting of start time, end time and resource value of the underlying cell on which the clicked overflow button is present.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
+
+            /** Returns the icon rendered cell information.
+             */
+            Datas?: any;
 
             /** Returns the object of menu item event.
              */
@@ -33205,17 +33329,17 @@ declare namespace ej {
 
         export interface OverflowButtonHoverEventArgs {
 
-            /** Returns the object consisting of start time, end time and resource value of the underlying cell on which the overflow button is currently hovered.
-             */
-            object?: any;
-
             /** Returns the cancel option value.
              */
             cancel?: boolean;
 
+            /** Returns the icon rendered cell information.
+             */
+            datas?: any;
+
             /** Returns the object of menu item event.
              */
-            events?: any;
+            event?: any;
 
             /** Returns the Schedule model.
              */
@@ -33261,6 +33385,10 @@ declare namespace ej {
 
             /** Returns the name of the Scheduler event.
              */
+            requestType?: string;
+
+            /** Returns the name of the Scheduler event.
+             */
             type?: string;
         }
 
@@ -33274,9 +33402,17 @@ declare namespace ej {
              */
             cancel?: boolean;
 
+            /** Returns the name of the CRUD action performed.
+             */
+            currentAction?: string;
+
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns the name of the Scheduler event.
+             */
+            requestType?: string;
 
             /** Returns the name of the Scheduler event.
              */
@@ -33293,9 +33429,17 @@ declare namespace ej {
              */
             appointment?: any;
 
+            /** Returns the name of the CRDU action performed.
+             */
+            currentAction?: string;
+
             /** Returns the Schedule model.
              */
             model?: ej.Schedule.Model;
+
+            /** Returns the name of the Scheduler event.
+             */
+            requestType?: string;
 
             /** Returns the name of the Scheduler event.
              */
@@ -34106,6 +34250,11 @@ declare namespace ej {
              */
             enablePredecessorValidation?: boolean;
 
+            /** Enables or disables serial number column for Gantt. When enabled, the records will be number sequenced.
+             * @Default {false}
+             */
+            enableSerialNumber?: boolean;
+
             /** Specifies the baseline background color in Gantt
              * @Default {#fba41c}
              */
@@ -34186,6 +34335,10 @@ declare namespace ej {
              * @Default {[]}
              */
             editDialogFields?: EditDialogField[];
+
+            /** Options for filtering and customizing filter actions.
+             */
+            filterSettings?: FilterSettings;
 
             /** Enables or disables the responsiveness of Gantt
              * @Default {false}
@@ -34570,6 +34723,32 @@ declare namespace ej {
              * @Default {[Monday,Tuesday,Wednesday,Thursday,Friday]}
              */
             workWeek?: any[];
+
+            /** Specifies the view type for a project in the Gantt.
+             * @Default {ej.Gantt.ViewType.ProjectView}
+             */
+            viewType?: ej.Gantt.ViewType|string;
+
+            /** Specifies the data collection for grouping the resources in resource allocation view in Gantt.
+             * @Default {[]}
+             */
+            groupCollection?: any[];
+
+            /** Default Value
+             */
+            resourceCollectionMapping?: string;
+
+            /** Default Value
+             */
+            taskCollectionMapping?: string;
+
+            /** Default Value
+             */
+            groupIdMapping?: string;
+
+            /** Default Value
+             */
+            groupNameMapping?: string;
 
             /** Triggered for every Gantt action before its starts.
              */
@@ -35395,6 +35574,33 @@ declare namespace ej {
             editType?: string;
         }
 
+        export interface FilterSettingsFilteredColumn {
+
+            /** Specifies the value to be filtered in Gantt.
+             */
+            value?: string;
+
+            /** Specifies the field where filtering has to be performed.
+             */
+            field?: string;
+
+            /** Specifies the predicate(and/or) value to perform filtering.
+             */
+            predicate?: string;
+
+            /** Specifies the filter condition to filtered column. See operator
+             */
+            operator?: string;
+        }
+
+        export interface FilterSettings {
+
+            /** Specifies the column collection for filtering the Gantt content on initial load
+             * @Default {[]}
+             */
+            filteredColumns?: FilterSettingsFilteredColumn[];
+        }
+
         export interface SplitterSettings {
 
             /** Specifies position of the splitter in Gantt , splitter can be placed either based on percentage values or pixel values.
@@ -35781,6 +35987,16 @@ declare namespace ej {
 
             ///Sets twenty four hour timescale.
             TimeScale24Hours
+        }
+
+
+        enum ViewType {
+
+            ///Displays the project in task view in Gantt.
+            ProjectView,
+
+            ///Displays the project in resource allocation view in Gantt.
+            ResourceView
         }
 
     }
@@ -36536,6 +36752,141 @@ declare namespace ej {
          * @returns {void}
          */
         reorderColumn(fieldName: string, targetIndex: string): void;
+
+        /** To get the updated data source of TreeGrid.
+         * @returns {any[]}
+         */
+        getUpdatedRecords(): any[];
+
+        /** Sends request to navigate to a specific page in TreeGrid.
+         * @param {number} Pass the page index to perform paging at specified page index.
+         * @returns {void}
+         */
+        gotoPage(PageIndex: number): void;
+
+        /** To change the checkbox selection to any column.
+         * @param {string} Pass the column field name to check box selection to that column.
+         * @returns {void}
+         */
+        updateCheckboxColumn(fieldName: string): void;
+
+        /** Gets the selected cell(s) element details in TreeGrid.
+         * @returns {any[]}
+         */
+        getSelectedCells(): any[];
+
+        /** Sets the minimum responsive width for TreeGrid.
+         * @param {string} Pass the minimum responsive width, above which the TreeGrid needs to work in responsive mode.
+         * @returns {void}
+         */
+        updateResponsiveMinWidth(width: string): void;
+
+        /** To open the dialog to add new record/row in TreeGrid.
+         * @returns {void}
+         */
+        showAddDialog(): void;
+
+        /** To open the dialog to edit a row/record in TreeGrid.
+         * @param {number} Pass the index of row to be edit.
+         * @returns {void}
+         */
+        showEditDialog(Index: number): void;
+
+        /** Sets the scroll left and scroll top offsets of TreeGrid.
+         * @param {string} Pass a value to set left position of horizontal scroll bar.
+         * @param {string} Pass a value to set top position of vertical scroll bar.
+         * @returns {void}
+         */
+        scrollOffset(Left: string, Top: string): void;
+
+        /** Gets the scroll top offset of TreeGrid.
+         * @returns {number}
+         */
+        getScrollTopOffset(): number;
+
+        /** Gets the scroll left offset of TreeGrid.
+         * @returns {number}
+         */
+        getScrollLeftOffset(): number;
+
+        /** Sets the scroll top offset of TreeGrid to 0.
+         * @returns {void}
+         */
+        scrollToTop(): void;
+
+        /** Sets the scroll top offset of TreeGrid to maximum value.
+         * @returns {void}
+         */
+        scrollToBottom(): void;
+
+        /** To expand and collapse an item in TreeGrid using itemâ€™s index.
+         * @param {number} Pass the row index of row to expand/collapse.
+         * @returns {void}
+         */
+        expandCollapseRow(Index: number): void;
+
+        /** To expand all the root level nodes in TreeGrid.
+         * @returns {void}
+         */
+        expandAll(): void;
+
+        /** Show/Hide the detail row of a specific record.
+         * @param {number} Pass the row index of record to show/hide the detail row.
+         * @returns {void}
+         */
+        showHideDetailsRow(rowIndex: number): void;
+
+        /** Sends filtering request to filter a column in TreeGrid.
+         * @param {string} Pass the field name of the column.
+         * @param {string} string/integer/dateTime operator.
+         * @param {string} Pass the value to be filtered in a column.
+         * @param {string} Pass the predicate as and/or.
+         * @param {boolean} Optional pass the match case value as true/false.
+         * @param {any} Optional actualFilterValue denote the filter object of current filtered columns.
+         * @returns {void}
+         */
+        filterColumn(fieldName: string, filterOperator: string, filterValue: string, predicate: string, matchcase: boolean, actualFilterValue: any): void;
+
+        /** To change the index of the tree column in TreeGrid.
+         * @param {number} Pass the column index to make the column as treeColumnIndex.
+         * @returns {void}
+         */
+        columnIndex(Index: number): void;
+
+        /** To clear the sorting from sorted columns in TreeGrid.
+         * @returns {void}
+         */
+        clearSorting(): void;
+
+        /** Gets the column index of specific column with data source field.
+         * @param {string} Pass the column field name to get its index.
+         * @returns {number}
+         */
+        getColumnIndexByField(fieldName: string): number;
+
+        /** Gets the column field name using column header text.
+         * @param {string} Pass the column header text to get its field name.
+         * @returns {string}
+         */
+        getFieldNameByHeaderText(headerText: string): string;
+
+        /** Gets the column object of specific column.
+         * @param {string} Pass the column header text to get details of that column.
+         * @returns {any}
+         */
+        getColumnByHeaderText(headerText: string): any;
+
+        /** Clears the filter applied to a specific column.
+         * @param {string} Pass the column field name to clear filtering done in that column.
+         * @returns {void}
+         */
+        clearFilter(fieldName: string): void;
+
+        /** Gets the column object of specific column.
+         * @param {string} Pass the column field name to get details of that column.
+         * @returns {any}
+         */
+        getColumnByField(fieldName: string): any;
     }
     export namespace TreeGrid {
 
@@ -36766,6 +37117,16 @@ declare namespace ej {
              * @Default {100}
              */
             detailsRowHeight?: number;
+
+            /** Gets or sets a value that indicates stacked header should be shown on TreeGrid layout when the property â€œstackedHeaderRowsâ€ is set.
+             * @Default {false}
+             */
+            showStackedHeader?: boolean;
+
+            /** Gets or sets an object that indicates to managing the collection of stacked header rows for the treegrid.
+             * @Default {[]}
+             */
+            stackedHeaderRows?: StackedHeaderRow[];
 
             /** Specifies the visibility of summary row
              * @Default {false}
@@ -38179,6 +38540,42 @@ declare namespace ej {
             enableSelectAll?: boolean;
         }
 
+        export interface StackedHeaderRowsStackedHeaderColumn {
+
+            /** Gets or sets a value that indicates the header text for the particular stacked header column.
+             * @Default {null}
+             */
+            column?: any;
+
+            /** Gets or sets a value that indicates class to the corresponding stackedHeaderColumn.
+             * @Default {null}
+             */
+            cssClass?: string;
+
+            /** Gets or sets a value that indicates the header text for the particular stacked header column.
+             * @Default {null}
+             */
+            headerText?: string;
+
+            /** Gets or sets a value that indicates the text alignment of the corresponding headerText.
+             * @Default {ej.TextAlign.Left}
+             */
+            textAlign?: string;
+
+            /** Sets the template for tooltip for the Grid stackedHeaderColumns.
+             * @Default {null}
+             */
+            tooltip?: string;
+        }
+
+        export interface StackedHeaderRow {
+
+            /** Gets or sets a value that indicates whether to add stacked header columns into the stacked header rows
+             * @Default {[]}
+             */
+            stackedHeaderColumns?: StackedHeaderRowsStackedHeaderColumn[];
+        }
+
         export interface SummaryRowsSummaryColumn {
 
             /** Specifies the summary type to perform calculations in a corresponding summary column. See summaryType.
@@ -38935,63 +39332,79 @@ declare namespace ej {
 
         export interface AjaxCompleteEventArgs {
 
-            /** returns true if the event should be canceled; otherwise, false.
+            /** Set this option to true to cancel the event.
              */
             cancel?: boolean;
 
-            /** returns the name of the event.
+            /** Instance of the navigation drawer model object.
+             */
+            model?: ej.NavigationDrawer.Model;
+
+            /** Name of the event.
              */
             type?: string;
 
-            /** returns the model value of the control.
+            /** URL of the content.
              */
-            model?: ej.NavigationDrawer.Model;
+            URL?: string;
+
+            /** Response content.
+             */
+            data?: string;
         }
 
         export interface AjaxErrorEventArgs {
 
-            /** returns true if the event should be canceled; otherwise, false.
+            /** Set this option to true to cancel the event.
              */
             cancel?: boolean;
 
-            /** returns the name of the event.
-             */
-            type?: string;
-
-            /** returns the model value of the control.
+            /** Instance of the navigation drawer model object.
              */
             model?: ej.NavigationDrawer.Model;
 
-            /** returns the error thrown in the AJAX post.
+            /** Name of the event.
              */
-            errorThrown?: any;
+            type?: string;
 
-            /** returns the status.
+            /** URL of the content.
              */
-            textStatus?: any;
+            URL?: string;
+
+            /** Error page content.
+             */
+            responseText?: string;
+
+            /** Error code.
+             */
+            status?: number;
+
+            /** The corresponding error description.
+             */
+            statusText?: string;
         }
 
         export interface AjaxSuccessEventArgs {
 
-            /** returns true if the event should be canceled; otherwise, false.
+            /** Set this option to true to cancel the event.
              */
             cancel?: boolean;
 
-            /** returns the name of the event.
-             */
-            type?: string;
-
-            /** returns the model value of the control.
+            /** Instance of the navigation drawer model object.
              */
             model?: ej.NavigationDrawer.Model;
 
-            /** returns the AJAX current content.
+            /** Name of the event.
              */
-            content?: string;
+            type?: string;
 
-            /** returns the current URL of the AJAX post.
+            /** URL of the content.
              */
             URL?: string;
+
+            /** Response content.
+             */
+            data?: string;
         }
 
         export interface BeforeCloseEventArgs {
@@ -44972,6 +45385,12 @@ declare namespace ej {
              */
             enableAsync?: boolean;
 
+            /** Sets the data type for the ajax call used within the SpellCheck control, denoting the type of data that are expected to be retrieved from the server. The applicable values are
+             * json and jsonp.
+             * @Default {jsonp}
+             */
+            ajaxDataType?: string;
+
             /** Triggers on the success of AJAX call request.
              */
             actionSuccess?(e: ActionSuccessEventArgs): void;
@@ -45705,209 +46124,283 @@ declare namespace ej.datavisualization {
         destroy(): void;
 
         /** To export Image
+         * @param {number} for the Image
+         * @param {number} for the Image
          * @returns {void}
          */
-        exportImage(): void;
+        exportImage(fileName: number, fileType: number): void;
 
         /** To get Bar Distance From Scale in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getBarDistanceFromScale(): any;
+        getBarDistanceFromScale(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Bar Pointer Value in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getBarPointerValue(): any;
+        getBarPointerValue(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Bar Width in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getBarWidth(): any;
+        getBarWidth(scaleIndex: number, pointerIndex: number): any;
 
         /** To get CustomLabel Angle in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} customLabelIndex value for the Gauge
          * @returns {any}
          */
-        getCustomLabelAngle(): any;
+        getCustomLabelAngle(scaleIndex: number, customLabelIndex: number): any;
 
         /** To get CustomLabel Value in string
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} customLabelIndex value for the Gauge
          * @returns {any}
          */
-        getCustomLabelValue(): any;
+        getCustomLabelValue(scaleIndex: number, customLabelIndex: number): any;
 
         /** To get Label Angle in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getLabelAngle(): any;
+        getLabelAngle(scaleIndex: number, labelIndex: number): any;
 
         /** To get LabelPlacement in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getLabelPlacement(): any;
+        getLabelPlacement(scaleIndex: number, labelIndex: number): any;
 
         /** To get LabelStyle in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getLabelStyle(): any;
+        getLabelStyle(scaleIndex: number, labelIndex: number): any;
 
         /** To get Label XDistance From Scale in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getLabelXDistanceFromScale(): any;
+        getLabelXDistanceFromScale(scaleIndex: number, labelIndex: number): any;
 
         /** To get PointerValue in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getLabelYDistanceFromScale(): any;
+        getLabelYDistanceFromScale(scaleIndex: number, labelIndex: number): any;
 
         /** To get Major Interval Value in number
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMajorIntervalValue(): any;
+        getMajorIntervalValue(scaleIndex: number): any;
 
         /** To get MarkerStyle in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getMarkerStyle(): any;
+        getMarkerStyle(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Maximum Value in number
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMaximumValue(): any;
+        getMaximumValue(scaleIndex: number): any;
 
         /** To get PointerValue in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getMinimumValue(): any;
+        getMinimumValue(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Minor Interval Value in number
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMinorIntervalValue(): any;
+        getMinorIntervalValue(scaleIndex: number): any;
 
         /** To get Pointer Distance From Scale in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerDistanceFromScale(): any;
+        getPointerDistanceFromScale(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerHeight in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerHeight(): any;
+        getPointerHeight(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Pointer Placement in String
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerPlacement(): any;
+        getPointerPlacement(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerValue in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerValue(): any;
+        getPointerValue(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerWidth in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerWidth(): any;
+        getPointerWidth(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Range Border Width in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeBorderWidth(): any;
+        getRangeBorderWidth(scaleIndex: number, rangeIndex: number): any;
 
         /** To get Range Distance From Scale in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeDistanceFromScale(): any;
+        getRangeDistanceFromScale(scaleIndex: number, rangeIndex: number): any;
 
         /** To get Range End Value in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeEndValue(): any;
+        getRangeEndValue(scaleIndex: number, rangeIndex: number): any;
 
         /** To get Range End Width in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeEndWidth(): any;
+        getRangeEndWidth(scaleIndex: number, rangeIndex: number): any;
 
         /** To get Range Position in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangePosition(): any;
+        getRangePosition(scaleIndex: number, rangeIndex: number): any;
 
         /** To get Range Start Value in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeStartValue(): any;
+        getRangeStartValue(scaleIndex: number, rangeIndex: number): any;
 
         /** To get Range Start Width in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeStartWidth(): any;
+        getRangeStartWidth(scaleIndex: number, rangeIndex: number): any;
 
         /** To get ScaleBarLength in number
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleBarLength(): any;
+        getScaleBarLength(scaleIndex: number): any;
 
         /** To get Scale Bar Size in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getScaleBarSize(): any;
+        getScaleBarSize(scaleIndex: number, pointerIndex: number): any;
 
         /** To get Scale Border Width in number
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleBorderWidth(): any;
+        getScaleBorderWidth(scaleIndex: number): any;
 
         /** To get Scale Direction in number
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleDirection(): any;
+        getScaleDirection(scaleIndex: number): any;
 
         /** To get Scale Location in object
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleLocation(): any;
+        getScaleLocation(scaleIndex: number): any;
 
         /** To get Scale Style in string
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleStyle(): any;
+        getScaleStyle(scaleIndex: number): any;
 
         /** To get Tick Angle in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickAngle(): any;
+        getTickAngle(scaleIndex: number, tickIndex: number): any;
 
         /** To get Tick Height in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickHeight(): any;
+        getTickHeight(scaleIndex: number, tickIndex: number): any;
 
         /** To get getTickPlacement in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickPlacement(): any;
+        getTickPlacement(scaleIndex: number, tickIndex: number): any;
 
         /** To get Tick Style in string
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickStyle(): any;
+        getTickStyle(scaleIndex: number, tickIndex: number): any;
 
         /** To get Tick Width in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickWidth(): any;
+        getTickWidth(scaleIndex: number, tickIndex: number): any;
 
         /** To get get Tick XDistance From Scale in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickXDistanceFromScale(): any;
+        getTickXDistanceFromScale(scaleIndex: number, tickIndex: number): any;
 
         /** To get Tick YDistance From Scale in number
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
          * @returns {any}
          */
-        getTickYDistanceFromScale(): any;
+        getTickYDistanceFromScale(scaleIndex: number, tickIndex: number): any;
 
         /** Specifies the scales.
          * @returns {void}
@@ -45915,204 +46408,314 @@ declare namespace ej.datavisualization {
         scales(): void;
 
         /** To set setBarDistanceFromScale
+         * @param {number} scaleIndex,value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} Bar DistanceFromScale value for Gauge
          * @returns {void}
          */
-        setBarDistanceFromScale(): void;
+        setBarDistanceFromScale(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set setBarPointerValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} Bar Pointer Value for Gauge
          * @returns {void}
          */
-        setBarPointerValue(): void;
+        setBarPointerValue(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set setBarWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} Bar Width for Gauge
          * @returns {void}
          */
-        setBarWidth(): void;
+        setBarWidth(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set setCustomLabelAngle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} customLabelIndex value for the Gauge
+         * @param {number} Custom Label Angle for Gauge
          * @returns {void}
          */
-        setCustomLabelAngle(): void;
+        setCustomLabelAngle(scaleIndex: number, customLabelIndex: number, value: number): void;
 
         /** To set setCustomLabelValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} customLabelIndex value for the Gauge
+         * @param {number} CustomLabel value for Gauge
          * @returns {void}
          */
-        setCustomLabelValue(): void;
+        setCustomLabelValue(scaleIndex: number, customLabelIndex: number, value: number): void;
 
         /** To set setLabelAngle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Label Angle for Gauge
          * @returns {void}
          */
-        setLabelAngle(): void;
+        setLabelAngle(scaleIndex: number, labelIndex: number, angle: number): void;
 
         /** To set setLabelPlacement
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Label Placement for Gauge
          * @returns {void}
          */
-        setLabelPlacement(): void;
+        setLabelPlacement(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** To set setLabelStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {string} Label Style for Gauge
          * @returns {void}
          */
-        setLabelStyle(): void;
+        setLabelStyle(scaleIndex: number, labelIndex: number, value: string): void;
 
         /** To set setLabelXDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Label XDistance From Scale for Gauge
          * @returns {void}
          */
-        setLabelXDistanceFromScale(): void;
+        setLabelXDistanceFromScale(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** To set setLabelYDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Label YDistance From Scale for Gauge
          * @returns {void}
          */
-        setLabelYDistanceFromScale(): void;
+        setLabelYDistanceFromScale(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** To set setMajorIntervalValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} Major Interval Value for Gauge
          * @returns {void}
          */
-        setMajorIntervalValue(): void;
+        setMajorIntervalValue(scaleIndex: number, value: number): void;
 
         /** To set setMarkerStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {string} marker Style for Gauge
          * @returns {void}
          */
-        setMarkerStyle(): void;
+        setMarkerStyle(scaleIndex: number, pointerIndex: number, value: string): void;
 
         /** To set setMaximumValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} MaximumValue for Gauge
          * @returns {void}
          */
-        setMaximumValue(): void;
+        setMaximumValue(scaleIndex: number, value: number): void;
 
         /** To set setMinimumValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} MinimumValue for Gauge
          * @returns {void}
          */
-        setMinimumValue(): void;
+        setMinimumValue(scaleIndex: number, value: number): void;
 
         /** To set setMinorIntervalValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} Minor Interval Value for Gauge
          * @returns {void}
          */
-        setMinorIntervalValue(): void;
+        setMinorIntervalValue(scaleIndex: number, value: number): void;
 
         /** To set setPointerDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} for Gauge
          * @returns {void}
          */
-        setPointerDistanceFromScale(): void;
+        setPointerDistanceFromScale(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerHeight
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} for Gauge
          * @returns {void}
          */
-        setPointerHeight(): void;
+        setPointerHeight(scaleIndex: number, pointerIndex: number, height: number): void;
 
         /** To set setPointerPlacement
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} pointer placement for Gauge
          * @returns {void}
          */
-        setPointerPlacement(): void;
+        setPointerPlacement(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} Pointer value for Gauge
          * @returns {void}
          */
-        setPointerValue(): void;
+        setPointerValue(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
+         * @param {number} Pointer width for Gauge
          * @returns {void}
          */
-        setPointerWidth(): void;
+        setPointerWidth(scaleIndex: number, pointerIndex: number, width: number): void;
 
         /** To set setRangeBorderWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} Range Border Width for Gauge
          * @returns {void}
          */
-        setRangeBorderWidth(): void;
+        setRangeBorderWidth(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setRangeDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} Range Distance FromScale for Gauge
          * @returns {void}
          */
-        setRangeDistanceFromScale(): void;
+        setRangeDistanceFromScale(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setRangeEndValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} Range end value for Gauge
          * @returns {void}
          */
-        setRangeEndValue(): void;
+        setRangeEndValue(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setRangeEndWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} Range End Width for Gauge
          * @returns {void}
          */
-        setRangeEndWidth(): void;
+        setRangeEndWidth(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setRangePosition
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} Range Position for Gauge
          * @returns {void}
          */
-        setRangePosition(): void;
+        setRangePosition(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setRangeStartValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} range start value for Gauge
          * @returns {void}
          */
-        setRangeStartValue(): void;
+        setRangeStartValue(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setRangeStartWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
+         * @param {number} Range Start Width for Gauge
          * @returns {void}
          */
-        setRangeStartWidth(): void;
+        setRangeStartWidth(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set setScaleBarLength
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} Scale Bar Length for Gauge
          * @returns {void}
          */
-        setScaleBarLength(): void;
+        setScaleBarLength(scaleIndex: number, value: number): void;
 
         /** To set setScaleBarSize
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} ScaleBarSize for Gauge
          * @returns {void}
          */
-        setScaleBarSize(): void;
+        setScaleBarSize(scaleIndex: number, value: number): void;
 
         /** To set setScaleBorderWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} Scale Border Width for Gauge
          * @returns {void}
          */
-        setScaleBorderWidth(): void;
+        setScaleBorderWidth(scaleIndex: number, value: number): void;
 
         /** To set setScaleDirection
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} Scale Direction for Gauge
          * @returns {void}
          */
-        setScaleDirection(): void;
+        setScaleDirection(scaleIndex: number, value: number): void;
 
         /** To set setScaleLocation
+         * @param {number} scaleIndex value for the Gauge
+         * @param {any} Scale position for Gauge
          * @returns {void}
          */
-        setScaleLocation(): void;
+        setScaleLocation(scaleIndex: number, value: any): void;
 
         /** To set setScaleStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} for Gauge
          * @returns {void}
          */
-        setScaleStyle(): void;
+        setScaleStyle(scaleIndex: number, value: number): void;
 
         /** To set setTickAngle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Tick Angle for Gauge
          * @returns {void}
          */
-        setTickAngle(): void;
+        setTickAngle(scaleIndex: number, tickIndex: number, angle: number): void;
 
         /** To set setTickHeight
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Tick Height for Gauge
          * @returns {void}
          */
-        setTickHeight(): void;
+        setTickHeight(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set setTickPlacement
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Tick Placement for Gauge
          * @returns {void}
          */
-        setTickPlacement(): void;
+        setTickPlacement(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set setTickStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {string} Tick Style for Gauge
          * @returns {void}
          */
-        setTickStyle(): void;
+        setTickStyle(scaleIndex: number, tickIndex: number, value: string): void;
 
         /** To set setTickWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Tick Width for Gauge
          * @returns {void}
          */
-        setTickWidth(): void;
+        setTickWidth(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set setTickXDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Tick XDistance From Scale for Gauge
          * @returns {void}
          */
-        setTickXDistanceFromScale(): void;
+        setTickXDistanceFromScale(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set setTickYDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} value for the Gauge
+         * @param {number} Tick YDistance From Scale for Gauge
          * @returns {void}
          */
-        setTickYDistanceFromScale(): void;
+        setTickYDistanceFromScale(scaleIndex: number, tickIndex: number, value: number): void;
     }
     export namespace LinearGauge {
 
@@ -47749,419 +48352,601 @@ declare namespace ej.datavisualization {
         destroy(): void;
 
         /** To export Image
+         * @param {string} fileName for the Image
+         * @param {string} fileType for the Image
          * @returns {boolean}
          */
-        exportImage(): boolean;
+        exportImage(fileName: string, fileType: string): boolean;
 
         /** To get BackNeedleLength
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getBackNeedleLength(): any;
+        getBackNeedleLength(scaleIndex: number, pointerIndex: number): any;
 
         /** To get CustomLabelAngle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} customLabelIndex value for the Gauge
          * @returns {any}
          */
-        getCustomLabelAngle(): any;
+        getCustomLabelAngle(scaleIndex: number, customLabelIndex: number): any;
 
         /** To get CustomLabelValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} customLabelIndex value for the Gauge
          * @returns {any}
          */
-        getCustomLabelValue(): any;
+        getCustomLabelValue(scaleIndex: number, customLabelIndex: number): any;
 
         /** To get LabelAngle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} labelIndex value for the Gauge
          * @returns {any}
          */
-        getLabelAngle(): any;
+        getLabelAngle(scaleIndex: number, labelIndex: number): any;
 
         /** To get LabelDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} labelIndex value for the Gauge
          * @returns {any}
          */
-        getLabelDistanceFromScale(): any;
+        getLabelDistanceFromScale(scaleIndex: number, labelIndex: number): any;
 
         /** To get LabelPlacement
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} labelIndex value for the Gauge
          * @returns {any}
          */
-        getLabelPlacement(): any;
+        getLabelPlacement(scaleIndex: number, labelIndex: number): any;
 
         /** To get LabelStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} labelIndex value for the Gauge
          * @returns {any}
          */
-        getLabelStyle(): any;
+        getLabelStyle(scaleIndex: number, labelIndex: number): any;
 
         /** To get MajorIntervalValue
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMajorIntervalValue(): any;
+        getMajorIntervalValue(scaleIndex: number): any;
 
         /** To get MarkerDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getMarkerDistanceFromScale(): any;
+        getMarkerDistanceFromScale(scaleIndex: number, pointerIndex: number): any;
 
         /** To get MarkerStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getMarkerStyle(): any;
+        getMarkerStyle(scaleIndex: number, pointerIndex: number): any;
 
         /** To get MaximumValue
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMaximumValue(): any;
+        getMaximumValue(scaleIndex: number): any;
 
         /** To get MinimumValue
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMinimumValue(): any;
+        getMinimumValue(scaleIndex: number): any;
 
         /** To get MinorIntervalValue
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getMinorIntervalValue(): any;
+        getMinorIntervalValue(scaleIndex: number): any;
 
         /** To get NeedleStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getNeedleStyle(): any;
+        getNeedleStyle(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerCapBorderWidth
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getPointerCapBorderWidth(): any;
+        getPointerCapBorderWidth(scaleIndex: number): any;
 
         /** To get PointerCapRadius
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getPointerCapRadius(): any;
+        getPointerCapRadius(scaleIndex: number): any;
 
         /** To get PointerLength
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerLength(): any;
+        getPointerLength(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerNeedleType
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerNeedleType(): any;
+        getPointerNeedleType(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerPlacement
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerPlacement(): any;
+        getPointerPlacement(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerValue(): any;
+        getPointerValue(scaleIndex: number, pointerIndex: number): any;
 
         /** To get PointerWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} pointerIndex value for the Gauge
          * @returns {any}
          */
-        getPointerWidth(): any;
+        getPointerWidth(scaleIndex: number, pointerIndex: number): any;
 
         /** To get RangeBorderWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeBorderWidth(): any;
+        getRangeBorderWidth(scaleIndex: number, rangeIndex: number): any;
 
         /** To get RangeDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeDistanceFromScale(): any;
+        getRangeDistanceFromScale(scaleIndex: number, rangeIndex: number): any;
 
         /** To get RangeEndValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeEndValue(): any;
+        getRangeEndValue(scaleIndex: number, rangeIndex: number): any;
 
         /** To get RangePosition
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangePosition(): any;
+        getRangePosition(scaleIndex: number, rangeIndex: number): any;
 
         /** To get RangeSize
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeSize(): any;
+        getRangeSize(scaleIndex: number, rangeIndex: number): any;
 
         /** To get RangeStartValue
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} rangeIndex value for the Gauge
          * @returns {any}
          */
-        getRangeStartValue(): any;
+        getRangeStartValue(scaleIndex: number, rangeIndex: number): any;
 
         /** To get ScaleBarSize
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleBarSize(): any;
+        getScaleBarSize(scaleIndex: number): any;
 
         /** To get ScaleBorderWidth
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleBorderWidth(): any;
+        getScaleBorderWidth(scaleIndex: number): any;
 
         /** To get ScaleDirection
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleDirection(): any;
+        getScaleDirection(scaleIndex: number): any;
 
         /** To get ScaleRadius
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getScaleRadius(): any;
+        getScaleRadius(scaleIndex: number): any;
 
         /** To get StartAngle
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getStartAngle(): any;
+        getStartAngle(scaleIndex: number): any;
 
         /** To get SubGaugeLocation
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} GaugeIndex value for the Gauge
          * @returns {any}
          */
-        getSubGaugeLocation(): any;
+        getSubGaugeLocation(scaleIndex: number, GaugeIndex: number): any;
 
         /** To get SweepAngle
+         * @param {number} scaleIndex value for the Gauge
          * @returns {any}
          */
-        getSweepAngle(): any;
+        getSweepAngle(scaleIndex: number): any;
 
         /** To get TickAngle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} tickIndex value for the Gauge
          * @returns {any}
          */
-        getTickAngle(): any;
+        getTickAngle(scaleIndex: number, tickIndex: number): any;
 
         /** To get TickDistanceFromScale
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} tickIndex value for the Gauge
          * @returns {any}
          */
-        getTickDistanceFromScale(): any;
+        getTickDistanceFromScale(scaleIndex: number, tickIndex: number): any;
 
         /** To get TickHeight
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} labelIndex value for the Gauge
          * @returns {any}
          */
-        getTickHeight(): any;
+        getTickHeight(scaleIndex: number, labelIndex: number): any;
 
         /** To get TickPlacement
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} tickIndex value for the Gauge
          * @returns {any}
          */
-        getTickPlacement(): any;
+        getTickPlacement(scaleIndex: number, tickIndex: number): any;
 
         /** To get TickStyle
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} tickIndex value for the Gauge
          * @returns {any}
          */
-        getTickStyle(): any;
+        getTickStyle(scaleIndex: number, tickIndex: number): any;
 
         /** To get TickWidth
+         * @param {number} scaleIndex value for the Gauge
+         * @param {number} tickIndex value for the Gauge
          * @returns {any}
          */
-        getTickWidth(): any;
+        getTickWidth(scaleIndex: number, tickIndex: number): any;
 
         /** To set includeFirstValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} labelIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        includeFirstValue(): void;
+        includeFirstValue(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** Switching the redraw option for the gauge
+         * @param {string} redraw value for the gauge
          * @returns {void}
          */
-        redraw(): void;
+        redraw(value: string): void;
 
         /** To set BackNeedleLength
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setBackNeedleLength(): void;
+        setBackNeedleLength(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set CustomLabelAngle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} customLabelIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setCustomLabelAngle(): void;
+        setCustomLabelAngle(scaleIndex: number, customLabelIndex: number, value: number): void;
 
         /** To set CustomLabelValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} customLabelIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setCustomLabelValue(): void;
+        setCustomLabelValue(scaleIndex: number, customLabelIndex: number, value: number): void;
 
         /** To set LabelAngle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} labelIndex value for the gauge
+         * @param {number} angle value for the gauge
          * @returns {void}
          */
-        setLabelAngle(): void;
+        setLabelAngle(scaleIndex: number, labelIndex: number, angle: number): void;
 
         /** To set LabelDistanceFromScale
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} labelIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setLabelDistanceFromScale(): void;
+        setLabelDistanceFromScale(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** To set LabelPlacement
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} labelIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setLabelPlacement(): void;
+        setLabelPlacement(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** To set LabelStyle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} labelIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setLabelStyle(): void;
+        setLabelStyle(scaleIndex: number, labelIndex: number, value: number): void;
 
         /** To set MajorIntervalValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setMajorIntervalValue(): void;
+        setMajorIntervalValue(scaleIndex: number, value: number): void;
 
         /** To set MarkerDistanceFromScale
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setMarkerDistanceFromScale(): void;
+        setMarkerDistanceFromScale(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set MarkerStyle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setMarkerStyle(): void;
+        setMarkerStyle(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set MaximumValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setMaximumValue(): void;
+        setMaximumValue(scaleIndex: number, value: number): void;
 
         /** To set MinimumValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setMinimumValue(): void;
+        setMinimumValue(scaleIndex: number, value: number): void;
 
         /** To set MinorIntervalValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setMinorIntervalValue(): void;
+        setMinorIntervalValue(scaleIndex: number, value: number): void;
 
         /** To set NeedleStyle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setNeedleStyle(): void;
+        setNeedleStyle(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerCapBorderWidth
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerCapBorderWidth(): void;
+        setPointerCapBorderWidth(scaleIndex: number, value: number): void;
 
         /** To set PointerCapRadius
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerCapRadius(): void;
+        setPointerCapRadius(scaleIndex: number, value: number): void;
 
         /** To set PointerLength
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerLength(): void;
+        setPointerLength(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerNeedleType
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerNeedleType(): void;
+        setPointerNeedleType(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerPlacement
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerPlacement(): void;
+        setPointerPlacement(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerValue(): void;
+        setPointerValue(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set PointerWidth
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} pointerIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setPointerWidth(): void;
+        setPointerWidth(scaleIndex: number, pointerIndex: number, value: number): void;
 
         /** To set RangeBorderWidth
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} rangeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setRangeBorderWidth(): void;
+        setRangeBorderWidth(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set RangeDistanceFromScale
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} rangeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setRangeDistanceFromScale(): void;
+        setRangeDistanceFromScale(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set RangeEndValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} rangeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setRangeEndValue(): void;
+        setRangeEndValue(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set RangePosition
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} rangeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setRangePosition(): void;
+        setRangePosition(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set RangeSize
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} rangeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setRangeSize(): void;
+        setRangeSize(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set RangeStartValue
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} rangeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setRangeStartValue(): void;
+        setRangeStartValue(scaleIndex: number, rangeIndex: number, value: number): void;
 
         /** To set ScaleBarSize
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setScaleBarSize(): void;
+        setScaleBarSize(scaleIndex: number, value: number): void;
 
         /** To set ScaleBorderWidth
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setScaleBorderWidth(): void;
+        setScaleBorderWidth(scaleIndex: number, value: number): void;
 
         /** To set ScaleDirection
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setScaleDirection(): void;
+        setScaleDirection(scaleIndex: number, value: number): void;
 
         /** To set ScaleRadius
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setScaleRadius(): void;
+        setScaleRadius(scaleIndex: number, value: number): void;
 
         /** To set StartAngle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setStartAngle(): void;
+        setStartAngle(scaleIndex: number, value: number): void;
 
         /** To set SubGaugeLocation
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} GaugeIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setSubGaugeLocation(): void;
+        setSubGaugeLocation(scaleIndex: number, GaugeIndex: number, value: number): void;
 
         /** To set SweepAngle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setSweepAngle(): void;
+        setSweepAngle(scaleIndex: number, value: number): void;
 
         /** To set TickAngle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} tickIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setTickAngle(): void;
+        setTickAngle(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set TickDistanceFromScale
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} tickIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setTickDistanceFromScale(): void;
+        setTickDistanceFromScale(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set TickHeight
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} tickIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setTickHeight(): void;
+        setTickHeight(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set TickPlacement
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} tickIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setTickPlacement(): void;
+        setTickPlacement(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set TickStyle
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} tickIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setTickStyle(): void;
+        setTickStyle(scaleIndex: number, tickIndex: number, value: number): void;
 
         /** To set TickWidth
+         * @param {number} scaleIndex value for the gauge
+         * @param {number} tickIndex value for the gauge
+         * @param {number} value for the gauge
          * @returns {void}
          */
-        setTickWidth(): void;
+        setTickWidth(scaleIndex: number, tickIndex: number, value: number): void;
     }
     export namespace CircularGauge {
 
@@ -50610,7 +51395,7 @@ declare namespace ej.datavisualization {
 
             /** Options to customize the left, right, top and bottom margins of chart area.
              */
-            Margin?: any;
+            margin?: Margin;
 
             /** Perspective angle of the 3D view. Chart appears closer when perspective angle is decreased, and distant when perspective angle is increased.This property is applicable only when
              * 3D view is enabled
@@ -51454,6 +52239,11 @@ declare namespace ej.datavisualization {
             /** Name of the event
              */
             type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to chart area.id - ID of the target element.    size - Width and height of the chart.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
         }
 
         export interface ChartDoubleClickEventArgs {
@@ -51469,6 +52259,11 @@ declare namespace ej.datavisualization {
             /** Name of the event
              */
             type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to chart area.id - ID of the target element.    size - Width and height of the chart.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
         }
 
         export interface ChartMouseLeaveEventArgs {
@@ -51564,7 +52359,7 @@ declare namespace ej.datavisualization {
              */
             type?: string;
 
-            /** errorbar - Error bar Object
+            /** errorBar - Error bar Object
              */
             data?: any;
         }
@@ -51583,7 +52378,7 @@ declare namespace ej.datavisualization {
              */
             type?: string;
 
-            /** multilevellabels - MultiLevel Label Object
+            /** MultiLevelLabels - MultiLevel Label Object
              */
             data?: any;
         }
@@ -51996,7 +52791,7 @@ declare namespace ej.datavisualization {
         export interface CommonSeriesOptionsBubbleOptions {
 
             /** Used for the calculation of the bubble radius based on the mode selected
-             * @Default {minmax}
+             * @Default {minMax}
              */
             radiusMode?: ej.datavisualization.Chart.RadiusMode|string;
 
@@ -52150,6 +52945,11 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableContrastColor?: boolean;
+
+            /** Displays the partially visible labels inside the chart Area
+             * @Default {false}
+             */
+            showEdgeLabels?: boolean;
 
             /** Options for customizing the border of the data label.
              */
@@ -52980,7 +53780,7 @@ declare namespace ej.datavisualization {
              */
             pieOfPieCoefficient?: number;
 
-            /** Split Value of pieofpie series.
+            /** Split Value of pieOfPie series.
              * @Default {null}
              */
             splitValue?: string;
@@ -53694,6 +54494,29 @@ declare namespace ej.datavisualization {
              * @Default {true}
              */
             toggleSeriesVisibility?: boolean;
+        }
+
+        export interface Margin {
+
+            /** Spacing for the left margin of chart area. Setting positive value decreases the width of the chart area from left side.
+             * @Default {10}
+             */
+            left?: number;
+
+            /** Spacing for the right margin of chart area. Setting positive value decreases the width of the chart area from right side.
+             * @Default {10}
+             */
+            right?: number;
+
+            /** Spacing for the top margin of chart area. Setting positive value decreases the height of the chart area from the top.
+             * @Default {10}
+             */
+            top?: number;
+
+            /** Spacing for the bottom margin of the chart area. Setting positive value decreases the height of the chart area from the bottom.
+             * @Default {10}
+             */
+            bottom?: number;
         }
 
         export interface PrimaryXAxisAlternateGridBandEven {
@@ -55968,7 +56791,7 @@ declare namespace ej.datavisualization {
         export interface SeriesBubbleOptions {
 
             /** Used for the calculation of the bubble radius based on the mode selected
-             * @Default {minmax .See RadiusMode}
+             * @Default {minMax .See RadiusMode}
              */
             radiusMode?: ej.datavisualization.Chart.RadiusMode|string;
 
@@ -56122,6 +56945,11 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableContrastColor?: boolean;
+
+            /** Displays the partially visible data labels inside the chart Area.
+             * @Default {false}
+             */
+            showEdgeLabels?: boolean;
 
             /** Options for customizing the border of the data label.
              */
@@ -57257,7 +58085,7 @@ declare namespace ej.datavisualization {
              */
             pieOfPieCoefficient?: number;
 
-            /** Split Value of pieofpie series.
+            /** Split Value of pieOfPie series.
              * @Default {null}
              */
             splitValue?: string;
@@ -59510,14 +60338,18 @@ declare namespace ej.datavisualization {
         redraw(): void;
 
         /** To set the value for comparative measure in bullet graph.
+         * @param {number} value for the graph
+         * @param {number} value for the graph
          * @returns {void}
          */
-        setComparativeMeasureSymbol(): void;
+        setComparativeMeasureSymbol(index: number, measure: number): void;
 
         /** To set the value for feature measure bar.
+         * @param {number} value for the graph
+         * @param {number} value for the graph
          * @returns {void}
          */
-        setFeatureMeasureBarValue(): void;
+        setFeatureMeasureBarValue(index: number, measure: number): void;
     }
     export namespace BulletGraph {
 
@@ -61343,7 +62175,7 @@ declare namespace ej.datavisualization {
             valuePath?: string;
         }
 
-        export interface LayersSublayersBubbleSettingsColorMappingsRangeColorMapping {
+        export interface LayersSubLayersBubbleSettingsColorMappingsRangeColorMapping {
 
             /** Start range colorMappings in the bubble layer.
              * @Default {null}
@@ -61365,15 +62197,15 @@ declare namespace ej.datavisualization {
             color?: string;
         }
 
-        export interface LayersSublayersBubbleSettingsColorMappings {
+        export interface LayersSubLayersBubbleSettingsColorMappings {
 
             /** Specifies the range colorMappings in the bubble layer.
              * @Default {null}
              */
-            rangeColorMapping?: LayersSublayersBubbleSettingsColorMappingsRangeColorMapping[];
+            rangeColorMapping?: LayersSubLayersBubbleSettingsColorMappingsRangeColorMapping[];
         }
 
-        export interface LayersSublayersBubbleSettings {
+        export interface LayersSubLayersBubbleSettings {
 
             /** Specifies the bubble Opacity value of bubbles for shape layer in map
              * @Default {0.9}
@@ -61388,7 +62220,7 @@ declare namespace ej.datavisualization {
             /** Specifies the colorMappings of the shape layer in map
              * @Default {null}
              */
-            colorMappings?: LayersSublayersBubbleSettingsColorMappings;
+            colorMappings?: LayersSubLayersBubbleSettingsColorMappings;
 
             /** Specifies the bubble color valuePath of the shape layer in map
              * @Default {null}
@@ -61426,7 +62258,7 @@ declare namespace ej.datavisualization {
             valuePath?: string;
         }
 
-        export interface LayersSublayersLabelSettings {
+        export interface LayersSubLayersLabelSettings {
 
             /** enable or disable the enableSmartLabel property
              * @Default {false}
@@ -61454,7 +62286,7 @@ declare namespace ej.datavisualization {
             smartLabelSize?: ej.datavisualization.Map.LabelSize|string;
         }
 
-        export interface LayersSublayersLegendSettings {
+        export interface LayersSubLayersLegendSettings {
 
             /** Determines whether the legend should be placed outside or inside the map bounds
              * @Default {false}
@@ -61547,7 +62379,7 @@ declare namespace ej.datavisualization {
             width?: number;
         }
 
-        export interface LayersSublayersShapeSettingsColorMappingsRangeColorMapping {
+        export interface LayersSubLayersShapeSettingsColorMappingsRangeColorMapping {
 
             /** Specifies the start range colorMappings in the shape layer of map.
              * @Default {null}
@@ -61565,7 +62397,7 @@ declare namespace ej.datavisualization {
             gradientColors?: any[];
         }
 
-        export interface LayersSublayersShapeSettingsColorMappingsEqualColorMapping {
+        export interface LayersSubLayersShapeSettingsColorMappingsEqualColorMapping {
 
             /** Specifies the equalColorMapping value in the shape layer of map.
              * @Default {null}
@@ -61578,20 +62410,20 @@ declare namespace ej.datavisualization {
             color?: string;
         }
 
-        export interface LayersSublayersShapeSettingsColorMappings {
+        export interface LayersSubLayersShapeSettingsColorMappings {
 
             /** Specifies the range colorMappings in the shape layer of map.
              * @Default {null}
              */
-            rangeColorMapping?: LayersSublayersShapeSettingsColorMappingsRangeColorMapping[];
+            rangeColorMapping?: LayersSubLayersShapeSettingsColorMappingsRangeColorMapping[];
 
             /** Specifies the equalColorMapping in the shape layer of map.
              * @Default {null}
              */
-            equalColorMapping?: LayersSublayersShapeSettingsColorMappingsEqualColorMapping[];
+            equalColorMapping?: LayersSubLayersShapeSettingsColorMappingsEqualColorMapping[];
         }
 
-        export interface LayersSublayersShapeSettings {
+        export interface LayersSubLayersShapeSettings {
 
             /** Enables or Disables the auto fill colors for shape layer in map. When this property value set to true, shapes will be filled with palette colors.
              * @Default {false}
@@ -61601,7 +62433,7 @@ declare namespace ej.datavisualization {
             /** Specifies the colorMappings of the shape layer in map
              * @Default {null}
              */
-            colorMappings?: LayersSublayersShapeSettingsColorMappings;
+            colorMappings?: LayersSubLayersShapeSettingsColorMappings;
 
             /** Specifies the shape color palette value of the shape layer in map. Accepted colorPalette values are palette1, palette2, palette3 and custompalette.
              * @Default {palette1}
@@ -61669,7 +62501,7 @@ declare namespace ej.datavisualization {
             valuePath?: string;
         }
 
-        export interface LayersSublayer {
+        export interface LayersSubLayer {
 
             /** to get the type of bing map.
              * @Default {aerial}
@@ -61678,7 +62510,7 @@ declare namespace ej.datavisualization {
 
             /** Specifies the bubble settings for map
              */
-            bubbleSettings?: LayersSublayersBubbleSettings;
+            bubbleSettings?: LayersSubLayersBubbleSettings;
 
             /** Specifies the datasource for the shape layer
              */
@@ -61709,7 +62541,7 @@ declare namespace ej.datavisualization {
 
             /** Options for enabling and configuring labelSettings labelPath, smartLabelSize, labelLength etc.,
              */
-            labelSettings?: LayersSublayersLabelSettings;
+            labelSettings?: LayersSubLayersLabelSettings;
 
             /** Specifies the map view type.
              * @Default {'geographic'}
@@ -61723,7 +62555,7 @@ declare namespace ej.datavisualization {
 
             /** Options for enabling and configuring legendSettings position, height, width, mode, type etc.,
              */
-            legendSettings?: LayersSublayersLegendSettings;
+            legendSettings?: LayersSubLayersLegendSettings;
 
             /** Specifies the map items template for shapes.
              */
@@ -61754,7 +62586,7 @@ declare namespace ej.datavisualization {
 
             /** Specifies the shape settings of map layer
              */
-            shapeSettings?: LayersSublayersShapeSettings;
+            shapeSettings?: LayersSubLayersShapeSettings;
 
             /** Shows or hides the map items.
              * @Default {false}
@@ -61884,7 +62716,7 @@ declare namespace ej.datavisualization {
 
             /** Sublayer is the collection of shape Layer
              */
-            sublayers?: LayersSublayer[];
+            subLayers?: LayersSubLayer[];
         }
     }
     namespace Map {
@@ -62606,7 +63438,7 @@ declare namespace ej.datavisualization {
             //Wrap the label by letter when its width exceeds grid width
             Wrap,
             //Wrap the label by word when its width exceeds grid width
-            Wrapbyword,
+            WrapByWord,
         }
     }
     namespace TreeMap {
@@ -62736,6 +63568,13 @@ declare namespace ej.datavisualization {
          */
         exportDiagram(options?: Diagram.Options): string;
 
+        /** The exportImage method is used to export the image passed through argument with different image format and exporting options as like exportDiagram method.
+         * @param {string} pass the base64String image to be exported.
+         * @param {Diagram.Options} options to export the desired region of diagram to the desired formats.
+         * @returns {string}
+         */
+        exportImage(image: string, options?: Diagram.Options): string;
+
         /** Read a node/connector object by its name
          * @param {string} name of the node/connector that is to be identified
          * @returns {any}
@@ -62749,6 +63588,18 @@ declare namespace ej.datavisualization {
          * @returns {void}
          */
         fitToPage(mode?: ej.datavisualization.Diagram.FitMode, region?: ej.datavisualization.Diagram.Region, margin?: any): void;
+
+        /** Get the diagram DOM element as a string along with dependent stylesheets.
+         * @param {any[]} If its specified, will get the diagram DOM element along with specified stylesheet references. Please note that you have to define absolute path for local CSS file.
+         * If not specified, will get the diagram content along with all stylesheets loaded in the document.
+         * @returns {void}
+         */
+        getDiagramContent(styleSheets?: any[]): void;
+
+        /** Get the bounds of the diagram.
+         * @returns {void}
+         */
+        getDiagramBounds(): void;
 
         /** Group the selected nodes and connectors
          * @returns {void}
@@ -62794,9 +63645,17 @@ declare namespace ej.datavisualization {
         paste(object?: any, rename?: boolean): void;
 
         /** Print the diagram as image
+         * @param {Diagram.Options} options to print the desired region of diagram and print the diagram in multiple pages.
          * @returns {void}
          */
-        print(): void;
+        print(options?: Diagram.Options): void;
+
+        /** The printImage method is used to print the image passed through argument with desired region and multiple pages as like print method.
+         * @param {string} pass the base64String image to be printed.
+         * @param {Diagram.Options} options to export the desired region of diagram to the desired formats.
+         * @returns {string}
+         */
+        printImage(image: string, options?: Diagram.Options): string;
 
         /** Restore the last action that was reverted
          * @returns {void}
@@ -63004,6 +63863,119 @@ declare namespace ej.datavisualization {
             /** to resize the diagram content to fill its allocated space.
              */
             stretch?: ej.datavisualization.Diagram.Stretch;
+
+            /** to export the diagram into multiple pages
+             */
+            multiplePage?: boolean;
+
+            /** to set the page width of the diagram while exporting the diagram into multiple pages.
+             */
+            pageWidth?: number;
+
+            /** to set the page height of the diagram while exporting the diagram into multiple pages.
+             */
+            pageHeight?: number;
+
+            /** to sets the orientation of the page.
+             */
+            pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
+        }
+
+        export interface Options {
+
+            /** name of the file to be downloaded.
+             */
+            fileName?: string;
+
+            /** format of the exported file/data.
+             */
+            format?: ej.datavisualization.Diagram.FileFormats;
+
+            /** to set the region of the diagram to be exported.
+             */
+            region?: ej.datavisualization.Diagram.Region;
+
+            /** to export any custom region of diagram.
+             */
+            bounds?: any;
+
+            /** to set margin to the exported data.
+             */
+            margin?: any;
+
+            /** to export the diagram into multiple pages
+             */
+            multiplePage?: boolean;
+
+            /** to set the page width of the diagram while exporting the diagram into multiple pages.
+             */
+            pageWidth?: number;
+
+            /** to set the page height of the diagram while exporting the diagram into multiple pages.
+             */
+            pageHeight?: number;
+
+            /** to sets the orientation of the page.
+             */
+            pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
+        }
+
+        export interface Options {
+
+            /** to set the region of the diagram to be printed.
+             */
+            region?: ej.datavisualization.Diagram.Region;
+
+            /** to print any custom region of diagram.
+             */
+            bounds?: any;
+
+            /** to resize the diagram content to fill its allocated space and printed.
+             */
+            stretch?: ej.datavisualization.Diagram.Stretch;
+
+            /** to print the diagram into multiple pages
+             */
+            multiplePage?: boolean;
+
+            /** to set the page width of the diagram while printing the diagram into multiple pages.
+             */
+            pageWidth?: number;
+
+            /** to set the page height of the diagram while printing the diagram into multiple pages.
+             */
+            pageHeight?: number;
+
+            /** to sets the orientation of the page.
+             */
+            pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
+        }
+
+        export interface Options {
+
+            /** to set the region of the diagram to be printed.
+             */
+            region?: ej.datavisualization.Diagram.Region;
+
+            /** to print any custom region of diagram.
+             */
+            bounds?: any;
+
+            /** to export the diagram into multiple pages
+             */
+            multiplePage?: boolean;
+
+            /** to set the page width of the diagram while printing the diagram into multiple pages.
+             */
+            pageWidth?: number;
+
+            /** to set the page height of the diagram while printing the diagram into multiple pages.
+             */
+            pageHeight?: number;
+
+            /** to sets the orientation of the page.
+             */
+            pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
         }
 
         export interface Zoom {
@@ -63133,6 +64105,10 @@ declare namespace ej.datavisualization {
              * @Default {true}
              */
             showTooltip?: boolean;
+
+            /** Defines diagram serialization properties that would defines how the serialization content would be.
+             */
+            serializationSettings?: SerializationSettings;
 
             /** Defines the properties of the both the horizontal and vertical gauge to measure the diagram area.
              */
@@ -63281,6 +64257,10 @@ declare namespace ej.datavisualization {
             /** Triggered when the diagram is rendered completely.
              */
             create?(e: CreateEventArgs): void;
+
+            /** Used to decide on the action on Diagramming elements at runtime.
+             */
+            setTool?(e: SetToolEventArgs): void;
         }
 
         export interface AutoScrollChangeEventArgs {
@@ -64050,6 +65030,17 @@ declare namespace ej.datavisualization {
             diagramId?: string;
         }
 
+        export interface SetToolEventArgs {
+
+            /** Returns the port when mouse move over on it
+             */
+            source?: any;
+
+            /** Defines the tool to be activated.
+             */
+            action?: ej.datavisualization.Diagram.ActiveTool;
+        }
+
         export interface BackgroundImage {
 
             /** Defines how to align the background image over the diagram area.
@@ -64075,11 +65066,11 @@ declare namespace ej.datavisualization {
 
             /** A method that defines whether the command is executable at the moment or not.
              */
-            canExecute?: '() => void';
+            canExecute?: any;
 
             /** A method that defines what to be executed when the key combination is recognized.
              */
-            execute?: '() => void';
+            execute?: any;
 
             /** Defines a combination of keys and key modifiers, on recognition of which the command will be executed
              */
@@ -64172,6 +65163,11 @@ declare namespace ej.datavisualization {
              */
             boundaryConstraints?: boolean;
 
+            /** Enables or disables the default behaviors of the label.
+             * @Default {ej.datavisualization.Diagram.LabelConstraints.None}
+             */
+            constraints?: ej.datavisualization.Diagram.LabelConstraints|string;
+
             /** Sets the fill color of the text area
              * @Default {transparent}
              */
@@ -64191,6 +65187,11 @@ declare namespace ej.datavisualization {
              * @Default {12}
              */
             fontSize?: number;
+
+            /** Sets the height of the label(the maximum value of label height and the connector height will be considered as label height)
+             * @Default {0}
+             */
+            height?: number;
 
             /** Sets the horizontal alignment of the label.
              * @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
@@ -64871,24 +65872,24 @@ declare namespace ej.datavisualization {
 
             /** A method that takes a history entry as argument and returns whether the specific entry can be popped or not
              */
-            canPop?: '() => void';
+            canPop?: any;
 
             /** A method that ends grouping the changes
              */
-            closeGroupAction?: '() => void';
+            closeGroupAction?: any;
 
             /** A method that removes the history of a recent change made in diagram
              */
-            pop?: '() => void';
+            pop?: any;
 
             /** A method that allows to track the custom changes made in diagram
              */
-            push?: '() => void';
+            push?: any;
 
             /** Defines what should be happened while trying to restore a custom change
              * @Default {null}
              */
-            redo?: '() => void';
+            redo?: any;
 
             /** The redoStack property is used to get the number of redo actions to be stored on the history manager. Its an read-only property and the collection should not be modified.
              * @Default {[]}
@@ -64902,11 +65903,11 @@ declare namespace ej.datavisualization {
 
             /** A method that starts to group the changes to revert/restore them in a single undo or redo
              */
-            startGroupAction?: '() => void';
+            startGroupAction?: any;
 
             /** Defines what should be happened while trying to revert a custom change
              */
-            undo?: '() => void';
+            undo?: any;
 
             /** The undoStack property is used to get the number of undo actions to be stored on the history manager. Its an read-only property and the collection should not be modified.
              * @Default {[]}
@@ -64974,6 +65975,21 @@ declare namespace ej.datavisualization {
              * @Default {30}
              */
             root?: string;
+
+            /** Defines how long edges should be, ideally. This will be the resting length for the springs.
+             * @Default {100}
+             */
+            springLength?: number;
+
+            /** Defines how long edges should be, ideally. This will be the resting length for the springs.
+             * @Default {0.442}
+             */
+            springFactor?: number;
+
+            /** Defines how long edges should be, ideally. This will be the resting length for the springs.
+             * @Default {1000}
+             */
+            maxIteration?: number;
         }
 
         export interface NodesAnnotation {
@@ -65334,6 +66350,11 @@ declare namespace ej.datavisualization {
              */
             borderWidth?: number;
 
+            /** Enables or disables the default behaviors of the label.
+             * @Default {ej.datavisualization.Diagram.LabelConstraints.None}
+             */
+            constraints?: ej.datavisualization.Diagram.LabelConstraints|string;
+
             /** Sets the fill color of the text area
              * @Default {transparent}
              */
@@ -65353,6 +66374,11 @@ declare namespace ej.datavisualization {
              * @Default {12}
              */
             fontSize?: number;
+
+            /** Sets the height of the label(the maximum value of label height and the node height will be considered as label height)
+             * @Default {0}
+             */
+            height?: number;
 
             /** Sets the horizontal alignment of the label.
              * @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
@@ -65629,6 +66655,10 @@ declare namespace ej.datavisualization {
              * @Default {ej.datavisualization.Diagram.PortVisibility.Default}
              */
             visibility?: ej.datavisualization.Diagram.PortVisibility|string;
+
+            /** Sets the name of the node which contains this port.
+             */
+            parent?: string;
         }
 
         export interface NodesShadow {
@@ -65647,6 +66677,38 @@ declare namespace ej.datavisualization {
              * @Default {0.7}
              */
             opacity?: number;
+        }
+
+        export interface NodesSubProcessEvent {
+
+            /** Sets the type of the event by which the sub-process will be triggered
+             * @Default {ej.datavisualization.Diagram.BPMNEvents.Start}
+             */
+            event?: ej.datavisualization.Diagram.BPMNEvents|string;
+
+            /** Sets the fraction/ratio(relative to parent) that defines the position of the event shape
+             * @Default {ej.datavisualization.Diagram.Point(0.5, 0.5)}
+             */
+            offset?: any;
+
+            /** Sets the name of the BPMN event shape.
+             */
+            name?: string;
+
+            /** Defines the type of the event trigger
+             * @Default {ej.datavisualization.Diagram.BPMNTriggers.Message}
+             */
+            trigger?: ej.datavisualization.Diagram.BPMNTriggers|string;
+
+            /** An array of objects where each object represents a port
+             * @Default {[]}
+             */
+            ports?: any[];
+
+            /** A collection of objects where each object represents a label
+             * @Default {[]}
+             */
+            labels?: any[];
         }
 
         export interface NodesSubProcess {
@@ -65678,7 +66740,7 @@ declare namespace ej.datavisualization {
 
             /** Defines the collection of events that need to be appended with BPMN Sub-Process
              */
-            events?: any[];
+            events?: NodesSubProcessEvent[];
 
             /** Defines the loop type of a sub process.
              * @Default {ej.datavisualization.Diagram.BPMNLoops.None}
@@ -65722,6 +66784,10 @@ declare namespace ej.datavisualization {
              * @Default {ej.datavisualization.Diagram.BPMNTasks.None}
              */
             type?: ej.datavisualization.Diagram.BPMNTasks|string;
+
+            /** Defines the collection of events that need to be appended with BPMN tasks
+             */
+            events?: any[];
         }
 
         export interface Node {
@@ -66195,6 +67261,16 @@ declare namespace ej.datavisualization {
 
         export interface SelectedItemsUserHandle {
 
+            /** Sets the horizontal alignment of the user handle
+             * @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
+             */
+            horizontalAlignment?: ej.datavisualization.Diagram.HorizontalAlignment|string;
+
+            /** To set the margin of the user handle
+             * @Default {ej.datavisualization.Diagram.Margin()}
+             */
+            margin?: any;
+
             /** Defines the name of the user handle
              */
             name?: string;
@@ -66213,6 +67289,11 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableMultiSelection?: boolean;
+
+            /** Sets the fraction/ratio(relative to node) that defines the position of the user handle
+             * @Default {ej.datavisualization.Diagram.point(0.5, 1)}
+             */
+            offset?: any;
 
             /** Sets the stroke color of the user handle
              * @Default {transparent}
@@ -66236,6 +67317,11 @@ declare namespace ej.datavisualization {
             /** Defines the interactive behaviors of the user handle
              */
             tool?: any;
+
+            /** Sets the vertical alignment of the user handle
+             * @Default {ej.datavisualization.Diagram.VerticalAlignment.Center}
+             */
+            verticalAlignment?: ej.datavisualization.Diagram.VerticalAlignment|string;
 
             /** Defines the visibility of the user handle
              * @Default {true}
@@ -66294,6 +67380,14 @@ declare namespace ej.datavisualization {
              * @Default {0}
              */
             width?: number;
+        }
+
+        export interface SerializationSettings {
+
+            /** defines whether the default diagram properties can be serialized or not.
+             * @Default {false}
+             */
+            preventDefaultValues?: boolean;
         }
 
         export interface RulerSettingsHorizontalRuler {
@@ -66672,6 +67766,8 @@ declare namespace ej.datavisualization {
             InheritCrispEdges,
             //Enables the contrast between clean edges of connector over rendering speed and geometric precision
             DragLimit,
+            //Enables or disables bridging over a connector, if bridging constraints disabled..
+            BridgeObstacle,
             //Enables connector to be selected and dragged.
             Interaction,
             //Enables all constraints
@@ -66696,6 +67792,22 @@ declare namespace ej.datavisualization {
             Center,
             //Used to align the label either bottom or right(after) of the connector segment
             After,
+        }
+    }
+    namespace Diagram {
+        enum LabelConstraints {
+            //Disable all label Constraints
+            None,
+            //Enables label to be selected
+            Selectable,
+            //Enables label to be Dragged
+            Draggable,
+            //Enables label to be Resized
+            Resizable,
+            //Enables label to be Rotated
+            Rotatable,
+            //Enables all label constraints
+            All,
         }
     }
     namespace Diagram {
@@ -67539,6 +68651,16 @@ declare namespace ej.datavisualization {
             ZoomIn,
             //Used to zoom out the diagram
             ZoomOut,
+        }
+    }
+    namespace Diagram {
+        enum ActiveTool {
+            //Set the default Tool
+            None,
+            //Activate the port tool to drag when the mouse is moved over the port
+            Drag,
+            //Activate the draw tool to draw when the mouse is moved over the port
+            Draw,
         }
     }
 

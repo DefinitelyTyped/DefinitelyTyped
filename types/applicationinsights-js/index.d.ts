@@ -777,7 +777,7 @@ declare module Microsoft.ApplicationInsights {
          * @param authenticatedUserId {string} - The authenticated user id. A unique and persistent string that represents each authenticated user in the service.
          * @param accountId {string} - An optional string to represent the account associated with the authenticated user.
          */
-        setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string): any;
+        setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string, storeInCookie?: boolean): any;
         /**
          * Clears the authenticated user id and the account id from the user context.
          */

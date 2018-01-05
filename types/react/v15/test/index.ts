@@ -294,7 +294,7 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line:no-empty-interface
 interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {
@@ -498,7 +498,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: number;
+    private _interval: NodeJS.Timer;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1

@@ -2,7 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-oauth2#readme
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Request } from 'express';
 import { Strategy } from 'passport';

@@ -17,6 +17,9 @@ const fs = {
         }
 
         callback(undefined, result);
+    },
+    exists: (path: string, callback: (exists: boolean) => void): void => {
+        callback(true);
     }
 };
 
@@ -24,4 +27,7 @@ const fsP = pify(fs);
 fsP.readFile('foo.txt').then((result: string) => assert(result, 'foo'));
 
 pify(fs.readFile)('foo.txt').then((result: string) => assert(result, 'foo'));
-pify(fs.readFile, Promise)('bar.txt').then((result: string) => assert(result, 'bar'));
+pify(fs.readFile, { promiseModule: Promise})('bar.txt').then((result: string) => assert(result, 'bar'));
+
+
+pify(fs.exists, { errorFirst: false })('foo.txt').then((result: boolean) => assert(result.toString(), true.toString()));

@@ -7,6 +7,9 @@
 
 /// <reference types="angular" />
 
+declare var _: string;
+export = _;
+
 import * as angular from 'angular';
 
 declare module 'angular' {
@@ -51,6 +54,33 @@ declare module 'angular' {
              * Give illusion that there's always progress
              */
             autoIncrement?: boolean;
+
+            /**
+             * Broadcast the start event
+             */
+            start(): void;
+
+            /**
+             * Set the percentage completed
+             * @param {number} n - number between 0 and 1
+             */
+            set(n: number): void;
+
+            /**
+             * Get the percentage completed
+             * @returns {number}
+             */
+            status(): number;
+
+            /**
+             * Increment the loading bar
+             */
+            inc(): void;
+
+            /**
+             * Complete the loading bar
+             */
+            complete(): void;
         }
     }
 

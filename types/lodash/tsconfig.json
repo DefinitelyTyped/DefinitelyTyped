@@ -6,6 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -45,6 +46,7 @@
         "compact.d.ts",
         "concat.d.ts",
         "cond.d.ts",
+        "conformsTo.d.ts",
         "constant.d.ts",
         "countBy.d.ts",
         "create.d.ts",
@@ -54,6 +56,7 @@
         "deburr.d.ts",
         "defaults.d.ts",
         "defaultsDeep.d.ts",
+        "defaultTo.d.ts",
         "defer.d.ts",
         "delay.d.ts",
         "difference.d.ts",

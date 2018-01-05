@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/mount
 // Definitions by: AmirSaber Sharifi <https://github.com/amirsaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 import * as Koa from "koa";
 

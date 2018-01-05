@@ -1,6 +1,8 @@
 // Type definitions for react-stripe-elements 1.0
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
+//                 Santiago Doldan <https://github.com/santiagodoldan>
+//                 sonnysangha <https://github.com/sonnysangha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -37,11 +39,13 @@ export namespace ReactStripeElements {
 	}
 
 	interface InjectedStripeProps {
-		stripe: StripeProps;
+		stripe?: StripeProps;
 	}
 
 	interface ElementProps extends ElementsOptions {
 		className?: string;
+
+		paymentRequest?: object;
 
 		elementRef?(): void;
 
@@ -58,7 +62,7 @@ export namespace ReactStripeElements {
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {
 }
 
-export class Elements extends React.Component {
+export class Elements extends React.Component<stripe.elements.ElementsCreateOptions> {
 }
 
 export function injectStripe<P extends object>(
@@ -78,4 +82,7 @@ export class CardCVCElement extends React.Component<ReactStripeElements.ElementP
 }
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {
+}
+
+export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {
 }

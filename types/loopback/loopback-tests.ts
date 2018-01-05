@@ -17,6 +17,14 @@ class Server {
 
         this.app.use(cookieParser());
 
+        this.app.use(loopback.favicon());
+        this.app.use(loopback.rest());
+        this.app.use(loopback.static('.'));
+        this.app.use(loopback.status());
+        this.app.use(loopback.rewriteUserLiteral());
+        this.app.use(loopback.token());
+        this.app.use(loopback.urlNotFound());
+
         this.app.start = async () => {
             // start the web server
             const models = this.app.models();
