@@ -5,6 +5,27 @@
 import { OrderUpdate } from './transactions';
 
 /**
+ * List of possible options to display the image in a BasicCard.
+ * When the aspect ratio of an image is not the same as the surface,
+ * this attribute changes how the image is displayed in the card.
+ */
+export enum ImageDisplays {
+    /**
+     * Pads the gaps between the image and image frame with a blurred copy of the
+     * same image.
+     */
+    DEFAULT,
+    /**
+     * Fill the gap between the image and image container with white bars.
+     */
+    WHITE,
+    /**
+     * Image is centered and resized so the image fits perfectly in the container.
+     */
+    CROPPED
+}
+
+/**
  * Simple Response type.
  */
 export interface SimpleResponse {
@@ -239,6 +260,16 @@ export class BasicCard {
      * @return Returns current constructed BasicCard.
      */
     setImage(url: string, accessibilityText: string, width?: number, height?: number): BasicCard;
+
+    /**
+     * Sets the display options for the image in this Basic Card.
+     * Use one of the image display constants. If none is chosen,
+     * ImageDisplays.DEFAULT will be enforced.
+     *
+     * @param option The option for displaying the image.
+     * @return Returns current constructed BasicCard.
+     */
+    setImageDisplay(option: ImageDisplays): BasicCard;
 
     /**
      * Adds a button below card.

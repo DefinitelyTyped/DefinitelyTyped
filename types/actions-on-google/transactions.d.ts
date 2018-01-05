@@ -98,6 +98,8 @@ export interface GooglePaymentTransactionConfig {
     cardNetworks: CardNetwork[];
     /** True if prepaid cards are not allowed for transaction. */
     prepaidCardDisallowed: boolean;
+    /** The type of tokenization. Default is {@see TransactionValues.PaymentMethodTokenizationType.PAYMENT_GATEWAY}. */
+    tokenizationType: string;
     customerInfoOptions?: CustomerInfoOptions;
 }
 
