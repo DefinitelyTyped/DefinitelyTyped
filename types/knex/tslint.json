@@ -73,7 +73,6 @@
         "triple-equals": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
-        "void-return": false,
-        "whitespace": false
+        "void-return": false
     }
 }
