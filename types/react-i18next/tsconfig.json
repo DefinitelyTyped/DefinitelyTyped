@@ -23,6 +23,8 @@
     "files": [
         "index.d.ts",
         "test/react-i18next-tests.tsx",
+        "src/context.d.ts",
+        "src/I18n.d.ts",
         "src/I18nextProvider.d.ts",
         "src/interpolate.d.ts",
         "src/loadNamespaces.d.ts",

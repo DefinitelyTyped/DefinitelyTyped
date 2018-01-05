@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 5.0.10
+// Type definitions for Highcharts 5.0.13
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <https://github.com/damianog>
 //                 Dan Lewi Harkestad <https://github.com/baltie>
@@ -55,6 +55,12 @@ declare namespace Highcharts {
         max: number;
     }
 
+    interface AxisLabelFormatterOptions {
+        value: number;
+        isFirst: number;
+        isLast: number;
+    }
+
     interface AxisLabels {
         /**
          * What part of the string the given position is anchored to. Can be one of 'left', 'center' or 'right'. Defaults to
@@ -100,7 +106,7 @@ declare namespace Highcharts {
          * this are axis, chart, isFirst and isLast.
          * @default function() {return this.value;}
          */
-        formatter?(): string;
+        formatter?(this: AxisLabelFormatterOptions): string;
         /**
          * Horizontal axis only. When staggerLines is not set, maxStaggerLines defines how many lines the axis is allowed to
          * add to automatically avoid overlapping X labels. Set to 1 to disable overlap detection.
@@ -6374,9 +6380,11 @@ declare namespace Highcharts {
          * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
          * @param option A configuration object for the new chart options as defined in the options section of the API.
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
+         * @param [boolean] oneToOne When true, the series, xAxis and yAxis collections will be updated one to one, and
+         * items will be either added or removed to match the new updated options. Defaults to false.
          * @since 5.0.0
          */
-        update(options: Options, redraw?: boolean): void;
+        update(options: Options, redraw?: boolean, oneToOne?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5

@@ -2201,6 +2201,8 @@ class Rectangle {
     f(11); // => true
     f(8); // => true
     f(9); // => false
+
+    const f2 = R.anyPass<number>([gt10, even]);
 };
 
 () => {

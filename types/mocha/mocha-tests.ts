@@ -39,7 +39,7 @@ function test_suite() {
 
 function test_it() {
 
-    it('does something', () => { });
+    it('does something', () => { }).timeout('2s');
 
     it('does something', function () { this['sharedState'] = true; });
 
@@ -400,15 +400,15 @@ function test_chaining() {
 import MochaDef = require('mocha');
 
 function test_require_constructor_empty() {
-    var instance = new MochaDef();
+    const instance = new MochaDef();
 }
 
 function test_require_constructor_noOptions() {
-    var instance = new MochaDef({});
+    const instance = new MochaDef({});
 }
 
 function test_require_constructor_allOptions() {
-    var instance = new MochaDef({
+    const instance = new MochaDef({
         grep: /[a-z]*/,
         ui: 'tdd',
         reporter: 'dot',
@@ -419,7 +419,7 @@ function test_require_constructor_allOptions() {
 
 
 function test_require_fluentParams() {
-    var instance = new MochaDef();
+    const instance = new MochaDef();
 
     instance.bail(true)
         .bail()
@@ -445,7 +445,7 @@ function test_require_fluentParams() {
 }
 
 function test_run_withOnComplete() {
-    var instance = new MochaDef();
+    const instance = new MochaDef();
 
     instance.run((failures: number): void => {
         console.log(failures);
@@ -454,10 +454,4 @@ function test_run_withOnComplete() {
 
 function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
-}
-
-function test_runner_fluentParams() {
-    new MochaDef().run(); // $ExpectType IRunner
-    new MochaDef().run().on("event-string", function() {}); // $ExpectType IRunner
-    new MochaDef().run().on(Symbol("event-symbol"), function() {}); // $ExpectType IRunner
 }

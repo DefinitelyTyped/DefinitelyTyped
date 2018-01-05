@@ -1,4 +1,4 @@
-// Type definitions for Node.js 9.x.x
+// Type definitions for Node.js 9.3.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -19,12 +19,6 @@
 //                 Alberto Schiabel <https://github.com/jkomyno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/************************************************
-*                                               *
-*               Node.js v9.x.x API              *
-*                                               *
-************************************************/
-
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
 
@@ -33,7 +27,7 @@ interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: NodeJS.InspectOptions): void;
-	debug(message?: any, ...optionalParams: any[]): void;
+    debug(message?: any, ...optionalParams: any[]): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -523,6 +517,7 @@ declare namespace NodeJS {
     }
 
     export interface WriteStream extends Socket {
+        readonly writableHighWaterMark: number;
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -534,6 +529,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
+        readonly readableHighWaterMark: number;
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
@@ -568,7 +564,7 @@ declare namespace NodeJS {
         setegid(id: number | string): void;
         getgroups(): number[];
         setgroups(groups: Array<string | number>): void;
-        setUncaughtExceptionCaptureCallback((err: Error) => void | null): void
+        setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
         versions: ProcessVersions;
@@ -600,7 +596,7 @@ declare namespace NodeJS {
         };
         kill(pid: number, signal?: string | number): void;
         pid: number;
-		ppid: number;
+        ppid: number;
         title: string;
         arch: string;
         platform: Platform;
@@ -791,6 +787,7 @@ declare namespace NodeJS {
     class Module {
         static runMain(): void;
         static wrap(code: string): string;
+        static builtinModules: string[];
 
         static Module: typeof Module;
 
@@ -1179,13 +1176,7 @@ declare module "cluster" {
         stdio?: any[];
         uid?: number;
         gid?: number;
-    }
-
-    export interface ClusterSetupMasterSettings {
-        exec?: string;  // default: process.argv[1]
-        args?: string[];  // default: process.argv.slice(2)
-        silent?: boolean;  // default: false
-        stdio?: any[];
+        inspectPort?: number | (() => number);
     }
 
     export interface Address {
@@ -1272,7 +1263,7 @@ declare module "cluster" {
         isWorker: boolean;
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
-        setupMaster(settings?: ClusterSetupMasterSettings): void;
+        setupMaster(settings?: ClusterSettings): void;
         worker?: Worker;
         workers?: {
             [index: string]: Worker | undefined
@@ -1349,7 +1340,7 @@ declare module "cluster" {
     export var isWorker: boolean;
     // TODO: cluster.schedulingPolicy
     export var settings: ClusterSettings;
-    export function setupMaster(settings?: ClusterSetupMasterSettings): void;
+    export function setupMaster(settings?: ClusterSettings): void;
     export var worker: Worker;
     export var workers: {
         [index: string]: Worker | undefined
@@ -1732,7 +1723,7 @@ declare module "os" {
     export function arch(): string;
     export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
-    export var EOL: string;
+    export const EOL: string;
     export function endianness(): "BE" | "LE";
 }
 
@@ -1755,6 +1746,7 @@ declare module "https" {
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
+        secureProtocol?: string;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -2345,7 +2337,19 @@ declare module "url" {
         query?: string | null | ParsedUrlQuery;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    export interface UrlWithParsedQuery extends Url {
+        query: ParsedUrlQuery;
+    }
+
+    export interface UrlWithStringQuery extends Url {
+        query: string | null;
+    }
+
+    export function parse(urlStr: string): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+
     export function format(URL: URL, options?: URLFormatOptions): string;
     export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
@@ -5375,7 +5379,7 @@ declare module "stream" {
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
-            writableHighWaterMark: number;
+            readonly writableHighWaterMark: number;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5467,6 +5471,7 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         export class Duplex extends Readable implements Writable {
             writable: boolean;
+            readonly writableHighWaterMark: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -6923,195 +6928,195 @@ declare module "http2" {
 }
 
 declare module "perf_hooks" {
-	export interface PerformanceEntry {
-		/**
-		 * The total number of milliseconds elapsed for this entry.
-		 * This value will not be meaningful for all Performance Entry types.
-		 */
-		readonly duration: number;
+    export interface PerformanceEntry {
+        /**
+         * The total number of milliseconds elapsed for this entry.
+         * This value will not be meaningful for all Performance Entry types.
+         */
+        readonly duration: number;
 
-		/**
-		 * The name of the performance entry.
-		 */
-		readonly name: string;
+        /**
+         * The name of the performance entry.
+         */
+        readonly name: string;
 
-		/**
-		 * The high resolution millisecond timestamp marking the starting time of the Performance Entry.
-		 */
-		readonly startTime: number;
+        /**
+         * The high resolution millisecond timestamp marking the starting time of the Performance Entry.
+         */
+        readonly startTime: number;
 
-		/**
-		 * The type of the performance entry.
-		 * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
-		 */
-		readonly entryType: string;
+        /**
+         * The type of the performance entry.
+         * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
+         */
+        readonly entryType: string;
 
-		/**
-		 * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
-		 * the type of garbage collection operation that occurred.
-		 * The value may be one of perf_hooks.constants.
-		 */
-		readonly kind?: number;
-	}
-
-	export interface PerformanceNodeTiming extends PerformanceEntry {
-		/**
-		 * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
-		 */
-		readonly bootstrapComplete: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which cluster processing ended.
-		 */
-		readonly clusterSetupEnd: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which cluster processing started.
-		 */
-		readonly clusterSetupStart: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which the Node.js event loop exited.
-		 */
-		readonly loopExit: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which the Node.js event loop started.
-		 */
-		readonly loopStart: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which main module load ended.
-		 */
-		readonly moduleLoadEnd: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which main module load started.
-		 */
-		readonly moduleLoadStart: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which the Node.js process was initialized.
-		 */
-		readonly nodeStart: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which preload module load ended.
-		 */
-		readonly preloadModuleLoadEnd: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which preload module load started.
-		 */
-		readonly preloadModuleLoadStart: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which third_party_main processing ended.
-		 */
-		readonly thirdPartyMainEnd: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which third_party_main processing started.
-		 */
-		readonly thirdPartyMainStart: number;
-
-		/**
-		 * The high resolution millisecond timestamp at which the V8 platform was initialized.
-		 */
-		readonly v8Start: number;
+        /**
+         * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
+         * the type of garbage collection operation that occurred.
+         * The value may be one of perf_hooks.constants.
+         */
+        readonly kind?: number;
     }
 
-	export interface Performance {
-		/**
-		 * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
-		 * If name is provided, removes entries with name.
-		 * @param name
-		 */
-		clearFunctions(name?: string): void;
+    export interface PerformanceNodeTiming extends PerformanceEntry {
+        /**
+         * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
+         */
+        readonly bootstrapComplete: number;
 
-		/**
-		 * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
-		 * If name is provided, removes only the named mark.
-		 * @param name
-		 */
-		clearMarks(name?: string): void;
+        /**
+         * The high resolution millisecond timestamp at which cluster processing ended.
+         */
+        readonly clusterSetupEnd: number;
 
-		/**
-		 * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
-		 * If name is provided, removes only objects whose performanceEntry.name matches name.
-		 */
-		clearMeasures(name?: string): void;
+        /**
+         * The high resolution millisecond timestamp at which cluster processing started.
+         */
+        readonly clusterSetupStart: number;
 
-		/**
-		 * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
-		 * @return list of all PerformanceEntry objects
-		 */
-		getEntries(): PerformanceEntry[];
+        /**
+         * The high resolution millisecond timestamp at which the Node.js event loop exited.
+         */
+        readonly loopExit: number;
 
-		/**
-		 * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-		 * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
-		 * @param name
-		 * @param type
-		 * @return list of all PerformanceEntry objects
-		 */
-		getEntriesByName(name: string, type?: string): PerformanceEntry[];
+        /**
+         * The high resolution millisecond timestamp at which the Node.js event loop started.
+         */
+        readonly loopStart: number;
 
-		/**
-		 * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-		 * whose performanceEntry.entryType is equal to type.
-		 * @param type
-		 * @return list of all PerformanceEntry objects
-		 */
-		getEntriesByType(type: string): PerformanceEntry[];
+        /**
+         * The high resolution millisecond timestamp at which main module load ended.
+         */
+        readonly moduleLoadEnd: number;
 
-		/**
-		 * Creates a new PerformanceMark entry in the Performance Timeline.
-		 * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
-		 * and whose performanceEntry.duration is always 0.
-		 * Performance marks are used to mark specific significant moments in the Performance Timeline.
-		 * @param name
-		 */
-		mark(name?: string): void;
+        /**
+         * The high resolution millisecond timestamp at which main module load started.
+         */
+        readonly moduleLoadStart: number;
 
-		/**
-		 * Creates a new PerformanceMeasure entry in the Performance Timeline.
-		 * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
-		 * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
-		 *
-		 * The startMark argument may identify any existing PerformanceMark in the the Performance Timeline, or may identify
-		 * any of the timestamp properties provided by the PerformanceNodeTiming class. If the named startMark does not exist,
-		 * then startMark is set to timeOrigin by default.
-		 *
-		 * The endMark argument must identify any existing PerformanceMark in the the Performance Timeline or any of the timestamp
-		 * properties provided by the PerformanceNodeTiming class. If the named endMark does not exist, an error will be thrown.
-		 * @param name
-		 * @param startMark
-		 * @param endMark
-		 */
-		measure(name: string, startMark: string, endMark: string): void;
+        /**
+         * The high resolution millisecond timestamp at which the Node.js process was initialized.
+         */
+        readonly nodeStart: number;
 
-		/**
-		 * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
-		 */
-		readonly nodeTiming: PerformanceNodeTiming;
+        /**
+         * The high resolution millisecond timestamp at which preload module load ended.
+         */
+        readonly preloadModuleLoadEnd: number;
 
-		/**
-		 * @return the current high resolution millisecond timestamp
-		 */
-		now(): number;
+        /**
+         * The high resolution millisecond timestamp at which preload module load started.
+         */
+        readonly preloadModuleLoadStart: number;
 
-		/**
-		 * The timeOrigin specifies the high resolution millisecond timestamp from which all performance metric durations are measured.
-		 */
-		readonly timeOrigin: number;
+        /**
+         * The high resolution millisecond timestamp at which third_party_main processing ended.
+         */
+        readonly thirdPartyMainEnd: number;
 
-		/**
-		 * Wraps a function within a new function that measures the running time of the wrapped function.
-		 * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
-		 * @param fn
-		 */
-		timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+        /**
+         * The high resolution millisecond timestamp at which third_party_main processing started.
+         */
+        readonly thirdPartyMainStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the V8 platform was initialized.
+         */
+        readonly v8Start: number;
+    }
+
+    export interface Performance {
+        /**
+         * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
+         * If name is provided, removes entries with name.
+         * @param name
+         */
+        clearFunctions(name?: string): void;
+
+        /**
+         * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
+         * If name is provided, removes only the named mark.
+         * @param name
+         */
+        clearMarks(name?: string): void;
+
+        /**
+         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+         * If name is provided, removes only objects whose performanceEntry.name matches name.
+         */
+        clearMeasures(name?: string): void;
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+         * @return list of all PerformanceEntry objects
+         */
+        getEntries(): PerformanceEntry[];
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+         * @param name
+         * @param type
+         * @return list of all PerformanceEntry objects
+         */
+        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.entryType is equal to type.
+         * @param type
+         * @return list of all PerformanceEntry objects
+         */
+        getEntriesByType(type: string): PerformanceEntry[];
+
+        /**
+         * Creates a new PerformanceMark entry in the Performance Timeline.
+         * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
+         * and whose performanceEntry.duration is always 0.
+         * Performance marks are used to mark specific significant moments in the Performance Timeline.
+         * @param name
+         */
+        mark(name?: string): void;
+
+        /**
+         * Creates a new PerformanceMeasure entry in the Performance Timeline.
+         * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
+         * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
+         *
+         * The startMark argument may identify any existing PerformanceMark in the the Performance Timeline, or may identify
+         * any of the timestamp properties provided by the PerformanceNodeTiming class. If the named startMark does not exist,
+         * then startMark is set to timeOrigin by default.
+         *
+         * The endMark argument must identify any existing PerformanceMark in the the Performance Timeline or any of the timestamp
+         * properties provided by the PerformanceNodeTiming class. If the named endMark does not exist, an error will be thrown.
+         * @param name
+         * @param startMark
+         * @param endMark
+         */
+        measure(name: string, startMark: string, endMark: string): void;
+
+        /**
+         * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
+         */
+        readonly nodeTiming: PerformanceNodeTiming;
+
+        /**
+         * @return the current high resolution millisecond timestamp
+         */
+        now(): number;
+
+        /**
+         * The timeOrigin specifies the high resolution millisecond timestamp from which all performance metric durations are measured.
+         */
+        readonly timeOrigin: number;
+
+        /**
+         * Wraps a function within a new function that measures the running time of the wrapped function.
+         * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
+         * @param fn
+         */
+        timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
     }
 
     export interface PerformanceObserverEntryList {
@@ -7159,5 +7164,5 @@ declare module "perf_hooks" {
         export const NODE_PERFORMANCE_GC_WEAKCB: number;
     }
 
-	const performance: Performance;
+    const performance: Performance;
 }

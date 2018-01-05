@@ -65,6 +65,8 @@ var S3CreateEvent: AWSLambda.S3CreateEvent = {
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
+var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
+var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -364,6 +366,18 @@ clientCtx = context.clientContext;
 str = identity.cognitoIdentityId;
 str = identity.cognitoIdentityPoolId;
 
+/* CloudWatch Logs */
+str = cloudwatchLogsEvent.awslogs.data;
+
+str = cloudwatchLogsDecodedData.owner;
+str = cloudwatchLogsDecodedData.logGroup;
+str = cloudwatchLogsDecodedData.logStream;
+str = cloudwatchLogsDecodedData.subscriptionFilters[0];
+str = cloudwatchLogsDecodedData.messageType;
+str = cloudwatchLogsDecodedData.logEvents[0].id;
+num = cloudwatchLogsDecodedData.logEvents[0].timestamp;
+str = cloudwatchLogsDecodedData.logEvents[0].message;
+
 /* ClientContext */
 clientContextClient = clientCtx.client;
 anyObj = clientCtx.Custom;
@@ -547,5 +561,8 @@ context.fail(str);
 
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
-let CustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+let asyncProxyHandler: AWSLambda.ProxyHandler = async (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+let asyncCustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = async (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };

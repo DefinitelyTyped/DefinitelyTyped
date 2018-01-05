@@ -400,10 +400,10 @@ declare namespace Dockerode {
       LinkLocalIPv6Address: string;
       LinkLocalIPv6PrefixLen: number;
       Ports: {
-        [portAndProtocol: string]: {
+        [portAndProtocol: string]: Array<{
           HostIp: string;
           HostPort: string;
-        }
+        }>;
       };
       SandboxKey: string;
       SecondaryIPAddresses?: any;

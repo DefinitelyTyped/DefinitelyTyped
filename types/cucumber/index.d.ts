@@ -1,11 +1,21 @@
-// Type definitions for cucumber-js 3.1
+// Type definitions for cucumber-js 3.2
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
 //                 Isaiah Soung <https://github.com/isoung>
 //                 BendingBender <https://github.com/BendingBender>
+//                 ErikSchierboom <https://github.com/ErikSchierboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
+
+export enum Status {
+    AMBIGUOUS = "ambiguous",
+    FAILED = "failed",
+    PASSED = "passed",
+    PENDING = "pending",
+    SKIPPED = "skipped",
+    UNDEFINED = "undefined"
+}
 
 export interface World {
     [key: string]: any;
@@ -43,7 +53,7 @@ export interface HookScenarioResult {
     duration: number;
     failureException: Error;
     scenario: Scenario;
-    status: string;
+    status: Status;
     stepsResults: any;
 }
 
@@ -56,7 +66,8 @@ export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: st
 export interface Transform {
     regexp: RegExp;
     transformer(arg: string): any;
-    typeName: string;
+    name?: string;
+    typeName?: string; // deprecated
 }
 
 export interface HookOptions {
@@ -142,7 +153,7 @@ export namespace events {
         duration: any;
         failureException: Error;
         scenario: Scenario;
-        status: string;
+        status: Status;
         stepResults: any[];
     }
 
@@ -164,7 +175,7 @@ export namespace events {
         failureException: Error;
         step: Step;
         stepDefinition: StepDefinition;
-        status: string;
+        status: Status;
     }
 }
 

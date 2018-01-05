@@ -5935,6 +5935,7 @@ declare module "process" {
     export = process;
 }
 
+// tslint:disable-next-line:no-declare-current-package
 declare module "v8" {
     interface HeapSpaceInfo {
         space_name: string;
