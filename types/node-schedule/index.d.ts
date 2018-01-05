@@ -8,7 +8,7 @@
 import { EventEmitter } from 'events';
 
 /** The callback executed by a Job */
-export type JobCallback = (fireDate?: Date) => void;
+export type JobCallback = (fireDate: Date) => void;
 
 /** Scheduler jobs. */
 export class Job extends EventEmitter {
