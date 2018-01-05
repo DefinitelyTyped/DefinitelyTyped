@@ -3471,9 +3471,6 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function realpath(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
-    namespace realpath {
-        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
-    }
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -3546,9 +3543,9 @@ declare module "fs" {
     export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
 
     export namespace realpathSync {
-        export function realpathSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
-        export function realpathSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
-        export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+        export function native(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+        export function native(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
     }
 
     /**
