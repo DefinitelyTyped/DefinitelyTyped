@@ -71,8 +71,6 @@
         "strict-export-declare-modifiers": false,
         "trim-file": false,
         "triple-equals": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }
