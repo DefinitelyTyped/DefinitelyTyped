@@ -1,6 +1,6 @@
 // Type definitions for speakeasy v2.0.0
-// Project: https://github.com/markbao/speakeasy
-// Definitions by: Lucas Woo <https://github.com/legendecas>, Alexander Batukhtin <https://github.com/mrOlorin>
+// Project: https://github.com/speakeasyjs/speakeasy
+// Definitions by: Lucas Woo <https://github.com/legendecas>, Alexander Batukhtin <https://github.com/mrOlorin>, Aayush Kapoor <https://github.com/xeoneux>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "speakeasy" {
@@ -96,7 +96,7 @@ declare module "speakeasy" {
   }
 
   interface Speakeasy {
-    digest: (options: DigestOptions) => Buffer;
+    digest: (options: DigestOptions) => string;
     hotp: {
       (options: HotpOptions): string;
       verifyDelta: (options: HotpVerifyOptions) => boolean;
