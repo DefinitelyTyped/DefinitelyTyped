@@ -418,6 +418,14 @@ declare namespace ROSLIB {
 		});
 
 		/**
+		 * Connect callback functions to goal based events
+		 * 
+		 * @param eventName Name of event ('timeout', 'status', 'feedback', 'result')
+		 * @param callback Callback function executed on connected event
+		 */
+		on(eventName:string, callback:(event:any) => void):void;
+		
+		/**
 		 * Send the goal to the action server.
 		 *
 		 * @param timeout (optional) - a timeout length for the goal's result
