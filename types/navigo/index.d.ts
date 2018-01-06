@@ -34,6 +34,8 @@ declare class Navigo {
     resolve(currentURL?: string): boolean;
 
     link(path: string): string;
+    
+    lastRouteResolved(): {url: string, query: string};
 
     disableIfAPINotAvailable(): void;
 
