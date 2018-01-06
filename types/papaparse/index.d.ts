@@ -5,15 +5,18 @@
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace Papa;
 
 /**
- * Parse a csv string or a csv file
+ * Parse a csv string, a csv file or a readable stream
  */
 export function parse(csvString: string, config?: ParseConfig): ParseResult;
 
 export function parse(file: File, config?: ParseConfig): ParseResult;
+
+export function parse(stream: ReadableStream, config?: ParseConfig): ParseResult;
 
 /**
  * Unparses javascript data objects and returns a csv string
@@ -74,8 +77,8 @@ export class Parser {
 }
 
 export interface ParseConfig {
-    delimiter?: string;            // default: ""
-    newline?: string;              // default: ""
+    delimiter?: string;            // default: ","
+    newline?: string;              // default: "\r\n"
     quoteChar?: string;            // default: '"'
     header?: boolean;              // default: false
     dynamicTyping?: boolean;       // default: false
