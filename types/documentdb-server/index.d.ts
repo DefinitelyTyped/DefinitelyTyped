@@ -227,6 +227,9 @@ interface ICollection extends IQueryAPI {
     queryDocuments(collectionLink: string,
         filterQuery: string,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    queryDocuments<T>(collectionLink: string,
+        filterQuery: string,
+        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments(collectionLink: string,
         filterQuery: string,
         options?: IFeedOptions,
@@ -238,6 +241,9 @@ interface ICollection extends IQueryAPI {
     queryDocuments(collectionLink: string,
         filterQuery: IParameterizedQuery,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    queryDocuments<T>(collectionLink: string,
+        filterQuery: IParameterizedQuery,
+        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments(collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
