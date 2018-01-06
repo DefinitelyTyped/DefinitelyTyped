@@ -9,6 +9,12 @@ interface NavigoHooks {
     leave?(params?: Params): void;
     already?(params?: Params): void;
 }
+
+interface GenericHooks {
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+}
+
 type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
 
 declare class Navigo {
