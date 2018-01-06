@@ -4,6 +4,12 @@ import { BasicCard, Carousel, ImageDisplays, List, OptionItem, RichResponse } fr
 import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
          Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
 
+//
+// Note: These enums are exported due to limitations with Typescript and this
+// library. If you try to import and access them they'll end up null at runtime.
+// Either access them through an AssistantApp instance or AssistantApp.prototype.
+//
+
 /**
  * List of standard intents that the app provides.
  * @actionssdk
@@ -306,7 +312,7 @@ export interface Surface {
  */
 export interface Capability {
     /** Name of the capability. */
-    name: string;
+    name: SurfaceCapabilities;
 }
 
 /**
@@ -1322,7 +1328,7 @@ export class AssistantApp {
      * @dialogflow
      * @actionssdk
      */
-    getSurfaceCapabilities(): string[];
+    getSurfaceCapabilities(): SurfaceCapabilities[];
 
     /**
      * Returns the set of other available surfaces for the user.
