@@ -47,7 +47,6 @@ StatelessComponent2.defaultProps = {
     aria-checked='true'
     aria-colcount={7}
     aria-label='test'
-    ariaExpanded='false' // $ExpectError
 >
     <b>bar</b>
 </div>;
