@@ -202,6 +202,8 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     hide?: boolean;
     shape?: React.ReactElement<any> | ContentRenderer<RectangleProps>;
     data?: BarData[];
+    // see label section at http://recharts.org/#/en-US/api/Bar
+    label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<Label>;
 }
 
 export class Bar extends React.Component<BarProps> { }
@@ -682,6 +684,7 @@ export interface ResponsiveContainerProps {
     children: React.ReactNode;
     debounce?: number;
     id?: string | number;
+    className?: string | number;
 }
 
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
@@ -820,6 +823,14 @@ export interface Label {
     content?: React.ReactElement<any> | ContentRenderer<Label>;
 }
 
+export interface LabelProps extends ViewBox {
+    index: number;
+    value: string | number;
+    offset?: number;
+    viewBox: ViewBox;
+    content?: React.ReactElement<any> | ContentRenderer<Label>;
+}
+
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 
 export interface XPadding {
@@ -868,6 +879,8 @@ export interface XAxisProps extends EventAttributes {
     tickSize?: number;
     interval?: AxisInterval;
     reversed?: boolean;
+    // see label section at http://recharts.org/#/en-US/api/XAxis
+    label?: string | number | Label;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -915,6 +928,8 @@ export interface YAxisProps extends EventAttributes {
     tickSize?: number;
     interval?: AxisInterval;
     reversed?: boolean;
+    // see label section at http://recharts.org/#/en-US/api/YAxis
+    label?: string | number | Label;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }

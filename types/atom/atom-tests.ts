@@ -32,6 +32,7 @@ declare let editor: Atom.TextEditor;
 declare let editors: Atom.TextEditor[];
 declare let emitter: Atom.Emitter;
 declare let file: Atom.File;
+declare let fileOrDir: Atom.File | Atom.Directory;
 declare let grammar: Atom.Grammar;
 declare let grammars: Atom.Grammar[];
 declare let gutter: Atom.Gutter;
@@ -964,6 +965,16 @@ function testFile() {
 
     file.createWriteStream();
     file.writeSync("Test");
+}
+
+// File/Directory Type Guarding ===============================================
+function testFileDirectoryTypeGuarding() {
+    if (fileOrDir.isFile()) {
+      file = fileOrDir;
+    }
+    if (fileOrDir.isDirectory()) {
+      dir = fileOrDir;
+    }
 }
 
 // GitRepository ==============================================================
@@ -3102,7 +3113,9 @@ function testWorkspace() {
 
     obj = atom.workspace.createItemForURI("https://test");
 
-    bool = atom.workspace.isTextEditor(obj);
+    if (atom.workspace.isTextEditor(obj)) {
+      const textEditor: Atom.TextEditor = obj;
+    }
 
     async function workspaceReopen() {
         const result = await atom.workspace.reopenItem();
