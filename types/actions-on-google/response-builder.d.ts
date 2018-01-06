@@ -95,19 +95,19 @@ export interface StructuredResponse {
     orderUpdate: OrderUpdate;
 }
 
-export interface RichResponseItemBasicCard {
+export interface ItemBasicCard {
     basicCard: BasicCard;
 }
 
-export interface RichResponseItemSimpleResponse {
+export interface ItemSimpleResponse {
     simpleResponse: SimpleResponse;
 }
 
-export interface RichResponseItemStructuredResponse {
+export interface ItemStructuredResponse {
     structuredResponse: StructuredResponse;
 }
 
-export type RichResponseItem = RichResponseItemBasicCard | RichResponseItemSimpleResponse | RichResponseItemStructuredResponse;
+export type RichResponseItem = ItemBasicCard | ItemSimpleResponse | ItemStructuredResponse;
 
 /**
  * Class for initializing and constructing Rich Responses with chainable interface.
@@ -171,7 +171,8 @@ export class RichResponse {
     isValidSuggestionText(suggestionText: string): boolean;
 
     /**
-     * Sets the suggestion link for this rich response.
+     * Sets the suggestion link for this rich response. The destination site must be verified
+     * (https://developers.google.com/actions/console/brand-verification).
      *
      * @param destinationName Name of the link out destination.
      * @param suggestionUrl - String URL to open when suggestion is used.
@@ -433,3 +434,10 @@ export class OptionItem {
  * @return True if text contains SSML, false otherwise.
  */
 export function isSsml(text: string): boolean;
+
+/**
+ * Check if given text contains SSML, allowing for whitespace padding.
+ * @param text Text to check.
+ * @return True if text contains possibly whitespace padded SSML, false otherwise.
+ */
+export function isPaddedSsml(text: string): boolean;
