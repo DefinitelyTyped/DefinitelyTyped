@@ -6,6 +6,7 @@
 // TypeScript Version: 2.2
 
 import { Request, RequestHandler } from "express";
+import * as Express from "express";
 
 /**
  * Represents an OAuth2 server instance.
