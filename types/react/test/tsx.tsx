@@ -41,6 +41,17 @@ StatelessComponent2.defaultProps = {
     <b>foo</b>
 </div>;
 
+// WAI-ARIA 1.1 Attributes
+<div
+    aria-atomic={false}
+    aria-checked='true'
+    aria-colcount={7}
+    aria-label='test'
+    ariaExpanded='false' // $ExpectError
+>
+    <b>bar</b>
+</div>;
+
 interface Props {
     hello: string;
 }
