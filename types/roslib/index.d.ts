@@ -58,7 +58,7 @@ declare namespace ROSLIB {
 		 * @param level - User level as a string given by the client.
 		 * @param end - End time of the client's session.
 		 */
-		authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:string):void;
+		authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:number):void;
 
 
 		/**
