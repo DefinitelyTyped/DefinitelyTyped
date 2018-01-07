@@ -4,9 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NavigoHooks {
-    before?(done: (suppress?: boolean) => void): void;
-    after?(): void;
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+    leave?(params?: Params): void;
+    already?(params?: Params): void;
 }
+
+interface GenericHooks {
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+}
+
 type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
 
 declare class Navigo {
@@ -34,8 +42,12 @@ declare class Navigo {
     resolve(currentURL?: string): boolean;
 
     link(path: string): string;
+    
+    lastRouteResolved(): {url: string, query: string};
 
     disableIfAPINotAvailable(): void;
+
+    hooks(hooks: GenericHooks): void;
 
     pause(): void;
 
