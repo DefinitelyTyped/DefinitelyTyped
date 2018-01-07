@@ -1,4 +1,4 @@
-// Type definitions for roslib.js 0.18.0
+// Type definitions for roslib.js 0.18.1
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>, Cooper Benson <https://github.com/skycoop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
