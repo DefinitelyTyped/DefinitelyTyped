@@ -3,6 +3,10 @@
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type Keys = string
+export type State = {[k in Keys]: any}
+export type Params = State;
+
 interface NavigoHooks {
     before?(done: (suppress?: boolean) => void, params?: Params): void;
     after?(params?: Params): void;
