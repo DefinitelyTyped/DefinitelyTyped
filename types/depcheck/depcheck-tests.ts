@@ -1,4 +1,4 @@
-import * as depcheck from 'depcheck';
+import depcheck = require('depcheck');
 
 const options: depcheck.Options = {
     withoutDev: false,
