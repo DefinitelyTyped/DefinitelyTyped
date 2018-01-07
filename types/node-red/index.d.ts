@@ -169,7 +169,13 @@ export interface Nodes {
      * @return - the node matching the given id.
      */
     getNode(id: NodeId): Node;
-    eachNode(callback: (node: Node) => any): void;
+    /**
+     * Cycle through all node definition objects.
+     *
+     * To get the actual node, use getNode() with the id
+     * from the definition object.
+     */
+    eachNode(callback: (node: NodeProperties) => any): void;
     /**
      * Adds a set of credentials for the given node id.
      * @param id the node id for the credentials
