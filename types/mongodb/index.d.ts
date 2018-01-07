@@ -25,7 +25,7 @@ export function connect(uri: string, options: MongoClientOptions, callback: Mong
 export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp, DBRef } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
-export class MongoClient {
+export class MongoClient extends EventEmitter {
     constructor();
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#.connect */
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
