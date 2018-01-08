@@ -607,6 +607,12 @@
             "asOfVersion": "0.4.14"
         },
         {
+            "libraryName": "immutability-helper",
+            "typingsPackageName": "immutability-helper",
+            "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
+            "asOfVersion": "2.6.3"
+        },
+        {
             "libraryName": "Facebook's Immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
