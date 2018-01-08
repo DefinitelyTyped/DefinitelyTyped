@@ -3,6 +3,12 @@
 // Definitions by: Arthur Xavier <https://github.com/arthur-xavier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Support for painless dependency injection
+export as namespace Lime;
+
+// Support AMD require
+export = Lime;
+
 declare namespace Lime {
 
     interface Envelope {
