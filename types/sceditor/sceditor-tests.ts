@@ -1,7 +1,7 @@
-import * as tinymce from 'sceditor';
+import * as sceditor from 'sceditor';
 
-var textarea = document.getElementById('myTextArea');
-sceditor.create( 
+var textarea = document.getElementById('myTextArea') as HTMLElement;
+sceditor.create(
 	textarea, {
 	plugins: "bbcode",
 	format: "bbcode",
