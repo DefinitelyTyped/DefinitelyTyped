@@ -5370,6 +5370,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     [n: number]: TElement;
 }
 
+// ES5 compatibility
+interface Iterable<T> { }
+
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
     type Node = Element | Text | Comment;
