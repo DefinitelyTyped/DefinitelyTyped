@@ -185,7 +185,7 @@ export interface ValidationErrorFunction {
     (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
 }
 
-export interface ValidationResult<T> {
+export interface ValidationResult<T> extends Pick<Promise<T>, 'then' | 'catch'> {
     error: ValidationError;
     value: T;
 }
