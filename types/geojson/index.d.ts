@@ -68,7 +68,6 @@ export interface GeoJsonObject {
  */
 export interface GeometryObject extends GeoJsonObject {
     type: GeoJsonGeometryTypes;
-    coordinates?: Position | Position[] | Position[][] | Position[][][];
 }
 
 /**
