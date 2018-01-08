@@ -9,6 +9,7 @@
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Youngrok Kim <https://github.com/rokoroku>
 //                 Dan Kraus <https://github.com/dankraus>
+//                 Anjun Wang <https://github.com/wanganjun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
