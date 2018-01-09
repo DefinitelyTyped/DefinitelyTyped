@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 
 export function reach(schema: Schema, path: string, value?: any, context?: any): Schema;
-export function addMethod(schemaType: Schema, name: string, method: (this: Schema) => Schema): void;
+export function addMethod<T extends Schema>(schemaCtor: AnySchemaConstructor, name: string, method: (this: T, ...args: any[]) => T): void;
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy(fn: (value: any) => Schema): Lazy;
 export function ValidationError(errors: string | string[], value: any, path: string, type?: any): ValidationError;
@@ -18,6 +18,14 @@ export const bool: BooleanSchemaConstructor;
 export const date: DateSchemaConstructor;
 export const array: ArraySchemaConstructor;
 export const object: ObjectSchemaConstructor;
+
+export type AnySchemaConstructor = MixedSchemaConstructor
+    | StringSchemaConstructor
+    | NumberSchemaConstructor
+    | BooleanSchemaConstructor
+    | DateSchemaConstructor
+    | ArraySchemaConstructor
+    | ObjectSchemaConstructor;
 
 export interface Schema {
     clone(): this;

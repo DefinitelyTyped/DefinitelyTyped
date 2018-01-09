@@ -932,11 +932,11 @@ declare namespace __MaterialUI {
         containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
+        onClick?: React.MouseEventHandler<Chip>;
         onRequestDelete?: React.TouchEventHandler<Chip>;
-        onTouchTap?: React.TouchEventHandler<Chip>;
         style?: React.CSSProperties;
-        onClick?: React.MouseEventHandler<{}>;
-}
+    }
+
     export class Chip extends React.Component<ChipProps> {
     }
 
@@ -962,7 +962,7 @@ declare namespace __MaterialUI {
             onDismiss?(): void;
             onFocus?: React.FocusEventHandler<{}>;
             onShow?(): void;
-            onTouchTap?: React.TouchEventHandler<{}>;
+            onClick?: React.TouchEventHandler<{}>;
             shouldDisableDate?(day: Date): boolean;
             style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
@@ -1205,7 +1205,7 @@ declare namespace __MaterialUI {
             multiple?: boolean;
             onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
             onEscKeyDown?: React.KeyboardEventHandler<{}>;
-            onItemTouchTap?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
+            onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyDown?: React.KeyboardEventHandler<{}>;
             selectedMenuItemStyle?: React.CSSProperties;
             style?: React.CSSProperties;
@@ -1246,7 +1246,7 @@ declare namespace __MaterialUI {
             iconButtonElement: React.ReactElement<IconButtonProps>;
             iconStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
-            onItemTouchTap?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
+            onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
             onMouseDown?: React.MouseEventHandler<{}>;
             onMouseEnter?: React.MouseEventHandler<{}>;
@@ -1257,7 +1257,7 @@ declare namespace __MaterialUI {
             open?: boolean;
             style?: React.CSSProperties;
             targetOrigin?: propTypes.origin;
-            touchTapCloseDelay?: number;
+            clickCloseDelay?: number;
             useLayerForClickAway?: boolean;
 
             animated?: boolean;
