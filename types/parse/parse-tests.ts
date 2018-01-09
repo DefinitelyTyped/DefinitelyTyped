@@ -252,6 +252,14 @@ function test_relation() {
     new Parse.User().relation("games").remove([game1, game2])
 }
 
+function test_user() {
+    const user = new Parse.User();
+    user.set("username", "my name");
+    user.set("password", "my pass");
+    user.set("email", "email@example.com");
+    user.signUp(null, { useMasterKey: true });
+}
+
 function test_user_acl_roles() {
 
     const user = new Parse.User();

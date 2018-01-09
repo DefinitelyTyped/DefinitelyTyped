@@ -31,6 +31,11 @@ declare namespace Parse {
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
     }
 
+    interface SignUpOptions {
+        useMasterKey?: boolean;
+        installationId?: string;
+    }
+
     interface SessionTokenOption {
         sessionToken?: string;
     }
@@ -741,7 +746,7 @@ declare namespace Parse {
     class User extends Object {
 
         static current(): User | undefined;
-        static signUp(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<User>;
+        static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
         static allowCustomUserClass(isAllowed: boolean): void;
@@ -749,7 +754,7 @@ declare namespace Parse {
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
-        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
