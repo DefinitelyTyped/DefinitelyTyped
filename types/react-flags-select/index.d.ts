@@ -1,17 +1,15 @@
-// Type definitions for react-flags-select 1.1.2
+// Type definitions for react-flags-select 1.1
 // Project: https://github.com/ekwonye-richard/react-flags-select#readme
 // Definitions by: Artur Sianiuk <https://github.com/senukartur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Component } React from 'react';
-
-export = ReactFlagSelect;
+import { Component } from 'react';
 
 interface Props {
     countries?: string[];
     blackList?: boolean;
-    customLabels?: string[];
+    customLabels?: {[propName: string]: string};
     selectedSize?: number;
     optionsSize?: number;
     defaultCountry?: string;
@@ -27,3 +25,5 @@ interface Props {
 declare class ReactFlagsSelect extends Component<Props> {
     updateSelected(countryCode: string): void;
 }
+
+export default ReactFlagsSelect;
