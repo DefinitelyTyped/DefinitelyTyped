@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "leaflet.mouseposition-tests.ts"
+        "leaflet-mouse-position-tests.ts"
     ]
 }
