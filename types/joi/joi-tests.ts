@@ -912,6 +912,11 @@ namespace validate_tests {
         returnValue = schema.validate(value, validOpts);
         value = schema.validate(value, (err, value) => value);
         value = schema.validate(value, validOpts, (err, value) => value);
+
+        returnValue
+            .then(val => JSON.stringify(val, null, 2))
+            .then(val => { throw 'one error'; })
+            .catch(e => {});
     }
 }
 
