@@ -339,6 +339,32 @@ namespace fs_tests {
         b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
         const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
         typeof v2 === "string" ? s = v2 : b = v2;
+
+        // native
+        fs.realpath.native('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
+        fs.realpath.native('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
+        fs.realpath.native('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+
+        s = fs.realpathSync.native('/path/to/folder');
+        s = fs.realpathSync.native('/path/to/folder', undefined);
+        s = fs.realpathSync.native('/path/to/folder', 'utf8');
+        b = fs.realpathSync.native('/path/to/folder', 'buffer');
+        const v3 = fs.realpathSync.native('/path/to/folder', s);
+        typeof v3 === "string" ? s = v3 : b = v3;
+
+        s = fs.realpathSync.native('/path/to/folder', {});
+        s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
+        s = fs.realpathSync.native('/path/to/folder', { encoding: 'utf8' });
+        b = fs.realpathSync.native('/path/to/folder', { encoding: 'buffer' });
+        const v4 = fs.realpathSync.native('/path/to/folder', { encoding: s });
+        typeof v4 === "string" ? s = v4 : b = v4;
     }
 
     {
@@ -2608,6 +2634,13 @@ namespace process_tests {
         const oldHandler = listeners[listeners.length - 1];
         process.addListener('uncaughtException', oldHandler);
     }
+    {
+        function myCb(err: Error): void {
+        }
+        process.setUncaughtExceptionCaptureCallback(myCb);
+        process.setUncaughtExceptionCaptureCallback(null);
+        const b: boolean = process.hasUncaughtExceptionCaptureCallback();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -3913,6 +3946,7 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
     paths = m1.paths;
 }
