@@ -57,6 +57,12 @@ function test_object() {
     gameScore.set("cheatMode", false);
 
 
+    // Setting attrs using object
+    gameScore.set({
+        level: '10',
+        difficult: 15
+    });
+
     const score = gameScore.get("score");
     const playerName = gameScore.get("playerName");
     const cheatMode = gameScore.get("cheatMode");
@@ -274,6 +280,7 @@ function test_user_acl_roles() {
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true });
 
     const groupACL = new Parse.ACL();
 
@@ -366,7 +373,7 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
-                                               response: Parse.Cloud.BeforeDeleteResponse) => {
+        response: Parse.Cloud.BeforeDeleteResponse) => {
         // result
     });
 

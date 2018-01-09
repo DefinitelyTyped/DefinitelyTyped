@@ -98,11 +98,11 @@ declare namespace Parse {
         reject(error: any): void;
         resolve(result: any): void;
         then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-                rejectedCallback?: (reason: any) => U): IPromise<U>;
+            rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     interface Pointer {
@@ -373,7 +373,9 @@ declare namespace Parse {
         remove(attr: string, item: any): any;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
+        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
+        set(attrs: object, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         toPointer(): Pointer;
         unset(attr: string, options?: any): any;
