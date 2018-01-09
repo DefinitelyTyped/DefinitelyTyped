@@ -1523,6 +1523,13 @@
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
             "asOfVersion": "0.5.12"
+        },
+
+        {
+            "libraryName": "immutability-helper",
+            "typingsPackageName": "immutability-helper",
+            "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
+            "asOfVersion": "2.6.3"
         }
     ]
 }
