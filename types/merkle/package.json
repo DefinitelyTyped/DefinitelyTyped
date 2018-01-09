@@ -1,20 +1,6 @@
 {
-    "name": "@types/merkle",
-    "version": "0.6.0",
-    "description": "TypeScript definitions for merkle",
-    "contributors": [
-        {
-            "name": "Yu Hsin Lu",
-            "url": "https://github.com/kerol2r20",
-            "githubUsername": "kerol2r20"
-        }
-    ],
-    "main": "",
-    "repository": {
-        "type": "git",
-        "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
-    },
-    "scripts": {},
-    "typesPublisherContentHash": "16119704233cb146d273b3f0f2195ec03afa6fd2101840c82ac0381aa7004595",
-    "typeScriptVersion": "2.3"
+  "dependencies": {
+    "@types/node": "*"
+  },
+  "private": true
 }
