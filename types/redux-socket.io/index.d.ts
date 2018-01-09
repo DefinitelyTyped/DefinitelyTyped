@@ -3,8 +3,9 @@
 // Definitions by: Igor Voropaev <https://github.com/snakeego>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="socket.io-client" />
+
 import { Middleware, Action, Dispatch } from 'redux';
-import { Socket } from 'socket.io-client';
 
 export interface MiddlewareOptions {
     eventName?: string;
