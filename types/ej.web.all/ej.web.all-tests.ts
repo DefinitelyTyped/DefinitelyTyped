@@ -1,5 +1,3 @@
-/* tslint:disable */
-
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
@@ -76,6 +74,35 @@ module Bulletgraphcomponent {
     $(function () {
         var bulletsample = new ej.datavisualization.BulletGraph($("#BulletGraph"), {
             isResponsive: true,
+            load: function () {
+                var sender = $("#BulletGraph").data("ejBulletGraph");
+                var bulletTheme = window.themeStyle + window.themeColor + window.themeVarient;
+                if (bulletTheme) {
+                    switch (bulletTheme) {
+                        case "flatdark":
+                        case "flatazuredark":
+                        case "flatlimedark":
+                        case "flatsaffrondark":
+                        case "gradientdark":
+                        case "gradientazuredark":
+                        case "gradientlimedark":
+                        case "gradientsaffrondark":
+                        case "flathigh-contrast-01dark":
+                        case "flathigh-contrast-02dark":
+                            theme = "flatdark";
+                            break;
+                        case "flatoffice-365light":
+                        case "flatmateriallight":
+                            theme = "material";
+                            break;
+                        default:
+                            theme = "flatlight";
+                            break;
+                    }
+                    sender.model.theme = theme;
+                }
+
+            },
             tooltipSettings: { visible: true },
             quantitativeScaleSettings: {
                 featureMeasures: [{
@@ -232,10 +259,50 @@ module ChartComponent {
                     model.primaryYAxis.labelIntersectAction = "rotate45";
                     model.primaryYAxis.edgeLabelPlacement = "hide";
                 }
+                var theme = window.themeStyle + window.themeColor + window.themeVarient;
+                if (theme) {
+                    switch (theme) {
+                        case "flatdark":
+                        case "flatazuredark":
+                        case "flatlimedark":
+                        case "flatsaffrondark":
+                            theme = "flatdark";
+                            break;
+                        case "gradientlight":
+                        case "gradientazurelight":
+                        case "gradientlimelight":
+                        case "gradientsaffronlight":
+                            theme = "gradientlight";
+                            break;
+                        case "gradientdark":
+                        case "gradientazuredark":
+                        case "gradientlimedark":
+                        case "gradientsaffrondark":
+                            theme = "gradientdark";
+                            break;
+                        case "flatbootstraplight":
+                            theme = "bootstrap";
+                            break;
+                        case "flathigh-contrast-01dark":
+                        case "flathigh-contrast-02dark":
+                            theme = "high-contrast-01";
+                            break;
+                        case "flatmateriallight":
+                        case "flatoffice-365light":
+                            theme = "material";
+                            break;
+
+                        default:
+                            theme = "flatlight";
+                            break;
+                    }
+                    sender.model.theme = theme;
+                }
             },
             title: { text: 'Efficiency of oil-fired power production' },
             size: { height: "600" },
-            legend: { visible: true}
+            legend: { visible: true},
+			load:"loadTheme"
         });
     });
 }
@@ -305,6 +372,28 @@ module ColorPickerComponent {
         });
     });
 }
+
+
+
+
+module ComboBoxComponent{
+    var BikeList = [
+        { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
+        { empid: "bk4", text: "Discover" }, { empid: "bk5", text: "Dazzler" }, { empid: "bk6", text: "Flame" },
+        { empid: "bk7", text: "Fazzer" }, { empid: "bk8", text: "FZ-S" }, { empid: "bk9", text: "Pulsar" },
+        { empid: "bk10", text: "Shine" }, { empid: "bk11", text: "R15" }, { empid: "bk12", text: "Unicorn" }
+    ];
+    $(function () {
+        var comboboxInstance =new ej.ComboBox($("#selectCar"), {
+            width: "100%",
+            placeholder: "Select a Bike",
+			fields: { text: "text", value: "empid" },
+            dataSource: BikeList,
+            autofill: true
+        });
+    });
+}
+
 
 
 
@@ -1065,7 +1154,8 @@ module PivotChartOlap {
 		size: { height: "460px", width: "100%" },
 		primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
 		primaryYAxis: { title: { text: "Internet Sales Amount" } },
-		legend: { visible: true, rowCount: 2 }
+		legend: { visible: true, rowCount: 2 },
+		load:"loadTheme"
         });
     });
 }
@@ -1139,7 +1229,8 @@ module PivotChartRelational {
 		},
 		size: { height: "460px", width: "100%" },
 		primaryYAxis: { title: { text: "Amount" } },
-		legend: { visible: true }
+		legend: { visible: true },
+		load:"loadTheme"
         });
     });
 }
@@ -1650,6 +1741,66 @@ module rangecomponent {
                         fill: '#69D2E7'
                     }
                 ];
+            },
+            loaded: function () {
+                var sender = $("#RangeNavigator").data("ejRangeNavigator");
+                var theme = window.themeStyle + window.themeColor + window.themeVarient;
+                if (theme) {
+                    switch (theme) {
+                        case "flatazurelight":
+                            theme = "azurelight";
+                            break;
+                        case "flatlimelight":
+                            theme = "limelight";
+                            break;
+                        case "flatsaffronlight":
+                            theme = "saffronlight";
+                            break;
+                        case "gradientazurelight":
+                            theme = "gradientazure";
+                            break;
+                        case "gradientlimelight":
+                            theme = "gradientlime";
+                            break;
+                        case "gradientsaffronlight":
+                            theme = "gradientsaffron";
+                            break;
+                        case "flatazuredark":
+                            theme = "azuredark";
+                            break;
+                        case "flatlimedark":
+                            theme = "limedark";
+                            break;
+                        case "flatsaffrondark":
+                            theme = "saffrondark";
+                            break;
+                        case "gradientazuredark":
+                            theme = "gradientazuredark";
+                            break;
+                        case "gradientlimedark":
+                            theme = "gradientlimedark";
+                            break;
+                        case "gradientsaffrondark":
+                            theme = "gradientsaffrondark";
+                            break;
+                        case "flathigh-contrast-01dark":
+                            theme = "highcontrast01";
+                            break;
+                        case "flathigh-contrast-02dark":
+                            theme = "highcontrast02";
+                            break;
+                        case "flatmateriallight":
+                            theme = "material";
+                            break;
+                        case "flatoffice-365light":
+                            theme = "office";
+                            break;
+                        default:
+                            theme = "flatlight";
+                            break;
+                    }
+                    sender.model.theme = theme;
+                }
             }
 
         });
@@ -2895,9 +3046,20 @@ module sunburstcomponent {
 			enableAnimation:false,
 			size:{height:"600"},
 			innerRadius:0.2,
+            load: function () {
+                var sender = $("#Sunburst").data("ejSunburstChart");
+                var SunBurstTheme = window.themeStyle + window.themeColor + window.themeVarient;
+                SunBurstTheme = SunBurstTheme.toString();
+                if (SunBurstTheme.indexOf("dark") > -1 || SunBurstTheme.indexOf("contrast") > -1)
+                    SunBurstTheme = "flatdark";
+                else
+                    SunBurstTheme = "flatlight";
+                sender.model.theme = SunBurstTheme;
+            },
 			title:{text:"Employees Count"},
 			zoomSettings:{enable:false},
-			legend:{visible:true,position:'top'}
+			legend:{visible:true,position:'top'},
+			load:"loadTheme"
         });
     });
 }

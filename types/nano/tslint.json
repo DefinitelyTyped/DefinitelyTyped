@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODO
-        "no-any-union": false
+        "no-any-union": false,
+        "no-unnecessary-generics": false
     }
 }

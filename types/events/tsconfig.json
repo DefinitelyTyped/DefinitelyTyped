@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es6",
+      "lib": [
+        "es6",
+        "dom"
+      ],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "baseUrl": "../",
+      "typeRoots": [
+        "../"
+      ],
+      "types": [],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+      "index.d.ts",
+      "events-tests.ts"
+    ]
+}

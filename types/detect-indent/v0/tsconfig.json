@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "detect-indent": ["detect-indent/v0"]
+            "detect-indent": [
+                "detect-indent/v0"
+            ]
         },
         "types": [],
         "noEmit": true,

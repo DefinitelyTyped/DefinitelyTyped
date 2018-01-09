@@ -20,4 +20,5 @@ export {
     isPristine,
     isSubmitting,
     isValid,
-} from "redux-form";
+    SubmissionError
+} from "../";

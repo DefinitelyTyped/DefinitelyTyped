@@ -1,4 +1,14 @@
 import {
+    ScalarTypeDefinitionNode,
+    ObjectTypeDefinitionNode,
+    FieldDefinitionNode,
+    InputValueDefinitionNode,
+    InterfaceTypeDefinitionNode,
+    UnionTypeDefinitionNode,
+    EnumTypeDefinitionNode,
+    EnumValueDefinitionNode,
+    InputObjectTypeDefinitionNode,
+    TypeExtensionDefinitionNode,
     OperationDefinitionNode,
     FieldNode,
     FragmentDefinitionNode,
@@ -156,6 +166,7 @@ export type Thunk<T> = (() => T) | T;
 export class GraphQLScalarType {
     name: string;
     description: string;
+    astNode?: ScalarTypeDefinitionNode;
     constructor(config: GraphQLScalarTypeConfig<any, any>);
 
     // Serializes an internal value to include in a response.
@@ -173,6 +184,7 @@ export class GraphQLScalarType {
 export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
     name: string;
     description?: string;
+    astNode?: ScalarTypeDefinitionNode;
     serialize(value: any): TExternal | null | undefined;
     parseValue?(value: any): TInternal | null | undefined;
     parseLiteral?(valueNode: ValueNode): TInternal | null | undefined;
@@ -218,6 +230,8 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
 export class GraphQLObjectType {
     name: string;
     description: string;
+    astNode?: ObjectTypeDefinitionNode;
+    extensionASTNodes: Array<TypeExtensionDefinitionNode>;
     isTypeOf: GraphQLIsTypeOfFn<any, any>;
 
     constructor(config: GraphQLObjectTypeConfig<any, any>);
@@ -232,6 +246,8 @@ export interface GraphQLObjectTypeConfig<TSource, TContext> {
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext>>;
     isTypeOf?: GraphQLIsTypeOfFn<TSource, TContext>;
     description?: string;
+    astNode?: ObjectTypeDefinitionNode;
+    extensionASTNodes?: Array<TypeExtensionDefinitionNode>;
 }
 
 export type GraphQLTypeResolver<TSource, TContext> = (
@@ -272,8 +288,10 @@ export interface GraphQLFieldConfig<TSource, TContext> {
     type: GraphQLOutputType;
     args?: GraphQLFieldConfigArgumentMap;
     resolve?: GraphQLFieldResolver<TSource, TContext>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext>;
     deprecationReason?: string;
     description?: string;
+    astNode?: FieldDefinitionNode;
 }
 
 export interface GraphQLFieldConfigArgumentMap {
@@ -284,6 +302,7 @@ export interface GraphQLArgumentConfig {
     type: GraphQLInputType;
     defaultValue?: any;
     description?: string;
+    astNode?: InputValueDefinitionNode;
 }
 
 export interface GraphQLFieldConfigMap<TSource, TContext> {
@@ -296,8 +315,10 @@ export interface GraphQLField<TSource, TContext> {
     type: GraphQLOutputType;
     args: GraphQLArgument[];
     resolve?: GraphQLFieldResolver<TSource, TContext>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext>;
     isDeprecated?: boolean;
     deprecationReason?: string;
+    astNode?: FieldDefinitionNode;
 }
 
 export interface GraphQLArgument {
@@ -305,6 +326,7 @@ export interface GraphQLArgument {
     type: GraphQLInputType;
     defaultValue?: any;
     description?: string;
+    astNode?: InputValueDefinitionNode;
 }
 
 export interface GraphQLFieldMap<TSource, TContext> {
@@ -332,6 +354,7 @@ export interface GraphQLFieldMap<TSource, TContext> {
 export class GraphQLInterfaceType {
     name: string;
     description: string;
+    astNode?: InterfaceTypeDefinitionNode;
     resolveType: GraphQLTypeResolver<any, any>;
 
     constructor(config: GraphQLInterfaceTypeConfig<any, any>);
@@ -351,6 +374,7 @@ export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
      */
     resolveType?: GraphQLTypeResolver<TSource, TContext>;
     description?: string;
+    astNode?: InterfaceTypeDefinitionNode;
 }
 
 /**
@@ -379,6 +403,7 @@ export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
 export class GraphQLUnionType {
     name: string;
     description: string;
+    astNode?: UnionTypeDefinitionNode;
     resolveType: GraphQLTypeResolver<any, any>;
 
     constructor(config: GraphQLUnionTypeConfig<any, any>);
@@ -398,6 +423,7 @@ export interface GraphQLUnionTypeConfig<TSource, TContext> {
      */
     resolveType?: GraphQLTypeResolver<TSource, TContext>;
     description?: string;
+    astNode?: UnionTypeDefinitionNode;
 }
 
 /**
@@ -424,10 +450,12 @@ export interface GraphQLUnionTypeConfig<TSource, TContext> {
 export class GraphQLEnumType {
     name: string;
     description: string;
+    astNode?: EnumTypeDefinitionNode;
 
     constructor(config: GraphQLEnumTypeConfig);
     getValues(): GraphQLEnumValue[];
     getValue(name: string): GraphQLEnumValue;
+    isValidValue(value: any): boolean;
     serialize(value: any): string;
     parseValue(value: any): any;
     parseLiteral(valueNode: ValueNode): any;
@@ -438,6 +466,7 @@ export interface GraphQLEnumTypeConfig {
     name: string;
     values: GraphQLEnumValueConfigMap;
     description?: string;
+    astNode?: EnumTypeDefinitionNode;
 }
 
 export interface GraphQLEnumValueConfigMap {
@@ -448,6 +477,7 @@ export interface GraphQLEnumValueConfig {
     value?: any;
     deprecationReason?: string;
     description?: string;
+    astNode?: EnumValueDefinitionNode;
 }
 
 export interface GraphQLEnumValue {
@@ -455,6 +485,7 @@ export interface GraphQLEnumValue {
     description: string;
     isDeprecated?: boolean;
     deprecationReason: string;
+    astNode?: EnumValueDefinitionNode;
     value: any;
 }
 
@@ -481,6 +512,7 @@ export interface GraphQLEnumValue {
 export class GraphQLInputObjectType {
     name: string;
     description: string;
+    astNode?: InputObjectTypeDefinitionNode;
     constructor(config: GraphQLInputObjectTypeConfig);
     getFields(): GraphQLInputFieldMap;
     toString(): string;
@@ -490,12 +522,14 @@ export interface GraphQLInputObjectTypeConfig {
     name: string;
     fields: Thunk<GraphQLInputFieldConfigMap>;
     description?: string;
+    astNode?: InputObjectTypeDefinitionNode;
 }
 
 export interface GraphQLInputFieldConfig {
     type: GraphQLInputType;
     defaultValue?: any;
     description?: string;
+    astNode?: InputValueDefinitionNode;
 }
 
 export interface GraphQLInputFieldConfigMap {
@@ -507,6 +541,7 @@ export interface GraphQLInputField {
     type: GraphQLInputType;
     defaultValue?: any;
     description?: string;
+    astNode?: InputValueDefinitionNode;
 }
 
 export interface GraphQLInputFieldMap {

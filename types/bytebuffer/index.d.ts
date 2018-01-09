@@ -120,12 +120,17 @@ declare class ByteBuffer
     /**
      * Calculates the number of UTF8 bytes of a string.
      */
-    static calculateUTF8Byte( str: string ): number;
+    static calculateUTF8Bytes( str: string ): number;
 
     /**
      * Calculates the number of UTF8 characters of a string.JavaScript itself uses UTF- 16, so that a string's length property does not reflect its actual UTF8 size if it contains code points larger than 0xFFFF.
      */
-    static calculateUTF8Char( str: string ): number;
+    static calculateUTF8Chars( str: string ): number;
+    
+    /**
+     * Calculates the number of UTF8 bytes of a string. This is an alias of ByteBuffer#calculateUTF8Bytes.
+     */
+    static calculateString( str: string ): number;
 
     /**
      * Calculates the actual number of bytes required to store a 32bit base 128 variable-length integer.
@@ -409,7 +414,7 @@ declare class ByteBuffer
     /**
      * Reads a zig-zag encoded 32bit base 128 variable-length integer.
      */
-    readVarint32ZiZag( offset?: number ): number;
+    readVarint32ZigZag( offset?: number ): number;
 
     /**
      * Reads a 64bit base 128 variable-length integer. Requires Long.js.

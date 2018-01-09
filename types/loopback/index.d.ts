@@ -2,6 +2,8 @@
 // Project: https://github.com/strongloop/loopback
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 //                 Tim Schumacher <https://github.com/enko>
+//                 Sequoia McDowell <https://github.com/sequoia>
+//                 Mike Crowe <https://github.com/drmikecrowe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,7 +14,7 @@
 ************************************************/
 
 import * as core from "express-serve-static-core";
-import { NextFunction } from "express";
+import { NextFunction, RequestHandler } from "express";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
@@ -724,6 +726,166 @@ declare namespace l {
       }
 
       /**
+       * @interface
+       * @property {string} path HTTP path (relative to the model) at which the method is exposed.
+       * @property {'get' | 'post' | 'patch' | 'put' | 'del' | 'all'} verb HTTP method (verb) at which the method is available.
+       * @property {number} status	Default HTTP status set when the callback is called without an error.
+       * @property {number} errorStatus	Default HTTP status set when the callback is called with an error.
+       */
+      interface RemoteHttpOptions {
+            /**
+             * HTTP path (relative to the model) at which the method is exposed.
+             * ```
+             * http: {path: '/sayhi'}
+             * ```
+             */
+            path: string;
+            /**
+             * HTTP method (verb) at which the method is available.
+             * ```
+             * http: {path: '/sayhi', verb: 'get'}
+             * ```
+             * default = post
+             */
+            verb: 'get' | 'post' | 'patch' | 'put' | 'del' | 'all';
+
+            /**
+             * status	Default HTTP status set when the callback is called without an error.
+             * ```
+             * {status: 201}
+             * ```
+             */
+            status?: number;
+
+            /**
+             * errorStatus	Default HTTP status set when the callback is called with an error.
+             * ```
+             * {errorStatus: 400}
+             * ```
+             */
+            errorStatus?: number;
+      }
+
+      /**
+       * @interface
+       * @property {RemoteMethodArgument[]} accepts Defines arguments that the remote method accepts
+       * @property {string|string[]} description Text description of the method
+       * @property {RemoteHttpOptions} http The HTTP options for the remote method
+       * @property {boolean} isStatic Whether the method is static (eg. `MyModel.myMethod`)
+       * @property {string | string[]} notes Additional notes, used by API documentation generators like Swagger.
+       * @property {RemoteMethodArgument} returns Describes the remote method's callback arguments
+      */
+      interface RemoteMethodOptions {
+            /**
+             * Defines arguments that the remote method accepts. These arguments map to the static method you define. For the example above, you can see the function signature:
+             Person.greet(name, age, callback)...
+             `name` is the first argument, `age` is the second argument and callback is automatically provided by LoopBack (do not specify it in your `accepts` array).
+             For more info, see Argument descriptions.
+             Default if not provided is the empty array, [].
+             {  ...
+               accepts: [
+                  {arg: 'name', type: 'string'},
+                  {arg: 'age', type: 'number'},...],
+               ... }
+             */
+            accepts?: RemoteMethodArgument[];
+
+            /**
+             * Text description of the method, used by API documentation generators such as Swagger.
+             You can put long strings in an array if needed (see note below).
+             */
+            description?: string|string[];
+
+            /**
+             *
+             */
+            http?: RemoteHttpOptions;
+
+            /**
+             *
+             * boolean. Whether the method is static (eg. `MyModel.myMethod`). Use `false` to define the method on the prototype (for example, `MyModel.prototype.myMethod`). Default is true.
+             * default: true
+             */
+            isStatic?:	boolean;
+
+            /**
+             *
+             Additional notes, used by API documentation generators like Swagger.
+             You can put long strings in an array if needed (see note below).
+             */
+            notes?: string | string[];
+
+            /**
+             * Describes the remote method's callback arguments; See Argument descriptions. The err argument is assumed; do not specify.
+             * Default if not provided is the empty array,  [].
+             * ```
+             * returns: {arg: 'greeting', type: 'string'}`
+             * ```
+             */
+            returns?: RemoteMethodArgument;
+      }
+
+      /**
+       * @interface
+       * @property {string} arg	Argument name
+       * @property {string | string[]} description A text description of the argument.
+       * @property {any} http http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value.
+       * @property {boolean} required	True if argument is required; false otherwise.
+       * @property {boolean} root For callback arguments: set this property to true if your function has a single callback argument. Otherwise the root object returned is an object
+       * @property {"any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String"} type
+       * @property {string} default Default value that will be used to populate loopback-explorer input fields and swagger documentation
+       */
+      interface RemoteMethodArgument {
+            /**
+             * 	Argument name
+             */
+            arg:	string;
+            /**
+             * A text description of the argument. This is used by API documentation generators like Swagger.
+             You can split long descriptions into arrays of strings (lines) to keep line lengths manageable.
+             ```
+             [
+             "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+             "sed do eiusmod tempor incididunt ut labore et dolore",
+             "magna aliqua."
+             ]
+             ```
+             */
+            description?:	string | string[];
+            /**
+             * http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value. See HTTP mapping of input arguments below.
+             * http.target
+             * Map the callback argument value to the HTTP response object. The following values are supported.
+
+             * * status sets the res.statusCode to the provided value
+             * * header sets the http.header or arg named header to the value
+             */
+            http?: RemoteHttpOptions;
+
+            /**
+             * 	True if argument is required; false otherwise.
+             */
+            required?:	boolean;
+
+            /**
+             * 	For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
+             *    Otherwise the root object returned is a map (argument-name to argument-value).
+             */
+            root?:	boolean;
+
+            /**
+             * 	Argument datatype; must be a Loopback type. Additionally, callback arguments allow a special type "file"; see below.
+             */
+            type: "any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String";
+
+            /**
+             *	Default value that will be used to populate loopback-explorer input fields and swagger documentation.
+             *    Note: This value will not be passed into remote methods function if argument is not present.
+             */
+            default?:	string;
+      }
+
+      /**
        * The base class for **all models**
        * **Inheriting from `Model`*
        * ```js
@@ -877,10 +1039,10 @@ declare namespace l {
              * Model.remoteMethod('myMethod');
              * ``
              * @param {string} name The name of the method.
-             * @param {any} options The remoting options.
+             * @param {RemoteMethodOptions} options The remoting options.
              * See [Remote methods - Options](docs.strongloop.com/display/LB/Remote+methods#Remotemethods-Options)
              */
-            remoteMethod(name: string, options: any): void;
+            static remoteMethod(name: string, options: RemoteMethodOptions): void;
 
             /**
              * The `loopback.Model.extend()` method calls this when you create a model that extends another model.
@@ -1531,7 +1693,7 @@ declare namespace l {
        * Serve the LoopBack favicon.
        * @header loopback.favicon(
        */
-      function favicon(): void;
+      function favicon(): RequestHandler;
 
       /**
        * Expose models over REST
@@ -1542,7 +1704,7 @@ declare namespace l {
        * For more information, see [Exposing models over a REST API](docs.strongloop.com/display/DOC/Exposing+models+over+a+REST+API).
        * @header loopback.rest(
        */
-      function rest(): void;
+      function rest(): RequestHandler;
 
       /**
        * Serve static assets of a LoopBack application
@@ -1553,7 +1715,7 @@ declare namespace l {
        *   for the full list of available options.
        * @header loopback.static(root, [options])
        */
-      function static(root: string, options: any): void;
+      function static(root: string, options?: any): RequestHandler;
 
       /**
        * Return HTTP response with basic application status information:
@@ -1565,12 +1727,12 @@ declare namespace l {
        * }
        * ```
        */
-      function status(): void;
+      function status(): RequestHandler;
 
       /**
        * Rewrite the url to replace current user literal with the logged in user id
        */
-      function rewriteUserLiteral(): void;
+      function rewriteUserLiteral(): RequestHandler;
 
       /**
        * Check for an access token in cookies, headers, and query string parameters.
@@ -1613,14 +1775,14 @@ declare namespace l {
                   overwriteExistingToken?: boolean,
                   model?(): void|string,
                   currentUserLiteral?: string
-            }): void;
+            }): RequestHandler;
 
       /**
        * Convert any request not handled so far to a 404 error
        * to be handled by error-handling middleware.
        * @header loopback.urlNotFound(
        */
-      function urlNotFound(): void;
+      function urlNotFound(): RequestHandler;
 
       /**
        * Token based authentication and access control

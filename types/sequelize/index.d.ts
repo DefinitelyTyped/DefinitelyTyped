@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.0.0
+// Type definitions for Sequelize 4.27.0
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -7,6 +7,8 @@
 //                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
 //                 Sebastien Bramille <https://github.com/oktapodia>
 //                 Nick Mueller <https://github.com/morpheusxaut>
+//                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Carven Zhang <https://github.com/zjy01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -17,6 +19,7 @@
 
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
 
@@ -138,7 +141,7 @@ declare namespace sequelize {
          */
         (
             values?: TAttributes,
-            options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
+            options?: BelongsToCreateAssociationMixinOptions | CreateOptions<TAttributes> | BelongsToSetAssociationMixinOptions
         ): Promise<void>;
     }
 
@@ -252,7 +255,7 @@ declare namespace sequelize {
          */
         (
             values?: TAttributes,
-            options?: HasOneCreateAssociationMixinOptions | HasOneSetAssociationMixinOptions | CreateOptions
+            options?: HasOneCreateAssociationMixinOptions | HasOneSetAssociationMixinOptions | CreateOptions<TAttributes>
         ): Promise<void>;
     }
 
@@ -493,7 +496,7 @@ declare namespace sequelize {
          */
         (
             values?: TAttributes,
-            options?: HasManyCreateAssociationMixinOptions | CreateOptions
+            options?: HasManyCreateAssociationMixinOptions | CreateOptions<TAttributes>
         ): Promise<TInstance>;
     }
 
@@ -956,7 +959,7 @@ declare namespace sequelize {
          */
         (
             values?: TAttributes,
-            options?: BelongsToManyCreateAssociationMixinOptions | CreateOptions | { through: TJoinTableAttributes }
+            options?: BelongsToManyCreateAssociationMixinOptions | CreateOptions<TAttributes> | { through: TJoinTableAttributes }
         ): Promise<TInstance>;
     }
 
@@ -1328,7 +1331,13 @@ declare namespace sequelize {
          * A string or a data type to represent the identifier in the table
          */
         keyType?: DataTypeAbstract;
-
+        /**
+         * A string to represent the name of the field to use as the key for an 1 to many association in the source table.
+         *
+         * @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-hasMany
+         * @see https://github.com/sequelize/sequelize/blob/b4fd46426db9cdbb97074bea121203d565e4195d/lib/associations/has-many.js#L81
+         */
+        sourceKey?: string;
     }
 
     /**
@@ -1694,6 +1703,34 @@ declare namespace sequelize {
 
     }
 
+    interface DataTypeTinyInt extends DataTypeAbstractNumber<DataTypeTinyInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeTinyInt;
+        (length: number): DataTypeTinyInt;
+
+    }
+    interface DataTypeSmallInt extends DataTypeAbstractNumber<DataTypeSmallInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeSmallInt;
+        (length: number): DataTypeSmallInt;
+
+    }
+    interface DataTypeMediumInt extends DataTypeAbstractNumber<DataTypeMediumInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeMediumInt;
+        (length: number): DataTypeMediumInt;
+
+    }
+
     interface DataTypeBigInt extends DataTypeAbstractNumber<DataTypeBigInt> {
 
         /**
@@ -1885,6 +1922,9 @@ declare namespace sequelize {
         CHAR: DataTypeChar;
         TEXT: DataTypeText;
         NUMBER: DataTypeNumber;
+        TINYINT: DataTypeTinyInt;
+        SMALLINT: DataTypeSmallInt;
+        MEDIUMINT: DataTypeMediumInt;
         INTEGER: DataTypeInteger;
         BIGINT: DataTypeBigInt;
         FLOAT: DataTypeFloat;
@@ -3108,7 +3148,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
     };
 
     /**
@@ -3147,7 +3187,7 @@ declare namespace sequelize {
     /**
      * Complex include options
      */
-    interface IncludeOptions {
+    interface IncludeOptions<TAttributes = any> {
 
         /**
          * The model you want to eagerly load
@@ -3174,7 +3214,7 @@ declare namespace sequelize {
         /**
          * A list of attributes to select from the child model
          */
-        attributes?: FindOptionsAttributesArray | { include?: FindOptionsAttributesArray, exclude?: Array<string> };
+        attributes?: FindOptionsAttributesArray<TAttributes> | { include?: FindOptionsAttributesArray<TAttributes>, exclude?: keyof TAttributes };
 
         /**
          * If true, converts to an inner join, which means that the parent model will only be loaded if it has any
@@ -3190,7 +3230,7 @@ declare namespace sequelize {
         /**
          * Load further nested related models
          */
-        include?: Array<Model<any, any> | IncludeOptions>;
+        include?: Array<Model<any, any> | IncludeOptions<TAttributes>>;
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3202,21 +3242,21 @@ declare namespace sequelize {
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
+     * Shortcut for types used in FindOptions.attributes
+     */
+    type FindOptionsAttributesArray<TAttributes> = Array<keyof TAttributes | literal | [keyof TAttributes, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
-* Options that are passed to any model creating a SELECT query
-*
-* A hash of options to describe the scope of the search
-*/
-    interface FindOptions<T> extends LoggingOptions, SearchPathOptions {
+     * Options that are passed to any model creating a SELECT query
+     *
+     * A hash of options to describe the scope of the search
+     */
+    interface FindOptions<T = any> extends LoggingOptions, SearchPathOptions {
 
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions<T> | fn | Array<col | and | or | string>;
+        where?: WhereOptions<T> | where | fn | Array<col | and | or | string>;
 
         /**
          * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -3224,7 +3264,7 @@ declare namespace sequelize {
          * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
          * have in the returned instance
          */
-        attributes?: FindOptionsAttributesArray | { include?: FindOptionsAttributesArray, exclude?: Array<string> };
+        attributes?: FindOptionsAttributesArray<T> | { include?: FindOptionsAttributesArray<T>, exclude?: Array<keyof T> };
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3238,7 +3278,7 @@ declare namespace sequelize {
          * If your association are set up with an `as` (eg. `X.hasMany(Y, { as: 'Z }`, you need to specify Z in
          * the as attribute when eager loading Y).
          */
-        include?: Array<Model<any, any> | IncludeOptions>;
+        include?: Array<Model<any, any> | IncludeOptions<T>>;
 
         /**
          * Specifies an ordering. If a string is provided, it will be escaped. Using an array, you can provide
@@ -3263,7 +3303,7 @@ declare namespace sequelize {
          * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
          * locks with joins. See [transaction.LOCK for an example](transaction#lock)
          */
-        lock?: string | { level: string, of: Model<any, any> };
+        lock?: TransactionLockLevel | { level: TransactionLockLevel, of: Model<any, any> };
 
         /**
          * Return raw result. See sequelize.query for more information.
@@ -3279,7 +3319,7 @@ declare namespace sequelize {
          * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
          * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
-        group?: string | string[] | Object;
+        group?: keyof T | keyof T[] | Object;
 
 
         /**
@@ -3298,12 +3338,12 @@ declare namespace sequelize {
         rejectOnEmpty?: boolean;
     }
 
-    type AnyFindOptions = FindOptions<any>;
+    type AnyFindOptions = FindOptions;
 
     /**
      * Options for Model.count method
      */
-    interface CountOptions extends LoggingOptions, SearchPathOptions {
+    interface CountOptions<T = any> extends LoggingOptions, SearchPathOptions {
 
         /**
          * A hash of search attributes.
@@ -3313,7 +3353,7 @@ declare namespace sequelize {
         /**
          * Include options. See `find` for details
          */
-        include?: Array<Model<any, any> | IncludeOptions>;
+        include?: Array<Model<any, any> | IncludeOptions<T>>;
 
         /**
          * Apply COUNT(DISTINCT(col))
@@ -3336,7 +3376,7 @@ declare namespace sequelize {
     /**
      * Options for Model.build method
      */
-    interface BuildOptions extends ReturningOptions {
+    interface BuildOptions<T = any> extends ReturningOptions {
 
         /**
          * If set to true, values will ignore field and virtual setters.
@@ -3353,13 +3393,13 @@ declare namespace sequelize {
          *
          * TODO: See set
          */
-        include?: Array<Model<any, any> | IncludeOptions>;
+        include?: Array<Model<any, any> | IncludeOptions<T>>;
     }
 
     /**
      * Options for Model.create method
      */
-    interface CreateOptions extends BuildOptions, InstanceSaveOptions {
+    interface CreateOptions<T = any> extends BuildOptions<T>, InstanceSaveOptions {
 
         /**
          * On Duplicate
@@ -3827,7 +3867,7 @@ declare namespace sequelize {
          *
          * If you provide an `include` option, the number of matching associations will be counted instead.
          */
-        count(options?: CountOptions): Promise<number>;
+        count(options?: CountOptions<TAttributes>): Promise<number>;
 
         /**
          * Find all the rows matching your query, within a specified offset / limit, and get the total number of
@@ -3885,17 +3925,17 @@ declare namespace sequelize {
         /**
          * Builds a new model instance. Values is an object of key value pairs, must be defined but can be empty.
          */
-        build(record?: TAttributes, options?: BuildOptions): TInstance;
+        build(record?: TAttributes, options?: BuildOptions<TAttributes>): TInstance;
 
         /**
          * Undocumented bulkBuild
          */
-        bulkBuild(records: TAttributes[], options?: BuildOptions): TInstance[];
+        bulkBuild(records: TAttributes[], options?: BuildOptions<TAttributes>): TInstance[];
 
         /**
          * Builds a new model instance and calls save on it.
          */
-        create(values?: TAttributes, options?: CreateOptions): Promise<TInstance>;
+        create(values?: TAttributes, options?: CreateOptions<TAttributes>): Promise<TInstance>;
 
         /**
          * Find a row that matches the query, or build (but don't save) the row if none is found.
@@ -5209,7 +5249,7 @@ declare namespace sequelize {
          * The maximum time, in milliseconds, that a connection can be idle before being released.
          */
         idle?: number;
-                     
+
         /**
          * The maximum time, in milliseconds, that pool will try to get connection before throwing error
          */
@@ -5220,7 +5260,7 @@ declare namespace sequelize {
          * object, and that its state is not disconnected.
          */
         validate?: (client?: any) => boolean;
-                     
+
         /*
          * The time interval, in milliseconds, for evicting stale connections
          */
@@ -5271,6 +5311,88 @@ declare namespace sequelize {
         max?: number
 
     }
+
+    /**
+     * Operator symbols to be used when querying data
+     */
+    interface Operators {
+        eq: symbol;
+        ne: symbol;
+        gte: symbol;
+        gt: symbol;
+        lte: symbol;
+        lt: symbol;
+        not: symbol;
+        is: symbol;
+        in: symbol;
+        notIn: symbol;
+        like: symbol;
+        notLike: symbol;
+        iLike: symbol;
+        notILike: symbol;
+        regexp: symbol;
+        notRegexp: symbol;
+        iRegexp: symbol;
+        notIRegexp: symbol;
+        between: symbol;
+        notBetween: symbol;
+        overlap: symbol;
+        contains: symbol;
+        contained: symbol;
+        adjacent: symbol;
+        strictLeft: symbol;
+        strictRight: symbol;
+        noExtendRight: symbol;
+        noExtendLeft: symbol;
+        and: symbol;
+        or: symbol;
+        any: symbol;
+        all: symbol;
+        values: symbol;
+        col: symbol;
+        placeholder: symbol;
+        join: symbol;
+        raw: symbol;  //deprecated remove by v5.0
+    }
+
+    type OperatorsAliases = Partial<{
+        [key: string]: symbol;
+        $eq: symbol;
+        $ne: symbol;
+        $gte: symbol;
+        $gt: symbol;
+        $lte: symbol;
+        $lt: symbol;
+        $not: symbol;
+        $in: symbol;
+        $notIn: symbol;
+        $is: symbol;
+        $like: symbol;
+        $notLike: symbol;
+        $iLike: symbol;
+        $notILike: symbol;
+        $regexp: symbol;
+        $notRegexp: symbol;
+        $iRegexp: symbol;
+        $notIRegexp: symbol;
+        $between: symbol;
+        $notBetween: symbol;
+        $overlap: symbol;
+        $contains: symbol;
+        $contained: symbol;
+        $adjacent: symbol;
+        $strictLeft: symbol;
+        $strictRight: symbol;
+        $noExtendRight: symbol;
+        $noExtendLeft: symbol;
+        $and: symbol;
+        $or: symbol;
+        $any: symbol;
+        $all: symbol;
+        $values: symbol;
+        $col: symbol;
+        $raw: symbol;  //deprecated remove by v5.0
+    }>
 
     /**
      * Options for the constructor of Sequelize main class
@@ -5426,12 +5548,19 @@ declare namespace sequelize {
         quoteIdentifiers?: boolean;
 
         /**
+         * The version of the database. Most times, this is automatically detected and is not needed.
+         *
+         * Defaults to 0
+         */
+        databaseVersion?: number;
+
+        /**
          * Set the default transaction isolation level. See `Sequelize.Transaction.ISOLATION_LEVELS` for possible
          * options.
          *
          * Defaults to 'REPEATABLE_READ'
          */
-        isolationLevel?: string;
+        isolationLevel?: TransactionIsolationLevel;
 
         /**
          * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
@@ -5439,7 +5568,7 @@ declare namespace sequelize {
          *
          * Defaults to 'DEFERRED'
          */
-        transactionType?: string;
+        transactionType?: TransactionType;
 
         /**
          * Print query execution time in milliseconds when logging SQL.
@@ -5447,6 +5576,12 @@ declare namespace sequelize {
          * Defaults to false
          */
         benchmark?: boolean;
+
+        /**
+         * String based operator alias, default value is true which will enable all operators alias.
+         * Pass object to limit set of aliased operators or false to disable completely.
+         */
+        operatorsAliases?: boolean | OperatorsAliases;
     }
 
     /**
@@ -5499,6 +5634,8 @@ declare namespace sequelize {
          * A reference to the sequelize instance class.
          */
         Instance: Instance<any>;
+
+        Op: Operators;
 
         /**
          * Creates a object representing a database function. This can be used in search queries, both in where and
@@ -5649,6 +5786,7 @@ declare namespace sequelize {
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
+        useCLS(namespace:cls.Namespace): Sequelize;
 
     }
 
@@ -5965,7 +6103,7 @@ declare namespace sequelize {
          * Normally this is done on process exit, so you only need to call this method if you are creating multiple
          * instances, and want to garbage collect some of them.
          */
-        close(): void;
+        close(): Promise<void>;
 
         /**
          * Returns the database version
@@ -6153,17 +6291,28 @@ declare namespace sequelize {
 
     }
 
+    type TransactionIsolationLevelReadUncommitted = 'READ UNCOMMITTED';
+    type TransactionIsolationLevelReadCommitted = 'READ COMMITTED';
+    type TransactionIsolationLevelRepeatableRead = 'REPEATABLE READ';
+    type TransactionIsolationLevelSerializable = 'SERIALIZABLE';
+    type TransactionIsolationLevel = TransactionIsolationLevelReadUncommitted | TransactionIsolationLevelReadCommitted | TransactionIsolationLevelRepeatableRead | TransactionIsolationLevelSerializable;
+
     /**
      * Isolations levels can be set per-transaction by passing `options.isolationLevel` to `sequelize.transaction`.
      * Default to `REPEATABLE_READ` but you can override the default isolation level by passing
      * `options.isolationLevel` in `new Sequelize`.
      */
     interface TransactionIsolationLevels {
-        READ_UNCOMMITTED: string; // 'READ UNCOMMITTED'
-        READ_COMMITTED: string; // 'READ COMMITTED'
-        REPEATABLE_READ: string; // 'REPEATABLE READ'
-        SERIALIZABLE: string; // 'SERIALIZABLE'
+        READ_UNCOMMITTED: TransactionIsolationLevelReadUncommitted; // 'READ UNCOMMITTED'
+        READ_COMMITTED: TransactionIsolationLevelReadCommitted; // 'READ COMMITTED'
+        REPEATABLE_READ: TransactionIsolationLevelRepeatableRead; // 'REPEATABLE READ'
+        SERIALIZABLE: TransactionIsolationLevelSerializable; // 'SERIALIZABLE'
     }
+
+    type TransactionTypeDeferred = 'DEFERRED';
+    type TransactionTypeImmediate = 'IMMEDIATE';
+    type TransactionTypeExclusive = 'EXCLUSIVE';
+    type TransactionType = TransactionTypeDeferred | TransactionTypeImmediate | TransactionTypeExclusive;
 
     /**
      * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
@@ -6171,19 +6320,25 @@ declare namespace sequelize {
      * `options.transactionType` in `new Sequelize`.
      */
     interface TransactionTypes {
-        DEFERRED: string; // 'DEFERRED'
-        IMMEDIATE: string; // 'IMMEDIATE'
-        EXCLUSIVE: string; // 'EXCLUSIVE'
+        DEFERRED: TransactionTypeDeferred; // 'DEFERRED'
+        IMMEDIATE: TransactionTypeImmediate; // 'IMMEDIATE'
+        EXCLUSIVE: TransactionTypeExclusive; // 'EXCLUSIVE'
     }
+
+    type TransactionLockLevelUpdate = 'UPDATE';
+    type TransactionLockLevelShare = 'SHARE';
+    type TransactionLockLevelKeyShare = 'KEY SHARE';
+    type TransactionLockLevelNoKeyUpdate = 'NO KEY UPDATE';
+    type TransactionLockLevel = TransactionLockLevelUpdate | TransactionLockLevelShare | TransactionLockLevelKeyShare | TransactionLockLevelNoKeyUpdate;
 
     /**
      * Possible options for row locking. Used in conjuction with `find` calls:
      */
     interface TransactionLock {
-        UPDATE: string; // 'UPDATE'
-        SHARE: string; // 'SHARE'
-        KEY_SHARE: string; // 'KEY SHARE'
-        NO_KEY_UPDATE: string; // 'NO KEY UPDATE'
+        UPDATE: TransactionLockLevelUpdate; // 'UPDATE'
+        SHARE: TransactionLockLevelShare; // 'SHARE'
+        KEY_SHARE: TransactionLockLevelKeyShare; // 'KEY SHARE'
+        NO_KEY_UPDATE: TransactionLockLevelNoKeyUpdate; // 'NO KEY UPDATE'
     }
 
     /**
@@ -6198,12 +6353,12 @@ declare namespace sequelize {
         /**
          *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
          */
-        isolationLevel?: string;
+        isolationLevel?: TransactionIsolationLevel;
 
         /**
          *  See `Sequelize.Transaction.TYPES` for possible options
          */
-        type?: string;
+        type?: TransactionType;
 
         /**
          * A function that gets executed while running the query to log the sql.

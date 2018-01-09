@@ -12,6 +12,7 @@
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
+    type MessageValue = string | number | boolean | Date | null | undefined;
 
     interface Locale {
         locale: string;
@@ -69,8 +70,8 @@ declare namespace ReactIntl {
         formatRelative(value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }): string;
         formatNumber(value: number, options?: FormattedNumber.PropsBase): string;
         formatPlural(value: number, options?: FormattedPlural.Base): keyof FormattedPlural.PropsBase;
-        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
-        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
+        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
+        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
@@ -138,7 +139,7 @@ declare namespace ReactIntl {
         }
 
         interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | number | JSX.Element};
+            values?: {[key: string]: MessageValue | JSX.Element};
             tagName?: string;
         }
     }

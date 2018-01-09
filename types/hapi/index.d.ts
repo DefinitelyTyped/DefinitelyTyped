@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -724,11 +724,11 @@ export interface ConnectionConfigurationServerDefaults {
     /** connection load limits configuration where:  */
     load?: {
         /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxHeapUsedBytes: number;
+        maxHeapUsedBytes?: number;
         /** maximum process RSS size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxRssBytes: number;
+        maxRssBytes?: number;
         /** maximum event loop delay duration in milliseconds over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxEventLoopDelay: number;
+        maxEventLoopDelay?: number;
     };
     /** plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
     plugins?: PluginSpecificConfiguration;

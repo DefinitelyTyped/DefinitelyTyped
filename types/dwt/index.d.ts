@@ -1,6 +1,7 @@
-// Type definitions for dwt 12.3
+// Type definitions for dwt 13.1
 // Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
+//                 Josh Hall <https://github.com/jbh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -11,7 +12,7 @@
 *
 * Copyright 2017, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 12.3
+* Version: 13
 */
 
 /**
@@ -20,7 +21,11 @@
 declare namespace Dynamsoft {
     namespace WebTwainEnv {
         function GetWebTwain (cid: string): WebTwain;
-        function RegisterEvent(event: string, fn: () => void): void;
+        function RegisterEvent(event: string, fn: (...args: any[]) => void): void;
+        function Load(): void;
+        function Unload(): void;
+        let AutoLoad: boolean;
+        let Containers: Container[];
     }
 }
 
@@ -1248,6 +1253,12 @@ declare enum EnumDWT_MouseShape {
 	Hand = 1,
 	Crosshair = 2,
 	Zoom = 3
+}
+
+interface Container {
+    ContainerId: string;
+    Width: string | number;
+    Height: string | number;
 }
 
 /**

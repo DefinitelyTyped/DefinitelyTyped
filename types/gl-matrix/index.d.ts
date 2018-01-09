@@ -1,9 +1,50 @@
-// Type definitions for gl-matrix 2.2.2
+// Type definitions for gl-matrix 2.4
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Mattijs Kneppers <https://github.com/mattijskneppers>, based on definitions by Tat <https://github.com/tatchx>
+//                 Nikolay Babanov <https://github.com/nbabanov>
+//                 Austin Martin <https://github.com/auzmartist>
+//                 Wayne Langman <https://github.com/surtr-isaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'gl-matrix' {
+    // Global Utilities
+    export class glMatrix {
+        // Configuration constants
+        public static EPSILON: number;
+        public static ARRAY_TYPE: any;
+        public static RANDOM(): number;
+        public static ENABLE_SIMD: boolean;
+
+        // Compatibility detection
+        public static SIMD_AVAILABLE: boolean;
+        public static USE_SIMD: boolean;
+
+        /**
+         * Sets the type of array used when creating new vectors and matrices
+         *
+         * @param {any} type - Array type, such as Float32Array or Array
+         */
+        public static setMatrixArrayType(type: any): void;
+
+        /**
+         * Convert Degree To Radian
+         *
+         * @param {number} a - Angle in Degrees
+         */
+        public static toRadian(a: number): number;
+
+        /**
+         * Tests whether or not the arguments have approximately the same value, within an absolute
+         * or relative tolerance of glMatrix.EPSILON (an absolute tolerance is used for values less
+         * than or equal to 1.0, and a relative tolerance is used for larger values)
+         *
+         * @param {number} a - The first number to test.
+         * @param {number} b - The second number to test.
+         * @returns {boolean} True if the numbers are approximately equal, false otherwise.
+         */
+        public static equals(a: number, b: number): boolean;
+    }
+
     // vec2
     export class vec2 extends Float32Array {
         private typeVec2: number;
@@ -303,7 +344,7 @@ declare module 'gl-matrix' {
          * @param b the second operand
          * @returns out
          */
-        public static cross(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
+        public static cross(out: vec3, a: vec2 | number[], b: vec2 | number[]): vec2;
 
         /**
          * Performs a linear interpolation between two vec2's
@@ -1910,6 +1951,16 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static transpose(out: mat3, a: mat3): mat3;
+        
+         /**
+         * Generates a 2D projection matrix with the given bounds
+         *
+         * @param out the receiving matrix
+         * @param width width of your gl context
+         * @param height height of gl context 
+         * @returns out
+         */
+        public static projection(out: mat3, width: number, height: number): mat3;
 
         /**
          * Inverts a mat3
@@ -2451,6 +2502,17 @@ declare module 'gl-matrix' {
         public static getTranslation(out: vec3, mat: mat4): vec3;
 
         /**
+         * Returns the scaling factor component of a transformation matrix. 
+         * If a matrix is built with fromRotationTranslationScale with a 
+         * normalized Quaternion parameter, the returned vector will be 
+         * the same as the scaling vector originally supplied.
+         * @param {vec3} out Vector to receive scaling factor component
+         * @param {mat4} mat Matrix to be decomposed (input)
+         * @return {vec3} out
+         */
+        public static getScaling(out: vec3, mat: mat4): vec3;
+
+        /**
          * Returns a quaternion representing the rotational component
          *  of a transformation matrix. If a matrix is built with
          *  fromRotationTranslation, the returned quaternion will be the
@@ -2883,6 +2945,17 @@ declare module 'gl-matrix' {
         public static dot(a: quat, b: quat): number;
 
         /**
+         * Creates a quaternion from the given euler angle x, y, z.
+         *
+         * @param {quat} out the receiving quaternion
+         * @param {number} x Angle to rotate around X axis in degrees.
+         * @param {number} y Angle to rotate around Y axis in degrees.
+         * @param {number} z Angle to rotate around Z axis in degrees.
+         * @returns {quat} out
+         */
+        public static fromEuler(out: quat, x: number, y: number, z: number): quat;
+
+        /**
          * Performs a linear interpolation between two quat's
          *
          * @param out the receiving quaternion
@@ -3043,6 +3116,11 @@ declare module 'gl-matrix' {
          */
         public static equals (a: quat, b: quat): boolean;
     }
+}
+
+declare module 'gl-matrix/src/gl-matrix/common' {
+    import { glMatrix } from 'gl-matrix';
+    export = glMatrix;
 }
 
 declare module 'gl-matrix/src/gl-matrix/vec2' {

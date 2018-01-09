@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.11
+// Type definitions for jQueryUI 1.12
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,12 @@ declare namespace JQueryUI {
         minLength?: number;
         position?: any; // object
         source?: any; // [], string or ()
+        classes?: AutocompleteClasses;
+    }
+
+    interface AutocompleteClasses {
+        "ui-autocomplete"?: string;
+        "ui-autocomplete-input"?: string;
     }
 
     interface AutocompleteUIParams {
@@ -377,7 +383,7 @@ declare namespace JQueryUI {
 		open?: DialogEvent;
         close?: DialogEvent;
     }
-    
+
     interface DialogClasses {
         "ui-dialog"?: string;
         "ui-dialog-content"?: string;
@@ -618,7 +624,7 @@ declare namespace JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
-        create?: ResizableEvents;
+        create?: ResizableEvent;
     }
 
     interface Resizable extends Widget, ResizableOptions {
@@ -1384,8 +1390,8 @@ interface JQuery {
       * @param optionName 'autohide'
       */
       datepicker(methodName: 'option', optionName: 'autohide'): boolean;
-    
-   
+
+
       /**
       * Get the endDate after initialization
       *

@@ -3,13 +3,13 @@
 // Definitions by: Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ReadableStreamSource {
+export interface ReadableStreamSource {
     start?(controller: ReadableStreamDefaultController): void | Promise<void>;
     pull?(controller: ReadableStreamDefaultController): void | Promise<void>;
     cancel?(reason: string): void | Promise<void>;
 }
 
-interface ReadableByteStreamSource {
+export interface ReadableByteStreamSource {
     start?(controller: ReadableByteStreamController): void | Promise<void>;
     pull?(controller: ReadableByteStreamController): void | Promise<void>;
     cancel?(reason: string): void | Promise<void>;
@@ -18,12 +18,12 @@ interface ReadableByteStreamSource {
     autoAllocateChunkSize?: number;
 }
 
-interface QueuingStrategy {
+export interface QueuingStrategy {
     size?(chunk: ArrayBufferView): number;
     highWaterMark?: number;
 }
 
-interface PipeOptions {
+export interface PipeOptions {
     preventClose?: boolean;
     preventAbort?: boolean;
     preventCancel?: boolean;

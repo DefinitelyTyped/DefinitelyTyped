@@ -68,3 +68,6 @@ myCodeMirror.on(
 );
 
 CodeMirror.registerHelper("lint", "javascript", {});
+
+myCodeMirror.isReadOnly();
+myCodeMirror.execCommand('selectAll');

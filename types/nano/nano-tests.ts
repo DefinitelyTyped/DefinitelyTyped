@@ -6,6 +6,7 @@ import * as nano from "nano";
  */
 const config: nano.Configuration = {
   url: "http://localhost:5984/foo",
+  cookie: "someAuthSession",
   requestDefaults: { proxy: "http://someproxy" }
 };
 
@@ -127,13 +128,22 @@ mydb.attachment.insert(
   "text/plain",
   (error: any, att: any) => {}
 );
+const attInsert: NodeJS.WritableStream = mydb.attachment.insert(
+  "new",
+  "att",
+  null,
+  "text/plain"
+);
 mydb.attachment.destroy("new", "att", { rev: "123" }, (err, response) => {});
 mydb.attachment.get("new_string", "att", (error: any, helloWorld: any) => {});
+const attGet: NodeJS.ReadableStream = mydb.attachment.get("new_string", "att");
 
 /*
  * Multipart
  */
-mydb.multipart.insert({ name: "baz" }, [{}], "foobaz", (error, foo) => {});
+const attachment = { name: 'rabbit.png', data: 'some data', content_type: 'image/png' };
+
+mydb.multipart.insert({ name: "baz" }, [attachment], "foobaz", (error, foo) => {});
 mydb.multipart.get("foobaz", (error: any, foobaz: any, headers: any) => {});
 
 /*

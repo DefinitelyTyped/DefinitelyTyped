@@ -1,31 +1,30 @@
-// Type definitions for morgan 1.7.0
+// Type definitions for morgan 1.7
 // Project: https://github.com/expressjs/morgan
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
+//                 Paolo Scanferla <https://github.com/pscanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import express = require('express');
 
 declare namespace morgan {
+    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string;
 
-    export interface FormatFn extends Function {
-        (tokens: TokenIndexer, req: express.Request, res: express.Response): string;
-    }
+    type TokenCallbackFn = (req: express.Request, res: express.Response, arg?: string | number | boolean) => string;
 
-    export interface TokenCallbackFn extends Function {
-        (req: express.Request, res: express.Response, arg?: string | number | boolean): string;
-    }
-
-    export interface TokenIndexer {
+    interface TokenIndexer {
         [tokenName: string]: TokenCallbackFn;
     }
 
     /**
-     * Public interface of morgan logger
+     * Public interface of morgan logger.
      */
-    export interface Morgan {
+    interface Morgan {
         /***
-         * Create a new morgan logger middleware function using the given format and options. The format argument may be a string of a predefined name (see below for the names), 
-         * or a string of a format string containing defined tokens.
+         * Create a new morgan logger middleware function using the given format
+         * and options. The format argument may be a string of a predefined name
+         * (see below for the names), or a string of a format string containing
+         * defined tokens.
          * @param format
          * @param options
          */
@@ -45,10 +44,11 @@ declare namespace morgan {
          */
         (format: 'common', options?: Options): express.RequestHandler;
         /**
-         * Concise output colored by response status for development use. The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+         * Concise output colored by response status for development use. The
+         * :status token will be colored red for server error codes, yellow for
+         * client error codes, cyan for redirection codes, and uncolored for
+         * all other codes.
          * :method :url :status :response-time ms - :res[content-length]
-         * @param format
-         * @param options
          */
         (format: 'dev', options?: Options): express.RequestHandler;
 
@@ -69,29 +69,32 @@ declare namespace morgan {
         (format: 'tiny', options?: Options): express.RequestHandler;
 
         /***
-         * Create a new morgan logger middleware function using the given format and options. The format argument may be a  
-         * custom format function which adheres to the signature.
+         * Create a new morgan logger middleware function using the given format
+         * and options. The format argument may be a custom format function
+         * which adheres to the signature.
          * @param format
          * @param options
          */
         (format: FormatFn, options?: Options): express.RequestHandler;
 
         /**
-         * Define a custom token which can be used in custom morgan logging formats.
+         * Define a custom token which can be used in custom morgan logging
+         * formats.
          */
         token(name: string, callback: TokenCallbackFn): Morgan;
         /**
-         * Define a named custom format by specifying a format string in token notation
+         * Define a named custom format by specifying a format string in token
+         * notation.
          */
         format(name: string, fmt: string): Morgan;
 
         /**
-         * Define a named custom format by specifying a format function
+         * Define a named custom format by specifying a format function.
          */
         format(name: string, fmt: FormatFn): Morgan;
 
         /**
-         * Compile a format string in token notation into a format function
+         * Compile a format string in token notation into a format function.
          */
         compile(format: string): FormatFn;
     }
@@ -99,49 +102,53 @@ declare namespace morgan {
     /**
      * Define a custom token which can be used in custom morgan logging formats.
      */
-    export function token(name: string, callback: TokenCallbackFn): Morgan;
+    function token(name: string, callback: TokenCallbackFn): Morgan;
 
     /**
-     * Define a named custom format by specifying a format string in token notation
+     * Define a named custom format by specifying a format string in token
+     * notation.
      */
-    export function format(name: string, fmt: string): Morgan;
+    function format(name: string, fmt: string): Morgan;
 
     /**
-     * Define a named custom format by specifying a format function
+     * Define a named custom format by specifying a format function.
      */
-    export function format(name: string, fmt: FormatFn): Morgan;
+    function format(name: string, fmt: FormatFn): Morgan;
 
     /**
-     * Compile a format string in token notation into a format function
+     * Compile a format string in token notation into a format function.
      */
-    export function compile(format: string): FormatFn;
+    function compile(format: string): FormatFn;
 
-    export interface StreamOptions {
+    interface StreamOptions {
         /**
-         * Output stream for writing log lines
+         * Output stream for writing log lines.
          */
-        write: (str: string) => void;
+        write(str: string): void;
     }
 
     /***
      * Morgan accepts these properties in the options object.
      */
-    export interface Options {
-
+    interface Options {
         /***
-         * Buffer duration before writing logs to the stream, defaults to false. When set to true, defaults to 1000 ms.
+         * Buffer duration before writing logs to the stream, defaults to false.
+         * When set to true, defaults to 1000 ms.
          */
         buffer?: boolean;
 
         /***
-         * Write log line on request instead of response. This means that a requests will be logged even if the server crashes, but data from the response cannot be logged (like the response code).
+         * Write log line on request instead of response. This means that a
+         * requests will be logged even if the server crashes, but data from the
+         * response cannot be logged (like the response code).
          */
         immediate?: boolean;
 
         /***
-         * Function to determine if logging is skipped, defaults to false. This function will be called as skip(req, res).
+         * Function to determine if logging is skipped, defaults to false. This
+         * function will be called as skip(req, res).
          */
-        skip?: (req: express.Request, res: express.Response) => boolean;
+        skip?(req: express.Request, res: express.Response): boolean;
 
         /***
          * Output stream for writing log lines, defaults to process.stdout.
@@ -152,8 +159,9 @@ declare namespace morgan {
 }
 
 /***
-     * Create a new morgan logger middleware function using the given format and options. The format argument may be a string of a predefined name (see below for the names), 
-     * or a string of a format string containing defined tokens.
+ * Create a new morgan logger middleware function using the given format and
+ * options. The format argument may be a string of a predefined name (see below
+ * for the names), or a string of a format string containing defined tokens.
  * @param format
  * @param options
  */
@@ -176,7 +184,9 @@ declare function morgan(format: 'combined', options?: morgan.Options): express.R
 declare function morgan(format: 'common', options?: morgan.Options): express.RequestHandler;
 
 /***
- * Concise output colored by response status for development use. The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+ * Concise output colored by response status for development use. The :status
+ * token will be colored red for server error codes, yellow for client error
+ * codes, cyan for redirection codes, and uncolored for all other codes.
  * :method :url :status :response-time ms - :res[content-length]
  * @param format
  * @param options
@@ -200,11 +210,12 @@ declare function morgan(format: 'short', options?: morgan.Options): express.Requ
 declare function morgan(format: 'tiny', options?: morgan.Options): express.RequestHandler;
 
 /***
- * Create a new morgan logger middleware function using the given format and options. The format argument may be a  
- * custom format function which adheres to the signature.
+ * Create a new morgan logger middleware function using the given format and
+ * options. The format argument may be a custom format function which adheres to
+ * the signature.
  * @param format
  * @param options
  */
-declare function morgan(custom: (req: express.Request, res: express.Response) => string): express.RequestHandler
+declare function morgan(format: morgan.FormatFn, options?: morgan.Options): express.RequestHandler;
 
 export = morgan;

@@ -122,7 +122,7 @@ declare namespace NodeRSA {
 
     type Encoding =
         | 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1'
-        | 'base64' | 'hex' | 'binary';
+        | 'base64' | 'hex' | 'binary' | 'buffer';
 
     interface KeyComponents {
         n: Buffer;

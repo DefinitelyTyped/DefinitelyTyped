@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-declare class PageHeader extends React.Component<PageHeaderProps> { }
-declare namespace PageHeader { }
-export = PageHeader
-interface PageHeaderProps extends React.HTMLProps<PageHeader> { }
+declare namespace PageHeader {
+    export type PageHeaderProps = React.HTMLProps<PageHeader>;
+}
+declare class PageHeader extends React.Component<PageHeader.PageHeaderProps> { }
+export = PageHeader;

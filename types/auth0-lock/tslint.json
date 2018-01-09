@@ -2,6 +2,7 @@
   "extends": "dtslint/dt.json",
   "rules": {
     "only-arrow-functions": false,
+    "no-declare-current-package": false,
     "no-misused-new": false,
     "no-single-declare-module": false,
     "prefer-method-signature": false,

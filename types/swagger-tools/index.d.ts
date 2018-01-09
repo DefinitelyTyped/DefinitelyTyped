@@ -5,14 +5,106 @@
 // TypeScript Version: 2.2
 
 import { NextHandleFunction } from 'connect';
-import { IncomingMessage } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 
-export interface SwaggerRouterOptionsControllers {
-    [handlerName: string]: NextHandleFunction;
+export interface SwaggerParameterSchema {
+    allowMultiple?: boolean;
+    description?: string;
+    format?: string;
+    in?: string;
+    maximum?: string;
+    minimum?: string;
+    name: string;
+    paramType?: string;
+    required?: boolean;
+    type: string;
 }
 
-export interface SwaggerRouterOptions {
-    controllers?: SwaggerRouterOptionsControllers | string | string[];
+export interface SwaggerRequestParameter<T> {
+    path: string[];
+    schema: SwaggerParameterSchema;
+    originalValue: any;
+    value: T;
+}
+
+export interface SwaggerRequestParameters {
+    [paramName: string]: SwaggerRequestParameter<any>;
+}
+
+export interface Swagger12Request extends IncomingMessage {
+    swagger: {
+        api: any;
+        apiDeclaration: any;
+        apiIndex: number;
+        authorizations?: any;
+        operation?: any;
+        operationPath?: string[];
+        params: SwaggerRequestParameters;
+        resourceIndex: number;
+        resourceListing: any;
+        swaggerVersion: string;
+        useStubs?: boolean;
+    };
+}
+
+export type SwaggerRouter12HandlerFunction = (req: Swagger12Request, res: ServerResponse, next: (arg?: any) => void) => void;
+
+export interface SwaggerRouter12OptionsControllers {
+    [handlerName: string]: SwaggerRouter12HandlerFunction;
+}
+
+export interface SwaggerRouter12Options {
+    controllers?: SwaggerRouter12OptionsControllers | string | string[];
+    ignoreMissingHandlers?: boolean;
+    useStubs?: boolean;
+}
+
+export interface OperationParameter {
+    path: string[];
+    schema: SwaggerParameterSchema;
+}
+
+export interface Swagger20Security {
+    [name: string]: any;
+}
+
+export interface Swagger20Response {
+    description?: string;
+    schema?: any;
+}
+
+export interface Swagger20Operation {
+    operationId?: string;
+    parameters?: SwaggerParameterSchema[];
+    responses: { [code: string]: Swagger20Response };
+    security?: Swagger20Security[];
+    summary?: string;
+    tags?: string[];
+}
+
+export interface Swagger20Request extends IncomingMessage {
+    swagger: {
+        apiPath: string;
+        operation?: Swagger20Operation;
+        operationPath?: string[];
+        operationParameters?: OperationParameter[];
+        path: any;
+        params: SwaggerRequestParameters;
+        security: any[];
+        swaggerObject: any;
+        swaggerVersion: string;
+        useStubs?: boolean;
+    };
+}
+
+export type SwaggerRouter20HandlerFunction = (req: Swagger20Request, res: ServerResponse, next: (arg?: any) => void) => void;
+
+export interface SwaggerRouter20OptionsControllers {
+    [handlerName: string]: SwaggerRouter20HandlerFunction;
+}
+
+export interface SwaggerRouter20Options {
+    controllers?: SwaggerRouter20OptionsControllers | string | string[];
     ignoreMissingHandlers?: boolean;
     useStubs?: boolean;
 }
@@ -50,16 +142,17 @@ export interface SwaggerValidatorOptions {
 
 export interface Middleware {
     swaggerMetadata(): NextHandleFunction;
-    swaggerRouter(options?: SwaggerRouterOptions): NextHandleFunction;
     swaggerSecurity(options?: SwaggerSecurityOptions): NextHandleFunction;
     swaggerValidator(options?: SwaggerValidatorOptions): NextHandleFunction;
 }
 
 export interface Middleware12 extends Middleware {
+    swaggerRouter(options?: SwaggerRouter12Options): NextHandleFunction;
     swaggerUi(apiDeclarations: SwaggerUi12ApiDeclarations, options?: SwaggerUiOptions): NextHandleFunction;
 }
 
 export interface Middleware20 extends Middleware {
+    swaggerRouter(options?: SwaggerRouter20Options): NextHandleFunction;
     swaggerUi(options?: SwaggerUiOptions): NextHandleFunction;
 }
 

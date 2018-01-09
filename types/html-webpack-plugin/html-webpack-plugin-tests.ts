@@ -19,6 +19,9 @@ const optionsArray: HtmlWebpackPlugin.Options[] = [
 	{
 		arbitrary: 'data',
 	},
+	{
+		chunksSortMode: 'manual',
+	}
 ];
 
 const plugins: HtmlWebpackPlugin[] = optionsArray.map(options => new HtmlWebpackPlugin(options));

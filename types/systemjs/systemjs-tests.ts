@@ -7,14 +7,12 @@ SystemJS.config({
 SystemJS.import('main.js');
 
 SystemJS.config({
-    // or 'traceur' or 'typescript' 
-    transpiler: 'babel',
-    // or traceurOptions or typescriptOptions 
+    // 'plugin-traceur' or 'plugin-typescript' or 'babel' or 'traceur' or 'typescript' or false.
+    transpiler: 'plugin-babel',
+    // or traceurOptions or typescriptOptions
     babelOptions: {
-
     }
 });
-
 
 SystemJS.config({
     map: {
@@ -39,26 +37,32 @@ SystemJS.config({
 });
 
 SystemJS.config({
-  map: {
-    'local/package': {
-      x: 'vendor/x.js'
-    },
-    'another/package': {
-      x: 'vendor/y.js'
+    map: {
+        'local/package': {
+            x: 'vendor/x.js'
+        },
+        'another/package': {
+            x: 'vendor/y.js'
+        }
     }
-  }
 });
 
 SystemJS.transpiler = 'traceur';
 
+const mockModule = {
+    default: () => {
+        return 42;
+    }
+};
 
-// loads './app.js' from the current directory 
-SystemJS.import('./app.js').then(function (m) {
-    console.log(m);
+SystemJS.set('./app.js', SystemJS.newModule(mockModule));
+
+SystemJS.import('./app.js').then((m: typeof mockModule) => {
+    m.default();
 });
 
-SystemJS.import('lodash').then(function (_) {
-    console.log(_);
+SystemJS.import('lodash').then((_: (...args: any[]) => any) => {
+    _(1, '2', {}, []);
 });
 
 const clonedSystemJSJS = new SystemJS.constructor();

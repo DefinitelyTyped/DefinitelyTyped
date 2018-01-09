@@ -2,7 +2,7 @@
 import express = require('express');
 import cors = require('cors');
 
-var app = express();
+const app = express();
 app.use(cors());
 app.use(cors({
     maxAge: 100,
@@ -29,6 +29,9 @@ app.use(cors({
     origin: /example\.com$/
 }));
 app.use(cors({
+    origin: [/example\.com$/, 'http://example.com']
+}));
+app.use(cors({
     origin: ['http://example.com', 'http://fakeurl.com']
 }));
 app.use(cors({
@@ -37,7 +40,7 @@ app.use(cors({
 app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
-            var allow = requestOrigin.indexOf('.edu') !== -1;
+            const allow = requestOrigin.indexOf('.edu') !== -1;
             cb(null, allow);
         } catch (err) {
             cb(err);

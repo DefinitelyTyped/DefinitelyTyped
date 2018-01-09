@@ -63,3 +63,5 @@ export {
     timers,
     dgram,
 };
+
+export as namespace nodestd;
