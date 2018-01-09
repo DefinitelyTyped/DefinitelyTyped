@@ -1248,7 +1248,7 @@ declare namespace __MaterialUI {
             iconButtonElement: React.ReactElement<IconButton>;
             iconStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
-            onClick?(item: IconButton): void;
+            onClick?(e: React.SyntheticEvent<{}>): void;
             onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
             onMouseDown?: React.MouseEventHandler<{}>;

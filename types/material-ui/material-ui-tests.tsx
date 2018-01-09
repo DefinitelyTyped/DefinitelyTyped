@@ -4489,6 +4489,7 @@ const IconMenuExampleSimple = () => (
     </IconMenu>
     <IconMenu
       iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+      onClick={(e) => {}}
       onItemClick={(e, child) => {}}
     >
             <MenuItem primaryText="Refresh"/>
