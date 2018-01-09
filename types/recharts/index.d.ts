@@ -11,7 +11,8 @@ import * as React from 'react';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
-export type RechartsFunction = () => void;
+export type RechartsFunction = (...args: any[]) => void;
+export type OnClickHandler = (data: any, index: number, event: MouseEvent) => void
 export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
