@@ -1,6 +1,6 @@
-// Type definitions for React OnSenui (react-onsenui) 2.7
+// Type definitions for React Onsen UI (react-onsenui) 2.8
 // Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>
+// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -23,6 +23,10 @@ export interface AnimationOptions {
     timing?: string;
 }
 
+export interface PullHookChangeEvent {
+    state: "initial" | "preaction" | "action";
+}
+
 /*** splitter ***/
 export class SplitterSide extends Component<{
     side?: "left" | "right",
@@ -33,13 +37,14 @@ export class SplitterSide extends Component<{
     onPreClose?(e?: Event): void,
     onModeChange?(e?: Event): void,
     onClose?(e?: Event): void,
-    isSwipeable?: boolean,
+    swipeable?: boolean,
     swipeTargetWidth?: number,
     width?: number,
     animation?: "overlay" | "default"
     animationOptions?: AnimationOptions,
     openThreshold?: number,
-    mode?: "collapse" | "split"
+    mode?: "collapse" | "split",
+    className?: string
 }, any> { }
 
 export class SplitterContent extends Component { }
@@ -89,11 +94,15 @@ export class Page extends Component<{
 /*** Grid ***/
 export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-    width?: string
+    width?: string,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class Row extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 /*** Navigation ***/
@@ -234,7 +243,7 @@ export class ProgressCircular extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
-    intermediate?: boolean,
+    indeterminate?: boolean,
 }, any> {}
 
 export class Ripple extends Component<{
@@ -358,4 +367,17 @@ export class ListItem extends Component<{
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
 
-export class Card extends Component { }
+export class Card extends Component<{
+  modifier?: string,
+}, any> {}
+
+/** Pull-to-refresh hook. */
+export class PullHook extends Component<{
+  onChange?(e: PullHookChangeEvent): void,
+  onLoad?(done: () => void): void,
+  onPull?(): void,
+  disabled?: boolean,
+  height?: number,
+  thresholdHeight?: number,
+  fixedContent?: boolean,
+}, any> {}
