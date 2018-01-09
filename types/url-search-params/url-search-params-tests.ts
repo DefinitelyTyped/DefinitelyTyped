@@ -2,9 +2,10 @@ import URLSearchParams = require("url-search-params");
 
 const params = new URLSearchParams('a=1&b=2');
 
-params.append("c", "3");
+params.append("b", 3);
 
 params.delete("a");
+params.delete("c");
 
 params.entries();
 
@@ -16,7 +17,8 @@ params.has("b");
 
 params.keys();
 
-params.set("d", "4")
+params.set("b", 4);
+params.set("c", 5);
 
 params.toString();
 
