@@ -335,9 +335,10 @@ declare namespace PouchDB {
         }
 
         interface BulkGetResponse<Content extends {}> {
-            results: {
-                docs: Array<{ ok: Content & GetMeta } | { error: Error }>;
-            };
+            results: Array<{
+                id: string,
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>
+            }>;
         }
 
         interface ChangesMeta {
