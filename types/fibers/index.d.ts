@@ -13,10 +13,10 @@ declare namespace fibers {
     export var poolSize: number;
     export var fibersCreated: number;
     export var current: fibers.Fiber;
-    export function yield(value: any): any;
+    export function yield(value?: any): any;
 
     export interface Fiber {
-        run(step?: number): any;
+      run(value?: any): any;
     }
 }
 
