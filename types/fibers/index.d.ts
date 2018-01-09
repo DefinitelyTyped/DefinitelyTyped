@@ -16,7 +16,7 @@ declare namespace fibers {
     export function yield(value?: any): any;
 
     export interface Fiber {
-      run(value?: any): any;
+        run(value?: any): any;
     }
 }
 
