@@ -74,7 +74,7 @@ interface AttributeValue {
     BOOL?: boolean;
     L?: Array<AttributeValue>;
     M?: { [id: string]: AttributeValue };
-    N?: number;
+    N?: string;
     NS?: Array<string>;
     NULL?: boolean;
     S?: string;
