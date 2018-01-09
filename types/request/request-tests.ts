@@ -18,7 +18,7 @@ var obj: object;
 var dest: string = 'foo';
 
 var uri: string = 'foo-bar';
-var headers: {[key: string]: string} = {};
+var headers: request.Headers = {};
 
 var agent: http.Agent;
 var write: stream.Writable = new stream.Writable();
@@ -52,20 +52,13 @@ var bodyArr: request.RequestPart[] = [{
 
 obj = req.toJSON();
 
-var cookieValue: request.CookieValue = {
-  name: 'foo',
-  value: 'bar',
-  httpOnly: true
-};
-str = cookieValue.name;
-value = cookieValue.value;
-bool = cookieValue.httpOnly;
-
-var cookie: request.Cookie = request.cookie('foo');
-str = cookie.str;
+var cookie: request.Cookie = request.cookie('foo')!;
+str = cookie.key;
+str = cookie.value;
 date = cookie.expires;
 str = cookie.path;
 str = cookie.toString();
+bool = cookie.httpOnly;
 
 var jar: request.CookieJar = request.jar();
 jar.setCookie(cookie, uri);
@@ -226,7 +219,6 @@ value = request.initParams(options, callback);
 
 req = request.forever(value, value);
 jar = request.jar();
-cookie = request.cookie(str);
 
 var r = request.defaults(options);
 r(str);
@@ -660,7 +652,7 @@ requestWithJar('http://www.google.com', () => {
 });
 
 var j = request.jar();
-cookie = request.cookie('key1=value1');
+cookie = request.cookie('key1=value1')!;
 var url = 'http://www.google.com';
 j.setCookie(cookie, url);
 request({url: url, jar: j}, () => {
