@@ -3,7 +3,7 @@
 // Definitions by: David Deutsch <https://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Strophe {
+export namespace Strophe {
     /** Constant: VERSION
      *  The version of the Strophe library. Unreleased builds will have
      *  a version of head-HASH where HASH is a partial revision.
@@ -170,14 +170,14 @@ declare namespace Strophe {
     function xmlElement(name: string, text?: string, attrs?: any): Element;
 
     /*  Function: xmlescape
-     *  Excapes invalid xml characters.
-     *
-     *  Parameters:
-     *     (String) text - text to escape.
-     *
-     *  Returns:
-     *      Escaped text.
-     */
+    *  Excapes invalid xml characters.
+    *
+    *  Parameters:
+    *     (String) text - text to escape.
+    *
+    *  Returns:
+    *      Escaped text.
+    */
     function xmlescape(text: string): string;
 
     /*  Function: xmlunescape
@@ -991,53 +991,53 @@ declare namespace Strophe {
      */
     interface SASLMechanism {
         /**
-       *  Function: test
-       *  Checks if mechanism able to run.
-       *  To disable a mechanism, make this return false;
-       *
-       *  To disable plain authentication run
-       *  > Strophe.SASLPlain.test = function() {
-       *  >   return false;
-       *  > }
-       *
-       *  See <SASL mechanisms> for a list of available mechanisms.
-       *
-       *  Parameters:
-       *    (Strophe.Connection) connection - Target Connection.
-       *
-       *  Returns:
-       *    (Boolean) If mechanism was able to run.
-       */
+     *  Function: test
+     *  Checks if mechanism able to run.
+     *  To disable a mechanism, make this return false;
+     *
+     *  To disable plain authentication run
+     *  > Strophe.SASLPlain.test = function() {
+     *  >   return false;
+     *  > }
+     *
+     *  See <SASL mechanisms> for a list of available mechanisms.
+     *
+     *  Parameters:
+     *    (Strophe.Connection) connection - Target Connection.
+     *
+     *  Returns:
+     *    (Boolean) If mechanism was able to run.
+     */
         test(connection: Connection): boolean;
 
         /** Variable: priority
-       *  Determines which <SASLMechanism> is chosen for authentication (Higher is better).
-       *  Users may override this to prioritize mechanisms differently.
-       *
-       *  In the default configuration the priorities are
-       *
-       *  SCRAM-SHA1 - 40
-       *  DIGEST-MD5 - 30
-       *  Plain - 20
-       *
-       *  Example: (This will cause Strophe to choose the mechanism that the server sent first)
-       *
-       *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
-       *
-       *  See <SASL mechanisms> for a list of available mechanisms.
-       *
-       */
+     *  Determines which <SASLMechanism> is chosen for authentication (Higher is better).
+     *  Users may override this to prioritize mechanisms differently.
+     *
+     *  In the default configuration the priorities are
+     *
+     *  SCRAM-SHA1 - 40
+     *  DIGEST-MD5 - 30
+     *  Plain - 20
+     *
+     *  Example: (This will cause Strophe to choose the mechanism that the server sent first)
+     *
+     *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
+     *
+     *  See <SASL mechanisms> for a list of available mechanisms.
+     *
+     */
         priority: number;
     }
 
     /** Constants: SASL mechanisms
-   *  Available authentication mechanisms
-   *
-   *  Strophe.SASLAnonymous - SASL Anonymous authentication.
-   *  Strophe.SASLPlain - SASL Plain authentication.
-   *  Strophe.SASLMD5 - SASL Digest-MD5 authentication
-   *  Strophe.SASLSHA1 - SASL SCRAM-SHA1 authentication
-   */
+     *  Available authentication mechanisms
+     *
+     *  Strophe.SASLAnonymous - SASL Anonymous authentication.
+     *  Strophe.SASLPlain - SASL Plain authentication.
+     *  Strophe.SASLMD5 - SASL Digest-MD5 authentication
+     *  Strophe.SASLSHA1 - SASL SCRAM-SHA1 authentication
+     */
     var SASLAnonymous: SASLMechanism;
     var SASLPlain: SASLMechanism;
     var SASLSHA1: SASLMechanism;
@@ -1055,7 +1055,7 @@ declare namespace Strophe {
  *  Returns:
  *    A new Strophe.Builder object.
  */
-declare function $build(name: string, attrs?: any): Strophe.Builder;
+export function $build(name: string, attrs?: any): Strophe.Builder;
 
 /** Function: $msg
  *  Create a Strophe.Builder with a <message/> element as the root.
@@ -1066,7 +1066,7 @@ declare function $build(name: string, attrs?: any): Strophe.Builder;
  *  Returns:
  *    A new Strophe.Builder object.
  */
-declare function $msg(attrs?: any): Strophe.Builder;
+export function $msg(attrs?: any): Strophe.Builder;
 
 /** Function: $iq
  *  Create a Strophe.Builder with an <iq/> element as the root.
@@ -1077,7 +1077,7 @@ declare function $msg(attrs?: any): Strophe.Builder;
  *  Returns:
  *    A new Strophe.Builder object.
  */
-declare function $iq(attrs?: any): Strophe.Builder;
+export function $iq(attrs?: any): Strophe.Builder;
 
 /** Function: $pres
  *  Create a Strophe.Builder with a <presence/> element as the root.
@@ -1088,11 +1088,23 @@ declare function $iq(attrs?: any): Strophe.Builder;
  *  Returns:
  *    A new Strophe.Builder object.
  */
-declare function $pres(attrs?: any): Strophe.Builder;
+export function $pres(attrs?: any): Strophe.Builder;
 
-// Support AMD require
-declare module "strophe" {
-  export = { Strophe, $build, $msg, $iq, $pres };
+import { Strophe as _Strophe, $build as _$build, $msg as _$msg, $iq as _$iq, $pres as _$pres } from "strophe";
+declare global {
+    const Strophe: typeof _Strophe;
+    namespace Strophe {
+        type Status = _Strophe.Status;
+        type LogLevel = _Strophe.LogLevel;
+        type Builder = _Strophe.Builder;
+        type ConnectionOptions = _Strophe.ConnectionOptions;
+        interface Connection extends _Strophe.Connection {}
+        type SASLMechanism = _Strophe.SASLMechanism;
+    }
+    const $build: typeof _$build;
+    const $msg: typeof _$msg;
+    const $iq: typeof _$iq;
+    const $pres: typeof _$pres;
 }
 
 declare module "Strophe" {

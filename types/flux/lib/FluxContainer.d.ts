@@ -9,29 +9,14 @@ import * as React from "react";
  * The component receives information from the stores via state. The state
  * is generated using a static `calculateState()` method that each container must implement.
  */
-/**
- * Default options to create a Container.
- *
- * @interface RealOptions
- */
+
+/** Default options to create a Container. */
 export interface RealOptions {
-    /**
-     * Default value: true
-     *
-     * @type {boolean}
-     */
+    /** @default true */
     pure?: boolean;
-    /**
-     * Default value: false
-     *
-     * @type {boolean}
-     */
+    /** @default false */
     withProps?: boolean;
-    /**
-     * Default value: false
-     *
-     * @type {boolean}
-     */
+    /** @default false */
     withContext?: boolean;
 }
 

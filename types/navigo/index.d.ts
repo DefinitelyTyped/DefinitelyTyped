@@ -3,10 +3,22 @@
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type Keys = string
+export type State = {[k in Keys]: any}
+export type Params = State;
+
 interface NavigoHooks {
-    before?(done: (suppress?: boolean) => void): void;
-    after?(): void;
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+    leave?(params?: Params): void;
+    already?(params?: Params): void;
 }
+
+interface GenericHooks {
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+}
+
 type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
 
 declare class Navigo {
@@ -15,7 +27,7 @@ declare class Navigo {
      * @param root The main URL of your application.
      * @param useHash If useHash set to true then the router uses an old routing approach with hash in the URL. Navigo anyways falls back to this mode if there is no History API supported.
      */
-    constructor(root?: string | null, useHash?: boolean);
+    constructor(root?: string | null, useHash?: boolean, hash?: string);
 
     on(location: string, handler: RouteHandler, hooks?: NavigoHooks): Navigo;
     on(location: RegExp, handler: (...parameters: string[]) => void, hooks?: NavigoHooks): Navigo;
@@ -34,8 +46,12 @@ declare class Navigo {
     resolve(currentURL?: string): boolean;
 
     link(path: string): string;
+    
+    lastRouteResolved(): {url: string, query: string};
 
     disableIfAPINotAvailable(): void;
+
+    hooks(hooks: GenericHooks): void;
 
     pause(): void;
 

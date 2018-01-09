@@ -6,9 +6,8 @@ import Bcrypt = require('bcrypt');
 import Nes = require('nes');
 
 var server = new Hapi.Server();
-server.connection();
 
-server.register([Basic, Nes], function (err) {
+server.register([Basic, Nes]).then(() => {
 
     // Set up HTTP Basic authentication
 
@@ -28,31 +27,31 @@ server.register([Basic, Nes], function (err) {
         }
     };
 
-    var validate: Basic.ValidateFunc = function (request, username, password, callback) {
+    var validate: Basic.Validate = async (request, username, password, h) => {
 
         var user = users[username];
         if (!user) {
-            return callback(null, false);
+            return { credentials: null, isValid: false };
         }
 
-        Bcrypt.compare(password, user.password, function (err, isValid) {
+        let isValid = await Bcrypt.compare(password, user.password)
 
-            callback(err, isValid, { id: user.id, name: user.name, username: user.username });
-        });
+        return { isValid, credentials: { id: user.id, name: user.name, username: user.username } };
     };
 
-    server.auth.strategy('simple', 'basic', 'required', { validateFunc: validate });
+    server.auth.strategy('simple', 'basic', { validate });
+    server.auth.default('simple')
 
     // Set up subscription
 
     server.subscription('/items', {
-        filter: function (path, message, options, next) {
+        filter: (path, message, options) => {
 
-            return next(message.updater !== options.credentials.username);
+            return message.updater !== options.credentials.username;
         }
     });
 
-    server.start(function (err) {
+    server.start().then(() => {
 
         server.publish('/items', { id: 5, status: 'complete', updater: 'john' });
         server.publish('/items', { id: 6, status: 'initial', updater: 'steve' });

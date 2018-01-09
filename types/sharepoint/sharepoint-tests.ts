@@ -530,7 +530,8 @@ namespace CSR {
             .onPreRender(hookFormContext)
             .onPostRender(fixCsrCustomLayout);
 
-        function hookFormContext(ctx: FormRenderContexWithHook) {
+        function hookFormContext(preRenderContext: SPClientTemplates.RenderContext /* FormRenderContexWithHook */) {
+            const ctx = preRenderContext as FormRenderContexWithHook;
             if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                 || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                 for (const fieldSchemaInForm of ctx.ListSchema.Field) {
@@ -561,7 +562,8 @@ namespace CSR {
             }
         }
 
-        function fixCsrCustomLayout(ctx: SPClientTemplates.RenderContext_Form) {
+        function fixCsrCustomLayout(postRenderContext: SPClientTemplates.RenderContext /* SPClientTemplates.RenderContext_Form */) {
+            const ctx = postRenderContext as SPClientTemplates.RenderContext_Form;
             if (ctx.ControlMode === SPClientTemplates.ClientControlMode.Invalid
                 || ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
                 return;
@@ -817,7 +819,8 @@ namespace CSR {
                         }
                     }
                 })
-                .onPostRenderField(fieldName, (schema: SPClientTemplates.FieldSchema_InForm_User, ctx) => {
+                .onPostRenderField(fieldName, (postRenderSchema, ctx) => {
+                    const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_User;
                     if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                         || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                         if (schema.Type === 'User' || schema.Type === 'UserMulti') {
@@ -1148,7 +1151,9 @@ namespace CSR {
         computedValue(targetField: string, transform: (...values: string[]) => string, ...sourceField: string[]): CSR {
             const dependentValues: { [field: string]: string } = {};
 
-            return this.onPostRenderField(targetField, (schema: SPClientTemplates.FieldSchema_InForm, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
+            return this.onPostRenderField(targetField, (postRenderSchema, postRenderContext) => {
+                const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm;
+                const ctx = postRenderContext as SPClientTemplates.RenderContext_FieldInForm;
                 if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                     || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                     const targetControl = CSR.getControl(schema as SPClientTemplates.FieldSchema_InForm);
@@ -1165,8 +1170,8 @@ namespace CSR {
 
         setInitialValue(fieldName: string, value: any, ignoreNull?: boolean): CSR {
             if (value || !ignoreNull) {
-                return this.onPreRenderField(fieldName, (schema, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
-                    ctx.ListData.Items[0][fieldName] = value;
+                return this.onPreRenderField(fieldName, (schema, ctx) => {
+                    (ctx as SPClientTemplates.RenderContext_FieldInForm).ListData.Items[0][fieldName] = value;
                 });
             } else {
                 return this;
@@ -1335,44 +1340,45 @@ namespace CSR {
         }
 
         lookupAddNew(fieldName: string, prompt: string, showDialog?: boolean, contentTypeId?: string): CSR {
-            return this.onPostRenderField(fieldName,
-                (schema: SPClientTemplates.FieldSchema_InForm_Lookup, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
-                    let control: HTMLInputElement;
-                    if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-                        || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm)
+            return this.onPostRenderField(fieldName, (postRenderSchema, postRenderContext) => {
+                const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
+                const ctx = postRenderContext as SPClientTemplates.RenderContext_FieldInForm;
+                let control: HTMLInputElement;
+                if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
+                    || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm)
 
-                        control = CSR.getControl(schema);
-                    if (control) {
-                        let weburl = _spPageContextInfo.webServerRelativeUrl;
-                        if (weburl[weburl.length - 1] === '/') {
-                            weburl = weburl.substring(0, weburl.length - 1);
-                        }
-                        let newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
-                            + "&ListId=" + encodeURIComponent('{' + schema.LookupListId + '}');
-                        if (contentTypeId) {
-                            newFormUrl += '&ContentTypeId=' + contentTypeId;
-                        }
-
-                        const link = document.createElement('a');
-                        link.href = "javascript:NewItem2(event, \'" + newFormUrl + "&Source=" + encodeURIComponent(document.location.href) + "')";
-                        link.textContent = prompt;
-                        if (control.nextElementSibling) {
-                            control.parentElement.insertBefore(link, control.nextElementSibling);
-                        } else {
-                            control.parentElement.appendChild(link);
-                        }
-
-                        if (showDialog) {
-                            $addHandler(link, "click", (e: Sys.UI.DomEvent) => {
-                                SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.ShowPopupDialog', () => {
-                                    SP.UI.ModalDialog.ShowPopupDialog(newFormUrl);
-                                });
-                                e.stopPropagation();
-                                e.preventDefault();
-                            });
-                        }
+                    control = CSR.getControl(schema);
+                if (control) {
+                    let weburl = _spPageContextInfo.webServerRelativeUrl;
+                    if (weburl[weburl.length - 1] === '/') {
+                        weburl = weburl.substring(0, weburl.length - 1);
                     }
-                });
+                    let newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
+                        + "&ListId=" + encodeURIComponent('{' + schema.LookupListId + '}');
+                    if (contentTypeId) {
+                        newFormUrl += '&ContentTypeId=' + contentTypeId;
+                    }
+
+                    const link = document.createElement('a');
+                    link.href = "javascript:NewItem2(event, \'" + newFormUrl + "&Source=" + encodeURIComponent(document.location.href) + "')";
+                    link.textContent = prompt;
+                    if (control.nextElementSibling) {
+                        control.parentElement.insertBefore(link, control.nextElementSibling);
+                    } else {
+                        control.parentElement.appendChild(link);
+                    }
+
+                    if (showDialog) {
+                        $addHandler(link, "click", (e: Sys.UI.DomEvent) => {
+                            SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.ShowPopupDialog', () => {
+                                SP.UI.ModalDialog.ShowPopupDialog(newFormUrl);
+                            });
+                            e.stopPropagation();
+                            e.preventDefault();
+                        });
+                    }
+                }
+            });
         }
 
         register() {
@@ -2271,7 +2277,8 @@ namespace SampleReputation {
         SP.SOD.registerSod('typescripttemplates.ts', '/SPTypeScript/Extensions/typescripttemplates.js');
         SP.SOD.executeFunc('typescripttemplates.ts', 'CSR', () => {
             CSR.override(10004, 1)
-                .onPreRender((ctx: MyList) => {
+                .onPreRender(preRenderContext => {
+                    const ctx = preRenderContext as MyList;
                     ctx.listId = ctx.listName.substring(1, 37);
                 })
                 .header('<ul>')
@@ -2287,7 +2294,8 @@ namespace SampleReputation {
         SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('likes.js');
     }
 
-    function renderTemplate(ctx: MyList) {
+    function renderTemplate(renderContext: SPClientTemplates.RenderContext) {
+        const ctx = renderContext as MyList;
         const rows = ctx.ListData.Row;
         let result = '';
         for (const row of  rows) {

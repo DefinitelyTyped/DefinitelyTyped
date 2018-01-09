@@ -36,3 +36,5 @@ export interface FieldState {
     touched?: boolean;
     visited?: boolean;
 }
+
+export default reducer;

@@ -17,6 +17,12 @@ describe('sum', () => {
     });
 });
 
+describe('restoreAllMocks', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+});
+
 describe('fetchCurrentUser', () => {
     it('calls the callback when $.ajax requests are finished', () => {
         const fetchCurrentUser = require('../fetchCurrentUser');
@@ -193,10 +199,14 @@ describe('Assymetric matchers', () => {
     it('works', () => {
         expect({
             timestamp: 1480807810388,
-            text: 'Some text content, but we care only about *this part*'
+            text: 'Some text content, but we care only about *this part*',
+            color: '#bada55',
+            greeting: 'hello, world!',
         }).toEqual({
             timestamp: expect.any(Number),
-            text: expect.stringMatching('*this part*')
+            text: expect.stringMatching('*this part*'),
+            color: expect.stringMatching(/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i),
+            greeting: expect.stringContaining('hello'),
         });
 
         const callback = jest.fn();
@@ -229,6 +239,17 @@ describe('Assymetric matchers', () => {
     });
 });
 
+describe('setTimeout', () => {
+    it('works as expected', done => {
+        jest.setTimeout(1000);
+
+        setTimeout(() => {
+            expect(true).toBeTruthy();
+            done();
+        }, 900);
+    });
+});
+
 describe('Extending extend', () => {
     it('works', () => {
         expect.extend({
@@ -236,6 +257,12 @@ describe('Extending extend', () => {
                 const pass = received === actual;
                 const message =
                     () => `expected ${received} ${pass ? 'not ' : ''} to be ${actual}`;
+                return { message, pass };
+            },
+            toBeVariadicMatcher(received: any, floor: number, ceiling: number) {
+                const pass = received >= floor && received <= ceiling;
+                const message =
+                    () => `expected ${received} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
                 return { message, pass };
             },
             toBeTest(received: any, actual: any) {
@@ -284,7 +311,7 @@ describe('missing tests', () => {
        expect(jest.isMockFunction(spy)).toBeTruthy();
    });
 
-    it('tests all mising Mocks functionality', () => {
+    it('tests all missing Mocks functionality', () => {
        type FruitsGetter = () => string[];
        const mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
        mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum']);
@@ -300,6 +327,12 @@ describe('missing tests', () => {
        const thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
        expect(thisMock()).toBe(this);
    });
+
+    it('tests mock name functionality', () => {
+        const mock: jest.Mock = jest.fn();
+        mock.mockName('Carrot');
+        expect(mock.getMockName()).toBe('Carrot');
+    });
 
     it('creates snapshoter', () => {
        jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });

@@ -1,6 +1,7 @@
 // Type definitions for react-sortable-tree 0.1
 // Project: https://fritz-c.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
+//                 Jovica Zoric <https://github.com/jzoric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -111,6 +112,7 @@ export interface ReactSortableTreeProps {
     scaffoldBlockPxWidth?: number;
     isVirtualized?: boolean;
     nodeContentRenderer?: NodeRenderer;
+    dndType?: string;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;

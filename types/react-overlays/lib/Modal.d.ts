@@ -10,6 +10,8 @@ declare namespace Modal { }
 export = Modal;
 
 interface ModalProps extends TransitionCallbacks, PortalProps {
+  className?: string;
+
   /**
    * Set the visibility of the Modal
    */
@@ -122,5 +124,5 @@ interface ModalProps extends TransitionCallbacks, PortalProps {
    * A ModalManager instance used to track and manage the state of open
    * Modals. Useful when customizing how modals interact within a container
    */
-  manager: ModalManager;
+  manager?: ModalManager;
 }

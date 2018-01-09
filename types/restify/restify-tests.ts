@@ -2,8 +2,9 @@ import * as restify from "restify";
 import * as url from "url";
 import * as Logger from "bunyan";
 import * as http from "http";
+import * as stream from "stream";
 
-let server = new restify.Server();
+let server: restify.Server;
 
 server = restify.createServer({
     formatters: {
@@ -95,8 +96,11 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     res.id === 'test';
 
     res.send('hello ' + req.params.name);
-    res.writeHead();
-    return next();
+    res.writeHead(200);
+    res.writeHead(200, {
+        "Content-Type": "application/json"
+    });
+    next();
 }
 
 server.post('/hello', send);
@@ -118,7 +122,6 @@ server.versions = [""];
 server.acceptable = ["test"];
 server.url = "";
 server.server = new http.Server();
-server.router = new restify.Router({});
 
 server.address().port;
 server.address().family;
@@ -146,7 +149,9 @@ server.use(restify.plugins.throttle({
     }
 }));
 
-server.on('after', restify.plugins.auditLogger({ event: 'after', log: {} as Logger }));
+const logger = Logger.createLogger({ name: "test" });
+
+server.on('after', restify.plugins.auditLogger({ event: 'after', log: logger }));
 
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
     route.spec.method === 'GET';
@@ -154,9 +159,25 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.spec.path === '/some/path';
     route.spec.path === /\/some\/path\/.*/;
     route.spec.versions === ['v1'];
-    restify.plugins.auditLogger({ event: 'after', log: {} as Logger })(req, res, route, err);
+    restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
 (<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
+
+const loggerStream: Logger.Stream = {};
+
+const requestCaptureOptions: restify.bunyan.RequestCaptureOptions = {};
+requestCaptureOptions.stream = loggerStream;
+requestCaptureOptions.streams = Object.freeze([loggerStream, loggerStream]);
+requestCaptureOptions.level = Logger.DEBUG;
+requestCaptureOptions.level = "info";
+requestCaptureOptions.maxRecords = 50;
+requestCaptureOptions.maxRequestIds = 500;
+requestCaptureOptions.dumpDefault = true;
+
+const requestCaptureStream = new restify.bunyan.RequestCaptureStream(requestCaptureOptions);
+const asStream: stream.Stream = requestCaptureStream;
+
+const logger2: Logger = restify.bunyan.createLogger("horse");

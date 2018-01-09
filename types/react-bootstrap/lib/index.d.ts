@@ -1,182 +1,358 @@
-import * as Accordion from './Accordion';
-import * as Alert from './Alert';
-import * as Badge from './Badge';
-import * as Breadcrumb from './Breadcrumb';
-import * as BreadcrumbItem from './BreadcrumbItem';
-import * as Button from './Button';
-import * as ButtonGroup from './ButtonGroup';
-import * as ButtonToolbar from './ButtonToolbar';
-import * as Carousel from './Carousel';
-import * as CarouselCaption from './CarouselCaption';
-import * as CarouselItem from './CarouselItem';
-import * as Checkbox from './Checkbox';
-import * as Clearfix from './Clearfix';
-import * as Col from './Col';
-import * as Collapse from './Collapse';
-import * as ControlLabel from './ControlLabel';
-import * as Dropdown from './Dropdown';
-import * as DropdownButton from './DropdownButton';
-import * as DropdownMenu from './DropdownMenu';
-import * as DropdownToggle from './DropdownToggle';
-import * as Fade from './Fade';
-import * as Form from './Form';
-import * as FormControl from './FormControl';
-import * as FormControlFeedback from './FormControlFeedback';
-import * as FormControlStatic from './FormControlStatic';
-import * as FormGroup from './FormGroup';
-import * as Glyphicon from './Glyphicon';
-import * as Grid from './Grid';
-import * as HelpBlock from './HelpBlock';
-import * as Image from './Image';
-import * as InputGroup from './InputGroup';
-import * as InputGroupAddon from './InputGroupAddon';
-import * as InputGroupButton from './InputGroupButton';
-import * as Jumbotron from './Jumbotron';
-import * as Label from './Label';
-import * as ListGroup from './ListGroup';
-import * as ListGroupItem from './ListGroupItem';
-import * as Media from './Media';
-import * as MediaBody from './MediaBody';
-import * as MediaHeading from './MediaHeading';
-import * as MediaLeft from './MediaLeft';
-import * as MediaList from './MediaList';
-import * as MediaListItem from './MediaListItem';
-import * as MediaRight from './MediaRight';
-import * as MenuItem from './MenuItem';
-import * as Modal from './Modal';
-import * as ModalBody from './ModalBody';
-import * as ModalDialog from './ModalDialog';
-import * as ModalFooter from './ModalFooter';
-import * as ModalHeader from './ModalHeader';
-import * as ModalTitle from './ModalTitle';
-import * as Nav from './Nav';
-import * as Navbar from './Navbar';
-import * as NavbarBrand from './NavbarBrand';
-import * as NavbarCollapse from './NavbarCollapse';
-import * as NavbarHeader from './NavbarHeader';
-import * as NavbarToggle from './NavbarToggle';
-import * as NavDropdown from './NavDropdown';
-import * as NavItem from './NavItem';
-import * as Overlay from './Overlay';
-import * as OverlayTrigger from './OverlayTrigger';
-import * as PageHeader from './PageHeader';
-import * as PageItem from './PageItem';
-import * as Pager from './Pager';
-import * as PagerItem from './PagerItem';
-import * as Pagination from './Pagination';
-import * as PaginationButton from './PaginationButton';
-import * as Panel from './Panel';
-import * as PanelGroup from './PanelGroup';
-import * as Popover from './Popover';
-import * as ProgressBar from './ProgressBar';
-import * as Radio from './Radio';
-import * as ResponsiveEmbed from './ResponsiveEmbed';
-import * as Row from './Row';
-import * as SafeAnchor from './SafeAnchor';
-import * as SplitButton from './SplitButton';
-import * as SplitToggle from './SplitToggle';
-import * as Tab from './Tab';
-import * as TabContainer from './TabContainer';
-import * as TabContent from './TabContent';
-import * as Table from './Table';
-import * as TabPane from './TabPane';
-import * as Tabs from './Tabs';
-import * as Thumbnail from './Thumbnail';
-import * as Tooltip from './Tooltip';
-import * as ToggleButton from './ToggleButton'
-import * as ToggleButtonGroup from './ToggleButtonGroup'
-import * as Well from './Well';
+import Accordion = require('./Accordion');
+import { AccordionProps } from './Accordion';
+import Alert = require('./Alert');
+import { AlertProps } from './Alert';
+import Badge = require('./Badge');
+import { BadgeProps } from './Badge';
+import Breadcrumb = require('./Breadcrumb');
+import { BreadcrumbProps } from './Breadcrumb';
+import BreadcrumbItem = require('./BreadcrumbItem');
+import { BreadcrumbItemProps } from './BreadcrumbItem';
+import Button = require('./Button');
+import { ButtonProps } from './Button';
+import ButtonGroup = require('./ButtonGroup');
+import { ButtonGroupProps } from './ButtonGroup';
+import ButtonToolbar = require('./ButtonToolbar');
+import { ButtonToolbarProps } from './ButtonToolbar';
+import Carousel = require('./Carousel');
+import { CarouselProps } from './Carousel';
+import CarouselCaption = require('./CarouselCaption');
+import { CarouselCaptionProps } from './CarouselCaption';
+import CarouselItem = require('./CarouselItem');
+import { CarouselItemProps } from './CarouselItem';
+import Checkbox = require('./Checkbox');
+import { CheckboxProps } from './Checkbox';
+import Clearfix = require('./Clearfix');
+import { ClearfixProps } from './Clearfix';
+import Col = require('./Col');
+import { ColProps } from './Col';
+import Collapse = require('./Collapse');
+import { CollapseProps } from './Collapse';
+import ControlLabel = require('./ControlLabel');
+import { ControlLabelProps } from './ControlLabel';
+import Dropdown = require('./Dropdown');
+import { DropdownProps } from './Dropdown';
+import DropdownButton = require('./DropdownButton');
+import { DropdownButtonProps } from './DropdownButton';
+import DropdownMenu = require('./DropdownMenu');
+import { DropdownMenuProps } from './DropdownMenu';
+import DropdownToggle = require('./DropdownToggle');
+import { DropdownToggleProps } from './DropdownToggle';
+import Fade = require('./Fade');
+import { FadeProps } from './Fade';
+import Form = require('./Form');
+import { FormProps } from './Form';
+import FormControl = require('./FormControl');
+import { FormControlProps } from './FormControl';
+import FormControlFeedback = require('./FormControlFeedback');
+import { FormControlFeedbackProps } from './FormControlFeedback';
+import FormControlStatic = require('./FormControlStatic');
+import { FormControlStaticProps } from './FormControlStatic';
+import FormGroup = require('./FormGroup');
+import { FormGroupProps } from './FormGroup';
+import Glyphicon = require('./Glyphicon');
+import { GlyphiconProps } from './Glyphicon';
+import Grid = require('./Grid');
+import { GridProps } from './Grid';
+import HelpBlock = require('./HelpBlock');
+import { HelpBlockProps } from './HelpBlock';
+import Image = require('./Image');
+import { ImageProps } from './Image';
+import InputGroup = require('./InputGroup');
+import { InputGroupProps } from './InputGroup';
+import InputGroupAddon = require('./InputGroupAddon');
+import { InputGroupAddonProps } from './InputGroupAddon';
+import InputGroupButton = require('./InputGroupButton');
+import { InputGroupButtonProps } from './InputGroupButton';
+import Jumbotron = require('./Jumbotron');
+import { JumbotronProps } from './Jumbotron';
+import Label = require('./Label');
+import { LabelProps } from './Label';
+import ListGroup = require('./ListGroup');
+import { ListGroupProps } from './ListGroup';
+import ListGroupItem = require('./ListGroupItem');
+import { ListGroupItemProps } from './ListGroupItem';
+import Media = require('./Media');
+import { MediaProps } from './Media';
+import MediaBody = require('./MediaBody');
+import { MediaBodyProps } from './MediaBody';
+import MediaHeading = require('./MediaHeading');
+import { MediaHeadingProps } from './MediaHeading';
+import MediaLeft = require('./MediaLeft');
+import { MediaLeftProps } from './MediaLeft';
+import MediaList = require('./MediaList');
+import { MediaListProps } from './MediaList';
+import MediaListItem = require('./MediaListItem');
+import { MediaListItemProps } from './MediaListItem';
+import MediaRight = require('./MediaRight');
+import { MediaRightProps } from './MediaRight';
+import MenuItem = require('./MenuItem');
+import { MenuItemProps } from './MenuItem';
+import Modal = require('./Modal');
+import { ModalProps } from './Modal';
+import ModalBody = require('./ModalBody');
+import { ModalBodyProps } from './ModalBody';
+import ModalDialog = require('./ModalDialog');
+import { ModalDialogProps } from './ModalDialog';
+import ModalFooter = require('./ModalFooter');
+import { ModalFooterProps } from './ModalFooter';
+import ModalHeader = require('./ModalHeader');
+import { ModalHeaderProps } from './ModalHeader';
+import ModalTitle = require('./ModalTitle');
+import { ModalTitleProps } from './ModalTitle';
+import Nav = require('./Nav');
+import { NavProps } from './Nav';
+import Navbar = require('./Navbar');
+import { NavbarProps } from './Navbar';
+import NavbarBrand = require('./NavbarBrand');
+import { NavbarBrandProps } from './NavbarBrand';
+import NavbarCollapse = require('./NavbarCollapse');
+import { NavbarCollapseProps } from './NavbarCollapse';
+import NavbarHeader = require('./NavbarHeader');
+import { NavbarHeaderProps } from './NavbarHeader';
+import NavbarToggle = require('./NavbarToggle');
+import { NavbarToggleProps } from './NavbarToggle';
+import NavDropdown = require('./NavDropdown');
+import { NavDropdownProps } from './NavDropdown';
+import NavItem = require('./NavItem');
+import { NavItemProps } from './NavItem';
+import Overlay = require('./Overlay');
+import { OverlayProps } from './Overlay';
+import OverlayTrigger = require('./OverlayTrigger');
+import { OverlayTriggerProps } from './OverlayTrigger';
+import PageHeader = require('./PageHeader');
+import { PageHeaderProps } from './PageHeader';
+import PageItem = require('./PageItem');
+import { PageItemProps } from './PageItem';
+import Pager = require('./Pager');
+import { PagerProps } from './Pager';
+import PagerItem = require('./PagerItem');
+import { PagerItemProps } from './PagerItem';
+import Pagination = require('./Pagination');
+import { PaginationProps } from './Pagination';
+import PaginationButton = require('./PaginationButton');
+import { PaginationButtonProps } from './PaginationButton';
+import Panel = require('./Panel');
+import { PanelProps } from './Panel';
+import PanelGroup = require('./PanelGroup');
+import { PanelGroupProps } from './PanelGroup';
+import Popover = require('./Popover');
+import { PopoverProps } from './Popover';
+import ProgressBar = require('./ProgressBar');
+import { ProgressBarProps } from './ProgressBar';
+import Radio = require('./Radio');
+import { RadioProps } from './Radio';
+import ResponsiveEmbed = require('./ResponsiveEmbed');
+import { ResponsiveEmbedProps } from './ResponsiveEmbed';
+import Row = require('./Row');
+import { RowProps } from './Row';
+import SafeAnchor = require('./SafeAnchor');
+import { SafeAnchorProps } from './SafeAnchor';
+import SplitButton = require('./SplitButton');
+import { SplitButtonProps } from './SplitButton';
+import SplitToggle = require('./SplitToggle');
+import { SplitToggleProps } from './SplitToggle';
+import Tab = require('./Tab');
+import { TabProps } from './Tab';
+import TabContainer = require('./TabContainer');
+import { TabContainerProps } from './TabContainer';
+import TabContent = require('./TabContent');
+import { TabContentProps } from './TabContent';
+import Table = require('./Table');
+import { TableProps } from './Table';
+import TabPane = require('./TabPane');
+import { TabPaneProps } from './TabPane';
+import Tabs = require('./Tabs');
+import { TabsProps } from './Tabs';
+import Thumbnail = require('./Thumbnail');
+import { ThumbnailProps } from './Thumbnail';
+import ToggleButton = require('./ToggleButton');
+import { ToggleButtonProps } from './ToggleButton';
+import ToggleButtonGroup = require('./ToggleButtonGroup');
+import { ToggleButtonGroupProps } from './ToggleButtonGroup';
+import Tooltip = require('./Tooltip');
+import { TooltipProps } from './Tooltip';
+import Well = require('./Well');
+import { WellProps } from './Well';
 
 import * as utils from './utils';
 
 export {
-  Accordion,
-  Alert,
-  Badge,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  ButtonGroup,
-  ButtonToolbar,
-  Carousel,
-  CarouselCaption,
-  CarouselItem,
-  Checkbox,
-  Clearfix,
-  Col,
-  Collapse,
-  ControlLabel,
-  Dropdown,
-  DropdownButton,
-  DropdownMenu,
-  DropdownToggle,
-  Fade,
-  Form,
-  FormControl,
-  FormControlFeedback,
-  FormControlStatic,
-  FormGroup,
-  Glyphicon,
-  Grid,
-  HelpBlock,
-  Image,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  Jumbotron,
-  Label,
-  ListGroup,
-  ListGroupItem,
-  Media,
-  MediaBody,
-  MediaHeading,
-  MediaLeft,
-  MediaList,
-  MediaListItem,
-  MediaRight,
-  MenuItem,
-  Modal,
-  ModalBody,
-  ModalDialog,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarCollapse,
-  NavbarHeader,
-  NavbarToggle,
-  NavDropdown,
-  NavItem,
-  Overlay,
-  OverlayTrigger,
-  PageHeader,
-  PageItem,
-  Pager,
-  PagerItem,
-  Pagination,
-  PaginationButton,
-  Panel,
-  PanelGroup,
-  Popover,
-  ProgressBar,
-  Radio,
-  ResponsiveEmbed,
-  Row,
-  SafeAnchor,
-  SplitButton,
-  SplitToggle,
-  Tab,
-  TabContainer,
-  TabContent,
-  Table,
-  TabPane,
-  Tabs,
-  Thumbnail,
-  Tooltip,
-  ToggleButton,
-  ToggleButtonGroup,
-  Well,
-  utils,
+    Accordion,
+    AccordionProps,
+    Alert,
+    AlertProps,
+    Badge,
+    BadgeProps,
+    Breadcrumb,
+    BreadcrumbProps,
+    BreadcrumbItem,
+    BreadcrumbItemProps,
+    Button,
+    ButtonProps,
+    ButtonGroup,
+    ButtonGroupProps,
+    ButtonToolbar,
+    ButtonToolbarProps,
+    Carousel,
+    CarouselProps,
+    CarouselCaption,
+    CarouselCaptionProps,
+    CarouselItem,
+    CarouselItemProps,
+    Checkbox,
+    CheckboxProps,
+    Clearfix,
+    ClearfixProps,
+    Col,
+    ColProps,
+    Collapse,
+    CollapseProps,
+    ControlLabel,
+    ControlLabelProps,
+    Dropdown,
+    DropdownProps,
+    DropdownButton,
+    DropdownButtonProps,
+    DropdownMenu,
+    DropdownMenuProps,
+    DropdownToggle,
+    DropdownToggleProps,
+    Fade,
+    FadeProps,
+    Form,
+    FormProps,
+    FormControl,
+    FormControlProps,
+    FormControlFeedback,
+    FormControlFeedbackProps,
+    FormControlStatic,
+    FormControlStaticProps,
+    FormGroup,
+    FormGroupProps,
+    Glyphicon,
+    GlyphiconProps,
+    Grid,
+    GridProps,
+    HelpBlock,
+    HelpBlockProps,
+    Image,
+    ImageProps,
+    InputGroup,
+    InputGroupProps,
+    InputGroupAddon,
+    InputGroupAddonProps,
+    InputGroupButton,
+    InputGroupButtonProps,
+    Jumbotron,
+    JumbotronProps,
+    Label,
+    LabelProps,
+    ListGroup,
+    ListGroupProps,
+    ListGroupItem,
+    ListGroupItemProps,
+    Media,
+    MediaProps,
+    MediaBody,
+    MediaBodyProps,
+    MediaHeading,
+    MediaHeadingProps,
+    MediaLeft,
+    MediaLeftProps,
+    MediaList,
+    MediaListProps,
+    MediaListItem,
+    MediaListItemProps,
+    MediaRight,
+    MediaRightProps,
+    MenuItem,
+    MenuItemProps,
+    Modal,
+    ModalProps,
+    ModalBody,
+    ModalBodyProps,
+    ModalDialog,
+    ModalDialogProps,
+    ModalFooter,
+    ModalFooterProps,
+    ModalHeader,
+    ModalHeaderProps,
+    ModalTitle,
+    ModalTitleProps,
+    Nav,
+    NavProps,
+    Navbar,
+    NavbarProps,
+    NavbarBrand,
+    NavbarBrandProps,
+    NavbarCollapse,
+    NavbarCollapseProps,
+    NavbarHeader,
+    NavbarHeaderProps,
+    NavbarToggle,
+    NavbarToggleProps,
+    NavDropdown,
+    NavDropdownProps,
+    NavItem,
+    NavItemProps,
+    Overlay,
+    OverlayProps,
+    OverlayTrigger,
+    OverlayTriggerProps,
+    PageHeader,
+    PageHeaderProps,
+    PageItem,
+    PageItemProps,
+    Pager,
+    PagerProps,
+    PagerItem,
+    PagerItemProps,
+    Pagination,
+    PaginationProps,
+    PaginationButton,
+    PaginationButtonProps,
+    Panel,
+    PanelProps,
+    PanelGroup,
+    PanelGroupProps,
+    Popover,
+    PopoverProps,
+    ProgressBar,
+    ProgressBarProps,
+    Radio,
+    RadioProps,
+    ResponsiveEmbed,
+    ResponsiveEmbedProps,
+    Row,
+    RowProps,
+    SafeAnchor,
+    SafeAnchorProps,
+    SplitButton,
+    SplitButtonProps,
+    SplitToggle,
+    SplitToggleProps,
+    Tab,
+    TabProps,
+    TabContainer,
+    TabContainerProps,
+    TabContent,
+    TabContentProps,
+    Table,
+    TableProps,
+    TabPane,
+    TabPaneProps,
+    Tabs,
+    TabsProps,
+    Thumbnail,
+    ThumbnailProps,
+    ToggleButton,
+    ToggleButtonProps,
+    ToggleButtonGroup,
+    ToggleButtonGroupProps,
+    Tooltip,
+    TooltipProps,
+    Well,
+    WellProps,
+    utils
 }

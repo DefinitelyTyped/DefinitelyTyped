@@ -83,6 +83,8 @@ import * as TabPane from 'react-bootstrap/lib/TabPane';
 import * as Table from 'react-bootstrap/lib/Table';
 import * as Tabs from 'react-bootstrap/lib/Tabs';
 import * as Thumbnail from 'react-bootstrap/lib/Thumbnail';
+import * as ToggleButton from 'react-bootstrap/lib/ToggleButton';
+import * as ToggleButtonGroup from 'react-bootstrap/lib/ToggleButtonGroup';
 import * as Tooltip from 'react-bootstrap/lib/Tooltip';
 import * as Well from 'react-bootstrap/lib/Well';
 
@@ -118,7 +120,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Collapse />
         <ControlLabel />
         <Dropdown id="foo" />
-        <DropdownButton id="foo" />
+        <DropdownButton id="foo" title="bar" />
         <DropdownMenu />
         <DropdownToggle />
         <Fade />
@@ -176,7 +178,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <ResponsiveEmbed />
         <Row />
         <SafeAnchor />
-        <SplitButton />
+        <SplitButton id="foo" title="bar" />
         <SplitToggle />
         <Tab />
         <TabContainer />
@@ -185,6 +187,9 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Table />
         <Tabs />
         <Thumbnail />
+        <ToggleButton value="foo" />
+        <ToggleButtonGroup type="checkbox" />
+        <ToggleButtonGroup type="radio" name="foo" />
         <Tooltip />
         <Well />
       </div>

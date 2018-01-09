@@ -2,23 +2,27 @@ import { Validator, Requireable, PureComponent } from 'react'
 
 export type WindowScrollerChildProps = {
     height: number,
+    width: number,
     isScrolling: boolean,
-    scrollTop: number
+    scrollTop: number,
+    onChildScroll: () => void
 };
 
 export type WindowScrollerProps = {
     /**
      * Function responsible for rendering children.
      * This function should implement the following signature:
-     * ({ height, isScrolling, scrollTop }) => PropTypes.element
+     * ({ height: number, width: number, isScrolling: boolean, scrollTop: number, onChildScroll: function }) => PropTypes.element
      */
     children?: (props: WindowScrollerChildProps) => React.ReactNode;
     /** Callback to be invoked on-resize: ({ height }) */
-    onResize?: (prams: { height: number }) => void;
+    onResize?: (params: { height: number, width: number }) => void;
     /** Callback to be invoked on-scroll: ({ scrollTop }) */
     onScroll?: (params: { scrollTop: number }) => void;
     /** Element to attach scroll event listeners. Defaults to window. */
     scrollElement?: HTMLElement;
+    /** Wait this amount of time after the last scroll event before resetting WindowScroller pointer-events; defaults to 150ms */
+    scrollingResetTimeInterval?: number;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose
@@ -28,23 +32,28 @@ export type WindowScrollerProps = {
      */
     [key: string]: any;
 }
+
 export type WindowScrollerState = {
     height: number,
+    width: number,
     isScrolling: boolean,
+    scrollLeft: number
     scrollTop: number
 }
 
 export class WindowScroller extends PureComponent<WindowScrollerProps, WindowScrollerState> {
     static propTypes: {
-        children: Validator<(props: WindowScrollerChildProps) => React.ReactNode>,
-        onResize: Validator<(params: { height: number }) => void>,
+        children: Requireable<(props: WindowScrollerChildProps) => React.ReactNode>,
+        onResize: Validator<(params: { height: number, width: number }) => void>,
         onScroll: Validator<(params: { scrollTop: number }) => void>,
-        scrollElement: HTMLElement
+        scrollElement: Validator<HTMLElement>,
+        scrollingResetTimeInterval: Validator<number>
     };
 
     static defaultProps: {
         onResize: () => {},
-        onScroll: () => {}
+        onScroll: () => {},
+        scrollingResetTimeInterval: 150
     };
 
     constructor(props: WindowScrollerProps);

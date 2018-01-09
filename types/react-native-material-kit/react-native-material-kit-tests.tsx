@@ -27,6 +27,10 @@ const ButtonTest = () =>
         </Text>
     </MKButton>;
 
+const ButtonBuilderTest = new MKButton.Builder()
+  .withBackgroundColor(MKColor.Teal)
+  .build();
+
 //// TEXT FIELD
 
 interface MKTextFieldTestState {
@@ -78,6 +82,7 @@ const MKIconToggleTest = () =>
 
 //// PROGRESS
 const MKProgressTest = () => <MKProgress progress={0.2} />;
+const MKIndeterminateProgressTest = () => <MKProgress.Indeterminate />;
 
 //// SLIDER
 interface MKSliderTestState {
@@ -140,7 +145,7 @@ class MKRadioButtonTest extends React.Component<null, null> {
     radioGroup: MKRadioButton.Group;
 
     constructor() {
-        super();
+        super(null);
         this.radioGroup = new MKRadioButton.Group();
 
         setTheme({radioStyle: {
@@ -164,7 +169,7 @@ class MKRadioButtonTest extends React.Component<null, null> {
 /// Checkbox
 class MKCheckboxTest extends React.Component<null, null> {
     constructor() {
-        super();
+        super(null);
 
         setTheme({checkboxStyle: {
             fillColor: MKColor.Teal,

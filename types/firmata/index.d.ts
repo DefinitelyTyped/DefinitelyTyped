@@ -155,7 +155,7 @@ declare namespace Board {
 	interface Options {
 		reportVersionTimeout?: number;
 		samplingInterval?: number;
-		serialport?: SerialPort.options;
+		serialport?: SerialPort.Options;
 	}
 
 	interface PinModes {

@@ -1,13 +1,23 @@
-// Type definitions for react-redux 5.0.5
+// Type definitions for react-redux 5.0.8
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
 //                 Curits Layne <https://github.com/clayne11>
 //                 Frank Tan <https://github.com/tansongyang>
+//                 Nicholas Boll <https://github.com/nicholasboll>
+//                 Dibyo Majumdar <https://github.com/mdibyo>
+//                 Prashant Deva <https://github.com/pdeva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
-
+    
+// Known Issue:
+// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes 
+// they are decorating. Due to this, if you are using @connect() decorator in your code,
+// you will see a bunch of errors from TypeScript. The current workaround is to use connect() as a function call on
+// a separate line instead of as a decorator. Discussed in this github issue:
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
+    
 import * as React from 'react';
 import * as Redux from 'redux';
 
@@ -37,7 +47,7 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
     <P extends TInjectedProps>(
         component: Component<P>
-    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
+    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
 
 // Injects props and removes them from the prop requirements.
@@ -65,83 +75,90 @@ export type InferableComponentEnhancer<TInjectedProps> =
  * @param mergeProps
  * @param options
  */
-export declare function connect(): InferableComponentEnhancer<DispatchProp<any>>;
+export interface Connect {
+    (): InferableComponentEnhancer<DispatchProp<any>>;
 
-export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
-): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any>, TOwnProps>;
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>
+    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any>, TOwnProps>;
 
-export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
-    mapStateToProps: null | undefined,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
+        mapStateToProps: null | undefined,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
-    mapDispatchToProps: null | undefined,
-    mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
-): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: null | undefined,
+        mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
-    mapStateToProps: null | undefined,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-    mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
-): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+    <no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
+        mapStateToProps: null | undefined,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
-    mapStateToProps: null | undefined,
-    mapDispatchToProps: null | undefined,
-    mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
-): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+    <no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
+        mapStateToProps: null | undefined,
+        mapDispatchToProps: null | undefined,
+        mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-    mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
-    mapDispatchToProps: null | undefined,
-    mergeProps: null | undefined,
-    options: Options<TStateProps, TOwnProps>
-): InferableComponentEnhancerWithProps<DispatchProp<any> & TStateProps, TOwnProps>;
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: null | undefined,
+        mergeProps: null | undefined,
+        options: Options<State, TStateProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<DispatchProp<any> & TStateProps, TOwnProps>;
 
-export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
-    mapStateToProps: null | undefined,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-    mergeProps: null | undefined,
-    options: Options<no_state, TOwnProps>
-): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
+        mapStateToProps: null | undefined,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: null | undefined,
+        options: Options<{}, TStateProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-    mergeProps: null | undefined,
-    options: Options<TStateProps, TOwnProps>
-): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: null | undefined,
+        options: Options<State, TStateProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
-    mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
-    mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-    mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-    options: Options<TStateProps, TOwnProps, TMergedProps>
-): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
-
-interface MapStateToProps<TStateProps, TOwnProps> {
-    (state: any, ownProps: TOwnProps): TStateProps;
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
+        options: Options<State, TStateProps, TOwnProps, TMergedProps>
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 }
 
-interface MapStateToPropsFactory<TStateProps, TOwnProps> {
-    (initialState: any, ownProps: TOwnProps): MapStateToProps<TStateProps, TOwnProps>;
+/**
+ * The connect function. See {@type Connect} for details.
+ */
+export declare const connect: Connect;
+
+interface MapStateToProps<TStateProps, TOwnProps, State> {
+    (state: State, ownProps: TOwnProps): TStateProps;
 }
 
-type MapStateToPropsParam<TStateProps, TOwnProps> = MapStateToProps<TStateProps, TOwnProps> | MapStateToPropsFactory<TStateProps, TOwnProps>;
+interface MapStateToPropsFactory<TStateProps, TOwnProps, State> {
+    (initialState: State, ownProps: TOwnProps): MapStateToProps<TStateProps, TOwnProps, State>;
+}
+
+type MapStateToPropsParam<TStateProps, TOwnProps, State> = MapStateToPropsFactory<TStateProps, TOwnProps, State> | MapStateToProps<TStateProps, TOwnProps, State> | null | undefined;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
@@ -154,13 +171,13 @@ interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
-type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToProps<TDispatchProps, TOwnProps> | MapDispatchToPropsFactory<TDispatchProps, TOwnProps>;
+type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToProps<TDispatchProps, TOwnProps>;
 
 interface MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
     (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps): TMergedProps;
 }
 
-interface Options<TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends ConnectOptions {
+interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends ConnectOptions {
     /**
      * If true, implements shouldComponentUpdate and shallowly compares the result of mergeProps,
      * preventing unnecessary updates, assuming that the component is a “pure” component
@@ -174,7 +191,7 @@ interface Options<TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends C
      * When pure, compares incoming store state to its previous value.
      * @default strictEqual
      */
-    areStatesEqual?: (nextState: any, prevState: any) => boolean;
+    areStatesEqual?: (nextState: State, prevState: State) => boolean;
 
     /**
      * When pure, compares incoming props to its previous value.
@@ -283,3 +300,12 @@ export interface ProviderProps {
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
 export class Provider extends React.Component<ProviderProps, {}> { }
+
+/**
+ * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this
+ * if you are in the inadvisable position of having multiple stores. You will also need to pass the same storeKey to the
+ * options argument of connect.
+ *
+ * @param storeKey The key of the context on which to set the store.
+ */
+export declare function createProvider(storeKey: string): typeof Provider;
