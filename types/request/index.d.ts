@@ -17,9 +17,9 @@
 import stream = require('stream');
 import http = require('http');
 import https = require('https');
-import url = require('url');
 import fs = require('fs');
 import FormData = require('form-data');
+import tough = require('tough-cookie');
 import { Url } from 'url';
 
 declare namespace request {
@@ -65,7 +65,7 @@ declare namespace request {
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
-        cookie(str: string): Cookie;
+        cookie(str: string): Cookie | undefined;
 
         debug: boolean;
     }
@@ -308,24 +308,12 @@ declare namespace request {
         bucket?: string;
     }
 
+    export type Cookie = tough.Cookie;
+
     export interface CookieJar {
-        setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void;
-        getCookieString(uri: string | url.Url): string;
-        getCookies(uri: string | url.Url): Cookie[];
-    }
-
-    export interface CookieValue {
-        name: string;
-        value: any;
-        httpOnly: boolean;
-    }
-
-    export interface Cookie extends Array<CookieValue> {
-        constructor(name: string, req: Request): void;
-        str: string;
-        expires: Date;
-        path: string;
-        toString(): string;
+        setCookie(cookieOrStr: Cookie | string, uri: string | Url, options?: tough.CookieJar.SetCookieOptions): void;
+        getCookieString(uri: string | Url): string;
+        getCookies(uri: string | Url): Cookie[];
     }
 }
 declare var request: request.RequestAPI<request.Request, request.CoreOptions, request.RequiredUriUrl>;
