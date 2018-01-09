@@ -680,6 +680,9 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 }
 export interface Editable {
 	type?: string; // edit type, avaiable value is textarea, select, checkbox
+	
+	readOnly?: boolean // Default is false, true will make it so cell can't be edited but still can be insert.
+	
 	/**
 	 * Function for validation and taking only one "cell value" as argument. This function should return Bool.
 	 */
