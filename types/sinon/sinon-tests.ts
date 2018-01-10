@@ -157,6 +157,7 @@ function testSymbolMatch() {
 
 function testResetHistory() {
     sinon.stub().resetHistory();
+    sinon.spy().resetHistory();
 }
 
 function testUsingPromises() {
