@@ -4,6 +4,7 @@
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
+//                 Shahar Mor <https://github.com/shaharmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -744,8 +745,15 @@ declare namespace IORedis {
         pfcount(...keys: string[]): Pipeline;
     }
 
+    interface NodeConfiguration {
+        host?: string;
+        port?: number;
+    }
+
+    type ClusterNode = string | number | NodeConfiguration;
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
-        new(nodes: Array<{ host: string; port: number; }>, options?: ClusterOptions): Redis;
+        new(nodes: ClusterNode[], options?: ClusterOptions): Redis;
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
         nodes(role: string): Redis[];

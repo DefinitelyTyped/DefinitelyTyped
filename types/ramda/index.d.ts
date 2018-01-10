@@ -52,6 +52,7 @@ declare namespace R {
     }
 
     type Pred = (...a: any[]) => boolean;
+    type SafePred<T> = (...a: T[]) => boolean;
 
     type ObjPred = (value: any, key: string) => boolean;
 
@@ -148,9 +149,9 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
-    interface Reduced {
-        [index: number]: any;
-        [index: string]: any;
+    interface Reduced<T> {
+        '@@transducer/value': T;
+        '@@transducer/reduced': true;
     }
 
     interface Static {
@@ -211,7 +212,7 @@ declare namespace R {
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
          */
-        anyPass(preds: ReadonlyArray<Pred>): Pred;
+        anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
         /**
          * ap applies a list of functions to a list of values.
@@ -1148,8 +1149,8 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: ReadonlyArray<T>): T;
-        nth(n: number): <T>(list: ReadonlyArray<T>) => T;
+        nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
+        nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
         /**
          * Returns a function which returns its nth argument.
@@ -1522,9 +1523,9 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
@@ -1540,7 +1541,7 @@ declare namespace R {
          * transduce functions. The returned value should be considered a black box: the internal
          * structure is not guaranteed to be stable.
          */
-        reduced<T>(elem: T): Reduced;
+        reduced<T>(elem: T): Reduced<T>;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -1643,16 +1644,22 @@ declare namespace R {
         /**
          * Splits a given list or string at a given index.
          */
-        splitAt<T>(index: number, list: T): T[];
-        splitAt(index: number): <T>(list: T) => T[];
-        splitAt<T>(index: number, list: ReadonlyArray<T>): T[][];
-        splitAt(index: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitAt<T>(index: number, list: ReadonlyArray<T>): [T[], T[]];
+        splitAt(index: number, list: string): [string, string];
+        splitAt(index: number): {
+            <T>(list: ReadonlyArray<T>): [T[], T[]];
+            (list: string): [string, string];
+        };
 
         /**
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
-        splitEvery(a: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitEvery(a: number, list: string): string[];
+        splitEvery(a: number): {
+            (list: string): string[];
+            <T>(list: ReadonlyArray<T>): T[][];
+        };
 
         /**
          * Takes a list and a predicate and returns a pair of lists with the following properties:

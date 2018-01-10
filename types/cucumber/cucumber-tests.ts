@@ -12,6 +12,7 @@ function StepSample() {
     type Callback = cucumber.CallbackStepDefinition;
     type Table = cucumber.TableDefinition;
     type HookScenarioResult = cucumber.HookScenarioResult;
+    const Status = cucumber.Status;
 
     cucumber.defineSupportCode(({setWorldConstructor, defineParameterType, After, AfterAll, Around, Before, BeforeAll, registerHandler, Given, When, Then}) => {
         setWorldConstructor(function({attach, parameters}) {
@@ -23,17 +24,17 @@ function StepSample() {
         });
 
         Before((scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === "failed");
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
         Before({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === "failed");
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
         Before('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === "failed");
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
@@ -53,7 +54,7 @@ function StepSample() {
         });
 
         Around((scenarioResult: HookScenarioResult, runScenario: (error: string | null, callback?: () => void) => void) => {
-            if (scenarioResult.status === "failed") {
+            if (scenarioResult.result.status === Status.FAILED) {
                 runScenario(null, () => {
                     console.log('finish tasks');
                 });
@@ -164,7 +165,13 @@ function StepSample() {
         defineParameterType({
             regexp: /particular/,
             transformer: s => s.toUpperCase(),
-            typeName: 'param'
+            typeName: 'param'  // deprecated but still supported
+        });
+
+        defineParameterType({
+            regexp: /particularly/,
+            transformer: s => s.toUpperCase(),
+            name: 'param'
         });
 
         Given('a {param} step', param => {

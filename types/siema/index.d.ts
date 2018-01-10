@@ -1,9 +1,11 @@
 // Type definitions for siema 1.4
 // Project: https://github.com/pawelgrzybek/siema
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
+//                 Pavel Puchkov <https://github.com/0x6368656174>
 //                 Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare class Siema {
+
+export default class Siema {
     currentSlide: number;
 
     constructor(options?: SiemaOptions);
@@ -12,21 +14,21 @@ declare class Siema {
     prev(index?: number, callback?: () => void): void;
     goTo(index: number, callback?: () => void): void;
     remove(index: number, callback?: () => void): void;
-    insert(item: any, index: number, callback?: () => void): void;
-    prepend(item: any, callback?: () => void): void;
-    append(item: any, callback?: () => void): void;
-    destroy(restoreMarkup: boolean, callback?: () => void): void;
+    insert(item: HTMLElement, index: number, callback?: () => void): void;
+    prepend(item: HTMLElement, callback?: () => void): void;
+    append(item: HTMLElement, callback?: () => void): void;
+    destroy(restoreMarkup?: boolean, callback?: () => void): void;
 }
 
-interface perPageInterface {
+export interface PageInterface {
   [key: number]: number;
 }
 
-interface SiemaOptions {
+export interface SiemaOptions {
     selector?: string | HTMLElement;
     duration?: number;
     easing?: string;
-    perPage?: number | perPageInterface;
+    perPage?: number | PageInterface;
     startIndex?: number;
     draggable?: boolean;
     multipleDrag?: boolean;
@@ -35,5 +37,3 @@ interface SiemaOptions {
     onInit?(): void;
     onChange?(): void;
 }
-
-export = Siema;

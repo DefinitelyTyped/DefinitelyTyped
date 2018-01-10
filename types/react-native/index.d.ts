@@ -3308,6 +3308,16 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
 
     progressiveRenderingEnabled?: boolean;
 
+    borderRadius?: number;
+
+    borderTopLeftRadius?: number;
+
+    borderTopRightRadius?: number;
+
+    borderBottomLeftRadius?: number;
+
+    borderBottomRightRadius?: number;
+
     /**
      * Determines how to resize the image when the frame doesn't match the raw
      * image dimensions.
@@ -4354,6 +4364,11 @@ export interface ModalProperties {
      * @platform ios
      */
     onOrientationChange?: () => void;
+     /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     * @platform ios
+     */
+    onDismiss?: () => void;
 }
 
 export interface ModalStatic extends React.ComponentClass<ModalProperties> {}

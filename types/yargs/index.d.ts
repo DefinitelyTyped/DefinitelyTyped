@@ -214,7 +214,7 @@ declare namespace yargs {
         version(optionKey: string, version: string): Argv;
         version(optionKey: string, description: string, version: string): Argv;
 
-        wrap(columns: number): Argv;
+        wrap(columns: number | null): Argv;
     }
 
     interface Arguments {
