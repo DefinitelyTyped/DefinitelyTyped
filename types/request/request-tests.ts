@@ -12,13 +12,13 @@ var str: string;
 var strOrUndef: string | undefined;
 var strOrTrueOrUndef: string | true | undefined;
 var buffer: NodeBuffer = new Buffer('foo');
-var num: number = 0;
+var num = 0;
 var bool: boolean;
 var date: Date;
 var obj: object;
-var dest: string = 'foo';
+var dest = 'foo';
 
-var uri: string = 'foo-bar';
+var uri = 'foo-bar';
 var headers: request.Headers = {};
 
 var agent: http.Agent;
