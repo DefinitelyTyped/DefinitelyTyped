@@ -16,25 +16,14 @@ lolex.createClock<lolex.NodeClock>(new Date());
 lolex.createClock<lolex.NodeClock>(7, 9001);
 lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
-lolex.install<lolex.BrowserClock>(7);
-lolex.install<lolex.BrowserClock>(new Date());
-lolex.install<lolex.BrowserClock>(7, ["setTimeout"]);
-lolex.install<lolex.BrowserClock>(new Date(), ["setTimeout"]);
-
-lolex.install<lolex.NodeClock>(7);
-lolex.install<lolex.NodeClock>(new Date());
-lolex.install<lolex.NodeClock>(7, ["setTimeout"]);
-lolex.install<lolex.NodeClock>(new Date(), ["setTimeout"]);
-
-lolex.install<lolex.BrowserClock>({}, 7);
-lolex.install<lolex.BrowserClock>({}, new Date());
-lolex.install<lolex.BrowserClock>({}, 7, ["setTimeout"]);
-lolex.install<lolex.BrowserClock>({}, new Date(), ["setTimeout"]);
-
-lolex.install<lolex.NodeClock>({}, 7);
-lolex.install<lolex.NodeClock>({}, new Date());
-lolex.install<lolex.NodeClock>({}, 7, ["setTimeout"]);
-lolex.install<lolex.NodeClock>({}, new Date(), ["setTimeout"]);
+lolex.install<lolex.BrowserClock>({
+	advanceTimeDelta: 20,
+	loopLimit: 10,
+	now: 0,
+	shouldAdvanceTime: true,
+	target: {},
+	toFake: ["setTimeout", "nextTick", "hrtime"]
+});
 
 const browserNow: number = browserClock.now;
 const browserDate: Date = new browserClock.Date();
@@ -79,6 +68,8 @@ browserClock.setSystemTime(new Date());
 nodeClock.setSystemTime();
 nodeClock.setSystemTime(7);
 nodeClock.setSystemTime(new Date());
+
+nodeClock.nextTick(() => undefined);
 
 browserClock.uninstall();
 nodeClock.uninstall();

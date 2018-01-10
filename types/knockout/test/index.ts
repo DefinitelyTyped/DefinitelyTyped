@@ -484,8 +484,8 @@ function test_mappingplugin() {
     ko.mapping.fromJS(data, {}, this);
 
     var alice, aliceMappingOptions, bob, bobMappingOptions;
-    var viewModel = ko.mapping.fromJS(alice, aliceMappingOptions);
-    ko.mapping.fromJS(bob, bobMappingOptions, viewModel);
+    var aliceViewModel = ko.mapping.fromJS(alice, aliceMappingOptions);
+    ko.mapping.fromJS(bob, bobMappingOptions, aliceViewModel);
 
     var obj;
     var result = ko.mapping.fromJS(obj, {

@@ -10,7 +10,7 @@ export = Masonry;
 
 declare class Masonry {
     constructor(options?: Masonry.Options);
-    constructor(selector: string, options?: Masonry.Options);
+    constructor(selector: string | Element, options?: Masonry.Options);
 
     masonry?(): void;
     masonry?(eventName: string, listener: any): void;

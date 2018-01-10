@@ -491,6 +491,33 @@ Sequelize.UUID;
 Sequelize.UUIDV1;
 Sequelize.UUIDV4;
 Sequelize.NOW;
+Sequelize.TINYINT;
+Sequelize.TINYINT.UNSIGNED;
+Sequelize.TINYINT.UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 );
+Sequelize.TINYINT( { length : 11 } );
+Sequelize.TINYINT( 11 ).UNSIGNED;
+Sequelize.TINYINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.SMALLINT;
+Sequelize.SMALLINT.UNSIGNED;
+Sequelize.SMALLINT.UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 );
+Sequelize.SMALLINT( { length : 11 } );
+Sequelize.SMALLINT( 11 ).UNSIGNED;
+Sequelize.SMALLINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.MEDIUMINT;
+Sequelize.MEDIUMINT.UNSIGNED;
+Sequelize.MEDIUMINT.UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 );
+Sequelize.MEDIUMINT( { length : 11 } );
+Sequelize.MEDIUMINT( 11 ).UNSIGNED;
+Sequelize.MEDIUMINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL.UNSIGNED;
 Sequelize.INTEGER;
 Sequelize.INTEGER.UNSIGNED;
 Sequelize.INTEGER.UNSIGNED.ZEROFILL;
@@ -1439,7 +1466,7 @@ s.define( 'profile', {
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
     email : Sequelize.STRING,
-    access_level : Sequelize.INTEGER,
+    access_level : Sequelize.TINYINT,
     other_value : Sequelize.INTEGER
 }, {
     defaultScope : {

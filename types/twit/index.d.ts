@@ -1,7 +1,9 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
+//                 lostfictions <https://github.com/lostfictions>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="geojson" />
@@ -207,12 +209,22 @@ declare module 'twit' {
         query?: string,
         max_id_str?: string
       }
+
+      export interface Errors {
+        errors: {
+          code: number
+          message: string
+        }[]
+      }
+
+      export interface SearchResults {
+        statuses: Twitter.Status[],
+        search_metadata: Twitter.Metadata,
+      }
     }
 
-    export interface Response {
-      statuses: Twitter.Status[],
-      search_metadata: Twitter.Metadata,
-    }
+    export type Response = object
+
     interface MediaParam {
       file_path: string
     }
@@ -246,10 +258,11 @@ declare module 'twit' {
       lat?: number,
       long?: number,
       follow?: boolean,
+      include_email?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
-      responde: IncomingMessage,
+      resp: IncomingMessage,
     }
     export interface Callback {
       (err: Error, result: Response, response: IncomingMessage): void

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FaBeer from 'react-icons/fa/beer';
 import { FaExclamation } from 'react-icons/fa';
-import FaCog from 'react-icons/lib/fa/cog';
+import FaCog = require('react-icons/lib/fa/cog');
 import { FaPowerOff } from 'react-icons/lib/fa';
 
 class Question extends React.Component {

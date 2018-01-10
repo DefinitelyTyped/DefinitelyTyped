@@ -24,10 +24,10 @@ for (const { group } of allModules) {
 for (const { group, ids } of allModules) {
     for (const id of ids) {
         writeFileSync(getOutFile(group, `${id}.d.ts`), iconFile(getModuleName(group, id)), 'utf-8');
-        writeFileSync(getOutLibFile(group, `${id}.d.ts`), iconFile(getModuleName(group, id)), 'utf-8');
+        writeFileSync(getOutLibFile(group, `${id}.d.ts`), iconFile(getModuleName(group, id), true), 'utf-8');
     }
     writeFileSync(getOutFile(group, 'index.d.ts'), indexFile(group, ids), 'utf-8');
-    writeFileSync(getOutLibFile(group, 'index.d.ts'), indexFile(group, ids), 'utf-8');
+    writeFileSync(getOutLibFile(group, 'index.d.ts'), indexFile(group, ids, true), 'utf-8');
 }
 
 function getOutDir(group: string): string {
@@ -46,15 +46,23 @@ function getOutLibFile(folder: string, fileName: string): string {
     return joinPaths(getOutLibDir(folder), fileName);
 }
 
-function iconFile(name: string): string {
+function iconFile(name: string, lib: boolean = false): string {
+    if (lib) {
+        return `import * as React from 'react';
+import { IconBaseProps } from 'react-icon-base';
+declare class ${name} extends React.Component<IconBaseProps> { }
+export = ${name};
+`;
+    }
+
     return `import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
 export default class ${name} extends React.Component<IconBaseProps> { }
 `;
 }
 
-function indexFile(folder: string, ids: string[]): string {
-    const reExports = ids.map(id => `export { default as ${getModuleName(folder, id)} } from "./${id}";`);
+function indexFile(folder: string, ids: string[], lib: boolean = false): string {
+    const reExports = ids.map(id => `export { default as ${getModuleName(folder, id)} } from "${lib ? `../../${folder}` : "."}/${id}";`);
     return reExports.join("\n") + "\n";
 }
 

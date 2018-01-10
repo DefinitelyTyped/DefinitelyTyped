@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ButtonToolbarProps {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;
@@ -8,5 +8,5 @@ interface Props {
   role?: string;
 }
 
-declare var ButtonToolbar: React.StatelessComponent<Props>;
+declare const ButtonToolbar: React.StatelessComponent<ButtonToolbarProps>;
 export default ButtonToolbar;

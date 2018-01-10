@@ -28,8 +28,8 @@ export interface Term {
     value: string;
 
     /**
-     * @param {RDF.Term} other The term to compare with.
-     * @return {boolean} If the termType is equal and the contents are equal (as defined by concrete subclasses).
+     * @param other The term to compare with.
+     * @return If the termType is equal and the contents are equal (as defined by concrete subclasses).
      */
     equals(other: Term): boolean;
 }
@@ -48,8 +48,8 @@ export interface NamedNode extends Term {
     value: string;
 
     /**
-     * @param {RDF.Term} other The term to compare with.
-     * @return {boolean} True if and only if other has termType "NamedNode" and the same `value`.
+     * @param other The term to compare with.
+     * @return True if and only if other has termType "NamedNode" and the same `value`.
      */
     equals(other: Term): boolean;
 }
@@ -71,8 +71,8 @@ export interface BlankNode extends Term {
     value: string;
 
     /**
-     * @param {RDF.Term} other The term to compare with.
-     * @return {boolean} True if and only if other has termType "BlankNode" and the same `value`.
+     * @param other The term to compare with.
+     * @return True if and only if other has termType "BlankNode" and the same `value`.
      */
     equals(other: Term): boolean;
 }
@@ -101,8 +101,8 @@ export interface Literal extends Term {
     datatype: NamedNode;
 
     /**
-     * @param {RDF.Term} other The term to compare with.
-     * @return {boolean} True if and only if other has termType "Literal"
+     * @param other The term to compare with.
+     * @return True if and only if other has termType "Literal"
      *                   and the same `value`, `language`, and `datatype`.
      */
     equals(other: Term): boolean;
@@ -122,8 +122,8 @@ export interface Variable extends Term {
     value: string;
 
     /**
-     * @param {RDF.Term} other The term to compare with.
-     * @return {boolean} True if and only if other has termType "Variable" and the same `value`.
+     * @param other The term to compare with.
+     * @return True if and only if other has termType "Variable" and the same `value`.
      */
     equals(other: Term): boolean;
 }
@@ -143,8 +143,8 @@ export interface DefaultGraph extends Term {
     value: "";
 
     /**
-     * @param {RDF.Term} other The term to compare with.
-     * @return {boolean} True if and only if other has termType "DefaultGraph".
+     * @param other The term to compare with.
+     * @return True if and only if other has termType "DefaultGraph".
      */
     equals(other: Term): boolean;
 }
@@ -184,8 +184,8 @@ export interface Quad {
     graph: Term;
 
     /**
-     * @param {RDF.Quad} other The term to compare with.
-     * @return {boolean} True if and only if the argument is a) of the same type b) has all components equal.
+     * @param other The term to compare with.
+     * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
     equals(other: Quad): boolean;
 }
@@ -203,15 +203,15 @@ export interface Triple extends Quad {}
  */
 export interface DataFactory {
     /**
-     * @param {string} value The IRI for the named node.
-     * @return {RDF.NamedNode} A new instance of NamedNode.
+     * @param value The IRI for the named node.
+     * @return A new instance of NamedNode.
      * @see NamedNode
      */
     namedNode(value: string): NamedNode;
 
     /**
-     * @param {string} value The optional blank node identifier.
-     * @return {RDF.BlankNode} A new instance of BlankNode.
+     * @param value The optional blank node identifier.
+     * @return A new instance of BlankNode.
      *                         If the `value` parameter is undefined a new identifier
      *                         for the blank node is generated for each call.
      * @see BlankNode
@@ -219,35 +219,35 @@ export interface DataFactory {
     blankNode(value?: string): BlankNode;
 
     /**
-     * @param {string}                 value              The literal value.
-     * @param {string | RDF.NamedNode} languageOrDatatype The optional language or datatype.
+     * @param                 value              The literal value.
+     * @param languageOrDatatype The optional language or datatype.
      *                                                    If `languageOrDatatype` is a NamedNode,
      *                                                    then it is used for the value of `NamedNode.datatype`.
      *                                                    Otherwise `languageOrDatatype` is used for the value
      *                                                    of `NamedNode.language`.
-     * @return {RDF.Literal} A new instance of Literal.
+     * @return A new instance of Literal.
      * @see Literal
      */
     literal(value: string, languageOrDatatype?: string | NamedNode): Literal;
 
     /**
      * This method is optional.
-     * @param {string} value The variable name
-     * @return {RDF.Variable} A new instance of Variable.
+     * @param value The variable name
+     * @return A new instance of Variable.
      * @see Variable
      */
     variable?(value: string): Variable;
 
     /**
-     * @return {RDF.DefaultGraph} An instance of DefaultGraph.
+     * @return An instance of DefaultGraph.
      */
     defaultGraph(): DefaultGraph;
 
     /**
-     * @param {RDF.Term} subject   The triple subject term.
-     * @param {RDF.Term} predicate The triple predicate term.
-     * @param {RDF.Term} object    The triple object term.
-     * @return {RDF.Quad} A new instance of Quad with `Quad.graph` set to DefaultGraph.
+     * @param subject   The triple subject term.
+     * @param predicate The triple predicate term.
+     * @param object    The triple object term.
+     * @return A new instance of Quad with `Quad.graph` set to DefaultGraph.
      * @see Quad
      * @see Triple
      * @see DefaultGraph
@@ -255,11 +255,11 @@ export interface DataFactory {
     triple(subject: Term, predicate: Term, object: Term): Quad;
 
     /**
-     * @param {RDF.Term} subject   The quad subject term.
-     * @param {RDF.Term} predicate The quad predicate term.
-     * @param {RDF.Term} object    The quad object term.
-     * @param {RDF.Term} graph     The quad graph term.
-     * @return {RDF.Quad} A new instance of Quad.
+     * @param subject   The quad subject term.
+     * @param predicate The quad predicate term.
+     * @param object    The quad object term.
+     * @param graph     The quad graph term.
+     * @return A new instance of Quad.
      * @see Quad
      */
     quad(subject: Term, predicate: Term, object: Term, graph?: Term): Quad;
@@ -286,7 +286,7 @@ export interface Stream extends EventEmitter {
      * This method pulls a quad out of the internal buffer and returns it.
      * If there is no quad available, then it will return null.
      *
-     * @return {RDF.Quad} A quad from the internal buffer, or null if none is available.
+     * @return A quad from the internal buffer, or null if none is available.
      */
     read(): Quad;
 }
@@ -302,11 +302,11 @@ export interface Source {
     /**
      * Returns a stream that processes all quads matching the pattern.
      *
-     * @param {RDF.Term | RegExp} subject   The optional exact subject or subject regex to match.
-     * @param {RDF.Term | RegExp} predicate The optional exact predicate or predicate regex to match.
-     * @param {RDF.Term | RegExp} object    The optional exact object or object regex to match.
-     * @param {RDF.Term | RegExp} graph     The optional exact graph or graph regex to match.
-     * @return {RDF.Stream} The resulting quad stream.
+     * @param subject   The optional exact subject or subject regex to match.
+     * @param predicate The optional exact predicate or predicate regex to match.
+     * @param object    The optional exact object or object regex to match.
+     * @param graph     The optional exact graph or graph regex to match.
+     * @return The resulting quad stream.
      */
     match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
         : Stream;
@@ -327,8 +327,8 @@ export interface Sink {
      * Depending on the use case, subtypes of EventEmitter or Stream are used.
      * @see Stream
      *
-     * @param {RDF.Stream} stream The stream that will be consumed.
-     * @return {"events".internal.EventEmitter} The resulting event emitter.
+     * @param stream The stream that will be consumed.
+     * @return The resulting event emitter.
      */
     import(stream: Stream): EventEmitter;
 }
@@ -348,8 +348,8 @@ export interface Store extends Source, Sink {
      * The end and error events are used like described in the Stream interface.
      * @see Stream
      *
-     * @param {RDF.Stream} stream The stream that will be consumed.
-     * @return {"events".internal.EventEmitter} The resulting event emitter.
+     * @param stream The stream that will be consumed.
+     * @return The resulting event emitter.
      */
     remove(stream: Stream): EventEmitter;
 
@@ -359,11 +359,11 @@ export interface Store extends Source, Sink {
      * The `end` and `error` events are used like described in the Stream interface.
      * @see Stream
      *
-     * @param {RDF.Term | RegExp} subject   The optional exact subject or subject regex to match.
-     * @param {RDF.Term | RegExp} predicate The optional exact predicate or predicate regex to match.
-     * @param {RDF.Term | RegExp} object    The optional exact object or object regex to match.
-     * @param {RDF.Term | RegExp} graph     The optional exact graph or graph regex to match.
-     * @return {"events".internal.EventEmitter} The resulting event emitter.
+     * @param subject   The optional exact subject or subject regex to match.
+     * @param predicate The optional exact predicate or predicate regex to match.
+     * @param object    The optional exact object or object regex to match.
+     * @param graph     The optional exact graph or graph regex to match.
+     * @return The resulting event emitter.
      */
     removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
         : EventEmitter;
@@ -374,8 +374,8 @@ export interface Store extends Source, Sink {
      * The `end` and `error` events are used like described in the Stream interface.
      * @see Stream
      *
-     * @param {RDF.Term | string} graph The graph term or string to match.
-     * @return {"events".internal.EventEmitter} The resulting event emitter.
+     * @param graph The graph term or string to match.
+     * @return The resulting event emitter.
      */
     deleteGraph(graph: Term | string): EventEmitter;
 }

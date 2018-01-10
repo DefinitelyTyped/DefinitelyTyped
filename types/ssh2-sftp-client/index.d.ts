@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 1.1
+// Type definitions for ssh2-sftp-client 2.0
 // Project: https://www.npmjs.com/package/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>, Ascari Andrea <https://github.com/ascariandrea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,7 @@ declare class sftp {
   get(remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<NodeJS.ReadableStream>;
   put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
   mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+  rmdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
   delete(remoteFilePath: string): Promise<void>;
   rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
   end(): Promise<void>;

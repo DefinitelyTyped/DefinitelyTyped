@@ -64,9 +64,6 @@ interface Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
-// TODO: tslint doesn't like the listener: Function signatures but they are from the
-// original node declarations so I didn't want to touch them
-/* tslint:disable:ban-types */
 interface EventEmitter {
     addListener(event: string | symbol, listener: Function): this;
     on(event: string | symbol, listener: Function): this;
@@ -82,10 +79,6 @@ interface EventEmitter {
     prependOnceListener(event: string | symbol, listener: Function): this;
     eventNames(): Array<string | symbol>;
 }
-/* tslint:eisable:ban-types */
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace Core {
@@ -160,7 +153,8 @@ declare namespace PouchDB {
             _rev: RevisionId;
         }
         interface GetMeta {
-            /** Conflicting leaf revisions.
+            /**
+             * Conflicting leaf revisions.
              *
              * Only present if `GetOptions.conflicts` is `true`
              */
@@ -252,7 +246,8 @@ declare namespace PouchDB {
         };
 
         interface AllDocsOptions extends Options {
-            /** Include attachment data for each document.
+            /**
+             * Include attachment data for each document.
              *
              * Requires `include_docs` to be `true`.
              *
@@ -260,13 +255,15 @@ declare namespace PouchDB {
              * @see binary
              */
             attachments?: boolean;
-            /** Return attachments as Buffers.
+            /**
+             * Return attachments as Buffers.
              *
              * Requires `include_docs` to be `true`.
              * Requires `attachments` to be `true`.
              */
             binary?: boolean;
-            /** Include conflict information for each document.
+            /**
+             * Include conflict information for each document.
              *
              * Requires `include_docs` to be `true`.
              */
@@ -277,7 +274,8 @@ declare namespace PouchDB {
             include_docs?: boolean;
             /** Maximum number of documents to return. */
             limit?: number;
-            /** Number of documents to skip before returning.
+            /**
+             * Number of documents to skip before returning.
              *
              * Causes poor performance on IndexedDB and LevelDB.
              */
@@ -296,7 +294,8 @@ declare namespace PouchDB {
             startkey: DocumentKey;
             /** High end of range, or low end if `descending` is `true`. */
             endkey: DocumentKey;
-            /** Include any documents identified by `endkey`.
+            /**
+             * Include any documents identified by `endkey`.
              *
              * Defaults to `true`.
              */
@@ -336,9 +335,10 @@ declare namespace PouchDB {
         }
 
         interface BulkGetResponse<Content extends {}> {
-            results: {
-                docs: Array<{ ok: Content & GetMeta } | { error: Error }>;
-            };
+            results: Array<{
+                id: string,
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>
+            }>;
         }
 
         interface ChangesMeta {
@@ -443,7 +443,8 @@ declare namespace PouchDB {
             rev?: RevisionId;
             /** Include revision history of the document. */
             revs?: boolean;
-            /** Include a list of revisions of the document, and their
+            /**
+             * Include a list of revisions of the document, and their
              * availability.
              */
             revs_info?: boolean;
@@ -459,7 +460,8 @@ declare namespace PouchDB {
         }
 
         interface GetOpenRevisions extends Options {
-            /** Fetch all leaf revisions if open_revs="all" or fetch all leaf
+            /**
+             * Fetch all leaf revisions if open_revs="all" or fetch all leaf
              * revisions specified in open_revs array. Leaves will be returned
              * in the same order as specified in input array.
              */
@@ -640,7 +642,8 @@ declare namespace PouchDB {
                    options: Core.GetOpenRevisions
                   ): Promise<Array<Core.Revision<Content & Model>>>;
 
-        /** Create a new document without providing an id.
+        /**
+         * Create a new document without providing an id.
          *
          * You should prefer put() to post(), because when you post(), you are
          * missing an opportunity to use allDocs() to sort documents by _id
@@ -652,7 +655,8 @@ declare namespace PouchDB {
                     options: Core.Options | null,
                     callback: Core.Callback<Core.Response>): void;
 
-        /** Create a new document without providing an id.
+        /**
+         * Create a new document without providing an id.
          *
          * You should prefer put() to post(), because when you post(), you are
          * missing an opportunity to use allDocs() to sort documents by _id
@@ -663,7 +667,8 @@ declare namespace PouchDB {
         post<Model>(doc: Core.PostDocument<Content & Model>,
                     options?: Core.Options): Promise<Core.Response>;
 
-        /** Create a new document or update an existing document.
+        /**
+         * Create a new document or update an existing document.
          *
          * If the document already exists, you must specify its revision _rev,
          * otherwise a conflict will occur.
@@ -675,7 +680,8 @@ declare namespace PouchDB {
                    options: Core.Options | null,
                    callback: Core.Callback<Core.Response>): void;
 
-        /** Create a new document or update an existing document.
+        /**
+         * Create a new document or update an existing document.
          *
          * If the document already exists, you must specify its revision _rev,
          * otherwise a conflict will occur.

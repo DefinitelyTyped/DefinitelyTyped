@@ -14,8 +14,6 @@ interface JQueryMatchHeight {
     /**
      * Set all selected elements to the height of the tallest.
      * If the items are on multiple rows, the items of each row will be set to the tallest of that row.
-     *
-     * @param options
      */
     (options?: JQueryMatchHeight.Options): JQuery;
     _update(): void;

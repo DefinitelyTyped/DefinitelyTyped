@@ -5,6 +5,11 @@ const useHash = false;
 
 let router = new Navigo(root, useHash);
 
+router.hooks({
+    before: function(done, params) { //do something },
+    after: function(params) { //do something }
+  });
+
 router
     .on('/products/list', () => {
         // display all the products

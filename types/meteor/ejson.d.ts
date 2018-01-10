@@ -38,8 +38,8 @@ declare module EJSON {
 
 declare module "meteor/ejson" {
     interface EJSONableCustomType {
-        clone(): EJSONableCustomType;
-        equals(other: Object): boolean;
+        clone?(): EJSONableCustomType;
+        equals?(other: Object): boolean;
         toJSONValue(): JSONable;
         typeName(): string;
     }

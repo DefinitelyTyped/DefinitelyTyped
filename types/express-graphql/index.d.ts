@@ -4,6 +4,7 @@
 //                 Nitin Tutlani <https://github.com/nitintutlani>
 //                 Daniel Fader <https://github.com/hubel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Request, Response } from "express";
 

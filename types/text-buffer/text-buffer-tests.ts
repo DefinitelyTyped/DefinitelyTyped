@@ -1,5 +1,5 @@
+import { Disposable } from "event-kit";
 import TextBuffer = require("text-buffer");
-import * as ImportTest from "text-buffer";
 
 declare let obj: object;
 declare let bool: boolean;
@@ -15,7 +15,7 @@ declare let displayMarkerLayer: TextBuffer.DisplayMarkerLayer;
 declare let marker: TextBuffer.Marker;
 declare let markers: TextBuffer.Marker[];
 declare let markerLayer: TextBuffer.MarkerLayer;
-declare let sub: EventKit.Disposable;
+declare let sub: Disposable;
 
 // Point ======================================================================
 let point = new TextBuffer.Point(42, 42);
@@ -163,10 +163,10 @@ new TextBuffer({ shouldDestroyOnFileDelete });
 new TextBuffer({ text: "Test", shouldDestroyOnFileDelete });
 
 async function bufferLoadFile() {
-	buffer = await TextBuffer.load("Test.file");
-	buffer = await TextBuffer.load("Test.file", { encoding: "utf8" });
-	buffer = await TextBuffer.load("Test.file", { shouldDestroyOnFileDelete });
-	buffer = await TextBuffer.load("Test.file", { encoding: "utf8", shouldDestroyOnFileDelete });
+    buffer = await TextBuffer.load("Test.file");
+    buffer = await TextBuffer.load("Test.file", { encoding: "utf8" });
+    buffer = await TextBuffer.load("Test.file", { shouldDestroyOnFileDelete });
+    buffer = await TextBuffer.load("Test.file", { encoding: "utf8", shouldDestroyOnFileDelete });
 }
 
 buffer = TextBuffer.loadSync("Test.file");
@@ -175,7 +175,7 @@ TextBuffer.loadSync("Test.file", { shouldDestroyOnFileDelete });
 TextBuffer.loadSync("Test.file", { encoding: "uft8", shouldDestroyOnFileDelete });
 
 async function deserializeBuffer() {
-	buffer = await TextBuffer.deserialize({});
+    buffer = await TextBuffer.deserialize({});
 }
 
 // Event Subscription
@@ -184,9 +184,9 @@ sub = buffer.onDidChange(() => void {});
 sub = buffer.onDidChangeText(() => void {});
 
 sub = buffer.onDidStopChanging((event): void => {
-	for (const change of event.changes) {
-		change.newExtent;
-	}
+    for (const change of event.changes) {
+        change.newExtent;
+    }
 });
 
 sub = buffer.onDidConflict(() => void {});
@@ -195,7 +195,7 @@ sub = buffer.onDidUpdateMarkers(() => void {});
 sub = buffer.onDidCreateMarker(() => void {});
 
 sub = buffer.onDidChangePath((path): void => {
-	str = path;
+    str = path;
 });
 
 sub = buffer.onDidChangeEncoding(() => void {});
@@ -218,7 +218,7 @@ bool = buffer.isInConflict();
 
 const path = buffer.getPath();
 if (path) {
-	str = path.substr(0, 42);
+    str = path.substr(0, 42);
 }
 
 buffer.setPath("Test.file");
@@ -241,12 +241,12 @@ str = buffer.getLastLine();
 
 const rowText = buffer.lineForRow(42);
 if (rowText) {
-	str = rowText;
+    str = rowText;
 }
 
 const lineEnding = buffer.lineEndingForRow(42);
 if (lineEnding) {
-	str = lineEnding;
+    str = lineEnding;
 }
 
 num = buffer.lineLengthForRow(42);
@@ -254,12 +254,12 @@ bool = buffer.isRowBlank(42);
 
 const prevRow = buffer.previousNonBlankRow(42);
 if (prevRow) {
-	num = prevRow;
+    num = prevRow;
 }
 
 const nextRow = buffer.nextNonBlankRow(42);
 if (nextRow) {
-	num = nextRow;
+    num = nextRow;
 }
 
 // Mutating Text
@@ -305,7 +305,7 @@ buffer.addMarkerLayer({ maintainHistory: true, persistent: true });
 
 const testMarkerLayer = buffer.getMarkerLayer("Test");
 if (testMarkerLayer) {
-	markerLayer = testMarkerLayer;
+    markerLayer = testMarkerLayer;
 }
 
 markerLayer = buffer.getDefaultMarkerLayer();
@@ -332,15 +332,15 @@ markers = buffer.getMarkers();
 marker = buffer.getMarker(42);
 
 markers = buffer.findMarkers({
-	startPosition: point,
-	endPosition: point,
-	startsInRange: range,
-	endsInRange: range,
-	containsPoint: point,
-	containsRange: range,
-	startRow: num,
-	endRow: num,
-	intersectsRow: num,
+    startPosition: point,
+    endPosition: point,
+    startsInRange: range,
+    endsInRange: range,
+    containsPoint: point,
+    containsRange: range,
+    startRow: num,
+    endRow: num,
+    intersectsRow: num,
 });
 markers = buffer.findMarkers({ startsInRange: [point, point] });
 markers = buffer.findMarkers({ startsInRange: [point, [0, 0]] });
@@ -364,79 +364,79 @@ buffer.getChangesSinceCheckpoint(42);
 // Search And Replace
 buffer.scan(/r^Test/, (): void => {});
 buffer.scan(/r^Test/, (params) => {
-	num = params.match.index;
-	str = params.matchText;
-	range = params.range;
-	params.replace("Test");
-	params.stop();
+    num = params.match.index;
+    str = params.matchText;
+    range = params.range;
+    params.replace("Test");
+    params.stop();
 });
 buffer.scan(/r^Test/, {
-	leadingContextLineCount: 5,
-	trailingContextLineCount: 5,
+    leadingContextLineCount: 5,
+    trailingContextLineCount: 5,
 }, (params) => {
-	strs = params.leadingContextLines;
-	strs = params.trailingContextLines;
+    strs = params.leadingContextLines;
+    strs = params.trailingContextLines;
 });
 
 buffer.backwardsScan(/r^Test/, (): void => {});
 buffer.backwardsScan(/r^Test/, (params) => {
-	num = params.match.index;
-	str = params.matchText;
-	range = params.range;
-	params.replace("Test");
-	params.stop();
+    num = params.match.index;
+    str = params.matchText;
+    range = params.range;
+    params.replace("Test");
+    params.stop();
 });
 buffer.backwardsScan(/r^Test/, {
-	leadingContextLineCount: 5,
-	trailingContextLineCount: 5,
+    leadingContextLineCount: 5,
+    trailingContextLineCount: 5,
 }, (params) => {
-	strs = params.leadingContextLines;
-	strs = params.trailingContextLines;
+    strs = params.leadingContextLines;
+    strs = params.trailingContextLines;
 });
 
 buffer.scanInRange(/r^Test/, range, (): void => {});
 buffer.scanInRange(/r^Test/, range, (params) => {
-	num = params.match.index;
-	str = params.matchText;
-	range = params.range;
-	params.replace("Test");
-	params.stop();
+    num = params.match.index;
+    str = params.matchText;
+    range = params.range;
+    params.replace("Test");
+    params.stop();
 });
 buffer.scanInRange(/r^Test/, range, {
-	leadingContextLineCount: 5,
-	trailingContextLineCount: 5,
+    leadingContextLineCount: 5,
+    trailingContextLineCount: 5,
 }, (params) => {
-	strs = params.leadingContextLines;
-	strs = params.trailingContextLines;
+    strs = params.leadingContextLines;
+    strs = params.trailingContextLines;
 });
 buffer.scanInRange(/r^Test/, [point, point], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
 buffer.scanInRange(/r^Test/, [point, [0, 0]], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], point], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
-	(): void => {});
+    (): void => {});
 
 buffer.backwardsScanInRange(/r^Test/, range, (): void => {});
 buffer.backwardsScanInRange(/r^Test/, range, (params) => {
-	num = params.match.index;
-	str = params.matchText;
-	range = params.range;
-	params.replace("Test");
-	params.stop();
+    num = params.match.index;
+    str = params.matchText;
+    range = params.range;
+    params.replace("Test");
+    params.stop();
 });
 buffer.backwardsScanInRange(/r^Test/, range, {
-	leadingContextLineCount: 5,
-	trailingContextLineCount: 5,
+    leadingContextLineCount: 5,
+    trailingContextLineCount: 5,
 }, (params) => {
-	strs = params.leadingContextLines;
-	strs = params.trailingContextLines;
+    strs = params.leadingContextLines;
+    strs = params.trailingContextLines;
 });
 buffer.backwardsScanInRange(/r^Test/, [point, point], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [point, [0, 0]], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], point], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
-	(): void => {});
+    (): void => {});
 
 num = buffer.replace(/r^Test/, "Test");
 
@@ -462,8 +462,8 @@ point = buffer.clipPosition([0, 0]);
 
 // Buffer Operations
 async function saveBuffer() {
-	await buffer.save();
-	await buffer.saveAs("Test.file");
+    await buffer.save();
+    await buffer.saveAs("Test.file");
 }
 
 buffer.reload();
@@ -478,11 +478,11 @@ str = marker.invalidate;
 
 // Lifecycle
 marker = marker.copy({
-	tailed: true,
-	reversed: true,
-	invalidate: "surround",
-	exclusive: false,
-	properties: { custom: "prop" },
+    tailed: true,
+    reversed: true,
+    invalidate: "surround",
+    exclusive: false,
+    properties: { custom: "prop" },
 });
 
 marker.destroy();
@@ -491,17 +491,17 @@ marker.destroy();
 sub = marker.onDidDestroy(() => {});
 
 sub = marker.onDidChange(event => {
-	event.oldHeadPosition;
-	event.newHeadPosition;
-	event.oldTailPosition;
-	event.newTailPosition;
-	event.wasValid;
-	event.isValid;
-	event.hadTail;
-	event.hasTail;
-	event.oldProperties;
-	event.newProperties;
-	event.textChanged;
+    event.oldHeadPosition;
+    event.newHeadPosition;
+    event.oldTailPosition;
+    event.newTailPosition;
+    event.wasValid;
+    event.isValid;
+    event.hadTail;
+    event.hasTail;
+    event.oldProperties;
+    event.newProperties;
+    event.textChanged;
 });
 
 // Marker Details
@@ -554,15 +554,15 @@ markers = markerLayer.getMarkers();
 num = markerLayer.getMarkerCount();
 
 markers = markerLayer.findMarkers({
-	startPosition: point,
-	endPosition: point,
-	startsInRange: range,
-	endsInRange: range,
-	containsPoint: point,
-	containsRange: range,
-	startRow: num,
-	endRow: num,
-	intersectsRow: num,
+    startPosition: point,
+    endPosition: point,
+    startsInRange: range,
+    endsInRange: range,
+    containsPoint: point,
+    containsRange: range,
+    startRow: num,
+    endRow: num,
+    intersectsRow: num,
 });
 markers = markerLayer.findMarkers({ containsRange: [point, point] });
 markers = markerLayer.findMarkers({ containsRange: [point, [0, 0]] });
@@ -578,7 +578,7 @@ marker = markerLayer.markRange([[0, 0], [0, 0]]);
 marker = markerLayer.markRange(range, { exclusive: true });
 marker = markerLayer.markRange([point, point], { invalidate: "never" });
 marker = markerLayer.markRange(range, {
-	exclusive: false, invalidate: "surround", reversed: false,
+    exclusive: false, invalidate: "surround", reversed: false,
 });
 
 marker = markerLayer.markPosition(point);
@@ -599,11 +599,11 @@ displayMarker.destroy();
 displayMarker = displayMarker.copy();
 displayMarker = displayMarker.copy({});
 displayMarker = displayMarker.copy({
-	tailed: true,
-	reversed: false,
-	invalidate: "never",
-	exclusive: false,
-	properties: { deprecated: "property" },
+    tailed: true,
+    reversed: false,
+    invalidate: "never",
+    exclusive: false,
+    properties: { deprecated: "property" },
 });
 
 // Event Subscription
@@ -620,38 +620,38 @@ obj = displayMarker.getProperties();
 displayMarker.setProperties(obj);
 
 bool = displayMarker.matchesProperties({
-	startBufferPosition: point,
-	endBufferPosition: point,
-	startScreenPosition: point,
-	endScreenPosition: point,
-	startsInBufferRange: range,
-	endsInBufferRange: range,
-	startsInScreenRange: range,
-	endsInScreenRange: range,
-	startBufferRow: num,
-	endBufferRow: num,
-	startScreenRow: num,
-	endScreenRow: num,
-	intersectsBufferRowRange: [num, num],
-	intersectsScreenRowRange: [num, num],
-	containsBufferRange: range,
-	containsBufferPosition: point,
-	containedInBufferRange: range,
-	containedInScreenRange: range,
-	intersectsBufferRange: range,
-	intersectsScreenRange: range,
+    startBufferPosition: point,
+    endBufferPosition: point,
+    startScreenPosition: point,
+    endScreenPosition: point,
+    startsInBufferRange: range,
+    endsInBufferRange: range,
+    startsInScreenRange: range,
+    endsInScreenRange: range,
+    startBufferRow: num,
+    endBufferRow: num,
+    startScreenRow: num,
+    endScreenRow: num,
+    intersectsBufferRowRange: [num, num],
+    intersectsScreenRowRange: [num, num],
+    containsBufferRange: range,
+    containsBufferPosition: point,
+    containedInBufferRange: range,
+    containedInScreenRange: range,
+    intersectsBufferRange: range,
+    intersectsScreenRange: range,
 });
 bool = displayMarker.matchesProperties({
-	intersectsBufferRange: [point, point],
+    intersectsBufferRange: [point, point],
 });
 bool = displayMarker.matchesProperties({
-	intersectsBufferRange: [point, [0, 0]],
+    intersectsBufferRange: [point, [0, 0]],
 });
 bool = displayMarker.matchesProperties({
-	intersectsBufferRange: [[0, 0], point],
+    intersectsBufferRange: [[0, 0], point],
 });
 bool = displayMarker.matchesProperties({
-	intersectsBufferRange: [[0, 0], [0, 0]],
+    intersectsBufferRange: [[0, 0], [0, 0]],
 });
 
 // Comparing to other markers
@@ -730,7 +730,7 @@ displayMarker = displayMarkerLayer.markScreenRange(range, { exclusive: true });
 displayMarker = displayMarkerLayer.markScreenRange(range, { invalidate: "never" });
 displayMarker = displayMarkerLayer.markScreenRange(range, { reversed: true });
 displayMarker = displayMarkerLayer.markScreenRange(range, { clipDirection: "backward",
-	exclusive: false, invalidate: "overlap", reversed: false });
+    exclusive: false, invalidate: "overlap", reversed: false });
 displayMarker = displayMarkerLayer.markScreenRange([point, point]);
 displayMarker = displayMarkerLayer.markScreenRange([point, [0, 0]]);
 displayMarker = displayMarkerLayer.markScreenRange([[0, 0], point]);
@@ -743,7 +743,7 @@ displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: "f
 displayMarker = displayMarkerLayer.markScreenPosition(point, { exclusive: true });
 displayMarker = displayMarkerLayer.markScreenPosition(point, { invalidate: "never" });
 displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: "backward",
-	exclusive: false, invalidate: "overlap" });
+    exclusive: false, invalidate: "overlap" });
 displayMarker = displayMarkerLayer.markScreenPosition([0, 0]);
 displayMarker = displayMarkerLayer.markScreenPosition([0, 0], { exclusive: false });
 
@@ -753,7 +753,7 @@ displayMarker = displayMarkerLayer.markBufferRange(range, { invalidate: "inside"
 displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: true });
 displayMarker = displayMarkerLayer.markBufferRange(range, { reversed: true });
 displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: false,
-	invalidate: "overlap", reversed: false });
+    invalidate: "overlap", reversed: false });
 displayMarker = displayMarkerLayer.markBufferRange([point, point]);
 displayMarker = displayMarkerLayer.markBufferRange([point, [0, 0]]);
 displayMarker = displayMarkerLayer.markBufferRange([[0, 0], point]);
@@ -765,7 +765,7 @@ displayMarker = displayMarkerLayer.markBufferPosition(point, {});
 displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: true });
 displayMarker = displayMarkerLayer.markBufferPosition(point, { invalidate: "never" });
 displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: false,
-	invalidate: "overlap" });
+    invalidate: "overlap" });
 displayMarker = displayMarkerLayer.markBufferPosition([0, 0]);
 displayMarker = displayMarkerLayer.markBufferPosition([0, 0], { exclusive: false });
 
@@ -775,36 +775,36 @@ displayMarkers = displayMarkerLayer.getMarkers();
 num = displayMarkerLayer.getMarkerCount();
 
 displayMarkers = displayMarkerLayer.findMarkers({
-	startBufferPosition: point,
-	endBufferPosition: point,
-	startScreenPosition: point,
-	endScreenPosition: point,
-	startsInBufferRange: range,
-	endsInBufferRange: range,
-	startsInScreenRange: range,
-	endsInScreenRange: range,
-	startBufferRow: num,
-	endBufferRow: num,
-	startScreenRow: num,
-	endScreenRow: num,
-	intersectsBufferRowRange: [num, num],
-	intersectsScreenRowRange: [num, num],
-	containsBufferRange: range,
-	containsBufferPosition: point,
-	containedInBufferRange: range,
-	containedInScreenRange: range,
-	intersectsBufferRange: range,
-	intersectsScreenRange: range,
+    startBufferPosition: point,
+    endBufferPosition: point,
+    startScreenPosition: point,
+    endScreenPosition: point,
+    startsInBufferRange: range,
+    endsInBufferRange: range,
+    startsInScreenRange: range,
+    endsInScreenRange: range,
+    startBufferRow: num,
+    endBufferRow: num,
+    startScreenRow: num,
+    endScreenRow: num,
+    intersectsBufferRowRange: [num, num],
+    intersectsScreenRowRange: [num, num],
+    containsBufferRange: range,
+    containsBufferPosition: point,
+    containedInBufferRange: range,
+    containedInScreenRange: range,
+    intersectsBufferRange: range,
+    intersectsScreenRange: range,
 });
 displayMarkers = displayMarkerLayer.findMarkers({
-	intersectsScreenRange: [point, point],
+    intersectsScreenRange: [point, point],
 });
 displayMarkers = displayMarkerLayer.findMarkers({
-	intersectsScreenRange: [point, [0, 0]],
+    intersectsScreenRange: [point, [0, 0]],
 });
 displayMarkers = displayMarkerLayer.findMarkers({
-	intersectsScreenRange: [[0, 0], point],
+    intersectsScreenRange: [[0, 0], point],
 });
 displayMarkers = displayMarkerLayer.findMarkers({
-	intersectsScreenRange: [[0, 0], [0, 0]],
+    intersectsScreenRange: [[0, 0], [0, 0]],
 });

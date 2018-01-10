@@ -35,6 +35,9 @@ ReactDOM.render(
         onAfterChange={() => { }}
         defaultValue={0.1}
         value={0.1}
+        style={{backgroundColor: 'plum'}}
+        dotStyle={{backgroundColor: 'antiquewhite'}}
+        activeDotStyle={{backgroundColor: 'antiquewhite'}}
     />,
     document.querySelector('.another-app')
 );
@@ -45,7 +48,8 @@ ReactDOM.render(
         value={[0, 1]}
         count={3}
         allowCross={false}
-        pushable={true} />,
+        pushable={true}
+    />,
     document.querySelector('.app')
 );
 

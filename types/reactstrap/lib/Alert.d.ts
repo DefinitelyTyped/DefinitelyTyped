@@ -9,11 +9,14 @@ export interface UncontrolledProps {
   transitionEnterTimeout?: number;
   transitionLeaveTimeout?: number;
 }
+export interface UncontrolledAlertProps extends UncontrolledProps {
+  /* intentionally blank */
+}
 
-interface Props extends UncontrolledProps {
+export interface AlertProps extends UncontrolledAlertProps {
   isOpen?: boolean;
   toggle?: () => void;
 }
 
-declare var Alert: React.StatelessComponent<Props>;
+declare const Alert: React.StatelessComponent<AlertProps>;
 export default Alert;

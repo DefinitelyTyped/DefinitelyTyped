@@ -5,20 +5,15 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "q": [
-                "q/v0"
-            ]
-        },
         "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

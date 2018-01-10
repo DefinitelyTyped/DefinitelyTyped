@@ -11,10 +11,11 @@ export interface Dictionary<T> { [key: string]: T; }
 export interface ErrorCallback<T> { (err?: T): void; }
 export interface AsyncBooleanResultCallback<E> { (err?: E, truthValue?: boolean): void; }
 export interface AsyncResultCallback<T, E> { (err?: E, result?: T): void; }
-export interface AsyncResultArrayCallback<T, E> { (err?: E, results?: (T | undefined)[]): void; }
+export interface AsyncResultArrayCallback<T, E> { (err?: E, results?: Array<T | undefined>): void; }
 export interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
 
 export interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
+export interface AsyncFunctionEx<T, E> { (callback: (err?: E, ...results: T[]) => void): void; }
 export interface AsyncIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
 export interface AsyncForEachOfIterator<T, E> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 export interface AsyncResultIterator<T, R, E> { (item: T, callback: AsyncResultCallback<R, E>): void; }
@@ -115,8 +116,12 @@ export const eachOfLimit: typeof forEachOfLimit;
 export function map<T, R, E>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export function map<T, R, E>(arr: Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export const mapSeries: typeof map;
-export function mapLimit<T, R, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function mapLimit<T, R, E>(arr: Dictionary<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function mapLimit<T, R, E>(
+    arr: T[] | Dictionary<T> | IterableIterator<T>,
+    limit: number,
+    iterator: AsyncResultIterator<T, R, E>,
+    callback?: AsyncResultArrayCallback<R, E>
+): void;
 export function mapValuesLimit<T, R, E>(obj: Dictionary<T>, limit: number, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
 export function mapValues<T, R, E>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
 export const mapValuesSeries: typeof mapValues;
@@ -174,9 +179,9 @@ export function parallel<T, E>(tasks: Dictionary<AsyncFunction<T, E>>, callback?
 export function parallelLimit<T, E>(tasks: Array<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultArrayCallback<T, E>): void;
 export function parallelLimit<T, E>(tasks: Dictionary<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultObjectCallback<T, E>): void;
 export function whilst<E>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function doWhilst<E>(fn: AsyncVoidFunction<E>, test: () => boolean, callback: ErrorCallback<E>): void;
+export function doWhilst<T, E>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
 export function until<E>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function doUntil<E>(fn: AsyncVoidFunction<E>, test: () => boolean, callback: ErrorCallback<E>): void;
+export function doUntil<T, E>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
 export function during<E>(test: (testCallback : AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doDuring<E>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
 export function forever<E>(next: (next : ErrorCallback<E>) => void, errBack: ErrorCallback<E>) : void;
@@ -221,7 +226,7 @@ export function memoize(fn: Function, hasher?: Function): Function;
 export function unmemoize(fn: Function): Function;
 export function ensureAsync(fn: (... argsAndCallback: any[]) => void): Function;
 export function constant(...values: any[]): Function;
-export function asyncify(fn: Function): Function;
+export function asyncify(fn: Function): (...args: any[]) => any;
 export function wrapSync(fn: Function): Function;
 export function log(fn: Function, ...args: any[]): void;
 export function dir(fn: Function, ...args: any[]): void;

@@ -4,6 +4,8 @@
 //                 Bin Wang <https://github.com/wb14123>
 //                 Junyoung Clare Jang <https://github.com/ailrun>
 //                 Alexandre Melard <https://github.com/mylen>
+//                 Chad Johnston <https://github.com/iamthechad>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -2733,6 +2735,172 @@ declare module ol {
             function intersects(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Intersects;
 
             /**
+             * Create a logical `<Or>` operator between two or more filter conditions.
+             *
+             * @param {...ol.format.filter.Filter} conditions Filter conditions.
+             * @returns {!ol.format.filter.Or} `<Or>` operator.
+             * @api
+             */
+            function or(...conditions: ol.format.filter.Filter[]): ol.format.filter.Or;
+
+            /**
+             * Create a logical `<And>` operator between two or more filter conditions.
+             *
+             * @param {...ol.format.filter.Filter} conditions Filter conditions.
+             * @returns {!ol.format.filter.And} `<And>` operator.
+             * @api
+             */
+            function and(...conditions: ol.format.filter.Filter[]): ol.format.filter.And;
+
+            /**
+             * Represents a logical `<Not>` operator for a filter condition.
+             *
+             * @param {!ol.format.filter.Filter} condition Filter condition.
+             * @returns {!ol.format.filter.Not} `<Not>` operator.
+             * @api
+             */
+            function not(condition: ol.format.filter.Filter): ol.format.filter.Not;
+
+            /**
+             * Create a `<BBOX>` operator to test whether a geometry-valued property
+             * intersects a fixed bounding box
+             *
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.Extent} extent Extent.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @returns {!ol.format.filter.Bbox} `<BBOX>` operator.
+             * @api
+             */
+            function bbox(geometryName: string, extent: ol.Extent, opt_srsName?: string): ol.format.filter.Bbox;
+
+            /**
+             * Create a `<Within>` operator to test whether a geometry-valued property
+             * is within a given geometry.
+             *
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @returns {!ol.format.filter.Within} `<Within>` operator.
+             * @api
+             */
+            function within(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Within;
+
+            /**
+             * Creates a `<PropertyIsEqualTo>` comparison operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!(string|number)} expression The value to compare.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @returns {!ol.format.filter.EqualTo} `<PropertyIsEqualTo>` operator.
+             * @api
+             */
+            function equalTo(propertyName: string, expression: string|number, opt_matchCase?: boolean): ol.format.filter.EqualTo;
+
+            /**
+             * Creates a `<PropertyIsNotEqualTo>` comparison operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!(string|number)} expression The value to compare.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @returns {!ol.format.filter.NotEqualTo} `<PropertyIsNotEqualTo>` operator.
+             * @api
+             */
+            function notEqualTo(propertyName: string, expression: string|number, opt_matchCase?: boolean): ol.format.filter.NotEqualTo;
+
+            /**
+             * Creates a `<PropertyIsLessThan>` comparison operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @returns {!ol.format.filter.LessThan} `<PropertyIsLessThan>` operator.
+             * @api
+             */
+            function lessThan(propertyName: string, expression: number): ol.format.filter.LessThan;
+
+            /**
+             * Creates a `<PropertyIsLessThanOrEqualTo>` comparison operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @returns {!ol.format.filter.LessThanOrEqualTo} `<PropertyIsLessThanOrEqualTo>` operator.
+             * @api
+             */
+            function lessThanOrEqualTo(propertyName: string, expression: number): ol.format.filter.LessThanOrEqualTo;
+
+            /**
+             * Creates a `<PropertyIsGreaterThan>` comparison operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @returns {!ol.format.filter.GreaterThan} `<PropertyIsGreaterThan>` operator.
+             * @api
+             */
+            function greaterThan(propertyName: string, expression: number): ol.format.filter.GreaterThan;
+
+            /**
+             * Creates a `<PropertyIsGreaterThanOrEqualTo>` comparison operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @returns {!ol.format.filter.GreaterThanOrEqualTo} `<PropertyIsGreaterThanOrEqualTo>` operator.
+             * @api
+             */
+            function greaterThanOrEqualTo(propertyName: string, expression: number): ol.format.filter.GreaterThanOrEqualTo;
+
+            /**
+             * Creates a `<PropertyIsNull>` comparison operator to test whether a property value
+             * is null.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @returns {!ol.format.filter.IsNull} `<PropertyIsNull>` operator.
+             * @api
+             */
+            function isNull(propertyName: string): ol.format.filter.IsNull;
+
+            /**
+             * Creates a `<PropertyIsBetween>` comparison operator to test whether an expression
+             * value lies within a range given by a lower and upper bound (inclusive).
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} lowerBoundary The lower bound of the range.
+             * @param {!number} upperBoundary The upper bound of the range.
+             * @returns {!ol.format.filter.IsBetween} `<PropertyIsBetween>` operator.
+             * @api
+             */
+            function between(propertyName: string, lowerBoundary: number, upperBoundary: number): ol.format.filter.IsBetween;
+
+            /**
+             * Represents a `<PropertyIsLike>` comparison operator that matches a string property
+             * value against a text pattern.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!string} pattern Text pattern.
+             * @param {string=} opt_wildCard Pattern character which matches any sequence of
+             *    zero or more string characters. Default is '*'.
+             * @param {string=} opt_singleChar pattern character which matches any single
+             *    string character. Default is '.'.
+             * @param {string=} opt_escapeChar Escape character which can be used to escape
+             *    the pattern characters. Default is '!'.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @returns {!ol.format.filter.IsLike} `<PropertyIsLike>` operator.
+             * @api
+             */
+            function like(propertyName: string, pattern: string, opt_wildCard?: string, opt_singleChar?: string, opt_escapeChar?: string, opt_matchCase?: boolean): ol.format.filter.IsLike;
+
+            /**
+             * Create a `<During>` temporal operator.
+             *
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!string} begin The begin date in ISO-8601 format.
+             * @param {!string} end The end date in ISO-8601 format.
+             * @returns {!ol.format.filter.During} `<During>` operator.
+             * @api
+             */
+            function during(propertyName: string, begin: string, end: string): ol.format.filter.During;
+
+            /**
              * @classdesc
              * Abstract class; normally only used for creating subclasses and not instantiated in apps.
              * Base class for WFS GetFeature filters.
@@ -2822,6 +2990,467 @@ declare module ol {
                  * @api
                  */
                 constructor(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<Within>` operator to test whether a geometry-valued property
+             * is within a given geometry.
+             *
+             * @constructor
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @extends {ol.format.filter.Spatial}
+             * @api
+             */
+            class Within extends ol.format.filter.Spatial {
+                /**
+                 * @classdesc
+                 * Represents a `<Within>` operator to test whether a geometry-valued property
+                 * is within a given geometry.
+                 *
+                 * @constructor
+                 * @param {!string} geometryName Geometry name to use.
+                 * @param {!ol.geom.Geometry} geometry Geometry.
+                 * @param {string=} opt_srsName SRS name. No srsName attribute will be
+                 *    set on geometries when this is not provided.
+                 * @extends {ol.format.filter.Spatial}
+                 * @api
+                 */
+                constructor(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+            }
+
+            /**
+             * @classdesc
+             * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+             * Base class for WFS GetFeature n-ary logical filters.
+             */
+            class LogicalNary extends ol.format.filter.Filter {}
+
+            /**
+             * @classdesc
+             * Represents a logical <And> operator between two or more filter conditions.
+             *
+             * @constructor
+             * @param {!ol.format.filter.Filter} conditions Conditions
+             * @extends {ol.format.filter.LogicalNary}
+             * @api
+             */
+            class And extends ol.format.filter.LogicalNary {
+                /**
+                 * @classdesc
+                 * Represents a logical <And> operator between two or more filter conditions.
+                 *
+                 * @constructor
+                 * @param {!ol.format.filter.Filter} conditions Conditions
+                 * @extends {ol.format.filter.LogicalNary}
+                 * @api
+                 */
+                constructor(...conditions: ol.format.filter.Filter[]);
+            }
+
+            /**
+             * @classdesc
+             * Represents a logical <Or> operator between two or more filter conditions.
+             *
+             * @constructor
+             * @param {!ol.format.filter.Filter} conditions Conditions
+             * @extends {ol.format.filter.LogicalNary}
+             * @api
+             */
+            class Or extends ol.format.filter.LogicalNary {
+              /**
+               * @classdesc
+               * Represents a logical <Or> operator between two or more filter conditions.
+               *
+               * @constructor
+               * @param {!ol.format.filter.Filter} conditions Conditions
+               * @extends {ol.format.filter.LogicalNary}
+               * @api
+               */
+              constructor(...conditions: ol.format.filter.Filter[]);
+            }
+
+            /**
+             * @classdesc
+             * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+             * Base class for WFS GetFeature property comparison filters.
+             *
+             * deprecated: This class will no longer be exported starting from the next major version.
+             *
+             * @constructor
+             * @abstract
+             * @param {!string} tagName The XML tag name for this filter.
+             * @param {!string} propertyName Name of the context property to compare.
+             * @extends {ol.format.filter.Filter}
+             * @api
+             */
+            class Comparison extends ol.format.filter.Filter {
+                /**
+                 * @classdesc
+                 * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+                 * Base class for WFS GetFeature property comparison filters.
+                 *
+                 * deprecated: This class will no longer be exported starting from the next major version.
+                 *
+                 * @constructor
+                 * @abstract
+                 * @param {!string} tagName The XML tag name for this filter.
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @extends {ol.format.filter.Filter}
+                 * @api
+                 */
+                constructor(tagName: string, propertyName: string);
+            }
+
+            /**
+             * @classdesc
+             * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+             * Base class for WFS GetFeature property binary comparison filters.
+             *
+             * deprecated: This class will no longer be exported starting from the next major version.
+             *
+             * @constructor
+             * @abstract
+             * @param {!string} tagName The XML tag name for this filter.
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!(string|number)} expression The value to compare.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @extends {ol.format.filter.Comparison}
+             * @api
+             */
+            class ComparisonBinary extends ol.format.filter.Comparison {
+                /**
+                 * @classdesc
+                 * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+                 * Base class for WFS GetFeature property binary comparison filters.
+                 *
+                 * deprecated: This class will no longer be exported starting from the next major version.
+                 *
+                 * @constructor
+                 * @abstract
+                 * @param {!string} tagName The XML tag name for this filter.
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!(string|number)} expression The value to compare.
+                 * @param {boolean=} opt_matchCase Case-sensitive?
+                 * @extends {ol.format.filter.Comparison}
+                 * @api
+                 */
+                constructor(tagName: string, propertyName: string, expression: string|number, opt_matchCase?: boolean);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsEqualTo>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!(string|number)} expression The value to compare.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @extends {ol.format.filter.ComparisonBinary}
+             * @api
+             */
+            class EqualTo extends ol.format.filter.ComparisonBinary {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsEqualTo>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!(string|number)} expression The value to compare.
+                 * @param {boolean=} opt_matchCase Case-sensitive?
+                 * @extends {ol.format.filter.ComparisonBinary}
+                 * @api
+                 */
+                constructor(propertyName: string, expression: string|number, opt_matchCase?: boolean);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsGreaterThan>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @extends {ol.format.filter.ComparisonBinary}
+             * @api
+             */
+            class GreaterThan extends ol.format.filter.ComparisonBinary {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsGreaterThan>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!number} expression The value to compare.
+                 * @extends {ol.format.filter.ComparisonBinary}
+                 * @api
+                 */
+                constructor(propertyName: string, expression: number);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsGreaterThanOrEqualTo>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @extends {ol.format.filter.ComparisonBinary}
+             * @api
+             */
+            class GreaterThanOrEqualTo extends ol.format.filter.ComparisonBinary {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsGreaterThanOrEqualTo>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!number} expression The value to compare.
+                 * @extends {ol.format.filter.ComparisonBinary}
+                 * @api
+                 */
+                constructor(propertyName: string, expression: number);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsLessThan>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @extends {ol.format.filter.ComparisonBinary}
+             * @api
+             */
+            class LessThan extends ol.format.filter.ComparisonBinary {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsLessThan>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!number} expression The value to compare.
+                 * @extends {ol.format.filter.ComparisonBinary}
+                 * @api
+                 */
+                constructor(propertyName: string, expression: number);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsLessThanOrEqualTo>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} expression The value to compare.
+             * @extends {ol.format.filter.ComparisonBinary}
+             * @api
+             */
+            class LessThanOrEqualTo extends ol.format.filter.ComparisonBinary {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsLessThanOrEqualTo>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!number} expression The value to compare.
+                 * @extends {ol.format.filter.ComparisonBinary}
+                 * @api
+                 */
+                constructor(propertyName: string, expression: number);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsNotEqualTo>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!(string|number)} expression The value to compare.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @extends {ol.format.filter.ComparisonBinary}
+             * @api
+             */
+            class NotEqualTo extends ol.format.filter.ComparisonBinary {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsNotEqualTo>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!(string|number)} expression The value to compare.
+                 * @param {boolean=} opt_matchCase Case-sensitive?
+                 * @extends {ol.format.filter.ComparisonBinary}
+                 * @api
+                 */
+                constructor(propertyName: string, expression: string|number, opt_matchCase?: boolean);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<During>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!string} begin The begin date in ISO-8601 format.
+             * @param {!string} end The end date in ISO-8601 format.
+             * @extends {ol.format.filter.Comparison}
+             * @api
+             */
+            class During extends ol.format.filter.Comparison {
+                /**
+                 * @classdesc
+                 * Represents a `<During>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!string} begin The begin date in ISO-8601 format.
+                 * @param {!string} end The end date in ISO-8601 format.
+                 * @extends {ol.format.filter.Comparison}
+                 * @api
+                 */
+                constructor(propertyName: string, begin: string, end: string);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsBetween>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!number} lowerBoundary The lower bound of the range.
+             * @param {!number} upperBoundary The upper bound of the range.
+             * @extends {ol.format.filter.Comparison}
+             * @api
+             */
+            class IsBetween extends ol.format.filter.Comparison {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsBetween>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!number} lowerBoundary The lower bound of the range.
+                 * @param {!number} upperBoundary The upper bound of the range.
+                 * @extends {ol.format.filter.Comparison}
+                 * @api
+                 */
+                constructor(propertyName: string, lowerBoundary: number, upperBoundary: number);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsLike>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @param {!string} pattern Text pattern.
+             * @param {string=} opt_wildCard Pattern character which matches any sequence of
+             *    zero or more string characters. Default is '*'.
+             * @param {string=} opt_singleChar pattern character which matches any single
+             *    string character. Default is '.'.
+             * @param {string=} opt_escapeChar Escape character which can be used to escape
+             *    the pattern characters. Default is '!'.
+             * @param {boolean=} opt_matchCase Case-sensitive?
+             * @extends {ol.format.filter.Comparison}
+             * @api
+             */
+            class IsLike extends ol.format.filter.Comparison {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsLike>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @param {!string} pattern Text pattern.
+                 * @param {string=} opt_wildCard Pattern character which matches any sequence of
+                 *    zero or more string characters. Default is '*'.
+                 * @param {string=} opt_singleChar pattern character which matches any single
+                 *    string character. Default is '.'.
+                 * @param {string=} opt_escapeChar Escape character which can be used to escape
+                 *    the pattern characters. Default is '!'.
+                 * @param {boolean=} opt_matchCase Case-sensitive?
+                 * @extends {ol.format.filter.Comparison}
+                 * @api
+                 */
+                constructor(propertyName: string, pattern: string, opt_wildCard?: string, opt_singleChar?: string, opt_escapeChar?: string, opt_matchCase?: boolean);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<PropertyIsNull>` comparison operator.
+             *
+             * @constructor
+             * @param {!string} propertyName Name of the context property to compare.
+             * @extends {ol.format.filter.Comparison}
+             * @api
+             */
+            class IsNull extends ol.format.filter.Comparison {
+                /**
+                 * @classdesc
+                 * Represents a `<PropertyIsNull>` comparison operator.
+                 *
+                 * @constructor
+                 * @param {!string} propertyName Name of the context property to compare.
+                 * @extends {ol.format.filter.Comparison}
+                 * @api
+                 */
+                constructor(propertyName: string);
+            }
+
+            /**
+             * @classdesc
+             * Represents a logical `<Not>` operator for a filter condition.
+             *
+             * @constructor
+             * @param {!ol.format.filter.Filter} condition Filter condition.
+             * @extends {ol.format.filter.Filter}
+             * @api
+             */
+            class Not extends ol.format.filter.Filter {
+                /**
+                 * @classdesc
+                 * Represents a logical `<Not>` operator for a filter condition.
+                 *
+                 * @constructor
+                 * @param {!ol.format.filter.Filter} condition Filter condition.
+                 * @extends {ol.format.filter.Filter}
+                 * @api
+                 */
+                constructor(condition: ol.format.filter.Filter);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<BBOX>` operator to test whether a geometry-valued property
+             * intersects a fixed bounding box
+             *
+             * @constructor
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.Extent} extent Extent.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @extends {ol.format.filter.Filter}
+             * @api
+             */
+            class Bbox extends ol.format.filter.Filter {
+                /**
+                 * @classdesc
+                 * Represents a `<BBOX>` operator to test whether a geometry-valued property
+                 * intersects a fixed bounding box
+                 *
+                 * @constructor
+                 * @param {!string} geometryName Geometry name to use.
+                 * @param {!ol.Extent} extent Extent.
+                 * @param {string=} opt_srsName SRS name. No srsName attribute will be
+                 *    set on geometries when this is not provided.
+                 * @extends {ol.format.filter.Filter}
+                 * @api
+                 */
+                constructor(geometryName: string, extent: ol.Extent, opt_srsName?: string);
             }
         }
 
@@ -12617,20 +13246,22 @@ declare module olx {
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
          *     deleteCondition: (ol.EventsConditionType|undefined),
+         *     insertVertexCondition: (ol.EventsConditionType|undefined),
          *     pixelTolerance: (number|undefined),
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
-         *     features: ol.Collection.<ol.Feature>,
+         *     features: (ol.Collection.<ol.Feature>|undefined),
          *     wrapX: (boolean|undefined),
          *     source: (ol.source.Vector|undefined)}}
          */
         interface ModifyOptions {
             condition?: ol.EventsConditionType;
             deleteCondition?: ol.EventsConditionType;
+            insertVertexCondition?: ol.EventsConditionType;
             pixelTolerance?: number;
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            features: ol.Collection<ol.Feature>;
+            features?: ol.Collection<ol.Feature>;
             wrapX?: boolean;
-            source?: ol.source.Vector;            
+            source?: ol.source.Vector;
         }
 
 
@@ -13412,7 +14043,7 @@ declare module olx {
             hidpi?: boolean;
             logo?: (string | olx.LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             serverType?: (ol.source.wms.ServerType | string);
             tileLoadFunction?: ol.TileLoadFunctionType;
@@ -13873,6 +14504,13 @@ declare module olx {
         maxLines?: number;
         strokeStyle?: ol.style.Stroke;
         targetSize?: number;
+        showLabels?: boolean;
+        lonLabelFormatter?: ((lon: number) => string);
+        latLabelFormatter?: ((lat: number) => string);
+        lonLabelPosition?: number;
+        latLabelPosition?: number;
+        lonLabelStyle?: ol.style.Text;
+        latLabelStyle?: ol.style.Text;
     }
 
 

@@ -80,8 +80,6 @@ export class Base<TConnection extends Connection> {
     getConnection(id: string): Connection;
     /**
      * Shut down all existing connections
-     *
-     * @public
      */
     hangup(): void;
 }

@@ -1,6 +1,6 @@
-// Type definitions for howler.js v2.0.3
+// Type definitions for howler.js v2.0.5
 // Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments>, Todd Dukart <https://github.com/tdukart>, Alexander Leon <https://github.com/alien35> 
+// Definitions by: Pedro Casaubon <https://github.com/xperiments>, Todd Dukart <https://github.com/tdukart>, Alexander Leon <https://github.com/alien35>, Nicholas Higgins <https://github.com/nicholashza> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HowlerGlobal {
@@ -38,9 +38,11 @@ interface IHowlProperties {
     rate?: number;
     pool?: number;
     format?: string[] | string;
+    xhrWithCredentials?: boolean;
     onload?: () => void;
     onloaderror?: (soundId: number, error: any) => void;
     onplay?: (soundId: number) => void;
+    onplayerror?: (soundId: number, error: any) => void;
     onend?: (soundId: number) => void;
     onpause?: (soundId: number) => void;
     onstop?: (soundId: number) => void;
@@ -78,6 +80,7 @@ interface Howl {
     on(event: 'load', callback: () => void, id?: number): this;
     on(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
     on(event: 'play', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'playerror', callback: (soundId: number, error: any) => void, id?: number): this;
     on(event: 'end', callback: (soundId: number) => void, id?: number): this;
     on(event: 'pause', callback: (soundId: number) => void, id?: number): this;
     on(event: 'stop', callback: (soundId: number) => void, id?: number): this;
@@ -91,6 +94,7 @@ interface Howl {
     once(event: 'load', callback: () => void, id?: number): this;
     once(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
     once(event: 'play', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'playerror', callback: (soundId: number, error: any) => void, id?: number): this;
     once(event: 'end', callback: (soundId: number) => void, id?: number): this;
     once(event: 'pause', callback: (soundId: number) => void, id?: number): this;
     once(event: 'stop', callback: (soundId: number) => void, id?: number): this;

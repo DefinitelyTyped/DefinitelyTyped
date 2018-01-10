@@ -3,7 +3,7 @@
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Maarten Mulders <https://github.com/mthmulders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import passport = require('passport');
 import express = require('express');
@@ -19,6 +19,7 @@ export interface StrategyOption {
 
     scope?: string[];
     userAgent?: string;
+    state?: boolean;
 
     authorizationURL?: string;
     tokenURL?: string;
