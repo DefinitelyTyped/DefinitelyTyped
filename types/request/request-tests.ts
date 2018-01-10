@@ -1,10 +1,11 @@
-import request = require('request');
+import FormData = require('form-data');
+import fs = require('fs');
 import http = require('http');
+import path = require('path');
+import qs = require('querystring');
+import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
-import fs = require('fs');
-import FormData = require('form-data');
-import path = require('path');
 
 var value: any;
 var str: string;
@@ -434,7 +435,6 @@ request(options, callback);
 
 // OAuth1.0 - 3-legged server side flow (Twitter example)
 // step 1
-import qs = require('querystring');
 const CONSUMER_KEY = 'key';
 const CONSUMER_SECRET = 'secret';
 oauth = {
@@ -501,9 +501,6 @@ options = {
 };
 
 request.get(options);
-
-var certFile = path.resolve(__dirname, 'ssl/client.crt');
-var keyFile = path.resolve(__dirname, 'ssl/client.key');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -645,17 +642,17 @@ requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar();
-requestWithJar = request.defaults({jar: j});
+jar = request.jar();
+requestWithJar = request.defaults({jar: jar});
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar();
+jar = request.jar();
 cookie = request.cookie('key1=value1')!;
-var url = 'http://www.google.com';
-j.setCookie(cookie, url);
-request({url: url, jar: j}, () => {
+url = 'http://www.google.com';
+jar.setCookie(cookie, url);
+request({url: url, jar: jar}, () => {
   request('http://images.google.com');
 });
 
@@ -663,15 +660,15 @@ request({url: url, jar: j}, () => {
 // var FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
 // var j = request.jar(new FileCookieStore('cookies.json'));
-requestWithJar = request.defaults({ jar : j });
+requestWithJar = request.defaults({ jar : jar });
 request('http://www.google.com', () => {
   request('http://images.google.com');
 });
 
-var j = request.jar();
-request({url: 'http://www.google.com', jar: j}, () => {
-  var cookie_string = j.getCookieString(url); // "key1=value1; key2=value2; ..."
-  var cookies = j.getCookies(url);
+jar = request.jar();
+request({url: 'http://www.google.com', jar: jar}, () => {
+  var cookie_string = jar.getCookieString(url); // "key1=value1; key2=value2; ..."
+  var cookies = jar.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });
 
