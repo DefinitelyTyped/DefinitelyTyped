@@ -16,18 +16,18 @@ declare namespace Panel {
         onSelect?: SelectCallback;
     }
 
-    export interface HeadingProps {
+    export interface HeadingProps extends React.HTMLProps<Panel.Heading> {
         componentClass?: JSX.Element;
         bsClass?: string;
     }
 
-    export interface TitleProps {
+    export interface TitleProps extends React.HTMLProps<Panel.Title> {
         componentClass?: JSX.Element;
         bsClass?: string;
         toggle?: boolean;
     }
 
-    export interface BodyProps {
+    export interface BodyProps extends React.HTMLProps<Panel.Body> {
         bsClass?: string;
         /**
          * Documentation marked it as required, but its default is false
@@ -36,16 +36,15 @@ declare namespace Panel {
         collapsible?: boolean;
     }
 
-    export interface ToggleProps {
+    export interface ToggleProps extends React.HTMLProps<Panel.Toggle> {
         componentClass?: JSX.Element;
-        onClick?: React.SyntheticEvent<Panel>;
     }
 
-    export interface FooterProps {
+    export interface FooterProps extends React.HTMLProps<Panel.Footer> {
         bsClass?: string;
     }
 
-    export class Heading extends React.Component<Panel.PanelProps> {
+    export class Heading extends React.Component<Panel.HeadingProps> {
 
     }
 
@@ -53,7 +52,7 @@ declare namespace Panel {
 
     }
 
-    export class Toggle extends React.Component<ToggleProps> {
+    export class Toggle extends React.Component<Panel.ToggleProps> {
 
     }
 
