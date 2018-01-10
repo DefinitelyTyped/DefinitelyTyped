@@ -1,6 +1,6 @@
 // create a PlayCanvas application
-var canvas = document.getElementById('application') as HTMLCanvasElement;
-var app = new pc.Application(canvas, { });
+const canvas = document.getElementById('application') as HTMLCanvasElement;
+const app = new pc.Application(canvas, { });
 app.start();
 
 // fill the available space at full resolution
@@ -8,24 +8,24 @@ app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
 app.setCanvasResolution(pc.RESOLUTION_AUTO);
 
 // ensure canvas is resized when window changes size
-window.addEventListener('resize', function() {
+window.addEventListener('resize', () => {
     app.resizeCanvas();
 });
 
 // create box entity
-var cube = new pc.Entity('cube');
+const cube = new pc.Entity('cube');
 cube.addComponent('model', {
     type: 'box'
 });
 
 // create camera entity
-var camera = new pc.Entity('camera');
+const camera = new pc.Entity('camera');
 camera.addComponent('camera', {
     clearColor: new pc.Color(0.1, 0.1, 0.1)
 });
 
 // create directional light entity
-var light = new pc.Entity('light');
+const light = new pc.Entity('light');
 light.addComponent('light');
 
 // add to hierarchy
@@ -38,6 +38,6 @@ camera.setPosition(0, 0, 3);
 light.setEulerAngles(45, 0, 0);
 
 // register a global update event
-app.on('update', function (deltaTime) {
+app.on('update', deltaTime => {
     cube.rotate(10 * deltaTime, 20 * deltaTime, 30 * deltaTime);
 });
