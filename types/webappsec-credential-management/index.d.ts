@@ -407,7 +407,7 @@ interface PublicKeyCredentialParameters {
 interface PublicKeyCredentialDescriptor {
     type: 'public-key';
     id: BufferSource;
-    transports?: Array<string>;
+    transports?: string[];
 }
 
 /**
@@ -427,10 +427,10 @@ interface MakePublicKeyCredentialOptions {
     user: PublicKeyCredentialUserEntity;
 
     challenge: BufferSource;
-    pubKeyCredParams: Array<PublicKeyCredentialParameters>;
+    pubKeyCredParams: PublicKeyCredentialParameters[];
 
     timeout?: number;
-    excludeCredentials?: Array<PublicKeyCredentialDescriptor>;
+    excludeCredentials?: PublicKeyCredentialDescriptor[];
     authenticatorSelection?: AuthenticatorSelectionCriteria;
     attestation?: 'none' | 'indirect' | 'direct';
     extensions?: any;
