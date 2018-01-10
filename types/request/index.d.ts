@@ -23,7 +23,7 @@ import tough = require('tough-cookie');
 import { Url } from 'url';
 
 declare namespace request {
-    export interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
+    interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
         defaults(options: TOptions): RequestAPI<TRequest, TOptions, RequiredUriUrl>;
         defaults(options: RequiredUriUrl & TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
 
@@ -170,21 +170,21 @@ declare namespace request {
     interface UrlOptions {
         url: string | Url;
     }
-    export type RequiredUriUrl = UriOptions | UrlOptions;
+    type RequiredUriUrl = UriOptions | UrlOptions;
 
-    export type OptionalUriUrl = RequiredUriUrl | {};
+    type OptionalUriUrl = RequiredUriUrl | {};
 
-    export type OptionsWithUri = UriOptions & CoreOptions;
-    export type OptionsWithUrl = UrlOptions & CoreOptions;
-    export type Options = OptionsWithUri | OptionsWithUrl;
+    type OptionsWithUri = UriOptions & CoreOptions;
+    type OptionsWithUrl = UrlOptions & CoreOptions;
+    type Options = OptionsWithUri | OptionsWithUrl;
 
-    export type RequestCallback = (error: any, response: RequestResponse, body: any) => void;
+    type RequestCallback = (error: any, response: RequestResponse, body: any) => void;
 
-    export type ResponseRequest = CoreOptions & {
+    type ResponseRequest = CoreOptions & {
       uri: Url;
     };
 
-	export interface RequestResponse extends http.IncomingMessage {
+	interface RequestResponse extends http.IncomingMessage {
 		request: ResponseRequest;
 		body: any;
 		timingStart?: number;
@@ -205,7 +205,7 @@ declare namespace request {
 		};
 	}
 
-    export interface HttpArchiveRequest {
+    interface HttpArchiveRequest {
         url?: string;
         method?: string;
         headers?: NameValuePair[];
@@ -215,12 +215,12 @@ declare namespace request {
         };
     }
 
-    export interface NameValuePair {
+    interface NameValuePair {
         name: string;
         value: string;
     }
 
-    export interface Multipart {
+    interface Multipart {
         chunked?: boolean;
         data?: Array<{
             'content-type'?: string,
@@ -228,12 +228,12 @@ declare namespace request {
         }>;
     }
 
-    export interface RequestPart {
+    interface RequestPart {
         headers?: Headers;
         body: any;
     }
 
-    export interface Request extends stream.Stream {
+    interface Request extends stream.Stream {
         readable: boolean;
         writable: boolean;
 
@@ -275,11 +275,11 @@ declare namespace request {
         toJSON(): object;
     }
 
-    export interface Headers {
+    interface Headers {
         [key: string]: any;
     }
 
-    export interface AuthOptions {
+    interface AuthOptions {
         user?: string;
         username?: string;
         pass?: string;
@@ -288,7 +288,7 @@ declare namespace request {
         bearer?: string | (() => string);
     }
 
-    export interface OAuthOptions {
+    interface OAuthOptions {
         callback?: string;
         consumer_key?: string;
         consumer_secret?: string;
@@ -299,18 +299,18 @@ declare namespace request {
         body_hash?: true | string;
     }
 
-    export interface HawkOptions {
+    interface HawkOptions {
         credentials: any;
     }
 
-    export interface AWSOptions {
+    interface AWSOptions {
         secret: string;
         bucket?: string;
     }
 
-    export type Cookie = tough.Cookie;
+    type Cookie = tough.Cookie;
 
-    export interface CookieJar {
+    interface CookieJar {
         setCookie(cookieOrStr: Cookie | string, uri: string | Url, options?: tough.CookieJar.SetCookieOptions): void;
         getCookieString(uri: string | Url): string;
         getCookies(uri: string | Url): Cookie[];
