@@ -1,4 +1,4 @@
-﻿module AccordionComponent {
+module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
             width: "100%",
