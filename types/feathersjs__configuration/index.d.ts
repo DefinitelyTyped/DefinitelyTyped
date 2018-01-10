@@ -1,10 +1,8 @@
-// Type definitions for @feathersjs/configuration
+// Type definitions for @feathersjs/configuration 1.0
 // Project: http://feathersjs.com/
-// Definitions by: Jan Lohage <https://github.com/j2L4e/>
+// Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
-declare module '@feathersjs/configuration' {
-    import { Application } from '@feathersjs/feathers';
+import { Application } from '@feathersjs/feathers';
 
-    export default function (): <T>(this: Application<T>) => Application<T>
-}
+export default function feathersConfiguration(): <T>(this: Application<T>) => Application<T>;

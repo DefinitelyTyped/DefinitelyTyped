@@ -1,11 +1,6 @@
 {
-    "name": "@types/feathersjs__socketio-client",
-    "version": "1.0.0",
-    "main": "index.js",
-    "repository": "https://github.com/feathersjs/feathers-typescript.git",
-    "author": "",
-    "license": "MIT",
     "dependencies": {
         "@types/socket.io-client": "^1.4.31"
-    }
+    },
+    "private": true
 }

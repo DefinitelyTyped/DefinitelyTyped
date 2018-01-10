@@ -16,7 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/socket-commons": ["feathersjs__socket-commons"]
+            "@feathersjs/socket-commons": ["feathersjs__socket-commons"],
+            "@feathersjs/feathers": ["feathersjs__feathers"]
         }
     },
     "files": [

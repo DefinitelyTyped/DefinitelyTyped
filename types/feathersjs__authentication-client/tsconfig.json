@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "dom",
             "es6"
         ],
         "noImplicitAny": true,
@@ -16,7 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/authentication-client": ["feathersjs__authentication-client"]
+            "@feathersjs/authentication-client": ["feathersjs__authentication-client"],
+            "@feathersjs/feathers": ["feathersjs__feathers"]
         }
     },
     "files": [

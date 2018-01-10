@@ -9,9 +9,7 @@
 
 import { EventEmitter } from 'events';
 
-export function feathers(): Application<{}>;
-
-export default feathers;
+export default function feathers(): Application<{}>;
 
 export const version: string;
 

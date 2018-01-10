@@ -16,7 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/authentication-oauth2": ["feathersjs__authentication-oauth2"]
+            "@feathersjs/authentication-oauth2": ["feathersjs__authentication-oauth2"],
+            "@feathersjs/feathers": ["feathersjs__feathers"]
         }
     },
     "files": [

@@ -1,3 +1,4 @@
 {
-    "extends": "dtslint/dt.json"
+    "extends": "dtslint/dt.json",
+    "strict-export-declare-modifiers": false
 }
