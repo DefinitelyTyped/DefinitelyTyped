@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "no-duplicate-variable": false,
         "no-inferrable-types": false,
         "no-misused-new": false,

@@ -253,21 +253,21 @@ declare namespace request {
         oauth(oauth: OAuthOptions): Request;
         jar(jar: CookieJar): Request;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'request', listener: (req: http.ClientRequest) => void): this;
         on(event: 'response', listener: (resp: http.IncomingMessage) => void): this;
         on(event: 'data', listener: (data: Buffer | string) => void): this;
         on(event: 'error', listener: (e: Error) => void): this;
         on(event: 'complete', listener: (resp: http.IncomingMessage, body?: string | Buffer) => void): this;
 
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding: string, cb?: Function): boolean;
+        write(buffer: Buffer, cb?: (err?: Error) => void): boolean;
+        write(str: string, cb?: (err?: Error) => void): boolean;
+        write(str: string, encoding: string, cb?: () => void): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
         end(): void;
-        end(chunk: Buffer, cb?: Function): void;
-        end(chunk: string, cb?: Function): void;
-        end(chunk: string, encoding: string, cb?: Function): void;
+        end(chunk: Buffer, cb?: () => void): void;
+        end(chunk: string, cb?: () => void): void;
+        end(chunk: string, encoding: string, cb?: () => void): void;
         pause(): void;
         resume(): void;
         abort(): void;
