@@ -260,14 +260,12 @@ declare namespace request {
         on(event: 'error', listener: (e: Error) => void): this;
         on(event: 'complete', listener: (resp: http.IncomingMessage, body?: string | Buffer) => void): this;
 
-        write(buffer: Buffer, cb?: (err?: Error) => void): boolean;
-        write(str: string, cb?: (err?: Error) => void): boolean;
-        write(str: string, encoding: string, cb?: () => void): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-        end(): void;
-        end(chunk: Buffer, cb?: () => void): void;
-        end(chunk: string, cb?: () => void): void;
-        end(chunk: string, encoding: string, cb?: () => void): void;
+        write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
+        write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
+        end(cb?: () => void): void;
+        end(chunk: string | Buffer, cb?: () => void): void;
+        end(str: string, encoding?: string, cb?: () => void): void;
+
         pause(): void;
         resume(): void;
         abort(): void;
