@@ -6405,7 +6405,7 @@ export type AppStateEvent = "change" | "memoryWarning";
 export type AppStateStatus = "active" | "background" | "inactive";
 
 export interface AppStateStatic {
-    currentState: string;
+    currentState: AppStateStatus;
 
     /**
      * Add a handler to AppState changes by listening to the change event
