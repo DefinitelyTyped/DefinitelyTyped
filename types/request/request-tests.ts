@@ -87,7 +87,7 @@ let options: request.Options = {
 	jar: value,
 	form: obj,
 	oauth: value,
-	aws: aws,
+	aws,
 	qs: obj,
 	json: value,
 	jsonReviver: (key: string, value: any) => {},
@@ -412,7 +412,7 @@ let username = 'username';
 let password = 'password';
 let url = `http://'${username}:${password}'@some.server.com`;
 
-request({url: url}, (error, response, body) => {
+request({url}, (error, response, body) => {
    // Do more stuff with 'body' here
 });
 
@@ -445,7 +445,7 @@ oauth = {
 };
 url = 'https://api.twitter.com/oauth/request_token';
 
-request.post({url: url, oauth: oauth}, (e, r, body) => {
+request.post({url, oauth}, (e, r, body) => {
   // Ideally, you would take the body in the response
   // and construct a URL that a user clicks on (like a sign in button).
   // The verifier is only available in the response after a user has
@@ -468,7 +468,7 @@ request.post({url: url, oauth: oauth}, (e, r, body) => {
     };
   let url = 'https://api.twitter.com/oauth/access_token';
 
-  request.post({url: url, oauth: oauth}, (e, r, body) => {
+  request.post({url, oauth}, (e, r, body) => {
     // ready to make signed requests on behalf of the user
     let perm_data: any = qs.parse(body);
     let oauth = {
@@ -482,7 +482,7 @@ request.post({url: url, oauth: oauth}, (e, r, body) => {
       screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
-    request.get({url: url, oauth: oauth, qs: query, json: true}, (e, r, user) => {
+    request.get({url, oauth, qs: query, json: true}, (e, r, user) => {
       console.log(user);
     });
   });
@@ -643,7 +643,7 @@ requestWithJar('http://www.google.com', () => {
 });
 
 jar = request.jar();
-requestWithJar = request.defaults({jar: jar});
+requestWithJar = request.defaults({jar});
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
@@ -652,7 +652,7 @@ jar = request.jar();
 cookie = request.cookie('key1=value1')!;
 url = 'http://www.google.com';
 jar.setCookie(cookie, url);
-request({url: url, jar: jar}, () => {
+request({url, jar}, () => {
   request('http://images.google.com');
 });
 
@@ -660,13 +660,13 @@ request({url: url, jar: jar}, () => {
 // var FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
 // var j = request.jar(new FileCookieStore('cookies.json'));
-requestWithJar = request.defaults({ jar : jar });
+requestWithJar = request.defaults({ jar });
 request('http://www.google.com', () => {
   request('http://images.google.com');
 });
 
 jar = request.jar();
-request({url: 'http://www.google.com', jar: jar}, () => {
+request({url: 'http://www.google.com', jar}, () => {
   let cookie_string = jar.getCookieString(url); // "key1=value1; key2=value2; ..."
   let cookies = jar.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
