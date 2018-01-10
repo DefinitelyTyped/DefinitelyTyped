@@ -2,9 +2,10 @@
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-type Keys = string
-type State = {[k in Keys]: any}
+type Keys = string;
+type State = {[k in Keys]: any};
 type Params = State;
 
 interface NavigoHooks {
@@ -46,7 +47,7 @@ declare class Navigo {
     resolve(currentURL?: string): boolean;
 
     link(path: string): string;
-    
+
     lastRouteResolved(): {url: string, query: string};
 
     disableIfAPINotAvailable(): void;
