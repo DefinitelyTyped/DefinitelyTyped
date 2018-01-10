@@ -3529,7 +3529,7 @@ render() {
 class Example115 extends React.Component<any, any> {
     // https://reactstrap.github.io/components/carousel/
 
-    private items = [
+    private readonly items = [
         {
           src: 'data:image/svg+xml...',
           altText: 'Slide 1',

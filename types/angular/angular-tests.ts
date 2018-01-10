@@ -161,7 +161,7 @@ namespace My.Namespace {
 }
 
 class TestProvider implements ng.IServiceProvider {
-    constructor(private $scope: ng.IScope) {}
+    constructor(private readonly $scope: ng.IScope) {}
 
     $get() {}
 }
