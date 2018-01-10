@@ -11,22 +11,22 @@ let value: any;
 let str: string;
 let strOrUndef: string | undefined;
 let strOrTrueOrUndef: string | true | undefined;
-let buffer: NodeBuffer = new Buffer('foo');
-let num = 0;
+const buffer: NodeBuffer = new Buffer('foo');
+const num = 0;
 let bool: boolean;
 let date: Date;
 let obj: object;
-let dest = 'foo';
+const dest = 'foo';
 
-let uri = 'foo-bar';
-let headers: request.Headers = {};
+const uri = 'foo-bar';
+const headers: request.Headers = {};
 
 let agent: http.Agent;
 let write: stream.Writable = new stream.Writable();
 let req: request.Request = request(uri, function callback() {});
 let form: FormData;
 
-let bodyArr: request.RequestPart[] = [{
+const bodyArr: request.RequestPart[] = [{
 	body: value
 }, {
 	body: value
@@ -64,9 +64,9 @@ bool = cookie.httpOnly;
 let jar: request.CookieJar = request.jar();
 jar.setCookie(cookie, uri);
 str = jar.getCookieString(uri);
-let cookies: request.Cookie[] = jar.getCookies(uri);
+const cookies: request.Cookie[] = jar.getCookies(uri);
 
-let aws: request.AWSOptions = { secret: 'foo' };
+const aws: request.AWSOptions = { secret: 'foo' };
 str = aws.secret;
 strOrUndef = aws.bucket;
 
@@ -221,7 +221,7 @@ value = request.initParams(options, callback);
 req = request.forever(value, value);
 jar = request.jar();
 
-let r = request.defaults(options);
+const r = request.defaults(options);
 r(str);
 r.get(str);
 r.post(str);
@@ -280,7 +280,7 @@ http.createServer((req, resp) => {
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    let x = request('http://mysite.com/doodle.png');
+    const x = request('http://mysite.com/doodle.png');
     req.pipe(x);
     x.pipe(resp);
   }
@@ -302,7 +302,7 @@ request.post('http://service.com/upload').form({key: 'value'});
 // or
 request.post({url: 'http://service.com/upload', form: {key: 'value'}}, (err, httpResponse, body) => { /* ... */ });
 
-let data = {
+const data = {
   // Pass a simple key-value pair
   my_field: 'my_value',
   // Pass data via Buffers
@@ -333,7 +333,7 @@ request.post({url: 'http://service.com/upload', formData: data}, function option
   console.log('Upload successful!  Server responded with:', body);
 });
 
-let requestMultipart = request.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) {});
+const requestMultipart = request.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) {});
 form = requestMultipart.form();
 form.append('my_field', 'my_value');
 form.append('my_buffer', new Buffer([1, 2, 3]));
@@ -408,8 +408,8 @@ request.get('http://some.server.com/', {
   }
 });
 
-let username = 'username';
-let password = 'password';
+const username = 'username';
+const password = 'password';
 let url = `http://'${username}:${password}'@some.server.com`;
 
 request({url}, (error, response, body) => {
@@ -425,7 +425,7 @@ options = {
 
 function callback(error: any, response: http.IncomingMessage, body: string) {
   if (!error && response.statusCode === 200) {
-    let info = JSON.parse(body);
+    const info = JSON.parse(body);
     console.log(info.stargazers_count + " Stars");
     console.log(info.forks_count + " Forks");
   }
@@ -452,33 +452,33 @@ request.post({url, oauth}, (e, r, body) => {
   // verified with twitter that they are authorizing your app.
 
   // step 2
-  let req_data = qs.parse(body);
-  let uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
+  const req_data = qs.parse(body);
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
   // redirect the user to the authorize uri
 
   // step 3
   // after the user is redirected back to your server
-  let auth_data: any = qs.parse(body);
-  let oauth = {
+  const auth_data: any = qs.parse(body);
+  const oauth = {
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET,
         token: auth_data.oauth_token,
         token_secret: req_data.oauth_token_secret as string,
         verifier: auth_data.oauth_verifier
     };
-  let url = 'https://api.twitter.com/oauth/access_token';
+  const url = 'https://api.twitter.com/oauth/access_token';
 
   request.post({url, oauth}, (e, r, body) => {
     // ready to make signed requests on behalf of the user
-    let perm_data: any = qs.parse(body);
-    let oauth = {
+    const perm_data: any = qs.parse(body);
+    const oauth = {
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET,
         token: perm_data.oauth_token,
         token_secret: perm_data.oauth_token_secret
       };
-    let url = 'https://api.twitter.com/1.1/users/show.json';
-    let query = {
+    const url = 'https://api.twitter.com/1.1/users/show.json';
+    const query = {
       screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
@@ -488,9 +488,9 @@ request.post({url, oauth}, (e, r, body) => {
   });
 });
 
-let certFile = path.resolve(__dirname, 'ssl/client.crt');
-let keyFile = path.resolve(__dirname, 'ssl/client.key');
-let caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+const certFile = path.resolve(__dirname, 'ssl/client.crt');
+const keyFile = path.resolve(__dirname, 'ssl/client.key');
+const caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -562,13 +562,13 @@ request({
   });
 
 // requests using baseRequest() will set the 'x-token' header
-let baseRequest = request.defaults({
+const baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
 });
 
 // requests using specialRequest() will include the 'x-token' header set in
 // baseRequest and will also include the 'special' header
-let specialRequest = baseRequest.defaults({
+const specialRequest = baseRequest.defaults({
   headers: {special: 'special value'}
 });
 
@@ -594,7 +594,7 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
     process.exit(0);
 });
 
-let rand = Math.floor(Math.random() * 100000000).toString();
+const rand = Math.floor(Math.random() * 100000000).toString();
   request(
     { method: 'PUT'
     , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
@@ -667,8 +667,8 @@ request('http://www.google.com', () => {
 
 jar = request.jar();
 request({url: 'http://www.google.com', jar}, () => {
-  let cookie_string = jar.getCookieString(url); // "key1=value1; key2=value2; ..."
-  let cookies = jar.getCookies(url);
+  const cookie_string = jar.getCookieString(url); // "key1=value1; key2=value2; ..."
+  const cookies = jar.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });
 
@@ -693,7 +693,7 @@ request.get({
   uri: urlModule.parse('http://example.com')
 });
 
-let requestWithOptionalUri = request.defaults({ uri: 'http://example.com' });
+const requestWithOptionalUri = request.defaults({ uri: 'http://example.com' });
 
 requestWithOptionalUri();
 
