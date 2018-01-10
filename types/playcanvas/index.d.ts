@@ -1,5 +1,5 @@
-// Type definitions for playcanvas 0.221.0-dev
-// Project: https://github.com/playcanvas/engine 
+// Type definitions for playcanvas 0.221
+// Project: https://github.com/playcanvas/engine
 // Definitions by: Philippe Vaillancourt <https://github.com/Neoflash1979>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
