@@ -16,7 +16,7 @@ class Component extends React.Component {
         console.log('input changed');
     }
 
-    private defaultSelectProps = {
+    private readonly defaultSelectProps = {
         className: "my-select",
         prefixCls: "prefix",
         animation: "slide-up",
@@ -41,13 +41,13 @@ class Component extends React.Component {
         defaultActiveFirstOption: false
     };
 
-    private defaultOptGroupProps = {
+    private readonly defaultOptGroupProps = {
         label: "Option group",
         key: "option-group-0",
         value: "option-group-0"
     };
 
-    private defaultOptionProps = {
+    private readonly defaultOptionProps = {
         className: "option",
         disabled: true,
         key: "option-0",
