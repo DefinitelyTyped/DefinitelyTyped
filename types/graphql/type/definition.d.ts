@@ -262,9 +262,9 @@ export type GraphQLIsTypeOfFn<TSource, TContext> = (
     info: GraphQLResolveInfo
 ) => boolean | Promise<boolean>;
 
-export type GraphQLFieldResolver<TSource, TContext> = (
+export type GraphQLFieldResolver<TSource, TContext, TArgs = any> = (
     source: TSource,
-    args: { [argName: string]: any },
+    args: TArgs & { [argName: string]: any },
     context: TContext,
     info: GraphQLResolveInfo
 ) => any;
