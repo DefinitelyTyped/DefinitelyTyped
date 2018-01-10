@@ -2,6 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// TypeScript Version: 2.2
 
 import { Application } from '@feathersjs/feathers';
 import { Request } from 'express';
