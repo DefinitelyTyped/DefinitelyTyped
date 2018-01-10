@@ -210,13 +210,6 @@ req = request.delete(uri, callback);
 req = request.delete(options);
 req = request.delete(options, callback);
 
-value = request.initParams(uri);
-value = request.initParams(uri, options);
-value = request.initParams(uri, options, callback);
-value = request.initParams(uri, callback);
-value = request.initParams(options);
-value = request.initParams(options, callback);
-
 req = request.forever(value, value);
 jar = request.jar();
 
@@ -737,3 +730,24 @@ requestWithOptionalUri.get({
 requestWithOptionalUri.get({
   uri: urlModule.parse('http://example.com')
 });
+
+//// initParams
+const optionsWithoutUriUrl: request.CoreOptions = {};
+let optionsWithUriUrl: request.RequiredUriUrl = {
+  uri: 'http://example.com',
+};
+
+optionsWithUriUrl = request.initParams(uri);
+optionsWithUriUrl = request.initParams(uri, optionsWithoutUriUrl);
+optionsWithUriUrl = request.initParams(uri, optionsWithoutUriUrl, callback);
+optionsWithUriUrl = request.initParams(uri, callback);
+optionsWithUriUrl = request.initParams(optionsWithUriUrl);
+optionsWithUriUrl = request.initParams(optionsWithUriUrl, callback);
+
+const defaultsForInitParams = request.defaults({});
+options = defaultsForInitParams.initParams(uri);
+options = defaultsForInitParams.initParams(uri, optionsWithoutUriUrl);
+options = defaultsForInitParams.initParams(uri, optionsWithoutUriUrl, callback);
+options = defaultsForInitParams.initParams(uri, callback);
+options = defaultsForInitParams.initParams(optionsWithUriUrl);
+options = defaultsForInitParams.initParams(optionsWithUriUrl, callback);

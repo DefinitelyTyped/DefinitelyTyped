@@ -59,9 +59,9 @@ declare namespace request {
         delete(uri: string, callback?: RequestCallback): TRequest;
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
-        initParams(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
-        initParams(uri: string, callback?: RequestCallback): TRequest;
-        initParams(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(uri: string, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(options: RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
