@@ -1,14 +1,22 @@
 import Navigo = require("navigo");
 
+type Keys = string;
+type State = {[k in Keys]: any};
+type Params = State;
+
 const root = null;
 const useHash = false;
 
 let router = new Navigo(root, useHash);
 
+const before = (done: (suppress?: boolean) => void, params: Params) => done();
+
+const after = (params: Params) => params;
+
 router.hooks({
-    before: function(done, params) { //do something },
-    after: function(params) { //do something }
-  });
+    before,
+    after
+});
 
 router
     .on('/products/list', () => {
