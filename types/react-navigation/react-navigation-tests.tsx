@@ -62,7 +62,7 @@ class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavig
             </View>
         );
     }
-    private navigateToNextScreen = (): void => {
+    private readonly navigateToNextScreen = (): void => {
         const params: NextScreenNavigationParams = {
             id: this.props.navigation.state.params.id,
             name: this.props.navigation.state.params.s,
