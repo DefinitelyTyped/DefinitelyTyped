@@ -1,6 +1,0 @@
-{
-    "dependencies": {
-        "@types/socket.io": "^1.4.31"
-    },
-    "private": true
-}
