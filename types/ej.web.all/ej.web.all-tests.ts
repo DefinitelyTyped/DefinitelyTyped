@@ -17,8 +17,6 @@ module AccordionComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module AutocompleteComponent{
     var carList = [
@@ -55,8 +53,6 @@ module AutocompleteComponent{
 }
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module Barcodecomponent {
     $(function () {
@@ -66,9 +62,6 @@ module Barcodecomponent {
     });
 }
 
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module Bulletgraphcomponent {
     $(function () {
@@ -130,9 +123,6 @@ module Bulletgraphcomponent {
 }
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module ButtonComponent {
     $(function () {
         var basicButton = new ej.Button($("#buttonnormal"), {
@@ -177,9 +167,6 @@ module ButtonComponent {
         });
     });
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module ChartComponent {
     $(function () {
@@ -307,10 +294,6 @@ module ChartComponent {
     });
 }
 
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module circulargaugecomponent {
     $(function () {
         var circularsample = new ej.datavisualization.CircularGauge($("#CircularGauge"), {
@@ -362,9 +345,6 @@ module circulargaugecomponent {
     });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module ColorPickerComponent {
     $(function () {
         var colorSample = new ej.ColorPicker($("#colorpick"), {
@@ -372,9 +352,6 @@ module ColorPickerComponent {
         });
     });
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module ComboBoxComponent{
     var BikeList = [
@@ -394,10 +371,6 @@ module ComboBoxComponent{
     });
 }
 
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module DatePickerComponent {
     $(function () {
         var dateSample = new ej.DatePicker($("#datepick"), {
@@ -406,9 +379,6 @@ module DatePickerComponent {
     });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module DateTimePickerComponent {
     $(function () {
         var datetimeSample = new ej.DateRangePicker($("#daterangepick"), {
@@ -416,8 +386,6 @@ module DateTimePickerComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module DateTimePickerComponent {
     $(function () {
@@ -426,8 +394,6 @@ module DateTimePickerComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 $(function () {
     var diagram = new ej.datavisualization.Diagram($("#diagram"), {
@@ -500,8 +466,6 @@ function createConnector(option: ej.datavisualization.Diagram.Connector) {
 function createLabel(options : any) {
     return options;
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module DialogComponent {
     $(function () {
@@ -526,8 +490,6 @@ module DialogComponent {
 }
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 module digitalgaugecomponent {
     $(function () {
         var digitalgaugesample = new ej.datavisualization.DigitalGauge($("#DigitalGauge"), {
@@ -552,9 +514,6 @@ module digitalgaugecomponent {
 
 
 		
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module DropDownListComponent {
     var BikeList = [
         { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
@@ -585,9 +544,6 @@ module DropDownListComponent {
 
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 
 
 module ExplorerComponent {
@@ -604,8 +560,6 @@ module ExplorerComponent {
 }
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 module GanttComponent {
      $(function () {
          var ganttInstance = new ej.Gantt($("#GanttContainer"), {
@@ -655,8 +609,6 @@ module GanttComponent {
     });
 }); 
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module GridComponent {
     $(function () {
@@ -692,8 +644,6 @@ module GridComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 var columns = ["Vegie-spread", "Tofuaa", "Alice Mutton", "Konbu", "Fløtemysost"]
 var itemSource: any[] = [];
@@ -740,9 +690,6 @@ $(function () {
     });
 });
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 declare var window:myWindow;
 export interface myWindow extends Window{
 kanbanData:any;
@@ -770,8 +717,6 @@ module KanbanComponent {
 }
 
  
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 module lineargaugecomponent {
     $(function () {
         var linearsample = new ej.datavisualization.LinearGauge($("#LinearGauge"), {
@@ -801,9 +746,6 @@ module lineargaugecomponent {
 }
 
 	
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
-
 module ListBoxComponent {
     $(function () {
         var listboxInstance = new ej.ListBox($("#selectcar"), {
@@ -811,8 +753,6 @@ module ListBoxComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module ListviewComponent {
     $(function () {
@@ -822,8 +762,7 @@ module ListviewComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
+
 var world_map=
     {
         "type": "FeatureCollection",
@@ -1051,10 +990,6 @@ module mapcomponenet {
 
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
-
 module MenuComponent {
     $(function () {
         var sample = new ej.Menu($("#syncfusionProducts"),{
@@ -1081,8 +1016,6 @@ module MenuComponent {
 
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module NavigationDrawerComponent {
     $(function () {
@@ -1104,8 +1037,6 @@ module NavigationDrawerComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module PDFViewerComponent {
     $(function () {
@@ -1115,8 +1046,6 @@ module PDFViewerComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module PivotChartOlap {
     $(function () {
@@ -1159,8 +1088,7 @@ module PivotChartOlap {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
+
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1234,8 +1162,6 @@ module PivotChartRelational {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module PivotGaugeOlap {
 
@@ -1341,8 +1267,7 @@ module PivotGaugeOlap {
         });
     });	
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
+
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1462,8 +1387,6 @@ module PivotGaugeRelational {
         });
     });	
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module PivotGridOlap {
 
@@ -1501,8 +1424,6 @@ module PivotGridOlap {
         $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1571,8 +1492,6 @@ module PivotGridRelational {
 
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module PivotTreeMap {
     $(function () {
@@ -1606,8 +1525,6 @@ module PivotTreeMap {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module ProgressBarComponent {
     $(function () {
@@ -1625,8 +1542,6 @@ module ProgressBarComponent {
 
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 declare var rteObj: any;
 declare var data: any;
@@ -1707,9 +1622,6 @@ function redo(e: any) {
     radialEle.focus();
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
-
 module RadialSliderComponent {
     $(function () {
         var radialsliderInstance = new ej.RadialSlider($("#radialSlider"), {
@@ -1717,8 +1629,7 @@ module RadialSliderComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
+
 module rangecomponent {
     $(function () {
         var linearsample = new ej.datavisualization.RangeNavigator($("#RangeNavigator"), {
@@ -1832,8 +1743,6 @@ function GetData() {
     data = { Open: series1, Close: series2 };
     return data;
 };
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module RatingComponent {
     $(function () {
@@ -1888,8 +1797,6 @@ module RatingComponent {
     });
 
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module ReportViewerComponent {
 	$(function () {
@@ -1903,8 +1810,6 @@ module ReportViewerComponent {
 	});
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 var fontfamily = ["Segoe UI", "Arial", "Times New Roman", "Tahoma", "Helvetica"], fontsize = ["1pt", "2pt", "3pt", "4pt", "5pt"], action1 = ["New", "Clear"], action2 = ["Bold", "Italic", "Underline", "strikethrough", "superscript", "subscript", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyFull", "Undo", "Redo"];
 module RibbonComponent {
     $(function () {
@@ -2596,9 +2501,6 @@ function onClick(args) {
 
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
-
 module RotatorComponent {
     $(function () {
         var rotatorInstance = new ej.Rotator($("#sliderContent"), {
@@ -2619,8 +2521,6 @@ module RotatorComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module RTEComponent {
     $(function () {
@@ -2691,8 +2591,6 @@ module RTEComponent {
     });
 
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module ScheduleComponent {
     $(function () {
@@ -2761,8 +2659,6 @@ module ScheduleComponent {
         });
     });
 }   
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module ScrollerComponent {
     $(function () {
@@ -2775,8 +2671,6 @@ module ScrollerComponent {
         });    });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 module SignatureComponent {
     $(function () {
         var basicSignature = new ej.Signature($("#signature"), {
@@ -2786,9 +2680,6 @@ module SignatureComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 
 module SliderComponent {
     $(function () {
@@ -2809,8 +2700,6 @@ module SliderComponent {
 
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module linesparkline {
     $(function () {
@@ -2940,8 +2829,6 @@ module piesparkline4 {
 }
 
 	
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 
 module SplitterComponent {
@@ -2958,8 +2845,6 @@ module SplitterComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module SpreadsheetComponent {
 $(function () {
@@ -2987,9 +2872,6 @@ $(function () {
         });
     });
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 var default_data: Array<Object> = [
     { Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup:"Executive",                         EmployeesCount : 50 },
@@ -3062,9 +2944,6 @@ module sunburstcomponent {
     });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module TabComponent {
     $(function () {
         var sample = new ej.Tab($("#defaultTab"),{
@@ -3077,8 +2956,6 @@ module TabComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module TagCloudComponent {
     
@@ -3117,8 +2994,6 @@ module TagCloudComponent {
     });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 module EditorComponent {
     $(function () {
         var num = new ej.NumericTextbox($("#numeric"), {
@@ -3152,8 +3027,6 @@ module EditorComponent {
 }
 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
- /// <reference path="../tsfiles/ej.web.all.d.ts" />\
 
 module TileViewComponent {
     $(function () {
@@ -3232,9 +3105,6 @@ module TileViewComponent {
         });
     });
 }
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
-
 module TimePickerComponent {
     $(function () {
         var timeSample = new ej.TimePicker($("#timepick"), {
@@ -3242,9 +3112,6 @@ module TimePickerComponent {
         });
     });
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module ToolbarComponent {
     
@@ -3261,9 +3128,6 @@ module ToolbarComponent {
     });
 
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module TooltipComponent {
     
@@ -3320,8 +3184,6 @@ module TooltipComponent {
     });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 module TreeGridComponent {
     $(function () {
         var treegridInstance = new ej.TreeGrid($("#TreeGridContainer"), {
@@ -3363,8 +3225,6 @@ module TreeGridComponent {
 });
 } 
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 var population_data: Array<Object> = [
     { Continent: "Asia", Country: "Indonesia", Growth: 3, Population: 237641326 },
@@ -3404,8 +3264,6 @@ module treemapcomponent {
     });
 }
 
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
  
 
 module TreeViewComponent {
@@ -3418,9 +3276,6 @@ module TreeViewComponent {
         });
     });
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module UploadboxComponent {
     
@@ -3442,9 +3297,6 @@ module UploadboxComponent {
     });
 
 }
-
-/// <reference path="../tsfiles/jquery.d.ts" />
-/// <reference path="../tsfiles/ej.web.all.d.ts" />
 
 module WaitingPopupComponent {
     $(function () {
