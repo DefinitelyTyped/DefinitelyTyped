@@ -205,9 +205,9 @@ class Circulator {
                 return d ? d : [0, 0];
             });
     }
-    private r: number;
-    private p: number;
-    private circleGenerator: d3Geo.GeoCircleGenerator<Circulator, [number, number] | undefined>;
+    private readonly r: number;
+    private readonly p: number;
+    private readonly circleGenerator: d3Geo.GeoCircleGenerator<Circulator, [number, number] | undefined>;
 
     getCirclePolygon(center?: [number, number]): GeoJSON.Polygon {
         if (center && center.length === 2 && typeof center[0] === 'number' && typeof center[1] === 'number') {
@@ -371,6 +371,13 @@ const inverted2: [number, number] = constructedProjection.invert([54, 2]);
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
 
+const preClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.preclip();
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipAntimeridian);
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipCircle(45));
+
+const postClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.postclip();
+constructedProjection = constructedProjection.postclip(d3Geo.geoClipRectangle(0, 0, 1, 1));
+
 const clipAngle: number = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
@@ -414,6 +421,26 @@ constructedProjection = constructedProjection.fitSize([960, 500], sampleExtended
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedFeature2);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleFeatureCollection);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedFeatureCollection);
+
+constructedProjection = constructedProjection.fitWidth(960, samplePolygon);
+constructedProjection = constructedProjection.fitWidth(960, sampleSphere);
+constructedProjection = constructedProjection.fitWidth(960, sampleGeometryCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedGeometryCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleFeature);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeature1);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitWidth(960, sampleFeatureCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeatureCollection);
+
+constructedProjection = constructedProjection.fitHeight(500, samplePolygon);
+constructedProjection = constructedProjection.fitHeight(500, sampleSphere);
+constructedProjection = constructedProjection.fitHeight(500, sampleGeometryCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedGeometryCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleFeature);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeature1);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitHeight(500, sampleFeatureCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeatureCollection);
 
 // ----------------------------------------------------------------------
 // GeoConicProjection interface
@@ -686,3 +713,13 @@ d3Geo.geoStream(sampleExtendedFeature1, stream);
 d3Geo.geoStream(sampleExtendedFeature2, stream);
 d3Geo.geoStream(sampleFeatureCollection, stream);
 d3Geo.geoStream(sampleExtendedFeatureCollection, stream);
+
+// ----------------------------------------------------------------------
+// Clipping Function
+// ----------------------------------------------------------------------
+
+let clippingFunction: (stream: d3Geo.GeoStream) => d3Geo.GeoStream;
+
+clippingFunction = d3Geo.geoClipAntimeridian;
+clippingFunction = d3Geo.geoClipCircle(45);
+clippingFunction = d3Geo.geoClipRectangle(0, 0, 1, 1);

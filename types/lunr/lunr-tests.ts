@@ -22,14 +22,20 @@ function basic_test() {
 
 function pipeline_test() {
     const index = lunr(function() {
-        this.pipeline.add(function(token, tokenIndex, tokens) {
+        this.pipeline.add((token, tokenIndex, tokens) => {
             // text processing in here
             return token;
         });
 
-        this.pipeline.after(lunr.stopWordFilter, function(token, tokenIndex, tokens) {
+        this.pipeline.after(lunr.stopWordFilter, (token, tokenIndex, tokens) => {
             // text processing in here
             return token;
         });
     });
+}
+
+function pipeline_function_test() {
+    const stemmer: lunr.PipelineFunction = lunr.stemmer;
+    const stopWordFilter: lunr.PipelineFunction = lunr.stopWordFilter;
+    const trimmer: lunr.PipelineFunction = lunr.trimmer;
 }

@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface CardProps {
   tag?: React.ReactType;
   inverse?: boolean;
   color?: string;
@@ -11,6 +11,5 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-declare var Card: React.StatelessComponent<Props>;
+declare const Card: React.StatelessComponent<CardProps>;
 export default Card;
-

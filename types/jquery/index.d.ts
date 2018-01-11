@@ -42,6 +42,11 @@ type _Promise<T> = Promise<T>;
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
+     * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1}
+     * @deprecated Use jQuery.ajaxSetup(options)
+     */
+    ajaxSettings: JQuery.AjaxSettings;
+    /**
      * A factory function that returns a chainable utility object with methods to register multiple
      * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
      * any synchronous or asynchronous function.
@@ -85,7 +90,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
          * @since 1.3
          */
         off: boolean;
-        step: JQuery.PlainObject<JQuery.AnimationHook<TElement>>;
+        step: JQuery.PlainObject<JQuery.AnimationHook<Node>>;
     };
     /**
      * A Promise-like object (or "thenable") that resolves when the document is ready.
@@ -230,7 +235,6 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      *
      * @param element The DOM element to query for the data.
      * @param key Name of the data stored.
-     * @param undefined
      * @see {@link https://api.jquery.com/jQuery.data/}
      * @since 1.2.3
      */
@@ -723,7 +727,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      * @since 1.8
      */
-    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): JQuery.Node[];
+    parseHTML(data: string, context_keepScripts?: Document | null | boolean): JQuery.Node[];
     /**
      * Takes a well-formed JSON string and returns the resulting JavaScript value.
      *
@@ -3019,7 +3023,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/after/}
      * @since 1.0
      */
-    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
@@ -3031,7 +3035,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @since 1.10
      */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
      *
@@ -3135,7 +3139,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/append/}
      * @since 1.0
      */
-    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -3146,7 +3150,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/append/}
      * @since 1.4
      */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Insert every element in the set of matched elements to the end of the target.
      *
@@ -3193,7 +3197,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/before/}
      * @since 1.0
      */
-    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
@@ -3205,7 +3209,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @since 1.10
      */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
@@ -3417,7 +3421,6 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * data(name, value) or by an HTML5 data-* attribute.
      *
      * @param key Name of the data stored.
-     * @param undefined
      * @see {@link https://api.jquery.com/data/}
      * @since 1.2.3
      */
@@ -3889,6 +3892,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @since 1.4
      */
+    // HACK: The type parameter T is not used but ensures the 'event' callback parameter is typed correctly.
     hover<T>(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false,
              handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4597,7 +4601,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.0
      */
-    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
@@ -4608,7 +4612,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
@@ -4754,7 +4758,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/queue/}
      * @since 1.2
      */
-    queue(queueName?: string): JQuery.Queue<TElement>;
+    queue(queueName?: string): JQuery.Queue<Node>;
     /**
      * Specify a function to execute when the DOM is fully loaded.
      *
@@ -5401,6 +5405,14 @@ declare namespace JQuery {
          * A string containing the URL to which the request is sent.
          */
         url?: string;
+        /**
+         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
+         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
+         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
+         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
+         * of the type of request.
+         */
+        beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettings<TContext>): false | void;
     }
 
     interface UrlAjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
@@ -5408,6 +5420,14 @@ declare namespace JQuery {
          * A string containing the URL to which the request is sent.
          */
         url: string;
+        /**
+         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
+         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
+         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
+         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
+         * of the type of request.
+         */
+        beforeSend?(this: TContext, jqXHR: jqXHR, settings: UrlAjaxSettings<TContext>): false | void;
     }
 
     namespace Ajax {
@@ -6768,7 +6788,7 @@ declare namespace JQuery {
             (failFilter?: ((t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                 BRF, BJF, BNF,
                 CRF, CJF, CNF,
-                RRF, RJF, RNF> | Thenable<ARF> | ARF) | undefined | null): PromiseBase<ARF, AJF, ANF,
+                RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
             CRF, CJF, CNF,
             RRF, RJF, RNF>;
@@ -7349,7 +7369,7 @@ declare namespace JQuery {
             (failFilter?: ((...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
                 BRF, BJF, BNF,
                 CRF, CJF, CNF,
-                RRF, RJF, RNF> | Thenable<ARF> | ARF) | undefined | null): PromiseBase<ARF, AJF, ANF,
+                RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
             CRF, CJF, CNF,
             RRF, RJF, RNF>;

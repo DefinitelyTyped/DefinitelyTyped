@@ -1,0 +1,13 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // TODOs
+    "ban-types": false,
+    "no-empty-interface": false,
+    "no-mergeable-namespace": false,
+    "no-unnecessary-generics": false,
+    "no-single-declare-module": false,
+    "no-declare-current-package": false,
+    "interface-name": false
+  }
+}

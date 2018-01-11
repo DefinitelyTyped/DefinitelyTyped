@@ -8,12 +8,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "react-onclickoutside": ["react-onclickoutside/v5"] 
+            "react-onclickoutside": [
+                "react-onclickoutside/v5"
+            ]
         },
         "types": [],
         "noEmit": true,

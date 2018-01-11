@@ -6,9 +6,11 @@
 //                 Batbold Gansukh <https://github.com/Batbold-Gansukh>,
 //                 Raymond May Jr. <https://github.com/octatone>,
 //                 Cheng Sieu Ly <https://github.com/chengsieuly>,
+//                 Mercedes Retolaza <https://github.com/mretolaza>,
 //                 Kat Busch <https://github.com/katbusch>,
-//                 Vito Samson <https://github.com/vitosamson>
+//                 Vito Samson <https://github.com/vitosamson>,
 //                 Karol Janyst <https://github.com/LKay>
+//                 Aaron Beall <https://github.com/aaronbeall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

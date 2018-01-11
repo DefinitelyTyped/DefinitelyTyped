@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Component, PropTypes } from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import Pagination from 'material-ui-pagination';
 import * as ui from 'material-ui';
@@ -17,7 +18,7 @@ interface PagerState {
 
 class Pager extends React.Component<{}, PagerState> {
 	constructor() {
-		super();
+		super({});
 		this.state = {
 			pageIndex: 0
 		};

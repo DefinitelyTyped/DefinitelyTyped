@@ -97,7 +97,21 @@ function testAssert() {
 }
 
 function testSandbox() {
+    const config = {
+        injectInto: null,
+        properties: ["spy", "stub", "mock", "clock", "server", "requests"],
+        useFakeServer: true,
+        useFakeTimers: true,
+    };
+
     let sandbox = sinon.sandbox.create();
+    sandbox = sinon.sandbox.create(config);
+    sandbox = sinon.sandbox.create(sinon.defaultConfig);
+
+    sandbox = sinon.createSandbox();
+    sandbox = sinon.createSandbox(config);
+    sandbox = sinon.createSandbox(sinon.defaultConfig);
+
     sandbox = sandbox.usingPromise(Promise);
 
     sandbox.assert.notCalled(sinon.spy());
@@ -115,6 +129,8 @@ function testSandbox() {
     sandbox.resetBehavior();
     sandbox.verify();
     sandbox.verifyAndRestore();
+    sandbox.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+    sandbox.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
 }
 
 function testPromises() {
@@ -141,6 +157,7 @@ function testSymbolMatch() {
 
 function testResetHistory() {
     sinon.stub().resetHistory();
+    sinon.spy().resetHistory();
 }
 
 function testUsingPromises() {
@@ -216,6 +233,25 @@ function testSpy() {
     sinon.spy().calledImmediatelyBefore(otherSpy);
 }
 
+function testFakeServer() {
+    sinon.fakeServer.create({
+        autoRespond: true,
+        autoRespondAfter: 3,
+        fakeHTTPMethods: true,
+        respondImmediately: false
+    });
+}
+
+function testStubObject() {
+    const myObj = {
+        setStatus() {},
+        json() {}
+    };
+    const stub = sinon.stub(myObj);
+    stub.setStatus.returns(stub);
+    stub.json.callCount;
+}
+
 testOne();
 testTwo();
 testThree();
@@ -235,6 +271,7 @@ testGetterStub();
 testSetterStub();
 testValueStub();
 testThrowsStub();
+testFakeServer();
 
 const clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);

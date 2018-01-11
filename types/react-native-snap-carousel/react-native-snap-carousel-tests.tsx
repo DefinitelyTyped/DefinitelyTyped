@@ -46,15 +46,15 @@ class SnapCarouselTest extends React.Component {
         );
     }
 
-    private onSnapToItem = (index: number) => {
+    private readonly onSnapToItem = (index: number) => {
         console.log("Snapped to: ", index);
     }
 
-    private onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    private readonly onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log("Scrolled: ", event);
     }
 
-    private onLayout = (event: LayoutChangeEvent) => {
+    private readonly onLayout = (event: LayoutChangeEvent) => {
         console.log("Layout: ", event);
     }
 }

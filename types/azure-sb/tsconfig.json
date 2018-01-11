@@ -7,6 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -16,7 +17,26 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "azure-sb-tests.ts"
+        "lib/servicebusservice.d.ts",
+        "lib/wrapservice.d.ts",
+        "lib/servicebusservicebase.d.ts",
+        "lib/notificationhubservice.d.ts",
+        "lib/models/topicresult.d.ts",
+        "lib/models/queuemessageresult.d.ts",
+        "lib/models/acstokenresult.d.ts",
+        "lib/models/registrationresult.d.ts",
+        "lib/models/ruleresult.d.ts",
+        "lib/models/queueresult.d.ts",
+        "lib/models/subscriptionresult.d.ts",
+        "lib/models/notificationhubresult.d.ts",
+        "lib/models/resourceresult.d.ts",
+        "lib/servicebusserviceclient.d.ts",
+        "lib/gcmservice.d.ts",
+        "lib/wnsservice.d.ts",
+        "lib/mpnservice.d.ts",
+        "lib/apnsservice.d.ts",
+        "azure-sb-tests.ts",
+        "index.d.ts"
     ]
 }
+

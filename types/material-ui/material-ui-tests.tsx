@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {
-  Component, ComponentClass, CSSProperties, PropTypes,
+  Component, ComponentClass, CSSProperties,
   StatelessComponent, ReactElement, ReactInstance, ValidationMap
 } from 'react';
 import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -2062,13 +2063,13 @@ import {
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
-// Needed for onTouchTap
+// Needed for onClick
 // Check this repo:
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-function handleTouchTap() {
-  alert('onTouchTap triggered on the title component');
+function handleClick() {
+  alert('onClick triggered on the title component');
 }
 
 const styles: { [key: string]: CSSProperties } = {
@@ -2343,7 +2344,7 @@ const AppBarExampleIcon = () => (
 const AppBarExampleIconButton = () => (
   <AppBar
     title={<span style={styles.title}>Title</span>}
-    onTitleTouchTap={handleTouchTap}
+    onTitleClick={handleClick}
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
@@ -3013,8 +3014,8 @@ class CardExampleControlled extends Component<{}, {expanded: boolean}> {
           Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
         </CardText>
         <CardActions>
-                    <FlatButton label="Expand" onTouchTap={this.handleExpand}/>
-                    <FlatButton label="Reduce" onTouchTap={this.handleReduce}/>
+                    <FlatButton label="Expand" onClick={this.handleExpand}/>
+                    <FlatButton label="Reduce" onClick={this.handleReduce}/>
         </CardActions>
       </Card>
     );
@@ -3029,6 +3030,8 @@ const ChipExampleSimple = () => (
     <Chip labelColor={blue500}>Blue Label Color</Chip>
     <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
     <Chip style={styles.chip}>Styled</Chip>
+    <Chip containerElement="span">String Container</Chip>
+    <Chip containerElement={() => {}}>ReactNode Container</Chip>
   </div>
 );
 
@@ -3037,14 +3040,14 @@ class ChipExampleComplex extends Component {
     alert('You clicked the delete button.');
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     alert('You clicked the Chip.');
   }
 
   render() {
     return (
       <div>
-        <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
+        <Chip onClick={this.handleClick} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
       </div>
     );
   }
@@ -3244,19 +3247,19 @@ class DialogExampleSimple extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -3289,19 +3292,19 @@ class DialogExampleModal extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         disabled={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Modal Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -3333,18 +3336,18 @@ class DialogExampleCustomWidth extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog With Custom Width" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog With Custom Width" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Custom Width"
           actions={actions}
@@ -3378,13 +3381,13 @@ class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean}> {
         label="Ok"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog With Date Picker" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog With Date Picker" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Date Picker"
           actions={actions}
@@ -3418,13 +3421,13 @@ class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
@@ -3442,7 +3445,7 @@ class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
 
     return (
       <div>
-                <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Scrollable Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Scrollable Dialog"
           actions={actions}
@@ -3478,18 +3481,18 @@ class DialogExampleAlert extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Discard"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Alert" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Alert" onClick={this.handleOpen}/>
         <Dialog
           actions={actions}
           modal={false}
@@ -3554,7 +3557,7 @@ class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
         <Drawer open={this.state.open}>
           <MenuItem>Menu Item</MenuItem>
@@ -3580,7 +3583,7 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Open Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
         <Drawer
           docked={false}
@@ -3588,8 +3591,8 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
-          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+          <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
+          <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
         </Drawer>
       </div>
     );
@@ -3609,7 +3612,7 @@ class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
                 <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
@@ -4564,7 +4567,7 @@ class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledS
                     <MenuItem value="3" primaryText="Android App"/>
                     <MenuItem value="4" primaryText="iOS App"/>
         </IconMenu>
-                <RaisedButton onTouchTap={this.handleOpenMenu} label="Downloads"/>
+                <RaisedButton onClick={this.handleOpenMenu} label="Downloads"/>
       </div>
     );
   }
@@ -4821,7 +4824,7 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
     };
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
 
@@ -4841,7 +4844,7 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4872,7 +4875,7 @@ class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: 
     };
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4891,7 +4894,7 @@ class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: 
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4938,7 +4941,7 @@ class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurabl
     };
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4975,7 +4978,7 @@ class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurabl
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <h3 style={styles.h3}>Current Settings</h3>
@@ -5686,7 +5689,7 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
     };
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5702,7 +5705,7 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <Snackbar
@@ -5727,13 +5730,13 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
     };
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
   }
 
-  handleActionTouchTap = () => {
+  handleActionClick = () => {
     this.setState({
       open: false,
     });
@@ -5757,7 +5760,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <br />
@@ -5771,7 +5774,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
           message={this.state.message}
           action="undo"
           autoHideDuration={this.state.autoHideDuration}
-          onActionTouchTap={this.handleActionTouchTap}
+          onActionClick={this.handleActionClick}
           onRequestClose={this.handleRequestClose}
         />
       </div>
@@ -5795,7 +5798,7 @@ class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: stri
     clearTimeout(this.timer);
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5817,7 +5820,7 @@ class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: stri
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar two times"
         />
         <Snackbar
@@ -5904,13 +5907,13 @@ class HorizontalLinearStepper extends Component<{}, {stepIndex?: number, finishe
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
-                  onTouchTap={this.handlePrev}
+                  onClick={this.handlePrev}
                   style={{marginRight: 12}}
                 />
                 <RaisedButton
                   label={stepIndex === 2 ? 'Finish' : 'Next'}
                   primary={true}
-                  onTouchTap={this.handleNext}
+                  onClick={this.handleNext}
                 />
               </div>
             </div>
@@ -5952,7 +5955,7 @@ class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onClick={this.handleNext}
           style={{marginRight: 12}}
         />
         {step > 0 && (
@@ -5961,7 +5964,7 @@ class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?
             disabled={stepIndex === 0}
             disableTouchRipple={true}
             disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
+            onClick={this.handlePrev}
           />
         )}
       </div>
@@ -6084,14 +6087,14 @@ class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number}> {
             <FlatButton
               label="Back"
               disabled={stepIndex === 0}
-              onTouchTap={this.handlePrev}
+              onClick={this.handlePrev}
               style={{marginRight: 12}}
             />
             <RaisedButton
               label="Next"
               disabled={stepIndex === 2}
               primary={true}
-              onTouchTap={this.handleNext}
+              onClick={this.handleNext}
             />
           </div>
         </div>
@@ -6127,7 +6130,7 @@ class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onClick={this.handleNext}
           style={{marginRight: 12}}
         />
         {step > 0 && (
@@ -6135,7 +6138,7 @@ class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
             label="Back"
             disableTouchRipple={true}
             disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
+            onClick={this.handlePrev}
           />
         )}
       </div>
@@ -6299,13 +6302,13 @@ class GranularControlStepper extends Component<{}, {stepIndex?: number, visited?
               <FlatButton
                 label="Back"
                 disabled={stepIndex === 0}
-                onTouchTap={this.handlePrev}
+                onClick={this.handlePrev}
                 style={styles.backButton}
               />
               <RaisedButton
                 label="Next"
                 primary={true}
-                onTouchTap={this.handleNext}
+                onClick={this.handleNext}
               />
             </div>
           )}
@@ -7001,15 +7004,15 @@ class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
   constructor() {
-    super();
+    super({});
     this.state = {
       index: 0
     };
   }
   render() {
     return <BottomNavigation selectedIndex={this.state.index}>
-      <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
-      <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+      <BottomNavigationItem label='0' icon={<ActionHome/>} onClick={() => this.setState({index: 0})}/>
+      <BottomNavigationItem label='1' icon={<ActionInfo/>} onClick={() => this.setState({index: 1})}/>
     </BottomNavigation>;
   }
 }

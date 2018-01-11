@@ -47,8 +47,8 @@ function setFilters_0() {
 }
 
 function setFilters_1(oldPOS: RegExp) {
-    Sizzle.selectors.match['POS'] = new RegExp(oldPOS.source.replace('first', 'uno'), 'gi');
-    Sizzle.selectors.setFilters['uno'] = Sizzle.selectors.setFilters['first'];
-    delete Sizzle.selectors.setFilters['first'];
+    Sizzle.selectors.match.POS = new RegExp(oldPOS.source.replace('first', 'uno'), 'gi');
+    Sizzle.selectors.setFilters.uno = Sizzle.selectors.setFilters.first;
+    delete Sizzle.selectors.setFilters.first;
     Sizzle('div:uno'); // ==> [ <div> ]
 }
