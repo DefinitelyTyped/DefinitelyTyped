@@ -87,6 +87,14 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
+export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
+
+export interface PlaceholderRendererProps {
+    isOver: boolean;
+    canDrop: boolean;
+    draggedNode: {[index: string]: any};
+}
+
 type NumberArrayOrStringArray = string[] | number[];
 
 export interface ReactSortableTreeProps {
@@ -113,6 +121,7 @@ export interface ReactSortableTreeProps {
     isVirtualized?: boolean;
     nodeContentRenderer?: NodeRenderer;
     dndType?: string;
+    placeholderRenderer?: PlaceholderRenderer;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
