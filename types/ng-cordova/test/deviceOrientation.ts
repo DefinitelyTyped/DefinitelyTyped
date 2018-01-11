@@ -12,8 +12,8 @@ namespace demo.deviceorientation {
 
     static $inject:Array<string> = ["$ionicPlatform", "$timeout", "$cordovaDeviceOrientation"];
     constructor($ionicPlatform:ionic.platform.IonicPlatformService,
-      private $timeout:ng.ITimeoutService,
-      private $cordovaDeviceOrientation:ngCordova.IDeviceOrientationService) {
+      private readonly $timeout:ng.ITimeoutService,
+      private readonly $cordovaDeviceOrientation:ngCordova.IDeviceOrientationService) {
 
         $ionicPlatform.ready(() => {
           this.getHeading();

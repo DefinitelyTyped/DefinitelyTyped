@@ -9,13 +9,13 @@
                 "mongodb/v2"
             ]
         },
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "multer-gridfs-storage-tests.ts"
+        "mongodb-tests.ts"
     ]
 }

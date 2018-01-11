@@ -614,7 +614,7 @@ function updateSproc(id: string, update: Object) {
                 } else if (document[existingFieldName]) {
                     // If the field exists, set/overwrite the new field name and unset the existing field name.
                     document[newFieldName] = document[existingFieldName];
-                    delete document[existingFieldName];
+                    delete document[existingFieldName]; // tslint:disable-line no-dynamic-delete
                 } else {
                     // Otherwise this is a noop.
                 }
@@ -641,7 +641,7 @@ function updateSproc(id: string, update: Object) {
         if (update.$unset) {
             fields = Object.keys(update.$unset);
             for (i = 0; i < fields.length; i++) {
-                delete document[fields[i]];
+                delete document[fields[i]]; // tslint:disable-line no-dynamic-delete
             }
         }
     }

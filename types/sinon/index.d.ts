@@ -87,7 +87,9 @@ declare namespace Sinon {
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
         getCalls(): SinonSpyCall[];
+        /// @deprecated Use resetHistory() instead
         reset(): void;
+        resetHistory(): void;
         printf(format: string, ...args: any[]): string;
         restore(): void;
     }
