@@ -205,9 +205,9 @@ class Circulator {
                 return d ? d : [0, 0];
             });
     }
-    private r: number;
-    private p: number;
-    private circleGenerator: d3Geo.GeoCircleGenerator<Circulator, [number, number] | undefined>;
+    private readonly r: number;
+    private readonly p: number;
+    private readonly circleGenerator: d3Geo.GeoCircleGenerator<Circulator, [number, number] | undefined>;
 
     getCirclePolygon(center?: [number, number]): GeoJSON.Polygon {
         if (center && center.length === 2 && typeof center[0] === 'number' && typeof center[1] === 'number') {

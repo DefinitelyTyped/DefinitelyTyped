@@ -40,9 +40,6 @@ export class TestStorage {
     // import Storage class
     static gcs = CloudStorage();
 
-    // the bucket
-    private buckets: Bucket[] = [];
-
     constructor() {
         // nothing to do
     }

@@ -178,6 +178,10 @@ export interface ChartConfiguration {
          * Set if min or max value will be 0 on bar chart.
          */
         zerobased?: boolean;
+        /**
+         * Set space between bars in bar charts
+         */
+        space?: number;
     };
 
     pie?: {
