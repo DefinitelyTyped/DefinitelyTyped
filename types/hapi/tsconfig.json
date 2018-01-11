@@ -7,11 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "boom": ["boom/v4"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -6,7 +6,7 @@
 
 import request = require('request');
 import http = require('http');
-import errors = require('request-promise/errors');
+import errors = require('./errors');
 import Promise = require('bluebird');
 
 declare namespace requestPromise {

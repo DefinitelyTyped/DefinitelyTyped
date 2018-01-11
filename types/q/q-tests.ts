@@ -1,4 +1,3 @@
-/* tslint:disable:no-namespace */
 /// <reference types="jquery" />
 
 import Q = require('q');
@@ -144,17 +143,17 @@ const nodeStyle = (input: string, cb: (error: any, success: any) => void) => {
 	cb(null, input);
 };
 
-Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {
+Q.nfapply<string>(nodeStyle, ["foo"]).done((result: string) => {
 });
-Q.nfcall(nodeStyle, "foo").done((result: string) => {
+Q.nfcall<string>(nodeStyle, "foo").done((result: string) => {
 });
-Q.denodeify(nodeStyle)('foo').done((result: string) => {
+Q.denodeify<string>(nodeStyle)('foo').done((result: string) => {
 });
-Q.nfbind(nodeStyle)('foo').done((result: string) => {
+Q.nfbind<string>(nodeStyle)('foo').done((result: string) => {
 });
 
 class Repo {
-	private items: any[] = [
+	private readonly items: any[] = [
 		{name: 'Max', cute: false},
 		{name: 'Annie', cute: true}
 	];
@@ -171,13 +170,13 @@ class Repo {
 }
 
 const kitty = new Repo();
-Q.nbind(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
+Q.nbind<any[]>(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
 });
 
 /**
  * Test: Can "rethrow" rejected promises
  */
-namespace TestCanRethrowRejectedPromises {
+function TestCanRethrowRejectedPromises() {
 	interface Foo {
 		a: number;
 	}

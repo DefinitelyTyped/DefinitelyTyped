@@ -1,7 +1,12 @@
 import * as React from "react";
+import { findDOMNode } from "react-dom";
 import * as ReactTooltip from "react-tooltip";
 
 export class ReactTooltipTest extends React.PureComponent {
+    componentDidMount() {
+        ReactTooltip.rebuild();
+    }
+
     render() {
         const getContent: ReactTooltip.GetContent = [() => Math.floor(Math.random() * 100), 30];
 
@@ -12,13 +17,21 @@ export class ReactTooltipTest extends React.PureComponent {
             </ReactTooltip>
 
             <a data-tip data-for="sadFace"> இдஇ </a>
-            <ReactTooltip id="sadFace" type="warning" effect="solid" afterHide={() => { console.log("afterHide"); }}>
+            <ReactTooltip
+                id="sadFace" type="warning" effect="solid" afterHide={() => {
+                console.log("afterHide");
+            }}
+            >
                 <span>Show sad face</span>
             </ReactTooltip>
 
             <a data-tip data-for="global"> σ`∀´)σ </a>
             <a data-tip data-for="global"> (〃∀〃) </a>
-            <ReactTooltip id="global" aria-haspopup="true" role="example" afterShow={() => { console.log("afterShow"); }}>
+            <ReactTooltip
+                id="global" aria-haspopup="true" role="example" afterShow={() => {
+                console.log("afterShow");
+            }}
+            >
                 <p>This is a global react component tooltip</p>
                 <p>You can put every thing here</p>
                 <ul>
@@ -74,6 +87,31 @@ export class ReactTooltipTest extends React.PureComponent {
                     Show happy face
                 </span>
             </ReactTooltip>
+
+            <p data-for="show-on-click" ref="fooShow" data-tip="tooltip" />
+            <button
+                onClick={() => {
+                    ReactTooltip.show(findDOMNode(this.refs.fooShow));
+                }}
+            />
+            <ReactTooltip id="show-on-click" />
+
+            <p data-for="hide-on-click" ref="fooHide" data-tip="tooltip"/>
+            <button
+                onClick={() => {
+                    ReactTooltip.hide(findDOMNode(this.refs.fooHide));
+                }}
+            />
+            <ReactTooltip id="hide-on-click" />
+
+            <CommonTooltipComponent data-tip="my tooltip" />
         </div>;
     }
 }
+
+const CommonTooltipComponent: React.SFC<ReactTooltip.DataProps> = (props) => (
+    <div>
+        <p {...props}/>
+        <ReactTooltip />
+    </div>
+);

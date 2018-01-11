@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "uuid": ["uuid/v2"]
+            "uuid": [
+                "uuid/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

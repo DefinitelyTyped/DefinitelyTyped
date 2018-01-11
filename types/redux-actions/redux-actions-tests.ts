@@ -51,6 +51,15 @@ const actionsHandlerWithInitialState = ReduxActions.handleActions({
 
 state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
 
+const actionsHandlerWithRecursiveReducerMap = ReduxActions.handleActions<number, number>({
+    ADJUST: {
+        UP: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+        DOWN: (state: number, action: ReduxActions.Action<number>) => state - action.payload,
+    }
+}, 0);
+
+state = actionsHandlerWithRecursiveReducerMap(0, { type: 'ADJUST/UP', payload: 1 });
+
 // ----------------------------------------------------------------------------------------------------
 
 interface TypedState {
@@ -144,7 +153,7 @@ const typedActionHandlerWithMeta = ReduxActions.handleAction<TypedState, TypedPa
 
 typedState = typedActionHandlerWithMeta({ value: 0 }, typedIncrementByActionWithMetaAnyArgs(10));
 
-const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, MetaType>(
+const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, TypedPayload, MetaType>(
     {
         INCREMENT_BY: {
             next(state: TypedState, action: ReduxActions.ActionMeta<TypedPayload, MetaType>) {

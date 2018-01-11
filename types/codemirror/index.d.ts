@@ -2,6 +2,7 @@
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
+//                 Pr1st0n <https://github.com/Pr1st0n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -105,6 +106,8 @@ declare namespace CodeMirror {
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
 
+    type CoordsMode = 'window' | 'page' | 'local';
+
     interface Token {
         /** The character(on the given line) at which the token starts. */
         start: number;
@@ -196,12 +199,15 @@ declare namespace CodeMirror {
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
         removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
 
-        /**
-         * Compute the line at the given pixel height.
-         *
-         * `mode` is the relative element to use to compute this line - defaults to 'page' if not specified
-         */
-        lineAtHeight(height: number, mode?: 'window' | 'page' | 'local'): number
+        /** Compute the line at the given pixel height. mode is the relative element
+        to use to compute this line, it may be "window", "page" (the default), or "local" */
+        lineAtHeight(height: number, mode?: CoordsMode): number;
+
+        /** Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window",
+        "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value
+        is the bottom of the last line in the document. By default, the position of the actual text is returned.
+        If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
+        heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
         /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
         lineInfo(line: any): {
@@ -267,25 +273,28 @@ declare namespace CodeMirror {
         scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local" , they will be relative to the top-left corner of the editable document.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where is a boolean indicating whether you want the start(true) or the end(false) of the selection. */
-        cursorCoords(where: boolean, mode: string): { left: number; top: number; bottom: number; };
+        cursorCoords(where: boolean, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local" , they will be relative to the top-left corner of the editable document.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where specifies the precise position at which you want to measure. */
-        cursorCoords(where: CodeMirror.Position, mode: string): { left: number; top: number; bottom: number; };
+        cursorCoords(where: CodeMirror.Position, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
-        /** Returns the position and dimensions of an arbitrary character.pos should be a { line , ch } object.
+        /** Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
+        If it is "page" or not given, they are relative to the top-left corner of the page.
         This differs from cursorCoords in that it'll give the size of the whole character,
         rather than just the position that the cursor would have when it would sit at that position. */
-        charCoords(pos: CodeMirror.Position, mode: string): { left: number; right: number; top: number; bottom: number; };
+        charCoords(pos: CodeMirror.Position, mode?: CoordsMode): { left: number; right: number; top: number; bottom: number; };
 
         /** Given an { left , top } object , returns the { line , ch } position that corresponds to it.
-        The optional mode parameter determines relative to what the coordinates are interpreted. It may be "window" , "page"(the default) , or "local". */
-        coordsChar(object: { left: number; top: number; }, mode?: string): CodeMirror.Position;
+        The optional mode parameter determines relative to what the coordinates are interpreted.
+        It may be "window", "page" (the default), or "local". */
+        coordsChar(object: { left: number; top: number; }, mode?: CoordsMode): CodeMirror.Position;
 
         /** Returns the line height of the default font for the editor. */
         defaultTextHeight(): number;
@@ -304,7 +313,7 @@ declare namespace CodeMirror {
         refresh(): void;
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
-        getTokenAt(pos: CodeMirror.Position): Token;
+        getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
@@ -328,6 +337,11 @@ declare namespace CodeMirror {
         "subtract" Reduce the indentation of the line. */
         indentLine(line: number, dir?: string): void;
 
+        /** Tells you whether the editor's content can be edited by the user. */
+        isReadOnly(): boolean;
+
+        /** Runs the command with the given name on the editor. */
+        execCommand(name: string): void;
 
         /** Give the editor focus. */
         focus(): void;
@@ -487,18 +501,24 @@ declare namespace CodeMirror {
         Note that line handles have a text property containing the line's content (as a string). */
         eachLine(start: number, end: number, f: (line: CodeMirror.LineHandle) => void ): void;
 
-        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again when such an edit is undone again.
-        Useful to track whether the content needs to be saved. */
+        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again 
+        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated 
+        in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.*/
         markClean(): void;
+        
+        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the 
+        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further 
+        changes (rapid typing or deleting events are typically combined).*/
+        changeGeneration(closeEvent?: boolean): number;
 
-        /** Returns whether the document is currently clean (not modified since initialization or the last call to markClean). */
-        isClean(): boolean;
-
-
+        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if 
+        no argument is passed, or since the matching call to changeGeneration if a generation value is given. */
+        isClean(generation?: number): boolean;
+        
 
         /** Get the currently selected code. */
         getSelection(): string;
-        
+
         /** Returns an array containing a string for each selection, representing the content of the selections. */
         getSelections(lineSep?: string): Array<string>;
 
@@ -521,8 +541,14 @@ declare namespace CodeMirror {
         /** Set the cursor position.You can either pass a single { line , ch } object , or the line and the character as two separate parameters. */
         setCursor(pos: CodeMirror.Position): void;
 
-        /** Set the selection range.anchor and head should be { line , ch } objects.head defaults to anchor when not given. */
-        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position): void;
+        /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
+        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+
+        /** Sets a new set of selections. There must be at least one selection in the given array. When primary is a
+        number, it determines which selection is the primary one. When it is not given, the primary index is taken from
+        the previous selection, or set to the last range if the previous selection had less ranges than the new one.
+        Supports the same options as setSelection. */
+        setSelections(ranges: Array<{ anchor: CodeMirror.Position, head: CodeMirror.Position }>, primary?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Similar to setSelection , but will, if shift is held or the extending flag is set,
         move the head of the selection while leaving the anchor at its current place.
@@ -678,7 +704,7 @@ declare namespace CodeMirror {
 
     interface EditorChangeCancellable extends CodeMirror.EditorChange {
         /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact. */
-        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string): void;
+        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
 
         cancel(): void;
     }
@@ -762,9 +788,18 @@ declare namespace CodeMirror {
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
         gutters?: string[];
 
+        /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
+        foldGutter?: boolean;
+
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
         fixedGutter?: boolean;
+
+        /**
+         * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
+         * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
+         */
+        scrollbarStyle?: string;
 
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
         readOnly?: any;
@@ -1121,6 +1156,7 @@ declare namespace CodeMirror {
     interface LintStateOptions {
         async: boolean;
         hasGutters: boolean;
+        onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
     }
 
     /**
@@ -1233,14 +1269,14 @@ declare namespace CodeMirror {
            * Left side of the merge view.
            */
           left: DiffView;
-          leftChunks(): MergeViewDiffChunk;
+          leftChunks(): MergeViewDiffChunk[];
           leftOriginal(): Editor;
 
           /**
            * Right side of the merge view.
            */
           right: DiffView;
-          rightChunks(): MergeViewDiffChunk;
+          rightChunks(): MergeViewDiffChunk[];
           rightOriginal(): Editor;
 
           /**

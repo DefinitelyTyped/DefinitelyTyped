@@ -8,12 +8,16 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "experimentalDecorators": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "boom": ["boom/v4"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

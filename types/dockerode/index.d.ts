@@ -4,6 +4,7 @@
 //                 Nicolas Laplante <https://github.com/nlaplante>
 //                 ByeongHun Yoo <https://github.com/isac322>
 //                 Ray Fang <https://github.com/lazarusx>
+//                 Marius Meisenzahl <https://github.com/meisenzahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -399,10 +400,10 @@ declare namespace Dockerode {
       LinkLocalIPv6Address: string;
       LinkLocalIPv6PrefixLen: number;
       Ports: {
-        [portAndProtocol: string]: {
+        [portAndProtocol: string]: Array<{
           HostIp: string;
           HostPort: string;
-        }
+        }>;
       };
       SandboxKey: string;
       SecondaryIPAddresses?: any;
@@ -444,6 +445,7 @@ declare namespace Dockerode {
   }
 
   interface HostConfig {
+    AutoRemove: boolean;
     Binds: string[];
     ContainerIDFile: string;
     LogConfig: {
@@ -593,6 +595,7 @@ declare namespace Dockerode {
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
     HostConfig?: {
+      AutoRemove?: boolean;
       Binds?: string[];
       Links?: string[];
       Memory?: number;
@@ -941,6 +944,9 @@ declare class Dockerode {
 
   info(callback: Callback<any>): void;
   info(): Promise<any>;
+
+  df(callback: Callback<any>): void;
+  df(): Promise<any>;
 
   version(callback: Callback<any>): void;
   version(): Promise<any>;

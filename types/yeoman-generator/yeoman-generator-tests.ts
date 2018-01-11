@@ -1,14 +1,8 @@
 import Base = require('yeoman-generator');
-import { Questions, Answers } from 'inquirer';
+import { Questions, Answers } from 'yeoman-generator';
 import { EventEmitter } from 'events';
 
 class MyES2015Generator extends Base {}
-
-const MyGenerator = Base.extend({
-  writing(this: Base): void {
-    this.fs.write('var foo = 1;', this.destinationPath('index.js'));
-  }
-});
 
 const generator = new MyES2015Generator(['arg1', 'arg2'], { opt1: 'foo', opt2: 3, opt3: false });
 const eventEmitter: EventEmitter = generator;
@@ -48,42 +42,37 @@ generator.argument('arg4', {
 
 const argsHelp = generator.argumentsHelp();
 
-generator.installDependencies();
-generator.installDependencies({
-  bower: true,
-  npm: true,
-  callback() {
-    console.log('Everything is ready!');
-  }
-});
+async function install() {
+    await generator.installDependencies();
+    await generator.installDependencies({
+        bower: true,
+        npm: true,
+    });
 
-generator.bowerInstall();
-generator.bowerInstall('pkg');
-generator.bowerInstall(['pkg1', 'pkg2']);
-generator.bowerInstall('pkg', {});
-generator.bowerInstall('pkg', { 'custom-option': 3 }, () => {});
-generator.bowerInstall('pkg', {}, () => {}, {});
+    await generator.bowerInstall();
+    await generator.bowerInstall('pkg');
+    await generator.bowerInstall(['pkg1', 'pkg2']);
+    await generator.bowerInstall('pkg', {});
+    await generator.bowerInstall('pkg', { 'custom-option': 3 }, {});
 
-generator.npmInstall();
-generator.npmInstall('pkg');
-generator.npmInstall(['pkg1', 'pkg2']);
-generator.npmInstall('pkg', {});
-generator.npmInstall('pkg', { 'custom-option': 3 }, () => {});
-generator.npmInstall('pkg', {}, () => {}, {});
+    await generator.npmInstall();
+    await generator.npmInstall('pkg');
+    await generator.npmInstall(['pkg1', 'pkg2']);
+    await generator.npmInstall('pkg', {});
+    await generator.npmInstall('pkg', { 'custom-option': 3 }, {});
 
-generator.yarnInstall();
-generator.yarnInstall('pkg');
-generator.yarnInstall(['pkg1', 'pkg2']);
-generator.yarnInstall('pkg', {});
-generator.yarnInstall('pkg', { 'custom-option': 3 }, () => {});
-generator.yarnInstall('pkg', {}, () => {}, {});
+    await generator.yarnInstall();
+    await generator.yarnInstall('pkg');
+    await generator.yarnInstall(['pkg1', 'pkg2']);
+    await generator.yarnInstall('pkg', {});
+    await generator.yarnInstall('pkg', { 'custom-option': 3 }, {});
 
-generator.runInstall('installer');
-generator.runInstall('installer', 'pkg');
-generator.runInstall('installer', ['pkg1', 'pkg2']);
-generator.runInstall('installer', 'pkg', {});
-generator.runInstall('installer', 'pkg', { 'custom-option': 3 }, () => {});
-generator.runInstall('installer', 'pkg', {}, () => {}, {});
+    await generator.runInstall('installer');
+    await generator.runInstall('installer', 'pkg');
+    await generator.runInstall('installer', ['pkg1', 'pkg2']);
+    await generator.runInstall('installer', 'pkg', {});
+    await generator.runInstall('installer', 'pkg', { 'custom-option': 3 }, {});
+}
 
 const composed1: Base = generator.composeWith('bootstrap', { sass: true });
 const composed2: Base = generator.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
@@ -98,7 +87,7 @@ const appname2: string = generator.determineAppname();
 
 const gitEmail: string = generator.user.git.email();
 const gitName: string = generator.user.git.name();
-const githubUsername: string = generator.user.github.username();
+const githubUsername: Promise<string> = generator.user.github.username();
 
 const help: string = generator.help();
 
@@ -122,6 +111,10 @@ generator.option('opt4', {
 const optionsHelp: string = generator.optionsHelp();
 
 const answers: Promise<Answers> = generator.prompt([] as Questions);
+const answers2: Promise<Answers> = generator.prompt([{store: true}] as Questions);
+const answers3: Promise<Answers> = generator.prompt([{type: "input"}] as Questions);
+const answers4: Promise<Answers> = generator.prompt({type: "input"});
+const answers5: Promise<Answers> = generator.prompt({type: "input", store: false});
 
 generator.registerTransformStream([]);
 

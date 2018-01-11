@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "redlock": [ "redlock/v2" ]
+            "redlock": [
+                "redlock/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

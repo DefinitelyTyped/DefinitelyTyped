@@ -17,7 +17,7 @@ declare namespace Navbar {
         fixedTop?: boolean;
         fluid?: boolean;
         inverse?: boolean;
-        navExpanded?: boolean;
+        expanded?: boolean;
         onToggle?: Function;
         staticTop?: boolean;
         toggleButton?: any; // TODO: Add more specific type

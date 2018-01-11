@@ -1,4 +1,4 @@
-// Type definitions for webpack 3.0
+// Type definitions for webpack 3.8
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -7,6 +7,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Ahmed T. Ali <https://github.com/ahmed-taj>
+//                 Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -98,6 +99,8 @@ declare namespace webpack {
         stats?: Options.Stats;
         /** Performance options */
         performance?: Options.Performance;
+        /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
+        parallelism?: number;
     }
 
     interface Entry {
@@ -167,6 +170,8 @@ declare namespace webpack {
          * </ul>
          */
         libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
+        /** Configure which module or modules will be exposed via the `libraryTarget` */
+        libraryExport?: string | string[];
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
         /** Prefixes every line of the source in the bundle with this string. */
@@ -181,7 +186,7 @@ declare namespace webpack {
         /** A array of applied post loaders. */
         postLoaders?: Rule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
-        noParse?: RegExp | RegExp[];
+        noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
         unknownContextRecursive?: boolean;
         unknownContextRegExp?: RegExp;
@@ -203,9 +208,10 @@ declare namespace webpack {
         /** An array of rules applied for modules. */
         rules: Rule[];
     }
+
     type Module = OldModule | NewModule;
 
-    interface NewResolve {
+    interface Resolve {
         /**
          * A list of directories to resolve modules from.
          *
@@ -302,71 +308,7 @@ declare namespace webpack {
         symlinks?: boolean;
     }
 
-    interface OldResolve {
-        /** Replace modules by other modules or paths. */
-        alias?: { [key: string]: string; };
-        /**
-         * The directory (absolute path) that contains your modules.
-         * May also be an array of directories.
-         * This setting should be used to add individual directories to the search path.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        root?: string | string[];
-        /**
-         * An array of directory names to be resolved to the current directory as well as its ancestors, and searched for modules.
-         * This functions similarly to how node finds “node_modules” directories.
-         * For example, if the value is ["mydir"], webpack will look in “./mydir”, “../mydir”, “../../mydir”, etc.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        modulesDirectories?: string[];
-        /**
-         * A directory (or array of directories absolute paths),
-         * in which webpack should look for modules that weren’t found in resolve.root or resolve.modulesDirectories.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        fallback?: string | string[];
-        /**
-         * An array of extensions that should be used to resolve modules.
-         * For example, in order to discover CoffeeScript files, your array should contain the string ".coffee".
-         */
-        extensions?: string[];
-        /**
-         * Check these fields in the package.json for suitable files.
-         *
-         * @deprecated Replaced by `mainFields` in webpack 2.
-         */
-        packageMains?: Array<string | string[]>;
-
-        /**
-         * Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec
-         *
-         * @deprecated Replaced by `aliasFields` in webpack 2.
-         */
-        packageAlias?: Array<string | string[]>;
-
-        /**
-         * Enable aggressive but unsafe caching for the resolving of a part of your files.
-         * Changes to cached paths may cause failure (in rare cases). An array of RegExps, only a RegExp or true (all files) is expected.
-         * If the resolved path matches, it’ll be cached.
-         *
-         * @deprecated Split into `unsafeCache` and `cachePredicate` in webpack 2.
-         */
-        unsafeCache?: RegExp | RegExp[] | boolean;
-    }
-
-    type Resolve = OldResolve | NewResolve;
-
-    interface OldResolveLoader extends OldResolve {
-        /** It describes alternatives for the module name that are tried.
-         * @deprecated Replaced by `moduleExtensions` in webpack 2.
-         */
-        moduleTemplates?: string[];
-    }
-
-    interface NewResolveLoader extends NewResolve {
+    interface ResolveLoader extends Resolve {
         /**
          * List of strings to append to a loader's name when trying to resolve it.
          */
@@ -374,8 +316,6 @@ declare namespace webpack {
 
         enforceModuleExtension?: boolean;
     }
-
-    type ResolveLoader = OldResolveLoader | NewResolveLoader;
 
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
@@ -420,7 +360,7 @@ declare namespace webpack {
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
     // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> {}
+    interface ConditionArray extends Array<Condition> { }
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
     interface OldLoader {
@@ -613,7 +553,8 @@ declare namespace webpack {
         }
     }
 
-    abstract class MultiCompiler implements ICompiler {
+    abstract class MultiCompiler extends Tapable implements ICompiler {
+        compilers: ICompiler[];
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -663,6 +604,8 @@ declare namespace webpack {
             assetsSort?: string;
             /** Add information about cached (not built) modules */
             cached?: boolean;
+            /** Show cached assets (setting this to `false` only shows emitted files) */
+            cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
             /** Add built modules information to chunk information */
@@ -675,16 +618,32 @@ declare namespace webpack {
             chunksSort?: string;
             /** Context directory for request shortening */
             context?: string;
-            /** Add details to errors (like resolving log) */
-            errorDetails?: boolean;
+            /** Display the distance from the entry point for each module */
+            depth?: boolean;
+            /** Display the entry points with the corresponding bundles */
+            entrypoints?: boolean;
+            /** Add --env information */
+            env?: boolean;
             /** Add errors */
             errors?: boolean;
+            /** Add details to errors (like resolving log) */
+            errorDetails?: boolean;
+            /** Exclude assets from being displayed in stats */
+            excludeAssets?: StatsExcludeFilter;
+            /** Exclude modules from being displayed in stats */
+            excludeModules?: StatsExcludeFilter;
+            /** See excludeModules */
+            exclude?: StatsExcludeFilter;
             /** Add the hash of the compilation */
             hash?: boolean;
+            /** Set the maximum number of modules to be shown */
+            maxModules?: number;
             /** Add built modules information */
             modules?: boolean;
             /** Sort the modules by a field */
             modulesSort?: string;
+            /** Show dependencies and origin of warnings/errors */
+            moduleTrace?: boolean;
             /** Add public path information */
             publicPath?: boolean;
             /** Add information about the reasons why modules are included */
@@ -697,9 +656,19 @@ declare namespace webpack {
             version?: boolean;
             /** Add warnings */
             warnings?: boolean;
+            /** Show which exports of a module are used */
+            usedExports?: boolean;
+            /** Filter warnings to be shown */
+            warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean);
+            /** Show performance hint when file size exceeds `performance.maxAssetSize` */
+            performance?: boolean;
+            /** Show the exports of the modules */
+            providedExports?: boolean;
         }
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
+
+        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
@@ -735,7 +704,7 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: {[key: string]: any});
+        constructor(definitions: { [key: string]: any });
     }
 
     class DllPlugin extends Plugin {
@@ -861,7 +830,7 @@ declare namespace webpack {
     }
 
     class NamedChunksPlugin extends Plugin {
-        constructor(nameResolver?: (chunk: any) => string | null );
+        constructor(nameResolver?: (chunk: any) => string | null);
     }
 
     class NoEmitOnErrorsPlugin extends Plugin {
@@ -888,11 +857,11 @@ declare namespace webpack {
     }
 
     class EnvironmentPlugin extends Plugin {
-        constructor(envs: string[] | {[key: string]: any});
+        constructor(envs: string[] | { [key: string]: any });
     }
 
     class ProvidePlugin extends Plugin {
-        constructor(definitions: {[key: string]: any});
+        constructor(definitions: { [key: string]: any });
     }
 
     class SourceMapDevToolPlugin extends Plugin {
@@ -926,7 +895,7 @@ declare namespace webpack {
     }
 
     namespace optimize {
-        class ModuleConcatenationPlugin extends Plugin {}
+        class ModuleConcatenationPlugin extends Plugin { }
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
         }
@@ -1037,6 +1006,8 @@ declare namespace webpack {
                 comments?: boolean | RegExp | CommentFilter;
                 exclude?: Condition | Condition[];
                 include?: Condition | Condition[];
+                /** Parallelization can speedup your build significantly and is therefore highly recommended. */
+                parallel?: boolean | { cache: boolean, workers: boolean | number };
                 sourceMap?: boolean;
                 test?: Condition | Condition[];
             }
@@ -1056,9 +1027,6 @@ declare namespace webpack {
              * They only care for metadata. The pitch method on the loaders is called from left to right before the loaders are called (from right to left).
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
-             * @param remainingRequest
-             * @param precedingRequest
-             * @param data
              */
             pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
 
@@ -1163,13 +1131,11 @@ declare namespace webpack {
 
             /**
              * Emit a warning.
-             * @param message
              */
             emitWarning(message: string | Error): void;
 
             /**
              * Emit a error.
-             * @param message
              */
             emitError(message: string | Error): void;
 
@@ -1178,23 +1144,16 @@ declare namespace webpack {
              *
              * Don't use require(this.resourcePath), use this function to make loaders chainable!
              *
-             * @param code
-             * @param filename
              */
             exec(code: string, filename: string): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
-             * @param callback
              */
             resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
              */
             resolveSync(context: string, request: string): string;
 
@@ -1202,7 +1161,6 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             addDependency(file: string): void;
 
@@ -1210,13 +1168,11 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             dependency(file: string): void;
 
             /**
              * Add a directory as dependency of the loader result.
-             * @param directory
              */
             addContextDependency(directory: string): void;
 
@@ -1274,11 +1230,8 @@ declare namespace webpack {
 
             /**
              * Emit a file. This is webpack-specific.
-             * @param name
-             * @param content
-             * @param sourceMap
              */
-            emitFile(name: string, content: Buffer|string, sourceMap: any): void;
+            emitFile(name: string, content: Buffer | string, sourceMap: any): void;
 
             /**
              * Access to the compilation's inputFileSystem property.

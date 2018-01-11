@@ -7,11 +7,11 @@ interface InputEventInit extends UIEventInit {
     data?: string;
     isComposing: boolean;
 }
-interface InputEvent extends UIEvent {
-    readonly data: string;
-    readonly isComposing: boolean;
-}
 
+// tslint:disable-next-line no-empty-interface
+interface InputEvent extends UIEvent {}
 declare class InputEvent {
     constructor(typeArg: 'input' | 'beforeinput', inputEventInit?: InputEventInit);
+    readonly data: string;
+    readonly isComposing: boolean;
 }

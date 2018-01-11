@@ -1,4 +1,4 @@
-import * as Snoowrap from 'snoowrap';
+import * as Snoowrap from '../..';
 
 export default class RedditContent<T> {
   created_utc: number;
