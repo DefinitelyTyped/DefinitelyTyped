@@ -193,37 +193,37 @@ declare namespace React {
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
         type: "input",
-        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
         ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
     function createElement<P>(
         type: SFC<P>,
-        props?: Attributes & P,
+        props?: Attributes & P | null,
         ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P,
+        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
         ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
         type: SFC<P> | ComponentClass<P> | string,
-        props?: Attributes & P,
+        props?: Attributes & P | null,
         ...children: ReactNode[]): ReactElement<P>;
 
     // DOM Elements
