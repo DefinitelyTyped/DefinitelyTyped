@@ -1,8 +1,9 @@
-// Type definitions for ws 3.2
+// Type definitions for ws 4.0
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
+//                 Philippe D'Alva <https://github.com/TitaneBoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,10 +22,8 @@ declare class WebSocket extends events.EventEmitter {
 
     binaryType: string;
     bufferedAmount: number;
-    bytesReceived: number;
     extensions: {};
     protocol: string;
-    protocolVersion: number;
     readyState: number;
     url: string;
 
@@ -34,7 +33,7 @@ declare class WebSocket extends events.EventEmitter {
     CLOSED: number;
 
     onopen: (event: { target: WebSocket }) => void;
-    onerror: (err: Error) => void;
+    onerror: (event: {error: any, message: string, type: string, target: WebSocket }) => void;
     onclose: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void;
     onmessage: (event: { data: WebSocket.Data; type: string; target: WebSocket }) => void;
 
@@ -42,14 +41,10 @@ declare class WebSocket extends events.EventEmitter {
     constructor(address: string, protocols?: string | string[], options?: WebSocket.ClientOptions);
 
     close(code?: number, data?: string): void;
-    pause(): void;
-    resume(): void;
-    ping(data?: any, mask?: boolean, failSilently?: boolean): void;
-    pong(data?: any, mask?: boolean, failSilently?: boolean): void;
+    ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
+    pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     send(data: any, cb?: (err: Error) => void): void;
-    send(data: any, options: { mask?: boolean; binary?: boolean }, cb?: (err: Error) => void): void;
-    stream(options: { mask?: boolean; binary?: boolean }, cb?: (err: Error, final: boolean) => void): void;
-    stream(cb?: (err: Error, final: boolean) => void): void;
+    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }, cb?: (err: Error) => void): void;
     terminate(): void;
 
     // HTML5 WebSocket events
@@ -58,7 +53,7 @@ declare class WebSocket extends events.EventEmitter {
         wasClean: boolean; code: number;
         reason: string; target: WebSocket
     }) => void): void;
-    addEventListener(method: 'error', cb?: (err: Error) => void): void;
+    addEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
     addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
     addEventListener(method: string, listener?: () => void): void;
 
@@ -67,13 +62,13 @@ declare class WebSocket extends events.EventEmitter {
         wasClean: boolean; code: number;
         reason: string; target: WebSocket
     }) => void): void;
-    removeEventListener(method: 'error', cb?: (err: Error) => void): void;
+    removeEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
     removeEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
     removeEventListener(method: string, listener?: () => void): void;
 
     // Events
     on(event: 'close', listener: (code: number, reason: string) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'error', listener: (event: {error: any, message: any, type: string, target: WebSocket }) => void): this;
     on(event: 'headers', listener: (headers: {}, request: http.IncomingMessage) => void): this;
     on(event: 'message', listener: (data: WebSocket.Data) => void): this;
     on(event: 'open' , listener: () => void): this;
