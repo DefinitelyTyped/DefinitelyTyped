@@ -22,7 +22,7 @@ declare class WebSocket extends events.EventEmitter {
 
     binaryType: string;
     bufferedAmount: number;
-    extensions: {};
+    extensions: string;
     protocol: string;
     readyState: number;
     url: string;
@@ -69,7 +69,7 @@ declare class WebSocket extends events.EventEmitter {
     // Events
     on(event: 'close', listener: (code: number, reason: string) => void): this;
     on(event: 'error', listener: (event: {error: any, message: any, type: string, target: WebSocket }) => void): this;
-    on(event: 'headers', listener: (headers: {}, request: http.IncomingMessage) => void): this;
+    on(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
     on(event: 'message', listener: (data: WebSocket.Data) => void): this;
     on(event: 'open' , listener: () => void): this;
     on(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
@@ -78,7 +78,7 @@ declare class WebSocket extends events.EventEmitter {
 
     addListener(event: 'close', listener: (code: number, message: string) => void): this;
     addListener(event: 'error', listener: (err: Error) => void): this;
-    addListener(event: 'headers', listener: (headers: {}, request: http.IncomingMessage) => void): this;
+    addListener(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
     addListener(event: 'message', listener: (data: WebSocket.Data) => void): this;
     addListener(event: 'open' , listener: () => void): this;
     addListener(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
@@ -87,7 +87,7 @@ declare class WebSocket extends events.EventEmitter {
 
     removeListener(event: 'close', listener: (code: number, message: string) => void): this;
     removeListener(event: 'error', listener: (err: Error) => void): this;
-    removeListener(event: 'headers', listener: (headers: {}, request: http.IncomingMessage) => void): this;
+    removeListener(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
     removeListener(event: 'message', listener: (data: WebSocket.Data) => void): this;
     removeListener(event: 'open' , listener: () => void): this;
     removeListener(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
