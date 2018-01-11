@@ -1050,14 +1050,14 @@ declare namespace nano {
   type MangoValue = number | string | Date | boolean;
 
   // http://docs.couchdb.org/en/latest/api/database/find.html#selector-syntax
-  type MangoSelector = {
-    [key: string]: MangoSelector | MangoValue | MangoValue[]
-  };
+  interface MangoSelector {
+    [key: string]: MangoSelector | MangoValue | MangoValue[];
+  }
 
   // http://docs.couchdb.org/en/latest/api/database/find.html#sort-syntax
   type SortOrder = string | string[] | { [key: string]: 'asc' | 'desc' };
 
-  type MangoQuery = {
+  interface MangoQuery {
     // JSON object describing criteria used to select documents.
     selector: MangoSelector;
 
@@ -1096,7 +1096,7 @@ declare namespace nano {
 
     // Include execution statistics in the query response. Optional, default: false.
     execution_stats?: boolean;
-  };
+  }
 
   interface MangoResponse<D> {
     // Array of documents matching the search. In each matching document, the fields specified in
@@ -1115,7 +1115,7 @@ declare namespace nano {
 
   // http://docs.couchdb.org/en/latest/api/database/find.html#execution-statistics
   interface MangoExecutionStats {
-    // 	Number of index keys examined.Currently always 0.
+    // Number of index keys examined. Currently always 0.
     total_keys_examined: number;
 
     // Number of documents fetched from the database / index, equivalent to using include_docs = true in a view.
