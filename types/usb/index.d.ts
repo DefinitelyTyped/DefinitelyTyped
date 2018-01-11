@@ -1,6 +1,7 @@
 // Type definitions for node-usb 1.1
 // Project: https://github.com/nonolith/node-usb
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference types="node" />
@@ -60,7 +61,7 @@ export class Interface {
   endpoints: Endpoint[];
   constructor(device: Device, id: number);
   claim(): void;
-  release(closeEndpoints?: (err?: string) => void, cb?: (err?: string) => void): void;
+  release(closeEndpoints?: boolean, cb?: (err?: string) => void): void;
   isKernelDriverActive(): boolean;
   detachKernelDriver(): number;
   attachKernelDriver(): number;

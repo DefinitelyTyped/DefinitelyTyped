@@ -55,7 +55,7 @@ device.interfaces = [deviceInterface];
 const iface = new usb.Interface(device, 1);
 
 iface.claim();
-iface.release((error: string) => null, (error: string) => null);
+iface.release(false, (error: string) => null);
 const kernelActive: boolean = iface.isKernelDriverActive();
 const detachKernel: number = iface.detachKernelDriver();
 const attachKernel: number = iface.attachKernelDriver();
