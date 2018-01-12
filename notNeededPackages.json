@@ -901,6 +901,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "node-waves",
+            "typingsPackageName": "node-waves",
+            "sourceRepoURL": "http://fian.my.id/Waves",
+            "asOfVersion": "0.7.6"
+        },
+        {
             "libraryName": "Normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
