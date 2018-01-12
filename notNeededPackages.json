@@ -229,12 +229,6 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "core-decorators.js",
-            "typingsPackageName": "core-decorators",
-            "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
-            "asOfVersion": "0.20.0"
-        },
-        {
             "libraryName": "cordova-plugin-battery-status",
             "typingsPackageName": "cordova-plugin-battery-status",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-battery-status",
@@ -343,6 +337,12 @@
             "asOfVersion": "3.7.0"
         },
         {
+            "libraryName": "core-decorators.js",
+            "typingsPackageName": "core-decorators",
+            "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
+            "asOfVersion": "0.20.0"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
@@ -391,12 +391,6 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "EasyStar.js",
-            "typingsPackageName": "easystarjs",
-            "sourceRepoURL": "http://easystarjs.com/",
-            "asOfVersion": "0.3.1"
-        },
-        {
             "libraryName": "easy-x-headers",
             "typingsPackageName": "easy-x-headers",
             "sourceRepoURL": "https://github.com/DeadAlready/easy-x-headers",
@@ -407,6 +401,12 @@
             "typingsPackageName": "easy-xapi-supertest",
             "sourceRepoURL": "https://github.com/DeadAlready/easy-xapi-supertest",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "EasyStar.js",
+            "typingsPackageName": "easystarjs",
+            "sourceRepoURL": "http://easystarjs.com/",
+            "asOfVersion": "0.3.1"
         },
         {
             "libraryName": "ecmarkup",
@@ -589,22 +589,28 @@
             "asOfVersion": "0.35.0"
         },
         {
-            "libraryName": "http-status-codes",
-            "typingsPackageName": "http-status-codes",
-            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
-            "asOfVersion": "1.2.0"
-        },
-        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
             "asOfVersion": "1.0.19"
         },
         {
+            "libraryName": "http-status-codes",
+            "typingsPackageName": "http-status-codes",
+            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "iconv-lite",
             "typingsPackageName": "iconv-lite",
             "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
             "asOfVersion": "0.4.14"
+        },
+        {
+            "libraryName": "immutability-helper",
+            "typingsPackageName": "immutability-helper",
+            "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
+            "asOfVersion": "2.6.3"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -1523,13 +1529,6 @@
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
             "asOfVersion": "0.5.12"
-        },
-
-        {
-            "libraryName": "immutability-helper",
-            "typingsPackageName": "immutability-helper",
-            "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
-            "asOfVersion": "2.6.3"
         }
     ]
 }
