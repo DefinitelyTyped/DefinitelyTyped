@@ -11,8 +11,8 @@ export interface HandleClickOutside<T> {
 }
 
 export interface InjectedOnClickOutProps {
-    disableOnClickOutside(): void;
-    enableOnClickOutside(): void;
+    disableOnClickOutside?(): void;
+    enableOnClickOutside?(): void;
 }
 
 export interface OnClickOutProps {
