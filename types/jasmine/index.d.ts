@@ -122,7 +122,7 @@ declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
  * @param property The name of the property to replace with a Spy
  * @param accessType The access type (get|set) of the property to Spy on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType: string): jasmine.Spy;
+declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: string): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
