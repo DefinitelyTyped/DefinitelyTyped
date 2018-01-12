@@ -475,6 +475,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "expr-eval",
+            "typingsPackageName": "expr-eval",
+            "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "express-validator",
             "typingsPackageName": "express-validator",
             "sourceRepoURL": "https://github.com/ctavan/express-validator",
