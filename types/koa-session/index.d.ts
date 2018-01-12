@@ -1,7 +1,8 @@
-// Type definitions for koa-session 3.0
+// Type definitions for koa-session 5.5
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
-// Definitions: https://github.com/kerol2r20/DefinitelyTyped
+//                 Tomek Łaziuk <https://github.com/tlaziuk>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
@@ -29,6 +30,7 @@ declare namespace session {
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
         maxAge?: number | 'session';
+        maxage?: number | 'session';
 
         /**
          * can overwrite or not (default true)

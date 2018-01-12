@@ -1,7 +1,7 @@
-// Type definitions for koa-bodyparser v3.x
+// Type definitions for koa-bodyparser v4.2
 // Project: https://github.com/koajs/bodyparser
 // Definitions by: Jerry Chin <https://github.com/hellopao>
-// Definitions: https://github.com/hellopao/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
