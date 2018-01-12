@@ -232,7 +232,7 @@ export function connectRoutes<TKeys = {}, TState = any>(
 ): {
         reducer: Reducer<LocationState<TKeys, TState>>;
         middleware: Middleware;
-        thunk<ThunkState = TState>(store: Store<ThunkState>): Promise<Nullable<RouteThunk<ThunkState>>>;
+        thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
         enhancer: StoreEnhancer<TState>;
         initialDispatch?(): void;
     };
