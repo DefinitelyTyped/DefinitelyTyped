@@ -12,7 +12,7 @@ import {
     Store,
     Reducer,
     Middleware,
-    StoreEnhancer
+    GenericStoreEnhancer
 } from 'redux';
 import { History } from 'history';
 
@@ -233,7 +233,7 @@ export function connectRoutes<TKeys = {}, TState = any>(
         reducer: Reducer<LocationState<TKeys, TState>>;
         middleware: Middleware;
         thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
-        enhancer: StoreEnhancer<TState>;
+        enhancer: GenericStoreEnhancer;
         initialDispatch?(): void;
     };
 
