@@ -1507,6 +1507,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "xhr-mock",
+            "typingsPackageName": "xhr-mock",
+            "sourceRepoURL": "https://github.com/jameslnewell/xhr-mock#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "xlsx",
             "typingsPackageName": "xlsx",
             "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
