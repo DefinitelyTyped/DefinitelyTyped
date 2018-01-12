@@ -2063,13 +2063,13 @@ import {
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
-// Needed for onTouchTap
+// Needed for onClick
 // Check this repo:
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-function handleTouchTap() {
-  alert('onTouchTap triggered on the title component');
+function handleClick() {
+  alert('onClick triggered on the title component');
 }
 
 const styles: { [key: string]: CSSProperties } = {
@@ -2344,7 +2344,7 @@ const AppBarExampleIcon = () => (
 const AppBarExampleIconButton = () => (
   <AppBar
     title={<span style={styles.title}>Title</span>}
-    onTitleClick={handleTouchTap}
+    onTitleClick={handleClick}
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
@@ -3040,14 +3040,14 @@ class ChipExampleComplex extends Component {
     alert('You clicked the delete button.');
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     alert('You clicked the Chip.');
   }
 
   render() {
     return (
       <div>
-        <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
+        <Chip onClick={this.handleClick} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
       </div>
     );
   }
@@ -4834,7 +4834,7 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
     };
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
 
@@ -4854,7 +4854,7 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
     return (
       <div>
         <RaisedButton
-          onClick={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4885,7 +4885,7 @@ class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: 
     };
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4904,7 +4904,7 @@ class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: 
     return (
       <div>
         <RaisedButton
-          onClick={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4951,7 +4951,7 @@ class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurabl
     };
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4988,7 +4988,7 @@ class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurabl
     return (
       <div>
         <RaisedButton
-          onClick={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <h3 style={styles.h3}>Current Settings</h3>
@@ -5699,7 +5699,7 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
     };
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5715,7 +5715,7 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
     return (
       <div>
         <RaisedButton
-          onClick={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <Snackbar
@@ -5740,7 +5740,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
     };
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5770,7 +5770,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
     return (
       <div>
         <RaisedButton
-          onClick={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <br />
@@ -5808,7 +5808,7 @@ class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: stri
     clearTimeout(this.timer);
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5830,7 +5830,7 @@ class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: stri
     return (
       <div>
         <RaisedButton
-          onClick={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar two times"
         />
         <Snackbar

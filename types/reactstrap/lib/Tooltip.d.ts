@@ -1,7 +1,7 @@
 /// <reference types='react' />
-/// <reference path="./Popper.d.ts" />
 
 import { CSSModule } from '../index';
+import {Popper} from './Popper';
 
 export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   target: string | HTMLElement;

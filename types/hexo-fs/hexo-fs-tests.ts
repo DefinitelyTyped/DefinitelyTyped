@@ -595,7 +595,7 @@ it('emptyDir() - callback', callback => {
                 join('folder', 'i.js')
             ]);
 
-            const dataArray: Array<[string, boolean]> = [
+            Promise.map([
                 [join(target, '.hidden', 'a.txt'), true],
                 [join(target, '.hidden', 'b.js'), true],
                 [join(target, '.hidden', 'c', 'd'), true],
@@ -605,8 +605,7 @@ it('emptyDir() - callback', callback => {
                 [join(target, 'folder', 'h.txt'), false],
                 [join(target, 'folder', 'i.js'), false],
                 [join(target, 'folder', '.j'), true]
-            ];
-            Promise.map(dataArray, data => {
+            ], (data: any) => {
                 return fs.exists(data[0]).then(exist => {
                     exist.should.eql(data[1]);
                 });

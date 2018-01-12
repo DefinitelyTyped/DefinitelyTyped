@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.5.x
+// Type definitions for Node.js 9.3.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -17,13 +17,8 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/************************************************
-*                                               *
-*               Node.js v8.5.x API              *
-*                                               *
-************************************************/
 
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
@@ -33,6 +28,7 @@ interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: NodeJS.InspectOptions): void;
+    debug(message?: any, ...optionalParams: any[]): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -145,6 +141,7 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    paths: string[];
 }
 
 declare var module: NodeModule;
@@ -455,7 +452,6 @@ declare namespace NodeJS {
         remove(emitter: Events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -510,7 +506,7 @@ declare namespace NodeJS {
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
-    type SignalsListener = () => void;
+    type SignalsListener = (signal: Signals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
 
@@ -523,6 +519,7 @@ declare namespace NodeJS {
     }
 
     export interface WriteStream extends Socket {
+        readonly writableHighWaterMark: number;
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -534,6 +531,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
+        readonly readableHighWaterMark: number;
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
@@ -568,6 +566,8 @@ declare namespace NodeJS {
         setegid(id: number | string): void;
         getgroups(): number[];
         setgroups(groups: Array<string | number>): void;
+        setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
+        hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
         versions: ProcessVersions;
         config: {
@@ -598,6 +598,7 @@ declare namespace NodeJS {
         };
         kill(pid: number, signal?: string | number): void;
         pid: number;
+        ppid: number;
         title: string;
         arch: string;
         platform: Platform;
@@ -788,6 +789,7 @@ declare namespace NodeJS {
     class Module {
         static runMain(): void;
         static wrap(code: string): string;
+        static builtinModules: string[];
 
         static Module: typeof Module;
 
@@ -1723,7 +1725,7 @@ declare module "os" {
     export function arch(): string;
     export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
-    export var EOL: string;
+    export const EOL: string;
     export function endianness(): "BE" | "LE";
 }
 
@@ -1746,7 +1748,7 @@ declare module "https" {
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
-		secureProtocol?: string;	   
+        secureProtocol?: string;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -3512,6 +3514,11 @@ declare module "fs" {
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
         export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+        export function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+        export function native(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
     }
 
     /**
@@ -3534,6 +3541,12 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    export namespace realpathSync {
+        export function native(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+        export function native(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    }
 
     /**
      * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
@@ -5291,6 +5304,7 @@ declare module "stream" {
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
+            readableHighWaterMark: number;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -5377,6 +5391,7 @@ declare module "stream" {
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
+            readonly writableHighWaterMark: number;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5468,6 +5483,7 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         export class Duplex extends Readable implements Writable {
             writable: boolean;
+            readonly writableHighWaterMark: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5647,7 +5663,6 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
         members: any[];
         enter(): void;
         exit(): void;

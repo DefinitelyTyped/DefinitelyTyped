@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-export function decode(str: string, LIMIT?: number): { prefix: string, words: number[] };
+export function decode(str: string, LIMIT?: number): { prefix: string, words: Buffer };
 
-export function encode(prefix: string, words: number[], LIMIT?: number): string;
+export function encode(prefix: string, words: Buffer, LIMIT?: number): string;
 
-export function fromWords(words: number[]): number[];
+export function fromWords(words: Buffer): Buffer;
 
-export function toWords(bytes: Buffer): number[];
+export function toWords(bytes: Buffer): Buffer;

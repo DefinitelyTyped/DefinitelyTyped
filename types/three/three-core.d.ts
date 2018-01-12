@@ -673,6 +673,7 @@ export class BufferAttribute {
     normalized: boolean;
     needsUpdate: boolean;
     count: number;
+	onUpload: Function;
 
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
@@ -3887,6 +3888,19 @@ export class Spherical {
     copy(other: this): this;
     makeSafe(): void;
     setFromVector3(vec3: Vector3): Spherical;
+}
+
+export class Cylindrical {
+    constructor(radius?: number, theta?: number, y?: number);
+
+    radius: number;
+    theta: number;
+    y: number;
+
+    clone(): this;
+    copy(other: this): this;
+    set(radius: number, theta: number, y: number): this;
+    setFromVector3(vec3: Vector3): this;
 }
 
 /**

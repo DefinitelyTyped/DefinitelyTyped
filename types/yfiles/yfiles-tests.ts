@@ -1,5 +1,5 @@
 class BasicTest {
-    private graphComponent:yfiles.view.GraphComponent;
+    private readonly graphComponent:yfiles.view.GraphComponent;
 
     constructor() {
         this.graphComponent = new yfiles.view.GraphComponent("graphControl");
@@ -129,7 +129,7 @@ class BasicTest {
         var args = new yfiles.lang.EventArgs();
         yfiles.input.KeyEventRecognizers.META_PRESSED(null, args);
     }
-    
+
     testsForVersion2012() {
         //isInstance type-guard
         let r : any;

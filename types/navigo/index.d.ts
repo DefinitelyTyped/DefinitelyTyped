@@ -2,11 +2,24 @@
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+type Keys = string;
+type State = {[k in Keys]: any};
+type Params = State;
 
 interface NavigoHooks {
-    before?(done: (suppress?: boolean) => void): void;
-    after?(): void;
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+    leave?(params?: Params): void;
+    already?(params?: Params): void;
 }
+
+interface GenericHooks {
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+}
+
 type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
 
 declare class Navigo {
@@ -35,7 +48,11 @@ declare class Navigo {
 
     link(path: string): string;
 
+    lastRouteResolved(): {url: string, query: string};
+
     disableIfAPINotAvailable(): void;
+
+    hooks(hooks: GenericHooks): void;
 
     pause(): void;
 
