@@ -43,7 +43,7 @@ export namespace Accelerometer {
      * @returns An EventSubscription object that you can call remove() on when you would like to unsubscribe the listener.
      */
     function addListener(listener: (obj: AccelerometerObject) => any): EventSubscription;
-    
+
     /** Remove all listeners. */
     function removeAllListeners(): void;
 
@@ -65,13 +65,13 @@ export namespace Amplitude {
 
     /** Assign a user ID to the current user. If you don’t have a system for user IDs you don’t need to call this. */
     function setUserId(userId: string): void;
-    
+
     /** Set properties for the current user. */
     function setUserProperties(userProperties: HashMap): void;
-    
+
     /** Clear properties set by `setUserProperties()`. */
     function clearUserProperties(): void;
-    
+
     /** Log an event to Amplitude. */
     function logEvent(eventName: string): void;
 
@@ -82,7 +82,7 @@ export namespace Amplitude {
         /** A map of custom properties. */
         properties: HashMap
     ): void;
-    
+
     /** Add the current user to a group. */
     function setGroup(
         /** The group name, e.g. `'sports'`. */
@@ -93,7 +93,14 @@ export namespace Amplitude {
     ): void;
 }
 
-/** This module provides an interface to Expo’s asset system. An asset is any file that lives alongside the source code of your app that the app needs at runtime. Examples include images, fonts and sounds. Expo’s asset system integrates with React Native’s, so that you can refer to files with require('path/to/file'). This is how you refer to static image files in React Native for use in an Image component, for example. */
+/* 
+ * This module provides an interface to Expo’s asset system.
+ * An asset is any file that lives alongside the source code of your app that the app needs at runtime.
+ * Examples include images, fonts and sounds.
+ * Expo’s asset system integrates with React Native’s,
+ * so that you can refer to files with require('path/to/file').
+ * This is how you refer to static image files in React Native for use in an Image component, for example.
+ */
 export class Asset {
     constructor({ name, type, hash, uri, width, height }: {
         name: string;
@@ -113,7 +120,13 @@ export class Asset {
     /** The extension of the asset filename. */
     type: string;
 
-    /** A URI that points to the asset’s data on the remote server. When running the published version of your app, this refers to the the location on Expo’s asset server where Expo has stored your asset. When running the app from XDE during development, this URI points to XDE’s server running on your computer and the asset is served directly from your computer. */
+    /* 
+     * A URI that points to the asset’s data on the remote server.
+     * When running the published version of your app,
+     * this refers to the the location on Expo’s asset server where Expo has stored your asset. 
+     * When running the app from XDE during development, 
+     * this URI points to XDE’s server running on your computer and the asset is served directly from your computer.
+     */
     uri: string;
     localUri: string;
 
