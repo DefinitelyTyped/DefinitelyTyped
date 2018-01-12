@@ -629,6 +629,8 @@ export interface Collection<TSchema = Default> {
     updateOne(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
     updateOne(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
     updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch */
+    watch(pipeline?: Object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
@@ -1414,4 +1416,41 @@ export interface GridFSBucketWriteStreamOptions {
     w?: number,
     wtimeout?: number,
     j?: number
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html */
+export class ChangeStream extends Readable {
+    constructor(changeDomain: Db | Collection, pipeline: Object[], options?: ChangeStreamOptions);
+
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#close */
+    close(): Promise<any>;
+    close(callback: ChangeStreamCallback<any>): void;
+
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#hasNext */
+    hasNext(): Promise<any>;
+    hasNext(callback: ChangeStreamCallback<any>): void;
+
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#isClosed */
+    isClosed(): boolean;
+
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#next */
+    next(): Promise<any>;
+    next(callback: ChangeStreamCallback<any>): void;
+
+    /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#stream */
+    stream(options?: { transform: Function }): Cursor;
+
+}
+
+export interface ChangeStreamOptions {
+    fullDocument?: string;
+    maxAwaitTimeMS?: number;
+    resumeAfter?: Object;
+    batchSize?: number;
+    collation?: Object;
+    readPreference?: ReadPreference;
+}
+
+export interface ChangeStreamCallback<T> {
+    (error: MongoError, result: T): void;
 }
