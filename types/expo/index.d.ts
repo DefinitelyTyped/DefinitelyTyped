@@ -17,17 +17,17 @@ import {
     ImageRequireSource
 } from 'react-native';
 
-export type URISource = ImageURISource;
-export type RequireSource = ImageRequireSource;
-export type ResizeModeContain = 'contain';
-export type ResizeModeCover = 'cover';
-export type ResizeModeStretch = 'stretch';
-export type Orientation = 'portrait' | 'landscape';
-export type Axis = number;
-export interface HashMap { [key: string]: any; }
-export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
-export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-export type Md5 = string;
+type URISource = ImageURISource;
+type RequireSource = ImageRequireSource;
+type ResizeModeContain = 'contain';
+type ResizeModeCover = 'cover';
+type ResizeModeStretch = 'stretch';
+type Orientation = 'portrait' | 'landscape';
+type Axis = number;
+interface HashMap { [key: string]: any; }
+type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
+type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+type Md5 = string;
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -93,14 +93,7 @@ export namespace Amplitude {
     ): void;
 }
 
-/* 
- * This module provides an interface to Expo’s asset system.
- * An asset is any file that lives alongside the source code of your app that the app needs at runtime.
- * Examples include images, fonts and sounds.
- * Expo’s asset system integrates with React Native’s,
- * so that you can refer to files with require('path/to/file').
- * This is how you refer to static image files in React Native for use in an Image component, for example.
- */
+  /** This module provides an interface to Expo’s asset system. An asset is any file that lives alongside the source code of your app that the app needs at runtime. Examples include images, fonts and sounds. Expo’s asset system integrates with React Native’s, so that you can refer to files with require('path/to/file'). This is how you refer to static image files in React Native for use in an Image component, for example. */
 export class Asset {
     constructor({ name, type, hash, uri, width, height }: {
         name: string;
@@ -120,13 +113,7 @@ export class Asset {
     /** The extension of the asset filename. */
     type: string;
 
-    /* 
-     * A URI that points to the asset’s data on the remote server.
-     * When running the published version of your app,
-     * this refers to the the location on Expo’s asset server where Expo has stored your asset. 
-     * When running the app from XDE during development, 
-     * this URI points to XDE’s server running on your computer and the asset is served directly from your computer.
-     */
+    /** A URI that points to the asset’s data on the remote server. When running the published version of your app, this refers to the the location on Expo’s asset server where Expo has stored your asset. When running the app from XDE during development, this URI points to XDE’s server running on your computer and the asset is served directly from your computer. */
     uri: string;
     localUri: string;
 
@@ -225,7 +212,7 @@ export class PlaybackObject {
      *
      * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject`.
      */
-    getStatusAsync(): Promise<PlaybackStatus>
+    getStatusAsync(): Promise<PlaybackStatus>;
 
     /**
      * Loads the media from source into memory and prepares it for playing. This must be called before calling setStatusAsync() or any of the convenience set status methods. This method can only be called if the playbackObject is in an unloaded state.
@@ -246,17 +233,17 @@ export class PlaybackObject {
 
         /** If set to `true`, the system will attempt to download the resource to the device before loading. This value defaults to true. Note that at the moment, this will only work for sources of the form `require('path/to/file')` or `Expo.Asset` objects. */
         downloadFirst?: boolean
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false })`. */
-    pauseAsync(): Promise<PlaybackStatus>
+    pauseAsync(): Promise<PlaybackStatus>;
 
     /**
      * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true })`.
      *
      * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the `isPlaying` and `isBuffering` properties of the `PlaybackStatus`.
      */
-    playAsync(): Promise<PlaybackStatus>
+    playAsync(): Promise<PlaybackStatus>;
 
     /**
      * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true, positionMillis: millis })`.
@@ -272,7 +259,7 @@ export class PlaybackObject {
             toleranceMillisBefore: number,
             toleranceMillisAfter: number
         }
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /**
      * Replays the item. When using `playFromPositionAsync(0)` the item is seeked to the position at `0` ms. On iOS this method uses internal implementation of the player and is able to play the item from the beginning immediately.
@@ -282,19 +269,19 @@ export class PlaybackObject {
     replayAsync(
         /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
         status: PlaybackStatusToSet
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ isLooping: value })`. */
     setIsLoopingAsync(
         /** A boolean describing if the media should play once (`false`) or loop indefinitely (`true`). */
         isLooping: boolean
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ isMuted: value })`. */
     setIsMutedAsync(
         /**  A boolean describing if the audio of this media should be muted. */
         isMuted: boolean
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /**
      * Sets a function to be called regularly with the `PlaybackStatus` of the `playbackObject`. See below for details on `PlaybackStatus` and an example use case of this function.
@@ -304,7 +291,7 @@ export class PlaybackObject {
     setOnPlaybackStatusUpdate(
         /** A function taking a single parameter `PlaybackStatus`. */
         onPlaybackStatusUpdate?: (status: PlaybackStatus) => void
-    ): void
+    ): void;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis })`. */
     setPositionAsync(
@@ -315,13 +302,13 @@ export class PlaybackObject {
             toleranceMillisBefore: number,
             toleranceMillisAfter: number
         }
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ progressUpdateIntervalMillis: millis })`. */
     setProgressUpdateIntervalAsync(
         /** The new minimum interval in milliseconds between calls of `onPlaybackStatusUpdate`. */
         progressUpdateIntervalMillis: number
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ rate: value, shouldCorrectPitch: shouldCorrectPitch })`. */
     setRateAsync(
@@ -330,29 +317,29 @@ export class PlaybackObject {
 
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** Sets a new `PlaybackStatusToSet` on the `playbackObject`. This method can only be called if the media has been loaded. Return a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed. */
     setStatusAsync(
         /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
         status: PlaybackStatusToSet
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ volume: value })`. */
     setVolumeAsync(
         /** A number between `0.0` (silence) and `1.0` (maximum volume). */
         volume: number
-    ): Promise<PlaybackStatus>
+    ): Promise<PlaybackStatus>;
 
     /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false, positionMillis: 0 })`. */
-    stopAsync(): Promise<PlaybackStatus>
+    stopAsync(): Promise<PlaybackStatus>;
 
     /**
      * Unloads the media from memory. `loadAsync()` must be called again in order to be able to play the media.
      *
      * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
      */
-    unloadAsync(): Promise<PlaybackStatus>
+    unloadAsync(): Promise<PlaybackStatus>;
 }
 
 /**
@@ -450,7 +437,7 @@ export namespace Audio {
     const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_CONSTANT: 0;
     const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_LONG_TERM_AVERAGE: 1;
     const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED: 2;
-    const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE: 3
+    const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE: 3;
 
     type RecordingStatus = {
         canRecord: false,
@@ -465,8 +452,8 @@ export namespace Audio {
         durationMillis: number
     };
 
-    const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions
-    const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions
+    const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
+    const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
 
     interface RecordingOptions {
         android: {
@@ -496,7 +483,7 @@ export namespace Audio {
     interface AudioMode {
         /** Boolean selecting if your experience’s audio should play in silent mode on iOS. This value defaults to `false`. */
         playsInSilentModeIOS: boolean;
-        
+
         /** Boolean selecting if recording is enabled on iOS. This value defaults to `false`. NOTE: when this flag is set to true, playback may be routed to the phone receiver instead of to the speaker. */
         allowsRecordingIOS: boolean;
 
@@ -539,51 +526,49 @@ export namespace Audio {
 
             /** A function taking a single parameter PlaybackStatus. This value defaults to `null` if no parameter is passed. */
             onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null,
-            
+
             /** If set to true, the system will attempt to download the resource to the device before loading. This value defaults to `true`. Note that at the moment, this will only work for `source`s of the form `require('path/to/file')` or `Asset` objects. */
             downloadFirst?: boolean
         ): Promise<{ sound: Sound, status: PlaybackStatus }>;
-
-
     }
 
     class Recording {
         constructor();
 
         /** Gets the `status` of the `Recording`. */
-        getStatusAsync(): Promise<RecordingStatus>
+        getStatusAsync(): Promise<RecordingStatus>;
 
         /** Sets a function to be called regularly with the `status` of the `Recording`. */
-        setOnRecordingStatusUpdate(onRecordingStatusUpdate?: (status: RecordingStatus) => void): void
+        setOnRecordingStatusUpdate(onRecordingStatusUpdate?: (status: RecordingStatus) => void): void;
 
         /** Sets the interval with which onRecordingStatusUpdate is called while the recording can record. This value defaults to 500 milliseconds. */
-        setProgressUpdateInterval(progressUpdateIntervalMillis: number): void
+        setProgressUpdateInterval(progressUpdateIntervalMillis: number): void;
 
         /** Loads the recorder into memory and prepares it for recording. This must be called before calling `startAsync()`. This method can only be called if the `Recording` instance has never yet been prepared. */
         prepareToRecordAsync(
             /** Options for the recording, including sample rate, bitrate, channels, format, encoder, and extension. If no options are passed to `prepareToRecordAsync()`, the recorder will be created with options `Expo.Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY`. */
             options?: RecordingOptions
-        ): Promise<RecordingStatus>
+        ): Promise<RecordingStatus>;
 
         /** Begins recording. This method can only be called if the `Recording` has been prepared. */
-        startAsync(): Promise<RecordingStatus>
+        startAsync(): Promise<RecordingStatus>;
 
         /**
          * Pauses recording. This method can only be called if the Recording has been prepared.
          *
          * NOTE: This is only available on Android API version 24 and later.
          */
-        pauseAsync(): Promise<RecordingStatus>
+        pauseAsync(): Promise<RecordingStatus>;
 
         /** Stops the recording and deallocates the recorder from memory. This reverts the Recording instance to an unprepared state, and another Recording instance must be created in order to record again. This method can only be called if the `Recording` has been prepared. */
-        stopAndUnloadAsync(): Promise<RecordingStatus>
+        stopAndUnloadAsync(): Promise<RecordingStatus>;
 
         /**
          * Gets the local URI of the Recording. Note that this will only succeed once the Recording is prepared to record.
          *
          * @returns A string with the local URI of the `Recording`, or `null` if the `Recording` is not prepared to record.
          */
-        getURI(): string | null | undefined
+        getURI(): string | null | undefined;
 
         /**
          * Creates and loads a new `Sound` object to play back the `Recording`. Note that this will only succeed once the `Recording` is done recording (once `stopAndUnloadAsync()` has been called).
@@ -598,7 +583,7 @@ export namespace Audio {
 
             /** A function taking a single parameter `PlaybackStatus`. This value defaults to `null` if no parameter is passed. */
             onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null
-        ): Promise<{ sound: Sound, status: PlaybackStatus }>
+        ): Promise<{ sound: Sound, status: PlaybackStatus }>;
     }
 }
 
@@ -1230,15 +1215,31 @@ export namespace FileSystem {
     }
 }
 
-/**
- * Fingerprint
- */
+/** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
 export namespace Fingerprint {
-    type FingerprintAuthenticationResult = { success: true } | { success: false, error: string };
+    type FingerprintAuthenticationResult = {
+        success: true
+    } | {
+        success: false,
 
+        /** Error code in the case where authentication fails. */
+        error: string
+    };
+
+    /** Determine whether the Fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
+
+    /** Determine whether the device has saved fingerprints to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
+
+    /**
+     * Attempts to authenticate via Fingerprint. Android: When using the fingerprint module on Android, you need to provide a UI component to prompt the user to scan their fingerprint, as the OS has no default alert for it.
+     *
+     * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
+     */
     function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
+
+    /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
 }
 
@@ -1298,9 +1299,7 @@ export namespace Google {
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }
 
-/**
- * Gyroscope
- */
+/** Access the device gyroscope sensor to respond to changes in rotation in 3d space. */
 export namespace Gyroscope {
     interface GyroscopeObject {
         x: Axis;
@@ -1308,8 +1307,13 @@ export namespace Gyroscope {
         z: Axis;
     }
 
+    /** A callback that is invoked when an gyroscope update is available. */
     function addListener(listener: (obj: GyroscopeObject) => any): EventSubscription;
+
+    /** Remove all listeners. */
     function removeAllListeners(): void;
+
+    /** Subscribe for updates to the gyroscope. */
     function setUpdateInterval(intervalMs: number): void;
 }
 
@@ -1894,17 +1898,24 @@ export function takeSnapshotAsync(
     }
 ): Promise<string>;
 
-/**
- * Util
- */
+/** Helpful utility functions that don’t fit anywhere else, including some localization and internationalization methods. */
 export namespace Util {
-    function getCurrentDeviceCountryAsync(): Promise<number>;
+    /** Returns the current device country code. */
+    function getCurrentDeviceCountryAsync(): Promise<string>;
+
+    /** Returns the current device locale as a string. */
     function getCurrentLocaleAsync(): Promise<string>;
+
+    /** Returns the current device time zone name. */
     function getCurrentTimeZoneAsync(): Promise<string>;
+
+    /** Reloads the current experience. This will fetch and load the newest available JavaScript supported by the device’s Expo environment. This is useful for triggering an update of your experience if you have published a new version. */
     function reload(): void;
+
+    /** _Android only_. Invokes a callback when a new version of your app is successfully downloaded in the background. */
     function addNewVersionListenerExperimental(listener: (event: {
         manifest: object;
-    }) => void): { remove(): void; }; // Android only
+    }) => void): { remove(): void; };
 }
 
 /**
