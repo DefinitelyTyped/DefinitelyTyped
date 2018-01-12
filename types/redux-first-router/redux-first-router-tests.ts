@@ -45,7 +45,7 @@ const routesMap: RoutesMap<Keys, State> = {
         path: '/status',
         role: 'user',
         thunk: (dispatch, getState) => {
-            dispatch; // $ExpectType Dispatch<State>
+            dispatch; // $ExpectType Dispatch<any>
             getState; // $ExpectType StateGetter<State>
         }
     }
@@ -60,7 +60,7 @@ const {
 } = connectRoutes(history, routesMap, {
         initialDispatch: false,
         onBeforeChange: (dispatch, getState) => {
-            dispatch; // $ExpectType Dispatch<State>
+            dispatch; // $ExpectType Dispatch<any>
             getState; // $ExpectType StateGetter<State>
         },
         location: state => {

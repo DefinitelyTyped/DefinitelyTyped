@@ -23,7 +23,7 @@ export type StateGetter<TState = any> = () => TState;
 export type RouteString = string;
 
 export type RouteThunk<TState = any> = (
-    dispatch: Dispatch<TState>,
+    dispatch: Dispatch<any>,
     getState: StateGetter<TState>,
 ) => any | Promise<any>;
 
@@ -195,9 +195,9 @@ export interface Options<TKeys = {}, TState = any> {
     location?: string | SelectLocationState<TKeys, TState>;
     notFoundPath?: string;
     scrollTop?: boolean;
-    onBeforeChange?(dispatch: Dispatch<TState>, getState: StateGetter<TState>): void;
-    onAfterChange?(dispatch: Dispatch<TState>, getState: StateGetter<TState>): void;
-    onBackNext?(dispatch: Dispatch<TState>, getState: StateGetter<TState>): void;
+    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
+    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
+    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
     restoreScroll?(history: History): ScrollBehavior;
     initialDispatch?: boolean;
     querySerializer?: QuerySerializer;
