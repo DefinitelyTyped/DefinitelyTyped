@@ -3,6 +3,8 @@
 // Definitions by: alex3165 <https://github.com/alex3165>
 //                 Stepan Burguchev <https://github.com/xsburg>
 //                 Geir Sagberg <https://github.com/geirsagberg>
+//                 Dustin Horne <https://github.com/dustinhorne>
+//                 garyyeap <https://github.com/garyyeap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -55,8 +57,7 @@ declare namespace SeamlessImmutable {
 
         asMutable(opts?: AsMutableOptions): T;
 
-        merge(part: DeepPartial<T>, config?: MergeConfig): ImmutableObject<T>;
-
+        merge<U>(part: DeepPartial<U>, config?: MergeConfig): ImmutableObject<T> & U;
         update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         update<TValue>(property: string, updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
 

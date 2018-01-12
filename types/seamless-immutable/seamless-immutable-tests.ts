@@ -3,8 +3,8 @@ import * as Immutable from 'seamless-immutable';
 // Test types
 
 interface User {
-    firstName: string;
-    lastName: string;
+    firstName?: string | null;
+    lastName?: string | null;
 }
 
 interface Address {
@@ -21,8 +21,8 @@ interface ExtendedUser extends User {
 
 {
     interface User {
-        firstName: string;
-        lastName: string;
+        firstName?: string | null;
+        lastName?: string | null;
     }
 
     const arrayOfNumbers1: Immutable.ImmutableArray<number> = Immutable.from([0, 2]);
@@ -76,7 +76,7 @@ interface ExtendedUser extends User {
     });
     const immutableUserEx: Immutable.ImmutableObject<ExtendedUser> = Immutable.from({
         firstName: 'Hairy',
-        lastName: 'Dog',
+        lastName: null,
         address: {
             line1: 'Big house'
         }
@@ -101,10 +101,10 @@ interface ExtendedUser extends User {
     const mutableUser22: User = immutableUser.asMutable({ deep: true });
 
     // merge: merged part is strongly checked as a deeply partial object
-    const mergedUser: Immutable.ImmutableObject<User> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' });
+    const mergedUser: Immutable.ImmutableObject<ExtendedUser> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' });
 
     // update: property name is strongly checked
-    const updatedUser41: Immutable.ImmutableObject<User> = immutableUser.update('firstName', x => x.toLowerCase() + ' Whirlwind');
+    const updatedUser41: Immutable.ImmutableObject<User> = immutableUser.update('firstName', x => x && x.toLowerCase() + ' Whirlwind');
     // the type of the updated value must be explicity specified in case of fallback
     const updatedUser42: Immutable.ImmutableObject<User> = immutableUser.update<string>(data.propertyId, x => x.toLowerCase() + ' Whirlwind');
 
