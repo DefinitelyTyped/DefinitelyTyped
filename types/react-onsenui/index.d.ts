@@ -27,6 +27,21 @@ export interface PullHookChangeEvent {
     state: "initial" | "preaction" | "action";
 }
 
+export type NavigatorAnimationTypes = "slide" | "lift" | "fade" | "none" | string;
+
+export interface PageTransitionOptions {
+    animation?: NavigatorAnimationTypes;
+    animationOptions?: AnimationOptions;
+    callback?: () => void;
+    data?: any;
+}
+
+export interface SwitchChangeEvent extends Event {
+    switch: HTMLElement;
+    value: boolean;
+    isInteractive: boolean;
+}
+
 /*** splitter ***/
 export class SplitterSide extends Component<{
     side?: "left" | "right",
@@ -78,7 +93,6 @@ export class Icon extends Component<{
 }, any> {}
 
 /*** page ***/
-
 export class Page extends Component<{
     contentStyle?: any,
     modifier?: string,
@@ -112,22 +126,22 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(route: any): JSX.Element,
+    renderPage(route: any, navigator?: Navigator): JSX.Element,
     initialRouteStack?: string[],
     initialRoute?: any,
     onPrePush?(): void,
     onPostPush?(): void,
     onPrePop?(): void,
     onPostPop?(): void,
-    animation?: "slide" | "lift" | "fade" | "none" | string,
+    animation?: NavigatorAnimationTypes,
     animationOptions?: AnimationOptions,
 }, any> {
     pages: any[];
     routes: any[];
-    resetPage(route: any, options?: any): void;
-    resetPageStack(route: any, options?: any): void;
-    pushPage(route: any, options?: any): void;
-    popPage(options?: any): void;
+    resetPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    resetPageStack(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    pushPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    popPage(options?: PageTransitionOptions): Promise<HTMLElement>;
 }
 
 /*** Carousel ***/
@@ -309,10 +323,11 @@ export class Range extends Component<{
 }, any> {}
 
 export class Switch extends Component<{
-    onChange?(e: Event): void,
+    onChange?(e: SwitchChangeEvent): void,
     checked?: boolean,
     disabled?: boolean,
-    inputId?: string
+    inputId?: string,
+    className?: string
 }, any> {}
 
 /**
@@ -353,10 +368,14 @@ export class List extends Component<{
     renderRow?(row: any, index?: number): JSX.Element | undefined,
     renderFooter?(): JSX.Element | undefined,
     renderHeader?(): JSX.Element | undefined,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class ListHeader extends Component<{
     modifier?: string,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class ListItem extends Component<{
@@ -365,19 +384,21 @@ export class ListItem extends Component<{
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
     onClick?: React.MouseEventHandler<any>,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class Card extends Component<{
-  modifier?: string,
+    modifier?: string,
 }, any> {}
 
 /** Pull-to-refresh hook. */
 export class PullHook extends Component<{
-  onChange?(e: PullHookChangeEvent): void,
-  onLoad?(done: () => void): void,
-  onPull?(): void,
-  disabled?: boolean,
-  height?: number,
-  thresholdHeight?: number,
-  fixedContent?: boolean,
+    onChange?(e: PullHookChangeEvent): void,
+    onLoad?(done: () => void): void,
+    onPull?(): void,
+    disabled?: boolean,
+    height?: number,
+    thresholdHeight?: number,
+    fixedContent?: boolean,
 }, any> {}
