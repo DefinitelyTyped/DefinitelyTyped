@@ -1,4 +1,4 @@
-// Type definitions for koa-bodyparser v4.2
+// Type definitions for koa-bodyparser 4.2
 // Project: https://github.com/koajs/bodyparser
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,7 +13,6 @@
     app.use(bodyParser());
 
  =============================================== */
-
 
 import * as Koa from "koa";
 
