@@ -221,7 +221,7 @@ export interface CreateResourceServer extends ResourceServer {
   /**
    * The identifier of the client.
    */
-  identifier?: string;
+  identifier: string;
 }
 
 export interface CreateClientGrant {
