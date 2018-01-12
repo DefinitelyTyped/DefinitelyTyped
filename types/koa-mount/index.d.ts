@@ -7,13 +7,9 @@
 
 import * as Koa from "koa";
 
-declare function mount(app: Koa.Middleware): Koa.Middleware;
+declare function mount(app: Koa.Middleware | Koa): Koa.Middleware;
 
-declare function mount(app: Koa): Koa.Middleware;
-
-declare function mount(prefix: string, app: Koa.Middleware): Koa.Middleware;
-
-declare function mount(prefix: string, app: Koa): Koa.Middleware;
+declare function mount(prefix: string, app: Koa.Middleware | Koa): Koa.Middleware;
 
 declare namespace mount { }
 
