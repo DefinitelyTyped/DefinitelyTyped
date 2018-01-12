@@ -79,6 +79,12 @@
             "asOfVersion": "0.4.0"
         },
         {
+            "libraryName": "assertion-error",
+            "typingsPackageName": "assertion-error",
+            "sourceRepoURL": "https://github.com/chaijs/assertion-error",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "asyncblock",
             "typingsPackageName": "asyncblock",
             "sourceRepoURL": "https://github.com/scriby/asyncblock",
