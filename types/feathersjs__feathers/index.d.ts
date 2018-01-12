@@ -3,28 +3,15 @@
 // Definitions by: Jan Lohage <https://github.com/j2L4e>, Abraao Alves <https://github.com/AbraaoAlves>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
 
-export default function feathers(): Application<{}>;
+export default function feathers(): Application<object>;
 
 export const version: string;
-
-export namespace _utils {
-    // Mainly taken from here https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-319495340
-
-    type StringDiff<T extends string, U extends string> = ({[K in T]: K} &
-        {[K in U]: never} & { [K: string]: never })[T];
-    type ObjectOmit<T, K extends keyof T> = Pick<T, StringDiff<keyof T, K>>;
-
-    type Optionalize<T, U> = ObjectOmit<T, U & keyof T> &
-        {[K in (U & keyof T)]?: T[K]};
-}
-
-export type OptionalIDs<T> = _utils.Optionalize<T, 'id' | '_id'>;
 
 export type Id = number | string;
 export type NullableId = Id | null;
@@ -92,7 +79,7 @@ export interface ServiceMethods<T> {
 
     get(id: Id, params?: Params): Promise<T>;
 
-    create(data: OptionalIDs<T> | Array<OptionalIDs<T>>, params?: Params): Promise<T | T[]>;
+    create(data: Partial<T> | Array<Partial<T>>, params?: Params): Promise<T | T[]>;
 
     update(id: NullableId, data: T, params?: Params): Promise<T>;
 
@@ -106,9 +93,9 @@ export interface SetupMethod {
 }
 
 export interface ServiceOverloads<T> {
-    create(data: Array<OptionalIDs<T>>, params?: Params): Promise<T[]>;
+    create(data: Array<Partial<T>>, params?: Params): Promise<T[]>;
 
-    create(data: OptionalIDs<T>, params?: Params): Promise<T>;
+    create(data: Partial<T>, params?: Params): Promise<T>;
 
     patch(id: NullableId, data: Pick<T, keyof T>, params?: Params): Promise<T>;
 }

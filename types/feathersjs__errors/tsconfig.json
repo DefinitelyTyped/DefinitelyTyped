@@ -16,10 +16,12 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/errors": ["feathersjs__errors"]
+            "@feathersjs/errors": ["feathersjs__errors"],
+            "@feathersjs/errors/handler": ["feathersjs__errors/handler"],
+            "@feathersjs/errors/not-found": ["feathersjs__errors/not-found"]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__errors-tests.ts"
+        "index.d.ts", "feathersjs__errors-tests.ts", "handler.d.ts", "not-found.d.ts"
     ]
 }

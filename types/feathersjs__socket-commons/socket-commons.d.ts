@@ -1,5 +1,4 @@
 declare module '@feathersjs/socket-commons' {
-    // (JL) does it have a public API?
     export type Connection = any; // todo: spec connection
 
     export interface Channel {

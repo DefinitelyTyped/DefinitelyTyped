@@ -10,20 +10,53 @@ import {
 } from '@feathersjs/feathers';
 import { Request } from 'express';
 
-export function feathersAuthenticationOAuth1(options?: FeathersAuthenticationOAuth1Options): () => void;
+export default function feathersAuthenticationOAuth1(options?: FeathersAuthenticationOAuth1Options): () => void;
 
 export interface FeathersAuthenticationOAuth1Options {
-    idField: string;            // The field to look up the entity by when logging in with the provider. Defaults to '<provider>Id' (ie. 'twitterId').
-    path: string;               // The route to register the middleware
-    callbackPath: string;       // The route to register the callback handler
-    callbackURL: string;        // hostname[:port]/auth/<provider>/callback', // The callback url.
-    entity: string;             // the entity that you are looking up
-    service: string;            // the service to look up the entity
-    passReqToCallback: boolean; // whether the request object should be passed to `verify`
-    session: boolean;            // whether to use sessions,
-    handler: any;          // Express middleware for handling the oauth callback. Defaults to the built in middleware. todo: needs a proper type
-    formatter: any;        // The response formatter. Defaults the the built in feathers-rest formatter, which returns JSON. todo: needs a proper type
-    Verifier: OAuth1Verifier;    // A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
+    /**
+     * The field to look up the entity by when logging in with the provider. Defaults to '<provider>Id' (ie. 'twitterId').
+     */
+    idField: string;
+    /**
+     * The route to register the middleware
+     */
+    path: string;
+    /**
+     * The route to register the callback handler
+     */
+    callbackPath: string;
+    /**
+     * hostname[:port]/auth/<provider>/callback',
+     */
+    callbackURL: string;
+    /**
+     * the entity that you are looking up
+     */
+    entity: string;
+    /**
+     * the service to look up the entity
+     */
+    service: string;
+    /**
+     * whether the request object should be passed to `verify`
+     */
+    passReqToCallback: boolean;
+    /**
+     * whether to use sessions,
+     */
+    session: boolean;
+    /**
+     * Express middleware for handling the oauth callback. Defaults to the built in middleware. todo: needs a proper type
+     */
+    handler: any;
+    /**
+     * The response formatter. Defaults the the built in feathers-rest formatter, which returns JSON. todo: needs a proper type
+     */
+    formatter: any;
+    /**
+     * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
+     */
+    Verifier: OAuth1Verifier;
 }
 
 export class OAuth1Verifier {

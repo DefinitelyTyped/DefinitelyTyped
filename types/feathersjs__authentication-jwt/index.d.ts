@@ -10,14 +10,38 @@ import { Request } from 'express';
 export default function feathersAuthenticationJwt(options?: FeathersAuthenticationJWTOptions): () => void;
 
 export interface FeathersAuthenticationJWTOptions {
-    name: string; // the name to use when invoking the authentication Strategy
-    entity: string; // the entity that you pull from if an 'id' is present in the payload
-    service: string; // the service to look up the entity
-    passReqToCallback: boolean; // whether the request object should be passed to `verify`
-    jwtFromRequest: JwtFromRequestFunction; // a passport-jwt option determining where to parse the JWT
-    secretOrKey: string; // Your main secret provided to passport-jwt
-    session: boolean; // whether to use sessions,
-    Verifier: JWTVerifier; // A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
+    /**
+     * the name to use when invoking the authentication Strategy
+     */
+    name: string;
+    /**
+     * the entity that you pull from if an 'id' is present in the payload
+     */
+    entity: string;
+    /**
+     * the service to look up the entity
+     */
+    service: string;
+    /**
+     * whether the request object should be passed to `verify`
+     */
+    passReqToCallback: boolean;
+    /**
+     * a passport-jwt option determining where to parse the JWT
+     */
+    jwtFromRequest: JwtFromRequestFunction;
+    /**
+     * Your main secret provided to passport-jwt
+     */
+    secretOrKey: string;
+    /**
+     * whether to use sessions,
+     */
+    session: boolean;
+    /**
+     * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
+     */
+    Verifier: JWTVerifier;
 }
 
 export class JWTVerifier {

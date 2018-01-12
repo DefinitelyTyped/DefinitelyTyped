@@ -5,7 +5,7 @@
 
 import { Hook } from '@feathersjs/feathers';
 
-export default function FeathersAuthentication(config?: FeathersAuthenticationOptions): () => void;
+export default function feathersAuthentication(config?: FeathersAuthenticationOptions): () => void;
 
 export const hooks: AuthHooks.Hooks;
 

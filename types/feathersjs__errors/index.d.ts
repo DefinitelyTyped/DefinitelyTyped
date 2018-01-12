@@ -2,6 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// TypeScript Version: 2.2
 
 export class FeathersError extends Error {
     constructor(msg: string | Error, name: string, code: number, className: string, data: any)
@@ -95,29 +96,3 @@ export function convert(error: any): FeathersError;
 
 export const types: Errors;
 export const errors: Errors;
-
-// todo: (JL) what's with the handlers now?
-/*
-
-declare module '@feathersjs/errors/handler' {
-    /!*
-      import { RequestHandler } from 'express';
-
-      declare function notFound():RequestHandler;
-      declare namespace notFound {}
-
-      export = notFound;
-     *!/
-}
-
-declare module '@feathersjs/errors/notFound' {
-    /!*
-      import { RequestHandler } from 'express';
-
-      declare function notFound():RequestHandler;
-      declare namespace notFound {}
-
-      export = notFound;
-     *!/
-}
-*/
