@@ -805,6 +805,12 @@
             "asOfVersion": "0.0.34"
         },
         {
+            "libraryName": "localforage-cordovasqlitedriver module",
+            "typingsPackageName": "localforage-cordovasqlitedriver",
+            "sourceRepoURL": "https://github.com/thgreasi/localForage-cordovaSQLiteDriver",
+            "asOfVersion": "1.5.0"
+        },
+        {
             "libraryName": "lodash-decorators",
             "typingsPackageName": "lodash-decorators",
             "sourceRepoURL": "https://github.com/steelsojka/lodash-decorators",
