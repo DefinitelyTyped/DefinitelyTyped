@@ -907,6 +907,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "node-pg-migrate",
+            "typingsPackageName": "node-pg-migrate",
+            "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
+            "asOfVersion": "2.15.0"
+        },
+        {
             "libraryName": "Normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
