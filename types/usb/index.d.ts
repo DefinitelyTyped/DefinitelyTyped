@@ -13,6 +13,8 @@ export class Device {
   portNumbers: number[];
   deviceDescriptor: DeviceDescriptor;
   configDescriptor: ConfigDescriptor;
+  allConfigDescriptors: ConfigDescriptor[];
+  parent: Device;
   interfaces: Interface[];
 
   __open(): void;
@@ -34,7 +36,7 @@ export class DeviceDescriptor {
   bDeviceClass: number;
   bDeviceSubClass: number;
   bDeviceProtocol: number;
-  bMaxPacketSize: number;
+  bMaxPacketSize0: number;
   idVendor: number;
   idProduct: number;
   bcdDevice: number;
@@ -57,6 +59,8 @@ export class ConfigDescriptor {
 }
 
 export class Interface {
+  interface: number;
+  altSetting: number;
   descriptor: InterfaceDescriptor;
   endpoints: Endpoint[];
   constructor(device: Device, id: number);
@@ -97,7 +101,7 @@ export class InEndpoint implements Endpoint {
   descriptor: EndpointDescriptor;
   constructor(device: Device, descriptor: EndpointDescriptor);
   transfer(length: number, callback: (error: string, data: Buffer) => void): InEndpoint;
-  startPoll(nTransfers: number, transferSize: number): void;
+  startPoll(nTransfers?: number, transferSize?: number): void;
   stopPoll(cb: () => void): void;
 }
 
@@ -120,6 +124,7 @@ export class EndpointDescriptor {
   bInterval: number;
   bRefresh: number;
   bSynchAddress: number;
+  extra: Buffer;
 }
 
 export function findByIds(vid: number, pid: number): Device;
