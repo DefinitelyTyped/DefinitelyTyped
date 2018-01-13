@@ -129,7 +129,7 @@ interface Rpio {
      * @param cb
      * @param direction
      */
-    poll(pin: number, cb: RPIO.CallbackFunction, direction?: number): void;
+    poll(pin: number, cb: RPIO.CallbackFunction | null, direction?: number): void;
 
     /**
      * Reset pin to INPUT and clear any pullup/pulldown resistors and poll events.
