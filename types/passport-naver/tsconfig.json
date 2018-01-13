@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-pg-migrate-tests.ts"
+        "passport-naver-tests.ts"
     ]
 }

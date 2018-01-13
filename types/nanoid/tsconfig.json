@@ -7,17 +7,22 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true
     },
     "files": [
+        "format.d.ts",
+        "generate.d.ts",
         "index.d.ts",
-        "expr-eval-tests.ts"
+        "nanoid-tests.ts",
+        "random-browser.d.ts",
+        "random.d.ts",
+        "url.d.ts"
     ]
 }
