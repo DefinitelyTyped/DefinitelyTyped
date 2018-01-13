@@ -61,6 +61,7 @@ export class Interface {
   endpoints: Endpoint[];
   constructor(device: Device, id: number);
   claim(): void;
+  release(cb?: (err?: string) => void): void;
   release(closeEndpoints?: boolean, cb?: (err?: string) => void): void;
   isKernelDriverActive(): boolean;
   detachKernelDriver(): number;
