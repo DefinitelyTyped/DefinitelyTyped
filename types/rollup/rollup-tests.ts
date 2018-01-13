@@ -21,6 +21,9 @@ const plugin: Plugin = {
             this.warn(`Prefer ' over " for strings`, indexOfQuote)
             return undefined
         }
+        if (id === 'foo') {
+            return Promise.resolve(source)
+        }
         return source
     },
     transformBundle(source, options) {
@@ -29,7 +32,9 @@ const plugin: Plugin = {
         } else if (options.format === 'cjs') {
             return null
         }
-
+        if (options.format !== 'es') {
+            return Promise.resolve(source)
+        }
         return undefined
     }
 }
@@ -77,6 +82,22 @@ async function main() {
             jquery: '$',
             lodash: '_',
         },
+        banner: '/* Banner */',
+        footer: '/* Footer */',
+        intro: 'var ENV = "production";',
+        outro: 'var VERSION = "1.0.0";',
+        indent: '  ',
+        sourcemap: 'inline',
+        sourcemapFile: 'bundle.js.map',
+        strict: true,
+    })
+
+    await bundle.write({
+        format: 'cjs',
+        file: 'bundle.js',
+        name: 'myLib',
+        interop: false,
+        globals: (x: string) => x.replace("", "/"),
         banner: '/* Banner */',
         footer: '/* Footer */',
         intro: 'var ENV = "production";',

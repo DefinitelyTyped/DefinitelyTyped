@@ -1,6 +1,14 @@
 
 
 import Papa = require("papaparse");
+import {
+	ParseConfig,
+	UnparseConfig,
+	UnparseObject,
+	ParseError,
+	ParseMeta,
+	ParseResult
+} from "papaparse";
 
 /**
  * Parsing

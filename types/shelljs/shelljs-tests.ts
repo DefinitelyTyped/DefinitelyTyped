@@ -106,6 +106,13 @@ const childProc = shell.exec("node --version", (code: number) => {
 });
 pid = childProc.pid;
 
+shell.set('+e');
+shell.set('-e');
+shell.set('+v');
+shell.set('-v');
+shell.set('+f');
+shell.set('-f');
+
 shell.chmod(755, "/Users/brandon");
 shell.chmod("755", "/Users/brandon"); // same as above
 shell.chmod("u+x", "/Users/brandon");

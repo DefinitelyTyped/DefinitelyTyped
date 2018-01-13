@@ -9,6 +9,7 @@
 //                 Ivan Goncharov <https://github.com/IvanGoncharov>
 //                 Hagai Cohen <https://github.com/DxCx>
 //                 Ricardo Portugal <https://github.com/rportugal>
+//                 Tim Griesser <https://github.com/tgriesser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

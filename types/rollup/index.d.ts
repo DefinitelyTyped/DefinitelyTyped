@@ -7,6 +7,7 @@ import { RawSourceMap } from 'source-map'
 import * as acorn from 'acorn'
 
 export type Format = 'amd' | 'cjs' | 'es' | 'iife' | 'umd'
+export const VERSION: string
 
 export interface SourceMap extends RawSourceMap {
 	toString(): string
@@ -31,7 +32,7 @@ export interface BundleOptions {
 	/** The name to use for the module for UMD/IIFE bundles (required for bundles with exports). */
 	name?: string
 	/** Mapping of IDs → global variable names. Used for UMD/IIFE bundles. */
-	globals?: { [id: string]: string }
+	globals?: ((id: string) => string) | { [id: string]: string }
 	/**
 	 * Function that takes an ID and returns a path, or Object of id: path pairs.
 	 * Where supplied, these paths will be used in the generated bundle instead of the module ID, allowing you to (for example) load dependencies from a CDN.
@@ -137,9 +138,9 @@ export interface Plugin {
 	 */
 	resolveId?(importee: string, importer: string | undefined): string | null | undefined | false | 0 | ''
 	/** A module transformer function */
-	transform?(this: TransformContext, source: string, id: string): string | null | undefined | { code: string, map: SourceMap }
+	transform?(this: TransformContext, source: string, id: string): TransformResult | Promise<TransformResult>
 	/** A bundle transformer function */
-	transformBundle?(source: string, options: { format: Format }): string | null | undefined | { code: string, map: SourceMap }
+	transformBundle?(source: string, options: { format: Format }): TransformResult | Promise<TransformResult>
 	/** Function hook called when bundle.generate() is being executed. */
 	ongenerate?(options: GenerateOptions, bundle: Bundle): void
 	/** Function hook called when bundle.write() is being executed, after the file has been written to disk. */
@@ -161,6 +162,8 @@ export interface TransformContext {
 	/** Emit an error, which will abort the bundling process */
 	error(message: string | { message: string }, pos?: number | { line: number, column: number }): void
 }
+
+export type TransformResult = string | null | undefined | { code: string, map: SourceMap }
 
 /** Returns a Promise that resolves with a bundle */
 export function rollup(options: Options): Promise<Bundle>

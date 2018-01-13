@@ -85,7 +85,7 @@ class ModernComponent extends React.Component<Props, State>
         });
     }
 
-    private _myComponent: MyComponent;
+    private readonly _myComponent: MyComponent;
     private _input: HTMLInputElement | null;
 
     render() {
@@ -164,7 +164,7 @@ const statelessElement: React.SFCElement<SCProps> = React.createElement(Stateles
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
-const fragmentElement: React.ReactElement<undefined> = React.createElement(React.Fragment, undefined, [React.createElement("div"), React.createElement("div")]);
+const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
@@ -229,7 +229,7 @@ const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
 let domNode: Element = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode);
-const fragmentType: symbol | number = React.Fragment;
+const fragmentType: React.ComponentType = React.Fragment;
 
 //
 // React Elements
@@ -255,7 +255,7 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line:no-empty-interface
 interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {

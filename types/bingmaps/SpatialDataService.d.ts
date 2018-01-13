@@ -1,10 +1,3 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 /**
  * This module wraps the Query and GeoData REST API’s in the Bing Spatial Dara Services and expose them as an easy to use JavaScript library.
  * @requires The Microsoft.Maps.SpatialDataService module.
@@ -123,10 +116,10 @@ declare module Microsoft.Maps.SpatialDataService {
 
         /** The culture associated with this entity. Example: en */
         OfficialCulture: string;
-    
+
         /** The approximate population within this entity. Example: PopClass20000to99999 */
         PopulationClass: string;
-    
+
         /** The regional culture associated with this entity. */
         RegionalCulture: string;
     }
@@ -246,7 +239,7 @@ declare module Microsoft.Maps.SpatialDataService {
     /**
     * A Fitler object that defines the logic behind a filter expression that can be executed against a JSON object or generate
     * a filter string that can be used with the Bing Spatial Data Services.
-    */ 
+    */
     export interface IFilter {
         /**
         * Executes the filter logic against a JSON object and returns a boolean indicating if the object meets the requirements of the Filter.
@@ -319,7 +312,7 @@ declare module Microsoft.Maps.SpatialDataService {
 
     /** Options for find near route query API. */
     export interface ISpatialFilterOptions {
-        /** 
+        /**
          * One of the following values:
          * • nearby – Searches in a radius around a location.
          * • nearRoute – Searches for results that are within 1 mile of a route.
@@ -331,7 +324,7 @@ declare module Microsoft.Maps.SpatialDataService {
         /** Location at which the filter should be applied (only for nearby filter). */
         location?: string | Location;
 
-        /** 
+        /**
          * Radius to use when performing a nearby search. The distance in kilometers and must be between 0.16 and 1000 kilometers
          * (only for nearby filter).
          */
@@ -346,26 +339,26 @@ declare module Microsoft.Maps.SpatialDataService {
         /** Intersection object. Can be a well known text string or a LocationRect object (only for intersects filter). */
         intersects?: string | LocationRect | IPrimitive;
     }
-    
+
     /** Options for find near route query API. */
     export interface IFindNearRouteOptions extends ISpatialFilterOptions {
-        /** 
+        /**
          * One of the following values:
          *  • Driving [default]
          *  • Walking
          */
         travelMode?: string;
 
-        /** 
-         * An integer value between 0 and 359 that represents degrees from north 
-         * where north is 0 degrees and the heading is specified clockwise from north. 
-         * For example, setting the heading of 270 degrees creates a route that initially heads west 
+        /**
+         * An integer value between 0 and 359 that represents degrees from north
+         * where north is 0 degrees and the heading is specified clockwise from north.
+         * For example, setting the heading of 270 degrees creates a route that initially heads west
          */
         heading?: number;
 
         /**
          * An integer distance specified in meters.
-         * Use this parameter to make sure that the moving vehicle has enough distance 
+         * Use this parameter to make sure that the moving vehicle has enough distance
          * to make the first turn
          */
         distanceBeforeFirstTurn?: number;
@@ -404,7 +397,7 @@ declare module Microsoft.Maps.SpatialDataService {
         isStaging?: boolean;
 
         /**
-         * Specifies one or more properties to use to sort the results of a query. 
+         * Specifies one or more properties to use to sort the results of a query.
          * You can specify up to three (3) properties. Results are sorted in ascending order.
          * Note: You cannot use the latitude and longitude properties to sort results. You can use the elevation property.
          */

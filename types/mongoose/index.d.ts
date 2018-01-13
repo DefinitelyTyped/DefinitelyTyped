@@ -366,11 +366,11 @@ declare module "mongoose" {
     auth?: any;
     /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
     ssl?: boolean;
-    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
-    sslValidate?: object;
-    /** Reconnect on error (default: true) */
-    poolSize?: number;
     /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
+    sslValidate?: object;
+    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
+    poolSize?: number;
+    /** Reconnect on error (default: true) */
     autoReconnect?: boolean;
     /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
     keepAlive?: number;
@@ -380,10 +380,13 @@ declare module "mongoose" {
     socketTimeoutMS?: number;
     /** If the database authentication is dependent on another databaseName. */
     authSource?: string;
-    /** Attempt to reconnect #times (default: 30) */
-    retries?: number;
+    /** If you're connected to a single server or mongos proxy (as opposed to a replica set),
+     * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
+     * times, and give up afterward. When the driver gives up, the mongoose connection emits a
+     * reconnectFailed event. (default: 30) */
+    reconnectTries?: number;
     /** Will wait # milliseconds between retries (default: 1000) */
-    reconnectWait?: number;
+    reconnectInterval?: number;
     /** The name of the replicaset to connect to. */
     replicaSet?: string;
     /** The current value of the parameter native_parser */
@@ -400,6 +403,14 @@ declare module "mongoose" {
     readPreference?: string;
     /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
     readPreferencetags?: object;
+    /** Triggers the server instance to call ismaster (default: true). */
+    monitoring?: boolean;
+    /** The interval of calling ismaster when monitoring is enabled (default: 10000). */
+    haInterval?: number;
+    /** Enable the wrapping of the callback in the current domain, disabled by default to avoid perf hit (default: false). */
+    domainsEnabled?: boolean;
+    /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
+    bufferMaxEntries?: number;
 
     // TODO
     safe?: any;
@@ -687,10 +698,8 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
+    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
 
     /**
      * Adds a method call to the queue.
@@ -747,6 +756,29 @@ declare module "mongoose" {
     statics: any;
     /** The original object passed to the schema constructor */
     obj: any;
+  }
+
+  // Hook functions: https://github.com/vkarpov15/hooks-fixed
+  interface HookSyncCallback {
+    (next: HookNextFunction, ...hookArgs:any[]): any;
+  }
+
+  interface HookAsyncCallback {
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
+  }
+
+  interface HookErrorCallback {
+    (error: Error): any;
+  }
+
+  interface HookNextFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
+  }
+
+  interface HookDoneFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
   }
 
   interface SchemaOptions {
@@ -1143,8 +1175,13 @@ declare module "mongoose" {
   }
 
   interface MongooseDocumentOptionals {
-    /** The string version of this documents _id. */
-    id?: string;
+    /**
+     * Virtual getter that by default returns the document's _id field cast to a string,
+     * or in the case of ObjectIds, its hexString. This id getter may be disabled by
+     * passing the option { id: false } at schema construction time. If disabled, id
+     * behaves like any other field on a document and can be assigned any value.
+     */
+    id?: any;
   }
 
   interface DocumentToObjectOptions {
@@ -2611,6 +2648,8 @@ declare module "mongoose" {
 
     /** Removes documents from the collection. */
     remove(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteOne(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteMany(conditions: Object, callback?: (err: any) => void): Query<void>;
 
     /**
      * Updates documents in the database without returning them.
@@ -2619,6 +2658,14 @@ declare module "mongoose" {
     update(conditions: Object, doc: Object,
       callback?: (err: any, raw: any) => void): Query<any>;
     update(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any>;
 
     /** Creates a Query, applies the passed conditions, and returns the Query. */

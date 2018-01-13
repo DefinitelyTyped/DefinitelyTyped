@@ -8,8 +8,10 @@
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Ishaan Malhi <https://github.com/OrthoDex>
+//                 Michael Marner <https://github.com/MichaelMarner>
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
+//                 Markus Tacker <https://github.com/coderbyheart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -62,6 +64,53 @@ interface CustomAuthorizerEvent {
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
     requestContext?: APIGatewayEventRequestContext;
+}
+
+// Context
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
+interface AttributeValue {
+    B?: string;
+    BS?: Array<string>;
+    BOOL?: boolean;
+    L?: Array<AttributeValue>;
+    M?: { [id: string]: AttributeValue };
+    N?: string;
+    NS?: Array<string>;
+    NULL?: boolean;
+    S?: string;
+    SS?: Array<string>;
+}
+
+// Context
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
+interface StreamRecord {
+    ApproximateCreationTime?: number;
+    Keys?: { [key: string]: AttributeValue };
+    NewImage?: { [key: string]: AttributeValue };
+    OldImage?: { [key: string]: AttributeValue };
+    SequenceNumber?: string;
+    SizeBytes?: number;
+    StreamViewType?: 'KEYS_ONLY' | 'NEW_IMAGE' | 'OLD_IMAGE' | 'NEW_AND_OLD_IMAGES';
+}
+
+// Context
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.html
+interface DynamoDBRecord {
+    awsRegion?: string;
+    dynamodb?: StreamRecord;
+    eventID?: string;
+    eventName?: 'INSERT' | 'MODIFY' | 'REMOVE';
+    eventSource?: string;
+    eventSourceARN?: string;
+    eventVersion?: string;
+    userIdentity?: any;
+}
+
+// AWS Lambda Stream event
+// Context
+// http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-ddb-update
+interface DynamoDBStreamEvent {
+    Records: Array<DynamoDBRecord>;
 }
 
 // SNS "event"
@@ -245,6 +294,37 @@ type CloudFormationCustomResourceFailedResponse = CloudFormationCustomResourceRe
 
 export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
 
+/**
+ * See http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-cloudwatch-logs
+ */
+interface CloudWatchLogsEvent {
+    awslogs: CloudWatchLogsEventData;
+}
+
+interface CloudWatchLogsEventData {
+    data: string;
+}
+
+interface CloudWatchLogsDecodedData {
+    owner: string;
+    logGroup: string;
+    logStream: string;
+    subscriptionFilters: string[];
+    messageType: string;
+    logEvents: CloudWatchLogsLogEvent[];
+}
+
+/**
+ * See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html#LambdaFunctionExample
+ */
+interface CloudWatchLogsLogEvent {
+    id: string;
+    timestamp: number;
+    message: string;
+}
+
+
+
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
 interface Context {
@@ -347,6 +427,55 @@ interface AuthResponseContext {
 }
 
 /**
+ * CloudFront events
+ * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ */
+type CloudFrontHeaders = {
+        [name: string]: {
+            key: string;
+            value: string;
+        }[]
+};
+
+type CloudFrontResponse = {
+    status: string;
+    statusDescription: string;
+    headers: CloudFrontHeaders;
+};
+
+type CloudFrontRequest = {
+    clientIp: string;
+    method: string;
+    uri: string;
+    querystring: string;
+    headers: CloudFrontHeaders;
+};
+
+type CloudFrontEvent = {
+    config: {
+        distributionId: string;
+        requestId: string;
+    }
+}
+
+export type CloudFrontResponseEvent = {
+    Records: {
+        cf: CloudFrontEvent & {
+            request: CloudFrontRequest;
+            response: CloudFrontResponse;
+        }
+    }[]
+};
+
+export type CloudFrontRequestEvent = {
+    Records: {
+        cf: CloudFrontEvent & {
+            request: CloudFrontRequest;
+        }
+    }[]
+};
+
+/**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
@@ -354,9 +483,9 @@ interface AuthResponseContext {
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
  */
-export type Handler = (event: any, context: Context, callback?: Callback) => void;
-export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
-export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => void;
+export type Handler = (event: any, context: Context, callback?: Callback) => Promise<void> | void;
+export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => Promise<void> | void;
+export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => Promise<void> | void;
 
 /**
  * Optional callback parameter.

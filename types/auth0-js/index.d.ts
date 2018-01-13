@@ -268,6 +268,14 @@ export class WebAuth {
      * @param options:
      */
     passwordlessVerify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
+
+    /**
+     * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
+     *
+     * @param options options used in {@link authorize} call
+     * @param callback: any(err, token_payload)
+     */
+    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -752,4 +760,11 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+}
+
+export interface CheckSessionOptions extends AuthorizeOptions {
+	/**
+	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+	 */
+	usePostMessage?: boolean;
 }
