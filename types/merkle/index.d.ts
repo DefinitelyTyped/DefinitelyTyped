@@ -4,6 +4,8 @@
 // Definitions: https://github.com/kerol2r20/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node" />
+
 /* =================== USAGE ===================
 
     import merkle = require("merkle");
