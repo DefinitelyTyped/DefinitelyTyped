@@ -54,4 +54,4 @@ interface IsMobile {
 
 declare const isMobile: IsMobile;
 
-export default isMobile;
+export = isMobile;

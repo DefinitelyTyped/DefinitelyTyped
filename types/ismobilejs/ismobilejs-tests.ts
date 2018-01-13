@@ -1,4 +1,4 @@
-import isMobile from 'ismobilejs';
+import * as isMobile from 'ismobilejs';
 
 const MOZILLA_ANDROID_UA  = 'Mozilla/5.0 (Android 4.4; Mobile; rv:41.0) Gecko/41.0 Firefox/41.0';
 const MOZILLA_IPHONE_UA   = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4';
