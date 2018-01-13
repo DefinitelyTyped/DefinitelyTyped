@@ -409,8 +409,6 @@ declare namespace _ {
         new (): MapCache;
     }
 
-    interface LoDashWrapper<TValue> { }
-
     interface LoDashImplicitWrapper<TValue> extends LoDashWrapper<TValue> {
         pop<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
         push<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
@@ -10164,6 +10162,13 @@ declare namespace _ {
         isMatch(source: object): boolean;
     }
 
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.isMatch
+         */
+        isMatch(source: object): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isMatchWith
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
 
@@ -10205,6 +10210,13 @@ declare namespace _ {
          * @see _.isMatchWith
          */
         isMatchWith(source: object, customizer: isMatchWithCustomizer): boolean;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.isMatchWith
+         */
+        isMatchWith(source: object, customizer: isMatchWithCustomizer): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isNaN
@@ -17349,8 +17361,12 @@ declare namespace _ {
 
 // Backward compatibility with --target es5
 declare global {
+    // tslint:disable-next-line:no-empty-interface
     interface Set<T> { }
+    // tslint:disable-next-line:no-empty-interface
     interface Map<K, V> { }
+    // tslint:disable-next-line:no-empty-interface
     interface WeakSet<T> { }
+    // tslint:disable-next-line:no-empty-interface
     interface WeakMap<K extends object, V> { }
 }

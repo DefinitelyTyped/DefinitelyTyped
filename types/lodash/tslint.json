@@ -2,18 +2,12 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // All are TODOs
-        "callable-types": false,
         "comment-format": [false],
-        "interface-name": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "max-line-length": [false],
-        "no-any-union": false,
-        "no-empty-interface": false,
-        "no-mergeable-namespace": false,
         "no-namespace": false,
         "no-unnecessary-generics": false,
-        "no-unnecessary-type-assertion": false,
         "no-void-expression": false,
         "object-literal-key-quotes": false,
         "one-line": false,
