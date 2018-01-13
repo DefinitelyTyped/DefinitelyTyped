@@ -18,7 +18,6 @@
 import * as Koa from "koa";
 
 declare namespace session {
-
     /**
      * Session model.
      */
@@ -81,7 +80,7 @@ declare namespace session {
          */
         set(val: any): void;
 
-        prevHash: string | void;
+        prevHash: string;
 
         /**
          * init session from external store
@@ -120,7 +119,7 @@ declare namespace session {
          * "session" will result in a cookie that expires when session/browser is closed
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
-        maxAge?: number | "session" | void;
+        maxAge?: number | "session";
 
         /**
          * can overwrite or not (default true)
@@ -209,17 +208,13 @@ declare function session(app: Koa): Koa.Middleware;
 
 declare module "koa" {
     interface Context {
-        session: session.Session | void;
-        readonly sessionOptions: session.opts | void;
+        session: session.Session | undefined;
+        readonly sessionOptions: session.opts | undefined;
     }
 
     interface Application {
-        on(name: "session:missed", data: { key?: string, value?: Partial<session.Session>, ctx: Koa.Context }): void;
-        once(name: "session:missed", data: { key?: string, value?: Partial<session.Session>, ctx: Koa.Context }): void;
-        on(name: "session:expired", data: { key?: string, value?: Partial<session.Session>, ctx: Koa.Context }): void;
-        once(name: "session:expired", data: { key?: string, value?: Partial<session.Session>, ctx: Koa.Context }): void;
-        on(name: "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Koa.Context }): void;
-        once(name: "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Koa.Context }): void;
+        on(name: "session:missed" | "session:expired" | "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Context }): void;
+        once(name: "session:missed" | "session:expired" | "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Context }): void;
     }
 }
 
