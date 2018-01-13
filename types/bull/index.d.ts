@@ -4,6 +4,7 @@
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
+//                 Gabriel Terwesten <https://github.com/blaugold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -134,7 +135,7 @@ declare namespace Bull {
     promote(): Promise<void>;
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
+  type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -456,18 +457,18 @@ declare namespace Bull {
     nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job>;
 
     /**
-     * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
-     * the job when it was added.
+     * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
+     * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions): Promise<void>;
+    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
 
     /**
-     * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
-     * the job when it was added.
+     * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
+     * used for the job when it was added.
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions): Promise<void>;
+    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.

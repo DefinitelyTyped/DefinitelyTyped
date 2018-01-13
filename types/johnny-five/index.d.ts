@@ -1,10 +1,10 @@
 // Type definitions for johnny-five
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
+//                 Zoltan Ujvary <https://github.com/ujvzolee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
-
 
 export interface AccelerometerOption {
     controller: string;
@@ -32,6 +32,19 @@ export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
 
 export declare class Accelerometer {
     constructor(option: AccelerometerGeneralOption | AccelerometerAnalogOption | AccelerometerMPU6050Option | AccelerometerMMA7361Option);
+
+    id: string;
+    zeroV: number;
+    pins: Array<string>;
+    readonly pitch: number;
+    readonly roll: number;
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    readonly acceleration: number;
+    readonly inclination: number;
+    readonly orientation: number;
+
     on(event: string, cb: () => void): this;
     on(event: "change", cb: () => void): this;
     on(event: "data", cb: (freq: any) => void): this;
@@ -40,14 +53,27 @@ export declare class Accelerometer {
     disable(): void;
 }
 
+export interface AltimeterOption {
+    controller: string;
+    address?: number;
+    freq?: number;
+    elevation?: number;
+}
+
+export declare class Altimeter {
+    constructor(option: AltimeterOption);
+
+    id: string;
+    readonly feet: number;
+    readonly meters: number;
+
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+}
+
 export declare class Animation {
     constructor(option: Servo | Array<Servo>);
-    enqueue(segment: any): void;
-    play(): void;
-    pause(): void;
-    stop(): void;
-    next(): void;
-    speed(speed: Array<number>): void;
 
     target: number;
     duration: number;
@@ -60,37 +86,34 @@ export declare class Animation {
     progress: number;
     currentSpeed: number;
     fps: number;
+
+    enqueue(segment: any): void;
+    play(): void;
+    pause(): void;
+    stop(): void;
+    next(): void;
+    speed(speed: Array<number>): void;
 }
 
-export interface ButtonOptions {
-    pin: number | string;
-    invert?: boolean;
-    isPullup?: boolean;
-    holdtime?: number;
-}
-
-export declare class Button {
-    constructor(pin: number | string | ButtonOptions);
-    on(event: string, cb: () => void): this;
-    on(event: "hold", cb: (holdTime: number) => void): this;
-    on(event: "down", cb: () => void): this;
-    on(event: "press", cb: () => void): this;
-    on(event: "up", cb: () => void): this;
-    on(event: "release", cb: () => void): this;
-}
-
-export interface BoardOptions {
+export interface BoardOption {
     id?: number | string;
     port?: string | any;
     repl?: boolean;
-}
-
-export interface Repl {
-    inject(object: any): void;
+    debug?: boolean;
+    timeout?: number;
 }
 
 export declare class Board {
-    constructor(option?: BoardOptions);
+    constructor(option?: BoardOption);
+
+    io: any;
+    id: string;
+    repl: any;
+    isReady: boolean;
+    pins: Array<Pin>;
+    port: string;
+    inject: Repl;
+
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
@@ -99,25 +122,49 @@ export declare class Board {
     analogRead(pin: number, cb: (item: number) => void): void;
     digitalWrite(pin: number, value: number): void;
     digitalRead(pin: number, cb: (item: number) => void): void;
+    servoWrite(pin: number, angle: number): void;
     shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
-
-    isReady: boolean;
-    io: any;
-    id: string;
-    pins: Array<Pin>;
-    port: string;
-    inject: Repl;
+    samplingInterval(ms: number): void;
 }
 
-export interface CompassOptions {
+export interface ButtonOption {
+    pin: number | string;
+    invert?: boolean;
+    isPullup?: boolean;
+    isPulldown?: boolean;
+    holdtime?: number;
+}
+
+export declare class Button {
+    constructor(pin: number | string | ButtonOption);
+
+    id: string;
+    pin: number | string;
+    downValue: number;
+    upValue: number;
+    holdtime: number;
+
+    on(event: string, cb: () => void): this;
+    on(event: "hold", cb: (holdTime: number) => void): this;
+    on(event: "down", cb: () => void): this;
+    on(event: "press", cb: () => void): this;
+    on(event: "up", cb: () => void): this;
+    on(event: "release", cb: () => void): this;
+}
+
+export interface CompassOption {
     controller: string;
     gauss?: number;
 }
 
 export declare class Compass {
-    constructor(option: CompassOptions);
+    constructor(option: CompassOption);
+
+    readonly heading: number;
+    readonly bearing: { name: string, abbr: string, low: number, high: number, heading: number };
+
     on(event: string, cb: () => void): this;
     on(event: "change", cb: () => void): this;
     on(event: "data", cb: (data: any) => void): this;
@@ -127,14 +174,44 @@ export interface ESCOption {
     pin: number | string;
     range?: Array<number>;
     startAt?: number;
+    controller?: string;
+    device?: string;
+    neutral?: number;
 }
 
 export declare class ESC {
     constructor(option: number | string | ESCOption);
+
+    id: string;
+    pin: number | string;
+    range: Array<number>;
+    readonly value: number;
+
     speed(value: number): void;
     min(): void;
     max(): void;
     stop(): void;
+}
+
+export declare class Fn {
+    static constrain(value: number, lower: number, upper: number): number;
+    static inRange(value: number, lower: number, upper: number): boolean;
+    static map(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
+    static fmap(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
+    static range(lower: number, upper: number, tick: number): Array<number>;
+    static scale(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
+    static fscale(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
+    static sum(values: Array<number>): number;
+    static toFixed(number: number, digits: number): number;
+    static uid(): string;
+    static bitSize(n: number): number;
+    static bitValue(bit: number): number;
+    static int16(msb: number, lsb: number): number;
+    static uint16(msb: number, lsb: number): number;
+    static int24(b16: number, b8: number, b0: number): number;
+    static uint24(b16: number, b8: number, b0: number): number;
+    static int32(b24: number, b16: number, b8: number, b0: number): number;
+    static uint32(b24: number, b16: number, b8: number, b0: number): number;
 }
 
 export interface GyroGeneralOption {
@@ -153,10 +230,39 @@ export interface GyroMPU6050Option extends GyroGeneralOption {
 
 export declare class Gyro {
     constructor(option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option);
+
+    id: string;
+    pins: Array<string>;
+    readonly isCalibrated: boolean;
+    readonly pitch: any;
+    readonly roll: any;
+    readonly yaw: any;
+    readonly rate: any;
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+
     on(event: string, cb: () => void): this;
     on(event: "change", cb: () => void): this;
     on(event: "data", cb: (data: any) => void): this;
     recalibrate(): void;
+}
+
+export interface HygrometerOption {
+    controller?: string;
+    freq?: number;
+}
+
+export declare class Hygrometer {
+    constructor(option: HygrometerOption);
+
+    id: string;
+    readonly relativeHumidity: number;
+    readonly RH: number;
+
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export interface IMUGeneralOption {
@@ -170,9 +276,17 @@ export interface IMUMPU6050Option extends IMUGeneralOption {
 
 export declare class IMU {
     constructor(option: IMUGeneralOption | IMUMPU6050Option);
+
+    readonly accelerometer: Accelerometer;
+    readonly compass: Compass
+    readonly gyro: Gyro;
+    readonly orientation: Orientiation;
+    readonly thermometer: Thermometer;
+
     on(event: string, cb: () => void): this;
     on(event: "change", cb: () => void): this;
     on(event: "data", cb: (data: any) => void): this;
+    on(event: "calibrated", cb: () => void): this;
 }
 
 export declare module IR {
@@ -230,19 +344,25 @@ export declare module IR {
 
 export interface JoystickOption {
     pins: Array<string>;
+    invert?: boolean;
+    invertX?: boolean;
+    invertY?: boolean;
 }
 
 export declare class Joystick {
     constructor(option: JoystickOption);
+
+    id: string;
+    readonly x: number;
+    readonly y: number;
+    axis: Array<number>;
+    raw: Array<number>;
+
     on(event: string, cb: () => void): this;
     on(event: "data", cb: (data: any) => void): this;
     on(event: "change", cb: () => void): this;
     on(event: "axismove", cb: (error: Error, date: Date) => void): this;
-
-    axis: Array<number>;
-    raw: Array<number>;
 }
-
 
 export interface LCDGeneralOption {
     rows?: number;
@@ -261,17 +381,25 @@ export interface LCDParallelOption extends LCDGeneralOption {
 
 export declare class LCD {
     constructor(option: LCDGeneralOption | LCDI2COption | LCDParallelOption);
+
+    id: string;
+    rows: number;
+    cols: number;
+
     print(message: string): void;
     useChar(char: string): void;
     clear(): void;
     cursor(row: number, col: number): void;
     home(): void;
+    on(): void;
+    off(): void;
     display(): void;
     noDisplay(): void;
     blink(): void;
     noBlink(): void;
     autoscroll(): void;
     noAutoscroll(): void;
+    bgColor(color: any): void;
 }
 
 export interface LedOption {
@@ -284,6 +412,10 @@ export interface LedOption {
 
 export declare class Led {
     constructor(option: number | LedOption);
+
+    id: string;
+    pin: number;
+
     on(): void;
     off(): void;
     toggle(): void;
@@ -299,13 +431,20 @@ export declare class Led {
 }
 
 export declare module Led {
+
     export interface DigitsOption {
         pins: any;
         devices?: number;
+        controller?: string;
     }
 
     export class Digits {
         constructor(option: DigitsOption);
+
+        readonly isMatrix: boolean;
+        readonly devices: number;
+        digitOrder: number;
+
         on(): void;
         on(index: number): void;
         off(): void;
@@ -333,6 +472,10 @@ export declare module Led {
 
     export class Matrix {
         constructor(option: MatrixOption | MatrixIC2Option);
+
+        readonly isMatrix: boolean;
+        readonly devices: number;
+
         on(): void;
         on(index: number): void;
         off(): void;
@@ -359,6 +502,12 @@ export declare module Led {
 
     export class RGB {
         constructor(option: RGBOption);
+
+        red: Led;
+        green: Led;
+        blue: Led;
+        readonly isAnode: boolean;
+
         on(): void;
         off(): void;
         color(value: number): void;
@@ -384,6 +533,9 @@ export interface MotorOption {
 
 export declare class Motor {
     constructor(option: Array<number> | MotorOption);
+
+    readonly isOn: boolean;
+
     forward(speed: number): void;
     fwd(speed: number): void;
     reverse(speed: number): void;
@@ -395,12 +547,35 @@ export declare class Motor {
     release(): void;
 }
 
+export interface OrientiationOption {
+    controller?: string;
+    freq?: number;
+}
+
+export declare class Orientiation {
+    constructor(option: OrientiationOption);
+
+    readonly euler: any;
+    readonly quarternion: any;
+
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "calibrated", cb: () => void): this;
+}
+
 export interface PiezoOption {
     pin: number;
 }
 
 export declare class Piezo {
     constructor(option: number | PiezoOption);
+
+    id: string;
+    pin: number;
+    readonly mode: number;
+    readonly isPlaying: boolean;
+
     frequency(frequency: number, duration: number): void;
     play(tune: any, cb?: () => void): void;
     tone(frequency: number, duration: number): void;
@@ -424,13 +599,24 @@ export interface PinState {
 
 export declare class Pin {
     constructor(option: number | string | PinOption);
+
+    id: number | string;
+    pin: number | string;
+    type: "digital" | "analog";
+    value: number;
+    mode: number;
+
+    static write(pin: number, value: number): void;
+    static read(pin: number, cb: (data: number) => void): void;
     query(cb: (pin: PinState) => void): void;
     high(): void;
     low(): void;
     write(value: number): void;
     read(cb: (value: number) => void): void;
-    static write(pin: number, value: number): void;
-    static read(pin: number, cb: (data: number) => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "high", cb: () => void): this;
+    on(event: "low", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export interface PingOption {
@@ -450,9 +636,19 @@ export interface RelayOption {
 
 export declare class Relay {
     constructor(option: number | RelayOption);
+
+    id: string;
+    pin: number | string;
+    readonly isOn: boolean;
+    readonly type: string;
+
     open(): void;
     close(): void;
     toggle(): void;
+}
+
+export interface Repl {
+    inject(object: any): void;
 }
 
 export interface SensorOption {
@@ -463,14 +659,25 @@ export interface SensorOption {
 
 export declare class Sensor {
     constructor(option: number | string | SensorOption);
-    scale(low: number, high: number): Sensor;
-    scale(range: number[]): Sensor;
-    scale(): Sensor;
+
+    id: string;
+    pin: number | string;
+    threshold: number;
+    readonly boolean: boolean;
+    readonly raw: number;
+    readonly analog: number;
+    readonly constrained: number;
+    readonly value: number;
+
+    scaleTo(low: number, high: number): number;
+    fscaleTo(low: number, high: number): number;
+    scaleTo(range: Array<number>): number
+    fscaleTo(range: Array<number>): number
     booleanAt(barrier: number): boolean;
     within(range: Array<number>, cb: () => void): void;
     on(event: string, cb: () => void): this;
-    on(event: "data", cb: (data: any) => void): this;
     on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export interface ServoGeneralOption {
@@ -495,10 +702,24 @@ export interface ServoSweepOpts {
 
 export declare class Servo {
     constructor(option: number | string | ServoGeneralOption);
+
+    id: string;
+    pin: number | string;
+    range: Array<number>;
+    invert: boolean;
+    history: Array<any>;
+    interval: number;
+    isMoving: boolean;
+    readonly last: any;
+    readonly position: number;
+    value: number;
+    startAt: number;
+
     to(degrees: number, ms?: number, rage?: number): void;
     min(): void;
     max(): void;
     center(): void;
+    home(): void;
     sweep(): void;
     sweep(range: Array<number>): void;
     sweep(opt: ServoSweepOpts): void;
@@ -511,11 +732,21 @@ export declare class Servo {
 
 export interface ShiftRegisterOption {
     pins: any;
+    isAnode?: boolean;
 }
 
 export declare class ShiftRegister {
     constructor(option: ShiftRegisterOption);
-    send(...value: number[]): void;
+
+    id: string;
+    pins: any;
+    readonly value: any;
+    readonly isAnode: boolean;
+
+    clear(): void;
+    display(number: number | string): void;
+    reset(): void;
+    send(...value: Array<number>): void;
 }
 
 export interface SonarOption {
@@ -527,11 +758,12 @@ export interface SonarOption {
 
 export declare class Sonar {
     constructor(option: number | string | SonarOption);
+
     within(range: Array<number>, cb: () => void): void;
     within(range: Array<number>, unit: string, cb: () => void): void;
     on(event: string, cb: () => void): this;
-    on(event: "data", cb: (data: any) => void): this;
     on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export interface StepperOption {
@@ -552,6 +784,7 @@ export declare module Stepper {
 
 export declare class Stepper {
     constructor(option: number | string | StepperOption);
+
     step(stepsOrOpts: any, cb: () => void): void;
     rpm(): Stepper;
     rpm(value: number): Stepper;
@@ -565,23 +798,49 @@ export declare class Stepper {
     decel(value: number): Stepper;
     cw(): Stepper;
     ccw(): Stepper;
-
     within(range: Array<number>, cb: () => void): void;
     within(range: Array<number>, unit: string, cb: () => void): void;
     on(event: string, cb: () => void): this;
-    on(event: "data", cb: (data: any) => void): this;
     on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
-export interface TemperatureOption {
+export interface SwitchOption {
+    pin: number | string;
+    type?: "NO" | "NC";
+}
+
+export declare class Switch {
+    constructor(option: number | string | SwitchOption);
+
+    id: string;
+    pin: number | string;
+    readonly isClosed: boolean;
+    readonly isOpen: boolean;
+
+    on(event: "open", cb: () => void): this;
+    on(event: "close", cb: () => void): this;
+}
+
+export interface ThermometerOption {
     controller?: string;
     pin: string | number;
     toCelsius?: (val: number) => number;
     freq?: number;
 }
 
-export declare class Temperature {
-    constructor(option: TemperatureOption);
+export declare class Thermometer {
+    constructor(option: ThermometerOption);
+
+    id: string;
+    pin: number | string;
+    readonly celsius: number;
+    readonly fahrenheit: number;
+    readonly kelvin: number;
+    readonly C: number;
+    readonly F: number;
+    readonly K: number;
+
     on(event: string, cb: () => void): this;
     on(event: "data", cb: (data: any) => void): this;
     on(event: "change", cb: () => void): this;

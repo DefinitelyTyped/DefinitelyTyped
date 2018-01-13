@@ -1,4 +1,4 @@
-// Type definitions for Jest 21.1
+// Type definitions for Jest 22.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -9,6 +9,7 @@
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
+//                 Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -532,6 +533,8 @@ declare namespace jest {
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
+        mockName(name: string): Mock<T>;
+        getMockName(): string;
     }
 
     interface MockContext<T> {
@@ -714,8 +717,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     interface CustomMatcherResult {
@@ -815,6 +818,10 @@ declare namespace jest {
         cacheDirectory: Path;
         clearMocks: boolean;
         coveragePathIgnorePatterns: string[];
+        cwd: Path;
+        detectLeaks: boolean;
+        displayName: Maybe<string>;
+        forceCoverageMatch: Glob[];
         globals: ConfigGlobals;
         haste: HasteConfig;
         moduleDirectories: string[];
@@ -829,11 +836,14 @@ declare namespace jest {
         resolver: Maybe<Path>;
         rootDir: Path;
         roots: Path[];
+        runner: string;
         setupFiles: Path[];
         setupTestFrameworkScriptFile: Path;
         skipNodeResolution: boolean;
         snapshotSerializers: Path[];
         testEnvironment: string;
+        testEnvironmentOptions: object;
+        testLocationInResults: boolean;
         testMatch: Glob[];
         testPathIgnorePatterns: string[];
         testRegex: string;
@@ -843,6 +853,7 @@ declare namespace jest {
         transform: Array<[string, Path]>;
         transformIgnorePatterns: Glob[];
         unmockedModulePathPatterns: Maybe<string[]>;
+        watchPathIgnorePatterns: string[];
     }
 
     // Console

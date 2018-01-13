@@ -6,6 +6,9 @@
 
 import "react";
 
+import * as css from "./css";
+import * as server from "./server";
+
 declare module "react" {
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         jsx?: boolean;

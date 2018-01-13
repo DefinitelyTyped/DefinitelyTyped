@@ -34,6 +34,7 @@ import {
     ViewPagerAndroid,
     FlatList,
     FlatListProperties,
+    ScaledSize,
     SectionList,
     SectionListProperties,
     findNodeHandle,
@@ -60,8 +61,16 @@ NativeModules.NativeUntypedModule;
 NativeModules.NativeTypedModule.someFunction();
 NativeModules.NativeTypedModule.someProperty = "";
 
+function dimensionsListener(dimensions: { window: ScaledSize, screen: ScaledSize }) {
+    console.log("window dimensions: ", dimensions.window);
+    console.log("screen dimensions: ", dimensions.screen);
+}
+
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? "window" : "screen");
+
+    Dimensions.addEventListener('change', dimensionsListener);
+    Dimensions.removeEventListener('change', dimensionsListener);
 }
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});

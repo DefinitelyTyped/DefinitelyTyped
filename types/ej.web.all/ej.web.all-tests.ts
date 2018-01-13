@@ -1,3 +1,10 @@
+interface Window {
+    kanbanData: any;
+    themeVarient: string;
+    themeStyle: string;
+    themeColor: string;
+}
+
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
@@ -17,8 +24,6 @@ module AccordionComponent {
         });
     });
 }
-
-
 
 module AutocompleteComponent{
     var carList = [
@@ -54,10 +59,6 @@ module AutocompleteComponent{
     });
 }
 
-
-
-
-
 module Barcodecomponent {
     $(function () {
         var barcodesample = new ej.datavisualization.Barcode($("#Barcode"), {
@@ -66,16 +67,13 @@ module Barcodecomponent {
     });
 }
 
-
-
-
-
 module Bulletgraphcomponent {
     $(function () {
         var bulletsample = new ej.datavisualization.BulletGraph($("#BulletGraph"), {
             isResponsive: true,
             load: function () {
                 var sender = $("#BulletGraph").data("ejBulletGraph");
+                var theme: string;
                 var bulletTheme = window.themeStyle + window.themeColor + window.themeVarient;
                 if (bulletTheme) {
                     switch (bulletTheme) {
@@ -129,10 +127,6 @@ module Bulletgraphcomponent {
     });
 }
 
-
-
-
-
 module ButtonComponent {
     $(function () {
         var basicButton = new ej.Button($("#buttonnormal"), {
@@ -178,10 +172,8 @@ module ButtonComponent {
     });
 }
 
-
-
-
 module ChartComponent {
+    var theme = "???";
     $(function () {
         var chartsample = new ej.datavisualization.Chart($("#Chart"), {
             primaryXAxis: {
@@ -259,7 +251,6 @@ module ChartComponent {
                     model.primaryYAxis.labelIntersectAction = "rotate45";
                     model.primaryYAxis.edgeLabelPlacement = "hide";
                 }
-                var theme = window.themeStyle + window.themeColor + window.themeVarient;
                 if (theme) {
                     switch (theme) {
                         case "flatdark":
@@ -301,15 +292,10 @@ module ChartComponent {
             },
             title: { text: 'Efficiency of oil-fired power production' },
             size: { height: "600" },
-            legend: { visible: true},
-			load:"loadTheme"
+            legend: { visible: true}
         });
     });
 }
-
-
-
-
 
 module circulargaugecomponent {
     $(function () {
@@ -362,9 +348,6 @@ module circulargaugecomponent {
     });
 }
 
-
-
-
 module ColorPickerComponent {
     $(function () {
         var colorSample = new ej.ColorPicker($("#colorpick"), {
@@ -372,31 +355,6 @@ module ColorPickerComponent {
         });
     });
 }
-
-
-
-
-module ComboBoxComponent{
-    var BikeList = [
-        { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
-        { empid: "bk4", text: "Discover" }, { empid: "bk5", text: "Dazzler" }, { empid: "bk6", text: "Flame" },
-        { empid: "bk7", text: "Fazzer" }, { empid: "bk8", text: "FZ-S" }, { empid: "bk9", text: "Pulsar" },
-        { empid: "bk10", text: "Shine" }, { empid: "bk11", text: "R15" }, { empid: "bk12", text: "Unicorn" }
-    ];
-    $(function () {
-        var comboboxInstance =new ej.ComboBox($("#selectCar"), {
-            width: "100%",
-            placeholder: "Select a Bike",
-			fields: { text: "text", value: "empid" },
-            dataSource: BikeList,
-            autofill: true
-        });
-    });
-}
-
-
-
-
 
 module DatePickerComponent {
     $(function () {
@@ -406,9 +364,6 @@ module DatePickerComponent {
     });
 }
 
-
-
-
 module DateTimePickerComponent {
     $(function () {
         var datetimeSample = new ej.DateRangePicker($("#daterangepick"), {
@@ -417,8 +372,6 @@ module DateTimePickerComponent {
     });
 }
 
-
-
 module DateTimePickerComponent {
     $(function () {
         var datetimeSample = new ej.DateTimePicker($("#datetimepick"), {
@@ -426,8 +379,6 @@ module DateTimePickerComponent {
         });
     });
 }
-
-
 
 $(function () {
     var diagram = new ej.datavisualization.Diagram($("#diagram"), {
@@ -501,8 +452,6 @@ function createLabel(options : any) {
     return options;
 }
 
-
-
 module DialogComponent {
     $(function () {
         var dialogInstance = new ej.Dialog($("#basicDialog"), {
@@ -525,9 +474,6 @@ module DialogComponent {
     });
 }
 
-
-
-
 module digitalgaugecomponent {
     $(function () {
         var digitalgaugesample = new ej.datavisualization.DigitalGauge($("#DigitalGauge"), {
@@ -549,10 +495,6 @@ module digitalgaugecomponent {
         });
     });
 }
-
-
-
-
 
 
 module DropDownListComponent {
@@ -586,10 +528,6 @@ module DropDownListComponent {
 }
 
 
-
-
-
-
 module ExplorerComponent {
     $(function () {
         var file = new ej.FileExplorer($("#fileExplorer"), {
@@ -602,9 +540,6 @@ module ExplorerComponent {
         });
     });
 }
-
-
-
 
 module GanttComponent {
      $(function () {
@@ -656,8 +591,6 @@ module GanttComponent {
 });
 }
 
-
-
 module GridComponent {
     $(function () {
         var gridInstance = new ej.Grid($("#Grid"), {
@@ -692,8 +625,6 @@ module GridComponent {
         });
     });
 }
-
-
 
 var columns = ["Vegie-spread", "Tofuaa", "Alice Mutton", "Konbu", "Fl�temysost"]
 var itemSource: any[] = [];
@@ -740,13 +671,6 @@ $(function () {
     });
 });
 
-
-
-
-declare var window:myWindow;
-export interface myWindow extends Window{
-kanbanData:any;
-}
 module KanbanComponent {
     $(function () {
         var sample = new ej.Kanban($("#Kanban"), {
@@ -768,9 +692,6 @@ module KanbanComponent {
         });
     });
 }
-
-
-
 
 module lineargaugecomponent {
     $(function () {
@@ -800,10 +721,6 @@ module lineargaugecomponent {
     });
 }
 
-
-
-
-
 module ListBoxComponent {
     $(function () {
         var listboxInstance = new ej.ListBox($("#selectcar"), {
@@ -811,8 +728,6 @@ module ListBoxComponent {
         });
     });
 }
-
-
 
 module ListviewComponent {
     $(function () {
@@ -822,7 +737,6 @@ module ListviewComponent {
         });
     });
 }
-
 
 var world_map=
     {
@@ -1050,11 +964,6 @@ module mapcomponenet {
 }
 
 
-
-
-
-
-
 module MenuComponent {
     $(function () {
         var sample = new ej.Menu($("#syncfusionProducts"),{
@@ -1078,12 +987,6 @@ module MenuComponent {
 }
 
 
-
-
-
-
-
-
 module NavigationDrawerComponent {
     $(function () {
         var navigationdrawerInstance = new ej.NavigationDrawer($("#navpane"), {
@@ -1105,8 +1008,6 @@ module NavigationDrawerComponent {
     });
 }
 
-
-
 module PDFViewerComponent {
     $(function () {
         var pdfviewerControl = new ej.PdfViewer($("#pdfviewer"), {
@@ -1115,8 +1016,6 @@ module PDFViewerComponent {
         });
     });
 }
-
-
 
 module PivotChartOlap {
     $(function () {
@@ -1154,13 +1053,10 @@ module PivotChartOlap {
 		size: { height: "460px", width: "100%" },
 		primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
 		primaryYAxis: { title: { text: "Internet Sales Amount" } },
-		legend: { visible: true, rowCount: 2 },
-		load:"loadTheme"
+		legend: { visible: true, rowCount: 2 }
         });
     });
 }
-
-
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1229,13 +1125,10 @@ module PivotChartRelational {
 		},
 		size: { height: "460px", width: "100%" },
 		primaryYAxis: { title: { text: "Amount" } },
-		legend: { visible: true },
-		load:"loadTheme"
+		legend: { visible: true }
         });
     });
 }
-
-
 
 module PivotGaugeOlap {
 
@@ -1341,8 +1234,6 @@ module PivotGaugeOlap {
         });
     });
 }
-
-
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1463,8 +1354,6 @@ module PivotGaugeRelational {
     });
 }
 
-
-
 module PivotGridOlap {
 
     $(function () {
@@ -1501,8 +1390,6 @@ module PivotGridOlap {
         $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
 }
-
-
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1572,8 +1459,6 @@ module PivotGridRelational {
     });
 }
 
-
-
 module PivotTreeMap {
     $(function () {
         var sample = new ej.PivotTreeMap($("#PivotTreeMap"),{
@@ -1607,8 +1492,6 @@ module PivotTreeMap {
     });
 }
 
-
-
 module ProgressBarComponent {
     $(function () {
         var sample = new ej.ProgressBar($("#progressBar"),{
@@ -1624,9 +1507,6 @@ module ProgressBarComponent {
     });
 
 }
-
-
-
 
 declare var rteObj: any;
 declare var data: any;
@@ -1671,7 +1551,6 @@ module RadialMenuComponent {
     });
 }
 
-
 function bold(e: any) {
 
     rteObj = rteEle.data("ejRTE");
@@ -1707,9 +1586,6 @@ function redo(e: any) {
     radialEle.focus();
 }
 
-
-
-
 module RadialSliderComponent {
     $(function () {
         var radialsliderInstance = new ej.RadialSlider($("#radialSlider"), {
@@ -1717,7 +1593,6 @@ module RadialSliderComponent {
         });
     });
 }
-
 
 module rangecomponent {
     $(function () {
@@ -1833,8 +1708,6 @@ function GetData() {
     return data;
 };
 
-
-
 module RatingComponent {
     $(function () {
 
@@ -1889,8 +1762,6 @@ module RatingComponent {
 
 }
 
-
-
 module ReportViewerComponent {
 	$(function () {
 		var report = new ej.ReportViewer($("#territoryReportViewer"), {
@@ -1902,8 +1773,6 @@ module ReportViewerComponent {
 		});
 	});
 }
-
-
 
 var fontfamily = ["Segoe UI", "Arial", "Times New Roman", "Tahoma", "Helvetica"], fontsize = ["1pt", "2pt", "3pt", "4pt", "5pt"], action1 = ["New", "Clear"], action2 = ["Bold", "Italic", "Underline", "strikethrough", "superscript", "subscript", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyFull", "Undo", "Redo"];
 module RibbonComponent {
@@ -2579,7 +2448,7 @@ module RibbonComponent {
 function colorHandler(args:any) {
     (this._id.indexOf("fillcolor") != -1) ? $("#contenteditor").css('background-color', args.value) : document.execCommand('forecolor', false, args.value);
 }
-function onClick(args) {
+function onClick(args: any) {
     var val, prop = args.text;
     val = (ej.isNullOrUndefined(args.model.text)) ? args.model.activeText : args.model.text;
     if (action1.indexOf(val) != -1)
@@ -2593,10 +2462,6 @@ function onClick(args) {
     else
         $("#contenteditor").append("<p> Action: " + val + " Triggered </p>");
 }
-
-
-
-
 
 
 module RotatorComponent {
@@ -2619,8 +2484,6 @@ module RotatorComponent {
         });
     });
 }
-
-
 
 module RTEComponent {
     $(function () {
@@ -2692,8 +2555,6 @@ module RTEComponent {
 
 }
 
-
-
 module ScheduleComponent {
     $(function () {
         var sample = new ej.Schedule($("#Schedule1"), {
@@ -2762,8 +2623,6 @@ module ScheduleComponent {
     });
 }
 
-
-
 module ScrollerComponent {
     $(function () {
         var scrollerSample = new ej.Scroller($("#scrollcontent"), {
@@ -2777,8 +2636,6 @@ module ScrollerComponent {
     });
 }
 
-
-
 module SignatureComponent {
     $(function () {
         var basicSignature = new ej.Signature($("#signature"), {
@@ -2788,9 +2645,6 @@ module SignatureComponent {
         });
     });
 }
-
-
-
 
 module SliderComponent {
     $(function () {
@@ -2808,10 +2662,6 @@ module SliderComponent {
 
     });
 }
-
-
-
-
 
 
 module linesparkline {
@@ -2942,10 +2792,6 @@ module piesparkline4 {
 }
 
 
-
-
-
-
 module SplitterComponent {
     $(function () {
         var splitterInstance = new ej.Splitter($("#outterSpliter"), {
@@ -2960,8 +2806,6 @@ module SplitterComponent {
         });
     });
 }
-
-
 
 module SpreadsheetComponent {
 $(function () {
@@ -2989,9 +2833,6 @@ $(function () {
         });
     });
 }
-
-
-
 
 var default_data: Array<Object> = [
     { Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup:"Executive",                         EmployeesCount : 50 },
@@ -3058,14 +2899,10 @@ module sunburstcomponent {
             },
 			title:{text:"Employees Count"},
 			zoomSettings:{enable:false},
-			legend:{visible:true,position:'top'},
-			load:"loadTheme"
+			legend:{visible:true,position:'top'}
         });
     });
 }
-
-
-
 
 module TabComponent {
     $(function () {
@@ -3080,10 +2917,7 @@ module TabComponent {
     });
 }
 
-
-
 module TagCloudComponent {
-
 
     var websiteCollection = [
         { text: "Google", url: "http://www.google.com", frequency: 12 },
@@ -3119,8 +2953,6 @@ module TagCloudComponent {
     });
 }
 
-
-
 module EditorComponent {
     $(function () {
         var num = new ej.NumericTextbox($("#numeric"), {
@@ -3152,10 +2984,6 @@ module EditorComponent {
         })
     });
 }
-
-
-
-
 
 module TileViewComponent {
     $(function () {
@@ -3235,8 +3063,6 @@ module TileViewComponent {
     });
 }
 
-
-
 module TimePickerComponent {
     $(function () {
         var timeSample = new ej.TimePicker($("#timepick"), {
@@ -3244,9 +3070,6 @@ module TimePickerComponent {
         });
     });
 }
-
-
-
 
 module ToolbarComponent {
 
@@ -3263,9 +3086,6 @@ module ToolbarComponent {
     });
 
 }
-
-
-
 
 module TooltipComponent {
 
@@ -3322,8 +3142,6 @@ module TooltipComponent {
     });
 }
 
-
-
 module TreeGridComponent {
     $(function () {
         var treegridInstance = new ej.TreeGrid($("#TreeGridContainer"), {
@@ -3365,9 +3183,6 @@ module TreeGridComponent {
 });
 }
 
-
-
-
 var population_data: Array<Object> = [
     { Continent: "Asia", Country: "Indonesia", Growth: 3, Population: 237641326 },
     { Continent: "Asia", Country: "Russia", Growth: 2, Population: 152518015 },
@@ -3406,10 +3221,6 @@ module treemapcomponent {
     });
 }
 
-
-
-
-
 module TreeViewComponent {
     $(function () {
         var tree = new ej.TreeView($("#treeView"), {
@@ -3420,9 +3231,6 @@ module TreeViewComponent {
         });
     });
 }
-
-
-
 
 module UploadboxComponent {
 
@@ -3444,9 +3252,6 @@ module UploadboxComponent {
     });
 
 }
-
-
-
 
 module WaitingPopupComponent {
     $(function () {

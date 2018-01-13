@@ -10,7 +10,7 @@ import { Image } from './response-builder';
  */
 export interface Price {
     /** One of Transaction.PriceType. */
-    type: PriceType;
+    type: TransactionValues.PriceType;
     amount: {
         /** Currency code of price. */
         currencyCode: string;
@@ -26,7 +26,7 @@ export interface Price {
  */
 export interface RejectionInfo {
     /** One of Transaction.ReasonType. */
-    type: ReasonType;
+    type: TransactionValues.ReasonType;
     /** Reason for the order rejection. */
     reason: string;
 }
@@ -79,7 +79,7 @@ export interface ActionPaymentTransactionConfig {
     /** True if delivery address is required for the transaction. */
     deliveryAddressRequired: boolean;
     /** One of Transactions.PaymentType. */
-    type: PaymentType;
+    type: TransactionValues.PaymentType;
     /** The name of the instrument displayed on receipt. For example, for card payment, could be "VISA-1234". */
     displayName: string;
     customerInfoOptions?: CustomerInfoOptions;
@@ -95,9 +95,11 @@ export interface GooglePaymentTransactionConfig {
     /** Tokenization parameters provided by payment gateway. */
     tokenizationParameters: object;
     /** List of accepted card networks. Must be any number of Transactions.CardNetwork. */
-    cardNetworks: CardNetwork[];
+    cardNetworks: TransactionValues.CardNetwork[];
     /** True if prepaid cards are not allowed for transaction. */
     prepaidCardDisallowed: boolean;
+    /** The type of tokenization. Default is {@see TransactionValues.PaymentMethodTokenizationType.PAYMENT_GATEWAY}. */
+    tokenizationType: string;
     customerInfoOptions?: CustomerInfoOptions;
 }
 
@@ -130,10 +132,10 @@ export interface Location {
  */
 export interface TransactionDecision {
     /** One of Transactions.ConfirmationDecision. */
-    userDecision: TransactionUserDecision;
+    userDecision: TransactionValues.TransactionUserDecision;
     checkResult: {
         /** One of Transactions.ResultType. */
-        resultType: ResultType;
+        resultType: TransactionValues.ResultType;
     };
     order: {
         /** The proposed order used in the transaction decision. */
@@ -162,490 +164,438 @@ export interface TransactionDecision {
 /**
  * Values related to supporting transactions
  */
-export const TransactionValues: {
-    /** List of transaction card networks available when paying with Google. */
-    readonly CardNetwork: typeof CardNetwork;
+export namespace TransactionValues {
+    /**
+     * List of transaction card networks available when paying with Google.
+     */
+    enum CardNetwork {
+        /**
+         * Unspecified.
+         */
+        UNSPECIFIED,
+        /**
+         * American Express.
+         */
+        AMEX,
+        /**
+         * Discover.
+         */
+        DISCOVER,
+        /**
+         * Master Card.
+         */
+        MASTERCARD,
+        /**
+         * Visa.
+         */
+        VISA,
+        /**
+         * JCB.
+         */
+        JCB
+    }
+
     /**
      * List of possible item types.
      * @deprecated Use {@link TransactionValues.LineItemType} instead.
      */
-    readonly ItemType: typeof LineItemType;
-    /** List of possible item types. */
-    readonly LineItemType: typeof LineItemType;
-    /** List of price types. */
-    readonly PriceType: typeof PriceType;
-    /** List of possible item types. */
-    readonly PaymentType: typeof PaymentType;
-    /** List of customer information properties that can be requested. */
-    readonly CustomerInfoProperties: typeof CustomerInfoProperties;
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export import ItemType = LineItemType;
+
+    /**
+     * List of possible item types.
+     */
+    enum LineItemType {
+        /**
+         * Unspecified.
+         */
+        UNSPECIFIED,
+        /**
+         * Regular.
+         */
+        REGULAR,
+        /**
+         * Tax.
+         */
+        TAX,
+        /**
+         * Discount
+         */
+        DISCOUNT,
+        /**
+         * Gratuity
+         */
+        GRATUITY,
+        /**
+         * Delivery
+         */
+        DELIVERY,
+        /**
+         * Subtotal
+         */
+        SUBTOTAL,
+        /**
+         * Fee. For everything else, there's fee.
+         */
+        FEE
+    }
+
+    /**
+     * List of price types.
+     */
+    enum PriceType {
+        /**
+         * Unknown.
+         */
+        UNKNOWN,
+        /**
+         * Estimate.
+         */
+        ESTIMATE,
+        /**
+         * Actual.
+         */
+        ACTUAL
+    }
+
+    /**
+     * List of possible item types.
+     */
+    enum PaymentType {
+        /**
+         * Unspecified.
+         */
+        UNSPECIFIED,
+        /**
+         * Payment card.
+         */
+        PAYMENT_CARD,
+        /**
+         * Bank.
+         */
+        BANK,
+        /**
+         * Loyalty program.
+         */
+        LOYALTY_PROGRAM,
+        /**
+         * On order fulfillment, such as cash on delivery.
+         */
+        ON_FULFILLMENT,
+        /**
+         * Gift card.
+         */
+        GIFT_CARD
+    }
+
+    /**
+     * List of customer information properties that can be requested.
+     */
+    enum CustomerInfoProperties {
+        CUSTOMER_INFO_PROPERTY_UNSPECIFIED,
+        EMAIL
+    }
+
     /**
      * List of possible order confirmation user decisions
      * @deprecated Use {@link TransactionValues.TransactionUserDecision} instead.
      */
-    readonly ConfirmationDecision: typeof TransactionUserDecision;
-    /** List of possible order confirmation user decisions */
-    readonly TransactionUserDecision: typeof TransactionUserDecision;
-    /** List of possible order states. */
-    readonly OrderState: typeof OrderState;
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export import ConfirmationDecision = TransactionUserDecision;
+
+    /**
+     * List of possible order confirmation user decisions
+     */
+    enum TransactionUserDecision {
+        /**
+         * Unspecified user decision.
+         */
+        UNKNOWN_USER_DECISION,
+        /**
+         * Order was approved by user.
+         */
+        ACCEPTED,
+        /**
+         * Order was declined by user.
+         */
+        REJECTED,
+        /**
+         * Order was not declined, but the delivery address was updated during
+         * confirmation.
+         */
+        DELIVERY_ADDRESS_UPDATED,
+        /**
+         * Order was not declined, but the cart was updated during confirmation.
+         */
+        CART_CHANGE_REQUESTED
+    }
+
+    /**
+     * List of possible order states.
+     */
+    enum OrderState {
+        /**
+         * Order was created at the integrator's system.
+         */
+        CREATED,
+        /**
+         * Order was rejected.
+         */
+        REJECTED,
+        /**
+         * Order was confirmed by integrator and is active.
+         */
+        CONFIRMED,
+        /**
+         * User cancelled the order.
+         */
+        CANCELLED,
+        /**
+         * Order is being delivered.
+         */
+        IN_TRANSIT,
+        /**
+         * User performed a return.
+         */
+        RETURNED,
+        /**
+         * User received what was ordered.
+         */
+        FULFILLED
+    }
+
     /**
      * List of possible actions to take on the order.
      * @deprecated Use {@link TransactionValues.ActionType} instead.
      */
-    readonly OrderAction: typeof ActionType;
-    /** List of possible actions to take on the order. */
-    readonly ActionType: typeof ActionType;
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export import OrderAction = ActionType;
+
+    /**
+     * List of possible actions to take on the order.
+     */
+    enum ActionType {
+        /**
+         * Unknown action.
+         */
+        UNKNOWN,
+        /**
+         * View details.
+         */
+        VIEW_DETAILS,
+        /**
+         * Modify order.
+         */
+        MODIFY,
+        /**
+         * Cancel order.
+         */
+        CANCEL,
+        /**
+         * Return order.
+         */
+        RETURN,
+        /**
+         * Exchange order.
+         */
+        EXCHANGE,
+        /**
+         * Email.
+         */
+        EMAIL,
+        /**
+         * Call.
+         */
+        CALL,
+        /**
+         * Reorder.
+         */
+        REORDER,
+        /**
+         * Review.
+         */
+        REVIEW,
+        /**
+         * Customer Service.
+         */
+        CUSTOMER_SERVICE
+    }
+
     /**
      * List of possible types of order rejection.
      * @deprecated Use {@link TransactionValues.ReasonType} instead.
      */
-    readonly RejectionType: typeof ReasonType;
-    /** List of possible types of order rejection. */
-    readonly ReasonType: typeof ReasonType;
-    /** List of possible order state objects. */
-    readonly OrderStateInfo: typeof OrderStateInfo;
-    /** List of possible order transaction requirements check result types. */
-    readonly ResultType: typeof ResultType;
-    /** List of possible user decisions to give delivery address. */
-    readonly DeliveryAddressDecision: typeof DeliveryAddressUserDecision;
-    /** List of possible user decisions to give delivery address. */
-    readonly DeliveryAddressUserDecision: typeof DeliveryAddressUserDecision;
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export import RejectionType = ReasonType;
+
+    /**
+     * List of possible types of order rejection.
+     */
+    enum ReasonType {
+        /**
+         * Unknown
+         */
+        UNKNOWN,
+        /**
+         * Payment was declined.
+         */
+        PAYMENT_DECLINED
+    }
+
+    /**
+     * List of possible order state objects.
+     */
+    enum OrderStateInfo {
+        /**
+         * Information about order rejection. Used with {@link RejectionInfo}.
+         */
+        REJECTION,
+        /**
+         * Information about order receipt. Used with {@link ReceiptInfo}.
+         */
+        RECEIPT,
+        /**
+         * Information about order cancellation. Used with {@link CancellationInfo}.
+         */
+        CANCELLATION,
+        /**
+         * Information about in-transit order. Used with {@link TransitInfo}.
+         */
+        IN_TRANSIT,
+        /**
+         * Information about order fulfillment. Used with {@link FulfillmentInfo}.
+         */
+        FULFILLMENT,
+        /**
+         * Information about order return. Used with {@link ReturnInfo}.
+         */
+        RETURN
+    }
+
+    /**
+     * List of possible order transaction requirements check result types.
+     */
+    enum ResultType {
+        /**
+         * Unspecified.
+         */
+        UNSPECIFIED,
+        /**
+         * OK to continue transaction.
+         */
+        OK,
+        /**
+         * User is expected to take action, e.g. enable payments, to continue
+         * transaction.
+         */
+        USER_ACTION_REQUIRED,
+        /**
+         * Transactions are not supported on current device/surface.
+         */
+        ASSISTANT_SURFACE_NOT_SUPPORTED,
+        /**
+         * Transactions are not supported for current region/country.
+         */
+        REGION_NOT_SUPPORTED
+    }
+
+    /**
+     * List of possible user decisions to give delivery address.
+     * @deprecated Use {@link TransactionValues.DeliveryAddressUserDecision} instead.
+     */
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export import DeliveryAddressDecision = DeliveryAddressUserDecision;
+
+    /**
+     * List of possible user decisions to give delivery address.
+     */
+    enum DeliveryAddressUserDecision {
+        /**
+         * Unknown.
+         */
+        UNKNOWN,
+        /**
+         * User granted delivery address.
+         */
+        ACCEPTED,
+        /**
+         * User denied to give delivery address.
+         */
+        REJECTED
+    }
+
     /**
      * List of possible order location types.
      * @deprecated Use {@link TransactionValues.OrderLocationType} instead.
      */
-    readonly LocationType: typeof OrderLocationType;
-    /** List of possible order location types. */
-    readonly OrderLocationType: typeof OrderLocationType;
-    /** List of possible order time types. */
-    readonly TimeType: typeof TimeType;
-    /** List of possible tokenization types for the payment method */
-    readonly PaymentMethodTokenizationType: typeof PaymentMethodTokenizationType;
-};
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export import LocationType = OrderLocationType;
 
-/**
- * List of transaction card networks available when paying with Google.
- */
-export enum CardNetwork {
     /**
-     * Unspecified.
+     * List of possible order location types.
      */
-    UNSPECIFIED,
-    /**
-     * American Express.
-     */
-    AMEX,
-    /**
-     * Discover.
-     */
-    DISCOVER,
-    /**
-     * Master Card.
-     */
-    MASTERCARD,
-    /**
-     * Visa.
-     */
-    VISA,
-    /**
-     * JCB.
-     */
-    JCB
-}
+    enum OrderLocationType {
+        /**
+         * Unknown.
+         */
+        UNKNOWN,
+        /**
+         * Delivery location for an order.
+         */
+        DELIVERY,
+        /**
+         * Business location of order provider.
+         */
+        BUSINESS,
+        /**
+         * Origin of the order.
+         */
+        ORIGIN,
+        /**
+         * Destination of the order.
+         */
+        DESTINATION,
+        /**
+         * Pick up location of the order.
+         */
+        PICK_UP
+    }
 
-/**
- * List of possible item types.
- * @deprecated Use {@link TransactionValues.LineItemType} instead.
- */
-export type ItemType = LineItemType;
+    /**
+     * List of possible order time types.
+     */
+    enum TimeType {
+        /**
+         * Unknown.
+         */
+        UNKNOWN,
+        /**
+         * Date of delivery for the order.
+         */
+        DELIVERY_DATE,
+        /**
+         * Estimated Time of Arrival for order.
+         */
+        ETA,
+        /**
+         * Reservation time.
+         */
+        RESERVATION_SLOT
+    }
 
-/**
- * List of possible item types.
- */
-export enum LineItemType {
     /**
-     * Unspecified.
-     */
-    UNSPECIFIED,
-    /**
-     * Regular.
-     */
-    REGULAR,
-    /**
-     * Tax.
-     */
-    TAX,
-    /**
-     * Discount
-     */
-    DISCOUNT,
-    /**
-     * Gratuity
-     */
-    GRATUITY,
-    /**
-     * Delivery
-     */
-    DELIVERY,
-    /**
-     * Subtotal
-     */
-    SUBTOTAL,
-    /**
-     * Fee. For everything else, there's fee.
-     */
-    FEE
-}
-
-/**
- * List of price types.
- */
-export enum PriceType {
-    /**
-     * Unknown.
-     */
-    UNKNOWN,
-    /**
-     * Estimate.
-     */
-    ESTIMATE,
-    /**
-     * Actual.
-     */
-    ACTUAL
-}
-
-/**
- * List of possible item types.
- */
-export enum PaymentType {
-    /**
-     * Unspecified.
-     */
-    UNSPECIFIED,
-    /**
-     * Payment card.
-     */
-    PAYMENT_CARD,
-    /**
-     * Bank.
-     */
-    BANK,
-    /**
-     * Loyalty program.
-     */
-    LOYALTY_PROGRAM,
-    /**
-     * On order fulfillment, such as cash on delivery.
-     */
-    ON_FULFILLMENT,
-    /**
-     * Gift card.
-     */
-    GIFT_CARD
-}
-
-/**
- * List of customer information properties that can be requested.
- */
-export enum CustomerInfoProperties {
-    CUSTOMER_INFO_PROPERTY_UNSPECIFIED,
-    EMAIL
-}
-
-/**
- * List of possible order confirmation user decisions
- * @deprecated Use {@link TransactionValues.TransactionUserDecision} instead.
- */
-export type ConfirmationDecision = TransactionUserDecision;
-
-/**
- * List of possible order confirmation user decisions
- */
-export enum TransactionUserDecision {
-    /**
-     * Unspecified user decision.
-     */
-    UNKNOWN_USER_DECISION,
-    /**
-     * Order was approved by user.
-     */
-    ACCEPTED,
-    /**
-     * Order was declined by user.
-     */
-    REJECTED,
-    /**
-     * Order was not declined, but the delivery address was updated during
-     * confirmation.
-     */
-    DELIVERY_ADDRESS_UPDATED,
-    /**
-     * Order was not declined, but the cart was updated during confirmation.
-     */
-    CART_CHANGE_REQUESTED
-}
-
-/**
- * List of possible order states.
- */
-export enum OrderState {
-    /**
-     * Order was created at the integrator's system.
-     */
-    CREATED,
-    /**
-     * Order was rejected.
-     */
-    REJECTED,
-    /**
-     * Order was confirmed by integrator and is active.
-     */
-    CONFIRMED,
-    /**
-     * User cancelled the order.
-     */
-    CANCELLED,
-    /**
-     * Order is being delivered.
-     */
-    IN_TRANSIT,
-    /**
-     * User performed a return.
-     */
-    RETURNED,
-    /**
-     * User received what was ordered.
-     */
-    FULFILLED
-}
-
-/**
- * List of possible actions to take on the order.
- * @deprecated Use {@link TransactionValues.ActionType} instead.
- */
-export type OrderAction = ActionType;
-
-/**
- * List of possible actions to take on the order.
- */
-export enum ActionType {
-    /**
-     * Unknown action.
-     */
-    UNKNOWN,
-    /**
-     * View details.
-     */
-    VIEW_DETAILS,
-    /**
-     * Modify order.
-     */
-    MODIFY,
-    /**
-     * Cancel order.
-     */
-    CANCEL,
-    /**
-     * Return order.
-     */
-    RETURN,
-    /**
-     * Exchange order.
-     */
-    EXCHANGE,
-    /**
-     * Email.
-     */
-    EMAIL,
-    /**
-     * Call.
-     */
-    CALL,
-    /**
-     * Reorder.
-     */
-    REORDER,
-    /**
-     * Review.
-     */
-    REVIEW,
-    /**
-     * Customer Service.
-     */
-    CUSTOMER_SERVICE
-}
-
-/**
- * List of possible types of order rejection.
- * @deprecated Use {@link TransactionValues.ReasonType} instead.
- */
-export type RejectionType = ReasonType;
-
-/**
- * List of possible types of order rejection.
- */
-export enum ReasonType {
-    /**
-     * Unknown
-     */
-    UNKNOWN,
-    /**
-     * Payment was declined.
-     */
-    PAYMENT_DECLINED
-}
-
-/**
- * List of possible order state objects.
- */
-export enum OrderStateInfo {
-    /**
-     * Information about order rejection. Used with {@link RejectionInfo}.
-     */
-    REJECTION,
-    /**
-     * Information about order receipt. Used with {@link ReceiptInfo}.
-     */
-    RECEIPT,
-    /**
-     * Information about order cancellation. Used with {@link CancellationInfo}.
-     */
-    CANCELLATION,
-    /**
-     * Information about in-transit order. Used with {@link TransitInfo}.
-     */
-    IN_TRANSIT,
-    /**
-     * Information about order fulfillment. Used with {@link FulfillmentInfo}.
-     */
-    FULFILLMENT,
-    /**
-     * Information about order return. Used with {@link ReturnInfo}.
-     */
-    RETURN
-}
-
-/**
- * List of possible order transaction requirements check result types.
- */
-export enum ResultType {
-    /**
-     * Unspecified.
-     */
-    UNSPECIFIED,
-    /**
-     * OK to continue transaction.
-     */
-    OK,
-    /**
-     * User is expected to take action, e.g. enable payments, to continue
-     * transaction.
-     */
-    USER_ACTION_REQUIRED,
-    /**
-     * Transactions are not supported on current device/surface.
-     */
-    ASSISTANT_SURFACE_NOT_SUPPORTED,
-    /**
-     * Transactions are not supported for current region/country.
-     */
-    REGION_NOT_SUPPORTED
-}
-
-/**
- * List of possible user decisions to give delivery address.
- * @deprecated Use {@link TransactionValues.DeliveryAddressUserDecision} instead.
- */
-export type DeliveryAddressDecision = DeliveryAddressUserDecision;
-
-/**
- * List of possible user decisions to give delivery address.
- */
-export enum DeliveryAddressUserDecision {
-    /**
-     * Unknown.
-     */
-    UNKNOWN,
-    /**
-     * User granted delivery address.
-     */
-    ACCEPTED,
-    /**
-     * User denied to give delivery address.
-     */
-    REJECTED
-}
-
-/**
- * List of possible order location types.
- * @deprecated Use {@link TransactionValues.OrderLocationType} instead.
- */
-export type LocationType = OrderLocationType;
-
-/**
- * List of possible order location types.
- */
-export enum OrderLocationType {
-    /**
-     * Unknown.
-     */
-    UNKNOWN,
-    /**
-     * Delivery location for an order.
-     */
-    DELIVERY,
-    /**
-     * Business location of order provider.
-     */
-    BUSINESS,
-    /**
-     * Origin of the order.
-     */
-    ORIGIN,
-    /**
-     * Destination of the order.
-     */
-    DESTINATION,
-    /**
-     * Pick up location of the order.
-     */
-    PICK_UP
-}
-
-/**
- * List of possible order time types.
- */
-export enum TimeType {
-    /**
-     * Unknown.
-     */
-    UNKNOWN,
-    /**
-     * Date of delivery for the order.
-     */
-    DELIVERY_DATE,
-    /**
-     * Estimated Time of Arrival for order.
-     */
-    ETA,
-    /**
-     * Reservation time.
-     */
-    RESERVATION_SLOT
-}
-
-/**
- * List of possible tokenization types for the payment method
- */
-export enum PaymentMethodTokenizationType {
-    /**
-     * Unspecified tokenization type.
-     */
-    UNSPECIFIED_TOKENIZATION_TYPE,
-    /**
-     * Use external payment gateway tokenization API to tokenize selected payment method.
-     */
-    PAYMENT_GATEWAY
+     * List of possible tokenization types for the payment method
+     */
+    enum PaymentMethodTokenizationType {
+        /**
+         * Unspecified tokenization type.
+         */
+        UNSPECIFIED_TOKENIZATION_TYPE,
+        /**
+         * Use external payment gateway tokenization API to tokenize selected payment method.
+         */
+        PAYMENT_GATEWAY
+    }
 }
 
 /**
@@ -740,7 +690,7 @@ export class Order {
      * @param nanos Partial unit count of price.
      * @return Returns current constructed Order.
      */
-    setTotalPrice(priceType: PriceType, currencyCode: string, units: number, nanos?: number): Order;
+    setTotalPrice(priceType: TransactionValues.PriceType, currencyCode: string, units: number, nanos?: number): Order;
 
     /**
      * Adds an associated location to the order. Up to 2 locations can be added.
@@ -749,7 +699,7 @@ export class Order {
      * @param location Location to add.
      * @return Returns current constructed Order.
      */
-    addLocation(type: OrderLocationType, location: Location): Order;
+    addLocation(type: TransactionValues.OrderLocationType, location: Location): Order;
 
     /**
      * Sets an associated time to the order.
@@ -759,7 +709,7 @@ export class Order {
      *     of time value. Could be date, datetime, or duration.
      * @return Returns current constructed Order.
      */
-    setTime(type: TimeType, time: string): Order;
+    setTime(type: TransactionValues.TimeType, time: string): Order;
 }
 
 /**
@@ -872,7 +822,7 @@ export class LineItem {
     /**
      * Type of the item. One of TransactionValues.LineItemType.
      */
-    type?: LineItemType;
+    type?: TransactionValues.LineItemType;
 
     /**
      * Quantity of the item.
@@ -919,7 +869,7 @@ export class LineItem {
      * @param nanos Partial unit count of price.
      * @return Returns current constructed LineItem.
      */
-    setPrice(priceType: PriceType, currencyCode: string, units: number, nanos?: number): LineItem;
+    setPrice(priceType: TransactionValues.PriceType, currencyCode: string, units: number, nanos?: number): LineItem;
 
     /**
      * Set the type of the item.
@@ -927,7 +877,7 @@ export class LineItem {
      * @param type Type of the item. One of TransactionValues.LineItemType.
      * @return Returns current constructed LineItem.
      */
-    setType(type: LineItemType): LineItem;
+    setType(type: TransactionValues.LineItemType): LineItem;
 
     /**
      * Set the quantity of the item.
@@ -1030,7 +980,7 @@ export class OrderUpdate {
      * @param label Label for the order state.
      * @return Returns current constructed OrderUpdate.
      */
-    setOrderState(state: OrderState, label: string): OrderUpdate;
+    setOrderState(state: TransactionValues.OrderState, label: string): OrderUpdate;
 
     /**
      * Set the update time of the order.
@@ -1059,7 +1009,7 @@ export class OrderUpdate {
      * @param nanos Partial unit count of price.
      * @return Returns current constructed OrderUpdate.
      */
-    setTotalPrice(priceType: PriceType, currencyCode: string, units: number, nanos?: number): OrderUpdate;
+    setTotalPrice(priceType: TransactionValues.PriceType, currencyCode: string, units: number, nanos?: number): OrderUpdate;
 
     /**
      * Adds an actionable item for the user to manage the order.
@@ -1069,7 +1019,7 @@ export class OrderUpdate {
      * @param url URL to open when button is clicked.
      * @return Returns current constructed OrderUpdate.
      */
-    addOrderManagementAction(type: ActionType, label: string, url: string): OrderUpdate;
+    addOrderManagementAction(type: TransactionValues.ActionType, label: string, url: string): OrderUpdate;
 
     /**
      * Adds a single price update for a particular line item in the order.
@@ -1084,7 +1034,7 @@ export class OrderUpdate {
      *     addLineItemStateUpdate.
      * @return Returns current constructed OrderUpdate.
      */
-    addLineItemPriceUpdate(itemId: string, priceType: PriceType, currencyCode: string, units: number, nanos?: number, reason?: string): OrderUpdate;
+    addLineItemPriceUpdate(itemId: string, priceType: TransactionValues.PriceType, currencyCode: string, units: number, nanos?: number, reason?: string): OrderUpdate;
 
     /**
      * Adds a single state update for a particular line item in the order.
@@ -1096,7 +1046,7 @@ export class OrderUpdate {
      *     any reason given in addLineitemPriceUpdate.
      * @return Returns current constructed OrderUpdate.
      */
-    addLineItemStateUpdate(itemId: string, state: OrderState, label: string, reason?: string): OrderUpdate;
+    addLineItemStateUpdate(itemId: string, state: TransactionValues.OrderState, label: string, reason?: string): OrderUpdate;
 
     /**
      * Sets some extra information about the order. Takes an order update info

@@ -557,13 +557,14 @@ stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLG
 // ##################################################################################
 
 stripe.accounts.create({
-    email: ""
+    email: "",
+    type: "standard"
 }, function (err, customer) {
     // asynchronously called
     }
 );
 stripe.accounts.create({
-    email: ""
+    type: "custom"
 }).then(function (customer) {
     // asynchronously called
     }

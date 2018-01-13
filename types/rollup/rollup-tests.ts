@@ -21,6 +21,9 @@ const plugin: Plugin = {
             this.warn(`Prefer ' over " for strings`, indexOfQuote)
             return undefined
         }
+        if (id === 'foo') {
+            return Promise.resolve(source)
+        }
         return source
     },
     transformBundle(source, options) {
@@ -29,7 +32,9 @@ const plugin: Plugin = {
         } else if (options.format === 'cjs') {
             return null
         }
-
+        if (options.format !== 'es') {
+            return Promise.resolve(source)
+        }
         return undefined
     }
 }
