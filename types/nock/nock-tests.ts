@@ -108,6 +108,7 @@ scope = scope.filteringRequestBody((path: string) => {
 
 scope = scope.log(() => { });
 scope = scope.persist();
+scope = scope.persist(false);
 bool = scope.shouldPersist();
 scope = scope.replyContentLength();
 scope = scope.replyDate();
@@ -123,8 +124,6 @@ inst = inst.socketDelay(2000);
 scope.done();
 bool = scope.isDone();
 scope.restore();
-
-strings = scope.pendingMocks();
 
 nock.recorder.rec();
 nock.recorder.rec(true);
@@ -566,6 +565,8 @@ var scope = nock('http://persisssists.con')
   .reply(200, 'Persisting all the way');
 
 /// .pendingMocks()
+strings = scope.pendingMocks();
+strings = nock.pendingMocks();
 if (!scope.isDone()) {
   console.error('pending mocks: %j', scope.pendingMocks());
 }

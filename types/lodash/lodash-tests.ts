@@ -3446,6 +3446,9 @@ namespace TestZipWith {
             return 1;
         });
 
+        let mat = [[1, 2], [1, 2], [1, 2]];
+        result = _.zipWith(...mat, (...group: number[]) => 1);
+
         result = _([1, 2]).zipWith((value1) => {
             value1; // $ExpectType number
             return 1;
@@ -9863,6 +9866,9 @@ namespace TestRandom {
         result = _(1).chain().random(true);
         result = _(true).chain().random();
     }
+
+    // $ExpectType number[]
+    _.map([5, 5], _.random);
 }
 
 /**********
@@ -11260,6 +11266,22 @@ namespace TestGet {
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
+    _.get('abc', 1); // $ExpectType string
+    _('abc').get(1); // $ExpectType string
+    _.chain('abc').get(1); // $ExpectType LoDashExplicitWrapper<string>
+
+    _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
+    _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
+    _.chain({ a: { b: true } }).get("a"); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
+
+    _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
+    _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
+    _.chain({ a: { b: true } }).get(["a"]); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
+
+    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType any
+    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
+
     {
         let result: string;
 
@@ -11810,50 +11832,51 @@ namespace TestOmitBy {
 
 // _.pick
 namespace TestPick {
-    let obj: TResult | null | undefined = any;
+    let obj1: TResult | null | undefined = any;
+    let obj2: TResult = any;
 
     {
         let result: Partial<TResult>;
 
-        result = _.pick(obj, 'a');
-        result = _.pick(obj, 0, 'a');
-        result = _.pick(obj, ['b', 1], 0, 'a');
+        result = _.pick(obj1, 'a');
+        result = _.pick(obj1, 0, 'a');
+        result = _.pick(obj1, ['b', 1], 0, 'a');
     }
 
     {
         let result: Pick<TResult, 'a' | 'b'>;
-        result = _.pick(obj, 'a', 'b');
-        result = _.pick(obj, ['a' as 'a', 'b' as 'b']);
+        result = _.pick(obj2, 'a', 'b');
+        result = _.pick(obj2, ['a' as 'a', 'b' as 'b']);
     }
 
     {
         let result: _.LoDashImplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).pick<TResult>('a');
-        result = _(obj).pick<TResult>(0, 'a');
-        result = _(obj).pick<TResult>(['b', 1], 0, 'a');
+        result = _(obj1).pick('a');
+        result = _(obj1).pick(0, 'a');
+        result = _(obj1).pick(['b', 1], 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitWrapper<Pick<TResult, 'a' | 'b'>>;
 
-        result = _(obj).pick('a', 'b');
-        result = _(obj).pick(['a' as 'a', 'b' as 'b']);
+        result = _(obj2).pick('a', 'b');
+        result = _(obj2).pick(['a' as 'a', 'b' as 'b']);
     }
 
     {
         let result: _.LoDashExplicitWrapper<Partial<TResult>>;
 
-        result = _(obj).chain().pick<TResult>('a');
-        result = _(obj).chain().pick<TResult>(0, 'a');
-        result = _(obj).chain().pick<TResult>(['b', 1], 0, 'a');
+        result = _(obj1).chain().pick('a');
+        result = _(obj1).chain().pick(0, 'a');
+        result = _(obj1).chain().pick(['b', 1], 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitWrapper<Pick<TResult, 'a' | 'b'>>;
 
-        result = _(obj).chain().pick('a', 'b');
-        result = _(obj).chain().pick(['a' as 'a', 'b' as 'b']);
+        result = _(obj2).chain().pick('a', 'b');
+        result = _(obj2).chain().pick(['a' as 'a', 'b' as 'b']);
     }
 }
 
@@ -12756,6 +12779,9 @@ namespace TestSplit {
         result = _('a-b-c').chain().split('-');
         result = _('a-b-c').chain().split('-', 2);
     }
+
+    // $ExpectType string[][]
+    _.map(['abc', 'def'], _.split);
 }
 
 // _.startCase
@@ -12879,6 +12905,9 @@ namespace TestTrim {
         result = _('-_-abc-_-').chain().trim();
         result = _('-_-abc-_-').chain().trim('_-');
     }
+
+    // $ExpectType string[]
+    _.map(['  foo  ', '  bar  '], _.trim);
 }
 
 // _.trimEnd
@@ -13015,6 +13044,9 @@ namespace TestWords {
         result = _('fred, barney, & pebbles').chain().words();
         result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
     }
+
+    // $ExpectType string[][]
+    _.map(['fred, barney', 'pebbles'], _.words);
 }
 
 /***********
@@ -13833,6 +13865,9 @@ namespace TestRange {
         result = _(1).chain().range(11);
         result = _(0).chain().range(30, 5);
     }
+
+    // $ExpectType number[][]
+    _.map([5, 5], _.range);
 }
 
 // _.rangeRight
@@ -13860,6 +13895,9 @@ namespace TestRangeRight {
         result = _(1).chain().rangeRight(11);
         result = _(0).chain().rangeRight(30, 5);
     }
+
+    // $ExpectType number[][]
+    _.map([5, 5], _.rangeRight);
 }
 
 // _.runInContext

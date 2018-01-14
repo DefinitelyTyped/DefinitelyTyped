@@ -1,11 +1,14 @@
 // Type definitions for Paper.js v0.9.24
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type NativeMouseEvent = MouseEvent;
 
-declare module 'paper' {
+/**
+ * @namespace paper
+ */
+declare module paper {
 
     /**
      * The version of Paper.js, as a string.
@@ -2093,8 +2096,7 @@ declare module 'paper' {
          * @param data
          * @param point
          */
-        getImageData(data: ImageData, point: Point): void;
-
+        setImageData(data: ImageData, point: Point): void;
     }
     /**
      * A PlacedSymbol represents an instance of a symbol which has been placed in a Paper.js project.
@@ -4195,4 +4197,9 @@ declare module 'paper' {
          */
         stop(): void;
     }
+}
+
+declare module 'paper'
+{
+    export = paper;
 }

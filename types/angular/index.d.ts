@@ -159,7 +159,7 @@ declare namespace angular {
         module(
             name: string,
             requires?: string[],
-            configFn?: Function): IModule;
+            configFn?: Injectable<Function>): IModule;
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;

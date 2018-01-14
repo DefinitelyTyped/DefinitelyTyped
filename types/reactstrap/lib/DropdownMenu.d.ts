@@ -5,6 +5,7 @@ export interface DropdownMenuProps {
   right?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  flip?: boolean;
 }
 
 declare const DropdownMenu: React.StatelessComponent<DropdownMenuProps>;

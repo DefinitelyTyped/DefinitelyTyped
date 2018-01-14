@@ -73,6 +73,11 @@ function test_options_sync() {
     }
   });
   console.log(resolved);
+  resolved = resolve.sync('typescript', {
+      readFileSync(file, charset) {
+          return fs.readFileSync(file, charset);
+      }
+  });
 }
 
 function test_is_core() {

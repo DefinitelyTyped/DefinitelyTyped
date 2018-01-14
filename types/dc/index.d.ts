@@ -417,6 +417,16 @@ declare namespace dc {
         tickFormat: IGetSet<Accessor<number, string>, BoxPlot>;
     }
 
+    // https://github.com/dc-js/dc.js/blob/master/src/select-menu.js
+    export interface SelectMenu extends BaseMixin<SelectMenu> {
+        order: IGetSet<(a: any, b: any) => number, SelectMenu>;
+        promptText: IGetSet<string, SelectMenu>;
+        filterDisplayed: IGetSet<(a: {value: any, key: any}, index: number) => boolean, SelectMenu>;
+        multiple: IGetSet<boolean, SelectMenu>;
+        promptValue: IGetSet<any, SelectMenu>;
+        numberVisible: IGetSet<number, SelectMenu>;
+    }
+
     export interface ChartRegistry {
         has(chart: BaseMixin<any>): boolean;
         register(chart: BaseMixin<any>, group?: string): void;
@@ -472,5 +482,6 @@ declare namespace dc {
         numberDisplay(parent: string, chartGroup?: string): NumberDisplayWidget;
         heatMap(parent: string, chartGroup?: string): HeatMap;
         boxPlot(parent: string, chartGroup?: string): BoxPlot;
+        selectMenu(parent: string, chartGroup?: string): SelectMenu;
     }
 }

@@ -1,8 +1,9 @@
-// Type definitions for babel-types 6.25
+// Type definitions for babel-types 7.0
 // Project: https://github.com/babel/babel/tree/master/packages/babel-types
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Sam Baxter <https://github.com/baxtersa>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
+//                 Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -711,6 +712,13 @@ export interface TypeCastExpression extends Node {
     typeAnnotation: FlowTypeAnnotation;
 }
 
+export interface TypeParameter extends Node {
+    type: "TypeParameterDeclaration";
+    bound: TypeAnnotation | null;
+    default: Flow | null;
+    name: string | null;
+}
+
 export interface TypeParameterDeclaration extends Node {
     type: "TypeParameterDeclaration";
     params: Identifier[];
@@ -873,13 +881,344 @@ export interface SpreadProperty extends Node {
     argument: Expression;
 }
 
+export interface TSAnyKeyword extends Node {
+    type: "TSAnyKeyword";
+}
+
+export interface TSArrayType extends Node {
+    type: "TSArrayType";
+    elementType: TSType;
+}
+
+export interface TSAsExpression extends Node {
+    type: "TSAsExpression";
+    expression: Expression;
+    typeAnnotation: TSType;
+}
+
+export interface TSBooleanKeyword extends Node {
+    type: "TSBooleanKeyword";
+}
+
+export interface TSCallSignatureDeclaration extends Node {
+    type: "TSCallSignatureDeclaration";
+    typeParameters: TypeParameterDeclaration | null;
+    parameters: Array<Identifier | RestElement> | null;
+    typeAnnotation: TSTypeAnnotation | null;
+}
+
+export interface TSConstructSignatureDeclaration extends Node {
+    type: "TSConstructSignatureDeclaration";
+    typeParameters: TypeParameterDeclaration | null;
+    parameters: Array<Identifier | RestElement> | null;
+    typeAnnotation: TSTypeAnnotation | null;
+}
+
+export interface TSConstructorType extends Node {
+    type: "TSConstructorType";
+    typeParameters: TypeParameterDeclaration | null;
+    typeAnnotation: TSTypeAnnotation | null;
+    parameters: Array<Identifier | RestElement> | null;
+}
+
+export interface TSDeclareFunction extends Node {
+    type: "TSDeclareFunction";
+    id: Identifier | null;
+    typeParameters: TypeParameterDeclaration | Noop | null;
+    params: LVal[];
+    returnType: TypeAnnotation | TSTypeAnnotation | Noop | null;
+    async: boolean;
+    declare: boolean | null;
+    generator: boolean;
+}
+
+export interface TSDeclareMethod extends Node {
+    type: "TSDeclareMethod";
+    decorators: Decorator[] | null;
+    key: Expression;
+    typeParameters: TypeParameterDeclaration | Noop | null;
+    params: LVal[];
+    returnType: TypeAnnotation | TSTypeAnnotation | Noop | null;
+    abstract: boolean | null;
+    access: "public" | "private" | "protected" | null;
+    accessibility: "public" | "private" | "protected" | null;
+    async: boolean;
+    computed: boolean;
+    generator: boolean;
+    kind: "get" | "set" | "method" | "constructor";
+    optional: boolean | null;
+    static: boolean | null;
+}
+
+export interface TSEnumDeclaration extends Node {
+    type: "TSEnumDeclaration";
+    id: Identifier;
+    members: TSEnumMember[];
+    const: boolean | null;
+    declare: boolean | null;
+    initializer: Expression | null;
+}
+
+export interface TSEnumMember extends Node {
+    type: "TSEnumMember";
+    id: Identifier | StringLiteral;
+    initializer: Expression | null;
+}
+
+export interface TSExportAssignment extends Node {
+    type: "TSExportAssignment";
+    expression: Expression;
+}
+
+export interface TSExpressionWithTypeArguments extends Node {
+    type: "TSExpressionWithTypeArguments";
+    expression: TSEntityName;
+    typeParameters: TypeParameterInstantiation | null;
+}
+
+export interface TSExternalModuleReference extends Node {
+    type: "TSExternalModuleReference";
+    expression: StringLiteral;
+}
+
+export interface TSFunctionType extends Node {
+    type: "TSFunctionType";
+    typeParameters: TypeParameterDeclaration | null;
+    typeAnnotation: TSTypeAnnotation | null;
+    parameters: Array<Identifier | RestElement> | null;
+}
+
+export interface TSImportEqualsDeclaration extends Node {
+    type: "TSImportEqualsDeclaration";
+    id: Identifier;
+    moduleReference: TSEntityName | TSExternalModuleReference;
+    isExport: boolean | null;
+}
+
+export interface TSIndexSignature extends Node {
+    type: "TSIndexSignature";
+    parameters: Identifier[];
+    typeAnnotation: TSTypeAnnotation | null;
+    readonly: boolean | null;
+}
+
+export interface TSIndexedAccessType extends Node {
+    type: "TSIndexedAccessType";
+    objectType: TSType;
+    indexType: TSType;
+}
+
+export interface TSInterfaceBody extends Node {
+    type: "TSInterfaceBody";
+    body: TSTypeElement[];
+}
+
+export interface TSInterfaceDeclaration extends Node {
+    type: "TSInterfaceDeclaration";
+    id: Identifier;
+    typeParameters: TypeParameterDeclaration | null;
+    extends: TSExpressionWithTypeArguments[] | null;
+    body: TSInterfaceBody;
+    declare: boolean | null;
+}
+
+export interface TSIntersectionType extends Node {
+    type: "TSIntersectionType";
+    types: TSType[];
+}
+
+export interface TSLiteralType extends Node {
+    type: "TSLiteralType";
+    literal: NumericLiteral | StringLiteral | BooleanLiteral;
+}
+
+export interface TSMappedType extends Node {
+    type: "TSMappedType";
+    typeParameter: TypeParameter;
+    typeAnnotation: TSType | null;
+    optional: boolean | null;
+    readonly: boolean | null;
+}
+
+export interface TSMethodSignature extends Node {
+    type: "TSMethodSignature";
+    key: Expression;
+    typeParameters: TypeParameterDeclaration | null;
+    parameters: Array<Identifier | RestElement> | null;
+    typeAnnotation: TSTypeAnnotation | null;
+    computed: boolean | null;
+    optional: boolean | null;
+}
+
+export interface TSModuleBlock extends Node {
+    type: "TSModuleBlock";
+    body: Statement[];
+}
+
+export interface TSModuleDeclaration extends Node {
+    type: "TSModuleDeclaration";
+    id: Identifier | StringLiteral;
+    body: TSModuleBlock | TSModuleDeclaration;
+    declare: boolean | null;
+    global: boolean | null;
+}
+
+export interface TSNamespaceExportDeclaration extends Node {
+    type: "TSNamespaceExportDeclaration";
+    id: Identifier;
+}
+
+export interface TSNeverKeyword extends Node {
+    type: "TSNeverKeyword";
+}
+
+export interface TSNonNullExpression extends Node {
+    type: "TSNonNullExpression";
+    expression: Expression;
+}
+
+export interface TSNullKeyword extends Node {
+    type: "TSNullKeyword";
+}
+
+export interface TSNumberKeyword extends Node {
+    type: "TSNumberKeyword";
+}
+
+export interface TSObjectKeyword extends Node {
+    type: "TSObjectKeyword";
+}
+
+export interface TSParameterProperty extends Node {
+    type: "TSParameterProperty";
+    parameter: Identifier | AssignmentPattern;
+    accessibility: 'public' | 'private' | 'protected' | null;
+    readonly: boolean | null;
+}
+
+export interface TSParenthesizedType extends Node {
+    type: "TSParenthesizedType";
+    typeAnnotation: TSType;
+}
+
+export interface TSPropertySignature extends Node {
+    type: "TSPropertySignature";
+    key: Expression;
+    typeAnnotation: TSTypeAnnotation | null;
+    initializer: Expression | null;
+    computed: boolean | null;
+    optional: boolean | null;
+    readonly: boolean | null;
+}
+
+export interface TSQualifiedName extends Node {
+    type: "TSQualifiedName";
+    left: TSEntityName;
+    right: Identifier;
+}
+
+export interface TSStringKeyword extends Node {
+    type: "TSStringKeyword";
+}
+
+export interface TSSymbolKeyword extends Node {
+    type: "TSSymbolKeyword";
+}
+
+export interface TSThisType extends Node {
+    type: "TSThisType";
+}
+
+export interface TSTupleType extends Node {
+    type: "TSTupleType";
+    elementTypes: TSType[];
+}
+
+export interface TSTypeAliasDeclaration extends Node {
+    type: "TSTypeAliasDeclaration";
+    id: Identifier;
+    typeParameters: TypeParameterDeclaration | null;
+    typeAnnotation: TSType;
+    declare: boolean | null;
+}
+
+export interface TSTypeAnnotation extends Node {
+    type: "TSTypeAnnotation";
+    typeAnnotation: TSType;
+}
+
+export interface TSTypeAssertion extends Node {
+    type: "TSTypeAssertion";
+    typeAnnotation: TSType;
+    expression: Expression;
+}
+
+export interface TSTypeLiteral extends Node {
+    type: "TSTypeLiteral";
+    members: TSTypeElement[];
+}
+
+export interface TSTypeOperator extends Node {
+    type: "TSTypeOperator";
+    typeAnnotation: TSType;
+    operator: string | null;
+}
+
+export interface TSTypeParameter extends Node {
+    type: "TSTypeParameter";
+    constraint: TSType | null;
+    default: TSType | null;
+    name: string | null;
+}
+
+export interface TSTypeParameterDeclaration extends Node {
+    type: "TSTypeParameterDeclaration";
+    params: TSTypeParameter[];
+}
+
+export interface TSTypeParameterInstantiation extends Node {
+    type: "TSTypeParameterInstantiation";
+    params: TSType[];
+}
+
+export interface TSTypePredicate extends Node {
+    type: "TSTypePredicate";
+    parameterName: Identifier | TSThisType;
+    typeAnnotation: TSTypeAnnotation;
+}
+
+export interface TSTypeQuery extends Node {
+    type: "TSTypeQuery";
+    exprName: TSEntityName;
+}
+
+export interface TSTypeReference extends Node {
+    type: "TSTypeReference";
+    typeName: TSEntityName;
+    typeParameters: TypeParameterInstantiation | null;
+}
+
+export interface TSUndefinedKeyword extends Node {
+    type: "TSUndefinedKeyword";
+}
+
+export interface TSUnionType extends Node {
+    type: "TSUnionType";
+    types: TSType[];
+}
+
+export interface TSVoidKeyword extends Node {
+    type: "TSVoidKeyword";
+}
+
 export type Expression = ArrayExpression | AssignmentExpression | BinaryExpression | CallExpression
     | ConditionalExpression | FunctionExpression | Identifier | StringLiteral | NumericLiteral | BooleanLiteral
     | NullLiteral | RegExpLiteral | LogicalExpression | MemberExpression | NewExpression | ObjectExpression
     | SequenceExpression | ThisExpression | UnaryExpression | UpdateExpression | ArrowFunctionExpression
     | ClassExpression | MetaProperty | Super | TaggedTemplateExpression | TemplateLiteral | YieldExpression
     | TypeCastExpression | JSXElement | JSXEmptyExpression | JSXIdentifier | JSXMemberExpression
-    | ParenthesizedExpression | AwaitExpression | BindExpression | DoExpression;
+    | ParenthesizedExpression | AwaitExpression | BindExpression | DoExpression | TSAsExpression
+    | TSNonNullExpression | TSTypeAssertion;
 
 export type Binary = BinaryExpression | LogicalExpression;
 
@@ -898,7 +1237,9 @@ export type Statement = BlockStatement | BreakStatement | ContinueStatement | De
     | LabeledStatement | ReturnStatement | SwitchStatement | ThrowStatement | TryStatement | VariableDeclaration
     | WhileStatement | WithStatement | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration
     | ExportNamedDeclaration | ForOfStatement | ImportDeclaration | DeclareClass | DeclareFunction | DeclareInterface
-    | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias;
+    | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias | TSDeclareFunction
+    | TSEnumDeclaration | TSExportAssignment | TSImportEqualsDeclaration | TSInterfaceDeclaration
+    | TSModuleDeclaration | TSNamespaceExportDeclaration | TSTypeAliasDeclaration;
 
 export type Terminatorless = BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement | YieldExpression | AwaitExpression;
 export type CompletionStatement = BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement;
@@ -914,9 +1255,11 @@ export type Pureish = FunctionDeclaration | FunctionExpression | StringLiteral |
 
 export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration | ExportAllDeclaration
     | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration | DeclareClass | DeclareFunction
-    | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias;
+    | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias
+    | TSDeclareFunction | TSEnumDeclaration | TSInterfaceDeclaration | TSModuleDeclaration | TSTypeAliasDeclaration;
 
-export type LVal = Identifier | MemberExpression | RestElement | AssignmentPattern | ArrayPattern | ObjectPattern;
+export type LVal = Identifier | MemberExpression | RestElement | AssignmentPattern | ArrayPattern | ObjectPattern
+    | TSParameterProperty;
 export type Literal = StringLiteral | NumericLiteral | BooleanLiteral | NullLiteral | RegExpLiteral | TemplateLiteral;
 export type Immutable = StringLiteral | NumericLiteral | BooleanLiteral | NullLiteral | JSXAttribute | JSXClosingElement | JSXElement | JSXExpressionContainer | JSXOpeningElement;
 export type UserWhitespacable = ObjectMethod | ObjectProperty | ObjectTypeCallProperty | ObjectTypeIndexer | ObjectTypeProperty;
@@ -951,6 +1294,17 @@ export type FlowDeclaration = DeclareClass | DeclareFunction | DeclareInterface 
 
 export type JSX = JSXAttribute | JSXClosingElement | JSXElement | JSXEmptyExpression | JSXExpressionContainer
     | JSXIdentifier | JSXMemberExpression | JSXNamespacedName | JSXOpeningElement | JSXSpreadAttribute | JSXText;
+
+export type TSType = TSAnyKeyword | TSArrayType | TSBooleanKeyword | TSConstructorType | TSExpressionWithTypeArguments
+    | TSFunctionType | TSIndexedAccessType | TSIntersectionType | TSLiteralType | TSMappedType | TSNeverKeyword
+    | TSNullKeyword | TSNumberKeyword | TSObjectKeyword | TSParenthesizedType | TSStringKeyword | TSSymbolKeyword
+    | TSThisType | TSTupleType | TSTypeLiteral | TSTypeOperator | TSTypePredicate | TSTypeQuery | TSTypeReference
+    | TSUndefinedKeyword | TSUnionType | TSVoidKeyword;
+
+export type TSEntityName = Identifier | TSQualifiedName;
+
+export type TSTypeElement = TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSIndexSignature
+    | TSMethodSignature | TSPropertySignature;
 
 export function arrayExpression(elements?: Array<Expression | SpreadElement>): ArrayExpression;
 export function assignmentExpression(operator?: string, left?: LVal, right?: Expression): AssignmentExpression;
@@ -1060,6 +1414,7 @@ export function typeofTypeAnnotation(argument?: FlowTypeAnnotation): TypeofTypeA
 export function typeAlias(id?: Identifier, typeParameters?: TypeParameterDeclaration, right?: FlowTypeAnnotation): TypeAlias;
 export function typeAnnotation(typeAnnotation?: FlowTypeAnnotation): TypeAnnotation;
 export function typeCastExpression(expression?: Expression, typeAnnotation?: FlowTypeAnnotation): TypeCastExpression;
+export function typeParameter(bound?: TypeAnnotation, default_?: Flow): TypeParameter;
 export function typeParameterDeclaration(params?: Identifier[]): TypeParameterDeclaration;
 export function typeParameterInstantiation(params?: FlowTypeAnnotation[]): TypeParameterInstantiation;
 export function objectTypeAnnotation(properties?: ObjectTypeProperty[], indexers?: ObjectTypeIndexer[], callProperties?: ObjectTypeCallProperty[]): ObjectTypeAnnotation;
@@ -1090,6 +1445,74 @@ export function exportDefaultSpecifier(exported?: Identifier): ExportDefaultSpec
 export function exportNamespaceSpecifier(exported?: Identifier): ExportNamespaceSpecifier;
 export function restProperty(argument?: LVal): RestProperty;
 export function spreadProperty(argument?: Expression): SpreadProperty;
+
+export function TSAnyKeyword(): TSAnyKeyword;
+export function TSArrayType(elementType: TSType): TSArrayType;
+export function TSAsExpression(expression: Expression, typeAnnotation: TSType): TSAsExpression;
+export function TSBooleanKeyword(): TSBooleanKeyword;
+export function TSCallSignatureDeclaration(typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSCallSignatureDeclaration;
+export function TSConstructSignatureDeclaration(typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSTypeElement;
+export function TSConstructorType(typeParameters?: TypeParameterDeclaration, typeAnnotation?: TSTypeAnnotation): TSConstructorType;
+export function TSDeclareFunction(
+    id: Identifier | undefined | null,
+    typeParameters: TypeParameterDeclaration | Noop | undefined | null,
+    params: LVal[],
+    returnType: TypeAnnotation | TSTypeAnnotation | Noop | undefined | null): TSDeclareFunction;
+export function TSDeclareMethod(
+    decorators: Decorator[] | undefined | null,
+    key: Expression,
+    typeParameters: TypeParameterDeclaration | Noop | undefined | null,
+    params: LVal[],
+    returnType?: TypeAnnotation | TSTypeAnnotation | Noop): TSDeclareMethod;
+export function TSEnumDeclaration(id: Identifier, members: TSEnumMember[]): TSEnumDeclaration;
+export function TSEnumMember(id: Identifier | StringLiteral, initializer?: Expression): TSEnumMember;
+export function TSExportAssignment(expression: Expression): TSExportAssignment;
+export function TSExpressionWithTypeArguments(expression: TSEntityName, typeParameters?: TypeParameterInstantiation): TSExpressionWithTypeArguments;
+export function TSExternalModuleReference(expression: StringLiteral): TSExternalModuleReference;
+export function TSFunctionType(typeParameters?: TypeParameterDeclaration, typeAnnotation?: TSTypeAnnotation): TSFunctionType;
+export function TSImportEqualsDeclaration(id: Identifier, moduleReference: TSEntityName | TSExternalModuleReference): TSImportEqualsDeclaration;
+export function TSIndexSignature(parameters: Identifier[], typeAnnotation?: TSTypeAnnotation): TSIndexSignature;
+export function TSIndexedAccessType(objectType: TSType, indexType: TSType): TSIndexedAccessType;
+export function TSInterfaceBody(body: TSTypeElement[]): TSInterfaceBody;
+export function TSInterfaceDeclaration(
+    id: Identifier,
+    typeParameters: TypeParameterDeclaration | undefined | null,
+    extends_: TSExpressionWithTypeArguments[] | undefined | null,
+    body: TSInterfaceBody): TSInterfaceDeclaration;
+export function TSIntersectionType(types: TSType[]): TSIntersectionType;
+export function TSLiteralType(literal: NumericLiteral | StringLiteral | BooleanLiteral): TSLiteralType;
+export function TSMappedType(typeParameter: TypeParameter, typeAnnotation?: TSType): TSMappedType;
+export function TSMethodSignature(key: Expression, typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSMethodSignature;
+export function TSModuleBlock(body: Statement[]): TSModuleBlock;
+export function TSModuleDeclaration(id: Identifier | StringLiteral, body: TSModuleBlock | TSModuleDeclaration): TSModuleDeclaration;
+export function TSNamespaceExportDeclaration(id: Identifier): TSNamespaceExportDeclaration;
+export function TSNeverKeyword(): TSNeverKeyword;
+export function TSNonNullExpression(expression: Expression): TSNonNullExpression;
+export function TSNullKeyword(): TSNullKeyword;
+export function TSNumberKeyword(): TSNumberKeyword;
+export function TSObjectKeyword(): TSObjectKeyword;
+export function TSParameterProperty(parameter: Identifier | AssignmentPattern): TSParameterProperty;
+export function TSParenthesizedType(typeAnnotation: TSType): TSParenthesizedType;
+export function TSPropertySignature(key: Expression, typeAnnotation?: TSTypeAnnotation, initializer?: Expression): TSPropertySignature;
+export function TSQualifiedName(left: TSEntityName, right: Identifier): TSQualifiedName;
+export function TSStringKeyword(): TSStringKeyword;
+export function TSSymbolKeyword(): TSSymbolKeyword;
+export function TSThisType(): TSThisType;
+export function TSTupleType(elementTypes: TSType[]): TSTupleType;
+export function TSTypeAliasDeclaration(id: Identifier, typeParameters: TypeParameterDeclaration | undefined | null, typeAnnotation: TSType): TSTypeAliasDeclaration;
+export function TSTypeAnnotation(typeAnnotation: TSType): TSTypeAnnotation;
+export function TSTypeAssertion(typeAnnotation: TSType, expression: Expression): TSTypeAssertion;
+export function TSTypeLiteral(members: TSTypeElement[]): TSTypeLiteral;
+export function TSTypeOperator(typeAnnotation: TSType): TSTypeOperator;
+export function TSTypeParameter(constraint?: TSType, default_?: TSType): TSTypeParameter;
+export function TSTypeParameterDeclaration(params: TSTypeParameter[]): TSTypeParameterDeclaration;
+export function TSTypeParameterInstantiation(params: TSType[]): TSTypeParameterInstantiation;
+export function TSTypePredicate(parameterName: Identifier | TSThisType, typeAnnotation: TSTypeAnnotation): TSTypePredicate;
+export function TSTypeQuery(exprName: TSEntityName): TSTypeQuery;
+export function TSTypeReference(typeName: TSEntityName, typeParameters?: TypeParameterInstantiation): TSTypeReference;
+export function TSUndefinedKeyword(): TSUndefinedKeyword;
+export function TSUnionType(types: TSType[]): TSUnionType;
+export function TSVoidKeyword(): TSVoidKeyword;
 
 export function isArrayExpression(node: object, opts?: object): node is ArrayExpression;
 export function isAssignmentExpression(node: object, opts?: object): node is AssignmentExpression;
@@ -1196,6 +1619,7 @@ export function isTypeofTypeAnnotation(node: object, opts?: object): node is Typ
 export function isTypeAlias(node: object, opts?: object): node is TypeAlias;
 export function isTypeAnnotation(node: object, opts?: object): node is TypeAnnotation;
 export function isTypeCastExpression(node: object, opts?: object): node is TypeCastExpression;
+export function isTypeParameter(node: object, opts?: object): node is TypeParameter;
 export function isTypeParameterDeclaration(node: object, opts?: object): node is TypeParameterDeclaration;
 export function isTypeParameterInstantiation(node: object, opts?: object): node is TypeParameterInstantiation;
 export function isObjectTypeAnnotation(node: object, opts?: object): node is ObjectTypeAnnotation;
@@ -1275,6 +1699,61 @@ export function isVar(node: object, opts?: object): node is VariableDeclaration;
 export function isUser(node: object, opts?: object): boolean;
 export function isGenerated(node: object, opts?: object): boolean;
 export function isPure(node: object, opts?: object): boolean;
+
+export function isTSAnyKeyword(node: object, opts?: object): node is TSAnyKeyword;
+export function isTSArrayType(node: object, opts?: object): node is TSArrayType;
+export function isTSAsExpression(node: object, opts?: object): node is TSAsExpression;
+export function isTSBooleanKeyword(node: object, opts?: object): node is TSBooleanKeyword;
+export function isTSCallSignatureDeclaration(node: object, opts?: object): node is TSCallSignatureDeclaration;
+export function isTSConstructSignatureDeclaration(node: object, opts?: object): node is TSTypeElement;
+export function isTSConstructorType(node: object, opts?: object): node is TSConstructorType;
+export function isTSDeclareFunction(node: object, opts?: object): node is TSDeclareFunction;
+export function isTSDeclareMethod(node: object, opts?: object): node is TSDeclareMethod;
+export function isTSEnumDeclaration(node: object, opts?: object): node is TSEnumDeclaration;
+export function isTSEnumMember(node: object, opts?: object): node is TSEnumMember;
+export function isTSExportAssignment(node: object, opts?: object): node is TSExportAssignment;
+export function isTSExpressionWithTypeArguments(node: object, opts?: object): node is TSExpressionWithTypeArguments;
+export function isTSExternalModuleReference(node: object, opts?: object): node is TSExternalModuleReference;
+export function isTSFunctionType(node: object, opts?: object): node is TSFunctionType;
+export function isTSImportEqualsDeclaration(node: object, opts?: object): node is TSImportEqualsDeclaration;
+export function isTSIndexSignature(node: object, opts?: object): node is TSIndexSignature;
+export function isTSIndexedAccessType(node: object, opts?: object): node is TSIndexedAccessType;
+export function isTSInterfaceBody(node: object, opts?: object): node is TSInterfaceBody;
+export function isTSInterfaceDeclaration(node: object, opts?: object): node is TSInterfaceDeclaration;
+export function isTSIntersectionType(node: object, opts?: object): node is TSIntersectionType;
+export function isTSLiteralType(node: object, opts?: object): node is TSLiteralType;
+export function isTSMappedType(node: object, opts?: object): node is TSMappedType;
+export function isTSMethodSignature(node: object, opts?: object): node is TSMethodSignature;
+export function isTSModuleBlock(node: object, opts?: object): node is TSModuleBlock;
+export function isTSModuleDeclaration(node: object, opts?: object): node is TSModuleDeclaration;
+export function isTSNamespaceExportDeclaration(node: object, opts?: object): node is TSNamespaceExportDeclaration;
+export function isTSNeverKeyword(node: object, opts?: object): node is TSNeverKeyword;
+export function isTSNonNullExpression(node: object, opts?: object): node is TSNonNullExpression;
+export function isTSNullKeyword(node: object, opts?: object): node is TSNullKeyword;
+export function isTSNumberKeyword(node: object, opts?: object): node is TSNumberKeyword;
+export function isTSObjectKeyword(node: object, opts?: object): node is TSObjectKeyword;
+export function isTSParameterProperty(node: object, opts?: object): node is TSParameterProperty;
+export function isTSParenthesizedType(node: object, opts?: object): node is TSParenthesizedType;
+export function isTSPropertySignature(node: object, opts?: object): node is TSPropertySignature;
+export function isTSQualifiedName(node: object, opts?: object): node is TSQualifiedName;
+export function isTSStringKeyword(node: object, opts?: object): node is TSStringKeyword;
+export function isTSSymbolKeyword(node: object, opts?: object): node is TSSymbolKeyword;
+export function isTSThisType(node: object, opts?: object): node is TSThisType;
+export function isTSTupleType(node: object, opts?: object): node is TSTupleType;
+export function isTSTypeAliasDeclaration(node: object, opts?: object): node is TSTypeAliasDeclaration;
+export function isTSTypeAnnotation(node: object, opts?: object): node is TSTypeAnnotation;
+export function isTSTypeAssertion(node: object, opts?: object): node is TSTypeAssertion;
+export function isTSTypeLiteral(node: object, opts?: object): node is TSTypeLiteral;
+export function isTSTypeOperator(node: object, opts?: object): node is TSTypeOperator;
+export function isTSTypeParameter(node: object, opts?: object): node is TSTypeParameter;
+export function isTSTypeParameterDeclaration(node: object, opts?: object): node is TSTypeParameterDeclaration;
+export function isTSTypeParameterInstantiation(node: object, opts?: object): node is TSTypeParameterInstantiation;
+export function isTSTypePredicate(node: object, opts?: object): node is TSTypePredicate;
+export function isTSTypeQuery(node: object, opts?: object): node is TSTypeQuery;
+export function isTSTypeReference(node: object, opts?: object): node is TSTypeReference;
+export function isTSUndefinedKeyword(node: object, opts?: object): node is TSUndefinedKeyword;
+export function isTSUnionType(node: object, opts?: object): node is TSUnionType;
+export function isTSVoidKeyword(node: object, opts?: object): node is TSVoidKeyword;
 
 // React specific
 export interface ReactHelpers {
@@ -1388,6 +1867,7 @@ export function assertTypeofTypeAnnotation(node: object, opts?: object): void;
 export function assertTypeAlias(node: object, opts?: object): void;
 export function assertTypeAnnotation(node: object, opts?: object): void;
 export function assertTypeCastExpression(node: object, opts?: object): void;
+export function assertTypeParameter(node: object, opts?: object): void;
 export function assertTypeParameterDeclaration(node: object, opts?: object): void;
 export function assertTypeParameterInstantiation(node: object, opts?: object): void;
 export function assertObjectTypeAnnotation(node: object, opts?: object): void;
@@ -1455,3 +1935,58 @@ export function assertFlowDeclaration(node: object, opts?: object): void;
 export function assertJSX(node: object, opts?: object): void;
 export function assertNumberLiteral(node: object, opts?: object): void;
 export function assertRegexLiteral(node: object, opts?: object): void;
+
+export function assertTSAnyKeyword(node: object, opts?: object): void;
+export function assertTSArrayType(node: object, opts?: object): void;
+export function assertTSAsExpression(node: object, opts?: object): void;
+export function assertTSBooleanKeyword(node: object, opts?: object): void;
+export function assertTSCallSignatureDeclaration(node: object, opts?: object): void;
+export function assertTSConstructSignatureDeclaration(node: object, opts?: object): void;
+export function assertTSConstructorType(node: object, opts?: object): void;
+export function assertTSDeclareFunction(node: object, opts?: object): void;
+export function assertTSDeclareMethod(node: object, opts?: object): void;
+export function assertTSEnumDeclaration(node: object, opts?: object): void;
+export function assertTSEnumMember(node: object, opts?: object): void;
+export function assertTSExportAssignment(node: object, opts?: object): void;
+export function assertTSExpressionWithTypeArguments(node: object, opts?: object): void;
+export function assertTSExternalModuleReference(node: object, opts?: object): void;
+export function assertTSFunctionType(node: object, opts?: object): void;
+export function assertTSImportEqualsDeclaration(node: object, opts?: object): void;
+export function assertTSIndexSignature(node: object, opts?: object): void;
+export function assertTSIndexedAccessType(node: object, opts?: object): void;
+export function assertTSInterfaceBody(node: object, opts?: object): void;
+export function assertTSInterfaceDeclaration(node: object, opts?: object): void;
+export function assertTSIntersectionType(node: object, opts?: object): void;
+export function assertTSLiteralType(node: object, opts?: object): void;
+export function assertTSMappedType(node: object, opts?: object): void;
+export function assertTSMethodSignature(node: object, opts?: object): void;
+export function assertTSModuleBlock(node: object, opts?: object): void;
+export function assertTSModuleDeclaration(node: object, opts?: object): void;
+export function assertTSNamespaceExportDeclaration(node: object, opts?: object): void;
+export function assertTSNeverKeyword(node: object, opts?: object): void;
+export function assertTSNonNullExpression(node: object, opts?: object): void;
+export function assertTSNullKeyword(node: object, opts?: object): void;
+export function assertTSNumberKeyword(node: object, opts?: object): void;
+export function assertTSObjectKeyword(node: object, opts?: object): void;
+export function assertTSParameterProperty(node: object, opts?: object): void;
+export function assertTSParenthesizedType(node: object, opts?: object): void;
+export function assertTSPropertySignature(node: object, opts?: object): void;
+export function assertTSQualifiedName(node: object, opts?: object): void;
+export function assertTSStringKeyword(node: object, opts?: object): void;
+export function assertTSSymbolKeyword(node: object, opts?: object): void;
+export function assertTSThisType(node: object, opts?: object): void;
+export function assertTSTupleType(node: object, opts?: object): void;
+export function assertTSTypeAliasDeclaration(node: object, opts?: object): void;
+export function assertTSTypeAnnotation(node: object, opts?: object): void;
+export function assertTSTypeAssertion(node: object, opts?: object): void;
+export function assertTSTypeLiteral(node: object, opts?: object): void;
+export function assertTSTypeOperator(node: object, opts?: object): void;
+export function assertTSTypeParameter(node: object, opts?: object): void;
+export function assertTSTypeParameterDeclaration(node: object, opts?: object): void;
+export function assertTSTypeParameterInstantiation(node: object, opts?: object): void;
+export function assertTSTypePredicate(node: object, opts?: object): void;
+export function assertTSTypeQuery(node: object, opts?: object): void;
+export function assertTSTypeReference(node: object, opts?: object): void;
+export function assertTSUndefinedKeyword(node: object, opts?: object): void;
+export function assertTSUnionType(node: object, opts?: object): void;
+export function assertTSVoidKeyword(node: object, opts?: object): void;

@@ -5,6 +5,7 @@
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 Fábio Paiva <https://github.com/fabiopaiva>
 //                 FaithForHumans <https://github.com/FaithForHumans>
+//                 Kurt Preston <https://github.com/KurtPreston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -34,6 +35,11 @@ export { default as CardLink,             CardLinkProps                   } from
 export { default as CardSubtitle,         CardSubtitleProps               } from './lib/CardSubtitle';
 export { default as CardText,             CardTextProps                   } from './lib/CardText';
 export { default as CardTitle,            CardTitleProps                  } from './lib/CardTitle';
+export { default as Carousel,             CarouselProps                   } from './lib/Carousel';
+export { default as CarouselItem,         CarouselItemProps               } from './lib/CarouselItem';
+export { default as CarouselControl,      CarouselControlProps            } from './lib/CarouselControl';
+export { default as CarouselIndicators,   CarouselIndicatorsProps         } from './lib/CarouselIndicators';
+export { default as CarouselCaption,      CarouselCaptionProps            } from './lib/CarouselCaption';
 export { default as Col,                  ColProps                        } from './lib/Col';
 export { default as Collapse,             CollapseProps                   } from './lib/Collapse';
 export { default as Container,            ContainerProps                  } from './lib/Container';
@@ -80,7 +86,6 @@ export { default as TabContent,           TabContentProps                 } from
 export { default as Table,                TableProps                      } from './lib/Table';
 export { default as TabPane,              TabPaneProps                    } from './lib/TabPane';
 export { default as Tag,                  TagProps                        } from './lib/Tag';
-export { default as TetherContent,        TetherContentProps              } from './lib/TetherContent';
 export { default as Tooltip,              TooltipProps                    } from './lib/Tooltip';
 export { UncontrolledAlert,               UncontrolledAlertProps          } from './lib/Uncontrolled';
 export { UncontrolledButtonDropdown,      UncontrolledButtonDropdownProps } from './lib/Uncontrolled';

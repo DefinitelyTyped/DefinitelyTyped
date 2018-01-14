@@ -680,6 +680,7 @@ export class BufferAttribute {
     normalized: boolean;
     needsUpdate: boolean;
     count: number;
+	onUpload: Function;
 
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
@@ -1458,6 +1459,7 @@ export class InterleavedBuffer {
     count: number;
     needsUpdate: boolean;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
     copy(source: this): this;
@@ -1479,7 +1481,7 @@ export class InstancedInterleavedBuffer extends InterleavedBuffer {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js">src/core/InterleavedBufferAttribute.js</a>
  */
 export class InterleavedBufferAttribute {
-    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized: boolean);
+    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized?: boolean);
 
     uuid: string;
     data: InterleavedBuffer;
@@ -3895,6 +3897,19 @@ export class Spherical {
     setFromVector3(vec3: Vector3): Spherical;
 }
 
+export class Cylindrical {
+    constructor(radius?: number, theta?: number, y?: number);
+
+    radius: number;
+    theta: number;
+    y: number;
+
+    clone(): this;
+    copy(other: this): this;
+    set(radius: number, theta: number, y: number): this;
+    setFromVector3(vec3: Vector3): this;
+}
+
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
  *
@@ -5224,6 +5239,10 @@ export class WebGLRenderer implements Renderer {
     setTexture(texture: Texture, slot: number): void;
     setTexture2D(texture: Texture, slot: number): void;
     setTextureCube(texture: Texture, slot: number): void;
+    getRenderTarget(): RenderTarget;
+	/**
+     * @deprecated Use getRenderTarget instead.
+     */
     getCurrentRenderTarget(): RenderTarget;
     setRenderTarget(renderTarget: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
@@ -5999,6 +6018,8 @@ export class Texture extends EventDispatcher {
     type: TextureDataType;
     offset: Vector2;
     repeat: Vector2;
+    center: Vector2;
+    rotation: number;
     generateMipmaps: boolean;
     premultiplyAlpha: boolean;
     flipY: boolean;
