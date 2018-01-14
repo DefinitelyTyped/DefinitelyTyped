@@ -3,6 +3,8 @@
 // Definitions by: Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as ol from 'openlayers';
+
 declare module 'ol/control/attribution' {
     export default ol.control.Attribution;
 }
