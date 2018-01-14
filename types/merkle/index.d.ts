@@ -1,4 +1,4 @@
-// Type definitions for merkle 0.6.0
+// Type definitions for merkle 0.6
 // Project: https://github.com/c-geek/merkle
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 // Definitions: https://github.com/kerol2r20/DefinitelyTyped
@@ -19,21 +19,21 @@
 import stream = require("stream");
 
 declare function merkle(
-    hashname: "sha512" | "sha256" | "sha1" | "md5" | "ripemd160" | "whirlpool" | "none", 
+    hashname: "sha512" | "sha256" | "sha1" | "md5" | "ripemd160" | "whirlpool" | "none",
     useUpperCaseForHash?: boolean): MerkleStream;
 
 declare class MerkleStream extends stream.Transform {
-    public sync(leaves: any[]): MerkleTree;
-    public async(leaves: any[], callback: (err: string, tree: MerkleTree) => void): void;
-    public json(): MerkleStream;
+    sync(leaves: any[]): MerkleTree;
+    async(leaves: any[], callback: (err: string, tree: MerkleTree) => void): void;
+    json(): MerkleStream;
 }
 
 declare class MerkleTree {
-    public root(): string;
-    public level(level: number): number | undefined;
-    public depth(): number;
-    public levels(): number;
-    public nodes(): number;
+    root(): string;
+    level(level: number): number | undefined;
+    depth(): number;
+    levels(): number;
+    nodes(): number;
 }
 
-export = merkle
+export = merkle;
