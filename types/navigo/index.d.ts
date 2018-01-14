@@ -1,4 +1,4 @@
-// Type definitions for navigo 4.0
+// Type definitions for navigo 6.0
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,7 @@ interface GenericHooks {
     after?(params?: Params): void;
 }
 
-type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
+type RouteHandler = ((params: Params, query: string) => void) | { as: string; uses(params: Params, query: string): void };
 
 declare class Navigo {
     /**
@@ -44,6 +44,8 @@ declare class Navigo {
 
     generate(path: string, params?: any): string;
 
+    getLinkPath(link: any): any;
+
     resolve(currentURL?: string): boolean;
 
     link(path: string): string;
@@ -52,9 +54,11 @@ declare class Navigo {
 
     disableIfAPINotAvailable(): void;
 
+    historyAPIUpdateMethod(method?: string): void;
+
     hooks(hooks: GenericHooks): void;
 
-    pause(): void;
+    pause(change?: boolean): void;
 
     resume(): void;
 
