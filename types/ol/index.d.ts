@@ -1,3 +1,8 @@
+// Type definitions for wellknown 0.5
+// Project: https://github.com/openlayers/openlayers/tree/master/package#readme
+// Definitions by: Yair Tawil <https://github.com/yairtawil>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module 'ol/control/attribution' {
     export default ol.control.Attribution;
 }
