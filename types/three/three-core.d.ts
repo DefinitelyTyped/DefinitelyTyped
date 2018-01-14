@@ -6614,11 +6614,11 @@ export class ConeGeometry extends CylinderGeometry {
 }
 	
 export class DodecahedronBufferGeometry extends PolyhedronBufferGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class DodecahedronGeometry extends Geometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 
     parameters: {
         radius: number;
@@ -6644,11 +6644,11 @@ export class ExtrudeGeometry extends Geometry {
 }
 
 export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class IcosahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class LatheBufferGeometry extends BufferGeometry {
@@ -6674,11 +6674,11 @@ export class LatheGeometry extends Geometry {
 }
 	
 export class OctahedronBufferGeometry extends PolyhedronBufferGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class OctahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class ParametricGeometry extends Geometry {
@@ -6813,7 +6813,7 @@ export class SphereGeometry extends Geometry {
 }
 	
 export class TetrahedronBufferGeometry extends PolyhedronBufferGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class TetrahedronGeometry extends PolyhedronGeometry {
