@@ -5,10 +5,11 @@
 //                  pascalwhoop <https://github.com/pascalwhoop>
 //                  Ben <https://github.com/blforce>
 //                  rk-7 <https://github.com/rk-7>
+//                  Alex Malcoci <https://github.com/alexmalcoci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
+export function handler<T extends Request>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
 export type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
@@ -23,6 +24,8 @@ export type CardType = "Standard" | "Simple" | "LinkAccount" | "AskForPermission
 export type HintType = "PlainText";
 export type DirectiveTypes = "AudioPlayer.Play" | "AudioPlayer.Stop" | "AudioPlayer.ClearQueue" | "Display.RenderTemplate" | "Hint" | "VideoApp.Launch";
 export type TextContentType = "PlainText" | "RichText";
+export type MediaErrorType = "MEDIA_ERROR_UNKNOWN" | "MEDIA_ERROR_INVALID_REQUEST" | "MEDIA_ERROR_SERVICE_UNAVAILABLE" | "MEDIA_ERROR_INTERNAL_SERVER_ERROR" | "MEDIA_ERROR_INTERNAL_DEVICE_ERROR";
+export type SystemErrorType = "INVALID_RESPONSE" | "DEVICE_COMMUNICATION_ERROR" | "INTERNAL_ERROR";
 
 //#region Types
 export interface CardImage {
@@ -84,7 +87,7 @@ export interface Template {
     listItems?: ListItem[];
 }
 
-export interface AlexaObject<T> extends Handler<T> {
+export interface AlexaObject<T extends Request> extends Handler<T> {
     _event: any;
     _context: any;
     _callback: any;
@@ -98,11 +101,11 @@ export interface AlexaObject<T> extends Handler<T> {
     execute: () => void;
 }
 
-export interface Handlers<T> {
+export interface Handlers<T extends Request> {
     [intent: string]: (this: Handler<T>) => void;
 }
 
-export interface Handler<T> {
+export interface Handler<T extends Request> {
     on: any;
     emit(event: string, ...args: any[]): boolean;
     emitWithState: any;
@@ -141,7 +144,7 @@ export interface System {
     apiEndpoint: string;
     application: Application;
     device: any;
-    user: any;
+    user: SessionUser;
 }
 export interface AudioPlayer {
     token: string;
@@ -151,10 +154,32 @@ export interface AudioPlayer {
      */
     playerActivity: AudioPlayerActivity;
 }
-export interface RequestBody<T> {
+
+export interface Display {
+    token: string;
+}
+
+export interface Device {
+    deviceId: string;
+    supportedInterfaces: DeviceInterfaces;
+}
+
+export interface DeviceInterfaces {
+    AudioPlayer: any;
+    Display: any;
+}
+
+export interface RequestContext {
+    AudioPlayer?: AudioPlayer;
+    Display?: Display;
+    System: System;
+}
+
+export interface RequestBody<T extends Request> {
     version: string;
     session: Session;
     request: T;
+    context: RequestContext;
 }
 
 export interface Session {
@@ -187,8 +212,94 @@ export interface SessionEndedRequest extends Request {
     reason?: string;
 }
 
+export interface AudioPlayerPlaybackRequest extends Request {
+    token: string;
+    offsetInMilliseconds: number;
+}
+
+export interface AudioPlayerPlaybackFailedRequest extends Request {
+    token: string;
+    error: MediaError;
+    currentPlaybackState: AudioPlayer;
+}
+
+export interface MediaError {
+    type: MediaErrorType;
+    message: string;
+}
+
+export interface SystemExceptionEncounteredRequest extends Request {
+    error: SystemError;
+    cause: ErrorCause;
+}
+
+export interface SystemError {
+    type: SystemErrorType;
+    message: string;
+}
+
+export interface ErrorCause {
+    requestId: string;
+}
+
+export interface SkillAccountRequest extends Request {
+    body: SkillAccountBody;
+}
+
+export interface SkillAccountBody {
+    accessToken: string;
+}
+
+export interface SkillPermissionRequest extends Request {
+    body: SkillPermissionBody;
+}
+
+export interface SkillPermissionBody {
+    acceptedPermissions: PermissionScope[];
+}
+
+export interface PermissionScope {
+    scope: string;
+}
+
+export interface ListEventRequest extends Request {
+    body: ListEventBody;
+}
+
+export interface ListEventBody {
+    listId: string;
+    listItemIds?: string[];
+}
+
 export interface Request {
-    type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
+    type: "LaunchRequest"
+        | "IntentRequest"
+        | "SessionEndedRequest"
+
+        | "System.ExceptionEncountered"
+
+        | "AudioPlayer.PlaybackStarted"
+        | "AudioPlayer.PlaybackFinished"
+        | "AudioPlayer.PlaybackStopped"
+        | "AudioPlayer.PlaybackNearlyFinished"
+
+        | "PlaybackController.NextCommandIssued"
+        | "PlaybackController.PauseCommandIssued"
+        | "PlaybackController.PlayCommandIssued"
+        | "PlaybackController.PreviousCommandIssued"
+
+        | "AlexaSkillEvent.SkillAccountLinked"
+        | "AlexaSkillEvent.SkillEnabled"
+        | "AlexaSkillEvent.SkillDisabled"
+        | "AlexaSkillEvent.SkillPermissionAccepted"
+        | "AlexaSkillEvent.SkillPermissionChanged"
+
+        | "AlexaHouseholdListEvent.ListCreated"
+        | "AlexaHouseholdListEvent.ListUpdated"
+        | "AlexaHouseholdListEvent.ListDeleted"
+        | "AlexaHouseholdListEvent.ItemsCreated"
+        | "AlexaHouseholdListEvent.ItemsUpdated"
+        | "AlexaHouseholdListEvent.ItemsDeleted";
     requestId: string;
     timestamp: string;
     locale?: string;
@@ -296,7 +407,7 @@ export interface ListItemObject {
     /**
      * item version (Positive integer)
      */
-    version?: number | string;
+    version: number;
     /**
      * created time (ISO 8601 time format with time zone)
      */
@@ -348,6 +459,38 @@ export interface ListObject {
      * Items that belong to this list.
      */
     items: ListItemObject[];
+
+    next?: ListLinks;
+}
+
+export interface ListLinks {
+    next: string;
+}
+
+export interface ListCollection {
+    lists: ListObject[];
+}
+
+export interface CreateListParams {
+    name: string;
+    state: "active";
+}
+
+export interface UpdateListParams {
+    name: string;
+    state: ListObjectState;
+    version: number;
+}
+
+export interface CreateListItemParams {
+    value: string;
+    status: ListItemObjectStatus;
+}
+
+export interface UpdateListItemParams {
+    value: string;
+    status: ListItemObjectStatus;
+    version: number;
 }
 //#endregion
 
@@ -545,7 +688,7 @@ export namespace templateBuilders {
 
 //#region services
 export namespace services {
-    interface ApiClient {
+    class ApiClient {
         /**
          * Make a POST API call to the specified uri with headers and optional body
          * @param uri http(s?) endpoint to call
@@ -582,7 +725,7 @@ export namespace services {
          * Create an instance of DeviceAddressService
          * @param [apiClient=new ApiClient()] ApiClient
          */
-        constructor(apiClient: ApiClient);
+        constructor(apiClient?: ApiClient);
 
         /**
          * Get full address information from Alexa Device Address API
@@ -607,7 +750,7 @@ export namespace services {
          * Creates an instance of DirectiveService.
          * @param [apiClient=new ApiClient()] ApiClient
          */
-        constructor(apiClient: ApiClient);
+        constructor(apiClient?: ApiClient);
 
         /**
          * Send the specified directiveObj to Alexa directive service
@@ -624,7 +767,7 @@ export namespace services {
          * Create an instance of ListManagementService
          * @param apiClient apiClient
          */
-        constructor(apiClient: ApiClient);
+        constructor(apiClient?: ApiClient);
 
         /**
          * Set apiEndpoint address, default is "https://api.amazonalexa.com"
@@ -642,80 +785,80 @@ export namespace services {
         /**
          * Retrieve the metadata for all customer lists, including the customer's default lists
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<ListCollection>
          */
-        getListsMetadata(token: string): Promise<object>;
+        getListsMetadata(token: string): Promise<ListCollection>;
 
         /**
          * Create a custom list. The new list name must be different than any existing list name
-         * @param listObject listObject
+         * @param params params
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<ListObject>
          */
-        createList(listObject: ListObject, token: string): Promise<object>;
+        createList(params: CreateListParams, token: string): Promise<ListObject>;
 
         /**
          * Retrieve list metadata including the items in the list with requested status
          * @param listId unique Id associated with the list
          * @param itemStatus itemsStatus can be either "active" or "completed"
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<ListObject>
          */
-        getList(listId: string, itemStatus: ListItemObjectStatus, token: string): Promise<object>;
+        getList(listId: string, itemStatus: ListItemObjectStatus, token: string): Promise<ListObject>;
 
         /**
          * Update a custom list. Only the list name or state can be updated
          * @param listId unique Id associated with the list
-         * @param listObject listObject
+         * @param params params
          * @param token bearer token for list management permission
          * @returns Promise<object>
          */
-        updateList(listId: string, listObject: ListObject, token: string): Promise<object>;
+        updateList(listId: string, params: UpdateListParams, token: string): Promise<ListObject>;
 
         /**
          * Delete a custom list
          * @param listId unique Id associated with the list
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<void>
          */
-        deleteList(listId: string, token: string): Promise<object>;
+        deleteList(listId: string, token: string): Promise<void>;
 
         /**
          * Create an item in an active list or in a default list
          * @param listId unique Id associated with the list
-         * @param listItemObject listItemObject
+         * @param params params
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<ListItemObject>
          */
-        createListItem(listId: string, listItemObject: ListItemObject, token: string): Promise<object>;
+        createListItem(listId: string, params: CreateListItemParams, token: string): Promise<ListItemObject>;
 
         /**
          * Retrieve single item within any list by listId and itemId
          * @param listId unique Id associated with the list
          * @param itemId unique Id associated with the item
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<ListItemObject>
          */
-        getListItem(listId: string, itemId: string, token: string): Promise<object>;
+        getListItem(listId: string, itemId: string, token: string): Promise<ListItemObject>;
 
         /**
          * Update an item value or item status
          * @param listId unique Id associated with the list
          * @param itemId unique Id associated with the item
-         * @param listItemObject listItemObject
+         * @param params params
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<ListItemObject>
          */
-        updateListItem(listId: string, itemId: string, listItemObject: ListItemObject, token: string): Promise<object>;
+        updateListItem(listId: string, itemId: string, params: UpdateListItemParams, token: string): Promise<ListItemObject>;
 
         /**
          * Delete an item in the specified list
          * @param listId unique Id associated with the list
          * @param itemId unique Id associated with the item
          * @param token bearer token for list management permission
-         * @returns Promise<object>
+         * @returns Promise<void>
          */
-        deleteListItem(listId: string, itemId: string, token: string): Promise<object>;
+        deleteListItem(listId: string, itemId: string, token: string): Promise<void>;
     }
 }
 //#endregion
