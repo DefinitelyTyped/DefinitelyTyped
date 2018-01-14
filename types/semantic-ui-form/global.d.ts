@@ -15,6 +15,47 @@ declare namespace SemanticUI {
          */
         (behavior: 'is valid'): boolean;
         /**
+         * Returns true/false whether a field passes its validation rules
+         */
+        (behavior: 'is valid', field: string): boolean;
+        /**
+         * Adds rule to existing rules for field
+         * @since 2.2.11
+         */
+        (behavior: 'add rule', field: string, rules: string | string[] | Form.Rules): JQuery;
+        /**
+         * Adds rule to existing rules for field
+         * @since 2.2.11
+         */
+        (behavior: 'add field', field: string, rules: string | string[] | Form.Rules): JQuery;
+        /**
+         * Adds fields object to existing fields
+         * @since 2.2.11
+         */
+        (behavior: 'add fields', fields: Form.Fields): JQuery;
+        /**
+         * Removes specific rule from field leaving other rules
+         * @since 2.2.11
+         */
+        (behavior: 'remove rule', field: string, rule: Form.Rule): JQuery;
+        /**
+         * Remove all validation for a field
+         * @since 2.2.11
+         */
+        (behavior: 'remove field', field: string): JQuery;
+        /**
+         * @since 2.2.11
+         */
+        (behavior: 'remove rules', fields: string | string[], rules: Form.Rule[]): JQuery;
+        /**
+         * @since 2.2.11
+         */
+        (behavior: 'remove fields', fields: string[]): JQuery;
+        /**
+         * Adds error prompt to the field with the given identifier
+         */
+        (behavior: 'add prompt', identifier: string, errors: string | string[]): JQuery;
+        /**
          * Validates form and calls onSuccess or onFailure
          */
         (behavior: 'validate form'): JQuery;
@@ -55,21 +96,51 @@ declare namespace SemanticUI {
          */
         (behavior: 'add errors', errors: string[]): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof FormSettings>(behavior: 'setting', name: K, value?: undefined): FormSettings[K];
-        <K extends keyof FormSettings>(behavior: 'setting', name: K, value: FormSettings[K]): JQuery;
-        (behavior: 'setting', value: FormSettings.Param): JQuery;
-        (settings?: FormSettings.Param): JQuery;
+        <K extends keyof FormSettings>(behavior: 'setting', name: K, value?: undefined): FormSettings._Impl[K];
+        <K extends keyof FormSettings>(behavior: 'setting', name: K, value: FormSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: FormSettings): JQuery;
+        (settings?: FormSettings | Form.Fields): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/behaviors/form.html#/settings}
      */
-    interface FormSettings extends Pick<FormSettings._Impl, keyof FormSettings._Impl> { }
+    type FormSettings = FormSettings.Param;
 
     namespace FormSettings {
-        type Param = FormSettings | object;
+        type Param = (Pick<_Impl, 'keyboardShortcuts'> |
+            Pick<_Impl, 'on'> |
+            Pick<_Impl, 'revalidate'> |
+            Pick<_Impl, 'delay'> |
+            Pick<_Impl, 'inline'> |
+            Pick<_Impl, 'transition'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'fields'> |
+            Pick<_Impl, 'text'> |
+            Pick<_Impl, 'prompt'> |
+            Pick<_Impl, 'onValid'> |
+            Pick<_Impl, 'onInvalid'> |
+            Pick<_Impl, 'onSuccess'> |
+            Pick<_Impl, 'onFailure'> |
+            Pick<_Impl, 'templates'> |
+            Pick<_Impl, 'rules'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'metadata'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
+            defaults: {
+                [name: string]: Form.Field;
+            };
+
             // region Form Settings
 
             /**
@@ -141,7 +212,7 @@ declare namespace SemanticUI {
             /**
              * Callback if a form is all valid
              */
-            onSuccess(this: JQuery, event: JQueryEventObject, fields: any): void;
+            onSuccess(this: JQuery, event: JQuery.Event<HTMLElement>, fields: any): void;
             /**
              * Callback if any form field is invalid
              */
@@ -229,6 +300,7 @@ declare namespace SemanticUI {
     namespace Form {
         interface Field {
             identifier: string;
+            optional?: boolean;
             rules: Rule[];
         }
 
@@ -237,10 +309,20 @@ declare namespace SemanticUI {
             prompt: string;
         }
 
-        interface TextSettings extends Pick<TextSettings._Impl, keyof TextSettings._Impl> { }
+        interface Fields {
+            [name: string]: string | string[];
+        }
+
+        interface Rules {
+            rules: Rule[];
+        }
+
+        type TextSettings = TextSettings.Param;
 
         namespace TextSettings {
-            type Param = TextSettings | object;
+            type Param = (Pick<_Impl, 'unspecifiedRule'> |
+                Pick<_Impl, 'unspecifiedField'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -254,10 +336,36 @@ declare namespace SemanticUI {
             }
         }
 
-        interface PromptSettings extends Pick<PromptSettings._Impl, keyof PromptSettings._Impl> { }
+        type PromptSettings = PromptSettings.Param;
 
         namespace PromptSettings {
-            type Param = PromptSettings | object;
+            type Param = (Pick<_Impl, 'empty'> |
+                Pick<_Impl, 'checked'> |
+                Pick<_Impl, 'email'> |
+                Pick<_Impl, 'url'> |
+                Pick<_Impl, 'regExp'> |
+                Pick<_Impl, 'integer'> |
+                Pick<_Impl, 'decimal'> |
+                Pick<_Impl, 'number'> |
+                Pick<_Impl, 'is'> |
+                Pick<_Impl, 'isExactly'> |
+                Pick<_Impl, 'not'> |
+                Pick<_Impl, 'notExactly'> |
+                Pick<_Impl, 'contain'> |
+                Pick<_Impl, 'containExactly'> |
+                Pick<_Impl, 'doesntContain'> |
+                Pick<_Impl, 'doesntContainExactly'> |
+                Pick<_Impl, 'minLength'> |
+                Pick<_Impl, 'length'> |
+                Pick<_Impl, 'exactLength'> |
+                Pick<_Impl, 'maxLength'> |
+                Pick<_Impl, 'match'> |
+                Pick<_Impl, 'different'> |
+                Pick<_Impl, 'creditCard'> |
+                Pick<_Impl, 'minCount'> |
+                Pick<_Impl, 'exactCount'> |
+                Pick<_Impl, 'maxCount'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -367,10 +475,12 @@ declare namespace SemanticUI {
             }
         }
 
-        interface TemplatesSettings extends Pick<TemplatesSettings._Impl, keyof TemplatesSettings._Impl> { }
+        type TemplatesSettings = TemplatesSettings.Param;
 
         namespace TemplatesSettings {
-            type Param = TemplatesSettings | object;
+            type Param = (Pick<_Impl, 'error'> |
+                Pick<_Impl, 'prompt'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 error(errors: string[]): JQuery;
@@ -378,10 +488,16 @@ declare namespace SemanticUI {
             }
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'message'> |
+                Pick<_Impl, 'field'> |
+                Pick<_Impl, 'group'> |
+                Pick<_Impl, 'input'> |
+                Pick<_Impl, 'prompt'> |
+                Pick<_Impl, 'submit'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -411,10 +527,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
+        type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = MetadataSettings | object;
+            type Param = (Pick<_Impl, 'validate'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -424,10 +541,14 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'active'> |
+                Pick<_Impl, 'placeholder'> |
+                Pick<_Impl, 'disabled'> |
+                Pick<_Impl, 'visible'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -449,10 +570,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

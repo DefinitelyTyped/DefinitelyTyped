@@ -1,8 +1,8 @@
-// Type definitions for react-native-snap-carousel 2.2
+// Type definitions for react-native-snap-carousel 2.4
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import {
@@ -10,6 +10,7 @@ import {
     LayoutChangeEvent,
     NativeSyntheticEvent,
     NativeScrollEvent,
+    StyleProp,
     ScrollViewProperties,
     ScrollViewStyle,
     ViewStyle
@@ -60,21 +61,16 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
      */
     firstItem?: number;
     /**
-     * When momentum is disabled, this throttle helps smoothing slides' snapping by
-     * providing a bit of inertia when touch is released.
+     * When momentum is disabled, this prop defines the timeframe during which multiple
+     * callback calls should be "grouped" into a single one. This debounce also helps
+     * smoothing the snap effect by providing a bit of inertia when touch is released..
      * Note that this will delay callback's execution.
      */
-    scrollEndDragThrottleValue?: number;
+    scrollEndDragDebounceValue?: number;
     /**
      * Whether to implement a shouldComponentUpdate strategy to minimize updates
      */
     shouldOptimizeUpdates?: boolean;
-    /**
-     * This defines the timeframe during which multiple callback calls should be
-     * "grouped" into a single one.
-     * Note that this will delay callback's execution.
-     */
-    snapCallbackDebounceValue?: number;
     /**
      * Snapping on android is kinda choppy, especially when swiping quickly so you
      * can disable it.
@@ -123,11 +119,11 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
     /**
      * Optional styles for Scrollview's global wrapper
      */
-    containerCustomStyle?: ScrollViewStyle;
+    containerCustomStyle?: StyleProp<ScrollViewStyle>;
     /**
      * Optional styles for Scrollview's items container
      */
-    contentContainerCustomStyle?: ScrollViewStyle;
+    contentContainerCustomStyle?: StyleProp<ScrollViewStyle>;
     /**
      * Value of the opacity effect applied to inactive slides
      */
@@ -139,7 +135,7 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
     /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
-    slideStyle?: ViewStyle;
+    slideStyle?: StyleProp<ViewStyle>;
 
     // Callbacks
     /**
@@ -168,6 +164,7 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
 
 export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
     currentIndex: number;
+    currentScrollPosition: number;
     startAutoplay(instantly?: boolean): void;
     stopAutoplay(): void;
     snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean): void;
@@ -177,4 +174,37 @@ export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
 
 export type CarouselProperties = ScrollViewProperties & CarouselProps & React.Props<CarouselStatic>;
 
-export default class Carousel extends React.Component<CarouselProperties, {}> { }
+export interface PaginationProps {
+    /**
+     * Number of dots to display
+     */
+    dotsLength: number;
+    /**
+     * Currently focused dot
+     */
+    activeDotIndex: number;
+    /**
+     * Style for dots' container that will be merged with the default one
+     */
+    containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * Dots' style that will be merged with the default one
+     */
+    dotStyle?: StyleProp<ViewStyle>;
+    /**
+     * Value of the opacity effect applied to inactive dots
+     */
+    inactiveDotOpacity?: number;
+    /**
+     * Value of the 'scale' transform applied to inactive dots
+     */
+    inactiveDotScale?: number;
+}
+
+export type PaginationStatic = React.ComponentClass<PaginationProps>;
+
+export type PaginationProperties = PaginationProps & React.Props<PaginationStatic>;
+
+export class Pagination extends React.Component<PaginationProperties> { }
+
+export default class Carousel extends React.Component<CarouselProperties> { }

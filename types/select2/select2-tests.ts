@@ -94,6 +94,29 @@ $("#e6").select2({
     formatSelection: movieFormatSelection,
     dropdownCssClass: "bigdrop"
 });
+$("#e6").select2({
+    placeholder: "Search for a movie",
+    minimumInputLength: 1,
+    ajax: {
+        url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
+        type: 'GET',
+        dataType: 'jsonp',
+        cache: false,
+        data: function (params, page) {
+            return {
+                q: params.term,
+                page_limit: 10,
+                apikey: "ju6z9mjyajq2djue3gbvv26t"
+            };
+        },
+        results: function (data, page) {
+            return { results: data.movies };
+        }
+    },
+    formatResult: movieFormatResult,
+    formatSelection: movieFormatSelection,
+    dropdownCssClass: "bigdrop"
+});
 $("#e7").select2({
     placeholder: "Search for a movie",
     minimumInputLength: 3,
@@ -120,10 +143,10 @@ $("#e7").select2({
 });
 
 function sort(elements) {
-  return elements.sort();
+    return elements.sort();
 }
 $("#e20").select2({
-  sorter: sort
+    sorter: sort
 });
 
 $("#e8").select2();
@@ -158,12 +181,12 @@ function log(e) {
     item.animate({ opacity: 1 }, 10000, 'linear', function () { item.animate({ opacity: 0 }, 2000, 'linear', function () { item.remove(); }); });
 }
 $("#e11")
-		// TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
-		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
-        .on("open", function () { log("open"); });
+    // TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
+    .on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+    .on("open", function () { log("open"); });
 $("#e11_2")
-		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
-        .on("open", function () { log("open"); });
+    .on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+    .on("open", function () { log("open"); });
 $("#e12").select2({ tags: ["red", "green", "blue"] });
 $("#e20").select2({
     tags: ["red", "green", "blue"],
@@ -188,7 +211,7 @@ $("#e17").select2({
 $("#e17_2").select2({
     matcher: function (term, text, opt) {
         return text.toUpperCase().indexOf(term.toUpperCase()) >= 0
-                || opt.attr("alt").toUpperCase().indexOf(term.toUpperCase()) >= 0;
+            || opt.attr("alt").toUpperCase().indexOf(term.toUpperCase()) >= 0;
     }
 });
 $("#e18,#e18_2").select2();

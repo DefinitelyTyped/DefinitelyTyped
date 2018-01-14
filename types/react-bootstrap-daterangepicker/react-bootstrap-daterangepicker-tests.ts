@@ -1,7 +1,7 @@
 import DateRangePicker = require("react-bootstrap-daterangepicker");
 import * as React from "react";
 
-class IntegrationTest extends React.Component<{}, {}> {
+class IntegrationTest extends React.Component {
   render() {
     const props = {
       onEvent: (ev: any, picker: any) => true,

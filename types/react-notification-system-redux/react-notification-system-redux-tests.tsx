@@ -2,9 +2,9 @@ import * as React from "react";
 import { createStore, Store } from "redux";
 import { Notification } from "react-notification-system";
 import * as Notifications from "react-notification-system-redux";
-import { reducer, show, hide, info, error, warning, success, NotificationLevel } from "react-notification-system-redux";
+import { reducer, removeAll, show, hide, info, error, warning, success, NotificationLevel } from "react-notification-system-redux";
 
-class Test extends React.Component<any, any> {
+class Test extends React.Component {
     private test() {
         const notification: Notification = {
             message : "Test"
@@ -20,6 +20,7 @@ class Test extends React.Component<any, any> {
         hide(notification);
         hide("uid");
         hide(123);
+        removeAll();
     }
 
     render() {

@@ -13,4 +13,5 @@ app.use(flash({
 app.use(function(req: Express.Request, res: Express.Response, next: Function) {
     req.flash('Message');
     req.flash('info', 'Message');
+    req.flash();
 });

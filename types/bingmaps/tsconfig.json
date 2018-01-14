@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,19 @@
     },
     "files": [
         "index.d.ts",
+        "Autosuggest.d.ts",
+        "Clustering.d.ts",
+        "Contour.d.ts",
+        "DataBinning.d.ts",
+        "Directions.d.ts",
+        "DrawingTools.d.ts",
+        "GeoJson.d.ts",
+        "HeatMapLayer.d.ts",
+        "Search.d.ts",
+        "SpatialDataService.d.ts",
+        "SpatialMath.d.ts",
+        "Traffic.d.ts",
+        "WellKnownText.d.ts",
         "bingmaps-tests.ts"
     ]
 }

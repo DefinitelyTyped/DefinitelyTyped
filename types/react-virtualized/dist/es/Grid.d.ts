@@ -126,7 +126,14 @@ export type GridCellRangeProps = {
     rowStartIndex: number,
     rowStopIndex: number,
     scrollLeft: number,
-    scrollTop: number
+    scrollTop: number,
+    deferredMeasurementCache: CellMeasurerCache,
+    horizontalOffsetAdjustment: number,
+    parent: Grid | List | Table,
+    styleCache: Map<React.CSSProperties>,
+    verticalOffsetAdjustment: number,
+    visibleColumnIndices: VisibleCellRange,
+    visibleRowIndices: VisibleCellRange
 }
 export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
 
@@ -280,6 +287,14 @@ export type GridCoreProps = {
      * Width of Grid; this property determines the number of visible (vs virtualized) columns.
      */
     width: number;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 
 export type GridProps = GridCoreProps & {
@@ -367,7 +382,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
         onScroll: () => null,
         onSectionRendered: () => null,
         overscanColumnCount: 0,
-        overscanIndicesGetter: OverscanIndicesGetterParams,
+        overscanIndicesGetter: OverscanIndicesGetter,
         overscanRowCount: 10,
         role: 'grid',
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL,

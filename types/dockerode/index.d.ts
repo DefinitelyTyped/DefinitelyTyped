@@ -1,7 +1,12 @@
-// Type definitions for dockerode 2.4
+// Type definitions for dockerode 2.5
 // Project: https://github.com/apocas/dockerode
-// Definitions by: Carl Winkler <https://github.com/seikho>, Nicolas Laplante <https://github.com/nlaplante>
+// Definitions by: Carl Winkler <https://github.com/seikho>
+//                 Nicolas Laplante <https://github.com/nlaplante>
+//                 ByeongHun Yoo <https://github.com/isac322>
+//                 Ray Fang <https://github.com/lazarusx>
+//                 Marius Meisenzahl <https://github.com/meisenzahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -168,6 +173,14 @@ declare namespace Dockerode {
   interface Node {
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
+
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+    update(options?: {}): Promise<any>;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+    remove(options?: {}): Promise<any>;
 
     modem: any;
     id?: string;
@@ -387,10 +400,10 @@ declare namespace Dockerode {
       LinkLocalIPv6Address: string;
       LinkLocalIPv6PrefixLen: number;
       Ports: {
-        [portAndProtocol: string]: {
+        [portAndProtocol: string]: Array<{
           HostIp: string;
           HostPort: string;
-        }
+        }>;
       };
       SandboxKey: string;
       SecondaryIPAddresses?: any;
@@ -418,11 +431,21 @@ declare namespace Dockerode {
           GlobalIPv6PrefixLen: number;
           MacAddress: string;
         }
+      };
+      Node?: {
+          ID: string;
+          IP: string;
+          Addr: string;
+          Name: string;
+          Cpus: number;
+          Memory: number;
+          Labels: any;
       }
     };
   }
 
   interface HostConfig {
+    AutoRemove: boolean;
     Binds: string[];
     ContainerIDFile: string;
     LogConfig: {
@@ -468,6 +491,7 @@ declare namespace Dockerode {
     CpusetCpus: string;
     CpusetMems: string;
     Devices?: any;
+    DiskQuota: number;
     KernelMemory: number;
     Memory: number;
     MemoryReservation: number;
@@ -571,6 +595,7 @@ declare namespace Dockerode {
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
     HostConfig?: {
+      AutoRemove?: boolean;
       Binds?: string[];
       Links?: string[];
       Memory?: number;
@@ -634,15 +659,21 @@ declare namespace Dockerode {
     };
   }
 
+  interface KeyObject {
+    pem: string | Buffer;
+    passphrase?: string;
+  }
+
   interface DockerOptions {
     socketPath?: string;
     host?: string;
-    port?: number;
-    ca?: string;
-    cert?: string;
-    key?: string;
+    port?: number | string;
+    ca?: string | string[] | Buffer | Buffer[];
+    cert?: string | string[] | Buffer | Buffer[];
+    key?: string | string[] | Buffer | Buffer[] | KeyObject[];
     protocol?: "https" | "http";
     timeout?: number;
+    version?: string;
     Promise?: typeof Promise;
   }
 
@@ -786,6 +817,11 @@ declare namespace Dockerode {
     tail?: number;
     timestamps?: boolean;
   }
+
+  interface ImageBuildContext {
+  	context: string;
+  	src: string[];
+  }
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
@@ -812,9 +848,9 @@ declare class Dockerode {
   checkAuth(options: any, callback: Callback<any>): void;
   checkAuth(options: any): Promise<any>;
 
-  buildImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<any>;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options: {}, callback: Callback<any>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, callback: Callback<any>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options?: {}): Promise<any>;
 
   getContainer(id: string): Dockerode.Container;
 
@@ -908,6 +944,9 @@ declare class Dockerode {
 
   info(callback: Callback<any>): void;
   info(): Promise<any>;
+
+  df(callback: Callback<any>): void;
+  df(): Promise<any>;
 
   version(callback: Callback<any>): void;
   version(): Promise<any>;

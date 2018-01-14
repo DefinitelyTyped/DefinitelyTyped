@@ -1,6 +1,6 @@
 // Type definitions for underscore.string
 // Project: https://github.com/epeli/underscore.string
-// Definitions by: Ry Racherbaumer <http://github.com/rygine>
+// Definitions by: Ry Racherbaumer <https://github.com/rygine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _ from 'underscore';
@@ -90,6 +90,13 @@ declare module 'underscore' {
          * @param str
          */
         clean(str: string): string;
+
+        /**
+         * Replace diacritic characters with closest ASCII equivalents.
+         * cleanDiacritics('ääkkönen') => 'aakkonen'
+         * @param str
+         */
+        cleanDiacritics(str: string): string;
 
         /**
          * Count occurences of a sub string.

@@ -1,327 +1,358 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import ReactSelect, * as ReactSelectModule from "react-select";
 
-import Select = require("react-select");
-import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps, AutocompleteResult } from "react-select";
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
-const CustomOption = React.createClass({
-    propTypes: {
-        children: React.PropTypes.node,
-        className: React.PropTypes.string,
-        isDisabled: React.PropTypes.bool,
-        isFocused: React.PropTypes.bool,
-        isSelected: React.PropTypes.bool,
-        onFocus: React.PropTypes.func,
-        onSelect: React.PropTypes.func,
-        option: React.PropTypes.object.isRequired,
-    },
-    handleMouseDown (event: Event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.props.onSelect(this.props.option, event);
-    },
-    handleMouseEnter (event: Event) {
-        this.props.onFocus(this.props.option, event);
-    },
-    handleMouseMove (event: Event) {
-        if (this.props.isFocused) return;
-        this.props.onFocus(this.props.option, event);
-    },
-    render () {
-        return (
-            <div className="Select-option"
-                    onMouseDown={this.handleMouseDown}
-                    onMouseEnter={this.handleMouseEnter}
-                    onMouseMove={this.handleMouseMove}
-                    title={this.props.option.title}>
-                {this.props.children}
-            </div>
-        );
-    }
-});
+const EXAMPLE_OPTIONS: ReactSelectModule.Options = [
+    { value: "one", label: "One" },
+    { value: "two", label: "Two" }
+];
 
-const CustomValue = React.createClass({
-    propTypes: {
-        children: React.PropTypes.node,
-        placeholder: React.PropTypes.string,
-        value: React.PropTypes.object
-    },
-    render () {
-        return (
-            <div className="Select-value" title={this.props.value.title}>
-                <span className="Select-value-label">
-                    {this.props.children}
-                </span>
-            </div>
-        );
-    }
-});
+interface CustomValueType {
+    prop1: string;
+    prop2: number;
+}
 
-const filterOptions = (options: Array<Option>, filter: string, values: Array<Option>) => {
-    // Filter already selected values
-    let filteredOptions = options.filter(option => values.indexOf(option) < 0);
+/*
+ * This JSX/TSX generic component workaround is needed because of this issue:
+ * https://github.com/Microsoft/TypeScript/issues/3960
+ * If https://github.com/Microsoft/TypeScript/issues/6395 ever lands, this
+ * workaround may become redundant.
+ */
+type CustomValueReactSelect = new (props: ReactSelectModule.ReactSelectProps<CustomValueType>) => ReactSelect<CustomValueType>;
+const CustomValueReactSelect = ReactSelect as CustomValueReactSelect;
 
-    // Filter by label
-    if (filter != null && filter.length > 0) {
-        filteredOptions = filteredOptions.filter(option => RegExp(filter, 'ig').test(option.label));
-    }
+const EXAMPLE_CUSTOM_OPTIONS: ReactSelectModule.Options<CustomValueType> = [
+    { value: { prop1: "OneProp1", prop2: 1 }, label: "One" },
+    { value: { prop1: "TwoProp2", prop2: 2 }, label: "Two" }
+];
 
-    // Append Addition option
-    if (filteredOptions.length === 0) {
-        filteredOptions.push({
-            label:  `Create: ${filter}`,
-            value:  filter
-        });
-    }
-
-    return filteredOptions;
+const EXAMPLE_CUSTOM_VALUE: ReactSelectModule.Option<CustomValueType> = {
+    value: { prop1: "ThreeProp1", prop2: 3 }, label: "Three"
 };
 
-class SelectTest extends React.Component<React.Props<{}>, {}> {
+describe("react-select", () => {
+    it("options", () => {
+        const optionsString: ReactSelectModule.Options<string> = [
+            { value: "one", label: "One" },
+            { value: "two", label: "Two", clearableValue: false }
+        ];
 
-    render() {
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
-        const onChange = (value: any) => console.log(value);
-        const renderMenu = ({
-            focusedOption,
-            focusOption,
-            labelKey,
-            options,
-            selectValue,
-            valueArray
-        }: MenuRendererProps) => { return <div></div> };
-        const onOpen = () => { return; };
-        const onClose = () => { return; };
-        const optionRenderer = (option: Option) => <span>{option.label}</span>
+        const optionsNumber: ReactSelectModule.Options<number> = [
+            { value: 1, label: "One" },
+            { value: 2, label: "Two", clearableValue: false }
+        ];
 
-        const selectProps: ReactSelectProps = {
-            name: "test-select",
-            className: "test-select",
-            key: "1",
-            options: options,
-            optionClassName: 'test-select-option',
-            optionRenderer: optionRenderer,
-            autofocus: true,
-            autosize: true,
-            clearable: true,
-            escapeClearsValue: true,
-            filterOptions: filterOptions,
-            ignoreAccents: true,
-            instanceId: 'custom-instance-id',
-            joinValues: false,
-            matchPos: "any",
-            matchProp: "any",
-            menuContainerStyle: {},
-            menuRenderer: renderMenu,
-            menuStyle: {},
-            multi: true,
-            onMenuScrollToBottom: () => {},
-            onValueClick: onChange,
-            onOpen: onOpen,
-            onClose: onClose,
-            openAfterFocus: false,
-            optionComponent: CustomOption,
-            required: false,
-            resetValue: "resetValue",
-            scrollMenuIntoView: false,
-            valueKey: "github",
-            labelKey: "name",
-            onChange: onChange,
-            value: options,
-            valueComponent: CustomValue,
-            valueRenderer: optionRenderer
-        };
+        const optionsMixed: ReactSelectModule.Options = [
+            { value: "one", label: "One" },
+            { value: 2, label: "Two", clearableValue: false }
+        ];
+    });
 
-        return <div>
-            <Select {...selectProps} />
-        </div>;
-    }
-}
-
-class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
-
-    render() {
-        const options: Option[] = [{
-            label: "Foo",
-            value: "bar",
-        }, {
-            label: "Foo2",
-            value: "bar2",
-            clearableValue: false,
-            disabled: true
-        }];
-        const onChange = (value: any) => console.log(value);
-
-        const selectProps: ReactSelectProps = {
-            name: "test-select-with-string-value",
-            value: "bar",
-            options: options,
-            onChange: onChange
-        };
-
-        return <div>
-            <Select {...selectProps} />
-        </div>;
-    }
-}
-
-class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
-
-    render() {
-        const getOptions = (input: string, callback: (err: any, result: AutocompleteResult) => any) => {
-            setTimeout(function() {
+    it("async options", () => {
+        const getAsyncLegacyOptions: ReactSelectModule.LoadOptionsLegacyHandler = (input, callback) => {
+            setTimeout(() => {
                 callback(null, {
-                    options: options,
-                    complete: true
+                    options: [
+                        { value: "one", label: "Two" }
+                    ],
+                    complete: false
                 });
-            }, 500);
-        };
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
-        const onChange = (value: any) => console.log(value);
-
-        const asyncSelectProps: ReactAsyncSelectProps = {
-            name: "test-select",
-            className: "test-select",
-            key: "1",
-            matchPos: "any",
-            matchProp: "any",
-            multi: true,
-            onValueClick: onChange,
-            valueKey: "github",
-            labelKey: "name",
-            onChange: onChange,
-            simpleValue: undefined,
-            value: options,
-            loadOptions: getOptions,
-            cache: {},
-            ignoreAccents: false,
-            ignoreCase: true,
-            isLoading: false,
-            minimumInput: 5,
-            searchPromptText: "search...",
-            searchingText: "searching...",
-        };
-
-        return <div>
-            <Select.Async {...asyncSelectProps} />
-        </div>;
-    }
-
-}
-
-class SelectAsyncPromiseTest extends React.Component<React.Props<{}>, {}> {
-
-    render() {
-        const getOptions = (input: string): Promise<AutocompleteResult> => {
-            return new Promise(resolve => {
-                setTimeout(function() {
-                    return resolve({
-                        options: options,
-                        complete: true
-                    });
-                }, 500);
             });
         };
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
-        const onChange = (value: any) => console.log(value);
 
-        const asyncSelectProps: ReactAsyncSelectProps = {
-            name: "test-select-async-promise",
-            className: "test-select",
-            key: "1",
-            matchPos: "any",
-            matchProp: "any",
-            multi: true,
-            onValueClick: onChange,
-            valueKey: "github",
-            labelKey: "name",
-            onChange: onChange,
-            simpleValue: undefined,
-            value: options,
-            loadOptions: getOptions,
-            cache: {},
-            ignoreAccents: false,
-            ignoreCase: true,
-            isLoading: false,
-            minimumInput: 5,
-            searchPromptText: "search...",
-            searchingText: "searching...",
+        const dummyRequest = async () => {
+            return new Promise<ReactSelectModule.Options>(resolve => {
+                resolve(EXAMPLE_OPTIONS);
+            });
         };
 
-        return <div>
-            <Select.Async {...asyncSelectProps} />
-        </div>;
-    }
+        const getAsyncOptions: ReactSelectModule.LoadOptionsAsyncHandler = async input => {
+            const result = await dummyRequest();
 
-}
+            return {
+                options: result,
+                complete: false
+            };
+        };
+    });
 
-class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
-
-    render() {
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
-        const onChange = (value: any) => console.log(value);
-
-        const creatableSelectProps: ReactCreatableSelectProps = {
-            name: "test-creatable-select",
-            value: "bar",
-            options: options,
-            onChange: onChange,
-            isOptionUnique: () => { return true; },
-            isValidNewOption: () => { return true; },
-            newOptionCreator: () => { return { label: "NewFoo", value: "newBar" }; },
-            promptTextCreator: () => { return ""; },
-            shouldKeyDownEventCreateNewOption: () => { return true; }
+    it("Custom value async options", () => {
+        const getAsyncLegacyOptions: ReactSelectModule.LoadOptionsLegacyHandler<CustomValueType> = (input, callback) => {
+            setTimeout(() => {
+                callback(null, {
+                    options: [
+                        { value: { prop1: "One", prop2: 4 }, label: "Two" }
+                    ],
+                    complete: false
+                });
+            });
         };
 
-        return <div>
-            <Select.Creatable {...creatableSelectProps} />
-        </div>
-    }
-
-}
-
-class SelectAsyncCreatableTest extends React.Component<React.Props<{}>, {}> {
-
-    render() {
-        const getOptions = (input: string, callback: Function) => {
-            setTimeout(function() {
-                callback(null, options);
-            }, 500);
-        };
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
-        const onChange = (value: any) => console.log(value);
-
-        const asyncCreatableSelectProps: ReactCreatableSelectProps & ReactAsyncSelectProps = {
-            name: "test-select-async-creatable",
-            className: "test-select-async-creatable",
-            key: "1",
-            matchPos: "any",
-            matchProp: "any",
-            multi: true,
-            onValueClick: onChange,
-            valueKey: "github",
-            labelKey: "name",
-            onChange: onChange,
-            simpleValue: undefined,
-            value: options,
-            loadOptions: getOptions,
-            cache: {},
-            ignoreAccents: false,
-            ignoreCase: true,
-            isLoading: false,
-            minimumInput: 5,
-            searchPromptText: "search...",
-            searchingText: "searching...",
-            isOptionUnique: () => { return true; },
-            isValidNewOption: () => { return true; },
-            newOptionCreator: () => { return { label: "NewFoo", value: "newBar" }; },
-            promptTextCreator: () => { return ""; },
-            shouldKeyDownEventCreateNewOption: () => { return true; }
+        const dummyRequest = async () => {
+            return new Promise<ReactSelectModule.Options<CustomValueType>>(resolve => {
+                resolve(EXAMPLE_CUSTOM_OPTIONS);
+            });
         };
 
-        return <div>
-            <Select.AsyncCreatable {...asyncCreatableSelectProps} />
-        </div>
-    }
+        const getAsyncOptions: ReactSelectModule.LoadOptionsAsyncHandler<CustomValueType> = async input => {
+            const result = await dummyRequest();
 
-}
+            return {
+                options: result,
+                complete: false
+            };
+        };
+    });
+
+    it("creatable", () => {
+        function Component(props: {}): JSX.Element {
+            return <ReactSelectModule.Creatable name="creatable" options={EXAMPLE_OPTIONS} />;
+        }
+    });
+
+    it("Focus method", () => {
+        class Component extends React.PureComponent {
+            private readonly selectRef = (component: ReactSelect) => {
+                component.focus();
+            }
+
+            render() {
+                return <ReactSelect
+                    ref={this.selectRef}
+                />;
+            }
+        }
+    });
+
+    it("Overriding default key-down behavior with onInputKeyDown", () => {
+        const keyDownHandler: ReactSelectModule.OnInputKeyDownHandler = (event => {
+            const divEvent = event as React.KeyboardEvent<HTMLDivElement>;
+            const inputEvent = event as React.KeyboardEvent<HTMLInputElement>;
+        });
+    });
+
+    it("Updating input values with onInputChange", () => {
+        const cleanInput: ReactSelectModule.OnInputChangeHandler = inputValue => {
+            return inputValue.replace(/[^0-9]/g, "");
+        };
+    });
+});
+
+describe("Focus events", () => {
+    it("Passing custom onFocus", () => {
+        class Component extends React.PureComponent {
+            render() {
+                return (
+                    <ReactSelect onFocus={(e) => {
+                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
+                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                    }} />
+                );
+            }
+        }
+    });
+
+    it("Passing custom onBlur", () => {
+        class Component extends React.PureComponent {
+            render() {
+                return (
+                    <ReactSelect onBlur={(e) => {
+                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
+                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                    }} />
+                );
+            }
+        }
+    });
+});
+
+describe("Examples", () => {
+    it("Simple example", () => {
+        class Component extends React.Component {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = (option) => {
+                const optionValue: string = option.value;
+            }
+
+            render() {
+                return <ReactSelect
+                    name="select"
+                    value="one"
+                    options={EXAMPLE_OPTIONS}
+                />;
+            }
+        }
+    });
+
+    it("onValueClick", () => {
+        class Component extends React.Component {
+            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<number> = (option) => {
+                const optionValue: number = option.value;
+            }
+
+            render() {
+                const options = [
+                    { value: 3, label: "Option 3" },
+                    { value: 9, label: "Option 9" }
+                ];
+
+                return <ReactSelect
+                    name="select"
+                    value={123}
+                    options={options}
+                />;
+            }
+        }
+    });
+
+    it("Custom value onValueClick", () => {
+        class Component extends React.Component {
+            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<CustomValueType> = (option) => {
+                const optionValue: CustomValueType = option.value;
+            }
+
+            render() {
+                return <CustomValueReactSelect
+                    name="select"
+                    value={EXAMPLE_CUSTOM_VALUE}
+                    options={EXAMPLE_CUSTOM_OPTIONS}
+                />;
+            }
+        }
+    });
+
+    it("Custom value onChange", () => {
+        class Component extends React.Component {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<CustomValueType> = (option) => {
+                const optionValue: CustomValueType = option.value;
+            }
+
+            render() {
+                return <CustomValueReactSelect
+                    name="select"
+                    value={EXAMPLE_CUSTOM_VALUE}
+                    options={EXAMPLE_CUSTOM_OPTIONS}
+                />;
+            }
+        }
+    });
+
+    it("Menu renderer example", () => {
+        class Component extends React.Component {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
+                const optionValue: string = option.value;
+            }
+
+            private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
+                const options = props.options.map(option => {
+                    return <div className="option">{option.label}</div>;
+                });
+
+                return <div className="menu">{options}</div>;
+            }
+
+            render() {
+                return <ReactSelect
+                    name="select"
+                    value="one"
+                    options={EXAMPLE_OPTIONS}
+                    menuRenderer={this.menuRenderer}
+                />;
+            }
+        }
+    });
+
+    it("Menu renderer with custom value type example", () => {
+        class Component extends React.Component {
+            private readonly menuRenderer: ReactSelectModule.MenuRendererHandler<CustomValueType> = props => {
+                const options = props.options.map(option => {
+                    return (
+                        <div className="option" data-value1={option.value.prop1}
+                            data-value2={option.value.prop2}
+                            onClick={() => props.selectValue(option)}>
+                            {option.label}
+                        </div>);
+                });
+
+                return <div className="menu">{options}</div>;
+            }
+
+            render() {
+                return <CustomValueReactSelect
+                    name="select"
+                    value={EXAMPLE_CUSTOM_VALUE}
+                    options={EXAMPLE_CUSTOM_OPTIONS}
+                    menuRenderer={this.menuRenderer}
+                />;
+            }
+        }
+    });
+
+    it("Input render example", () => {
+        class Component extends React.Component {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
+                const optionValue: string = option.value;
+            }
+
+            private readonly inputRenderer: ReactSelectModule.InputRendererHandler = props => {
+                return <input {...props} />;
+            }
+
+            render() {
+                return <ReactSelect
+                    name="select"
+                    value="one"
+                    options={EXAMPLE_OPTIONS}
+                    inputRenderer={this.inputRenderer}
+                />;
+            }
+        }
+    });
+
+    it("Input render with false renderer props", () => {
+        <ReactSelect
+            arrowRenderer={props => false}
+            inputRenderer={props => false}
+            menuRenderer={props => false}
+            optionRenderer={props => false}
+            valueRenderer={props => false}
+        />;
+    });
+
+    it("Input render with null renderer props", () => {
+        <ReactSelect
+            arrowRenderer={props => null}
+            inputRenderer={props => null}
+            menuRenderer={props => null}
+            optionRenderer={props => null}
+            valueRenderer={props => null}
+        />;
+    });
+
+    it("Option render with custom value option", () => {
+        const optionRenderer = (option: ReactSelectModule.Option<CustomValueType>): ReactSelectModule.HandlerRendererResult =>
+            null;
+
+        <CustomValueReactSelect
+            optionRenderer={optionRenderer}
+        />;
+    });
+
+    it("Value render with custom value option", () => {
+        const valueRenderer = (option: ReactSelectModule.Option<CustomValueType>): ReactSelectModule.HandlerRendererResult =>
+            null;
+
+        <CustomValueReactSelect
+            valueRenderer={valueRenderer}
+        />;
+    });
+
+    it("No Results renderer with string", () => {
+        <ReactSelect noResultsText="no results" />;
+    });
+
+    it("No Results renderer with element", () => {
+        <ReactSelect noResultsText={<i>no results</i>} />;
+    });
+});

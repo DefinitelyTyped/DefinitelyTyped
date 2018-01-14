@@ -24,6 +24,8 @@ interface JasmineAjaxRequest extends XMLHttpRequest {
 	data(): string;
 
 	respondWith(response: JasmineAjaxResponse): void;
+	responseTimeout(): void;
+	responseError(): void;
 }
 
 interface JasmineAjaxRequestTracker {

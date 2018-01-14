@@ -1,6 +1,6 @@
 // Type definitions for HERE Maps API for JavaScript 3.0
 // Project: https://developer.here.com/
-// Definitions by: Joshua Efiong <https://github.com/Josh-ES/>
+// Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -264,6 +264,12 @@ declare namespace H {
          * @param opt_scope {Object=} - An optional scope to call the callback in.
          */
         addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+
+        /**
+         * This returns the map's render engine
+         * @return {H.map.render.p2d.RenderEngine} - map render engine
+         */
+        getEngine(): H.map.render.p2d.RenderEngine;
     }
 
     namespace Map {
@@ -805,6 +811,84 @@ declare namespace H {
          * A Geographic coordinate that specifies the east-west position of a point on the Earth's surface in the range from -180 to 180 degrees, inclusive.
          */
         type Longitude = number;
+
+        /**
+         * PixelProjection transforms pixel world coordinates at a certain scale (zoom level) to geographical coordinates and vice versa.
+         * By default, it uses the Mercator projection to transform geographic points into the 2d plane map points, which are adjusted to the current scale.
+         * @property projection {H.geo.IProjection} - This property indicates the geographical projection that underlies the given PixelProjection.
+         * @property x {number} - This property holds the x-offset in the projection relative to the top-left corner of the screen.
+         * @property y {number} - This property holds the y-offset in the projection relative to the top-left corner of the screen.
+         * @property w {number} - This property holds a value indicating the width of the world in pixels.
+         * @property h {number} - This property holds a value indicating the height of the world in pixels.
+         */
+        class PixelProjection {
+            /**
+             * Constructor
+             * @param opt_projection {H.geo.IProjection=} - An object representing the projection to use, the default is spherical Mercator H.geo.mercator
+             * @param opt_sizeAtLevelZero {number=} A value indicating the size of a tile representation of the world in pixels at zoom level 0, the default is 256
+             */
+            constructor(opt_projection?: H.geo.IProjection, opt_sizeAtLevelZero?: number);
+
+            projection: H.geo.IProjection;
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+
+            /**
+             * This method updates the scale exponent for the pixel projection.
+             * @param zoom {number} - A value indicating the zoom level
+             */
+            rescale(zoom: number): void;
+
+            /**
+             * This method retrieves the current zoom scale factor previously set by a call to H.geo.PixelProjection#rescale.
+             * @return {number} - A value indicating the zoom scale factor
+             */
+            getZoomScale(): number;
+
+            /**
+             * This method translates a point defines in terms of its geographic coordinates to pixel coordinates at the specified zoom level.
+             * @param geoPoint {H.geo.IPoint} - An object containing the geographic coordinates
+             * @param opt_out {H.math.IPoint=} - An optional point to store the result
+             * @return {H.math.IPoint} - An object representing the results of the the conversion to pixel coordinates
+             */
+            geoToPixel(geoPoint: H.geo.IPoint, opt_out?: H.math.IPoint): H.math.IPoint;
+
+            /**
+             * This method translates a point defined in terms of its pixel coordinates to a location defined in geographic coordinates.
+             * @param point {H.math.IPoint} - An object defining a location on the screen in terms of pixel coordinates
+             * @param opt_out {H.geo.IPoint=} - An optional point to store the result
+             * @return {H.geo.IPoint} - An object representing the results of conversion to a geographic location
+             */
+            pixelToGeo(point: H.math.IPoint, opt_out?: H.geo.IPoint): H.geo.IPoint;
+
+            /**
+             * This method translates the x and y coordinates of a pixel to a geographic point.
+             * @param x {number} - A value indicating the pixel x-coordinate
+             * @param y {number} - A value indicating the pixel y-coordinate
+             * @param opt_out {H.geo.Point=} - An optional point to store the result
+             * @return {H.geo.Point} - An object representing the results of the conversion to a geographic location
+             */
+            xyToGeo(x: number, y: number, opt_out?: H.geo.Point): H.geo.Point;
+
+            /**
+             * This method translates geographical coordinates (latitude, longitude) supplied by the caller into a point defined in terms of pixel coordinates.
+             * This method accepts longitudes outside of the normal longitude range.
+             * @param latitude {number} - The latitude to translate
+             * @param longitude {number} - The longitude to translate
+             * @param opt_out {H.math.IPoint=} - An optional point to store the result
+             * @return {H.math.Point} - The results of the conversion as a point object containing x and y coordinates (in pixels)
+             */
+            latLngToPixel(latitude: number, longitude: number, opt_out?: H.math.IPoint): H.math.Point;
+
+            /**
+             * This method method translates a map point to world pixel coordinates relative to current projection offset.
+             * @param point {H.math.IPoint} - An object representing the map point to convert
+             * @return {H.math.Point} - The result of the conversion as an object containing pixel coordinate
+             */
+            pointToPixel(point: H.math.IPoint): H.math.Point;
+        }
 
         /**
          * Class represents a geographical point, which is defined by the latitude, longitude and optional altitude.
@@ -2938,7 +3022,7 @@ declare namespace H {
                  * @param provider {H.map.provider.ObjectProvider} - the ObjectProvider which provides the map objects to this object layer.
                  * @param opt_options {H.map.layer.ObjectLayer.Options=} - The options for this layer
                  */
-                constructor(provider: H.map.provider.ObjectProvider, opt_options?: H.map.layer.ObjectLayer.Options);
+                constructor(provider: H.map.provider.ObjectProvider | H.clustering.Provider, opt_options?: H.map.layer.ObjectLayer.Options);
 
                 /**
                  * This method returns current ObjectLayer's data provider
@@ -3528,6 +3612,261 @@ declare namespace H {
                 }
             }
         }
+
+        namespace render {
+            /**
+             * This is an abstract class representing a render engine. Render engines are used to render the geographical position from a view model on the
+             * screen (viewport element). The rendered result may be different for different engines, because every engine uses its own capabilities and
+             * specific implementation to present the current view model data in best possible way. For example, 2D engines create a two-dimensional flat
+             * map composed of tiles, while 3D engines can generate panoramas displaying the same coordinates as a 'street view'.
+             */
+            class RenderEngine extends H.util.EventTarget {
+                /**
+                 * Constructor
+                 * @param viewPort {H.map.ViewPort} - An object representing the map viewport
+                 * @param viewModel {H.map.ViewModel} - An object representing a view of the map
+                 * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
+                 * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
+                 */
+                constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+
+                /**
+                 * This method adds a listener for a specific event.
+                 * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+                 * @param type {string} - The name of the event
+                 * @param handler {!Function} - An event handler function
+                 * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                 * @param opt_scope {Object=} - An object defining the scope for the handler function
+                 */
+                addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                /**
+                 * This method removes a previously added listener from the EventTarget instance.
+                 * @param type {string} - The name of the event
+                 * @param handler {!Function} - A previously added event handler
+                 * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                 * @param opt_scope {Object=} - An object defining the scope for the handler function
+                 */
+                removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                /**
+                 * This method dispatches an event on the EventTarget object.
+                 * @param evt {H.util.Event|string} - An object representing the event or a string with the event name
+                 */
+                dispatchEvent(evt: H.util.Event | string): void;
+
+                /**
+                 * This method removes listeners from the given object. Classes that extend EventTarget may need to override this method in order to remove
+                 * references to DOM Elements and additional listeners.
+                 */
+                dispose(): void;
+
+                /**
+                 * This method adds a callback which is triggered when the EventTarget object is being disposed.
+                 * @param callback {!Function} - The callback function.
+                 * @param opt_scope {Object=} - An optional scope for the callback function
+                 */
+                addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+            }
+
+            namespace RenderEngine {
+                /**
+                 * An object containing the render engine initialization options
+                 */
+                interface Options {
+                    [key: string]: string;
+                }
+
+                /**
+                 * This object defines the modifiers to use for H.map.ViewPort#startInteraction.
+                 */
+                enum InteractionModifiers {
+                    /** changes zoom level during the interaction */
+                    ZOOM,
+                    /** changes map center during the interaction */
+                    HEADING,
+                    /** changes heading angle during the interaction */
+                    TILT,
+                    /** changes tilt angle during the interaction */
+                    INCLINE,
+                    /** changes incline angle during the interaction */
+                    COORD,
+                }
+            }
+
+            /**
+             * The rendering states of the layer.
+             */
+            enum RenderState {
+                /**
+                 * Data loading/processing is still in progress, but there is nothing to render. In this state rendering engine might go to sleep mode after
+                 * certain amount of time to prevent draining of battery on the user device.
+                 */
+                PENDING,
+                /** Data rendering or animation is in progress. */
+                ACTIVE,
+                /** Data rendering or animation is done. */
+                DONE,
+            }
+
+            /**
+             * An object containing rendering parameters.
+             */
+            interface RenderingParams {
+                /**
+                 * The geographical area to render. Note that it is not the same as visible viewport. Specified bounds also include H.Map.Options#margin and
+                 * optionally an additional margin in case of DOM node rendering for a better rendering experience.
+                 * @type {H.geo.Rect}
+                 */
+                bounds: H.geo.Rect;
+
+                /**
+                 * The zoom level to render the data for.
+                 * @type {number}
+                 */
+                zoom: number;
+
+                /**
+                 * The coordinates of the screen center in CSS pixels.
+                 * @type {H.math.Point}
+                 */
+                screenCenter: H.math.Point;
+
+                /**
+                 * The coordinates relative to the screen center where the rendering has the highest priority. If the layer has to request and/or process data
+                 * asynchronously, it's recommended to prioritize the rendering close to this center.
+                 * @type {H.math.Point}
+                 */
+                priorityCenter: H.math.Point;
+
+                /**
+                 * The pixel projection to use to project geographical coordinates into screen coordinates and vice versa.
+                 * @type {H.geo.PixelProjection}
+                 */
+                projection: H.geo.PixelProjection;
+
+                /**
+                 * Indicates whether only cached data should be considered.
+                 * @type {boolean}
+                 */
+                cacheOnly: boolean;
+
+                /**
+                 * The size of the area to render.
+                 * @type {H.math.Size}
+                 */
+                size: H.math.Size;
+
+                /**
+                 * The pixelRatio to use for over-sampling in cases of high-resolution displays.
+                 * See https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio.
+                 * @type {number}
+                 */
+                pixelRatio: number;
+            }
+
+            /**
+             * Contains functionality specific to 2D map rendering.
+             */
+            namespace p2d {
+                /**
+                 * This class implements a map render engine. It presents a geographic location (camera data from a view model) and renders all map layers in
+                 * the order in which they are provided in a single 2D canvas element.
+                 */
+                class RenderEngine extends H.map.render.RenderEngine {
+                    /**
+                     * Constructor
+                     * @param viewPort {H.map.ViewPort} - An object representing the map viewport
+                     * @param viewModel {H.map.ViewModel} - An object representing a view of the map
+                     * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
+                     * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
+                     */
+                    constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+
+                    /**
+                     * This method sets the length (duration) for all animations run by the render engine in milliseconds.
+                     * @param duration {number} - A value indicating the duration of animations in milliseconds
+                     */
+                    setAnimationDuration(duration: number): void;
+
+                    /**
+                     * This method retrieves the current setting indicating the length of animations (duration) run by the the render engine in milliseconds.
+                     * @return {number}
+                     */
+                    getAnimationDuration(): number;
+
+                    /**
+                     * This method sets a value indicating the easing to apply to animations run by the render engine.
+                     * @param easeFunction {Function(number)} - A function that alters the progress ratio of an animation. It receives an argument indicating
+                     * animation progress as a numeric value in the range between 0 and 1 and must return a numeric value in the same range.
+                     */
+                    setAnimationEase(easeFunction: (progress: number) => number): void;
+
+                    /**
+                     * This method retrieves the current setting representing the easing to be applied to animations.
+                     * @return {Function(number) => number} - A numeric value in the range 0 to 1
+                     */
+                    getAnimationEase(): (progress: number) => number;
+
+                    /**
+                     * This method resets animation settings on the render engine to defaults.
+                     * Duration is set to 300ms and easing to H.util.animation.ease.EASE_OUT_QUAD.
+                     */
+                    resetAnimationDefaults(): void;
+
+                    /**
+                     * This method adds a listener for a specific event.
+                     * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+                     * @param type {string} - The name of the event
+                     * @param handler {!Function} - An event handler function
+                     * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                     * @param opt_scope {Object=} - An object defining the scope for the handler function
+                     */
+                    addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                    /**
+                     * This method removes a previously added listener from the EventTarget instance.
+                     * @param type {string} - The name of the event
+                     * @param handler {!Function} - A previously added event handler
+                     * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                     * @param opt_scope {Object=} - An object defining the scope for the handler function
+                     */
+                    removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                    /**
+                     * This method dispatches an event on the EventTarget object.
+                     * @param evt {H.util.Event|string} - An object representing the event or a string with the event name
+                     */
+                    dispatchEvent(evt: H.util.Event | string): void;
+
+                    /**
+                     * This method removes listeners from the given object. Classes that extend EventTarget may need to override this method in order to remove
+                     * references to DOM Elements and additional listeners.
+                     */
+                    dispose(): void;
+
+                    /**
+                     * This method adds a callback which is triggered when the EventTarget object is being disposed.
+                     * @param callback {!Function} - The callback function.
+                     * @param opt_scope {Object=} - An optional scope for the callback function
+                     */
+                    addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+                }
+
+                namespace RenderEngine {
+                    interface Options {
+                        /** Object describes how many cached zoom levels should be used as a base map background while base map tiles are */
+                        renderBaseBackground?: {};
+
+                        /** The pixelRatio to use for over-sampling in cases of high-resolution displays */
+                        pixelRatio: number;
+
+                        /** optional */
+                        enableSubpixelRendering?: boolean;
+                    }
+                }
+            }
+        }
     }
 
     /***** mapevents *****/
@@ -4018,6 +4357,17 @@ declare namespace H {
         }
 
         /**
+         * This property specifies collection of pre-configured HERE layers
+         */
+        interface DefaultLayers {
+            normal: H.service.MapType;
+            satellite: H.service.MapType;
+            terrain: H.service.MapType;
+            incidents: H.map.layer.MarkerTileLayer;
+            venues: H.map.layer.TileLayer;
+        }
+
+        /**
          * This class encapsulates Enterprise Routing REST API as a service stub. An instance of this class can be retrieved by calling the factory method on a platform instance.
          * H.service.Platform#getEnterpriseRoutingService.
          */
@@ -4301,14 +4651,15 @@ declare namespace H {
 
             /**
              * This is generic method to query places RestAPI.
-             * @param entryPoint {string} - can be one of available entry points H.service.PlacesService.EntryPoint i.e value of H.service.PlacesService.EntryPoint.SEARCH
+             * @param entryPoint {H.service.PlacesService.EntryPoint} - can be one of available entry points H.service.PlacesService.EntryPoint i.e value of H.service.PlacesService.EntryPoint.SEARCH
              * @param entryPointParams {Object} - parameter map key value pairs will be transformed into the url key=value parametes. For entry point parameters description please refer to places
              * restful api documentation documentation for available parameters for chose entry point
              * @param onResult {Function} - callback which is called when result is returned
              * @param onError {Function} - callback which is called when error occured (i.e request timeout)
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            request(entryPoint: string, entryPointParams: {}, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            request(entryPoint: H.service.PlacesService.EntryPoint, entryPointParams: {}, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void):
+                H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'search' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4317,7 +4668,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            search(searchParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            search(searchParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'suggestions' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4326,7 +4677,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            suggest(suggestParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            suggest(suggestParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'explore' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4335,7 +4686,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            explore(exploreParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            explore(exploreParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'around' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4344,7 +4695,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            around(aroundParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            around(aroundParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'here' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4353,7 +4704,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            here(hereParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            here(hereParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'categories' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4362,7 +4713,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            categories(categoriesParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            categories(categoriesParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * This method should be used to follow hyperlinks available in results returned by dicovery queries.
@@ -4372,7 +4723,7 @@ declare namespace H {
              * @param opt_additionalParameters {Object=} - additional parameters to send with request
              * @returns {H.service.JsonpRequestHandle} - jsonp resquest handle
              */
-            follow(hyperlink: string, onResult: () => void, onError: () => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
+            follow(hyperlink: string, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
         }
 
         namespace PlacesService {
@@ -4472,17 +4823,19 @@ declare namespace H {
             /**
              * This method creates a pre-configured set of HERE tile layers for convenient use with the map.
              * @param opt_tileSize {(H.service.Platform.DefaultLayersOptions | number)=} - When a number – optional tile size to be queried from the HERE Map Tile API, default is 256.
-             * If theparameter is an object, then it represents options and all remaining below parameters should be omitted.
+             * If this parameter is a number, it indicates the tile size to be queried from the HERE Map Tile API (the default value is 256); if this parameter is an object, it represents
+             * configuration options for the layer and all the remaining parameters (below) should be omitted
              * @param opt_ppi {number=} - optional 'ppi' parameter to use when querying tiles, default is not specified
              * @param opt_lang {string=} - optional primary language parameter, default is not specified
              * @param opt_secondaryLang {string=} - optional secondary language parameter, default is not specified
              * @param opt_style {string=} - optional 'style' parameter to use when querying map tiles, default is not specified
              * @param opt_pois {(string | boolean)=} - indicates if pois are displayed on the map. Pass true to indicate that all pois should be visible. Alternatively you can specify mask for the
              * POI Categories as described at the Map Tile API documentation POI Categories chapter.
-             * @returns {Object<string, H.service.MapType>} - a set of tile layers ready to use
+             * @returns {H.service.DefaultLayers} - a set of tile layers ready to use
              */
-            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number, opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
-                                opt_pois?: (string | boolean)): H.service.Platform.MapTypes;
+            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number,
+                                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
+                                opt_pois?: (string | boolean)): H.service.DefaultLayers;
 
             /**
              * This method returns an instance of H.service.RoutingService to query the Routing API.
@@ -4605,7 +4958,140 @@ declare namespace H {
          * This type encapsulates a response object provider by a HERE platform service.
          */
         interface ServiceResult {
-            [key: string]: string;
+            [key: string]: any;
+            response?: {
+                language?: string,
+                route?: Array<{
+                    leg: Array<{
+                        maneuver: Array<{
+                            id: string,
+                            instruction: string,
+                            length: number,
+                            note: string[],
+                            position: {
+                                latitude: number,
+                                longitude: number
+                            },
+                            shape: string[],
+                            travelTime: number,
+                            _type: string
+                        }>
+                    }>,
+                    mode: {
+                        feature: any[],
+                        trafficMode: string,
+                        transportModes: string[],
+                        type: string
+                    }
+                    shape: string[],
+                    summary: {
+                        baseTime: number,
+                        distance: number,
+                        flags: string[],
+                        text: string,
+                        trafficTime: number,
+                        travelTime: number
+                    }
+                    waypoint: Array<{
+                        label: string,
+                        linkId: string,
+                        mappedPosition: {
+                            latitude: number,
+                            longitude: number
+                        },
+                        mappedRoadName: string,
+                        originalPosition: {
+                            latitude: number,
+                            longitude: number
+                        },
+                        shapeIndex: number,
+                        sideOfStreet: string,
+                        spot: number,
+                        type: string
+                    }>
+                }>,
+                metaInfo: {}
+            };
+            results?: {
+                items?: any[],
+                next?: string
+            };
+            search?: {
+                context: {
+                    href: string,
+                    location: {
+                        address: {
+                            city: string,
+                            country: string,
+                            countryCode: string,
+                            county: string,
+                            district: string,
+                            house: string,
+                            postalCode: string,
+                            stateCode: string,
+                            street: string,
+                            text: string
+                        },
+                        position: number[]
+                    },
+                    type: string
+                }
+            };
+            Response?: {
+                MetaInfo: {
+                    Timestamp: string
+                },
+                View: Array<{
+                    Result: Array<{
+                        Location: {
+                            Address: {
+                                AdditionalData: Array<{
+                                    key: string,
+                                    value: string
+                                }>,
+                                City: string,
+                                Country: string,
+                                County: string,
+                                District: string,
+                                HouseNumber: string,
+                                Label: string,
+                                PostalCode: string,
+                                State: string,
+                                Street: string
+                            },
+                            DisplayPosition: {
+                                Latitude: number,
+                                Longitude: number
+                            },
+                            LocationId: string,
+                            LocationType: string,
+                            MapView: {
+                                BottomRight: {
+                                    Latitude: number,
+                                    Longitude: number
+                                },
+                                TopLeft: {
+                                    Latitude: number,
+                                    Longitude: number
+                                }
+                            },
+                            NavigationPosition: Array<{
+                                Latitude: number,
+                                Longitude: number
+                            }>
+                        },
+                        MatchLevel: string,
+                        MatchQuality: {
+                            City: number,
+                            HouseNumber: number,
+                            Street: number[]
+                        },
+                        MatchType: string,
+                        Relevance: number
+                    }>
+                }>,
+                isolines: any[]
+            };
         }
 
         /**
@@ -4634,7 +5120,7 @@ declare namespace H {
              * @param onError {function()}
              * @returns {H.service.JsonpRequestHandle}
              */
-            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: () => void): H.service.JsonpRequestHandle;
+            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * This method requests traffic incident information by tile coordinates
@@ -4646,8 +5132,8 @@ declare namespace H {
              * @param opt_serviceParams {H.service.ServiceParameters=} - optional service parameters to be added to the request
              * @returns {H.service.JsonpRequestHandle}
              */
-            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: () => void, opt_serviceParams?: H.service.ServiceParameters):
-                H.service.JsonpRequestHandle;
+            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
+                                   opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
         }
 
         namespace TrafficIncidentsService {
@@ -5547,7 +6033,7 @@ declare namespace H {
              * @param opt_locale {(H.ui.i18n.Localization | string)=} - the language to use (or a full localization object).
              * @returns {H.ui.UI} - the UI instance configured with the default controls
              */
-            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes, opt_locale?: H.ui.i18n.Localization | string): UI;
+            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
 
             /**
              * This method is used to capture the element view

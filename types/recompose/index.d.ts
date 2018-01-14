@@ -1,65 +1,95 @@
-// Type definitions for Recompose 0.23
+// Type definitions for Recompose 0.24
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
+//                 Curtis Layne <https://github.com/clayne11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 ///<reference types="react" />
 
 declare module 'recompose' {
 
     import * as React from 'react';
-    import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
+    import { ComponentType as Component, ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
-    type Component<P> = ComponentClass<P> | StatelessComponent<P>;
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
+
+    // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
+    type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+    type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
+    interface Observer<T>{
+        next(props: T): void;
+        complete(): void;
+    }
+
+    interface Subscription{
+        unsubscribe(): void
+    }
+
     interface Subscribable<T> {
-        subscribe: Function;
+        subscribe(observer: Observer<T>): Subscription;
     }
 
     interface ComponentEnhancer<TInner, TOutter> {
         (component: Component<TInner>): ComponentClass<TOutter>;
     }
-    export interface InferableComponentEnhancer {
-        <P, TComp extends (Component<P>)>(component: TComp): TComp;
+
+    // Injects props and removes them from the prop requirements.
+    // Will not pass through the injected props if they are passed in during
+    // render. Also adds new prop requirements from TNeedsProps.
+    export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
+        <P extends TInjectedProps>(
+            component: Component<P>
+        ): React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>
     }
 
+    // Injects props and removes them from the prop requirements.
+    // Will not pass through the injected props if they are passed in during
+    // render.
+    export type InferableComponentEnhancer<TInjectedProps> =
+        InferableComponentEnhancerWithProps<TInjectedProps, {}>
+
+    // Injects default props and makes them optional. Will still pass through
+    // the injected props if they are passed in during render.
+    export type DefaultingInferableComponentEnhancer<TInjectedProps> =
+        InferableComponentEnhancerWithProps<TInjectedProps, Partial<TInjectedProps>>
 
     // Higher-order components: https://github.com/acdlite/recompose/blob/master/docs/API.md#higher-order-components
 
     // mapProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#mapprops
     export function mapProps<TInner, TOutter>(
-        propsMapper: mapper<TOutter, TInner>
-    ): ComponentEnhancer<TInner, TOutter>;
+        propsMapper: mapper<TOutter, TInner>,
+    ): InferableComponentEnhancerWithProps<TInner, TOutter>;
 
     // withProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#withprops
     export function withProps<TInner, TOutter>(
         createProps: TInner | mapper<TOutter, TInner>
-    ): ComponentEnhancer<TInner & TOutter, TOutter>;
+    ): InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>;
 
     // withPropsOnChange: https://github.com/acdlite/recompose/blob/master/docs/API.md#withpropsonchange
     export function withPropsOnChange<TInner, TOutter>(
         shouldMapOrKeys: string[] | predicateDiff<TOutter>,
         createProps: mapper<TOutter, TInner>
-    ): ComponentEnhancer<TInner & TOutter, TOutter>;
+    ): InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>;
 
     // withHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withhandlers
     type EventHandler = Function;
-    type HandleCreators<TOutter> = {
-        [handlerName: string]: mapper<TOutter, EventHandler>;
+    type HandleCreators<TOutter, THandlers> = {
+        [handlerName in keyof THandlers]: mapper<TOutter, EventHandler>;
     };
-    type HandleCreatorsFactory<TOutter> = (initialProps: TOutter) => HandleCreators<TOutter>;
-    export function withHandlers<TInner, TOutter>(
-        handlerCreators: HandleCreators<TOutter> | HandleCreatorsFactory<TOutter>
-    ): ComponentEnhancer<TInner, TOutter>;
+    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) => HandleCreators<TOutter, THandlers>;
+    export function withHandlers<TOutter, THandlers>(
+        handlerCreators: HandleCreators<TOutter, THandlers> | HandleCreatorsFactory<TOutter, THandlers>
+    ): InferableComponentEnhancerWithProps<TOutter & THandlers, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
-    export function defaultProps(
-        props: Object
-    ): InferableComponentEnhancer;
+    export function defaultProps<T = {}>(
+        props: T
+    ): DefaultingInferableComponentEnhancer<T>;
 
     // renameProp: https://github.com/acdlite/recompose/blob/master/docs/API.md#renameProp
     export function renameProp(
@@ -80,71 +110,116 @@ declare module 'recompose' {
     ): ComponentEnhancer<any, any>;
 
     // withState: https://github.com/acdlite/recompose/blob/master/docs/API.md#withState
-    export function withState<TOutter>(
-        stateName: string,
-        stateUpdaterName: string,
-        initialState: any | mapper<TOutter, any>
-    ): ComponentEnhancer<TOutter /*& { [stateName]: any; [stateUpdaterName]: (s: any) => void }*/, TOutter>;
+    type stateProps<
+        TState,
+        TStateName extends string,
+        TStateUpdaterName extends string
+    > = (
+        {[stateName in TStateName]: TState} &
+        {[stateUpdateName in TStateUpdaterName]: (state: TState) => TState}
+    )
+    export function withState<
+        TOutter,
+        TState,
+        TStateName extends string,
+        TStateUpdaterName extends string
+    >(
+        stateName: TStateName,
+        stateUpdaterName: TStateUpdaterName,
+        initialState: TState | mapper<TOutter, TState>
+    ): InferableComponentEnhancerWithProps<
+        stateProps<TState, TStateName, TStateUpdaterName>,
+        TOutter
+    >;
+
+    // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
+    type StateHandler<TState> = (...payload: any[]) => TState | undefined;
+    type StateHandlerMap<TState> = {
+      [updaterName: string]: StateHandler<TState>;
+    };
+    type StateUpdaters<TOutter, TState, TUpdaters> = {
+      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
+    };
+    export function withStateHandlers<TState, TUpdaters extends StateHandlerMap<TState>, TOutter = {}>(
+      createProps: TState | mapper<TOutter, TState>,
+      stateUpdaters: StateUpdaters<TOutter, TState, TUpdaters>,
+    ): InferableComponentEnhancerWithProps<TOutter & TState & TUpdaters, TOutter>;
 
     // withReducer: https://github.com/acdlite/recompose/blob/master/docs/API.md#withReducer
     type reducer<TState, TAction> = (s: TState, a: TAction) => TState;
-    export function withReducer<TState, TAction>(
-        stateName: string,
-        dispatchName: string,
+    type reducerProps<
+        TState,
+        TAction,
+        TStateName extends string,
+        TDispatchName extends string
+    > = (
+        {[stateName in TStateName]: TState} &
+        {[dispatchName in TDispatchName]: (a: TAction) => void}
+    )
+    export function withReducer<
+        TOutter,
+        TState,
+        TAction,
+        TStateName extends string,
+        TDispatchName extends string
+    >(
+        stateName: TStateName,
+        dispatchName: TDispatchName,
         reducer: reducer<TState, TAction>,
-        initialState: TState
-    ): ComponentEnhancer<any, any>;
-    export function withReducer<TOutter, TState, TAction>(
-        stateName: string,
-        dispatchName: string,
-        reducer: reducer<TState, TAction>,
-        initialState: (props: TOutter) => TState
-    ): ComponentEnhancer<any, TOutter>;
+        initialState: TState | mapper<TOutter, TState>
+    ): InferableComponentEnhancerWithProps<
+        reducerProps<TState, TAction, TStateName, TDispatchName>,
+        TOutter
+    >;
 
     // branch: https://github.com/acdlite/recompose/blob/master/docs/API.md#branch
     export function branch<TOutter>(
         test: predicate<TOutter>,
-        trueEnhancer: InferableComponentEnhancer,
-        falseEnhancer?: InferableComponentEnhancer
+        trueEnhancer: ComponentEnhancer<any, any> | InferableComponentEnhancer<{}>,
+        falseEnhancer?: ComponentEnhancer<any, any> | InferableComponentEnhancer<{}>
     ): ComponentEnhancer<any, TOutter>;
 
     // renderComponent: https://github.com/acdlite/recompose/blob/master/docs/API.md#renderComponent
-    export function renderComponent(
-        component: string | Component<any>
+    export function renderComponent<TProps>(
+        component: string | Component<TProps>
     ): ComponentEnhancer<any, any>;
 
     // renderNothing: https://github.com/acdlite/recompose/blob/master/docs/API.md#renderNothing
-    export const renderNothing: InferableComponentEnhancer;
+    export const renderNothing: InferableComponentEnhancer<{}>;
 
     // shouldUpdate: https://github.com/acdlite/recompose/blob/master/docs/API.md#shouldUpdate
     export function shouldUpdate<TProps>(
         test: predicateDiff<TProps>
-    ): InferableComponentEnhancer;
+    ): InferableComponentEnhancer<{}>;
 
     // pure: https://github.com/acdlite/recompose/blob/master/docs/API.md#pure
-    export function pure<TProps, TComp extends (Component<TProps>)>
-        (component: TComp): TComp;
+    export function pure<TProps>
+        (component: Component<TProps>): Component<TProps>;
 
     // onlyUpdateForKeys: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
         propKeys: Array<string>
-    ) : InferableComponentEnhancer;
+    ) : InferableComponentEnhancer<{}>;
+    export function onlyUpdateForKeys<T>(
+        propKeys: Array<keyof T>
+    ) : InferableComponentEnhancer<{}>;
+
 
     // onlyUpdateForPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForPropTypes
-    export const onlyUpdateForPropTypes: InferableComponentEnhancer;
+    export const onlyUpdateForPropTypes: InferableComponentEnhancer<{}>;
 
     // withContext: https://github.com/acdlite/recompose/blob/master/docs/API.md#withContext
     export function withContext<TContext, TProps>(
         childContextTypes: ValidationMap<TContext>,
         getChildContext: mapper<TProps, any>
-    ) : InferableComponentEnhancer;
+    ) : InferableComponentEnhancer<{}>;
 
     // getContext: https://github.com/acdlite/recompose/blob/master/docs/API.md#getContext
-    export function getContext<TContext, TProps>(
+    export function getContext<TContext>(
         contextTypes: ValidationMap<TContext>
-    ) : InferableComponentEnhancer;
+    ) : InferableComponentEnhancer<TContext>;
 
-    interface ReactLifeCycleFunctionsThisArguments<TProps, TState> {
+    interface _ReactLifeCycleFunctionsThisArguments<TProps, TState> {
         props: TProps,
         state: TState,
         setState<TKeyOfState extends keyof TState>(f: (prevState: TState, props: TProps) => Pick<TState, TKeyOfState>, callback?: () => any): void;
@@ -156,24 +231,26 @@ declare module 'recompose' {
             [key: string]: React.ReactInstance
         };
     }
+    type ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance = {}> =
+        _ReactLifeCycleFunctionsThisArguments<TProps, TState> & TInstance
 
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
-    interface ReactLifeCycleFunctions<TProps, TState> {
-        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
-        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
-        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps) => void;
-        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps, nextState: TState) => boolean;
-        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps, nextState: TState) => void;
-        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, prevProps: TProps, prevState: TState) => void;
-        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
+    interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
+        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
+        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
+        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
     }
 
-    export function lifecycle<TProps, TState>(
-        spec: ReactLifeCycleFunctions<TProps, TState>
-    ): InferableComponentEnhancer;
+    export function lifecycle<TProps, TState, TInstance = {}>(
+        spec: ReactLifeCycleFunctions<TProps, TState, TInstance> & TInstance
+    ): InferableComponentEnhancer<{}>;
 
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
-    export const toClass: InferableComponentEnhancer;
+    export const toClass: InferableComponentEnhancer<{}>;
 
 
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
@@ -257,9 +334,9 @@ declare module 'recompose' {
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics
-    export function hoistStatics(
-        hoc: InferableComponentEnhancer
-    ): InferableComponentEnhancer;
+    export function hoistStatics<TProps>(
+        hoc: InferableComponentEnhancer<TProps>
+    ): InferableComponentEnhancer<TProps>;
 
 
 
@@ -291,6 +368,10 @@ declare module 'recompose' {
         stream: TSubs;
     };
     export function createEventHandler<T, TSubs extends Subscribable<T>>(): EventHandlerOf<T, TSubs>;
+
+    // createEventHandlerWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandlerWithConfig
+    export function createEventHandlerWithConfig(config: ObservableConfig):
+        <T, TSubs extends Subscribable<T>>() => EventHandlerOf<T, TSubs>;
 
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
     type ObservableConfig = {

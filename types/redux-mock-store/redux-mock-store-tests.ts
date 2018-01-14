@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import configureStore from 'redux-mock-store';
+import configureStore, { MockStore, MockStoreCreator } from 'redux-mock-store';
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts
@@ -20,14 +20,14 @@ function counter(state: any, action: any) {
 function loggingMiddleware() {
     return (next: Redux.Dispatch<any>) => (action: any) => {
         console.log(action.type);
-        next(action);
+        return next(action);
     };
 }
 
-const storeMock = configureStore<number>([loggingMiddleware]);
-const initialState = 0
+const mockStoreCreator: MockStoreCreator<number> = configureStore<number>([loggingMiddleware]);
+const initialState = 0;
 
-const store = storeMock(initialState);
+const store: MockStore<number> = mockStoreCreator(initialState);
 
 store.subscribe(() => {
     // ...
@@ -35,12 +35,11 @@ store.subscribe(() => {
 
 store.dispatch({ type: 'INCREMENT' });
 
-
 // Additional mock store API tests
-var actions: Array<any> = store.getActions();
+const actions: any[] = store.getActions();
 
 store.clearActions();
 
 // actions access without the need to cast
-var actions2 = store.getActions();
+const actions2 = store.getActions();
 actions2[10].payload.id;

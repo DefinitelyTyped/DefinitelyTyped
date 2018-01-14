@@ -1,6 +1,9 @@
-// Type definitions for Video.js 5.16
-// Project: https://github.com/zencoder/video-js
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Type definitions for Video.js 6.2
+// Project: https://github.com/videojs/video.js
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 Simon Clériot <https://github.com/scleriot>
+//                 Sean Bennett <https://github.com/SWBennett06>
+//                 Christoph Wagner <https://github.com/IgelCampus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -14,15 +17,24 @@ export as namespace videojs;
 declare namespace videojs {
 	interface PlayerOptions {
 		techOrder?: string[];
+		sourceOrder?: boolean;
 		html5?: any;
 		width?: number;
 		height?: number;
 		defaultVolume?: number;
 		children?: string[];
+		loop?: boolean;
+		muted?: boolean;
 		controls?: boolean;
 		src?: string;
 		autoplay?: boolean;
 		preload?: string;
+		sources?: Source[];
+		aspectRatio?: string;
+		fluid?: boolean;
+		language?: string;
+		notSupportedMessage?: string;
+		plugins?: any;
 	}
 
 	interface Source {
@@ -49,9 +61,11 @@ declare namespace videojs {
 		size(width: number, height: number): Player;
 		requestFullScreen(): Player;
 		cancelFullScreen(): Player;
-		ready(callback: (this: Player) => void ): Player;
-		on(eventName: string, callback: (eventObject: Event) => void ): void;
-		off(eventName?: string, callback?: (eventObject: Event) => void ): void;
+		requestFullscreen(): Player;
+		exitFullscreen(): Player;
+		ready(callback: (this: Player) => void): Player;
+		on(eventName: string, callback: (eventObject: Event) => void): void;
+		off(eventName?: string, callback?: (eventObject: Event) => void): void;
 		dispose(): void;
 		addRemoteTextTrack(options: {}): HTMLTrackElement;
 		removeRemoteTextTrack(track: HTMLTrackElement): void;

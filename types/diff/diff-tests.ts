@@ -1,14 +1,13 @@
-// tslint:disable:no-var only-arrow-functions
 import jsdiff = require('diff');
-var one = 'beep boop';
-var other = 'beep boob blah';
+const one = 'beep boop';
+const other = 'beep boob blah';
 
-var diff = jsdiff.diffChars(one, other);
+let diff = jsdiff.diffChars(one, other);
 
-diff.forEach(function(part) {
-    var mark = part.added ? '+' :
+diff.forEach(part => {
+    const mark = part.added ? '+' :
         part.removed ? '-' : ' ';
-    console.log(mark + " " + part.value);
+    console.log(`${mark} ${part.value}`);
 });
 
 // --------------------------
@@ -23,8 +22,8 @@ class LineDiffWithoutWhitespace extends jsdiff.Diff {
     }
 }
 
-var obj = new LineDiffWithoutWhitespace(true);
-var diff = obj.diff(one, other);
+const obj = new LineDiffWithoutWhitespace(true);
+diff = obj.diff(one, other);
 printDiff(diff);
 
 function printDiff(diff: jsdiff.IDiffResult[]) {
@@ -50,7 +49,7 @@ function printDiff(diff: jsdiff.IDiffResult[]) {
 }
 
 function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
-    var verifyPatch = jsdiff.parsePatch(
+    const verifyPatch = jsdiff.parsePatch(
         jsdiff.createTwoFilesPatch("oldFile.ts", "newFile.ts", oldStr, newStr,
             "old", "new", { context: 1 }));
     if (JSON.stringify(verifyPatch) !== JSON.stringify(uniDiff)) {
@@ -58,7 +57,7 @@ function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUni
     }
 }
 function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
-    var verifyApply = [
+    const verifyApply = [
         jsdiff.applyPatch(oldStr, uniDiff),
         jsdiff.applyPatch(oldStr, [uniDiff])
     ];
@@ -83,7 +82,7 @@ function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUni
     });
 }
 
-verifyPatchMethods(one, other, uniDiff);
-var uniDiff = jsdiff.structuredPatch("oldFile.ts", "newFile.ts", one, other,
+const uniDiff = jsdiff.structuredPatch("oldFile.ts", "newFile.ts", one, other,
     "old", "new", { context: 1 });
+verifyPatchMethods(one, other, uniDiff);
 verifyApplyMethods(one, other, uniDiff);

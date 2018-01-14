@@ -1,6 +1,6 @@
 // Type definitions for plugapi 4.2
 // Project: https://www.npmjs.com/package/plugapi
-// Definitions by: Brice Theurillat <https://github.com/BNedry/>
+// Definitions by: Brice Theurillat <https://github.com/BNedry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace PlugAPI {
     interface PlugLogin {
@@ -335,7 +335,7 @@ declare namespace PlugAPI {
             v: number;
         }
 
-        interface Command extends Event.Chat {
+        interface Command extends Chat {
             command: string;
             args: string[];
             respond(...args: any[]): any;

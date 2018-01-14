@@ -1,11 +1,14 @@
-// Type definitions for Paper.js v0.9.22
+// Type definitions for Paper.js v0.9.24
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson <http://github.com/clark-stevenson>
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type NativeMouseEvent = MouseEvent;
 
-declare module 'paper' {
+/**
+ * @namespace paper
+ */
+declare module paper {
 
     /**
      * The version of Paper.js, as a string.
@@ -470,7 +473,7 @@ declare module 'paper' {
          * @param angle - the rotation angle
          * @param center - the center point of the rotation
          */
-        rotate(angle: number, center: Point): Point;
+        rotate(angle: number, center?: Point): Point;
 
         /**
          * Transforms the point by the matrix as a new point. The object itself is not modified!
@@ -787,33 +790,33 @@ declare module 'paper' {
          * The rectangle.contains(point) method does not return true for points on the right or bottom edges of a rectangle. Therefore, if the added point falls on the left or bottom edge of the enlarged rectangle, rectangle.contains(point) returns false for that point.
          * @param point - the point to add to the rectangle
          */
-        include(point: Point): Point;
+        include(point: Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amount in horizontal and vertical directions.
          * @param amount - the amount to expand the rectangle in both directions
          */
-        expand(amount: number | Size | Point): void;
+        expand(amount: number | Size | Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amounts in horizontal and vertical directions.
          * @param hor - the amount to expand the rectangle in horizontal direction
          * @param ver - the amount to expand the rectangle in vertical direction
          */
-        expand(hor: number, ver: number): void;
+        expand(hor: number, ver: number): Rectangle;
 
         /**
          * Scales the rectangle by the specified amount from its center.
          * @param amount - the amount to scale by
          */
-        scale(amount: number): void;
+        scale(amount: number): Rectangle;
 
         /**
          * Scales the rectangle in horizontal direction by the specified hor amount and in vertical direction by the specified ver amount from its center.
          * @param hor - the amount to scale the rectangle in horizontal direction
          * @param ver - the amount to scale the rectangle in vertical direction
          */
-        scale(hor: number, ver: number): void;
+        scale(hor: number, ver: number): Rectangle;
 
     }
     /**
@@ -927,20 +930,34 @@ declare module 'paper' {
         abs(): Size;
 
         /*
-         * Returns the new multiplied size
-         * @param point - The size you want to multiply with
+         * Returns a new size
+         * @param size - The size you want to add with
          */
-        multiply(point: Size): Size;
-        multiply(point: number[]): Size;
-        multiply(point: number): Size;
+        add(size: Size): Size;
+        add(size: number[]): Size;
+
+        /*
+         * Returns a new size
+         * @param size - The size you want to subtract with
+         */
+        subtract(size: Size): Size;
+        subtract(size: number[]): Size;
+
+        /*
+         * Returns the new multiplied size
+         * @param size - The size you want to multiply with
+         */
+        multiply(size: Size): Size;
+        multiply(size: number[]): Size;
+        multiply(size: number): Size;
 
         /*
          * Returns the new divided size
-         * @param point - The size you want to divide with
+         * @param size - The size you want to divide with
          */
-        divide(point: Size): Size;
-        divide(point: number[]): Size;
-        divide(point: number): Size;
+        divide(size: Size): Size;
+        divide(size: number[]): Size;
+        divide(size: number): Size;
 
     }
     export interface IFrameEvent {
@@ -1291,7 +1308,12 @@ declare module 'paper' {
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDown: (event: MouseEvent) => void;
-
+        
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+        
         /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
@@ -1382,7 +1404,7 @@ declare module 'paper' {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult;
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
@@ -2074,8 +2096,7 @@ declare module 'paper' {
          * @param data
          * @param point
          */
-        getImageData(data: ImageData, point: Point): void;
-
+        setImageData(data: ImageData, point: Point): void;
     }
     /**
      * A PlacedSymbol represents an instance of a symbol which has been placed in a Paper.js project.
@@ -3009,7 +3030,7 @@ declare module 'paper' {
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
          * @param isParameter [optional] - pass true if offset is a curve time parameter.  default: false
          */
-        getLocationAt(offset: Point, isParameter?: boolean): CurveLocation;
+        getLocationAt(offset: number, isParameter?: boolean): CurveLocation;
 
         /**
          * Returns the curve location of the specified point if it lies on the curve, null otherwise.
@@ -3514,6 +3535,12 @@ declare module 'paper' {
          * @param highlight [optional] -
          */
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
+        
+        /**
+         * Creates a RGB Color object.
+         * @param hex - the RGB color in hex, i.e. #000000
+         */
+        constructor(hex: string);
 
         /**
          * The type of the color as a string.
@@ -4170,4 +4197,9 @@ declare module 'paper' {
          */
         stop(): void;
     }
+}
+
+declare module 'paper'
+{
+    export = paper;
 }

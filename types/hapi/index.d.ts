@@ -1,8 +1,8 @@
 // Type definitions for hapi 16.1
 // Project: https://github.com/hapijs/hapi
-// Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -42,7 +42,7 @@ import {
 type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
-import {MimosOptions} from 'mimos';
+import { MimosOptions } from 'mimos';
 import Podium = require('podium');
 import * as Shot from 'shot';
 
@@ -571,10 +571,10 @@ export interface ServerEventCriteria {
  * Related to [See docs](https://hapijs.com/api/16.1.1#servermethodname-method-options)
  */
 export interface ServerMethod {
-    /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
-    (...args: (any | ServerMethodNext)[]): void;
     /** the method must return a value (result, Error, or a promise) or throw an Error. */
     (...args: any[]): any | Error | Promise<any>;
+    /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
+    (...args: (any | ServerMethodNext)[]): void;
     /** When configured with caching enabled, server.methods[name].cache will be an object see ServerMethodNameCacheObject */
     cache?: ServerMethodNameCacheObject;
 }
@@ -724,11 +724,11 @@ export interface ConnectionConfigurationServerDefaults {
     /** connection load limits configuration where:  */
     load?: {
         /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxHeapUsedBytes: number;
+        maxHeapUsedBytes?: number;
         /** maximum process RSS size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxRssBytes: number;
+        maxRssBytes?: number;
         /** maximum event loop delay duration in milliseconds over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-        maxEventLoopDelay: number;
+        maxEventLoopDelay?: number;
     };
     /** plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
     plugins?: PluginSpecificConfiguration;
@@ -1025,7 +1025,7 @@ export interface RoutePayloadConfigurationObject {
     /** limits the size of incoming payloads to the specified byte count. Allowing very large payloads may cause the server to run out of memory. Defaults to 1048576 (1MB). */
     maxBytes?: number;
     /** payload reception timeout in milliseconds. Sets the maximum time allowed for the client to transmit the request payload (body) before giving up and responding with a Request Timeout (408) error response. Set to false to disable. Defaults to 10000 (10 seconds). */
-    timeout?: number;
+    timeout?: number | false;
     /** the directory used for writing file uploads. Defaults to os.tmpdir(). */
     uploads?: string;
     /**
@@ -1935,10 +1935,11 @@ export class Request extends Podium {
     /** same as pre but represented as the response object created by the pre method. */
     preResponses: Object;
     /**
-     * an object containing the query parameters.
-     * TODO update with outcome of: https://github.com/hapijs/hapi/pull/3479
+     * by default the object outputted from [node's URL parse()](https://nodejs.org/docs/latest/api/url.html#url_urlobject_query) method. 
+     * Might also be set indirectly via [request.setUrl](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/17354#requestseturlurl-striptrailingslash) in which case it may be 
+     * a string (if url is set to an object with the query attribute as an unparsed string).
      */
-    query: Object;
+    query: any;
     /** an object containing the Node HTTP server objects. **Direct interaction with these raw objects is not recommended.** */
     raw: {
         req: http.IncomingMessage; // Or http.ClientRequest http://www.apetuts.com/tutorial/node-js-http-client-request-class/ ?

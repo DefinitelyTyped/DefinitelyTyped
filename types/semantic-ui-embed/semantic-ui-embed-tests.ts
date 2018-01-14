@@ -1,5 +1,5 @@
 function test_embed_static() {
-    $.fn.embed.settings.error.method = 'method';
+    $.fn.embed.settings.error!.method = 'method';
     $.fn.embed.settings.namespace = 'namespace';
     $.fn.embed.settings.name = 'name';
     $.fn.embed.settings.silent = false;
@@ -10,20 +10,21 @@ function test_embed_static() {
 
 function test_embed() {
     const selector = '.ui.embed';
-    $(selector).embed('change', 'source', 'id', 'url') === $();
-    $(selector).embed('reset') === $();
-    $(selector).embed('show') === $();
-    $(selector).embed('hide') === $();
-    $(selector).embed('get id') === 'get';
-    $(selector).embed('get placeholder') === 'get';
-    $(selector).embed('get sources') === 'get';
-    $(selector).embed('get type') === 'get';
-    $(selector).embed('get url') === 'get';
-    $(selector).embed('has placeholder') === true;
-    $(selector).embed('destroy') === $();
-    $(selector).embed('setting', 'debug', undefined) === false;
-    $(selector).embed('setting', 'debug') === false;
-    $(selector).embed('setting', 'debug', true) === $();
+    $(selector).embed('change', 'source', 'id', 'url'); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed('reset'); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed('get id'); // $ExpectType string
+    $(selector).embed('get placeholder'); // $ExpectType string
+    $(selector).embed('get sources'); // $ExpectType string
+    $(selector).embed('get type'); // $ExpectType string
+    $(selector).embed('get url'); // $ExpectType string
+    $(selector).embed('has placeholder'); // $ExpectType boolean
+    $(selector).embed('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).embed('setting', 'debug'); // $ExpectType boolean
+    $(selector).embed('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).embed('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -31,7 +32,8 @@ function test_embed() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).embed({
         url: 'url',
         icon: 'icon',
@@ -45,18 +47,19 @@ function test_embed() {
         hd: false,
         brandedUI: true,
         onCreate(url) {
-            this === $();
-            url === 'url';
+            this; // $ExpectType JQuery<HTMLElement>
+            url; // $ExpectType string
         },
         onDisplay() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onPlaceholderDisplay() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onEmbed(parameters) {
-            this === $();
-            parameters.key = 'value';
+            this; // $ExpectType JQuery<HTMLElement>
+            parameters; // $ExpectType _Impl
+
             return parameters;
         },
         selector: {
@@ -77,26 +80,32 @@ function test_embed() {
         },
         templates: {
             iframe(url, parameters) {
-                url === 'url';
-                parameters === 'parameters';
-                return url + parameters;
+                url; // $ExpectType string
+                parameters; // $ExpectType string
+
+                return '<div></div>';
             },
             placeholder(image, icon) {
-                image === 'image';
-                icon === 'icon';
-                return image + icon;
+                image; // $ExpectType string
+                icon; // $ExpectType string
+
+                return '<div></div>';
             }
         },
         error: {
             noURL: 'noURL',
             method: 'method'
         }
-    }) === $();
-    $(selector).embed() === $();
+    });
+    $(selector).embed(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).embed('foo'); // $ExpectError
+    $(selector).embed({ foo: 'bar' }); // $ExpectError
 }
 
 import embed = require('semantic-ui-embed');
 
 function test_module() {
+    embed; // $ExpectType Embed
     $.fn.embed = embed;
 }

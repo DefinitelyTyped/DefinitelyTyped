@@ -1,6 +1,6 @@
 import * as model from 'prosemirror-model';
 
-let fragment = new model.Fragment();
+const fragment = new model.Fragment();
 
 let domOutputSpec: model.DOMOutputSpec;
 
@@ -35,6 +35,6 @@ export const nodeSpec: model.NodeSpec = {
   }
 };
 
-let node = new model.Node();
+const node = new model.Node();
 node.nodesBetween(0, 1, () => {});
 node.descendants(() => {});

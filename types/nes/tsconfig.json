@@ -7,11 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "boom": ["boom/v4"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
@@ -26,6 +30,7 @@
         "test/route-authentication-server.ts",
         "test/route-invocation-client.ts",
         "test/route-invocation-server.ts",
+        "test/socket.ts",
         "test/subscription-filter-client.ts",
         "test/subscription-filter-server.ts",
         "test/subscriptions-client.ts",

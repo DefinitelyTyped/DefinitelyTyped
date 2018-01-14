@@ -1,18 +1,19 @@
-// Type definitions for react-smooth-scrollbar 7.2
+// Type definitions for react-smooth-scrollbar 8.0
 // Project: https://github.com/idiotWu/react-smooth-scrollbar
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
-import SmoothScrollbar, { ScrollbarOptions, ScrollStatusObject } from "smooth-scrollbar";
+import SmoothScrollbar from "smooth-scrollbar";
+import { ScrollbarOptions, ScrollStatus } from "smooth-scrollbar/interfaces";
 
 declare namespace Scrollbar {
-    interface ScrollbarProps extends ScrollbarOptions {
+    interface ScrollbarProps extends Partial<ScrollbarOptions> {
         /**
          * Pipe to scrollbar.addListener()
          */
-        onScroll?(status: ScrollStatusObject, scrollbarInstance: SmoothScrollbar): void;
+        onScroll?(status: ScrollStatus, scrollbarInstance: SmoothScrollbar): void;
         /**
          * Keep scrollbar tracks visible whether it's scrolling or not
          * @default false
@@ -29,7 +30,7 @@ declare namespace Scrollbar {
     }
 }
 
-declare class Scrollbar extends React.Component<Scrollbar.ScrollbarProps, {}> {
+declare class Scrollbar extends React.Component<Scrollbar.ScrollbarProps> {
     /**
      * Scrollbar instance
      */

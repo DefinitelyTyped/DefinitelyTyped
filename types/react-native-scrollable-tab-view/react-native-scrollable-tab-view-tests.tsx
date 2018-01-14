@@ -9,7 +9,7 @@ interface MyTextProperties extends React.Props<MyText> {
 
   text: string;
 }
-class MyText extends React.Component<MyTextProperties, {}> {
+class MyText extends React.Component<MyTextProperties> {
   constructor(props: MyTextProperties) {
     super(props);
   }
@@ -21,7 +21,7 @@ class MyText extends React.Component<MyTextProperties, {}> {
   }
 }
 
-class ScrollableTabViewDemo extends React.Component<{}, {}> {
+class ScrollableTabViewDemo extends React.Component {
   constructor(props: ScrollableTabViewDemo) {
     super(props);
   }

@@ -44,6 +44,14 @@ export type InfiniteLoaderProps = {
      * This value defaults to 15.
      */
     threshold?: number;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 };
 
 /**
@@ -51,7 +59,7 @@ export type InfiniteLoaderProps = {
  * This component decorates a virtual component and just-in-time prefetches rows as a user scrolls.
  * It is intended as a convenience component; fork it if you'd like finer-grained control over data-loading.
  */
-export class InfiniteLoader extends PureComponent<InfiniteLoaderProps, {}> {
+export class InfiniteLoader extends PureComponent<InfiniteLoaderProps> {
     static propTypes: {
         children: Validator<(props: InfiniteLoaderChildProps) => React.ReactNode>,
         isRowLoaded: Validator<(params: Index) => boolean>,
@@ -69,7 +77,7 @@ export class InfiniteLoader extends PureComponent<InfiniteLoaderProps, {}> {
 
     constructor(props: InfiniteLoaderProps, context: any);
 
-    resetLoadMoreRowsCache(): void;
+    resetLoadMoreRowsCache(autoReload?: boolean): void;
 
     render(): JSX.Element;
 }

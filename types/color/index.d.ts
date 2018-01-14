@@ -1,101 +1,135 @@
-// Type definitions for color 1.0
-// Project: https://www.npmjs.com/package/color
-// Definitions by: Karol Janyst <https://github.com/LKay>
+// Type definitions for color 2.0
+// Project: https://github.com/qix-/color#readme
+// Definitions by: Junyoung Clare Jang <https://github.com/Airlun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-declare namespace Color {
+import convert = require('color-convert');
 
-    type ColorParam = string | { [param: string]: number } | number;
+type ColorParam = Color | string | ArrayLike<number> | number | { [key: string]: any };
 
-    type ColorModel = "rgb" | "hsl" | "hsv" | "hwb" | "hcg" | "cmyk" | "xyz" | "lab" | "hex" | "gray" | "keyword";
+interface Color {
+    toString(): string;
+    toJSON(): Color;
+    string(places?: number): string;
+    percentString(places?: number): string;
+    array(): number[];
+    object(): { alpha?: number } & { [key: string]: number };
+    unitArray(): number[];
+    unitObject(): { r: number, g: number, b: number, alpha?: number };
+    round(places?: number): Color;
+    alpha(): number;
+    alpha(val: number): Color;
+    red(): number;
+    red(val: number): Color;
+    green(): number;
+    green(val: number): Color;
+    blue(): number;
+    blue(val: number): Color;
+    hue(): number;
+    hue(val: number): Color;
+    saturationl(): number;
+    saturationl(val: number): Color;
+    lightness(): number;
+    lightness(val: number): Color;
+    saturationv(): number;
+    saturationv(val: number): Color;
+    value(): number;
+    value(val: number): Color;
+    chroma(): number;
+    chroma(val: number): Color;
+    gray(): number;
+    gray(val: number): Color;
+    white(): number;
+    white(val: number): Color;
+    wblack(): number;
+    wblack(val: number): Color;
+    cyan(): number;
+    cyan(val: number): Color;
+    magenta(): number;
+    magenta(val: number): Color;
+    yellow(): number;
+    yellow(val: number): Color;
+    black(): number;
+    black(val: number): Color;
+    x(): number;
+    x(val: number): Color;
+    y(): number;
+    y(val: number): Color;
+    z(): number;
+    z(val: number): Color;
+    l(): number;
+    l(val: number): Color;
+    a(): number;
+    a(val: number): Color;
+    b(): number;
+    b(val: number): Color;
+    keyword(): string;
+    keyword(val: string): Color;
+    hex(): string;
+    hex(val: string): Color;
+    rgbNumber(): number;
+    luminosity(): number;
+    contrast(color2: Color): number;
+    level(color2: Color): 'AAA' | 'AA' | '';
+    dark(): boolean;
+    light(): boolean;
+    negate(): Color;
+    lighten(ratio: number): Color;
+    darken(ratio: number): Color;
+    saturate(ratio: number): Color;
+    desaturate(ratio: number): Color;
+    whiten(ratio: number): Color;
+    blacken(ratio: number): Color;
+    grayscale(): Color;
+    fade(ratio: number): Color;
+    opaquer(ratio: number): Color;
+    rotate(degrees: number): Color;
+    mix(mixinColor: Color, weight?: number): Color;
 
-    interface Color {
-        (color: ColorParam | Color, model?: ColorModel) : Color;
-        toString(): string;
-        toJSON(): any;
-        string(places?: number): string;
-        percentString(placse?: number): string;
-        array(): number[];
-        object(): any;
-        unitArray(): any[];
-        unitObject(): any;
-        round(places?: number): Color;
-        alpha(alpha: number): Color;
-        alpha(): number;
-        red(red: number): Color;
-        red(): number;
-        green(green: number): Color;
-        green(): number;
-        blue(blue: number): Color;
-        blue(): number;
-        hue(hue: number): Color;
-        hue(): number;
-        saturationl(saturation: number): Color;
-        saturationl(): number;
-        lightness(lightness: number): Color;
-        lightness(): number;
-        saturationv(saturationv: number): Color;
-        saturationv(): number;
-        value(value: number): Color;
-        value(): number;
-        chroma(chroma: number): Color;
-        chroma(): number;
-        gray(value: number): Color;
-        gray(): number;
-        cyan(cyan: number): Color;
-        cyan(): number;
-        magenta(magenta: number): Color;
-        magenta(): number;
-        yellow(yellow: number): Color;
-        yellow(): number;
-        black(black: number): Color;
-        black(): number;
-        x(x: number): Color;
-        x(): number;
-        y(y: number): Color;
-        y(): number;
-        z(z: number): Color;
-        z(): number;
-        l(l: number): Color;
-        l(): number;
-        a(a: number): Color;
-        a(): number;
-        b(b: number): Color;
-        b(): number;
-        keyword(keyword: string): Color;
-        keyword(): string | undefined;
-        hex(color: string): Color;
-        hex(): string;
-        rgb(): Color;
-        hsl(): Color;
-        hsv(): Color;
-        hwb(): Color;
-        hcg(): Color;
-        cmyk(): Color;
-        xyz(): Color;
-        lab(): Color;
-        rgbNumber(): number;
-        luminosity(): number;
-        contrast(color: Color): number;
-        level(color: Color): string;
-        dark(): boolean;
-        light(): boolean;
-        negate(): Color;
-        lighten(value: number): Color;
-        darken(value: number): Color;
-        saturate(value: number): Color;
-        desaturate(value: number): Color;
-        whiten(value: number): Color;
-        blacken(value: number): Color;
-        greyscale(): Color;
-        fade(ratio: number): Color;
-        opaquer(value: number): Color;
-        rotate(value: number): Color;
-        mix(color: Color, value?: number): Color;
-        hsl(): Color;
-    }
+    rgb(...args: number[]): Color;
+    hsl(...args: number[]): Color;
+    hsv(...args: number[]): Color;
+    hwb(...args: number[]): Color;
+    cmyk(...args: number[]): Color;
+    xyz(...args: number[]): Color;
+    lab(...args: number[]): Color;
+    lch(...args: number[]): Color;
+    ansi16(...args: number[]): Color;
+    ansi256(...args: number[]): Color;
+    hcg(...args: number[]): Color;
+    apple(...args: number[]): Color;
 }
 
-declare const Color: Color.Color;
+interface ColorConstructor {
+    (obj?: ColorParam, model?: keyof (typeof convert)): Color;
+    new(obj?: ColorParam, model?: keyof (typeof convert)): Color;
+    rgb(...val: number[]): Color;
+    rgb(color: ColorParam): Color;
+    hsl(...val: number[]): Color;
+    hsl(color: ColorParam): Color;
+    hsv(...val: number[]): Color;
+    hsv(color: ColorParam): Color;
+    hwb(...val: number[]): Color;
+    hwb(color: ColorParam): Color;
+    cmyk(...val: number[]): Color;
+    cmyk(color: ColorParam): Color;
+    xyz(...val: number[]): Color;
+    xyz(color: ColorParam): Color;
+    lab(...val: number[]): Color;
+    lab(color: ColorParam): Color;
+    lch(...val: number[]): Color;
+    lch(color: ColorParam): Color;
+    ansi16(...val: number[]): Color;
+    ansi16(color: ColorParam): Color;
+    ansi256(...val: number[]): Color;
+    ansi256(color: ColorParam): Color;
+    hcg(...val: number[]): Color;
+    hcg(color: ColorParam): Color;
+    apple(...val: number[]): Color;
+    apple(color: ColorParam): Color;
+}
+
+declare const Color: ColorConstructor;
+
 export = Color;
-export as namespace Color;

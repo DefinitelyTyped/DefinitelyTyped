@@ -8,4 +8,4 @@ import { GraphQLInputType } from '../type/definition';
 export function isValidJSValue(
     value: any,
     type: GraphQLInputType
-): Array<string>
+): string[];

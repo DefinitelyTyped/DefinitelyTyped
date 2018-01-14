@@ -1,5 +1,5 @@
 import * as React from "react";
-import LazyLoad from "react-lazyload";
+import LazyLoad, { forceCheck } from "react-lazyload";
 
 interface State {
     arr: string[];
@@ -7,13 +7,18 @@ interface State {
 
 class Normal extends React.Component<{}, State> {
     constructor() {
-        super();
-        let arr: string[] = [];
+        super({});
+        const arr: string[] = [];
         for (let i = 0; i < 200; i++) {
             arr.push(`${i}`);
         }
         this.state = { arr };
     }
+
+    componentDidMount() {
+        forceCheck();
+    }
+
     render() {
         return (
             <div>

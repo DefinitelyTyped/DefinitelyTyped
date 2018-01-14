@@ -1,6 +1,6 @@
-import Recaptcha = require('react-recaptcha');
-import ReactDOM = require("react-dom");
-import React = require("react");
+import * as Recaptcha from "react-recaptcha";
+import * as ReactDOM from "react-dom";
+import * as React from "react";
 
 ReactDOM.render(
   <Recaptcha

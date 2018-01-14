@@ -27,19 +27,33 @@ declare namespace SemanticUI {
          */
         (behavior: 'clear rating'): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof RatingSettings>(behavior: 'setting', name: K, value?: undefined): RatingSettings[K];
-        <K extends keyof RatingSettings>(behavior: 'setting', name: K, value: RatingSettings[K]): JQuery;
-        (behavior: 'setting', value: RatingSettings.Param): JQuery;
-        (settings?: RatingSettings.Param): JQuery;
+        <K extends keyof RatingSettings>(behavior: 'setting', name: K, value?: undefined): RatingSettings._Impl[K];
+        <K extends keyof RatingSettings>(behavior: 'setting', name: K, value: RatingSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: RatingSettings): JQuery;
+        (settings?: RatingSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/rating.html#/settings}
      */
-    interface RatingSettings extends Pick<RatingSettings._Impl, keyof RatingSettings._Impl> { }
+    type RatingSettings = RatingSettings.Param;
 
     namespace RatingSettings {
-        type Param = RatingSettings | object;
+        type Param = (Pick<_Impl, 'initialRating'> |
+            Pick<_Impl, 'fireOnInit'> |
+            Pick<_Impl, 'clearable'> |
+            Pick<_Impl, 'interactive'> |
+            Pick<_Impl, 'onRate'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Rating Settings
@@ -134,10 +148,11 @@ declare namespace SemanticUI {
     }
 
     namespace Rating {
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'icon'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -147,10 +162,13 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'active'> |
+                Pick<_Impl, 'hover'> |
+                Pick<_Impl, 'loading'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -168,10 +186,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'action'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

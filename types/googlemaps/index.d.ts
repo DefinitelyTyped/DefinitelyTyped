@@ -1,6 +1,6 @@
-// Type definitions for Google Maps JavaScript API 3.26
+// Type definitions for Google Maps JavaScript API 3.30
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>, Sven Kreiss <https://github.com/svenkreiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -361,6 +361,8 @@ declare namespace google.maps {
         TOP_RIGHT
     }
 
+    type DrawingMode = 'Point' | 'LineString' | 'Polygon';
+
     /***** Data *****/
     export class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
@@ -369,8 +371,8 @@ declare namespace google.maps {
         contains(feature: Data.Feature): boolean;
         forEach(callback: (feature: Data.Feature) => void): void;
         getControlPosition(): ControlPosition;
-        getControls(): string[];
-        getDrawingMode(): string;
+        getControls(): DrawingMode[];
+        getDrawingMode(): DrawingMode | null;
         getFeatureById(id: number|string): Data.Feature;
         getMap(): Map;
         getStyle(): Data.StylingFunction|Data.StyleOptions;
@@ -379,8 +381,8 @@ declare namespace google.maps {
         remove(feature: Data.Feature): void;
         revertStyle(feature?: Data.Feature): void;
         setControlPosition(controlPosition: ControlPosition): void;
-        setControls(controls: string[]): void;
-        setDrawingMode(drawingMode: string): void;
+        setControls(controls: DrawingMode[] | null): void;
+        setDrawingMode(drawingMode: DrawingMode | null): void;
         setMap(map: Map | null): void;
         setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
         toGeoJson(callback: (feature: Object) => void): void;
@@ -439,6 +441,7 @@ declare namespace google.maps {
 
         export class Geometry {
             getType(): string;
+            forEachLatLng(callback: (latLng: LatLng) => void): void;
         }
 
         export class Point extends Data.Geometry {
@@ -1058,7 +1061,7 @@ declare namespace google.maps {
         clickable?: boolean;
         /** If set to true, the user can drag this circle over the map. Defaults to false. */
         draggable?: boolean;
-        /** 
+        /**
          * If set to true, the user can edit this circle by dragging the control points shown at the center and around
          * the circumference of the circle. Defaults to false.
          */
@@ -1163,7 +1166,7 @@ declare namespace google.maps {
 
     export interface GeocoderComponentRestrictions {
         administrativeArea?: string;
-        country?: string;
+        country?: string | string[];
         locality?: string;
         postalCode?: string;
         route?: string;
@@ -1255,7 +1258,7 @@ declare namespace google.maps {
          * Location of destination. This can be specified as either a string to be geocoded, or a LatLng,
          * or a Place. Required.
          */
-        destination?: string|LatLng|Place;
+        destination?: string|LatLng|LatLngLiteral|Place;
         /** Deprecated. Use drivingOptions field instead */
         durationInTraffic?: boolean;
         /**
@@ -1273,7 +1276,7 @@ declare namespace google.maps {
          * Location of origin. This can be specified as either a string to be geocoded, or a LatLng, or a Place.
          * Required.
          */
-        origin?: string|LatLng|Place;
+        origin?: string|LatLng|LatLngLiteral|Place;
         /** Whether or not route alternatives should be provided. Optional. */
         provideRouteAlternatives?: boolean;
         /** Region code used as a bias for geocoding requests. Optional. */
@@ -1314,8 +1317,8 @@ declare namespace google.maps {
     export interface TransitOptions {
         arrivalTime?: Date;
         departureTime?: Date;
-        modes: TransitMode[];
-        routingPreference: TransitRoutePreference;
+        modes?: TransitMode[];
+        routingPreference?: TransitRoutePreference;
     }
 
     export enum TransitMode {
@@ -1336,7 +1339,7 @@ declare namespace google.maps {
 
     export interface DrivingOptions {
         departureTime: Date;
-        trafficModel: TrafficModel
+        trafficModel?: TrafficModel
     }
 
     export enum TrafficModel
@@ -1588,10 +1591,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: string[]|LatLng[]|Place[];
+        destinations?: string[]|LatLng[]|LatLngLiteral[]|Place[];
         drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: string[]|LatLng[]|Place[];
+        origins?: string[]|LatLng[]|LatLngLiteral[]|Place[];
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;
@@ -1719,64 +1722,51 @@ declare namespace google.maps {
         stylers?: MapTypeStyler[];
     }
 
-    export interface MapTypeStyleFeatureType {
-        administrative?: {
-            country?: string;
-            land_parcel?: string;
-            locality?: string;
-            neighborhood?: string;
-            province?: string;
-        };
-        all?: string;
-        landscape?: {
-            man_made?: string;
-            natural?: {
-              landcover?: string;
-              terrain?: string;
-            };
-        };
-        poi?: {
-            attraction?: string;
-            business?: string;
-            government?: string;
-            medical?: string;
-            park?: string;
-            place_of_worship?: string;
-            school?: string;
-            sports_complex?: string;
-        };
-        road?: {
-            arterial?: string;
-            highway?: {
-                controlled_access?: string;
-            };
-            local?: string;
-        };
-        transit?: {
-            line?: string;
-            station?: {
-                airport?: string;
-                bus?: string;
-                rail?: string;
-            };
-        };
-        water?: string;
-    }
+    export type MapTypeStyleFeatureType =
+      'all' |
+      'administrative' |
+      'administrative.country' |
+      'administrative.land_parcel' |
+      'administrative.locality' |
+      'administrative.neighborhood' |
+      'administrative.province' |
+      'landscape' |
+      'landscape.man_made' |
+      'landscape.natural' |
+      'landscape.natural.landcover' |
+      'landscape.natural.terrain' |
+      'poi' |
+      'poi.attraction' |
+      'poi.business' |
+      'poi.government' |
+      'poi.medical' |
+      'poi.park' |
+      'poi.place_of_worship' |
+      'poi.school' |
+      'poi.sports_complex' |
+      'road' |
+      'road.arterial' |
+      'road.highway' |
+      'road.highway.controlled_access' |
+      'road.local' |
+      'transit' |
+      'transit.line' |
+      'transit.station' |
+      'transit.station.airport' |
+      'transit.station.bus' |
+      'transit.station.rail' |
+      'water';
 
-    export interface MapTypeStyleElementType {
-        all?: string;
-        geometry?: {
-            fill?: string;
-            stroke?: string;
-        };
-        labels?: {
-            icon?: string;
-            text?: {
-                fill?: string;
-                stroke?: string;
-            }
-        };
-    }
+    export type MapTypeStyleElementType =
+      'all' |
+      'geometry' |
+      'geometry.fill' |
+      'geometry.stroke' |
+      'labels' |
+      'labels.icon' |
+      'labels.text' |
+      'labels.text.fill' |
+      'labels.text.stroke';
 
     export interface MapTypeStyler {
         color?: string;
@@ -1945,7 +1935,7 @@ declare namespace google.maps {
     }
 
     /***** Street View *****/
-    export class StreetViewPanorama {
+    export class StreetViewPanorama extends MVCObject {
         constructor(container: Element, opts?: StreetViewPanoramaOptions);
         controls: MVCArray<Node>[];
         getLinks(): StreetViewLink[];
@@ -2132,7 +2122,7 @@ declare namespace google.maps {
     }
 
     /**
-     * This object is returned from various mouse events on the map and overlays, 
+     * This object is returned from various mouse events on the map and overlays,
      * and contains all the fields shown below.
      */
     export interface MouseEvent {
@@ -2233,7 +2223,7 @@ declare namespace google.maps {
         /** Converts to string. */
         toString(): string;
         /**
-         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the 
+         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the
          * southwest corner of the bounding box, while "hi" corresponds to the northeast corner of that box.
          */
         toUrlValue(precision?: number): string;
@@ -2481,24 +2471,35 @@ declare namespace google.maps {
             description: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
+            reference: string;
+            structured_formatting: AutocompleteStructuredFormatting;
             terms: PredictionTerm[];
             types: string[];
         }
 
+        export interface AutocompleteStructuredFormatting {
+            main_text: string;
+            main_text_matched_substrings: PredictionSubstring[];
+            secondary_text: string;
+        }
+
         export interface OpeningHours {
-            open_now: boolean,
-            periods: OpeningPeriod[],
-            weekday_text: string[]
+            open_now: boolean;
+            periods: OpeningPeriod[];
+            weekday_text: string[];
         }
 
         export interface OpeningPeriod {
-            open: OpeningHoursTime,
-            close?: OpeningHoursTime
+            open: OpeningHoursTime;
+            close?: OpeningHoursTime;
         }
 
         export interface OpeningHoursTime {
-            day: number,
-            time: string
+            day: number;
+            hours: number;
+            minutes: number;
+            nextDate: number;
+            time: string;
         }
 
         export interface PredictionTerm {
@@ -2528,7 +2529,7 @@ declare namespace google.maps {
         }
 
         export interface ComponentRestrictions {
-            country: string;
+            country: string|string[];
         }
 
         export interface PlaceAspectRating {
@@ -2559,12 +2560,13 @@ declare namespace google.maps {
 
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
-            aspects: PlaceAspectRating[];  /* Deprecated. Will be removed May 2, 2017 */
+            adr_address: string;
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
             html_attributions: string[];
             icon: string;
+            id: string;
             international_phone_number: string;
             name: string;
             opening_hours: OpeningHours;
@@ -2576,6 +2578,7 @@ declare namespace google.maps {
             reviews: PlaceReview[];
             types: string[];
             url: string;
+            utc_offset: number;
             vicinity: string;
             website: string;
         }
@@ -2612,7 +2615,7 @@ declare namespace google.maps {
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
             radarSearch(request: RadarSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
-            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
+            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
         }
 
         export enum PlacesServiceStatus {
@@ -2702,7 +2705,7 @@ declare namespace google.maps {
              * Accepted values are 'marker', 'polygon', 'polyline', 'rectangle', 'circle', or null. A drawing mode
              * of null means that the user can interact with the map as normal, and clicks do not draw anything.
              */
-            drawingMode?: OverlayType;
+            drawingMode?: OverlayType | null;
             /**
              * The Map to which the DrawingManager is attached, which is the Map on which the overlays created
              * will be placed.
@@ -2718,7 +2721,7 @@ declare namespace google.maps {
              * and the map property of a new polygon is always set to the DrawingManager's map.
              */
             polygonOptions?: PolygonOptions;
-            /** 
+            /**
              * Options to apply to any new polylines created with this DrawingManager. The path property is ignored,
              * and the map property of a new polyline is always set to the DrawingManager's map.
              */
@@ -2749,7 +2752,7 @@ declare namespace google.maps {
          */
         export enum OverlayType {
             /**
-             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete 
+             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete
              * event is a circle.
              */
             CIRCLE,

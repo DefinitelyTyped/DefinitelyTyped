@@ -7,7 +7,6 @@ import {
     GraphQLSchema
 } from '../type/schema';
 
-
 /**
  * Provided two types, return true if the types are equal (invariant).
  */

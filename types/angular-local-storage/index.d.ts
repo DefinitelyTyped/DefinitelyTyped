@@ -1,6 +1,6 @@
-// Type definitions for angular-local-storage v0.1.6
+// Type definitions for angular-local-storage v0.6.0
 // Project: https://github.com/grevory/angular-local-storage
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
+// Definitions by: Ken Fukuyama <https://github.com/kenfdev>, Davide Donadello <https://github.com/dona278>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -28,11 +28,17 @@ declare module 'angular' {
              */
             setStorageType(storageType: string): ILocalStorageServiceProvider;
             /**
+             * If localStorage is not supported, the library will default to cookies instead. This behavior can be disabled
+             * @param shouldDefault default: true
+             */
+            setDefaultToCookie(shouldDefault: boolean): ILocalStorageServiceProvider;
+            /**
              * Setter for cookie config
              * @param exp number of days before cookies expire (0 = does not expire). default: 30
              * @param path the web path the cookie represents. default: '/'
+             * @param secure to store cookies as secure. default: false
              */
-            setStorageCookie(exp: number, path: string): ILocalStorageServiceProvider;
+            setStorageCookie(exp: number, path: string, secure: boolean): ILocalStorageServiceProvider;
             /**
              * Set the cookie domain, since this runs inside a the config() block, only providers and constants can be injected. As a result, $location service can't be used here, use a hardcoded string or window.location.
              * No default value

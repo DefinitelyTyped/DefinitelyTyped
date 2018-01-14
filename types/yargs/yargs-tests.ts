@@ -12,31 +12,30 @@ const stringVal = 'string';
 
 // With yargs, the options be just a hash!
 function xup() {
-    var argv = yargs.argv;
+    const argv = yargs.argv;
 
     if (argv.rif - 5 * argv.xup > 7.138) {
         console.log('Plunder more riffiwobbles!');
-    }
-    else {
+    } else {
         console.log('Drop the xupptumblers!');
     }
 }
 
 // And non-hyphenated options too! Just use argv._!
 function nonopt() {
-    var argv = yargs.argv;
+    const argv = yargs.argv;
     console.log('(%d,%d)', argv.x, argv.y);
     console.log(argv._);
 }
 
 // Yargs even counts your booleans!
 function count() {
-    var argv = yargs
+    const argv = yargs
         .count('verbose')
         .alias('v', 'verbose')
         .argv;
 
-    var VERBOSE_LEVEL: number = argv.verbose;
+    const VERBOSE_LEVEL: number = argv.verbose;
 
     function WARN() { VERBOSE_LEVEL >= 0 && console.log.apply(console, arguments); }
     function INFO() { VERBOSE_LEVEL >= 1 && console.log.apply(console, arguments); }
@@ -45,7 +44,7 @@ function count() {
 
 // Tell users how to use yer options and make demands.
 function divide() {
-    var argv = yargs
+    const argv = yargs
         .usage('Usage: $0 -x [num] -y [num]')
         .demand(['x', 'y'])
         .argv;
@@ -55,7 +54,7 @@ function divide() {
 
 // After yer demands have been met, demand more! Ask for non-hypenated arguments!
 function demand_count() {
-    var argv = yargs
+    const argv = yargs
         .demand(2)
         .demand(2, false)
         .demand(2, 2)
@@ -66,63 +65,69 @@ function demand_count() {
 
 // EVEN MORE SHIVER ME TIMBERS!
 function default_singles() {
-    var argv = yargs
+    const argv = yargs
         .default('x', 10)
         .default('y', 10)
         .argv
-    ;
+        ;
     console.log(argv.x + argv.y);
 }
 function default_hash() {
-    var argv = yargs
+    const argv = yargs
         .default({ x: 10, y: 10 })
         .argv
-    ;
+        ;
     console.log(argv.x + argv.y);
 }
 
 // And if you really want to get all descriptive about it...
 function boolean_single() {
-    var argv = yargs
+    const argv = yargs
         .boolean('v')
         .argv
-    ;
+        ;
     console.dir(argv.v);
     console.dir(argv._);
 }
 function boolean_double() {
-    var argv = yargs
+    const argv = yargs
         .boolean(['x', 'y', 'z'])
         .argv
-    ;
+        ;
     console.dir([argv.x, argv.y, argv.z]);
     console.dir(argv._);
 }
 
 // Yargs is here to help you...
 function line_count() {
-    var argv = yargs
+    const argv = yargs
         .usage('Count the lines in a file.\nUsage: $0')
         .example('$0 -f', 'count the lines in the given file')
         .demand('f')
         .alias('f', 'file')
         .describe('f', 'Load a file')
         .argv
-    ;
+        ;
 }
 
 // Below are tests for individual methods.
 // Not all methods are covered yet, and neither are all possible invocations of methods.
 
+function Argv$argv() {
+    const argv = yargs.argv;
+    console.log("command name: " + argv.$0);
+    console.log("command: " + argv._[1]);
+}
+
 function Argv_parsing() {
-    var argv1 = yargs.argv;
-    var argv2 = yargs(['-x', '1', '-y', '2']).argv;
-    var argv3 = yargs.parse(['-x', '1', '-y', '2']);
+    const argv1 = yargs.parse();
+    const argv2 = yargs(['-x', '1', '-y', '2']).argv;
+    const argv3 = yargs.parse(['-x', '1', '-y', '2']);
     console.log(argv1.x, argv2.x, argv3.x);
 }
 
 function Argv$options() {
-    var argv1 = yargs
+    const argv1 = yargs
         .options('f', {
             alias: 'file',
             default: '/etc/passwd',
@@ -131,61 +136,87 @@ function Argv$options() {
             normalize: true,
             global: false,
             array: true,
-            nargs: 3
+            nargs: 3,
+            implies: 'other-arg',
+            conflicts: 'conflicting-arg',
         })
         .argv
-    ;
+        ;
 
-    var argv2 = yargs
+    const argv2 = yargs
         .alias('f', 'file')
         .default('f', '/etc/passwd')
         .argv
-    ;
+        ;
 }
 
 function Argv$global() {
-    var argv = yargs
+    const argv = yargs
         .global('foo')
-        .global(['bar', 'baz', 'fizz', 'buzz'])
+        .global(['bar', 'baz', 'fizz', 'buzz']);
 }
 
 function Argv$group() {
-    var argv = yargs
+    const argv = yargs
         .group('foo', 'foogroup')
-        .group(['bing', 'bang', 'buzz'], 'onomatopoeia')
+        .group(['bing', 'bang', 'buzz'], 'onomatopoeia');
 }
 
 function Argv$env() {
-    var argv = yargs
+    const argv = yargs
         .env('YARGS_PREFIX_')
         .env()
         .env(true);
 }
 
 function Argv$array() {
-    var argv = yargs
+    const argv = yargs
         .array('foo')
-        .array(['bar', 'baz'])
+        .array(['bar', 'baz']);
 }
 
 function Argv$nargs() {
-    var argv = yargs
+    const argv = yargs
         .nargs('foo', 12)
-        .nargs({ 'bing': 3, 'bang': 2, 'buzz': 4 })
+        .nargs({ bing: 3, bang: 2, buzz: 4 });
 }
 
 function Argv$choices() {
     // example from documentation
-    var argv = yargs
-      .alias('i', 'ingredient')
-      .describe('i', 'choose your sandwich ingredients')
-      .choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
-      .help('help')
-      .argv
+    const argv = yargs
+        .alias('i', 'ingredient')
+        .describe('i', 'choose your sandwich ingredients')
+        .choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
+        .help('help')
+        .argv;
+
+    yargs
+        .choices('i', [undefined, true, 'asdf', 'test'])
+        .choices({
+            test: [undefined, true, 'test-value']
+        });
 }
 
-function command() {
-    var argv = yargs
+function Argv$usage_as_default_command() {
+    const argv = yargs
+        .usage(
+        "$0 get",
+        'make a get HTTP request',
+        (yargs) => {
+            return yargs.option('u', {
+                alias: 'url',
+                describe: 'the URL to make an HTTP request to'
+            });
+        },
+        (argv) => {
+            console.dir(argv.url);
+        }
+        )
+        .argv;
+}
+
+function Argv$command() {
+    const argv = yargs
         .usage('npm <command>')
         .command('install', 'tis a mighty fine package to install')
         .command('publish', 'shiver me timbers, should you be sharing all that', yargs =>
@@ -193,7 +224,7 @@ function command() {
                 alias: 'force',
                 description: 'yar, it usually be a bad idea'
             })
-            .help('help')
+                .help('help')
         )
         .command("build", "arghh, build it mate", {
             tag: {
@@ -203,7 +234,7 @@ function command() {
             },
             publish: {
                 default: false,
-                description:"Should i publish?"
+                description: "Should i publish?"
             }
         })
         .command({
@@ -227,35 +258,35 @@ function command() {
         .argv;
 
     yargs
-        .command('get', 'make a get HTTP request', function (yargs) {
+        .command('get', 'make a get HTTP request', (yargs) => {
             return yargs.option('url', {
                 alias: 'u',
                 default: 'http://yargs.js.org/'
-            })
+            });
         })
         .help()
-        .argv
+        .argv;
 
     yargs
         .command(
-            'get',
-            'make a get HTTP request',
-            function (yargs) {
-                return yargs.option('u', {
-                    alias: 'url',
-                    describe: 'the URL to make an HTTP request to'
-                })
-            },
-            function (argv: { url: string }) {
-                console.dir(argv.url)
-            }
+        'get',
+        'make a get HTTP request',
+        (yargs) => {
+            return yargs.option('u', {
+                alias: 'url',
+                describe: 'the URL to make an HTTP request to'
+            });
+        },
+        (argv) => {
+            console.dir(argv.url);
+        }
         )
         .help()
-        .argv
+        .argv;
 }
 
-function completion_sync() {
-    var argv = yargs
+function Argv$completion_sync() {
+    const argv = yargs
         .completion('completion', (current, argv) => {
             // 'current' is the current command being completed.
             // 'argv' is the parsed arguments so far.
@@ -268,10 +299,10 @@ function completion_sync() {
         .argv;
 }
 
-function completion_async() {
-    var argv = yargs
+function Argv$completion_async() {
+    const argv = yargs
         .completion('completion', (current: string, argv: any, done: (completion: string[]) => void) => {
-            setTimeout(function () {
+            setTimeout(() => {
                 done([
                     'apple',
                     'banana'
@@ -282,14 +313,14 @@ function completion_async() {
 }
 
 function Argv$help() {
-    var argv = yargs
+    const argv = yargs
         .usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
         .help()
         .argv;
 }
 
 function Argv$showHelpOnFail() {
-    var argv = yargs
+    const argv = yargs
         .usage('Count the lines in a file.\nUsage: $0')
         .demand('f')
         .alias('f', 'file')
@@ -299,72 +330,72 @@ function Argv$showHelpOnFail() {
 }
 
 function Argv$showHelp() {
-    var yargs1 = yargs
+    const yargs1 = yargs
         .usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
     yargs1.showHelp();
 }
 
 function Argv$version() {
-    var argv1 = yargs
+    const argv1 = yargs
         .version();
 
-    var argv2 = yargs
+    const argv2 = yargs
         .version('1.0.0');
 
-    var argv3 = yargs
-        .version('1.0.0', '--version');
+    const argv3 = yargs
+        .version('--version', '1.0.0');
 
-    var argv4 = yargs
-        .version('1.0.0', '--version', 'description');
+    const argv4 = yargs
+        .version('--version', 'Show version', '1.0.0');
 
-    var argv5 = yargs
-        .version(function () { return '1.0.0'; }, '--version', 'description');
+    const argv5 = yargs
+        .version(false);
 }
 
 function Argv$wrap() {
-    var argv1 = yargs
+    const argv1 = yargs
         .wrap(null);
 
-    var argv2 = yargs
+    const argv2 = yargs
         .wrap(yargs.terminalWidth());
 }
 
 function Argv$locale() {
-    var argv = yargs
+    const argv = yargs
         .usage('./$0 - follow ye instructions true')
         .option('option', {
-        alias: 'o',
-        describe: "'tis a mighty fine option",
-        demand: true
+            alias: 'o',
+            describe: "'tis a mighty fine option",
+            demand: true
         })
         .command('run', "Arrr, ya best be knowin' what yer doin'")
         .example('$0 run foo', "shiver me timbers, here's an example for ye")
         .help('help')
         .wrap(70)
         .locale('pirate')
-        .argv
+        .argv;
 }
 
 function Argv$epilogue() {
-    var argv = yargs
+    const argv = yargs
         .epilogue('for more information, find our manual at http://example.com');
 }
 
 function Argv$reset() {
-    var ya = yargs
+    const ya = yargs
         .usage('$0 command')
         .command('hello', 'hello command')
         .command('world', 'world command')
-        .demand(1, 'must provide a valid command'),
-        argv = yargs.argv,
-        command = argv._[0];
+        .demand(1, 'must provide a valid command');
+    const argv = yargs.argv;
+    const command = argv._[0];
 
     if (command === 'hello') {
         ya.reset()
             .usage('$0 hello')
             .help('h')
             .example('$0 hello', 'print the hello message!')
-            .argv
+            .argv;
 
         console.log('hello!');
     } else if (command === 'world') {
@@ -372,7 +403,7 @@ function Argv$reset() {
             .usage('$0 world')
             .help('h')
             .example('$0 world', 'print the world message!')
-            .argv
+            .argv;
 
         console.log('world!');
     } else {
@@ -382,205 +413,202 @@ function Argv$reset() {
 
 // http://yargs.js.org/docs/#methods-commanddirdirectory-opts
 function Argv$commandDir() {
-    var ya = yargs
+    const ya = yargs
         .commandDir('.')
-        .argv
+        .argv;
 }
-
 
 // http://yargs.js.org/docs/#methods-commanddirdirectory-opts
 function Argv$commandDirWithOptions() {
-    var ya = yargs
+    const ya = yargs
         .commandDir('.', {
             recurse: false,
             extensions: ['js'],
-            visit: (commandObject: any, pathToFile: string, filename: string) => { },
+            visit: (commandObject: any, pathToFile: string, filename: string) => void 0,
             include: /.*\.js$/,
             exclude: /.*\.spec.js$/,
         })
-        .argv
+        .argv;
 }
 
 function Argv$normalize() {
-    var ya = yargs
+    const ya = yargs
         .normalize('path')
         .normalize(['user', 'group'])
-        .argv
+        .argv;
 }
 
 // From http://yargs.js.org/docs/#methods-coercekey-fn
 function Argv$coerce() {
-    var ya = yargs
-        .coerce('file', function (arg: string) {
+    const ya = yargs
+        .coerce('file', (arg: string) => {
             return fs.readFileSync(arg, 'utf8');
         })
-        .argv
+        .argv;
 }
 function Argv$coerces() {
-    var ya = yargs
+    const ya = yargs
         .coerce({
             date: Date.parse,
             json: JSON.parse
         })
-        .argv
+        .argv;
 }
 function Argv$coerceWithKeys() {
-    var ya = yargs
+    const ya = yargs
         .coerce(['src', 'dest'], path.resolve)
-        .argv
+        .argv;
 }
 
 // From http://yargs.js.org/docs/#methods-failfn
 function Argv$fail() {
-    var ya = yargs
-        .fail(function (msg, err) {
-            if (err) throw err // preserve stack
-            console.error('You broke it!')
-            console.error(msg)
-            process.exit(1)
+    const ya = yargs
+        .fail((msg, err) => {
+            if (err) throw err; // preserve stack
+            console.error('You broke it!');
+            console.error(msg);
+            process.exit(1);
         })
-        .argv
+        .argv;
 }
 
 function Argv$implies() {
-    var ya = yargs
+    const ya = yargs
         .implies('foo', 'snuh')
         .implies({
             x: 'y'
         })
-        .argv
+        .argv;
 }
 
 function Argv$count() {
-    var ya = yargs
+    const ya = yargs
         .count('size')
         .count(['w', 'h'])
-        .argv
+        .argv;
 }
 
 function Argv$number() {
-    var ya = yargs
+    const ya = yargs
         .number('n')
         .number(['width', 'height'])
-        .argv
+        .argv;
 }
 
 function Argv$updateStrings() {
-    var ya = yargs
+    const ya = yargs
         .command('run', 'the run command')
         .help('help')
         .updateStrings({
             'Commands:': 'My Commands -->\n'
         })
         .wrap(null)
-        .argv
+        .argv;
 }
 
 function Argv$default() {
-    var ya = yargs
+    const ya = yargs
         .default('random', function randomValue() {
             return Math.random() * 256;
         })
-        .argv
+        .argv;
 }
 
 function Argv$configObject() {
-    var ya = yargs
-        .config({foo: 1, bar: 2})
-        .argv
+    const ya = yargs
+        .config({ foo: 1, bar: 2 })
+        .argv;
 }
 
 function Argv$configParseFunction() {
-    var ya = yargs
-        .config('settings', function (configPath) {
-            return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+    const ya = yargs
+        .config('settings', (configPath) => {
+            return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         })
-        .config('settings', 'description', function (configPath) {
-            return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+        .config('settings', 'description', (configPath) => {
+            return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         })
-        .argv
+        .argv;
 }
 
 function Argv$helpDescriptionExplicit() {
-    var ya = yargs
+    const ya = yargs
         .help('help', 'description', true)
-        .argv
+        .argv;
 }
 
 function Argv$showHelpConsoleLevel() {
-    yargs.showHelp("log"); //prints to stdout using console.log()
+    yargs.showHelp("log"); // prints to stdout using console.log()
 }
 
 function Argv$getCompletion() {
-    var ya = yargs
+    const ya = yargs
         .option('foobar', {})
         .option('foobaz', {})
         .completion()
-        .getCompletion(['./test.js', '--foo'], function (completions) {
-            console.log(completions)
+        .getCompletion(['./test.js', '--foo'], (completions) => {
+            console.log(completions);
         })
-        .argv
+        .argv;
 }
 
 function Argv$pkgConf() {
-    var ya = yargs
+    const ya = yargs
         .pkgConf(['key1', 'key2'], 'configFile.json')
-        .argv
+        .argv;
 }
 
 function Argv$recommendCommands() {
-    var ya = yargs
+    const ya = yargs
         .recommendCommands()
-        .argv
+        .argv;
 }
 
 function Argv$showCompletionScript() {
-    var ya = yargs
+    const ya = yargs
         .showCompletionScript()
-        .argv
+        .argv;
 }
 
 function Argv$skipValidation() {
-    var ya = yargs
+    const ya = yargs
         .skipValidation('arg1')
         .skipValidation(['arg2', 'arg3'])
-        .argv
+        .argv;
 }
 
 function Argv$commandObject() {
-    var ya = yargs
-        .command("commandname", "description", {
-            "arg": {
-                alias: "string",
-                array: true,
-                boolean: true,
-                choices: ["a", "b", "c"],
-                coerce: f => JSON.stringify(f),
-                config: true,
-                configParser: t => t,
-                count: true,
-                default: "myvalue",
-                defaultDescription: "description",
-                demand: true,
-                demandOption: true,
-                desc: "desc",
-                describe: "describe",
-                description: "description",
-                global: false,
-                group: "group",
-                nargs: 1,
-                normalize: false,
-                number: true,
-                requiresArg: true,
-                skipValidation: false,
-                string: true,
-                type: "string"
-            }
-        })
+    const options: yargs.Options = {
+        alias: "string",
+        array: true,
+        boolean: true,
+        choices: [undefined, true, "a", "b", "c"],
+        coerce: f => JSON.stringify(f),
+        config: true,
+        configParser: t => JSON.parse(fs.readFileSync(t, "utf8")),
+        count: true,
+        default: "myvalue",
+        defaultDescription: "description",
+        demand: true,
+        demandOption: true,
+        desc: "desc",
+        describe: "describe",
+        description: "description",
+        global: false,
+        group: "group",
+        nargs: 1,
+        normalize: false,
+        number: true,
+        requiresArg: true,
+        skipValidation: false,
+        string: true,
+        type: "string"
+    };
+    const ya = yargs.command("commandname", "description", { arg: options });
 }
 
 function Argv$demandCommand() {
-    var ya = yargs
+    const ya = yargs
         .demandCommand(1)
         .demandCommand(1, 'at least 1 command required')
         .demandCommand(1, 2)
@@ -590,7 +618,7 @@ function Argv$demandCommand() {
 }
 
 function Argv$demandOption() {
-    var ya = yargs
+    const ya = yargs
         .demandOption('a')
         .demandOption('a', 'a is required')
         .demandOption('a', true)
@@ -601,10 +629,22 @@ function Argv$demandOption() {
 }
 
 function Argv$conflicts() {
-    var ya = yargs
+    const ya = yargs
         .conflicts('a', 'b')
         .conflicts({
             a: 'b'
         })
         .argv;
+}
+
+function Argv$commandArray() {
+    const ya = yargs
+        .command(['commandName', 'commandAlias'], 'command description')
+        .argv;
+}
+
+function Argv$check() {
+    const ya = yargs
+        .check((argv, aliases) => void 0)
+        .check((argv, aliases) => void 0, false);
 }

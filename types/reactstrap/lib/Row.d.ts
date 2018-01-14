@@ -1,8 +1,11 @@
-interface Props extends React.HTMLProps< HTMLElement> {
+import { CSSModule } from '../index';
+
+export interface RowProps extends React.HTMLProps< HTMLElement> {
   className?: string;
+  cssModule?: CSSModule;
   tag?: React.ReactType;
   noGutters?: boolean;
 }
 
-declare var Row: React.StatelessComponent<Props>;
+declare const Row: React.StatelessComponent<RowProps>;
 export default Row;

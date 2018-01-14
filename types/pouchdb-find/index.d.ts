@@ -1,13 +1,10 @@
-// Type definitions for pouchdb-find 0.10
+// Type definitions for pouchdb-find 6.3
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace Find {
@@ -45,7 +42,8 @@ declare namespace PouchDB {
             /** Special condition to match the length of an array field in a document. Non-array fields cannot match this condition. */
             $size?: number;
 
-            /** Divisor and Remainder are both positive or negative integers.
+            /**
+             * Divisor and Remainder are both positive or negative integers.
              * Non-integer values result in a 404 status.
              * Matches documents where (field % Divisor == Remainder) is true, and only when the document field is an integer.
              * [divisor, remainder]
@@ -96,6 +94,9 @@ declare namespace PouchDB {
 
             /** Number of docs to skip before returning. */
             skip?: number;
+
+            /** Set which index to use for the query. It can be “design-doc-name” or “[‘design-doc-name’, ‘name’]”. */
+            use_index?: string | [string, string];
         }
 
         interface FindResponse<Content extends {}> {

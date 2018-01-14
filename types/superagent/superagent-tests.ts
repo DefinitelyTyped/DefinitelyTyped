@@ -12,7 +12,7 @@ const httpsAgent: Agent = new Agent();
 
 request
     .post('/api/pet')
-    .send({name: 'Manny', species: 'cat'})
+    .send({ name: 'Manny', species: 'cat' })
     .set('X-API-Key', 'foobar')
     .set('Accept', 'application/json')
     .agent(httpsAgent)
@@ -27,14 +27,14 @@ request
 const agent = request.agent();
 agent
     .post('/api/pet')
-    .send({name: 'Manny', species: 'cat'})
+    .send({ name: 'Manny', species: 'cat' })
     .set('X-API-Key', 'foobar')
     .set('Accept', 'application/json')
     .end((err, res) => {
         if (res.error) {
             console.log('oh no ' + res.error.message);
         } else {
-            console.log('got ' + res.status + ' response');
+            console.log(`got ${res.status} response`);
         }
     });
 
@@ -81,20 +81,20 @@ request
 
 request
     .get('/search')
-    .set({'API-Key': 'foobar', Accept: 'application/json'})
+    .set({ 'API-Key': 'foobar', Accept: 'application/json' })
     .end(callback);
 
 // GET requests
 request
     .get('/search')
-    .query({query: 'Manny'})
-    .query({range: '1..5'})
-    .query({order: 'desc'})
+    .query({ query: 'Manny' })
+    .query({ range: '1..5' })
+    .query({ order: 'desc' })
     .end(callback);
 
 request
     .get('/search')
-    .query({query: 'Manny', range: '1..5', order: 'desc'})
+    .query({ query: 'Manny', range: '1..5', order: 'desc' })
     .end(callback);
 
 request
@@ -111,7 +111,7 @@ request
 // HEAD requests
 request
     .head('/users')
-    .query({email: 'joe@smith.com'})
+    .query({ email: 'joe@smith.com' })
     .end(callback);
 
 // POST / PUT requests
@@ -121,12 +121,12 @@ request.post('/user')
     .end(callback);
 
 request.post('/user')
-    .send({name: 'tj', pet: 'tobi'})
+    .send({ name: 'tj', pet: 'tobi' })
     .end(callback);
 
 request.post('/user')
-    .send({name: 'tj'})
-    .send({pet: 'tobi'})
+    .send({ name: 'tj' })
+    .send({ pet: 'tobi' })
     .end(callback);
 
 request.post('/user')
@@ -136,8 +136,8 @@ request.post('/user')
 
 request.post('/user')
     .type('form')
-    .send({name: 'tj'})
-    .send({pet: 'tobi'})
+    .send({ name: 'tj' })
+    .send({ pet: 'tobi' })
     .end(callback);
 
 // Setting the Content-Type
@@ -166,22 +166,38 @@ request.get('/user')
 // Query strings
 request
     .post('/')
-    .query({format: 'json'})
-    .query({dest: '/login'})
-    .send({post: 'data', here: 'wahoo'})
+    .query({ format: 'json' })
+    .query({ dest: '/login' })
+    .send({ post: 'data', here: 'wahoo' })
     .end(callback);
+
+// Custom request serializer
+function testParser(data: any) {
+    return JSON.stringify(data);
+}
+
+request
+    .post('/user')
+    .serialize(testParser)
+    .type('json')
+    .send({ foo: 123 })
+    .end(callback);
+
+// Default serialization map
+
+request.serialize['application/xml'] = (obj: any) => 'generated xml here';
 
 // Parsing response bodies
 request('/search')
-  .end((res: request.Response) => {
-    const status: number = res.status;
-    const body = res.body;
-    const files: object = res.files;
-    const text: string = res.text;
-    const contentLength = res.header['content-length'];
-    const contentType: string = res.type;
-    const charset: string = res.charset;
-  });
+    .end((res: request.Response) => {
+        const status: number = res.status;
+        const body = res.body;
+        const files: object = res.files;
+        const text: string = res.text;
+        const contentLength = res.header['content-length'];
+        const contentType: string = res.type;
+        const charset: string = res.charset;
+    });
 
 // Custom parsers
 request
@@ -213,7 +229,7 @@ const reqUrl: string = req.url;
 const reqMethod: string = req.method;
 const reqCookies: string = req.cookies;
 
-console.log(reqMethod + ' request to ' + reqUrl + ' cookies ' + reqCookies);
+console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
 // Basic authentication
 request.get('http://tobi:learnboost@local').end(callback);
@@ -228,15 +244,15 @@ request
     .redirects(2)
     .end(callback);
 
-// Piping data
-/*
-(() => {
-const stream = fs.createReadStream('path/to/my.json');
-const req = request.post('/somewhere');
-req.type('json');
-stream.pipe(req);
-})();
-*/
+// Retries, from https://github.com/visionmedia/superagent/commit/765de565c505abd221e7aa0765c5dd883a987ef1
+request
+    .get('/some.png')
+    .retry()
+    .timeout({ response: 9000, deadline: 10000 });
+request
+    .get('http://example.com/search')
+    .retry(2)
+    .end(callback);
 
 (() => {
     const stream = fs.createWriteStream('path/to/my.json');
@@ -269,6 +285,7 @@ request
     .attach('avatar', 'path/to/tobi.png', 'user.png')
     .attach('image', 'path/to/loki.png')
     .attach('file', 'path/to/jane.png')
+    .attach('fileWithOptions', 'path/to/file.png', { filename: 'filename', contentType: 'contentType' })
     .attach('blob', blob)
     .end(callback);
 
@@ -277,6 +294,12 @@ request
     .post('/upload')
     .field('user[name]', 'Tobi')
     .field('user[email]', 'tobi@learnboost.com')
+    .field({
+        field1: 'value1',
+        field2: Buffer.from([ 10, 20 ]),
+        field3: [ 'value1', 'value2' ],
+        field4: true,
+    })
     .attach('image', 'path/to/tobi.png')
     .end(callback);
 
@@ -323,9 +346,34 @@ request
 // Requesting binary data.
 // adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
 request
-  .get('/blob')
-  .responseType('blob')
-  .end((err, res) => {
-    assert(res.xhr instanceof XMLHttpRequest);
-    assert(res.xhr.response instanceof Blob);
-  });
+    .get('/blob')
+    .responseType('blob')
+    .end((err, res) => {
+        assert(res.xhr instanceof XMLHttpRequest);
+        assert(res.xhr.response instanceof Blob);
+    });
+
+// HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
+const ca = fs.readFileSync('ca.cert.pem');
+const key = fs.readFileSync('key.pem');
+const cert = fs.readFileSync('cert.pem');
+request
+    .post('/secure')
+    .ca(ca)
+    .key(key)
+    .cert(cert)
+    .end(callback);
+
+const pfx = fs.readFileSync('cert.pfx');
+request
+    .post('/secure')
+    .pfx(pfx)
+    .end(callback);
+
+// ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
+request
+    .get('/404')
+    .ok(res => res.status < 500)
+    .then(response => {
+        // reads 404 page as a successful response
+    });

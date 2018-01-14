@@ -27,6 +27,14 @@ noble.on("discover", (peripheral: noble.Peripheral): void => {
     peripheral.disconnect((): void => {});
 });
 
+noble.removeListener("stateChange", (state: string): void => {});
+noble.removeListener("scanStart", (): void => {});
+noble.removeListener("scanStop", (): void => {});
+noble.removeListener("discover", (peripheral: noble.Peripheral): void => {
+    peripheral.connect((error: string): void => {});
+    peripheral.disconnect((): void => {});
+});
+
 var peripheral: noble.Peripheral = new noble.Peripheral();
 peripheral.uuid = "12ad4e81";
 peripheral.advertisement = {
@@ -87,6 +95,10 @@ characteristic.on("write", true, (error: string): void => {});
 characteristic.on("broadcast", (state: string): void => {});
 characteristic.on("notify", (state: string): void => {});
 characteristic.on("descriptorsDiscover", (descriptors: noble.Descriptor[]): void => {});
+characteristic.subscribe();
+characteristic.subscribe((error: string) => {});
+characteristic.unsubscribe();
+characteristic.unsubscribe((error: string) => {});
 
 var descriptor: noble.Descriptor = new noble.Descriptor();
 descriptor.uuid = "";

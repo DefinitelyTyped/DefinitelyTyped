@@ -2,6 +2,7 @@
 // Project: https://github.com/pshrmn/rrc#readme
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import * as React from "react";
 import * as H from "history";
@@ -12,7 +13,7 @@ export interface ScrollIntoViewProps {
     id: string;
 }
 
-export class ScrollIntoView extends React.Component<ScrollIntoViewProps, void> { }
+export class ScrollIntoView extends React.Component<ScrollIntoViewProps> { }
 
 export type PropIdCallback = () => string;
 
@@ -21,10 +22,10 @@ export interface WithScrollOptions {
     alignToTop?: boolean;
 }
 
-export type ComponentConstructor<Props> = React.ComponentClass<Props> | React.SFC<Props>;
+export type ComponentConstructor<Props> = React.ComponentType<Props>;
 
-export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | undefined>, options?: WithScrollOptions)
-    : ComponentConstructor<RouteComponentProps<any> | undefined>;
+export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | {}>, options?: WithScrollOptions)
+    : ComponentConstructor<RouteComponentProps<any> | {}>;
 
 export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } };
 
@@ -33,7 +34,7 @@ export interface SwitchProps {
     location: H.LocationDescriptorObject & { pathname: H.Pathname };
 }
 
-export class ConfigSwitch extends React.Component<SwitchProps, void> { }
+export class ConfigSwitch extends React.Component<SwitchProps> { }
 
 export type OnUpdateCall = (location: H.Location) => void;
 
@@ -42,7 +43,7 @@ export interface OnUpdateProps {
     immediate?: boolean;
 }
 
-export class OnUpdate extends React.Component<OnUpdateProps, {}> { }
+export class OnUpdate extends React.Component<OnUpdateProps> { }
 
 export type IsActiveCallback = () => boolean;
 
@@ -63,7 +64,7 @@ export interface StatusProps {
     code: string;
 }
 
-export class Status extends React.Component<StatusProps, void> { }
+export class Status extends React.Component<StatusProps> { }
 
 export type GetKeyFunction<Params> = (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => string;
 

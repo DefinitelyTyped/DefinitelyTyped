@@ -1,6 +1,6 @@
-// Type definitions for jQueryUI 1.11
+// Type definitions for jQueryUI 1.12
 // Project: http://jqueryui.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51,6 +51,12 @@ declare namespace JQueryUI {
         minLength?: number;
         position?: any; // object
         source?: any; // [], string or ()
+        classes?: AutocompleteClasses;
+    }
+
+    interface AutocompleteClasses {
+        "ui-autocomplete"?: string;
+        "ui-autocomplete-input"?: string;
     }
 
     interface AutocompleteUIParams {
@@ -353,6 +359,7 @@ declare namespace JQueryUI {
         autoOpen?: boolean;
         buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
         closeOnEscape?: boolean;
+        classes?: DialogClasses;
         closeText?: string;
         appendTo?: string;
         dialogClass?: string;
@@ -375,6 +382,20 @@ declare namespace JQueryUI {
 
 		open?: DialogEvent;
         close?: DialogEvent;
+    }
+
+    interface DialogClasses {
+        "ui-dialog"?: string;
+        "ui-dialog-content"?: string;
+        "ui-dialog-dragging"?: string;
+        "ui-dialog-resizing"?: string;
+        "ui-dialog-buttons"?: string;
+        "ui-dialog-titlebar"?: string;
+        "ui-dialog-title"?: string;
+        "ui-dialog-titlebar-close"?: string;
+        "ui-dialog-buttonpane"?: string;
+        "ui-dialog-buttonset"?: string;
+        "ui-widget-overlay"?: string;
     }
 
     interface DialogButtonOptions {
@@ -603,7 +624,7 @@ declare namespace JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
-        create?: ResizableEvents;
+        create?: ResizableEvent;
     }
 
     interface Resizable extends Widget, ResizableOptions {
@@ -802,12 +823,24 @@ declare namespace JQueryUI {
 
     interface TabsOptions extends TabsEvents {
         active?: any; // boolean or number
+        classes?: TabClasses;
         collapsible?: boolean;
         disabled?: any; // boolean or []
         event?: string;
         heightStyle?: string;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
+    }
+
+    interface TabClasses {
+        "ui-tabs"?: string;
+        "ui-tabs-collapsible"?: string;
+        "ui-tabs-nav"?: string;
+        "ui-tabs-tab"?: string;
+        "ui-tabs-active"?: string;
+        "ui-tabs-loading"?: string;
+        "ui-tabs-anchor"?: string;
+        "ui-tabs-panel"?: string;
     }
 
     interface TabsActivationUIParams {
@@ -1357,8 +1390,8 @@ interface JQuery {
       * @param optionName 'autohide'
       */
       datepicker(methodName: 'option', optionName: 'autohide'): boolean;
-    
-   
+
+
       /**
       * Get the endDate after initialization
       *

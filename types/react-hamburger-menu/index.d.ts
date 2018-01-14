@@ -2,13 +2,13 @@
 // Project: https://github.com/cameronbourke/react-hamburger-menu
 // Definitions by: Grzegorz Kielak <https://github.com/grzesie2k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
 export default HamburgerMenu;
 
-declare class HamburgerMenu extends React.PureComponent<HamburgerMenuProps, {}> {
+declare class HamburgerMenu extends React.PureComponent<HamburgerMenuProps> {
 }
 
 export interface HamburgerMenuProps {

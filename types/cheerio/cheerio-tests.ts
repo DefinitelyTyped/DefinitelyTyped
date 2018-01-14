@@ -52,6 +52,7 @@ var $multiEl = $('selector', 'selector', 'selector');
  */
 
 // attr
+$el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
 
@@ -306,3 +307,5 @@ $.parseHTML(html, null, true);
  * Not in doc
  */
 $el.toArray();
+
+cheerio.html($el);

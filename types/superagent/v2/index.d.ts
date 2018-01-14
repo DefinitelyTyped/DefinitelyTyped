@@ -1,8 +1,8 @@
 // Type definitions for SuperAgent 2.3
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Alex Varju <https://github.com/varju/>
-//                 Nico Zelaya <https://github.com/NicoZelaya/>
-//                 Michael Ledin <https://github.com/mxl/>
+// Definitions by: Alex Varju <https://github.com/varju>
+//                 Nico Zelaya <https://github.com/NicoZelaya>
+//                 Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -31,7 +31,7 @@ declare namespace request {
         agent(): SuperAgent<SuperAgentRequest>;
     }
 
-    interface SuperAgent<Req> extends stream.Stream {
+    interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
         get(url: string, callback?: CallbackHandler): Req;
         post(url: string, callback?: CallbackHandler): Req;
         put(url: string, callback?: CallbackHandler): Req;

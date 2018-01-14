@@ -1,7 +1,24 @@
-// Type definitions for bootstrap-slider.js 4.8.3
+// Type definitions for bootstrap-slider.js 9.9
 // Project: https://github.com/seiyria/bootstrap-slider
 // Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+/// <reference types="jquery" />
+
+interface RangeHighlight {
+    class?: string;
+    start?: number;
+    end?: number;
+}
+
+type SliderEventType =  'slide' |
+                        'slideStart' |
+                        'slideStop' |
+                        'change' |
+                        'slideEnabled' |
+                        'slideDisabled';
 
 interface SliderOptions {
     /**
@@ -38,7 +55,7 @@ interface SliderOptions {
      * Default: 5
      * initial value. Use array to have a range slider.
      */
-    value?: number|number[];
+    value?: number | number[];
     /**
      * Default: false
      * make range slider. Optional if initial value is an array. If initial value is scalar, max will be used for second value.
@@ -60,6 +77,14 @@ interface SliderOptions {
      */
     tooltip_split?: boolean;
     /**
+     * Default: null
+     * Position of tooltip, relative to slider. Accepts 'top'/'bottom' for
+     * horizontal sliders and 'left'/'right' for vertically orientated sliders.
+     * Default positions are 'top' for horizontal and 'right' for vertical
+     * slider.
+     */
+    tooltip_position?: 'top' | 'bottom' | 'left' | 'right';
+    /**
      * Default: 'round'
      * handle shape. Accepts: 'round', 'square', 'triangle' or 'custom'
      */
@@ -70,6 +95,10 @@ interface SliderOptions {
      */
     reversed?: boolean;
     /**
+     * Default: 'auto'
+     */
+    rtl?: boolean | 'auto';
+    /**
      * Default: true
      * whether or not the slider is initially enabled
      */
@@ -79,10 +108,12 @@ interface SliderOptions {
      * formatter callback. Return the value wanted to be displayed in the tooltip
      * @param val the current value to display
      */
-    formatter?(val:number): string;
+    formatter?(val: number): string;
     /**
      * Default: false
-     * The natural order is used for the arrow keys. Arrow up select the upper slider value for vertical sliders, arrow right the righter slider value for a horizontal slider - no matter if the slider was reversed or not. By default the arrow keys are oriented by arrow up/right to the higher slider value, arrow down/left to the lower slider value.
+     * The natural order is used for the arrow keys. Arrow up select the upper slider value for vertical sliders,
+     * arrow right the righter slider value for a horizontal slider - no matter if the slider was reversed or not.
+     * By default the arrow keys are oriented by arrow up/right to the higher slider value, arrow down/left to the lower slider value.
      */
     natural_arrow_keys?: boolean;
     /**
@@ -106,24 +137,48 @@ interface SliderOptions {
      */
     ticks_snap_bounds?: number;
     /**
+     * Default: false
+     * Used to allow for a user to hover over a given tick to see it's value.
+     * Useful if custom formatter passed in
+     */
+    ticks_tooltip?: boolean;
+    /**
      * Default: 'linear'
      * Set to 'logarithmic' to use a logarithmic scale.
      */
-    scale?: string;
+    scale?: 'linear' | 'logarithmic';
     /**
      * Default: false
      * Focus the appropriate slider handle after a value change.
      */
     focus?: boolean;
+    /**
+     * Default: null
+     * ARIA labels for the slider handle's, Use array for multiple values in a
+     * range slider.
+     */
+    labelledby?: string | string[];
+    /**
+     * Default: []
+     * Defines a range array that you want to highlight, for example:
+     * [{'start':val1, 'end': val2, 'class': 'optionalAdditionalClassName'}].
+     */
+    rangeHighlights?: RangeHighlight[];
 }
 
 interface JQuery {
+    slider: SliderPlugin<this>;
+    bootstrapSlider: SliderPlugin<this>;
+
+    on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
+}
+
+interface SliderPlugin<TJQuery> {
+    (methodName: string, ...args: any[]): TJQuery;
     /**
      * Creates a slider from the current element.
-     * @param options
      */
-    slider(options?:SliderOptions): JQuery;
-    slider(methodName:string, ...args:any[]): JQuery;
+    (options?: SliderOptions): TJQuery;
 }
 
 interface ChangeValue {
@@ -131,75 +186,73 @@ interface ChangeValue {
     newValue: number;
 }
 
-interface JQueryEventObject {
-    value: number|ChangeValue;
+interface SliderEvent extends JQuery.Event {
+    value: number | ChangeValue;
 }
-
-interface SliderStatics {
-	new (selector: string, opts: SliderOptions): Slider;
-	prototype: Slider;
-}
-
-declare var Slider: SliderStatics;
 
 /**
  * This class is actually not used when using the jQuery version of bootstrap-slider
  * The method documentation is still here thouh.
  * When using jQuery, slider methods like setValue(3, true) have to be called like $slider.slider('setValue', 3, true)
  */
-interface Slider extends JQuery {
+declare class Slider {
+    constructor(selector: string, opts: SliderOptions);
+
     /**
      * Get the current value from the slider
      */
     getValue(): number;
     /**
-     * Set a new value for the slider. If optional triggerSlideEvent parameter is true, 'slide' events will be triggered. If optional triggerChangeEvent parameter is true, 'change' events will be triggered.
-     * @param newValue
-     * @param triggerSlideEvent
-     * @param triggerChangeEvent
+     * Set a new value for the slider. If optional triggerSlideEvent parameter is true, 'slide' events will be triggered.
+     * If optional triggerChangeEvent parameter is true, 'change' events will be triggered.
      */
-    setValue(newValue:number, triggerSlideEvent?:boolean, triggerChangeEvent?:boolean): void;
+    setValue(newValue: number, triggerSlideEvent?: boolean, triggerChangeEvent?: boolean): this;
+    /**
+     * Get the div slider element
+     */
+    getElement(): HTMLDivElement;
     /**
      * Properly clean up and remove the slider instance
      */
-    destroy(): void;
+    destroy(): this;
     /**
      * Disables the slider and prevents the user from changing the value
      */
-    disable(): void;
+    disable(): this;
     /**
      * Enables the slider
      */
-    enable(): void;
+    enable(): this;
+    /**
+     * Toggles the slider between enabled and disabled
+     */
+    toggle(): this;
     /**
      * Returns true if enabled, false if disabled
      */
     isEnabled(): boolean;
     /**
      * Updates the slider's attributes
-     * @param attribute
-     * @param value
      */
-    setAttribute(attribute:string, value:any): void;
+    setAttribute(attribute: string, value: any): this;
     /**
      * Get the slider's attributes
-     * @param attribute
      */
-    getAttribute(attribute:string): any;
+    getAttribute(attribute: string): any;
     /**
      * Refreshes the current slider
      */
-    refresh(): void;
+    refresh(): this;
+    /**
+     * When the slider event eventType is triggered, the callback function will be invoked
+     */
+    on(eventType: SliderEventType, callback: (val: number | undefined) => void): this;
+    /**
+     * Removes the callback function from the slider event eventType
+     */
+    off(eventType: SliderEventType, callback: (val: number | undefined) => void): void;
     /**
      * Renders the tooltip again, after initialization. Useful in situations when the slider and tooltip are initially hidden.
      */
-    relayout(): void;
-    on: {
-        (eventType:string, callback:(eventObject:JQueryEventObject, ...args:any[]) => any): Slider;
-        (eventType:string, data:any, callback:(eventObject:JQueryEventObject, ...args:any[]) => any): Slider;
-        (eventType:string, selector:string, callback:(eventObject:JQueryEventObject, ...eventData:any[]) => any): Slider;
-        (eventType:string, selector:string, data:any, callback:(eventObject:JQueryEventObject, ...eventData:any[]) => any): Slider;
-        (eventType:{ [key: string]: any; }, selector?:string, data?:any): Slider;
-        (eventType:{ [key: string]: any; }, data?:any): Slider;
-    }
+    relayout(): this;
 }

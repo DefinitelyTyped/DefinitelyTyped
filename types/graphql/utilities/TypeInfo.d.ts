@@ -36,10 +36,8 @@ export class TypeInfo {
     leave(node: ASTNode): any;
 }
 
-export interface getFieldDef {
-    (
-        schema: GraphQLSchema,
-        parentType: GraphQLType,
-        fieldNode: FieldNode
-    ): GraphQLField<any, any>
-}
+export type getFieldDef = (
+    schema: GraphQLSchema,
+    parentType: GraphQLType,
+    fieldNode: FieldNode,
+) => GraphQLField<any, any>;

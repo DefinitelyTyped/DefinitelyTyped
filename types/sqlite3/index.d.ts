@@ -1,7 +1,7 @@
 // Type definitions for sqlite3 3.1
 // Project: https://github.com/mapbox/node-sqlite3
-// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
-//                 Sumant Manne <https://github.com/dpyro/>
+// Definitions by: Nick Malaguti <https://github.com/nmalaguti>
+//                 Sumant Manne <https://github.com/dpyro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

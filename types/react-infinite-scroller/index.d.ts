@@ -1,12 +1,13 @@
-// Type definitions for react-infinite-scroller 1.0.12
+// Type definitions for react-infinite-scroller 1.0
 // Project: https://github.com/CassetteRocks/react-infinite-scroller
-// Definitions by: Lauri Lavanti <https://github.com/Lapanti>
+// Definitions by: Lauri Lavanti <https://github.com/Lapanti>,
+//                 Piotr Srebniak <https://github.com/psrebniak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-declare module 'react-infinite-scroller' {
-    import * as React from 'react';
+import * as React from "react";
 
+declare namespace InfiniteScroll {
     /**
      * <InfiniteScroll /> properties.
      */
@@ -33,8 +34,9 @@ declare module 'react-infinite-scroller' {
         isReverse?: boolean;
         /**
          * A callback for when more items are requested by the user.
+         * Page param is next page index.
          */
-        loadMore(): void;
+        loadMore(page: number): void;
         /**
          * The number of the first page to load, with the default of 0, the first page is 1.
          * Defaults to 0.
@@ -60,6 +62,8 @@ declare module 'react-infinite-scroller' {
          */
         loader?: React.ReactElement<any>;
     }
-
-    export default class InfiniteScroll extends React.Component<InfiniteScrollProps, any> { }
+    class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+    namespace InfiniteScroll {}
 }
+
+export = InfiniteScroll.InfiniteScroll;

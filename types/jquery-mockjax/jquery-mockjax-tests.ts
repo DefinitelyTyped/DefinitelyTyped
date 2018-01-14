@@ -1,7 +1,5 @@
 /// <reference types="qunit" />
 
-import $ = require('jquery');
-
 class Tests {
     private _noErrorCallbackExpected: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
     private _defaultMockjaxSettings: MockJaxSettings;

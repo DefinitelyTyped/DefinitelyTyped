@@ -56,19 +56,46 @@ declare namespace SemanticUI {
         (behavior: 'set active'): JQuery;
         (behavior: 'attach events', selector: string | JQuery, event?: string): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value?: undefined): ModalSettings[K];
-        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value: ModalSettings[K]): JQuery;
-        (behavior: 'setting', value: ModalSettings.Param): JQuery;
-        (settings?: ModalSettings.Param): JQuery;
+        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value?: undefined): ModalSettings._Impl[K];
+        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value: ModalSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: ModalSettings): JQuery;
+        (settings?: ModalSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/modal.html#/settings}
      */
-    interface ModalSettings extends Pick<ModalSettings._Impl, keyof ModalSettings._Impl> { }
+    type ModalSettings = ModalSettings.Param;
 
     namespace ModalSettings {
-        type Param = ModalSettings | object;
+        type Param = (Pick<_Impl, 'detachable'> |
+            Pick<_Impl, 'autofocus'> |
+            Pick<_Impl, 'observeChanges'> |
+            Pick<_Impl, 'allowMultiple'> |
+            Pick<_Impl, 'keyboardShortcuts'> |
+            Pick<_Impl, 'offset'> |
+            Pick<_Impl, 'context'> |
+            Pick<_Impl, 'closable'> |
+            Pick<_Impl, 'dimmerSettings'> |
+            Pick<_Impl, 'transition'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'queue'> |
+            Pick<_Impl, 'onShow'> |
+            Pick<_Impl, 'onVisible'> |
+            Pick<_Impl, 'onHide'> |
+            Pick<_Impl, 'onHidden'> |
+            Pick<_Impl, 'onApprove'> |
+            Pick<_Impl, 'onDeny'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Modal Settings
@@ -104,7 +131,7 @@ declare namespace SemanticUI {
              */
             keyboardShortcuts: boolean;
             /**
-             *    A vertical offset to allow for content outside of modal, for example a close button, to be centered.
+             * A vertical offset to allow for content outside of modal, for example a close button, to be centered.
              *
              * @default 0
              */
@@ -232,10 +259,13 @@ declare namespace SemanticUI {
     }
 
     namespace Modal {
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'close'> |
+                Pick<_Impl, 'approve'> |
+                Pick<_Impl, 'deny'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -253,10 +283,12 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'active'> |
+                Pick<_Impl, 'scrolling'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -270,10 +302,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

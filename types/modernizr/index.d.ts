@@ -1,6 +1,10 @@
-// Type definitions for Modernizr 3.3
+// Type definitions for Modernizr 3.5
 // Project: http://modernizr.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>, Leon Yu <https://github.com/leonyu/>, Luca Trazzi <https://github.com/lucax88x/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Theodore Brown <https://github.com/theodorejb>
+//                 Leon Yu <https://github.com/leonyu>
+//                 Luca Trazzi <https://github.com/lucax88x>
+//                 Nathan Hardy <https://github.com/nhardy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AudioBoolean {
@@ -120,6 +124,7 @@ interface FeatureDetects {
     cookies: boolean;
     cors: boolean;
     cryptography: boolean;
+    customelements: boolean;
     customprotocolhandler: boolean;
     customevent: boolean;
     dart: boolean;
@@ -147,6 +152,7 @@ interface FeatureDetects {
     ligatures: boolean;
     olreversed: boolean;
     mathml: boolean;
+    messagechannel: boolean;
     notification: boolean;
     pagevisibility: boolean;
     performance: boolean;
@@ -204,6 +210,8 @@ interface FeatureDetects {
     checked: boolean;
     csschunit: boolean;
     csscolumns: false | CssColumnsBoolean;
+    cssgrid: boolean;
+    cssgridlegacy: boolean;
     cubicbezierrange: boolean;
     "display-runin": boolean;
     displaytable: boolean;
@@ -218,7 +226,7 @@ interface FeatureDetects {
     fontface: boolean;
     generatedcontent: boolean;
     cssgradients: boolean;
-    csshairline: boolean;
+    hairline: boolean;
     hsla: boolean;
     csshyphens: boolean;
     softhyphens: boolean;
@@ -252,6 +260,7 @@ interface FeatureDetects {
     textshadow: boolean;
     csstransforms: boolean;
     csstransforms3d: boolean;
+    csstransformslevel2: boolean;
     preserve3d: boolean;
     csstransitions: boolean;
     userselect: boolean;
@@ -270,6 +279,7 @@ interface FeatureDetects {
     hidden: boolean;
     microdata: boolean;
     mutationobserver: boolean;
+    passiveeventlisteners: boolean;
     bdi: boolean;
     datalistelem: boolean;
     details: boolean;
@@ -293,6 +303,7 @@ interface FeatureDetects {
     es5syntax: boolean;
     es5undefined: boolean;
     es6array: boolean;
+    arrow: boolean;
     es6collections: boolean;
     contains: boolean;
     generators: boolean;
@@ -326,11 +337,14 @@ interface FeatureDetects {
     webpalpha: boolean;
     webpanimation: boolean;
     webplossless: boolean;
+    "webp-lossless": boolean;
     webp: false | WebpBoolean;
     inputformaction: boolean;
     inputformenctype: boolean;
     inputformmethod: boolean;
     inputformtarget: boolean;
+    hovermq: boolean;
+    pointermq: boolean;
     beacon: boolean;
     lowbandwidth: boolean;
     eventsource: boolean;
@@ -360,7 +374,9 @@ interface FeatureDetects {
     bloburls: boolean;
     datauri: false | DatauriBoolean;
     urlparser: boolean;
+    urlsearchparams: boolean;
     videoautoplay: boolean;
+    videocrossorigin: boolean;
     videoloop: boolean;
     videopreload: boolean;
     webglextensions: false | WebglextensionsBoolean;
@@ -390,7 +406,6 @@ interface FeatureDetects {
     crypto: boolean;
     displayrunin: boolean;
     fileinputdirectory: boolean;
-    hairline: boolean;
     inputsearchevent: boolean;
     raf: boolean;
     webanimations: boolean;

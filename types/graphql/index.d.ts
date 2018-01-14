@@ -1,40 +1,77 @@
-// Type definitions for graphql 0.9
+// Type definitions for graphql 0.11
 // Project: https://www.npmjs.com/package/graphql
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>, Firede <https://github.com/firede>
+// Definitions by: TonyYang <https://github.com/TonyPythoneer>
+//                 Caleb Meredith <https://github.com/calebmer>
+//                 Dominic Watson <https://github.com/intellix>
+//                 Firede <https://github.com/firede>
+//                 Kepennar <https://github.com/kepennar>
+//                 Mikhail Novikov <https://github.com/freiksenet>
+//                 Ivan Goncharov <https://github.com/IvanGoncharov>
+//                 Hagai Cohen <https://github.com/DxCx>
+//                 Ricardo Portugal <https://github.com/rportugal>
+//                 Tim Griesser <https://github.com/tgriesser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 // The primary entry point into fulfilling a GraphQL request.
 export {
     graphql
 } from './graphql';
 
-/// <reference types="graphql" />
-
 // Create and operate on GraphQL type definitions and schema.
 export * from './type';
-
 
 // Parse and operate on GraphQL language source files.
 export * from './language';
 
+export * from './subscription';
 
 // Execute GraphQL queries.
 export {
     execute,
     defaultFieldResolver,
     responsePathAsArray,
+    getDirectiveValues,
+    ExecutionArgs,
     ExecutionResult,
 } from './execution';
-
 
 // Validate GraphQL queries.
 export {
     validate,
     ValidationContext,
-    specifiedRules,
-} from './validation';
 
+    // All validation rules in the GraphQL Specification.
+    specifiedRules,
+
+    // Individual validation rules.
+    ArgumentsOfCorrectTypeRule,
+    DefaultValuesOfCorrectTypeRule,
+    FieldsOnCorrectTypeRule,
+    FragmentsOnCompositeTypesRule,
+    KnownArgumentNamesRule,
+    KnownDirectivesRule,
+    KnownFragmentNamesRule,
+    KnownTypeNamesRule,
+    LoneAnonymousOperationRule,
+    NoFragmentCyclesRule,
+    NoUndefinedVariablesRule,
+    NoUnusedFragmentsRule,
+    NoUnusedVariablesRule,
+    OverlappingFieldsCanBeMergedRule,
+    PossibleFragmentSpreadsRule,
+    ProvidedNonNullArgumentsRule,
+    ScalarLeafsRule,
+    SingleFieldSubscriptionsRule,
+    UniqueArgumentNamesRule,
+    UniqueDirectivesPerLocationRule,
+    UniqueFragmentNamesRule,
+    UniqueInputFieldNamesRule,
+    UniqueOperationNamesRule,
+    UniqueVariableNamesRule,
+    VariablesAreInputTypesRule,
+    VariablesInAllowedPositionRule,
+} from './validation';
 
 // Create and format GraphQL errors.
 export {
@@ -43,7 +80,6 @@ export {
     GraphQLFormattedError,
     GraphQLErrorLocation,
 } from './error';
-
 
 // Utilities for operating on GraphQL type schema and parsed sources.
 export {

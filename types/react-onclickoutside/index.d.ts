@@ -2,7 +2,7 @@
 // Project: https://github.com/Pomax/react-onclickoutside
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -26,7 +26,7 @@ export interface OnClickOutProps {
 export type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
 
 export interface ClickOutComponentClass<P extends InjectedOnClickOutProps> extends React.ComponentClass<P> {
-    new (props?: P, context?: any): React.Component<P, React.ComponentState> & HandleClickOutside<any>;
+    new (props: P, context?: any): React.Component<P, React.ComponentState> & HandleClickOutside<any>;
 }
 
 export default function OnClickOut<P>(

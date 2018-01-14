@@ -63,7 +63,7 @@ function sample2() {
     });
     canvas1.add(dot);
   }
-  results1.innerHTML = 'Regular rendering of 100 elements in ' + stopTimer() + 'ms';
+  results1.innerHTML = `Regular rendering of 100 elements in ${stopTimer()}ms`;
 
   //
   // Rendering canvas #2
@@ -82,7 +82,7 @@ function sample2() {
     canvas2.add(dot);
   }
   canvas2.renderAll(); // Note, calling renderAll() is important in this case
-  results2.innerHTML = 'Rendering 1000 elements using canvas.renderOnAddRemove = false in ' + stopTimer() + 'ms';
+  results2.innerHTML = `Rendering 1000 elements using canvas.renderOnAddRemove = false in ${stopTimer()}ms`;
 }
 
 function sample3() {
@@ -507,7 +507,7 @@ function sample8() {
         const id: any = element.id;
         const match = /\d+$/.exec(id);
         if (match) {
-          fabric.loadSVGFromURL('../assets/' + match[0] + '.svg', (objects, options) => {
+          fabric.loadSVGFromURL(`../assets/${match[0]}.svg`, (objects, options) => {
             const loadedObject = fabric.util.groupSVGElements(objects, options);
 
             loadedObject.set({
@@ -778,8 +778,13 @@ function sample8() {
   canvas.freeDrawingColor = drawingColorEl.value;
   canvas.freeDrawingLineWidth = parseInt(drawingLineWidthEl.value, 10) || 1;
 
-  const text = 'Lorem ipsum dolor sit amet,\nconsectetur adipisicing elit,\nsed do eiusmod tempor incididunt\nut labore et dolore magna aliqua.\n' +
-    'Ut enim ad minim veniam,\nquis nostrud exercitation ullamco\nlaboris nisi ut aliquip ex ea commodo consequat.';
+  const text = `Lorem ipsum dolor sit amet,
+consectetur adipisicing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua.
+Ut enim ad minim veniam,
+quis nostrud exercitation ullamco
+laboris nisi ut aliquip ex ea commodo consequat.`;
 
   document.getElementById('add-text').onclick = () => {
     const textSample = new fabric.Text(text.slice(0, getRandomInt(0, text.length)), {

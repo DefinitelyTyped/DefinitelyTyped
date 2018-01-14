@@ -44,7 +44,7 @@ let map = new H.Map(mapContainer, defaultLayers.normal.map, {
     // initial center and zoom level of the map
     zoom: 16,
     // Champs-Elysees
-    center: {lat: 48.869145, lng: 2.314298}
+    center: { lat: 48.869145, lng: 2.314298 }
 });
 
 // Step 3: make the map interactive
@@ -85,3 +85,110 @@ let polyline = new H.map.Polyline(new H.geo.Strip());
 // tslint:disable-next-line:array-type
 let clipArr: Array<Array<number>>;
 clipArr = polyline.clip(new H.geo.Rect(5, 5, 5, 5));
+
+let router = platform.getRoutingService();
+let calculateRouteParams = {
+    waypoint0: 'geo!52.5,13.4',
+    waypoint1: 'geo!52.5,13.45',
+    mode: 'fastest;car;traffic:disabled'
+};
+router.calculateRoute(
+    calculateRouteParams,
+    (result) => {
+        console.log(result.response.route[0]);
+    },
+    (error) => {
+        console.log(error);
+    }
+);
+
+let places = platform.getPlacesService();
+let entryPoint = H.service.PlacesService.EntryPoint;
+places.request(
+    entryPoint.SEARCH,
+    {
+        at: '52.5044,13.3909',
+        q: 'pizza'
+    },
+    (response) => {
+        console.log(response);
+        const items = response.results.items;
+        places.follow(
+            items[0].href,
+            (resp) => {
+                console.log(resp);
+            },
+            (resp) => {
+                console.log('ERROR: ' + resp);
+            }
+        );
+    },
+    (error) => {
+        console.log('ERROR: ' + error);
+    }
+);
+
+let geocoder = platform.getGeocodingService();
+let geocodingParams: H.service.ServiceParameters = {
+    searchText: '425 W Randolph Street, Chicago'
+};
+geocoder.geocode(
+    geocodingParams,
+    (result) => {
+        console.log(result);
+        console.log(result.Response.View[0].Result[0].Location.DisplayPosition);
+    },
+    (error) => {
+        console.log(error);
+    }
+);
+
+// deprecated but w/e
+let enterprieseRouter = platform.getEnterpriseRoutingService();
+let calculateIsoline: H.service.ServiceParameters = {
+    start: 'geo!52.5,13.4',
+    distance: '1000,2000',
+    mode: 'fastest;car;traffic:disabled'
+};
+enterprieseRouter.calculateIsoline(
+    calculateIsoline,
+    (result) => {
+        console.log(result);
+        console.log(result.Response.isolines[0]);
+    },
+    (error) => {
+        console.log(error);
+    }
+);
+
+// Create a clustering provider
+const clusteredDataProvider = new H.clustering.Provider([], {
+clusteringOptions: {
+  // Maximum radius of the neighborhood
+  eps: 64,
+  // minimum weight of points required to form a cluster
+  minWeight: 3
+}
+});
+
+// Create a layer that will consume objects from our clustering provider
+const layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
+
+const pixelProjection = new H.geo.PixelProjection();
+pixelProjection.rescale(12);
+
+const point = pixelProjection.geoToPixel({ lat: 53, lng: 12 });
+pixelProjection.xyToGeo(point.x, point.y);
+
+const engine = map.getEngine();
+engine.getAnimationDuration();
+engine.setAnimationDuration(1000);
+
+engine.getAnimationEase();
+engine.setAnimationEase(H.util.animation.ease.EASE_IN_QUAD);
+
+const engineListener = (e: Event) => {
+    console.log(e);
+};
+engine.addEventListener('tap', engineListener);
+engine.removeEventListener('tap', engineListener);

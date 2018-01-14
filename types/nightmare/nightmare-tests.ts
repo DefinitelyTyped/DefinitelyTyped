@@ -1,8 +1,6 @@
-
 /// <reference types="jquery" />
 
 import Nightmare = require("nightmare");
-
 
 new Nightmare()
   .goto('http://yahoo.com')
@@ -169,6 +167,25 @@ new Nightmare()
 
 new Nightmare()
   .goto('http://yahoo.com')
+  .screenshot((err, buffer) => {
+    console.log(Buffer.isBuffer(buffer));
+  })
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
+  .screenshot('test/test.png', { x: 10, y: 5, width: 10, height: 10})
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
+  .screenshot({ x: 10, y: 5, width: 10, height: 10}, (err, buffer) => {
+    console.log(Buffer.isBuffer(buffer));
+  })
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
   .pdf('test/test.pdf')
   .run(done);
 
@@ -318,3 +335,35 @@ new Nightmare()
   .use(testTitle('test term'))
   .run(done);
 
+new Nightmare({show: true});
+
+new Nightmare()
+  .goto('http://google.com', { bogus: 'foo' })
+  .evaluate(() => document.body.textContent)
+  .end()
+  .then(body => console.log(body));
+
+new Nightmare()
+  .header('bogus', 'foo')
+  .goto('http://google.com')
+  .mouseup('body')
+  .mousedown('body')
+  .mouseover('body')
+  .insert('input[name=q]', 'nightmare.js')
+  .click('input[type=submit]');
+
+new Nightmare()
+  .goto('https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox')
+  .check('#book')
+  .uncheck('#book');
+
+new Nightmare()
+  .goto('https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select')
+  .select('select[name=select]', 'value3');
+
+new Nightmare()
+  .goto('https://github.com/segmentio/nightmare')
+  .click('a[href="/segmentio/nightmare/archive/master.zip"]')
+  .download('/some/other/path/master.zip');
+
+new Nightmare({show: true, openDevTools: {mode: 'detach'}});

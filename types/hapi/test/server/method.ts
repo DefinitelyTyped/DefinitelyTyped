@@ -76,3 +76,21 @@ var config = {
 };
 server.method(config);
 server.method([config]);
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18283
+
+const syncX1 = function (arg1: string) {
+    return Promise.resolve("some value" + arg1);
+}
+type SyncX1 = typeof syncX1;
+
+const asyncX1 = function (callback: Hapi.ServerMethodNext) {
+    callback(null, "result");
+}
+type AsyncX1 = typeof asyncX1;
+
+server.method("MethodSyncX1", syncX1);
+server.method("MethodAsyncX1", asyncX1);
+(server.methods.MethodSyncX1 as SyncX1)("argument1") as Promise<string>;
+const cb: Hapi.ServerMethodNext = (err, result, ttl) => {}
+(server.methods.MethodAsyncX1 as AsyncX1)(cb) as void;

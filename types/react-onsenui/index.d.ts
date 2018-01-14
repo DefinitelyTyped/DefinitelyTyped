@@ -1,9 +1,11 @@
-// Type definitions for React OnSenui (react-onsenui) 2.1
+// Type definitions for React Onsen UI (react-onsenui) 2.8
 // Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>
+// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-import { Component } from 'react';
+// TypeScript Version: 2.3
+
+import * as React from 'react';
+import Component = React.Component;
 
 export interface Modifiers_string {
     default?: string;
@@ -21,6 +23,25 @@ export interface AnimationOptions {
     timing?: string;
 }
 
+export interface PullHookChangeEvent {
+    state: "initial" | "preaction" | "action";
+}
+
+export type NavigatorAnimationTypes = "slide" | "lift" | "fade" | "none" | string;
+
+export interface PageTransitionOptions {
+    animation?: NavigatorAnimationTypes;
+    animationOptions?: AnimationOptions;
+    callback?: () => void;
+    data?: any;
+}
+
+export interface SwitchChangeEvent extends Event {
+    switch: HTMLElement;
+    value: boolean;
+    isInteractive: boolean;
+}
+
 /*** splitter ***/
 export class SplitterSide extends Component<{
     side?: "left" | "right",
@@ -31,22 +52,25 @@ export class SplitterSide extends Component<{
     onPreClose?(e?: Event): void,
     onModeChange?(e?: Event): void,
     onClose?(e?: Event): void,
-    isSwipeable?: boolean,
+    swipeable?: boolean,
     swipeTargetWidth?: number,
     width?: number,
     animation?: "overlay" | "default"
     animationOptions?: AnimationOptions,
     openThreshold?: number,
-    mode?: "collapse" | "split"
+    mode?: "collapse" | "split",
+    className?: string
 }, any> { }
 
-export class SplitterContent extends Component<{}, any> { }
+export class SplitterContent extends Component { }
 
-export class Splitter extends Component<{}, any> { }
+export class Splitter extends Component { }
 
 /*** toolbar ***/
 
-export class Toolbar extends Component<{}, any> {}
+export class Toolbar extends Component<{
+    modifier?: string
+}, any> {}
 
 export class BottomToolbar extends Component<{
     modifier?: string
@@ -55,7 +79,7 @@ export class BottomToolbar extends Component<{
 export class ToolbarButton extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onClick?(e?: Event): void
+    onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
 
 /*** icon ***/
@@ -69,7 +93,6 @@ export class Icon extends Component<{
 }, any> {}
 
 /*** page ***/
-
 export class Page extends Component<{
     contentStyle?: any,
     modifier?: string,
@@ -85,11 +108,15 @@ export class Page extends Component<{
 /*** Grid ***/
 export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-    width?: string
+    width?: string,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class Row extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 /*** Navigation ***/
@@ -99,20 +126,22 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(): any,
+    renderPage(route: any, navigator?: Navigator): JSX.Element,
     initialRouteStack?: string[],
     initialRoute?: any,
     onPrePush?(): void,
     onPostPush?(): void,
     onPrePop?(): void,
     onPostPop?(): void,
-    animation?: "slide" | "lift" | "fade" | "none" | string,
-    animationOptions?: AnimationOptions
+    animation?: NavigatorAnimationTypes,
+    animationOptions?: AnimationOptions,
 }, any> {
-    resetPage(route: any, options: any): void;
-    resetPageStack(route: any, options: any): void;
-    pushPage(route: any, options: any): void;
-    popPage(route: any, options: any): void;
+    pages: any[];
+    routes: any[];
+    resetPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    resetPageStack(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    pushPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    popPage(options?: PageTransitionOptions): Promise<HTMLElement>;
 }
 
 /*** Carousel ***/
@@ -179,7 +208,7 @@ export class Modal extends Component<{
 }, any> {}
 
 export class Popover extends Component<{
-    getTarget?(): Component<any, any> | HTMLElement,
+    getTarget?(): React.ReactInstance,
     onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
@@ -194,6 +223,29 @@ export class Popover extends Component<{
     onPostHide?(): void,
 }, any> {}
 
+export class ActionSheet extends Component<{
+    onCancel?(): void,
+    isOpen?: boolean,
+    isCancelable?: boolean,
+    isDisabled?: boolean,
+    animation?: string,
+    modifier?: string
+    maskColor?: string,
+    animationOptions?: {},
+    title?: string
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    onDeviceBackButton?(): void
+}, any> {}
+
+export class ActionSheetButton extends Component<{
+    modifier?: string,
+    icon?: string,
+    onClick?(e?: React.MouseEvent<HTMLElement>): void
+}, any> {}
+
 export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
@@ -205,7 +257,7 @@ export class ProgressCircular extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
-    intermediate?: boolean,
+    indeterminate?: boolean,
 }, any> {}
 
 export class Ripple extends Component<{
@@ -220,26 +272,47 @@ export class Fab extends Component<{
     ripple?: boolean,
     position?: string,
     disabled?: boolean,
-    onClick?(): void,
+    onClick?(e?: React.MouseEvent<HTMLElement>): void,
 }, any> {}
 
 export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
-    onClick?(e?: Event): void
+    className?: string,
+    onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
 
 export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onChange?(e: Event): void,
+    onChange?: (e: React.ChangeEvent<any>) => void,
     value?: string,
     checked?: boolean,
     placeholder?: string,
     type?: string,
     inputId?: string,
     float?: boolean,
+    name?: string,
+    className?: string
+}, any> {}
+
+export class Radio extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    checked?: boolean,
+    inputId?: string
+}, any> {}
+
+export class Checkbox extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    checked?: boolean,
+    inputId?: string
 }, any> {}
 
 export class Range extends Component<{
@@ -250,21 +323,22 @@ export class Range extends Component<{
 }, any> {}
 
 export class Switch extends Component<{
-    onChange?(e: Event): void,
+    onChange?(e: SwitchChangeEvent): void,
     checked?: boolean,
     disabled?: boolean,
-    inputId?: string
+    inputId?: string,
+    className?: string
 }, any> {}
 
 /**
  * Tabs
  */
 
-export class Tab extends Component<{}, any> { }
+export class Tab extends Component { }
 
-export class TabActive extends Component<{}, any> { }
+export class TabActive extends Component { }
 
-export class TabInactive extends Component<{}, any> { }
+export class TabInactive extends Component { }
 
 export class Tabbar extends Component<{
     index?: number,
@@ -290,14 +364,18 @@ export class LazyList extends Component<{
 
 export class List extends Component<{
     modifier?: string,
-    dataSource?: string[],
-    renderRow?(): void,
-    renderHeader?(): void,
-    renderFooter?(): void,
+    dataSource?: any[],
+    renderRow?(row: any, index?: number): JSX.Element | undefined,
+    renderFooter?(): JSX.Element | undefined,
+    renderHeader?(): JSX.Element | undefined,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class ListHeader extends Component<{
     modifier?: string,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class ListItem extends Component<{
@@ -305,4 +383,22 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    onClick?: React.MouseEventHandler<any>,
+    className?: string,
+    style?: React.CSSProperties,
+}, any> {}
+
+export class Card extends Component<{
+    modifier?: string,
+}, any> {}
+
+/** Pull-to-refresh hook. */
+export class PullHook extends Component<{
+    onChange?(e: PullHookChangeEvent): void,
+    onLoad?(done: () => void): void,
+    onPull?(): void,
+    disabled?: boolean,
+    height?: number,
+    thresholdHeight?: number,
+    fixedContent?: boolean,
 }, any> {}

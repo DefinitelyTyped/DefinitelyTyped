@@ -14,7 +14,6 @@ declare namespace UIkit {
         show(): void;
         /**
          * Hide the dropdown
-         * @param {boolean} force
          */
         hide(force?: boolean): void;
     }
@@ -101,7 +100,7 @@ declare namespace UIkit {
         hide(): void;
         /**
          * Return if the modal is active on the page
-         * @return {boolean} True if the modal is current active on the page, false otherwise
+         * @return True if the modal is current active on the page, false otherwise
          */
         isActive(): boolean;
     }
@@ -182,42 +181,42 @@ declare namespace UIkit {
     interface Modal {
         /**
          * Create a alert dialog
-         * @param  {string} message The message to display. Can be Html
+         * @param  message The message to display. Can be Html
          */
         alert(message: string): void;
         /**
          * Create a confirm dialog
-         * @param  {string} message The message to display. Can be Html
-         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
+         * @param  message The message to display. Can be Html
+         * @param  [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
         confirm(message: string, options?: ModalOptions): void;
         /**
          * Create a confirm dialog and execute onconfirm on confirmation
-         * @param  {string} message The message to display. Can be Html
-         * @param  {function} onconfirm A function to execute on confirmation
-         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
+         * @param  message The message to display. Can be Html
+         * @param  onconfirm A function to execute on confirmation
+         * @param  [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
         confirm(message: string, onconfirm: () => any, options?: ModalOptions): void;
         /**
          * Create a confirm dialog and execute onconfirm on confirmation and oncancel on cancelation.
-         * @param  {string} message The message to display. Can be Html
-         * @param  {function} onconfirm A function to execute on confirmation
-         * @param  {function} oncancel A function to execute on cancelation
-         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
+         * @param  message The message to display. Can be Html
+         * @param  onconfirm A function to execute on confirmation
+         * @param  oncancel A function to execute on cancelation
+         * @param  [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
         confirm(message: string, onconfirm: () => any, oncancel?: () => any, options?: ModalOptions): void;
         /**
          * Create a prompt dialog, where the user enter information
-         * @param  {string} message The message to display. Can be Html
-         * @param  {string} value   A value to init the input
-         * @param  {function} fn  A function to execute on submission. The function receive the new value as a parameter
-         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
+         * @param  message The message to display. Can be Html
+         * @param  value   A value to init the input
+         * @param  fn  A function to execute on submission. The function receive the new value as a parameter
+         * @param  [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
         prompt(message: string, value: string, onsubmit?: (newValue: string) => any, options?: ModalOptions): void;
         /**
          * Create a modal that blocks the entire page
-         * @param {string} content A content to display. Can be Html
-         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
+         * @param content A content to display. Can be Html
+         * @param  [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
         blockUI(content: string, options?: ModalOptions): ModalElement;
         /**
@@ -260,13 +259,13 @@ declare namespace UIkit {
     interface OffCanvas {
         /**
          * Show an off-canvas matching the passed CSS selector
-         * @param  {string} selector A CSS selector
+         * @param  selector A CSS selector
          */
         show(selector: string): void;
         /**
          * Hide any active offcanvas. Set force to true, if you don't want any
          * animation
-         * @param  {boolean} force When seted to true do not run animations.
+         * @param  force When seted to true do not run animations.
          * @default false
          */
         hide(force?: boolean): void;
@@ -318,8 +317,8 @@ declare namespace UIkit {
     interface LightBox {
         /**
          * Create dynamic lightbox
-         * @param  {LightBoxItem[]} items Group of items on the lightbox
-         * @return {LightBoxElement}           The lightbox element to show
+         * @param  items Group of items on the lightbox
+         * @return           The lightbox element to show
          */
         create(items: LightBoxItem[]): LightBoxElement;
         /**
@@ -371,8 +370,6 @@ declare namespace UIkit {
      * <td>On autocomplete dropdown show</td>
      * </tr>
      * </table>
-     * @param element
-     * @param options
      */
     type AutoComplete = (element: string|JQuery, options?: AutoCompleteOptions) => any;
     interface DatePickerOptions {
@@ -854,7 +851,7 @@ declare namespace UIkit {
         /**
          * Show a notification
          * @param message The html message
-         * @param {string|NotifyOptions} [status] The status or options
+         * @param [status] The status or options
          */
         (message: string, status?: string|NotifyOptions): any;
         /**

@@ -2,9 +2,9 @@
 // Project: https://github.com/jasonslyvia/react-lazyload
 // Definitions by: m0a <https://github.com/m0a>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import {Component} from 'react';
+import { Component } from 'react';
 
 export interface LazyLoadProps {
     once?: boolean;
@@ -15,12 +15,14 @@ export interface LazyLoadProps {
     children?: JSX.Element;
     throttle?: number | boolean;
     debounce?: number | boolean;
-    placeholder?: Node;
+    placeholder?: any;
     unmountIfInvisible?: boolean;
 }
 
-export default class LazyLoad extends Component<LazyLoadProps, {}> {
+export default class LazyLoad extends Component<LazyLoadProps> {
     constructor(props: LazyLoad);
 }
 
 export  function lazyload(option: {}): LazyLoad;
+
+export function forceCheck(): void;

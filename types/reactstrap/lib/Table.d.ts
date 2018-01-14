@@ -1,5 +1,8 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface TableProps {
   className?: string;
+  cssModule?: CSSModule;
   size?: string;
   bordered?: boolean;
   striped?: boolean;
@@ -11,5 +14,5 @@ interface Props {
   responsiveTag?: React.ReactType;
 }
 
-declare var Table: React.StatelessComponent<Props>;
+declare const Table: React.StatelessComponent<TableProps>;
 export default Table;

@@ -1,6 +1,6 @@
 // Type definitions for SuperTest v2.0.1
 // Project: https://github.com/visionmedia/supertest
-// Definitions by: Alex Varju <https://github.com/varju/>
+// Definitions by: Alex Varju <https://github.com/varju>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -13,11 +13,11 @@ declare namespace supertest {
     interface Response extends superagent.Response {
     }
 
-    interface Request extends superagent.Request {
+    interface Request extends superagent.SuperAgentRequest {
     }
 
     type CallbackHandler = (err: any, res: Response) => void;
-    interface Test extends Request {
+    interface Test extends superagent.SuperAgentRequest {
       app?: any;
       url: string;
       serverAddress(app: any, path: string): string;
@@ -32,9 +32,12 @@ declare namespace supertest {
       end(callback?: CallbackHandler): this;
     }
 
-    function agent(app?: any): SuperTest<Test>;
+    interface AgentOptions {
+      ca?: any;
+    }
+    function agent(app?: any, options?: AgentOptions): SuperTest<Test>;
 
-    interface SuperTest<T> extends superagent.SuperAgent<T> {
+    interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {
     }
 
 }

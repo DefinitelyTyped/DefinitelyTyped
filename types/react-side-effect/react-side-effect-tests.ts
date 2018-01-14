@@ -5,7 +5,7 @@ interface DocumentTitleProps {
     title: string
 }
 
-class DocumentTitle extends React.Component<DocumentTitleProps, any> {
+class DocumentTitle extends React.Component<DocumentTitleProps> {
   public render() {
     if (this.props.children) {
       return React.Children.only(this.props.children);

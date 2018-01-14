@@ -1,6 +1,6 @@
 // Type definitions for mathjs
 // Project: http://mathjs.org/
-// Definitions by: Ilya Shestakov <https://github.com/siavol/>
+// Definitions by: Ilya Shestakov <https://github.com/siavol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var math: mathjs.IMathJsStatic;
@@ -30,7 +30,7 @@ declare namespace mathjs {
 
 		uninitialized: any;
 		version: string;
-		
+
 		config(options: any): void;
 
                 expression: MathNode;
@@ -532,7 +532,7 @@ declare namespace mathjs {
 		/**
 		 * Create a number or convert a string, boolean, or unit to a number. When value is a matrix, all elements will be converted to number.
 		 */
-		number(value?: string|number|boolean|MathArray|Matrix|Unit): number|MathArray|Matrix;
+		number(value?: string|number|boolean|MathArray|Matrix|Unit|BigNumber): number|MathArray|Matrix;
 		number(unit: Unit, valuelessUnit: Unit|string): number|MathArray|Matrix;
 
 		/**
@@ -554,6 +554,13 @@ declare namespace mathjs {
 		 */
 		unit(unit: string): Unit;
 		unit(value: number, unit: string): Unit;
+
+		/**
+                 * Create a user-defined unit and register it with the Unit type.
+		 */
+		createUnit(name: string): Unit;
+		createUnit(name: string, definition: string|UnitDefinition, options?: CreateUnitOptions): Unit;
+		createUnit(units: {[name: string]: string|UnitDefinition}, options?: CreateUnitOptions): Unit;
 
 		/**
 		 * Parse and compile an expression. Returns a an object with a function eval([scope]) to evaluate the compiled expression.
@@ -1344,6 +1351,17 @@ declare namespace mathjs {
 		toNumber(unit: string): number;
 	}
 
+	export interface CreateUnitOptions {
+		override?: boolean;
+	}
+
+	export interface UnitDefinition {
+		definition?: string|Unit;
+		prefixes?: string;
+		offset?: number;
+		aliases?: string[];
+	}
+
 	export interface Index {
 
 	}
@@ -1396,7 +1414,7 @@ declare namespace mathjs {
                  * @return {[type]}                 [description]
                  */
                 forEach(callback: (node: MathNode, path: string, parent: MathNode)=>any): MathNode[];
-		
+
 
                 /**
                 * `traverse(callback)`
@@ -1427,10 +1445,10 @@ declare namespace mathjs {
                 traverse(callback: (node: MathNode, path: string, parent: MathNode)=> void): any;
 //addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any);
                 /**
-                 * Recursively transform an expression tree via a transform function. Similar to Array.map, 
-                 * but recursively executed on all nodes in the expression tree. The callback function is a 
-                 * mapping function accepting a node, and returning a replacement for the node or the original node. 
-                 * Function callback is called as callback(node: Node, path: string, parent: Node) for every node in 
+                 * Recursively transform an expression tree via a transform function. Similar to Array.map,
+                 * but recursively executed on all nodes in the expression tree. The callback function is a
+                 * mapping function accepting a node, and returning a replacement for the node or the original node.
+                 * Function callback is called as callback(node: Node, path: string, parent: Node) for every node in
                  * the tree, and must return a Node. Parameter path is a string containing a relative JSON Path.
                  *
                  * For example, to replace all nodes of type SymbolNode having name ‘x’ with a ConstantNode with value 3:
@@ -1449,9 +1467,9 @@ declare namespace mathjs {
                  */
                 transform(callback: (node: MathNode, path: string, parent: MathNode)=>MathNode): MathNode;
                 /**
-                 * Transform a node. Creates a new Node having it’s childs be the results of calling the provided 
-                 * callback function for each of the childs of the original node. The callback function is called 
-                 * as `callback(child: Node, path: string, parent: Node)` and must return a Node. 
+                 * Transform a node. Creates a new Node having it’s childs be the results of calling the provided
+                 * callback function for each of the childs of the original node. The callback function is called
+                 * as `callback(child: Node, path: string, parent: Node)` and must return a Node.
                  * Parameter path is a string containing a relative JSON Path.
                  *
                  *
@@ -2281,4 +2299,3 @@ declare namespace mathjs {
 declare module 'mathjs'{
 	export = math;
 }
-

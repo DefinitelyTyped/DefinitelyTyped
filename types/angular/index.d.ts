@@ -1,10 +1,13 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>, Caleb St-Denis <https://github.com/calebstdenis>
+// Definitions by: Diego Vilar <https://github.com/diegovilar>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
+//                 Caleb St-Denis <https://github.com/calebstdenis>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
+/// <reference path="jqlite.d.ts" />
 
 declare var angular: angular.IAngularStatic;
 
@@ -156,7 +159,7 @@ declare namespace angular {
         module(
             name: string,
             requires?: string[],
-            configFn?: Function): IModule;
+            configFn?: Injectable<Function>): IModule;
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
@@ -226,8 +229,8 @@ declare namespace angular {
          * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
          * @param directiveFactory An injectable directive factory function.
          */
-        directive(name: string, directiveFactory: Injectable<IDirectiveFactory>): IModule;
-        directive(object: {[directiveName: string]: Injectable<IDirectiveFactory>}): IModule;
+        directive<TScope extends IScope = IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): IModule;
+        directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): IModule;
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
          *
@@ -386,6 +389,7 @@ declare namespace angular {
         $rollbackViewValue(): void;
         $commitViewValue(): void;
         $isEmpty(value: any): boolean;
+        $overrideModelOptions(options: INgModelOptions): void;
 
         $viewValue: any;
 
@@ -448,8 +452,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and https://docs.angularjs.org/api/ng/service/$rootScope
      */
     interface IRootScopeService {
-        [index: string]: any;
-
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -973,7 +975,7 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {
+    interface IDocumentService extends JQLite {
         // Must return intersection type for index signature compatibility with JQuery
         [index: number]: HTMLElement & Document;
     }
@@ -990,7 +992,7 @@ declare namespace angular {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootElementService extends JQuery {}
+    interface IRootElementService extends JQLite {}
 
     interface IQResolveReject<T> {
         (): void;
@@ -1029,12 +1031,17 @@ declare namespace angular {
          *
          * @param promises A hash of promises.
          */
-        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
-        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
+        all<T>(promises: { [K in keyof T]: (IPromise<T[K]> | T[K]); }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
         defer<T>(): IDeferred<T>;
+        /**
+         * Returns a promise that resolves or rejects as soon as one of those promises resolves or rejects, with the value or reason from that promise.
+         *
+         * @param promises A list or hash of promises.
+         */
+        race<T>(promises: Array<IPromise<T>> | {[key: string]: IPromise<T>}): IPromise<T>;
         /**
          * Creates a promise that is resolved as rejected with the specified reason. This api should be used to forward rejection in a chain of promises. If you are dealing with the last promise in a promise chain, you don't need to worry about it.
          *
@@ -1049,6 +1056,10 @@ declare namespace angular {
          * @param value Value or a promise
          */
         resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        /**
+         * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
+         * To use resolve with two different types, pass a union type to the single-type-argument overload.
+         */
         resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
@@ -1075,7 +1086,7 @@ declare namespace angular {
          * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
          * This feature is enabled by default.
          *
-         * @returns {boolean} Current value
+         * @returns Current value
          */
         errorOnUnhandledRejections(): boolean;
 
@@ -1083,8 +1094,8 @@ declare namespace angular {
          * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
          * This feature is enabled by default.
          *
-         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
-         * @returns {ng.IQProvider} Self for chaining otherwise.
+         * @param value Whether to generate an error when a rejected promise is not handled.
+         * @returns Self for chaining otherwise.
          */
         errorOnUnhandledRejections(value: boolean): IQProvider;
     }
@@ -1095,8 +1106,8 @@ declare namespace angular {
          * The successCallBack may return IPromise<never> for when a $q.reject() needs to be returned
          * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null | undefined, notifyCallback?: (state: any) => any): IPromise<TResult>;
-        then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null | undefined, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
+        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
 
         then<TResult, TCatch>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => IPromise<TCatch>|TCatch, notifyCallback?: (state: any) => any): IPromise<TResult | TCatch>;
         then<TResult1, TResult2, TCatch1, TCatch2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback: (reason: any) => IPromise<TCatch1>|TCatch2, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2 | TCatch1 | TCatch2>;
@@ -1238,8 +1249,8 @@ declare namespace angular {
     }
 
     interface ICompileProvider extends IServiceProvider {
-        directive(name: string, directiveFactory: Injectable<IDirectiveFactory>): ICompileProvider;
-        directive(object: {[directiveName: string]: Injectable<IDirectiveFactory>}): ICompileProvider;
+        directive<TScope extends IScope = IScope>(name: string, directiveFactory: Injectable<IDirectiveFactory<TScope>>): ICompileProvider;
+        directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
 
@@ -1288,16 +1299,27 @@ declare namespace angular {
          */
         cssClassDirectivesEnabled(): boolean;
         cssClassDirectivesEnabled(enabled: boolean): ICompileProvider;
+
+        /**
+        * Call this method to enable/disable strict component bindings check.
+        * If enabled, the compiler will enforce that for all bindings of a
+        * component that are not set as optional with ?, an attribute needs
+        * to be provided on the component's HTML tag.
+        * Defaults to false.
+        * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#strictComponentBindingsEnabled
+        */
+        strictComponentBindingsEnabled(): boolean;
+        strictComponentBindingsEnabled(enabled: boolean): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (clonedElement?: JQuery, scope?: IScope): any;
+        (clonedElement?: JQLite, scope?: IScope): any;
     }
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQLite;
     }
 
     interface ITemplateLinkingFunctionOptions {
@@ -1315,9 +1337,9 @@ declare namespace angular {
      */
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQLite;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQLite;
 
         /**
          * Returns true if the specified slot contains content (i.e. one or more DOM nodes)
@@ -1468,6 +1490,12 @@ declare namespace angular {
          * See [XMLHttpRequest.responseType]https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#xmlhttprequest-responsetype
          */
         responseType?: string;
+
+        /**
+         * Name of the parameter added (by AngularJS) to the request to specify the name (in the server response) of the JSON-P callback to invoke.
+         * If unspecified, $http.defaults.jsonpCallbackParam will be used by default. This property is only applicable to JSON-P requests.
+         */
+        jsonpCallbackParam?: string;
     }
 
     /**
@@ -1504,23 +1532,27 @@ declare namespace angular {
         (data: T, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): void;
     }
 
-    interface IHttpPromiseCallbackArg<T> {
-        data?: T;
-        status?: number;
-        headers?: IHttpHeadersGetter;
-        config?: IRequestConfig;
-        statusText?: string;
+    interface IHttpResponse<T> {
+        data: T;
+        status: number;
+        headers: IHttpHeadersGetter;
+        config: IRequestConfig;
+        statusText: string;
+        /** Added in AngularJS 1.6.6 */
+        xhrStatus: 'complete' | 'error' | 'timeout' | 'abort';
     }
 
-    interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-    }
+    /** @deprecated The old name of IHttpResponse. Kept for compatibility. */
+    type IHttpPromiseCallbackArg<T> = IHttpResponse<T>;
+
+    type IHttpPromise<T> = IPromise<IHttpResponse<T>>;
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
     interface IHttpRequestTransformer {
         (data: any, headersGetter: IHttpHeadersGetter): any;
     }
 
-    // The definition of fields are the same as IHttpPromiseCallbackArg
+    // The definition of fields are the same as IHttpResponse
     interface IHttpResponseTransformer {
         (data: any, headersGetter: IHttpHeadersGetter, status: number): any;
     }
@@ -1593,10 +1625,10 @@ declare namespace angular {
     }
 
     interface IHttpInterceptor {
-        request?(config: IRequestConfig): IRequestConfig|IPromise<IRequestConfig>;
-        requestError?(rejection: any): any;
-        response?<T>(response: IHttpPromiseCallbackArg<T>): IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
-        responseError?(rejection: any): any;
+        request?(config: IRequestConfig): IRequestConfig | IPromise<IRequestConfig>;
+        requestError?(rejection: any): IRequestConfig | IPromise<IRequestConfig>;
+        response?<T>(response: IHttpResponse<T>): IPromise<IHttpResponse<T>> | IHttpResponse<T>;
+        responseError?<T>(rejection: any): IPromise<IHttpResponse<T>> | IHttpResponse<T>;
     }
 
     interface IHttpInterceptorFactory {
@@ -1615,9 +1647,8 @@ declare namespace angular {
         useApplyAsync(value: boolean): IHttpProvider;
 
         /**
-         *
-         * @param {boolean=} value If true, `$http` will return a normal promise without the `success` and `error` methods.
-         * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chaining.
+         * @param value If true, `$http` will return a normal promise without the `success` and `error` methods.
+         * @returns If a value is specified, returns the $httpProvider for chaining.
          *    otherwise, returns the current configured value.
          */
         useLegacyPromiseExtensions(value: boolean): boolean | IHttpProvider;
@@ -1738,7 +1769,6 @@ declare namespace angular {
         (tpl: string, ignoreRequestError?: boolean): IPromise<string>;
         /**
          * total amount of pending template requests being downloaded.
-         * @type {number}
          */
         totalPendingRequests: number;
     }
@@ -1846,6 +1876,10 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+
+        // IController implementations frequently do not implement any of its methods.
+        // A string indexer indicates to TypeScript not to issue a weak type error in this case.
+        [s: string]: any;
     }
 
     /**
@@ -1935,28 +1969,28 @@ declare namespace angular {
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
-    interface IDirectiveFactory {
-        (...args: any[]): IDirective | IDirectiveLinkFn;
+    interface IDirectiveFactory<TScope extends IScope = IScope> {
+        (...args: any[]): IDirective<TScope> | IDirectiveLinkFn<TScope>;
     }
 
-    interface IDirectiveLinkFn {
+    interface IDirectiveLinkFn<TScope extends IScope = IScope> {
         (
-            scope: IScope,
-            instanceElement: JQuery,
+            scope: TScope,
+            instanceElement: JQLite,
             instanceAttributes: IAttributes,
             controller?: IController | IController[] | {[key: string]: IController},
             transclude?: ITranscludeFunction
         ): void;
     }
 
-    interface IDirectivePrePost {
-        pre?: IDirectiveLinkFn;
-        post?: IDirectiveLinkFn;
+    interface IDirectivePrePost<TScope extends IScope = IScope> {
+        pre?: IDirectiveLinkFn<TScope>;
+        post?: IDirectiveLinkFn<TScope>;
     }
 
-    interface IDirectiveCompileFn {
+    interface IDirectiveCompileFn<TScope extends IScope = IScope> {
         (
-            templateElement: JQuery,
+            templateElement: JQLite,
             templateAttributes: IAttributes,
             /**
              * @deprecated
@@ -1965,11 +1999,11 @@ declare namespace angular {
              * that is passed to the link function instead.
              */
             transclude: ITranscludeFunction
-        ): void | IDirectiveLinkFn | IDirectivePrePost;
+        ): void | IDirectiveLinkFn<TScope> | IDirectivePrePost<TScope>;
     }
 
-    interface IDirective {
-        compile?: IDirectiveCompileFn;
+    interface IDirective<TScope extends IScope = IScope> {
+        compile?: IDirectiveCompileFn<TScope>;
         controller?: string | Injectable<IControllerConstructor>;
         controllerAs?: string;
         /**
@@ -1978,7 +2012,7 @@ declare namespace angular {
          * relies upon bindings inside a $onInit method on the controller, instead.
          */
         bindToController?: boolean | {[boundProperty: string]: string};
-        link?: IDirectiveLinkFn | IDirectivePrePost;
+        link?: IDirectiveLinkFn<TScope> | IDirectivePrePost<TScope>;
         multiElement?: boolean;
         priority?: number;
         /**
@@ -1988,9 +2022,9 @@ declare namespace angular {
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
         scope?: boolean | {[boundProperty: string]: string};
-        template?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
+        template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
         templateNamespace?: string;
-        templateUrl?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
+        templateUrl?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
         terminal?: boolean;
         transclude?: boolean | 'element' | {[slot: string]: string};
     }
@@ -2003,7 +2037,7 @@ declare namespace angular {
      * See: http://docs.angularjs.org/api/angular.element
      */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
-    interface IAugmentedJQuery extends JQuery {}
+    interface IAugmentedJQuery extends JQLite {}
 
     /**
      * Same as IController. Keeping it for compatibility with older versions of these type definitions.
@@ -2051,9 +2085,7 @@ declare namespace angular {
             get<T>(name: '$xhrFactory'): IXhrFactory<T>;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
-            invoke(inlineAnnotatedFunction: any[]): any;
-            invoke<T>(func: (...args: any[]) => T, context?: any, locals?: any): T;
-            invoke(func: Function, context?: any, locals?: any): any;
+            invoke<T = any>(func: Injectable<Function | ((...args: any[]) => T)>, context?: any, locals?: any): T;
             strictDi: boolean;
         }
 
@@ -2107,24 +2139,5 @@ declare namespace angular {
      */
     interface IHttpParamSerializer {
         (obj: Object): string;
-    }
-}
-
-declare global {
-    interface JQuery {
-        // TODO: events, how to define?
-        // $destroy
-
-        find(element: any): JQuery;
-        find(obj: JQuery): JQuery;
-        controller(name?: string): any;
-        injector(): ng.auto.IInjectorService;
-        /** It's declared generic for custom scope interfaces */
-        scope<T extends ng.IScope>(): T;
-        isolateScope<T extends ng.IScope>(): T;
-
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
     }
 }

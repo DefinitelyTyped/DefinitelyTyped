@@ -2,7 +2,7 @@
 // Project: https://github.com/bvaughn/react-virtualized-select
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 import { ReactSelectProps } from "react-select";
@@ -22,7 +22,14 @@ export interface VirtualizedOptionRenderOptions<T> {
     valueArray: T[];
 }
 
-export interface VirtualizedSelectProps extends ReactSelectProps {
+/**
+ * Dummy interface to allow `VirtualizedSelectProps` to have an `optionRenderer` type
+ * incompatible with the one in `ReactSelectProps`.
+ */
+interface VirtualizedSelectPropsBase extends ReactSelectProps {
+    optionRenderer?: any;
+}
+export interface VirtualizedSelectProps extends VirtualizedSelectPropsBase {
     async?: boolean;
     maxHeight?: number;
     optionHeight?: number;
@@ -30,5 +37,5 @@ export interface VirtualizedSelectProps extends ReactSelectProps {
     selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any>;
 }
 
-declare class VirtualizedSelect extends React.PureComponent<VirtualizedSelectProps, {}> {}
+declare class VirtualizedSelect extends React.PureComponent<VirtualizedSelectProps> {}
 export default VirtualizedSelect;

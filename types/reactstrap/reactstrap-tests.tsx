@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   Card,
+  CardBody,
   CardBlock,
   CardColumns,
   CardDeck,
@@ -26,6 +27,11 @@ import {
   CardSubtitle,
   CardText,
   CardTitle,
+  Carousel,
+  CarouselCaption,
+  CarouselControl,
+  CarouselItem,
+  CarouselIndicators,
   Row,
   Col,
   Container,
@@ -61,8 +67,8 @@ import {
   PaginationItem,
   PaginationLink,
   Popover,
-  PopoverContent,
-  PopoverTitle,
+  PopoverBody,
+  PopoverHeader,
   Progress,
   TabPane,
   UncontrolledButtonDropdown,
@@ -72,7 +78,6 @@ import {
   TabContent,
   Table,
   Tag,
-  TetherContent,
   Tooltip
 } from 'reactstrap';
 
@@ -127,7 +132,7 @@ function AlertExample1() {
 }
 
 // --------------- Badge
-class Example2 extends React.Component<any, any> {
+class Example2 extends React.Component {
   render() {
     return (
       <div>
@@ -142,7 +147,7 @@ class Example2 extends React.Component<any, any> {
   }
 }
 
-export class Example3 extends React.Component<any, any> {
+export class Example3 extends React.Component {
   render() {
     return (
       <div>
@@ -157,7 +162,7 @@ export class Example3 extends React.Component<any, any> {
   }
 }
 
-class Example4 extends React.Component<any, any> {
+class Example4 extends React.Component {
   render() {
     return (
       <div>
@@ -206,7 +211,7 @@ const Example6 = (props: any) => {
 };
 
 // ------------- Buttons
-class Example7 extends React.Component<any, any> {
+class Example7 extends React.Component {
   render() {
     return (
       <div>
@@ -222,7 +227,7 @@ class Example7 extends React.Component<any, any> {
   }
 }
 
-class Example8 extends React.Component<any, any> {
+class Example8 extends React.Component {
   render() {
     return (
       <div>
@@ -422,7 +427,7 @@ const Example19 = (
 );
 
 // --------------- ButtonGroup
-class Example20 extends React.Component<any, any> {
+class Example20 extends React.Component {
   render() {
     return (
       <ButtonGroup>
@@ -434,7 +439,7 @@ class Example20 extends React.Component<any, any> {
   }
 }
 
-class Example21 extends React.Component<any, any> {
+class Example21 extends React.Component {
   render() {
     return (
       <ButtonToolbar>
@@ -1067,7 +1072,7 @@ function Example44() {
 }
 
 // ------------------ Form
-class Example45 extends React.Component<any, any> {
+class Example45 extends React.Component {
   render() {
     return (
       <Form>
@@ -1144,7 +1149,7 @@ class Example45 extends React.Component<any, any> {
   }
 }
 
-class Example46 extends React.Component<any, any> {
+class Example46 extends React.Component {
   render() {
     return (
       <Form>
@@ -1232,7 +1237,7 @@ class Example46 extends React.Component<any, any> {
   }
 }
 
-class Example47 extends React.Component<any, any> {
+class Example47 extends React.Component {
   render() {
     return (
       <Form inline>
@@ -1252,7 +1257,7 @@ class Example47 extends React.Component<any, any> {
   }
 }
 
-class Example48 extends React.Component<any, any> {
+class Example48 extends React.Component {
   render() {
     return (
       <Form>
@@ -1279,7 +1284,7 @@ class Example48 extends React.Component<any, any> {
   }
 }
 
-class Example49 extends React.Component<any, any> {
+class Example49 extends React.Component {
   render() {
     return (
       <Form>
@@ -1372,7 +1377,7 @@ class Example49 extends React.Component<any, any> {
   }
 }
 
-class Example50 extends React.Component<any, any> {
+class Example50 extends React.Component {
   render() {
     return (
       <Form>
@@ -1393,7 +1398,7 @@ class Example50 extends React.Component<any, any> {
   }
 }
 
-class Example51 extends React.Component<any, any> {
+class Example51 extends React.Component {
   render() {
     return (
       <Form inline>
@@ -1609,7 +1614,7 @@ const Example60 = (props: any) => {
   );
 };
 
-class Example61 extends React.Component<any, any> {
+class Example61 extends React.Component {
   render() {
     return (
       <Container>
@@ -1651,7 +1656,7 @@ class Example61 extends React.Component<any, any> {
   }
 }
 
-class Example62 extends React.Component<any, any> {
+class Example62 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1665,7 +1670,7 @@ class Example62 extends React.Component<any, any> {
   }
 }
 
-class Example63 extends React.Component<any, any> {
+class Example63 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1677,7 +1682,7 @@ class Example63 extends React.Component<any, any> {
   }
 }
 
-class Example64 extends React.Component<any, any> {
+class Example64 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1691,7 +1696,7 @@ class Example64 extends React.Component<any, any> {
   }
 }
 
-class Example65 extends React.Component<any, any> {
+class Example65 extends React.Component {
   render() {
     return (
       <div>
@@ -1718,7 +1723,7 @@ class Example65 extends React.Component<any, any> {
   }
 }
 
-class Example66 extends React.Component<any, any> {
+class Example66 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1731,7 +1736,7 @@ class Example66 extends React.Component<any, any> {
   }
 }
 
-class Example67 extends React.Component<any, any> {
+class Example67 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -2156,7 +2161,7 @@ class Example76 extends React.Component<any, any> {
   }
 }
 
-class Example77 extends React.Component<any, any> {
+class Example77 extends React.Component {
   render() {
     return (
       <div>
@@ -2315,7 +2320,7 @@ class Example80 extends React.Component<any, any> {
 }
 
 // ----------- Pagination
-class Example81 extends React.Component<any, any> {
+class Example81 extends React.Component {
   render() {
     return (
       <Pagination>
@@ -2355,7 +2360,7 @@ class Example81 extends React.Component<any, any> {
   }
 }
 
-class Example82 extends React.Component<any, any> {
+class Example82 extends React.Component {
   render() {
     return (
       <Pagination>
@@ -2395,7 +2400,7 @@ class Example82 extends React.Component<any, any> {
   }
 }
 
-class Example83 extends React.Component<any, any> {
+class Example83 extends React.Component {
   render() {
     return (
       <Pagination size="lg">
@@ -2425,7 +2430,7 @@ class Example83 extends React.Component<any, any> {
   }
 }
 
-class Example84 extends React.Component<any, any> {
+class Example84 extends React.Component {
   render() {
     return (
       <Pagination size="sm">
@@ -2478,9 +2483,9 @@ class Example85 extends React.Component<any, any> {
         <Button id="Popover1" onClick={this.toggle}>
           Launch Popover
         </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => {}}>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </div>
     );
@@ -2510,8 +2515,8 @@ class PopoverItem extends React.Component<any, any> {
           {this.props.item.text}
         </Button>
         <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </span>
     );
@@ -2700,7 +2705,7 @@ const Example92 = (props: any) => {
 };
 
 // --------------- Table
-class Example93 extends React.Component<any, any> {
+class Example93 extends React.Component {
   render() {
     return (
       <Table>
@@ -2737,7 +2742,7 @@ class Example93 extends React.Component<any, any> {
   }
 }
 
-class Example94 extends React.Component<any, any> {
+class Example94 extends React.Component {
   render() {
     return (
       <Table inverse>
@@ -2774,7 +2779,7 @@ class Example94 extends React.Component<any, any> {
   }
 }
 
-class Example95 extends React.Component<any, any> {
+class Example95 extends React.Component {
   render() {
     return (
       <Table striped>
@@ -2811,7 +2816,7 @@ class Example95 extends React.Component<any, any> {
   }
 }
 
-class Example96 extends React.Component<any, any> {
+class Example96 extends React.Component {
   render() {
     return (
       <Table bordered>
@@ -2848,7 +2853,7 @@ class Example96 extends React.Component<any, any> {
   }
 }
 
-class Example97 extends React.Component<any, any> {
+class Example97 extends React.Component {
   render() {
     return (
       <Table hover>
@@ -2885,7 +2890,7 @@ class Example97 extends React.Component<any, any> {
   }
 }
 
-class Example98 extends React.Component<any, any> {
+class Example98 extends React.Component {
   render() {
     return (
       <Table size="sm">
@@ -2922,7 +2927,7 @@ class Example98 extends React.Component<any, any> {
   }
 }
 
-class Example99 extends React.Component<any, any> {
+class Example99 extends React.Component {
   render() {
     return (
       <Table responsive>
@@ -2971,7 +2976,7 @@ class Example99 extends React.Component<any, any> {
   }
 }
 
-class Example100 extends React.Component<any, any> {
+class Example100 extends React.Component {
   render() {
     return (
       <Table responsive>
@@ -3265,7 +3270,7 @@ function Example105() {
         Toggle
       </a>
 
-      <DropdownMenu right>
+      <DropdownMenu right className="asdf">
         <div className="d-block">
           Item
         </div>
@@ -3286,3 +3291,326 @@ function Example106() {
     </Nav>
   );
 }
+
+const CSSModuleExample = (props: any) => {
+  const cssModule = {
+    btn: 'hash'
+  };
+
+  return (
+    <Button color="secondary" cssModule={cssModule}>Button</Button>
+  );
+};
+
+class Example107 extends React.Component {
+  private input: HTMLInputElement;
+
+  render() {
+    return <Input type="file" innerRef={(input) => { this.input = input; }} />;
+  }
+}
+
+class Example108 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" dark toggleable>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example109 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example110 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example111 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand tag="a" href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example112 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand className="logo" href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+const Example113 = (props: any) => {
+    return (
+      <div>
+        <Card>
+          <CardBody>
+            Anim pariatur cliche reprehenderit,
+            enim eiusmod high life accusamus terry richardson ad squid. Nihil
+            anim keffiyeh helvetica, craft beer labore wes anderson cred
+            nesciunt sapiente ea proident.
+          </CardBody>
+        </Card>
+      </div>
+    );
+  };
+
+class Example114 extends React.Component<any, any> {
+private element: HTMLElement;
+
+refFn(r: HTMLElement | null) {
+    if (r) {
+        this.element = r;
+    }
+}
+
+render() {
+    return (
+    <div>
+        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+        Hello world!
+        </Tooltip>
+    </div>
+    );
+}
+}
+
+class Example115 extends React.Component<any, any> {
+    // https://reactstrap.github.io/components/carousel/
+
+    private readonly items = [
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 1',
+          caption: 'Slide 1'
+        },
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 2',
+          caption: 'Slide 2'
+        },
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 3',
+          caption: 'Slide 3'
+        }
+      ];
+
+    private animating: boolean;
+
+    constructor(props: any) {
+      super(props);
+      this.state = { activeIndex: 0 };
+      this.next = this.next.bind(this);
+      this.previous = this.previous.bind(this);
+      this.goToIndex = this.goToIndex.bind(this);
+      this.onExiting = this.onExiting.bind(this);
+      this.onExited = this.onExited.bind(this);
+    }
+
+    onExiting() {
+      this.animating = true;
+    }
+
+    onExited() {
+      this.animating = false;
+    }
+
+    next() {
+      if (this.animating) return;
+      const nextIndex = this.state.activeIndex === this.items.length - 1 ? 0 : this.state.activeIndex + 1;
+      this.setState({ activeIndex: nextIndex });
+    }
+
+    previous() {
+      if (this.animating) return;
+      const nextIndex = this.state.activeIndex === 0 ? this.items.length - 1 : this.state.activeIndex - 1;
+      this.setState({ activeIndex: nextIndex });
+    }
+
+    goToIndex(newIndex: number) {
+      if (this.animating) return;
+      this.setState({ activeIndex: newIndex });
+    }
+
+    render() {
+      const { activeIndex } = this.state;
+
+      const slides = this.items.map((item) => {
+        return (
+          <CarouselItem
+            onExiting={this.onExiting}
+            onExited={this.onExited}
+            key={item.src}
+          >
+            <img src={item.src} alt={item.altText} />
+            <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          </CarouselItem>
+        );
+      });
+
+      return (
+        <Carousel
+          activeIndex={activeIndex}
+          next={this.next}
+          previous={this.previous}
+        >
+          <CarouselIndicators items={this.items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+          {slides}
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        </Carousel>
+      );
+    }
+  }

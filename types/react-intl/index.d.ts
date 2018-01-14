@@ -8,10 +8,11 @@
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
+    type MessageValue = string | number | boolean | Date | null | undefined;
 
     interface Locale {
         locale: string;
@@ -69,8 +70,8 @@ declare namespace ReactIntl {
         formatRelative(value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }): string;
         formatNumber(value: number, options?: FormattedNumber.PropsBase): string;
         formatPlural(value: number, options?: FormattedPlural.Base): keyof FormattedPlural.PropsBase;
-        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
-        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
+        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
+        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
@@ -97,7 +98,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class FormattedDate extends React.Component<FormattedDate.Props, any> { }
+    class FormattedDate extends React.Component<FormattedDate.Props> { }
 
     namespace FormattedTime {
         type PropsBase = IntlComponent.DateTimeFormatProps;
@@ -106,7 +107,7 @@ declare namespace ReactIntl {
             value: DateSource;
         }
     }
-    class FormattedTime extends React.Component<FormattedTime.Props, any> { }
+    class FormattedTime extends React.Component<FormattedTime.Props> { }
 
     namespace FormattedRelative {
         interface PropsBase {
@@ -128,7 +129,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class FormattedRelative extends React.Component<FormattedRelative.Props, any> { }
+    class FormattedRelative extends React.Component<FormattedRelative.Props> { }
 
     namespace FormattedMessage {
         interface MessageDescriptor {
@@ -138,13 +139,13 @@ declare namespace ReactIntl {
         }
 
         interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | number | JSX.Element};
+            values?: {[key: string]: MessageValue | JSX.Element};
             tagName?: string;
         }
     }
-    class FormattedMessage extends React.Component<FormattedMessage.Props, any> { }
+    class FormattedMessage extends React.Component<FormattedMessage.Props> { }
 
-    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props, any> { }
+    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props> { }
 
     namespace FormattedNumber {
         interface PropsBase extends Intl.NumberFormatOptions {
@@ -155,7 +156,7 @@ declare namespace ReactIntl {
             value: number;
         }
     }
-    class FormattedNumber extends React.Component<FormattedNumber.Props, any> { }
+    class FormattedNumber extends React.Component<FormattedNumber.Props> { }
 
     namespace FormattedPlural {
         interface Base {
@@ -178,7 +179,7 @@ declare namespace ReactIntl {
             value: number;
         }
     }
-    class FormattedPlural extends React.Component<FormattedPlural.Props, any> { }
+    class FormattedPlural extends React.Component<FormattedPlural.Props> { }
 
     namespace IntlProvider {
         interface Props {
@@ -191,7 +192,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class IntlProvider extends React.Component<IntlProvider.Props, any> {
+    class IntlProvider extends React.Component<IntlProvider.Props> {
         getChildContext(): {
             intl: InjectedIntl;
         };

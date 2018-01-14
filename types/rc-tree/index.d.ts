@@ -1,8 +1,8 @@
 // Type definitions for rc-tree 1.4
 // Project: https://github.com/react-component/tree
-// Definitions by: John Reilly <https://github.com/johnnyreilly/>
+// Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import {
     Component,
@@ -36,7 +36,7 @@ export interface TreeNodeProps extends Props<TreeNode> {
     isLeaf?: boolean;
 }
 
-export class TreeNode extends Component<TreeNodeProps, {}> { }
+export class TreeNode extends Component<TreeNodeProps> { }
 
 export interface ExpandData {
     expanded: boolean;
@@ -151,4 +151,4 @@ export interface TreeProps extends Props<Tree> {
     draggable?: boolean;
 }
 
-export default class Tree extends Component<TreeProps, {}> { }
+export default class Tree extends Component<TreeProps> { }

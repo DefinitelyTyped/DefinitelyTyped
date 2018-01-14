@@ -1,8 +1,8 @@
 // Type definitions for Handlebars v4.0.5
 // Project: http://handlebarsjs.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 declare namespace Handlebars {
     export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
@@ -19,9 +19,9 @@ declare namespace Handlebars {
     export function Exception(message: string): void;
     export function log(level: number, obj: any): void;
     export function parse(input: string): hbs.AST.Program;
-    export function compile(input: any, options?: CompileOptions): HandlebarsTemplateDelegate;
+    export function compile<T = any>(input: any, options?: CompileOptions): HandlebarsTemplateDelegate<T>;
     export function precompile(input: any, options?: PrecompileOptions): TemplateSpecification;
-    export function template(precompilation: TemplateSpecification): HandlebarsTemplateDelegate;
+    export function template<T = any>(precompilation: TemplateSpecification): HandlebarsTemplateDelegate<T>;
 
     export function create(): typeof Handlebars;
 
@@ -96,8 +96,8 @@ interface HandlebarsTemplatable {
     template: HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsTemplateDelegate {
-    (context: any, options?: any): string;
+interface HandlebarsTemplateDelegate<T = any> {
+    (context: T, options?: RuntimeOptions): string;
 }
 
 interface HandlebarsTemplates {
@@ -106,6 +106,14 @@ interface HandlebarsTemplates {
 
 interface TemplateSpecification {
 
+}
+
+interface RuntimeOptions {
+    partial?: boolean;
+    depths?: any[];
+    helpers?: { [name: string]: Function }
+    partials?: { [name: string]: HandlebarsTemplateDelegate }
+    decorators?: { [name: string]: Function }
 }
 
 interface CompileOptions {
@@ -298,5 +306,9 @@ declare namespace hbs {
 }
 
 declare module "handlebars" {
+    export = Handlebars;
+}
+
+declare module "handlebars/handlebars.runtime" {
     export = Handlebars;
 }

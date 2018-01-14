@@ -1,4 +1,4 @@
-// Type definitions for pouchdb 6.1
+// Type definitions for pouchdb 6.3
 // Project: https://pouchdb.com/
 // Definitions by: Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,10 +19,5 @@
 /// <reference types='pouchdb-node' />
 /// <reference types='pouchdb-replication' />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
-declare module 'pouchdb' {
-    const plugin: PouchDB.Static;
-    export = plugin;
-}
+declare const plugin: PouchDB.Static;
+export = plugin;

@@ -1,5 +1,3 @@
-/* tslint:disable:no-arg object-literal-shorthand one-variable-per-declaration only-arrow-functions prefer-const prefer-for-of triple-equals no-var */
-
 function examples() {
     function add_0() {
         $('div').css('border', '2px solid red')
@@ -1202,14 +1200,13 @@ function examples() {
         // Attach a done, fail, and progress handler for the asyncEvent
         $.when(asyncEvent()).then(
             function(status) {
-                status === 3;
                 alert(status + ', things are going well');
             },
             function(status) {
                 alert(status + ', you fail this time');
             },
             function(status) {
-                // $('body').append(status);
+                $('body').append(status);
             },
         );
     }
@@ -1233,9 +1230,7 @@ function examples() {
         // Use the object as a Promise
         _obj.done(function(name) {
             _obj.hello(name); // Will alert "Hello John"
-        });
-        /// TODO: This doesn't work even though .done() returns this
-        //     .hello('Karl'); // Will alert "Hello Karl"
+        }).hello('Karl'); // Will alert "Hello Karl"
     }
 
     function deferred_then_0() {
@@ -1392,7 +1387,7 @@ function examples() {
     function each_2() {
         $('button').click(function() {
             $('div').each(function(index, element) {
-                // element == this
+                // element == this;
                 $(element).css('backgroundColor', 'yellow');
                 if ($(this).is('#stop')) {
                     $('span').text('Stopped at div index #' + index);
@@ -1822,8 +1817,8 @@ function examples() {
     }
 
     function finish_0() {
-        var horiz = $('#path').width() - 20,
-            vert = $('#path').height() - 20;
+        var horiz = $('#path').width()! - 20,
+            vert = $('#path').height()! - 20;
 
         var btns: { [key: string]: () => void; } = {
             bstt: function() {
@@ -1992,13 +1987,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showHeight('paragraph', $('p').height());
+            showHeight('paragraph', $('p').height()!);
         });
         $('#getd').click(function() {
-            showHeight('document', $(document).height());
+            showHeight('document', $(document).height()!);
         });
         $('#getw').click(function() {
-            showHeight('window', $(window).height());
+            showHeight('window', $(window).height()!);
         });
     }
 
@@ -2434,7 +2429,7 @@ function examples() {
     }
 
     function jQuery_error_0() {
-        jQuery.error = console.error as any;
+        jQuery.error = console.error;
     }
 
     function jQuery_escape_selector_0() {
@@ -2907,7 +2902,7 @@ function examples() {
     function jQuery_parse_html_0() {
         var $log = $('#log'),
             str = 'hello, <b>my name is</b> jQuery.',
-            html = $.parseHTML(str) as HTMLElement[],
+            html = $.parseHTML(str),
             nodeNames: string[] = [];
 
         // Append the parsed HTML
@@ -3035,13 +3030,13 @@ function examples() {
         // attach click handlers to #test
         $('#test')
         // this === "zombie"; handler unbound after first click
-            .on('click', $.proxy(me.test, me) as JQuery.EventHandler<HTMLElement>)
+            .on('click', $.proxy(me.test, me))
 
             // this === "person"
-            .on('click', youClick as JQuery.EventHandler<HTMLElement>)
+            .on('click', youClick)
 
             // this === "zombie"
-            .on('click', $.proxy(you.test, me) as JQuery.EventHandler<HTMLElement>)
+            .on('click', $.proxy(you.test, me))
 
             // this === "<button> element"
             .on('click', you.test);
@@ -3055,7 +3050,7 @@ function examples() {
                 $('#test').off('click', obj.test);
             },
         };
-        $('#test').on('click', jQuery.proxy(obj, 'test') as JQuery.EventHandler<HTMLElement>);
+        $('#test').on('click', jQuery.proxy(obj, 'test'));
     }
 
     function jQuery_proxy_2() {
@@ -3064,7 +3059,7 @@ function examples() {
             type: 'dog',
 
             // Note that event comes *after* one and two
-            test: function(one: any, two: any, event: any) {
+            test: function(one: typeof you, two: typeof they, event: JQuery.Event<HTMLElement>) {
                 $('#log')
 
                 // `one` maps to `you`, the 1st additional
@@ -3084,7 +3079,7 @@ function examples() {
 
                     // The clicked element is `event.target`,
                     // and its type is "button"
-                    .append('the ' + event.target.type + '.');
+                    .append('the ' + (event.target as HTMLButtonElement).type + '.');
             },
         };
 
@@ -3093,7 +3088,7 @@ function examples() {
 
         // Set up handler to execute me.test() in the context
         // of `me`, with `you` and `they` as additional arguments
-        var proxy = $.proxy(me.test, me, you, they) as JQuery.EventHandler<HTMLElement>;
+        var proxy = $.proxy(me.test, me, you, they);
 
         $('#test')
             .on('click', proxy);
@@ -3757,13 +3752,13 @@ function examples() {
 
     function offset_0() {
         var p = $('p:last');
-        var offset = p.offset();
+        var offset = p.offset()!;
         p.html('left: ' + offset.left + ', top: ' + offset.top);
     }
 
     function offset_1() {
         $('*', document.body).click(function(event) {
-            var offset = $(this).offset();
+            var offset = $(this).offset()!;
             event.stopPropagation();
             $('#result').text(this.tagName +
                 ' coords ( ' + offset.left + ', ' + offset.top + ' )');
@@ -4056,7 +4051,7 @@ function examples() {
     function promise_0() {
         var div = $('<div>');
 
-        div.promise().done(function(this: JQuery, arg1: JQuery) {
+        div.promise().done(function(this: typeof div, arg1) {
             // Will fire right away and alert "true"
             alert(this === div && arg1 === div);
         });
@@ -4935,13 +4930,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showWidth('paragraph', $('p').width());
+            showWidth('paragraph', $('p').width()!);
         });
         $('#getd').click(function() {
-            showWidth('document', $(document).width());
+            showWidth('document', $(document).width()!);
         });
         $('#getw').click(function() {
-            showWidth('window', $(window).width());
+            showWidth('window', $(window).width()!);
         });
     }
 

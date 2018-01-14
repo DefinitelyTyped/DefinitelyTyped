@@ -20,7 +20,8 @@ var d2 = dragula({
     revertOnSpill: false,
     removeOnSpill: false,
     delay: false,
-    mirrorContainer: document.body
+    mirrorContainer: document.body,
+    ignoreInputTextSelection: true
 });
 
 var d3 = dragula();

@@ -1,5 +1,5 @@
 import * as stream from 'mithril/stream';
-import {Stream} from 'mithril/stream';
+import { Stream } from 'mithril/stream';
 
 {
 	const s = stream(1);
@@ -135,17 +135,6 @@ import {Stream} from 'mithril/stream';
 }
 
 {
-	let count = 0;
-	const a = stream(1);
-	const b = stream.combine(a => stream.HALT, [a])
-	["fantasy-land/map"](() => {
-		count++;
-		return 1;
-	});
-	console.assert(b() === undefined);
-}
-
-{
 	const all = stream.merge([
 		stream(10),
 		stream("20"),
@@ -213,112 +202,6 @@ import {Stream} from 'mithril/stream';
 	doubled.end(true);
 	s(4);
 	console.assert(doubled() === 4);
-}
-
-{
-	const s = stream<number>();
-	const doubled = s["fantasy-land/map"]((n: number) => n * 2);
-	s(3);
-	console.assert(doubled() === 6);
-}
-
-{
-	const s = stream(3);
-	const doubled = s["fantasy-land/map"]((n: number) => n * 2);
-	console.assert(doubled() === 6);
-}
-
-{
-	const s = stream<undefined>();
-	const mapped = s["fantasy-land/map"](String);
-	s(undefined);
-	console.assert(mapped() === "undefined");
-}
-
-{
-	const s = stream(undefined);
-	const mapped = s["fantasy-land/map"](String);
-	console.assert(mapped() === "undefined");
-}
-
-{
-	const s = stream(undefined);
-	const mapped = s["fantasy-land/map"]((_value: undefined) => stream());
-	console.assert(mapped()() === undefined);
-}
-
-{
-	const s = stream(undefined);
-	console.assert(s["fantasy-land/map"] === s.map);
-}
-
-{
-	const apply = stream((n: number) => n * 2);
-	const s = stream(3);
-	const applied = s["fantasy-land/ap"](apply);
-	console.assert(applied() === 6);
-	apply(n => n / 3);
-	console.assert(applied() === 1);
-	s(9);
-	console.assert(applied() === 3);
-}
-
-{
-	const apply = stream<(value: undefined) => string>(String);
-	const s = stream(undefined);
-	const applied = s["fantasy-land/ap"](apply);
-	console.assert(applied() === "undefined");
-	apply(value => String(value) + "a");
-	console.assert(applied() === "undefineda");
-}
-
-{
-	const s = stream(3);
-	const mapped = s["fantasy-land/map"]((v: number) => v);
-	console.assert(s() === mapped());
-}
-
-{
-	const f = (x: number) => x * 2;
-	const g = (x: number) => x * x;
-	const s = stream(3);
-	const mapped = s["fantasy-land/map"]((value: any) => f(g(value)));
-	const composed = s["fantasy-land/map"](g)["fantasy-land/map"](f);
-	console.assert(mapped() === 18);
-	console.assert(mapped() === composed());
-}
-
-{
-	const a = stream((n: number) => n * 2);
-	const u = stream((n: number) => n * 3);
-	const v = stream(5);
-	const mapped = v["fantasy-land/ap"](u["fantasy-land/ap"](a["fantasy-land/map"]((f: any) => (g: any)  => (x: any) => f(g(x)))));
-	const composed = v["fantasy-land/ap"](u)["fantasy-land/ap"](a);
-	console.assert(mapped() === 30);
-	console.assert(mapped() === composed());
-}
-
-{
-	const a = stream()["fantasy-land/of"]((value: number) => value);
-	const v = stream(5);
-	console.assert(v["fantasy-land/ap"](a)() === 5);
-	console.assert(v["fantasy-land/ap"](a)() === v());
-}
-
-{
-	const a = stream(0);
-	const f = (n: number) => n * 2;
-	const x = 3;
-	console.assert(a["fantasy-land/of"](x)["fantasy-land/ap"](a["fantasy-land/of"](f))() === 6);
-	console.assert(a["fantasy-land/of"](x)["fantasy-land/ap"](a["fantasy-land/of"](f))() === a["fantasy-land/of"](f(x))());
-}
-
-{
-	const u = stream((n: number) => n * 2);
-	const a = stream();
-	const y = 3;
-	console.assert(a["fantasy-land/of"](y)["fantasy-land/ap"](u)() === 6);
-	console.assert(a["fantasy-land/of"](y)["fantasy-land/ap"](u)() === u["fantasy-land/ap"](a["fantasy-land/of"]((f: any) => f(y)))());
 }
 
 // scan

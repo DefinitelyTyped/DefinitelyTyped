@@ -6,8 +6,24 @@
 
 /// <reference types="gapi" />
 
-declare namespace gapi.client.drive {
-    export namespace files {
+declare namespace gapi.client {
+    export module drive {
+        const files: {
+            get: (parameters: GetParameters) => HttpRequest<FileResource>;
+            patch: (parameters: PatchParameters) => HttpRequest<FileResource>;
+            copy: (parameters: CopyParameters) => HttpRequest<FileResource>;
+            delete: (parameters: DeleteParameters) => HttpRequest<any>;
+            emptyTrash: () => HttpRequest<any>;
+            export: (parameters: ExportParameters) => HttpRequest<FileResource>;
+            generateIds: (parameters: GenerateIdsParameters) => HttpRequest<IdsResource>;
+            insert: (parameters: InsertParameters) => HttpRequest<FileResource>;
+            list: (parameters: ListParameters) => HttpRequest<FileListResource>;
+            touch: (parameters: TouchParameters) => HttpRequest<FileResource>;
+            trash: (parameters: TrashParameters) => HttpRequest<FileResource>;
+            untrash: (parameters: UntrashParameters) => HttpRequest<FileResource>;
+            watch: (parameters: WatchParameters) => HttpRequest<ChannelResource>;
+        }
+
         interface GetParameters {
             fileId: string;
             acknowledgeAbuse?: boolean;
@@ -16,8 +32,6 @@ declare namespace gapi.client.drive {
             supportsTeamDrives?: boolean;
             updateViewedDate?: boolean;
         }
-
-        export function get(parameters: GetParameters): HttpRequest<FileResource>;
 
         interface PatchParameters {
             fileId: string;
@@ -37,8 +51,6 @@ declare namespace gapi.client.drive {
             useContentAsIndexableText?: boolean;
         }
 
-        export function patch(parameters: PatchParameters): HttpRequest<FileResource>;
-
         interface CopyParameters {
             fileId: string;
             resource?: FileResource;
@@ -52,13 +64,39 @@ declare namespace gapi.client.drive {
             visibility?: string;
         }
 
-        export function copy(parameters: CopyParameters): HttpRequest<FileResource>;
+        interface DeleteParameters {
+            fileId: string;
+            supportsTeamDrives?: boolean;
+        }
+
+        interface ExportParameters {
+            fileId: string;
+            mimeType: string;
+        }
+
+        interface GenerateIdsParameters {
+            maxResults?: number;
+            space?: string;
+        }
+
+        interface InsertParameters {
+            uploadType: string;
+            convert?: boolean;
+            ocr?: boolean;
+            ocrLanguage?: string;
+            pinned?: boolean;
+            supportsTeamDrives?: boolean;
+            timedTextLanguage?: string;
+            timedTextTrackName?: string;
+            usecontentAsIndexableText?: boolean;
+            visibility?: string;
+        }
 
         interface ListParameters {
             corpora?: string;
             corpus?: string;
             includeTeamDriveItems?: boolean;
-            maxResults: number;
+            maxResults?: number;
             orderBy?: string;
             pageToken?: string;
             projection?: string;
@@ -68,28 +106,22 @@ declare namespace gapi.client.drive {
             teamDriveId?: string;
         }
 
-        export function list(parameters: ListParameters): HttpRequest<FileListResource>;
-
         interface TouchParameters {
             fileId: string;
             supportsTeamDrives?: boolean;
         }
-
-        export function touch(parameters: TouchParameters): HttpRequest<FileResource>;
 
         interface TrashParameters {
             fileId: string;
             supportsTeamDrives?: boolean;
         }
 
-        export function trash(parameters: TrashParameters): HttpRequest<FileResource>;
 
         interface UntrashParameters {
             fileId: string;
             supportsTeamDrives?: boolean;
         }
 
-        export function untrash(parameters: UntrashParameters): HttpRequest<FileResource>;
 
         interface WatchParameters {
             fileId: string;
@@ -98,239 +130,243 @@ declare namespace gapi.client.drive {
             supportsTeamDrives?: boolean;
         }
 
-        export function watch(parameters: WatchParameters): HttpRequest<ChannelResource>;
-    }
-
-    export interface FileResource {
-        kind: 'drive#file';
-        id?: string;
-        // etag
-        selfLink?: string;
-        webContentLink?: string;
-        webViewLink?: string;
-        alternateLink?: string;
-        embedLink?: string;
-        // openWithLinks
-        defaultOpenWithLink?: string;
-        iconLink?: string;
-        hasThumbnail?: boolean;
-        thumbnailLink?: string;
-        thumbnail?: {
-            image: Uint8Array;
-            mimType: string;
-        };
-        title?: string;
-        mimeType?: string;
-        description?: string;
-        labels?: {
-            starred?: boolean;
-            hidden?: boolean;
-            trashed?: boolean;
-            restricted?: boolean;
-            viewed?: boolean;
-            modified?: boolean;
-        };
-        createdDate?: Date;
-        modifiedDate?: Date;
-        modifiedByMeDate?: Date;
-        lastViewedByMeDate?: Date;
-        markedViewedByMeDate?: Date;
-        sharedWithMeDate?: Date;
-        version?: number;
-        sharingUser?: {
-            kind: 'drive#user';
-            displayName?: string;
-            picture?: {
-                url: string;
+        interface FileResource {
+            kind: 'drive#file';
+            id: string;
+            etag: string;
+            selfLink: string;
+            webContentLink: string;
+            webViewLink: string;
+            alternateLink: string;
+            embedLink: string;
+            // openWithLinks
+            defaultOpenWithLink: string;
+            iconLink: string;
+            hasThumbnail: boolean;
+            thumbnailLink: string;
+            thumbnail: {
+                image: Uint8Array;
+                mimType: string;
             };
-            isAuthenticatedUser?: boolean;
-            permissionId?: string;
-            emailAddress?: string;
-        };
-        parents?: ParentResource[];
-        downloadUrl?: string;
-        // exportLinks
-        indexableText?: {
-            text: string;
-        };
-        userPermission?: PermissionResource;
-        permissions?: PermissionResource[];
-        hasAugmentedPermissions?: boolean;
-        originalFilename?: string;
-        fileExtension?: string;
-        fullFileExtension?: string;
-        md5Checksum?: string;
-        fileSize?: number;
-        quotaBytesUsed?: number;
-        ownerNames?: string[];
-        owners?: {
-            kind: 'drive#user';
-            displayName?: string;
-            picture?: {
-                url: string;
+            title: string;
+            mimeType: string;
+            description: string;
+            labels: {
+                starred: boolean;
+                hidden: boolean;
+                trashed: boolean;
+                restricted: boolean;
+                viewed: boolean;
+                modified: boolean;
             };
-            isAuthenticatedUser?: boolean;
-            permissionId?: string;
-            emailAddress?: string;
-        }[];
-        teamDriveId?: string;
-        lastModifyingUserName?: string;
-        lastModifyingUser?: {
-            kind: 'drive#user';
-            displayName?: string;
-            picture?: {
-                url: string;
+            createdDate: Date;
+            modifiedDate: Date;
+            modifiedByMeDate: Date;
+            lastViewedByMeDate: Date;
+            markedViewedByMeDate: Date;
+            sharedWithMeDate: Date;
+            version: number;
+            sharingUser: {
+                kind: 'drive#user';
+                displayName: string;
+                picture: {
+                    url: string;
+                };
+                isAuthenticatedUser: boolean;
+                permissionId: string;
+                emailAddress: string;
             };
-            isAuthenticatedUser?: boolean;
-            permissionId?: string;
-            emailAddress?: string;
-        };
-        ownedByMe?: boolean;
-        capabilities?: {
-            canAddChildren?: boolean;
-            canChangeRestrictedDownload?: boolean;
-            canComment?: boolean;
-            canCopy?: boolean;
-            canDelete?: boolean;
-            canDownload?: boolean;
-            canEdit?: boolean;
-            canListChildren?: boolean;
-            canMoveItemIntoTeamDrive?: boolean;
-            canMoveTeamDriveItem?: boolean;
-            canReadRevisions?: boolean;
-            canReadTeamDrive?: boolean;
-            canRemoveChildren?: boolean;
-            canRename?: boolean;
-            canShare?: boolean;
-            canTrash?: boolean;
-            canUntrash?: boolean;
-        };
-        editable?: boolean;
-        canComment?: boolean;
-        canReadRevisions?: boolean;
-        shareable?: boolean;
-        copyable?: boolean;
-        writersCanShare?: boolean;
-        shared?: boolean;
-        explicitlyTrashed?: boolean;
-        trashingUser?: {
-            kind: 'drive#user';
-            displayName?: string;
-            picture?: {
-                url: string;
+            parents: ParentResource[];
+            downloadUrl: string;
+            // exportLinks
+            indexableText: {
+                text: string;
             };
-            isAuthenticatedUser?: boolean;
-            permissionId?: string;
-            emailAddress?: string;
-        };
-        trashedDate?: Date;
-        appDataContents?: boolean;
-        headRevisionId?: string;
-        properties?: PropertiesResource[];
-        folderColorRgb?: string;
-        imageMediaMetadata?: {
-            width?: number;
-            height?: number;
-            rotation?: number;
-            location?: {
-                latitude?: number;
-                longitude?: number;
-                altitude?: number;
+            userPermission: PermissionResource;
+            permissions: PermissionResource[];
+            hasAugmentedPermissions: boolean;
+            originalFilename: string;
+            fileExtension: string;
+            fullFileExtension: string;
+            md5Checksum: string;
+            fileSize: number;
+            quotaBytesUsed: number;
+            ownerNames: string[];
+            owners: {
+                kind: 'drive#user';
+                displayName: string;
+                picture: {
+                    url: string;
+                };
+                isAuthenticatedUser: boolean;
+                permissionId: string;
+                emailAddress: string;
+            }[];
+            teamDriveId: string;
+            lastModifyingUserName: string;
+            lastModifyingUser: {
+                kind: 'drive#user';
+                displayName: string;
+                picture: {
+                    url: string;
+                };
+                isAuthenticatedUser: boolean;
+                permissionId: string;
+                emailAddress: string;
             };
-            date?: string;
-            cameraMake?: string;
-            cameraModel?: string;
-            exposureTime?: number;
-            aperture?: number;
-            flashUsed?: boolean;
-            focalLength?: number;
-            isoSpeed?: number;
-            meteringMode?: string;
-            sensor?: string;
-            exposureMode?: string;
-            colorSpace?: string;
-            whiteBalance?: string;
-            exposureBias?: number;
-            maxApertureValue?: number;
-            subjectDistance?: number;
-            lens?: string;
-        };
-        videoMediaMetadata?: {
-            width?: number;
-            height?: number;
-            durationMillis?: number;
-        };
-        spaces?: string[];
-        isAppAuthorized?: boolean;
-    }
+            ownedByMe: boolean;
+            capabilities: {
+                canAddChildren: boolean;
+                canChangeRestrictedDownload: boolean;
+                canComment: boolean;
+                canCopy: boolean;
+                canDelete: boolean;
+                canDownload: boolean;
+                canEdit: boolean;
+                canListChildren: boolean;
+                canMoveItemIntoTeamDrive: boolean;
+                canMoveTeamDriveItem: boolean;
+                canReadRevisions: boolean;
+                canReadTeamDrive: boolean;
+                canRemoveChildren: boolean;
+                canRename: boolean;
+                canShare: boolean;
+                canTrash: boolean;
+                canUntrash: boolean;
+            };
+            editable: boolean;
+            canComment: boolean;
+            canReadRevisions: boolean;
+            shareable: boolean;
+            copyable: boolean;
+            writersCanShare: boolean;
+            shared: boolean;
+            explicitlyTrashed: boolean;
+            trashingUser: {
+                kind: 'drive#user';
+                displayName: string;
+                picture: {
+                    url: string;
+                };
+                isAuthenticatedUser: boolean;
+                permissionId: string;
+                emailAddress: string;
+            };
+            trashedDate: Date;
+            appDataContents: boolean;
+            headRevisionId: string;
+            properties: PropertiesResource[];
+            folderColorRgb: string;
+            imageMediaMetadata: {
+                width: number;
+                height: number;
+                rotation: number;
+                location: {
+                    latitude: number;
+                    longitude: number;
+                    altitude: number;
+                };
+                date: string;
+                cameraMake: string;
+                cameraModel: string;
+                exposureTime: number;
+                aperture: number;
+                flashUsed: boolean;
+                focalLength: number;
+                isoSpeed: number;
+                meteringMode: string;
+                sensor: string;
+                exposureMode: string;
+                colorSpace: string;
+                whiteBalance: string;
+                exposureBias: number;
+                maxApertureValue: number;
+                subjectDistance: number;
+                lens: string;
+            };
+            videoMediaMetadata: {
+                width: number;
+                height: number;
+                durationMillis: number;
+            };
+            spaces: string[];
+            isAppAuthorized: boolean;
+        }
 
-    export interface FileListResource {
-        kind: 'drive#fileList';
-        // etag
-        selfLink?: string;
-        nextPageToken?: string;
-        nextLink?: string;
-        incompleteSearch?: boolean;
-        items: FileResource[];
-    }
+        interface FileListResource {
+            kind: 'drive#fileList';
+            etag: string;
+            selfLink: string;
+            nextPageToken: string;
+            nextLink: string;
+            incompleteSearch: boolean;
+            items: FileResource[];
+        }
 
-    export interface ParentResource {
-        kind: 'drive#parentReference';
-        id?: string;
-        selfLink?: string;
-        parentLink?: string;
-        isRoot?: boolean;
-    }
+        interface ParentResource {
+            kind: 'drive#parentReference';
+            id: string;
+            selfLink: string;
+            parentLink: string;
+            isRoot: boolean;
+        }
 
-    export interface PermissionResource {
-        kind: 'drive#permission';
-        // etag
-        id?: string;
-        selfLink?: string;
-        name?: string;
-        emailAddress?: string;
-        domain?: string;
-        role?: string;
-        additionalRoles?: string[];
-        type?: string;
-        value?: string;
-        authKey?: string;
-        withLink?: boolean;
-        photoLink?: string;
-        expirationDate?: Date;
-        teamDrivePermissionDetails?: {
-            teamDrivePermissionType?: string;
-            role?: string;
-            additionalRoles?: string[];
-            inheritedFrom?: string;
-            inherited?: boolean;
-        }[];
-        deleted?: boolean;
-    }
+        interface PermissionResource {
+            kind: 'drive#permission';
+            etag: string;
+            id: string;
+            selfLink: string;
+            name: string;
+            emailAddress: string;
+            domain: string;
+            role: string;
+            additionalRoles: string[];
+            type: string;
+            value: string;
+            authKey: string;
+            withLink: boolean;
+            photoLink: string;
+            expirationDate: Date;
+            teamDrivePermissionDetails: {
+                teamDrivePermissionType: string;
+                role: string;
+                additionalRoles: string[];
+                inheritedFrom: string;
+                inherited: boolean;
+            }[];
+            deleted: boolean;
+        }
 
-    export interface PropertiesResource {
-        kind: 'drive$property';
-        // etag
-        selfLink?: string;
-        key?: string;
-        visibility?: string;
-        value?: string;
-    }
+        interface PropertiesResource {
+            kind: 'drive$property';
+            etag: string;
+            selfLink: string;
+            key: string;
+            visibility: string;
+            value: string;
+        }
 
-    export interface WatchResource {
-        id?: string;
-        expiration?: number;
-        token?: string;
-        type?: string;
-        address?: string;
-    }
+        interface WatchResource {
+            id: string;
+            expiration: number;
+            token: string;
+            type: string;
+            address: string;
+        }
 
-    export interface ChannelResource {
-        kind: 'api#channel';
-        id?: string;
-        resourceId?: string;
-        resourceUri?: string;
-        token?: string;
-        expiration?: number;
+        interface ChannelResource {
+            kind: 'api#channel';
+            id: string;
+            resourceId: string;
+            resourceUri: string;
+            token: string;
+            expiration: number;
+        }
+
+        interface IdsResource {
+            kind: 'drive#generatedIds';
+            space: string;
+            ids: string[];
+        }
     }
 }

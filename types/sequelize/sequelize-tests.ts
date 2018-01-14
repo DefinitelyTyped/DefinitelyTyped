@@ -7,7 +7,7 @@ import Bluebird = require('bluebird');
 // ~~~~~~~~~~
 //
 
-interface AnyAttributes { };
+interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
@@ -491,6 +491,33 @@ Sequelize.UUID;
 Sequelize.UUIDV1;
 Sequelize.UUIDV4;
 Sequelize.NOW;
+Sequelize.TINYINT;
+Sequelize.TINYINT.UNSIGNED;
+Sequelize.TINYINT.UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 );
+Sequelize.TINYINT( { length : 11 } );
+Sequelize.TINYINT( 11 ).UNSIGNED;
+Sequelize.TINYINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.SMALLINT;
+Sequelize.SMALLINT.UNSIGNED;
+Sequelize.SMALLINT.UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 );
+Sequelize.SMALLINT( { length : 11 } );
+Sequelize.SMALLINT( 11 ).UNSIGNED;
+Sequelize.SMALLINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.MEDIUMINT;
+Sequelize.MEDIUMINT.UNSIGNED;
+Sequelize.MEDIUMINT.UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 );
+Sequelize.MEDIUMINT( { length : 11 } );
+Sequelize.MEDIUMINT( 11 ).UNSIGNED;
+Sequelize.MEDIUMINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL.UNSIGNED;
 Sequelize.INTEGER;
 Sequelize.INTEGER.UNSIGNED;
 Sequelize.INTEGER.UNSIGNED.ZEROFILL;
@@ -629,6 +656,7 @@ new s.HostNotFoundError( new Error( 'original connection error message' ) );
 new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
+new s.EmptyResultError();
 
 const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 
@@ -913,7 +941,9 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+User.findAll( { rejectOnEmpty: true });
 
 
 User.findById( 'a string' );
@@ -935,6 +965,7 @@ User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as 
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
 User.findOne( { where : s.fn('count', []) } );
+User.findOne( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
@@ -1089,6 +1120,7 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
@@ -1191,6 +1223,27 @@ new Sequelize( 'sequelize', null, null, {
         }
     }
 } );
+new Sequelize( {
+    database: 'db',
+    username: 'user',
+    password: 'pass',
+    retry: {
+        match: ['failed'],
+        max: 3
+    },
+    typeValidation: true
+} );
+
+new Sequelize({
+    operatorsAliases: false,
+});
+
+new Sequelize({
+    operatorsAliases: {
+        $and: Sequelize.Op.and,
+        customAlias: Sequelize.Op.or,
+    },
+});
 
 s.model( 'Project' );
 s.models['Project'];
@@ -1318,7 +1371,7 @@ s.define( 'ProductWithSettersAndGetters1', {
         get : function() {
             return 'answer = ' + this.getDataValue( 'price' );
         },
-        set : function( v ) {
+        set : function( v: number ) {
             return this.setDataValue( 'price', v + 42 );
         }
     }
@@ -1413,7 +1466,7 @@ s.define( 'profile', {
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
     email : Sequelize.STRING,
-    access_level : Sequelize.INTEGER,
+    access_level : Sequelize.TINYINT,
     other_value : Sequelize.INTEGER
 }, {
     defaultScope : {
@@ -1436,6 +1489,44 @@ s.define( 'ScopeMe', {
         }
     }
 } );
+
+// Generic find options
+interface ChairAttributes {
+    id: number;
+    color: string;
+    legs: number;
+}
+interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
+
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { $in: [3, 4] },
+    },
+});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { [Sequelize.Op.in]: [3, 4] },
+    },
+});
+
+// If you want to use a property that isn't explicitly on the model's Attributes
+// use the find-function's generic type parameter.
+Chair.findAll<{ customProperty: number }>({
+    where: {
+        customProperty: 123,
+    }
+});
+Chair.findAll<any>({
+    where: {
+        customProperty1: 123,
+        customProperty2: 456,
+    }
+});
 
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
@@ -1539,7 +1630,20 @@ s.define( 'test', {
     underscored : true,
     freezeTableName : true
 } );
-
+s.define( 'testBooeanVersionOption', {
+    version : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: true
+} );
+s.define( 'testStringVersionOption', {
+    nameOfOptimisticLockColumn : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: "nameOfOptimisticLockColumn"
+} );
 s.define( 'User', {
     deletedAt : {
         type : Sequelize.DATE,
@@ -1569,6 +1673,40 @@ s.define( 'TriggerTest', {
     timestamps : false,
     underscored : true,
     hasTrigger : true
+} );
+
+s.define('DefineOptionsIndexesTest', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        validate: {
+            min: 1
+        }
+    },
+    email: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+        set: function (val) {
+            if (typeof val === "string") {
+                val = val.toLowerCase();
+            } else {
+                throw new Error("email must be a string");
+            }
+            this.setDataValue("email", val);
+        }
+    }
+}, {
+        timestamps: false,
+        indexes: [
+            {
+                name: "DefineOptionsIndexesTest_lower_email",
+                unique: true,
+                fields: [
+                    Sequelize.fn("LOWER", Sequelize.col("email"))
+                ]
+            }
+        ]
 } );
 
 //
