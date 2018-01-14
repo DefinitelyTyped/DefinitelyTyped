@@ -1,6 +1,11 @@
+// Type definitions for find-root 1.1.0
+// Project: https://github.com/js-n/find-root
+// Definitions by: Arturas Molcanovas <https://github.com/Alorel>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+/// <reference types="node"/>
 
 type FindRootCheckFn = (dir: string) => boolean;
-
 
 /**
  * Returns the path for the nearest directory to startingPath containing a package.json file
