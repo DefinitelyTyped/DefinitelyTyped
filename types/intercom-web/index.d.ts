@@ -8,7 +8,7 @@
 
 declare namespace Intercom_ {
   interface IntercomSettings {
-    alignment?: string,
+    alignment?: string;
     app_id?: string;
     email?: string;
     created_at?: number;
