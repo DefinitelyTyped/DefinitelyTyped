@@ -8,9 +8,11 @@
 
 declare namespace Intercom_ {
   interface IntercomSettings {
+    alignment?: string,
     app_id?: string;
     email?: string;
     created_at?: number;
+    hide_default_launcher?: boolean;
     name?: string;
     user_id?: string;
     user_hash?: string;
