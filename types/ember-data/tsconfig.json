@@ -28,6 +28,7 @@
         "test/has-many.ts",
         "test/belongs-to.ts",
         "test/record-reference.ts",
-        "test/injections.ts"
+        "test/injections.ts",
+        "test/error.ts"
     ]
 }
