@@ -4811,7 +4811,8 @@ export class Task {
      *  message to the child process fails.
      */
     // tslint:disable-next-line:no-any
-    send(message: any): void;
+    send(message: string | number | boolean | object | null |
+      Array<string | number | boolean | object | null>): void;
 
     /** Call a function when an event is emitted by the child process. */
     // tslint:disable-next-line:no-any
