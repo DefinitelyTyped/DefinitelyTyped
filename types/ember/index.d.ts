@@ -3055,10 +3055,12 @@ declare module 'ember' {
             obj: ComputedProperties<T>,
             list: K[]
         ): Pick<T, K>;
+        function getProperties<T, K extends keyof T>(obj: T, list: K[]): Pick<T, K>; // for dynamic K
         function getProperties<T, K extends keyof T>(
             obj: ComputedProperties<T>,
             ...list: K[]
         ): Pick<T, K>;
+        function getProperties<T, K extends keyof T>(obj: T, ...list: K[]): Pick<T, K>; // for dynamic K
         /**
          * A value is blank if it is empty or a whitespace string.
          */
@@ -3143,6 +3145,7 @@ declare module 'ember' {
          * object implements the `unknownProperty` method then that will be invoked.
          */
         function get<T, K extends keyof T>(obj: ComputedProperties<T>, key: K): T[K];
+        function get<T, K extends keyof T>(obj: T, key: K): T[K]; // for dynamic K
         /**
          * Retrieves the value of a property from an Object, or a default value in the
          * case that the property returns `undefined`.
@@ -3152,6 +3155,7 @@ declare module 'ember' {
             key: K,
             defaultValue: T[K]
         ): T[K];
+        function getWithDefault<T, K extends keyof T>(obj: T, key: K, defaultValue: T[K]): T[K]; // for dynamic K
         /**
          * Sets the value of a property on an object, respecting computed properties
          * and notifying observers and other listeners of the change. If the
@@ -3163,6 +3167,7 @@ declare module 'ember' {
             key: K,
             value: V
         ): V;
+        function set<T, K extends keyof T, V extends T[K]>(obj: T, key: K, value: V): V; // for dynamic K
         /**
          * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
          * chain is `undefined`, `null`, or destroyed.
@@ -3177,6 +3182,7 @@ declare module 'ember' {
             obj: ComputedProperties<T>,
             hash: Pick<T, K>
         ): Pick<T, K>;
+        function setProperties<T, K extends keyof T>(obj: T, hash: Pick<T, K>): Pick<T, K>; // for dynamic K
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
