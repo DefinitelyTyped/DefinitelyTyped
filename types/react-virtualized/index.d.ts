@@ -99,11 +99,11 @@ export {
     ScrollSyncState
 } from './dist/es/ScrollSync'
 export {
-    defaultTableCellDataGetter,
-    defaultTableCellRenderer,
-    defaultTableHeaderRenderer,
-    defaultTableHeaderRowRenderer,
-    defaultTableRowRenderer,
+    defaultCellDataGetter as defaultTableCellDataGetter,
+    defaultCellRenderer as defaultTableCellRenderer,
+    defaultHeaderRenderer as defaultTableHeaderRenderer,
+    defaultHeaderRowRenderer as defaultTableHeaderRowRenderer,
+    defaultRowRenderer as defaultTableRowRenderer,
     Table,
     Column,
     SortDirection,

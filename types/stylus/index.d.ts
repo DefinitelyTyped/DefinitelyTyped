@@ -1,4 +1,4 @@
-// Type definitions for stylus 0.48.1
+// Type definitions for stylus 0.48
 // Project: https://github.com/LearnBoost/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,6 @@ declare var stylus: Stylus.Static;
 export = stylus;
 
 declare namespace Stylus {
-
     export interface Static {
         /**
          * Return a new `Renderer` for the given `str` and `options`.
@@ -583,7 +582,7 @@ declare namespace Stylus {
         /**
          * Return param names for `fn`.
          */
-        params(fn: Function): string[];
+        params(fn: (...args: any[]) => any): string[];
 
         /**
          * Merge object `b` with `a`.
@@ -618,9 +617,7 @@ declare namespace Stylus {
         };
     }
 
-    export interface Middleware {
-        (req: any, res: any, next: Function): void;
-    }
+    export type Middleware = (req: any, res: any, next: (...args: any[]) => any) => void;
 
     //#endregion
 
@@ -664,7 +661,7 @@ declare namespace Stylus {
         /**
          * Set option `key` to `val`.
          */
-        set(key: string, val: any): Renderer;
+        set(key: string, val: any): this;
 
         /**
          * Get option `key`.
@@ -674,7 +671,7 @@ declare namespace Stylus {
         /**
          * Include the given `path` to the lookup paths array.
          */
-        include(path: string): Renderer;
+        include(path: string): this;
 
         /**
          * Use the given `fn`.
@@ -682,34 +679,34 @@ declare namespace Stylus {
          * This allows for plugins to alter the renderer in
          * any way they wish, exposing paths etc.
          */
-        use(fn: (renderer: Renderer) => any): Renderer;
+        use(fn: (renderer: Renderer) => any): this;
 
         /**
          * Define function or global var with the given `name`. Optionally
          * the function may accept full expressions, by setting `raw`
          * to `true`.
          */
-        define(name: string, fn: Function): Renderer;
-        define(name: string, node: Nodes.Node): Renderer;
-        define(name: string, val: any): Renderer;
-        define(name: string, fn: Function, raw: boolean): Renderer;
-        define(name: string, node: Nodes.Node, raw: boolean): Renderer;
-        define(name: string, val: any, raw: boolean): Renderer;
+        define(name: string, fn: (...args: any[]) => any): this;
+        define(name: string, node: Nodes.Node): this;
+        define(name: string, val: any): this;
+        define(name: string, fn: (...args: any[]) => any, raw: boolean): this;
+        define(name: string, node: Nodes.Node, raw: boolean): this;
+        define(name: string, val: any, raw: boolean): this;
 
         /**
          * Import the given `file`.
          */
-        import(file: string): Renderer;
+        import(file: string): this;
 
         //#region EventEmitter Members
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => any): this;
+        on(event: string, listener: (...args: any[]) => any): this;
+        once(event: string, listener: (...args: any[]) => any): this;
+        removeListener(event: string, listener: (...args: any[]) => any): this;
         removeAllListeners(event?: string): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
+        listeners(event: string): Array<(...args: any[]) => any>;
         emit(event: string, ...args: any[]): boolean;
         listenerCount(type: string): number;
         //#endregion
@@ -720,7 +717,6 @@ declare namespace Stylus {
     //#region Nodes Classes
 
     export module Nodes {
-
         export class Node {
             lineno: number;
             column: number;
@@ -750,7 +746,8 @@ declare namespace Stylus {
             /**
              * Return true.
              */
-            toBoolean(): Boolean;
+            // tslint:disable-next-line no-unnecessary-qualifier
+            toBoolean(): Nodes.Boolean;
 
             /**
              * Return the expression, or wrap this node in an expression.
@@ -807,9 +804,7 @@ declare namespace Stylus {
             toJSON(): { val: string; quote: string; lineno: number; column: number; filename: string };
         }
 
-        export class Number extends Node {
-
-        }
+        export class Number extends Node { }
 
         export class Boolean extends Node {
             val: boolean;
@@ -822,12 +817,13 @@ declare namespace Stylus {
             /**
              * Negate the value.
              */
-            negate(): Boolean;
+            // tslint:disable-next-line no-unnecessary-qualifier
+            negate(): Nodes.Boolean;
 
             /**
              * Return 'Boolean'.
              */
-            inspect(): Boolean;
+            inspect(): string;
 
             /**
              * Return a JSON representation of this node.
@@ -844,7 +840,7 @@ declare namespace Stylus {
             /**
              * Set `key` to `val`.
              */
-            set(key: string, value: Node): Object;
+            set(key: string, value: Node): this;
 
             /**
              * Get `key`.
@@ -1420,9 +1416,7 @@ declare namespace Stylus {
         Evaluator?: typeof Evaluator;
     }
 
-    export interface RenderCallback {
-        (err: Error, css: string, js: string): void;
-    }
+    export type RenderCallback = (err: Error, css: string, js: string) => void;
 
     export interface UrlOptions {
         limit?: string;

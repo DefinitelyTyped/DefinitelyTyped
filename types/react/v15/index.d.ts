@@ -127,6 +127,26 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
+    interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
+        allowFullScreen?: boolean;
+        allowpopups?: boolean;
+        autoFocus?: boolean;
+        autosize?: boolean;
+        blinkfeatures?: string;
+        disableblinkfeatures?: string;
+        disableguestresize?: boolean;
+        disablewebsecurity?: boolean;
+        guestinstance?: string;
+        httpreferrer?: string;
+        nodeintegration?: boolean;
+        partition?: string;
+        plugins?: boolean;
+        preload?: string;
+        src?: string;
+        useragent?: string;
+        webpreferences?: string;
+    }
+
     //
     // Factories
     // ----------------------------------------------------------------------
@@ -282,11 +302,13 @@ declare namespace React {
     class Component<P, S> {
         constructor(props?: P, context?: any);
 
-        // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
+        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
+        setState<K extends keyof S>(
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
+            callback?: () => any
+        ): void;
 
         forceUpdate(callBack?: () => any): void;
         render(): JSX.Element | null | false;
@@ -2434,6 +2456,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
@@ -3304,6 +3327,7 @@ declare namespace React {
         "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
         wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLElement>, HTMLElement>;
     }
 
     interface ReactSVG {
@@ -3405,7 +3429,7 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
@@ -3413,9 +3437,10 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML
@@ -3533,6 +3558,7 @@ declare global {
             "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
             wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLElement>, HTMLElement>;
 
             // SVG
             svg: React.SVGProps<SVGSVGElement>;

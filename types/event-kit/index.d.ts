@@ -2,7 +2,7 @@
 // Project: https://github.com/atom/event-kit
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export interface DisposableLike {
     dispose(): void;
@@ -65,20 +65,11 @@ export class CompositeDisposable implements DisposableLike {
 }
 
 /**
- *  Allows you to strongly type event emissions across your codebase. Additional
- *  key:value pairings merged into this interface will result in emissions under
- *  the value of each key being templated by the type of the associated value.
- */
-export interface Emissions {
-    // tslint:disable-next-line:no-any
-    [key: string]: any;
-}
-
-/**
  *  Utility class to be used when implementing event-based APIs that allows
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
-export class Emitter implements DisposableLike {
+// tslint:disable-next-line:no-any
+export class Emitter<Emissions = { [key: string]: any }> implements DisposableLike {
     disposed: boolean;
 
     /** Construct an emitter. */

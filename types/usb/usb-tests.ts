@@ -104,14 +104,19 @@ inEndpoint.transferType = 1;
 inEndpoint.timeout = 1;
 inEndpoint.descriptor = endpointDesc;
 const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: string, data: Buffer) => inEndpoint);
+inEndpoint.on("data", (data) => null);
 inEndpoint.startPoll(1, 1);
+inEndpoint.startPoll(1);
+inEndpoint.startPoll();
 inEndpoint.stopPoll(() => null);
+inEndpoint.stopPoll();
 
 const outEndpoint: usb.OutEndpoint = new usb.OutEndpoint(device, endpointDesc);
 outEndpoint.direction = "out";
 outEndpoint.transferType = 1;
 outEndpoint.timeout = 1;
 outEndpoint.descriptor = endpointDesc;
+inEndpoint.on("error", (err) => null);
 const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error: string) => null);
 outEndpoint.transferWithZLP(new Buffer([]), (error: string) => null);
 

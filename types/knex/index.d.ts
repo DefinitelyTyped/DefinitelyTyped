@@ -1,6 +1,10 @@
-// Type definitions for Knex.js
+// Type definitions for Knex.js 0.14
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>, Pablo Rodríguez <https://github.com/MeLlamoPablo>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Baronfel <https://github.com/baronfel>
+//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -25,7 +29,7 @@ interface Knex extends Knex.QueryInterface {
     transaction<T>(transactionScope: (trx: Knex.Transaction) => Promise<T> | Bluebird<T> | void): Bluebird<T>;
     destroy(callback: Function): void;
     destroy(): Bluebird<void>;
-    batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
+    batchInsert(tableName: TableName, data: any[], chunkSize: number): Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
     queryBuilder(): Knex.QueryBuilder;
 
@@ -193,19 +197,19 @@ declare namespace Knex {
         on(columns: { [key: string]: string | Raw }): JoinClause;
         on(column1: string, column2: string): JoinClause;
         on(column1: string, raw: Raw): JoinClause;
-        on(column1: string, operator: string, column2: string): JoinClause;
+        on(column1: string, operator: string, column2: string | Raw): JoinClause;
         andOn(raw: Raw): JoinClause;
         andOn(callback: Function): JoinClause;
         andOn(columns: { [key: string]: string | Raw }): JoinClause;
         andOn(column1: string, column2: string): JoinClause;
         andOn(column1: string, raw: Raw): JoinClause;
-        andOn(column1: string, operator: string, column2: string): JoinClause;
+        andOn(column1: string, operator: string, column2: string | Raw): JoinClause;
         orOn(raw: Raw): JoinClause;
         orOn(callback: Function): JoinClause;
         orOn(columns: { [key: string]: string | Raw }): JoinClause;
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
-        orOn(column1: string, operator: string, column2: string): JoinClause;
+        orOn(column1: string, operator: string, column2: string | Raw): JoinClause;
         onIn(column1: string, values: any[]): JoinClause;
         andOnIn(column1: string, values: any[]): JoinClause;
         orOnIn(column1: string, values: any[]): JoinClause;
@@ -247,7 +251,7 @@ declare namespace Knex {
     }
 
     interface WithSchema {
-        (schema: string): QueryBuilder
+        (schema: string): QueryBuilder;
     }
 
     interface WithWrapped {
@@ -510,7 +514,7 @@ declare namespace Knex {
 
     interface Config {
         debug?: boolean;
-        client?: string;
+        client?: string | typeof Client;
         dialect?: string;
         version?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
@@ -520,7 +524,7 @@ declare namespace Knex {
         seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
-        searchPath?: string;
+        searchPath?: string | string[];
     }
 
     interface ConnectionConfig {
@@ -675,6 +679,22 @@ declare namespace Knex {
 
     interface FunctionHelper {
         now(): Raw;
+    }
+
+    //
+    // Clients
+    //
+
+    class Client extends events.EventEmitter {
+      constructor(config: Config);
+      config: Config;
+      dialect: string;
+      driverName: string;
+      connectionSettings: object;
+
+      acquireRawConnection(): Promise<any>;
+      destroyRawConnection(connection: any): Promise<void>;
+      validateConnection(connection: any): Promise<boolean>;
     }
 }
 

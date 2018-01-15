@@ -122,7 +122,7 @@ declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
  * @param property The name of the property to replace with a Spy
  * @param accessType The access type (get|set) of the property to Spy on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType: string): jasmine.Spy;
+declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'get' | 'set'): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
@@ -219,8 +219,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;
@@ -579,7 +579,7 @@ declare namespace jasmine {
         addBeforesAndAftersToQueue(): void;
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
-        spyOnProperty(object: any, property: string, accessType: string): Spy;
+        spyOnProperty(object: any, property: string, accessType?: 'get' | 'set'): Spy;
         removeAllSpies(): void;
         throwOnExpectationFailure: boolean;
     }

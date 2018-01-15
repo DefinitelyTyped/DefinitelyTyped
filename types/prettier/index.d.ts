@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.8
+// Type definitions for prettier 1.9
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -85,12 +85,18 @@ export interface Options {
      */
     insertPragma?: boolean;
     /**
-     * By default, Prettier will wrap markdown text at the specified print width.
-     * In some cases you may want to rely on editor/viewer soft wrapping instead,
-     * so this option allows you to opt out. When prose wrapping is disabled,
-     * each paragraph will be printed on its own line.
+     * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
+     * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
      */
-    proseWrap?: boolean;
+    proseWrap?:
+        | boolean // deprecated
+        | 'always'
+        | 'never'
+        | 'preserve';
+    /**
+     * Include parentheses around a sole arrow function parameter.
+     */
+    arrowParens?: 'avoid' | 'always';
 }
 
 export interface CursorOptions extends Options {
@@ -135,6 +141,16 @@ export interface ResolveConfigOptions {
      * Pass directly the path of the config file if you don't wish to search for it.
      */
     config?: string;
+    /**
+     * If set to `true` and an `.editorconfig` file is in your project,
+     * Prettier will parse it and convert its properties to the corresponding prettier configuration.
+     * This configuration will be overridden by `.prettierrc`, etc. Currently,
+     * the following EditorConfig properties are supported:
+     * - indent_style
+     * - indent_size/tab_width
+     * - max_line_length
+     */
+    editorconfig?: boolean;
 }
 
 /**

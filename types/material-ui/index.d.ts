@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.18.17
+// Type definitions for material-ui v0.20.0
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
@@ -147,10 +147,6 @@ declare module "material-ui" {
     export import ToolbarSeparatorProps = __MaterialUI.Toolbar.ToolbarSeparatorProps;
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle;
     export import ToolbarTitleProps = __MaterialUI.Toolbar.ToolbarTitleProps;
-
-    // export type definitions
-    export type TouchTapEvent = __MaterialUI.TouchTapEvent;
-    export type TouchTapEventHandler = __MaterialUI.TouchTapEventHandler;
 }
 
 declare namespace __MaterialUI {
@@ -158,19 +154,6 @@ declare namespace __MaterialUI {
     interface ReactLink<T> {
         value: T;
         requestChange(newValue: T): void;
-    }
-
-    // What's common between React.TouchEvent and React.MouseEvent
-    interface TouchTapEvent extends React.SyntheticEvent<{}> {
-        altKey: boolean;
-        ctrlKey: boolean;
-        getModifierState(key: string): boolean;
-        metaKey: boolean;
-        shiftKey: boolean;
-    }
-
-    // What's common between React.TouchEventHandler and React.MouseEventHandler
-    interface TouchTapEventHandler extends React.EventHandler<TouchTapEvent> {
     }
 
     export interface ThemeWrapperProps {
@@ -578,9 +561,9 @@ declare namespace __MaterialUI {
         iconElementRight?: React.ReactElement<any>;
         iconStyleRight?: React.CSSProperties;
         iconStyleLeft?: React.CSSProperties;
-        onLeftIconButtonTouchTap?: TouchTapEventHandler;
-        onRightIconButtonTouchTap?: TouchTapEventHandler;
-        onTitleTouchTap?: TouchTapEventHandler;
+        onLeftIconButtonClick?: React.MouseEventHandler<{}>;
+        onRightIconButtonClick?: React.MouseEventHandler<{}>;
+        onTitleClick?: React.MouseEventHandler<{}>;
         showMenuIconButton?: boolean;
         style?: React.CSSProperties;
         title?: React.ReactNode;
@@ -715,7 +698,6 @@ declare namespace __MaterialUI {
         onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
         onKeyDown?: React.KeyboardEventHandler<{}>;
         onKeyUp?: React.KeyboardEventHandler<{}>;
-        onTouchTap?: TouchTapEventHandler;
         onClick?: React.MouseEventHandler<{}>;
         style?: React.CSSProperties;
         tabIndex?: number;
@@ -950,11 +932,11 @@ declare namespace __MaterialUI {
         containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
+        onClick?: React.MouseEventHandler<Chip>;
         onRequestDelete?: React.TouchEventHandler<Chip>;
-        onTouchTap?: React.TouchEventHandler<Chip>;
         style?: React.CSSProperties;
-        onClick?: React.MouseEventHandler<{}>;
-}
+    }
+
     export class Chip extends React.Component<ChipProps> {
     }
 
@@ -980,7 +962,7 @@ declare namespace __MaterialUI {
             onDismiss?(): void;
             onFocus?: React.FocusEventHandler<{}>;
             onShow?(): void;
-            onTouchTap?: React.TouchEventHandler<{}>;
+            onClick?: React.TouchEventHandler<{}>;
             shouldDisableDate?(day: Date): boolean;
             style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
@@ -1048,7 +1030,6 @@ declare namespace __MaterialUI {
     export interface DialogAction {
         id?: string;
         onClick?: React.MouseEventHandler<{}>;
-        onTouchTap?: TouchTapEventHandler;
         ref?: string;
         text: string;
     }
@@ -1129,7 +1110,7 @@ declare namespace __MaterialUI {
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
             titleStyle?: React.CSSProperties;
-            onTouchTap?: TouchTapEventHandler;
+            onClick?: React.MouseEventHandler<{}>;
         }
         export class GridTile extends React.Component<GridTileProps> {
         }
@@ -1186,7 +1167,7 @@ declare namespace __MaterialUI {
             onMouseLeave?: React.MouseEventHandler<{}>;
             onNestedListToggle?(item: ListItem): void;
             onTouchStart?: React.TouchEventHandler<{}>;
-            onTouchTap?: TouchTapEventHandler;
+            onClick?: React.MouseEventHandler<{}>;
             open?: boolean;
             primaryText?: React.ReactNode;
             primaryTogglesNestedList?: boolean;
@@ -1203,7 +1184,7 @@ declare namespace __MaterialUI {
         }
 
         export interface SelectableProps {
-            onChange?(e: TouchTapEvent, value: any): void;
+            onChange?(e: React.SyntheticEvent<{}>, value: any): void;
             selectedItemStyle?: React.CSSProperties;
             value?: any;
         }
@@ -1222,9 +1203,9 @@ declare namespace __MaterialUI {
             listStyle?: React.CSSProperties;
             maxHeight?: number;
             multiple?: boolean;
-            onChange?(e: TouchTapEvent, itemValue: any | any[]): void;
+            onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
             onEscKeyDown?: React.KeyboardEventHandler<{}>;
-            onItemTouchTap?(e: TouchTapEvent, item: MenuItem): void;
+            onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyDown?: React.KeyboardEventHandler<{}>;
             selectedMenuItemStyle?: React.CSSProperties;
             style?: React.CSSProperties;
@@ -1247,7 +1228,7 @@ declare namespace __MaterialUI {
             label?: string | React.ReactNode;
             leftIcon?: React.ReactElement<any>;
             menuItems?: React.ReactNode;
-            onTouchTap?: TouchTapEventHandler;
+            onClick?: React.MouseEventHandler<{}>;
             primaryText?: React.ReactNode;
             rightIcon?: React.ReactElement<any>;
             secondaryText?: React.ReactNode;
@@ -1260,37 +1241,37 @@ declare namespace __MaterialUI {
         export interface IconMenuProps {
             // <Menu/> is the element that get the 'other' properties
             anchorOrigin?: propTypes.origin;
+            animated?: boolean;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             className?: string;
-            iconButtonElement: React.ReactElement<IconButtonProps>;
+            clickCloseDelay?: number;
+            iconButtonElement: React.ReactElement<IconButton>;
             iconStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
-            onItemTouchTap?(e: TouchTapEvent, item: MenuItem): void;
+            onClick?(e: React.SyntheticEvent<{}>): void;
+            onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
             onMouseDown?: React.MouseEventHandler<{}>;
             onMouseEnter?: React.MouseEventHandler<{}>;
             onMouseLeave?: React.MouseEventHandler<{}>;
             onMouseUp?: React.MouseEventHandler<{}>;
             onRequestChange?(opening: boolean, reason: string): void;
-            onTouchTap?: TouchTapEventHandler;
             open?: boolean;
-            style?: React.CSSProperties;
             targetOrigin?: propTypes.origin;
-            touchTapCloseDelay?: number;
             useLayerForClickAway?: boolean;
 
-            animated?: boolean;
+            // Other properties from <Menu/>
             autoWidth?: boolean;
+            children?: Array<React.ReactElement<MenuItemProps>>;
             desktop?: boolean;
+            disableAutoFocus?: boolean;
+            initiallyKeyboardFocused?: boolean;
             listStyle?: React.CSSProperties;
             maxHeight?: number;
             multiple?: boolean;
-            onChange?(e: TouchTapEvent, itemValue: any | any[]): void;
-            onKeyDown?: React.KeyboardEventHandler<{}>;
-            selectedMenuItemStyle?: React.CSSProperties;
+            onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
+            style?: React.CSSProperties;
             value?: any | any[];
-            valueLink?: ReactLink<any | any[]>;
-            width?: string | number;
         }
         export class IconMenu extends React.Component<IconMenuProps> {
         }
@@ -1300,7 +1281,6 @@ declare namespace __MaterialUI {
             anchorOrigin?: propTypes.origin;
             animated?: boolean;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-            autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
             iconButton?: React.ReactNode;
@@ -1311,8 +1291,8 @@ declare namespace __MaterialUI {
             menuItemStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
             multiple?: boolean;
-            onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
-            onClose?(e: TouchTapEvent): void;
+            onChange?(e: React.SyntheticEvent<{}>, index: number, menuItemValue: any): void;
+            onClose?(e: React.SyntheticEvent<{}>): void;
             openImmediately?: boolean;
             selectedMenuItemStyle?: React.CSSProperties;
             selectionRenderer?(value: any, menuItem: any): void;
@@ -1330,7 +1310,6 @@ declare namespace __MaterialUI {
         show?: boolean;
         transitionEnabled?: boolean;
         onClick?: React.MouseEventHandler<{}>;
-        onTouchTap?: TouchTapEventHandler;
     }
     export class Overlay extends React.Component<OverlayProps> {
     }
@@ -1444,7 +1423,7 @@ declare namespace __MaterialUI {
         labelStyle?: React.CSSProperties;
         multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
+        onChange?(e: React.SyntheticEvent<{}>, index: number, menuItemValue: any): void;
         onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
         selectionRenderer?(value: any): React.ReactNode;
@@ -1628,7 +1607,7 @@ declare namespace __MaterialUI {
         className?: string;
         contentStyle?: React.CSSProperties;
         message: React.ReactNode;
-        onActionTouchTap?: React.TouchEventHandler<{}>;
+        onActionClick?: React.MouseEventHandler<{}>;
         onRequestClose?(reason: string): void;
         open: boolean;
         style?: React.CSSProperties;
@@ -1684,7 +1663,7 @@ declare namespace __MaterialUI {
             bodyStyle?: React.CSSProperties;
             className?: string;
             message: string | JSX.Element;
-            onActionTouchTap?: React.TouchEventHandler<{}>;
+            onActionClick?: React.MouseEventHandler<{}>;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED
             onRequestClose(reason: string): void;
@@ -1957,7 +1936,7 @@ declare namespace __MaterialUI {
         onDismiss?(): void;
         onFocus?: React.FocusEventHandler<{}>;
         onShow?(): void;
-        onTouchTap?: TouchTapEventHandler;
+        onClick?: React.MouseEventHandler<{}>;
         pedantic?: boolean;
         style?: React.CSSProperties;
         textFieldStyle?: React.CSSProperties;
@@ -9015,7 +8994,6 @@ declare module 'material-ui/internal/Overlay' {
         style?: React.CSSProperties;
         transitionEnabled?: boolean;
         onClick?: React.MouseEventHandler<{}>;
-        onTouchTap?: __MaterialUI.TouchTapEventHandler;
     }
     class Overlay extends React.Component<OverlayProps> { }
     export default Overlay;

@@ -5,6 +5,7 @@
 //                 Derek Wickern <https://github.com/dwickern>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Theron Cross <https://github.com/theroncross>
+//                 Martin Feckie <https://github.com/mfeckie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -300,7 +301,7 @@ declare module 'ember' {
             /**
              * Given a fullName return a corresponding instance.
              */
-            lookup(fullName: string, options: {}): any;
+            lookup(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 
@@ -1141,24 +1142,24 @@ declare module 'ember' {
                 callbackfn: (value: T, index: number, array: T[]) => value is S,
                 thisArg?: any
             ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
              */
-            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
             /**
              * Returns an array with just the items with the matched property. You
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            filterBy(key: string, value?: any): any[];
+            filterBy(key: string, value?: any): NativeArray<T>;
             /**
              * Returns an array with the items that do not have truthy values for
              * key.  You can pass an optional second argument with the target value.  Otherwise
              * this will match any property that evaluates to false.
              */
-            rejectBy(key: string, value?: string): any[];
+            rejectBy(key: string, value?: string): NativeArray<T>;
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -1173,7 +1174,7 @@ declare module 'ember' {
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            findBy(key: string, value: string): T | undefined;
+            findBy(key: string, value?: any): T | undefined;
             /**
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
@@ -1220,28 +1221,28 @@ declare module 'ember' {
             /**
              * Returns a copy of the array with all `null` and `undefined` elements removed.
              */
-            compact(): Enumerable<T>;
+            compact(): NativeArray<T>;
             /**
              * Returns a new enumerable that excludes the passed value. The default
              * implementation returns an array regardless of the receiver type.
              * If the receiver does not contain the value it returns the original enumerable.
              */
-            without(value: T): Enumerable<T>;
+            without(value: T): NativeArray<T>;
             /**
              * Returns a new enumerable that contains only unique values. The default
              * implementation returns an array regardless of the receiver type.
              */
-            uniq(): Enumerable<T>;
+            uniq(): NativeArray<T>;
             /**
              * Converts the enumerable into an array and sorts by the keys
              * specified in the argument.
              */
-            sortBy(property: string): Enumerable<T>;
+            sortBy(property: string): NativeArray<T>;
             /**
              * Returns a new enumerable that contains only items containing a unique property value.
              * The default implementation returns an array regardless of the receiver type.
              */
-            uniqBy(): Enumerable<T>;
+            uniqBy(): NativeArray<T>;
             /**
              * Returns `true` if the passed object can be found in the enumerable.
              */
@@ -1479,12 +1480,31 @@ declare module 'ember' {
         class Mixin<T, Base = Ember.Object> {
             /**
              * Mixin needs to have *something* on its prototype, otherwise it's treated like an empty interface.
+             * It cannot be private, sadly.
              */
-            private __ember_mixin__: never;
+            __ember_mixin__: never;
 
             static create<T, Base = Ember.Object>(
                 args?: T & ThisType<Fix<T & Base>>
             ): Mixin<T, Base>;
+
+            static create<T1, T2, Base = Ember.Object>(
+                arg1: T1 & ThisType<Fix<T1 & Base>>,
+                arg2: T2 & ThisType<Fix<T2 & Base>>
+            ): Mixin<T1 & T2, Base>;
+
+            static create<T1, T2, T3, Base = Ember.Object>(
+                arg1: T1 & ThisType<Fix<T1 & Base>>,
+                arg2: T2 & ThisType<Fix<T2 & Base>>,
+                arg3: T3 & ThisType<Fix<T3 & Base>>
+            ): Mixin<T1 & T2 & T3, Base>;
+
+            static create<T1, T2, T3, T4, Base = Ember.Object>(
+                arg1: T1 & ThisType<Fix<T1 & Base>>,
+                arg2: T2 & ThisType<Fix<T2 & Base>>,
+                arg3: T3 & ThisType<Fix<T3 & Base>>,
+                arg4: T4 & ThisType<Fix<T4 & Base>>
+            ): Mixin<T1 & T2 & T3 & T4, Base>;
         }
         /**
          * This mixin defines the API for modifying array-like objects. These methods
@@ -1492,7 +1512,7 @@ declare module 'ember' {
          * It builds upon the Array mixin and adds methods to modify the array.
          * One concrete implementations of this class include ArrayProxy.
          */
-        interface MutableArray<T> extends Array<T>, MutableEnumberable<T> {
+        interface MutableArray<T> extends Array<T>, MutableEnumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1559,7 +1579,7 @@ declare module 'ember' {
          * can be applied to an object regardless of whether it is ordered or
          * unordered.
          */
-        interface MutableEnumberable<T> extends Enumerable<T> {
+        interface MutableEnumerable<T> extends Enumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1577,7 +1597,7 @@ declare module 'ember' {
              */
             removeObjects(objects: Enumerable<T>): this;
         }
-        const MutableEnumerable: Mixin<MutableEnumberable<any>>;
+        const MutableEnumerable: Mixin<MutableEnumerable<any>>;
         /**
          * A Namespace is an object usually used to contain other objects or methods
          * such as an application or framework. Create a namespace anytime you want
@@ -1617,6 +1637,11 @@ declare module 'ember' {
              */
             reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
             reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+            filter<S extends T>(
+                callbackfn: (value: T, index: number, array: T[]) => value is S,
+                thisArg?: any
+            ): S[];
+            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
@@ -1799,7 +1824,7 @@ declare module 'ember' {
             logic that can only take place after the model has already
             resolved.
             */
-            afterModel(resolvedModel: any, transition: Transition): Rsvp.Promise<any>;
+            afterModel(resolvedModel: any, transition: Transition): any;
 
             /**
             This hook is the first of the route entry validation hooks
@@ -1939,7 +1964,7 @@ declare module 'ember' {
              * This method is called when `transitionTo` is called with a context
              * in order to populate the URL.
              */
-            serialize(model: {}, params: string[]): string;
+            serialize(model: {}, params: string[]): string | object;
 
             /**
              * A hook you can use to setup the controller for the current route.
@@ -2097,7 +2122,15 @@ declare module 'ember' {
                 options?: { path?: string; resetNamespace?: boolean },
                 callback?: (this: RouterDSL) => void
             ): void;
-            mount(name: string): void;
+            mount(
+                name: string,
+                options?: {
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
+                }
+            ): void;
         }
         class Service extends Object {}
         /**
@@ -2230,7 +2263,6 @@ declare module 'ember' {
              * an instance of `Ember.Test.Promise`
              */
             function resolve<T>(value?: T | PromiseLike<T>, label?: string): Ember.Test.Promise<T>;
-            function resolve(): Ember.Test.Promise<void>;
             /**
              * This allows ember-testing to play nicely with other asynchronous
              * events, such as an application that is waiting for a CSS3
@@ -2464,12 +2496,12 @@ declare module 'ember' {
              * A computed property that performs a logical `and` on the
              * original values for the provided dependent properties.
              */
-            and(...dependentKeys: string[]): ComputedProperty<any>;
+            and(...dependentKeys: string[]): ComputedProperty<boolean>;
             /**
              * A computed property which performs a logical `or` on the
              * original values for the provided dependent properties.
              */
-            or(...dependentKeys: string[]): ComputedProperty<any>;
+            or(...dependentKeys: string[]): ComputedProperty<boolean>;
             /**
              * Creates a new property that is an alias for another property
              * on an object. Calls to `get` or `set` this property behave as

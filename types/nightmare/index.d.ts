@@ -31,7 +31,7 @@ declare class Nightmare {
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
     download(path:string): Nightmare;
-    download(action: "cancel" | "continue"): Nightmare;  
+    download(action: "cancel" | "continue"): Nightmare;
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
@@ -41,10 +41,16 @@ declare class Nightmare {
     evaluate<T>(fn: (arg: T) => void, cb: () => void, arg: T): Nightmare;
     evaluate<R>(fn: () => R, cb: (result: R) => void): Nightmare;
     evaluate(fn: () => void): Nightmare;
-    wait(): Nightmare;
+    wait<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => any, value1: T1, value2: T2, value3: T3, value4: T4, value5: T5): Nightmare;
+    wait<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => any, value1: T1, value2: T2, value3: T3, value4: T4): Nightmare;
+    wait<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => any, value1: T1, value2: T2, value3: T3): Nightmare;
+    wait<T1, T2>(fn: (arg1: T1, arg2: T2) => any, value1: T1, value2: T2): Nightmare;
+    wait<T1>(fn: (arg1: T1) => any, value1: T1): Nightmare;
+    wait(fn: () => any, value: any, delay?: number): Nightmare;
+    wait(fn: () => any): Nightmare;
     wait(ms: number): Nightmare;
     wait(selector: string): Nightmare;
-    wait(fn: () => any, value: any, delay?: number): Nightmare;
+    wait(): Nightmare;
     header(header: string, value: string): Nightmare;
     use(plugin: (nightmare: Nightmare) => void): Nightmare;
     run(cb?: (err: any, nightmare: Nightmare) => void): Nightmare;

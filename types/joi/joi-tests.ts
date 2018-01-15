@@ -1,5 +1,4 @@
 import Joi = require('joi');
-import { GuidVersions } from 'joi';
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -694,6 +693,10 @@ objSchema = objSchema.optionalKeys(str);
 objSchema = objSchema.optionalKeys(str, str);
 objSchema = objSchema.optionalKeys(strArr);
 
+objSchema = objSchema.forbiddenKeys(str);
+objSchema = objSchema.forbiddenKeys(str, str);
+objSchema = objSchema.forbiddenKeys(strArr);
+
 namespace common {
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);
@@ -772,7 +775,7 @@ strSchema = strSchema.ip(ipOpts);
 strSchema = strSchema.uri();
 strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
-strSchema = strSchema.guid({ version: ['uuidv1' as GuidVersions, 'uuidv2'  as GuidVersions, 'uuidv3' as GuidVersions, 'uuidv4' as GuidVersions, 'uuidv5'  as GuidVersions]});
+strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] } as Joi.GuidOptions);
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
 strSchema = strSchema.hostname();
@@ -909,6 +912,11 @@ namespace validate_tests {
         returnValue = schema.validate(value, validOpts);
         value = schema.validate(value, (err, value) => value);
         value = schema.validate(value, validOpts, (err, value) => value);
+
+        returnValue
+            .then(val => JSON.stringify(val, null, 2))
+            .then(val => { throw 'one error'; })
+            .catch(e => {});
     }
 }
 
@@ -970,6 +978,12 @@ const Joi3 = Joi.extend({
         },
     ],
 });
+
+const Joi4 = Joi.extend([{ name: '', base: schema }, { name: '', base: schema }]);
+
+const Joi5 = Joi.extend({ name: '', base: schema }, { name: '', base: schema });
+
+const Joi6 = Joi.extend({ name: '', base: schema }, [{ name: '', base: schema }, { name: '', base: schema }]);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

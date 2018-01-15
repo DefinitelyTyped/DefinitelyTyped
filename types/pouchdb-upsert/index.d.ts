@@ -6,9 +6,6 @@
 
 /// <reference types="pouchdb-core" />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
 declare namespace PouchDB {
   interface Database<Content extends {} = {}> {
     /**
@@ -58,7 +55,7 @@ declare namespace PouchDB {
                           callback: Core.Callback<UpsertResponse>): void;
   }
 
-  type UpsertDiffCallback<Content extends {}> = (doc: Core.Document<Content>) => Core.Document<Content> | boolean;
+  type UpsertDiffCallback<Content extends {}> = (doc: Core.Document<Content> | {}) => Core.Document<Content> | boolean;
 
   interface UpsertResponse {
     id: Core.DocumentId;

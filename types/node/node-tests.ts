@@ -29,6 +29,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
 import * as inspector from "inspector";
+import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
@@ -338,6 +339,32 @@ namespace fs_tests {
         b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
         const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
         typeof v2 === "string" ? s = v2 : b = v2;
+
+        // native
+        fs.realpath.native('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
+        fs.realpath.native('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
+        fs.realpath.native('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
+        fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+
+        s = fs.realpathSync.native('/path/to/folder');
+        s = fs.realpathSync.native('/path/to/folder', undefined);
+        s = fs.realpathSync.native('/path/to/folder', 'utf8');
+        b = fs.realpathSync.native('/path/to/folder', 'buffer');
+        const v3 = fs.realpathSync.native('/path/to/folder', s);
+        typeof v3 === "string" ? s = v3 : b = v3;
+
+        s = fs.realpathSync.native('/path/to/folder', {});
+        s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
+        s = fs.realpathSync.native('/path/to/folder', { encoding: 'utf8' });
+        b = fs.realpathSync.native('/path/to/folder', { encoding: 'buffer' });
+        const v4 = fs.realpathSync.native('/path/to/folder', { encoding: s });
+        typeof v4 === "string" ? s = v4 : b = v4;
     }
 
     {
@@ -404,6 +431,20 @@ function bufferTests() {
     {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
     }
 
     // Class Method byteLenght
@@ -556,9 +597,22 @@ namespace url_tests {
     }
 
     {
-        var helloUrl = url.parse('http://example.com/?hello=world', true);
-        if (typeof helloUrl.query !== 'string') {
-            assert.equal(helloUrl.query.hello, 'world');
+        const helloUrl = url.parse('http://example.com/?hello=world', true);
+        let helloQuery = helloUrl.query['hello'];
+        assert.equal(helloUrl.query['hello'], 'world');
+
+        let strUrl = url.parse('http://example.com/?hello=world');
+        let queryStr: string = strUrl.query;
+
+        strUrl = url.parse('http://example.com/?hello=world', false);
+        queryStr = strUrl.query;
+
+        function getBoolean(): boolean { return false; }
+        const urlUrl = url.parse('http://example.com/?hello=world', getBoolean());
+        if (typeof(urlUrl.query) === 'string') {
+            queryStr = urlUrl.query;
+        } else if (urlUrl.query) {
+            helloQuery = urlUrl.query['hello'];
         }
     }
 
@@ -784,13 +838,16 @@ function stream_readable_pipe_test() {
     var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
 
+    assert(typeof z.bytesRead === 'number');
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
     assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
+    z.flush();
     r.close();
+    z.close();
     rs.close();
 }
 
@@ -905,7 +962,37 @@ function simplified_stream_ctor_test() {
 
 namespace crypto_tests {
     {
+        // crypto_hash_string_test
+        var hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hash_buffer_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hash_dataview_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    }
+
+    {
+        // crypto_hmac_string_test
         var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+    }
+
+    {
+        // crypto_hmac_buffer_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new Buffer('world')).digest('hex');
+    }
+
+    {
+        // crypto_hmac_dataview_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new DataView(new Buffer('world').buffer)).digest('hex');
     }
 
     {
@@ -940,6 +1027,28 @@ namespace crypto_tests {
         cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
+
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_dataview_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: DataView = new DataView(
+            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
@@ -1676,6 +1785,46 @@ namespace path_tests {
     });
     // returns
     //    '/home/user/dir/file.txt'
+
+    path.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.win32.format({
+        root: "C:\\",
+        dir: "C:\\home\\user\\dir",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
+
+    path.win32.format({
+        dir: "C:\\home\\user\\dir",
+        base: "file.txt"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
 }
 
 ////////////////////////////////////////////////////
@@ -2425,6 +2574,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -2464,6 +2633,13 @@ namespace process_tests {
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
         process.addListener('uncaughtException', oldHandler);
+    }
+    {
+        function myCb(err: Error): void {
+        }
+        process.setUncaughtExceptionCaptureCallback(myCb);
+        process.setUncaughtExceptionCaptureCallback(null);
+        const b: boolean = process.hasUncaughtExceptionCaptureCallback();
     }
 }
 
@@ -2917,6 +3093,7 @@ namespace dns_tests {
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
+import { PerformanceObserver, PerformanceObserverCallback } from "perf_hooks";
 namespace constants_tests {
     var str: string;
     var num: number;
@@ -3072,16 +3249,35 @@ namespace v8_tests {
     v8.setFlagsFromString('--collect_maps');
 }
 
-///////////////////////////////////////////////////////////
-/// Debugger Tests                                      ///
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+/// PerfHooks tests : https://nodejs.org/api/perf_hooks.html
+////////////////////////////////////////////////////
+namespace perf_hooks_tests {
+    perf_hooks.performance.mark('start');
+    (
+        () => {}
+    )();
+    perf_hooks.performance.mark('end');
 
-import { Client } from "_debugger";
+    const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
+    const timeOrigin = perf_hooks.performance.timeOrigin;
 
-var client = new Client();
-
-client.connect(8888, 'localhost');
-client.listbreakpoints((err, body, packet) => { });
+    const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
+        const {
+            duration,
+            entryType,
+            name,
+            startTime,
+        } = list.getEntries()[0];
+        obs.disconnect();
+        perf_hooks.performance.clearFunctions();
+    };
+    const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
+    obs.observe({
+        entryTypes: ['function'],
+        buffered: true,
+    });
+}
 
 ////////////////////////////////////////////////////
 /// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
@@ -3750,6 +3946,9 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    const b: string[] = Module.builtinModules;
+    let paths: string[] = module.paths;
+    paths = m1.paths;
 }
 
 ////////////////////////////////////////////////////
