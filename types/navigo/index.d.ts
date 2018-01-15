@@ -36,7 +36,7 @@ declare class Navigo {
 
     on(rootHandler: RouteHandler, hooks?: NavigoHooks): Navigo;
 
-    off(handler: { [key: string]: RouteHandler }): void;
+    off(location: string, handler: RouteHandler): void;
 
     notFound(handler: ((query: string) => void), hooks?: NavigoHooks): void;
 
