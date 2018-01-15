@@ -4810,7 +4810,6 @@ export class Task {
      *  Throws an error if this task has already been terminated or if sending a
      *  message to the child process fails.
      */
-    // tslint:disable-next-line:no-any
     send(message: string | number | boolean | object | null |
       Array<string | number | boolean | object | null>): void;
 
