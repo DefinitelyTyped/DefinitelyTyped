@@ -369,6 +369,12 @@ var scope = nock('http://www.headdy.com')
    });
 
 var scope = nock('http://www.headdy.com')
+    .get('/')
+    .reply(200, 'Hello World!', {
+        'X-My-Headers': ['My Header value 1', 'My Header value 2']
+    });
+
+var scope = nock('http://www.headdy.com')
    .get('/')
    .reply(200, 'Hello World!', {
      'X-My-Headers': (req, res, body) => {
