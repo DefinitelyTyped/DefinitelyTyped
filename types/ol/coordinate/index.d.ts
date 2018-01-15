@@ -1,1 +1,1 @@
-export default ol.Coordinate;
+export default ol.coordinate;

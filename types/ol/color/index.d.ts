@@ -1,1 +1,1 @@
-export default ol.Color;
+export default ol.color;

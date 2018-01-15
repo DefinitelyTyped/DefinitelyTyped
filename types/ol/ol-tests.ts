@@ -42,8 +42,6 @@ import FormatGPX from 'ol/format/gpx';
 
 import FormatIGC from 'ol/format/igc';
 
-import FormatIGCZ from 'ol/format/igcz';
-
 import FormatJSONFeature from 'ol/format/jsonfeature';
 
 import FormatKML from 'ol/format/kml';
@@ -77,10 +75,6 @@ import GeomCircle from 'ol/geom/circle';
 import GeomGeometry from 'ol/geom/geometry';
 
 import GeomGeometryCollection from 'ol/geom/geometrycollection';
-
-import GeomGeometryLayout from 'ol/geom/geometrylayout';
-
-import GeomGeometryType from 'ol/geom/geometrytype';
 
 import GeomLinearRing from 'ol/geom/linearring';
 
@@ -136,8 +130,6 @@ import InteractionSnap from 'ol/interaction/snap';
 
 import InteractionTranslate from 'ol/interaction/translate';
 
-import InteractionTranslateEventType from 'ol/interaction/translateeventtype';
-
 import LayerBase from 'ol/layer/base';
 
 import LayerGroup from 'ol/layer/group';
@@ -154,13 +146,9 @@ import LayerVector from 'ol/layer/vector';
 
 import LayerVectorTile from 'ol/layer/vectortile';
 
-import LayerVectorTileRenderType from 'ol/layer/vectortilerendertype';
-
 import PointerPointerEvent from 'ol/pointer/pointerevent';
 
 import ProjProjection from 'ol/proj/projection';
-
-import ProjUnits from 'ol/proj/units';
 
 import Rendercanvas from 'ol/render/canvas';
 
@@ -197,8 +185,6 @@ import SourceRaster from 'ol/source/raster';
 import SourceSource from 'ol/source/source';
 
 import SourceStamen from 'ol/source/stamen';
-
-import SourceState from 'ol/source/state';
 
 import SourceTile from 'ol/source/tile';
 
@@ -248,10 +234,6 @@ import TilegridTileGrid from 'ol/tilegrid/tilegrid';
 
 import TilegridWMTS from 'ol/tilegrid/wmts';
 
-import WebglShader from 'ol/webgl/shader';
-
-import WebglVertex from 'ol/webgl/vertex';
-
 import AssertionError from 'ol/assertionerror';
 
 import Attribution from 'ol/attribution';
@@ -263,8 +245,6 @@ import Color from 'ol/color';
 import Colorlike from 'ol/colorlike';
 
 import Control from 'ol/control';
-
-import Coordinate from 'ol/coordinate';
 
 import DeviceOrientation from 'ol/deviceorientation';
 
@@ -288,8 +268,6 @@ import Image from 'ol/image';
 
 import ImageBase from 'ol/imagebase';
 
-import ImageState from 'ol/imagestate';
-
 import ImageTile from 'ol/imagetile';
 
 import Interaction from 'ol/interaction';
@@ -312,13 +290,9 @@ import Observable from 'ol/observable';
 
 import Overlay from 'ol/overlay';
 
-import Size from 'ol/size';
-
 import Sphere from 'ol/sphere';
 
 import Tile from 'ol/tile';
-
-import TileCoord from 'ol/tilecoord';
 
 import Tilegrid from 'ol/tilegrid';
 
@@ -339,8 +313,8 @@ map.addInteraction(interaction);
 
 // View
 let view: View;
-const coordinate: Coordinate = <any> {};
-const size: Size = <any> {};
+const coordinate: ol.Coordinate = <any> {};
+const size: ol.Size = <any> {};
 const position: ol.Pixel = <any> {};
 view = map.getView();
 view.getProjection();

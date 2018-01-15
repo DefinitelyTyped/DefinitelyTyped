@@ -1,1 +1,1 @@
-export default ol.Extent;
+export default ol.extent;

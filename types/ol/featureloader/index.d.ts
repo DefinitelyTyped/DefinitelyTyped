@@ -1,1 +1,1 @@
-export default ol.FeatureLoader;
+export default ol.featureloader;

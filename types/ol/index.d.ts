@@ -3,4 +3,5 @@
 // Definitions by: Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as ol from 'openlayers';
+
 export default ol;

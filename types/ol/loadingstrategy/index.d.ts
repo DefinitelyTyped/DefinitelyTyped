@@ -1,1 +1,1 @@
-export default ol.loadingstrategy;export
+export default ol.loadingstrategy;
