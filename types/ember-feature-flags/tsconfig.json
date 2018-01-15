@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "tests/helpers/with-feature.d.ts",
-        "ember-feature-flags-tests.ts"
+        "tests/feature-flags-tests.ts",
+        "tests/lib/assert.ts"
     ]
 }

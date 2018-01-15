@@ -1,5 +1,12 @@
 import Features from 'ember-feature-flags';
-import 'ember-feature-flags/tests/helpers/with-feature';
+import './helpers/with-feature';
+import { assertType } from './lib/assert';
+
+declare module 'ember-feature-flags' {
+    export default interface Features {
+        someFeature: boolean;
+    }
+}
 
 // https://www.npmjs.com/package/ember-feature-flags#withfeature
 declare var features: Features;
@@ -12,3 +19,4 @@ const setup = {
 };
 features.setup(setup); // $ExpectType void
 withFeature('new-homepage'); // $ExpectType void
+assertType<boolean>(features.get('someFeature'));
