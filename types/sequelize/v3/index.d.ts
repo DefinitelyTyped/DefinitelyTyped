@@ -3218,6 +3218,11 @@ declare namespace sequelize {
         group?: string | string[] | Object;
 
         /**
+         * Apply column on which COUNT() should be applied for FindAndCount(all)
+         */
+        col?: string;
+        
+        /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
@@ -3242,6 +3247,11 @@ declare namespace sequelize {
          * Include options. See `find` for details
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
 
         /**
          * Apply COUNT(DISTINCT(col))
