@@ -120,6 +120,11 @@ router.resume(); // or .pause(false)
 router.pause();
 router.historyAPIUpdateMethod('replaceState');
 router.disableIfAPINotAvailable();
+router.off({
+    '/trip/:number': {
+        as: 'trip', uses: (params, query) => {}
+    }
+});
 router.resume();
 
 router.on(
