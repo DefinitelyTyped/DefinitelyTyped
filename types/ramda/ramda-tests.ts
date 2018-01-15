@@ -584,6 +584,13 @@ R.times(i, 5);
 };
 
 () => {
+    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
+    const typeIs = R.propEq('type');
+    const isBuy = typeIs('BUY');
+    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
+};
+
+() => {
     const xs: { [key: string]: string } = {a: "1", b: "0"};
     R.propEq("a", "1", xs); // => true
     R.propEq("a", "4", xs); // => false
