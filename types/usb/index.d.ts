@@ -56,6 +56,7 @@ export class ConfigDescriptor {
   bmAttributes: number;
   bMaxPower: number;
   extra: Buffer;
+  interfaces: InterfaceDescriptor[][];
 }
 
 export class Interface {
@@ -85,6 +86,7 @@ export class InterfaceDescriptor {
   bInterfaceProtocol: number;
   iInterface: number;
   extra: Buffer;
+  endpoints: EndpointDescriptor[];
 }
 
 export interface Endpoint {
