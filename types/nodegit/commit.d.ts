@@ -85,25 +85,25 @@ export class Commit {
      *
      *
      */
-    getParents(limit: number, callback: Function): Promise<Commit[]>;
+    getParents(limit: number, callback?: Function): Promise<Commit[]>;
     /**
      * Retrieve the commit's parent shas.
      *
      *
      */
-    parents(callback: Function): Oid[];
+    parents(): Oid[];
     /**
      * Generate an array of diff trees showing changes between this commit and its parent(s).
      *
      *
      */
-    getDiff(callback: Function): Promise<Diff[]>;
+    getDiff(callback?: Function): Promise<Diff[]>;
     /**
      * Generate an array of diff trees showing changes between this commit and its parent(s).
      *
      *
      */
-    getDiffWithOptions(options: Object, callback: Function): Promise<Diff[]>;
+    getDiffWithOptions(options: Object, callback?: Function): Promise<Diff[]>;
     /**
      * The sha of this commit
      *

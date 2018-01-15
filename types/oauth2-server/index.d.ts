@@ -3,7 +3,7 @@
 // Definitions by:  Robbie Van Gorkom <https://github.com/vangorra>,
 //                  Charles Irick <https://github.com/cirick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
 import { Request, RequestHandler } from "express";
 

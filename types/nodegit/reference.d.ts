@@ -21,12 +21,12 @@ export namespace Reference {
 export class Reference {
     static create(repo: Repository, name: string, id: Oid, force: number, logMessage: string): Promise<Reference>;
     static createMatching(repo: Repository, name: string, id: Oid, force: number, currentId: Oid, logMessage: string): Promise<Reference>;
-    static dwim(repo: Repository, id: string | Reference, callback: Function): Promise<Reference>;
+    static dwim(repo: Repository, id: string | Reference, callback?: Function): Promise<Reference>;
     static ensureLog(repo: Repository, refname: string): number;
     static hasLog(repo: Repository, refname: string): number;
     static isValidName(refname: string): number;
     static list(repo: Repository): Promise<any[]>;
-    static lookup(repo: Repository, id: string | Reference, callback: Function): Promise<Reference>;
+    static lookup(repo: Repository, id: string | Reference, callback?: Function): Promise<Reference>;
     static nameToId(repo: Repository, name: string): Promise<Oid>;
     static normalizeName(bufferOut: string, bufferSize: number, name: string, flags: number): number;
     static remove(repo: Repository, name: string): number;

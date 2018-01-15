@@ -1,8 +1,8 @@
-// Type definitions for prettier 1.7
+// Type definitions for prettier 1.9
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { File } from 'babel-types';
 
@@ -18,7 +18,8 @@ export type BuiltInParserName =
     | 'less'
     | 'scss'
     | 'json'
-    | 'graphql';
+    | 'graphql'
+    | 'markdown';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -76,6 +77,26 @@ export interface Options {
      * This is very useful when gradually transitioning large, unformatted codebases to prettier.
      */
     requirePragma?: boolean;
+    /**
+     * Prettier can insert a special @format marker at the top of files specifying that
+     * the file has been formatted with prettier. This works well when used in tandem with
+     * the --require-pragma option. If there is already a docblock at the top of
+     * the file then this option will add a newline to it with the @format marker.
+     */
+    insertPragma?: boolean;
+    /**
+     * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
+     * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
+     */
+    proseWrap?:
+        | boolean // deprecated
+        | 'always'
+        | 'never'
+        | 'preserve';
+    /**
+     * Include parentheses around a sole arrow function parameter.
+     */
+    arrowParens?: 'avoid' | 'always';
 }
 
 export interface CursorOptions extends Options {
@@ -120,6 +141,16 @@ export interface ResolveConfigOptions {
      * Pass directly the path of the config file if you don't wish to search for it.
      */
     config?: string;
+    /**
+     * If set to `true` and an `.editorconfig` file is in your project,
+     * Prettier will parse it and convert its properties to the corresponding prettier configuration.
+     * This configuration will be overridden by `.prettierrc`, etc. Currently,
+     * the following EditorConfig properties are supported:
+     * - indent_style
+     * - indent_size/tab_width
+     * - max_line_length
+     */
+    editorconfig?: boolean;
 }
 
 /**
@@ -145,6 +176,33 @@ export namespace resolveConfig {
  * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
 export function clearConfigCache(): void;
+
+export interface SupportLanguage {
+    name: string;
+    since: string;
+    parsers: string[];
+    group?: string;
+    tmScope: string;
+    aceMode: string;
+    codemirrorMode: string;
+    codemirrorMimeType: string;
+    aliases?: string[];
+    extensions: string[];
+    filenames?: string[];
+    linguistLanguageId: number;
+    vscodeLanguageIds: string[];
+}
+
+export interface SupportInfo {
+    languages: SupportLanguage[];
+}
+
+/**
+ * Returns an object representing the parsers, languages and file types Prettier supports.
+ * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
+ * otherwise information for the current version will be returned.
+ */
+export function getSupportInfo(version?: string): SupportInfo;
 
 /**
  * `version` field in `package.json`

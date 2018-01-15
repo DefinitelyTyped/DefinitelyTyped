@@ -1,8 +1,9 @@
-// Type definitions for prosemirror-model 1.0
+// Type definitions for prosemirror-model 1.1
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
+//                 Malte Blanken <https://github.com/neknalb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -720,7 +721,7 @@ export class Slice {
    * Create a slice from a fragment by taking the maximum possible
    * open value on both side of the fragment.
    */
-  static maxOpen(fragment: Fragment): Slice;
+  static maxOpen(fragment: Fragment, openIsolating?: boolean): Slice;
   /**
    * The empty slice.
    */

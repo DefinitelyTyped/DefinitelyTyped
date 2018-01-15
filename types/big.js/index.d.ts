@@ -275,16 +275,26 @@ export interface Big {
      * the value of Big.E_POS and Big.E_NEG. By default, Big numbers correspond to Javascript's number type in this regard.
      */
     toJSON(): string;
+    /**
+     * Returns an array of single digits
+     */
+    c: number[];
+    /**
+     * Returns the exponent, Integer, -1e+6 to 1e+6 inclusive
+     */
+    e: number;
+    /**
+     * Returns the sign, -1 or 1
+     */
+    s: number;
 }
 
 export const Big: BigConstructor;
 
 // Helpers to allow referencing Big and BigConstructor from inside the global declaration without creating a self reference
-/* tslint:disable:strict-export-declare-modifiers */
-type Big_ = Big;
-type BigConstructor_ = BigConstructor;
-type BigSource_ = BigSource;
-/* tslint:enable:strict-export-declare-modifiers */
+export type Big_ = Big;
+export type BigConstructor_ = BigConstructor;
+export type BigSource_ = BigSource;
 
 declare global {
     namespace BigJs {

@@ -26,7 +26,7 @@ export interface OnClickOutProps {
 export type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
 
 export interface ClickOutComponentClass<P extends InjectedOnClickOutProps> extends React.ComponentClass<P> {
-    new (props?: P, context?: any): React.Component<P, React.ComponentState> & HandleClickOutside<any>;
+    new (props: P, context?: any): React.Component<P, React.ComponentState> & HandleClickOutside<any>;
 }
 
 export default function OnClickOut<P>(

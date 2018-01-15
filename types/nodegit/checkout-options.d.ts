@@ -23,4 +23,5 @@ export class CheckoutOptions {
     theirLabel?: string;
     perfdataCb?: any;
     perfdataPayload?: undefined;
+    [key: string]: any;
 }

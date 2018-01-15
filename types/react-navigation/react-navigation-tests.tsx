@@ -45,12 +45,11 @@ interface StartScreenNavigationParams {
     s: string;
 }
 
-interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<StartScreenProps> {
+class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
         const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
@@ -63,7 +62,7 @@ class StartScreen extends React.Component<StartScreenProps> {
             </View>
         );
     }
-    private navigateToNextScreen = (): void => {
+    private readonly navigateToNextScreen = (): void => {
         const params: NextScreenNavigationParams = {
             id: this.props.navigation.state.params.id,
             name: this.props.navigation.state.params.s,
@@ -77,8 +76,7 @@ interface NextScreenNavigationParams {
     id: number;
     name: string;
 }
-interface NextScreenProps extends NavigationScreenProps<NextScreenNavigationParams> { }
-class NextScreen extends React.Component<NextScreenProps> {
+class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
         const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;
@@ -146,6 +144,11 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
+};
+
+const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
+  ...tabNavigatorConfig,
+  initialLayout: { height: 0, width: 100 },
 };
 
 const BasicTabNavigator = TabNavigator(

@@ -2,7 +2,7 @@
 // Project: https://github.com/request/request-promise-native
 // Definitions by: Gustavo Henke <https://github.com/gustavohenke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import request = require('request');
 import http = require('http');

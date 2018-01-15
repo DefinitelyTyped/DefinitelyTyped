@@ -157,4 +157,6 @@ const objectWithComputedProperties = Ember.Object.extend({
 
 const component2 = Component.extend({
     isAnimal: or('isDog', 'isCat')
-});
+}).create();
+
+assertType<boolean>(component2.get('isAnimal'));

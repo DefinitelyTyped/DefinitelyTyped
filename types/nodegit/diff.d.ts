@@ -7,6 +7,7 @@ import { DiffDelta } from './diff-delta';
 import { DiffPerfdata } from './diff-perf-data';
 import { DiffOptions } from './diff-options';
 import { Buf } from './buf';
+import { ConvenientPatch } from './convenient-patch';
 
 export interface DiffFindOptions {
     version?: number;
@@ -134,12 +135,12 @@ export class Diff {
     static blobToBuffer(oldBlob: Blob, oldAsPath: string,
                         buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
     static fromBuffer(content: string, contentLen: number): Promise<Diff>;
-    static indexToWorkdir(repo: Repository, index: Index, opts: DiffOptions): Promise<Diff>;
-    static indexToIndex(repo: Repository, oldIndex: Index, newIndex: Index, opts: DiffOptions): Promise<Diff>;
-    static treeToIndex(repo: Repository, oldTree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
-    static treeToTree(repo: Repository, oldTree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;
-    static treeToWorkdir(repo: Repository, oldTree: Tree, opts: DiffOptions): Promise<Diff>;
-    static treeToWorkdirWithIndex(repo: Repository, oldTree: Tree, opts: DiffOptions): Promise<Diff>;
+    static indexToWorkdir(repo: Repository, index: Index, opts?: DiffOptions): Promise<Diff>;
+    static indexToIndex(repo: Repository, oldIndex: Index, newIndex: Index, opts?: DiffOptions): Promise<Diff>;
+    static treeToIndex(repo: Repository, oldTree: Tree, index: Index, opts?: DiffOptions): Promise<Diff>;
+    static treeToTree(repo: Repository, oldTree: Tree, new_tree: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToWorkdir(repo: Repository, oldTree: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToWorkdirWithIndex(repo: Repository, oldTree: Tree, opts?: DiffOptions): Promise<Diff>;
 
     findSimilar(options: DiffFindOptions): Promise<number>;
     getDelta(idx: number): DiffDelta;
@@ -150,7 +151,7 @@ export class Diff {
      *
      *
      */
-    patches(): Promise<any[]>;
+    patches(): Promise<ConvenientPatch[]>;
     merge(from: Diff): Promise<number>;
     toBuf(format: Diff.FORMAT): Promise<Buf>;
 }

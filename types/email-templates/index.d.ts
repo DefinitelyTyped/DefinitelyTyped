@@ -1,113 +1,104 @@
-// Type definitions for node-email-templates 2.6
+// Type definitions for node-email-templates 3.1
 // Project: https://github.com/niftylettuce/node-email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
+//                 Jacob Copeland <https://github.com/blankstar85>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface EmailTemplateResults {
-    html: string;
-    text: string;
-    subject: string;
+interface EmailConfig {
+    /**
+     * The message <Nodemailer.com/message/>
+     */
+    message: any;
+    /**
+     * The nodemailer Transport created via nodemailer.createTransport
+     */
+    transport: any;
+    /**
+     * The email template directory and engine information
+     */
+    views?: any;
+    /**
+     *     Do you really want to send, false for test or development
+     */
+    send?: boolean;
+    /**
+     * Preview the email
+     */
+    preview?: boolean;
+    /**
+     * Set to object to configure and Enable <https://github.com/ladjs/il8n>
+     */
+    i18n?: any;
+    /**
+     * Pass a custom render function if necessary
+     */
+    render?: { view: string, locals: any };
+    /**
+     * <Https://github.com/werk85/node-html-to-text>
+     */
+    htmlToText?: any;
+    /**
+     * <https://github.com/Automattic/juice>
+     */
+    juice?: boolean;
+    /**
+     * <https://github.com/Automattic/juice>
+     */
+    juiceResources?: any;
 }
 
-export type EmailTemplateCallback = (err: any, results: EmailTemplateResults) => void;
-
-export interface EmailTemplateOptions {
-    disableJuice?: boolean;
-    juiceOptions?: any;
-    sassOptions?: any;
+interface EmailOptions {
+    /**
+     * The template name
+     */
+    template: string;
+    /**
+     * Nodemailer Message <Nodemailer.com/message/>
+     */
+    message: any;
+    /**
+     * The Template Variables
+     */
+    locals: any;
 }
 
-export class EmailTemplate {
+declare class EmailTemplate {
+    constructor(config: EmailConfig);
     /**
-     * @param templateDir The template directory.
+     *   shorthand use of `juiceResources` with the config
+     *   mainly for custom renders like from a database).
      */
-    constructor(templateDir: string, options?: EmailTemplateOptions);
-
+    juiceResources(html: string): Promise<string> ;
     /**
-     * Render a single template.
-     * @param locals The template variables.
-     * @param locale The language code.
+     *
+     * @param view The Html pug to render
+     * @param locals The template Variables
      */
-    render(locals: any, locale?: string): Promise<EmailTemplateResults>;
-
+    render(view: string, locals: any): Promise<string>;
     /**
-     * Render a single template.
+     * Send the Email
      */
-    render(callback: EmailTemplateCallback): void;
-
-    /**
-     * Render a single template.
-     * @param locals The template variables.
-     */
-    render(locals: any, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render a single template.
-     * @param locals The template variables.
-     * @param locale The language code.
-     */
-    render(locals: any, locale: string, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render text
-     * @param locals The template variables.
-     * @param locale The language code.
-     */
-    renderText(locals: any, locale?: string): Promise<string>;
-
-    /**
-     * Render text
-     * @param locals The template variables.
-     * @param callback The language code.
-     */
-    renderText(locals: any, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render text
-     * @param locals The template variables.
-     * @param locale The language code.
-     * @param callback The language code.
-     */
-    renderText(locals: any, locale: string, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render subject
-     * @param locals The template variables.
-     * @param locale The language code.
-     */
-    renderSubject(locals: any, locale?: string): Promise<string>;
-
-    /**
-     * Render subject
-     * @param locals The template variables.
-     */
-    renderSubject(locals: any, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render subject
-     * @param locals The template variables.
-     * @param locale The language code.
-     */
-    renderSubject(locals: any, locale: string, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render HTML
-     * @param locals The template variables.
-     * @param locale The language code.
-     */
-    renderHtml(locals: any, locale?: string): Promise<string>;
-
-    /**
-     * Render HTML
-     * @param locals The template variables.
-     */
-    renderHtml(locals: any, callback: EmailTemplateCallback): void;
-
-    /**
-     * Render HTML
-     * @param locals The template variables.
-     * @param locale The language code.
-     */
-    renderHtml(locals: any, locale: string, callback: EmailTemplateCallback): void;
+    send(options: EmailOptions): any;
 }
+
+declare namespace EmailTemplate {
+        /**
+         *   shorthand use of `juiceResources` with the config
+         *   mainly for custom renders like from a database).
+         */
+        function juiceResources(html: string): Promise<string> ;
+
+        /**
+         *
+         * @param view The Html pug to render
+         * @param locals The template Variables
+         */
+        function render(view: string, locals: any): Promise<string>;
+
+        /**
+         * Send the Email
+         */
+        function send(options: EmailOptions): any;
+}
+export = EmailTemplate;

@@ -17,10 +17,9 @@ namespace express_tests {
         next();
     });
 
-    app.use((err: any, req: express.Request<{ hello: string; }>, res: express.Response, next: express.NextFunction) => {
-    console.log(req.body.hello);
-    console.error(err);
-    next(err);
+    app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+        console.error(err);
+        next(err);
     });
 
     app.get('/', (req, res) => {
@@ -118,6 +117,13 @@ namespace express_tests {
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
         router(req, res, next);
+    });
+
+    // Test append function
+    app.use((req, res, next) => {
+        res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+        res.append('Warning', '199 Miscellaneous warning');
     });
 
     app.use(router);

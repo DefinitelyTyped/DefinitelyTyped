@@ -5,4 +5,5 @@ export class ProxyOptions {
     type?: number;
     url?: string;
     version?: number;
+    [key: string]: any;
 }

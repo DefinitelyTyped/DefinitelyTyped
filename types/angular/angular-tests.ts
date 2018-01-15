@@ -6,8 +6,6 @@
  * License: MIT
  */
 
-/* tslint:disable:no-empty no-shadowed-variable */
-
 class AuthService {
     /**
       * Holds all the requests which failed due to 401 response,
@@ -163,7 +161,7 @@ namespace My.Namespace {
 }
 
 class TestProvider implements ng.IServiceProvider {
-    constructor(private $scope: ng.IScope) {}
+    constructor(private readonly $scope: ng.IScope) {}
 
     $get() {}
 }
@@ -644,6 +642,9 @@ isolateScope = element.find('div').isolateScope();
 isolateScope = element.children().isolateScope();
 let element2 = angular.element(element);
 let elementArray = angular.element(document.querySelectorAll('div'));
+let elementReadyFn = angular.element(() => {
+    console.log('ready');
+});
 
 // $timeout signature tests
 namespace TestTimeout {
@@ -704,7 +705,7 @@ class SampleDirective implements ng.IDirective {
     restrict = 'A';
     name = 'doh';
 
-    compile(templateElement: ng.IAugmentedJQuery) {
+    compile(templateElement: JQLite) {
         return {
             post: this.link
         };
@@ -720,7 +721,7 @@ class SampleDirective implements ng.IDirective {
 class SampleDirective2 implements ng.IDirective {
     restrict = 'EAC';
 
-    compile(templateElement: ng.IAugmentedJQuery) {
+    compile(templateElement: JQLite) {
         return {
             pre: this.link
         };
@@ -738,7 +739,7 @@ angular.module('SameplDirective', []).directive('sampleDirective', SampleDirecti
 angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpolate', '$q', ($interpolate: ng.IInterpolateService, $q: ng.IQService) => {
     return {
         restrict: 'A',
-        link: (scope: ng.IScope, el: ng.IAugmentedJQuery, attr: ng.IAttributes) => {
+        link: (scope: ng.IScope, el: JQLite, attr: ng.IAttributes) => {
             $interpolate(attr['test'])(scope);
             $interpolate('', true)(scope);
             $interpolate('', true, 'html')(scope);
@@ -866,7 +867,7 @@ angular.module('docsTimeDirective', [])
     }])
     .directive('myCurrentTime', ['$interval', 'dateFilter', ($interval: any, dateFilter: any) => {
         return {
-            link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) {
+            link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
                 let timeoutId: any;
 
@@ -913,7 +914,7 @@ angular.module('docsTransclusionExample', [])
             transclude: true,
             scope: {},
             templateUrl: 'my-dialog.html',
-            link(scope: ng.IScope, element: ng.IAugmentedJQuery) {
+            link(scope: ng.IScope, element: JQLite) {
                 scope['name'] = 'Jeff';
             }
         };
@@ -1014,7 +1015,7 @@ angular.module('docsTabsExample', [])
             scope: {
                 title: '@'
             },
-            link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, tabsCtrl: any) {
+            link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes, tabsCtrl: any) {
                 tabsCtrl.addPane(scope);
             },
             templateUrl: 'my-pane.html'
@@ -1094,6 +1095,18 @@ angular.module('copyExample', [])
 
         $scope.reset();
     }]);
+
+// Extending IScope for a directive, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/21160
+interface IMyScope extends angular.IScope {
+    myScopeProperty: boolean;
+}
+
+angular.module('aaa').directive('directive', () => ({
+    link(scope: IMyScope) {
+        console.log(scope.myScopeProperty);
+        return;
+    }
+}));
 
 namespace locationTests {
     const $location: ng.ILocationService = null;
@@ -1309,3 +1322,35 @@ function toPromise<T>(val: T): ng.IPromise<T> {
     const p: ng.IPromise<T> = null;
     return p;
 }
+
+const directiveCompileFn: ng.IDirectiveCompileFn = (
+        templateElement: JQLite,
+        templateAttributes: ng.IAttributes,
+        transclude: ng.ITranscludeFunction
+    ): ng.IDirectiveLinkFn => {
+    return (
+        scope: ng.IScope,
+        instanceElement: JQLite,
+        instanceAttributes: ng.IAttributes
+    ) => {
+        return null;
+    };
+};
+
+interface MyScope extends ng.IScope {
+    foo: string;
+}
+
+const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope> = (
+        templateElement: JQLite,
+        templateAttributes: ng.IAttributes,
+        transclude: ng.ITranscludeFunction
+    ): ng.IDirectiveLinkFn<MyScope> => {
+    return (
+        scope: MyScope,
+        instanceElement: JQLite,
+        instanceAttributes: ng.IAttributes
+    ) => {
+        return null;
+    };
+};

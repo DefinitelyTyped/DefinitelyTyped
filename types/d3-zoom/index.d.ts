@@ -1,9 +1,9 @@
-// Type definitions for d3JS d3-zoom module 1.6
+// Type definitions for d3JS d3-zoom module 1.7
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.6.0
+// Last module patch version validated against: 1.7.0
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
@@ -500,6 +500,19 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: ValueFn<ZoomRefElement, Datum, number>): void;
 
     /**
+     * Returns the current constraint function.
+     * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
+     */
+    constrain(): (transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform;
+    /**
+     * Sets the transform constraint function to the specified function and returns the zoom behavior.
+     *
+     * @param constraint A constraint function which returns a transform given the current transform, viewport extent and translate extent.
+     * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
+     */
+    constrain(constraint: ((transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform)): this;
+
+    /**
      * Returns the current filter function.
      */
     filter(): ValueFn<ZoomRefElement, Datum, boolean>;
@@ -647,7 +660,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
      * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
-     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     * distance from its position on mousedown, the click event following mouseup will be suppressed.
      *
      * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
      * The default is zero.

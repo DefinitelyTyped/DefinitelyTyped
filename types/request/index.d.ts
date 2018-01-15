@@ -1,8 +1,14 @@
 // Type definitions for request 2.0
 // Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <https://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>, Jon Stevens <https://github.com/lookfirst>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>,
+//                 bonnici <https://github.com/bonnici>,
+//                 Bart van der Schoor <https://github.com/Bartvds>,
+//                 Joe Skeen <https://github.com/joeskeen>,
+//                 Christopher Currens <https://github.com/ccurrens>,
+//                 Jon Stevens <https://github.com/lookfirst>,
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript version: 2.3
+// TypeScript Version: 2.3
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
@@ -11,16 +17,13 @@
 import stream = require('stream');
 import http = require('http');
 import https = require('https');
-import url = require('url');
 import fs = require('fs');
 import FormData = require('form-data');
+import tough = require('tough-cookie');
 import { Url } from 'url';
 
 declare namespace request {
-    export interface RequestAPI<TRequest extends Request,
-        TOptions extends CoreOptions,
-        TUriUrlOptions> {
-
+    interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
         defaults(options: TOptions): RequestAPI<TRequest, TOptions, RequiredUriUrl>;
         defaults(options: RequiredUriUrl & TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
 
@@ -56,18 +59,20 @@ declare namespace request {
         delete(uri: string, callback?: RequestCallback): TRequest;
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
+        initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(uri: string, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(options: RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
-        cookie(str: string): Cookie;
+        cookie(str: string): Cookie | undefined;
 
-        initParams: any;
         debug: boolean;
     }
 
     interface DefaultUriUrlRequestApi<TRequest extends Request,
-        TOptions extends CoreOptions,
-        TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
-
+            TOptions extends CoreOptions,
+            TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
         (callback?: RequestCallback): TRequest;
 
@@ -165,23 +170,21 @@ declare namespace request {
     interface UrlOptions {
         url: string | Url;
     }
-    export type RequiredUriUrl = UriOptions | UrlOptions;
+    type RequiredUriUrl = UriOptions | UrlOptions;
 
-    export type OptionalUriUrl = RequiredUriUrl | {};
+    type OptionalUriUrl = RequiredUriUrl | {};
 
-    export type OptionsWithUri = UriOptions & CoreOptions;
-    export type OptionsWithUrl = UrlOptions & CoreOptions;
-    export type Options = OptionsWithUri | OptionsWithUrl;
+    type OptionsWithUri = UriOptions & CoreOptions;
+    type OptionsWithUrl = UrlOptions & CoreOptions;
+    type Options = OptionsWithUri | OptionsWithUrl;
 
-    export interface RequestCallback {
-        (error: any, response: RequestResponse, body: any): void;
-    }
+    type RequestCallback = (error: any, response: RequestResponse, body: any) => void;
 
-    export type ResponseRequest = CoreOptions & {
+    type ResponseRequest = CoreOptions & {
       uri: Url;
-    }
+    };
 
-	export interface RequestResponse extends http.IncomingMessage {
+	interface RequestResponse extends http.IncomingMessage {
 		request: ResponseRequest;
 		body: any;
 		timingStart?: number;
@@ -202,41 +205,41 @@ declare namespace request {
 		};
 	}
 
-    export interface HttpArchiveRequest {
+    interface HttpArchiveRequest {
         url?: string;
         method?: string;
         headers?: NameValuePair[];
         postData?: {
             mimeType?: string;
             params?: NameValuePair[];
-        }
+        };
     }
 
-    export interface NameValuePair {
+    interface NameValuePair {
         name: string;
         value: string;
     }
 
-    export interface Multipart {
+    interface Multipart {
         chunked?: boolean;
-        data?: {
+        data?: Array<{
             'content-type'?: string,
             body: string
-        }[];
+        }>;
     }
 
-    export interface RequestPart {
+    interface RequestPart {
         headers?: Headers;
         body: any;
     }
 
-    export interface Request extends stream.Stream {
+    interface Request extends stream.Stream {
         readable: boolean;
         writable: boolean;
 
         getAgent(): http.Agent;
-        //start(): void;
-        //abort(): void;
+        // start(): void;
+        // abort(): void;
         pipeDest(dest: any): void;
         setHeader(name: string, value: string, clobber?: boolean): Request;
         setHeaders(headers: Headers): Request;
@@ -250,21 +253,19 @@ declare namespace request {
         oauth(oauth: OAuthOptions): Request;
         jar(jar: CookieJar): Request;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'request', listener: (req: http.ClientRequest) => void): this;
         on(event: 'response', listener: (resp: http.IncomingMessage) => void): this;
         on(event: 'data', listener: (data: Buffer | string) => void): this;
         on(event: 'error', listener: (e: Error) => void): this;
         on(event: 'complete', listener: (resp: http.IncomingMessage, body?: string | Buffer) => void): this;
 
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-        end(): void;
-        end(chunk: Buffer, cb?: Function): void;
-        end(chunk: string, cb?: Function): void;
-        end(chunk: string, encoding: string, cb?: Function): void;
+        write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
+        write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
+        end(cb?: () => void): void;
+        end(chunk: string | Buffer, cb?: () => void): void;
+        end(str: string, encoding?: string, cb?: () => void): void;
+
         pause(): void;
         resume(): void;
         abort(): void;
@@ -272,11 +273,11 @@ declare namespace request {
         toJSON(): object;
     }
 
-    export interface Headers {
+    interface Headers {
         [key: string]: any;
     }
 
-    export interface AuthOptions {
+    interface AuthOptions {
         user?: string;
         username?: string;
         pass?: string;
@@ -285,7 +286,7 @@ declare namespace request {
         bearer?: string | (() => string);
     }
 
-    export interface OAuthOptions {
+    interface OAuthOptions {
         callback?: string;
         consumer_key?: string;
         consumer_secret?: string;
@@ -293,36 +294,24 @@ declare namespace request {
         token_secret?: string;
         transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
-        body_hash?: true | string
+        body_hash?: true | string;
     }
 
-    export interface HawkOptions {
+    interface HawkOptions {
         credentials: any;
     }
 
-    export interface AWSOptions {
+    interface AWSOptions {
         secret: string;
         bucket?: string;
     }
 
-    export interface CookieJar {
-        setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void
-        getCookieString(uri: string | url.Url): string
-        getCookies(uri: string | url.Url): Cookie[]
-    }
+    type Cookie = tough.Cookie;
 
-    export interface CookieValue {
-        name: string;
-        value: any;
-        httpOnly: boolean;
-    }
-
-    export interface Cookie extends Array<CookieValue> {
-        constructor(name: string, req: Request): void;
-        str: string;
-        expires: Date;
-        path: string;
-        toString(): string;
+    interface CookieJar {
+        setCookie(cookieOrStr: Cookie | string, uri: string | Url, options?: tough.CookieJar.SetCookieOptions): void;
+        getCookieString(uri: string | Url): string;
+        getCookies(uri: string | Url): Cookie[];
     }
 }
 declare var request: request.RequestAPI<request.Request, request.CoreOptions, request.RequiredUriUrl>;

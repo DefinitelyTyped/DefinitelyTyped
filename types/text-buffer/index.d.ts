@@ -2,14 +2,15 @@
 // Project: https://github.com/atom/text-buffer
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-/// <reference types="event-kit" />
-/// <reference types="pathwatcher" />
+import { Disposable } from "event-kit";
+import { File } from "pathwatcher";
 
 declare global {
     namespace TextBuffer {
-        /** The event objects that are passed into the callbacks which the user provides to
+        /**
+         *  The event objects that are passed into the callbacks which the user provides to
          *  specific API calls.
          */
         namespace Events {
@@ -17,7 +18,8 @@ declare global {
                 /** The error object. */
                 error: Error;
 
-                /** Call this function to indicate you have handled the error.
+                /**
+                 *  Call this function to indicate you have handled the error.
                  *  The error will not be thrown if this function is called.
                  */
                 handle(): void;
@@ -53,17 +55,20 @@ declare global {
                 /** Boolean indicating whether the marker now has a tail. */
                 hasTail: boolean;
 
-                /** -DEPRECATED- Object containing the marker's custom properties before the change.
+                /**
+                 *  Object containing the marker's custom properties before the change.
                  *  @deprecated
                  */
                 oldProperties: object;
 
-                /** -DEPRECATED- Object containing the marker's custom properties after the change.
+                /**
+                 *  Object containing the marker's custom properties after the change.
                  *  @deprecated
                  */
                 newProperties: object;
 
-                /** Boolean indicating whether this change was caused by a textual
+                /**
+                 *  Boolean indicating whether this change was caused by a textual
                  *  change to the buffer or whether the marker was manipulated directly
                  *  via its public API.
                  */
@@ -107,17 +112,20 @@ declare global {
                 /** Boolean indicating whether the marker now has a tail */
                 hasTail: boolean;
 
-                /** -DEPRECATED- Object containing the marker's custom properties before the change.
+                /**
+                 *  Object containing the marker's custom properties before the change.
                  *  @deprecated
                  */
                 oldProperties: object;
 
-                /** -DEPRECATED- Object containing the marker's custom properties after the change.
+                /**
+                 *  Object containing the marker's custom properties after the change.
                  *  @deprecated
                  */
                 newProperties: object;
 
-                /** Boolean indicating whether this change was caused by a textual change to the
+                /**
+                 *  Boolean indicating whether this change was caused by a textual change to the
                  *  buffer or whether the marker was manipulated directly via its public API.
                  */
                 textChanged: boolean;
@@ -147,7 +155,8 @@ declare global {
             }
         }
 
-        /** The option objects that the user is expected to fill out and provide to
+        /**
+         *  The option objects that the user is expected to fill out and provide to
          *  specific API calls.
          */
         namespace Options {
@@ -155,7 +164,8 @@ declare global {
                 /** The file's encoding. */
                 encoding?: string;
 
-                /** A function that returns a boolean indicating whether the buffer should
+                /**
+                 *  A function that returns a boolean indicating whether the buffer should
                  *  be destroyed if its file is deleted.
                  */
                 shouldDestroyOnFileDelete?(): boolean;
@@ -227,12 +237,14 @@ declare global {
                 /** Only include markers ending at this row in screen coordinates. */
                 endScreenRow?: number;
 
-                /** Only include markers intersecting this Array of [startRow, endRow] in
+                /**
+                 *  Only include markers intersecting this Array of [startRow, endRow] in
                  *  buffer coordinates.
                  */
                 intersectsBufferRowRange?: [number, number];
 
-                /** Only include markers intersecting this Array of [startRow, endRow] in
+                /**
+                 *  Only include markers intersecting this Array of [startRow, endRow] in
                  *  screen coordinates.
                  */
                 intersectsScreenRowRange?: [number, number];
@@ -266,12 +278,16 @@ declare global {
                 /** Determines the rules by which changes to the buffer invalidate the marker. */
                 invalidate?: "never"|"surround"|"overlap"|"inside"|"touch";
 
-                /** Indicates whether insertions at the start or end of the marked range should
+                /**
+                 *  Indicates whether insertions at the start or end of the marked range should
                  *  be interpreted as happening outside the marker.
                  */
                 exclusive?: boolean;
 
-                /** -DEPRECATED- Custom properties to be associated with the marker. */
+                /**
+                 *  Custom properties to be associated with the marker.
+                 *  @deprecated
+                 */
                 properties?: object;
             }
 
@@ -313,7 +329,8 @@ declare global {
             }
         }
 
-        /** Represents a buffer annotation that remains logically stationary even as
+        /**
+         *  Represents a buffer annotation that remains logically stationary even as
          *  the buffer changes.
          */
         interface Marker {
@@ -326,7 +343,8 @@ declare global {
             properties: object;
 
             // Lifecycle
-            /** Creates and returns a new Marker with the same properties as this
+            /**
+             *  Creates and returns a new Marker with the same properties as this
              *  marker.
              */
             copy(options?: Options.CopyMarker): Marker;
@@ -336,10 +354,10 @@ declare global {
 
             // Event Subscription
             /** Invoke the given callback when the marker is destroyed. */
-            onDidDestroy(callback: () => void): EventKit.Disposable;
+            onDidDestroy(callback: () => void): Disposable;
 
             /** Invoke the given callback when the state of the marker changes. */
-            onDidChange(callback: (event: Events.MarkerChanged) => void): EventKit.Disposable;
+            onDidChange(callback: (event: Events.MarkerChanged) => void): Disposable;
 
             // Marker Details
             /** Returns the current range of the marker. The range is immutable. */
@@ -351,12 +369,14 @@ declare global {
             /** Returns a point representing the marker's current tail position. */
             getTailPosition(): Point;
 
-            /** Returns a point representing the start position of the marker, which
+            /**
+             *  Returns a point representing the start position of the marker, which
              *  could be the head or tail position, depending on its orientation.
              */
             getStartPosition(): Point;
 
-            /** Returns a point representing the end position of the marker, which
+            /**
+             *  Returns a point representing the end position of the marker, which
              *  could be the head or tail position, depending on its orientation.
              */
             getEndPosition(): Point;
@@ -373,7 +393,8 @@ declare global {
             /** Is the marker destroyed? */
             isDestroyed(): boolean;
 
-            /** Returns a boolean indicating whether changes that occur exactly at
+            /**
+             *  Returns a boolean indicating whether changes that occur exactly at
              *  the marker's head or tail cause it to move.
              */
             isExclusive(): boolean;
@@ -382,39 +403,46 @@ declare global {
             getInvalidationStrategy(): string;
 
             // Mutating Markers
-            /** Sets the range of the marker.
+            /**
+             *  Sets the range of the marker.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
             setRange(range: RangeCompatible, params?: { reversed?: boolean, exclusive?:
                 boolean }): boolean;
 
-            /** Sets the head position of the marker.
+            /**
+             *  Sets the head position of the marker.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
             setHeadPosition(position: PointCompatible): boolean;
 
-            /** Sets the tail position of the marker.
+            /**
+             *  Sets the tail position of the marker.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
             setTailPosition(position: PointCompatible): boolean;
 
-            /** Removes the marker's tail.
+            /**
+             *  Removes the marker's tail.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
             clearTail(): boolean;
 
-            /** Plants the marker's tail at the current head position.
+            /**
+             *  Plants the marker's tail at the current head position.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
             plantTail(): boolean;
 
             // Comparison
-            /** Returns a boolean indicating whether this marker is equivalent to
+            /**
+             *  Returns a boolean indicating whether this marker is equivalent to
              *  another marker, meaning they have the same range and options.
              */
             isEqual(other: Marker): boolean;
 
-            /** Compares this marker to another based on their ranges.
+            /**
+             *  Compares this marker to another based on their ranges.
              *  Returns "-1" if this marker precedes the argument.
              *  Returns "0" if this marker is equivalent to the argument.
              *  Returns "1" if this marker follows the argument.
@@ -452,36 +480,45 @@ declare global {
 
             // Marker Creation
             /** Create a marker with the given range. */
-            markRange(range: RangeCompatible, options?: { reversed?: boolean, invalidate?:
-                "never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean }): Marker;
+            markRange(range: RangeCompatible, options?: {
+                reversed?: boolean,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+                exclusive?: boolean,
+            }): Marker;
 
             /** Create a marker at with its head at the given position with no tail. */
-            markPosition(position: PointCompatible, options?: { invalidate?: "never"|"surround"
-                |"overlap"|"inside"|"touch", exclusive?: boolean }): Marker;
+            markPosition(position: PointCompatible, options?: {
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+                exclusive?: boolean,
+            }): Marker;
 
             // Event Subscription
-            /** Subscribe to be notified asynchronously whenever markers are created,
+            /**
+             *  Subscribe to be notified asynchronously whenever markers are created,
              *  updated, or destroyed on this layer.
              */
-            onDidUpdate(callback: () => void): EventKit.Disposable;
+            onDidUpdate(callback: () => void): Disposable;
 
-            /** Subscribe to be notified synchronously whenever markers are created on
+            /**
+             *  Subscribe to be notified synchronously whenever markers are created on
              *  this layer.
              */
-            onDidCreateMarker(callback: (marker: Marker) => void): EventKit.Disposable;
+            onDidCreateMarker(callback: (marker: Marker) => void): Disposable;
 
             /** Subscribe to be notified synchronously when this layer is destroyed. */
-            onDidDestroy(callback: () => void): EventKit.Disposable;
+            onDidDestroy(callback: () => void): Disposable;
         }
 
-        /** Represents a buffer annotation that remains logically stationary even as the
+        /**
+         *  Represents a buffer annotation that remains logically stationary even as the
          *  buffer changes. This is used to represent cursors, folds, snippet targets,
          *  misspelled words, and anything else that needs to track a logical location
          *  in the buffer over time.
          */
         interface DisplayMarker {
             // Construction and Destruction
-            /** Destroys the marker, causing it to emit the 'destroyed' event. Once destroyed,
+            /**
+             *  Destroys the marker, causing it to emit the 'destroyed' event. Once destroyed,
              *  a marker cannot be restored by undo/redo operations.
              */
             destroy(): void;
@@ -492,18 +529,20 @@ declare global {
             // Event Subscription
             /** Invoke the given callback when the state of the marker changes. */
             onDidChange(callback: (event: Events.DisplayMarkerChanged) => void):
-                EventKit.Disposable;
+                Disposable;
 
             /** Invoke the given callback when the marker is destroyed. */
-            onDidDestroy(callback: () => void): EventKit.Disposable;
+            onDidDestroy(callback: () => void): Disposable;
 
             // TextEditorMarker Details
-            /** Returns a boolean indicating whether the marker is valid. Markers can be
+            /**
+             *  Returns a boolean indicating whether the marker is valid. Markers can be
              *  invalidated when a region surrounding them in the buffer is changed.
              */
             isValid(): boolean;
 
-            /** Returns a boolean indicating whether the marker has been destroyed. A marker
+            /**
+             *  Returns a boolean indicating whether the marker has been destroyed. A marker
              *  can be invalid without being destroyed, in which case undoing the invalidating
              *  operation would restore the marker.
              */
@@ -512,12 +551,14 @@ declare global {
             /** Returns a boolean indicating whether the head precedes the tail. */
             isReversed(): boolean;
 
-            /** Returns a boolean indicating whether changes that occur exactly at the marker's
+            /**
+             *  Returns a boolean indicating whether changes that occur exactly at the marker's
              *  head or tail cause it to move.
              */
             isExclusive(): boolean;
 
-            /** Get the invalidation strategy for this marker.
+            /**
+             *  Get the invalidation strategy for this marker.
              *  Valid values include: never, surround, overlap, inside, and touch.
              */
             getInvalidationStrategy(): string;
@@ -535,7 +576,8 @@ declare global {
             /** Compares this marker to another based on their ranges. */
             compare(other: DisplayMarker): number;
 
-            /** Returns a boolean indicating whether this marker is equivalent to another
+            /**
+             *  Returns a boolean indicating whether this marker is equivalent to another
              *  marker, meaning they have the same range and options.
              */
             isEqual(other: DisplayMarker): boolean;
@@ -555,13 +597,15 @@ declare global {
             setScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean,
                 clipDirection?: "backward"|"forward"|"closest" }): void;
 
-            /** Retrieves the screen position of the marker's start. This will always be
+            /**
+             *  Retrieves the screen position of the marker's start. This will always be
              *  less than or equal to the result of DisplayMarker::getEndScreenPosition.
              */
             getStartScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
                 Point;
 
-            /** Retrieves the screen position of the marker's end. This will always be
+            /**
+             *  Retrieves the screen position of the marker's end. This will always be
              *  greater than or equal to the result of DisplayMarker::getStartScreenPosition.
              */
             getEndScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
@@ -595,12 +639,14 @@ declare global {
             setTailScreenPosition(screenPosition: PointCompatible,
                 options?: { clipDirection: "backward"|"forward"|"closest" }): void;
 
-            /** Retrieves the buffer position of the marker's start. This will always be less
+            /**
+             *  Retrieves the buffer position of the marker's start. This will always be less
              *  than or equal to the result of DisplayMarker::getEndBufferPosition.
              */
             getStartBufferPosition(): Point;
 
-            /** Retrieves the buffer position of the marker's end. This will always be greater
+            /**
+             *  Retrieves the buffer position of the marker's end. This will always be greater
              *  than or equal to the result of DisplayMarker::getStartBufferPosition.
              */
             getEndBufferPosition(): Point;
@@ -608,19 +654,22 @@ declare global {
             /** Returns a boolean indicating whether the marker has a tail. */
             hasTail(): boolean;
 
-            /** Plants the marker's tail at the current head position. After calling the
+            /**
+             *  Plants the marker's tail at the current head position. After calling the
              *  marker's tail position will be its head position at the time of the call,
              *  regardless of where the marker's head is moved.
              */
             plantTail(): void;
 
-            /** Removes the marker's tail. After calling the marker's head position will be
+            /**
+             *  Removes the marker's tail. After calling the marker's head position will be
              *  reported as its current tail position until the tail is planted again.
              */
             clearTail(): void;
         }
 
-        /** Experimental: A container for a related set of markers at the DisplayLayer level.
+        /**
+         *  Experimental: A container for a related set of markers at the DisplayLayer level.
          *  Wraps an underlying MarkerLayer on the TextBuffer.
          *
          *  This API is experimental and subject to change on any release.
@@ -638,45 +687,56 @@ declare global {
 
             // Event Subscription
             /** Subscribe to be notified synchronously when this layer is destroyed. */
-            onDidDestroy(callback: () => void): EventKit.Disposable;
+            onDidDestroy(callback: () => void): Disposable;
 
-            /** Subscribe to be notified asynchronously whenever markers are created, updated,
+            /**
+             *  Subscribe to be notified asynchronously whenever markers are created, updated,
              *  or destroyed on this layer. Prefer this method for optimal performance when
              *  interacting with layers that could contain large numbers of markers.
              */
-            onDidUpdate(callback: () => void): EventKit.Disposable;
+            onDidUpdate(callback: () => void): Disposable;
 
-            /** Subscribe to be notified synchronously whenever markers are created on this
+            /**
+             *  Subscribe to be notified synchronously whenever markers are created on this
              *  layer. Avoid this method for optimal performance when interacting with layers
              *  that could contain large numbers of markers.
              */
-            onDidCreateMarker(callback: (marker: DisplayMarker|Marker) => void):
-                EventKit.Disposable;
+            onDidCreateMarker(callback: (marker: DisplayMarker|Marker) => void): Disposable;
 
             // Marker creation
             /** Create a marker with the given screen range. */
-            markScreenRange(range: RangeCompatible, options?: { reversed?: boolean,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch", exclusive?:
-                boolean, clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
+            markScreenRange(range: RangeCompatible, options?: {
+                reversed?: boolean,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+                exclusive?: boolean,
+                clipDirection?: "backward"|"forward"|"closest"
+            }): DisplayMarker;
 
-            /** Create a marker on this layer with its head at the given screen position
+            /**
+             *  Create a marker on this layer with its head at the given screen position
              *  and no tail.
              */
-            markScreenPosition(screenPosition: PointCompatible, options?: { invalidate?:
-                "never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean,
-                clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
+            markScreenPosition(screenPosition: PointCompatible, options?: {
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+                exclusive?: boolean,
+                clipDirection?: "backward"|"forward"|"closest"
+            }): DisplayMarker;
 
             /** Create a marker with the given buffer range. */
             markBufferRange(range: RangeCompatible, options?: {
-                reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean }): DisplayMarker;
+                reversed?: boolean,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+                exclusive?: boolean
+            }): DisplayMarker;
 
-            /** Create a marker on this layer with its head at the given buffer position
+            /**
+             *  Create a marker on this layer with its head at the given buffer position
              *  and no tail.
              */
-            markBufferPosition(bufferPosition: PointCompatible, options?: { invalidate?:
-                "never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean }):
-                DisplayMarker;
+            markBufferPosition(bufferPosition: PointCompatible, options?: {
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+                exclusive?: boolean
+            }): DisplayMarker;
 
             // Querying
             /** Get an existing marker by its id. */
@@ -688,7 +748,8 @@ declare global {
             /** Get the number of markers in the marker layer. */
             getMarkerCount(): number;
 
-            /** Find markers in the layer conforming to the given parameters.
+            /**
+             *  Find markers in the layer conforming to the given parameters.
              *
              *  This method finds markers based on the given properties. Markers can be associated
              *  with custom properties that will be compared with basic equality. In addition,
@@ -715,14 +776,16 @@ declare global {
             negate(): Point;
 
             // Comparison
-            /** Compare another Point to this Point instance.
+            /**
+             *  Compare another Point to this Point instance.
              *  Returns -1 if this point precedes the argument.
              *  Returns 0 if this point is equivalent to the argument.
              *  Returns 1 if this point follows the argument.
              */
             compare(other: PointCompatible): number;
 
-            /** Returns a boolean indicating whether this point has the same row and
+            /**
+             *  Returns a boolean indicating whether this point has the same row and
              *  column as the given Point.
              */
             isEqual(other: PointCompatible): boolean;
@@ -730,7 +793,8 @@ declare global {
             /** Returns a Boolean indicating whether this point precedes the given Point. */
             isLessThan(other: PointCompatible): boolean;
 
-            /** Returns a Boolean indicating whether this point precedes or is equal to
+            /**
+             *  Returns a Boolean indicating whether this point precedes or is equal to
              *  the given Point.
              */
             isLessThanOrEqual(other: PointCompatible): boolean;
@@ -738,7 +802,8 @@ declare global {
             /** Returns a Boolean indicating whether this point follows the given Point. */
             isGreaterThan(other: PointCompatible): boolean;
 
-            /** Returns a Boolean indicating whether this point follows or is equal to
+            /**
+             *  Returns a Boolean indicating whether this point follows or is equal to
              *  the given Point.
              */
             isGreaterThanOrEqual(other: PointCompatible): boolean;
@@ -747,12 +812,14 @@ declare global {
             /** Makes this point immutable and returns itself. */
             freeze(): Readonly<Point>;
 
-            /** Build and return a new point by adding the rows and columns of the
+            /**
+             *  Build and return a new point by adding the rows and columns of the
              *  given point.
              */
             translate(other: PointCompatible): Point;
 
-            /** Build and return a new Point by traversing the rows and columns
+            /**
+             *  Build and return a new Point by traversing the rows and columns
              *  specified by the given point.
              */
             traverse(other: PointCompatible): Point;
@@ -769,13 +836,11 @@ declare global {
 
         /** The static side to the Point class. */
         interface PointStatic {
-            /** Create a Point from an array containing two numbers representing the
+            /**
+             *  Create a Point from an array containing two numbers representing the
              *  row and column.
              */
-            fromObject(object: [number, number]): Point;
-
-            /** Create a Point from an existing object which implements PointLike. */
-            fromObject(object: PointLike, copy?: boolean): Point;
+            fromObject(object: PointCompatible, copy?: boolean): Point;
 
             /** Construct a Point object */
             new (row?: number, column?: number): Point;
@@ -820,7 +885,8 @@ declare global {
             /** Is the start position of this range equal to the end position? */
             isEmpty(): boolean;
 
-            /** Returns a boolean indicating whether this range starts and ends on the
+            /**
+             *  Returns a boolean indicating whether this range starts and ends on the
              *  same row.
              */
             isSingleLine(): boolean;
@@ -832,7 +898,8 @@ declare global {
             getRows(): number[];
 
             // Operations
-            /** Freezes the range and its start and end point so it becomes immutable
+            /**
+             *  Freezes the range and its start and end point so it becomes immutable
              *  and returns itself.
              */
             freeze(): Readonly<Range>;
@@ -841,31 +908,36 @@ declare global {
             /** Returns a new range that contains this range and the given range. */
             union(other: RangeLike): Range;
 
-            /** Build and return a new range by translating this range's start and end
+            /**
+             *  Build and return a new range by translating this range's start and end
              *  points by the given delta(s).
              */
             translate(startDelta: PointCompatible, endDelta?: PointCompatible): Range;
 
-            /** Build and return a new range by traversing this range's start and end
+            /**
+             *  Build and return a new range by traversing this range's start and end
              *  points by the given delta.
              */
             traverse(delta: PointCompatible): Range;
 
             // Comparison
-            /** Compare two Ranges.
+            /**
+             *  Compare two Ranges.
              *  Returns -1 if this range starts before the argument or contains it.
              *  Returns 0 if this range is equivalent to the argument.
              *  Returns 1 if this range starts after the argument or is contained by it.
              */
             compare(otherRange: RangeCompatible): number;
 
-            /** Returns a Boolean indicating whether this range has the same start and
+            /**
+             *  Returns a Boolean indicating whether this range has the same start and
              *  end points as the given Range.
              */
             isEqual(otherRange: RangeCompatible): boolean;
 
             // NOTE: this function doesn't actually take a range-compatible parameter.
-            /** Returns a Boolean indicating whether this range starts and ends on the
+            /**
+             *  Returns a Boolean indicating whether this range starts and ends on the
              *  same row as the argument.
              */
             coversSameRows(otherRange: RangeLike): boolean;
@@ -880,12 +952,14 @@ declare global {
             /** Returns a boolean indicating whether this range contains the given point. */
             containsPoint(point: PointCompatible, exclusive?: boolean): boolean;
 
-            /** Returns a boolean indicating whether this range intersects the given
+            /**
+             *  Returns a boolean indicating whether this range intersects the given
              *  row number.
              */
             intersectsRow(row: number): boolean;
 
-            /** Returns a boolean indicating whether this range intersects the row range
+            /**
+             *  Returns a boolean indicating whether this range intersects the row range
              *  indicated by the given startRow and endRow numbers.
              */
             intersectsRowRange(startRow: number, endRow: number): boolean;
@@ -924,12 +998,13 @@ declare global {
             end: PointLike;
         }
 
-        /** A mutable text container with undo/redo support and the ability to
+        /**
+         *  A mutable text container with undo/redo support and the ability to
          *  annotate logical regions in the text.
          */
         interface TextBuffer {
             // Properties
-            file: PathWatcher.File;
+            file: File;
             lines: string[];
             lineEndings: string[];
             stoppedChangingDelay: number;
@@ -939,7 +1014,8 @@ declare global {
             refcount: number;
             id: string;
 
-            /** Schedules a 'did-stop-changing' emission. The event will be emitted between
+            /**
+             *  Schedules a 'did-stop-changing' emission. The event will be emitted between
              *  now and TextBuffer::stoppedChangingDelay milliseconds in the future.
              */
             debouncedEmitDidStopChangingEvent(): void;
@@ -964,85 +1040,89 @@ declare global {
             release(): TextBuffer;
 
             // Event Subscription
-            /** Invoke the given callback synchronously before the content of the buffer
+            /**
+             *  Invoke the given callback synchronously before the content of the buffer
              *  changes.
              */
-            onWillChange(callback: (event: Events.BufferChanging) => void):
-                EventKit.Disposable;
+            onWillChange(callback: (event: Events.BufferChanging) => void): Disposable;
 
-            /** Invoke the given callback synchronously when the content of the buffer
+            /**
+             *  Invoke the given callback synchronously when the content of the buffer
              *  changes. You should probably not be using this in packages.
              */
-            onDidChange(callback: (event: Events.BufferChanged) => void):
-                EventKit.Disposable;
+            onDidChange(callback: (event: Events.BufferChanged) => void): Disposable;
 
-            /** Invoke the given callback synchronously when a transaction finishes with
+            /**
+             *  Invoke the given callback synchronously when a transaction finishes with
              *  a list of all the changes in the transaction.
              */
             onDidChangeText(callback: (event: Events.BufferStoppedChanging) => void):
-                EventKit.Disposable;
+                Disposable;
 
-            /** Invoke the given callback asynchronously following one or more changes after
+            /**
+             *  Invoke the given callback asynchronously following one or more changes after
              *  ::getStoppedChangingDelay milliseconds elapse without an additional change.
              */
             onDidStopChanging(callback: (event: Events.BufferStoppedChanging) => void):
-                EventKit.Disposable;
+                Disposable;
 
-            /** Invoke the given callback when the in-memory contents of the buffer become
+            /**
+             *  Invoke the given callback when the in-memory contents of the buffer become
              *  in conflict with the contents of the file on disk.
              */
-            onDidConflict(callback: () => void): EventKit.Disposable;
+            onDidConflict(callback: () => void): Disposable;
 
             /** Invoke the given callback if the value of ::isModified changes. */
-            onDidChangeModified(callback: (modified: boolean) => void):
-                EventKit.Disposable;
+            onDidChangeModified(callback: (modified: boolean) => void): Disposable;
 
-            /** Invoke the given callback when all marker ::onDidChange observers have been
+            /**
+             *  Invoke the given callback when all marker ::onDidChange observers have been
              *  notified following a change to the buffer.
              */
-            onDidUpdateMarkers(callback: () => void): EventKit.Disposable;
+            onDidUpdateMarkers(callback: () => void): Disposable;
 
-            onDidCreateMarker(callback: (marker: Marker) => void):
-                EventKit.Disposable;
+            onDidCreateMarker(callback: (marker: Marker) => void): Disposable;
 
             /** Invoke the given callback when the value of ::getPath changes. */
-            onDidChangePath(callback: (path: string) => void): EventKit.Disposable;
+            onDidChangePath(callback: (path: string) => void): Disposable;
 
             /** Invoke the given callback when the value of ::getEncoding changes. */
-            onDidChangeEncoding(callback: (encoding: string) => void):
-                EventKit.Disposable;
+            onDidChangeEncoding(callback: (encoding: string) => void): Disposable;
 
-            /** Invoke the given callback before the buffer is saved to disk. If the
+            /**
+             *  Invoke the given callback before the buffer is saved to disk. If the
              *  given callback returns a promise, then the buffer will not be saved until
              *  the promise resolves.
              */
-            onWillSave(callback: () => Promise<void>|void): EventKit.Disposable;
+            onWillSave(callback: () => Promise<void>|void): Disposable;
 
             /** Invoke the given callback after the buffer is saved to disk. */
-            onDidSave(callback: (event: Events.FileSaved) => void):
-                EventKit.Disposable;
+            onDidSave(callback: (event: Events.FileSaved) => void): Disposable;
 
             /** Invoke the given callback after the file backing the buffer is deleted. */
-            onDidDelete(callback: () => void): EventKit.Disposable;
+            onDidDelete(callback: () => void): Disposable;
 
-            /** Invoke the given callback before the buffer is reloaded from the contents
+            /**
+             *  Invoke the given callback before the buffer is reloaded from the contents
              *  of its file on disk.
              */
-            onWillReload(callback: () => void): EventKit.Disposable;
+            onWillReload(callback: () => void): Disposable;
 
-            /** Invoke the given callback after the buffer is reloaded from the contents
+            /**
+             *  Invoke the given callback after the buffer is reloaded from the contents
              *  of its file on disk.
              */
-            onDidReload(callback: () => void): EventKit.Disposable;
+            onDidReload(callback: () => void): Disposable;
 
             /** Invoke the given callback when the buffer is destroyed. */
-            onDidDestroy(callback: () => void): EventKit.Disposable;
+            onDidDestroy(callback: () => void): Disposable;
 
             /** Invoke the given callback when there is an error in watching the file. */
             onWillThrowWatchError(callback: (errorObject: Events.BufferWatchError) =>
-                void): EventKit.Disposable;
+                void): Disposable;
 
-            /** Get the number of milliseconds that will elapse without a change before
+            /**
+             *  Get the number of milliseconds that will elapse without a change before
              *  ::onDidStopChanging observers are invoked following a change.
              */
             getStoppedChangingDelay(): number;
@@ -1051,13 +1131,15 @@ declare global {
             emitDidStopChangingEvent(): void;
 
             // File Details
-            /** Determine if the in-memory contents of the buffer differ from its contents
+            /**
+             *  Determine if the in-memory contents of the buffer differ from its contents
              *  on disk.
              *  If the buffer is unsaved, always returns true unless the buffer is empty.
              */
             isModified(): boolean;
 
-            /** Determine if the in-memory contents of the buffer conflict with the on-disk
+            /**
+             *  Determine if the in-memory contents of the buffer conflict with the on-disk
              *  contents of its associated file.
              */
             isInConflict(): boolean;
@@ -1102,7 +1184,8 @@ declare global {
             /** Get the line ending for the given 0-indexed row. */
             lineEndingForRow(row: number): string|undefined;
 
-            /** Get the length of the line for the given 0-indexed row, without its line
+            /**
+             *  Get the length of the line for the given 0-indexed row, without its line
              *  ending.
              */
             lineLengthForRow(row: number): number;
@@ -1110,12 +1193,14 @@ declare global {
             /** Determine if the given row contains only whitespace. */
             isRowBlank(row: number): boolean;
 
-            /** Given a row, find the first preceding row that's not blank.
+            /**
+             *  Given a row, find the first preceding row that's not blank.
              *  Returns a number or null if there's no preceding non-blank row.
              */
             previousNonBlankRow(startRow: number): number|null;
 
-            /** Given a row, find the next row that's not blank.
+            /**
+             *  Given a row, find the next row that's not blank.
              *  Returns a number or null if there's no next non-blank row.
              */
             nextNonBlankRow(startRow: number): number|null;
@@ -1124,7 +1209,8 @@ declare global {
             /** Replace the entire contents of the buffer with the given text. */
             setText(text: string): Range;
 
-            /** Replace the current buffer contents by applying a diff based on the
+            /**
+             *  Replace the current buffer contents by applying a diff based on the
              *  given text.
              */
             setTextViaDiff(text: string): void;
@@ -1155,7 +1241,8 @@ declare global {
             addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
                 MarkerLayer;
 
-            /** Get a MarkerLayer by id.
+            /**
+             *  Get a MarkerLayer by id.
              *  Returns a MarkerLayer or `` if no layer exists with the given id.
              */
             getMarkerLayer(id: string): MarkerLayer|undefined;
@@ -1195,34 +1282,40 @@ declare global {
             transact<T>(groupingInterval: number, fn: () => T): T;
             transact<T>(fn: () => T): T;
 
-            /** Call within a transaction to terminate the function's execution and
+            /**
+             *  Call within a transaction to terminate the function's execution and
              *  revert any changes performed up to the abortion.
              */
             abortTransaction(): void;
 
-            /** Clear the undo stack. When calling this method within a transaction,
+            /**
+             *  Clear the undo stack. When calling this method within a transaction,
              *  the ::onDidChangeText event will not be triggered because the information
              *  describing the changes is lost.
              */
             clearUndoStack(): void;
 
-            /** Create a pointer to the current state of the buffer for use with
+            /**
+             *  Create a pointer to the current state of the buffer for use with
              *  ::revertToCheckpoint and ::groupChangesSinceCheckpoint.
              */
             createCheckpoint(): number;
 
-            /** Revert the buffer to the state it was in when the given checkpoint was created.
+            /**
+             *  Revert the buffer to the state it was in when the given checkpoint was created.
              *  Returns a boolean indicating whether the operation succeeded.
              */
             revertToCheckpoint(checkpoint: number): boolean;
 
-            /** Group all changes since the given checkpoint into a single transaction for
+            /**
+             *  Group all changes since the given checkpoint into a single transaction for
              *  purposes of undo/redo.
              *  Returns a boolean indicating whether the operation succeeded.
              */
             groupChangesSinceCheckpoint(checkpoint: number): boolean;
 
-            /** Returns a list of changes since the given checkpoint.
+            /**
+             *  Returns a list of changes since the given checkpoint.
              *  If the given checkpoint is no longer present in the undo history, this method
              *  will return an empty Array.
              */
@@ -1241,48 +1334,57 @@ declare global {
             }>;
 
             // Search and Replace
-            /** Scan regular expression matches in the entire buffer, calling the given
+            /**
+             *  Scan regular expression matches in the entire buffer, calling the given
              *  iterator function on each match.
              */
             scan(regex: RegExp, iterator: (params: Structures.BufferScanResult) => void): void;
-            /** Scan regular expression matches in the entire buffer, calling the given
+            /**
+             *  Scan regular expression matches in the entire buffer, calling the given
              *  iterator function on each match.
              */
             scan(regex: RegExp, options: Options.ScanContext, iterator: (params:
                 Structures.ContextualBufferScanResult) => void): void;
 
-            /** Scan regular expression matches in the entire buffer in reverse order,
+            /**
+             *  Scan regular expression matches in the entire buffer in reverse order,
              *  calling the given iterator function on each match.
              */
             backwardsScan(regex: RegExp, iterator: (params: Structures.BufferScanResult) => void):
                 void;
-            /** Scan regular expression matches in the entire buffer in reverse order,
+            /**
+             *  Scan regular expression matches in the entire buffer in reverse order,
              *  calling the given iterator function on each match.
              */
             backwardsScan(regex: RegExp, options: Options.ScanContext, iterator: (params:
                 Structures.ContextualBufferScanResult) => void): void;
 
-            /** Scan regular expression matches in a given range , calling the given
+            /**
+             *  Scan regular expression matches in a given range , calling the given
              *  iterator function on each match.
              */
             scanInRange(regex: RegExp, range: RangeCompatible, iterator:
                 (params: Structures.BufferScanResult) => void): void;
-            /** Scan regular expression matches in a given range , calling the given
+            /**
+             *  Scan regular expression matches in a given range , calling the given
              *  iterator function on each match.
              */
             scanInRange(regex: RegExp, range: RangeCompatible, options: Options.ScanContext,
                 iterator: (params: Structures.ContextualBufferScanResult) => void): void;
 
-            /** Scan regular expression matches in a given range in reverse order,
+            /**
+             *  Scan regular expression matches in a given range in reverse order,
              *  calling the given iterator function on each match.
              */
             backwardsScanInRange(regex: RegExp, range: RangeCompatible, iterator:
                 (params: Structures.BufferScanResult) => void): void;
-            /** Scan regular expression matches in a given range in reverse order,
+            /**
+             *  Scan regular expression matches in a given range in reverse order,
              *  calling the given iterator function on each match.
              */
-            backwardsScanInRange(regex: RegExp, range: RangeCompatible, options: Options.ScanContext,
-                iterator: (params: Structures.ContextualBufferScanResult) => void): void;
+            backwardsScanInRange(regex: RegExp, range: RangeCompatible, options:
+                Options.ScanContext, iterator:
+                (params: Structures.ContextualBufferScanResult) => void): void;
 
             /** Replace all regular expression matches in the entire buffer. */
             replace(regex: RegExp, replacementText: string): number;
@@ -1309,12 +1411,14 @@ declare global {
             /** Get the range for the given row. */
             rangeForRow(row: number, includeNewline: boolean): Range;
 
-            /** Convert a position in the buffer in row/column coordinates to an absolute
+            /**
+             *  Convert a position in the buffer in row/column coordinates to an absolute
              *  character offset, inclusive of line ending characters.
              */
             characterIndexForPosition(position: Point|[number, number]): number;
 
-            /** Convert an absolute character offset, inclusive of newlines, to a position
+            /**
+             *  Convert an absolute character offset, inclusive of newlines, to a position
              *  in the buffer in row/column coordinates.
              */
             positionForCharacterIndex(offset: number): Point;
@@ -1344,12 +1448,14 @@ declare global {
             /** Create a new buffer backed by the given file path. */
             load(source: string, params?: Options.BufferLoad): Promise<TextBuffer>;
 
-            /** Create a new buffer backed by the given file path. For better performance,
+            /**
+             *  Create a new buffer backed by the given file path. For better performance,
              *  use TextBuffer.load instead.
              */
             loadSync(filePath: string, params?: Options.BufferLoad): TextBuffer;
 
-            /** Restore a TextBuffer based on an earlier state created using the
+            /**
+             *  Restore a TextBuffer based on an earlier state created using the
              *  TextBuffer::serialize method.
              */
             deserialize(params: object): Promise<TextBuffer>;
@@ -1360,7 +1466,8 @@ declare global {
             new (params?: {
                 /** The initial string text of the buffer. */
                 text?: string
-                /** A function that returns a Boolean indicating whether the buffer should
+                /**
+                 *  A function that returns a Boolean indicating whether the buffer should
                  *  be destroyed if its file is deleted.
                  */
                 shouldDestroyOnFileDelete?(): boolean

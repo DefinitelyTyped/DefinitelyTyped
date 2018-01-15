@@ -2,7 +2,7 @@
 // Project: https://github.com/yeoman/yeoman-test
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');

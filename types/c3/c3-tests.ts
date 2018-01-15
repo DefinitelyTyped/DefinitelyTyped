@@ -619,7 +619,8 @@ function chart_bar() {
             width: {
                 ratio: 0.5, // this makes bar width 50% of length between ticks
                 max: 50 // this limits maximum width of bar to 50px
-            }
+            },
+            space: 10 // this adds space between bars in bar charts
             // or
             // width: 100 // this makes bar width 100px
         }

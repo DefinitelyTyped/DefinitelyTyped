@@ -2,6 +2,7 @@
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
+//                  Yuri Pereira Constante <https://github.com/ypconstante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -176,9 +177,7 @@ declare namespace cytoscape {
          * leaving your nodes in their current positions
          * (e.g. specified in options.elements at initialisation time)
          */
-        layout?: NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
-        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions;
+        layout?: LayoutOptions;
 
         ///////////////////////////////////////
         // initial viewport state:
@@ -978,7 +977,7 @@ declare namespace cytoscape {
          * An analogue to run a layout on a subset of the graph exists as eles.layout().
          * http://js.cytoscape.org/#cy.layout
          */
-        layout(layout: LayoutOptions): void;
+        layout(layout: LayoutOptions): LayoutManipulation;
         /**
          * Get a new layout, which can be used to algorithmically
          * position the nodes in the graph.
@@ -991,7 +990,7 @@ declare namespace cytoscape {
          * Note that you must call layout.run() in order for it to affect the graph.
          * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
          */
-        makeLayout(options: LayoutOptions): void;
+        makeLayout(options: LayoutOptions): LayoutManipulation;
     }
 
     /**
@@ -3963,7 +3962,7 @@ declare namespace cytoscape {
      */
     interface AbstractEventObject {
         /** a reference to the corresponding core Core */
-        cy: any;
+        cy: Core;
         /** indicates the element or core that first caused the event */
         target?: any;
         /** the event type string (e.g. "tap") */
@@ -4142,11 +4141,11 @@ declare namespace cytoscape {
     interface Layouts extends LayoutManipulation, LayoutEvents { }
 
     type LayoutOptions =
-        NullLayoutOptions | PresetLayoutOptions | GridLayoutOptions |
-        CircleLayoutOptions | ConcentricLayoutOptions | BreadthFirstLayoutOptions |
-        CoseLayoutOptions;
+        NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
+        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
+        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
 
-    type LayoutHandler = () => void;
+    type LayoutHandler = (e: LayoutEventObject) => void;
 
     interface BaseLayoutOptions {
         name: string;

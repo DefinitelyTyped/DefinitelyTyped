@@ -71,7 +71,7 @@ export interface Problem {
  * @param value the value to test
  * @returns true if valid
  */
-export function valid(spec: Spec, value: any): boolean;
+export function valid(spec: spec.SpecInput, value: any): boolean;
 
 /**
  * Returns the conformed value to this spec.
@@ -79,7 +79,7 @@ export function valid(spec: Spec, value: any): boolean;
  * @param value the value to test
  * @returns if the value does not conform to the spec, or the conformed value if it does.
  */
-export function conform(spec: Spec, value: any): any;
+export function conform(spec: spec.SpecInput, value: any): any;
 
 /**
  * Like explain(), but returns Problems array.
@@ -87,29 +87,38 @@ export function conform(spec: Spec, value: any): any;
  * @param value the value to test
  * @returns list of problems or null if none
  */
-export function explainData(spec: Spec, value: any): Problem[];
+export function explainData(spec: spec.SpecInput, value: any): Problem[];
 
 /**
  * Prints, to the console, reasons why the value did not conform to this spec.
  * @param spec the spec to test with
  * @param value the value to test
  */
-export function explain(spec: Spec, value: any): void;
+export function explain(spec: spec.SpecInput, value: any): void;
 
 /**
  * Returns a multiline string with reasons why the value did not conform to this spec.
  * @param spec the spec to test with
  * @param value the value to test
  */
-export function explainStr(spec: Spec, value: any): string;
+export function explainStr(spec: spec.SpecInput, value: any): string;
+
+/**
+ * Returns a string with the problem statement from the given Problem.
+ * @param problem the problem
+ */
+export function problemStr(problem: Problem): string;
 
 /**
  * Tests if a value conforms to a spec, and if not, throws an Error.
  * @param spec the spec to test with
  * @param value the value to test
  */
-export function assert(spec: Spec, value: any): void;
+export function assert(spec: spec.SpecInput, value: any): void;
 
+/**
+ * Symbols used
+ */
 export namespace symbol {
     /**
      * Returned by conform() to indicate a value does not conform to a spec.
@@ -209,6 +218,14 @@ export namespace spec {
      * @returns the constructed spec
      */
     function oneOf(name: string, ...values: any[]): Spec;
+
+    /**
+     * Used to define a predicate function as a Spec.
+     * @param name the name of the spec
+     * @param predicate the predicate function
+     * @returns the constructed spec
+     */
+    function predicate(name: string, predicate: PredFn): Spec;
 
     // Predicates
     /**

@@ -1,5 +1,5 @@
-// Type definitions for qlik-engineapi 12.20
-// Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
+// Type definitions for qlik-engineapi 12.67
+// Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -10,6 +10,20 @@ declare namespace EngineAPI {
     type FieldAttributesType = "U" | "A" | "I" | "R" | "F" | "M" | "D" | "T" | "TS" | "IV";
     type FileDataFormatType = "CSV" | "FIX" | "DIF" | "EXCEL_BIFF" | "EXCEL_OOXML" | "HTML" | "XML" | "QVX" | "JSON" | "KML";
     type TableRecordKeyType = "NOT_KEY" | "ANY_KEY" | "PRIMARY_KEY" | "PERFECT_KEY";
+
+    /**
+     * One of:
+     * - Cleared: In this mode, the first step is to clear any current selections in the app.
+     *            The second step is to search for one or more terms in the values of the app.
+     * - LockedFieldsOnly: In this mode, the search applies only to the values associated with
+     *                     the selections made in locked fields, ignoring selections in any unlocked field.
+     *                     If no locked fields, the behavior is identical to the Cleared context.
+     *                     You cannot make any new selections in a locked field. You can get search hits for
+     *                     the associated values of a locked field but you cannot get the search hits for the non associative values.
+     * - CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app.
+     *                      New selections are made on top of the current selections. If no selections were made before the search,
+     *                      this mode is identical to the Cleared context.
+     */
     type ContextType = "Cleared" | "LockedFieldsOnly" | "CurrentSelections";
     type SearchObjectsGroupType = "DatasetType" | "GenericObjectsType";
     type SearchObjectsItemType = "0" | "1";
@@ -27,18 +41,113 @@ declare namespace EngineAPI {
     type OtherLimitModeType = "OTHER_GE_LIMIT" | "OTHER_LE_LIMIT" | "OTHER_GT_LIMIT" | "OTHER_LT_LIMIT";
     type OtherSortModeType = "OTHER_SORT_DEFAULT" | "OTHER_SORT_DESCENDING" | "OTHER_SORT_ASCENDING";
     type TotalModeType = "TOTAL_OFF" | "TOTAL_EXPR";
+
     type BnfType = "S" | "E";
+    /**
+     * One of:
+     * - N for NOT_META
+     * - D for META_DOC_NAME
+     * - R for META_RET_TYPE
+     */
     type MTType = "N" | "D" | "R";
+
+    /**
+     * One of:
+     * - CONNECT_DEFAULT: used internally
+     * - CONNECT_64
+     * - CONNECT_32
+     */
     type MachineModeType = "CONNECT_DEFAULT" | "CONNECT_64" | "CONNECT_32";
+
+    /**
+     * One of:
+     * - IT_SCRIPTLINE; the engine returns the statement that will be executed next.
+     * - IT_MSGBOX; the engine returns a script execution error message. This type can only be returned if the parameter qInteractOnError was set to true when calling the ConfigureReload method.
+     * - IT_BREAK; the engine breaks and waits for a response on what to do next.
+     * - IT_END; the engine has finished to execute all statements in the script.
+     */
     type InteractionType = "IT_SCRIPTLINE" | "IT_MSGBOX" | "IT_BREAK" | "IT_END";
+
     type ErrorDataCodeType = "0" | "1" | "2";
+
+    /**
+     * One of:
+     * - ALL for FUNC_GROUP_ALL,
+     * - U for FUNC_GROUP_UNKNOWN,
+     * - NONE for FUNC_GROUP_NONE,
+     * - AGGR for FUNC_GROUP_AGGR,
+     * - NUM for FUNC_GROUP_NUMERIC,
+     * - RNG for FUNC_GROUP_RANGE,
+     * - EXP for FUNC_GROUP_EXPONENTIAL_AND_LOGARITHMIC,
+     * - TRIG for FUNC_GROUP_TRIGONOMETRIC_AND_HYPERBOLIC,
+     * - FIN for FUNC_GROUP_FINANCIAL,
+     * - MATH for FUNC_GROUP_MATH_CONSTANT_AND_PARAM_FREE,
+     * - COUNT for FUNC_GROUP_COUNTER,
+     * - STR for FUNC_GROUP_STRING,
+     * - MAPP for FUNC_GROUP_MAPPING,
+     * - RCRD for FUNC_GROUP_INTER_RECORD,
+     * - CND for FUNC_GROUP_CONDITIONAL,
+     * - LOG for FUNC_GROUP_LOGICAL,
+     * - NULL for FUNC_GROUP_NULL,
+     * - SYS for FUNC_GROUP_SYSTEM,
+     * - FILE for FUNC_GROUP_FILE,
+     * - TBL for FUNC_GROUP_TABLE,
+     * - DATE for FUNC_GROUP_DATE_AND_TIME,
+     * - NUMI for FUNC_GROUP_NUMBER_INTERPRET,
+     * - FRMT for FUNC_GROUP_FORMATTING,
+     * - CLR for FUNC_GROUP_COLOR,
+     * - RNK for FUNC_GROUP_RANKING
+     * - GEO for FUNC_GROUP_GEO
+     * - EXT for FUNC_GROUP_EXTERNAL
+     */
     type FunctionGroupType = "ALL" | "U" | "NONE" | "AGGR" | "NUM" | "RNG" | "EXP" | "TRIG" | "FIN" | "MATH" | "COUNT" | "STR" | "MAPP" |
         "RCRD" | "CND" | "LOG" | "NULL" | "SYS" | "FILE" | "TBL" | "DATE" | "NUMI" | "FRMT" | "CLR" | "RNK" | "GEO" | "EXT";
+
     type DimensionType = "D" | "N" | "T";
-    type NxHypercubeMode = "P" | "K" | "S" | string;
+
+    /**
+     * One of:
+     * - S for DATA_MODE_STRAIGHT; straight table representation
+     * - P for DATA_MODE_PIVOT; pivot table representation
+     * - K for DATA_MODE_PIVOT_STACK; stacked table representation
+     * - T for DATA_MODE_TREE; tree representation
+     */
+    type NxHypercubeMode = "S" | "P" | "K" | "T";
+
+    /**
+     * One of:
+     * - NX_FREQUENCY_NONE
+     * - NX_FREQUENCY_VALUE
+     * - NX_FREQUENCY_PERCENT. The percentage is between 0 and 100.
+     * - NX_FREQUENCY_RELATIVE. Same as percent except that the relative value is between 0 and 1.
+     */
     type FrequencyModeType = "NX_FREQUENCY_NONE" | "NX_FREQUENCY_VALUE" | "NX_FREQUENCY_PERCENT" | "NX_FREQUENCY_RELATIVE";
+
     type TypeSortDirection = "1" | "-1" | "0";
+
+    /**
+     * Type of the drive. Can be:
+     * - REMOVABLE
+     * - FIXED
+     * - NETWORK
+     * - CD_ROM
+     * - RAM
+     * - UNKNOWN_TYPE
+     */
     type DriveType = "REMOVABLE" | "FIXED" | "NETWORK" | "CD_ROM" | "RAM" | "UNKNOWN_TYPE";
+
+    /**
+     * One of:
+     * - V for NX_DIM_CELL_VALUE. Applies to values in the data matrix.
+     * - E for NX_DIM_CELL_EMPTY. Applies to empty cells in the top and left dimensions.
+     * - G for NX_DIM_CELL_GENERATED. Applies to generated nodes that are inserted into the returned tree when there is no actual value (qAllValues in NxPageTreeNode set to true).
+     * - N for NX_DIM_CELL_NORMAL. Applies to left and top dimensions cells.
+     * - T for NX_DIM_CELL_TOTAL. Applies to cells marked with Total.
+     * - P for NX_DIM_CELL_PSEUDO. Applies to pseudo dimensions.
+     * - R for NX_DIM_CELL_ROOT. Applies to root node.
+     * - U for NX_DIM_CELL_NULL. Applies to Null values in the data matrix.
+     */
+    type NxTreeNodeType = "V" | "E" | "G" | "N" | "T" | "P" | "R" | "U";
 
     /**
      * NxRange...
@@ -420,6 +529,9 @@ declare namespace EngineAPI {
          */
         qThou: string;
 
+        /**
+         * no / empty docu
+         */
         qSAFEARRAY: any[];
     }
 
@@ -2290,7 +2402,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at app level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the app.
      */
-    interface IApp {
+    interface IApp extends enigmaJS.IGeneratedAPI {
         global: IGlobal;
 
         /**
@@ -2332,7 +2444,7 @@ declare namespace EngineAPI {
 
         /**
          * Loads the last logical operation (if any).
-         * @returns - "{}"
+         * @returns"
          */
         back(): Promise<void>;
 
@@ -2675,9 +2787,17 @@ declare namespace EngineAPI {
          * Evaluates an expression as a dual.
          * Script-defined variables cannot be removed using the DestroyVariableById method or the DestroyVariableByName method.
          * @param qExpression - Expression to evaluate.
-         * @returns - return a Promise width a FieldValue
+         * @returns - return a Promise with a FieldValue
          */
         evaluateEx(qExpression: string): Promise<IFieldValue>;
+
+        /**
+         * Export an Qlik QVF with a reduced datamodel
+         * @param qOptions - qBookmarkId - bookmark to export
+         *                   qExpires - download expires in [s]
+         * @returns - return a Promise with the qDownloadInfo
+         */
+        exportReducedData(qOptions?: { qBookmarkId?: string, qExpires?: number}): Promise<{ qDownloadInfo: any }>;
 
         /**
          * Retrieves any fields that belong to the same archipelago as the specified field and
@@ -2865,6 +2985,13 @@ declare namespace EngineAPI {
         getFieldDescription(qFieldName: string): Promise<IFieldDescription>;
 
         /**
+         * Fetches the Expression behind a Field that is declared with DECLARE FIELD DEFINITIO
+         * @param qReadableName: name of a Field that is declared with DECLARE FIELD DEFINITION
+         * @returns qname wich contains the expression
+         */
+        getFieldOnTheFlyByName(qReadableName: string): Promise<{qName: string}>;
+
+        /**
          * Retrieves the description of a field.
          * @param qFieldName - Name of the field. >> This parameter is mandatory.
          * @param qStateName - Name of the alternate state. This parameter is optional. Default state is current selections.
@@ -2936,6 +3063,12 @@ declare namespace EngineAPI {
          * @returns - return a Promise of StaticContentList.
          */
         getLibraryContent(qName: string): Promise<IStaticContentList>;
+
+        /**
+         * Returns the lineage of the datamodel.
+         * @returns - return a Promise of qLineage.
+         */
+        getLineage(): Promise<{ qLineage: Array<{ qDiscriminator: string }> }>;
 
         /**
          * Retrieves locale information.
@@ -3050,6 +3183,7 @@ declare namespace EngineAPI {
          * - the list of key fields
          *
          * @param qWindowSize - Defines the size of the window that is used to display the results.
+         * @param qNullSize - (no infos in help)
          * @param qCellHeight - Height of a cell in a table in pixels.
          * @param qSyntheticMode  One of:
          *   - true for internal table viewer
@@ -3135,6 +3269,22 @@ declare namespace EngineAPI {
         lockAll(qStateName: string): Promise<void>;
 
         /**
+         * migrateDerivedFields.
+         *
+         * Note: from shema file
+         * @returns - A promise of a Qlik engine reply.
+         */
+        migrateDerivedFields(): Promise<void>;
+
+        /**
+         * migrateDerivedFields.
+         *
+         * Note: from shema file
+         * @returns - A promise of a Qlik engine reply.
+         */
+        migrateVariables(): Promise<void>;
+
+        /**
          * Updates a connection.
          *
          * Note: The identifier of a connection cannot be updated. qType cannot be modified with the ModifyConnection method.
@@ -3201,6 +3351,14 @@ declare namespace EngineAPI {
          * @returns - A promise of a Qlik engine reply.
          */
         saveObjects(): Promise<void>;
+
+        /**
+         * Scramble a field in the qlik datamodel.
+         *
+         * @param qFieldName - Fieldname
+         * @returns - A promise of a Qlik engine reply.
+         */
+        scramble(qFieldName: string): Promise<void>;
 
         /**
          * Returns the search matches for one or more search terms.
@@ -3359,7 +3517,6 @@ declare namespace EngineAPI {
          * Undoes the previous operation.
          *
          * Note: The operation is successful if qSuccess is set to true.
-         * @param qScript - Script content
          * @returns - A promise true or false
          */
         undo(): Promise<boolean>;
@@ -3786,6 +3943,17 @@ declare namespace EngineAPI {
         applyPatches(qPatches: INxPatch[]): Promise<void>;
 
         /**
+         * Get the selected values in the bookmark for a specific field.
+         *
+         * Note: from shema file
+         * @param qField - Name of the field
+         * @param qGetExcludedValues - Get Excluded Values
+         * @param qDataPage - Start and End of DataPage
+         * @returns - A promise of Array of FieldValues.
+         */
+        getFieldValues(qField: string, qGetExcludedValues: boolean, qDataPage: {"qStartIndex": number, "qEndIndex": number}): Promise<{qFieldValues: IFieldValue[]}>;
+
+        /**
          * Returns:
          *
          * - the type of the object
@@ -3899,7 +4067,7 @@ declare namespace EngineAPI {
         /**
          * Identifier and type of the dimension.
          */
-        qDim: INxLibraryMeasureDef;
+        qDim: INxLibraryDimensionDef;
 
         /**
          * Cardinal and tags related to the dimension.
@@ -3945,7 +4113,7 @@ declare namespace EngineAPI {
          *
          * @returns - A promise GenericDimension.
          */
-        getDimension(): Promise<IGenericDimension>;
+        getDimension(): Promise<IGenericDimensionProperties>;
 
         /**
          * Returns the type and identifier of the object.
@@ -4781,39 +4949,139 @@ declare namespace EngineAPI {
          * Row index to select
          * Indexing starts from 0.
          * If the cell's type is:
-         *   D, the index is based on the data matrix.
-         *   T, the index is based on the top dimensions indexes
-         *   L, the index is based on the data matrix
+         * - D, the index is based on the data matrix.
+         * - T, the index is based on the top dimensions indexes
+         * - L, the index is based on the data matrix
          */
         qRow: number;
     }
 
-    /**
-     * ImplementOn...
-     */
-    interface IImplementOn {
+    interface INxTreeDataOption {
         /**
-         * register a function for events
-         * @param event - function called if this event occures
-         * @param func - function that is called
+         * Maximum number of nodes in the tree. If this limit is exceeded, no nodes are returned. All nodes are counted.
          */
-        on(event: "changed" | "closed", func: () => void): void;
+        MaxNbrOfNodes: number;
 
         /**
-         * manual emit an events
-         * @param event - event that occures
+         * Defines areas of the tree to be fetched. Areas must be defined left to right.
          */
-        emit(event: "changed" | "closed"): void;
+        TreeNodes: INxPageTreeNode[];
 
-        // ? not in Docu
-        id: string;
+        /**
+         * Filters out complete dimensions from the fetched tree.
+         */
+        TreeLevels: INxPageTreeLevel;
+    }
+
+    interface INxPageTreeNode {
+        /**
+         * The area of the tree to be fetched. If no area is defined on a dimension, all existing nodes are included.
+         */
+        qArea: IRect;
+
+        /**
+         * When set to true, generated nodes (based on current selection) will be inserted into the returned tree even when
+         * there is no actual value. For example, suppose you are looking for hybrid car sales at all car dealerships.
+         * Normally, only dealerships where hybrid cars are sold would be part of the returned tree but with qAllValues set to true,
+         * all available dealerships will be included regardless if they sold any hybrid cars or not.
+         */
+        qAllValues: boolean;
+    }
+
+    interface INxPageTreeLevel {
+        /**
+         * The first dimension that is to be part of the tree, counted from the left.
+         * For example, if qLeft is equal to 1, omit nodes from the first dimension in the current sort order.
+         */
+        qLeft: number;
+
+        /**
+         * Number of dimensions to include in the tree.
+         */
+        qDepth: number;
+    }
+
+    interface INxTreeNode {
+        /**
+         * The text version of the value, if available.
+         */
+        qText: string;
+
+        /**
+         * Element number
+         */
+        qElemNo: number;
+
+        /**
+         * Row index in the data matrix.
+         * The indexing starts from 0.
+         */
+        qRow: number;
+
+        /**
+         * A generated number applicable to this page only. Used so that children can easily identify who their parents are.
+         */
+        qNodeNr: number;
+
+        /**
+         * The qNodeNr of this node's parent for the current page.
+         */
+        qParentNode: number;
+
+        /**
+         * Type of the cell.
+         */
+        qType: NxTreeNodeType;
+
+        /**
+         * The measures for this node.
+         */
+        qValues: INxTreeValue;
+
+        /**
+         * The children of this node in the tree structure.
+         */
+        qNodes: INxTreeNode;
+
+        /**
+         * Attribute expression values.
+         */
+        qAttrExps?: INxAttributeExpressionValues;
+
+        /**
+         * Attribute dimension values.
+         */
+        qAttrDims?: INxAttributeDimValues;
+    }
+
+    interface INxTreeValue {
+        /**
+         * The text version of the value, if available.
+         */
+        qText: string;
+
+        /**
+         * Value of the cell.
+         * Is set to NaN, if the value is not a number.
+         */
+        qValue: number;
+
+        /**
+         * Attribute expression values.
+         */
+        qAttrExps?: INxAttributeExpressionValues;
+
+        /**
+         * Attribute dimension values.
+         */
+        qAttrDims?: INxAttributeDimValues;
     }
 
     /**
      * This class describes all the methods that apply at generic object level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic object.
      */
-    interface IGenericObject extends IImplementOn {
+    interface IGenericObject extends enigmaJS.IGeneratedAPI {
         /**
          * app describes all the methods that apply at app level.
          */
@@ -5277,6 +5545,15 @@ declare namespace EngineAPI {
         getHyperCubeStackData(qPath: string, qPages: INxPage[], qMaxNbrCells?: number): Promise<INxStackPage[]>;
 
         /**
+         * Retrieves the values of a stacked pivot table. It is possible to retrieve specific pages of data.
+         * @param qPath - Path to the definition of the object to be selected.
+         * For example, /qHyperCubeDef.
+         * @param qNodeOptions - Specifies all the paging filters needed to define the tree to be fetched.
+         * @returns - A data set Array of NxTreeNode.
+         */
+        getHyperCubeTreeData(qPath: string, qNodeOptions: INxTreeDataOption[]): Promise<INxTreeNode>;
+
+        /**
          * Returns the type and identifier of the object.
          * @returns - A Promise of NxInfo.
          */
@@ -5716,11 +5993,54 @@ declare namespace EngineAPI {
         qActiveExpression: number;
     }
 
+    interface IGenericDerivedFieldProperties extends IGenericProperties {
+    }
+
+    interface IGenericDerivedFields extends enigmaJS.IGeneratedAPI {
+        /**
+         * Shows the properties of an object.
+         * Returns the identifier and the definition of the derived field.
+         *
+         * @returns - A Promise IGenericDerivedFieldProperties
+         */
+        getProperties(): Promise<IGenericDerivedFieldProperties>;
+
+        /**
+         * @returns qInfo
+         */
+        getInfo(): Promise<any>;
+
+        /**
+         * @returns qData
+         */
+        getDerivedFieldData(): Promise<any>;
+
+        /**
+         * @returns qField
+         */
+        getDerivedField(qId: string): Promise<any>;
+
+        /**
+         * @returns qListData
+         */
+        getListData(): Promise<any>;
+
+        /**
+         * @returns qFields
+         */
+        getDerivedFields(): Promise<any>;
+
+        /**
+         * @returns qGroups
+         */
+        getDerivedGroups(): Promise<any>;
+    }
+
     /**
      * This class describes all the methods that apply at measure level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the measure.
      */
-    interface IGenericMeasure extends IImplementOn {
+    interface IGenericMeasure extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of an object. Allows an update to some of the properties.
          *
@@ -5753,7 +6073,7 @@ declare namespace EngineAPI {
          * @returns - Information about the measure.
          * >> This parameter is mandatory.
          */
-        getMeasure(): Promise<INxLibraryMeasureDef>;
+        getMeasure(): Promise<IGenericMeasureProperties>;
 
         /**
          * Shows the properties of an object.
@@ -5788,7 +6108,7 @@ declare namespace EngineAPI {
      * This class describes all the methods that apply at generic variable level.
      * The handle member in the JSON request for all methods listed in this section is the handle of the generic variable.
      */
-    interface IGenericVariable extends IImplementOn {
+    interface IGenericVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Applies a patch to the properties of a variable. Allows an update to some of the properties.
          *
@@ -5911,7 +6231,7 @@ declare namespace EngineAPI {
      *
      * The handle member in the JSON request for all methods listed in this section is the handle of the variable.
      */
-    interface IVariable extends IImplementOn {
+    interface IVariable extends enigmaJS.IGeneratedAPI {
         /**
          * Sets the value of a dual variable overriding any input constraints.
          *
@@ -5944,7 +6264,7 @@ declare namespace EngineAPI {
          *
          * Note: This method is deprecated (not recommended to use). Use GetProperties method instead.
          */
-        getRawContent(): string;
+        getRawContent(): Promise<string>;
 
         /**
          * Sets a value to a variable.
@@ -6545,11 +6865,54 @@ declare namespace EngineAPI {
         qSignature: string;
     }
 
+    interface IQDownloadInfo {
+        /**
+         * URL of the generated QVF
+         */
+        qUrl: string;
+
+        /**
+         * FileSize of the generated QVF
+         */
+        qFileSize: number;
+    }
+
+    interface IQVersion {
+        qVersion: {
+            qComponentVersion: string;
+        };
+    }
+
+    interface IQConfig {
+        qFeatures: {
+            qIsDesktop: boolean;
+            qSSOEnabled: boolean;
+        };
+
+        qServices: Array<{
+            /**
+             * Name of the Service
+             */
+            qName: string;
+            /**
+             * URL of the Service
+             */
+            qUrl: string;
+        }>;
+
+        qSystemProperties: {
+            /**
+             * Path Separator for the OS
+             */
+            qPathSeparator: string;
+        };
+    }
+
     /**
      * This class describes all the methods that apply at global level.
      * The handle member in the JSON request for all methods listed in this section is -1.
      */
-    interface IGlobal {
+    interface IGlobal extends enigmaJS.IGeneratedAPI {
         /**
          * Sets an abort flag on all pending and ongoing requests in the current engine session.
          * If an abort flag is set on a pending request, the request is aborted.
@@ -6557,6 +6920,15 @@ declare namespace EngineAPI {
          */
         abortAll(): Promise<void>;
 
+        /**
+         * Aborts a specific request
+         * @param qRequestId - Identifier of the request to stop.
+         */
+        abortRequest(qRequestId: number): Promise<void>;
+
+        /**
+         * no / empty docu
+         */
         allowCreateApp(): Promise<boolean>;
 
         /**
@@ -6691,6 +7063,12 @@ declare namespace EngineAPI {
         deleteApp(qAppId: string): Promise<boolean>;
 
         /**
+         * Get the current EngineVersion
+         * @returns - qVersion
+         */
+        engineVersion(): Promise<IQVersion>;
+
+        /**
          * Exports an app from the Qlik Sense repository to the file system.
          *
          * Note: This operation is possible only in Qlik Sense Enterprise.
@@ -6778,6 +7156,27 @@ declare namespace EngineAPI {
          * @returns A Promise qBnfHash
          */
         getBaseBNFHash(qBnfType: BnfType): Promise<{ qBnfHash: string }>;
+
+        /**
+         * Gets the current Backus-Naur Form (BNF) grammar of the Qlik engine scripting language,
+         * as well as a string hash calculated from that grammar. The BNF rules define the syntax
+         * for the script statements and the script or chart functions. If the hash changes between
+         * subsequent calls to this method, this indicates that the BNF has changed.
+         *
+         * In the Qlik engine grammars, a token is a string of one or more characters that is significant as a group.
+         * For example, a token could be a function name, a number, a letter, a parenthesis, and so on.
+         * @param qBnfType The type of grammar to return:
+         *                   S: returns the script statements and the script functions.
+         *                   E: returns the chart functions.
+         * @returns qBnfDefs and qBnfHash
+         */
+        getBaseBNFString(qBnfType: BnfType): Promise<{qBnfDefs: IBNFDef, qBnfHash: string}>;
+
+        /**
+         * Get a Config Object
+         * @returns A Promise qConfig
+         */
+        getConfiguration(): Promise<IQConfig>;
 
         /**
          * List the custom connectors available in the system.
@@ -6868,6 +7267,12 @@ declare namespace EngineAPI {
         getLogicalDriveStrings(): Promise<IDriveInfo[]>;
 
         /**
+         * Gets the MyDocumenstFolder Path in the system.
+         * @returns A Promise of the MyDocumenstFolder Path
+         */
+        getMyDocumentsFolder(): Promise<{ qFolder: string; }>;
+
+        /**
          * Returns the list of the ODBC connectors that are installed in the system.
          * @returns A Promise Array of OdbcDsn
          */
@@ -6913,6 +7318,27 @@ declare namespace EngineAPI {
          * This identifier is unique.
          */
         getUniqueID(): Promise<string>;
+
+        /**
+         * Import an App
+         * @param qAppId - new AppId
+         * @param qSrcPath - source path
+         * @param qIds - ???
+         * Note: from shema file
+         * Note: This operation is possible only in Qlik Sense Enterprise.
+         */
+        importApp(qAppId: string, qSrcPath: string, qIds: string[]): Promise<void>;
+
+        /**
+         * Import an App Extended
+         * @param qAppId - new AppId
+         * @param qSrcPath - source path
+         * @param qIds - ???
+         * @param qExcludeConnections - true to exclude the embedded connection from import
+         * Note: from shema file
+         * Note: This operation is possible only in Qlik Sense Enterprise.
+         */
+        importAppEx(qAppId: string, qSrcPath: string, qIds: string[], qExcludeConnections: boolean): Promise<void>;
 
         /**
          * Informs the engine that a user interaction (which was earlier requested by the engine)
@@ -6991,6 +7417,15 @@ declare namespace EngineAPI {
          * Returns the Qlik Sense version number.
          */
         productVersion(): Promise<string>;
+
+        /**
+         * Publish an App to a Stream
+         * @param qStreamId - Id of the stream there it should published
+         * @param qName - new name
+         * Note: from shema file
+         * Note: This operation is possible only in Qlik Sense Enterprise.
+         */
+        publishApp(qStreamId: string, qName: string): Promise<void>;
 
         /**
          * Returns the Qlik product name.
@@ -7707,8 +8142,14 @@ declare namespace EngineAPI {
          */
         qAttributeDimensions?: INxAttrDimDef[];
 
+        /**
+         * no / empty docu
+         */
         qIncludeElemValue?: boolean; // ?Nicht in Doku
 
+        /**
+         * no / empty docu
+         */
         qShowTotal?: boolean; // ?Nicht in Doku
     }
 
@@ -7775,6 +8216,9 @@ declare namespace EngineAPI {
          */
         qExpression?: IValueExpr;
 
+        /**
+         * no / empty docu
+         */
         qSortByGreyness?: TypeSortDirection; // ?Nicht in Doku
     }
 
@@ -8686,8 +9130,7 @@ declare namespace EngineAPI {
     /**
      * SelectionListObject width extend GenericObject
      */
-    interface ISelectionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericSelectionListLayout>;
+    interface ISelectionListObject extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {
     }
 
     interface IApp {
@@ -8749,8 +9192,7 @@ declare namespace EngineAPI {
     /**
      * BookmarkListObject width extend GenericObject
      */
-    interface IBookmarkListObject extends IGenericObject {
-        getLayout(): Promise<IGenericBookmarkListLayout>;
+    interface IBookmarkListObject extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {
     }
 
     interface IApp {
@@ -8812,8 +9254,7 @@ declare namespace EngineAPI {
     /**
      * IMeassureListObject
      */
-    interface IMeassureListObject extends IGenericObject {
-        getLayout(): Promise<IGenericMeasureListLayout>;
+    interface IMeassureListObject extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {
     }
 
     interface IApp {
@@ -8880,8 +9321,7 @@ declare namespace EngineAPI {
         qData: any;
     }
 
-    interface IDimensionListObject extends IGenericObject {
-        getLayout(): Promise<IGenericDimensionListLayout>;
+    interface IDimensionListObject extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {
     }
 
     interface IApp {
@@ -8958,15 +9398,15 @@ declare namespace EngineAPI {
     /**
      * VariableListObject...
      */
-    interface IVariableListObject {
+    interface IVariableList {
         qItems: INxVariableListItem[];
     }
 
     /**
      * GenericVariableLayout width extend GenericObjectLayout
      */
-    interface IGenericVariableLayout extends IGenericObjectLayout {
-        qVariableListObject: IVariableListObject;
+    interface IGenericVariableListLayout extends IGenericBaseLayout {
+        qVariableListObject: IVariableList;
     }
 
     /**
@@ -9004,8 +9444,7 @@ declare namespace EngineAPI {
     /**
      * VariableListObject width extend GenericObject
      */
-    interface IVariableListObject extends IGenericObject {
-        getLayout(): Promise<IGenericVariableLayout>;
+    interface IVariableListObject extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {
     }
 
     interface IApp {
@@ -9020,21 +9459,11 @@ declare namespace EngineAPI {
     /**
      * FieldListObject...
      */
-    interface IFieldListObject {
+    interface IFieldList {
         /**
          * NxFieldDescription[]
          */
         qItems: INxFieldDescription[];
-    }
-
-    /**
-     * GenericFieldLayout width extend GenericObjectLayout
-     */
-    interface IGenericFieldLayout extends IGenericObjectLayout {
-        /**
-         * FieldListObject...
-         */
-        qFieldListObject: IFieldListObject;
     }
 
     /**
@@ -9251,9 +9680,30 @@ declare namespace EngineAPI {
         qShowImplicit?: boolean;
     }
 
+    /**
+     * GenericFieldLayout width extend GenericObjectLayout
+     */
+    interface IGenericFieldLayout extends IGenericBaseLayout {
+        /**
+         * FieldListObject...
+         */
+        qFieldListObject: IFieldList;
+    }
+
+    /**
+     * FieldListObject width extend GenericObject
+     */
+    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {
+    }
+
     interface IApp {
         createObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
         createSessionObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
     }
 }
 //#endregion
+
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+    }
+}

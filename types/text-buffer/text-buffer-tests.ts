@@ -1,3 +1,4 @@
+import { Disposable } from "event-kit";
 import TextBuffer = require("text-buffer");
 
 declare let obj: object;
@@ -14,7 +15,7 @@ declare let displayMarkerLayer: TextBuffer.DisplayMarkerLayer;
 declare let marker: TextBuffer.Marker;
 declare let markers: TextBuffer.Marker[];
 declare let markerLayer: TextBuffer.MarkerLayer;
-declare let sub: EventKit.Disposable;
+declare let sub: Disposable;
 
 // Point ======================================================================
 let point = new TextBuffer.Point(42, 42);

@@ -1,11 +1,12 @@
+import { Disposable } from "event-kit";
 import { File, Directory } from "pathwatcher";
 
 let bool: boolean;
 let str: string;
-let sub: EventKit.Disposable;
+let sub: Disposable;
 
-let file: PathWatcher.File;
-let dir: PathWatcher.Directory;
+let file: File;
+let dir: Directory;
 
 // File =======================================================================
 // Construction

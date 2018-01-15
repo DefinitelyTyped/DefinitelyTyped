@@ -1,3 +1,4 @@
+import { AtomEnvironment, TestRunnerParams } from "atom";
 import { createRunner } from "atom-mocha-test-runner";
 import defaultMochaRunner = require("atom-mocha-test-runner");
 
@@ -20,12 +21,12 @@ testRunner = createRunner({
     testSuffixes: ["test.file"],
 });
 
-declare const atom: AtomCore.AtomEnvironment;
+declare const atom: AtomEnvironment;
 declare const blob: object;
 declare let num: number;
 
 async function runTests(): Promise<number> {
-    const runnerArgs: AtomCore.Structures.TestRunnerArgs = {
+    const runnerArgs: TestRunnerParams = {
         testPaths: ["/var/test"],
         logFile: "/var/log",
         headless: false,

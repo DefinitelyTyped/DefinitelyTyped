@@ -1,9 +1,10 @@
-// Type definitions for algoliasearch-client-js 3.24.5
+// Type definitions for algoliasearch-client-js 3.24.8
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace algoliasearch {
   interface AlgoliaResponse {
@@ -48,6 +49,9 @@ declare namespace algoliasearch {
      */
     params: string;
   }
+  interface AlgoliaMultiResponse {
+    results: AlgoliaResponse[];
+  }
   /*
   Interface for the algolia client object
   */
@@ -70,8 +74,8 @@ declare namespace algoliasearch {
         indexName: string;
         query: string;
         params: AlgoliaQueryParameters;
-      },
-      cb: (err: Error, res: any) => void
+      }[],
+      cb: (err: Error, res: AlgoliaMultiResponse) => void
     ): void;
     /**
      * Query on multiple index
@@ -83,7 +87,7 @@ declare namespace algoliasearch {
       indexName: string;
       query: string;
       params: AlgoliaQueryParameters;
-    }): Promise<AlgoliaResponse>;
+    }[]): Promise<AlgoliaMultiResponse>;
     /**
      * clear browser cache
      * https://github.com/algolia/algoliasearch-client-js#cache
@@ -94,6 +98,18 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#keep-alive
      */
     destroy(): void;
+    /**
+     * Add a header to be sent with all upcoming requests
+     */
+    setExtraHeader(name: string, value: string): void;
+    /**
+     * Get the value of an extra header
+     */
+    getExtraHeader(name: string): string;
+    /**
+     * remove an extra header for all upcoming requests
+     */
+    unsetExtraHeader(name: string): void;
     /**
      * List all your indices along with their associated information (number of entries, disk size, etc.)
      * @param cb(err, res)
@@ -176,14 +192,14 @@ declare namespace algoliasearch {
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: AlgoliaAction, cb: (err: Error, res: any) => void): void;
+    batch(action: AlgoliaAction[], cb: (err: Error, res: any) => void): void;
     /**
      * Perform multiple operations with one API call to reduce latency
      * @param action
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: AlgoliaAction): Promise<any>;
+    batch(action: AlgoliaAction[]): Promise<any>;
     /**
      * Lists global API Keys
      * @param cb(err, res)
@@ -306,8 +322,8 @@ declare namespace algoliasearch {
     getLogs(options: LogsOptions): Promise<any>;
   }
   /**
- * Interface for the index algolia object
- */
+   * Interface for the index algolia object
+   */
   interface AlgoliaIndex {
     /**
      * Gets a specific object
@@ -533,6 +549,65 @@ declare namespace algoliasearch {
       cb: (err: Error, res: any) => void
     ): void;
     /**
+     * Save a rule object
+     * @param rule
+     * @param options
+     * @param cb(err, res)
+     * https://github.com/algolia/algoliasearch-client-js#save-rule---saverule
+     */
+    saveRule(
+      rule: AlgoliaRule,
+      options: RuleOption,
+      cb: (err: Error, res: any) => void
+    ): void;
+    /**
+     * Save a rule object
+     * @param rules
+     * @param options
+     * @param cb(err, res)
+     */
+    batchRules(
+      rules: AlgoliaRule[],
+      options: RuleOption,
+      cb: (err: Error, res: any) => void
+    ): void;
+    /**
+     * Delete a specific rule
+     * @param identifier
+     * @param options
+     * @param cb(err, res)
+     * https://github.com/algolia/algoliasearch-client-js#batch-rules---batchrules
+     */
+    deleteRule(
+      identifier: string,
+      options: RuleOption,
+      cb: (err: Error, res: any) => void
+    ): void;
+    /**
+     * Clear all rules of an index
+     * @param options
+     * @param cb(err, res)
+     * https://github.com/algolia/algoliasearch-client-js#clear-all-rules---clearrules
+     */
+    clearRules(options: RuleOption, cb: (err: Error, res: any) => void): void;
+    /**
+     * Get a specific rule
+     * @param identifier
+     * @param cb(err, res)
+     * https://github.com/algolia/algoliasearch-client-js#get-rule---getrule
+     */
+    getRule(identifier: string, cb: (err: Error, res: any) => void): void;
+    /**
+     * Search a rules
+     * @param options
+     * @param cb(err, res)
+     * https://github.com/algolia/algoliasearch-client-js#search-rules---searchrules
+     */
+    searchRules(
+      options: SearchRuleOptions,
+      cb: (err: Error, res: any) => void
+    ): void;
+    /**
      * List index user keys
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#list-api-keys---listapikeys
@@ -711,7 +786,7 @@ declare namespace algoliasearch {
      * @param err() error callback
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(params: AlgoliaQueryParameters): Promise<any>;
+    search(params: AlgoliaQueryParameters): Promise<AlgoliaResponse>;
     /**
      * Search in an index
      * @param params query parameter
@@ -721,7 +796,7 @@ declare namespace algoliasearch {
      */
     search(
       params: AlgoliaQueryParameters,
-      cb: (err: Error, res: any) => void
+      cb: (err: Error, res: AlgoliaResponse) => void
     ): void;
     /**
      * Search in an index
@@ -737,8 +812,7 @@ declare namespace algoliasearch {
     }: {
       facetName: string;
       facetQuery: string;
-      qp: AlgoliaQueryParameters;
-    }): Promise<any>;
+    } & AlgoliaQueryParameters): Promise<any>;
     /**
      * Search in an index
      * @param params query parameter
@@ -754,8 +828,7 @@ declare namespace algoliasearch {
       }: {
         facetName: string;
         facetQuery: string;
-        qp: AlgoliaQueryParameters;
-      },
+      } & AlgoliaQueryParameters,
       cb: (err: Error, res: any) => void
     ): void;
     /**
@@ -845,6 +918,50 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#search-synonyms---searchsynonyms
      */
     searchSynonyms(options: SearchSynonymOptions): Promise<any>;
+    /**
+     * Save a rule object
+     * @param rule
+     * @param options
+     * return {Promise}
+     * https://github.com/algolia/algoliasearch-client-js#save-rule---saverule
+     */
+    saveRule(rule: AlgoliaRule, options: RuleOption): Promise<any>;
+    /**
+     * Save a rule object
+     * @param rules
+     * @param options
+     * return {Promise}
+     */
+    batchRules(rules: AlgoliaRule[], options: RuleOption): Promise<any>;
+    /**
+     * Delete a specific rule
+     * @param identifier
+     * @param options
+     * return {Promise}
+     * https://github.com/algolia/algoliasearch-client-js#batch-rules---batchrules
+     */
+    deleteRule(identifier: string, options: RuleOption): Promise<any>;
+    /**
+     * Clear all query rules of an index
+     * @param options
+     * return {Promise}
+     * https://github.com/algolia/algoliasearch-client-js#clear-all-rules---clearrules
+     */
+    clearRules(options: RuleOption): Promise<any>;
+    /**
+     * Get a specific query rule
+     * @param identifier
+     * return {Promise}
+     * https://github.com/algolia/algoliasearch-client-js#get-rule---getrule
+     */
+    getRule(identifier: string): Promise<any>;
+    /**
+     * Search for query rules
+     * @param options
+     * return {Promise}
+     * https://github.com/algolia/algoliasearch-client-js#search-rules---searchrules
+     */
+    searchRules(options: SearchRuleOptions): Promise<any>;
     /**
      * List index user keys
      * return {Promise}
@@ -956,8 +1073,8 @@ Interface describing options available for gettings the logs
     type?: string;
   }
   /**
- * Describe the action object used for batch operation
- */
+   * Describe the action object used for batch operation
+   */
   interface AlgoliaAction {
     /**
      * Type of the batch action
@@ -983,8 +1100,8 @@ Interface describing options available for gettings the logs
     body: {};
   }
   /**
- * Describes the option used when creating user key
- */
+   * Describes the option used when creating user key
+   */
   interface AlgoliaApiKeyOptions {
     /**
      * Add a validity period. The key will be valid for a specific period of time (in seconds).
@@ -1023,8 +1140,8 @@ Interface describing options available for gettings the logs
     description?: string;
   }
   /**
- * Describes option used when making operation on synonyms
- */
+   * Describes option used when making operation on synonyms
+   */
   interface SynonymOption {
     /**
      * You can forward all settings updates to the replicas of an index
@@ -1038,8 +1155,8 @@ Interface describing options available for gettings the logs
     replaceExistingSynonyms?: boolean;
   }
   /**
- * Describes options used when searching for synonyms
- */
+   * Describes options used when searching for synonyms
+   */
   interface SearchSynonymOptions {
     /**
      * The actual search query to find synonyms
@@ -1048,7 +1165,7 @@ Interface describing options available for gettings the logs
     query?: string;
     /**
      * The page to fetch when browsing through several pages of results
-     * default: 100
+     * default: 0
      * https://github.com/algolia/algoliasearch-client-js#search-synonyms---searchsynonyms
      */
     page?: number;
@@ -1062,6 +1179,49 @@ Interface describing options available for gettings the logs
      * Number of hits per page
      * default: 100
      * https://github.com/algolia/algoliasearch-client-js#search-synonyms---searchsynonyms
+     */
+    hitsPerPage?: number;
+  }
+  /**
+   * Describes option used when making operation on query rules
+   */
+  interface RuleOption {
+    /**
+     * You can forward all settings updates to the replicas of an index
+     * https://github.com/algolia/algoliasearch-client-js#replica-settings
+     */
+    forwardToReplicas?: boolean;
+    /**
+     * Replace all existing query rules on the index with the content of the batch
+     */
+    clearExistingRules?: boolean;
+  }
+  /**
+   * Describes options used when searching for query rules
+   */
+  interface SearchRuleOptions {
+    /**
+     * The actual search query to find synonyms
+     */
+    query?: string;
+    /**
+     * When specified, restricts matches to rules with a specific anchoring type.
+     * When omitted, all anchoring types may match.
+     */
+    anchoring?: string;
+    /**
+     * When specified, restricts matches to contextual rules with a specific context (exact match).
+     * When omitted, any generic or contextual rule (with any context) may match.
+     */
+    context?: string;
+    /**
+     * Requested page (zero-based)
+     * default: 0
+     */
+    page?: number;
+    /**
+     * Number of hits per page
+     * default: 20
      */
     hitsPerPage?: number;
   }
@@ -1093,8 +1253,94 @@ Interface describing options available for gettings the logs
     synonyms: string[];
   }
   /**
- * Describes the options used when generating new api keys
- */
+   * Describes a query rule object
+   */
+  interface AlgoliaRule {
+    /**
+     * ObjectID of the synonym
+     * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
+     */
+    objectID: string;
+    /**
+     * Condition of the rule
+     */
+    condition: {
+      /**
+       * Query pattern
+       * syntax: https://www.algolia.com/doc/rest-api/query-rules/?language=php#query-pattern-syntax
+       */
+      pattern: string;
+      /**
+       * Whether the pattern must match the beginning or the end of the query string, or both, or none.
+       */
+      anchoring: 'is' | 'startsWith' | 'endsWith' | 'contains';
+      /**
+       * Rule context (format: [A-Za-z0-9_-]+).
+       * When specified, the rule is contextual and applies only when the same context is specified
+       * at query time (using the ruleContexts parameter).
+       * When absent, the rule is generic and always applies
+       * (provided that its other conditions are met, of course).
+       */
+      context?: string;
+    };
+    /**
+     * Consequence of the rule. At least one of the following must be used:
+     */
+    consequence: {
+      params?: {
+        /**
+         * When a string, it replaces the entire query string.
+         * When an object, describes incremental edits to be made to the query string.
+         */
+        query?:
+          | string
+          | {
+              /**
+               * Tokens (literals or placeholders) from the query pattern
+               * that should be removed from the query string.
+               */
+              remove: string[];
+            };
+        /**
+         * Names of facets to which automatic filtering must be applied;
+         * they must match the facet name of a facet value placeholder in the query pattern.
+         */
+        automaticFacetFilters?: string[];
+        /**
+         * Same as automaticFacetFilters, but for optionalFacetFilters.
+         * The same syntax as query parameters can be used to specify a score: facetName<score=1>.
+         */
+        automaticOptionalFacetFilters?: string[];
+      };
+      /**
+       * Objects to promote as hits. Each object must contain the following fields
+       */
+      promote?: {
+        /**
+         * Unique identifier of the object to promote
+         */
+        objectID: string;
+        /**
+         *  Promoted rank for the object (zero-based)
+         */
+        position: number;
+      }[];
+      /**
+       *  Custom JSON object that will be appended to the userData array in the response.
+       * This object is not interpreted by the API. It is limited to 1kB of minified JSON.
+       */
+      userData?: {};
+    };
+    /**
+     * This field is intended for rule management purposes,
+     * in particular to ease searching for rules and presenting them to human readers.
+     * It is not interpreted by the API.
+     */
+    description?: string;
+  }
+  /**
+   * Describes the options used when generating new api keys
+   */
   interface AlgoliaSecuredApiOptions {
     /**
      * Filter the query with numeric, facet or/and tag filters
@@ -1120,8 +1366,8 @@ Interface describing options available for gettings the logs
   }
 
   /**
- * Describes the settings available for configure your index
- */
+   * Describes the settings available for configure your index
+   */
   interface AlgoliaIndexSettings {
     /**
      * The list of attributes you want index
@@ -1526,7 +1772,7 @@ Interface describing options available for gettings the logs
      * You can specify aroundRadius=all if you want to compute the geo distance without filtering in a geo area
      * https://github.com/algolia/algoliasearch-client-js#aroundradius
      */
-    aroundRadius?: any;
+    aroundRadius?: number | 'all';
     /**
      * Control the precision of a geo search
      * default: null
@@ -1544,7 +1790,7 @@ Interface describing options available for gettings the logs
      * default: null
      * https://github.com/algolia/algoliasearch-client-js#insideboundingbox
      */
-    insideBoundingBox?: string;
+    insideBoundingBox?: number[][];
     /**
      * Selects how the query words are interpreted
      * default: 'prefixLast'
@@ -1559,7 +1805,7 @@ Interface describing options available for gettings the logs
      * defauly: ''
      * https://github.com/algolia/algoliasearch-client-js#insidepolygon
      */
-    insidePolygon?: string;
+    insidePolygon?: number[][];
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'
