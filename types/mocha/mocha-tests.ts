@@ -1,5 +1,8 @@
 let boolean: boolean;
 let string: string;
+let number: number;
+let stringOrUndefined: string | undefined;
+let dateOrUndefined: Date | undefined;
 
 function test_describe() {
     describe('something', () => { });
@@ -112,7 +115,7 @@ function test_setup() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     setup(function () {
@@ -123,7 +126,7 @@ function test_setup() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     setup(function (done) {
@@ -134,7 +137,7 @@ function test_setup() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 }
 
@@ -158,7 +161,7 @@ function test_teardown() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     teardown(function () {
@@ -169,7 +172,7 @@ function test_teardown() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     teardown(function (done) {
@@ -180,7 +183,7 @@ function test_teardown() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 }
 
@@ -192,7 +195,7 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     beforeEach(function () {
@@ -203,7 +206,7 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     beforeEach(function (done) {
@@ -214,7 +217,7 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     beforeEach("my description", function () {
@@ -224,7 +227,7 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     beforeEach("my description", function (done) {
@@ -235,7 +238,7 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 }
 
@@ -255,7 +258,7 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     afterEach(function () {
@@ -266,7 +269,7 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     afterEach(function (done) {
@@ -277,7 +280,7 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     afterEach("my description", function () {
@@ -287,7 +290,7 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     afterEach("my description", function (done) {
@@ -298,7 +301,7 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
 }
@@ -454,4 +457,42 @@ function test_run_withOnComplete() {
 
 function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
+}
+
+function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.ISuite) {
+    runner = runner.abort();
+    
+    if (runner.stats !== undefined) {
+        number = runner.stats.failures;
+        number = runner.stats.passes;
+        number = runner.stats.pending;
+        number = runner.stats.suites;
+        number = runner.stats.tests;
+
+        dateOrUndefined = runner.stats.start;
+        dateOrUndefined = runner.stats.end;
+        dateOrUndefined = runner.stats.duration;
+    }
+
+    let s: MochaDef.ISuite = runner.suite;
+    boolean = runner.started;
+    number = runner.total;
+    number = runner.failures;
+
+    runner = runner.grep("regex", false);
+    number = runner.grepTotal(suite);
+
+    let globals: string[] | MochaDef.IRunner= runner.globals(["hello", "world"]);
+}
+
+function test_base_reporter_properties(reporter: MochaDef.reporters.Base) {
+    number = reporter.stats.failures;
+    number = reporter.stats.passes;
+    number = reporter.stats.pending;
+    number = reporter.stats.suites;
+    number = reporter.stats.tests;
+
+    dateOrUndefined = reporter.stats.start;
+    dateOrUndefined = reporter.stats.end;
+    dateOrUndefined = reporter.stats.duration;
 }
