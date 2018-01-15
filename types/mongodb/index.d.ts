@@ -1424,18 +1424,18 @@ export class ChangeStream extends Readable {
 
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#close */
     close(): Promise<any>;
-    close(callback: ChangeStreamCallback<any>): void;
+    close(callback: MongoCallback<any>): void;
 
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#hasNext */
     hasNext(): Promise<any>;
-    hasNext(callback: ChangeStreamCallback<any>): void;
+    hasNext(callback: MongoCallback<any>): void;
 
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#isClosed */
     isClosed(): boolean;
 
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#next */
     next(): Promise<any>;
-    next(callback: ChangeStreamCallback<any>): void;
+    next(callback: MongoCallback<any>): void;
 
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#stream */
     stream(options?: { transform: Function }): Cursor;
@@ -1449,8 +1449,4 @@ export interface ChangeStreamOptions {
     batchSize?: number;
     collation?: Object;
     readPreference?: ReadPreference;
-}
-
-export interface ChangeStreamCallback<T> {
-    (error: MongoError, result: T): void;
 }
