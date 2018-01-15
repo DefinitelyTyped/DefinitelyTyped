@@ -3322,15 +3322,10 @@ declare namespace sequelize {
         group?: string | string[] | Object;
 
         /**
-         * Apply column on which COUNT() should be applied for FindAndCount(all)
-         */
-        col?: string;
-                     
-        /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
-
+        
         /**
          * Prevents a subquery on the main table when using include
          */
