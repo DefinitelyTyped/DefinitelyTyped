@@ -385,7 +385,7 @@ const HandleSubmitTestForm = reduxForm<TestFormData>({
     (props: HandleSubmitTestProps) => <form onSubmit={ props.handleSubmit } />
 );
 
-class A extends React.Component {
+class HandleSubmitTest extends React.Component {
     handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
     render() {
         return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
