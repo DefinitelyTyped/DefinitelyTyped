@@ -1,4 +1,4 @@
-// Type definitions for @storybook/addon-knobs 3.2
+// Type definitions for @storybook/addon-knobs 3.3
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
@@ -56,3 +56,7 @@ export interface WrapStoryProps {
 
 export function withKnobs(storyFn: RenderFunction, context: StoryContext): React.ReactElement<WrapStoryProps>;
 export function withKnobsOptions(options: { debounce: boolean, timestamps: boolean }): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;
+
+/// <reference path="./angular.d.ts" />
+/// <reference path="./react.d.ts" />
+/// <reference path="./vue.d.ts" />
