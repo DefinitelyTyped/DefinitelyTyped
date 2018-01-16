@@ -69,7 +69,8 @@ declare namespace session {
          */
         beforeSave?(ctx: Koa.Context, session: sessionProps): void;
     }
-    interface sessionProps {
+
+    type sessionProps<SessionProps = {[propName: string]: any}> = SessionProps & {
         /**
          * Returns true if the session is new
          */
@@ -84,8 +85,7 @@ declare namespace session {
          * Save this session no matter whether it is populated
          */
         save(): void;
-        [propName: string]: any;
-    }
+    };
 
     interface stores {
         /**
@@ -110,8 +110,8 @@ declare function session(CONFIG: session.sessionConfig, app: Koa): Koa.Middlewar
 declare function session(app: Koa): Koa.Middleware;
 
 declare module 'koa' {
-    interface Context {
-        session: session.sessionProps | null;
+    interface Context<SessionProps = {[propName: string]: any}> {
+        session: session.sessionProps<SessionProps> | null;
     }
 }
 
