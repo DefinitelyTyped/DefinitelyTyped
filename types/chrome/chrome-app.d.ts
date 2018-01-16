@@ -1,20 +1,20 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>
+// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Nikolai Ommundsen <https://github.com/niikoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="index.d.ts"/>
+/// <reference types="chrome"/>
 /// <reference types="filesystem"/>
 
 ////////////////////
 // App
 ////////////////////
 declare namespace chrome.app {
-	interface AppDetails extends chrome.runtime.Manifest {
-		id: string;
-	}
+    export interface AppDetails extends chrome.runtime.Manifest {
+        id: string;
+    }
 
-	export function getDetails(): AppDetails;
+    export function getDetails(): AppDetails;
 }
 
 ////////////////////
@@ -56,31 +56,31 @@ declare namespace chrome.app.runtime {
         actionData?: {};
     }
 
-    interface LaunchDataItem {
+    export interface LaunchDataItem {
         entry: FileEntry;
         type: string;
     }
 
-    interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> {}
+    export interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> { }
 
-    interface RestartedEvent extends chrome.events.Event<() => void> {}
+    export interface RestartedEvent extends chrome.events.Event<() => void> { }
 
-    var onLaunched: LaunchedEvent;
-    var onRestarted: RestartedEvent;
+    export var onLaunched: LaunchedEvent;
+    export var onRestarted: RestartedEvent;
 }
 
 ////////////////////
 // App Window
 ////////////////////
 declare namespace chrome.app.window {
-    interface ContentBounds {
+    export interface ContentBounds {
         left?: number;
         top?: number;
         width?: number;
         height?: number;
     }
 
-    interface BoundsSpecification {
+    export interface BoundsSpecification {
         left?: number;
         top?: number;
         width?: number;
@@ -91,7 +91,7 @@ declare namespace chrome.app.window {
         maxHeight?: number;
     }
 
-    interface Bounds {
+    export interface Bounds {
         left: number;
         top: number;
         width: number;
@@ -105,14 +105,14 @@ declare namespace chrome.app.window {
         setMinimumSize(minWidth: number, minHeight: number): void;
         setMaximumSize(maxWidth: number, maxHeight: number): void;
     }
-    interface FrameOptions {
+    export interface FrameOptions {
         type?: string;
         color?: string;
         activeColor?: string;
         inactiveColor?: string;
     }
 
-    interface CreateWindowOptions {
+    export interface CreateWindowOptions {
         id?: string;
         innerBounds?: BoundsSpecification;
         outerBounds?: BoundsSpecification;
@@ -120,10 +120,20 @@ declare namespace chrome.app.window {
         minHeight?: number;
         maxWidth?: number;
         maxHeight?: number;
-        frame?: any; // string ("none", "chrome") or FrameOptions
+        /**
+         * @description
+         * @type {(string | FrameOptions)} string ("none", "chrome") or FrameOptions
+         * @memberof CreateWindowOptions
+         */
+        frame?: string | FrameOptions;
         bounds?: ContentBounds;
         alphaEnabled?: boolean;
-        state?: string; // "normal", "fullscreen", "maximized", "minimized"
+        /**
+         * @description
+         * @type {string} "normal", "fullscreen", "maximized", "minimized"
+         * @memberof CreateWindowOptions
+         */
+        state?: string;
         hidden?: boolean;
         resizable?: boolean;
         singleton?: boolean;
@@ -132,7 +142,7 @@ declare namespace chrome.app.window {
         visibleOnAllWorkspaces?: boolean;
     }
 
-    interface AppWindow {
+    export interface AppWindow {
         focus: () => void;
         fullscreen: () => void;
         isFullscreen: () => boolean;
@@ -171,14 +181,14 @@ declare namespace chrome.app.window {
     export function getAll(): AppWindow[];
     export function canSetVisibleOnAllWorkspaces(): boolean;
 
-    interface WindowEvent extends chrome.events.Event<() => void> {}
+    export interface WindowEvent extends chrome.events.Event<() => void> { }
 
-    var onBoundsChanged: WindowEvent;
-    var onClosed: WindowEvent;
-    var onFullscreened: WindowEvent;
-    var onMaximized: WindowEvent;
-    var onMinimized: WindowEvent;
-    var onRestored: WindowEvent;
+    export var onBoundsChanged: WindowEvent;
+    export var onClosed: WindowEvent;
+    export var onFullscreened: WindowEvent;
+    export var onMaximized: WindowEvent;
+    export var onMinimized: WindowEvent;
+    export var onRestored: WindowEvent;
 }
 
 ////////////////////
@@ -186,13 +196,13 @@ declare namespace chrome.app.window {
 ////////////////////
 declare namespace chrome.fileSystem {
 
-    interface AcceptOptions {
+    export interface AcceptOptions {
         description?: string;
         mimeTypes?: string[];
         extensions?: string[];
     }
 
-    interface ChooseEntryOptions {
+    export interface ChooseEntryOptions {
         type?: string;
         suggestedName?: string;
         accepts?: AcceptOptions[];
@@ -216,11 +226,11 @@ declare namespace chrome.fileSystem {
 // Media Galleries
 ////////////////////
 declare namespace chrome.mediaGalleries {
-    interface MediaFileSystemsOptions {
+    export interface MediaFileSystemsOptions {
         interactive?: 'no' | 'yes' | 'if_needed';
     }
 
-    interface MediaFileSystemMetadata {
+    export interface MediaFileSystemMetadata {
         name: string;
         galleryId: string;
         deviceId?: string;
@@ -229,16 +239,16 @@ declare namespace chrome.mediaGalleries {
         isAvailable: boolean;
     }
 
-    interface MetadataOptions {
+    export interface MetadataOptions {
         metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
     }
 
-    interface RawTag {
+    export interface RawTag {
         type: string;
         tags: { [name: string]: string; };
     }
 
-    interface Metadata {
+    export interface Metadata {
         // The browser sniffed mime type.
         mimeType: string;
         // Defined for images and video. In pixels.
@@ -275,17 +285,17 @@ declare namespace chrome.mediaGalleries {
         attachedImages: Blob[];
     }
 
-    interface GalleryWatchResult {
+    export interface GalleryWatchResult {
         galleryId: string;
         success: boolean;
     }
 
-    interface GalleryChangedEventArgs {
+    export interface GalleryChangedEventArgs {
         type: 'contents_changed' | 'watch_dropped';
         galleryId: string;
     }
 
-    interface ScanProgressEventArgs {
+    export interface ScanProgressEventArgs {
         // The type of progress event, i.e. start, finish, etc.
         type: 'start' | 'cancel' | 'finish' | 'error';
         // The number of Galleries found.
@@ -312,40 +322,40 @@ declare namespace chrome.mediaGalleries {
     export function getAllGalleryWatch(callback: (galleryIds: string[]) => void): void;
     export function removeAllGalleryWatch(): void;
 
-    var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
-    var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
+    export var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
+    export var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
 }
 
 ////////////////////
 // Sockets
 ////////////////////
 declare namespace chrome.sockets.tcp {
-    interface CreateInfo {
+    export interface CreateInfo {
         socketId: number;
     }
 
-    interface SendInfo {
+    export interface SendInfo {
         resultCode: number;
         bytesSent?: number;
     }
 
-    interface ReceiveEventArgs {
+    export interface ReceiveEventArgs {
         socketId: number;
         data: ArrayBuffer;
     }
 
-    interface ReceiveErrorEventArgs {
+    export interface ReceiveErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
 
-    interface SocketProperties {
+    export interface SocketProperties {
         persistent?: boolean;
         name?: string;
         bufferSize?: number;
     }
 
-    interface SocketInfo {
+    export interface SocketInfo {
         socketId: number;
         persistent: boolean;
         name?: string;
@@ -378,8 +388,8 @@ declare namespace chrome.sockets.tcp {
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-    var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
-    var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+    export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+    export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
 /**
@@ -391,23 +401,23 @@ declare namespace chrome.sockets.tcp {
  * @see https://developer.chrome.com/apps/sockets_udp
  */
 declare namespace chrome.sockets.udp {
-    interface CreateInfo {
+    export interface CreateInfo {
         socketId: number;
     }
 
-    interface SendInfo {
+    export interface SendInfo {
         resultCode: number;
         bytesSent?: number;
     }
 
-    interface ReceiveEventArgs {
+    export interface ReceiveEventArgs {
         socketId: number;
         data: ArrayBuffer;
         remoteAddress: string;
         remotePort: number;
     }
 
-    interface ReceiveErrorEventArgs {
+    export interface ReceiveErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
@@ -415,7 +425,7 @@ declare namespace chrome.sockets.udp {
     /**
      * @see https://developer.chrome.com/apps/sockets_udp#type-SocketProperties
      */
-    interface SocketProperties {
+    export interface SocketProperties {
         /**
          * Flag indicating if the socket is left open when the event page of the
          * application is unloaded. The default value is "false." When the
@@ -439,7 +449,7 @@ declare namespace chrome.sockets.udp {
     /**
      * @see https://developer.chrome.com/apps/sockets_udp#type-SocketInfo
      */
-    interface SocketInfo {
+    export interface SocketInfo {
         /** The socket identifier. */
         socketId: number;
 
@@ -663,7 +673,7 @@ declare namespace chrome.sockets.udp {
      *
      * @see https://developer.chrome.com/apps/sockets_udp#event-onReceive
      */
-    var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+    export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
 
     /**
      * Event raised when a network error occured while the runtime was waiting
@@ -673,7 +683,7 @@ declare namespace chrome.sockets.udp {
      *
      * @see https://developer.chrome.com/apps/sockets_udp#event-onReceiveError
      */
-    var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+    export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
 /**
@@ -685,16 +695,16 @@ declare namespace chrome.sockets.udp {
  * @see https://developer.chrome.com/apps/sockets_tcpServer
  */
 declare namespace chrome.sockets.tcpServer {
-    interface CreateInfo {
+    export interface CreateInfo {
         socketId: number;
     }
 
-    interface AcceptEventArgs {
+    export interface AcceptEventArgs {
         socketId: number;
         clientSocketId: number;
     }
 
-    interface AcceptErrorEventArgs {
+    export interface AcceptErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
@@ -702,7 +712,7 @@ declare namespace chrome.sockets.tcpServer {
     /**
      * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
      */
-    interface SocketProperties {
+    export interface SocketProperties {
         /**
          * Flag indicating if the socket remains open when the event page of the
          * application is unloaded. The default value is "false." When the
@@ -720,7 +730,7 @@ declare namespace chrome.sockets.tcpServer {
     /**
      * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketInfo
      */
-    interface SocketInfo {
+    export interface SocketInfo {
         /** The socket identifier. */
         socketId: number;
 
@@ -863,7 +873,7 @@ declare namespace chrome.sockets.tcpServer {
      *
      * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAccept
      */
-    var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
+    export var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
 
     /**
      * Event raised when a network error occured while the runtime was waiting
@@ -873,7 +883,7 @@ declare namespace chrome.sockets.tcpServer {
      *
      * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
      */
-    var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
+    export var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
 }
 
 ////////////////////
@@ -885,7 +895,7 @@ declare namespace chrome.sockets.tcpServer {
  * @since Chrome 30.
  */
 declare namespace chrome.system.display {
-    interface Bounds {
+    export interface Bounds {
         /**  The x-coordinate of the upper-left corner. */
         left: number;
         /**  The y-coordinate of the upper-left corner. */
@@ -896,7 +906,7 @@ declare namespace chrome.system.display {
         height: number;
     }
 
-    interface Insets {
+    export interface Insets {
         /** The x-axis distance from the left bound. */
         left: number;
         /** The y-axis distance from the top bound. */
@@ -907,7 +917,141 @@ declare namespace chrome.system.display {
         bottom: number;
     }
 
-    interface DisplayInfo {
+    /**
+     * @since Chrome 57
+     */
+    export interface Point {
+        /** The x-coordinate of the point. */
+        x: number;
+        /** The y-coordinate of the point. */
+        y: number;
+    }
+
+    /**
+     * @since Chrome 57
+     */
+    export interface TouchCalibrationPair {
+        /**	The coordinates of the display point. */
+        displayPoint: Point;
+        /** The coordinates of the touch point corresponding to the display point. */
+        touchPoint: Point;
+    }
+
+    /**
+     * @since Chrome 52
+     */
+    export interface DisplayMode {
+        /** The display mode width in device independent (user visible) pixels. */
+        width: number;
+
+        /** The display mode height in device independent (user visible) pixels. */
+        height: number;
+
+        /** The display mode width in native pixels. */
+        widthInNativePixels: number;
+
+        /** The display mode height in native pixels. */
+        heightInNativePixels: number;
+
+        /** The display mode UI scale factor. */
+        uiScale: number;
+
+        /** The display mode device scale factor. */
+        deviceScaleFactor: number;
+
+        /** True if the mode is the display's native mode. */
+        isNative: boolean;
+
+        /** True if the display mode is currently selected. */
+        isSelected: boolean;
+    }
+
+    /**
+     * @since Chrome 53
+     */
+    export interface DisplayLayout {
+        /** The unique identifier of the display. */
+        id: string;
+        /** The unique identifier of the parent display. Empty if this is the root. */
+        parentId: string;
+        /** The layout position of this display relative to the parent. This will be ignored for the root. */
+        position: 'top' | 'right' | 'bottom' | 'left';
+        /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
+        offset: number;
+    }
+
+    /**
+     * @description The pairs of point used to calibrate the display.
+     * @export
+     * @interface TouchCalibrationPairs
+     */
+    export interface TouchCalibrationPairs {
+        /** First pair of touch and display point required for touch calibration. */
+        pair1: TouchCalibrationPair,
+        /** Second pair of touch and display point required for touch calibration. */
+        pair2: TouchCalibrationPair,
+        /** Third pair of touch and display point required for touch calibration. */
+        pair3: TouchCalibrationPair,
+        /** Fourth pair of touch and display point required for touch calibration. */
+        pair4: TouchCalibrationPair
+    }
+
+    /**
+     * @description Representation of info data to be used in chrome.system.display.setDisplayProperties()
+     * @export
+     * @interface DisplayPropertiesInfo
+     */
+    export interface DisplayPropertiesInfo {
+        /**
+         * @description Chrome OS only. If set to true, changes the display mode to unified desktop (see enableUnifiedDesktop for details). If set to false, unified desktop mode will be disabled. This is only valid for the primary display. If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
+         * @since Chrome 59
+         * */
+        isUnified?: boolean;
+
+        /**
+         * Chrome OS only. If set and not empty, enables mirroring for this display. Otherwise disables mirroring for this display. This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties. If set, no other property may be set.
+         */
+        mirroringSourceId?: string;
+
+        /** If set to true, makes the display primary. No-op if set to false. */
+        isPrimary?: boolean;
+
+        /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
+        overscan?: Insets;
+
+        /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
+        rotation?: 0 | 90 | 180 | 270;
+
+        /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
+        boundsOriginX?: number;
+
+        /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
+        boundsOriginY: number;
+
+        /**
+         * @since Chrome 52
+         * @description If set, updates the display mode to the mode matching this value.
+         */
+        displayMode?: DisplayMode;
+    }
+
+    /**
+     * @description Options affecting how the information is returned.
+     * @since Chrome 59
+     * @export
+     * @interface DisplayInfoFlags
+     */
+    export interface DisplayInfoFlags {
+        /**
+         * @description If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode (see enableUnifiedDesktop). Defaults to false.
+         * @type {boolean}
+         * @memberof DisplayInfoFlags
+         */
+        singleUnified?: boolean;
+    }
+
+    /** Information about display properties. */
+    export interface DisplayInfo {
         /** The unique identifier of the display. */
         id: string;
         /** The user-friendly name (e.g. "HP LCD monitor"). */
@@ -935,7 +1079,7 @@ declare namespace chrome.system.display {
     }
 
     /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|. */
-    interface DisplayProps {
+    export interface DisplayProps {
         /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
         mirroringSourceId?: string;
         /** If set to true, makes the display primary. No-op if set to false. */
@@ -950,14 +1094,131 @@ declare namespace chrome.system.display {
         boundsOriginY?: number;
     }
 
-    interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
+    /**
+     * @description Fired when anything changes to the display configuration.
+     * @export
+     * @interface DisplayChangedEvent
+     * @extends {chrome.events.Event<() => void>}
+     */
+    export interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
 
-    /** Queries basic CPU information of the system. */
+    /**
+     * @description Requests the information for all attached display devices.
+     * @export
+     * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
+     */
     export function getInfo(callback: (info: DisplayInfo[]) => void): void;
+    /**
+     * @description Requests the information for all attached display devices.
+     * @export
+     * @since Chrome 59
+     * @param {DisplayInfoFlags} [flags] Options affecting how the information is returned.
+     * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
+     */
+    export function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
 
-    /** Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. */
-    export function setDisplayProperties(id: string, info: DisplayInfo, callback?: () => void): void;
+    /**
+     * @description Requests the layout info for all displays. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+     * @since Chrome 53
+     * @export
+     * @param {(layouts: DisplayLayout[]) => void} callback The callback to invoke with the results.
+     */
+    export function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
+    /**
+     * @description Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+     * @export
+     * @param {string} id The display's unique identifier.
+     * @param {DisplayPropertiesInfo} info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
+     * @param {() => void} [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
+
+    /**
+     * @description Set the layout for all displays. Any display not included will use the default layout. If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout. After layout is resolved, an onDisplayChanged event will be triggered. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+     * @since Chrome 53
+     * @export
+     * @param {DisplayLayout[]} layouts The layout information, required for all displays except the primary display.
+     * @param {() => void} callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayLayout(layouts: DisplayLayout[], callback?: () => void): void;
+
+    /**
+     * @description Enables/disables the unified desktop feature. Note that this simply enables the feature, but will not change the actual desktop mode. (That is, if the desktop is in mirror mode, it will stay in mirror mode) NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+     * @since Chrome 46
+     * @export
+     * @param {boolean} enabled True if unified desktop should be enabled.
+     */
+    export function enableUnifiedDesktop(enabled: boolean): void;
+    /**
+     * @description Starts overscan calibration for a display. This will show an overlay on the screen indicating the current overscan insets. If overscan calibration for display |id| is in progress this will reset calibration.
+     * @since Chrome 53
+     * @export
+     * @param {string} id The display's unique identifier.
+     */
+    export function overscanCalibrationStart(id: string): void;
+    /**
+     * @description Adjusts the current overscan insets for a display. Typically this should etiher move the display along an axis (e.g. left+right have the same value) or scale it along an axis (e.g. top+bottom have opposite values). Each Adjust call is cumulative with previous calls since Start.
+     * @since Chrome 53
+     * @export
+     * @param {string} id The display's unique identifier.
+     * @param {Insets} delta The amount to change the overscan insets.
+     */
+    export function overscanCalibrationAdjust(id: string, delta: Insets): void;
+
+    /**
+     * @description Resets the overscan insets for a display to the last saved value (i.e before Start was called).
+     * @since Chrome 53
+     * @export
+     * @param {string} id The display's unique identifier.
+     */
+    export function overscanCalibrationReset(id: string): void;
+
+    /**
+     * @description Complete overscan adjustments for a display by saving the current values and hiding the overlay.
+     * @since Chrome 53
+     * @export
+     * @param {string} id The display's unique identifier.
+     */
+    export function overscanCalibrationComplete(id: string): void;
+
+    /**
+     * @description Displays the native touch calibration UX for the display with |id| as display id. This will show an overlay on the screen with required instructions on how to proceed. The callback will be invoked in case of successful calibraion only. If the calibration fails, this will throw an error.
+     * @since Chrome 57
+     * @export
+     * @param {string} id The display's unique identifier.
+     * @param {(success) => void} callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
+     */
+    export function showNativeTouchCalibration(id: string, callback: (success) => void): void;
+
+    /**
+     * @description Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
+     * @since Chrome 57
+     * @export
+     * @param {string} id The display's unique identifier.
+     */
+    export function startCustomTouchCalibration(id: string): void;
+
+    /**
+     * @description Sets the touch calibration pairs for a display. These |pairs| would be used to calibrate the touch screen for display with |id| called in startCustomTouchCalibration(). Always call |startCustomTouchCalibration| before calling this method. If another touch calibration is already in progress this will throw an error.
+     * @since Chrome 57
+     * @export
+     * @param {TouchCalibrationPairs} pairs The pairs of point used to calibrate the display.
+     * @param {Bounds} bounds Bounds of the display when the touch calibration was performed. |bounds.left| and |bounds.top| values are ignored.
+     */
+    export function completeCustomTouchCalibration(pairs: TouchCalibrationPairs, bounds: Bounds): void;
+    /**
+     * @description Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
+     * @since Chrome 57
+     * @export
+     * @param {string} id The display's unique identifier.
+     */
+    export function clearTouchCalibration(id: string): void;
+
+    /**
+     * @description Fired when anything changes to the display configuration.
+     * @export
+     */
     export var onDisplayChanged: DisplayChangedEvent;
 }
 
@@ -965,7 +1226,7 @@ declare namespace chrome.system.display {
 // System - Network
 ////////////////////
 declare namespace chrome.system.network {
-    interface NetworkInterface {
+    export interface NetworkInterface {
         name: string;
         address: string;
         prefixLength: number;
@@ -975,159 +1236,268 @@ declare namespace chrome.system.network {
 }
 
 declare namespace chrome.runtime {
-	interface Manifest {
-		app?: {
-			background?: {
-				scripts?: string[];
-			}
-		},
-		bluetooth?: {
-			uuids?: string[];
-			socket?: boolean;
-			low_energy?: boolean;
-			peripheral?: boolean;
-		},
-		file_handlers?: {
-			[name: string]: {
-				types?: string[];
-				extensions?: string[];
-				title?: string;
-			}
-		},
-		kiosk_enabled?: boolean,
-		kiosk_only?: boolean,
-		url_handlers?: {
-			[name: string]: {
-				matches: string[];
-				title?: string;
-			}
-		},
-		usb_printers?: {
-			filters: {
-				vendorId?: number;
-				productId?: number;
-				interfaceClass?: number;
-				interfaceSubclass?: number;
-				interfaceProtocol?: number;
-			}[]
-		},
-		webview?: {
-			partitions?: {
-				name: string;
-				accessible_resources: string[];
-			}[]
-		}
-	}
+    export interface Manifest {
+        app?: {
+            background?: {
+                scripts?: string[];
+            }
+        },
+        bluetooth?: {
+            uuids?: string[];
+            socket?: boolean;
+            low_energy?: boolean;
+            peripheral?: boolean;
+        },
+        file_handlers?: {
+            [name: string]: {
+                types?: string[];
+                extensions?: string[];
+                title?: string;
+            }
+        },
+        kiosk_enabled?: boolean,
+        kiosk_only?: boolean,
+        url_handlers?: {
+            [name: string]: {
+                matches: string[];
+                title?: string;
+            }
+        },
+        usb_printers?: {
+            filters: {
+                vendorId?: number;
+                productId?: number;
+                interfaceClass?: number;
+                interfaceSubclass?: number;
+                interfaceProtocol?: number;
+            }[]
+        },
+        webview?: {
+            partitions?: {
+                name: string;
+                accessible_resources: string[];
+            }[]
+        }
+    }
 }
 
 ////////////////////
 // USB
 ////////////////////
 declare namespace chrome.usb {
-	type Direction = 'in' | 'out';
+    type Direction = 'in' | 'out';
 
-	interface Device {
-		device: number,
-		vendorId: number,
-		productId: number,
-		productName: string,
-		manufacturerName: string,
-		serialNumber: string
-	}
+    export interface Device {
+        device: number,
+        vendorId: number,
+        productId: number,
+        productName: string,
+        manufacturerName: string,
+        serialNumber: string
+    }
 
-	interface ConnectionHandle {
-		handle: number,
-		vendorId: number,
-		productId: number
-	}
+    export interface ConnectionHandle {
+        handle: number,
+        vendorId: number,
+        productId: number
+    }
 
-	interface EndpointDescriptor {
-		address: number,
-		type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
-		direction: Direction,
-		maximumPacketSize: number,
-		synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
-		usage?: 'data' | 'feedback' | 'explicitFeedback',
-		pollingInterval?: number,
-		extra_data: ArrayBuffer
-	}
+    export interface EndpointDescriptor {
+        address: number,
+        type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
+        direction: Direction,
+        maximumPacketSize: number,
+        synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
+        usage?: 'data' | 'feedback' | 'explicitFeedback',
+        pollingInterval?: number,
+        extra_data: ArrayBuffer
+    }
 
-	interface InterfaceDescriptor {
-		interfaceNumber: number,
-		alternateSetting: number,
-		interfaceClass: number,
-		interfaceSubclass: number,
-		interfaceProtocol: number,
-		description?: string,
-		endpoints: EndpointDescriptor[],
-		extra_data: ArrayBuffer
-	}
+    export interface InterfaceDescriptor {
+        interfaceNumber: number,
+        alternateSetting: number,
+        interfaceClass: number,
+        interfaceSubclass: number,
+        interfaceProtocol: number,
+        description?: string,
+        endpoints: EndpointDescriptor[],
+        extra_data: ArrayBuffer
+    }
 
-	interface ConfigDescriptor {
-		active: boolean,
-		configurationValue: number,
-		description?: string,
-		selfPowered: boolean,
-		remoteWakeup: boolean,
-		maxPower: number,
-		interfaces: InterfaceDescriptor[],
-		extra_data: ArrayBuffer
-	}
+    export interface ConfigDescriptor {
+        active: boolean,
+        configurationValue: number,
+        description?: string,
+        selfPowered: boolean,
+        remoteWakeup: boolean,
+        maxPower: number,
+        interfaces: InterfaceDescriptor[],
+        extra_data: ArrayBuffer
+    }
 
-	interface GenericTransferInfo {
-		direction: Direction,
-		endpoint: number,
-		length?: number,
-		data?: ArrayBuffer,
-		timeout?: number
-	}
+    export interface GenericTransferInfo {
+        direction: Direction,
+        endpoint: number,
+        length?: number,
+        data?: ArrayBuffer,
+        timeout?: number
+    }
 
-	interface TransferResultInfo {
-		resultCode: number,
-		data?: ArrayBuffer
-	}
+    export interface TransferResultInfo {
+        resultCode: number,
+        data?: ArrayBuffer
+    }
 
-	interface DeviceFilter {
-		vendorId?: number,
-		productId?: number,
-		interfaceClass?: number,
-		interfaceSubclass?: number,
-		interfaceProtocol?: number
-	}
+    export interface DeviceFilter {
+        vendorId?: number,
+        productId?: number,
+        interfaceClass?: number,
+        interfaceSubclass?: number,
+        interfaceProtocol?: number
+    }
 
-	interface TransferInfo {
-		direction: Direction;
-		recipient: 'device' | 'interface' | 'endpoint' | 'other';
-		requestType: 'standard' | 'class' | 'vendor' | 'reserved';
-		request: number;
-		value: number;
-		index: number;
-		length?: number;
-		data?: ArrayBuffer;
-		timeout?: number;
-	}
+    export interface TransferInfo {
+        direction: Direction;
+        recipient: 'device' | 'interface' | 'endpoint' | 'other';
+        requestType: 'standard' | 'class' | 'vendor' | 'reserved';
+        request: number;
+        value: number;
+        index: number;
+        length?: number;
+        data?: ArrayBuffer;
+        timeout?: number;
+    }
 
-	interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
+    export interface DeviceEvent extends chrome.events.Event<(device: Device) => void> { }
 
-	export var onDeviceAdded: DeviceEvent;
-	export var onDeviceRemoved: DeviceEvent;
+    export var onDeviceAdded: DeviceEvent;
+    export var onDeviceRemoved: DeviceEvent;
 
-	export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
-	export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
-	export function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
-	export function requestAccess(device: Device, interfaceId: number, callback: (success: boolean) => void): void;
-	export function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
-	export function findDevices(options: { vendorId: number, productId: number, interfaceId?: number }, callback: (handles: ConnectionHandle[]) => void): void;
-	export function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
-	export function setConfiguration(handle: ConnectionHandle, configurationValue: number, callback: () => void): void;
-	export function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
-	export function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
-	export function claimInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
-	export function releaseInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
-	export function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: number, alternateSetting: number, callback: () => void): void;
-	export function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
-	export function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
-	export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
-	export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
-	export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
+    export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+    export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+    export function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
+    export function requestAccess(device: Device, interfaceId: number, callback: (success: boolean) => void): void;
+    export function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
+    export function findDevices(options: { vendorId: number, productId: number, interfaceId?: number }, callback: (handles: ConnectionHandle[]) => void): void;
+    export function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
+    export function setConfiguration(handle: ConnectionHandle, configurationValue: number, callback: () => void): void;
+    export function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
+    export function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
+    export function claimInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
+    export function releaseInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
+    export function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: number, alternateSetting: number, callback: () => void): void;
+    export function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
+    export function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+    export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+    export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
+    export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
+}
+
+declare namespace chrome.networking.onc {
+    export type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
+    export type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
+    export type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected';
+    export type IPConfigType = 'DHCP' | 'Static';
+    export type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX';
+    export type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
+    export interface ManagedBoolean {
+        /**
+         * @description The active value currently used by the network configuration manager (e.g. Shill).
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        Active?: boolean,
+        /**
+         * @description The source from which the effective property value was determined.
+         * @type {string}
+         * @memberof ManagedBoolean
+         */
+        Effective?: string,
+        /**
+         * @description The property value provided by the user policy.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserPolicy?: boolean,
+        /**
+         * @description The property value provided by the device policy.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        DevicePolicy?: boolean,
+        /**
+         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserSettings?: boolean,
+        /**
+         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        SharedSettings?: boolean,
+        /**
+         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        UserEditable?: boolean,
+        /**
+         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedBoolean
+         */
+        DeviceEditable?: boolean
+    }
+    export interface ManagedLong {
+        /**
+         * @description The active value currently used by the network configuration manager (e.g. Shill).
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        Active?: number,
+        /**
+         * @description The source from which the effective property value was determined.
+         * @type {string}
+         * @memberof ManagedLong
+         */
+        Effective?: string,
+        /**
+         * @description The property value provided by the user policy.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        UserPolicy?: number,
+        /**
+         * @description The property value provided by the device policy.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        DevicePolicy?: number,
+        /**
+         * @description The property value set by the logged in user. Only provided if |UserEditable| is true.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        UserSettings?: number,
+        /**
+         * @description The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+         * @type {number}
+         * @memberof ManagedLong
+         */
+        SharedSettings?: number,
+        /**
+         * @description Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedLong
+         */
+        UserEditable?: boolean,
+        /**
+         * @description Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+         * @type {boolean}
+         * @memberof ManagedLong
+         */
+        DeviceEditable?: boolean
+    }
 }

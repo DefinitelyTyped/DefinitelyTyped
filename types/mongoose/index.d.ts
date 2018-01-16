@@ -698,10 +698,8 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
+    pre(method: string, parallel: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): this;
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): this;
 
     /**
      * Adds a method call to the queue.
@@ -758,6 +756,29 @@ declare module "mongoose" {
     statics: any;
     /** The original object passed to the schema constructor */
     obj: any;
+  }
+
+  // Hook functions: https://github.com/vkarpov15/hooks-fixed
+  interface HookSyncCallback {
+    (next: HookNextFunction, ...hookArgs:any[]): any;
+  }
+
+  interface HookAsyncCallback {
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
+  }
+
+  interface HookErrorCallback {
+    (error: Error): any;
+  }
+
+  interface HookNextFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
+  }
+
+  interface HookDoneFunction {
+    (error: Error): any;
+    (...hookArgs: any[]): any;
   }
 
   interface SchemaOptions {
@@ -1154,8 +1175,13 @@ declare module "mongoose" {
   }
 
   interface MongooseDocumentOptionals {
-    /** The string version of this documents _id. */
-    id?: string;
+    /**
+     * Virtual getter that by default returns the document's _id field cast to a string,
+     * or in the case of ObjectIds, its hexString. This id getter may be disabled by
+     * passing the option { id: false } at schema construction time. If disabled, id
+     * behaves like any other field on a document and can be assigned any value.
+     */
+    id?: any;
   }
 
   interface DocumentToObjectOptions {
@@ -2622,6 +2648,8 @@ declare module "mongoose" {
 
     /** Removes documents from the collection. */
     remove(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteOne(conditions: Object, callback?: (err: any) => void): Query<void>;
+    deleteMany(conditions: Object, callback?: (err: any) => void): Query<void>;
 
     /**
      * Updates documents in the database without returning them.
@@ -2630,6 +2658,14 @@ declare module "mongoose" {
     update(conditions: Object, doc: Object,
       callback?: (err: any, raw: any) => void): Query<any>;
     update(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(conditions: Object, doc: Object, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object,
+      callback?: (err: any, raw: any) => void): Query<any>;
+    updateMany(conditions: Object, doc: Object, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any>;
 
     /** Creates a Query, applies the passed conditions, and returns the Query. */

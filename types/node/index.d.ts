@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.x
+// Type definitions for Node.js 9.3.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -16,13 +16,9 @@
 //                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
+//                 Alberto Schiabel <https://github.com/jkomyno>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/************************************************
-*                                               *
-*               Node.js v8.x API                *
-*                                               *
-************************************************/
 
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
@@ -32,6 +28,7 @@ interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: NodeJS.InspectOptions): void;
+    debug(message?: any, ...optionalParams: any[]): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -144,6 +141,7 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    paths: string[];
 }
 
 declare var module: NodeModule;
@@ -438,7 +436,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -454,7 +452,6 @@ declare namespace NodeJS {
         remove(emitter: Events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -509,7 +506,7 @@ declare namespace NodeJS {
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
-    type SignalsListener = () => void;
+    type SignalsListener = (signal: Signals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
 
@@ -522,6 +519,7 @@ declare namespace NodeJS {
     }
 
     export interface WriteStream extends Socket {
+        readonly writableHighWaterMark: number;
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -533,6 +531,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
+        readonly readableHighWaterMark: number;
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
@@ -567,6 +566,8 @@ declare namespace NodeJS {
         setegid(id: number | string): void;
         getgroups(): number[];
         setgroups(groups: Array<string | number>): void;
+        setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
+        hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
         versions: ProcessVersions;
         config: {
@@ -597,6 +598,7 @@ declare namespace NodeJS {
         };
         kill(pid: number, signal?: string | number): void;
         pid: number;
+        ppid: number;
         title: string;
         arch: string;
         platform: Platform;
@@ -787,6 +789,7 @@ declare namespace NodeJS {
     class Module {
         static runMain(): void;
         static wrap(code: string): string;
+        static builtinModules: string[];
 
         static Module: typeof Module;
 
@@ -1175,13 +1178,7 @@ declare module "cluster" {
         stdio?: any[];
         uid?: number;
         gid?: number;
-    }
-
-    export interface ClusterSetupMasterSettings {
-        exec?: string;  // default: process.argv[1]
-        args?: string[];  // default: process.argv.slice(2)
-        silent?: boolean;  // default: false
-        stdio?: any[];
+        inspectPort?: number | (() => number);
     }
 
     export interface Address {
@@ -1191,7 +1188,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
@@ -1268,7 +1265,7 @@ declare module "cluster" {
         isWorker: boolean;
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
-        setupMaster(settings?: ClusterSetupMasterSettings): void;
+        setupMaster(settings?: ClusterSettings): void;
         worker?: Worker;
         workers?: {
             [index: string]: Worker | undefined
@@ -1345,7 +1342,7 @@ declare module "cluster" {
     export var isWorker: boolean;
     // TODO: cluster.schedulingPolicy
     export var settings: ClusterSettings;
-    export function setupMaster(settings?: ClusterSetupMasterSettings): void;
+    export function setupMaster(settings?: ClusterSettings): void;
     export var worker: Worker;
     export var workers: {
         [index: string]: Worker | undefined
@@ -1439,13 +1436,27 @@ declare module "zlib" {
         dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
-    export interface Gzip extends stream.Transform { }
-    export interface Gunzip extends stream.Transform { }
-    export interface Deflate extends stream.Transform { }
-    export interface Inflate extends stream.Transform { }
-    export interface DeflateRaw extends stream.Transform { }
-    export interface InflateRaw extends stream.Transform { }
-    export interface Unzip extends stream.Transform { }
+    export interface Zlib {
+        readonly bytesRead: number;
+        close(callback?: () => void): void;
+        flush(kind?: number | (() => void), callback?: () => void): void;
+    }
+
+    export interface ZlibParams {
+        params(level: number, strategy: number, callback: () => void): void;
+    }
+
+    export interface ZlibReset {
+        reset(): void;
+    }
+
+    export interface Gzip extends stream.Transform, Zlib { }
+    export interface Gunzip extends stream.Transform, Zlib { }
+    export interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface Inflate extends stream.Transform, Zlib, ZlibReset { }
+    export interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
+    export interface Unzip extends stream.Transform, Zlib { }
 
     export function createGzip(options?: ZlibOptions): Gzip;
     export function createGunzip(options?: ZlibOptions): Gunzip;
@@ -1714,7 +1725,7 @@ declare module "os" {
     export function arch(): string;
     export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
-    export var EOL: string;
+    export const EOL: string;
     export function endianness(): "BE" | "LE";
 }
 
@@ -1737,6 +1748,7 @@ declare module "https" {
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
+        secureProtocol?: string;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -2327,7 +2339,19 @@ declare module "url" {
         query?: string | null | ParsedUrlQuery;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    export interface UrlWithParsedQuery extends Url {
+        query: ParsedUrlQuery;
+    }
+
+    export interface UrlWithStringQuery extends Url {
+        query: string | null;
+    }
+
+    export function parse(urlStr: string): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+
     export function format(URL: URL, options?: URLFormatOptions): string;
     export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
@@ -3490,6 +3514,11 @@ declare module "fs" {
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
         export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+        export function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+        export function native(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
     }
 
     /**
@@ -3512,6 +3541,12 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    export namespace realpathSync {
+        export function native(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+        export function native(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    }
 
     /**
      * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
@@ -4558,7 +4593,6 @@ declare module "path" {
          */
         name: string;
     }
-
     export interface FormatInputPathObject {
         /**
          * The root of the path such as '/' or 'c:\'
@@ -4605,7 +4639,7 @@ declare module "path" {
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    export function resolve(...pathSegments: any[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
@@ -4671,7 +4705,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 
     export module win32 {
@@ -4686,7 +4720,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 }
 
@@ -5122,23 +5156,23 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     export interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hash;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hash;
+        update(data: string | Buffer | DataView): Hash;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hmac;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
+        update(data: string | Buffer | DataView): Hmac;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -5149,9 +5183,9 @@ declare module "crypto" {
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -5161,15 +5195,15 @@ declare module "crypto" {
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: string | Buffer): Signer;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        update(data: string | Buffer | DataView): Signer;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string }): Buffer;
         sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: string | Buffer): Verify;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
+        update(data: string | Buffer | DataView): Verify;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: string | Object, signature: Buffer | DataView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
@@ -5270,6 +5304,7 @@ declare module "stream" {
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
+            readableHighWaterMark: number;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -5356,6 +5391,7 @@ declare module "stream" {
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
+            readonly writableHighWaterMark: number;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5364,7 +5400,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
@@ -5447,6 +5483,7 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         export class Duplex extends Readable implements Writable {
             writable: boolean;
+            readonly writableHighWaterMark: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5455,7 +5492,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
@@ -5626,7 +5663,6 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
         members: any[];
         enter(): void;
         exit(): void;
@@ -6901,4 +6937,244 @@ declare module "http2" {
 
     export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
     export function connect(authority: string | url.URL, options?: ClientSessionOptions | SecureClientSessionOptions, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
+}
+
+declare module "perf_hooks" {
+    export interface PerformanceEntry {
+        /**
+         * The total number of milliseconds elapsed for this entry.
+         * This value will not be meaningful for all Performance Entry types.
+         */
+        readonly duration: number;
+
+        /**
+         * The name of the performance entry.
+         */
+        readonly name: string;
+
+        /**
+         * The high resolution millisecond timestamp marking the starting time of the Performance Entry.
+         */
+        readonly startTime: number;
+
+        /**
+         * The type of the performance entry.
+         * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
+         */
+        readonly entryType: string;
+
+        /**
+         * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
+         * the type of garbage collection operation that occurred.
+         * The value may be one of perf_hooks.constants.
+         */
+        readonly kind?: number;
+    }
+
+    export interface PerformanceNodeTiming extends PerformanceEntry {
+        /**
+         * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
+         */
+        readonly bootstrapComplete: number;
+
+        /**
+         * The high resolution millisecond timestamp at which cluster processing ended.
+         */
+        readonly clusterSetupEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which cluster processing started.
+         */
+        readonly clusterSetupStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the Node.js event loop exited.
+         */
+        readonly loopExit: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the Node.js event loop started.
+         */
+        readonly loopStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which main module load ended.
+         */
+        readonly moduleLoadEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which main module load started.
+         */
+        readonly moduleLoadStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the Node.js process was initialized.
+         */
+        readonly nodeStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which preload module load ended.
+         */
+        readonly preloadModuleLoadEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which preload module load started.
+         */
+        readonly preloadModuleLoadStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which third_party_main processing ended.
+         */
+        readonly thirdPartyMainEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which third_party_main processing started.
+         */
+        readonly thirdPartyMainStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the V8 platform was initialized.
+         */
+        readonly v8Start: number;
+    }
+
+    export interface Performance {
+        /**
+         * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
+         * If name is provided, removes entries with name.
+         * @param name
+         */
+        clearFunctions(name?: string): void;
+
+        /**
+         * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
+         * If name is provided, removes only the named mark.
+         * @param name
+         */
+        clearMarks(name?: string): void;
+
+        /**
+         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+         * If name is provided, removes only objects whose performanceEntry.name matches name.
+         */
+        clearMeasures(name?: string): void;
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+         * @return list of all PerformanceEntry objects
+         */
+        getEntries(): PerformanceEntry[];
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+         * @param name
+         * @param type
+         * @return list of all PerformanceEntry objects
+         */
+        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.entryType is equal to type.
+         * @param type
+         * @return list of all PerformanceEntry objects
+         */
+        getEntriesByType(type: string): PerformanceEntry[];
+
+        /**
+         * Creates a new PerformanceMark entry in the Performance Timeline.
+         * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
+         * and whose performanceEntry.duration is always 0.
+         * Performance marks are used to mark specific significant moments in the Performance Timeline.
+         * @param name
+         */
+        mark(name?: string): void;
+
+        /**
+         * Creates a new PerformanceMeasure entry in the Performance Timeline.
+         * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
+         * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
+         *
+         * The startMark argument may identify any existing PerformanceMark in the the Performance Timeline, or may identify
+         * any of the timestamp properties provided by the PerformanceNodeTiming class. If the named startMark does not exist,
+         * then startMark is set to timeOrigin by default.
+         *
+         * The endMark argument must identify any existing PerformanceMark in the the Performance Timeline or any of the timestamp
+         * properties provided by the PerformanceNodeTiming class. If the named endMark does not exist, an error will be thrown.
+         * @param name
+         * @param startMark
+         * @param endMark
+         */
+        measure(name: string, startMark: string, endMark: string): void;
+
+        /**
+         * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
+         */
+        readonly nodeTiming: PerformanceNodeTiming;
+
+        /**
+         * @return the current high resolution millisecond timestamp
+         */
+        now(): number;
+
+        /**
+         * The timeOrigin specifies the high resolution millisecond timestamp from which all performance metric durations are measured.
+         */
+        readonly timeOrigin: number;
+
+        /**
+         * Wraps a function within a new function that measures the running time of the wrapped function.
+         * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
+         * @param fn
+         */
+        timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+    }
+
+    export interface PerformanceObserverEntryList {
+        /**
+         * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+         */
+        getEntries(): PerformanceEntry[];
+
+        /**
+         * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+         */
+        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+        /**
+         * @return Returns a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.entryType is equal to type.
+         */
+        getEntriesByType(type: string): PerformanceEntry[];
+    }
+
+    export type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
+
+    export class PerformanceObserver {
+        constructor(callback: PerformanceObserverCallback);
+
+        /**
+         * Disconnects the PerformanceObserver instance from all notifications.
+         */
+        disconnect(): void;
+
+        /**
+         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances identified by options.entryTypes.
+         * When options.buffered is false, the callback will be invoked once for every PerformanceEntry instance.
+         * Property buffered defaults to false.
+         * @param options
+         */
+        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+    }
+
+    export namespace constants {
+        export const NODE_PERFORMANCE_GC_MAJOR: number;
+        export const NODE_PERFORMANCE_GC_MINOR: number;
+        export const NODE_PERFORMANCE_GC_INCREMENTAL: number;
+        export const NODE_PERFORMANCE_GC_WEAKCB: number;
+    }
+
+    const performance: Performance;
 }

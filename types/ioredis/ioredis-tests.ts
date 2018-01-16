@@ -107,3 +107,24 @@ redis.multi([
 
 const keys = [ 'foo', 'bar' ];
 redis.mget(...keys);
+
+new Redis.Cluster([
+    'localhost'
+]);
+
+new Redis.Cluster([
+    6379
+]);
+
+new Redis.Cluster([{
+    host: 'localhost'
+}]);
+
+new Redis.Cluster([{
+    port: 6379
+}]);
+
+new Redis.Cluster([{
+    host: 'localhost',
+    port: 6379
+}]);

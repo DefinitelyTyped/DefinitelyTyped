@@ -1,9 +1,9 @@
-// Type definitions for DocumentDB server side JavaScript SDK
-// Project: http://dl.windowsazure.com/documentDB/jsserverdocs
-// Definitions by: François Nguyen <https://github.com/lith-light-g>
+// Type definitions for Cosmos DB server-side JavaScript SDK
+// Project: http://azure.github.io/azure-documentdb-js-server/
+// Definitions by: François Nguyen <https://github.com/lith-light-g>, John Downs <https://github.com/johndowns/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/** The Context object provides access to all operations that can be performed on DocumentDB data, as well as access to the request and response objects. */
+/** The Context object provides access to all operations that can be performed on Cosmos DB data, as well as access to the request and response objects. */
 interface IContext {
     /** Gets the collection object. */
     getCollection(): ICollection;
@@ -227,6 +227,9 @@ interface ICollection extends IQueryAPI {
     queryDocuments(collectionLink: string,
         filterQuery: string,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    queryDocuments<T>(collectionLink: string,
+        filterQuery: string,
+        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments(collectionLink: string,
         filterQuery: string,
         options?: IFeedOptions,
@@ -238,6 +241,9 @@ interface ICollection extends IQueryAPI {
     queryDocuments(collectionLink: string,
         filterQuery: IParameterizedQuery,
         callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+    queryDocuments<T>(collectionLink: string,
+        filterQuery: IParameterizedQuery,
+        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
     queryDocuments(collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
@@ -329,6 +335,36 @@ interface ICollection extends IQueryAPI {
     replaceDocument(documentLink: string,
         document: Object,
         options?: IReplaceOptions,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    
+	/**
+	 * Upsert an attachment for the document.
+	 * @param documentLink resource link of the document under which the attachment will be upserted
+	 * @param body metadata that defines the attachment media like media, contentType. It can include any other properties as part of the metadata.
+	 * @param options optional upsert options
+	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+	 */
+    upsertAttachment(documentLink: string,
+        body: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    upsertAttachment(documentLink: string,
+        body: Object,
+        options?: IUpsertOptions,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+
+    /**
+	 * Upsert a document under the collection.
+	 * @param collectionLink resource link of the collection under which the document will be upserted
+	 * @param body body of the document. The "id" property is required and will be generated automatically if not provided (this behaviour can be overriden using the UpsertOptions). Any other properties can be added.
+	 * @param options optional upsert options
+	 * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
+	 */
+    upsertDocument(collectionLink: string,
+        body: Object,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+    upsertDocument(collectionLink: string,
+        body: Object,
+        options?: IUpsertOptions,
         callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
 }
 
@@ -539,6 +575,14 @@ interface IQueryParam {
     name: string;
     /** Value of the parameter */
     value: any;
+}
+
+/** Options associated with a upsert operation. */
+interface IUpsertOptions {
+    /** Specifies indexing directives. */
+    indexAction?: string;
+    /** Disables automatic generation of "id" field of the document to be upserted (if it is not provided) */
+    disableAutomaticIdGeneration?: string;
 }
 
 /** List of error codes returned by database operations in the RequestCallback and FeedCallback. See the corresponding error message for more details. */

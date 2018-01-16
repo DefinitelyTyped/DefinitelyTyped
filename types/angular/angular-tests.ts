@@ -6,8 +6,6 @@
  * License: MIT
  */
 
-/* tslint:disable:no-empty no-shadowed-variable */
-
 class AuthService {
     /**
       * Holds all the requests which failed due to 401 response,
@@ -163,7 +161,7 @@ namespace My.Namespace {
 }
 
 class TestProvider implements ng.IServiceProvider {
-    constructor(private $scope: ng.IScope) {}
+    constructor(private readonly $scope: ng.IScope) {}
 
     $get() {}
 }

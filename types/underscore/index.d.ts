@@ -7,6 +7,12 @@ declare var _: _.UnderscoreStatic;
 export = _;
 export as namespace _;
 
+// The DOM is not required to be present, but these definitions reference type Element for the 
+// isElement check. If the DOM is present, this declaration will merge.
+declare global {
+    interface Element { }
+}
+
 declare module _ {
     /**
     * underscore.js _.throttle options.
@@ -5690,6 +5696,12 @@ declare module _ {
 
         /**
         * Wrapped type `object`.
+        * @see _.mapObject
+        **/
+        mapObject(fn: _.ListIterator<T, any>): _Chain<T>;
+
+        /**
+        * Wrapped type `object`.
         * @see _.pairs
         **/
         pairs(): _Chain<T[]>;
@@ -6090,6 +6102,5 @@ declare module _ {
     }
     interface _ChainOfArrays<T> extends _Chain<T[]> {
         flatten(shallow?: boolean): _Chain<T>;
-        mapObject(fn: _.ListIterator<T, any>): _ChainOfArrays<T>;
     }
 }
