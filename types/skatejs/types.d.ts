@@ -3,7 +3,7 @@ export type Maybe<T> = T | null | undefined;
 export type Constructor<T = Mixed> = new (...args: any[]) => T;
 export type HTMLElementClass = typeof HTMLElement;
 
-export type ComponentProps<T, E = HTMLElementClass> = { [P in keyof T]: PropOptions };
+export type ComponentProps<T, E = HTMLElementClass> = { [P in keyof T]: PropOptions<T[P]> };
 
 // NOTE:
 // - all classes are just ambient definitions (opaque types like), so consumer cannot use them directly
@@ -88,13 +88,12 @@ export declare class WithUpdate<P = Mixed, S = Mixed> extends HTMLElement {
   triggerUpdate(): void;
 }
 
-export interface PropOptions {
+export interface PropOptions<T = any> {
   attribute?: PropOptionsAttribute;
-  coerce?: <T>(value: any) => Maybe<T>;
-  default?: any | ((elem: HTMLElement, data: { name: string }) => any);
-  deserialize?: <T>(value: string | null) => Maybe<T>;
-  initial?: any | ((elem: HTMLElement, data: { name: string }) => any);
-  serialize?: <T>(value: Maybe<T>) => string | null;
+  coerce?: (value: any) => Maybe<T>;
+  default?: T;
+  deserialize?: (value: string | null) => Maybe<T>;
+  serialize?: (value: Maybe<T>) => string | null;
 }
 
 export type PropOptionsAttribute = PropOptionsAttributeIdentifier | PropOptionsAttributeIdentifierMap;

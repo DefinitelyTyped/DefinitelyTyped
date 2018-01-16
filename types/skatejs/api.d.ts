@@ -31,11 +31,11 @@ export function link(elem: CustomElement, target?: string): (e: ComposedCustomEv
 
 export const props: Readonly<{
   any: PropOptions & PropertyDecorator;
-  array: PropOptions & PropertyDecorator;
-  boolean: PropOptions & PropertyDecorator;
-  number: PropOptions & PropertyDecorator;
-  object: PropOptions & PropertyDecorator;
-  string: PropOptions & PropertyDecorator;
+  array: PropOptions<any[]> & PropertyDecorator;
+  boolean: PropOptions<boolean> & PropertyDecorator;
+  number: PropOptions<number> & PropertyDecorator;
+  object: PropOptions<object> & PropertyDecorator;
+  string: PropOptions<string> & PropertyDecorator;
 }>;
 
 export const prop: (ops?: PropOptions) => PropertyDecorator & PropOptions;
