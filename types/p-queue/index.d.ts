@@ -1,4 +1,4 @@
-// Type definitions for p-queue 1.1
+// Type definitions for p-queue 2.3
 // Project: https://github.com/sindresorhus/p-queue#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Evan Shortiss <https://github.com/evanshortiss>
@@ -10,12 +10,21 @@ export = PQueue;
 declare class PQueue<O extends PQueue.QueueAddOptions = PQueue.DefaultAddOptions> {
     size: number;
     pending: number;
+    isPaused: boolean;
 
     constructor(opts?: PQueue.Options<O>);
 
     add<T>(fn: PQueue.Task<T>, opts?: O): Promise<T>;
 
+    addAll<TAll>(fns: PQueue.Task<TAll>[], opts?: O): Promise<TAll[]>;
+
+    pause(): void;
+
+    start(): void;
+
     onEmpty(): Promise<void>;
+
+    onIdle(): Promise<void>;
 
     clear(): void;
 }
@@ -38,8 +47,9 @@ declare namespace PQueue {
     }
 
     interface Options<O extends QueueAddOptions> {
-        queueClass?: QueueClassConstructor<O>;
         concurrency?: number;
+        autoStart?: boolean;
+        queueClass?: QueueClassConstructor<O>;
     }
 
     interface DefaultAddOptions {
