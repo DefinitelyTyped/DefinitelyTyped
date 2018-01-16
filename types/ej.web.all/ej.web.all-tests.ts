@@ -2956,8 +2956,6 @@ module TabComponent {
 }
 
 module TagCloudComponent {
-    
-    
     var websiteCollection = [
         { text: "Google", url: "http://www.google.com", frequency: 12 },
         { text: "All Things Digital", url: "http://allthingsd.com/", frequency: 3 },
@@ -2988,7 +2986,6 @@ module TagCloudComponent {
                 text: "text", url: "url", frequency: "frequency"
             }
         });
-            
     });
 }
 
