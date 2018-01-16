@@ -61,6 +61,7 @@ declare namespace request {
 
         initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
         initParams(uri: string, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        // tslint:disable-next-line unified-signatures
         initParams(options: RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
 
         forever(agentOptions: any, optionsArg: any): TRequest;

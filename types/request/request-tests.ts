@@ -7,7 +7,7 @@ import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
 
-let value: any;
+declare const value: any;
 let str: string;
 let strOrUndef: string | undefined;
 let strOrTrueOrUndef: string | true | undefined;
