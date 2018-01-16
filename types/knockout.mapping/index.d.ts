@@ -42,16 +42,16 @@ declare global {
 
     interface KnockoutMapping {
         isMapped(viewModel: any): boolean;
-        fromJS<T>(jsObject: T[]): KnockoutObservableType<T>[];
-        fromJS<T>(jsObject: T[], targetOrOptions: any): KnockoutObservableType<T>[];
-        fromJS<T>(jsObject: T[], inputOptions: any, target: any): KnockoutObservableType<T>[];
+        fromJS<T>(jsObject: T[]): KnockoutObservableArray<KnockoutObservableType<T>>;
+        fromJS<T>(jsObject: T[], targetOrOptions: any): KnockoutObservableArray<KnockoutObservableType<T>>;
+        fromJS<T>(jsObject: T[], inputOptions: any, target: any): KnockoutObservableArray<KnockoutObservableType<T>>;
         fromJS<T>(jsObject: T): KnockoutObservableType<T>;
         fromJS<T>(jsObject: T, targetOrOptions: any): KnockoutObservableType<T>;
         fromJS<T>(jsObject: T, inputOptions: any, target: any): KnockoutObservableType<T>;
         fromJSON(jsonString: string): any;
         fromJSON(jsonString: string, targetOrOptions: any): any;
         fromJSON(jsonString: string, inputOptions: any, target: any): any;
-        toJS<T>(rootObject: KnockoutObservableArray<T>|T, options?: KnockoutMappingOptions): T[];
+        toJS<T>(rootObject: KnockoutObservableArray<T>|T[], options?: KnockoutMappingOptions): T[];
         toJS<T>(rootObject: KnockoutObservableType<T>|T, options?: KnockoutMappingOptions): T;
         toJSON(rootObject: any, options?: KnockoutMappingOptions): string;
         defaultOptions(): KnockoutMappingOptions;
