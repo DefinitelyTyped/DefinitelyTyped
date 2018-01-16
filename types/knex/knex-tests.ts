@@ -933,3 +933,9 @@ knex.schema
   .createTable('A', table => {
     table.integer('C').unsigned().references('B.id').notNullable();
   });
+
+
+//creating table in MySQL with binary primary key with known field length
+knex.schema.createTable('testTable', function (table) {
+    table.binary('binaryKey', 16).primary() //will make table with binaryKey type BINARY(16)
+})
