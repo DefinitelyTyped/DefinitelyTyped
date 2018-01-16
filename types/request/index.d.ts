@@ -60,8 +60,7 @@ declare namespace request {
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
-        initParams(uri: string, callback?: RequestCallback): RequiredUriUrl & TOptions;
-        initParams(options: RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(uriOrOpts: string | RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
@@ -249,7 +248,7 @@ declare namespace request {
         multipart(multipart: RequestPart[]): Request;
         json(val: any): Request;
         aws(opts: AWSOptions, now?: boolean): Request;
-        auth(username: string, password: string, sendInmediately?: boolean, bearer?: string): Request;
+        auth(username: string, password: string, sendImmediately?: boolean, bearer?: string): Request;
         oauth(oauth: OAuthOptions): Request;
         jar(jar: CookieJar): Request;
 
