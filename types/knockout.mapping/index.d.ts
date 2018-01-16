@@ -35,10 +35,6 @@ declare global {
         update?: (options: KnockoutMappingUpdateOptions) => void;
         key?: (data: any) => any;
     }
-    
-    type KnockoutObservableType<T> = {
-        [P in keyof T]: KnockoutObservable<T[P]>;
-    };
 
     interface KnockoutMapping {
         isMapped(viewModel: any): boolean;
