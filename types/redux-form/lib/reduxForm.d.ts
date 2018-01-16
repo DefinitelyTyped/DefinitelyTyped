@@ -18,15 +18,18 @@ import {
 } from "../index";
 
 export type FormSubmitHandler<FormData = {}, P = {}> =
-    (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
+    (values: Partial<FormData>, dispatch?: Dispatch<any>, props?: P) => void | FormErrors<FormData> | Promise<any>;
 
-export type SubmitHandler<FormData = {}, P = {}> = (
-    submit: FormSubmitHandler<FormData, P>,
-    props?: InjectedFormProps<FormData, P>,
-    valid?: boolean,
-    asyncValidate?: any,
-    fields?: string[]
-) => any;
+export interface SubmitHandler<FormData = {}, P = {}> {
+    (
+        submit: FormSubmitHandler<FormData, P>,
+        props?: InjectedFormProps<FormData, P>,
+        valid?: boolean,
+        asyncValidate?: any,
+        fields?: string[]
+    ): any;
+    (event: SyntheticEvent<any>): void;
+}
 
 export interface ValidateCallback<FormData, P> {
     values: FormData;
@@ -107,7 +110,7 @@ export interface ConfigProps<FormData = {}, P = {}> {
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
-    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
+    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
     onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<any>, submitError: any, props: P & InjectedFormProps<FormData, P>): void;
     onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     propNamespace?: string;

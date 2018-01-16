@@ -233,7 +233,7 @@ const Test = reduxForm<TestFormData>({
     form : "test"
 })(
     class Test extends React.Component<TestProps> {
-        handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+        handleSubmitForm = (values: Partial<TestFormData>, dispatch?: Dispatch<any>, props?: {}) => {};
 
         render() {
             const { handleSubmit } = this.props;
@@ -374,5 +374,20 @@ try {
 } catch (error) {
     if (!(error instanceof LibSubmissionError)) {
         throw new Error("SubmissionError from lib not imported correctly");
+    }
+}
+
+/* Test handleSubmit prop using as onSubmit handler */
+type HandleSubmitTestProps = {} & InjectedFormProps<TestFormData>;
+const HandleSubmitTestForm = reduxForm<TestFormData>({
+    form : "test"
+})(
+    (props: HandleSubmitTestProps) => <form onSubmit={ props.handleSubmit } />
+);
+
+class A extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch?: Dispatch<any>, props?: {}) => {};
+    render() {
+        return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
     }
 }
