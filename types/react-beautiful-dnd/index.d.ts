@@ -22,12 +22,7 @@ export class Draggable extends React.Component<DraggableInternalProps> {}
  *  Internal
  */
 
-type ZIndex = number | string;
-
-// interface DroppableDescriptor {
-//     id: DroppableId;
-//     type: TypeId;
-// }
+type ZIndex = number | 'initial' | 'inherit' | 'unset' | 'auto';
 
 interface DraggableDescriptor {
     id: DraggableId;
