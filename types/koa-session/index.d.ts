@@ -1,6 +1,8 @@
 // Type definitions for koa-session 3.0
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
+//                 Sebastian Ferreyra <https://github.com/saabi>
+//                 Nick Small <https://github.com/nickjs>
 // Definitions: https://github.com/kerol2r20/DefinitelyTyped
 // TypeScript Version: 2.3
 
