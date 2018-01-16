@@ -27,7 +27,10 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "angular.d.ts",
         "index.d.ts",
-        "storybook__addon-knobs-tests.tsx"
+        "react.d.ts",
+        "storybook__addon-knobs-tests.tsx",
+        "bue.d.ts"
     ]
 }
