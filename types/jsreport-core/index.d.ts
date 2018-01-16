@@ -15,9 +15,9 @@ type helpers = (...args: any[]) => any;
 interface RenderOptions {
 	template: {
 		content: string;
-		engine: 'jsrender' | 'handlebars' | 'ejs' | 'jade';
+		engine: 'jsrender' | 'handlebars' | 'ejs' | 'jade' | string;
 		helpers?: string | { [fun: string]: helpers };
-		recipe: 'phantom-pdf' | 'electron-pdf' | 'text' | 'xlsx' | 'html-to-xlsx' | 'phantom-image' | 'html-to-text' | 'fop-pdf' | 'client-html' | 'wrapped-html' | 'wkhtmltopdf';
+		recipe: 'phantom-pdf' | 'electron-pdf' | 'text' | 'xlsx' | 'html-to-xlsx' | 'phantom-image' | 'html-to-text' | 'fop-pdf' | 'client-html' | 'wrapped-html' | 'wkhtmltopdf' | string;
 	};
 	data?: any;
 }
