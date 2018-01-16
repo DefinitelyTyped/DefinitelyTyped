@@ -1,3 +1,3 @@
-declare module '@storybook/addon-knobs/angular' {
+declare module '@storybook/addon-knobs/vue' {
     export * from '@storybook/addon-knobs';
 }
